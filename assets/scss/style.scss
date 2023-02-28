@@ -1,3 +1,6 @@
-body {
-  background: #fff;
-}
+@charset 'UTF-8';
+@use 'sass:math';
+@use 'sass:map';
+
+@import '../../node_modules/sass-mq/_mq.import';
+@import 'test.scss';
