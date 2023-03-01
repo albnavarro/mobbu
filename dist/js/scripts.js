@@ -1,9 +1,9 @@
 (() => {
-  // assets/js/test.js
+  // src/js/test.js
   function test() {
     console.log("test");
   }
 
-  // assets/js/main.js
+  // src/js/main.js
   test();
 })();

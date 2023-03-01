@@ -3,10 +3,10 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "build:css": "sass assets/scss/style.scss dist/css/style.css",
-        "build:js": "esbuild assets/js/main.js --bundle --outfile=./dist/js/scripts.js",
-        "watch:css": "onchange 'assets/scss/*.scss' -- npm run build:css",
-        "watch:js": "onchange 'assets/js/*.js' -- npm run build:js",
+        "build:css": "sass src/scss/style.scss dist/css/style.css",
+        "build:js": "esbuild src/js/main.js --bundle --outfile=./dist/js/scripts.js",
+        "watch:css": "onchange 'src/scss/*.scss' -- npm run build:css",
+        "watch:js": "onchange 'src/js/*.js' -- npm run build:js",
         "update": "browser-sync start --server dist --files dist",
         "dev": "concurrently --kill-others \"npm run watch:js\" \"npm run watch:css\" \"npm run update\""
     },
