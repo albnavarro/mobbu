@@ -5,7 +5,7 @@
     "scripts": {
         "development:css": "sass src/scss/style.scss dist/css/style.css",
         "development:js": "esbuild src/js/main.js --bundle  --outfile=./dist/js/scripts.js --watch --servedir=dist",
-        "build:js": "esbuild src/js/main.js --bundle --minify  --outfile=./dist/js/scripts.js",
+        "build:js": "esbuild src/js/main.js --bundle --minify --external:./dist/css/style.css  --outfile=./dist/js/scripts.js",
         "watch:css": "onchange 'src/**/*.scss' -- npm run development:css",
         "dev": "concurrently --kill-others \"npm run development:js\" \"npm run watch:css\"",
         "build": "concurrently  \"npm run build:js\" \"npm run development:css\""
