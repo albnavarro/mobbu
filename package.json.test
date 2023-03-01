@@ -4,21 +4,21 @@
     "type": "module",
     "scripts": {
         "build:css": "sass assets/scss/style.scss dist/css/style.css",
-        "build:js": "esbuild assets/js/main.js --bundle --outfile=./dist/js/scripts.js",
+        "build:js": "esbuild assets/js/main.js --bundle --outfile=./dist/js/scripts.js --watch --servedir=dist",
         "watch:css": "onchange 'assets/scss/*.scss' -- npm run build:css",
-        "watch:js": "onchange 'assets/js/*.js' -- npm run build:js",
+        "watch:js": "onchange 'assets/js/*.js' -- npm run build:js ",
         "update": "browser-sync start --server dist --files dist",
-        "dev": "concurrently --kill-others \"npm run watch:js\" \"npm run watch:css\" \"npm run update\""
+        "dev": "concurrently --kill-others \"npm run build:js\" \"npm run watch:css\""
     },
     "devDependencies": {
         "browser-sync": "^2.28.1",
         "concurrently": "^7.6.0",
+        "eslint": "^8.20.0",
         "npm": "^8.3.0",
         "onchange": "^7.1.0",
-        "sass": "^1.48.0",
-        "eslint": "^8.20.0",
-        "postcss": "^8.4.12",
+        "postcss": "^8.4.21",
         "prettier-eslint-cli": "^6.0.1",
+        "sass": "^1.48.0",
         "stylelint": "^14.16.0",
         "stylelint-config-standard-scss": "^6.1.0",
         "stylelint-scss": "^4.2.0"
