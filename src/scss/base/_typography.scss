@@ -1,0 +1,39 @@
+/*
+ * -- BASE STYLES --
+ * Most of these are inherited from Base, but I want to change a few.
+ */
+html {
+    line-height: 1.7em;
+    color: $black;
+    height: 100%;
+
+    @include font-size-map;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+    color: $black;
+}
+
+.fonts-loaded {
+    body {
+        font-family: $text-font-stack;
+        font-weight: 100;
+    }
+}
+
+h1 {
+    font-size: rem(30px);
+    line-height: line-height(30, 37);
+
+    // font-size: rem(30px , 'desktop');
+}
+
+a {
+    text-decoration: none;
+}

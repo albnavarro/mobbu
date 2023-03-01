@@ -1,0 +1,41 @@
+/// Regular font family
+/// @type List
+$text-font-stack: 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif !default;
+
+/// Color
+$black: #000;
+$white: #fff;
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1194px !default;
+$mq-breakpoints: (
+    xsmall: 320px,
+    small: 360px,
+    medium: 600px,
+    tablet: 768px,
+    desktop: 992px,
+    large: 1200px,
+    xlarge: 1400px,
+);
+$mq-show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
+
+// @include mq-show-breakpoints;
+
+$html-font-size: (
+    xsmall: 16px,
+    small: 16px,
+    medium: 16px,
+    tablet: 16px,
+    desktop: 20px,
+    large: 20px,
+    xlarge: 25px,
+);
+$default-font-size: desktop;
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: '/assets/' !default;

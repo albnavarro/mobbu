@@ -2,5 +2,21 @@
 @use 'sass:math';
 @use 'sass:map';
 
-@import '../../node_modules/sass-mq/_mq.import';
-@import 'test.scss';
+// Vendor
+@import '../../node_modules/sass-mq/mq.import';
+
+// Normalize
+@import 'vendor/normalize';
+
+// Abstract
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+
+// Base
+@import 'base/base';
+@import 'base/helpers';
+@import 'base/typography';
+
+// Layout
+@import 'layout/test';
