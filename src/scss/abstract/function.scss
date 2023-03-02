@@ -1,0 +1,50 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass functions.
+// -----------------------------------------------------------------------------
+
+/// Native `url(..)` function wrapper
+/// @param {String} $base - base URL for the asset
+/// @param {String} $type - asset type folder (e.g. `fonts/`)
+/// @param {String} $path - asset path
+/// @return {Url}
+@use 'sass:math';
+@use 'sass:map';
+@use '../vars' as *;
+@use '../../../node_modules/sass-mq/mq';
+
+@function rem($pixels, $mq: '') {
+    @if unitless($pixels) {
+        $pixels: $pixels * 1px;
+    }
+
+    $keys: map.keys($html-font-size);
+
+    @if $mq == '' {
+        $mq: map.get($html-font-size, $default-font-size);
+    } @else {
+        $mq: map.get($html-font-size, $mq);
+    }
+
+    @return math.div($pixels, $mq) * 1rem;
+}
+
+// calc EM in houses at the lowest average media query
+@function em($pixels, $mq: '') {
+    @if unitless($pixels) {
+        $pixels: $pixels * 1px;
+    }
+
+    $keys: map.keys($html-font-size);
+
+    @if $mq == '' {
+        $mq: map.get($html-font-size, $default-font-size);
+    } @else {
+        $mq: map.get($html-font-size, $mq);
+    }
+
+    @return math.div($pixels, $mq) * 1em;
+}
+
+@function line-height($font-size, $line-height) {
+    @return math.div($line-height, $font-size) * 1em;
+}

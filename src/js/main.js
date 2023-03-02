@@ -1,4 +1,3 @@
-// reload on css change.
 import { core } from './mobbu';
 
 core.useLoad(() => {
