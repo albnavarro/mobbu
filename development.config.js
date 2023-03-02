@@ -11,6 +11,7 @@ await esbuild.build({
 let ctx = await esbuild.context({
     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
     bundle: true,
+    sourcemap: true,
     outdir: 'dist',
     plugins: [sassPlugin()],
 });
