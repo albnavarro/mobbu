@@ -1,5 +1,4 @@
 // reload on css change.
-import '../../dist/css/style.css';
 import { core } from './mobbu';
 
 core.useLoad(() => {

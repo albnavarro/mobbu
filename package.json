@@ -3,27 +3,21 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "development:css": "sass src/scss/style.scss dist/css/style.css",
-        "development:js": "esbuild src/js/main.js --bundle  --outfile=./dist/js/scripts.js --watch --servedir=dist",
-        "build:js": "esbuild src/js/main.js --bundle --minify --external:./dist/css/style.css  --outfile=./dist/js/scripts.js",
-        "watch:css": "onchange 'src/**/*.scss' -- npm run development:css",
-        "dev": "concurrently --kill-others \"npm run development:js\" \"npm run watch:css\"",
-        "build": "concurrently  \"npm run build:js\" \"npm run development:css\""
+        "development": "node development.config.js",
+        "dev": "npm run development"
     },
     "devDependencies": {
-        "concurrently": "^7.6.0",
         "eslint": "^8.20.0",
         "npm": "^8.3.0",
-        "onchange": "^7.1.0",
         "postcss": "^8.4.21",
         "prettier-eslint-cli": "^6.0.1",
-        "sass": "^1.48.0",
         "stylelint": "^14.16.0",
         "stylelint-config-standard-scss": "^6.1.0",
         "stylelint-scss": "^4.2.0"
     },
     "dependencies": {
         "esbuild": "0.17.10",
+        "esbuild-sass-plugin": "^2.6.0",
         "sass-math": "^1.0.0",
         "sass-mq": "^6.0.0"
     }

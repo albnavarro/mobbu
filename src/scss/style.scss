@@ -1,22 +1,3 @@
-@charset 'UTF-8';
-@use 'sass:math';
-@use 'sass:map';
-
-// Vendor
-@import '../../node_modules/sass-mq/mq.import';
-
-// Normalize
-@import 'vendor/normalize';
-
-// Abstract
-@import 'abstracts/variables';
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
-
-// Base
-@import 'base/base';
-@import 'base/helpers';
-@import 'base/typography';
-
-// Layout
-@import 'layout/test';
+@import '../../node_modules/sass-mq/mq';
+@import './vendor/normalize';
+@import './layout/test';

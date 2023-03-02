@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 body {
     @include mq(desktop) {
         background: $white;
