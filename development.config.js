@@ -56,7 +56,7 @@ http.createServer((req, res) => {
     req.pipe(proxyReq, { end: true });
 }).listen(3000);
 
-chokidar.watch('dist/**/*.html').on('change', () => {
+chokidar.watch(['dist/**/*.html']).on('change', () => {
     clients.forEach((res) => res.write('data: update\n\n'));
     clients.length = 0;
 });
