@@ -16,6 +16,7 @@
         "stylelint-scss": "^4.2.0"
     },
     "dependencies": {
+        "chokidar": "^3.5.3",
         "esbuild": "0.17.10",
         "esbuild-sass-plugin": "^2.6.0",
         "sass-math": "^1.0.0",
