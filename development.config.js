@@ -52,8 +52,9 @@ chokidar.watch(['./dist/**/*.html']).on('change', (page) => {
     console.log(`[update] ${page}`);
 
     clients.forEach((response) => {
-        const message = 'update';
-        response.write(`data: ${message}\n\n`);
+        response.write(`event: change\n`);
+        response.write(`data: {"page": ${page}}\n\n`);
+        response.end();
     });
     clients.length = 0;
 });
