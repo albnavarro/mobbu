@@ -2,6 +2,7 @@ import * as esbuild from 'esbuild';
 import { sassPlugin } from 'esbuild-sass-plugin';
 import http from 'node:http';
 import chokidar from 'chokidar';
+import { reload } from './reload.js';
 
 const clients = [];
 const proxiPort = 3000;
@@ -11,7 +12,11 @@ const ctx = await esbuild.context({
     bundle: true,
     sourcemap: true,
     outdir: 'dist',
+    banner: {
+        js: reload,
+    },
     plugins: [sassPlugin()],
+    logLevel: 'info',
 });
 
 await ctx.watch();
@@ -43,8 +48,8 @@ http.createServer((request, response) => {
     request.pipe(proxyReq, { end: true });
 }).listen(proxiPort);
 
-chokidar.watch(['dist/**/*.html']).on('change', (page) => {
-    console.log(`update ${page}`);
+chokidar.watch(['./dist/**/*.html']).on('change', (page) => {
+    console.log(`[update] ${page}`);
 
     clients.forEach((response) => {
         const message = 'update';
@@ -53,4 +58,5 @@ chokidar.watch(['dist/**/*.html']).on('change', (page) => {
     clients.length = 0;
 });
 
-console.log(`http://localhost:${proxiPort}`);
+console.log(` > proxy: http://127.0.0.1:${proxiPort}`);
+console.log(``);
