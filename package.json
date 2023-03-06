@@ -4,6 +4,8 @@
     "type": "module",
     "scripts": {
         "development": "node development.config.js",
+        "developmentExperimental": "node devExperiemental.config.js",
+        "serve": "npm run developmentExperimental",
         "dev": "npm run development"
     },
     "devDependencies": {
@@ -16,6 +18,7 @@
         "stylelint-scss": "^4.2.0"
     },
     "dependencies": {
+        "browser-sync": "^2.28.3",
         "chokidar": "^3.5.3",
         "esbuild": "0.17.10",
         "esbuild-sass-plugin": "^2.6.0",
