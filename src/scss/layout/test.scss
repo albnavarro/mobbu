@@ -1,8 +1,0 @@
-@use '../vars' as *;
-@use '../../../node_modules/sass-mq/mq';
-
-body {
-    @include mq.mq(desktop) {
-        background: $white;
-    }
-}

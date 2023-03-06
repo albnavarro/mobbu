@@ -1,4 +1,5 @@
 @use '../vars' as *;
+@use '../abstract' as *;
 
 // -----------------------------------------------------------------------------
 // This file contains very basic styles.
@@ -44,4 +45,9 @@ img {
 .container {
     margin: auto;
     max-width: map.get($breakpoints, xlarge);
+    padding: rem(20);
+}
+
+.inner-main {
+    padding-top: rem(50);
 }
