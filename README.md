@@ -25,4 +25,5 @@ npm i
 
 -   Very fast.
 -   Start server with native esBuild serve option.
--   Esbuild possible bug, server freeze after some route change.
+-   Esbuild server freeze after some route change, possibile problem with SSE max 6 connection.
+    https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
