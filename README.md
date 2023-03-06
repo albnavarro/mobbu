@@ -16,4 +16,11 @@ npm i
 
 ## Start
 
-npm run dev
+###npm run dev
+Start server with browser-sync.
+rebuild css/js bundle with rebuild() esbuild option.
+
+###npm run serve
+Very fast.
+Start server with native esBuild serve option.
+Esbuild possible bug, server freeze after some route change.
