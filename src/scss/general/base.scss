@@ -10,7 +10,10 @@
  * Set up a decent box model on the root element
  */
 
-// @include debug-grid('xlarge');
+:root {
+    --header-height: #{rem(80)};
+    --footer-height: #{rem(80)};
+}
 
 html {
     box-sizing: border-box;
@@ -42,10 +45,18 @@ img {
     height: auto;
 }
 
+main {
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+}
+
 .container {
     margin: auto;
-    max-width: map.get($breakpoints, xlarge);
-    padding: rem(20);
+    max-width: map.get($breakpoints, xxlarge);
+
+    &--padding {
+        padding: rem(20);
+    }
 }
 
 .inner-main {

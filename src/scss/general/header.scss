@@ -1,0 +1,30 @@
+@use '../vars' as *;
+@use '../abstract' as *;
+@use '../../../node_modules/sass-mq/mq';
+
+.l-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: $black;
+    color: $white;
+    z-index: 10;
+
+    &__container {
+        padding: 0 rem(20);
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: var(--header-height);
+        align-items: center;
+    }
+
+    &__title,
+    &__subtitle {
+        color: $white;
+        display: inline-block;
+    }
+}

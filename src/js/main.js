@@ -1,5 +1,9 @@
+import { homeModule } from './layout/index';
 import { core } from './mobbu';
 
+/**
+ * Set default
+ */
 core.useLoad(() => {
     core.setDefault({
         deferredNextTick: true,
@@ -22,3 +26,17 @@ core.useLoad(() => {
 
     core.printDefault();
 });
+
+/**
+ * Route
+ */
+const routeModules = {
+    home: homeModule,
+};
+
+/**
+ * Load module
+ */
+const main = document.querySelector('main.main');
+const { module: currentModule } = main.dataset;
+routeModules?.[currentModule]?.();

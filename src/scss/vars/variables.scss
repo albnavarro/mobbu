@@ -9,6 +9,7 @@ $breakpoints: (
     'desktop': 992px,
     'large': 1200px,
     'xlarge': 1440px,
+    'xxlarge': 1920px,
 );
 $show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
 $html-font-size: (
@@ -19,6 +20,7 @@ $html-font-size: (
     'desktop': 20px,
     'large': 20px,
     'xlarge': 20px,
+    'xxlarge': 22px,
 );
 $default-font-size: desktop;
 
