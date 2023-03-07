@@ -9,7 +9,7 @@
         column-gap: rem(20);
 
         @include mq.mq(desktop) {
-            grid-template-columns: 1fr 3fr;
+            grid-template-columns: rem(300) 1fr;
             align-items: flex-start;
         }
     }
@@ -35,7 +35,7 @@
 
         &__link {
             text-decoration: none;
-            font-size: rem(16);
+            font-size: rem(14);
             padding: rem(5) rem(20);
             border: 1px $grey solid;
             display: block;
@@ -45,6 +45,7 @@
             width: 100%;
             text-align: left;
             position: relative;
+            border-radius: rem(20);
 
             &:hover,
             &.active {
@@ -56,7 +57,7 @@
                 &::after {
                     content: '';
                     position: absolute;
-                    right: rem(10);
+                    right: rem(20);
                     top: 50%;
                     transform: translateY(-50%) rotate(45deg);
                     width: rem(10);
@@ -85,9 +86,9 @@
             list-style-type: none;
             padding: 0;
             background: rgba($black, 0.05);
+            border-radius: rem(20);
 
             &__item {
-                background: $white;
                 margin: rem(10) rem(10) 0 rem(10);
 
                 &:first-of-type {
