@@ -3,7 +3,6 @@
 @use '../../../node_modules/sass-mq/mq';
 
 [data-component='navigation'] {
-    background: $grey;
     width: 100%;
     height: calc(100vh - var(--header-height) - var(--footer-height) - rem(40));
 }

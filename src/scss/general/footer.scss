@@ -3,7 +3,6 @@
 @use '../../../node_modules/sass-mq/mq';
 
 [data-component='footer'] {
-    background: $grey;
     height: var(--footer-height);
     position: fixed;
     bottom: 0;
