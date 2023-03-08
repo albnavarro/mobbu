@@ -1,11 +1,11 @@
-import { slide } from '../../mobbu/plugin';
+import { slide } from '../../../mobbu/plugin';
 
 let subscribers = [];
 
 function addSubscriber({ items = [] } = {}) {
     return items.map((item, i) => {
-        const submenu = item.querySelector('.l-index__nav__submenu');
-        const button = item.querySelector('.l-index__nav__link');
+        const submenu = item.querySelector('.l-navigation__submenu');
+        const button = item.querySelector('.l-navigation__link');
 
         return {
             id: i,

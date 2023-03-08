@@ -14,94 +14,6 @@
         }
     }
 
-    &__nav {
-        width: 100%;
-        margin: auto;
-        order: 2;
-
-        @include mq.mq(desktop) {
-            order: 1;
-        }
-
-        &__list {
-            list-style-type: none;
-            padding-left: 0;
-            margin-top: 0;
-        }
-
-        &__item {
-            margin-bottom: rem(10);
-        }
-
-        &__link {
-            text-decoration: none;
-            font-size: rem(14);
-            padding: rem(5) rem(20);
-            border: 1px $grey solid;
-            display: block;
-            color: $black;
-            background: $white;
-            transition: background 0.35s, color 0.35s;
-            width: 100%;
-            text-align: left;
-            position: relative;
-            border-radius: rem(20);
-
-            &:hover,
-            &.active {
-                background: $black;
-                color: $white;
-            }
-
-            &--arrow {
-                &::after {
-                    content: '';
-                    position: absolute;
-                    right: rem(20);
-                    top: 50%;
-                    transform: translateY(-50%) rotate(45deg);
-                    width: rem(10);
-                    height: rem(10);
-                    border-bottom: 2px $black solid;
-                    border-right: 2px $black solid;
-                    transition: border-color 0.55s, transform 0.35s;
-                }
-
-                &:hover {
-                    &::after {
-                        border-color: $white;
-                    }
-                }
-
-                &.active {
-                    &::after {
-                        border-color: $white;
-                        transform: translateY(-50%) rotate(-135deg);
-                    }
-                }
-            }
-        }
-
-        &__submenu {
-            list-style-type: none;
-            padding: 0;
-            background: rgba($black, 0.05);
-            border-radius: rem(20);
-
-            &__item {
-                margin: rem(10) rem(10) 0 rem(10);
-
-                &:first-of-type {
-                    margin-top: rem(10);
-                }
-
-                &:last-of-type {
-                    margin-bottom: rem(10);
-                }
-            }
-        }
-    }
-
     &__content {
         order: 1;
 
@@ -114,8 +26,5 @@
             );
             overflow: hidden;
         }
-
-        // &__wrap {
-        // }
     }
 }
