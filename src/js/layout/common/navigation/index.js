@@ -1,8 +1,8 @@
-import { createNavigation } from './createNavigation';
+import { navigation } from './createNavigation';
 import { navAccordion } from './navAccordion';
 
-export const navigation = async () => {
-    const { active } = await createNavigation();
+export const createNavigation = async () => {
+    const { active } = await navigation();
     if (!active) return;
     navAccordion();
 };

@@ -52,7 +52,7 @@ function getItems() {
         .join('');
 }
 
-export const createNavigation = () => {
+export const navigation = () => {
     return new Promise((resolve) => {
         const component = document.querySelector(
             '[data-component="navigation"]'

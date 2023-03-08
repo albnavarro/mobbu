@@ -2,6 +2,15 @@
 @use '../abstract' as *;
 @use '../../../node_modules/sass-mq/mq';
 
+[data-component='footer'] {
+    background: $grey;
+    height: var(--footer-height);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 .l-footer {
     height: var(--footer-height);
     background: $black;

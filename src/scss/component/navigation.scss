@@ -2,14 +2,15 @@
 @use '../abstract' as *;
 @use '../../../node_modules/sass-mq/mq';
 
+[data-component='navigation'] {
+    background: $grey;
+    width: 100%;
+    height: calc(100vh - var(--header-height) - var(--footer-height) - rem(40));
+}
+
 .l-navigation {
     width: 100%;
     margin: auto;
-    order: 2;
-
-    @include mq.mq(desktop) {
-        order: 1;
-    }
 
     &__list {
         list-style-type: none;

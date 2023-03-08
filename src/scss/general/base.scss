@@ -62,3 +62,7 @@ main {
 .inner-main {
     padding-top: rem(50);
 }
+
+[data-component] {
+    background: $grey;
+}
