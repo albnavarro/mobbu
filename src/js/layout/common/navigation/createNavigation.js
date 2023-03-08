@@ -22,24 +22,31 @@ function getItems() {
         .map((item) => {
             const { label, url, children } = item;
 
-            const hasChildrenClass = children ? 'has-child' : '';
-            const linkTag = children ? 'button' : 'a';
-            const arrowClass = children ? ' l-navigation__link--arrow' : '';
-            const submenu = children
-                ? `
-                    <ul class="l-navigation__submenu">
-                        ${getSubmenu(children)}
-                    </ul>
-                `
-                : '';
+            const { hasChildrenClass, linkTag, arrowClass, submenu } = children
+                ? {
+                      hasChildrenClass: 'has-child',
+                      linkTag: 'button',
+                      arrowClass: 'l-navigation__link--arrow',
+                      submenu: `
+                        <ul class="l-navigation__submenu">
+                            ${getSubmenu(children)}
+                        </ul>
+                        `,
+                  }
+                : {
+                      hasChildrenClass: '',
+                      linkTag: 'a',
+                      arrowClass: '',
+                      submenu: '',
+                  };
 
             return `
-            <li class="l-navigation__item ${hasChildrenClass}">
-                <${linkTag} class="l-navigation__link ${arrowClass}" href="${url}">
-                    ${label}
-                </${linkTag}>
-                ${submenu}
-            </li>
+                <li class="l-navigation__item ${hasChildrenClass}">
+                    <${linkTag} class="l-navigation__link ${arrowClass}" href="${url}">
+                        ${label}
+                    </${linkTag}>
+                    ${submenu}
+                </li>
             `;
         })
         .join('');
