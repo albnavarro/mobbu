@@ -1,3 +1,4 @@
+import { initCommonModules } from './layout/common';
 import { homeModule } from './layout/index';
 import { core } from './mobbu';
 
@@ -26,6 +27,11 @@ core.useLoad(() => {
 
     core.printDefault();
 });
+
+/**
+ * Common modules
+ */
+initCommonModules();
 
 /**
  * Route

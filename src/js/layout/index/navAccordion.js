@@ -63,7 +63,7 @@ function action({
     }
 }
 
-export const homeNavigation = () => {
+export const navAccordion = () => {
     const elements = document.querySelectorAll('.has-child');
     subscribers = addSubscriber({ items: [...elements] });
     initialize();

@@ -1,0 +1,19 @@
+{
+    "title": "Mobbu",
+    "subtitle": "aniamtion library",
+    "homeUrl": "/index.html",
+    "links": [
+        {
+            "label": "home",
+            "url": "/index.html"
+        },
+        {
+            "label": "info",
+            "url": "#"
+        },
+        {
+            "label": "Github",
+            "url": "#"
+        }
+    ]
+}

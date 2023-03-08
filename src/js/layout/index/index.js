@@ -1,5 +1,5 @@
-import { homeNavigation } from './navigation';
+import { navAccordion } from './navAccordion.js';
 
 export const homeModule = () => {
-    homeNavigation();
+    navAccordion();
 };
