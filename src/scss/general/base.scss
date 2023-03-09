@@ -1,5 +1,6 @@
 @use '../vars' as *;
 @use '../abstract' as *;
+@use '../../../node_modules/sass-mq/mq';
 
 // -----------------------------------------------------------------------------
 // This file contains very basic styles.
@@ -59,8 +60,14 @@ main {
     }
 }
 
+.inner-wrap {
+    @include mq.mq(desktop) {
+        padding-left: rem(40);
+    }
+}
+
 .inner-main {
-    padding-top: rem(50);
+    padding-top: rem(150);
 }
 
 [data-component] {

@@ -57,7 +57,7 @@ export const navigation = () => {
         const component = document.querySelector(
             '[data-component="navigation"]'
         );
-        if (!component) return resolve({ active: false });
+        if (!component) return resolve({ navCreated: false });
 
         const content = `
             <ul class="l-navigation__list">
@@ -70,7 +70,7 @@ export const navigation = () => {
         nav.innerHTML = content;
         core.useFrame(() => {
             component.parentNode.replaceChild(nav, component);
-            resolve({ active: true });
+            resolve({ navCreated: true });
         });
     });
 };

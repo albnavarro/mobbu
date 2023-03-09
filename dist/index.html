@@ -6,16 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="scss/style.css" rel="stylesheet" />
     </head>
-    <body>
-        <!-- header -->
-        <div data-component="header"></div>
-        <!-- header -->
+    <body class="template-home">
+        <component data-component="header"></component>
         <main class="main l-index" data-module="home">
             <div class="container container--padding">
                 <div class="l-index__grid">
-                    <!-- navigation -->
-                    <div data-component="navigation"></div>
-                    <!-- end navigation -->
+                    <component data-component="navigation"></component>
                     <div class="l-index__content">
                         <div class="l-index__content__wrap">
                             <div>test</div>
@@ -24,9 +20,7 @@
                 </div>
             </div>
         </main>
-        <!-- footer -->
-        <div data-component="footer"></div>
-        <!-- footer -->
+        <component data-component="footer"></component>
         <script src="js/main.js" defer></script>
     </body>
 </html>

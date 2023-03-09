@@ -6,20 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="scss/style.css" rel="stylesheet" />
     </head>
-    <body>
-        <!-- header -->
-        <div data-component="header"></div>
-        <!-- header -->
+    <body class="template-inner">
+        <component data-component="header"></component>
         <main class="main">
+            <component data-component="navigation_container"></component>
             <div class="container container--padding">
-                <div class="l-parallax">
-                    <h1>Parallax test</h1>
+                <div class="inner-wrap">
+                    <div class=""></div>
                 </div>
             </div>
         </main>
-        <!-- footer -->
-        <div data-component="footer"></div>
-        <!-- footer -->
+        <component data-component="footer"></component>
         <script src="js/main.js" defer></script>
     </body>
 </html>

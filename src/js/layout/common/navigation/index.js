@@ -1,8 +1,11 @@
 import { navigation } from './createNavigation';
 import { navAccordion } from './navAccordion';
+import { createNavContainer } from './navContainer';
 
 export const createNavigation = async () => {
-    const { active } = await navigation();
-    if (!active) return;
+    await createNavContainer();
+    const { navCreated } = await navigation();
+    if (!navCreated) return;
+
     navAccordion();
 };
