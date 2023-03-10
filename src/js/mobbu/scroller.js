@@ -94,7 +94,7 @@ export const scroller = {
      *       fromTo: [ Boolean ],
      *       start: [ String ],
      *       dynamicStart: {
-     *          postion: [ String ],
+     *          position: [ String ],
      *          value: [ Function ]
      *       },
      *       end: [ String ],

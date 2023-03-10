@@ -23,19 +23,24 @@ export const createNavContainer = () => {
         const component = document.querySelector(
             '[data-component="navigation_container"]'
         );
-        if (!component) return resolve();
+        if (!component) return resolve({ hasContainer: false });
 
         const content = `
-        <div class="l-navcontainer__side">
-            <button class="l-navcontainer__toggle">
-                <span></span>
-            </button>
-        </div>
-        <div class="l-navcontainer__wrap">
-            <div class="l-navcontainer__header">
+            <div class="l-navcontainer__side">
+                <button class="l-navcontainer__toggle">
+                    <span></span>
+                </button>
             </div>
-            <component data-component="navigation"></component>
-        </div>
+            <div class="l-navcontainer__wrap">
+                <div class="l-navcontainer__scroll">
+                    <div class="l-navcontainer__header">
+                        <h2>
+                            header
+                        </h2>
+                    </div>
+                    <component data-component="navigation"></component>
+                </div>
+            </div>
     `;
 
         const container = document.createElement('div');
@@ -46,7 +51,7 @@ export const createNavContainer = () => {
             component.parentNode.replaceChild(container, component);
             const root = document.querySelector('.l-navcontainer');
             addHandler({ root });
-            resolve();
+            resolve({ hasContainer: true });
         });
     });
 };

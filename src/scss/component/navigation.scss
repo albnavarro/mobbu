@@ -29,7 +29,7 @@
         display: block;
         color: $black;
         background: $white;
-        transition: background 0.35s, color 0.35s;
+        transition: background 0.35s, color 0.35s, border-color 0.35s;
         width: 100%;
         text-align: left;
         position: relative;
@@ -39,6 +39,7 @@
         &.active {
             background: $black;
             color: $white;
+            border: 1px $black solid;
         }
 
         &--arrow {

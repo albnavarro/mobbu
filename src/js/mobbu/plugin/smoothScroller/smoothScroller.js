@@ -41,12 +41,12 @@ import {
 
 /**
  * @typedef {Object} smoothScrollerType
- * @prop {('vertical'|'horizontal')} [ direction = 'vertical' ] 
+ * @prop {('vertical'|'horizontal')} [ direction = 'vertical' ]
     Defines the scroll direction
- * @prop {('spring'|'lerp')} [ easeType = 'lerp'] 
+ * @prop {('spring'|'lerp')} [ easeType = 'lerp']
     Defines the type of easing. The default is `lerp`.
  * @prop {( String|Element )} scroller
-   The node that will have to scroll 
+   The node that will have to scroll
  * @prop {( String|Element )} [ screen ]
     The scroller container.
     The default value is `document.documentElement`.
@@ -63,17 +63,17 @@ import {
  * @prop {Boolean} drag
    It is possible to enable and disable the drag functionality.
    The default value is `false`.
- * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ] 
+ * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ]
    Function that is launched at each tick.
    The function will have an Object as input parameter.
    `value`: scroll value
    `percent`: scroll value in percent
    `parentIsMoving`: A boolean value indicating whether the scroller has stopped ( last tick )
- * @prop {function():void} [ afterRefresh = null ] 
+ * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
- * @prop {function():void} [ afterInit = null ] 
+ * @prop {function():void} [ afterInit = null ]
    Function that is launched after inizialization
- * @prop {function():void} [ afterDestroy = null ] 
+ * @prop {function():void} [ afterDestroy = null ]
    Function that is launched after destroy
  * @prop {Array.<ParallaxClass>} children
    An array of instances of the ParallaxClass class used within the scroller.
@@ -103,12 +103,12 @@ export default class SmoothScroller {
      * @description
      *
        Create new SmoothScroller instance.
-      
+
        Available methods:
        mySmoothScroll.init();
        mySmoothScroll.refresh();
        mySmoothScroll.destroy();
-     
+
      * @example
        ```js
        const mySmoothScroller = new SmoothScroller({
