@@ -25,9 +25,9 @@ bs.watch('./dist/**.html').on('change', () => {
 });
 
 bs.watch(['./src/js/**/*.js', './src/scss/**/*.scss']).on('change', () => {
-    ctx.rebuild().then(() => {
-        bs.reload();
-    });
+    ctx.rebuild()
+        .then(() => bs.reload())
+        .catch((error) => console.log(error));
 });
 
 bs.init({
