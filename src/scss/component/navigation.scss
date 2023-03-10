@@ -25,7 +25,6 @@
         text-decoration: none;
         font-size: rem(14);
         padding: rem(5) rem(20);
-        border: 1px $grey solid;
         display: block;
         color: $black;
         background: $white;
@@ -34,12 +33,12 @@
         text-align: left;
         position: relative;
         border-radius: rem(20);
+        border: 0;
 
         &:hover,
         &.active {
             background: $black;
             color: $white;
-            border: 1px $black solid;
         }
 
         &--arrow {

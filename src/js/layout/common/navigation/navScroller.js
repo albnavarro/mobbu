@@ -10,13 +10,18 @@ export const navScroller = () => {
     const children = [...buttons].map((button) => {
         const yOffset = window.innerHeight / 7;
         const buttonTween = tween.createScrollerTween({
-            from: { opacity: 0, y: yOffset },
-            to: { opacity: 1, y: 0 },
+            from: { opacity: 0, y: yOffset, scale: 0.8 },
+            to: { opacity: 1, y: 0, scale: 1 },
         });
 
-        buttonTween.subscribe(({ opacity, y }) => {
+        buttonTween.subscribe(({ opacity, y, scale }) => {
             button.style.opacity = opacity;
-            button.style.transform = `translateY(${y}px)`;
+            button.style.transform = `translate3D(0,0,0) translateY(${y}px) scale(${scale})`;
+        });
+
+        buttonTween.onStop(({ opacity, y, scale }) => {
+            button.style.opacity = opacity;
+            button.style.transform = `translateY(${y}px) scale(${scale})`;
         });
 
         return scroller.createScrollTrigger({
