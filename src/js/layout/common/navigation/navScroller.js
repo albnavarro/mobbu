@@ -38,7 +38,7 @@ export const navScroller = () => {
         scroller: scrollerEl,
         direction: 'vertical',
         drag: true,
-        scopedEvent: false,
+        scopedEvent: true,
         breackpoint: 'tablet',
         children: [...children],
     });

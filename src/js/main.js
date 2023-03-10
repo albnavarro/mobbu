@@ -9,7 +9,7 @@ core.useLoad(() => {
     core.setDefault({
         deferredNextTick: true,
         useScaleFps: true,
-        usePassive: false,
+        usePassive: true,
         mq: {
             desktop: 1024,
         },
