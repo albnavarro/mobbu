@@ -63,6 +63,15 @@ function action({
     }
 }
 
+export const navAccordionCloseAll = () => {
+    const activeItems = subscribers.filter(({ active }) => active);
+    activeItems.forEach(({ id, submenu, button }) => {
+        setState({ id, active: false });
+        slide.up(submenu);
+        button.classList.remove('active');
+    });
+};
+
 export const navAccordion = () => {
     const elements = document.querySelectorAll('.has-child');
     subscribers = addSubscriber({ items: [...elements] });

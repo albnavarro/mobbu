@@ -1,4 +1,5 @@
 import { core } from '../../../mobbu';
+import { navAccordionCloseAll } from './navAccordion';
 
 let isOpen = false;
 
@@ -9,9 +10,12 @@ function addHandler({ root } = {}) {
         if (isOpen) {
             root.classList.remove('active');
             button.classList.remove('open');
+            document.body.style.overflow = '';
+            navAccordionCloseAll();
         } else {
             root.classList.add('active');
             button.classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
 
         isOpen = !isOpen;
