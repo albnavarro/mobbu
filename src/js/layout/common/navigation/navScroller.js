@@ -7,6 +7,7 @@ export const navigationScoller = () => {
     const screenEl = document.querySelector('.l-navcontainer__wrap');
     const scrollerEl = document.querySelector('.l-navcontainer__scroll');
     const buttons = document.querySelectorAll('.l-navigation__item');
+    const percentEl = document.querySelector('.l-navcontainer__percent');
 
     /**
      * Create scrollTrigger children.
@@ -53,6 +54,9 @@ export const navigationScoller = () => {
         scopedEvent: true,
         breackpoint: 'tablet',
         children: [...children],
+        onUpdate: ({ percent }) => {
+            percentEl.style.transform = `scaleX(${parseInt(percent) / 100})`;
+        },
     });
 
     navScroller.init();
@@ -62,4 +66,7 @@ export const navigationScoller = () => {
      * Exact dimension after automac accordion close
      */
     navigationStore.watch('refreshScroller', () => navScroller.refresh());
+    navigationStore.watch('closeNavigation', () => {
+        percentEl.style.transform = `scaleX(0)`;
+    });
 };

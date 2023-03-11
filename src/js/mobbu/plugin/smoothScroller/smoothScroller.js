@@ -69,6 +69,11 @@ import {
    `value`: scroll value
    `percent`: scroll value in percent
    `parentIsMoving`: A boolean value indicating whether the scroller has stopped ( last tick )
+ * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onUpdate = null ]
+   Function that is launched at each update value ( non easing value ).
+   The function will have an Object as input parameter.
+   `value`: scroll value
+   `percent`: scroll value in percent
  * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
  * @prop {function():void} [ afterInit = null ]
@@ -126,6 +131,9 @@ export default class SmoothScroller {
                ...
            },
            onTick: ({ value, parentIsMoving, percent }) => {
+               ...
+           },
+           onUpdate: ({ value, percent }) => {
                ...
            },
            afterRefresh: () => {
@@ -384,6 +392,15 @@ export default class SmoothScroller {
         this.onTickCallback = valueIsFunctionAndReturnDefault(
             data?.onTick,
             'SmoothScroller: onTick',
+            null
+        );
+
+        /**
+         * @private
+         */
+        this.onUpdateCallback = valueIsFunctionAndReturnDefault(
+            data?.onUpdate,
+            'SmoothScroller: onUpdate',
             null
         );
 
@@ -763,6 +780,16 @@ export default class SmoothScroller {
         this.percent = clamp(percentValue, 0, 100);
         this.endValue = clamp(this.endValue, 0, this.maxValue);
         this.motion.goTo({ val: this.endValue }).catch(() => {});
+
+        /**
+         * Fire on update callback
+         */
+        if (this.onUpdateCallback)
+            this.onUpdateCallback({
+                value: -this.endValue,
+                percent: this.percent,
+                parentIsMoving: true,
+            });
     }
 
     /**
@@ -847,6 +874,7 @@ export default class SmoothScroller {
         });
         this.children = [];
         this.onTickCallback = [];
+        this.onUpdateCallback = [];
         this.onAfterRefresh = [];
         this.afterInit = [];
 

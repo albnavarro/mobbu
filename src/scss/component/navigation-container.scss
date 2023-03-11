@@ -67,4 +67,21 @@
             display: block;
         }
     }
+
+    &__percent {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        width: calc(100vw - var(--nav-width));
+        background: $primary;
+        height: rem(10);
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: transform 0.55s;
+        display: none;
+
+        @include mq.mq(tablet) {
+            display: block;
+        }
+    }
 }

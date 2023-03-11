@@ -25,8 +25,8 @@ function addHandler() {
     main.addEventListener('click', () => {
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) return;
-        closeNavigation();
         navigationStore.set('navigationIsOpen', false);
+        navigationStore.emit('closeNavigation');
     });
 }
 
@@ -42,6 +42,8 @@ export const navigationContainer = () => {
 
         const content = `
             <div class="l-navcontainer__side">
+                <div class="l-navcontainer__percent">
+                </div>
             </div>
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">

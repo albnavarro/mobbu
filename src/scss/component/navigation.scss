@@ -72,16 +72,6 @@
             position: relative;
             background: $secondary;
 
-            &::before {
-                content: '';
-                left: 0;
-                top: 0;
-                height: 100%;
-                width: rem(10);
-                position: absolute;
-                background: $white;
-            }
-
             &:hover {
                 background: rgba($secondary, 0.3);
             }
