@@ -1,4 +1,4 @@
-import { core } from '../../mobbu';
+import { core } from '../../../mobbu';
 
 export const createFooter = () => {
     const component = document.querySelector('[data-component="footer"]');

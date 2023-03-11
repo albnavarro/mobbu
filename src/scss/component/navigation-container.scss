@@ -28,7 +28,7 @@
     }
 
     &__wrap {
-        width: 100vw;
+        width: var(--nav-width);
         max-width: 375px;
         overflow: auto;
         height: calc(100vh - var(--header-height));
@@ -40,7 +40,6 @@
         }
 
         @include mq.mq(tablet) {
-            width: rem(340);
             max-width: none;
             overflow: hidden;
         }
@@ -62,5 +61,10 @@
         width: calc(var(--header-height) / 2);
         top: 0;
         height: 100%;
+        display: none;
+
+        @include mq.mq(tablet) {
+            display: block;
+        }
     }
 }

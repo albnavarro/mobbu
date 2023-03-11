@@ -48,8 +48,8 @@
                 transform: translateY(-50%) rotate(45deg);
                 width: rem(10);
                 height: rem(10);
-                border-bottom: 2px $black solid;
-                border-right: 2px $black solid;
+                border-bottom: 2px $primary solid;
+                border-right: 2px $primary solid;
                 transition: border-color 0.55s, transform 0.35s;
             }
 

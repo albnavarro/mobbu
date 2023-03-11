@@ -14,6 +14,11 @@
 :root {
     --header-height: #{rem(80)};
     --footer-height: #{rem(80)};
+    --nav-width: 100vw;
+
+    @include mq.mq(tablet) {
+        --nav-width: #{rem(340)};
+    }
 }
 
 html {
@@ -49,6 +54,15 @@ img {
 main {
     padding-top: var(--header-height);
     padding-bottom: var(--footer-height);
+    transition: transform 0.55s, opacity 0.55s;
+
+    &.shift {
+        @include mq.mq(tablet) {
+            transform: translateX(calc(var(--nav-width)));
+            opacity: 0.2;
+            cursor: pointer;
+        }
+    }
 }
 
 .container {

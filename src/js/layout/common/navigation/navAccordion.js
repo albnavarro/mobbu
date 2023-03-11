@@ -102,7 +102,7 @@ export const navAccordion = () => {
     subscribers = addSubscriber({ items: [...elements] });
 
     // Watch for cloase all accordion item
-    navigationStore.watch('closeAllItems', () => navAccordionCloseAll());
+    navigationStore.watch('closeAllItems', navAccordionCloseAll);
     initialize();
     addHandler();
 };

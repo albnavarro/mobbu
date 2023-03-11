@@ -1,6 +1,6 @@
-import data from '../../../data/header.json';
-import { core } from '../../mobbu';
-import { navigationStore } from './navigation/navStore';
+import data from '../../../../data/header.json';
+import { core } from '../../../mobbu';
+import { navigationStore } from '../navigation/navStore';
 
 function getLinks() {
     const { links } = data;

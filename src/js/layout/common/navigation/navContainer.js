@@ -2,9 +2,11 @@ import { core } from '../../../mobbu';
 import { navigationStore } from './navStore';
 
 let root = {};
+let main = {};
 
 function closeNavigation() {
     root.classList.remove('active');
+    main.classList.remove('shift');
     document.body.style.overflow = '';
 
     // Close all accordion item on navigation close.
@@ -13,9 +15,19 @@ function closeNavigation() {
 
 function openNavigation() {
     root.classList.add('active');
+    main.classList.add('shift');
     document.body.style.overflow = 'hidden';
 
     navigationStore.emit('refreshScroller');
+}
+
+function addHandler() {
+    main.addEventListener('click', () => {
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) return;
+        closeNavigation();
+        navigationStore.set('navigationIsOpen', false);
+    });
 }
 
 /**
@@ -50,9 +62,11 @@ export const navigationContainer = () => {
         core.useFrame(() => {
             component.parentNode.replaceChild(container, component);
             root = document.querySelector('.l-navcontainer');
-            resolve({ hasContainer: true });
+            main = document.querySelector('main.main');
             navigationStore.watch('openNavigation', openNavigation);
             navigationStore.watch('closeNavigation', closeNavigation);
+            addHandler();
+            resolve({ hasContainer: true });
         });
     });
 };
