@@ -49,7 +49,7 @@ export const navigationContainer = () => {
                 <div class="l-navcontainer__scroll">
                     <div class="l-navcontainer__header">
                         <h2>
-                            header
+                            Drag or Scroll
                         </h2>
                     </div>
                     <component data-component="navigation"></component>

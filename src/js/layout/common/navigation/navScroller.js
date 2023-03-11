@@ -55,6 +55,9 @@ export const navigationScoller = () => {
         breackpoint: 'tablet',
         children: [...children],
         onUpdate: ({ percent }) => {
+            const { navigationIsOpen } = navigationStore.get();
+            if (!navigationIsOpen) return;
+
             percentEl.style.transform = `scaleX(${parseInt(percent) / 100})`;
         },
     });
