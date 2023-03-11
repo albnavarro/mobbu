@@ -1,3 +1,4 @@
+import { navigationStore } from '.';
 import { scroller, tween } from '../../../mobbu';
 import { SmoothScroller } from '../../../mobbu/plugin';
 import { outerHeight } from '../../../mobbu/utils/vanillaFunction';
@@ -49,4 +50,10 @@ export const navScroller = () => {
     });
 
     navScroller.init();
+
+    /**
+     * Refresh scroller on navigation open.
+     * Exact dimension after automac accordion close
+     */
+    navigationStore.watch('refreshScroller', () => navScroller.refresh());
 };

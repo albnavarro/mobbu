@@ -1,6 +1,9 @@
 import { core } from '../../../mobbu';
 import { items } from '../../../../data/navigation.json';
 
+/**
+ * Create second levels item.
+ */
 function getSubmenu(items) {
     return items
         .map((item) => {
@@ -17,6 +20,9 @@ function getSubmenu(items) {
         .join('');
 }
 
+/**
+ * Create first level items.
+ */
 function getItems() {
     return items
         .map((item) => {
@@ -52,6 +58,9 @@ function getItems() {
         .join('');
 }
 
+/**
+ * inizialize module
+ */
 export const navigation = () => {
     return new Promise((resolve) => {
         const component = document.querySelector(

@@ -1,8 +1,11 @@
+import { navigationStore } from '.';
 import { core } from '../../../mobbu';
-import { navAccordionCloseAll } from './navAccordion';
 
 let isOpen = false;
 
+/**
+ * Add Open/Close handler
+ */
 function addHandler({ root } = {}) {
     const button = root.querySelector('.l-navcontainer__toggle');
 
@@ -11,17 +14,25 @@ function addHandler({ root } = {}) {
             root.classList.remove('active');
             button.classList.remove('open');
             document.body.style.overflow = '';
-            navAccordionCloseAll();
+
+            // Close all accordion item on navigation close.
+            navigationStore.emit('closeAllItems');
         } else {
             root.classList.add('active');
             button.classList.add('open');
             document.body.style.overflow = 'hidden';
+
+            // Refresh scroller on open
+            navigationStore.emit('refreshScroller');
         }
 
         isOpen = !isOpen;
     });
 }
 
+/**
+ * Create container
+ */
 export const createNavContainer = () => {
     return new Promise((resolve) => {
         const component = document.querySelector(

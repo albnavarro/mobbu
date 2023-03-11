@@ -1,7 +1,11 @@
+import { navigationStore } from '.';
 import { slide } from '../../../mobbu/plugin';
 
 let subscribers = [];
 
+/**
+ * Create main slide subscriber array.
+ */
 function addSubscriber({ items = [] } = {}) {
     return items.map((item, i) => {
         const submenu = item.querySelector('.l-navigation__submenu');
@@ -17,10 +21,16 @@ function addSubscriber({ items = [] } = {}) {
     });
 }
 
+/**
+ * Reset all item height on slide inizialize.
+ */
 function initialize() {
     subscribers.forEach(({ submenu }) => slide.reset(submenu));
 }
 
+/**
+ * Add handler.
+ */
 function addHandler() {
     subscribers.forEach(({ id, button, submenu }) => {
         button.addEventListener('click', () => {
@@ -29,6 +39,9 @@ function addHandler() {
     });
 }
 
+/**
+ * Get item state.
+ */
 function getState({ id = 0 } = {}) {
     const currentItemIndex = subscribers.findIndex(
         ({ id: currentId }) => id === currentId
@@ -37,6 +50,9 @@ function getState({ id = 0 } = {}) {
     return subscribers[currentItemIndex].active;
 }
 
+/**
+ * Set item state.
+ */
 function setState({ id = 0, active = false } = {}) {
     const currentItemIndex = subscribers.findIndex(
         ({ id: currentId }) => id === currentId
@@ -45,6 +61,9 @@ function setState({ id = 0, active = false } = {}) {
     subscribers[currentItemIndex].active = active;
 }
 
+/**
+ * Open/Close single item.
+ */
 function action({
     id = 0,
     submenu = document.createElement('div'),
@@ -63,6 +82,9 @@ function action({
     }
 }
 
+/**
+ * Close all accordion item.
+ */
 export const navAccordionCloseAll = () => {
     const activeItems = subscribers.filter(({ active }) => active);
     activeItems.forEach(({ id, submenu, button }) => {
@@ -72,9 +94,15 @@ export const navAccordionCloseAll = () => {
     });
 };
 
+/**
+ * Init accordion.
+ */
 export const navAccordion = () => {
     const elements = document.querySelectorAll('.has-child');
     subscribers = addSubscriber({ items: [...elements] });
+
+    // Watch for cloase all accordion item
+    navigationStore.watch('closeAllItems', () => navAccordionCloseAll());
     initialize();
     addHandler();
 };
