@@ -14,6 +14,8 @@ function closeNavigation() {
 function openNavigation() {
     root.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    navigationStore.emit('refreshScroller');
 }
 
 /**
