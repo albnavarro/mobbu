@@ -1515,7 +1515,7 @@ export default class ParallaxClass {
      * ```
      */
     move({ value = null, parentIsMoving = false } = {}) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breackpoint) || value === null) return;
         this.iSControlledFromOutside = true;
 
         const scrollVal = this.getScrollValueOnMove(value);
@@ -1556,8 +1556,7 @@ export default class ParallaxClass {
      * @private
      */
     getScrollValueOnMove(value) {
-        if (!value) return null;
-
+        if (value === null) return null;
         if (this.screen !== window) return value + this.screenPosition;
 
         return value;
