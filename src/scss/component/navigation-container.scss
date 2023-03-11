@@ -15,14 +15,9 @@
     top: var(--header-height);
     left: 0;
     background: $white;
-    display: none;
     z-index: 10;
     transform: translateX(-100%);
     transition: transform 0.55s;
-
-    @include mq.mq(tablet) {
-        display: block;
-    }
 
     &.active {
         transform: translateX(0);
@@ -33,20 +28,31 @@
     }
 
     &__wrap {
-        @include mq.mq(tablet) {
-            width: rem(340);
-            height: calc(100vh - var(--header-height));
-            overflow: hidden;
+        width: 100vw;
+        max-width: 375px;
+        overflow: auto;
+        height: calc(100vh - var(--header-height));
 
+        @include mq.mq($until: tablet) {
             &::-webkit-scrollbar {
                 display: none;
             }
         }
+
+        @include mq.mq(tablet) {
+            width: rem(340);
+            max-width: none;
+            overflow: hidden;
+        }
     }
 
     &__scroll {
-        padding: rem(20) rem(20) 50vh rem(20);
+        padding: rem(20);
         background: $secondary-light-1;
+
+        @include mq.mq('desktop') {
+            padding: rem(20) rem(20) 50vh rem(20);
+        }
     }
 
     &__side {
