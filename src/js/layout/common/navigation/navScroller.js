@@ -8,6 +8,9 @@ export const navScroller = () => {
     const scrollerEl = document.querySelector('.l-navcontainer__scroll');
     const buttons = document.querySelectorAll('.l-navigation__item');
 
+    /**
+     * Create scrollTrigger children.
+     */
     const children = [...buttons].map((button) => {
         const yOffset = window.innerHeight / 7;
         const buttonTween = tween.createScrollerTween({
@@ -39,6 +42,9 @@ export const navScroller = () => {
         });
     });
 
+    /**
+     * Inizialize Scroller.
+     */
     const navScroller = new SmoothScroller({
         screen: screenEl,
         scroller: scrollerEl,
