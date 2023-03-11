@@ -1,5 +1,5 @@
-import { navigationStore } from '.';
 import { core } from '../../../mobbu';
+import { navigationStore } from './navStore';
 
 let isOpen = false;
 
@@ -33,7 +33,7 @@ function addHandler({ root } = {}) {
 /**
  * Create container
  */
-export const createNavContainer = () => {
+export const navigationContainer = () => {
     return new Promise((resolve) => {
         const component = document.querySelector(
             '[data-component="navigation_container"]'

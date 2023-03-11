@@ -20,13 +20,19 @@ const ctx = await esbuild.context({
     plugins: [sassPlugin()],
 });
 
-bs.watch('./dist/**.html').on('change', () => {
-    bs.reload();
-});
+bs.watch('./dist/**.html').on('change', bs.reload);
 
-bs.watch(['./src/js/**/*.js', './src/scss/**/*.scss']).on('change', () => {
+bs.watch(['./src/js/**/*.js']).on('change', () => {
     ctx.rebuild()
         .then(() => bs.reload())
+        .catch((error) => console.log(error));
+});
+
+bs.watch(['./src/scss/**/*.scss']).on('change', () => {
+    ctx.rebuild()
+        .then(() => {
+            bs.reload(['./dist/scss/style.css']);
+        })
         .catch((error) => console.log(error));
 });
 

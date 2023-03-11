@@ -1,9 +1,9 @@
-import { navigationStore } from '.';
 import { scroller, tween } from '../../../mobbu';
 import { SmoothScroller } from '../../../mobbu/plugin';
 import { outerHeight } from '../../../mobbu/utils/vanillaFunction';
+import { navigationStore } from './navStore';
 
-export const navScroller = () => {
+export const navigationScoller = () => {
     const screenEl = document.querySelector('.l-navcontainer__wrap');
     const scrollerEl = document.querySelector('.l-navcontainer__scroll');
     const buttons = document.querySelectorAll('.l-navigation__item');
