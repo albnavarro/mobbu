@@ -18,34 +18,40 @@
     right: 0;
     background: $white;
     color: $black;
-    border-bottom: 1px $grey solid;
+    border-bottom: 1px $primary solid;
     z-index: 11;
-
-    &__container {
-        padding: 0 rem(20);
-    }
-
-    &__title,
-    &__subtitle {
-        color: $black;
-        display: inline-block;
-    }
 
     &__grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 'toggle title utils';
+        grid-template-columns: var(--header-height) 1fr auto;
         height: var(--header-height);
         align-items: center;
     }
 
-    &__col {
-        &--dx {
-            text-align: right;
-        }
+    &__toggle {
+        height: 100%;
+        width: var(--header-height);
+        grid-area: toggle;
+        background: $primary;
+        border: 0;
+    }
+
+    &__title {
+        color: $black;
+        display: inline-block;
+        grid-area: title;
+        padding-left: rem(20);
+    }
+
+    &__utils {
+        text-align: right;
+        padding-right: rem(20);
     }
 
     &__sidenav {
         list-style-type: none;
+        padding: 0;
 
         &__item {
             display: inline-block;

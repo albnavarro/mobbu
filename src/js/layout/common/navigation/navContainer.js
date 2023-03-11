@@ -1,33 +1,19 @@
 import { core } from '../../../mobbu';
 import { navigationStore } from './navStore';
 
-let isOpen = false;
+let root = {};
 
-/**
- * Add Open/Close handler
- */
-function addHandler({ root } = {}) {
-    const button = root.querySelector('.l-navcontainer__toggle');
+function closeNavigation() {
+    root.classList.remove('active');
+    document.body.style.overflow = '';
 
-    button.addEventListener('click', () => {
-        if (isOpen) {
-            root.classList.remove('active');
-            button.classList.remove('open');
-            document.body.style.overflow = '';
+    // Close all accordion item on navigation close.
+    navigationStore.emit('closeAllItems');
+}
 
-            // Close all accordion item on navigation close.
-            navigationStore.emit('closeAllItems');
-        } else {
-            root.classList.add('active');
-            button.classList.add('open');
-            document.body.style.overflow = 'hidden';
-
-            // Refresh scroller on open
-            navigationStore.emit('refreshScroller');
-        }
-
-        isOpen = !isOpen;
-    });
+function openNavigation() {
+    root.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 /**
@@ -42,9 +28,6 @@ export const navigationContainer = () => {
 
         const content = `
             <div class="l-navcontainer__side">
-                <button class="l-navcontainer__toggle">
-                    <span></span>
-                </button>
             </div>
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
@@ -64,9 +47,10 @@ export const navigationContainer = () => {
 
         core.useFrame(() => {
             component.parentNode.replaceChild(container, component);
-            const root = document.querySelector('.l-navcontainer');
-            addHandler({ root });
+            root = document.querySelector('.l-navcontainer');
             resolve({ hasContainer: true });
+            navigationStore.watch('openNavigation', openNavigation);
+            navigationStore.watch('closeNavigation', closeNavigation);
         });
     });
 };

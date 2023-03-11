@@ -37,8 +37,7 @@
 
         &:hover,
         &.active {
-            background: $black;
-            color: $white;
+            background: $secondary;
         }
 
         &--arrow {
@@ -68,12 +67,20 @@
                 }
             }
         }
+
+        &--submenu {
+            background: $secondary;
+
+            &:hover {
+                background: rgba($secondary, 0.3);
+            }
+        }
     }
 
     &__submenu {
         list-style-type: none;
         padding: 0;
-        background: rgba($black, 0.05);
+        background: rgba($white, 0.2);
         border-radius: rem(20);
 
         &__item {

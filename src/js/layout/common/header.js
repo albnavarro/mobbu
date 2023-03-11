@@ -1,5 +1,6 @@
 import data from '../../../data/header.json';
 import { core } from '../../mobbu';
+import { navigationStore } from './navigation/navStore';
 
 function getLinks() {
     const { links } = data;
@@ -27,13 +28,20 @@ function getTitle() {
     `;
 }
 
-function getSubtitle() {
-    const { subtitle } = data;
-    return `
-        <h2 class="l-header__subtitle">
-            ${subtitle}
-        </h2>
-    `;
+function addHandler({ button }) {
+    button.addEventListener('click', () => {
+        const { navigationIsOpen } = navigationStore.get('navigationIsOpen');
+
+        if (navigationIsOpen) {
+            button.classList.remove('open');
+            navigationStore.emit('closeNavigation');
+        } else {
+            button.classList.add('open');
+            navigationStore.emit('openNavigation');
+        }
+
+        navigationStore.set('navigationIsOpen', (state) => !state);
+    });
 }
 
 export const createHeader = () => {
@@ -42,15 +50,16 @@ export const createHeader = () => {
 
     const { homeUrl } = data;
     const content = `
-        <div class="container l-header__container">
+        <div class="l-header__container">
             <div class="l-header__grid">
-                <div class="l-header__col">
+                <button type="button" class="l-header__toggle">
+                </button>
+                <div class="l-header__title">
                     <a href="${homeUrl}">
                         ${getTitle()}
-                        ${getSubtitle()}
                     </a>
                 </div>
-                <div class="l-header__col l-header__col--dx">
+                <div class="l-header__utils">
                     <ul class="l-header__sidenav">
                         ${getLinks()}
                     </ul>
@@ -64,5 +73,7 @@ export const createHeader = () => {
     header.innerHTML = content;
     core.useFrame(() => {
         component.parentNode.replaceChild(header, component);
+        const toggle = document.querySelector('.l-header__toggle');
+        addHandler({ button: toggle });
     });
 };

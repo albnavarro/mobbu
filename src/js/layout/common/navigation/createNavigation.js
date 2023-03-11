@@ -11,7 +11,7 @@ function getSubmenu(items) {
 
             return `
             <li class="l-navigation__submenu__item">
-                <a class="l-navigation__link" href="${url}">
+                <a class="l-navigation__link l-navigation__link--submenu" href="${url}">
                     ${label}
                 </a>
             </li>
