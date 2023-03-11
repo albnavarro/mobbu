@@ -24,7 +24,7 @@
     }
 
     &__header {
-        margin-bottom: rem(20);
+        padding: rem(20);
     }
 
     &__wrap {
@@ -47,11 +47,11 @@
     }
 
     &__scroll {
-        padding: rem(20);
         background: $secondary-light-1;
+        padding-bottom: 20vh;
 
-        @include mq.mq('desktop') {
-            padding: rem(20) rem(20) 50vh rem(20);
+        @include mq.mq(tablet) {
+            padding-bottom: 50vh;
         }
     }
 

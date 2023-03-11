@@ -12,20 +12,20 @@ export const navigationScoller = () => {
      * Create scrollTrigger children.
      */
     const children = [...buttons].map((button) => {
-        const yOffset = window.innerHeight / 7;
+        const yOffset = window.innerHeight / 4;
         const buttonTween = tween.createScrollerTween({
-            from: { opacity: 0, y: yOffset, scale: 0.8 },
-            to: { opacity: 1, y: 0, scale: 1 },
+            from: { opacity: -0.8, y: yOffset },
+            to: { opacity: 1, y: 0 },
         });
 
-        buttonTween.subscribe(({ opacity, y, scale }) => {
+        buttonTween.subscribe(({ opacity, y }) => {
             button.style.opacity = opacity;
-            button.style.transform = `translate3D(0,0,0) translateY(${y}px) scale(${scale})`;
+            button.style.transform = `translate3D(0,0,0) translateY(${y}px)`;
         });
 
-        buttonTween.onStop(({ opacity, y, scale }) => {
+        buttonTween.onStop(({ opacity, y }) => {
             button.style.opacity = opacity;
-            button.style.transform = `translateY(${y}px) scale(${scale})`;
+            button.style.transform = `translateY(${y}px)`;
         });
 
         return scroller.createScrollTrigger({
@@ -36,7 +36,7 @@ export const navigationScoller = () => {
             dynamicEnd: {
                 position: 'bottom',
                 value: () => {
-                    return outerHeight(screenEl) / 3;
+                    return outerHeight(screenEl) / 2;
                 },
             },
         });

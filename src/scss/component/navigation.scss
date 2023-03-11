@@ -18,7 +18,7 @@
     }
 
     &__item {
-        margin-bottom: rem(10);
+        border-bottom: 1px $secondary solid;
     }
 
     &__link {
@@ -27,13 +27,12 @@
         padding: rem(5) rem(20);
         display: block;
         color: $black;
-        background: $white;
         transition: background 0.35s, color 0.35s, border-color 0.35s;
         width: 100%;
         text-align: left;
         position: relative;
-        border-radius: rem(20);
         border: 0;
+        background: $secondary-light-1;
 
         &:hover,
         &.active {
@@ -69,7 +68,19 @@
         }
 
         &--submenu {
+            padding-left: rem(30);
+            position: relative;
             background: $secondary;
+
+            &::before {
+                content: '';
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: rem(10);
+                position: absolute;
+                background: $white;
+            }
 
             &:hover {
                 background: rgba($secondary, 0.3);
@@ -81,17 +92,16 @@
         list-style-type: none;
         padding: 0;
         background: rgba($white, 0.2);
-        border-radius: rem(20);
 
         &__item {
-            margin: rem(10) rem(10) 0 rem(10);
+            border-bottom: 1px $secondary-light-1 solid;
 
             &:first-of-type {
-                margin-top: rem(10);
+                border-top: 1px $secondary-light-1 solid;
             }
 
             &:last-of-type {
-                margin-bottom: rem(10);
+                border-bottom: 0;
             }
         }
     }
