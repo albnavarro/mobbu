@@ -1,6 +1,6 @@
 import {
     addComponentToStore,
-    getPropsByElement,
+    getPropsById,
 } from '../../baseComponent/componentStore';
 import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
 
@@ -9,7 +9,8 @@ import { componentInizialiazator } from '../../baseComponent/componetInizizializ
  */
 function onClick(event) {
     const target = event.currentTarget;
-    const props = getPropsByElement({ element: target });
+    const { id } = target.dataset;
+    const props = getPropsById({ id: Number(id) });
     const { js, scss, html } = props;
     console.log(js, scss, html);
 }
@@ -17,7 +18,7 @@ function onClick(event) {
 /**
  * Add handler.
  */
-function addHandler(element) {
+function addHandler({ element }) {
     element.addEventListener('click', onClick);
 }
 
@@ -45,12 +46,13 @@ export const createCodeButton = ({ component = null }) => {
         type: 'button',
     });
 
-    addHandler(element);
-
-    addComponentToStore({
+    const index = addComponentToStore({
         element,
         props,
         destroy: () => destroyComponent({ idClass }),
-        isCancellable: false,
+        isCancellable: component.hasAttribute('data-cancellable'),
     });
+
+    element.dataset.id = index;
+    addHandler({ element });
 };

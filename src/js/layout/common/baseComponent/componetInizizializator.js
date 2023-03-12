@@ -12,6 +12,7 @@ export const componentInizialiazator = ({
     const { style } = component.dataset;
     const parentNode = component.parentNode;
     const idClass = `id-${getUnivoqueId()}`;
+    const prevContent = component.innerHTML;
 
     const root = document.createElement(type);
     root.classList.add(className);
@@ -23,7 +24,8 @@ export const componentInizialiazator = ({
     if (style) dom.classList.add(`${className}--${style}`);
 
     dom.insertAdjacentHTML('afterbegin', content);
+    dom.insertAdjacentHTML('beforeEnd', prevContent);
     const element = parentNode.querySelector(`.${idClass}`);
 
-    return { element, idClass, props: component.dataset };
+    return { element, idClass, props: { ...component.dataset } };
 };

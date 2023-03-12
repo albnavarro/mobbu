@@ -1,6 +1,6 @@
 import data from '../../../../data/header.json';
 import { core } from '../../../mobbu';
-import { createCodeButton } from '../component/code/codeButton';
+import { componentListCreate } from '../baseComponent/componentList';
 import { navigationStore } from '../navigation/navStore';
 
 function getLinks() {
@@ -84,8 +84,8 @@ export const createHeader = () => {
                     data-js="/js",
                     data-scss="/scss",
                     data-html="/html",
-                    data-style="primary"
-                ></component>
+                    data-style="primary">
+                </component>
             </div>
         </div>
 `;
@@ -99,10 +99,7 @@ export const createHeader = () => {
         const toggle = root.querySelector('.l-header__toggle');
         const navInfo = root.querySelector('.l-header__navinfo');
 
-        // Create CodeButton Component
-        const codeButton = root.querySelector(`[data-component="code_button"]`);
-        createCodeButton({ component: codeButton });
-        //
+        componentListCreate({ element: root });
 
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));

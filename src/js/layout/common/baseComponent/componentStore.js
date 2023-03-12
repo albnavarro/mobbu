@@ -69,11 +69,9 @@ export const addComponentToStore = ({
 /**
  * Get element by Dom instance
  */
-export const getPropsByElement = ({ element }) => {
+export const getPropsById = ({ id }) => {
     const { instances } = componentStore.get();
-    const { props } = instances.find(
-        ({ element: currentElement }) => currentElement === element
-    );
+    const { props } = instances.find(({ index }) => index === id);
 
     return props;
 };
