@@ -1,33 +1,6 @@
-import data from '../../../../data/header.json';
 import { core } from '../../../mobbu';
 import { componentListCreate } from '../baseComponent/componentList';
 import { navigationStore } from '../navigation/navStore';
-
-function getLinks() {
-    const { links } = data;
-
-    return links
-        .map((link) => {
-            const { label, url } = link;
-            return `
-                <li class="l-header__sidenav__item">
-                    <a href="${url}" class="l-header__sidenav__link">
-                        ${label}
-                    </a>
-                </li>
-            `;
-        })
-        .join('');
-}
-
-function getTitle() {
-    const { title } = data;
-    return `
-        <h1 class="l-header__title">
-            ${title}
-        </h1>
-    `;
-}
 
 function addHandler({ button }) {
     // Toggle button
@@ -54,45 +27,19 @@ function closeInfo({ navInfo }) {
     navInfo.classList.remove('open');
 }
 
-export const createHeader = () => {
+export const createHeader = async () => {
     const component = document.querySelector('[data-component="header"]');
     if (!component) return;
 
-    const { homeUrl } = data;
-    const content = `
-        <div class="l-header__container">
-            <div class="l-header__grid">
-                <button type="button" class="l-header__toggle">
-                </button>
-                <div class="l-header__title">
-                    <a href="${homeUrl}">
-                        ${getTitle()}
-                    </a>
-                </div>
-                <div class="l-header__utils">
-                    <ul class="l-header__sidenav">
-                        ${getLinks()}
-                    </ul>
-                </div>
-            </div>
-            <div class="l-header__navinfo">
-                <p class="p--small">
-                    Drag or Scroll
-                </p>
-                <component
-                    data-component="code_button"
-                    data-js="/js",
-                    data-scss="/scss",
-                    data-html="/html1",
-                    data-style="primary">
-                </component>
-            </div>
-        </div>
-`;
+    const content = await fetch('../partials/header.html')
+        .then((response) => response.text())
+        .then((html) => html)
+        .catch((err) => console.warn('Something went wrong.', err));
 
     const header = document.createElement('header');
     header.classList.add('l-header');
     header.innerHTML = content;
+
     core.useFrame(() => {
         component.parentNode.replaceChild(header, component);
         const root = document.querySelector('.l-header__container');
@@ -102,6 +49,9 @@ export const createHeader = () => {
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
         addHandler({ button: toggle });
 
+        /**
+         * Create child component
+         */
         componentListCreate({ element: root });
     });
 };

@@ -1,8 +1,10 @@
 import { createCodeButton } from '../component/code/codeButton';
+import { createHeaderNav } from '../component/headernav/headernav';
 import { cleanStoreComponent } from './componentStore';
 
 const componentRegistered = {
     code_button: createCodeButton,
+    header_nav: createHeaderNav,
 };
 
 /**

@@ -20,7 +20,7 @@ const ctx = await esbuild.context({
     plugins: [sassPlugin()],
 });
 
-bs.watch('./dist/**.html').on('change', bs.reload);
+bs.watch(['./dist/**/*.html', './dist/**/*.json']).on('change', bs.reload);
 
 bs.watch(['./src/js/**/*.js']).on('change', () => {
     ctx.rebuild()
