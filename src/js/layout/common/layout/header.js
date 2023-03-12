@@ -1,6 +1,6 @@
 import data from '../../../../data/header.json';
 import { core } from '../../../mobbu';
-import { createCodeButton } from '../code/codeButton';
+import { createCodeButton } from '../component/code/codeButton';
 import { navigationStore } from '../navigation/navStore';
 
 function getLinks() {

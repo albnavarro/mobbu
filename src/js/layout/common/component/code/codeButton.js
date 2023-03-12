@@ -1,8 +1,8 @@
 import {
     addComponentToStore,
     getPropsByElement,
-} from '../baseComponent/componentStore';
-import { componentInizialiazator } from '../baseComponent/componetInizizializator';
+} from '../../baseComponent/componentStore';
+import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
 
 /**
  * On click function.
