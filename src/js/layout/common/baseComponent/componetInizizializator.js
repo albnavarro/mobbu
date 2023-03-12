@@ -9,23 +9,21 @@ export const componentInizialiazator = ({
     content = '',
     type = 'div',
 }) => {
+    const id = getUnivoqueId();
     const { style } = component.dataset;
     const parentNode = component.parentNode;
-    const idClass = `id-${getUnivoqueId()}`;
     const prevContent = component.innerHTML;
 
     const root = document.createElement(type);
     root.classList.add(className);
-    root.classList.add(idClass);
+    root.dataset.id = id;
+    if (style) root.classList.add(`${className}--${style}`);
     parentNode.appendChild(root);
     parentNode.replaceChild(root, component);
-    const dom = parentNode.querySelector(`.${idClass}`);
+    const element = parentNode.querySelector(`[data-id=${id}]`);
 
-    if (style) dom.classList.add(`${className}--${style}`);
+    element.insertAdjacentHTML('afterbegin', content);
+    element.insertAdjacentHTML('beforeEnd', prevContent);
 
-    dom.insertAdjacentHTML('afterbegin', content);
-    dom.insertAdjacentHTML('beforeEnd', prevContent);
-    const element = parentNode.querySelector(`.${idClass}`);
-
-    return { element, idClass, props: { ...component.dataset } };
+    return { element, props: { ...component.dataset }, id };
 };

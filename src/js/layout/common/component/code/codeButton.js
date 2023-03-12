@@ -10,7 +10,7 @@ import { componentInizialiazator } from '../../baseComponent/componetInizizializ
 function onClick(event) {
     const target = event.currentTarget;
     const { id } = target.dataset;
-    const props = getPropsById({ id: Number(id) });
+    const props = getPropsById({ id });
     const { js, scss, html } = props;
     console.log(js, scss, html);
 }
@@ -39,20 +39,20 @@ function destroyComponent({ idClass }) {
 export const createCodeButton = ({ component = null }) => {
     if (!component) return;
 
-    const { element, idClass, props } = componentInizialiazator({
+    const { element, idClass, props, id } = componentInizialiazator({
         component,
         className: 'c-code-btn',
         content: '<span><></span>',
         type: 'button',
     });
 
-    const index = addComponentToStore({
+    addComponentToStore({
         element,
         props,
         destroy: () => destroyComponent({ idClass }),
         isCancellable: component.hasAttribute('data-cancellable'),
+        id,
     });
 
-    element.dataset.id = index;
     addHandler({ element });
 };

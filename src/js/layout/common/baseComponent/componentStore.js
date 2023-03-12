@@ -15,7 +15,7 @@ export const componentStore = core.createStore({
                     item?.destroy &&
                     item?.element &&
                     item?.props &&
-                    'index' in item
+                    'id' in item
             );
 
             if (!isValid) console.warn(`componentStore error on instances add`);
@@ -27,16 +27,12 @@ export const componentStore = core.createStore({
         type: Array,
         strict: true,
         validate: (val) => {
-            const isValid = val.every((item) => checkType(item, Number));
+            const isValid = val.every((item) => checkType(item, String));
 
             if (!isValid)
                 console.warn(`componentStore error on cancellabelInstance add`);
             return isValid;
         },
-    }),
-    index: () => ({
-        value: -1,
-        type: Number,
     }),
 });
 
@@ -48,22 +44,19 @@ export const addComponentToStore = ({
     props = {},
     destroy = null,
     isCancellable = false,
+    id = null,
 }) => {
-    componentStore.set('index', (prev) => prev + 1);
-    const { index } = componentStore.get();
-
     componentStore.set('instances', (prev) => {
-        return [...prev, { element, props, destroy, index }];
+        return [...prev, { element, props, destroy, id }];
     });
 
     if (isCancellable) {
         componentStore.set('cancellabelInstance', (prev) => {
-            return [...prev, index];
+            return [...prev, id];
         });
     }
 
     componentStore.debugStore();
-    return index;
 };
 
 /**
@@ -71,7 +64,7 @@ export const addComponentToStore = ({
  */
 export const getPropsById = ({ id }) => {
     const { instances } = componentStore.get();
-    const { props } = instances.find(({ index }) => index === id);
+    const { props } = instances.find(({ id: currentId }) => currentId === id);
 
     return props;
 };

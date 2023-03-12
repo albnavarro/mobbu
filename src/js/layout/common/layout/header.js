@@ -86,6 +86,13 @@ export const createHeader = () => {
                     data-html="/html",
                     data-style="primary">
                 </component>
+                <component
+                    data-component="code_button"
+                    data-js="/js",
+                    data-scss="/scss",
+                    data-html="/html2",
+                    data-style="primary">
+                </component>
             </div>
         </div>
 `;
