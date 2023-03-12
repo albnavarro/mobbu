@@ -1,5 +1,6 @@
 import data from '../../../../data/header.json';
 import { core } from '../../../mobbu';
+import { createCodeButton } from '../code/codeButton';
 import { navigationStore } from '../navigation/navStore';
 
 function getLinks() {
@@ -88,8 +89,18 @@ export const createHeader = () => {
     header.innerHTML = content;
     core.useFrame(() => {
         component.parentNode.replaceChild(header, component);
-        const toggle = document.querySelector('.l-header__toggle');
-        const navInfo = document.querySelector('.l-header__navinfo');
+        const root = document.querySelector('.l-header__container');
+        const toggle = root.querySelector('.l-header__toggle');
+        const navInfo = root.querySelector('.l-header__navinfo');
+
+        // Create CodeButton Component
+        const codeButton = root.querySelector(`[data-component="code_button"]`);
+        codeButton.dataset.js = '/testjs';
+        codeButton.dataset.scss = '/testscss';
+        codeButton.dataset.html = '/testhtml';
+        createCodeButton({ component: codeButton });
+        //
+
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
         addHandler({ button: toggle });
