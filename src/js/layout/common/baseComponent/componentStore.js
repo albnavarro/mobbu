@@ -57,6 +57,4 @@ export const removeComponentFromStore = ({ index = 0 }) => {
 /**
  * Remove component to store.
  */
-export const removeCancellableComponentFromStore = ({ index = 0 }) => {
-    console.log(index);
-};
+export const removeCancellableComponentFromStore = () => {};
