@@ -79,7 +79,13 @@ export const createHeader = () => {
                 <p class="p--small">
                     Drag or Scroll
                 </p>
-                <component data-component="code_button"></component>
+                <component
+                    data-component="code_button"
+                    data-js="/js",
+                    data-scss="/scss",
+                    data-html="/html",
+                    data-style="primary"
+                ></component>
             </div>
         </div>
 `;
@@ -95,10 +101,6 @@ export const createHeader = () => {
 
         // Create CodeButton Component
         const codeButton = root.querySelector(`[data-component="code_button"]`);
-        codeButton.dataset.js = '/testjs';
-        codeButton.dataset.scss = '/testscss';
-        codeButton.dataset.html = '/testhtml';
-        codeButton.dataset.style = 'primary';
         createCodeButton({ component: codeButton });
         //
 
