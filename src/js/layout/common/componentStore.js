@@ -44,6 +44,7 @@ export const addComponentToStore = ({
     }
 
     componentStore.debugStore();
+    return index;
 };
 
 /**

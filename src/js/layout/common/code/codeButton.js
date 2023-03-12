@@ -30,20 +30,23 @@ function createComponent({ component }) {
     const domButton = parentNode.querySelector(`.${idClass}`);
     addHandler(domButton);
 
-    return domButton;
+    return { idClass };
 }
 
-function destroyComponent({ domButton }) {
-    domButton.removeEventListener('click', onClick);
-    domButton.remove();
+function destroyComponent({ idClass }) {
+    const button = document.querySelector(`.${idClass}`);
+    if (!button) return;
+
+    button.removeEventListener('click', onClick);
+    button.remove();
 }
 
 export const createCodeButton = ({ component = {} }) => {
     if (!component) return;
-    const domButton = createComponent({ component });
+    const { idClass } = createComponent({ component });
 
     addComponentToStore({
-        destroy: () => destroyComponent({ domButton }),
+        destroy: () => destroyComponent({ idClass }),
         isCancellable: false,
     });
 };
