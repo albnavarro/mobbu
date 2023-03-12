@@ -1,0 +1,15 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-code-btn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+
+    &--primary {
+        background: $primary;
+        color: $white;
+    }
+}

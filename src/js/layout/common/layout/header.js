@@ -98,6 +98,7 @@ export const createHeader = () => {
         codeButton.dataset.js = '/testjs';
         codeButton.dataset.scss = '/testscss';
         codeButton.dataset.html = '/testhtml';
+        codeButton.dataset.style = 'primary';
         createCodeButton({ component: codeButton });
         //
 
