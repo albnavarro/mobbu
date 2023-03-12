@@ -25,8 +25,8 @@ function addHandler({ element }) {
 /**
  * Destroy function.
  */
-function destroyComponent({ idClass }) {
-    const button = document.querySelector(`.${idClass}`);
+function destroyComponent({ id }) {
+    const button = document.querySelector(`[data-id=${id}]`);
     if (!button) return;
 
     button.removeEventListener('click', onClick);
@@ -39,7 +39,7 @@ function destroyComponent({ idClass }) {
 export const createCodeButton = ({ component = null }) => {
     if (!component) return;
 
-    const { element, idClass, props, id } = componentInizialiazator({
+    const { element, props, id } = componentInizialiazator({
         component,
         className: 'c-code-btn',
         content: '<span><></span>',
@@ -47,9 +47,8 @@ export const createCodeButton = ({ component = null }) => {
     });
 
     addComponentToStore({
-        element,
         props,
-        destroy: () => destroyComponent({ idClass }),
+        destroy: () => destroyComponent({ id }),
         isCancellable: component.hasAttribute('data-cancellable'),
         id,
     });

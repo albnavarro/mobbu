@@ -11,11 +11,7 @@ export const componentStore = core.createStore({
         strict: true,
         validate: (val) => {
             const isValid = val.every(
-                (item) =>
-                    item?.destroy &&
-                    item?.element &&
-                    item?.props &&
-                    'id' in item
+                (item) => item?.destroy && item?.props && 'id' in item
             );
 
             if (!isValid) console.warn(`componentStore error on instances add`);
@@ -40,14 +36,13 @@ export const componentStore = core.createStore({
  * Add component to store.
  */
 export const addComponentToStore = ({
-    element = null,
     props = {},
     destroy = null,
     isCancellable = false,
     id = null,
 }) => {
     componentStore.set('instances', (prev) => {
-        return [...prev, { element, props, destroy, id }];
+        return [...prev, { props, destroy, id }];
     });
 
     if (isCancellable) {
