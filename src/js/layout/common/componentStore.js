@@ -14,7 +14,7 @@ export const componentStore = core.createStore({
         value: [],
         type: Array,
     }),
-    cancellable: () => ({
+    cancellabelInstance: () => ({
         value: [],
         type: Array,
     }),
@@ -38,7 +38,7 @@ export const addComponentToStore = ({
         return [...prev, { destroy, index }];
     });
     if (isCancellable) {
-        componentStore.set('cancellable', (prev) => {
+        componentStore.set('cancellabelInstance', (prev) => {
             return [...prev, index];
         });
     }

@@ -40,8 +40,8 @@ function destroyComponent({ domButton }) {
 
 export const createCodeButton = ({ component = {} }) => {
     if (!component) return;
-
     const domButton = createComponent({ component });
+
     addComponentToStore({
         destroy: () => destroyComponent({ domButton }),
         isCancellable: false,
