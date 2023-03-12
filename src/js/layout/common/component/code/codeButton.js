@@ -1,5 +1,6 @@
 import {
     addComponentToStore,
+    componentStore,
     getPropsById,
 } from '../../baseComponent/componentStore';
 import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
@@ -13,6 +14,7 @@ function onClick(event) {
     const props = getPropsById({ id });
     const { js, scss, html } = props;
     console.log(js, scss, html);
+    componentStore.debugStore();
 }
 
 /**
@@ -26,11 +28,11 @@ function addHandler({ element }) {
  * Destroy function.
  */
 function destroyComponent({ id }) {
-    const button = document.querySelector(`[data-id=${id}]`);
-    if (!button) return;
+    const element = document.querySelector(`[data-id=${id}]`);
+    if (!element) return;
 
-    button.removeEventListener('click', onClick);
-    button.remove();
+    element.removeEventListener('click', onClick);
+    element.remove();
 }
 
 /**
@@ -50,7 +52,7 @@ export const createCodeButton = ({ component = null }) => {
         element,
         props,
         destroy: () => destroyComponent({ id }),
-        isCancellable: component.hasAttribute('data-cancellable'),
+        cancellable: component.hasAttribute('data-cancellable'),
         id,
     });
 

@@ -84,8 +84,7 @@ export const createHeader = () => {
                     data-js="/js",
                     data-scss="/scss",
                     data-html="/html1",
-                    data-style="primary"
-                    >
+                    data-style="primary">
                 </component>
             </div>
         </div>

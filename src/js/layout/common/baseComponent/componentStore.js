@@ -1,5 +1,4 @@
 import { core } from '../../../mobbu';
-import { checkType } from '../../../mobbu/store/storeType';
 
 /**
  * Inizializa component store
@@ -15,22 +14,11 @@ export const componentStore = core.createStore({
                     item?.element &&
                     item?.destroy &&
                     item?.props &&
+                    'cancellable' in item &&
                     'id' in item
             );
 
             if (!isValid) console.warn(`componentStore error on instances add`);
-            return isValid;
-        },
-    }),
-    cancellabelInstance: () => ({
-        value: [],
-        type: Array,
-        strict: true,
-        validate: (val) => {
-            const isValid = val.every((item) => checkType(item, String));
-
-            if (!isValid)
-                console.warn(`componentStore error on cancellabelInstance add`);
             return isValid;
         },
     }),
@@ -43,20 +31,12 @@ export const addComponentToStore = ({
     element = {},
     props = {},
     destroy = null,
-    isCancellable = false,
+    cancellable = false,
     id = null,
 }) => {
     componentStore.set('instances', (prev) => {
-        return [...prev, { element, props, destroy, id }];
+        return [...prev, { element, props, destroy, id, cancellable }];
     });
-
-    if (isCancellable) {
-        componentStore.set('cancellabelInstance', (prev) => {
-            return [...prev, id];
-        });
-    }
-
-    componentStore.debugStore();
 };
 
 /**
@@ -75,12 +55,6 @@ export const getPropsById = ({ id }) => {
 export const cleanStoreComponent = () => {
     componentStore.set('instances', (prev) => {
         return prev.filter(({ id }) => {
-            return document.querySelector(`[data-id=${id}]`);
-        });
-    });
-
-    componentStore.set('cancellabelInstance', (prev) => {
-        return prev.filter((id) => {
             return document.querySelector(`[data-id=${id}]`);
         });
     });

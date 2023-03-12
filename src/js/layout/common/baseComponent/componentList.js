@@ -28,6 +28,7 @@ export const componentListCreate = ({ element = null }) => {
         if (!componentFn) return;
 
         componentFn({ component });
-        componentListCreate({ element });
     });
+
+    componentListCreate({ element });
 };
