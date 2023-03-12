@@ -1,22 +1,34 @@
 import { core } from '../../../mobbu';
+import { checkType } from '../../../mobbu/store/storeType';
 
 /**
- * instances: [{
- *   destroy: () => {},
- *   index: Number
- * ]
- * ...}
- *
- * active: [1,2,3,10]
+ * Inizializa component store
  */
 export const componentStore = core.createStore({
     instances: () => ({
         value: [],
         type: Array,
+        strict: true,
+        validate: (val) => {
+            const isValid = val.every(
+                (item) => item?.destroy && 'index' in item
+            );
+
+            if (!isValid) console.warn(`componentStore error on instances add`);
+            return isValid;
+        },
     }),
     cancellabelInstance: () => ({
         value: [],
         type: Array,
+        strict: true,
+        validate: (val) => {
+            const isValid = val.every((item) => checkType(item, Number));
+
+            if (!isValid)
+                console.warn(`componentStore error on cancellabelInstance add`);
+            return isValid;
+        },
     }),
     index: () => ({
         value: -1,
@@ -28,7 +40,7 @@ export const componentStore = core.createStore({
  * Add component to store.
  */
 export const addComponentToStore = ({
-    destroy = () => {},
+    destroy = null,
     isCancellable = false,
 }) => {
     componentStore.set('index', (prev) => prev + 1);
