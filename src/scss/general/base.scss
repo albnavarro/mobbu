@@ -88,5 +88,6 @@ main {
 }
 
 [data-component] {
-    background: $secondary;
+    background: $white;
+    border: 1px $grey solid;
 }

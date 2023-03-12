@@ -53,5 +53,9 @@ export const createHeader = async () => {
          * Create child component
          */
         componentListCreate({ element: root });
+
+        core.useNextFrame(() => {
+            root.classList.add('active');
+        });
     });
 };
