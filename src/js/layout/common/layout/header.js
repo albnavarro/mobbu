@@ -31,7 +31,7 @@ export const createHeader = async () => {
     const component = document.querySelector('[data-component="header"]');
     if (!component) return;
 
-    const content = await fetch('../partials/header.html')
+    const content = await fetch('../partials/layout/header.html')
         .then((response) => response.text())
         .then((html) => html)
         .catch((err) => console.warn('Something went wrong.', err));
