@@ -47,11 +47,6 @@ export const navigationContainer = () => {
             </div>
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
-                    <div class="l-navcontainer__header">
-                        <h2>
-                            Drag or Scroll
-                        </h2>
-                    </div>
                     <component data-component="navigation"></component>
                 </div>
             </div>
