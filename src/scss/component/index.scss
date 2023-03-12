@@ -1,2 +1,4 @@
-@forward 'navigation';
-@forward 'navigation-container';
+@forward './navigation/navigation';
+@forward './navigation/navigation-container';
+@forward './common/header';
+@forward './common/footer';

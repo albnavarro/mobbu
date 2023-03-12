@@ -1,5 +1,5 @@
-import { createFooter } from './commonPartials/footer';
-import { createHeader } from './commonPartials/header';
+import { createFooter } from './layout/footer';
+import { createHeader } from './layout/header';
 import { createNavigation } from './navigation';
 
 export const initCommonModules = () => {
