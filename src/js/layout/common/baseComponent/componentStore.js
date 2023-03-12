@@ -11,7 +11,11 @@ export const componentStore = core.createStore({
         strict: true,
         validate: (val) => {
             const isValid = val.every(
-                (item) => item?.destroy && 'index' in item
+                (item) =>
+                    item?.destroy &&
+                    item?.element &&
+                    item?.props &&
+                    'index' in item
             );
 
             if (!isValid) console.warn(`componentStore error on instances add`);
@@ -40,6 +44,8 @@ export const componentStore = core.createStore({
  * Add component to store.
  */
 export const addComponentToStore = ({
+    element = null,
+    props = {},
     destroy = null,
     isCancellable = false,
 }) => {
@@ -47,8 +53,9 @@ export const addComponentToStore = ({
     const { index } = componentStore.get();
 
     componentStore.set('instances', (prev) => {
-        return [...prev, { destroy, index }];
+        return [...prev, { element, props, destroy, index }];
     });
+
     if (isCancellable) {
         componentStore.set('cancellabelInstance', (prev) => {
             return [...prev, index];
@@ -57,6 +64,18 @@ export const addComponentToStore = ({
 
     componentStore.debugStore();
     return index;
+};
+
+/**
+ * Get element by Dom instance
+ */
+export const getPropsByElement = ({ element }) => {
+    const { instances } = componentStore.get();
+    const { props } = instances.find(
+        ({ element: currentElement }) => currentElement === element
+    );
+
+    return props;
 };
 
 /**

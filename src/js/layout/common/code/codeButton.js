@@ -1,43 +1,29 @@
-import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
-import { addComponentToStore } from '../baseComponent/componentStore';
+import {
+    addComponentToStore,
+    getPropsByElement,
+} from '../baseComponent/componentStore';
+import { componentInizialiazator } from '../baseComponent/componetInizizializator';
 
+/**
+ * On click function.
+ */
 function onClick(event) {
     const target = event.currentTarget;
-    const { js, scss, html } = target.dataset;
+    const props = getPropsByElement({ element: target });
+    const { js, scss, html } = props;
     console.log(js, scss, html);
 }
 
+/**
+ * Add handler.
+ */
 function addHandler(element) {
     element.addEventListener('click', onClick);
 }
 
-function createComponent({ component }) {
-    const parentNode = component.parentNode;
-    const idClass = `id-${getUnivoqueId()}`;
-
-    const button = document.createElement('button');
-    button.classList.add('c-code-btn');
-    button.classList.add(idClass);
-
-    const { js, scss, html, style } = component.dataset;
-    button.dataset.js = js ?? null;
-    button.dataset.scss = scss ?? null;
-    button.dataset.html = html ?? null;
-
-    parentNode.appendChild(button);
-    parentNode.replaceChild(button, component);
-
-    const domButton = parentNode.querySelector(`.${idClass}`);
-
-    if (style) domButton.classList.add(`c-code-btn--${style}`);
-
-    const innerContent = `<span><></span>`;
-    domButton.insertAdjacentHTML('afterbegin', innerContent);
-    addHandler(domButton);
-
-    return { idClass };
-}
-
+/**
+ * Destroy function.
+ */
 function destroyComponent({ idClass }) {
     const button = document.querySelector(`.${idClass}`);
     if (!button) return;
@@ -46,11 +32,24 @@ function destroyComponent({ idClass }) {
     button.remove();
 }
 
-export const createCodeButton = ({ component = {} }) => {
+/**
+ * Create component
+ */
+export const createCodeButton = ({ component = null }) => {
     if (!component) return;
-    const { idClass } = createComponent({ component });
+
+    const { element, idClass, props } = componentInizialiazator({
+        component,
+        className: 'c-code-btn',
+        content: '<span><></span>',
+        type: 'button',
+    });
+
+    addHandler(element);
 
     addComponentToStore({
+        element,
+        props,
         destroy: () => destroyComponent({ idClass }),
         isCancellable: false,
     });
