@@ -38,4 +38,5 @@ bs.watch(['./src/scss/**/*.scss']).on('change', () => {
 
 bs.init({
     server: './dist',
+    notify: false,
 });
