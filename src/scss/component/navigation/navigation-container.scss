@@ -68,6 +68,36 @@
         }
     }
 
+    &__totop {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: var(--footer-height);
+        border: 0;
+        background: rgba($primary, 0.8);
+        transform: translateY(50%);
+        padding: 0;
+        margin: 0;
+        transition: transform 0.55s;
+
+        @include when-inside('.active') {
+            transform: translateY(-50%);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: rem(10);
+            height: rem(10);
+            border-top: 2px $white solid;
+            border-right: 2px $white solid;
+        }
+    }
+
     &__percent {
         position: absolute;
         left: 100%;

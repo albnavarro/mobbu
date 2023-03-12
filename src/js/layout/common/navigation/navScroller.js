@@ -72,4 +72,5 @@ export const navigationScoller = () => {
     navigationStore.watch('closeNavigation', () => {
         percentEl.style.transform = `scaleX(0)`;
     });
+    navigationStore.watch('goToTop', () => navScroller.move(0));
 };

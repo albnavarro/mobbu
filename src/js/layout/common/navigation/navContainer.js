@@ -3,13 +3,12 @@ import { navigationStore } from './navStore';
 
 let root = {};
 let main = {};
+let toTopBtn = {};
 
 function closeNavigation() {
     root.classList.remove('active');
     main.classList.remove('shift');
     document.body.style.overflow = '';
-
-    // Close all accordion item on navigation close.
     navigationStore.emit('closeAllItems');
 }
 
@@ -17,7 +16,6 @@ function openNavigation() {
     root.classList.add('active');
     main.classList.add('shift');
     document.body.style.overflow = 'hidden';
-
     navigationStore.emit('refreshScroller');
 }
 
@@ -27,6 +25,11 @@ function addHandler() {
         if (!navigationIsOpen) return;
         navigationStore.set('navigationIsOpen', false);
         navigationStore.emit('closeNavigation');
+    });
+
+    toTopBtn.addEventListener('click', () => {
+        navigationStore.emit('closeAllItems');
+        navigationStore.emit('goToTop');
     });
 }
 
@@ -44,6 +47,7 @@ export const navigationContainer = () => {
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent">
                 </div>
+                <button class="l-navcontainer__totop"></button>
             </div>
             <div class="l-navcontainer__wrap">
                 <div class="l-navcontainer__scroll">
@@ -60,6 +64,7 @@ export const navigationContainer = () => {
             component.parentNode.replaceChild(container, component);
             root = document.querySelector('.l-navcontainer');
             main = document.querySelector('main.main');
+            toTopBtn = document.querySelector('.l-navcontainer__totop');
             navigationStore.watch('openNavigation', openNavigation);
             navigationStore.watch('closeNavigation', closeNavigation);
             addHandler();

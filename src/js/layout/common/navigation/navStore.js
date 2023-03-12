@@ -8,6 +8,7 @@ export const navigationStore = core.createStore({
     refreshScroller: () => {},
     openNavigation: () => {},
     closeNavigation: () => {},
+    goToTop: () => {},
     navigationIsOpen: () => ({
         value: false,
         type: Boolean,
