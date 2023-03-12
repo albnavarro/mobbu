@@ -47,6 +47,7 @@ export const createCodeButton = ({ component = null }) => {
     });
 
     addComponentToStore({
+        element,
         props,
         destroy: () => destroyComponent({ id }),
         isCancellable: component.hasAttribute('data-cancellable'),
