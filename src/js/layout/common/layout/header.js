@@ -83,15 +83,9 @@ export const createHeader = () => {
                     data-component="code_button"
                     data-js="/js",
                     data-scss="/scss",
-                    data-html="/html",
-                    data-style="primary">
-                    <component
-                        data-component="code_button"
-                        data-js="/js",
-                        data-scss="/scss",
-                        data-html="/html2",
-                        data-style="primary">
-                    </component>
+                    data-html="/html1",
+                    data-style="primary"
+                    >
                 </component>
             </div>
         </div>
@@ -105,11 +99,10 @@ export const createHeader = () => {
         const root = document.querySelector('.l-header__container');
         const toggle = root.querySelector('.l-header__toggle');
         const navInfo = root.querySelector('.l-header__navinfo');
-
-        componentListCreate({ element: root });
-
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
         addHandler({ button: toggle });
+
+        componentListCreate({ element: root });
     });
 };

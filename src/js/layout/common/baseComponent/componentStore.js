@@ -70,10 +70,27 @@ export const getPropsById = ({ id }) => {
 };
 
 /**
+ * Remove ghost component created when is innested.
+ */
+export const cleanStoreComponent = () => {
+    componentStore.set('instances', (prev) => {
+        return prev.filter(({ id }) => {
+            return document.querySelector(`[data-id=${id}]`);
+        });
+    });
+
+    componentStore.set('cancellabelInstance', (prev) => {
+        return prev.filter((id) => {
+            return document.querySelector(`[data-id=${id}]`);
+        });
+    });
+};
+
+/**
  * Remove component to store.
  */
-export const removeComponentFromStore = ({ index = 0 }) => {
-    console.log(index);
+export const removeComponentFromStore = ({ id = 0 }) => {
+    console.log(id);
 };
 
 /**

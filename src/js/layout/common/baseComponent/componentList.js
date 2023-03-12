@@ -1,4 +1,5 @@
 import { createCodeButton } from '../component/code/codeButton';
+import { cleanStoreComponent } from './componentStore';
 
 const componentRegistered = {
     code_button: createCodeButton,
@@ -12,14 +13,13 @@ export const componentListCreate = ({ element = null }) => {
 
     // check if there is some component
     const components = element.querySelectorAll('[data-component]');
-    if (components.length === 0) return;
+    if (components.length === 0) {
+        cleanStoreComponent();
+        return;
+    }
 
     // loop every component
-    [...components].reverse().forEach((component) => {
-        // If there is a child component skip for next recursive loop.
-        // const hasComponent = component.querySelector('[data-component]');
-        // if (hasComponent) return;
-
+    [...components].forEach((component) => {
         // get component name and run creation
         const key = component.dataset.component;
         const componentFn = componentRegistered?.[key];
@@ -28,5 +28,6 @@ export const componentListCreate = ({ element = null }) => {
         if (!componentFn) return;
 
         componentFn({ component });
+        componentListCreate({ element });
     });
 };
