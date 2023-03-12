@@ -29,6 +29,7 @@ function getTitle() {
 }
 
 function addHandler({ button }) {
+    // Toggle button
     button.addEventListener('click', () => {
         const { navigationIsOpen } = navigationStore.get('navigationIsOpen');
 
@@ -42,6 +43,14 @@ function addHandler({ button }) {
 
         navigationStore.set('navigationIsOpen', (state) => !state);
     });
+}
+
+function openInfo({ navInfo }) {
+    navInfo.classList.add('open');
+}
+
+function closeInfo({ navInfo }) {
+    navInfo.classList.remove('open');
 }
 
 export const createHeader = () => {
@@ -65,6 +74,12 @@ export const createHeader = () => {
                     </ul>
                 </div>
             </div>
+            <div class="l-header__navinfo">
+                <p class="p--small">
+                    Drag or Scroll
+                </p>
+                <component data-component="code_button"></component>
+            </div>
         </div>
 `;
 
@@ -74,6 +89,9 @@ export const createHeader = () => {
     core.useFrame(() => {
         component.parentNode.replaceChild(header, component);
         const toggle = document.querySelector('.l-header__toggle');
+        const navInfo = document.querySelector('.l-header__navinfo');
+        navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
+        navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
         addHandler({ button: toggle });
     });
 };
