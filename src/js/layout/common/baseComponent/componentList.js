@@ -1,10 +1,12 @@
 import { createCodeButton } from '../component/code/codeButton';
 import { createHeaderNav } from '../component/headernav/headernav';
+import { createTestComponent } from '../component/test/testComponent';
 import { cleanStoreComponent } from './componentStore';
 
 const componentRegistered = {
     code_button: createCodeButton,
     header_nav: createHeaderNav,
+    test_component: createTestComponent,
 };
 
 /**
@@ -26,8 +28,11 @@ export const componentListCreate = ({ element = null }) => {
         const key = component.dataset.component;
         const componentFn = componentRegistered?.[key];
 
-        // If component is no registered skip
-        if (!componentFn) return;
+        // If component is no registered remove to avoid infinite loop.
+        if (!componentFn) {
+            component.remove();
+            return;
+        }
 
         componentFn({ component });
     });

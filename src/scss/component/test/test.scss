@@ -1,0 +1,13 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-test-comp {
+    background: secondary;
+    border: 0;
+    height: rem(50);
+    width: rem(50);
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+}
