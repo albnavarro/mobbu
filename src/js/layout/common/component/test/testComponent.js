@@ -5,7 +5,7 @@ import {
     getStateById,
     setStateById,
 } from '../../baseComponent/componentStore';
-import { createComponent } from '../../baseComponent/componetInizizializator';
+import { createComponent } from '../../baseComponent/componentCreate';
 
 /**
  * On click function.

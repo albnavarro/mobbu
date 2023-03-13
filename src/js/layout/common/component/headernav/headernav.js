@@ -1,5 +1,5 @@
 import { registerComponent } from '../../baseComponent/componentStore';
-import { createComponent } from '../../baseComponent/componetInizizializator';
+import { createComponent } from '../../baseComponent/componentCreate';
 
 async function additems({ element, props }) {
     const { json } = props;
