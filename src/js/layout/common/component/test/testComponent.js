@@ -52,7 +52,7 @@ export const createTestComponent = ({ component = null }) => {
 
     const { element, props, id } = createComponent({
         component,
-        className: 'c-test-comp',
+        className: ['c-test-comp'],
         content: '',
         type: 'button',
     });

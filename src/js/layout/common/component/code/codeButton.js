@@ -33,6 +33,14 @@ function destroyComponent({ id }) {
     element.remove();
 }
 
+function addStyle({ style }, element) {
+    const className = {
+        primary: 'c-code-btn--primary',
+    };
+
+    element.classList.add(className?.[style]);
+}
+
 /**
  * Create component
  */
@@ -41,11 +49,12 @@ export const createCodeButton = ({ component = null }) => {
 
     const { element, props, id } = createComponent({
         component,
-        className: 'c-code-btn',
+        className: ['c-code-btn'],
         content: '<span><></span>',
         type: 'button',
     });
 
+    addStyle(props, element);
     addHandler({ element });
 
     registerComponent({
