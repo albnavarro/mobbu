@@ -2,6 +2,8 @@ import {
     addComponentToStore,
     componentStore,
     getPropsById,
+    getStateById,
+    setStateById,
 } from '../../baseComponent/componentStore';
 import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
 
@@ -11,9 +13,16 @@ import { componentInizialiazator } from '../../baseComponent/componetInizizializ
 function onClick(event) {
     const target = event.currentTarget;
     const { id } = target.dataset;
-    const props = getPropsById({ id });
+
+    /**
+     * TEST !
+     */
+    const props = getPropsById(id);
+    const { stato1, stato2 } = getStateById(id);
     const { js, scss, html } = props;
-    console.log(js, scss, html);
+    console.log('props', js, scss, html);
+    console.log('states', stato1, stato2);
+    setStateById(id, 'stato1', (prev) => prev + 1);
     componentStore.debugStore();
 }
 
@@ -48,13 +57,39 @@ export const createCodeButton = ({ component = null }) => {
         type: 'button',
     });
 
-    addComponentToStore({
+    addHandler({ element });
+
+    const { getProps, getState, setState, watch } = addComponentToStore({
+        component,
         element,
         props,
+        // Test !
+        state: {
+            stato1: () => ({
+                value: 0,
+                type: Number,
+            }),
+            stato2: () => ({
+                value: 0,
+                type: Number,
+            }),
+        },
+        //
         destroy: () => destroyComponent({ id }),
-        cancellable: component.hasAttribute('data-cancellable'),
         id,
     });
 
-    addHandler({ element });
+    /**
+     * TEST !
+     */
+    const { js, html } = getProps();
+    console.log('inital props:', js, html);
+    //
+    setState('stato1', 20);
+    const { stato1: stato1Test } = getState();
+    console.log('stato1Test:', stato1Test);
+    //
+    watch('stato1', (newVal, oldVal) => {
+        console.log('watch stato1', newVal, oldVal);
+    });
 };

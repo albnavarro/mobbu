@@ -38,10 +38,10 @@ export const createHeaderNav = ({ component = null }) => {
     });
 
     addComponentToStore({
+        component,
         element,
         props,
         destroy: () => () => {},
-        cancellable: component.hasAttribute('data-cancellable'),
         id,
     });
 
