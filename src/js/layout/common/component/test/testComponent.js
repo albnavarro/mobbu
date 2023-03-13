@@ -57,8 +57,6 @@ export const createTestComponent = ({ component = null }) => {
         type: 'button',
     });
 
-    addHandler({ element });
-
     const { getProps, getState, setState, watch } = addComponentToStore({
         component,
         element,
@@ -77,17 +75,19 @@ export const createTestComponent = ({ component = null }) => {
         id,
     });
 
+    addHandler({ element });
+
     /**
      * TEST !
      */
     const { test } = getProps();
-    console.log('inital props:', test);
-    //
-    setState('stato1', 20);
-    const { stato1: stato1Test } = getState();
-    console.log('stato1Test:', stato1Test);
-    //
-    watch('stato1', (newVal, oldVal) => {
-        console.log('watch stato1', newVal, oldVal);
-    });
+    console.log(test);
+    // // //
+    // setState('stato1', 20);
+    // const { stato1: stato1Test } = getState();
+    // console.log('stato1Test:', stato1Test);
+    // //
+    // watch('stato1', (newVal, oldVal) => {
+    //     console.log('watch stato1', newVal, oldVal);
+    // });
 };

@@ -10,10 +10,6 @@ import { componentInizialiazator } from '../../baseComponent/componetInizizializ
 function onClick(event) {
     const target = event.currentTarget;
     const { id } = target.dataset;
-
-    /**
-     * TEST !
-     */
     const props = getPropsById(id);
     const { js, scss, html } = props;
     console.log('props', js, scss, html);

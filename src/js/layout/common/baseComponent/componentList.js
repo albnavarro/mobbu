@@ -12,30 +12,25 @@ const componentRegistered = {
 /**
  * Create all component from DOM.
  */
-export const componentListCreate = ({ element = null }) => {
+export const componentListCreate = ({ element = null, index = 0 }) => {
     if (!element) return;
 
-    // check if there is some component
     const components = element.querySelectorAll('[data-component]');
-    if (components.length === 0) {
-        cleanStoreComponent();
-        return;
+
+    // if there is no component end.
+    if (components.length === 0) return;
+
+    const component = components[index];
+    const key = component?.dataset?.component;
+    const componentFn = componentRegistered?.[key];
+
+    // if component is not in list remove div component
+    if (!componentFn) {
+        component.remove();
+    } else {
+        componentFn({ component });
     }
 
-    // loop every component
-    [...components].forEach((component) => {
-        // get component name and run creation
-        const key = component.dataset.component;
-        const componentFn = componentRegistered?.[key];
-
-        // If component is no registered remove to avoid infinite loop.
-        if (!componentFn) {
-            component.remove();
-            return;
-        }
-
-        componentFn({ component });
-    });
-
-    componentListCreate({ element });
+    // Check for another component
+    componentListCreate({ element, index: index++ });
 };

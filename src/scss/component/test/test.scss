@@ -3,11 +3,13 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-test-comp {
-    background: secondary;
+    background: $secondary;
     border: 0;
     height: rem(50);
     width: rem(50);
     position: absolute;
     top: calc(100% + 1px);
     right: 0;
+    color: $white;
+    font-size: rem(13);
 }
