@@ -1,7 +1,6 @@
 import { createCodeButton } from '../component/code/codeButton';
 import { createHeaderNav } from '../component/headernav/headernav';
 import { createTestComponent } from '../component/test/testComponent';
-import { cleanStoreComponent } from './componentStore';
 
 const componentRegistered = {
     code_button: createCodeButton,
