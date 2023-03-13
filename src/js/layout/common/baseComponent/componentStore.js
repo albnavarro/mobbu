@@ -29,7 +29,7 @@ export const componentStore = core.createStore({
 /**
  * Add component to store.
  */
-export const addComponentToStore = ({
+export const registerComponent = ({
     element = {},
     component = {},
     props = {},
@@ -99,19 +99,6 @@ export const watchById = (id, prop, cb) => {
     const { state } = instances.find(({ id: currentId }) => currentId === id);
 
     state.watch(prop, cb);
-};
-
-/**
- * Remove ghost component created when is innested.
- */
-export const cleanStoreComponent = () => {
-    //TODO fire destroy, destroy store,
-    //Fare un filter al contrario e usare removeComponentFromStore()
-    componentStore.set('instances', (prev) => {
-        return prev.filter(({ id }) => {
-            return document.querySelector(`[data-id=${id}]`);
-        });
-    });
 };
 
 /**

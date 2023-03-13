@@ -11,7 +11,7 @@ const componentRegistered = {
 /**
  * Create all component from DOM.
  */
-export const componentListCreate = ({ element = null, index = 0 }) => {
+export const parseComponents = ({ element = null, index = 0 }) => {
     if (!element) return;
 
     const components = element.querySelectorAll('[data-component]');
@@ -31,5 +31,5 @@ export const componentListCreate = ({ element = null, index = 0 }) => {
     }
 
     // Check for another component
-    componentListCreate({ element, index: index++ });
+    parseComponents({ element, index: index++ });
 };

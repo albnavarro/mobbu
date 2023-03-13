@@ -1,5 +1,5 @@
-import { addComponentToStore } from '../../baseComponent/componentStore';
-import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
+import { registerComponent } from '../../baseComponent/componentStore';
+import { createComponent } from '../../baseComponent/componetInizizializator';
 
 async function additems({ element, props }) {
     const { json } = props;
@@ -30,14 +30,14 @@ async function additems({ element, props }) {
 export const createHeaderNav = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = componentInizialiazator({
+    const { element, props, id } = createComponent({
         component,
         className: 'l-header__sidenav',
         content: '',
         type: 'ul',
     });
 
-    addComponentToStore({
+    registerComponent({
         component,
         element,
         props,

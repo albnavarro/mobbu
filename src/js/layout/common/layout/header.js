@@ -1,5 +1,5 @@
 import { core } from '../../../mobbu';
-import { componentListCreate } from '../baseComponent/componentList';
+import { parseComponents } from '../baseComponent/componentList';
 import { navigationStore } from '../navigation/navStore';
 
 function addHandler({ button }) {
@@ -52,7 +52,7 @@ export const createHeader = async () => {
         /**
          * Create child component
          */
-        componentListCreate({ element: root });
+        parseComponents({ element: root });
 
         core.useNextFrame(() => {
             root.classList.add('active');

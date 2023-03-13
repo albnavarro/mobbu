@@ -1,11 +1,11 @@
 import {
-    addComponentToStore,
+    registerComponent,
     componentStore,
     getPropsById,
     getStateById,
     setStateById,
 } from '../../baseComponent/componentStore';
-import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
+import { createComponent } from '../../baseComponent/componetInizizializator';
 
 /**
  * On click function.
@@ -50,14 +50,14 @@ function destroyComponent({ id }) {
 export const createTestComponent = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = componentInizialiazator({
+    const { element, props, id } = createComponent({
         component,
         className: 'c-test-comp',
         content: '',
         type: 'button',
     });
 
-    const { getProps, getState, setState, watch } = addComponentToStore({
+    const { getProps, getState, setState, watch } = registerComponent({
         component,
         element,
         props,

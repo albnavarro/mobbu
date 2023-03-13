@@ -3,7 +3,7 @@ import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 /**
  *  Create base DOM component from component tag.
  */
-export const componentInizialiazator = ({
+export const createComponent = ({
     component,
     className,
     content = '',

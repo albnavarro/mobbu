@@ -1,8 +1,8 @@
 import {
-    addComponentToStore,
+    registerComponent,
     getPropsById,
 } from '../../baseComponent/componentStore';
-import { componentInizialiazator } from '../../baseComponent/componetInizizializator';
+import { createComponent } from '../../baseComponent/componetInizizializator';
 
 /**
  * On click function.
@@ -39,7 +39,7 @@ function destroyComponent({ id }) {
 export const createCodeButton = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = componentInizialiazator({
+    const { element, props, id } = createComponent({
         component,
         className: 'c-code-btn',
         content: '<span><></span>',
@@ -48,7 +48,7 @@ export const createCodeButton = ({ component = null }) => {
 
     addHandler({ element });
 
-    addComponentToStore({
+    registerComponent({
         component,
         element,
         props,
