@@ -16,7 +16,7 @@ export const convertComponent = ({
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
     const root = document.createElement(type);
-    // root.setAttribute(IS_COMPONENT, component.dataset.component);
+    root.setAttribute(IS_COMPONENT, component.dataset.component);
 
     /**
      * Add main class
