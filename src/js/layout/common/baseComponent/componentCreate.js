@@ -1,6 +1,7 @@
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { checkType } from '../../../mobbu/store/storeType';
 import { registerComponent, setDestroyCallback } from './componentStore';
+import { getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
 
 /**
@@ -15,13 +16,16 @@ export const convertComponent = ({
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
     const root = document.createElement(type);
-    root.setAttribute(IS_COMPONENT, component.dataset.component);
+    // root.setAttribute(IS_COMPONENT, component.dataset.component);
 
     /**
      * Add main class
      */
     const classParsed = checkType(Array, className) ? className : [className];
     classParsed.forEach((item) => root.classList.add(item));
+
+    const propsId = component.dataset.props;
+    const propsFromParent = getPropsFromParent(propsId);
 
     /**
      * Add element to DOM
@@ -42,7 +46,10 @@ export const convertComponent = ({
     element.insertAdjacentHTML('afterbegin', content);
     element.insertAdjacentHTML('beforeEnd', prevContent);
 
-    return { element, props: { ...component.dataset }, id };
+    const baseProps = { ...component.dataset };
+    delete baseProps.props;
+
+    return { element, props: { ...baseProps, ...propsFromParent }, id };
 };
 
 /**

@@ -1,6 +1,7 @@
 import { createCodeButton } from '../component/code/codeButton';
 import { createHeaderNav } from '../component/headernav/headernav';
 import { createTestComponent } from '../component/test/testComponent';
+import { createTestComponent2 } from '../component/test/testComponent2';
 import { setParentsComponent } from './componentStore';
 import { WILL_COMPONENT } from './utils';
 
@@ -8,6 +9,7 @@ const componentRegistered = {
     code_button: createCodeButton,
     header_nav: createHeaderNav,
     test_component: createTestComponent,
+    test_component_2: createTestComponent2,
 };
 
 /**

@@ -5,6 +5,7 @@ import {
     getPropsById,
 } from '../../baseComponent/componentStore';
 import { createComponent } from '../../baseComponent/componentCreate';
+import { createProps, mainStore } from '../../baseComponent/mainStore';
 
 /**
  * On click function.
@@ -21,6 +22,8 @@ function onClick(event) {
     console.log('-----');
     console.log('Debug main componentStore:');
     componentStore.debugStore();
+    console.log('Debug props mainStore:');
+    mainStore.debugStore();
     console.log('-----');
 }
 
@@ -107,8 +110,20 @@ export const createTestComponent = ({ component = null }) => {
         getPropsById,
     });
 
-    const { test } = getProps();
     addHandler({ element });
-    render(`<span>${test}</span>`);
+
+    const { test } = getProps();
+    const childProps = createProps({
+        jsProps: () => {
+            const { stato1 } = getState();
+            return stato1;
+        },
+    });
+
+    render(`
+        <span>${test}</span>
+        <component data-props="${childProps}" data-component="test_component_2">
+        </component>
+    `);
     destroy(() => destroyComponent({ id }));
 };
