@@ -62,6 +62,8 @@ export const convertComponent = ({
  * In case use watchById (parent) etc.. is useful, because the parent exist.
  *
  * Each group of element by depth is render in sequence.
+ *
+ * Use a setTimeout for degub to check time loading by element depth.
  */
 export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
@@ -98,17 +100,15 @@ export const createComponent = async ({
             id,
         });
 
-    return new Promise((resolve) => {
-        resolve({
-            id,
-            element,
-            getParentId,
-            getProps,
-            getState,
-            setState,
-            watch,
-            render: (content) => addContent({ element, content }),
-            destroy: (cb) => setDestroyCallback({ cb, id }),
-        });
-    });
+    return {
+        id,
+        element,
+        getParentId,
+        getProps,
+        getState,
+        setState,
+        watch,
+        render: (content) => addContent({ element, content }),
+        destroy: (cb) => setDestroyCallback({ cb, id }),
+    };
 };
