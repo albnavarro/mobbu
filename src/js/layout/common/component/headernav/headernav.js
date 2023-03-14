@@ -26,10 +26,10 @@ async function additems({ element, props }) {
 /**
  * Create component
  */
-export const createHeaderNav = ({ component = null }) => {
+export const createHeaderNav = async ({ component = null }) => {
     if (!component) return;
 
-    const { element, getProps } = createComponent({
+    const { element, getProps } = await createComponent({
         component,
         className: 'l-header__sidenav',
         type: 'ul',

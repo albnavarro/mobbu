@@ -72,7 +72,7 @@ function utilsTest({
 /**
  * Create component
  */
-export const createTestComponent = ({ component = null }) => {
+export const createTestComponent = async ({ component = null }) => {
     if (!component) return;
 
     const {
@@ -85,7 +85,7 @@ export const createTestComponent = ({ component = null }) => {
         getState,
         setState,
         watch,
-    } = createComponent({
+    } = await createComponent({
         component,
         className: ['c-test-comp'],
         type: 'button',

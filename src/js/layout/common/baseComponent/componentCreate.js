@@ -1,5 +1,6 @@
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { checkType } from '../../../mobbu/store/storeType';
+import { parseComponents } from './componentList';
 import { registerComponent, setDestroyCallback } from './componentStore';
 import { getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
@@ -57,6 +58,7 @@ export const convertComponent = ({
  */
 const addContent = ({ element, content }) => {
     element.insertAdjacentHTML('afterbegin', content);
+    parseComponents({ element });
 };
 
 /**
@@ -84,15 +86,17 @@ export const createComponent = ({
             id,
         });
 
-    return {
-        id,
-        element,
-        getParentId,
-        getProps,
-        getState,
-        setState,
-        watch,
-        render: (content) => addContent({ element, content }),
-        destroy: (cb) => setDestroyCallback({ cb, id }),
-    };
+    return new Promise((resolve) => {
+        resolve({
+            id,
+            element,
+            getParentId,
+            getProps,
+            getState,
+            setState,
+            watch,
+            render: (content) => addContent({ element, content }),
+            destroy: (cb) => setDestroyCallback({ cb, id }),
+        });
+    });
 };
