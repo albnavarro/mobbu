@@ -54,7 +54,9 @@ export const convertComponent = ({
 };
 
 /**
- * Addd content to component
+ * Add content to component
+ * The render is performed ater the promise.
+ * So is necessary rescan the dom for other component
  */
 const addContent = ({ element, content }) => {
     element.insertAdjacentHTML('afterbegin', content);

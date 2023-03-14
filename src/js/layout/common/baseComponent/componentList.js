@@ -18,15 +18,20 @@ const componentRegistered = {
 export const parseComponents = ({ element = null, index = 0 }) => {
     if (!element) return;
 
-    const components = element.querySelectorAll(`[${WILL_COMPONENT}]`);
+    /**
+     * Get the first data-component element.
+     * So after we cna render the child component.
+     */
+    const component = element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (components.length === 0) {
+    if (!component) {
         setParentsComponent();
         return;
     }
 
-    const component = components[index];
+    // const component = components[index];
+
     const key = component?.dataset?.component;
     const componentFn = componentRegistered?.[key];
 
