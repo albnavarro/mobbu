@@ -21,6 +21,8 @@ export const parseComponents = ({ element = null, index = 0 }) => {
     /**
      * Get the first data-component element.
      * So after we cna render the child component.
+     * render components form top to botton so we are shure that child component
+     * can watch parent
      */
     const component = element.querySelector(`[${WILL_COMPONENT}]`);
 
@@ -29,8 +31,6 @@ export const parseComponents = ({ element = null, index = 0 }) => {
         setParentsComponent();
         return;
     }
-
-    // const component = components[index];
 
     const key = component?.dataset?.component;
     const componentFn = componentRegistered?.[key];

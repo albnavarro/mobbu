@@ -1,3 +1,4 @@
+import { core } from '../../../mobbu';
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { checkType } from '../../../mobbu/store/storeType';
 import { parseComponents } from './componentList';
@@ -55,18 +56,27 @@ export const convertComponent = ({
 
 /**
  * Add content to component
- * The render is performed ater the promise.
- * So is necessary rescan the dom for other component
+ *
+ * parseComponent is fire next frame:
+ * We are scure that children is render after the parent.
+ * In case use watchById (parent) etc.. is useful, because the parent exist.
+ *
+ * Each group of element by depth is render in sequence.
  */
-const addContent = ({ element, content }) => {
-    element.insertAdjacentHTML('afterbegin', content);
-    parseComponents({ element });
+export const addContent = ({ element, content }) => {
+    return new Promise((resolve) => {
+        core.useFrame(() => {
+            element.insertAdjacentHTML('afterbegin', content);
+            parseComponents({ element });
+            resolve();
+        });
+    });
 };
 
 /**
  * Create component
  */
-export const createComponent = ({
+export const createComponent = async ({
     component,
     className = '',
     type = 'div',

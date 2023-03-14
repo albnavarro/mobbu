@@ -44,7 +44,7 @@ function addStyle({ style, element }) {
 export const createCodeButton = async ({ component = null }) => {
     if (!component) return;
 
-    const { id, render, destroy, getProps, element } = await createComponent({
+    const { id, destroy, getProps, element, render } = await createComponent({
         component,
         className: ['c-code-btn'],
         type: 'button',
@@ -53,7 +53,9 @@ export const createCodeButton = async ({ component = null }) => {
     const { style } = getProps();
     addStyle({ style, element });
     addHandler({ element });
-
-    render('<span><></span>');
     destroy(() => destroyComponent({ id }));
+
+    await render(`
+        <span><></span>
+    `);
 };

@@ -77,7 +77,6 @@ export const createTestComponent = async ({ component = null }) => {
 
     const {
         element,
-        render,
         destroy,
         id,
         getParentId,
@@ -85,6 +84,7 @@ export const createTestComponent = async ({ component = null }) => {
         getState,
         setState,
         watch,
+        render,
     } = await createComponent({
         component,
         className: ['c-test-comp'],
@@ -120,10 +120,11 @@ export const createTestComponent = async ({ component = null }) => {
         },
     });
 
-    render(`
+    destroy(() => destroyComponent({ id }));
+
+    await render(`
         <span>${test}</span>
         <component data-props="${childProps}" data-component="test_component_2">
         </component>
     `);
-    destroy(() => destroyComponent({ id }));
 };

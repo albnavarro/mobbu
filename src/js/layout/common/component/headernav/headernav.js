@@ -29,11 +29,13 @@ async function additems({ element, props }) {
 export const createHeaderNav = async ({ component = null }) => {
     if (!component) return;
 
-    const { element, getProps } = await createComponent({
+    const { element, getProps, render } = await createComponent({
         component,
         className: 'l-header__sidenav',
         type: 'ul',
     });
 
     additems({ element, props: getProps() });
+
+    await render(``);
 };
