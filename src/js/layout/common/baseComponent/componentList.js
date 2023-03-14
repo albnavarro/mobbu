@@ -1,6 +1,8 @@
 import { createCodeButton } from '../component/code/codeButton';
 import { createHeaderNav } from '../component/headernav/headernav';
 import { createTestComponent } from '../component/test/testComponent';
+import { setParentsComponent } from './componentStore';
+import { WILL_COMPONENT } from './utils';
 
 const componentRegistered = {
     code_button: createCodeButton,
@@ -14,10 +16,13 @@ const componentRegistered = {
 export const parseComponents = ({ element = null, index = 0 }) => {
     if (!element) return;
 
-    const components = element.querySelectorAll('[data-component]');
+    const components = element.querySelectorAll(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (components.length === 0) return;
+    if (components.length === 0) {
+        setParentsComponent();
+        return;
+    }
 
     const component = components[index];
     const key = component?.dataset?.component;

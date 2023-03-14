@@ -1,7 +1,4 @@
-import {
-    registerComponent,
-    getPropsById,
-} from '../../baseComponent/componentStore';
+import { getPropsById } from '../../baseComponent/componentStore';
 import { createComponent } from '../../baseComponent/componentCreate';
 
 /**
@@ -9,7 +6,7 @@ import { createComponent } from '../../baseComponent/componentCreate';
  */
 function onClick(event) {
     const target = event.currentTarget;
-    const { id } = target.dataset;
+    const id = target.id;
     const props = getPropsById(id);
     const { js, scss, html } = props;
     console.log('props', js, scss, html);
@@ -26,14 +23,14 @@ function addHandler({ element }) {
  * Destroy function.
  */
 function destroyComponent({ id }) {
-    const element = document.querySelector(`[data-id=${id}]`);
+    const element = document.querySelector(`#${id}`);
     if (!element) return;
 
     element.removeEventListener('click', onClick);
     element.remove();
 }
 
-function addStyle({ style }, element) {
+function addStyle({ style, element }) {
     const className = {
         primary: 'c-code-btn--primary',
     };
@@ -47,21 +44,16 @@ function addStyle({ style }, element) {
 export const createCodeButton = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = createComponent({
+    const { id, render, destroy, getProps, element } = createComponent({
         component,
         className: ['c-code-btn'],
-        content: '<span><></span>',
         type: 'button',
     });
 
-    addStyle(props, element);
+    const { style } = getProps();
+    addStyle({ style, element });
     addHandler({ element });
 
-    registerComponent({
-        component,
-        element,
-        props,
-        destroy: () => destroyComponent({ id }),
-        id,
-    });
+    render('<span><></span>');
+    destroy(() => destroyComponent({ id }));
 };

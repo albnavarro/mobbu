@@ -1,4 +1,5 @@
 import { core } from '../../../mobbu';
+import { IS_CANCELLABLE, IS_COMPONENT } from './utils';
 
 /**
  * Inizializa component store
@@ -16,6 +17,7 @@ export const componentStore = core.createStore({
                     item?.destroy &&
                     item?.props &&
                     item?.state &&
+                    'parentId' in item &&
                     'cancellable' in item &&
                     'id' in item
             );
@@ -47,7 +49,8 @@ export const registerComponent = ({
                 props,
                 destroy,
                 id,
-                cancellable: component.hasAttribute('data-cancellable'),
+                parentId: null,
+                cancellable: component.hasAttribute(IS_CANCELLABLE),
                 state: store,
             },
         ];
@@ -58,6 +61,7 @@ export const registerComponent = ({
         getState: () => store.get(),
         setState: (prop, value) => store.set(prop, value),
         watch: (prop, cb) => store.watch(prop, cb),
+        getParentId: () => getParentIdById(id),
     };
 };
 
@@ -65,6 +69,8 @@ export const registerComponent = ({
  * Get element by Dom instance
  */
 export const getPropsById = (id) => {
+    if (!id) return null;
+
     const { instances } = componentStore.get();
     const { props } = instances.find(({ id: currentId }) => currentId === id);
 
@@ -75,6 +81,8 @@ export const getPropsById = (id) => {
  * Get state
  */
 export const getStateById = (id) => {
+    if (!id) return null;
+
     const { instances } = componentStore.get();
     const { state } = instances.find(({ id: currentId }) => currentId === id);
 
@@ -85,6 +93,8 @@ export const getStateById = (id) => {
  * Set state
  */
 export const setStateById = (id, prop, value) => {
+    if (!id && !prop && !value) return;
+
     const { instances } = componentStore.get();
     const { state } = instances.find(({ id: currentId }) => currentId === id);
 
@@ -95,6 +105,8 @@ export const setStateById = (id, prop, value) => {
  * Watch state
  */
 export const watchById = (id, prop, cb) => {
+    if (!id && !prop && !cb) return;
+
     const { instances } = componentStore.get();
     const { state } = instances.find(({ id: currentId }) => currentId === id);
 
@@ -102,11 +114,31 @@ export const watchById = (id, prop, cb) => {
 };
 
 /**
+ * get parent id By id
+ */
+export const getParentIdById = (id) => {
+    if (!id) return null;
+
+    const { instances } = componentStore.get();
+    const { parentId } = instances.find(({ id: currentId }) => {
+        return currentId === id;
+    });
+
+    return parentId;
+};
+
+/**
+ * Remove with no reference to DOM.
+ */
+export const removeGhostComponent = () => {};
+
+/**
  * Remove component to store.
  */
-export const removeComponentFromStore = ({ id = null }) => {
+export const removeComponentFromStore = () => {
     // Run destroy function
     // Destroy store
+    // Remove parentId reference where used
     // Remove item from global store
 };
 
@@ -115,4 +147,38 @@ export const removeComponentFromStore = ({ id = null }) => {
  */
 export const removeCancellableComponentFromStore = () => {
     // Call removeComponentFromStore for each component cacellable
+};
+
+/**
+ * Set a reference to parent component id for each component.
+ */
+export const setParentsComponent = () => {
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { element, parentId } = current;
+            const parent = element.parentNode.closest(`[${IS_COMPONENT}]`);
+
+            // Assign is if existe a parent component and current parentId is null
+            return parent && !parentId
+                ? [...previous, { ...current, ...{ parentId: parent.id } }]
+                : [...previous, current];
+        }, []);
+    });
+};
+
+/**
+ * Update deestroy call back by id.
+ */
+export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
+    if (!id) return;
+
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { id: currentId } = current;
+
+            return id === currentId
+                ? [...previous, { ...current, ...{ destroy: cb } }]
+                : [...previous, current];
+        }, []);
+    });
 };

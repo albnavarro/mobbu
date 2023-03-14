@@ -22,5 +22,10 @@
         >
         </component>
     </div>
-    <component data-component="test_component" data-test="1"> test </component>
+    <component data-component="test_component" data-test="instance 1">
+        <component data-component="test_component" data-test="instance 2">
+            <component data-component="test_component" data-test="instance 3">
+            </component>
+        </component>
+    </component>
 </div>

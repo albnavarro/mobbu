@@ -1,9 +1,8 @@
 import {
-    registerComponent,
     componentStore,
-    getPropsById,
-    getStateById,
     setStateById,
+    getParentIdById,
+    getPropsById,
 } from '../../baseComponent/componentStore';
 import { createComponent } from '../../baseComponent/componentCreate';
 
@@ -12,18 +11,17 @@ import { createComponent } from '../../baseComponent/componentCreate';
  */
 function onClick(event) {
     const target = event.currentTarget;
-    const { id } = target.dataset;
+    const id = target.id;
 
     /**
      * TEST !
      */
-    const props = getPropsById(id);
-    const { stato1, stato2 } = getStateById(id);
-    const { test } = props;
-    console.log('props', test);
-    console.log('states', stato1, stato2);
+    console.log('click parentId:', getParentIdById(id));
     setStateById(id, 'stato1', (prev) => prev + 1);
+    console.log('-----');
+    console.log('Debug main componentStore:');
     componentStore.debugStore();
+    console.log('-----');
 }
 
 /**
@@ -44,23 +42,50 @@ function destroyComponent({ id }) {
     element.remove();
 }
 
+function utilsTest({
+    getProps,
+    setState,
+    getState,
+    watch,
+    getParentId,
+    getPropsById,
+}) {
+    const { test } = getProps();
+    console.log('props', test);
+    setState('stato1', 20);
+    const { stato1: stato1Test } = getState();
+    console.log('init stato1 after setState:', stato1Test);
+    watch('stato1', (newVal, oldVal) => {
+        console.log('watch print stato1', newVal, oldVal);
+
+        const parentId = getParentId();
+        console.log('watch print parentId', parentId);
+
+        const parentProps = getPropsById(parentId);
+        console.log('watch print parent props', parentProps);
+    });
+}
+
 /**
  * Create component
  */
 export const createTestComponent = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = createComponent({
+    const {
+        element,
+        render,
+        destroy,
+        id,
+        getParentId,
+        getProps,
+        getState,
+        setState,
+        watch,
+    } = createComponent({
         component,
         className: ['c-test-comp'],
-        content: '',
         type: 'button',
-    });
-
-    const { getProps, getState, setState, watch } = registerComponent({
-        component,
-        element,
-        props,
         state: {
             stato1: () => ({
                 value: 0,
@@ -71,23 +96,19 @@ export const createTestComponent = ({ component = null }) => {
                 type: Number,
             }),
         },
-        destroy: () => destroyComponent({ id }),
-        id,
     });
 
-    addHandler({ element });
+    utilsTest({
+        getProps,
+        setState,
+        getState,
+        watch,
+        getParentId,
+        getPropsById,
+    });
 
-    /**
-     * TEST !
-     */
     const { test } = getProps();
-    console.log(test);
-    // // //
-    // setState('stato1', 20);
-    // const { stato1: stato1Test } = getState();
-    // console.log('stato1Test:', stato1Test);
-    // //
-    // watch('stato1', (newVal, oldVal) => {
-    //     console.log('watch stato1', newVal, oldVal);
-    // });
+    addHandler({ element });
+    render(`<span>${test}</span>`);
+    destroy(() => destroyComponent({ id }));
 };

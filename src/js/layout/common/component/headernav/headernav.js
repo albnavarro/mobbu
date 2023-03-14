@@ -1,4 +1,3 @@
-import { registerComponent } from '../../baseComponent/componentStore';
 import { createComponent } from '../../baseComponent/componentCreate';
 
 async function additems({ element, props }) {
@@ -30,20 +29,11 @@ async function additems({ element, props }) {
 export const createHeaderNav = ({ component = null }) => {
     if (!component) return;
 
-    const { element, props, id } = createComponent({
+    const { element, getProps } = createComponent({
         component,
         className: 'l-header__sidenav',
-        content: '',
         type: 'ul',
     });
 
-    registerComponent({
-        component,
-        element,
-        props,
-        destroy: () => () => {},
-        id,
-    });
-
-    additems({ element, props });
+    additems({ element, props: getProps() });
 };
