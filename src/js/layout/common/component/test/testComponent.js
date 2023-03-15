@@ -69,10 +69,18 @@ function utilsTest({
     });
 }
 
+function asyncTest() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 500);
+    });
+}
+
 /**
  * Create component
  */
-export const TestComponent = (component) => {
+export const TestComponent = async (component) => {
     const {
         element,
         destroy,
@@ -119,6 +127,8 @@ export const TestComponent = (component) => {
     });
 
     destroy(() => destroyComponent({ id }));
+
+    await asyncTest();
 
     return render(`
         <span>${test}</span>
