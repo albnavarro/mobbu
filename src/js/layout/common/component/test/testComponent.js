@@ -72,9 +72,7 @@ function utilsTest({
 /**
  * Create component
  */
-export const createTestComponent = ({ component = null }) => {
-    if (!component) return;
-
+export const TestComponent = (component) => {
     const {
         element,
         destroy,

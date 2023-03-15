@@ -4,9 +4,7 @@ import { watchById } from '../../baseComponent/componentStore';
 /**
  * Create component
  */
-export const createTestComponent2 = ({ component = null }) => {
-    if (!component) return;
-
+export const TestComponent2 = (component) => {
     const { getProps, getParentId, render } = createComponent({
         component,
         className: ['c-test-comp__inner'],

@@ -1,15 +1,15 @@
-import { createCodeButton } from '../component/code/codeButton';
-import { createHeaderNav } from '../component/headernav/headernav';
-import { createTestComponent } from '../component/test/testComponent';
-import { createTestComponent2 } from '../component/test/testComponent2';
+import { CodeButton } from '../component/code/codeButton';
+import { Headernav } from '../component/headernav/headernav';
+import { TestComponent } from '../component/test/testComponent';
+import { TestComponent2 } from '../component/test/testComponent2';
 import { addContent } from './componentCreate';
 import { WILL_COMPONENT } from './utils';
 
 const componentRegistered = {
-    code_button: createCodeButton,
-    header_nav: createHeaderNav,
-    test_component: createTestComponent,
-    test_component_2: createTestComponent2,
+    code_button: CodeButton,
+    header_nav: Headernav,
+    test_component: TestComponent,
+    test_component_2: TestComponent2,
 };
 
 /**
@@ -36,7 +36,7 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!componentFn) {
         component.remove();
     } else {
-        const { content, element } = await componentFn({ component });
+        const { content, element } = await componentFn(component);
         await addContent({ content, element });
     }
 

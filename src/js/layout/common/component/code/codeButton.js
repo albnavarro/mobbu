@@ -41,9 +41,7 @@ function addStyle({ style, element }) {
 /**
  * Create component
  */
-export const createCodeButton = ({ component = null }) => {
-    if (!component) return;
-
+export const CodeButton = (component) => {
     const { id, destroy, getProps, element, render } = createComponent({
         component,
         className: ['c-code-btn'],

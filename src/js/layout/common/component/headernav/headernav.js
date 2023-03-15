@@ -24,9 +24,7 @@ async function additems({ props }) {
 /**
  * Create component
  */
-export const createHeaderNav = async ({ component = null }) => {
-    if (!component) return;
-
+export const Headernav = async (component) => {
     const { getProps, render } = createComponent({
         component,
         className: 'l-header__sidenav',
