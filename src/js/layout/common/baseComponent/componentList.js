@@ -3,6 +3,7 @@ import { Headernav } from '../component/headernav/headernav';
 import { TestComponent } from '../component/test/testComponent';
 import { TestComponent2 } from '../component/test/testComponent2';
 import { addContent } from './componentCreate';
+import { fireOnMountCallBack } from './mainStore';
 import { WILL_COMPONENT } from './utils';
 
 const componentRegistered = {
@@ -36,8 +37,9 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!componentFn) {
         component.remove();
     } else {
-        const { content, element } = await componentFn(component);
+        const { content, element, id } = await componentFn(component);
         await addContent({ content, element });
+        fireOnMountCallBack({ id });
     }
 
     // Check for another component

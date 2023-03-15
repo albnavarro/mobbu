@@ -6,7 +6,11 @@ import {
     setDestroyCallback,
     setParentsComponent,
 } from './componentStore';
-import { getPropsFromParent } from './mainStore';
+import {
+    addOnMoutCallback,
+    fireOnMountCallBack,
+    getPropsFromParent,
+} from './mainStore';
 import { IS_COMPONENT } from './utils';
 
 /**
@@ -111,10 +115,12 @@ export const createComponent = ({
         watch,
         render: (content) => {
             return {
+                id,
                 content,
                 element,
             };
         },
         onDestroy: (cb) => setDestroyCallback({ cb, id }),
+        onMount: (cb) => addOnMoutCallback({ id, cb }),
     };
 };

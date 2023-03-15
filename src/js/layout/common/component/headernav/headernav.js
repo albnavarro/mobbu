@@ -25,12 +25,17 @@ async function additems({ props }) {
  * Create component
  */
 export const Headernav = async (component) => {
-    const { getProps, render } = createComponent({
+    const { element, getProps, render, onMount } = createComponent({
         component,
         className: 'l-header__sidenav',
         type: 'ul',
     });
 
+    onMount(() => {
+        const innerList = element.querySelectorAll('li');
+        console.log(innerList);
+    });
+
     const content = await additems({ props: getProps() });
-    return render(`${content}`);
+    return render(content);
 };

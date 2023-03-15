@@ -6,6 +6,10 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    onMountCallback: () => ({
+        value: [],
+        type: Array,
+    }),
 });
 
 export const createProps = (props) => {
@@ -33,4 +37,29 @@ export const getPropsFromParent = (id) => {
     });
 
     return props ? props[id] : {};
+};
+
+export const addOnMoutCallback = ({ id, cb = () => {} }) => {
+    mainStore.set('onMountCallback', (prev) => {
+        return [...prev, { [id]: cb }];
+    });
+};
+
+export const fireOnMountCallBack = ({ id }) => {
+    const { onMountCallback } = mainStore.get();
+    const currentItem = onMountCallback.find((item) => {
+        return item?.[id];
+    });
+
+    // If callback is not used addOnMoutCallback is not fired.
+    // So there is no callback ( undefined )
+    const callback = currentItem?.[id];
+    callback?.();
+
+    //Remove callback
+    mainStore.set('onMountCallback', (prev) => {
+        return prev.filter((item) => {
+            return !(id in item);
+        });
+    });
 };
