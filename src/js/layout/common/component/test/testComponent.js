@@ -83,7 +83,7 @@ function asyncTest() {
 export const TestComponent = async (component) => {
     const {
         element,
-        destroy,
+        onDestroy,
         id,
         getParentId,
         getProps,
@@ -126,7 +126,7 @@ export const TestComponent = async (component) => {
         },
     });
 
-    destroy(() => destroyComponent({ id }));
+    onDestroy(() => destroyComponent({ id }));
 
     await asyncTest();
 

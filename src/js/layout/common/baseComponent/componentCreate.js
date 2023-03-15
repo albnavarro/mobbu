@@ -1,4 +1,3 @@
-import { core } from '../../../mobbu';
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { checkType } from '../../../mobbu/store/storeType';
 import { parseComponents } from './componentList';
@@ -116,6 +115,6 @@ export const createComponent = ({
                 element,
             };
         },
-        destroy: (cb) => setDestroyCallback({ cb, id }),
+        onDestroy: (cb) => setDestroyCallback({ cb, id }),
     };
 };
