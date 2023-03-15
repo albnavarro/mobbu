@@ -4,10 +4,10 @@ import { watchById } from '../../baseComponent/componentStore';
 /**
  * Create component
  */
-export const createTestComponent2 = async ({ component = null }) => {
+export const createTestComponent2 = ({ component = null }) => {
     if (!component) return;
 
-    const { getProps, getParentId, render } = await createComponent({
+    const { getProps, getParentId, render } = createComponent({
         component,
         className: ['c-test-comp__inner'],
         type: 'span',
@@ -19,5 +19,5 @@ export const createTestComponent2 = async ({ component = null }) => {
         console.log(`parent component change: ${val}`);
     });
 
-    await render(`${jsProps()}`);
+    return render(`${jsProps()}`);
 };

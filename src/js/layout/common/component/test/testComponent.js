@@ -72,7 +72,7 @@ function utilsTest({
 /**
  * Create component
  */
-export const createTestComponent = async ({ component = null }) => {
+export const createTestComponent = ({ component = null }) => {
     if (!component) return;
 
     const {
@@ -85,7 +85,7 @@ export const createTestComponent = async ({ component = null }) => {
         setState,
         watch,
         render,
-    } = await createComponent({
+    } = createComponent({
         component,
         className: ['c-test-comp'],
         type: 'button',
@@ -122,7 +122,7 @@ export const createTestComponent = async ({ component = null }) => {
 
     destroy(() => destroyComponent({ id }));
 
-    await render(`
+    return render(`
         <span>${test}</span>
         <component data-props="${childProps}" data-component="test_component_2">
         </component>

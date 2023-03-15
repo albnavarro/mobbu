@@ -2,7 +2,11 @@ import { core } from '../../../mobbu';
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { checkType } from '../../../mobbu/store/storeType';
 import { parseComponents } from './componentList';
-import { registerComponent, setDestroyCallback } from './componentStore';
+import {
+    registerComponent,
+    setDestroyCallback,
+    setParentsComponent,
+} from './componentStore';
 import { getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
 
@@ -57,28 +61,23 @@ export const convertComponent = ({
 /**
  * Add content to component
  *
- * parseComponent is fire next frame:
- * We are scure that children is render after the parent.
- * In case use watchById (parent) etc.. is useful, because the parent exist.
- *
- * Each group of element by depth is render in sequence.
- *
- * Use a setTimeout for degub to check time loading by element depth.
+ * Use async logic only for security or debug
+ * With a setTimeout it is possible dibug the sequence of cration more easly
  */
 export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
-        core.useFrame(() => {
-            element.insertAdjacentHTML('afterbegin', content);
-            parseComponents({ element });
-            resolve();
-        });
+        // setTimeout(() => {
+        element.insertAdjacentHTML('afterbegin', content);
+        parseComponents({ element });
+        resolve();
+        // }, 500);
     });
 };
 
 /**
  * Create component
  */
-export const createComponent = async ({
+export const createComponent = ({
     component,
     className = '',
     type = 'div',
@@ -100,6 +99,9 @@ export const createComponent = async ({
             id,
         });
 
+    // Update Parent id before render, do child can use immediatly getParentId
+    setParentsComponent();
+
     return {
         id,
         element,
@@ -108,7 +110,12 @@ export const createComponent = async ({
         getState,
         setState,
         watch,
-        render: (content) => addContent({ element, content }),
+        render: (content) => {
+            return {
+                content,
+                element,
+            };
+        },
         destroy: (cb) => setDestroyCallback({ cb, id }),
     };
 };

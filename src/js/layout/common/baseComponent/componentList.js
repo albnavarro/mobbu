@@ -2,7 +2,7 @@ import { createCodeButton } from '../component/code/codeButton';
 import { createHeaderNav } from '../component/headernav/headernav';
 import { createTestComponent } from '../component/test/testComponent';
 import { createTestComponent2 } from '../component/test/testComponent2';
-import { setParentsComponent } from './componentStore';
+import { addContent } from './componentCreate';
 import { WILL_COMPONENT } from './utils';
 
 const componentRegistered = {
@@ -15,7 +15,7 @@ const componentRegistered = {
 /**
  * Create all component from DOM.
  */
-export const parseComponents = ({ element = null, index = 0 }) => {
+export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!element) return;
 
     /**
@@ -27,10 +27,7 @@ export const parseComponents = ({ element = null, index = 0 }) => {
     const component = element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (!component) {
-        setParentsComponent();
-        return;
-    }
+    if (!component) return;
 
     const key = component?.dataset?.component;
     const componentFn = componentRegistered?.[key];
@@ -39,7 +36,8 @@ export const parseComponents = ({ element = null, index = 0 }) => {
     if (!componentFn) {
         component.remove();
     } else {
-        componentFn({ component });
+        const { content, element } = componentFn({ component });
+        await addContent({ content, element });
     }
 
     // Check for another component
