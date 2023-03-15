@@ -1,13 +1,13 @@
 import { createComponent } from '../../baseComponent/componentCreate';
 
-async function additems({ element, props }) {
+async function additems({ props }) {
     const { json } = props;
     const { links } = await fetch(`../data/${json}.json`)
         .then((response) => response.json())
         .then((data) => data)
         .catch((err) => console.warn('Something went wrong.', err));
 
-    const items = links
+    return links
         .map((link) => {
             const { label, url } = link;
             return `
@@ -19,23 +19,20 @@ async function additems({ element, props }) {
             `;
         })
         .join('');
-
-    element.insertAdjacentHTML('afterbegin', items);
 }
 
 /**
  * Create component
  */
-export const createHeaderNav = ({ component = null }) => {
+export const createHeaderNav = async ({ component = null }) => {
     if (!component) return;
 
-    const { element, getProps, render } = createComponent({
+    const { getProps, render } = createComponent({
         component,
         className: 'l-header__sidenav',
         type: 'ul',
     });
 
-    additems({ element, props: getProps() });
-
-    return render(``);
+    const content = await additems({ props: getProps() });
+    return render(`${content}`);
 };

@@ -36,7 +36,7 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!componentFn) {
         component.remove();
     } else {
-        const { content, element } = componentFn({ component });
+        const { content, element } = await componentFn({ component });
         await addContent({ content, element });
     }
 
