@@ -62,12 +62,15 @@ export const convertComponent = ({
  *
  * Use async logic only for security or debug
  * With a setTimeout it is possible dibug the sequence of cration more easly
+ *
+ * It is possible use parseComponents() to launch the parse of
+ * custom DOM added to the component immadatly
  */
 export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
         // setTimeout(() => {
         element.insertAdjacentHTML('afterbegin', content);
-        parseComponents({ element });
+        // parseComponents({ element });
         resolve();
         // }, 500);
     });
