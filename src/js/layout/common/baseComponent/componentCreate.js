@@ -6,11 +6,7 @@ import {
     setDestroyCallback,
     setParentsComponent,
 } from './componentStore';
-import {
-    addOnMoutCallback,
-    fireOnMountCallBack,
-    getPropsFromParent,
-} from './mainStore';
+import { addOnMoutCallback, getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
 
 /**
