@@ -45,14 +45,14 @@ function destroyComponent({ id }) {
 }
 
 function utilsTest({
-    getProps,
+    props,
     setState,
     getState,
     watch,
     getParentId,
     getPropsById,
 }) {
-    const { test } = getProps();
+    const { test } = props;
     console.log('props', test);
     setState('stato1', 20);
     const { stato1: stato1Test } = getState();
@@ -84,14 +84,14 @@ export const TestComponent = async ({
     onDestroy,
     id,
     getParentId,
-    getProps,
+    props,
     getState,
     setState,
     watch,
     render,
 }) => {
     utilsTest({
-        getProps,
+        props,
         setState,
         getState,
         watch,
@@ -101,7 +101,7 @@ export const TestComponent = async ({
 
     addHandler({ element });
 
-    const { test } = getProps();
+    const { test } = props;
     const childProps = createProps({
         jsProps: () => {
             const { stato1 } = getState();

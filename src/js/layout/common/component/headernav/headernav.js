@@ -22,12 +22,12 @@ async function additems({ props }) {
 /**
  * Create component
  */
-export const Headernav = async ({ element, getProps, render, onMount }) => {
+export const Headernav = async ({ element, props, render, onMount }) => {
     onMount(() => {
         const innerList = element.querySelectorAll('li');
         console.log(innerList);
     });
 
-    const content = await additems({ props: getProps() });
+    const content = await additems({ props });
     return render(content);
 };

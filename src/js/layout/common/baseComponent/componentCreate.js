@@ -92,15 +92,14 @@ export const createComponent = ({
         type,
     });
 
-    const { getParentId, getProps, getState, setState, watch } =
-        registerComponent({
-            component,
-            element,
-            props,
-            state,
-            destroy: () => {},
-            id,
-        });
+    const { getParentId, getState, setState, watch } = registerComponent({
+        component,
+        element,
+        props,
+        state,
+        destroy: () => {},
+        id,
+    });
 
     // Update Parent id before render, do child can use immediatly getParentId
     setParentsComponent();
@@ -109,7 +108,7 @@ export const createComponent = ({
         id,
         element,
         getParentId,
-        getProps,
+        props,
         getState,
         setState,
         watch,

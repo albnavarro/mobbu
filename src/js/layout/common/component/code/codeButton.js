@@ -40,8 +40,8 @@ function addStyle({ style, element }) {
 /**
  * Create component
  */
-export const CodeButton = ({ id, onDestroy, getProps, element, render }) => {
-    const { style } = getProps();
+export const CodeButton = ({ id, onDestroy, props, element, render }) => {
+    const { style } = props;
     addStyle({ style, element });
     addHandler({ element });
     onDestroy(() => destroyComponent({ id }));

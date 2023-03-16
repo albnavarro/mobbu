@@ -57,7 +57,7 @@ export const registerComponent = ({
     });
 
     return {
-        getProps: () => props,
+        props,
         getState: () => store.get(),
         setState: (prop, value) => store.set(prop, value),
         watch: (prop, cb) => store.watch(prop, cb),
