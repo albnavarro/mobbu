@@ -15,20 +15,23 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
      * render components form top to botton so we are shure that child component
      * can watch parent
      */
-    const component = element.querySelector(`[${WILL_COMPONENT}]`);
+    const componentToParse = element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (!component) return;
+    if (!componentToParse) return;
 
-    const key = component?.dataset?.component;
-    const userFunctionComponent = componentRegistered?.[key]?.fn;
-    const params = componentRegistered?.[key]?.params;
+    const key = componentToParse?.dataset?.component;
+    const userFunctionComponent = componentRegistered?.[key]?.componentFunction;
+    const componentParams = componentRegistered?.[key]?.componentParams;
 
-    // if component is not in list remove div component
+    // if componentToParse is not in list remove div component
     if (!userFunctionComponent) {
-        component.remove();
+        componentToParse.remove();
     } else {
-        const componentData = createComponent({ component, ...params });
+        const componentData = createComponent({
+            component: componentToParse,
+            ...componentParams,
+        });
         const { content, element, id } = await userFunctionComponent(
             componentData
         );

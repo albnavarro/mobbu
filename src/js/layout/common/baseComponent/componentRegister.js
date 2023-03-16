@@ -5,22 +5,22 @@ import { TestComponent2 } from '../component/test/testComponent2';
 
 export const componentRegistered = {
     code_button: {
-        fn: CodeButton,
-        params: {
+        componentFunction: CodeButton,
+        componentParams: {
             className: ['c-code-btn'],
             type: 'button',
         },
     },
     header_nav: {
-        fn: Headernav,
-        params: {
+        componentFunction: Headernav,
+        componentParams: {
             className: 'l-header__sidenav',
             type: 'ul',
         },
     },
     test_component: {
-        fn: TestComponent,
-        params: {
+        componentFunction: TestComponent,
+        componentParams: {
             className: ['c-test-comp'],
             type: 'button',
             state: {
@@ -36,8 +36,8 @@ export const componentRegistered = {
         },
     },
     test_component_2: {
-        fn: TestComponent2,
-        params: {
+        componentFunction: TestComponent2,
+        componentParams: {
             className: ['c-test-comp__inner'],
             type: 'span',
         },
