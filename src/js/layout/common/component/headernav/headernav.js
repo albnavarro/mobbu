@@ -1,5 +1,3 @@
-import { createComponent } from '../../baseComponent/componentCreate';
-
 async function additems({ props }) {
     const { json } = props;
     const { links } = await fetch(`../data/${json}.json`)
@@ -24,13 +22,7 @@ async function additems({ props }) {
 /**
  * Create component
  */
-export const Headernav = async (component) => {
-    const { element, getProps, render, onMount } = createComponent({
-        component,
-        className: 'l-header__sidenav',
-        type: 'ul',
-    });
-
+export const Headernav = async ({ element, getProps, render, onMount }) => {
     onMount(() => {
         const innerList = element.querySelectorAll('li');
         console.log(innerList);

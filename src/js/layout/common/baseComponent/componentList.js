@@ -1,17 +1,7 @@
-import { CodeButton } from '../component/code/codeButton';
-import { Headernav } from '../component/headernav/headernav';
-import { TestComponent } from '../component/test/testComponent';
-import { TestComponent2 } from '../component/test/testComponent2';
-import { addContent } from './componentCreate';
+import { addContent, createComponent } from './componentCreate';
+import { componentRegistered } from './componentRegister';
 import { fireOnMountCallBack } from './mainStore';
 import { WILL_COMPONENT } from './utils';
-
-const componentRegistered = {
-    code_button: CodeButton,
-    header_nav: Headernav,
-    test_component: TestComponent,
-    test_component_2: TestComponent2,
-};
 
 /**
  * Create all component from DOM.
@@ -31,13 +21,17 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!component) return;
 
     const key = component?.dataset?.component;
-    const componentFn = componentRegistered?.[key];
+    const userFunctionComponent = componentRegistered?.[key]?.fn;
+    const params = componentRegistered?.[key]?.params;
 
     // if component is not in list remove div component
-    if (!componentFn) {
+    if (!userFunctionComponent) {
         component.remove();
     } else {
-        const { content, element, id } = await componentFn(component);
+        const componentData = createComponent(params(component));
+        const { content, element, id } = await userFunctionComponent(
+            componentData
+        );
         await addContent({ content, element });
         fireOnMountCallBack({ id });
     }

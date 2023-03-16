@@ -4,7 +4,6 @@ import {
     getParentIdById,
     getPropsById,
 } from '../../baseComponent/componentStore';
-import { createComponent } from '../../baseComponent/componentCreate';
 import { createProps, mainStore } from '../../baseComponent/mainStore';
 
 /**
@@ -80,33 +79,17 @@ function asyncTest() {
 /**
  * Create component
  */
-export const TestComponent = async (component) => {
-    const {
-        element,
-        onDestroy,
-        id,
-        getParentId,
-        getProps,
-        getState,
-        setState,
-        watch,
-        render,
-    } = createComponent({
-        component,
-        className: ['c-test-comp'],
-        type: 'button',
-        state: {
-            stato1: () => ({
-                value: 0,
-                type: Number,
-            }),
-            stato2: () => ({
-                value: 0,
-                type: Number,
-            }),
-        },
-    });
-
+export const TestComponent = async ({
+    element,
+    onDestroy,
+    id,
+    getParentId,
+    getProps,
+    getState,
+    setState,
+    watch,
+    render,
+}) => {
     utilsTest({
         getProps,
         setState,

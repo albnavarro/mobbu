@@ -1,5 +1,4 @@
 import { getPropsById } from '../../baseComponent/componentStore';
-import { createComponent } from '../../baseComponent/componentCreate';
 
 /**
  * On click function.
@@ -41,13 +40,7 @@ function addStyle({ style, element }) {
 /**
  * Create component
  */
-export const CodeButton = (component) => {
-    const { id, onDestroy, getProps, element, render } = createComponent({
-        component,
-        className: ['c-code-btn'],
-        type: 'button',
-    });
-
+export const CodeButton = ({ id, onDestroy, getProps, element, render }) => {
     const { style } = getProps();
     addStyle({ style, element });
     addHandler({ element });
