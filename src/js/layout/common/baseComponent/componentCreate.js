@@ -82,12 +82,18 @@ export const createComponent = ({
     type = 'div',
     state = {},
 }) => {
+    /**
+     * Create basic DOM element
+     */
     const { element, props, id } = convertComponent({
         component,
         className,
         type,
     });
 
+    /**
+     * Register component to store
+     */
     const { getParentId, getState, setState, watch } = registerComponent({
         component,
         element,

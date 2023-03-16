@@ -28,14 +28,32 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!userFunctionComponent) {
         componentToParse.remove();
     } else {
+        /**
+         * 1 - Create basic DOM element
+         * 2 - Register component to store
+         * 3 - Return methods and props for userFunctionComponent (componentData)
+         */
         const componentData = createComponent({
             component: componentToParse,
             ...componentParams,
         });
+
+        /**
+         * Lauch userFunctionComponent and wait for render function wirh custom DOM
+         * to add to component.
+         */
         const { content, element, id } = await userFunctionComponent(
             componentData
         );
+
+        /**
+         * Add custom DOM to basic component
+         */
         await addContent({ content, element });
+
+        /**
+         * Fire onMount callback
+         */
         fireOnMountCallBack({ id });
     }
 
