@@ -28,7 +28,7 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     if (!userFunctionComponent) {
         component.remove();
     } else {
-        const componentData = createComponent(params(component));
+        const componentData = createComponent({ component, ...params });
         const { content, element, id } = await userFunctionComponent(
             componentData
         );
