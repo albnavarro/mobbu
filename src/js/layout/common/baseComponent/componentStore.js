@@ -72,7 +72,13 @@ export const getPropsById = (id) => {
     if (!id) return null;
 
     const { instances } = componentStore.get();
-    const { props } = instances.find(({ id: currentId }) => currentId === id);
+    const instance = instances.find(({ id: currentId }) => currentId === id);
+
+    const props = instance?.props;
+    if (!props) {
+        console.warn(`getPropsById failed no id found`);
+        return null;
+    }
 
     return props;
 };
@@ -84,7 +90,13 @@ export const getStateById = (id) => {
     if (!id) return null;
 
     const { instances } = componentStore.get();
-    const { state } = instances.find(({ id: currentId }) => currentId === id);
+    const instance = instances.find(({ id: currentId }) => currentId === id);
+
+    const state = instance?.state;
+    if (!state) {
+        console.warn(`getStateById failed no id found`);
+        return null;
+    }
 
     return state.get();
 };
@@ -96,7 +108,13 @@ export const setStateById = (id, prop, value) => {
     if (!id && !prop && !value) return;
 
     const { instances } = componentStore.get();
-    const { state } = instances.find(({ id: currentId }) => currentId === id);
+    const instance = instances.find(({ id: currentId }) => currentId === id);
+
+    const state = instance?.state;
+    if (!state) {
+        console.warn(`setStateById failed no id found on prop: ${prop}`);
+        return null;
+    }
 
     state.set(prop, value);
 };
@@ -108,7 +126,13 @@ export const watchById = (id, prop, cb) => {
     if (!id && !prop && !cb) return;
 
     const { instances } = componentStore.get();
-    const { state } = instances.find(({ id: currentId }) => currentId === id);
+    const instance = instances.find(({ id: currentId }) => currentId === id);
+
+    const state = instance?.state;
+    if (!state) {
+        console.warn(`watchById failed no id found on prop: ${prop}`);
+        return null;
+    }
 
     state.watch(prop, cb);
 };
@@ -120,9 +144,15 @@ export const getParentIdById = (id) => {
     if (!id) return null;
 
     const { instances } = componentStore.get();
-    const { parentId } = instances.find(({ id: currentId }) => {
+    const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
     });
+
+    const parentId = instance?.parentId;
+    if (!parentId) {
+        console.warn(`getParentIdById failed no id found`);
+        return null;
+    }
 
     return parentId;
 };
