@@ -1,9 +1,9 @@
-import { createFooter } from './layout/footer';
-import { createHeader } from './layout/header';
 import { createNavigation } from './component/navigation';
+import { createHeader } from './component/header';
+import { createFooter } from './component/footer';
 
 export const initCommonModules = () => {
     createHeader();
-    createFooter();
     createNavigation();
+    createFooter();
 };

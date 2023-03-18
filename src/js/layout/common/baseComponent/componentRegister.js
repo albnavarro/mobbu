@@ -1,16 +1,18 @@
 import { CodeButton } from '../component/code/codeButton';
-import { Headernav } from '../component/headernav/headernav';
+import { Headernav } from '../component/header/headernav';
 import { TestComponent } from '../component/test/testComponent';
 import { TestComponent2 } from '../component/test/testComponent2';
 import { NavigationContainer } from '../component/navigation/navContainer';
 import { Navigation } from '../component/navigation/navigation';
+import { Header } from '../component/header/header';
+import { Footer } from '../component/footer/footer';
 
 export const componentRegistered = {
-    CodeButton: {
-        componentFunction: CodeButton,
+    Header: {
+        componentFunction: Header,
         componentParams: {
-            className: ['c-code-btn'],
-            type: 'button',
+            className: 'l-header',
+            type: 'header',
         },
     },
     Headernav: {
@@ -18,6 +20,34 @@ export const componentRegistered = {
         componentParams: {
             className: 'l-header__sidenav',
             type: 'ul',
+        },
+    },
+    Footer: {
+        componentFunction: Footer,
+        componentParams: {
+            className: ['l-footer'],
+            type: 'footer',
+        },
+    },
+    NavigationContainer: {
+        componentFunction: NavigationContainer,
+        componentParams: {
+            className: ['l-navcontainer'],
+            type: 'div',
+        },
+    },
+    Navigation: {
+        componentFunction: Navigation,
+        componentParams: {
+            className: ['l-navigation'],
+            type: 'nav',
+        },
+    },
+    CodeButton: {
+        componentFunction: CodeButton,
+        componentParams: {
+            className: ['c-code-btn'],
+            type: 'button',
         },
     },
     TestComponent: {
@@ -42,20 +72,6 @@ export const componentRegistered = {
         componentParams: {
             className: ['c-test-comp__inner'],
             type: 'span',
-        },
-    },
-    NavigationContainer: {
-        componentFunction: NavigationContainer,
-        componentParams: {
-            className: ['l-navcontainer'],
-            type: 'div',
-        },
-    },
-    Navigation: {
-        componentFunction: Navigation,
-        componentParams: {
-            className: ['l-navigation'],
-            type: 'nav',
         },
     },
 };
