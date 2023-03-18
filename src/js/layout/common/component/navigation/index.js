@@ -1,4 +1,4 @@
-import { parseComponents } from '../baseComponent/componentList';
+import { parseComponents } from '../../baseComponent/componentList';
 
 /**
  * Init navigation module.

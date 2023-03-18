@@ -2,8 +2,8 @@ import { CodeButton } from '../component/code/codeButton';
 import { Headernav } from '../component/headernav/headernav';
 import { TestComponent } from '../component/test/testComponent';
 import { TestComponent2 } from '../component/test/testComponent2';
-import { NavigationContainer } from '../navigation/navContainer';
-import { Navigation } from '../navigation/createNavigation';
+import { NavigationContainer } from '../component/navigation/navContainer';
+import { Navigation } from '../component/navigation/createNavigation';
 
 export const componentRegistered = {
     CodeButton: {

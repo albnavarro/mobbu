@@ -1,6 +1,6 @@
 import { core } from '../../../mobbu';
 import { parseComponents } from '../baseComponent/componentList';
-import { navigationStore } from '../navigation/navStore';
+import { navigationStore } from '../component/navigation/navStore';
 
 function addHandler({ button }) {
     // Toggle button

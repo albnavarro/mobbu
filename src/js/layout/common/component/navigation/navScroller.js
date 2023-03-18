@@ -1,6 +1,6 @@
-import { scroller, tween } from '../../../mobbu';
-import { SmoothScroller } from '../../../mobbu/plugin';
-import { outerHeight } from '../../../mobbu/utils/vanillaFunction';
+import { scroller, tween } from '../../../../mobbu';
+import { SmoothScroller } from '../../../../mobbu/plugin';
+import { outerHeight } from '../../../../mobbu/utils/vanillaFunction';
 import { navigationStore } from './navStore';
 
 export const navigationScoller = () => {

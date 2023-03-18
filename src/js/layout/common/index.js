@@ -1,6 +1,6 @@
 import { createFooter } from './layout/footer';
 import { createHeader } from './layout/header';
-import { createNavigation } from './navigation';
+import { createNavigation } from './component/navigation';
 
 export const initCommonModules = () => {
     createHeader();
