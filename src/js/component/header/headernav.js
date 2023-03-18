@@ -1,9 +1,8 @@
-async function additems({ props }) {
-    const { json } = props;
-    const { links } = await fetch(`../data/${json}.json`)
-        .then((response) => response.json())
-        .then((data) => data)
-        .catch((err) => console.warn('Something went wrong.', err));
+import { getCommonData } from '../../route';
+
+function additems() {
+    const { header } = getCommonData();
+    const { links } = header;
 
     return links
         .map((link) => {
@@ -22,12 +21,11 @@ async function additems({ props }) {
 /**
  * Create component
  */
-export const Headernav = async ({ element, props, render, onMount }) => {
+export const Headernav = ({ element, render, onMount }) => {
     onMount(() => {
         const innerList = element.querySelectorAll('li');
         console.log(innerList);
     });
 
-    const content = await additems({ props });
-    return render(content);
+    return render(additems());
 };

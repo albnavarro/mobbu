@@ -1,4 +1,4 @@
-import { items } from '../../../data/navigation.json';
+import { getCommonData } from '../../route';
 import { navAccordion } from './navAccordion';
 import { navigationScoller } from './navScroller';
 
@@ -24,8 +24,8 @@ function getSubmenu(items) {
 /**
  * Create first level items.
  */
-function getItems() {
-    return items
+function getItems(data) {
+    return data
         .map((item) => {
             const { label, url, children } = item;
 
@@ -68,9 +68,11 @@ export const Navigation = ({ render, onMount }) => {
         navigationScoller();
     });
 
+    const { navigation: data } = getCommonData();
+
     return render(`
          <ul class="l-navigation__list">
-             ${getItems()}
+             ${getItems(data)}
          </ul>
     `);
 };

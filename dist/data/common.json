@@ -1,5 +1,21 @@
 {
-    "items": [
+    "header": {
+        "links": [
+            {
+                "label": "home",
+                "url": "/index.html"
+            },
+            {
+                "label": "info",
+                "url": "#"
+            },
+            {
+                "label": "Github",
+                "url": "#"
+            }
+        ]
+    },
+    "navigation": [
         {
             "label": "test",
             "url": "/parallax.html",
