@@ -1,4 +1,4 @@
-import { slide } from '../../../../mobbu/plugin';
+import { slide } from '../../mobbu/plugin';
 import { navigationStore } from './navStore';
 
 let subscribers = [];

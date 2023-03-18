@@ -1,4 +1,4 @@
-import { items } from '../../../../../data/navigation.json';
+import { items } from '../../../data/navigation.json';
 import { navAccordion } from './navAccordion';
 import { navigationScoller } from './navScroller';
 

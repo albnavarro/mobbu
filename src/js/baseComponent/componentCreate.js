@@ -1,6 +1,5 @@
-import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
-import { checkType } from '../../../mobbu/store/storeType';
-import { parseComponents } from './componentList';
+import { checkType } from '../mobbu/store/storeType';
+import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 import {
     registerComponent,
     setDestroyCallback,

@@ -1,4 +1,4 @@
-import { parseComponents } from '../common/baseComponent/componentList';
+import { parseComponents } from '../../baseComponent/componentList';
 
 export const homeModule = ({ root = document.createElement('div') }) => {
     const content = `

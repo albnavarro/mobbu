@@ -1,6 +1,6 @@
-import { initCommonModules } from './layout/common';
-import { homeModule } from './layout/home';
+import { homeModule } from './route/home';
 import { core } from './mobbu';
+import { parseComponents } from './baseComponent/componentList';
 
 /**
  * Set default
@@ -32,7 +32,7 @@ core.useLoad(() => {
 /**
  * Common modules
  */
-initCommonModules();
+parseComponents({ element: document });
 
 /**
  * Route

@@ -1,5 +1,5 @@
-import { core } from '../../../mobbu';
-import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
+import { core } from '../mobbu';
+import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 
 export const mainStore = core.createStore({
     propsToChildren: () => ({
