@@ -7,6 +7,7 @@ import {
 } from './componentStore';
 import { addOnMoutCallback, getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
+import { parseComponents } from './componentList';
 
 /**
  *  Create base DOM component from component tag.
@@ -69,7 +70,7 @@ export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
         // setTimeout(() => {
         element.insertAdjacentHTML('afterbegin', content);
-        // parseComponents({ element });
+        parseComponents({ element });
         resolve();
         // }, 500);
     });

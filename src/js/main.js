@@ -45,6 +45,5 @@ const routeModules = {
  * Load module
  */
 const root = document.querySelector('#content');
-// const { module: currentModule } = root.dataset;
 const currentModule = 'home';
 routeModules?.[currentModule]?.({ root });
