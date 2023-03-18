@@ -70,7 +70,7 @@ export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
         // setTimeout(() => {
         element.insertAdjacentHTML('afterbegin', content);
-        parseComponents({ element });
+        // parseComponents({ element });
         resolve();
         // }, 500);
     });

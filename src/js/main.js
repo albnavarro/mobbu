@@ -1,6 +1,5 @@
-import { homeModule } from './route/home';
 import { core } from './mobbu';
-import { parseComponents } from './baseComponent/componentList';
+import { inizializeApp } from './route';
 
 /**
  * Set default
@@ -29,21 +28,4 @@ core.useLoad(() => {
     core.printDefault();
 });
 
-/**
- * Common modules
- */
-parseComponents({ element: document });
-
-/**
- * Route
- */
-const routeModules = {
-    home: homeModule,
-};
-
-/**
- * Load module
- */
-const root = document.querySelector('#content');
-const currentModule = 'home';
-routeModules?.[currentModule]?.({ root });
+inizializeApp();

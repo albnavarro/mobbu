@@ -7,12 +7,8 @@
         <link href="scss/style.css" rel="stylesheet" />
     </head>
     <body>
-        <div class="pippo">
-            <component data-component="Header"></component>
-        </div>
-        <div class="side">
-            <component data-component="NavigationContainer"></component>
-        </div>
+        <component data-component="Header"></component>
+        <component data-component="NavigationContainer"></component>
         <main class="main">
             <div class="container container--padding">
                 <div class="l-index__grid">
@@ -22,9 +18,7 @@
                 </div>
             </div>
         </main>
-        <div class="pippo2">
-            <component data-component="Footer"></component>
-        </div>
+        <component data-component="Footer"></component>
         <script src="js/main.js" defer></script>
     </body>
 </html>

@@ -18,7 +18,9 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     const componentToParse = element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (!componentToParse) return;
+    if (!componentToParse) {
+        return Promise.resolve();
+    }
 
     const key = componentToParse?.dataset?.component;
     const userFunctionComponent = componentRegistered?.[key]?.componentFunction;
