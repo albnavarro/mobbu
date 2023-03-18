@@ -6,8 +6,8 @@ import { WILL_COMPONENT } from './utils';
 /**
  * Create all component from DOM.
  */
-export const parseComponents = async ({ element = null, index = 0 }) => {
-    if (!element) return;
+const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
+    if (!element) return Promise.resolve();
 
     /**
      * Get the first data-component element.
@@ -18,9 +18,7 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     const componentToParse = element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
-    if (!componentToParse) {
-        return Promise.resolve();
-    }
+    if (!componentToParse) return Promise.resolve();
 
     const key = componentToParse?.dataset?.component;
     const userFunctionComponent = componentRegistered?.[key]?.componentFunction;
@@ -60,5 +58,9 @@ export const parseComponents = async ({ element = null, index = 0 }) => {
     }
 
     // Check for another component
-    parseComponents({ element, index: index++ });
+    await parseComponentsRecursive({ element, index: index++ });
+};
+
+export const parseComponents = async ({ element = null, index = 0 }) => {
+    await parseComponentsRecursive({ element, index });
 };

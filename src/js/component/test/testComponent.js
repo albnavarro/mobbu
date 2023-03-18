@@ -115,6 +115,6 @@ export const TestComponent = async ({
 
     return render(`
         <span>${test}</span>
-        <component data-props="${childProps}" data-component="TestComponent2"/>
+        <component data-props="${childProps}" data-cancellable data-component="TestComponent2"/>
     `);
 };

@@ -7,7 +7,6 @@ import {
 } from './componentStore';
 import { addOnMoutCallback, getPropsFromParent } from './mainStore';
 import { IS_COMPONENT } from './utils';
-import { parseComponents } from './componentList';
 
 /**
  *  Create base DOM component from component tag.

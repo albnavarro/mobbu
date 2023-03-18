@@ -1,4 +1,4 @@
-import { parseComponents } from '../baseComponent/componentList';
+import { parseComponents } from '../baseComponent/componentParse';
 import { homeModule } from './home';
 
 /**
@@ -8,6 +8,7 @@ const routeModules = {
     home: homeModule,
 };
 
+const root = document.querySelector('#content');
 let commonData = {};
 export const getCommonData = () => commonData;
 
@@ -22,17 +23,16 @@ const loadData = async () => {
 
 export const inizializeApp = async () => {
     commonData = await loadData();
-
-    /**
-     *
-     * Common modules
-     */
     await parseComponents({ element: document.body });
+    loadRoute({ route: 'home' });
+};
 
-    /**
-     * Load module
-     */
-    const root = document.querySelector('#content');
-    const currentModule = 'home';
-    routeModules?.[currentModule]?.({ root });
+export const loadRoute = async ({ route = 'home' }) => {
+    // TODO clear cancellable component;
+    const content = routeModules?.[route]?.({ root });
+    root.innerHTML = '';
+    root.insertAdjacentHTML('afterbegin', content);
+    await parseComponents({ element: root });
+
+    console.log('route loaded');
 };
