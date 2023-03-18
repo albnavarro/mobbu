@@ -1,4 +1,3 @@
-import { core } from '../../../mobbu';
 import { navigationStore } from './navStore';
 
 let root = {};
@@ -19,7 +18,7 @@ function openNavigation() {
     navigationStore.emit('refreshScroller');
 }
 
-function addHandler() {
+function addHandler({ main }) {
     main.addEventListener('click', () => {
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) return;
@@ -36,39 +35,27 @@ function addHandler() {
 /**
  * Create container
  */
-export const navigationContainer = () => {
-    return new Promise((resolve) => {
-        const component = document.querySelector(
-            '[data-component="navigation_container"]'
-        );
-        if (!component) return resolve({ hasContainer: false });
+export const NavigationContainer = async ({ element, render, onMount }) => {
+    root = element;
 
-        const content = `
-            <div class="l-navcontainer__side">
-                <div class="l-navcontainer__percent">
-                </div>
-                <button class="l-navcontainer__totop"></button>
-            </div>
-            <div class="l-navcontainer__wrap">
-                <div class="l-navcontainer__scroll">
-                    <component data-component="navigation"></component>
-                </div>
-            </div>
-    `;
-
-        const container = document.createElement('div');
-        container.classList.add('l-navcontainer');
-        container.innerHTML = content;
-
-        core.useFrame(() => {
-            component.parentNode.replaceChild(container, component);
-            root = document.querySelector('.l-navcontainer');
-            main = document.querySelector('main.main');
-            toTopBtn = document.querySelector('.l-navcontainer__totop');
-            navigationStore.watch('openNavigation', openNavigation);
-            navigationStore.watch('closeNavigation', closeNavigation);
-            addHandler();
-            resolve({ hasContainer: true });
-        });
+    onMount(() => {
+        main = document.querySelector('main.main');
+        toTopBtn = document.querySelector('.l-navcontainer__totop');
+        navigationStore.watch('openNavigation', openNavigation);
+        navigationStore.watch('closeNavigation', closeNavigation);
+        addHandler({ main });
     });
+
+    return render(`
+         <div class="l-navcontainer__side">
+             <div class="l-navcontainer__percent">
+             </div>
+             <button class="l-navcontainer__totop"></button>
+         </div>
+         <div class="l-navcontainer__wrap">
+             <div class="l-navcontainer__scroll">
+                 <component data-component="Navigation"></component>
+             </div>
+         </div>
+    `);
 };

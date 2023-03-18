@@ -1,5 +1,5 @@
 import { initCommonModules } from './layout/common';
-import { homeModule } from './layout/index';
+import { homeModule } from './layout/home';
 import { core } from './mobbu';
 
 /**
@@ -44,6 +44,7 @@ const routeModules = {
 /**
  * Load module
  */
-const main = document.querySelector('main.main');
-const { module: currentModule } = main.dataset;
-routeModules?.[currentModule]?.();
+const root = document.querySelector('#content');
+// const { module: currentModule } = root.dataset;
+const currentModule = 'home';
+routeModules?.[currentModule]?.({ root });

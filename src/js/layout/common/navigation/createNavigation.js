@@ -1,5 +1,6 @@
-import { core } from '../../../mobbu';
 import { items } from '../../../../data/navigation.json';
+import { navAccordion } from './navAccordion';
+import { navigationScoller } from './navScroller';
 
 /**
  * Create second levels item.
@@ -61,25 +62,15 @@ function getItems() {
 /**
  * inizialize module
  */
-export const navigation = () => {
-    return new Promise((resolve) => {
-        const component = document.querySelector(
-            '[data-component="navigation"]'
-        );
-        if (!component) return resolve({ navCreated: false });
-
-        const content = `
-            <ul class="l-navigation__list">
-                ${getItems()}
-            </ul>
-            `;
-
-        const nav = document.createElement('nav');
-        nav.classList.add('l-navigation');
-        nav.innerHTML = content;
-        core.useFrame(() => {
-            component.parentNode.replaceChild(nav, component);
-            resolve({ navCreated: true });
-        });
+export const Navigation = ({ render, onMount }) => {
+    onMount(() => {
+        navAccordion();
+        navigationScoller();
     });
+
+    return render(`
+         <ul class="l-navigation__list">
+             ${getItems()}
+         </ul>
+    `);
 };

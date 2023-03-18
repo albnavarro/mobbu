@@ -6,14 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="scss/style.css" rel="stylesheet" />
     </head>
-    <body class="template-home">
+    <body>
         <component data-component="header"></component>
-        <component data-component="navigation_container"></component>
-        <main class="main l-index" data-module="home">
+        <div class="side">
+            <component data-component="NavigationContainer"></component>
+        </div>
+        <main class="main">
             <div class="container container--padding">
                 <div class="l-index__grid">
                     <div class="inner-wrap">
-                        <div id="app">test</div>
+                        <div id="content"></div>
                     </div>
                 </div>
             </div>

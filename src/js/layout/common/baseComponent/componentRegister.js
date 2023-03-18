@@ -2,6 +2,8 @@ import { CodeButton } from '../component/code/codeButton';
 import { Headernav } from '../component/headernav/headernav';
 import { TestComponent } from '../component/test/testComponent';
 import { TestComponent2 } from '../component/test/testComponent2';
+import { NavigationContainer } from '../navigation/navContainer';
+import { Navigation } from '../navigation/createNavigation';
 
 export const componentRegistered = {
     CodeButton: {
@@ -40,6 +42,20 @@ export const componentRegistered = {
         componentParams: {
             className: ['c-test-comp__inner'],
             type: 'span',
+        },
+    },
+    NavigationContainer: {
+        componentFunction: NavigationContainer,
+        componentParams: {
+            className: ['l-navcontainer'],
+            type: 'div',
+        },
+    },
+    Navigation: {
+        componentFunction: Navigation,
+        componentParams: {
+            className: ['l-navigation'],
+            type: 'nav',
         },
     },
 };
