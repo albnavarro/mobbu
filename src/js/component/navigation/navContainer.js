@@ -35,7 +35,7 @@ function addHandler({ main }) {
 /**
  * Create container
  */
-export const NavigationContainer = async ({ element, render, onMount }) => {
+export const NavigationContainer = ({ element, render, onMount }) => {
     root = element;
 
     onMount(() => {
