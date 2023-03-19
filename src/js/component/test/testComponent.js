@@ -4,10 +4,18 @@ import { createProps } from '../../baseComponent/mainStore';
 /**
  * On click function.
  */
-function onClick(event) {
+function increment(event) {
     const target = event.currentTarget;
-    const id = target.id;
+    const root = target.closest('.c-test-comp');
+    const id = root.id;
     setStateById(id, 'counter', (prev) => prev + 1);
+}
+
+function decrement(event) {
+    const target = event.currentTarget;
+    const root = target.closest('.c-test-comp');
+    const id = root.id;
+    setStateById(id, 'counter', (prev) => prev - 1);
 }
 
 function asyncTest() {
@@ -26,7 +34,6 @@ function addChildren({ children, getState }) {
                     const { counter } = getState();
                     return counter * i;
                 },
-                i,
             });
 
             return `
@@ -46,15 +53,20 @@ export const TestComponent = async ({
     onMount,
 }) => {
     onMount(({ element }) => {
-        element.addEventListener('click', onClick);
+        const incrementBtn = element.querySelector('.increment');
+        const decrementBtn = element.querySelector('.decrement');
         const counterEl = element.querySelector('.counter');
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
         });
 
+        incrementBtn.addEventListener('click', increment);
+        decrementBtn.addEventListener('click', decrement);
+
         return () => {
             unwatch();
-            element.removeEventListener('click', onClick);
+            incrementBtn.removeEventListener('click', increment);
+            decrementBtn.removeEventListener('click', decrement);
             element.remove();
         };
     });
@@ -69,16 +81,24 @@ export const TestComponent = async ({
      */
     const { label } = props;
     const { childNumbers, counter } = getState();
+
+    // test array
     const childArray = [...Array(childNumbers).keys()];
 
     return render(`
-        <div>
-            <button class="c-test-comp">
-                <span>${label}</span>
-                <span>
-                    counter: <span class="counter">${counter}</span>
-                </span>
-            </button>
+        <div class="c-test-comp">
+            <div class="c-test-comp__label">
+                <span>${label} : </span>
+                <span class="counter">${counter}</span>
+            </div>
+            <div class="c-test-comp__top">
+                <button class="c-test-comp__btn decrement">
+                    decrement
+                </button>
+                <button class="c-test-comp__btn increment">
+                    increment
+                </button>
+            </div>
             ${addChildren({ children: childArray, getState })}
         </div>
     `);
