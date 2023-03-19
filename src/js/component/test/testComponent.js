@@ -53,7 +53,6 @@ function asyncTest() {
 export const TestComponent = async ({
     onDestroy,
     id,
-    getParentId,
     props,
     getState,
     setState,
@@ -66,8 +65,6 @@ export const TestComponent = async ({
         setState,
         getState,
         watch,
-        getParentId,
-        getPropsById,
     });
 
     onMount(({ element }) => {
