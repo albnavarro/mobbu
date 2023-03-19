@@ -54,6 +54,13 @@ export const componentList = {
     },
     TestComponent2: {
         componentFunction: TestComponent2,
-        componentParams: {},
+        componentParams: {
+            state: {
+                counter: () => ({
+                    value: 0,
+                    type: Number,
+                }),
+            },
+        },
     },
 };
