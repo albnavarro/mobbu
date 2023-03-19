@@ -1,10 +1,5 @@
-import {
-    componentStore,
-    setStateById,
-    getParentIdById,
-    getPropsById,
-} from '../../baseComponent/componentStore';
-import { createProps, mainStore } from '../../baseComponent/mainStore';
+import { setStateById, getPropsById } from '../../baseComponent/componentStore';
+import { createProps } from '../../baseComponent/mainStore';
 
 /**
  * On click function.
@@ -12,18 +7,7 @@ import { createProps, mainStore } from '../../baseComponent/mainStore';
 function onClick(event) {
     const target = event.currentTarget;
     const id = target.id;
-
-    /**
-     * TEST !
-     */
-    console.log('click parentId:', getParentIdById(id));
     setStateById(id, 'stato1', (prev) => prev + 1);
-    console.log('-----');
-    console.log('Debug main componentStore:');
-    componentStore.debugStore();
-    console.log('Debug props mainStore:');
-    mainStore.debugStore();
-    console.log('-----');
 }
 
 /**
@@ -44,14 +28,7 @@ function destroyComponent({ id }) {
     element.remove();
 }
 
-function utilsTest({
-    props,
-    setState,
-    getState,
-    watch,
-    getParentId,
-    getPropsById,
-}) {
+function utilsTest({ props, setState, getState, watch }) {
     const { test } = props;
     console.log('props', test);
     setState('stato1', 20);
@@ -59,12 +36,6 @@ function utilsTest({
     console.log('init stato1 after setState:', stato1Test);
     watch('stato1', (newVal, oldVal) => {
         console.log('watch print stato1', newVal, oldVal);
-
-        const parentId = getParentId();
-        console.log('watch print parentId', parentId);
-
-        const parentProps = getPropsById(parentId);
-        console.log('watch print parent props', parentProps);
     });
 }
 
