@@ -168,6 +168,38 @@ export const setParentsComponent = () => {
 };
 
 /**
+ * Update child id.
+ * From current component id get parentID and then add to parent child id
+ */
+export const addSelfToParentComponent = ({ id = null }) => {
+    if (!id) return;
+
+    // Get current element.
+    const { instances } = componentStore.get();
+    const instance = instances.find(({ id: currentId }) => {
+        return currentId === id;
+    });
+
+    // Get parentId of current component.
+    const parentId = instance?.parentId;
+    if (!parentId) return;
+
+    // Add component Id to parent element.
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { id: currentId } = current;
+
+            return currentId === parentId
+                ? [
+                      ...previous,
+                      { ...current, ...{ child: [...current.child, id] } },
+                  ]
+                : [...previous, current];
+        }, []);
+    });
+};
+
+/**
  * Update deestroy call back by id.
  */
 export const setDestroyCallback = ({ cb = () => {}, id = null }) => {

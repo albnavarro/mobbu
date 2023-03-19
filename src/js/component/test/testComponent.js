@@ -1,4 +1,5 @@
 import { setStateById } from '../../baseComponent/componentStore/action';
+import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore';
 
 /**
@@ -16,6 +17,10 @@ function decrement(event) {
     const root = target.closest('.c-test-comp');
     const id = root.id;
     setStateById(id, 'counter', (prev) => prev - 1);
+}
+
+function debug() {
+    componentStore.debugStore();
 }
 
 function asyncTest() {
@@ -55,6 +60,7 @@ export const TestComponent = async ({
     onMount(({ element }) => {
         const incrementBtn = element.querySelector('.increment');
         const decrementBtn = element.querySelector('.decrement');
+        const debugBtn = element.querySelector('.debug');
         const counterEl = element.querySelector('.counter');
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
@@ -62,11 +68,13 @@ export const TestComponent = async ({
 
         incrementBtn.addEventListener('click', increment);
         decrementBtn.addEventListener('click', decrement);
+        debugBtn.addEventListener('click', debug);
 
         return () => {
             unwatch();
             incrementBtn.removeEventListener('click', increment);
             decrementBtn.removeEventListener('click', decrement);
+            debugBtn.removeEventListener('click', decrement);
             element.remove();
         };
     });
@@ -97,6 +105,9 @@ export const TestComponent = async ({
                 </button>
                 <button class="c-test-comp__btn increment">
                     increment
+                </button>
+                <button class="c-test-comp__btn debug">
+                    debug
                 </button>
             </div>
             ${addChildren({ children: childArray, getState })}

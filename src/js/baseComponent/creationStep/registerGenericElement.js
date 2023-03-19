@@ -1,4 +1,7 @@
-import { setParentsComponent } from '../componentStore/action';
+import {
+    addSelfToParentComponent,
+    setParentsComponent,
+} from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore';
 import { convertToGenericElement } from './convertToGenericElement';
@@ -27,8 +30,15 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             id,
         });
 
-    // Update Parent id before render, do child can use immediatly getParentId
+    /**
+     * Update Parent id before render, do child can use immediatly getParentId.
+     */
     setParentsComponent();
+
+    /**
+     * Update to parent component child array.
+     */
+    addSelfToParentComponent({ id });
 
     return {
         id,

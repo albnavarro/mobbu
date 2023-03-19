@@ -25,6 +25,7 @@ export const registerComponent = ({
                 destroy,
                 id,
                 parentId: null,
+                child: [],
                 cancellable: component.hasAttribute(IS_CANCELLABLE),
                 state: store,
             },
