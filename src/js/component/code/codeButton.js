@@ -11,24 +11,6 @@ function onClick(event) {
     console.log('props', js, scss, html);
 }
 
-/**
- * Add handler.
- */
-function addHandler({ element }) {
-    element.addEventListener('click', onClick);
-}
-
-/**
- * Destroy function.
- */
-function destroyComponent({ id }) {
-    const element = document.querySelector(`#${id}`);
-    if (!element) return;
-
-    element.removeEventListener('click', onClick);
-    element.remove();
-}
-
 function addStyle({ style, element }) {
     const className = {
         primary: 'c-code-btn--primary',
@@ -40,14 +22,17 @@ function addStyle({ style, element }) {
 /**
  * Create component
  */
-export const CodeButton = ({ id, onDestroy, props, render, onMount }) => {
+export const CodeButton = ({ props, render, onMount }) => {
     onMount(({ element }) => {
         const { style } = props;
         addStyle({ style, element });
-        addHandler({ element });
-    });
+        element.addEventListener('click', onClick);
 
-    onDestroy(() => destroyComponent({ id }));
+        return () => {
+            element.removeEventListener('click', onClick);
+            element.remove();
+        };
+    });
 
     return render(`
         <button class="c-code-btn">

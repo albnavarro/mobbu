@@ -1,5 +1,6 @@
 import { core } from '../mobbu';
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
+import { setDestroyCallback } from './componentStore/action';
 
 export const mainStore = core.createStore({
     propsToChildren: () => ({
@@ -54,7 +55,10 @@ export const fireOnMountCallBack = ({ id, element }) => {
     // If callback is not used addOnMoutCallback is not fired.
     // So there is no callback ( undefined )
     const callback = currentItem?.[id];
-    callback?.({ element });
+    const destroyCallback = callback?.({ element });
+
+    // Update destroy callback
+    setDestroyCallback({ cb: destroyCallback, id });
 
     //Remove callback
     mainStore.set('onMountCallback', (prev) => {

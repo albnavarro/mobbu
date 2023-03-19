@@ -10,24 +10,6 @@ function onClick(event) {
     setStateById(id, 'stato1', (prev) => prev + 1);
 }
 
-/**
- * Add handler.
- */
-function addHandler({ element }) {
-    element.addEventListener('click', onClick);
-}
-
-/**
- * Destroy function.
- */
-function destroyComponent({ id }) {
-    const element = document.querySelector(`[data-id=${id}]`);
-    if (!element) return;
-
-    element.removeEventListener('click', onClick);
-    element.remove();
-}
-
 function utilsTest({ props, setState, getState, watch }) {
     const { test } = props;
     console.log('props', test);
@@ -51,8 +33,6 @@ function asyncTest() {
  * Create component
  */
 export const TestComponent = async ({
-    onDestroy,
-    id,
     props,
     getState,
     setState,
@@ -60,17 +40,21 @@ export const TestComponent = async ({
     render,
     onMount,
 }) => {
+    onMount(({ element }) => {
+        element.addEventListener('click', onClick);
+
+        return () => {
+            element.removeEventListener('click', onClick);
+            element.remove();
+        };
+    });
+
     utilsTest({
         props,
         setState,
         getState,
         watch,
     });
-
-    onMount(({ element }) => {
-        addHandler({ element });
-    });
-
     const { test } = props;
     const childProps = createProps({
         jsProps: () => {
@@ -78,8 +62,6 @@ export const TestComponent = async ({
             return stato1;
         },
     });
-
-    onDestroy(() => destroyComponent({ id }));
 
     await asyncTest();
 

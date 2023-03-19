@@ -1,7 +1,4 @@
-import {
-    setDestroyCallback,
-    setParentsComponent,
-} from '../componentStore/action';
+import { setParentsComponent } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore';
 import { convertToGenericElement } from './convertToGenericElement';
@@ -47,7 +44,6 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 element,
             };
         },
-        onDestroy: (cb) => setDestroyCallback({ cb, id }),
         onMount: (cb) => addOnMoutCallback({ id, cb }),
     };
 };
