@@ -65,6 +65,9 @@ export const registerComponent = ({
     };
 };
 
+/**
+ * Update element root from generic to real after conversion.
+ */
 export const setElementById = ({ id = null, newElement }) => {
     if (!id) return null;
 
@@ -79,6 +82,9 @@ export const setElementById = ({ id = null, newElement }) => {
     });
 };
 
+/**
+ * Get element by id
+ */
 export const getElementById = ({ id = null }) => {
     if (!id) return null;
 

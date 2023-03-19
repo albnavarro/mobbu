@@ -14,7 +14,7 @@ export const convertToGenericElement = ({ component }) => {
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
     const newComponent = document.createElement('div');
-    newComponent.setAttribute(IS_COMPONENT, component.dataset.component);
+    newComponent.setAttribute(IS_COMPONENT, '');
 
     /**
      * Get props
@@ -74,10 +74,7 @@ export const addContent = ({ element, content }) => {
          */
         const firstChild = element.firstElementChild;
         firstChild.id = element.id;
-        firstChild.setAttribute(
-            'data-iscomponent',
-            element.dataset.iscomponent
-        );
+        firstChild.setAttribute('data-iscomponent', '');
 
         /**
          * Delete provvisory component and add real component.
