@@ -1,19 +1,17 @@
-import { watchById } from '../../baseComponent/componentStore/action';
-
 /**
  * Create component
  */
-export const TestComponent2 = ({ props, getParentId, render, onMount }) => {
+export const TestComponent2 = ({ props, watchParent, render, onMount }) => {
     const { valueFromParent, i } = props;
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
-        const unwatch = watchById(getParentId(), 'counter', () => {
+        const unwatchParent = watchParent('counter', () => {
             counterEl.innerHTML = valueFromParent();
         });
 
         return () => {
-            unwatch();
+            unwatchParent();
             element.remove();
         };
     });

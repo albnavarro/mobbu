@@ -1,6 +1,6 @@
 import { core } from '../../mobbu';
 import { IS_CANCELLABLE } from '../utils';
-import { getParentIdById } from './action';
+import { getParentIdById, watchById } from './action';
 import { componentStore } from './store';
 
 /**
@@ -36,6 +36,7 @@ export const registerComponent = ({
         getState: () => store.get(),
         setState: (prop, value) => store.set(prop, value),
         watch: (prop, cb) => store.watch(prop, cb),
+        watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
         getParentId: () => getParentIdById(id),
     };
 };
