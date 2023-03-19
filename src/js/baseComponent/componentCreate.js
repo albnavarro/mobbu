@@ -88,7 +88,7 @@ export const addContent = ({ element, content }) => {
 /**
  * Create component
  */
-export const createComponent = ({ component, state = {} }) => {
+export const createComponent = ({ component = null, state = {} }) => {
     /**
      * Create basic DOM element
      */
