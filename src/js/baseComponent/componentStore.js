@@ -65,6 +65,35 @@ export const registerComponent = ({
     };
 };
 
+export const setElementById = ({ id = null, newElement }) => {
+    if (!id) return null;
+
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { id: currentId } = current;
+
+            return id === currentId
+                ? [...previous, { ...current, ...{ element: newElement } }]
+                : [...previous, current];
+        }, []);
+    });
+};
+
+export const getElementById = ({ id = null }) => {
+    if (!id) return null;
+
+    const { instances } = componentStore.get();
+    const instance = instances.find(({ id: currentId }) => currentId === id);
+
+    const element = instance?.element;
+    if (!element) {
+        console.warn(`getElementById failed no id found`);
+        return null;
+    }
+
+    return element;
+};
+
 /**
  * Get element by Dom instance
  */

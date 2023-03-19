@@ -11,15 +11,15 @@ import { loadFps } from './loadFps.js';
 
 /**
  * @typedef {Object} handleFrameTypes
- * @prop {number} time 
+ * @prop {number} time
     The total activity time of the request animation frame
- * @prop {number} fps 
+ * @prop {number} fps
     Current fps value, the starting fps value is 60.
     The effective value of the fps property will occur 30 frames after the initialization of handleFrame,
     30 frames the minimum interval to have a correct result.
- * @prop {boolean} shouldRender 
+ * @prop {boolean} shouldRender
     If the useScaleFps global property is on,
-    the property indicates whether there is a drop in frame rate compared 
+    the property indicates whether there is a drop in frame rate compared
     to the optimal frame rate calculated at application startup.
  */
 
@@ -208,6 +208,11 @@ const render = (timestamp) => {
                 : frameStore.getProp('instantFps');
         fpsPrevTime = time;
         frames = 0;
+
+        /**
+         * Prevent fps error;
+         */
+        if (fps === 0) fps = frameStore.getProp('instantFps');
 
         /**
          * Update value every seconds

@@ -1,4 +1,6 @@
 import { parseComponents } from '../baseComponent/componentParse';
+import { navAccordion } from '../component/navigation/navAccordion';
+import { navigationScoller } from '../component/navigation/navScroller';
 import { homeModule } from './home';
 
 /**
@@ -24,6 +26,9 @@ const loadData = async () => {
 export const inizializeApp = async () => {
     commonData = await loadData();
     await parseComponents({ element: document.body });
+    navAccordion();
+    navigationScoller();
+
     loadRoute({ route: 'home' });
 };
 

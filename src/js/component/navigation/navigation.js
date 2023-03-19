@@ -1,6 +1,5 @@
+import { createProps } from '../../baseComponent/mainStore';
 import { getCommonData } from '../../route';
-import { navAccordion } from './navAccordion';
-import { navigationScoller } from './navScroller';
 
 /**
  * Create second levels item.
@@ -9,14 +8,17 @@ function getSubmenu(items) {
     return items
         .map((item) => {
             const { label, url } = item;
+            const props = createProps({
+                label,
+                url,
+                ...{ subMenuClass: 'l-navigation__link--submenu' },
+            });
 
             return `
-            <li class="l-navigation__submenu__item">
-                <a class="l-navigation__link l-navigation__link--submenu" href="${url}">
-                    ${label}
-                </a>
-            </li>
-        `;
+                <li class="l-navigation__submenu__item">
+                    <component data-props="${props}" data-component="NavigationButton"/>
+                </li>
+            `;
         })
         .join('');
 }
@@ -29,10 +31,9 @@ function getItems(data) {
         .map((item) => {
             const { label, url, children } = item;
 
-            const { hasChildrenClass, linkTag, arrowClass, submenu } = children
+            const { hasChildrenClass, arrowClass, submenu } = children
                 ? {
                       hasChildrenClass: 'has-child',
-                      linkTag: 'button',
                       arrowClass: 'l-navigation__link--arrow',
                       submenu: `
                         <ul class="l-navigation__submenu">
@@ -42,16 +43,20 @@ function getItems(data) {
                   }
                 : {
                       hasChildrenClass: '',
-                      linkTag: 'a',
                       arrowClass: '',
                       submenu: '',
                   };
 
+            const props = createProps({
+                label,
+                url,
+                arrowClass,
+                subMenuClass: '',
+            });
+
             return `
                 <li class="l-navigation__item ${hasChildrenClass}">
-                    <${linkTag} class="l-navigation__link ${arrowClass}" href="${url}">
-                        ${label}
-                    </${linkTag}>
+                    <component data-props="${props}" data-component="NavigationButton">
                     ${submenu}
                 </li>
             `;
@@ -62,17 +67,14 @@ function getItems(data) {
 /**
  * inizialize module
  */
-export const Navigation = ({ render, onMount }) => {
-    onMount(() => {
-        navAccordion();
-        navigationScoller();
-    });
-
+export const Navigation = ({ render }) => {
     const { navigation: data } = getCommonData();
 
     return render(`
-         <ul class="l-navigation__list">
+        <nav class="l-navigation">
+            <ul class="l-navigation__list">
              ${getItems(data)}
-         </ul>
+            </ul>
+        </nav>
     `);
 };

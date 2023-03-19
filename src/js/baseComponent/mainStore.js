@@ -45,7 +45,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
     });
 };
 
-export const fireOnMountCallBack = ({ id }) => {
+export const fireOnMountCallBack = ({ id, element }) => {
     const { onMountCallback } = mainStore.get();
     const currentItem = onMountCallback.find((item) => {
         return item?.[id];
@@ -54,7 +54,7 @@ export const fireOnMountCallBack = ({ id }) => {
     // If callback is not used addOnMoutCallback is not fired.
     // So there is no callback ( undefined )
     const callback = currentItem?.[id];
-    callback?.();
+    callback?.({ element });
 
     //Remove callback
     mainStore.set('onMountCallback', (prev) => {

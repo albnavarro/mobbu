@@ -80,7 +80,6 @@ function asyncTest() {
  * Create component
  */
 export const TestComponent = async ({
-    element,
     onDestroy,
     id,
     getParentId,
@@ -89,6 +88,7 @@ export const TestComponent = async ({
     setState,
     watch,
     render,
+    onMount,
 }) => {
     utilsTest({
         props,
@@ -99,7 +99,9 @@ export const TestComponent = async ({
         getPropsById,
     });
 
-    addHandler({ element });
+    onMount(({ element }) => {
+        addHandler({ element });
+    });
 
     const { test } = props;
     const childProps = createProps({
@@ -114,7 +116,9 @@ export const TestComponent = async ({
     await asyncTest();
 
     return render(`
-        <span>${test}</span>
-        <component data-props="${childProps}" data-cancellable data-component="TestComponent2"/>
+        <button class="c-test-comp">
+            <span>${test}</span>
+            <component data-props="${childProps}" data-cancellable data-component="TestComponent2">
+        </button>
     `);
 };

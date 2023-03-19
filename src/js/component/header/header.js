@@ -25,8 +25,8 @@ function closeInfo({ navInfo }) {
     navInfo.classList.remove('open');
 }
 
-export const Header = ({ element, render, onMount }) => {
-    onMount(() => {
+export const Header = ({ render, onMount }) => {
+    onMount(({ element }) => {
         const toggle = element.querySelector('.l-header__toggle');
         const navInfo = element.querySelector('.l-header__navinfo');
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
@@ -35,30 +35,32 @@ export const Header = ({ element, render, onMount }) => {
     });
 
     return render(`
-        <div class="l-header__container">
-            <div class="l-header__grid">
-                <button type="button" class="l-header__toggle"></button>
-                <div class="l-header__title">
-                    <a href="#"> title </a>
+        <header class="l-header">
+            <div class="l-header__container">
+                <div class="l-header__grid">
+                    <button type="button" class="l-header__toggle"></button>
+                    <div class="l-header__title">
+                        <a href="#"> title </a>
+                    </div>
+                    <div class="l-header__utils">
+                        <component
+                            data-component="Headernav"
+                            data-json="header"
+                        ></component>
+                    </div>
                 </div>
-                <div class="l-header__utils">
+                <div class="l-header__navinfo">
+                    <p class="p--small">Drag or Scroll</p>
                     <component
-                        data-component="Headernav"
-                        data-json="header"
-                    ></component>
+                        data-component="CodeButton"
+                        data-js="/js"
+                        data-scss="/scss"
+                        data-html="/html1"
+                        data-style="primary"
+                    >
+                    </component>
                 </div>
             </div>
-            <div class="l-header__navinfo">
-                <p class="p--small">Drag or Scroll</p>
-                <component
-                    data-component="CodeButton"
-                    data-js="/js"
-                    data-scss="/scss"
-                    data-html="/html1"
-                    data-style="primary"
-                >
-                </component>
-            </div>
-        </div>
+        </header>
     `);
 };

@@ -17,30 +17,30 @@
     },
     "navigation": [
         {
-            "label": "test",
-            "url": "/parallax.html",
+            "label": "home",
+            "url": "home",
             "children": null
         },
         {
             "label": "test",
-            "url": "#",
+            "url": "test",
             "children": null
         },
         {
-            "label": "test",
+            "label": "test2",
             "url": "#",
             "children": [
                 {
-                    "label": "test",
-                    "url": "#"
+                    "label": "submenu test1",
+                    "url": "submenutest1"
                 },
                 {
-                    "label": "test",
-                    "url": "#"
+                    "label": "submenu test2",
+                    "url": "submenutest2"
                 },
                 {
-                    "label": "test",
-                    "url": "#"
+                    "label": "submenu test3",
+                    "url": "submenutest3"
                 }
             ]
         },

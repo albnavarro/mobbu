@@ -6,55 +6,40 @@ import { NavigationContainer } from '../component/navigation/navContainer';
 import { Navigation } from '../component/navigation/navigation';
 import { Header } from '../component/header/header';
 import { Footer } from '../component/footer/footer';
+import { NavigationButton } from '../component/navigation/navigationButton';
 
 export const componentRegistered = {
     Header: {
         componentFunction: Header,
-        componentParams: {
-            className: 'l-header',
-            type: 'header',
-        },
+        componentParams: {},
     },
     Headernav: {
         componentFunction: Headernav,
-        componentParams: {
-            className: 'l-header__sidenav',
-            type: 'ul',
-        },
+        componentParams: {},
     },
     Footer: {
         componentFunction: Footer,
-        componentParams: {
-            className: ['l-footer'],
-            type: 'footer',
-        },
+        componentParams: {},
     },
     NavigationContainer: {
         componentFunction: NavigationContainer,
-        componentParams: {
-            className: ['l-navcontainer'],
-            type: 'div',
-        },
+        componentParams: {},
     },
     Navigation: {
         componentFunction: Navigation,
-        componentParams: {
-            className: ['l-navigation'],
-            type: 'nav',
-        },
+        componentParams: {},
+    },
+    NavigationButton: {
+        componentFunction: NavigationButton,
+        componentParams: {},
     },
     CodeButton: {
         componentFunction: CodeButton,
-        componentParams: {
-            className: ['c-code-btn'],
-            type: 'button',
-        },
+        componentParams: {},
     },
     TestComponent: {
         componentFunction: TestComponent,
         componentParams: {
-            className: ['c-test-comp'],
-            type: 'button',
             state: {
                 stato1: () => ({
                     value: 0,
@@ -69,9 +54,6 @@ export const componentRegistered = {
     },
     TestComponent2: {
         componentFunction: TestComponent2,
-        componentParams: {
-            className: ['c-test-comp__inner'],
-            type: 'span',
-        },
+        componentParams: {},
     },
 };

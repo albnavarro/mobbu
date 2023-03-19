@@ -10,5 +10,9 @@ export const TestComponent2 = ({ props, getParentId, render }) => {
         console.log(`parent component change: ${val}`);
     });
 
-    return render(`${jsProps()}`);
+    return render(`
+        <span class="c-test-comp__inner">
+            ${jsProps()}
+        </span>
+    `);
 };

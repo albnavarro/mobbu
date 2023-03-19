@@ -1,5 +1,6 @@
 import { addContent, createComponent } from './componentCreate';
 import { componentRegistered } from './componentRegister';
+import { getElementById, setElementById } from './componentStore';
 import { fireOnMountCallBack } from './mainStore';
 import { WILL_COMPONENT } from './utils';
 
@@ -49,12 +50,13 @@ const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
         /**
          * Add custom DOM to basic component
          */
-        await addContent({ content, element });
+        const { newElement } = await addContent({ content, element });
+        setElementById({ id, newElement });
 
         /**
          * Fire onMount callback
          */
-        fireOnMountCallBack({ id });
+        fireOnMountCallBack({ id, element: newElement });
     }
 
     // Check for another component

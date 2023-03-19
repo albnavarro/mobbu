@@ -21,11 +21,10 @@ function additems() {
 /**
  * Create component
  */
-export const Headernav = ({ element, render, onMount }) => {
-    onMount(() => {
-        const innerList = element.querySelectorAll('li');
-        console.log(innerList);
-    });
-
-    return render(additems());
+export const Headernav = ({ render }) => {
+    return render(`
+        <ul class="l-header__sidenav">
+            ${additems()}
+        </ul>
+    `);
 };

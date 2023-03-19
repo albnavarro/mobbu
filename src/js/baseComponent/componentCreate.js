@@ -1,4 +1,3 @@
-import { checkType } from '../mobbu/store/storeType';
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 import {
     registerComponent,
@@ -11,45 +10,42 @@ import { IS_COMPONENT } from './utils';
 /**
  *  Create base DOM component from component tag.
  */
-export const convertComponent = ({
-    component,
-    className,
-    content = '',
-    type = 'div',
-}) => {
+export const convertToGenericElement = ({ component }) => {
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
-    const root = document.createElement(type);
-    root.setAttribute(IS_COMPONENT, component.dataset.component);
+    const newComponent = document.createElement('div');
+    newComponent.setAttribute(IS_COMPONENT, component.dataset.component);
 
     /**
-     * Add main class
+     * Get props
      */
-    const classParsed = checkType(Array, className) ? className : [className];
-    classParsed.forEach((item) => root.classList.add(item));
-
     const propsId = component.dataset.props;
     const propsFromParent = getPropsFromParent(propsId);
 
     /**
      * Add element to DOM
      */
-    parentNode.appendChild(root);
-    parentNode.replaceChild(root, component);
+    component.replaceWith(newComponent);
 
     /**
      * Create Univoque id
      */
     const id = getUnivoqueId();
-    root.id = id;
+    newComponent.id = id;
+
+    /**
+     * Get new component
+     */
     const element = parentNode.querySelector(`#${id}`);
 
     /**
      * Add previous and new content.
      */
-    element.insertAdjacentHTML('afterbegin', content);
     element.insertAdjacentHTML('beforeEnd', prevContent);
 
+    /**
+     * Set props.
+     */
     const baseProps = { ...component.dataset };
     delete baseProps.props;
 
@@ -68,9 +64,26 @@ export const convertComponent = ({
 export const addContent = ({ element, content }) => {
     return new Promise((resolve) => {
         // setTimeout(() => {
+        /**
+         * Add real content from render function
+         */
         element.insertAdjacentHTML('afterbegin', content);
-        // parseComponents({ element });
-        resolve();
+
+        /**
+         * Get inner content and copy data from provvisory component
+         */
+        const firstChild = element.firstElementChild;
+        firstChild.id = element.id;
+        firstChild.setAttribute(
+            'data-iscomponent',
+            element.dataset.iscomponent
+        );
+
+        /**
+         * Delete provvisory component and add real component.
+         */
+        element.replaceWith(...element.childNodes);
+        resolve({ newElement: firstChild });
         // }, 500);
     });
 };
@@ -78,19 +91,12 @@ export const addContent = ({ element, content }) => {
 /**
  * Create component
  */
-export const createComponent = ({
-    component,
-    className = '',
-    type = 'div',
-    state = {},
-}) => {
+export const createComponent = ({ component, state = {} }) => {
     /**
      * Create basic DOM element
      */
-    const { element, props, id } = convertComponent({
+    const { element, props, id } = convertToGenericElement({
         component,
-        className,
-        type,
     });
 
     /**

@@ -40,13 +40,18 @@ function addStyle({ style, element }) {
 /**
  * Create component
  */
-export const CodeButton = ({ id, onDestroy, props, element, render }) => {
-    const { style } = props;
-    addStyle({ style, element });
-    addHandler({ element });
+export const CodeButton = ({ id, onDestroy, props, render, onMount }) => {
+    onMount(({ element }) => {
+        const { style } = props;
+        addStyle({ style, element });
+        addHandler({ element });
+    });
+
     onDestroy(() => destroyComponent({ id }));
 
     return render(`
-        <span><></span>
+        <button class="c-code-btn">
+            <span><></span>
+        </button>
     `);
 };

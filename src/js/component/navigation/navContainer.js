@@ -1,24 +1,20 @@
 import { navigationStore } from './navStore';
 
-let root = {};
-let main = {};
-let toTopBtn = {};
-
-function closeNavigation() {
-    root.classList.remove('active');
+function closeNavigation({ element, main }) {
+    element.classList.remove('active');
     main.classList.remove('shift');
     document.body.style.overflow = '';
     navigationStore.emit('closeAllItems');
 }
 
-function openNavigation() {
-    root.classList.add('active');
+function openNavigation({ element, main }) {
+    element.classList.add('active');
     main.classList.add('shift');
     document.body.style.overflow = 'hidden';
     navigationStore.emit('refreshScroller');
 }
 
-function addHandler({ main }) {
+function addHandler({ main, toTopBtn }) {
     main.addEventListener('click', () => {
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) return;
@@ -35,27 +31,31 @@ function addHandler({ main }) {
 /**
  * Create container
  */
-export const NavigationContainer = ({ element, render, onMount }) => {
-    root = element;
-
-    onMount(() => {
-        main = document.querySelector('main.main');
-        toTopBtn = document.querySelector('.l-navcontainer__totop');
-        navigationStore.watch('openNavigation', openNavigation);
-        navigationStore.watch('closeNavigation', closeNavigation);
-        addHandler({ main });
+export const NavigationContainer = ({ render, onMount }) => {
+    onMount(({ element }) => {
+        const main = document.querySelector('main.main');
+        const toTopBtn = element.querySelector('.l-navcontainer__totop');
+        navigationStore.watch('openNavigation', () =>
+            openNavigation({ element, main })
+        );
+        navigationStore.watch('closeNavigation', () =>
+            closeNavigation({ element, main })
+        );
+        addHandler({ main, toTopBtn });
     });
 
     return render(`
-         <div class="l-navcontainer__side">
-             <div class="l-navcontainer__percent">
+        <div class="l-navcontainer">
+             <div class="l-navcontainer__side">
+                 <div class="l-navcontainer__percent">
+                 </div>
+                 <button class="l-navcontainer__totop"></button>
              </div>
-             <button class="l-navcontainer__totop"></button>
-         </div>
-         <div class="l-navcontainer__wrap">
-             <div class="l-navcontainer__scroll">
-                 <component data-component="Navigation"></component>
+             <div class="l-navcontainer__wrap">
+                 <div class="l-navcontainer__scroll">
+                     <component data-component="Navigation"></component>
+                 </div>
              </div>
-         </div>
+        </div>
     `);
 };
