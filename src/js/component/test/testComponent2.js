@@ -8,12 +8,14 @@ export const TestComponent2 = ({ props, getParentId, render, onMount }) => {
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
-
         const unwatch = watchById(getParentId(), 'counter', () => {
             counterEl.innerHTML = valueFromParent();
         });
 
-        console.log(unwatch);
+        return () => {
+            unwatch();
+            element.remove();
+        };
     });
 
     return render(`
