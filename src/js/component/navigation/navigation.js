@@ -56,7 +56,7 @@ function getItems(data) {
 
             return `
                 <li class="l-navigation__item ${hasChildrenClass}">
-                    <component data-props="${props}" data-component="NavigationButton">
+                    <component data-props="${props}" data-component="NavigationButton"/>
                     ${submenu}
                 </li>
             `;

@@ -53,7 +53,7 @@ export const NavigationContainer = ({ render, onMount }) => {
              </div>
              <div class="l-navcontainer__wrap">
                  <div class="l-navcontainer__scroll">
-                     <component data-component="Navigation"></component>
+                     <component data-component="Navigation"/>
                  </div>
              </div>
         </div>
