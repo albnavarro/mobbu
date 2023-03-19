@@ -4,8 +4,8 @@
 export const TestComponent2 = ({
     props,
     watch,
-    setState,
-    watchParent,
+    // setState,
+    // watchParent,
     render,
     onMount,
 }) => {
@@ -17,29 +17,24 @@ export const TestComponent2 = ({
         /**
          * Listen to parent mutation.
          */
-        const unwatchParent = watchParent('counter', () => {
-            setState('counter', valueFromParent());
-        });
+        // const unwatchParent = watchParent('counter', () => {
+        //     setState('counter', valueFromParent());
+        // });
 
-        /**
-         * use internale store so update lement only if the is a mutation.
-         */
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
         });
 
         return () => {
-            unwatchParent();
+            // unwatchParent();
             unwatch();
             element.remove();
         };
     });
 
-    setState('counter', valueFromParent());
-
     return render(`
         <div class="c-test-comp__inner">
-            <span class="counter">${valueFromParent()}</span>
+            <span class="counter">${valueFromParent}</span>
         </div>
     `);
 };

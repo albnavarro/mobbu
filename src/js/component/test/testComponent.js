@@ -1,4 +1,7 @@
-import { setStateById } from '../../baseComponent/componentStore/action';
+import {
+    // getElementById,
+    setStateById,
+} from '../../baseComponent/componentStore/action';
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore';
 
@@ -35,14 +38,19 @@ function asyncTest() {
     });
 }
 
+// const childProps = createProps({
+//     valueFromParent: () => {
+//         const { counter } = getState();
+//         return counter * i;
+//     },
+// });
+
 function addChildren({ children, getState }) {
     return children
         .map((_child, i) => {
+            const { counter } = getState();
             const childProps = createProps({
-                valueFromParent: () => {
-                    const { counter } = getState();
-                    return counter * i;
-                },
+                valueFromParent: counter * i,
             });
 
             return `
@@ -68,8 +76,17 @@ export const TestComponent = async ({
         const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
         const counterEl = element.querySelector('.counter');
+
+        /**
+         * Watch state mutation.
+         */
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
+
+            const children = getChildrenId();
+            children.forEach((id, i) => {
+                setStateById(id, 'counter', val * i);
+            });
         });
 
         incrementBtn.addEventListener('click', increment);
