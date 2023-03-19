@@ -1,6 +1,7 @@
-import { addContent, createComponent } from './componentCreate';
-import { componentRegistered } from './componentRegister';
+import { componentList } from './componentList';
 import { setElementById } from './componentStore';
+import { convertToRealElement } from './creationStep/convertToRealElement';
+import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore';
 import { WILL_COMPONENT } from './utils';
 
@@ -32,8 +33,8 @@ const parseComponentsRecursive = async ({
     if (!componentToParse) return Promise.resolve();
 
     const key = componentToParse?.dataset?.component;
-    const userFunctionComponent = componentRegistered?.[key]?.componentFunction;
-    const componentParams = componentRegistered?.[key]?.componentParams;
+    const userFunctionComponent = componentList?.[key]?.componentFunction;
+    const componentParams = componentList?.[key]?.componentParams;
 
     // if componentToParse is not in list remove div component
     if (!userFunctionComponent) {
@@ -51,7 +52,7 @@ const parseComponentsRecursive = async ({
      * 2 - Register component to store
      * 3 - Return methods and props for userFunctionComponent (componentData)
      */
-    const componentData = createComponent({
+    const componentData = registerGenericElement({
         component: componentToParse,
         ...componentParams,
     });
@@ -69,7 +70,7 @@ const parseComponentsRecursive = async ({
     /**
      * Add custom DOM to basic component
      */
-    const { newElement } = await addContent({
+    const { newElement } = await convertToRealElement({
         content,
         element: placeholderElement,
     });

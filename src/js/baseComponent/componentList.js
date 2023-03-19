@@ -8,7 +8,7 @@ import { Header } from '../component/header/header';
 import { Footer } from '../component/footer/footer';
 import { NavigationButton } from '../component/navigation/navigationButton';
 
-export const componentRegistered = {
+export const componentList = {
     Header: {
         componentFunction: Header,
         componentParams: {},
