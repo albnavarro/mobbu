@@ -29,7 +29,7 @@ export const getElementById = ({ id = null }) => {
 
     const element = instance?.element;
     if (!element) {
-        console.warn(`getElementById failed no id found`);
+        // console.warn(`getElementById failed no id found`);
         return null;
     }
 
@@ -47,7 +47,7 @@ export const getPropsById = (id) => {
 
     const props = instance?.props;
     if (!props) {
-        console.warn(`getPropsById failed no id found`);
+        // console.warn(`getPropsById failed no id found`);
         return null;
     }
 
@@ -65,7 +65,7 @@ export const getStateById = (id) => {
 
     const state = instance?.state;
     if (!state) {
-        console.warn(`getStateById failed no id found`);
+        // console.warn(`getStateById failed no id found`);
         return null;
     }
 
@@ -83,7 +83,7 @@ export const setStateById = (id, prop, value) => {
 
     const state = instance?.state;
     if (!state) {
-        console.warn(`setStateById failed no id found on prop: ${prop}`);
+        // console.warn(`setStateById failed no id found on prop: ${prop}`);
         return null;
     }
 
@@ -101,7 +101,7 @@ export const watchById = (id, prop, cb) => {
 
     const state = instance?.state;
     if (!state) {
-        console.warn(`watchById failed no id found on prop: ${prop}`);
+        // console.warn(`watchById failed no id found on prop: ${prop}`);
         return null;
     }
 
@@ -121,7 +121,7 @@ export const getParentIdById = (id) => {
 
     const parentId = instance?.parentId;
     if (!parentId) {
-        console.warn(`getParentIdById failed no id found`);
+        // console.warn(`getParentIdById failed no id found`);
         return null;
     }
 

@@ -41,12 +41,12 @@ export const componentList = {
         componentFunction: TestComponent,
         componentParams: {
             state: {
-                stato1: () => ({
-                    value: 0,
+                counter: () => ({
+                    value: 2,
                     type: Number,
                 }),
-                stato2: () => ({
-                    value: 0,
+                childNumbers: () => ({
+                    value: 5,
                     type: Number,
                 }),
             },

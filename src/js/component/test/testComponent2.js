@@ -1,20 +1,30 @@
 import { watchById } from '../../baseComponent/componentStore/action';
-import { componentStore } from '../../baseComponent/componentStore/store';
 
 /**
  * Create component
  */
-export const TestComponent2 = ({ props, getParentId, render }) => {
-    const { jsProps } = props;
+export const TestComponent2 = ({ props, getParentId, render, onMount }) => {
+    const { valueFromParent, i } = props;
 
-    watchById(getParentId(), 'stato1', (val) => {
-        console.log(`parent component change: ${val}`);
-        componentStore.debugStore();
+    onMount(({ element }) => {
+        const counterEl = element.querySelector('.counter');
+
+        const unwatch = watchById(getParentId(), 'counter', () => {
+            counterEl.innerHTML = valueFromParent();
+        });
+
+        console.log(unwatch);
     });
 
     return render(`
-        <span class="c-test-comp__inner">
-            ${jsProps()}
-        </span>
+        <div class="c-test-comp__inner">
+            <div>
+                index: ${i}
+            </div>
+            <div>
+                counter*i from parent:
+                <span class="counter">${valueFromParent()}</span>
+            </div>
+        </div>
     `);
 };

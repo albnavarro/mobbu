@@ -8,11 +8,7 @@ import { WILL_COMPONENT } from './utils';
 /**
  * Create all component from DOM.
  */
-const parseComponentsRecursive = async ({
-    element = null,
-    renderedElement = null,
-    index = 0,
-}) => {
+const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
     if (!element) return Promise.resolve();
 
     /**
@@ -62,13 +58,6 @@ const parseComponentsRecursive = async ({
     } = await userFunctionComponent(componentData);
 
     /**
-     * Remove component component-data attribute.
-     * 'data-iscomponent' is used by upper function userFunctionComponent to get parent id
-     * So now remove the previus component data-iscomponent for have a clean DOM element.
-     */
-    if (renderedElement) renderedElement.removeAttribute('data-iscomponent');
-
-    /**
      * Add custom DOM to basic component
      */
     const { newElement } = await convertToRealElement({
@@ -89,7 +78,6 @@ const parseComponentsRecursive = async ({
     // Check for another component
     await parseComponentsRecursive({
         element,
-        renderedElement: newElement,
         index: index++,
     });
 };
