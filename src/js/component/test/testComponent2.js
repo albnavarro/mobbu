@@ -1,4 +1,4 @@
-import { watchById } from '../../baseComponent/componentStore';
+import { componentStore, watchById } from '../../baseComponent/componentStore';
 
 /**
  * Create component
@@ -8,6 +8,7 @@ export const TestComponent2 = ({ props, getParentId, render }) => {
 
     watchById(getParentId(), 'stato1', (val) => {
         console.log(`parent component change: ${val}`);
+        componentStore.debugStore();
     });
 
     return render(`
