@@ -16,12 +16,6 @@ const parseComponentsRecursive = async ({
     if (!element) return Promise.resolve();
 
     /**
-     * Remove component component-data attribute.
-     * After component mounted is unnecessary
-     */
-    if (renderedElement) renderedElement.setAttribute('data-iscomponent', '');
-
-    /**
      * Get the first data-component element.
      * So after we cna render the child component.
      * render components form top to botton so we are shure that child component
@@ -66,6 +60,13 @@ const parseComponentsRecursive = async ({
         element: placeholderElement,
         id,
     } = await userFunctionComponent(componentData);
+
+    /**
+     * Remove component component-data attribute.
+     * 'data-iscomponent' is used by upper function userFunctionComponent to get parent id
+     * So now remove the previus component data-iscomponent for have a clean DOM element.
+     */
+    if (renderedElement) renderedElement.removeAttribute('data-iscomponent');
 
     /**
      * Add custom DOM to basic component
