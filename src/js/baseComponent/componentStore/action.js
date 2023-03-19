@@ -129,6 +129,26 @@ export const getParentIdById = (id) => {
 };
 
 /**
+ * Get children id.
+ */
+export const getChildIdById = (id) => {
+    if (!id) return null;
+
+    const { instances } = componentStore.get();
+    const instance = instances.find(({ id: currentId }) => {
+        return currentId === id;
+    });
+
+    const child = instance?.child;
+    if (!child) {
+        console.warn(`getChildIdById failed no id found`);
+        return null;
+    }
+
+    return child;
+};
+
+/**
  * Remove with no reference to DOM.
  */
 export const removeGhostComponent = () => {};

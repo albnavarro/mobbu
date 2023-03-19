@@ -19,6 +19,10 @@ function decrement(event) {
     setStateById(id, 'counter', (prev) => prev - 1);
 }
 
+function logChildren(getChildrenId) {
+    console.log(getChildrenId());
+}
+
 function debug() {
     componentStore.debugStore();
 }
@@ -53,6 +57,7 @@ function addChildren({ children, getState }) {
 export const TestComponent = async ({
     props,
     getState,
+    getChildrenId,
     watch,
     render,
     onMount,
@@ -61,6 +66,7 @@ export const TestComponent = async ({
         const incrementBtn = element.querySelector('.increment');
         const decrementBtn = element.querySelector('.decrement');
         const debugBtn = element.querySelector('.debug');
+        const childrenBtn = element.querySelector('.children');
         const counterEl = element.querySelector('.counter');
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
@@ -69,6 +75,7 @@ export const TestComponent = async ({
         incrementBtn.addEventListener('click', increment);
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
+        childrenBtn.addEventListener('click', () => logChildren(getChildrenId));
 
         return () => {
             unwatch();
@@ -108,6 +115,9 @@ export const TestComponent = async ({
                 </button>
                 <button class="c-test-comp__btn debug">
                     debug
+                </button>
+                <button class="c-test-comp__btn children">
+                    get Children id
                 </button>
             </div>
             ${addChildren({ children: childArray, getState })}
