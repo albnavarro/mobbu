@@ -1,4 +1,5 @@
-import { componentStore, watchById } from '../../baseComponent/componentStore';
+import { watchById } from '../../baseComponent/componentStore/action';
+import { componentStore } from '../../baseComponent/componentStore/store';
 
 /**
  * Create component

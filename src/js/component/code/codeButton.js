@@ -1,4 +1,4 @@
-import { getPropsById } from '../../baseComponent/componentStore';
+import { getPropsById } from '../../baseComponent/componentStore/action';
 
 /**
  * On click function.

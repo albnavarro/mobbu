@@ -1,8 +1,8 @@
 import {
-    registerComponent,
     setDestroyCallback,
     setParentsComponent,
-} from '../componentStore';
+} from '../componentStore/action';
+import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore';
 import { convertToGenericElement } from './convertToGenericElement';
 

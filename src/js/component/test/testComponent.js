@@ -1,4 +1,4 @@
-import { setStateById } from '../../baseComponent/componentStore';
+import { setStateById } from '../../baseComponent/componentStore/action';
 import { createProps } from '../../baseComponent/mainStore';
 
 /**
