@@ -1,6 +1,6 @@
 import { core } from '../../mobbu';
 import { IS_CANCELLABLE } from '../utils';
-import { getChildIdById, getParentIdById, watchById } from './action';
+import { getChildrenIdByName, getParentIdById, watchById } from './action';
 import { componentStore } from './store';
 
 /**
@@ -13,6 +13,7 @@ export const registerComponent = ({
     state = {},
     destroy = null,
     id = null,
+    componentName = '',
 }) => {
     const store = core.createStore(state);
     componentStore.set('instances', (prev) => {
@@ -20,12 +21,12 @@ export const registerComponent = ({
             ...prev,
             {
                 element,
-                component,
+                component: componentName,
                 props,
                 destroy,
                 id,
                 parentId: null,
-                child: [],
+                child: {},
                 cancellable: component.hasAttribute(IS_CANCELLABLE),
                 state: store,
             },
@@ -38,7 +39,7 @@ export const registerComponent = ({
         setState: (prop, value) => store.set(prop, value),
         watch: (prop, cb) => store.watch(prop, cb),
         watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
+        getChildren: (component) => getChildrenIdByName({ id, component }),
         getParentId: () => getParentIdById(id),
-        getChildrenId: () => getChildIdById(id),
     };
 };

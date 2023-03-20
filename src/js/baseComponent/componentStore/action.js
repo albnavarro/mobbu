@@ -1,5 +1,6 @@
 import { IS_COMPONENT } from '../utils';
 import { componentStore } from './store';
+import { updateChildrenArray } from './utils';
 
 /**
  * Update element root from generic to real after conversion.
@@ -131,7 +132,7 @@ export const getParentIdById = (id) => {
 /**
  * Get children id.
  */
-export const getChildIdById = (id) => {
+export const getChildrenIdByName = ({ id, component }) => {
     if (!id) return null;
 
     const { instances } = componentStore.get();
@@ -145,7 +146,7 @@ export const getChildIdById = (id) => {
         return null;
     }
 
-    return child;
+    return child?.[component] ?? [];
 };
 
 /**
@@ -202,6 +203,7 @@ export const addSelfToParentComponent = ({ id = null }) => {
 
     // Get parentId of current component.
     const parentId = instance?.parentId;
+    const componentName = instance?.component;
     if (!parentId) return;
 
     // Add component Id to parent element.
@@ -212,7 +214,19 @@ export const addSelfToParentComponent = ({ id = null }) => {
             return currentId === parentId
                 ? [
                       ...previous,
-                      { ...current, ...{ child: [...current.child, id] } },
+                      {
+                          ...current,
+                          ...{
+                              child: {
+                                  ...current.child,
+                                  ...updateChildrenArray({
+                                      currentChild: current.child,
+                                      id,
+                                      componentName,
+                                  }),
+                              },
+                          },
+                      },
                   ]
                 : [...previous, current];
         }, []);

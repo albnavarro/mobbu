@@ -13,28 +13,23 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     /**
      * Create basic DOM element
      */
-    const { element, props, id } = convertToGenericElement({
+    const { element, props, id, componentName } = convertToGenericElement({
         component,
     });
 
     /**
      * Register component to store
      */
-    const {
-        getParentId,
-        getState,
-        setState,
-        watch,
-        watchParent,
-        getChildrenId,
-    } = registerComponent({
-        component,
-        element,
-        props,
-        state,
-        destroy: () => {},
-        id,
-    });
+    const { getParentId, getState, setState, watch, watchParent, getChildren } =
+        registerComponent({
+            component,
+            element,
+            props,
+            state,
+            destroy: () => {},
+            id,
+            componentName,
+        });
 
     /**
      * Update Parent id before render, do child can use immediatly getParentId.
@@ -50,7 +45,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         id,
         element,
         getParentId,
-        getChildrenId,
+        getChildren,
         props,
         getState,
         setState,

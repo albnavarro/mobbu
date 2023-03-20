@@ -22,8 +22,8 @@ function decrement(event) {
     setStateById(id, 'counter', (prev) => prev - 1);
 }
 
-function logChildren(getChildrenId) {
-    console.log(getChildrenId());
+function logChildren(getChildren) {
+    console.log(getChildren('TestComponent2'));
 }
 
 function debug() {
@@ -65,7 +65,7 @@ function addChildren({ children, getState }) {
 export const TestComponent = async ({
     props,
     getState,
-    getChildrenId,
+    getChildren,
     watch,
     render,
     onMount,
@@ -83,7 +83,7 @@ export const TestComponent = async ({
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
 
-            const children = getChildrenId();
+            const children = getChildren('TestComponent2');
             children.forEach((id, i) => {
                 setStateById(id, 'counter', val * i);
             });
@@ -92,7 +92,7 @@ export const TestComponent = async ({
         incrementBtn.addEventListener('click', increment);
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
-        childrenBtn.addEventListener('click', () => logChildren(getChildrenId));
+        childrenBtn.addEventListener('click', () => logChildren(getChildren));
 
         return () => {
             unwatch();
@@ -134,7 +134,7 @@ export const TestComponent = async ({
                     debug
                 </button>
                 <button class="c-test-comp__btn children">
-                    get Children id
+                    Children
                 </button>
             </div>
             ${addChildren({ children: childArray, getState })}
