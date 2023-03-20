@@ -31,12 +31,12 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * Get new component
      */
-    const element = parentNode.querySelector(`#${id}`);
+    const placeholderElement = parentNode.querySelector(`#${id}`);
 
     /**
      * Add previous and new content.
      */
-    element.insertAdjacentHTML('beforeEnd', prevContent);
+    placeholderElement.insertAdjacentHTML('beforeEnd', prevContent);
 
     /**
      * Set props.
@@ -47,7 +47,7 @@ export const convertToGenericElement = ({ component }) => {
     delete baseProps.component;
 
     return {
-        element,
+        placeholderElement,
         props: { ...baseProps, ...propsFromParent },
         id,
         componentName,

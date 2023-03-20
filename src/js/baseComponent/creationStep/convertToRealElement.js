@@ -7,25 +7,25 @@
  * It is possible use parseComponents() to launch the parse of
  * custom DOM added to the component immadatly
  */
-export const convertToRealElement = ({ element, content }) => {
+export const convertToRealElement = ({ placeholderElement, content }) => {
     return new Promise((resolve) => {
         // setTimeout(() => {
         /**
          * Add real content from render function
          */
-        element.insertAdjacentHTML('afterbegin', content);
+        placeholderElement.insertAdjacentHTML('afterbegin', content);
 
         /**
          * Get inner content and copy data from provvisory component
          */
-        const firstChild = element.firstElementChild;
-        firstChild.id = element.id;
+        const firstChild = placeholderElement.firstElementChild;
+        firstChild.id = placeholderElement.id;
         firstChild.setAttribute('data-iscomponent', '');
 
         /**
          * Delete provvisory component and add real component.
          */
-        element.replaceWith(...element.childNodes);
+        placeholderElement.replaceWith(...placeholderElement.childNodes);
         resolve({ newElement: firstChild });
         // }, 500);
     });

@@ -51,18 +51,16 @@ const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
      * Lauch userFunctionComponent and wait for render function wirh custom DOM
      * to add to component.
      */
-    const {
-        content,
-        element: placeholderElement,
-        id,
-    } = await userFunctionComponent(componentData);
+    const { content, placeholderElement, id } = await userFunctionComponent(
+        componentData
+    );
 
     /**
      * Add custom DOM to basic component
      */
     const { newElement } = await convertToRealElement({
         content,
-        element: placeholderElement,
+        placeholderElement,
     });
 
     /**

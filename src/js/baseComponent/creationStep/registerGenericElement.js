@@ -13,9 +13,10 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     /**
      * Create basic DOM element
      */
-    const { element, props, id, componentName } = convertToGenericElement({
-        component,
-    });
+    const { placeholderElement, props, id, componentName } =
+        convertToGenericElement({
+            component,
+        });
 
     /**
      * Register component to store
@@ -23,7 +24,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     const { getParentId, getState, setState, watch, watchParent, getChildren } =
         registerComponent({
             component,
-            element,
+            placeholderElement,
             props,
             state,
             destroy: () => {},
@@ -43,7 +44,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
 
     return {
         id,
-        element,
+        placeholderElement,
         getParentId,
         getChildren,
         props,
@@ -55,7 +56,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             return {
                 id,
                 content,
-                element,
+                placeholderElement,
             };
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),

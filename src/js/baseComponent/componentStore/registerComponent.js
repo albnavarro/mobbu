@@ -7,7 +7,7 @@ import { componentStore } from './store';
  * Add component to store.
  */
 export const registerComponent = ({
-    element = {},
+    placeholderElement = {},
     component = {},
     props = {},
     state = {},
@@ -20,7 +20,7 @@ export const registerComponent = ({
         return [
             ...prev,
             {
-                element,
+                element: placeholderElement,
                 component: componentName,
                 props,
                 destroy,
