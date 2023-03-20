@@ -82,9 +82,7 @@ export const TestComponent = async ({
          */
         const unwatch = watch('counter', (val) => {
             counterEl.innerHTML = val;
-
-            const children = getChildren('TestComponent2');
-            children.forEach((id, i) => {
+            getChildren('TestComponent2').forEach((id, i) => {
                 setStateById(id, 'counter', val * i);
             });
         });

@@ -1,6 +1,9 @@
+/**
+ * Support getChildrenIdByName action.
+ * Update child obj, insert new id component in the array of same component family.
+ */
 export const updateChildrenArray = ({ currentChild, id, componentName }) => {
     const arr = currentChild?.[componentName] ?? [];
-    const newArr = [...arr, id];
-    currentChild[componentName] = newArr;
+    currentChild[componentName] = [...arr, id];
     return currentChild;
 };
