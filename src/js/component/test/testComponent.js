@@ -3,6 +3,7 @@ import {
     setStateById,
 } from '../../baseComponent/componentStore/action';
 import { componentStore } from '../../baseComponent/componentStore/store';
+import { updateChildren } from '../../baseComponent/componentStore/updateChildren';
 import { createProps } from '../../baseComponent/mainStore';
 
 /**
@@ -81,7 +82,9 @@ export const TestComponent = async ({
         /**
          * Watch state mutation.
          */
-        const unwatch = watch('counter', (val) => {
+        const unwatch = watch('counter', async (val) => {
+            await updateChildren();
+
             const { data } = getState();
             counterEl.innerHTML = val;
 
