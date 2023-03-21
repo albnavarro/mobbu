@@ -45,9 +45,9 @@ export const componentList = {
                     value: 2,
                     type: Number,
                 }),
-                childNumbers: () => ({
-                    value: 5,
-                    type: Number,
+                data: () => ({
+                    value: [],
+                    type: Array,
                 }),
             },
         },
@@ -56,9 +56,9 @@ export const componentList = {
         componentFunction: TestComponent2,
         componentParams: {
             state: {
-                counter: () => ({
-                    value: 0,
-                    type: Number,
+                label: () => ({
+                    value: '',
+                    type: String,
                 }),
             },
         },

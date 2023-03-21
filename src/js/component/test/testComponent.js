@@ -45,12 +45,12 @@ function asyncTest() {
 //     },
 // });
 
-function addChildren({ children, getState }) {
-    return children
-        .map((_child, i) => {
+function addChildren({ data, getState }) {
+    return data
+        .map(({ label }, i) => {
             const { counter } = getState();
             const childProps = createProps({
-                valueFromParent: counter * i,
+                valueFromParent: `${label}, ${counter * i}`,
             });
 
             return `
@@ -65,6 +65,7 @@ function addChildren({ children, getState }) {
 export const TestComponent = async ({
     props,
     getState,
+    setState,
     getChildren,
     watch,
     render,
@@ -81,9 +82,12 @@ export const TestComponent = async ({
          * Watch state mutation.
          */
         const unwatch = watch('counter', (val) => {
+            const { data } = getState();
             counterEl.innerHTML = val;
+
             getChildren('TestComponent2').forEach((id, i) => {
-                setStateById(id, 'counter', val * i);
+                const { label } = data[i];
+                setStateById(id, 'label', `${label}, ${val * i}`);
             });
         });
 
@@ -110,11 +114,24 @@ export const TestComponent = async ({
      * Get props
      */
     const { label } = props;
-    const { childNumbers, counter } = getState();
+    setState('data', [
+        {
+            label: 'pippo',
+        },
+        {
+            label: 'pluto',
+        },
+        {
+            label: 'paperino',
+        },
+        {
+            label: 'topolino',
+        },
+    ]);
+
+    const { data, counter } = getState();
 
     // test array
-    const childArray = [...Array(childNumbers).keys()];
-
     return render(`
         <div class="c-test-comp">
             <div class="c-test-comp__label">
@@ -128,6 +145,13 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn increment">
                     increment
                 </button>
+            </div>
+            <div class="c-test-comp__top">
+                <input placeholder="add" type="text" class="c-test-comp__btn add"/>
+                <input placeholder="remove" type="text" class="c-test-comp__btn remove"/>
+                <input placeholder="index" type="text" class="c-test-comp__btn addindex"/>
+            </div>
+            <div class="c-test-comp__top">
                 <button class="c-test-comp__btn debug">
                     debug
                 </button>
@@ -135,7 +159,7 @@ export const TestComponent = async ({
                     Children
                 </button>
             </div>
-            ${addChildren({ children: childArray, getState })}
+            ${addChildren({ data, getState })}
         </div>
     `);
 };

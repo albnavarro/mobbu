@@ -21,7 +21,7 @@ export const TestComponent2 = ({
         //     setState('counter', valueFromParent());
         // });
 
-        const unwatch = watch('counter', (val) => {
+        const unwatch = watch('label', (val) => {
             counterEl.innerHTML = val;
         });
 
