@@ -79,12 +79,13 @@ export const TestComponent = async ({
         const childrenBtn = element.querySelector('.children');
         const counterEl = element.querySelector('.counter');
 
+        const addEl = element.querySelector('.add');
+        // const removeEl = element.querySelector('.remove');
+
         /**
          * Watch state mutation.
          */
         const unwatch = watch('counter', async (val) => {
-            await updateChildren();
-
             const { data } = getState();
             counterEl.innerHTML = val;
 
@@ -94,13 +95,54 @@ export const TestComponent = async ({
             });
         });
 
+        /**
+         * Add and remove children
+         */
+        const unwatchData = watch('data', async (current, previous) => {
+            await updateChildren({
+                element,
+                componentName: 'TestComponent2',
+                current,
+                previous,
+            });
+
+            getChildren('TestComponent2').forEach((id, i) => {
+                const { label } = current[i];
+
+                const { counter } = getState();
+                setStateById(id, 'label', `${label}, ${counter * i}`);
+            });
+        });
+
         incrementBtn.addEventListener('click', increment);
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
 
+        /**
+         * Add new element to data to test add new element.
+         */
+        addEl.addEventListener('click', () => {
+            setState('data', (prev) => {
+                return [
+                    ...prev.slice(0, 1),
+                    { label: 'uno' },
+                    ...prev.slice(1),
+                ];
+            });
+
+            setState('data', (prev) => {
+                return [
+                    ...prev.slice(0, 3),
+                    { label: 'tre' },
+                    ...prev.slice(3),
+                ];
+            });
+        });
+
         return () => {
             unwatch();
+            unwatchData();
             incrementBtn.removeEventListener('click', increment);
             decrementBtn.removeEventListener('click', decrement);
             debugBtn.removeEventListener('click', decrement);
@@ -150,9 +192,12 @@ export const TestComponent = async ({
                 </button>
             </div>
             <div class="c-test-comp__top">
-                <input placeholder="add" type="text" class="c-test-comp__btn add"/>
-                <input placeholder="remove" type="text" class="c-test-comp__btn remove"/>
-                <input placeholder="index" type="text" class="c-test-comp__btn addindex"/>
+                <button class="c-test-comp__btn add">
+                    add
+                </button>
+                <button class="c-test-comp__btn remove">
+                    remove
+                </button>
             </div>
             <div class="c-test-comp__top">
                 <button class="c-test-comp__btn debug">
