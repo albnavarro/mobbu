@@ -5,6 +5,7 @@ import {
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { updateChildren } from '../../baseComponent/componentStore/updateChildren';
 import { createProps } from '../../baseComponent/mainStore';
+import { addedData, originalData, removeData } from './data';
 
 /**
  * On click function.
@@ -99,11 +100,13 @@ export const TestComponent = async ({
          * Add and remove children
          */
         const unwatchData = watch('data', async (current, previous) => {
+            // Da portare dentro la funzione global preconpilando getChildren.
             await updateChildren({
-                element,
+                childrenContainer: element,
                 componentName: 'TestComponent2',
                 current,
                 previous,
+                getChildren,
             });
 
             getChildren('TestComponent2').forEach((id, i) => {
@@ -118,27 +121,8 @@ export const TestComponent = async ({
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
-
-        /**
-         * Add new element to data to test add new element.
-         */
-        addEl.addEventListener('click', () => {
-            setState('data', (prev) => {
-                return [
-                    ...prev.slice(0, 1),
-                    { label: 'uno' },
-                    ...prev.slice(1),
-                ];
-            });
-
-            setState('data', (prev) => {
-                return [
-                    ...prev.slice(0, 3),
-                    { label: 'tre' },
-                    ...prev.slice(3),
-                ];
-            });
-        });
+        addEl.addEventListener('click', () => setState('data', addedData));
+        // removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
             unwatch();
@@ -159,21 +143,7 @@ export const TestComponent = async ({
      * Get props
      */
     const { label } = props;
-    setState('data', [
-        {
-            label: 'pippo',
-        },
-        {
-            label: 'pluto',
-        },
-        {
-            label: 'paperino',
-        },
-        {
-            label: 'topolino',
-        },
-    ]);
-
+    setState('data', originalData);
     const { data, counter } = getState();
 
     // test array
