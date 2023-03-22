@@ -1,3 +1,4 @@
+import { checkType } from '../../mobbu/store/storeType';
 import {
     addSelfToParentComponent,
     setParentsComponent,
@@ -63,13 +64,15 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         updateList: ({
-            state,
-            targetState,
-            containerList,
-            targetComponent,
+            state = [],
+            targetState = '',
+            containerList = document.createElement('div'),
+            targetComponent = '',
             callback = () => {},
         }) => {
             return watch(state, async (current, previous) => {
+                if (!checkType(Array, current)) return;
+
                 await updateChildren({
                     containerList,
                     targetComponent,
