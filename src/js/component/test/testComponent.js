@@ -3,7 +3,6 @@ import {
     setStateById,
 } from '../../baseComponent/componentStore/action';
 import { componentStore } from '../../baseComponent/componentStore/store';
-import { updateChildren } from '../../baseComponent/componentStore/updateChildren';
 import { createProps } from '../../baseComponent/mainStore';
 import { addedData, originalData, removeData } from './data';
 
@@ -72,6 +71,7 @@ export const TestComponent = async ({
     watch,
     render,
     onMount,
+    updateList,
 }) => {
     onMount(({ element }) => {
         const incrementBtn = element.querySelector('.increment');
@@ -79,14 +79,13 @@ export const TestComponent = async ({
         const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
         const counterEl = element.querySelector('.counter');
-
         const addEl = element.querySelector('.add');
         // const removeEl = element.querySelector('.remove');
 
         /**
          * Watch state mutation.
          */
-        const unwatch = watch('counter', async (val) => {
+        const unwatch = watch('counter', (val) => {
             const { data } = getState();
             counterEl.innerHTML = val;
 
@@ -97,26 +96,23 @@ export const TestComponent = async ({
         });
 
         /**
-         * Add and remove children
+         * Update List if there is new element
          */
-        const unwatchData = watch('data', async (current, previous) => {
-            // Da portare dentro la funzione global preconpilando getChildren.
-            await updateChildren({
-                childrenContainer: element,
-                componentName: 'TestComponent2',
-                current,
-                previous,
-                getChildren,
-            });
-
-            getChildren('TestComponent2').forEach((id, i) => {
+        const unwatchList = updateList({
+            state: 'data',
+            targetState: 'label',
+            containerList: element.querySelector('.c-test-comp__list'),
+            targetComponent: 'TestComponent2',
+            callback: ({ current, i }) => {
                 const { label } = current[i];
-
                 const { counter } = getState();
-                setStateById(id, 'label', `${label}, ${counter * i}`);
-            });
+                return `${label}, ${counter * i}`;
+            },
         });
 
+        /**
+         * Add listener
+         */
         incrementBtn.addEventListener('click', increment);
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
@@ -126,7 +122,7 @@ export const TestComponent = async ({
 
         return () => {
             unwatch();
-            unwatchData();
+            unwatchList();
             incrementBtn.removeEventListener('click', increment);
             decrementBtn.removeEventListener('click', decrement);
             debugBtn.removeEventListener('click', decrement);
@@ -177,7 +173,9 @@ export const TestComponent = async ({
                     Children
                 </button>
             </div>
-            ${addChildren({ data, getState })}
+            <div class="c-test-comp__list">
+                ${addChildren({ data, getState })}
+            </div>
         </div>
     `);
 };

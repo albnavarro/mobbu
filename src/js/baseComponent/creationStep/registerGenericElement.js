@@ -1,9 +1,11 @@
 import {
     addSelfToParentComponent,
     setParentsComponent,
+    setStateById,
 } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore';
+import { updateChildren } from '../updateList/updateChildren';
 import { convertToGenericElement } from './convertToGenericElement';
 
 /**
@@ -33,7 +35,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         });
 
     /**
-     * Update Parent id before render, do child can use immediatly getParentId.
+     * Update Parent id before render, do child can use immediatly parentId.
      */
     setParentsComponent();
 
@@ -44,9 +46,9 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
 
     return {
         id,
-        placeholderElement,
         getParentId,
         getChildren,
+        placeholderElement,
         props,
         getState,
         setState,
@@ -60,5 +62,30 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             };
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
+        updateList: ({
+            state,
+            targetState,
+            containerList,
+            targetComponent,
+            callback = () => {},
+        }) => {
+            return watch(state, async (current, previous) => {
+                await updateChildren({
+                    containerList,
+                    targetComponent,
+                    current,
+                    previous,
+                    getChildren,
+                });
+
+                getChildren(targetComponent).forEach((id, i) => {
+                    setStateById(
+                        id,
+                        targetState,
+                        callback({ current, previous, i })
+                    );
+                });
+            });
+        },
     };
 };

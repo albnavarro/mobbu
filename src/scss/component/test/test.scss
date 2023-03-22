@@ -17,8 +17,10 @@
         flex: 100%;
     }
 
-    &__top {
+    &__top,
+    &__list {
         display: flex;
+        width: 100%;
     }
 
     &__btn {

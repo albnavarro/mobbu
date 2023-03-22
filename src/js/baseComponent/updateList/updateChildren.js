@@ -4,40 +4,40 @@ import { parseComponents } from '../componentParse';
  * Add new children.
  * This method a component with a unique list of the same component
  */
-function add({ childrenContainer, componentName, diff, getChildren }) {
+function add({ containerList, targetComponent, diff, getChildren }) {
     /**
      * Create palcehodler component
      */
     const elementToAdd = [...Array(diff).keys()].map(() => {
         return `
-            <component data-component="${componentName}"/>
+            <component data-component="${targetComponent}"/>
         `;
     });
 
     /**
      * Get last child of component
      */
-    const children = getChildren(componentName);
+    const children = getChildren(targetComponent);
     const lastChildren = children[children.length - 1];
 
     /**
      * Query last child and append new children.
      * Usare un metodo dello sotre per prender il DOM element dall' id ?
      */
-    const lastNode = childrenContainer.querySelector(`#${lastChildren}`);
+    const lastNode = containerList.querySelector(`#${lastChildren}`);
     elementToAdd.forEach((element) => {
         lastNode.insertAdjacentHTML('afterend', element);
     });
 }
 
-function remove({ childrenContainer, componentName, diff, getChildren }) {
+function remove({ containerList, targetComponent, diff, getChildren }) {
     console.log('remove', diff);
 }
 
 // First try array of object.
 export const updateChildren = async ({
-    childrenContainer,
-    componentName = '',
+    containerList,
+    targetComponent = '',
     current = [],
     previous = [],
     getChildren,
@@ -59,8 +59,8 @@ export const updateChildren = async ({
      * Execue function.
      */
     fn({
-        childrenContainer,
-        componentName,
+        containerList,
+        targetComponent,
         diff: Math.abs(currentLenght - previousLenght),
         getChildren,
     });
@@ -68,5 +68,5 @@ export const updateChildren = async ({
     /**
      * Parse new component if there is ( added is executed )
      */
-    await parseComponents({ element: childrenContainer });
+    await parseComponents({ element: containerList });
 };
