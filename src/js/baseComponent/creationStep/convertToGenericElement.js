@@ -43,6 +43,7 @@ export const convertToGenericElement = ({ component }) => {
      */
     const baseProps = { ...component.dataset };
     const componentName = baseProps?.component;
+    const key = baseProps?.key ?? null;
     delete baseProps.props;
     delete baseProps.component;
 
@@ -51,5 +52,6 @@ export const convertToGenericElement = ({ component }) => {
         props: { ...baseProps, ...propsFromParent },
         id,
         componentName,
+        key,
     };
 };

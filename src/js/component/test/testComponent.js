@@ -55,7 +55,7 @@ function addChildren({ data, getState }) {
             });
 
             return `
-                 <component data-props="${childProps}" data-cancellable data-component="TestComponent2"/>
+                 <component data-props="${childProps}" data-key="${label}" data-cancellable data-component="TestComponent2"/>
             `;
         })
         .join('');

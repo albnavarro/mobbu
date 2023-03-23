@@ -16,7 +16,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     /**
      * Create basic DOM element
      */
-    const { placeholderElement, props, id, componentName } =
+    const { placeholderElement, props, id, componentName, key } =
         convertToGenericElement({
             component,
         });
@@ -33,6 +33,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             destroy: () => {},
             id,
             componentName,
+            key,
         });
 
     /**
