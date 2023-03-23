@@ -60,6 +60,7 @@ export const componentList = {
                     value: '',
                     type: String,
                 }),
+                isRed: false,
             },
         },
     },

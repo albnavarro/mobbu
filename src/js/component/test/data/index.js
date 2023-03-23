@@ -15,6 +15,12 @@ export const originalData = [
 
 export const addedData = [
     {
+        label: 'new-first',
+    },
+    {
+        label: 'new-first-2',
+    },
+    {
         label: 'pippo',
     },
     {
@@ -27,10 +33,22 @@ export const addedData = [
         label: 'new2',
     },
     {
+        label: 'zorro',
+    },
+    {
         label: 'paperino',
     },
     {
         label: 'topolino',
+    },
+    {
+        label: 'new-last',
+    },
+    {
+        label: 'new-last-2',
+    },
+    {
+        label: 'new-last-4',
     },
 ];
 

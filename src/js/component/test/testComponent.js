@@ -90,6 +90,8 @@ export const TestComponent = async ({
             counterEl.innerHTML = val;
 
             getChildren('TestComponent2').forEach((id, i) => {
+                if (!data[i]) return;
+
                 const { label } = data[i];
                 setStateById(id, 'label', `${label}, ${val * i}`);
             });
@@ -143,6 +145,10 @@ export const TestComponent = async ({
     setState('data', originalData);
     const { data, counter } = getState();
 
+    const outeProp = createProps({
+        valueFromParent: `outer list el`,
+    });
+
     // test array
     return render(`
         <div class="c-test-comp">
@@ -177,6 +183,7 @@ export const TestComponent = async ({
             <div class="c-test-comp__list">
                 ${addChildren({ data, getState })}
             </div>
+            <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>
     `);
 };

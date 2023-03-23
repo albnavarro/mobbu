@@ -1,7 +1,8 @@
 import { parseComponents } from '../componentParse';
+import { updateChildrenOrder } from '../componentStore/action';
 import { addWithKey } from './addWithKey';
 import { addWithoutKey } from './addWithoutKey';
-import { arrayDifferenceTest, listKeyExist } from './utils';
+import { listKeyExist } from './utils';
 
 // First try array of object.
 export const updateChildren = async ({
@@ -11,6 +12,7 @@ export const updateChildren = async ({
     previous = [],
     getChildren,
     key = null,
+    id,
 }) => {
     // arrayDifferenceTest();
 
@@ -39,10 +41,17 @@ export const updateChildren = async ({
         targetComponent,
         getChildren,
         key,
+        id,
     });
 
     /**
      * Parse new component if there is ( added is executed )
      */
     await parseComponents({ element: containerList });
+
+    if (hasKey)
+        updateChildrenOrder({
+            id,
+            component: targetComponent,
+        });
 };

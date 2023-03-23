@@ -82,9 +82,13 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     previous,
                     getChildren,
                     key,
+                    id,
                 });
 
                 getChildren(targetComponent).forEach((id, i) => {
+                    //If component is in list
+                    if (!current[i]) return;
+
                     setStateById(
                         id,
                         targetState,

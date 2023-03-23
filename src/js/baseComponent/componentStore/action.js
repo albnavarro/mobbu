@@ -150,6 +150,74 @@ export const getChildrenIdByName = ({ id, component }) => {
 };
 
 /**
+ * Update children order of a component
+ */
+export const updateChildrenOrder = ({ id, component }) => {
+    /*
+     * Get element
+     */
+    const element = getElementById({ id });
+
+    /**
+     * Get id af all component inside
+     */
+    const components = element.querySelectorAll('[data-iscomponent]');
+    const componentsIdNow = [...components].map((item) => item.id);
+
+    /**
+     * Filter for the component we are looking for
+     */
+    const componentsIdFiltered = componentsIdNow.filter((currentId) => {
+        return getComponentNameById(currentId) === component;
+    });
+
+    /**
+     * Update children store od element with the DOM actual order.
+     */
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { id: currentId } = current;
+
+            return currentId === id
+                ? [
+                      ...previous,
+                      {
+                          ...current,
+                          ...{
+                              child: {
+                                  ...current.child,
+                                  ...{ [component]: componentsIdFiltered },
+                              },
+                          },
+                      },
+                  ]
+                : [...previous, current];
+        }, []);
+    });
+};
+
+/**
+ * get component name By id
+ */
+export const getComponentNameById = (id) => {
+    if (!id) return null;
+
+    const { instances } = componentStore.get();
+    const instance = instances.find(({ id: currentId }) => {
+        return currentId === id;
+    });
+
+    const componentName = instance?.component;
+    if (!componentName) {
+        console.warn(`getComponentNameById failed no id found`);
+        return null;
+    }
+
+    return componentName;
+};
+
+// export const updateChildrenArray
+/**
  * Remove with no reference to DOM.
  */
 export const removeGhostComponent = () => {};

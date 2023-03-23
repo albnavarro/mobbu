@@ -31,10 +31,9 @@
         flex: 1;
         text-align: center;
         border: 1px $black solid;
-    }
 
-    input {
-        width: 100%;
-        flex: 33.333%;
+        &.is-red {
+            background: red;
+        }
     }
 }

@@ -4,7 +4,7 @@
 export const TestComponent2 = ({
     props,
     watch,
-    // setState,
+    setState,
     // watchParent,
     render,
     onMount,
@@ -13,6 +13,14 @@ export const TestComponent2 = ({
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
+
+        element.addEventListener('click', () => {
+            setState('isRed', (prev) => !prev);
+        });
+
+        const unwatchRed = watch('isRed', () => {
+            element.classList.toggle('is-red');
+        });
 
         /**
          * Listen to parent mutation.
@@ -28,6 +36,7 @@ export const TestComponent2 = ({
         return () => {
             // unwatchParent();
             unwatch();
+            unwatchRed();
             element.remove();
         };
     });
