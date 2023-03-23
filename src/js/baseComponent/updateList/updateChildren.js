@@ -1,4 +1,5 @@
 import { parseComponents } from '../componentParse';
+import { arrayDifferenceTest } from './utils';
 
 /**
  * Add new children.
@@ -44,6 +45,8 @@ export const updateChildren = async ({
 }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
+
+    arrayDifferenceTest();
 
     /**
      * If there isn't new children return;
