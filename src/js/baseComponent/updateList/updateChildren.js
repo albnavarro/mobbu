@@ -1,39 +1,7 @@
 import { parseComponents } from '../componentParse';
-import { arrayDifferenceTest } from './utils';
-
-/**
- * Add new children.
- * This method a component with a unique list of the same component
- */
-function add({ containerList, targetComponent, diff, getChildren }) {
-    /**
-     * Create palcehodler component
-     */
-    const elementToAdd = [...Array(diff).keys()].map(() => {
-        return `
-            <component data-component="${targetComponent}"/>
-        `;
-    });
-
-    /**
-     * Get last child of component
-     */
-    const children = getChildren(targetComponent);
-    const lastChildren = children[children.length - 1];
-
-    /**
-     * Query last child and append new children.
-     * Usare un metodo dello sotre per prender il DOM element dall' id ?
-     */
-    const lastNode = containerList.querySelector(`#${lastChildren}`);
-    elementToAdd.forEach((element) => {
-        lastNode.insertAdjacentHTML('afterend', element);
-    });
-}
-
-function remove({ containerList, targetComponent, diff, getChildren }) {
-    console.log('remove', diff);
-}
+import { addWithKey } from './addWithKey';
+import { addWithoutKey } from './addWithoutKey';
+import { arrayDifferenceTest, listKeyExist } from './utils';
 
 // First try array of object.
 export const updateChildren = async ({
@@ -42,30 +10,35 @@ export const updateChildren = async ({
     current = [],
     previous = [],
     getChildren,
+    key = null,
 }) => {
-    const currentLenght = current.length;
-    const previousLenght = previous.length;
-
-    arrayDifferenceTest();
+    // arrayDifferenceTest();
 
     /**
      * If there isn't new children return;
      */
-    if (currentLenght === previousLenght) return;
+    if (JSON.stringify(current) === JSON.stringify(previous)) return;
 
     /**
-     * Add or remove children.
+     * Check if thereis a key
      */
-    const fn = currentLenght > previousLenght ? add : remove;
+    const hasKey = listKeyExist({ current, previous, key });
+
+    /**
+     * Filter right function
+     */
+    const fn = hasKey ? addWithKey : addWithoutKey;
 
     /**
      * Execue function.
      */
     fn({
+        current,
+        previous,
         containerList,
         targetComponent,
-        diff: Math.abs(currentLenght - previousLenght),
         getChildren,
+        key,
     });
 
     /**

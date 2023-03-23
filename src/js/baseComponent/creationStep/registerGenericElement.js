@@ -70,6 +70,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             containerList = document.createElement('div'),
             targetComponent = '',
             callback = () => {},
+            key = null,
         }) => {
             return watch(state, async (current, previous) => {
                 if (!checkType(Array, current)) return;
@@ -80,6 +81,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     current,
                     previous,
                     getChildren,
+                    key,
                 });
 
                 getChildren(targetComponent).forEach((id, i) => {

@@ -103,6 +103,7 @@ export const TestComponent = async ({
             targetState: 'label',
             containerList: element.querySelector('.c-test-comp__list'),
             targetComponent: 'TestComponent2',
+            key: 'label',
             callback: ({ current, i }) => {
                 const { label } = current[i];
                 const { counter } = getState();
