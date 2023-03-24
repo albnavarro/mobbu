@@ -1,3 +1,6 @@
+import { isDescendant } from '../../mobbu/utils/vanillaFunction';
+import { getElementById } from '../componentStore/action';
+
 /**
  * Add new children.
  * This method a component with a unique list of the same component
@@ -22,10 +25,13 @@ export const addWithoutKey = ({
     });
 
     /**
-     * Get last child of component
+     * Get last child of containerList
      */
     const children = getChildren(targetComponent);
-    const lastChildren = children[children.length - 1];
+    const childrenFiltered = [...children].filter((id) => {
+        return isDescendant(containerList, getElementById({ id }));
+    });
+    const lastChildren = childrenFiltered[childrenFiltered.length - 1];
 
     /**
      * Query last child and append new children.
