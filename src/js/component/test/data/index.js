@@ -27,10 +27,10 @@ export const addedData = [
         label: 'new1',
     },
     {
-        label: 'pluto',
+        label: 'new2',
     },
     {
-        label: 'new2',
+        label: 'pluto',
     },
     {
         label: 'zorro',
@@ -61,5 +61,8 @@ export const removeData = [
     },
     {
         label: 'zorro',
+    },
+    {
+        label: 'new-last-4',
     },
 ];

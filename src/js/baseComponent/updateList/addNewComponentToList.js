@@ -74,14 +74,7 @@ export const addNewComponentToList = ({
      */
     const componentToAddAfter = newElementByIndex.reduce(
         (previous, { index, item }, i) => {
-            /**
-             * Calmp index from 0 to last list lenght ( current DOM ).
-             */
-            const newCompIndex = clamp(
-                [index - i],
-                0,
-                childrenFiltered.length - 1
-            );
+            const newCompIndex = index - i;
 
             /**
              * Get current child element.
@@ -93,7 +86,7 @@ export const addNewComponentToList = ({
              * Check if insert the new component before or athe the end che current element.
              */
             const position =
-                newCompIndex < childrenFiltered.length - 1 && hasKey
+                newCompIndex < childrenFiltered.length && hasKey
                     ? BEFORE
                     : AFTER;
 
@@ -101,7 +94,7 @@ export const addNewComponentToList = ({
              * Store the new component to add after.
              */
             if (position === AFTER) {
-                return [...previous, { key: item?.[key] }];
+                return [...previous, { key: item[key] }];
             }
 
             /**
@@ -110,7 +103,7 @@ export const addNewComponentToList = ({
              */
             el.insertAdjacentHTML(
                 BEFORE,
-                `<component data-component="${targetComponent}" data-key="${item?.[key]}"/>`
+                `<component data-component="${targetComponent}" data-key="${item[key]}"/>`
             );
 
             return previous;
@@ -123,9 +116,7 @@ export const addNewComponentToList = ({
      */
     const lasteRenderEl = componentToAddAfter
         .map(({ key }) => {
-            return `<component data-component="${targetComponent}" data-key="${
-                key ?? null
-            }"/>`;
+            return `<component data-component="${targetComponent}" data-key="${key}"/>`;
         })
         .join('');
 
