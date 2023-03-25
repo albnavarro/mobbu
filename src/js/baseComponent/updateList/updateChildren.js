@@ -14,8 +14,6 @@ export const updateChildren = async ({
     key = null,
     id,
 }) => {
-    // arrayDifferenceTest();
-
     /**
      * If there isn't new children return;
      */
