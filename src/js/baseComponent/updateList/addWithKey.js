@@ -7,52 +7,97 @@ const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
 
 /**
- * Add new children.
- * This method a component with a unique list of the same component
+ * Add new children by key.
  */
 export const addWithKey = ({
-    current,
-    previous,
-    containerList,
-    targetComponent,
-    getChildren,
-    key,
-}) => {
+    current = [],
+    previous = [],
+    containerList = document.createElement('div'),
+    targetComponent = {},
+    getChildren = () => {},
+    key = '',
+} = {}) => {
+    /**
+     * Get new element by diffrence form current to previous array.
+     */
     const newElement = getNewElement(current, previous, key);
+
+    /**
+     * Add index position of new element to add form current array.
+     */
     const newElementByIndex = findNewElementIndex(current, newElement, key);
+
+    /**
+     * Get all children by component type.
+     */
     const children = getChildren(targetComponent);
+
+    /**
+     * Filter all children contained in containerList.
+     */
     const childrenFiltered = [...children].filter((id) => {
         return isDescendant(containerList, getElementById({ id }));
     });
 
-    const testLast = [];
-    let lastEl = null;
+    /**
+     * Add new placeholder component if index is < last list ( current DOM ) or store to add at the end.
+     */
+    const componentToAddAfter = newElementByIndex.reduce(
+        (previous, { index, item }, i) => {
+            /**
+             * Calmp index from 0 to last list lenght ( current DOM ).
+             */
+            const newCompIndex = clamp(
+                [index - i],
+                0,
+                childrenFiltered.length - 1
+            );
 
-    newElementByIndex.forEach(({ index, item }, i) => {
-        const newCompIndex = clamp([index - i], 0, childrenFiltered.length - 1);
-        const elReferId = childrenFiltered?.[newCompIndex];
-        const el = getElementById({ id: elReferId });
+            /**
+             * Get current child element.
+             */
+            const childId = childrenFiltered?.[newCompIndex];
+            const el = getElementById({ id: childId });
 
-        const position =
-            newCompIndex < childrenFiltered.length - 1 ? BEFORE : AFTER;
+            /**
+             * Check if insert the new component before or athe the end che current element.
+             */
+            const position =
+                newCompIndex < childrenFiltered.length - 1 ? BEFORE : AFTER;
 
-        if (position === AFTER) {
-            testLast.push({ key: item[key] });
-            lastEl = el;
-            return;
-        }
+            /**
+             * Store the new component to add after.
+             */
+            if (position === AFTER) {
+                return {
+                    lastChild: el,
+                    components: [...previous.components, { key: item[key] }],
+                };
+            }
 
-        el.insertAdjacentHTML(
-            BEFORE,
-            `<component data-component="${targetComponent}" data-key="${item[key]}"/>`
-        );
-    });
+            /**
+             * The index of component is inside the last list ( current DOM )
+             * So add before the current element.
+             */
+            el.insertAdjacentHTML(
+                BEFORE,
+                `<component data-component="${targetComponent}" data-key="${item[key]}"/>`
+            );
 
-    const lasteRenderEl = testLast
+            return previous;
+        },
+        { lastChild: null, components: [] }
+    );
+
+    /**
+     * Add the component stored at the end.
+     */
+    const { lastChild, components } = componentToAddAfter;
+    const lasteRenderEl = components
         .map(({ key }) => {
             return `<component data-component="${targetComponent}" data-key="${key}"/>`;
         })
         .join('');
 
-    lastEl.insertAdjacentHTML(AFTER, lasteRenderEl);
+    lastChild.insertAdjacentHTML(AFTER, lasteRenderEl);
 };
