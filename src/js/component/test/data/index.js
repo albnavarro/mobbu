@@ -59,4 +59,7 @@ export const removeData = [
     {
         label: 'new1',
     },
+    {
+        label: 'zorro',
+    },
 ];

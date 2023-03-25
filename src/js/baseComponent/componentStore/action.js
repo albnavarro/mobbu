@@ -1,6 +1,6 @@
 import { IS_COMPONENT } from '../utils';
 import { componentStore } from './store';
-import { updateChildrenArray } from './utils';
+import { removeChildFromChildrenArray, updateChildrenArray } from './utils';
 
 /**
  * Update element root from generic to real after conversion.
@@ -31,6 +31,27 @@ export const getElementById = ({ id = null }) => {
     const element = instance?.element;
     if (!element) {
         console.warn(`getElementById failed no id found`);
+        return null;
+    }
+
+    return element;
+};
+
+/**
+ * Get element by id
+ */
+export const getElementByKeyAndParentId = ({ key = null, parentId = null }) => {
+    if (!key) return null;
+
+    const { instances } = componentStore.get();
+    const instance = instances.find(
+        ({ key: currentKey, parentId: currentParentId }) =>
+            currentKey === key && currentParentId === parentId
+    );
+
+    const element = instance?.element;
+    if (!element) {
+        console.warn(`getElementByKey failed no id found`);
         return null;
     }
 
@@ -223,13 +244,75 @@ export const getComponentNameById = (id) => {
 export const removeGhostComponent = () => {};
 
 /**
- * Remove component to store.
+ * Remove component to store and destry it.
  */
-export const removeComponentFromStore = () => {
-    // Run destroy function
-    // Destroy store
-    // Remove parentId reference where used
-    // Remove item from global store
+export const removeAndDestroyById = ({ id = null }) => {
+    if (!id) return;
+
+    const { instances } = componentStore.get();
+    const { destroy, component: componentName } = instances.find(
+        ({ id: currentId }) => {
+            return currentId === id;
+        }
+    );
+
+    /**
+     * Fire destroy function.
+     */
+    destroy?.();
+
+    /**
+     * Remove id from parent child array.
+     */
+    const parentInstance = instances.find(({ child }) => {
+        const parentComponentArray = child?.[componentName] ?? [];
+        return parentComponentArray.includes(id);
+    });
+
+    /**
+     * get parent Id, and remove id from parent
+     */
+    const parentId = parentInstance?.id ?? null;
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.reduce((previous, current) => {
+            const { id: currentId } = current;
+
+            return currentId === parentId
+                ? [
+                      ...previous,
+                      {
+                          ...current,
+                          ...{
+                              child: {
+                                  ...current.child,
+                                  ...removeChildFromChildrenArray({
+                                      currentChild: current.child,
+                                      id,
+                                      componentName,
+                                  }),
+                              },
+                          },
+                      },
+                  ]
+                : [...previous, current];
+        }, []);
+    });
+
+    /**
+     * Remove item From store.
+     */
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.filter((current) => {
+            const { destroy, element, id: currentId } = current;
+            if (currentId === id) {
+                element?.remove();
+                destroy?.();
+            }
+
+            // Assign is if existe a parent component and current parentId is null
+            return id !== currentId;
+        });
+    });
 };
 
 /**
@@ -246,7 +329,7 @@ export const setParentsComponent = () => {
     componentStore.set('instances', (prevInstances) => {
         return prevInstances.reduce((previous, current) => {
             const { element, parentId } = current;
-            const parent = element.parentNode.closest(`[${IS_COMPONENT}]`);
+            const parent = element?.parentNode?.closest(`[${IS_COMPONENT}]`);
 
             // Assign is if existe a parent component and current parentId is null
             return parent && !parentId

@@ -1,5 +1,9 @@
 import { clamp } from '../../mobbu/animation/utils/animationUtils';
-import { getElementById } from '../componentStore/action';
+import {
+    getElementById,
+    getElementByKeyAndParentId,
+    removeAndDestroyById,
+} from '../componentStore/action';
 import { findNewElementIndex, getNewElement, listKeyExist } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 
@@ -16,6 +20,7 @@ export const addNewComponentToList = ({
     targetComponent = {},
     getChildren = () => {},
     key = '',
+    id,
 } = {}) => {
     /**
      * check if current and previous array has key.
@@ -26,7 +31,7 @@ export const addNewComponentToList = ({
      * 1- If hasKey get new element by diffrence form current to previous array.
      * 2 - If there is no key get the remaing items
      */
-    const newElement = hasKey
+    const elementToAddObj = hasKey
         ? getNewElement(current, previous, key)
         : current.filter((_element, i) => !previous[i]);
 
@@ -35,10 +40,19 @@ export const addNewComponentToList = ({
      * 2- If there is no key get the future key index.
      */
     const newElementByIndex = hasKey
-        ? findNewElementIndex(current, newElement, key)
-        : newElement.map((item, i) => {
+        ? findNewElementIndex(current, elementToAddObj, key)
+        : elementToAddObj.map((item, i) => {
               return { index: previous.length + i, item };
           });
+
+    /**
+     * The inverse above
+     */
+    const elementToRemoveObj = getNewElement(previous, current, key);
+    const elementToRemoveByKey = elementToRemoveObj.map((item) => {
+        const keyValue = item?.[key];
+        return getElementByKeyAndParentId({ key: keyValue, parentId: id });
+    });
 
     /**
      * Get all children by component type.
@@ -51,6 +65,9 @@ export const addNewComponentToList = ({
     const childrenFiltered = [...children].filter((id) => {
         return isDescendant(containerList, getElementById({ id }));
     });
+
+    const lastChildFilteredId = childrenFiltered?.[childrenFiltered.length - 1];
+    const lastChildFiltered = getElementById({ id: lastChildFilteredId });
 
     /**
      * Add new placeholder component if index is < last list ( current DOM ) or store to add at the end.
@@ -84,10 +101,7 @@ export const addNewComponentToList = ({
              * Store the new component to add after.
              */
             if (position === AFTER) {
-                return {
-                    lastChild: el,
-                    components: [...previous.components, { key: item?.[key] }],
-                };
+                return [...previous, { key: item?.[key] }];
             }
 
             /**
@@ -101,14 +115,13 @@ export const addNewComponentToList = ({
 
             return previous;
         },
-        { lastChild: null, components: [] }
+        []
     );
 
     /**
      * Add the component stored at the end.
      */
-    const { lastChild, components } = componentToAddAfter;
-    const lasteRenderEl = components
+    const lasteRenderEl = componentToAddAfter
         .map(({ key }) => {
             return `<component data-component="${targetComponent}" data-key="${
                 key ?? null
@@ -116,5 +129,10 @@ export const addNewComponentToList = ({
         })
         .join('');
 
-    lastChild.insertAdjacentHTML(AFTER, lasteRenderEl);
+    lastChildFiltered.insertAdjacentHTML(AFTER, lasteRenderEl);
+
+    elementToRemoveByKey.forEach((component) => {
+        const id = component.id;
+        removeAndDestroyById({ id });
+    });
 };

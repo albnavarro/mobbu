@@ -7,3 +7,15 @@ export const updateChildrenArray = ({ currentChild, id, componentName }) => {
     currentChild[componentName] = [...arr, id];
     return currentChild;
 };
+
+export const removeChildFromChildrenArray = ({
+    currentChild,
+    id,
+    componentName,
+}) => {
+    const arr = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = arr.filter((currentId) => {
+        return id !== currentId;
+    });
+    return currentChild;
+};

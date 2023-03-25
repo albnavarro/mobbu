@@ -80,7 +80,7 @@ export const TestComponent = async ({
         const childrenBtn = element.querySelector('.children');
         const counterEl = element.querySelector('.counter');
         const addEl = element.querySelector('.add');
-        // const removeEl = element.querySelector('.remove');
+        const removeEl = element.querySelector('.remove');
 
         /**
          * Watch state mutation.
@@ -121,7 +121,7 @@ export const TestComponent = async ({
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         addEl.addEventListener('click', () => setState('data', addedData));
-        // removeEl.addEventListener('click', () => setState('data', removeData));
+        removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
             unwatch();
