@@ -65,7 +65,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         updateList: ({
-            state = [],
+            state = null,
             targetState = '',
             containerList = document.createElement('div'),
             targetComponent = '',

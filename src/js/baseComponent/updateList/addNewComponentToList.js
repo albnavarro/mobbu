@@ -1,6 +1,6 @@
 import { clamp } from '../../mobbu/animation/utils/animationUtils';
 import { getElementById } from '../componentStore/action';
-import { findNewElementIndex, getNewElement } from './utils';
+import { findNewElementIndex, getNewElement, listKeyExist } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 
 const BEFORE = 'beforebegin';
@@ -9,7 +9,7 @@ const AFTER = 'afterend';
 /**
  * Add new children by key.
  */
-export const addWithKey = ({
+export const addNewComponentToList = ({
     current = [],
     previous = [],
     containerList = document.createElement('div'),
@@ -18,14 +18,27 @@ export const addWithKey = ({
     key = '',
 } = {}) => {
     /**
-     * Get new element by diffrence form current to previous array.
+     * check if current and previous array has key.
      */
-    const newElement = getNewElement(current, previous, key);
+    const hasKey = listKeyExist({ current, previous, key });
 
     /**
-     * Add index position of new element to add form current array.
+     * 1- If hasKey get new element by diffrence form current to previous array.
+     * 2 - If there is no key get the remaing items
      */
-    const newElementByIndex = findNewElementIndex(current, newElement, key);
+    const newElement = hasKey
+        ? getNewElement(current, previous, key)
+        : current.filter((_element, i) => !previous[i]);
+
+    /**
+     * 1- If hasKey add index position of new element to add form current array.
+     * 2- If there is no key get the future key index.
+     */
+    const newElementByIndex = hasKey
+        ? findNewElementIndex(current, newElement, key)
+        : newElement.map((item, i) => {
+              return { index: previous.length + i, item };
+          });
 
     /**
      * Get all children by component type.
@@ -63,7 +76,9 @@ export const addWithKey = ({
              * Check if insert the new component before or athe the end che current element.
              */
             const position =
-                newCompIndex < childrenFiltered.length - 1 ? BEFORE : AFTER;
+                newCompIndex < childrenFiltered.length - 1 && hasKey
+                    ? BEFORE
+                    : AFTER;
 
             /**
              * Store the new component to add after.
@@ -71,7 +86,7 @@ export const addWithKey = ({
             if (position === AFTER) {
                 return {
                     lastChild: el,
-                    components: [...previous.components, { key: item[key] }],
+                    components: [...previous.components, { key: item?.[key] }],
                 };
             }
 
@@ -81,7 +96,7 @@ export const addWithKey = ({
              */
             el.insertAdjacentHTML(
                 BEFORE,
-                `<component data-component="${targetComponent}" data-key="${item[key]}"/>`
+                `<component data-component="${targetComponent}" data-key="${item?.[key]}"/>`
             );
 
             return previous;
@@ -95,7 +110,9 @@ export const addWithKey = ({
     const { lastChild, components } = componentToAddAfter;
     const lasteRenderEl = components
         .map(({ key }) => {
-            return `<component data-component="${targetComponent}" data-key="${key}"/>`;
+            return `<component data-component="${targetComponent}" data-key="${
+                key ?? null
+            }"/>`;
         })
         .join('');
 
