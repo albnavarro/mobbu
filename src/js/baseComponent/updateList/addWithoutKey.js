@@ -43,11 +43,15 @@ export const addWithoutKey = ({
          * Usare un metodo dello sotre per prender il DOM element dall' id ?
          */
         const lastNode = containerList.querySelector(`#${lastChildren}`);
-        elementToAdd.forEach((element) => {
-            lastNode.insertAdjacentHTML('afterend', element);
-        });
-
-        return;
+        if (lastNode) {
+            elementToAdd.forEach((element) => {
+                if (lastNode) {
+                    lastNode.insertAdjacentHTML('afterend', element);
+                } else {
+                    containerList.insertAdjacentHTML('afterbegin', element);
+                }
+            });
+        }
     }
 
     /**
