@@ -8,16 +8,6 @@ export const getNewElement = (current, previous, key) => {
     });
 };
 
-export const getNewElement2 = (current, previous, key) => {
-    return current.map((el) => {
-        const value = el?.[key];
-        const insert = !previous.find((a) => a?.[key] === value);
-        return insert
-            ? { insert: true, item: el, element: null }
-            : { insert: false, item: el, element: null };
-    });
-};
-
 /**
  * Get new element index.
  */
@@ -27,6 +17,19 @@ export const findNewElementIndex = (current, newElement, key) => {
         const index = current.findIndex((el) => el?.[key] === keyVal);
         return [...prev, { index: index, item: curr }];
     }, []);
+};
+
+/**
+ * Mix previous and current data to manage the insertion of new component in right position.
+ */
+export const mixPreviousAndCurrentData = (current, previous, key) => {
+    return current.map((el) => {
+        const value = el?.[key];
+        const shouldInsert = !previous.find((a) => a?.[key] === value);
+        return shouldInsert
+            ? { shouldInsert: true, item: el, element: null }
+            : { shouldInsert: false, item: el, element: null };
+    });
 };
 
 /**

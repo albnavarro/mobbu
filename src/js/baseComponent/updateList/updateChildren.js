@@ -1,6 +1,8 @@
 import { parseComponents } from '../componentParse';
 import { updateChildrenOrder } from '../componentStore/action';
-import { addNewComponentToList } from './addNewComponentToList';
+import { addWithKey } from './addWithKey';
+import { addWithoutKey } from './addWithoutKey';
+import { listKeyExist } from './utils';
 
 // First try array of object.
 export const updateChildren = async ({
@@ -18,9 +20,19 @@ export const updateChildren = async ({
     if (JSON.stringify(current) === JSON.stringify(previous)) return;
 
     /**
+     * Check if thereis a key
+     */
+    const hasKey = listKeyExist({ current, previous, key });
+
+    /**
+     * Filter right function
+     */
+    const fn = hasKey ? addWithKey : addWithoutKey;
+
+    /**
      * Execue function.
      */
-    addNewComponentToList({
+    fn({
         current,
         previous,
         containerList,

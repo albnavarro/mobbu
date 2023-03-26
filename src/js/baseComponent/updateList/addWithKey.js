@@ -1,24 +1,27 @@
-import { clamp } from '../../mobbu/animation/utils/animationUtils';
 import {
     getElementById,
     getElementByKeyAndParentId,
     removeAndDestroyById,
 } from '../componentStore/action';
-import {
-    findNewElementIndex,
-    getNewElement,
-    getNewElement2,
-    listKeyExist,
-} from './utils';
+import { getNewElement, mixPreviousAndCurrentData } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
 
 /**
+ * get partial list to add from chunked array of components.
+ */
+function getPArtialsComponentList({ targetComponent, element, key }) {
+    return `
+        <component data-component="${targetComponent}" data-key="${element.item[key]}"/>
+    `;
+}
+
+/**
  * Add new children by key.
  */
-export const addNewComponentToList = ({
+export const addWithKey = ({
     current = [],
     previous = [],
     containerList = document.createElement('div'),
@@ -28,21 +31,17 @@ export const addNewComponentToList = ({
     id,
 } = {}) => {
     /**
-     * check if current and previous array has key.
+     * Get set of data with the right sequence of new list element mixinig old and news.
      */
-    const hasKey = listKeyExist({ current, previous, key });
+    const elementToAddObj = mixPreviousAndCurrentData(current, previous, key);
 
     /**
-     * 1- If hasKey get new element by diffrence form current to previous array.
-     * 2 - If there is no key get the remaing items
+     * Chunk the sequentially new element in group.
+     * So then insert the block of new element.
      */
-    const elementToAddObj = hasKey
-        ? getNewElement2(current, previous, key)
-        : current.filter((_element, i) => !previous[i]);
-
-    const grouped2 = elementToAddObj.reduce(
+    const chunkedElementToAdd = elementToAddObj.reduce(
         (previous, current) => {
-            return !current.insert
+            return !current.shouldInsert
                 ? [...previous, [current]]
                 : (() => {
                       previous[previous.length - 1].push(current);
@@ -52,7 +51,10 @@ export const addNewComponentToList = ({
         [[]]
     );
 
-    if (!grouped2?.[0].length) grouped2.shift();
+    /**
+     * Remove first empty array if nothig changed at begging of data.
+     */
+    if (!chunkedElementToAdd?.[0].length) chunkedElementToAdd.shift();
 
     /**
      * The inverse above
@@ -75,11 +77,11 @@ export const addNewComponentToList = ({
         return isDescendant(containerList, getElementById({ id }));
     });
 
-    grouped2.forEach((item) => {
+    chunkedElementToAdd.forEach((item) => {
         const firstEl = item[0];
-        const { insert } = firstEl;
+        const { shouldInsert } = firstEl;
 
-        const elWhereInsert = insert
+        const previousOrNextExistingElement = shouldInsert
             ? getElementById({
                   id: childrenFiltered[0],
               })
@@ -88,26 +90,19 @@ export const addNewComponentToList = ({
                   parentId: id,
               });
 
-        const elToInsert = item
-            .filter((element) => {
-                return element.insert;
-            })
-            .map((pippo) => {
-                return `<component data-component="${targetComponent}" data-key="${pippo.item[key]}"/>`;
-            })
+        const componentToAppend = item
+            .filter((element) => element.shouldInsert)
+            .map((element) =>
+                getPArtialsComponentList({ targetComponent, element, key })
+            )
             .join('');
 
-        if (insert) {
-            elWhereInsert.insertAdjacentHTML(BEFORE, elToInsert);
-        } else {
-            elWhereInsert.insertAdjacentHTML(AFTER, elToInsert);
-        }
-
-        //
+        const position = shouldInsert ? BEFORE : AFTER;
+        previousOrNextExistingElement.insertAdjacentHTML(
+            position,
+            componentToAppend
+        );
     });
-    // console.log(elementToAddObj);
-    // console.log(grouped2);
-    // console.log(childrenFiltered);
 
     elementToRemoveByKey.forEach((component) => {
         const id = component.id;
