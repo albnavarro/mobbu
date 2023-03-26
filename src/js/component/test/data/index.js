@@ -15,7 +15,16 @@ export const originalData = [
 
 export const addedData = [
     {
+        label: 'pluto',
+    },
+    {
         label: 'new-first',
+    },
+    {
+        label: 'new-first10',
+    },
+    {
+        label: 'topolino',
     },
     {
         label: 'new-first-2',
@@ -27,16 +36,10 @@ export const addedData = [
         label: 'new1',
     },
     {
-        label: 'pluto',
-    },
-    {
         label: 'zorro',
     },
     {
         label: 'paperino',
-    },
-    {
-        label: 'topolino',
     },
     {
         label: 'new-last',
@@ -55,6 +58,9 @@ export const removeData = [
     },
     {
         label: 'zorro',
+    },
+    {
+        label: 'pluto',
     },
     {
         label: 'new-last-4',

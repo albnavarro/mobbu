@@ -2,6 +2,7 @@ import {
     getElementById,
     getElementByKeyAndParentId,
     removeAndDestroyById,
+    updateChildrenOrder,
 } from '../componentStore/action';
 import { getNewElement, mixPreviousAndCurrentData } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
@@ -12,9 +13,9 @@ const AFTER = 'afterend';
 /**
  * get partial list to add from chunked array of components.
  */
-function getPArtialsComponentList({ targetComponent, element, key }) {
+function getPArtialsComponentList({ targetComponent, key }) {
     return `
-        <component data-component="${targetComponent}" data-key="${element.item[key]}"/>
+    <component data-component="${targetComponent}" data-key="${key}"/>
     `;
 }
 
@@ -36,8 +37,74 @@ export const addWithKey = ({
     const elementToAddObj = mixPreviousAndCurrentData(current, previous, key);
 
     /**
+     * --------------------------
+     * REORDER PERSISITE ELEMENT DI POSITION CHANGE
+     * --------------------------
+     */
+
+    /**
+     * Get an array with the new order of previous list element
+     * !chouldInser means that the element is not a new element.
+     */
+    const newPersistentElementOrder = elementToAddObj
+        .filter(({ shouldInsert }) => !shouldInsert)
+        .map((item) => {
+            return getElementByKeyAndParentId({
+                key: item.key,
+                parentId: id,
+            });
+        });
+
+    /**
+     * get parte element to reorder.
+     */
+    const parent = newPersistentElementOrder[0].parentNode;
+
+    /**
+     * Remove the node and reinser the same in right position
+     */
+    parent.innerHTML = '';
+    newPersistentElementOrder.forEach((item) => {
+        parent.appendChild(item);
+    });
+
+    /**
+     * --------------------------
+     * GET CHILD IN DOM IN RIGHT ORDER
+     * --------------------------
+     */
+
+    /**
+     * Now update the element order in store.
+     */
+    updateChildrenOrder({
+        id,
+        component: targetComponent,
+    });
+
+    /**
+     * Get all children by component type.
+     */
+    const children = getChildren(targetComponent);
+
+    /**
+     * Filter all children contained in containerList.
+     */
+    const childrenFiltered = [...children].filter((id) => {
+        return isDescendant(containerList, getElementById({ id }));
+    });
+
+    /**
+     * --------------------------
+     * ADD NEW LEMENT
+     * --------------------------
+     */
+
+    /**
      * Chunk the sequentially new element in group.
      * So then insert the block of new element.
+     * Every persisten element go in index 0 of chunk
+     * This element is used to append new element.
      */
     const chunkedElementToAdd = elementToAddObj.reduce(
         (previous, current) => {
@@ -65,18 +132,6 @@ export const addWithKey = ({
         return getElementByKeyAndParentId({ key: keyValue, parentId: id });
     });
 
-    /**
-     * Get all children by component type.
-     */
-    const children = getChildren(targetComponent);
-
-    /**
-     * Filter all children contained in containerList.
-     */
-    const childrenFiltered = [...children].filter((id) => {
-        return isDescendant(containerList, getElementById({ id }));
-    });
-
     chunkedElementToAdd.forEach((item) => {
         const firstEl = item[0];
         const { shouldInsert } = firstEl;
@@ -86,14 +141,17 @@ export const addWithKey = ({
                   id: childrenFiltered[0],
               })
             : getElementByKeyAndParentId({
-                  key: item[0].item[key],
+                  key: item[0]?.key,
                   parentId: id,
               });
 
         const componentToAppend = item
             .filter((element) => element.shouldInsert)
             .map((element) =>
-                getPArtialsComponentList({ targetComponent, element, key })
+                getPArtialsComponentList({
+                    targetComponent,
+                    key: element.key,
+                })
             )
             .join('');
 
@@ -104,6 +162,11 @@ export const addWithKey = ({
         );
     });
 
+    /**
+     * --------------------------
+     * REMOVE ELEMENT
+     * --------------------------
+     */
     elementToRemoveByKey.forEach((component) => {
         const id = component.id;
         removeAndDestroyById({ id });

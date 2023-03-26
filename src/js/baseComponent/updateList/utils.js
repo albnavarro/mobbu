@@ -27,8 +27,8 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
         const value = el?.[key];
         const shouldInsert = !previous.find((a) => a?.[key] === value);
         return shouldInsert
-            ? { shouldInsert: true, item: el, element: null }
-            : { shouldInsert: false, item: el, element: null };
+            ? { shouldInsert: true, key: el?.[key] }
+            : { shouldInsert: false, key: el?.[key] };
     });
 };
 
