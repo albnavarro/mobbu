@@ -25,10 +25,10 @@ export const findNewElementIndex = (current, newElement, key) => {
 export const mixPreviousAndCurrentData = (current, previous, key) => {
     return current.map((el) => {
         const value = el?.[key];
-        const shouldInsert = !previous.find((a) => a?.[key] === value);
-        return shouldInsert
-            ? { shouldInsert: true, key: el?.[key] }
-            : { shouldInsert: false, key: el?.[key] };
+        const isNewElement = !previous.find((a) => a?.[key] === value);
+        return isNewElement
+            ? { isNewElement: true, key: el?.[key] }
+            : { isNewElement: false, key: el?.[key] };
     });
 };
 

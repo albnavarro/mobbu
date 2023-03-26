@@ -47,7 +47,7 @@ export const addWithKey = ({
      * !chouldInser means that the element is not a new element.
      */
     const newPersistentElementOrder = elementToAddObj
-        .filter(({ shouldInsert }) => !shouldInsert)
+        .filter(({ isNewElement }) => !isNewElement)
         .map((item) => {
             return getElementByKeyAndParentId({
                 key: item.key,
@@ -108,7 +108,7 @@ export const addWithKey = ({
      */
     const chunkedElementToAdd = elementToAddObj.reduce(
         (previous, current) => {
-            return !current.shouldInsert
+            return !current.isNewElement
                 ? [...previous, [current]]
                 : (() => {
                       previous[previous.length - 1].push(current);
@@ -134,9 +134,16 @@ export const addWithKey = ({
 
     chunkedElementToAdd.forEach((item) => {
         const firstEl = item[0];
-        const { shouldInsert } = firstEl;
+        const { isNewElement: firstElementIsNew } = firstEl;
 
-        const previousOrNextExistingElement = shouldInsert
+        /**
+         * 1 - If the first element of the lsit is new append before
+         * the first existing element
+         *
+         * 2 -Otherwise appen to element at index 0 of current chank
+         * this element is persistent.
+         */
+        const previousOrNextExistingElement = firstElementIsNew
             ? getElementById({
                   id: childrenFiltered[0],
               })
@@ -146,7 +153,7 @@ export const addWithKey = ({
               });
 
         const componentToAppend = item
-            .filter((element) => element.shouldInsert)
+            .filter((element) => element.isNewElement)
             .map((element) =>
                 getPArtialsComponentList({
                     targetComponent,
@@ -155,7 +162,7 @@ export const addWithKey = ({
             )
             .join('');
 
-        const position = shouldInsert ? BEFORE : AFTER;
+        const position = firstElementIsNew ? BEFORE : AFTER;
         previousOrNextExistingElement.insertAdjacentHTML(
             position,
             componentToAppend
