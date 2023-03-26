@@ -50,3 +50,12 @@ export const listKeyExist = ({ current, previous, key }) => {
         arrayhaskey({ arr: previous, key })
     );
 };
+
+/**
+ * get univique array by key.
+ */
+export const getUnivoqueByKey = ({ data = [], key = '' }) => {
+    return data.filter(
+        (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
+    );
+};

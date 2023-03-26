@@ -4,6 +4,7 @@ import {
 } from '../../baseComponent/componentStore/action';
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore';
+import { getUnivoqueByKey } from '../../baseComponent/updateList/utils';
 import { addedData, originalData, removeData } from './data';
 
 /**
@@ -120,8 +121,18 @@ export const TestComponent = async ({
         decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
-        addEl.addEventListener('click', () => setState('data', addedData));
-        removeEl.addEventListener('click', () => setState('data', removeData));
+        addEl.addEventListener('click', () =>
+            setState(
+                'data',
+                getUnivoqueByKey({ data: addedData, key: 'label' })
+            )
+        );
+        removeEl.addEventListener('click', () =>
+            setState(
+                'data',
+                getUnivoqueByKey({ data: removeData, key: 'label' })
+            )
+        );
 
         return () => {
             unwatch();
