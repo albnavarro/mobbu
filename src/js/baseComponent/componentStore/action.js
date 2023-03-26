@@ -237,12 +237,6 @@ export const getComponentNameById = (id) => {
     return componentName;
 };
 
-// export const updateChildrenArray
-/**
- * Remove with no reference to DOM.
- */
-export const removeGhostComponent = () => {};
-
 /**
  * Remove component to store and destry it.
  */
@@ -250,16 +244,14 @@ export const removeAndDestroyById = ({ id = null }) => {
     if (!id) return;
 
     const { instances } = componentStore.get();
-    const { destroy, component: componentName } = instances.find(
-        ({ id: currentId }) => {
-            return currentId === id;
-        }
-    );
+    const { component: componentName } = instances.find(({ id: currentId }) => {
+        return currentId === id;
+    });
 
     /**
      * Fire destroy function.
      */
-    destroy?.();
+    // destroy?.();
 
     /**
      * Remove id from parent child array.
@@ -305,8 +297,8 @@ export const removeAndDestroyById = ({ id = null }) => {
         return prevInstances.filter((current) => {
             const { destroy, element, id: currentId } = current;
             if (currentId === id) {
+                destroy();
                 element?.remove();
-                destroy?.();
             }
 
             // Assign is if existe a parent component and current parentId is null
@@ -320,6 +312,13 @@ export const removeAndDestroyById = ({ id = null }) => {
  */
 export const removeCancellableComponentFromStore = () => {
     // Call removeComponentFromStore for each component cacellable
+};
+
+/**
+ * Remove orphan component from store.
+ */
+export const removeOrphanComponent = () => {
+    // Remove orphan component
 };
 
 /**
