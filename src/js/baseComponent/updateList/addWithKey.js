@@ -58,12 +58,12 @@ export const addWithKey = ({
     /**
      * get parte element to reorder.
      */
-    const parent = newPersistentElementOrder[0].parentNode;
+    const parent = newPersistentElementOrder[0]?.parentNode;
 
     /**
      * Remove the node and reinser the same in right position
      */
-    parent.innerHTML = '';
+    if (parent) parent.innerHTML = '';
     newPersistentElementOrder.forEach((item) => {
         parent.appendChild(item);
     });
@@ -152,6 +152,9 @@ export const addWithKey = ({
                   parentId: id,
               });
 
+        /**
+         * Filter from chunk the new element and create the new placeholder component
+         */
         const componentToAppend = item
             .filter((element) => element.isNewElement)
             .map((element) =>
@@ -162,11 +165,23 @@ export const addWithKey = ({
             )
             .join('');
 
+        /**
+         * Check if append new component before or after componentToAppend.
+         */
         const position = firstElementIsNew ? BEFORE : AFTER;
-        previousOrNextExistingElement.insertAdjacentHTML(
-            position,
-            componentToAppend
-        );
+
+        /**
+         * If the new data is not empty go normale
+         * Otherwise append children to parent listCOntainer.
+         */
+        if (previousOrNextExistingElement) {
+            previousOrNextExistingElement.insertAdjacentHTML(
+                position,
+                componentToAppend
+            );
+        } else {
+            containerList.insertAdjacentHTML('afterbegin', componentToAppend);
+        }
     });
 
     /**
