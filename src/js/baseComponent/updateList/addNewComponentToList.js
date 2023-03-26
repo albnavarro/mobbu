@@ -4,7 +4,12 @@ import {
     getElementByKeyAndParentId,
     removeAndDestroyById,
 } from '../componentStore/action';
-import { findNewElementIndex, getNewElement, listKeyExist } from './utils';
+import {
+    findNewElementIndex,
+    getNewElement,
+    getNewElement2,
+    listKeyExist,
+} from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 
 const BEFORE = 'beforebegin';
@@ -32,18 +37,22 @@ export const addNewComponentToList = ({
      * 2 - If there is no key get the remaing items
      */
     const elementToAddObj = hasKey
-        ? getNewElement(current, previous, key)
+        ? getNewElement2(current, previous, key)
         : current.filter((_element, i) => !previous[i]);
 
-    /**
-     * 1- If hasKey add index position of new element to add form current array.
-     * 2- If there is no key get the future key index.
-     */
-    const newElementByIndex = hasKey
-        ? findNewElementIndex(current, elementToAddObj, key)
-        : elementToAddObj.map((item, i) => {
-              return { index: previous.length + i, item };
-          });
+    const grouped2 = elementToAddObj.reduce(
+        (previous, current) => {
+            return !current.insert
+                ? [...previous, [current]]
+                : (() => {
+                      previous[previous.length - 1].push(current);
+                      return previous;
+                  })();
+        },
+        [[]]
+    );
+
+    if (!grouped2?.[0].length) grouped2.shift();
 
     /**
      * The inverse above
@@ -66,61 +75,39 @@ export const addNewComponentToList = ({
         return isDescendant(containerList, getElementById({ id }));
     });
 
-    const lastChildFilteredId = childrenFiltered?.[childrenFiltered.length - 1];
-    const lastChildFiltered = getElementById({ id: lastChildFilteredId });
+    grouped2.forEach((item) => {
+        const firstEl = item[0];
+        const { insert } = firstEl;
 
-    /**
-     * Add new placeholder component if index is < last list ( current DOM ) or store to add at the end.
-     */
-    const componentToAddAfter = newElementByIndex.reduce(
-        (previous, { index, item }, i) => {
-            const newCompIndex = index - i;
+        const elWhereInsert = insert
+            ? getElementById({
+                  id: childrenFiltered[0],
+              })
+            : getElementByKeyAndParentId({
+                  key: item[0].item[key],
+                  parentId: id,
+              });
 
-            /**
-             * Get current child element.
-             */
-            const childId = childrenFiltered?.[newCompIndex];
-            const el = getElementById({ id: childId });
+        const elToInsert = item
+            .filter((element) => {
+                return element.insert;
+            })
+            .map((pippo) => {
+                return `<component data-component="${targetComponent}" data-key="${pippo.item[key]}"/>`;
+            })
+            .join('');
 
-            /**
-             * Check if insert the new component before or athe the end che current element.
-             */
-            const position =
-                newCompIndex < childrenFiltered.length && hasKey
-                    ? BEFORE
-                    : AFTER;
+        if (insert) {
+            elWhereInsert.insertAdjacentHTML(BEFORE, elToInsert);
+        } else {
+            elWhereInsert.insertAdjacentHTML(AFTER, elToInsert);
+        }
 
-            /**
-             * Store the new component to add after.
-             */
-            if (position === AFTER) {
-                return [...previous, { key: item[key] }];
-            }
-
-            /**
-             * The index of component is inside the last list ( current DOM )
-             * So add before the current element.
-             */
-            el.insertAdjacentHTML(
-                BEFORE,
-                `<component data-component="${targetComponent}" data-key="${item[key]}"/>`
-            );
-
-            return previous;
-        },
-        []
-    );
-
-    /**
-     * Add the component stored at the end.
-     */
-    const lasteRenderEl = componentToAddAfter
-        .map(({ key }) => {
-            return `<component data-component="${targetComponent}" data-key="${key}"/>`;
-        })
-        .join('');
-
-    lastChildFiltered.insertAdjacentHTML(AFTER, lasteRenderEl);
+        //
+    });
+    // console.log(elementToAddObj);
+    // console.log(grouped2);
+    // console.log(childrenFiltered);
 
     elementToRemoveByKey.forEach((component) => {
         const id = component.id;
