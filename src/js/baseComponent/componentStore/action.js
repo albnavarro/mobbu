@@ -254,7 +254,13 @@ export const removeAndDestroyById = ({ id = null }) => {
     // destroy?.();
 
     /**
+     * -------------
      * Remove id from parent child array.
+     * -------------
+     */
+
+    /**
+     * get parent instance filtered by componentName
      */
     const parentInstance = instances.find(({ child }) => {
         const parentComponentArray = child?.[componentName] ?? [];
@@ -262,7 +268,7 @@ export const removeAndDestroyById = ({ id = null }) => {
     });
 
     /**
-     * get parent Id, and remove id from parent
+     * get parentId, and remove id from parent
      */
     const parentId = parentInstance?.id ?? null;
     componentStore.set('instances', (prevInstances) => {
@@ -295,9 +301,10 @@ export const removeAndDestroyById = ({ id = null }) => {
      */
     componentStore.set('instances', (prevInstances) => {
         return prevInstances.filter((current) => {
-            const { destroy, element, id: currentId } = current;
+            const { state, destroy, element, id: currentId } = current;
             if (currentId === id) {
                 destroy();
+                state.destroy();
                 element?.remove();
             }
 

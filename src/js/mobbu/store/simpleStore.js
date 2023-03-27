@@ -24,7 +24,7 @@ export class SimpleStore {
      * @description
      * SimpleStore inizialization.
      * The store accepts single properties or objects
-       If objects are used, it is not possible to nest more than two levels. 
+       If objects are used, it is not possible to nest more than two levels.
        Each individual property can be initialized with a simple value or via a more complex setup.
        A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
        `type` || `validation` || `skipEqual`
@@ -41,7 +41,7 @@ export class SimpleStore {
        Validation function to parse value.
        This function will have the current value as input parameter and will return a boolean value.
        The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
-       
+
        `strict`:
        If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.
        THe default value is `false`.
@@ -858,7 +858,7 @@ export class SimpleStore {
      *
      * @description
      * Update propierties value if some dependency change.
-     * Computed functions are resolved on the nextTick. 
+     * Computed functions are resolved on the nextTick.
      * If multiple dependencies change at the same time, the computed will be resolved only once.
      *
      *
