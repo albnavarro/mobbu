@@ -108,7 +108,7 @@ export const TestComponent = async ({
             targetComponent: 'TestComponent2',
             key: 'label',
             callback: ({ current, i }) => {
-                const { label } = current[i];
+                const { label } = current;
                 const { counter } = getState();
                 return `${label}, ${counter * i}`;
             },

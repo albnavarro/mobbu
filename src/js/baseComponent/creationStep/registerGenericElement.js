@@ -92,7 +92,11 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     setStateById(
                         id,
                         targetState,
-                        callback({ current, previous, i })
+                        callback({
+                            current: current[i],
+                            previous: previous[i],
+                            i,
+                        })
                     );
                 });
             });
