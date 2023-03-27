@@ -39,6 +39,7 @@ export const registerComponent = ({
         props,
         getState: () => store.get(),
         setState: (prop, value) => store.set(prop, value),
+        emit: (prop) => store.emit(prop),
         watch: (prop, cb) => store.watch(prop, cb),
         watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
         getChildren: (component) => getChildrenIdByName({ id, component }),
