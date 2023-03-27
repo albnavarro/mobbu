@@ -29,6 +29,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         getState,
         setState,
         emit,
+        computed,
         watch,
         watchParent,
         getChildren,
@@ -62,6 +63,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         getState,
         setState,
         emit,
+        computed,
         watch,
         watchParent,
         render: (content) => {
