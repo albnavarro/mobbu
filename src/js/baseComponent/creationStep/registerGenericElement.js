@@ -1,12 +1,10 @@
-import { checkType } from '../../mobbu/store/storeType';
 import {
     addSelfToParentComponent,
     setParentsComponent,
-    setStateById,
 } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore';
-import { updateChildren } from '../updateList/updateChildren';
+import { watchList } from '../updateList/watchList';
 import { convertToGenericElement } from './convertToGenericElement';
 
 /**
@@ -82,33 +80,16 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             callback = () => {},
             key = null,
         }) => {
-            return watch(state, async (current, previous) => {
-                if (!checkType(Array, current)) return;
-
-                await updateChildren({
-                    containerList,
-                    targetComponent,
-                    current,
-                    previous,
-                    getChildren,
-                    key,
-                    id,
-                });
-
-                getChildren(targetComponent).forEach((id, i) => {
-                    //If component is in list
-                    if (!current[i]) return;
-
-                    setStateById(
-                        id,
-                        targetState,
-                        callback({
-                            current: current[i],
-                            previous: previous[i],
-                            i,
-                        })
-                    );
-                });
+            return watchList({
+                state,
+                targetState,
+                watch,
+                containerList,
+                targetComponent,
+                callback,
+                getChildren,
+                key,
+                id,
             });
         },
     };
