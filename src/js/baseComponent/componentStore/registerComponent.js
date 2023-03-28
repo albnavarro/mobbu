@@ -38,7 +38,7 @@ export const registerComponent = ({
     return {
         props,
         getState: () => store.get(),
-        setState: (prop, value) => store.set(prop, value),
+        setState: (prop, value, fire = true) => store.set(prop, value, fire),
         emit: (prop) => store.emit(prop),
         computed: (prop, keys, fn) => store.computed(prop, keys, fn),
         watch: (prop, cb) => store.watch(prop, cb),

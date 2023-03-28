@@ -1,5 +1,5 @@
 import { checkType } from '../../mobbu/store/storeType';
-import { setStateById } from '../componentStore/action';
+import { getStateById, setStateById } from '../componentStore/action';
 import { updateChildren } from './updateChildren';
 
 export const watchList = ({
@@ -15,7 +15,8 @@ export const watchList = ({
     return watch(state, async (current, previous) => {
         if (!checkType(Array, current)) return;
 
-        await updateChildren({
+        const currentUnivoque = await updateChildren({
+            state,
             containerList,
             targetComponent,
             current,
@@ -27,10 +28,10 @@ export const watchList = ({
 
         getChildren(targetComponent).forEach((id, index) => {
             //If component is in list
-            if (!current[index]) return;
+            if (!currentUnivoque[index]) return;
 
             update({
-                current: current[index],
+                current: currentUnivoque[index],
                 previous: previous[index],
                 setChildState: (prop, val) => setStateById(id, prop, val),
                 index,

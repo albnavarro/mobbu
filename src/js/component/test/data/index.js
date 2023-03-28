@@ -21,6 +21,9 @@ export const addedData = [
         label: 'b',
     },
     {
+        label: 'b',
+    },
+    {
         label: 'e',
     },
     {

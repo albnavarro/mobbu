@@ -2,9 +2,14 @@ import {
     getElementById,
     getElementByKeyAndParentId,
     removeAndDestroyById,
+    setStateById,
     updateChildrenOrder,
 } from '../componentStore/action';
-import { getNewElement, mixPreviousAndCurrentData } from './utils';
+import {
+    getNewElement,
+    getUnivoqueByKey,
+    mixPreviousAndCurrentData,
+} from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 import { IS_RUNTIME } from '../utils';
 
@@ -24,6 +29,7 @@ function getPArtialsComponentList({ targetComponent, key }) {
  * Add new children by key.
  */
 export const addWithKey = ({
+    state,
     current = [],
     previous = [],
     containerList = document.createElement('div'),
@@ -32,10 +38,21 @@ export const addWithKey = ({
     key = '',
     id,
 } = {}) => {
+    const currentUnique = getUnivoqueByKey({ data: current, key });
+
+    /*
+     * get univoque current array by key without fire callback.
+     */
+    setStateById(id, state, () => currentUnique, false);
+
     /**
      * Get set of data with the right sequence of new list element mixinig old and news.
      */
-    const elementToAddObj = mixPreviousAndCurrentData(current, previous, key);
+    const elementToAddObj = mixPreviousAndCurrentData(
+        currentUnique,
+        previous,
+        key
+    );
 
     /**
      * --------------------------
@@ -127,7 +144,7 @@ export const addWithKey = ({
     /**
      * The inverse above
      */
-    const elementToRemoveObj = getNewElement(previous, current, key);
+    const elementToRemoveObj = getNewElement(previous, currentUnique, key);
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
         const keyValue = item?.[key];
         return getElementByKeyAndParentId({ key: keyValue, parentId: id });
@@ -196,4 +213,6 @@ export const addWithKey = ({
 
         removeAndDestroyById({ id });
     });
+
+    return currentUnique;
 };

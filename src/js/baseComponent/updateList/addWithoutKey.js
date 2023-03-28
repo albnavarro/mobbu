@@ -78,4 +78,6 @@ export const addWithoutKey = ({
     childrenToRemoveByKey.forEach((childId) => {
         removeAndDestroyById({ id: childId });
     });
+
+    return current;
 };

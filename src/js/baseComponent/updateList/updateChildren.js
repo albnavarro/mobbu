@@ -6,6 +6,7 @@ import { listKeyExist } from './utils';
 
 // First try array of object.
 export const updateChildren = async ({
+    state,
     containerList,
     targetComponent = '',
     current = [],
@@ -32,7 +33,8 @@ export const updateChildren = async ({
     /**
      * Execue function.
      */
-    fn({
+    const currentUnivoque = fn({
+        state,
         current,
         previous,
         containerList,
@@ -51,4 +53,9 @@ export const updateChildren = async ({
         id,
         component: targetComponent,
     });
+
+    /**
+     * Return update current without duplicate fi needed by addWithkey.
+     */
+    return currentUnivoque;
 };

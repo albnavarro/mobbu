@@ -1,6 +1,5 @@
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore';
-import { getUnivoqueByKey } from '../../baseComponent/updateList/utils';
 import { addedData, originalData, removeData } from './data';
 
 function logChildren(getChildren) {
@@ -26,20 +25,21 @@ function asyncTest() {
 //     },
 // });
 
-function addChildren({ data }) {
-    return data
-        .map(({ label }, index) => {
-            const childProps = createProps({
-                label,
-                index,
-            });
+// function addChildren({ data }) {
+//     return data
+//         .map(({ label }, index) => {
+//             const childProps = createProps({
+//                 label,
+//                 index,
+//             });
+//
+//             return `
+//                  <component data-props="${childProps}" data-key="${label}" data-cancellable data-component="TestComponent2"/>
+//             `;
+//         })
+//         .join('');
+// }
 
-            return `
-                 <component data-props="${childProps}" data-key="${label}" data-cancellable data-component="TestComponent2"/>
-            `;
-        })
-        .join('');
-}
 /**
  * Create component
  */
@@ -50,7 +50,7 @@ export const TestComponent = async ({
     render,
     onMount,
     updateList,
-    getState,
+    // getState,
 }) => {
     onMount(({ element }) => {
         const debugBtn = element.querySelector('.debug');
@@ -70,22 +70,12 @@ export const TestComponent = async ({
             },
         });
 
-        // setState('data', originalData);
+        setState('data', originalData);
 
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
-        addEl.addEventListener('click', () =>
-            setState(
-                'data',
-                getUnivoqueByKey({ data: addedData, key: 'label' })
-            )
-        );
-        removeEl.addEventListener('click', () =>
-            setState(
-                'data',
-                getUnivoqueByKey({ data: removeData, key: 'label' })
-            )
-        );
+        addEl.addEventListener('click', () => setState('data', addedData));
+        removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
             unwatchList();
@@ -102,8 +92,8 @@ export const TestComponent = async ({
     /**
      * Set/Get state
      */
-    setState('data', originalData);
-    const { data } = getState();
+    // setState('data', originalData);
+    // const { data } = getState();
 
     /**
      * Set props
@@ -136,7 +126,7 @@ export const TestComponent = async ({
                 </button>
             </div>
             <div class="c-test-comp__list">
-                ${addChildren({ data, getState })}
+                ${/*addChildren({ data, getState })*/ ''}
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>

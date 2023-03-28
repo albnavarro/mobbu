@@ -97,7 +97,7 @@ export const getStateById = (id) => {
 /**
  * Set state
  */
-export const setStateById = (id, prop, value) => {
+export const setStateById = (id, prop, value, fire = true) => {
     if (!id && !prop && !value) return;
 
     const { instances } = componentStore.get();
@@ -109,7 +109,7 @@ export const setStateById = (id, prop, value) => {
         return null;
     }
 
-    state.set(prop, value);
+    state.set(prop, value, fire);
 };
 
 /**
