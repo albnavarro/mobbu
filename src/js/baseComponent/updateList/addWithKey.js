@@ -58,7 +58,7 @@ export const addWithKey = ({
     /**
      * get parte element to reorder.
      */
-    const parent = newPersistentElementOrder[0]?.parentNode;
+    const parent = newPersistentElementOrder[0]?.parentNode ?? containerList;
 
     /**
      * Remove the node and reinser the same in right position

@@ -1,41 +1,30 @@
 /**
  * Create component
  */
-export const TestComponent2 = ({
-    props,
-    watch,
-    setState,
-    // watchParent,
-    render,
-    onMount,
-}) => {
-    const { valueFromParent } = props;
+export const TestComponent2 = ({ props, watch, render, onMount, emit }) => {
+    const { label, index } = props;
 
     onMount(({ element }) => {
+        const labelEl = element.querySelector('.label');
         const counterEl = element.querySelector('.counter');
+        element.addEventListener('click', () => emit('isRed'));
 
-        element.addEventListener('click', () => {
-            setState('isRed', (prev) => !prev);
-        });
+        const unwatchRed = watch('isRed', () =>
+            element.classList.toggle('is-red')
+        );
 
-        const unwatchRed = watch('isRed', () => {
-            element.classList.toggle('is-red');
-        });
-
-        /**
-         * Listen to parent mutation.
-         */
-        // const unwatchParent = watchParent('counter', () => {
-        //     setState('counter', valueFromParent());
-        // });
-
-        const unwatch = watch('label', (val) => {
-            counterEl.innerHTML = val;
-        });
+        const unwatchLabel = watch(
+            'label',
+            (value) => (labelEl.innerHTML = value)
+        );
+        const unwatchIndex = watch(
+            'index',
+            (value) => (counterEl.innerHTML = value)
+        );
 
         return () => {
-            // unwatchParent();
-            unwatch();
+            unwatchLabel();
+            unwatchIndex();
             unwatchRed();
             element.remove();
         };
@@ -43,7 +32,8 @@ export const TestComponent2 = ({
 
     return render(`
         <div class="c-test-comp__inner">
-            <span class="counter">${valueFromParent}</span>
+            <span class="label">${label ?? ''}</span>
+            <span class="counter">${index ?? ''}</span>
         </div>
     `);
 };

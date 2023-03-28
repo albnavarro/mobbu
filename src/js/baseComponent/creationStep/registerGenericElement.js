@@ -73,11 +73,11 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         updateList: ({
-            state = null,
+            watch: state = null,
             targetState = '',
-            containerList = document.createElement('div'),
-            targetComponent = '',
-            callback = () => {},
+            container: containerList = document.createElement('div'),
+            component: targetComponent = '',
+            update = () => {},
             key = null,
         }) => {
             return watchList({
@@ -86,7 +86,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 watch,
                 containerList,
                 targetComponent,
-                callback,
+                update,
                 getChildren,
                 key,
                 id,

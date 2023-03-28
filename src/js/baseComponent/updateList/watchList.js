@@ -4,11 +4,10 @@ import { updateChildren } from './updateChildren';
 
 export const watchList = ({
     state,
-    targetState,
     watch,
     containerList,
+    update,
     targetComponent,
-    callback,
     getChildren,
     key,
     id,
@@ -26,19 +25,16 @@ export const watchList = ({
             id,
         });
 
-        getChildren(targetComponent).forEach((id, i) => {
+        getChildren(targetComponent).forEach((id, index) => {
             //If component is in list
-            if (!current[i]) return;
+            if (!current[index]) return;
 
-            setStateById(
-                id,
-                targetState,
-                callback({
-                    current: current[i],
-                    previous: previous[i],
-                    i,
-                })
-            );
+            update({
+                current: current[index],
+                previous: previous[index],
+                setChildState: (prop, val) => setStateById(id, prop, val),
+                index,
+            });
         });
     });
 };

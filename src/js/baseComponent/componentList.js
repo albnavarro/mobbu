@@ -60,6 +60,10 @@ export const componentList = {
                     value: '',
                     type: String,
                 }),
+                index: () => ({
+                    value: 0,
+                    type: Number,
+                }),
                 isRed: false,
             },
         },

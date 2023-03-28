@@ -1,28 +1,7 @@
-import {
-    // getElementById,
-    setStateById,
-} from '../../baseComponent/componentStore/action';
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore';
 import { getUnivoqueByKey } from '../../baseComponent/updateList/utils';
 import { addedData, originalData, removeData } from './data';
-
-/**
- * On click function.
- */
-function increment(event) {
-    const target = event.currentTarget;
-    const root = target.closest('.c-test-comp');
-    const id = root.id;
-    setStateById(id, 'counter', (prev) => prev + 1);
-}
-
-function decrement(event) {
-    const target = event.currentTarget;
-    const root = target.closest('.c-test-comp');
-    const id = root.id;
-    setStateById(id, 'counter', (prev) => prev - 1);
-}
 
 function logChildren(getChildren) {
     console.log(getChildren('TestComponent2'));
@@ -47,12 +26,12 @@ function asyncTest() {
 //     },
 // });
 
-function addChildren({ data, getState }) {
+function addChildren({ data }) {
     return data
-        .map(({ label }, i) => {
-            const { counter } = getState();
+        .map(({ label }, index) => {
             const childProps = createProps({
-                valueFromParent: `${label}, ${counter * i}`,
+                label,
+                index,
             });
 
             return `
@@ -69,56 +48,28 @@ export const TestComponent = async ({
     getState,
     setState,
     getChildren,
-    watch,
     render,
     onMount,
     updateList,
 }) => {
     onMount(({ element }) => {
-        const incrementBtn = element.querySelector('.increment');
-        const decrementBtn = element.querySelector('.decrement');
         const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
-        const counterEl = element.querySelector('.counter');
         const addEl = element.querySelector('.add');
         const removeEl = element.querySelector('.remove');
 
-        /**
-         * Watch state mutation.
-         */
-        const unwatch = watch('counter', (val) => {
-            const { data } = getState();
-            counterEl.innerHTML = val;
-
-            getChildren('TestComponent2').forEach((id, i) => {
-                if (!data[i]) return;
-
-                const { label } = data[i];
-                setStateById(id, 'label', `${label}, ${val * i}`);
-            });
-        });
-
-        /**
-         * Update List if there is new element
-         */
         const unwatchList = updateList({
-            state: 'data',
-            targetState: 'label',
-            containerList: element.querySelector('.c-test-comp__list'),
-            targetComponent: 'TestComponent2',
+            watch: 'data',
+            container: element.querySelector('.c-test-comp__list'),
+            component: 'TestComponent2',
             key: 'label',
-            callback: ({ current, i }) => {
+            update: ({ current, setChildState, index }) => {
                 const { label } = current;
-                const { counter } = getState();
-                return `${label}, ${counter * i}`;
+                setChildState('label', label);
+                setChildState('index', index);
             },
         });
 
-        /**
-         * Add listener
-         */
-        incrementBtn.addEventListener('click', increment);
-        decrementBtn.addEventListener('click', decrement);
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         addEl.addEventListener('click', () =>
@@ -135,11 +86,8 @@ export const TestComponent = async ({
         );
 
         return () => {
-            unwatch();
             unwatchList();
-            incrementBtn.removeEventListener('click', increment);
-            decrementBtn.removeEventListener('click', decrement);
-            debugBtn.removeEventListener('click', decrement);
+            debugBtn.removeEventListener('click', debug);
             element.remove();
         };
     });
@@ -150,30 +98,20 @@ export const TestComponent = async ({
     await asyncTest();
 
     /**
-     * Get props
+     * Get props/state
      */
-    const { label } = props;
+    const { title } = props;
     setState('data', originalData);
-    const { data, counter } = getState();
-
+    const { data } = getState();
     const outeProp = createProps({
-        valueFromParent: `outer list el`,
+        label: `outer list el`,
     });
 
     // test array
     return render(`
         <div class="c-test-comp">
             <div class="c-test-comp__label">
-                <span>${label} : </span>
-                <span class="counter">${counter}</span>
-            </div>
-            <div class="c-test-comp__top">
-                <button class="c-test-comp__btn decrement">
-                    decrement
-                </button>
-                <button class="c-test-comp__btn increment">
-                    increment
-                </button>
+                <span>${title} : </span>
             </div>
             <div class="c-test-comp__top">
                 <button class="c-test-comp__btn add">

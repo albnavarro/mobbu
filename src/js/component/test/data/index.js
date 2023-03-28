@@ -1,68 +1,59 @@
 export const originalData = [
     {
-        label: 'pippo',
+        label: 'a',
     },
     {
-        label: 'pluto',
+        label: 'b',
     },
     {
-        label: 'paperino',
+        label: 'c',
     },
     {
-        label: 'topolino',
+        label: 'd',
     },
 ];
 
 export const addedData = [
     {
-        label: 'pluto',
+        label: 'b',
     },
     {
-        label: 'new-first',
+        label: 'e',
     },
     {
-        label: 'new-first10',
+        label: 'c',
     },
     {
-        label: 'topolino',
+        label: 'g',
     },
     {
-        label: 'new-first-2',
+        label: 'a',
     },
     {
-        label: 'pippo',
+        label: 'g',
     },
     {
-        label: 'new1',
+        label: 'h',
     },
     {
-        label: 'zorro',
+        label: 'f',
     },
     {
-        label: 'paperino',
-    },
-    {
-        label: 'new-last',
-    },
-    {
-        label: 'new-last-2',
-    },
-    {
-        label: 'new-last-4',
+        label: 'd',
     },
 ];
 
 export const removeData = [
     {
-        label: 'new1',
+        label: 'b',
     },
     {
-        label: 'zorro',
+        label: 'h',
     },
     {
-        label: 'pluto',
+        label: 'f',
     },
     {
-        label: 'new-last-4',
+        label: 'd',
     },
 ];
