@@ -28,7 +28,7 @@ export const watchList = ({
 
         getChildren(targetComponent).forEach((id, index) => {
             //If component is in list
-            if (!currentUnivoque[index]) return;
+            if (!currentUnivoque?.[index]) return;
 
             update({
                 current: currentUnivoque[index],
