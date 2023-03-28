@@ -1,5 +1,5 @@
 import { checkType } from '../../mobbu/store/storeType';
-import { getStateById, setStateById } from '../componentStore/action';
+import { setStateById } from '../componentStore/action';
 import { updateChildren } from './updateChildren';
 
 export const watchList = ({
