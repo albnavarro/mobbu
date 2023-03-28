@@ -45,12 +45,12 @@ function addChildren({ data }) {
  */
 export const TestComponent = async ({
     props,
-    getState,
     setState,
     getChildren,
     render,
     onMount,
     updateList,
+    getState,
 }) => {
     onMount(({ element }) => {
         const debugBtn = element.querySelector('.debug');
@@ -69,6 +69,8 @@ export const TestComponent = async ({
                 setChildState('index', index);
             },
         });
+
+        // setState('data', originalData);
 
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
@@ -98,11 +100,15 @@ export const TestComponent = async ({
     await asyncTest();
 
     /**
-     * Get props/state
+     * Set/Get state
      */
-    const { title } = props;
     setState('data', originalData);
     const { data } = getState();
+
+    /**
+     * Set props
+     */
+    const { title } = props;
     const outeProp = createProps({
         label: `outer list el`,
     });
@@ -130,7 +136,7 @@ export const TestComponent = async ({
                 </button>
             </div>
             <div class="c-test-comp__list">
-                ${addChildren({ data, getState })}
+                 ${addChildren({ data, getState })}
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>

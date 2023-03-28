@@ -1,5 +1,6 @@
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 import { getElementById, removeAndDestroyById } from '../componentStore/action';
+import { IS_RUNTIME } from '../utils';
 
 /**
  * Add new children.
@@ -25,7 +26,7 @@ export const addWithoutKey = ({
          */
         const elementToAdd = [...Array(diff).keys()].map(() => {
             return `
-                <component data-component="${targetComponent}"/>
+                <component ${IS_RUNTIME} data-component="${targetComponent}"/>
             `;
         });
 

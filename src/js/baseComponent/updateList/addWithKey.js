@@ -6,6 +6,7 @@ import {
 } from '../componentStore/action';
 import { getNewElement, mixPreviousAndCurrentData } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
+import { IS_RUNTIME } from '../utils';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -15,7 +16,7 @@ const AFTER = 'afterend';
  */
 function getPArtialsComponentList({ targetComponent, key }) {
     return `
-    <component data-component="${targetComponent}" data-key="${key}"/>
+    <component ${IS_RUNTIME} data-component="${targetComponent}" data-key="${key}"/>
     `;
 }
 
@@ -65,7 +66,7 @@ export const addWithKey = ({
      */
     if (parent) parent.innerHTML = '';
     newPersistentElementOrder.forEach((item) => {
-        parent.appendChild(item);
+        if (item) parent.appendChild(item);
     });
 
     /**

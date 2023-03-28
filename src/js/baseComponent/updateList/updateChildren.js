@@ -45,7 +45,7 @@ export const updateChildren = async ({
     /**
      * Parse new component if there is ( added is executed )
      */
-    await parseComponents({ element: containerList });
+    await parseComponents({ element: containerList, excludeRuntime: false });
 
     updateChildrenOrder({
         id,

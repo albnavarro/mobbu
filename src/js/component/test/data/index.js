@@ -27,6 +27,9 @@ export const addedData = [
         label: 'g',
     },
     {
+        label: 'f',
+    },
+    {
         label: 'a',
     },
     {
@@ -36,16 +39,13 @@ export const addedData = [
         label: 'h',
     },
     {
-        label: 'f',
-    },
-    {
         label: 'd',
     },
 ];
 
 export const removeData = [
     {
-        label: 'b',
+        label: 'a',
     },
     {
         label: 'h',

@@ -3,12 +3,12 @@ import { setElementById } from './componentStore/action';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore';
-import { WILL_COMPONENT } from './utils';
+import { IS_RUNTIME, WILL_COMPONENT } from './utils';
 
 /**
  * Create all component from DOM.
  */
-const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
+const parseComponentsRecursive = async ({ element, index, excludeRuntime }) => {
     if (!element) return Promise.resolve();
 
     /**
@@ -17,7 +17,9 @@ const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
      * render components form top to botton so we are shure that child component
      * can watch parent
      */
-    const componentToParse = element.querySelector(`[${WILL_COMPONENT}]`);
+    const componentToParse = excludeRuntime
+        ? element.querySelector(`[${WILL_COMPONENT}]:not([${IS_RUNTIME}])`)
+        : element.querySelector(`[${WILL_COMPONENT}]`);
 
     // if there is no component end.
     if (!componentToParse) return Promise.resolve();
@@ -77,9 +79,14 @@ const parseComponentsRecursive = async ({ element = null, index = 0 }) => {
     await parseComponentsRecursive({
         element,
         index: index++,
+        excludeRuntime,
     });
 };
 
-export const parseComponents = async ({ element = null, index = 0 }) => {
-    await parseComponentsRecursive({ element, index });
+export const parseComponents = async ({
+    element = null,
+    index = 0,
+    excludeRuntime = true,
+}) => {
+    await parseComponentsRecursive({ element, index, excludeRuntime });
 };
