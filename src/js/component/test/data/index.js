@@ -15,6 +15,9 @@ export const originalData = [
 
 export const addedData = [
     {
+        label: 'f',
+    },
+    {
         label: 'b',
     },
     {
@@ -27,13 +30,7 @@ export const addedData = [
         label: 'g',
     },
     {
-        label: 'f',
-    },
-    {
         label: 'a',
-    },
-    {
-        label: 'g',
     },
     {
         label: 'h',

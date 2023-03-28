@@ -33,7 +33,7 @@ export const TestComponent2 = ({ props, watch, render, onMount, emit }) => {
     return render(`
         <div class="c-test-comp__inner">
             <span class="label">${label ?? ''}</span>
-            <span class="counter">${index ?? ''}</span>
+            <span class="counter">${index ?? '0'}</span>
         </div>
     `);
 };

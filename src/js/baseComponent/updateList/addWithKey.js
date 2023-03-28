@@ -191,7 +191,9 @@ export const addWithKey = ({
      * --------------------------
      */
     elementToRemoveByKey.forEach((component) => {
-        const id = component.id;
+        const id = component?.id;
+        if (!id) return;
+
         removeAndDestroyById({ id });
     });
 };

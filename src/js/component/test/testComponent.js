@@ -136,7 +136,7 @@ export const TestComponent = async ({
                 </button>
             </div>
             <div class="c-test-comp__list">
-                 ${addChildren({ data, getState })}
+                ${addChildren({ data, getState })}
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>
