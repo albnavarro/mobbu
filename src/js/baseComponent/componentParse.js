@@ -2,7 +2,7 @@ import { componentList } from './componentList';
 import { setElementById } from './componentStore/action';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
-import { fireOnMountCallBack } from './mainStore';
+import { fireOnMountCallBack } from './mainStore/actions/onMount';
 import { IS_RUNTIME, WILL_COMPONENT } from './utils';
 
 /**

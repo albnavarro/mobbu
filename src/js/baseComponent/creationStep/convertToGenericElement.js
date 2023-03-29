@@ -1,5 +1,5 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
-import { getPropsFromParent } from '../mainStore';
+import { getPropsFromParent } from '../mainStore/actions/props';
 import { IS_COMPONENT } from '../utils';
 
 /**

@@ -3,7 +3,7 @@ import {
     setParentsComponent,
 } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
-import { addOnMoutCallback } from '../mainStore';
+import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import { watchList } from '../updateList/watchList';
 import { convertToGenericElement } from './convertToGenericElement';
 

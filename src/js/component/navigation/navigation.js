@@ -1,4 +1,4 @@
-import { createProps } from '../../baseComponent/mainStore';
+import { createProps } from '../../baseComponent/mainStore/actions/props';
 import { getCommonData } from '../../route';
 
 /**

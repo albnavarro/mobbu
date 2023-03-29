@@ -1,5 +1,5 @@
 import { componentStore } from '../../baseComponent/componentStore/store';
-import { createProps } from '../../baseComponent/mainStore';
+import { createProps } from '../../baseComponent/mainStore/actions/props';
 import { addedData, originalData, removeData } from './data';
 
 function logChildren(getChildren) {
