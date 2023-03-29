@@ -19,9 +19,9 @@ const AFTER = 'afterend';
 /**
  * get partial list to add from chunked array of components.
  */
-function getPArtialsComponentList({ targetComponent, key }) {
+function getPArtialsComponentList({ targetComponent, key, runtimeId }) {
     return `
-    <component ${IS_RUNTIME} data-component="${targetComponent}" data-key="${key}"/>
+        <component ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}" data-key="${key}"/>
     `;
 }
 
@@ -37,6 +37,7 @@ export const addWithKey = ({
     getChildren = () => {},
     key = '',
     id,
+    runtimeId = '',
 } = {}) => {
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
@@ -179,6 +180,7 @@ export const addWithKey = ({
                 getPArtialsComponentList({
                     targetComponent,
                     key: element.key,
+                    runtimeId,
                 })
             )
             .join('');

@@ -8,7 +8,7 @@ import { IS_RUNTIME, WILL_COMPONENT } from './utils';
 /**
  * Create all component from DOM.
  */
-const parseComponentsRecursive = async ({ element, index, excludeRuntime }) => {
+const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     if (!element) return Promise.resolve();
 
     /**
@@ -16,19 +16,33 @@ const parseComponentsRecursive = async ({ element, index, excludeRuntime }) => {
      * So after we cna render the child component.
      * render components form top to botton so we are shure that child component
      * can watch parent
+     *
+     * - ExcludeRuntime is true when load entire route.
+     *
+     * - For specific situoation es: updatelist, render only the component generated
+     *   in current action filtered by a unique id
      */
-    const componentToParse = excludeRuntime
+    const componentToParse = !runtimeId
         ? element.querySelector(`[${WILL_COMPONENT}]:not([${IS_RUNTIME}])`)
-        : element.querySelector(`[${WILL_COMPONENT}]`);
+        : element.querySelector(
+              `[${WILL_COMPONENT}][${IS_RUNTIME}="${runtimeId}"]`
+          );
 
-    // if there is no component end.
+    /**
+     * If there is no component end.
+     */
     if (!componentToParse) return Promise.resolve();
 
+    /**
+     * Get component params from list definition.
+     */
     const key = componentToParse?.dataset?.component;
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
 
-    // if componentToParse is not in list remove div component
+    /**
+     * If componentToParse is not in list remove div component
+     */
     if (!userFunctionComponent) {
         console.warn(`${key} component is not registered.`);
 
@@ -39,6 +53,7 @@ const parseComponentsRecursive = async ({ element, index, excludeRuntime }) => {
         });
         return;
     }
+
     /**
      * 1 - Create basic DOM element
      * 2 - Register component to store
@@ -79,14 +94,18 @@ const parseComponentsRecursive = async ({ element, index, excludeRuntime }) => {
     await parseComponentsRecursive({
         element,
         index: index++,
-        excludeRuntime,
+        runtimeId,
     });
 };
 
 export const parseComponents = async ({
     element = null,
     index = 0,
-    excludeRuntime = true,
+    runtimeId = null,
 }) => {
-    await parseComponentsRecursive({ element, index, excludeRuntime });
+    await parseComponentsRecursive({
+        element,
+        index,
+        runtimeId,
+    });
 };

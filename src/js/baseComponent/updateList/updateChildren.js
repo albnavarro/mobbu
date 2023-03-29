@@ -1,3 +1,4 @@
+import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { parseComponents } from '../componentParse';
 import { updateChildrenOrder } from '../componentStore/action';
 import { addWithKey } from './addWithKey';
@@ -31,9 +32,15 @@ export const updateChildren = async ({
     const fn = hasKey ? addWithKey : addWithoutKey;
 
     /**
+     * Generate unique id to parse only component with this id.
+     */
+    const runtimeId = getUnivoqueId();
+
+    /**
      * Execue function.
      */
     const currentUnivoque = fn({
+        runtimeId,
         state,
         current,
         previous,
@@ -47,7 +54,10 @@ export const updateChildren = async ({
     /**
      * Parse new component if there is ( added is executed )
      */
-    await parseComponents({ element: containerList, excludeRuntime: false });
+    await parseComponents({
+        element: containerList,
+        runtimeId,
+    });
 
     updateChildrenOrder({
         id,

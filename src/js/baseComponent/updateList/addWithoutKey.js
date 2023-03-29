@@ -12,6 +12,7 @@ export const addWithoutKey = ({
     containerList,
     targetComponent,
     getChildren,
+    runtimeId,
 }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
@@ -26,7 +27,7 @@ export const addWithoutKey = ({
          */
         const elementToAdd = [...Array(diff).keys()].map(() => {
             return `
-                <component ${IS_RUNTIME} data-component="${targetComponent}"/>
+                <component ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}"/>
             `;
         });
 
