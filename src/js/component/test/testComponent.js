@@ -18,28 +18,6 @@ function asyncTest() {
     });
 }
 
-// const childProps = createProps({
-//     valueFromParent: () => {
-//         const { counter } = getState();
-//         return counter * i;
-//     },
-// });
-
-// function addChildren({ data }) {
-//     return data
-//         .map(({ label }, index) => {
-//             const childProps = createProps({
-//                 label,
-//                 index,
-//             });
-//
-//             return `
-//                  <component data-props="${childProps}" data-key="${label}" data-cancellable data-component="TestComponent2"/>
-//             `;
-//         })
-//         .join('');
-// }
-
 /**
  * Create component
  */
@@ -63,7 +41,7 @@ export const TestComponent = async ({
             container: element.querySelector('.c-test-comp__list'),
             component: 'TestComponent2',
             key: 'label',
-            update: ({ current, setChildState, index }) => {
+            updateState: ({ current, setChildState, index }) => {
                 const { label } = current;
                 setChildState('label', label);
                 setChildState('index', index);
@@ -88,12 +66,6 @@ export const TestComponent = async ({
      * Async test
      */
     await asyncTest();
-
-    /**
-     * Set/Get state
-     */
-    // setState('data', originalData);
-    // const { data } = getState();
 
     /**
      * Set props
@@ -126,7 +98,6 @@ export const TestComponent = async ({
                 </button>
             </div>
             <div class="c-test-comp__list">
-                ${/*addChildren({ data, getState })*/ ''}
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>

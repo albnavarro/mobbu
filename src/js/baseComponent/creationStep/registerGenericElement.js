@@ -53,6 +53,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     addSelfToParentComponent({ id });
 
     return {
+        key,
         id,
         getParentId,
         getChildren,
@@ -77,7 +78,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             targetState = '',
             container: containerList = document.createElement('div'),
             component: targetComponent = '',
-            update = () => {},
+            updateState = () => {},
             key = null,
         }) => {
             return watchList({
@@ -86,7 +87,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 watch,
                 containerList,
                 targetComponent,
-                update,
+                updateState,
                 getChildren,
                 key,
                 id,

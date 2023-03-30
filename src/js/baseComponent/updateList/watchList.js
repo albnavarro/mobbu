@@ -6,7 +6,7 @@ export const watchList = ({
     state,
     watch,
     containerList,
-    update,
+    updateState,
     targetComponent,
     getChildren,
     key,
@@ -30,7 +30,7 @@ export const watchList = ({
             //If component is in list
             if (!currentUnivoque?.[index]) return;
 
-            update({
+            updateState({
                 current: currentUnivoque[index],
                 previous: previous[index],
                 setChildState: (prop, val) => setStateById(id, prop, val),
