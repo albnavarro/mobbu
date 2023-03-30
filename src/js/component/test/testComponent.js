@@ -28,7 +28,7 @@ export const TestComponent = async ({
     render,
     onMount,
     updateList,
-    getState,
+    // getState,
 }) => {
     onMount(({ element }) => {
         const debugBtn = element.querySelector('.debug');
