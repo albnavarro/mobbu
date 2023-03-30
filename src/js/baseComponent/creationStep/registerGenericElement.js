@@ -79,6 +79,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             container: containerList = document.createElement('div'),
             component: targetComponent = '',
             updateState = () => {},
+            props = () => {},
             key = null,
         }) => {
             return watchList({
@@ -88,6 +89,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 containerList,
                 targetComponent,
                 updateState,
+                props,
                 getChildren,
                 key,
                 id,

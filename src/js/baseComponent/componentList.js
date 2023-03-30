@@ -56,12 +56,8 @@ export const componentList = {
         componentFunction: TestComponent2,
         componentParams: {
             state: {
-                label: () => ({
-                    value: '',
-                    type: String,
-                }),
                 index: () => ({
-                    value: 0,
+                    value: -1,
                     type: Number,
                 }),
                 isRed: false,

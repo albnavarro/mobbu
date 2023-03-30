@@ -12,6 +12,7 @@ import {
 } from './utils';
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 import { IS_RUNTIME } from '../utils';
+import { createProps } from '../mainStore/actions/props';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -19,9 +20,20 @@ const AFTER = 'afterend';
 /**
  * get partial list to add from chunked array of components.
  */
-function getPArtialsComponentList({ targetComponent, key, runtimeId }) {
+function getPArtialsComponentList({
+    targetComponent,
+    key,
+    runtimeId,
+    props,
+    currentUnique,
+    index,
+}) {
+    const currentProps = createProps(
+        props({ current: currentUnique?.[index], index })
+    );
+
     return `
-        <component ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}" data-key="${key}"/>
+        <component data-props=${currentProps} ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}" data-key="${key}"/>
     `;
 }
 
@@ -36,6 +48,7 @@ export const addWithKey = ({
     targetComponent = {},
     getChildren = () => {},
     key = '',
+    props = null,
     id,
     runtimeId = '',
 } = {}) => {
@@ -181,6 +194,9 @@ export const addWithKey = ({
                     targetComponent,
                     key: element.key,
                     runtimeId,
+                    props,
+                    currentUnique,
+                    index: element.index,
                 })
             )
             .join('');

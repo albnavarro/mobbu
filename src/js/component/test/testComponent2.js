@@ -8,11 +8,11 @@ export const TestComponent2 = ({
     onMount,
     emit,
     key,
+    // watchParent,
 }) => {
-    const { label, index } = props;
+    const { label } = props;
 
     onMount(({ element }) => {
-        const labelEl = element.querySelector('.label');
         const counterEl = element.querySelector('.counter');
         element.addEventListener('click', () => emit('isRed'));
 
@@ -20,17 +20,17 @@ export const TestComponent2 = ({
             element.classList.toggle('is-red')
         );
 
-        const unwatchLabel = watch(
-            'label',
-            (value) => (labelEl.innerHTML = value)
-        );
         const unwatchIndex = watch(
             'index',
             (value) => (counterEl.innerHTML = value)
         );
 
+        // watchParent('data', () => {
+        //     const labelEl = element.querySelector('.label');
+        //     labelEl.innerHTML = label?.();
+        // });
+
         return () => {
-            unwatchLabel();
             unwatchIndex();
             unwatchRed();
             element.remove();
@@ -40,10 +40,10 @@ export const TestComponent2 = ({
     return render(`
         <div class="c-test-comp__inner">
             <div>
-                Label: <span class="label"> ${label ?? ''}</span>
+                Label: <span class="label"> ${label?.()}</span>
             </div>
             <div>
-                Id:<span class="counter">${index ?? '0'}</span>
+                Id:<span class="counter"></span>
             </div>
             <div class="key">key: ${key}</div>
         </div>

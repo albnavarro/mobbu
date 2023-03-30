@@ -23,12 +23,12 @@ export const findNewElementIndex = (current, newElement, key) => {
  * Mix previous and current data to manage the insertion of new component in right position.
  */
 export const mixPreviousAndCurrentData = (current, previous, key) => {
-    return current.map((el) => {
+    return current.map((el, index) => {
         const value = el?.[key];
         const isNewElement = !previous.find((a) => a?.[key] === value);
         return isNewElement
-            ? { isNewElement: true, key: el?.[key] }
-            : { isNewElement: false, key: el?.[key] };
+            ? { isNewElement: true, key: el?.[key], index }
+            : { isNewElement: false, key: el?.[key], index };
     });
 };
 

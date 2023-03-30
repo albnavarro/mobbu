@@ -1,5 +1,6 @@
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 import { getElementById, removeAndDestroyById } from '../componentStore/action';
+import { createProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../utils';
 
 /**
@@ -13,6 +14,7 @@ export const addWithoutKey = ({
     targetComponent,
     getChildren,
     runtimeId,
+    props = null,
 }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
@@ -25,11 +27,19 @@ export const addWithoutKey = ({
         /**
          * Create palcehodler component
          */
-        const elementToAdd = [...Array(diff).keys()].map(() => {
-            return `
-                <component ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}"/>
+        const elementToAdd = [...Array(diff).keys()]
+            .map((_item, index) => {
+                const currentProps = createProps(
+                    props({
+                        current: current?.[index + previousLenght],
+                        index: index + previousLenght,
+                    })
+                );
+                return `
+                <component data-props=${currentProps} ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}"/>
             `;
-        });
+            })
+            .reverse();
 
         /**
          * Get last child of containerList

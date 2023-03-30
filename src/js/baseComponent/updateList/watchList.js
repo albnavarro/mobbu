@@ -7,6 +7,7 @@ export const watchList = ({
     watch,
     containerList,
     updateState,
+    props,
     targetComponent,
     getChildren,
     key,
@@ -23,6 +24,7 @@ export const watchList = ({
             previous,
             getChildren,
             key,
+            props,
             id,
         });
 
@@ -32,7 +34,6 @@ export const watchList = ({
 
             updateState({
                 current: currentUnivoque[index],
-                previous: previous[index],
                 setChildState: (prop, val) => setStateById(id, prop, val),
                 index,
             });

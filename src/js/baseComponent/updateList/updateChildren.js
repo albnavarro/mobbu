@@ -13,6 +13,7 @@ export const updateChildren = async ({
     current = [],
     previous = [],
     getChildren,
+    props,
     key = null,
     id,
 }) => {
@@ -47,6 +48,7 @@ export const updateChildren = async ({
         containerList,
         targetComponent,
         getChildren,
+        props,
         key,
         id,
     });

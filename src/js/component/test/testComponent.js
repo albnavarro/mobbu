@@ -28,7 +28,7 @@ export const TestComponent = async ({
     render,
     onMount,
     updateList,
-    // getState,
+    getState,
 }) => {
     onMount(({ element }) => {
         const debugBtn = element.querySelector('.debug');
@@ -41,9 +41,19 @@ export const TestComponent = async ({
             container: element.querySelector('.c-test-comp__list'),
             component: 'TestComponent2',
             key: 'label',
-            updateState: ({ current, setChildState, index }) => {
-                const { label } = current;
-                setChildState('label', label);
+            props: ({ current }) => {
+                return { label: () => current?.label };
+            },
+            // props: ({ current, index }) => {
+            //     return {
+            //         label: () => {
+            //             const { data } = getState();
+            //             return data?.[index]?.label;
+            //         },
+            //     };
+            // },
+            updateState: ({ current, index, setChildState }) => {
+                //  setChildState('myProp', current?.label)
                 setChildState('index', index);
             },
         });
@@ -72,7 +82,7 @@ export const TestComponent = async ({
      */
     const { title } = props;
     const outeProp = createProps({
-        label: `outer list el`,
+        label: () => `outer list el`,
     });
 
     // test array
