@@ -42,7 +42,7 @@ export const TestComponent = async ({
             component: 'TestComponent2',
             key: 'label',
             props: ({ current }) => {
-                return { label: () => current?.label };
+                return { label: () => current.label };
             },
             // props: ({ current, index }) => {
             //     return {
@@ -107,6 +107,7 @@ export const TestComponent = async ({
                     Children
                 </button>
             </div>
+            <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
             <div class="c-test-comp__list">
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
