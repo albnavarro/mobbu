@@ -52,19 +52,11 @@ export const TestComponent = async ({
      */
     await asyncTest();
 
-    /**
-     * Set props
-     */
-    const { title } = props;
-    const outeProp = createProps({
-        label: () => `outer list el`,
-    });
-
     // test array
     return render(`
         <div class="c-test-comp">
             <div class="c-test-comp__label">
-                <span>${title} : </span>
+                <span>${props.title}:</span>
             </div>
             <div class="c-test-comp__top">
                 <button class="c-test-comp__btn add">
@@ -82,8 +74,10 @@ export const TestComponent = async ({
                     Children
                 </button>
             </div>
-            <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
-            <div class="c-test-comp__list c-test-comp__list-1">
+            <component data-props="${createProps({
+                label: () => `outer list el up`,
+            })}" data-component="TestComponent2"></component>
+            <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
                     component: 'TestComponent2',
@@ -96,7 +90,7 @@ export const TestComponent = async ({
                     },
                 })}
             </div>
-            <div class="c-test-comp__list c-test-comp__list-2">
+            <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
                     component: 'TestComponent2',
@@ -109,7 +103,9 @@ export const TestComponent = async ({
                     },
                 })}
             </div>
-            <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
+            <component data-props="${createProps({
+                label: () => `outer list el down`,
+            })}" data-component="TestComponent2"></component>
         </div>
     `);
 };
