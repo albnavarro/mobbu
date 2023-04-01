@@ -13,7 +13,6 @@ export const registerComponent = ({
     state = {},
     key = null,
     destroy = null,
-    unWatchList = [],
     id = null,
     componentName = '',
 }) => {
@@ -26,7 +25,6 @@ export const registerComponent = ({
                 component: componentName,
                 props,
                 destroy,
-                unWatchList,
                 key,
                 id,
                 parentId: null,

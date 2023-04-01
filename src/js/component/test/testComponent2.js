@@ -15,15 +15,8 @@ export const TestComponent2 = ({
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
         element.addEventListener('click', () => emit('isRed'));
-
-        const unwatchRed = watch('isRed', () =>
-            element.classList.toggle('is-red')
-        );
-
-        const unwatchIndex = watch(
-            'index',
-            (value) => (counterEl.innerHTML = value)
-        );
+        watch('isRed', () => element.classList.toggle('is-red'));
+        watch('index', (value) => (counterEl.innerHTML = value));
 
         // watchParent('data', () => {
         //     const labelEl = element.querySelector('.label');
@@ -31,8 +24,6 @@ export const TestComponent2 = ({
         // });
 
         return () => {
-            unwatchIndex();
-            unwatchRed();
             element.remove();
         };
     });

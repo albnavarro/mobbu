@@ -1,4 +1,3 @@
-import { addUnwatchList } from '../../componentStore/action';
 import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
@@ -35,16 +34,10 @@ export const executeRepeat = ({ repeatId, placeholderListObj }) => {
     /**
      * Run watch list
      */
-    const unWatchList = watchList({
+    watchList({
         ...obj,
         containerList: containerList?.parent,
     });
-
-    /**
-     * Add unwatch list to component.
-     * So we unwatch on component destroy.
-     */
-    addUnwatchList({ id: obj?.id, cb: unWatchList });
 
     /**
      * Remove callback

@@ -308,18 +308,11 @@ export const removeAndDestroyById = ({ id = null }) => {
      */
     componentStore.set('instances', (prevInstances) => {
         return prevInstances.filter((current) => {
-            const {
-                state,
-                destroy,
-                element,
-                id: currentId,
-                unWatchList,
-            } = current;
+            const { state, destroy, element, id: currentId } = current;
             if (currentId === id) {
                 destroy();
                 state.destroy();
                 element?.remove();
-                unWatchList.forEach((unWatch) => unWatch());
             }
 
             // Assign is if existe a parent component and current parentId is null
@@ -401,24 +394,6 @@ export const addSelfToParentComponent = ({ id = null }) => {
                   ]
                 : [...previous, current];
         }, []);
-    });
-};
-
-/**
- * Update unWatchList array.
- */
-export const addUnwatchList = ({ id = null, cb = () => {} }) => {
-    if (!id) return;
-
-    // Add component Id to parent element.
-    componentStore.set('instances', (prevInstances) => {
-        return prevInstances.map((item) => {
-            const { id: currentId } = item;
-
-            return currentId === id
-                ? { ...item, unWatchList: [...item.unWatchList, cb] }
-                : item;
-        });
     });
 };
 
