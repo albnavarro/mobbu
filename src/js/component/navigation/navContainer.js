@@ -44,18 +44,17 @@ export const NavigationContainer = ({ render, onMount }) => {
         addHandler({ main, toTopBtn });
     });
 
-    return render(`
+    return render(/* HTML */ `
         <div class="l-navcontainer">
-             <div class="l-navcontainer__side">
-                 <div class="l-navcontainer__percent">
-                 </div>
-                 <button class="l-navcontainer__totop"></button>
-             </div>
-             <div class="l-navcontainer__wrap">
-                 <div class="l-navcontainer__scroll">
-                     <component data-component="Navigation"/>
-                 </div>
-             </div>
+            <div class="l-navcontainer__side">
+                <div class="l-navcontainer__percent"></div>
+                <button class="l-navcontainer__totop"></button>
+            </div>
+            <div class="l-navcontainer__wrap">
+                <div class="l-navcontainer__scroll">
+                    <component data-component="Navigation" />
+                </div>
+            </div>
         </div>
     `);
 };

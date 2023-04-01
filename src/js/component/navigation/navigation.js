@@ -14,9 +14,12 @@ function getSubmenu(items) {
                 ...{ subMenuClass: 'l-navigation__link--submenu' },
             });
 
-            return `
+            return /* HTML */ `
                 <li class="l-navigation__submenu__item">
-                    <component data-props="${props}" data-component="NavigationButton"/>
+                    <component
+                        data-props="${props}"
+                        data-component="NavigationButton"
+                    />
                 </li>
             `;
         })
@@ -35,11 +38,11 @@ function getItems(data) {
                 ? {
                       hasChildrenClass: 'has-child',
                       arrowClass: 'l-navigation__link--arrow',
-                      submenu: `
-                        <ul class="l-navigation__submenu">
-                            ${getSubmenu(children)}
-                        </ul>
-                        `,
+                      submenu: /* HTML */ `
+                          <ul class="l-navigation__submenu">
+                              ${getSubmenu(children)}
+                          </ul>
+                      `,
                   }
                 : {
                       hasChildrenClass: '',
@@ -54,9 +57,12 @@ function getItems(data) {
                 subMenuClass: '',
             });
 
-            return `
+            return /* HTML */ `
                 <li class="l-navigation__item ${hasChildrenClass}">
-                    <component data-props="${props}" data-component="NavigationButton"/>
+                    <component
+                        data-props="${props}"
+                        data-component="NavigationButton"
+                    />
                     ${submenu}
                 </li>
             `;
@@ -70,10 +76,10 @@ function getItems(data) {
 export const Navigation = ({ render }) => {
     const { navigation: data } = getCommonData();
 
-    return render(`
+    return render(/* HTML */ `
         <nav class="l-navigation">
             <ul class="l-navigation__list">
-             ${getItems(data)}
+                ${getItems(data)}
             </ul>
         </nav>
     `);

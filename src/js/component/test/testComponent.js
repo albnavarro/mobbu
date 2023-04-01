@@ -52,31 +52,25 @@ export const TestComponent = async ({
      */
     await asyncTest();
 
-    // test array
-    return render(`
+    return render(/* HTML */ `
         <div class="c-test-comp">
             <div class="c-test-comp__label">
                 <span>${props.title}:</span>
             </div>
             <div class="c-test-comp__top">
-                <button class="c-test-comp__btn add">
-                    add
-                </button>
-                <button class="c-test-comp__btn remove">
-                    remove
-                </button>
+                <button class="c-test-comp__btn add">add</button>
+                <button class="c-test-comp__btn remove">remove</button>
             </div>
             <div class="c-test-comp__top">
-                <button class="c-test-comp__btn debug">
-                    debug
-                </button>
-                <button class="c-test-comp__btn children">
-                    Children
-                </button>
+                <button class="c-test-comp__btn debug">debug</button>
+                <button class="c-test-comp__btn children">Children</button>
             </div>
-            <component data-props="${createProps({
-                label: () => `outer list el up`,
-            })}" data-component="TestComponent2"></component>
+            <component
+                data-props="${createProps({
+                    label: () => `outer list el up`,
+                })}"
+                data-component="TestComponent2"
+            ></component>
             <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
@@ -103,9 +97,12 @@ export const TestComponent = async ({
                     },
                 })}
             </div>
-            <component data-props="${createProps({
-                label: () => `outer list el down`,
-            })}" data-component="TestComponent2"></component>
+            <component
+                data-props="${createProps({
+                    label: () => `outer list el down`,
+                })}"
+                data-component="TestComponent2"
+            ></component>
         </div>
     `);
 };

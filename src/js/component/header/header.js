@@ -34,7 +34,7 @@ export const Header = ({ render, onMount }) => {
         addHandler({ button: toggle });
     });
 
-    return render(`
+    return render(/* HTML */ `
         <header class="l-header">
             <div class="l-header__container">
                 <div class="l-header__grid">

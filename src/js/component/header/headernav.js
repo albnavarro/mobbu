@@ -22,7 +22,7 @@ function additems() {
  * Create component
  */
 export const Headernav = ({ render }) => {
-    return render(`
+    return render(/* HTML */ `
         <ul class="l-header__sidenav">
             ${additems()}
         </ul>

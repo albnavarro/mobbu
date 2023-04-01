@@ -34,7 +34,7 @@ export const CodeButton = ({ props, render, onMount }) => {
         };
     });
 
-    return render(`
+    return render(/* HTML */ `
         <button class="c-code-btn">
             <span><></span>
         </button>

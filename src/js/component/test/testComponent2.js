@@ -28,14 +28,10 @@ export const TestComponent2 = ({
         };
     });
 
-    return render(`
+    return render(/* HTML */ `
         <div class="c-test-comp__inner">
-            <div>
-                Label: <span class="label"> ${label?.()}</span>
-            </div>
-            <div>
-                Id:<span class="counter"></span>
-            </div>
+            <div>Label: <span class="label"> ${label?.()}</span></div>
+            <div>Id:<span class="counter"></span></div>
             <div class="key">key: ${key}</div>
         </div>
     `);
