@@ -16,7 +16,7 @@ export const TestComponent2 = ({
         const counterEl = element.querySelector('.counter');
         element.addEventListener('click', () => emit('isRed'));
         watch('isRed', () => element.classList.toggle('is-red'));
-        watch('index', (value) => (counterEl.innerHTML = value));
+        watch('index', (value) => (counterEl.textContent = value));
 
         // watchParent('data', () => {
         //     const labelEl = element.querySelector('.label');
