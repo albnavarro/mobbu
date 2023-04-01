@@ -1,3 +1,6 @@
+import { isDescendant } from '../../mobbu/utils/vanillaFunction';
+import { getElementById } from '../componentStore/action';
+
 /**
  * Get new element of currrent array compare to previous.
  */
@@ -58,4 +61,18 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
     return data.filter(
         (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
     );
+};
+
+/**
+ * get children of component inside a element
+ */
+export const getChildrenInsideElement = ({
+    component,
+    getChildren,
+    element,
+}) => {
+    const children = getChildren(component);
+    return [...children].filter((id) => {
+        return isDescendant(element, getElementById({ id }));
+    });
 };

@@ -6,6 +6,7 @@ import {
     updateChildrenOrder,
 } from '../componentStore/action';
 import {
+    getChildrenInsideElement,
     getNewElement,
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
@@ -115,15 +116,12 @@ export const addWithKey = ({
     });
 
     /**
-     * Get all children by component type.
+     * Filter children inside containerList
      */
-    const children = getChildren(targetComponent);
-
-    /**
-     * Filter all children contained in containerList.
-     */
-    const childrenFiltered = [...children].filter((id) => {
-        return isDescendant(containerList, getElementById({ id }));
+    const childrenFiltered = getChildrenInsideElement({
+        component: targetComponent,
+        getChildren,
+        element: containerList,
     });
 
     /**

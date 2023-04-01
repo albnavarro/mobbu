@@ -1,7 +1,7 @@
 import { checkType } from '../../mobbu/store/storeType';
-import { isDescendant } from '../../mobbu/utils/vanillaFunction';
-import { getElementById, setStateById } from '../componentStore/action';
+import { setStateById } from '../componentStore/action';
 import { updateChildren } from './updateChildren';
+import { getChildrenInsideElement } from './utils';
 
 export const watchList = ({
     state,
@@ -30,15 +30,12 @@ export const watchList = ({
         });
 
         /**
-         * Get all children by component type.
+         * Filter children inside containerList
          */
-        const children = getChildren(targetComponent);
-
-        /**
-         * Filter all children contained in containerList.
-         */
-        const childrenFiltered = [...children].filter((id) => {
-            return isDescendant(containerList, getElementById({ id }));
+        const childrenFiltered = getChildrenInsideElement({
+            component: targetComponent,
+            getChildren,
+            element: containerList,
         });
 
         [...childrenFiltered].forEach((id, index) => {
