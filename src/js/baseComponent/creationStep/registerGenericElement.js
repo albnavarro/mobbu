@@ -79,7 +79,6 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         repeat: ({
             watch: state = null,
-            targetState = '',
             component: targetComponent = '',
             updateState = () => {},
             props = () => {},
@@ -92,7 +91,6 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 repeatId: currentRepeatId,
                 obj: {
                     state,
-                    targetState,
                     watch,
                     targetComponent,
                     updateState,
