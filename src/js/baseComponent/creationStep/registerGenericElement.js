@@ -1,10 +1,11 @@
+import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import {
     addSelfToParentComponent,
     setParentsComponent,
 } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
-import { watchList } from '../updateList/watchList';
+import { addRepeat } from '../mainStore/actions/repeat';
 import { convertToGenericElement } from './convertToGenericElement';
 
 /**
@@ -52,6 +53,8 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
      */
     addSelfToParentComponent({ id });
 
+    const repeatId = [];
+
     return {
         key,
         id,
@@ -65,6 +68,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         computed,
         watch,
         watchParent,
+        repeatId,
         render: (content) => {
             return {
                 id,
@@ -73,27 +77,35 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             };
         },
         onMount: (cb) => addOnMoutCallback({ id, cb }),
-        updateList: ({
+        repeat: ({
             watch: state = null,
             targetState = '',
-            container: containerList = document.createElement('div'),
+            container = document.createElement('div'),
             component: targetComponent = '',
             updateState = () => {},
             props = () => {},
             key = null,
         }) => {
-            return watchList({
-                state,
-                targetState,
-                watch,
-                containerList,
-                targetComponent,
-                updateState,
-                props,
-                getChildren,
-                key,
-                id,
+            const currentRepeatId = getUnivoqueId();
+            repeatId.push(currentRepeatId);
+
+            addRepeat({
+                repeatId: currentRepeatId,
+                obj: {
+                    state,
+                    targetState,
+                    watch,
+                    container,
+                    targetComponent,
+                    updateState,
+                    props,
+                    getChildren,
+                    key,
+                    id,
+                },
             });
+
+            return `<repeat data-id="${currentRepeatId}"/>`;
         },
     };
 };

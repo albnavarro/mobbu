@@ -1,6 +1,6 @@
 import {
     getElementById,
-    getElementByKeyAndParentId,
+    getElementByKey,
     removeAndDestroyById,
     setStateById,
     updateChildrenOrder,
@@ -11,7 +11,6 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import { isDescendant } from '../../mobbu/utils/vanillaFunction';
 import { IS_RUNTIME } from '../utils';
 import { createProps } from '../mainStore/actions/props';
 
@@ -53,7 +52,24 @@ export const addWithKey = ({
     id,
     runtimeId = '',
 } = {}) => {
+    /**
+     * Get univoqueId for Runtime.
+     */
     const currentUnique = getUnivoqueByKey({ data: current, key });
+
+    /**
+     * Get element to delete before lement is removed from dom
+     * in reorder list step
+     */
+    const elementToRemoveObj = getNewElement(previous, currentUnique, key);
+    const elementToRemoveByKey = elementToRemoveObj.map((item) => {
+        const keyValue = item?.[key];
+        return getElementByKey({
+            key: keyValue,
+            parentId: id,
+            container: containerList,
+        });
+    });
 
     /*
      * get univoque current array by key without fire callback.
@@ -82,9 +98,10 @@ export const addWithKey = ({
     const newPersistentElementOrder = elementToAddObj
         .filter(({ isNewElement }) => !isNewElement)
         .map((item) => {
-            return getElementByKeyAndParentId({
+            return getElementByKey({
                 key: item.key,
                 parentId: id,
+                container: containerList,
             });
         });
 
@@ -153,15 +170,6 @@ export const addWithKey = ({
      */
     if (!chunkedElementToAdd?.[0].length) chunkedElementToAdd.shift();
 
-    /**
-     * The inverse above
-     */
-    const elementToRemoveObj = getNewElement(previous, currentUnique, key);
-    const elementToRemoveByKey = elementToRemoveObj.map((item) => {
-        const keyValue = item?.[key];
-        return getElementByKeyAndParentId({ key: keyValue, parentId: id });
-    });
-
     chunkedElementToAdd.forEach((item) => {
         const firstEl = item[0];
         const { isNewElement: firstElementIsNew } = firstEl;
@@ -177,9 +185,10 @@ export const addWithKey = ({
             ? getElementById({
                   id: childrenFiltered[0],
               })
-            : getElementByKeyAndParentId({
+            : getElementByKey({
                   key: item[0]?.key,
                   parentId: id,
+                  container: containerList,
               });
 
         /**

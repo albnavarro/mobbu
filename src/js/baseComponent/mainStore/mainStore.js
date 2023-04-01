@@ -9,4 +9,8 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    repeat: () => ({
+        value: [],
+        type: Array,
+    }),
 });

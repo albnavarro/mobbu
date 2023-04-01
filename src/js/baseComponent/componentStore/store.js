@@ -14,6 +14,7 @@ export const componentStore = core.createStore({
                     item?.element &&
                     item?.component &&
                     item?.destroy &&
+                    item?.unWatchList &&
                     item?.props &&
                     item?.state &&
                     item?.child &&

@@ -27,37 +27,13 @@ export const TestComponent = async ({
     getChildren,
     render,
     onMount,
-    updateList,
-    // getState,
+    repeat,
 }) => {
     onMount(({ element }) => {
         const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
         const addEl = element.querySelector('.add');
         const removeEl = element.querySelector('.remove');
-
-        const unwatchList = updateList({
-            watch: 'data',
-            container: element.querySelector('.c-test-comp__list'),
-            component: 'TestComponent2',
-            key: 'label',
-            props: ({ current }) => {
-                return { label: () => current.label };
-            },
-            // props: ({ current, index }) => {
-            //     return {
-            //         label: () => {
-            //             const { data } = getState();
-            //             return data?.[index]?.label;
-            //         },
-            //     };
-            // },
-            updateState: ({ current, index, setChildState }) => {
-                //  setChildState('myProp', current?.label)
-                setChildState('index', index);
-            },
-        });
-
         setState('data', originalData);
 
         debugBtn.addEventListener('click', debug);
@@ -66,7 +42,6 @@ export const TestComponent = async ({
         removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
-            unwatchList();
             debugBtn.removeEventListener('click', debug);
             element.remove();
         };
@@ -108,7 +83,33 @@ export const TestComponent = async ({
                 </button>
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
-            <div class="c-test-comp__list">
+            <div class="c-test-comp__list c-test-comp__list-1">
+                ${repeat({
+                    watch: 'data',
+                    container: '.c-test-comp__list-1',
+                    component: 'TestComponent2',
+                    key: 'label',
+                    props: ({ current }) => {
+                        return { label: () => current.label };
+                    },
+                    updateState: ({ current, index, setChildState }) => {
+                        setChildState('index', index);
+                    },
+                })}
+            </div>
+            <div class="c-test-comp__list c-test-comp__list-2">
+                ${repeat({
+                    watch: 'data',
+                    container: '.c-test-comp__list-2',
+                    component: 'TestComponent2',
+                    key: 'label',
+                    props: ({ current }) => {
+                        return { label: () => `${current.label}2` };
+                    },
+                    updateState: ({ current, index, setChildState }) => {
+                        setChildState('index', index + 1);
+                    },
+                })}
             </div>
             <component data-props="${outeProp}" data-cancellable data-component="TestComponent2"></component>
         </div>

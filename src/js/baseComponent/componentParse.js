@@ -3,6 +3,7 @@ import { setElementById } from './componentStore/action';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore/actions/onMount';
+import { executeRepeat } from './mainStore/actions/repeat';
 import { IS_RUNTIME, WILL_COMPONENT } from './utils';
 
 /**
@@ -84,6 +85,18 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
      * Update last DOM element in store.
      */
     setElementById({ id, newElement });
+
+    /**
+     * Execute repeat List function
+     */
+    const repeatIdArray = componentData?.repeatId;
+    repeatIdArray.forEach((repeatId) => {
+        executeRepeat({
+            repeatId,
+            element: newElement,
+            id,
+        });
+    });
 
     /**
      * Fire onMount callback
