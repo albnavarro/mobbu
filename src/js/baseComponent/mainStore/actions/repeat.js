@@ -14,7 +14,7 @@ export const addRepeat = ({ repeatId, obj }) => {
 /**
  * fire onMount callback.
  */
-export const executeRepeat = ({ repeatId, element }) => {
+export const executeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId) return;
 
     const { repeat } = mainStore.get();
@@ -22,18 +22,28 @@ export const executeRepeat = ({ repeatId, element }) => {
         return item?.[repeatId];
     });
 
-    /**
-     * If callback is not used addOnMoutCallback is not fired.
-     * So there is no callback ( undefined )
-     */
     const obj = currentItem?.[repeatId];
     if (!obj) return;
 
-    const unWatchList = watchList({
-        ...obj,
-        containerList: element.querySelector(obj.container),
+    /**
+     * Get parentNode of list.
+     */
+    const containerList = placeholderListObj.find(({ id }) => {
+        return id === repeatId;
     });
 
+    /**
+     * Run watch list
+     */
+    const unWatchList = watchList({
+        ...obj,
+        containerList: containerList?.parent,
+    });
+
+    /**
+     * Add unwatch list to component.
+     * So we unwatch on component destroy.
+     */
     addUnwatchList({ id: obj?.id, cb: unWatchList });
 
     /**

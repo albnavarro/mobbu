@@ -87,14 +87,25 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     setElementById({ id, newElement });
 
     /**
+     * Get all repeat placholder to check the parent div for each list.
+     */
+    const placeholdreList = newElement.querySelectorAll('[data-repeatid]');
+    const placeholderListObj = [...placeholdreList].map((placeholder) => {
+        const { repeatid: id } = placeholder.dataset;
+        return {
+            parent: placeholder.parentNode,
+            id,
+        };
+    });
+
+    /**
      * Execute repeat List function
      */
     const repeatIdArray = componentData?.repeatId;
     repeatIdArray.forEach((repeatId) => {
         executeRepeat({
             repeatId,
-            element: newElement,
-            id,
+            placeholderListObj,
         });
     });
 

@@ -80,7 +80,6 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         repeat: ({
             watch: state = null,
             targetState = '',
-            container = document.createElement('div'),
             component: targetComponent = '',
             updateState = () => {},
             props = () => {},
@@ -95,7 +94,6 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     state,
                     targetState,
                     watch,
-                    container,
                     targetComponent,
                     updateState,
                     props,
@@ -105,7 +103,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 },
             });
 
-            return `<repeat data-id="${currentRepeatId}"/>`;
+            return `<span data-repeatid="${currentRepeatId}"/>`;
         },
     };
 };

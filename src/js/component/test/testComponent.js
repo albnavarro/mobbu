@@ -86,7 +86,6 @@ export const TestComponent = async ({
             <div class="c-test-comp__list c-test-comp__list-1">
                 ${repeat({
                     watch: 'data',
-                    container: '.c-test-comp__list-1',
                     component: 'TestComponent2',
                     key: 'label',
                     props: ({ current }) => {
@@ -100,7 +99,6 @@ export const TestComponent = async ({
             <div class="c-test-comp__list c-test-comp__list-2">
                 ${repeat({
                     watch: 'data',
-                    container: '.c-test-comp__list-2',
                     component: 'TestComponent2',
                     key: 'label',
                     props: ({ current }) => {
