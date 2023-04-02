@@ -12,11 +12,12 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
         /**
          * Check if placeholder is already live.
          */
-        const elementExist = document.body.contains(placeholderElement);
-        if (!elementExist) {
-            resolve({ newElement: null });
-            return;
-        }
+        // const elementExist = document.body.contains(placeholderElement);
+        // if (!elementExist) {
+        //     resolve({ newElement: null });
+        //     return;
+        // }
+
         /**
          * Add real content from render function
          */
