@@ -10,13 +10,13 @@ export const setElementById = ({ id = null, newElement }) => {
     if (!id) return null;
 
     componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { id: currentId } = current;
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
 
             return id === currentId
-                ? [...previous, { ...current, ...{ element: newElement } }]
-                : [...previous, current];
-        }, []);
+                ? { ...item, ...{ element: newElement } }
+                : item;
+        });
     });
 };
 
@@ -203,24 +203,21 @@ export const updateChildrenOrder = ({ id, component }) => {
      * Update children store od element with the DOM actual order.
      */
     componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { id: currentId } = current;
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
 
             return currentId === id
-                ? [
-                      ...previous,
-                      {
-                          ...current,
-                          ...{
-                              child: {
-                                  ...current.child,
-                                  ...{ [component]: componentsIdFiltered },
-                              },
+                ? {
+                      ...item,
+                      ...{
+                          child: {
+                              ...item.child,
+                              ...{ [component]: componentsIdFiltered },
                           },
                       },
-                  ]
-                : [...previous, current];
-        }, []);
+                  }
+                : item;
+        });
     });
 };
 
@@ -256,11 +253,6 @@ export const removeAndDestroyById = ({ id = null }) => {
     });
 
     /**
-     * Fire destroy function.
-     */
-    // destroy?.();
-
-    /**
      * -------------
      * Remove id from parent child array.
      * -------------
@@ -279,28 +271,25 @@ export const removeAndDestroyById = ({ id = null }) => {
      */
     const parentId = parentInstance?.id ?? null;
     componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { id: currentId } = current;
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
 
             return currentId === parentId
-                ? [
-                      ...previous,
-                      {
-                          ...current,
-                          ...{
-                              child: {
-                                  ...current.child,
-                                  ...removeChildFromChildrenArray({
-                                      currentChild: current.child,
-                                      id,
-                                      componentName,
-                                  }),
-                              },
+                ? {
+                      ...item,
+                      ...{
+                          child: {
+                              ...item.child,
+                              ...removeChildFromChildrenArray({
+                                  currentChild: item.child,
+                                  id,
+                                  componentName,
+                              }),
                           },
                       },
-                  ]
-                : [...previous, current];
-        }, []);
+                  }
+                : item;
+        });
     });
 
     /**
@@ -340,15 +329,30 @@ export const removeOrphanComponent = () => {
  */
 export const setParentsComponent = () => {
     componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { element, parentId } = current;
+        return prevInstances.map((item) => {
+            const { element, parentId } = item;
             const parent = element?.parentNode?.closest(`[${IS_COMPONENT}]`);
 
             // Assign is if existe a parent component and current parentId is null
             return parent && !parentId
-                ? [...previous, { ...current, ...{ parentId: parent.id } }]
-                : [...previous, current];
-        }, []);
+                ? { ...item, ...{ parentId: parent.id } }
+                : item;
+        });
+    });
+};
+
+/**
+ * Update deestroy call back by id.
+ */
+export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
+    if (!id) return;
+
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
+
+            return id === currentId ? { ...item, ...{ destroy: cb } } : item;
+        });
     });
 };
 
@@ -372,44 +376,24 @@ export const addSelfToParentComponent = ({ id = null }) => {
 
     // Add component Id to parent element.
     componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { id: currentId } = current;
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
 
             return currentId === parentId
-                ? [
-                      ...previous,
-                      {
-                          ...current,
-                          ...{
-                              child: {
-                                  ...current.child,
-                                  ...updateChildrenArray({
-                                      currentChild: current.child,
-                                      id,
-                                      componentName,
-                                  }),
-                              },
+                ? {
+                      ...item,
+                      ...{
+                          child: {
+                              ...item.child,
+                              ...updateChildrenArray({
+                                  currentChild: item.child,
+                                  id,
+                                  componentName,
+                              }),
                           },
                       },
-                  ]
-                : [...previous, current];
-        }, []);
-    });
-};
-
-/**
- * Update deestroy call back by id.
- */
-export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
-    if (!id) return;
-
-    componentStore.set('instances', (prevInstances) => {
-        return prevInstances.reduce((previous, current) => {
-            const { id: currentId } = current;
-
-            return id === currentId
-                ? [...previous, { ...current, ...{ destroy: cb } }]
-                : [...previous, current];
-        }, []);
+                  }
+                : item;
+        });
     });
 };

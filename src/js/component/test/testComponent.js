@@ -83,7 +83,7 @@ export const TestComponent = async ({
                         setChildState('index', index);
                     },
                     onComplete: ({ container, childrenId }) => {
-                        console.log(`complete update`, container, childrenId);
+                        // console.log(`complete update`, container, childrenId);
                     },
                 })}
             </div>
@@ -99,7 +99,7 @@ export const TestComponent = async ({
                         setChildState('index', index + 1);
                     },
                     onComplete: ({ container, childrenId }) => {
-                        console.log(`complete update`, container, childrenId);
+                        // console.log(`complete update`, container, childrenId);
                     },
                 })}
             </div>
