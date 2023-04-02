@@ -32,6 +32,9 @@ export const watchList = ({
          * TODO May be if the state will revert to previous, other watches will be misaligned
          * But it is extreme situation with asyncronous component.
          * use beforeUpdate and afterUpdate to inhibit stet change during updateList
+         * But! this watcher is the first watcher instance , created before onMount.
+         * So maybe the other watcher take the righr ( previous ) value
+         * To check.
          *
          */
         const repeatIsRunning = getActiveRepeater({
