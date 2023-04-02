@@ -65,26 +65,25 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn debug">debug</button>
                 <button class="c-test-comp__btn children">Children</button>
             </div>
-            <component
+            <TestComponent2
                 data-props="${createProps({
                     label: () => `outer list el up`,
                 })}"
-                data-component="TestComponent2"
-            ></component>
+            ></TestComponent2>
             <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current, index }) => {
+                    props: ({ current }) => {
                         return { label: () => current.label };
                     },
-                    updateState: ({ current, index, setChildState }) => {
+                    updateState: ({ index, setChildState }) => {
                         setChildState('index', index);
                     },
-                    onComplete: ({ container, childrenId }) => {
-                        // console.log(`complete update`, container, childrenId);
-                    },
+                    // onComplete: ({ container, childrenId }) => {
+                    //     console.log(`complete update`, container, childrenId);
+                    // },
                 })}
             </div>
             <div class="c-test-comp__list">
@@ -92,23 +91,22 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current, index }) => {
+                    props: ({ current }) => {
                         return { label: () => `${current.label}2` };
                     },
-                    updateState: ({ current, index, setChildState }) => {
+                    updateState: ({ index, setChildState }) => {
                         setChildState('index', index + 1);
                     },
-                    onComplete: ({ container, childrenId }) => {
-                        // console.log(`complete update`, container, childrenId);
-                    },
+                    // onComplete: ({ container, childrenId }) => {
+                    //     console.log(`complete update`, container, childrenId);
+                    // },
                 })}
             </div>
-            <component
+            <TestComponent2
                 data-props="${createProps({
                     label: () => `outer list el down`,
                 })}"
-                data-component="TestComponent2"
-            ></component>
+            ></TestComponent2>
         </div>
     `);
 };

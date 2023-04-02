@@ -16,10 +16,7 @@ function getSubmenu(items) {
 
             return /* HTML */ `
                 <li class="l-navigation__submenu__item">
-                    <component
-                        data-props="${props}"
-                        data-component="NavigationButton"
-                    />
+                    <NavigationButton data-props="${props}"></NavigationButton>
                 </li>
             `;
         })
@@ -59,10 +56,7 @@ function getItems(data) {
 
             return /* HTML */ `
                 <li class="l-navigation__item ${hasChildrenClass}">
-                    <component
-                        data-props="${props}"
-                        data-component="NavigationButton"
-                    />
+                    <NavigationButton data-props="${props}"></NavigationButton>
                     ${submenu}
                 </li>
             `;

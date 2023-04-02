@@ -43,22 +43,18 @@ export const Header = ({ render, onMount }) => {
                         <a href="#"> title </a>
                     </div>
                     <div class="l-header__utils">
-                        <component
-                            data-component="Headernav"
-                            data-json="header"
-                        ></component>
+                        <Headernav data-json="header"></Headernav>
                     </div>
                 </div>
                 <div class="l-header__navinfo">
                     <p class="p--small">Drag or Scroll</p>
-                    <component
-                        data-component="CodeButton"
+                    <CodeButton
                         data-js="/js"
                         data-scss="/scss"
                         data-html="/html1"
                         data-style="primary"
                     >
-                    </component>
+                    </CodeButton>
                 </div>
             </div>
         </header>

@@ -4,7 +4,35 @@ import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore/actions/onMount';
 import { executeRepeat } from './mainStore/actions/repeat';
-import { IS_RUNTIME, WILL_COMPONENT } from './utils';
+import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
+
+/**
+ * Get component Object with name in upepr canse and the value is the original name.
+ * Name in uppercase is necessary for element.tagName
+ */
+const componentsReference = Object.keys(componentList)
+    .map((key) => ({
+        [key.toUpperCase()]: key,
+    }))
+    .reduce((previous, current) => {
+        return { ...previous, ...current };
+    }, {});
+
+/**
+ * Non runtime default
+ * Select [data-component]:not[is-runtime]:not[data-iscomponent]
+ */
+const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${IS_COMPONENT}]))`;
+
+/**
+ * Select component default by tagname.
+ * Select <component name>:not[is-runtime]:not[data-iscomponent]
+ */
+const selectorDefaultTag = Object.values(componentsReference)
+    .map((key) => {
+        return `${key}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
+    })
+    .join(', ');
 
 /**
  * Create all component from DOM.
@@ -23,16 +51,55 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
      * - For specific situoation es: updatelist, render only the component generated
      *   in current action filtered by a unique id
      */
-    const componentToParse = !runtimeId
-        ? element.querySelector(`[${WILL_COMPONENT}]:not([${IS_RUNTIME}])`)
-        : element.querySelector(
-              `[${WILL_COMPONENT}][${IS_RUNTIME}="${runtimeId}"]`
-          );
+
+    /**
+     * Runtime deafult
+     * Select [data-component][is-runtime='<hash>']:not[data-iscomponent]
+     */
+    const selectoreRuntime = `[${WILL_COMPONENT}][${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
+
+    /**
+     * Select runtiem component by tagname.
+     * Select <component name>[is-runtime='<hash>']:not[data-iscomponent]
+     */
+    const selectoreRuntimeTag = Object.values(componentsReference)
+        .map((key) => {
+            return `${key}[${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
+        })
+        .join(', ');
+
+    /**
+     * Select.
+     */
+    const componentToParseArray = !runtimeId
+        ? [
+              ...element.querySelectorAll(
+                  `${selectorDefault}, ${selectorDefaultTag}`
+              ),
+          ]
+        : [
+              ...element.querySelectorAll(
+                  `${selectoreRuntime}, ${selectoreRuntimeTag}`
+              ),
+          ];
+
+    /**
+     * Get first item.
+     */
+    const componentToParse = componentToParseArray?.[0];
 
     /**
      * If there is no component end.
      */
     if (!componentToParse) return Promise.resolve();
+
+    /**
+     * If component is selected by tagname add data-component="<component name>"
+     */
+    const hasDataComponent = componentToParse?.dataset?.component;
+    if (!hasDataComponent)
+        componentToParse.dataset.component =
+            componentsReference[componentToParse.tagName];
 
     /**
      * Get component params from list definition.
