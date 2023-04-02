@@ -9,7 +9,8 @@ export const watchList = ({
     containerList,
     props,
     updateState,
-    onComplete,
+    beforeUpdate,
+    afterUpdate,
     targetComponent,
     getChildren,
     key,
@@ -17,6 +18,15 @@ export const watchList = ({
 }) => {
     return watch(state, async (current, previous) => {
         if (!checkType(Array, current)) return;
+
+        beforeUpdate({
+            container: containerList,
+            childrenId: getChildrenInsideElement({
+                component: targetComponent,
+                getChildren,
+                element: containerList,
+            }),
+        });
 
         const currentUnivoque = await updateChildren({
             state,
@@ -51,7 +61,7 @@ export const watchList = ({
          * Fire onComplete next tick;
          */
         setTimeout(() => {
-            onComplete({
+            afterUpdate({
                 container: containerList,
                 childrenId: childrenFiltered,
             });

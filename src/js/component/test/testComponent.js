@@ -76,15 +76,18 @@ export const TestComponent = async ({
                     component: 'TestComponent2',
                     key: 'label',
                     props: ({ current, index }) => {
-                        console.log(index);
+                        // console.log(index);
                         return { label: () => current.label };
                     },
                     updateState: ({ current, index, setChildState }) => {
-                        console.log(current);
+                        // console.log(current);
                         setChildState('index', index);
                     },
-                    // onComplete: ({ container, childrenId }) => {
-                    //     console.log(`complete update`, container, childrenId);
+                    // beforeUpdate: ({ container, childrenId }) => {
+                    //     console.log(`before update`);
+                    // },
+                    // afterUpdate: ({ container, childrenId }) => {
+                    //     console.log(`after update`);
                     // },
                 })}
             </div>
@@ -99,8 +102,11 @@ export const TestComponent = async ({
                     updateState: ({ index, setChildState }) => {
                         setChildState('index', index + 1);
                     },
-                    // onComplete: ({ container, childrenId }) => {
-                    //     console.log(`complete update`, container, childrenId);
+                    // beforeUpdate: ({ container, childrenId }) => {
+                    //     console.log(`before update`);
+                    // },
+                    // afterUpdate: ({ container, childrenId }) => {
+                    //     console.log(`after update`);
                     // },
                 })}
             </div>

@@ -77,7 +77,8 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
             component: targetComponent = '',
             props = () => {},
             updateState = () => {},
-            onComplete = () => {},
+            beforeUpdate = () => {},
+            afterUpdate = () => {},
             key = null,
         }) => {
             const currentRepeatId = getUnivoqueId();
@@ -91,7 +92,8 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     targetComponent,
                     props,
                     updateState,
-                    onComplete,
+                    beforeUpdate,
+                    afterUpdate,
                     getChildren,
                     key,
                     id,
