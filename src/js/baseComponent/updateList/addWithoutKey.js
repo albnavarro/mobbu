@@ -1,7 +1,7 @@
-import { isDescendant } from '../../mobbu/utils/vanillaFunction';
-import { getElementById, removeAndDestroyById } from '../componentStore/action';
+import { removeAndDestroyById } from '../componentStore/action';
 import { createProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../utils';
+import { getChildrenInsideElement } from './utils';
 
 /**
  * Add new children.
@@ -42,13 +42,16 @@ export const addWithoutKey = ({
             .reverse();
 
         /**
-         * Get last child of containerList
+         * Filter children inside containerList
          */
-        const children = getChildren(targetComponent);
-        const childrenFiltered = [...children].filter((id) => {
-            return isDescendant(containerList, getElementById({ id }));
+        const childrenFilteredToAdd = getChildrenInsideElement({
+            component: targetComponent,
+            getChildren,
+            element: containerList,
         });
-        const lastChildren = childrenFiltered[childrenFiltered.length - 1];
+
+        const lastChildren =
+            childrenFilteredToAdd[childrenFilteredToAdd.length - 1];
 
         /**
          * Query last child and append new children.
@@ -71,20 +74,19 @@ export const addWithoutKey = ({
      */
 
     /**
-     * Get all children by component type.
+     * Filter children inside containerList
      */
-    const children = getChildren(targetComponent);
-
-    /**
-     * Filter all children contained in containerList.
-     */
-    const childrenFiltered = [...children].filter((id) => {
-        return isDescendant(containerList, getElementById({ id }));
+    const childrenFilteredToRemove = getChildrenInsideElement({
+        component: targetComponent,
+        getChildren,
+        element: containerList,
     });
 
-    const childrenToRemoveByKey = childrenFiltered.filter((_child, i) => {
-        return i >= current.length;
-    });
+    const childrenToRemoveByKey = childrenFilteredToRemove.filter(
+        (_child, i) => {
+            return i >= current.length;
+        }
+    );
 
     childrenToRemoveByKey.forEach((childId) => {
         removeAndDestroyById({ id: childId });
