@@ -17,13 +17,15 @@ export const TestComponent2 = async ({
     key,
     // watchParent,
 }) => {
-    const { label } = props;
+    const { label = () => {} } = props;
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
         element.addEventListener('click', () => emit('isRed'));
         watch('isRed', () => element.classList.toggle('is-red'));
-        watch('index', (value) => (counterEl.textContent = value));
+        watch('index', (value) => {
+            if (value) counterEl.textContent = value;
+        });
 
         // watchParent('data', () => {
         //     const labelEl = element.querySelector('.label');
@@ -39,9 +41,9 @@ export const TestComponent2 = async ({
 
     return render(/* HTML */ `
         <div class="c-test-comp__inner">
-            <div>Label: <span class="label"> ${label?.()}</span></div>
+            <div>Label: <span class="label"> ${label()}</span></div>
             <div>Id:<span class="counter"></span></div>
-            <div class="key">key: ${key}</div>
+            <div class="key">key: ${key ?? ''}</div>
         </div>
     `);
 };
