@@ -1,7 +1,14 @@
+function asyncTest() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 100);
+    });
+}
 /**
  * Create component
  */
-export const TestComponent2 = ({
+export const TestComponent2 = async ({
     props,
     watch,
     render,
@@ -27,6 +34,8 @@ export const TestComponent2 = ({
             element.remove();
         };
     });
+
+    await asyncTest();
 
     return render(/* HTML */ `
         <div class="c-test-comp__inner">
