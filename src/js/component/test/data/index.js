@@ -30,10 +30,10 @@ export const addedData = [
         label: 'c',
     },
     {
-        label: 'g',
+        label: 'a',
     },
     {
-        label: 'a',
+        label: 'g',
     },
     {
         label: 'h',

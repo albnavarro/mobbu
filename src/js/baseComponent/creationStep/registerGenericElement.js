@@ -103,7 +103,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                 },
             });
 
-            return `<span data-repeatid="${currentRepeatId}"/>`;
+            return `<span data-repeatid="${currentRepeatId}" style="display:none;"/>`;
         },
     };
 };
