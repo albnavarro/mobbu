@@ -75,10 +75,12 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current }) => {
+                    props: ({ current, index }) => {
+                        console.log(index);
                         return { label: () => current.label };
                     },
-                    updateState: ({ index, setChildState }) => {
+                    updateState: ({ current, index, setChildState }) => {
+                        console.log(current);
                         setChildState('index', index);
                     },
                     // onComplete: ({ container, childrenId }) => {
@@ -106,7 +108,15 @@ export const TestComponent = async ({
                 data-props="${createProps({
                     label: () => `outer list el down`,
                 })}"
-            ></TestComponent2>
+            >
+                <Codebutton
+                    data-props="${createProps({
+                        js: 'test-js',
+                        scss: 'test-scss',
+                        html: 'test-html',
+                    })}"
+                ></Codebutton>
+            </TestComponent2>
         </div>
     `);
 };

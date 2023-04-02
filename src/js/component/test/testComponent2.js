@@ -21,10 +21,11 @@ export const TestComponent2 = async ({
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
-        element.addEventListener('click', () => emit('isRed'));
+        const button = element.querySelector('button');
+        button.addEventListener('click', () => emit('isRed'));
         watch('isRed', () => element.classList.toggle('is-red'));
         watch('index', (value) => {
-            if (value) counterEl.textContent = value;
+            counterEl.textContent = value;
         });
 
         // watchParent('data', () => {
@@ -44,6 +45,9 @@ export const TestComponent2 = async ({
             <div>Label: <span class="label"> ${label()}</span></div>
             <div>Id:<span class="counter"></span></div>
             <div class="key">key: ${key ?? ''}</div>
+            <button class="c-test-comp__inner__btn" type="button">
+                toggle
+            </button>
         </div>
     `);
 };

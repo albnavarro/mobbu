@@ -35,9 +35,14 @@ export const addWithoutKey = ({
                         index: index + previousLenght,
                     })
                 );
-                return `
-                <component data-props=${currentProps} ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}"/>
-            `;
+                return /* HTML */ `
+                    <component
+                        data-props=${currentProps}
+                        ${IS_RUNTIME}="${runtimeId}"
+                        data-component="${targetComponent}"
+                    >
+                    </component>
+                `;
             })
             .reverse();
 

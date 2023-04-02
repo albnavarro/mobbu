@@ -28,7 +28,7 @@
 
     &__inner {
         flex: 1;
-        padding: 0 rem(10);
+        padding: rem(10);
         text-align: left;
         border: 1px $black solid;
         font-size: rem(14);
@@ -36,6 +36,10 @@
 
         &.is-red {
             background: red;
+        }
+
+        &__btn {
+            margin-top: rem(10);
         }
     }
 }

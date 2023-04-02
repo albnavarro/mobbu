@@ -32,8 +32,14 @@ function getPArtialsComponentList({
         props({ current: currentUnique?.[index], index })
     );
 
-    return `
-        <component data-props=${currentProps} ${IS_RUNTIME}="${runtimeId}" data-component="${targetComponent}" data-key="${key}"/>
+    return /* HTML */ `
+        <component
+            data-props=${currentProps}
+            ${IS_RUNTIME}="${runtimeId}"
+            data-component="${targetComponent}"
+            data-key="${key}"
+        >
+        </component>
     `;
 }
 

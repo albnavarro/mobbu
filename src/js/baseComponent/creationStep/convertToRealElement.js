@@ -9,24 +9,26 @@
  */
 export const convertToRealElement = ({ placeholderElement, content }) => {
     return new Promise((resolve) => {
-        // setTimeout(() => {
         /**
          * Add real content from render function
          */
-        placeholderElement.insertAdjacentHTML('afterbegin', content);
+        const prevContent = placeholderElement.innerHTML;
+        placeholderElement.insertAdjacentHTML('afterend', content);
+
+        let newElement = placeholderElement.nextElementSibling;
+        newElement.insertAdjacentHTML('afterbegin', prevContent);
 
         /**
          * Get inner content and copy data from provvisory component
          */
-        const firstChild = placeholderElement.firstElementChild;
-        firstChild.id = placeholderElement.id;
-        firstChild.setAttribute('data-iscomponent', '');
+        // const firstChild = placeholderElement.firstElementChild;
+        newElement.id = placeholderElement.id;
+        newElement.setAttribute('data-iscomponent', '');
 
         /**
          * Delete provvisory component and add real component.
          */
-        placeholderElement.replaceWith(...placeholderElement.childNodes);
-        resolve({ newElement: firstChild });
-        // }, 500);
+        placeholderElement.remove();
+        resolve({ newElement });
     });
 };
