@@ -1,6 +1,6 @@
 import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore/actions/props';
-import { addedData, originalData, removeData } from './data';
+import { addedData, addedData2, originalData, removeData } from './data';
 
 function logChildren(getChildren) {
     console.log(getChildren('TestComponent2'));
@@ -33,12 +33,14 @@ export const TestComponent = async ({
         const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
         const addEl = element.querySelector('.add');
+        const addEl2 = element.querySelector('.add2');
         const removeEl = element.querySelector('.remove');
         setState('data', originalData);
 
         debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         addEl.addEventListener('click', () => setState('data', addedData));
+        addEl2.addEventListener('click', () => setState('data', addedData2));
         removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
@@ -59,6 +61,7 @@ export const TestComponent = async ({
             </div>
             <div class="c-test-comp__top">
                 <button class="c-test-comp__btn add">add</button>
+                <button class="c-test-comp__btn add2">add2</button>
                 <button class="c-test-comp__btn remove">remove</button>
             </div>
             <div class="c-test-comp__top">

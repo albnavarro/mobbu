@@ -43,6 +43,48 @@ export const addedData = [
     },
 ];
 
+export const addedData2 = [
+    {
+        label: 'm',
+    },
+    {
+        label: 'q',
+    },
+    {
+        label: 'z',
+    },
+    {
+        label: 'i',
+    },
+    {
+        label: 'b',
+    },
+    {
+        label: 'e',
+    },
+    {
+        label: 'n',
+    },
+    {
+        label: 'a',
+    },
+    {
+        label: 'g',
+    },
+    {
+        label: 'h',
+    },
+    {
+        label: 'l',
+    },
+    {
+        label: 'j',
+    },
+    {
+        label: 'd',
+    },
+];
+
 export const removeData = [
     {
         label: 'a',
