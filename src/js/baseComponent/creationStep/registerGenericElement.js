@@ -1,7 +1,10 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import {
     addSelfToParentComponent,
+    getChildrenIdByName,
+    getParentIdById,
     setParentsComponent,
+    watchById,
 } from '../componentStore/action';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
@@ -23,16 +26,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     /**
      * Register component to store
      */
-    const {
-        getParentId,
-        getState,
-        setState,
-        emit,
-        computed,
-        watch,
-        watchParent,
-        getChildren,
-    } = registerComponent({
+    const { getState, setState, emit, computed, watch } = registerComponent({
         component,
         placeholderElement,
         props,
@@ -54,12 +48,11 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     addSelfToParentComponent({ id });
 
     const repeatId = [];
+    const getChildren = (component) => getChildrenIdByName({ id, component });
 
     return {
         key,
         id,
-        getParentId,
-        getChildren,
         placeholderElement,
         props,
         getState,
@@ -67,8 +60,10 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         emit,
         computed,
         watch,
-        watchParent,
         repeatId,
+        getChildren,
+        getParentId: () => getParentIdById(id),
+        watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
         render: (content) => {
             return {
                 id,
