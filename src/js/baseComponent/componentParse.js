@@ -149,6 +149,13 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     });
 
     /**
+     * If element wad destroyed during parse
+     * es: repat function fired with async component to fast
+     * return without render dom component.
+     */
+    if (!newElement) return Promise.resolve();
+
+    /**
      * Update last DOM element in store.
      */
     setElementById({ id, newElement });
