@@ -2,7 +2,8 @@ import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
 /**
- * Add ouMount callback to store.
+ * Add new repeater id and props.
+ * Tehe repeater will execute after component render.
  */
 export const addRepeat = ({ repeatId, obj }) => {
     mainStore.set('repeat', (prev) => {
@@ -11,7 +12,7 @@ export const addRepeat = ({ repeatId, obj }) => {
 };
 
 /**
- * fire onMount callback.
+ * Launch repeater from id. And find parent from placeholder.
  */
 export const executeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId) return;
@@ -46,5 +47,46 @@ export const executeRepeat = ({ repeatId, placeholderListObj }) => {
         return prev.filter((item) => {
             return !(repeatId in item);
         });
+    });
+};
+
+/**
+ * Set active repeat
+ */
+export const addActiveRepeat = ({ id, state, container }) => {
+    mainStore.set('activeRepeat', (prev) => {
+        return [...prev, { id, state, container }];
+    });
+};
+
+/**
+ * Remove active repeat
+ */
+export const removeActiveRepeat = ({ id, state, container }) => {
+    mainStore.set('activeRepeat', (prev) => {
+        return prev.filter(
+            ({
+                id: currentId,
+                state: currentState,
+                container: currentContainer,
+            }) =>
+                id !== currentId &&
+                state !== currentState &&
+                container !== currentContainer
+        );
+    });
+};
+
+/**
+ * Get active repeat
+ */
+export const getActiveRepeater = ({ id, state, container }) => {
+    const { activeRepeat } = mainStore.get();
+    return activeRepeat.find((item) => {
+        return (
+            item.id === id &&
+            item.state === state &&
+            item.container === container
+        );
     });
 };

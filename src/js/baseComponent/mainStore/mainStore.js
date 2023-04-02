@@ -13,4 +13,8 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    activeRepeat: () => ({
+        value: [],
+        type: Array,
+    }),
 });
