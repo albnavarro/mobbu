@@ -82,6 +82,9 @@ export const TestComponent = async ({
                     updateState: ({ current, index, setChildState }) => {
                         setChildState('index', index);
                     },
+                    onComplete: ({ container, childrenId }) => {
+                        console.log(`complete update`, container, childrenId);
+                    },
                 })}
             </div>
             <div class="c-test-comp__list">
@@ -94,6 +97,9 @@ export const TestComponent = async ({
                     },
                     updateState: ({ current, index, setChildState }) => {
                         setChildState('index', index + 1);
+                    },
+                    onComplete: ({ container, childrenId }) => {
+                        console.log(`complete update`, container, childrenId);
                     },
                 })}
             </div>

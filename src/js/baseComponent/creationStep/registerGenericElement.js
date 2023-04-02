@@ -80,8 +80,9 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         repeat: ({
             watch: state = null,
             component: targetComponent = '',
-            updateState = () => {},
             props = () => {},
+            updateState = () => {},
+            onComplete = () => {},
             key = null,
         }) => {
             const currentRepeatId = getUnivoqueId();
@@ -93,8 +94,9 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
                     state,
                     watch,
                     targetComponent,
-                    updateState,
                     props,
+                    updateState,
+                    onComplete,
                     getChildren,
                     key,
                     id,

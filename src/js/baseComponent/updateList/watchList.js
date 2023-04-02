@@ -7,8 +7,9 @@ export const watchList = ({
     state,
     watch,
     containerList,
-    updateState,
     props,
+    updateState,
+    onComplete,
     targetComponent,
     getChildren,
     key,
@@ -43,6 +44,16 @@ export const watchList = ({
                 current: currentUnivoque?.[index],
                 setChildState: (prop, val) => setStateById(id, prop, val),
                 index,
+            });
+        });
+
+        /**
+         * Fire onComplete next tick;
+         */
+        setTimeout(() => {
+            onComplete({
+                container: containerList,
+                childrenId: childrenFiltered,
             });
         });
     });
