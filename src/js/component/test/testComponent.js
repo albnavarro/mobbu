@@ -76,7 +76,7 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current }) => {
+                    props: ({ current, index }) => {
                         return { label: () => current.label };
                     },
                     updateState: ({ current, index, setChildState }) => {
@@ -92,7 +92,7 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current }) => {
+                    props: ({ current, index }) => {
                         return { label: () => `${current.label}2` };
                     },
                     updateState: ({ current, index, setChildState }) => {
