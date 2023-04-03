@@ -15,7 +15,7 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
         const prevContent = placeholderElement.innerHTML;
         placeholderElement.insertAdjacentHTML('afterend', content);
 
-        let newElement = placeholderElement.nextElementSibling;
+        const newElement = placeholderElement.nextElementSibling;
         newElement.insertAdjacentHTML('afterbegin', prevContent);
 
         /**
