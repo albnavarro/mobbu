@@ -1,4 +1,17 @@
 /**
+ * Get new element from content ( render ).
+ * Prevent accidentally return of element or placeholderElement deleted runtime.
+ * Check parentNode to insertAdjacentHTML possible error.
+ */
+const getNewElement = ({ placeholderElement, content }) => {
+    if (placeholderElement.parentNode)
+        placeholderElement.insertAdjacentHTML('afterend', content);
+
+    const newElement = placeholderElement.nextElementSibling;
+    return newElement && newElement.parentNode ? newElement : null;
+};
+
+/**
  * Add content to component
  *
  * Use async logic only for security or debug
@@ -13,17 +26,16 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
          * Add real content from render function
          */
         const prevContent = placeholderElement.innerHTML;
-        placeholderElement.insertAdjacentHTML('afterend', content);
-
-        const newElement = placeholderElement.nextElementSibling;
-        newElement.insertAdjacentHTML('afterbegin', prevContent);
+        const newElement = getNewElement({ placeholderElement, content });
 
         /**
          * Get inner content and copy data from provvisory component
          */
-        // const firstChild = placeholderElement.firstElementChild;
-        newElement.id = placeholderElement.id;
-        newElement.setAttribute('data-iscomponent', '');
+        if (newElement) {
+            newElement.insertAdjacentHTML('afterbegin', prevContent);
+            newElement.id = placeholderElement.id;
+            newElement.setAttribute('data-iscomponent', '');
+        }
 
         /**
          * Delete provvisory component and add real component.
