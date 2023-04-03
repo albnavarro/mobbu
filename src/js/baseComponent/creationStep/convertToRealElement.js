@@ -4,11 +4,12 @@
  * Check parentNode to insertAdjacentHTML possible error.
  */
 const getNewElement = ({ placeholderElement, content }) => {
-    if (placeholderElement.parentNode)
+    if (placeholderElement.parentNode) {
         placeholderElement.insertAdjacentHTML('afterend', content);
+        return placeholderElement.nextElementSibling;
+    }
 
-    const newElement = placeholderElement.nextElementSibling;
-    return newElement && newElement.parentNode ? newElement : null;
+    return null;
 };
 
 /**
