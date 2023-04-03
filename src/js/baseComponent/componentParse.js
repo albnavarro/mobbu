@@ -22,13 +22,13 @@ const componentsReference = Object.keys(componentList)
  * Non runtime default
  * Select [data-component]:not[is-runtime]:not[data-iscomponent]
  */
-const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${IS_COMPONENT}]))`;
+export const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${IS_COMPONENT}]))`;
 
 /**
  * Select component default by tagname.
  * Select <component name>:not[is-runtime]:not[data-iscomponent]
  */
-const selectorDefaultTag = Object.values(componentsReference)
+export const selectorDefaultTag = Object.values(componentsReference)
     .map((key) => {
         return `${key}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
     })

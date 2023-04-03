@@ -1,10 +1,12 @@
 import { checkType } from '../../mobbu/store/storeType';
+import { parseComponents } from '../componentParse';
 import { setStateById } from '../componentStore/action';
 import {
     addActiveRepeat,
     getActiveRepeater,
     removeActiveRepeat,
 } from '../mainStore/actions/repeat';
+import { createRunTimeComponent } from '../utils';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
@@ -101,6 +103,19 @@ export const watchList = ({
              * Remove active repeater
              */
             removeActiveRepeat({ id, state, container: containerList });
+
+            /**
+             * Search for innercomponent and add a runtime id
+             * So run a concurrent parseComponents outside the main parse.
+             */
+            const uniqueId = createRunTimeComponent({
+                container: containerList,
+            });
+
+            /**
+             * Parse inner component.
+             */
+            parseComponents({ element: containerList, runtimeId: uniqueId });
 
             /**
              * Execute afterUpdate function
