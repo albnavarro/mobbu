@@ -1,5 +1,9 @@
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
-import { selectorDefault, selectorDefaultTag } from './componentParse';
+import {
+    parseComponents,
+    selectorDefault,
+    selectorDefaultTag,
+} from './componentParse';
 
 export const WILL_COMPONENT = 'data-component';
 export const IS_COMPONENT = 'data-iscomponent';
@@ -20,5 +24,32 @@ export const createRunTimeComponent = ({ container }) => {
         (component) => (component.dataset[IS_RUNTIME_DATASET] = uniqueId)
     );
 
-    return uniqueId;
+    return { uniqueId, hasComponentInside: [...innerComponents].length };
+};
+
+/**
+ * Parse DOM element searching component.
+ * in recursive mode until there is.
+ * All parse has a runtime idd.
+ */
+export const parseRuntime = async ({ container }) => {
+    /**
+     * Search for innercomponent and add a runtime id
+     * So run a concurrent parseComponents outside the main parse.
+     */
+    const { uniqueId, hasComponentInside } = createRunTimeComponent({
+        container,
+    });
+
+    if (!hasComponentInside) return;
+
+    /**
+     * Parse inner component.
+     */
+    await parseComponents({
+        element: container,
+        runtimeId: uniqueId,
+    });
+
+    parseRuntime({ container });
 };

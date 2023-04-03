@@ -1,5 +1,5 @@
 import { componentList } from './componentList';
-import { setElementById } from './componentStore/action';
+import { removeOrphanComponent, setElementById } from './componentStore/action';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore/actions/onMount';
@@ -91,7 +91,13 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     /**
      * If there is no component end.
      */
-    if (!componentToParse) return Promise.resolve();
+    if (!componentToParse) {
+        /**
+         * Check if there is element in store that is not in real DOM.
+         */
+        removeOrphanComponent();
+        return Promise.resolve();
+    }
 
     /**
      * If component is selected by tagname add data-component="<component name>"

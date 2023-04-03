@@ -321,7 +321,13 @@ export const removeCancellableComponentFromStore = () => {
  * Remove orphan component from store.
  */
 export const removeOrphanComponent = () => {
-    // Remove orphan component
+    const { instances } = componentStore.get();
+
+    const orphans = instances.filter(
+        ({ element }) => !document.body.contains(element)
+    );
+
+    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
 };
 
 /**
