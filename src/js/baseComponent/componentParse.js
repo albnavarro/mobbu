@@ -29,8 +29,8 @@ export const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${I
  * Select <component name>:not[is-runtime]:not[data-iscomponent]
  */
 export const selectorDefaultTag = Object.values(componentsReference)
-    .map((key) => {
-        return `${key}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
+    .map((value) => {
+        return `${value}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
     })
     .join(', ');
 
@@ -63,8 +63,8 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
      * Select <component name>[is-runtime='<hash>']:not[data-iscomponent]
      */
     const selectoreRuntimeTag = Object.values(componentsReference)
-        .map((key) => {
-            return `${key}[${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
+        .map((value) => {
+            return `${value}[${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
         })
         .join(', ');
 
