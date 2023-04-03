@@ -6,20 +6,6 @@ import { IS_COMPONENT } from '../utils';
  *  Create base DOM component from component tag.
  */
 export const convertToGenericElement = ({ component }) => {
-    // /**
-    //  * Check if component is already live.
-    //  */
-    // const elementExist = document.body.contains(component);
-    // if (!elementExist) {
-    //     return {
-    //         placeholderElement: null,
-    //         props: null,
-    //         id: null,
-    //         componentName: null,
-    //         key: null,
-    //     };
-    // }
-
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
     const newComponent = document.createElement('div');

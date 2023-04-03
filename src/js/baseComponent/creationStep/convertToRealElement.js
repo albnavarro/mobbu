@@ -10,15 +10,6 @@
 export const convertToRealElement = ({ placeholderElement, content }) => {
     return new Promise((resolve) => {
         /**
-         * Check if placeholder is already live.
-         */
-        // const elementExist = document.body.contains(placeholderElement);
-        // if (!elementExist) {
-        //     resolve({ newElement: null });
-        //     return;
-        // }
-
-        /**
          * Add real content from render function
          */
         const prevContent = placeholderElement.innerHTML;
