@@ -49,7 +49,7 @@ export const watchList = ({
         }
 
         /**
-         * Set current active repeater.
+         * Set current active repeater in mainStore.
          */
         addActiveRepeat({ id, state, container: containerList });
 
@@ -65,6 +65,9 @@ export const watchList = ({
             }),
         });
 
+        /**
+         * Start main update list function
+         */
         const currentUnivoque = await updateChildren({
             state,
             containerList,
@@ -86,6 +89,9 @@ export const watchList = ({
             element: containerList,
         });
 
+        /**
+         * Update children state.
+         */
         [...childrenFiltered].forEach((id, index) => {
             updateState({
                 current: currentUnivoque?.[index],
