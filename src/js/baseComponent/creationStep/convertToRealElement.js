@@ -12,6 +12,18 @@ const getNewElement = ({ placeholderElement, content }) => {
     return null;
 };
 
+const addPreviousContent = ({ element, content }) => {
+    const slot = element.querySelector('slot');
+
+    if (slot) {
+        slot.insertAdjacentHTML('afterend', content);
+        slot.remove();
+        return;
+    }
+
+    element.insertAdjacentHTML('afterbegin', content);
+};
+
 /**
  * Add content to component
  *
@@ -33,7 +45,7 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
          * Get inner content and copy data from provvisory component
          */
         if (newElement) {
-            newElement.insertAdjacentHTML('afterbegin', prevContent);
+            addPreviousContent({ element: newElement, content: prevContent });
             newElement.id = placeholderElement.id;
             newElement.setAttribute('data-iscomponent', '');
         }
