@@ -3,6 +3,10 @@ import { removeOrphanComponent, setElementById } from './componentStore/action';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore/actions/onMount';
+import {
+    incrementParserCounter,
+    decrementParserCounter,
+} from './mainStore/actions/parser';
 import { executeRepeat } from './mainStore/actions/repeat';
 import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
 
@@ -93,9 +97,12 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
      */
     if (!componentToParse) {
         /**
+         * If all the parser is ended.
+         * ( remove active parser and return how many parser is active)
          * Check if there is element in store that is not in real DOM.
          */
-        removeOrphanComponent();
+        const activeParser = decrementParserCounter();
+        if (!activeParser) removeOrphanComponent();
         return Promise.resolve();
     }
 
@@ -207,6 +214,8 @@ export const parseComponents = async ({
     index = 0,
     runtimeId = null,
 }) => {
+    incrementParserCounter();
+
     await parseComponentsRecursive({
         element,
         index,

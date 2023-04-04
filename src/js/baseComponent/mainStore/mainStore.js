@@ -17,4 +17,8 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    activeParser: () => ({
+        value: 0,
+        type: Number,
+    }),
 });
