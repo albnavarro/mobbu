@@ -43,9 +43,10 @@ export const TestComponent2 = async ({
     return render(/* HTML */ `
         <div class="c-test-comp__inner">
             <div>Label: <span class="label"> ${label()}</span></div>
-            <slot></slot>
+            <slot data-slotname="slot1"></slot>
             <div>Id:<span class="counter"></span></div>
             <div class="key">key: ${key ?? ''}</div>
+            <slot data-slotname="slot2"></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>

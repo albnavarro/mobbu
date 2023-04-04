@@ -1,3 +1,5 @@
+import { SLOT_NAME, SLOT_POSITION } from '../utils';
+
 /**
  * Get new element from content ( render ).
  * Prevent accidentally return of element or placeholderElement deleted runtime.
@@ -12,16 +14,33 @@ const getNewElement = ({ placeholderElement, content }) => {
     return null;
 };
 
-const addPreviousContent = ({ element, content }) => {
-    const slot = element.querySelector('slot');
+/**
+ * Remove unused slot placehodler.
+ * ( no element have sustitute slot )
+ */
+const removeOrphanSlot = ({ element }) => {
+    const slots = element.querySelectorAll('slot');
+    slots.forEach((element) => element.remove());
+};
 
-    if (slot) {
-        slot.insertAdjacentHTML('afterend', content);
+/**
+ * Move element to related slot if defined.
+ * And delete original slot placehodler
+ */
+const addToSlot = ({ element }) => {
+    const componentWithSlot = element.querySelectorAll(`[${SLOT_POSITION}]`);
+    componentWithSlot.forEach((component) => {
+        const slotTargetName = component.dataset?.slotposition;
+        const slot = element.querySelector(
+            `slot[${SLOT_NAME}="${slotTargetName}"]`
+        );
+        if (!slot) return;
+
+        slot.parentNode.insertBefore(component, slot);
+        const elementMoved = slot.previousSibling;
+        elementMoved.removeAttribute(SLOT_POSITION);
         slot.remove();
-        return;
-    }
-
-    element.insertAdjacentHTML('afterbegin', content);
+    });
 };
 
 /**
@@ -45,7 +64,9 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
          * Get inner content and copy data from provvisory component
          */
         if (newElement) {
-            addPreviousContent({ element: newElement, content: prevContent });
+            newElement.insertAdjacentHTML('afterbegin', prevContent);
+            addToSlot({ element: newElement });
+            removeOrphanSlot({ element: newElement });
             newElement.id = placeholderElement.id;
             newElement.setAttribute('data-iscomponent', '');
         }
