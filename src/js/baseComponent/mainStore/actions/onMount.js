@@ -13,7 +13,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 /**
  * fire onMount callback.
  */
-export const fireOnMountCallBack = ({ id, element }) => {
+export const fireOnMountCallBack = async ({ id, element }) => {
     const { onMountCallback } = mainStore.get();
     const currentItem = onMountCallback.find((item) => {
         return item?.[id];
@@ -24,7 +24,11 @@ export const fireOnMountCallBack = ({ id, element }) => {
      * So there is no callback ( undefined )
      */
     const callback = currentItem?.[id];
-    const destroyCallback = callback?.({ element });
+
+    /**
+     * OnMount callback can be async.
+     */
+    const destroyCallback = await callback?.({ element });
 
     /**
      * Update destroy callback
