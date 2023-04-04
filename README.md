@@ -1,4 +1,4 @@
-### Development environment for testing mobbu animation library
+### Development environment for testing mobbu animation and component library
 
 Simple and fast enviroment based on esBuild
 
