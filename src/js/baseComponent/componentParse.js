@@ -99,7 +99,9 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
         /**
          * If all the parser is ended.
          * ( remove active parser and return how many parser is active)
-         * Check if there is element in store that is not in real DOM.
+         * Check if there is element in store that is not in real DOM and delete from store
+         * When component is deleted delete the nested component too.
+         * This is a additional level of security
          */
         const activeParser = decrementParserCounter();
         if (!activeParser) removeOrphanComponent();

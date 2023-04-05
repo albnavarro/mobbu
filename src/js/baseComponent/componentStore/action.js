@@ -248,9 +248,19 @@ export const removeAndDestroyById = ({ id = null }) => {
     if (!id) return;
 
     const { instances } = componentStore.get();
-    const { component: componentName } = instances.find(({ id: currentId }) => {
-        return currentId === id;
-    });
+    const { component: componentName, element } = instances.find(
+        ({ id: currentId }) => {
+            return currentId === id;
+        }
+    );
+
+    /**
+     * Destroy all component nested.
+     */
+    const componentNested = element.querySelectorAll(`[${IS_COMPONENT}]`);
+    [...componentNested].forEach((component) =>
+        removeAndDestroyById({ id: component.id })
+    );
 
     /**
      * -------------
