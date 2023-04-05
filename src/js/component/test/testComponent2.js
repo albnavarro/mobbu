@@ -1,3 +1,5 @@
+import { createProps } from '../../baseComponent/mainStore/actions/props';
+
 function asyncTest() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -46,7 +48,10 @@ export const TestComponent2 = async ({
             <slot data-slotname="slot1"></slot>
             <div>Id:<span class="counter"></span></div>
             <div class="key">key: ${key ?? ''}</div>
-            <slot data-slotname="slot2"></slot>
+            <slot
+                data-slotname="slot2"
+                data-props="${createProps({ slotProps: 1 })}"
+            ></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>

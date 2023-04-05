@@ -118,15 +118,16 @@ export const TestComponent = async ({
                     label: () => `outer list el down`,
                 })}"
             >
-                <div data-slotposition="slot2"><span>slot2</span></div>
+                <div data-slotposition="slot1"><span>slot1</span></div>
                 <Codebutton
-                    data-slotposition="slot1"
+                    data-slotposition="slot2"
                     data-props="${createProps({
                         js: 'test-js',
                         scss: 'test-scss',
                         html: 'test-html',
                     })}"
                 >
+                    slot
                 </Codebutton>
             </TestComponent2>
         </div>

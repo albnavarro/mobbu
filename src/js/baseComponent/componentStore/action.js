@@ -189,7 +189,7 @@ export const updateChildrenOrder = ({ id, component }) => {
     /**
      * Get id af all component inside
      */
-    const components = element.querySelectorAll('[data-iscomponent]');
+    const components = element.querySelectorAll(`[${IS_COMPONENT}]`);
     const componentsIdNow = [...components].map((item) => item.id);
 
     /**

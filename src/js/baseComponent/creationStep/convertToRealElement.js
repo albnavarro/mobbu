@@ -1,4 +1,9 @@
-import { SLOT_NAME, SLOT_POSITION } from '../utils';
+import {
+    IS_COMPONENT,
+    PROPS_FROM_SLOT,
+    SLOT_NAME,
+    SLOT_POSITION,
+} from '../utils';
 
 /**
  * Get new element from content ( render ).
@@ -36,9 +41,22 @@ const addToSlot = ({ element }) => {
         );
         if (!slot) return;
 
+        /**
+         * Add component/element before slot.
+         */
         slot.parentNode.insertBefore(component, slot);
         const elementMoved = slot.previousSibling;
         elementMoved.removeAttribute(SLOT_POSITION);
+
+        /**
+         * Set props id from slot to component.
+         */
+        const propsIdFromSlot = slot.dataset.props;
+        elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
+
+        /**
+         * Delete slot.
+         */
         slot.remove();
     });
 };
@@ -64,11 +82,12 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
          * Get inner content and copy data from provvisory component
          */
         if (newElement) {
+            const id = placeholderElement.id;
             newElement.insertAdjacentHTML('afterbegin', prevContent);
             addToSlot({ element: newElement });
             removeOrphanSlot({ element: newElement });
-            newElement.id = placeholderElement.id;
-            newElement.setAttribute('data-iscomponent', '');
+            newElement.id = id;
+            newElement.setAttribute(IS_COMPONENT, '');
         }
 
         /**
