@@ -1,11 +1,4 @@
 import {
-    getElementById,
-    getElementByKey,
-    removeAndDestroyById,
-    setStateById,
-    updateChildrenOrder,
-} from '../componentStore/action';
-import {
     getChildrenInsideElement,
     getNewElement,
     getUnivoqueByKey,
@@ -13,6 +6,13 @@ import {
 } from './utils';
 import { IS_RUNTIME } from '../utils';
 import { createProps } from '../mainStore/actions/props';
+import {
+    getElementById,
+    getElementByKeyInContainer,
+} from '../componentStore/action/element';
+import { setStateById } from '../componentStore/action/state';
+import { updateChildrenOrder } from '../componentStore/action/children';
+import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -70,7 +70,7 @@ export const addWithKey = ({
     const elementToRemoveObj = getNewElement(previous, currentUnique, key);
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
         const keyValue = item?.[key];
-        return getElementByKey({
+        return getElementByKeyInContainer({
             key: keyValue,
             parentId: id,
             container: containerList,
@@ -104,7 +104,7 @@ export const addWithKey = ({
     const newPersistentElementOrder = elementToAddObj
         .filter(({ isNewElement }) => !isNewElement)
         .map((item) => {
-            return getElementByKey({
+            return getElementByKeyInContainer({
                 key: item.key,
                 parentId: id,
                 container: containerList,
@@ -191,7 +191,7 @@ export const addWithKey = ({
             ? getElementById({
                   id: childrenFiltered[0],
               })
-            : getElementByKey({
+            : getElementByKeyInContainer({
                   key: item[0]?.key,
                   parentId: id,
                   container: containerList,

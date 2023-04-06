@@ -1,5 +1,5 @@
 import { componentList } from './componentList';
-import { removeOrphanComponent, setElementById } from './componentStore/action';
+import { setElementById } from './componentStore/action/element';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
 import { fireOnMountCallBack } from './mainStore/actions/onMount';
@@ -8,6 +8,7 @@ import {
     decrementParserCounter,
 } from './mainStore/actions/parser';
 import { executeRepeat } from './mainStore/actions/repeat';
+import { removeOrphanComponent } from './updateList/addWithoutKey';
 import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
 
 /**

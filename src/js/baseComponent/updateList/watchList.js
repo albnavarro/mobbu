@@ -1,5 +1,5 @@
 import { checkType } from '../../mobbu/store/storeType';
-import { setStateById } from '../componentStore/action';
+import { setStateById } from '../componentStore/action/state';
 import {
     addActiveRepeat,
     getActiveRepeater,

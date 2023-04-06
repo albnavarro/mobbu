@@ -1,4 +1,5 @@
-import { removeAndDestroyById } from '../componentStore/action';
+import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
+import { componentStore } from '../componentStore/store';
 import { createProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../utils';
 import { getChildrenInsideElement } from './utils';
@@ -98,4 +99,39 @@ export const addWithoutKey = ({
     });
 
     return current;
+};
+
+/**
+ * Remove component to store.
+ */
+export const removeCancellableComponentFromStore = () => {
+    // Call removeComponentFromStore for each component cacellable
+};
+
+/**
+ * Remove orphan omponent from store.
+ */
+export const removeOrphanComponent = () => {
+    const { instances } = componentStore.get();
+
+    const orphans = instances.filter(
+        ({ element }) => !document.body.contains(element)
+    );
+
+    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
+};
+
+/**
+ * Update deestroy call back by id.
+ */
+export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
+    if (!id) return;
+
+    componentStore.set('instances', (prevInstances) => {
+        return prevInstances.map((item) => {
+            const { id: currentId } = item;
+
+            return id === currentId ? { ...item, ...{ destroy: cb } } : item;
+        });
+    });
 };

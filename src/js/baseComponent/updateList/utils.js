@@ -1,5 +1,5 @@
 import { isDescendant } from '../../mobbu/utils/vanillaFunction';
-import { getElementById } from '../componentStore/action';
+import { getElementById } from '../componentStore/action/element';
 
 /**
  * Get new element of currrent array compare to previous.

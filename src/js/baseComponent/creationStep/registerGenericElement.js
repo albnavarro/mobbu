@@ -1,11 +1,11 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
+import { getChildrenIdByName } from '../componentStore/action/children';
 import {
     addSelfToParentComponent,
-    getChildrenIdByName,
     getParentIdById,
     setParentsComponent,
-    watchById,
-} from '../componentStore/action';
+} from '../componentStore/action/parent';
+import { watchById } from '../componentStore/action/watch';
 import { registerComponent } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import { addRepeat } from '../mainStore/actions/repeat';

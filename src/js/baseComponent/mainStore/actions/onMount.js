@@ -1,4 +1,4 @@
-import { setDestroyCallback } from '../../componentStore/action';
+import { setDestroyCallback } from '../../updateList/addWithoutKey';
 import { mainStore } from '../mainStore';
 
 /**
