@@ -33,7 +33,7 @@
         height: 100%;
         width: var(--header-height);
         grid-area: toggle;
-        background: $primary;
+        background: $black;
         border: 0;
     }
 
@@ -44,7 +44,7 @@
         left: 0;
         width: var(--nav-width);
         display: none;
-        background: $primary;
+        background: $black;
         color: $white;
         padding: 0 rem(20);
         transform: translateX(-100%);

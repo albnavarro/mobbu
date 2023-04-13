@@ -75,7 +75,7 @@
         width: 100%;
         height: var(--footer-height);
         border: 0;
-        background: rgba($primary, 0.8);
+        background: $black;
         transform: translateY(50%);
         padding: 0;
         margin: 0;
@@ -103,7 +103,7 @@
         left: 100%;
         top: 0;
         width: calc(100vw - var(--nav-width));
-        background: $primary;
+        background: $black;
         height: rem(10);
         transform-origin: left;
         transform: scaleX(0);

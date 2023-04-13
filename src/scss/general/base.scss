@@ -76,8 +76,6 @@ main {
 }
 
 .inner-wrap {
-    min-height: 200vh;
-
     @include mq.mq(desktop) {
         padding-left: rem(40);
     }

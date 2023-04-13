@@ -31,27 +31,31 @@ function getItems(data) {
         .map((item) => {
             const { label, url, children } = item;
 
-            const { hasChildrenClass, arrowClass, submenu } = children
-                ? {
-                      hasChildrenClass: 'has-child',
-                      arrowClass: 'l-navigation__link--arrow',
-                      submenu: /* HTML */ `
-                          <ul class="l-navigation__submenu">
-                              ${getSubmenu(children)}
-                          </ul>
-                      `,
-                  }
-                : {
-                      hasChildrenClass: '',
-                      arrowClass: '',
-                      submenu: '',
-                  };
+            const { hasChildrenClass, arrowClass, submenu, fireRoute } =
+                children
+                    ? {
+                          hasChildrenClass: 'has-child',
+                          arrowClass: 'l-navigation__link--arrow',
+                          submenu: /* HTML */ `
+                              <ul class="l-navigation__submenu">
+                                  ${getSubmenu(children)}
+                              </ul>
+                          `,
+                          fireRoute: false,
+                      }
+                    : {
+                          hasChildrenClass: '',
+                          arrowClass: '',
+                          submenu: '',
+                          fireRoute: true,
+                      };
 
             const props = createProps({
                 label,
                 url,
                 arrowClass,
                 subMenuClass: '',
+                fireRoute,
             });
 
             return /* HTML */ `
