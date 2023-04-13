@@ -34,6 +34,9 @@ export const inizializeApp = async () => {
     loadRoute({ route: 'home', removePrevious: false });
 };
 
+/**
+ * Load new route.
+ */
 export const loadRoute = async ({ route = 'home', removePrevious = true }) => {
     /**
      * Set before Change props
