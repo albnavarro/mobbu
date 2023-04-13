@@ -1,13 +1,8 @@
-import { componentStore } from '../../baseComponent/componentStore/store';
 import { createProps } from '../../baseComponent/mainStore/actions/props';
 import { addedData, addedData2, originalData, removeData } from './data';
 
 function logChildren(getChildren) {
     console.log(getChildren('TestComponent2'));
-}
-
-function debug() {
-    componentStore.debugStore();
 }
 
 function asyncTest() {
@@ -30,21 +25,18 @@ export const TestComponent = async ({
     repeat,
 }) => {
     onMount(({ element }) => {
-        const debugBtn = element.querySelector('.debug');
         const childrenBtn = element.querySelector('.children');
         const addEl = element.querySelector('.add');
         const addEl2 = element.querySelector('.add2');
         const removeEl = element.querySelector('.remove');
         setState('data', originalData);
 
-        debugBtn.addEventListener('click', debug);
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         addEl.addEventListener('click', () => setState('data', addedData));
         addEl2.addEventListener('click', () => setState('data', addedData2));
         removeEl.addEventListener('click', () => setState('data', removeData));
 
         return () => {
-            debugBtn.removeEventListener('click', debug);
             element.remove();
         };
     });
@@ -65,7 +57,6 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn remove">remove</button>
             </div>
             <div class="c-test-comp__top">
-                <button class="c-test-comp__btn debug">debug</button>
                 <button class="c-test-comp__btn children">Children</button>
             </div>
             <TestComponent2
@@ -78,10 +69,12 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
+                    // eslint-disable-next-line no-unused-vars
                     props: ({ current, index }) => {
                         // console.log(index);
                         return { label: () => current.label };
                     },
+                    // eslint-disable-next-line no-unused-vars
                     updateState: ({ current, index, setChildState }) => {
                         // console.log(current);
                         setChildState('index', index);

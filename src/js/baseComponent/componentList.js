@@ -7,6 +7,7 @@ import { Navigation } from '../component/navigation/navigation';
 import { Header } from '../component/header/header';
 import { Footer } from '../component/footer/footer';
 import { NavigationButton } from '../component/navigation/navigationButton';
+import { DebugButton } from '../component/debug/debugButton';
 
 export const componentList = {
     Header: {
@@ -35,6 +36,10 @@ export const componentList = {
     },
     CodeButton: {
         componentFunction: CodeButton,
+        componentParams: {},
+    },
+    DebugButton: {
+        componentFunction: DebugButton,
         componentParams: {},
     },
     TestComponent: {

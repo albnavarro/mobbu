@@ -1,7 +1,9 @@
 export const Footer = ({ render }) => {
     return render(/* HTML */ `
         <footer class="l-footer">
-            <div class="l-footer__container">footer</div>
+            <div class="l-footer__container">
+                <slot data-slotname="debug"></slot>
+            </div>
         </footer>
     `);
 };
