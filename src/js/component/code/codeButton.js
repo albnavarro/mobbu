@@ -7,8 +7,9 @@ function onClick(event) {
     const target = event.currentTarget;
     const id = target.id;
     const props = getPropsById(id);
-    const { js, scss, html } = props;
-    console.log('props', js, scss, html);
+    const { js, scss, html, slotProps } = props;
+
+    console.log('props', js, scss, html, slotProps);
 }
 
 function addStyle({ style, element }) {

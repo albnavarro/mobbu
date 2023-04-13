@@ -48,7 +48,7 @@ export const convertToGenericElement = ({ component }) => {
     const key = baseProps?.key ?? null;
     delete baseProps.props;
     delete baseProps.component;
-    delete baseProps.propsFromSlot;
+    delete baseProps.propsfromslot;
     delete baseProps.runtime;
 
     return {

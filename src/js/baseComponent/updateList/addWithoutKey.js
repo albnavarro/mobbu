@@ -102,10 +102,17 @@ export const addWithoutKey = ({
 };
 
 /**
- * Remove component to store.
+ * Remove cancellable component to store.
  */
 export const removeCancellableComponentFromStore = () => {
-    // Call removeComponentFromStore for each component cacellable
+    const { instances } = componentStore.get();
+    const cancellableComponents = instances.filter(({ cancellable }) => {
+        return cancellable;
+    });
+
+    cancellableComponents.forEach(({ id }) => {
+        removeAndDestroyById({ id });
+    });
 };
 
 /**

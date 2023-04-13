@@ -21,4 +21,18 @@ export const mainStore = core.createStore({
         value: 0,
         type: Number,
     }),
+    activeRoute: () => ({
+        value: '',
+        type: String,
+    }),
+    beforeRouteChange: () => ({
+        value: '',
+        type: String,
+        skipEqual: false,
+    }),
+    atfterRouteChange: () => ({
+        value: '',
+        type: String,
+        skipEqual: false,
+    }),
 });

@@ -7,6 +7,7 @@ import {
     incrementParserCounter,
     decrementParserCounter,
 } from './mainStore/actions/parser';
+import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { executeRepeat } from './mainStore/actions/repeat';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
 import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
@@ -105,7 +106,10 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
          * This is a additional level of security
          */
         const activeParser = decrementParserCounter();
-        if (!activeParser) removeOrphanComponent();
+        if (!activeParser) {
+            removeOrphansPropsFromParent();
+            removeOrphanComponent();
+        }
         return Promise.resolve();
     }
 

@@ -50,7 +50,7 @@ export const TestComponent2 = async ({
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"
-                data-props="${createProps({ slotProps: 1 })}"
+                data-props="${createProps({ slotProps: 'slot props' })}"
             ></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle

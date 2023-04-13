@@ -9,11 +9,13 @@ export const removeAndDestroyById = ({ id = null }) => {
     if (!id) return;
 
     const { instances } = componentStore.get();
-    const { component: componentName, element } = instances.find(
-        ({ id: currentId }) => {
+
+    const { component: componentName, element } =
+        instances.find(({ id: currentId }) => {
             return currentId === id;
-        }
-    );
+        }) || {};
+
+    if (!element) return;
 
     /**
      * Destroy all component nested.

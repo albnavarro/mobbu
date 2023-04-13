@@ -1,7 +1,12 @@
+import { loadRoute } from '../../route';
+import { navigationStore } from './navStore';
+
 export const NavigationButton = ({ props, render, onMount }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => {
-            console.log(url);
+            loadRoute({ route: url });
+            navigationStore.set('navigationIsOpen', false);
+            navigationStore.emit('closeNavigation');
         });
     });
 

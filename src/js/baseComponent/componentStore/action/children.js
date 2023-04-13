@@ -31,6 +31,7 @@ export const updateChildrenOrder = ({ id, component }) => {
      * Get element
      */
     const element = getElementById({ id });
+    if (!element) return;
 
     /**
      * Get id af all component inside
