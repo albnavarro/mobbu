@@ -1,4 +1,4 @@
-import { navigationStore } from '../navigation/navStore';
+import { navigationStore } from '../navigation/store/navStore';
 
 function addHandler({ button }) {
     // Toggle button

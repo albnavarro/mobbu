@@ -1,4 +1,4 @@
-import { navigationStore } from './navStore';
+import { navigationStore } from './store/navStore';
 
 function closeNavigation({ element, main }) {
     element.classList.remove('active');

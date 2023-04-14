@@ -1,4 +1,4 @@
-import { navigationStore } from './navStore';
+import { navigationStore } from './store/navStore';
 
 export const NavigationButton = ({ props, render, onMount }) => {
     const {

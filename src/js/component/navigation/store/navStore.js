@@ -1,4 +1,4 @@
-import { core } from '../../mobbu';
+import { core } from '../../../mobbu';
 
 /**
  * Navigation store utils.
