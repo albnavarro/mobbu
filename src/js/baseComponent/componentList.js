@@ -65,7 +65,7 @@ export const componentList = {
                     value: -1,
                     type: Number,
                 }),
-                isRed: false,
+                isBlack: false,
             },
         },
     },

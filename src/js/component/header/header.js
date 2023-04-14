@@ -47,7 +47,7 @@ export const Header = ({ render, onMount }) => {
                     </div>
                 </div>
                 <div class="l-header__navinfo">
-                    <p class="p--small">Drag or Scroll</p>
+                    <p class="p--small"></p>
                     <CodeButton
                         data-js="/js"
                         data-scss="/scss"

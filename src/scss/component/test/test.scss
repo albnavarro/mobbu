@@ -26,8 +26,8 @@
 
     &__btn {
         flex: 1;
-        background: $grey;
-        border: 0;
+        background: transparent;
+        border: 1px $grey solid;
     }
 
     &__inner {
@@ -35,12 +35,12 @@
         padding: rem(10);
         text-align: left;
         font-size: rem(14);
-        background: $grey;
         line-height: 1.4;
         margin-bottom: 2px;
+        border: 1px $grey solid;
 
-        &.is-red {
-            background: red;
+        &.is-black {
+            background: $grey;
         }
 
         &__btn {
