@@ -7,4 +7,9 @@
     border: 0;
     padding: 0;
     margin: 0;
+
+    &--primary {
+        background: rgba($grey, 0.8);
+        padding: rem(5);
+    }
 }

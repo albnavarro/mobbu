@@ -55,7 +55,9 @@ export const TestComponent2 = async ({
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>
-            <Codebutton></Codebutton>
+            <Codebutton data-props="${createProps({ style: 'primary' })}">
+                code bnt
+            </Codebutton>
         </div>
     `);
 };

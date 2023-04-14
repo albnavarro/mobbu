@@ -118,6 +118,7 @@ export const TestComponent = async ({
                         js: 'test-js',
                         scss: 'test-scss',
                         html: 'test-html',
+                        style: 'primary',
                     })}"
                 >
                     slot
