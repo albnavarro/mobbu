@@ -1,7 +1,7 @@
 @use '../vars' as *;
 @use '../abstract' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700;900&display=swap');
 
 /*
  * -- BASE STYLES --
@@ -9,9 +9,9 @@
  */
 html {
     line-height: 1.7em;
-    color: $primary;
+    color: $black;
     height: 100%;
-    font-family: Inter, sans-serif;
+    font-family: Cormorant Garamond, sans-serif;
 
     @include font-size-map;
 }
@@ -59,7 +59,7 @@ p {
 
 .p {
     &--small {
-        font-size: rem(14);
+        font-size: rem(18);
     }
 }
 

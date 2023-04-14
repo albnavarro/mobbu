@@ -19,20 +19,25 @@
     &__top,
     &__list {
         display: flex;
+        gap: 2px;
         width: 100%;
+        margin-bottom: 2px;
     }
 
     &__btn {
         flex: 1;
+        background: $grey;
+        border: 0;
     }
 
     &__inner {
         flex: 1;
         padding: rem(10);
         text-align: left;
-        border: 1px $black solid;
         font-size: rem(14);
+        background: $grey;
         line-height: 1.4;
+        margin-bottom: 2px;
 
         &.is-red {
             background: red;

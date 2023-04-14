@@ -18,7 +18,7 @@
     right: 0;
     background: $white;
     color: $black;
-    border-bottom: 1px $black solid;
+    border-bottom: 1px $grey solid;
     z-index: 11;
 
     &__grid {
@@ -57,7 +57,7 @@
             top: 0;
             height: var(--header-navinfo);
             width: rem(40);
-            background: rgba($primary, 0.8);
+            background: rgba($grey, 0.8);
             transform: translateX(-100%);
             transition: transform 1s;
         }
@@ -76,7 +76,7 @@
     }
 
     &__title {
-        color: $primary;
+        color: $grey;
         display: inline-block;
         grid-area: title;
         padding-left: rem(20);
@@ -96,8 +96,7 @@
         }
 
         &__link {
-            color: $primary;
-            font-size: rem(14);
+            color: $grey;
 
             @include mq.mq(desktop) {
                 margin: 0 rem(10);

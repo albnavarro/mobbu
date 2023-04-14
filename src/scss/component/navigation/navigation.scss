@@ -13,17 +13,16 @@
 
     &__list {
         list-style-type: none;
-        padding-left: 0;
         margin-top: 0;
+        padding: rem(30);
     }
 
     &__item {
-        border-bottom: 1px $secondary solid;
+        border-bottom: 1px $grey solid;
     }
 
     &__link {
         text-decoration: none;
-        font-size: rem(14);
         padding: rem(5) rem(20);
         display: block;
         color: $black;
@@ -32,12 +31,7 @@
         text-align: left;
         position: relative;
         border: 0;
-        background: $secondary-light-1;
-
-        &:hover,
-        &.active {
-            background: $secondary;
-        }
+        background: transparent;
 
         &--arrow {
             &::after {
@@ -46,10 +40,10 @@
                 right: rem(20);
                 top: 50%;
                 transform: translateY(-50%) rotate(45deg);
-                width: rem(10);
-                height: rem(10);
-                border-bottom: 2px $black solid;
-                border-right: 2px $black solid;
+                width: rem(5);
+                height: rem(5);
+                border-bottom: 1px $black solid;
+                border-right: 1px $black solid;
                 transition: border-color 0.55s, transform 0.35s;
             }
 
@@ -63,10 +57,10 @@
         &--submenu {
             padding-left: rem(30);
             position: relative;
-            background: $secondary;
+            background: $grey;
 
             &:hover {
-                background: rgba($secondary, 0.3);
+                background: rgba($grey, 0.3);
             }
         }
     }
@@ -74,13 +68,15 @@
     &__submenu {
         list-style-type: none;
         padding: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
         background: rgba($white, 0.2);
 
         &__item {
-            border-bottom: 1px $secondary-light-1 solid;
+            border-bottom: 1px $grey solid;
 
             &:first-of-type {
-                border-top: 1px $secondary-light-1 solid;
+                border-top: 1px $grey solid;
             }
 
             &:last-of-type {

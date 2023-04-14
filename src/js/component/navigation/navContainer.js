@@ -51,6 +51,12 @@ export const NavigationContainer = ({ render, onMount }) => {
                 <button class="l-navcontainer__totop"></button>
             </div>
             <div class="l-navcontainer__wrap">
+                <span class="l-navcontainer__angles">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
                 <div class="l-navcontainer__scroll">
                     <Navigation></Navigation>
                 </div>

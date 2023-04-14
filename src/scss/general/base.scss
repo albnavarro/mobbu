@@ -14,7 +14,7 @@
 :root {
     --header-height: #{rem(80)};
     --header-navinfo: #{rem(40)};
-    --footer-height: #{rem(80)};
+    --footer-height: #{rem(40)};
     --nav-width: 100vw;
 
     @include mq.mq(tablet) {

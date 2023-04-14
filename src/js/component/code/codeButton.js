@@ -35,9 +35,5 @@ export const CodeButton = ({ props, render, onMount }) => {
         };
     });
 
-    return render(/* HTML */ `
-        <button class="c-code-btn">
-            <span><></span>
-        </button>
-    `);
+    return render(/* HTML */ ` <button class="c-code-btn"></button> `);
 };
