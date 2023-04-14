@@ -3,14 +3,16 @@ import { mainStore } from '../baseComponent/mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../baseComponent/updateList/addWithoutKey';
 import { navAccordion } from '../component/navigation/navAccordion';
 import { navigationScoller } from '../component/navigation/navScroller';
-import { reouteList } from './routeList';
+import { routeList } from './routeList';
+import { router } from './router';
+import { debugRoute } from './test';
 
 const root = document.querySelector('#content');
 let commonData = {};
 export const getCommonData = () => commonData;
 
 /**
- * Load commen data.
+ * Load common data.
  */
 const loadData = async () => {
     const data = await fetch(`../data/common.json`)
@@ -27,17 +29,30 @@ const loadData = async () => {
  */
 export const inizializeApp = async () => {
     commonData = await loadData();
+
+    /**
+     * Render common layout component.
+     * Inizialize js on common layout component.
+     */
     await parseComponents({ element: document.body });
     navAccordion();
     navigationScoller();
 
-    loadRoute({ route: 'home', removePrevious: false });
+    /**
+     * Debug
+     */
+    debugRoute();
+
+    /**
+     * Start router.
+     */
+    router();
 };
 
 /**
  * Load new route.
  */
-export const loadRoute = async ({ route = 'home', removePrevious = true }) => {
+export const loadRoute = async ({ route = '', removePrevious = true }) => {
     /**
      * Set before Change props
      */
@@ -62,7 +77,7 @@ export const loadRoute = async ({ route = 'home', removePrevious = true }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
-    const content = reouteList?.[route]?.({ root });
+    const content = routeList?.[route]?.({ root });
     root.innerHTML = '';
     root.insertAdjacentHTML('afterbegin', content);
 
@@ -81,22 +96,3 @@ export const loadRoute = async ({ route = 'home', removePrevious = true }) => {
      */
     unWatchRouteChange?.();
 };
-
-/**
- * Some event test.
- */
-mainStore.watch('beforeRouteChange', (current, previous) => {
-    console.log('----------------');
-    console.log('before route change:');
-    console.log(`previous:`, previous);
-    console.log(`current:`, current);
-});
-
-mainStore.watch('activeRoute', (current) => {
-    console.log(`active route:`, current);
-});
-
-mainStore.watch('atfterRouteChange', (current) => {
-    console.log(`after route change`, current);
-    console.log('----------------');
-});

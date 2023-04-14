@@ -1,4 +1,3 @@
-import { loadRoute } from '../../route';
 import { navigationStore } from './navStore';
 
 export const NavigationButton = ({ props, render, onMount }) => {
@@ -14,7 +13,7 @@ export const NavigationButton = ({ props, render, onMount }) => {
         element.addEventListener('click', () => {
             if (!fireRoute) return;
 
-            loadRoute({ route: url });
+            window.location.hash = url;
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
         });
