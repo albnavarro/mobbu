@@ -13,5 +13,5 @@ export const routeList = {
 
 export const getRouteModule = ({ url = '' }) => {
     if (url === '') return 'home';
-    return routeList[url] ? url : 'pageNotFound';
+    return url in routeList ? url : 'pageNotFound';
 };
