@@ -9,6 +9,8 @@ export const codeButtonComponentDef = {
                 js: '',
                 scss: '',
                 html: '',
+                // only test
+                slotProps: 'no slot prop',
             },
         },
     },
