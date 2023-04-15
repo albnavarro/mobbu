@@ -5,6 +5,9 @@ export const testComponentDef = {
     TestComponent: {
         componentFunction: TestComponent,
         componentParams: {
+            props: {
+                title: '',
+            },
             state: {
                 counter: () => ({
                     value: 2,
@@ -20,6 +23,9 @@ export const testComponentDef = {
     TestComponent2: {
         componentFunction: TestComponent2,
         componentParams: {
+            props: {
+                label: () => {},
+            },
             state: {
                 index: () => ({
                     value: -1,

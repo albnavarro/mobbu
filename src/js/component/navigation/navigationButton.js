@@ -1,13 +1,7 @@
 import { navigationStore } from './store/navStore';
 
 export const NavigationButton = ({ props, render, onMount }) => {
-    const {
-        label = '',
-        url = '#',
-        arrowClass = '',
-        subMenuClass = '',
-        fireRoute = true,
-    } = props;
+    const { label, url, arrowClass, subMenuClass, fireRoute } = props;
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {

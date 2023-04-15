@@ -43,7 +43,7 @@ export const Header = ({ render, onMount }) => {
                         <a href="#"> title </a>
                     </div>
                     <div class="l-header__utils">
-                        <Headernav data-json="header"></Headernav>
+                        <Headernav></Headernav>
                     </div>
                 </div>
                 <div class="l-header__navinfo">

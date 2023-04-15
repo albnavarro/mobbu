@@ -5,14 +5,26 @@ import { NavigationButton } from './navigationButton';
 export const navigationComponentDef = {
     NavigationContainer: {
         componentFunction: NavigationContainer,
-        componentParams: {},
+        componentParams: {
+            props: {},
+        },
     },
     Navigation: {
         componentFunction: Navigation,
-        componentParams: {},
+        componentParams: {
+            props: {},
+        },
     },
     NavigationButton: {
         componentFunction: NavigationButton,
-        componentParams: {},
+        componentParams: {
+            props: {
+                label: '',
+                url: '#',
+                arrowClass: '',
+                subMenuClass: '',
+                fireRoute: true,
+            },
+        },
     },
 };

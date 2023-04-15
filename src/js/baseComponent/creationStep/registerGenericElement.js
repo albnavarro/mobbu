@@ -14,14 +14,24 @@ import { convertToGenericElement } from './convertToGenericElement';
 /**
  * Create component
  */
-export const registerGenericElement = ({ component = null, state = {} }) => {
+export const registerGenericElement = ({
+    component = null,
+    state = {},
+    props = {},
+}) => {
     /**
      * Create basic DOM element
      */
-    const { placeholderElement, props, id, componentName, key } =
-        convertToGenericElement({
-            component,
-        });
+    const {
+        placeholderElement,
+        props: propsUpdated,
+        id,
+        componentName,
+        key,
+    } = convertToGenericElement({
+        component,
+        defaultProps: props,
+    });
 
     /**
      * Register component to store
@@ -29,7 +39,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
     const { getState, setState, emit, computed, watch } = registerComponent({
         component,
         placeholderElement,
-        props,
+        props: propsUpdated,
         state,
         destroy: () => {},
         id,
@@ -54,7 +64,7 @@ export const registerGenericElement = ({ component = null, state = {} }) => {
         key,
         id,
         placeholderElement,
-        props,
+        props: propsUpdated,
         getState,
         setState,
         emit,

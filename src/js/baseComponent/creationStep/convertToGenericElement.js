@@ -1,11 +1,12 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import { IS_COMPONENT, PROPS_FROM_SLOT } from '../utils';
+import { propsValidate } from './utils';
 
 /**
  *  Create base DOM component from component tag.
  */
-export const convertToGenericElement = ({ component }) => {
+export const convertToGenericElement = ({ component, defaultProps }) => {
     const parentNode = component.parentNode;
     const prevContent = component.innerHTML;
     const newComponent = document.createElement('div');
@@ -51,9 +52,18 @@ export const convertToGenericElement = ({ component }) => {
     delete baseProps.propsfromslot;
     delete baseProps.runtime;
 
+    propsValidate({ componentName, defaultProps, props: baseProps });
+    propsValidate({ componentName, defaultProps, props: propsFromParent });
+    propsValidate({ componentName, defaultProps, props: propsFromSlot });
+
     return {
         placeholderElement,
-        props: { ...baseProps, ...propsFromParent, ...propsFromSlot },
+        props: {
+            ...defaultProps,
+            ...baseProps,
+            ...propsFromParent,
+            ...propsFromSlot,
+        },
         id,
         componentName,
         key,

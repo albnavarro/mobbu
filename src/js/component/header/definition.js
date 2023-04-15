@@ -4,10 +4,14 @@ import { Headernav } from './headernav';
 export const headerComponentDef = {
     Header: {
         componentFunction: Header,
-        componentParams: {},
+        componentParams: {
+            props: {},
+        },
     },
     Headernav: {
         componentFunction: Headernav,
-        componentParams: {},
+        componentParams: {
+            props: {},
+        },
     },
 };

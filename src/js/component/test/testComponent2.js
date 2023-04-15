@@ -19,7 +19,7 @@ export const TestComponent2 = async ({
     key,
     // watchParent,
 }) => {
-    const { label = () => {} } = props;
+    const { label } = props;
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
