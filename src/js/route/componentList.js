@@ -1,4 +1,4 @@
-import { codeButtonComponentDef } from '../component/common/code/definition';
+import { codeButtonComponentDef } from '../component/common/codeButton/definition';
 import { degubButtonComponentDef } from '../component/common/debug/definition';
 import { footerComponentDef } from '../component/layout/footer/definition';
 import { headerComponentDef } from '../component/layout/header/definition';
