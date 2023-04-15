@@ -20,3 +20,10 @@ export const decrementParserCounter = () => {
     const { activeParser } = mainStore.get();
     return activeParser;
 };
+
+/**
+ * reset paresercounter;
+ */
+export const resetParserCounter = () => {
+    mainStore.set('activeParser', 0);
+};

@@ -1,4 +1,6 @@
 import { parseComponents } from '../baseComponent/componentParse';
+import { resetParserCounter } from '../baseComponent/mainStore/actions/parser';
+import { removeOrphansPropsFromParent } from '../baseComponent/mainStore/actions/props';
 import { mainStore } from '../baseComponent/mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../baseComponent/updateList/addWithoutKey';
 import { navAccordion } from '../component/layout/navigation/animation/navAccordion';
@@ -80,6 +82,12 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     const content = routeList?.[route]?.({ root });
     root.innerHTML = '';
     root.insertAdjacentHTML('afterbegin', content);
+
+    /**
+     * Remove props reference.
+     * Async loading and iterrupt can leave rubbish.
+     */
+    removeOrphansPropsFromParent();
 
     /**
      * Wait for all render.
