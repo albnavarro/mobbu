@@ -36,6 +36,7 @@ export const Header = ({ render, onMount }) => {
 
     return render(/* HTML */ `
         <header class="l-header">
+            <CodeOverlay> </CodeOverlay>
             <div class="l-header__container">
                 <div class="l-header__grid">
                     <button type="button" class="l-header__toggle"></button>

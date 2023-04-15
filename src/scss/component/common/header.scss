@@ -96,7 +96,7 @@
         }
 
         &__link {
-            color: $grey;
+            color: $black;
 
             @include mq.mq(desktop) {
                 margin: 0 rem(10);

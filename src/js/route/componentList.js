@@ -1,4 +1,5 @@
 import { codeButtonComponentDef } from '../component/common/codeButton/definition';
+import { codeOverlayComponentDef } from '../component/common/codeOverlay/definition';
 import { degubButtonComponentDef } from '../component/common/debug/definition';
 import { footerComponentDef } from '../component/layout/footer/definition';
 import { headerComponentDef } from '../component/layout/header/definition';
@@ -10,6 +11,7 @@ export const componentList = {
     ...footerComponentDef,
     ...navigationComponentDef,
     ...codeButtonComponentDef,
+    ...codeOverlayComponentDef,
     ...degubButtonComponentDef,
     ...testComponentDef,
 };
