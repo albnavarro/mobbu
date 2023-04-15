@@ -1,5 +1,82 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
 .code-overlay {
     position: fixed;
     top: 0;
     right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.55s, opacity 0.55s;
+    pointer-events: none;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    &__background {
+        background: rgba($white, 0.9);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - var(--footer-height));
+        cursor: pointer;
+    }
+
+    &__wrap {
+        width: 100%;
+        max-width: rem(900);
+        background: $white;
+        position: relative;
+        transform: translateX(100%);
+        transition: transform 0.55s;
+
+        @include when-inside('.active') {
+            transform: translateX(0);
+        }
+    }
+
+    &__header {
+        display: flex;
+        width: 100%;
+    }
+
+    &__close {
+        height: var(--header-height);
+        width: var(--header-height);
+        background: $black;
+        border: 0;
+    }
+
+    &__button {
+        flex: 1;
+        width: 100%;
+        height: var(--header-height);
+        margin: 0;
+        border: 1px $black solid;
+        background: $white;
+        color: $black;
+
+        &.active {
+            background: $black;
+            color: $white;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        border: 1px $black solid;
+        background: $black;
+        color: $white;
+        padding: rem(20);
+    }
 }

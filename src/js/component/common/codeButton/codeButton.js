@@ -1,28 +1,21 @@
-import { getPropsById } from '../../../baseComponent/componentStore/action/props';
-
-/**
- * On click function.
- */
-function onClick(event) {
-    const target = event.currentTarget;
-    const id = target.id;
-    const props = getPropsById(id);
-    const { js, scss, html, slotProps } = props;
-
-    console.log('props', js, scss, html, slotProps);
-}
+import { setStateById } from '../../../baseComponent/componentStore/action/state';
 
 /**
  * Create component
  */
 export const CodeButton = ({ props, render, onMount }) => {
-    const { style } = props;
+    const { style, js, scss, html } = props;
 
     onMount(({ element }) => {
-        element.addEventListener('click', onClick);
+        element.addEventListener('click', () => {
+            const overlayCode = document.querySelector('.js-overlay');
+            setStateById(overlayCode.id, 'js', js);
+            setStateById(overlayCode.id, 'scss', scss);
+            setStateById(overlayCode.id, 'html', html);
+            setStateById(overlayCode.id, 'isOpen', true);
+        });
 
         return () => {
-            element.removeEventListener('click', onClick);
             element.remove();
         };
     });
