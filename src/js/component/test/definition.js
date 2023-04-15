@@ -31,7 +31,7 @@ export const testComponentDef = {
                     value: -1,
                     type: Number,
                 }),
-                isBlack: false,
+                isSelected: false,
             },
         },
     },

@@ -24,8 +24,8 @@ export const TestComponent2 = async ({
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
         const button = element.querySelector('button');
-        button.addEventListener('click', () => emit('isBlack'));
-        watch('isBlack', () => element.classList.toggle('is-black'));
+        button.addEventListener('click', () => emit('isSelected'));
+        watch('isSelected', () => element.classList.toggle('is-selected'));
         watch('index', (value) => {
             counterEl.textContent = value;
         });
