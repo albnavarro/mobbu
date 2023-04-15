@@ -1,4 +1,4 @@
-import { componentList } from './componentList';
+import { componentList } from '../route/componentList';
 import { setElementById } from './componentStore/action/element';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
