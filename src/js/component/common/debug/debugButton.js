@@ -1,5 +1,5 @@
-import { componentStore } from '../../baseComponent/componentStore/store';
-import { mainStore } from '../../baseComponent/mainStore/mainStore';
+import { componentStore } from '../../../baseComponent/componentStore/store';
+import { mainStore } from '../../../baseComponent/mainStore/mainStore';
 
 export const DebugButton = ({ render, onMount }) => {
     onMount(({ element }) => {

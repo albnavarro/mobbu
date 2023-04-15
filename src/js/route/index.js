@@ -1,8 +1,8 @@
 import { parseComponents } from '../baseComponent/componentParse';
 import { mainStore } from '../baseComponent/mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../baseComponent/updateList/addWithoutKey';
-import { navAccordion } from '../component/navigation/animation/navAccordion';
-import { navigationScoller } from '../component/navigation/animation/navScroller';
+import { navAccordion } from '../component/layout/navigation/animation/navAccordion';
+import { navigationScoller } from '../component/layout/navigation/animation/navScroller';
 import { routeList } from './routeList';
 import { router } from './router';
 import { debugRoute } from './test';

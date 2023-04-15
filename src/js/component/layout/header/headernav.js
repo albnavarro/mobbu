@@ -1,4 +1,4 @@
-import { getCommonData } from '../../route';
+import { getCommonData } from '../../../route';
 
 function additems() {
     const { header } = getCommonData();

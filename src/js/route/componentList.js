@@ -1,9 +1,9 @@
-import { headerComponentDef } from '../component/header/definition';
-import { footerComponentDef } from '../component/footer/definition';
-import { codeButtonComponentDef } from '../component/code/definition';
-import { degubButtonComponentDef } from '../component/debug/definition';
-import { navigationComponentDef } from '../component/navigation/definition';
-import { testComponentDef } from '../component/test/definition';
+import { codeButtonComponentDef } from '../component/common/code/definition';
+import { degubButtonComponentDef } from '../component/common/debug/definition';
+import { footerComponentDef } from '../component/layout/footer/definition';
+import { headerComponentDef } from '../component/layout/header/definition';
+import { navigationComponentDef } from '../component/layout/navigation/definition';
+import { testComponentDef } from '../component/pages/test/definition';
 
 export const componentList = {
     ...headerComponentDef,

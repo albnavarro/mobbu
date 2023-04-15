@@ -1,4 +1,4 @@
-import { createProps } from '../../baseComponent/mainStore/actions/props';
+import { createProps } from '../../../baseComponent/mainStore/actions/props';
 
 function asyncTest() {
     return new Promise((resolve) => {
