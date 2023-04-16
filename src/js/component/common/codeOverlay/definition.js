@@ -26,6 +26,7 @@ export const codeOverlayComponentDef = {
                 activeContent: () => ({
                     value: '',
                     type: String,
+                    skipEqual: false,
                     validate: (val) => {
                         return [...validContent, ''].includes(val);
                     },

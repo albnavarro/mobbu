@@ -9,10 +9,10 @@ export const CodeButton = ({ props, render, onMount }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => {
             const overlayCode = document.querySelector('.js-overlay');
-            setStateById(overlayCode.id, 'activeContent', '');
             setStateById(overlayCode.id, 'js', js);
             setStateById(overlayCode.id, 'scss', scss);
             setStateById(overlayCode.id, 'html', html);
+            setStateById(overlayCode.id, 'activeContent', 'js');
             setStateById(overlayCode.id, 'isOpen', true);
         });
 
