@@ -13,12 +13,12 @@ const getButtons = ({ contents, setState }) => {
         .join('');
 };
 
-const printContent = ({ getState, contentEl, currentUrl }) => {
+const printContent = ({ getState, contentEl, currentKey }) => {
     const states = getState();
 
     // Arrivera un url per fare il fetch async awwait e print il fetch
-    // url in states[currentUrl]
-    contentEl.textContent = states[currentUrl];
+    // url in states[currentKey]
+    contentEl.textContent = states[currentKey];
 };
 
 export const CodeOverlay = ({
@@ -40,13 +40,13 @@ export const CodeOverlay = ({
          * Print default content (js)
          */
         const { activeContent } = getState();
-        printContent({ getState, contentEl, currentUrl: activeContent });
+        printContent({ getState, contentEl, currentKey: activeContent });
 
         /**
          * Watch content change, and update content.
          */
-        const unWatchActiveContent = watch('activeContent', (currentUrl) =>
-            printContent({ getState, contentEl, currentUrl })
+        const unWatchActiveContent = watch('activeContent', (currentKey) =>
+            printContent({ getState, contentEl, currentKey })
         );
 
         /**
