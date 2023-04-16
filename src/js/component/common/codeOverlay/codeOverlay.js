@@ -1,4 +1,5 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { overlayScroller } from './animation/overlayScroller';
 
 const getButtons = ({ contents, setState }) => {
     return contents
@@ -13,12 +14,28 @@ const getButtons = ({ contents, setState }) => {
         .join('');
 };
 
-const printContent = ({ getState, contentEl, currentKey }) => {
-    const states = getState();
+/**
+ * Load common data.
+ */
+const loadContent = async ({ url }) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+        return `${url} not found`;
+    }
+    const data = await response.text();
+    return data;
+};
 
-    // Arrivera un url per fare il fetch async awwait e print il fetch
-    // url in states[currentKey]
-    contentEl.textContent = states[currentKey];
+const printContent = async ({
+    getState,
+    contentEl,
+    currentKey,
+    updateScroller,
+}) => {
+    const states = getState();
+    const data = await loadContent({ url: states[currentKey] });
+    contentEl.textContent = data;
+    updateScroller();
 };
 
 export const CodeOverlay = ({
@@ -32,21 +49,32 @@ export const CodeOverlay = ({
     const { contents } = props;
 
     onMount(({ element }) => {
+        const screenEl = element.querySelector('.js-overlay-screen');
         const contentEl = element.querySelector('.js-overlay-content');
         const closebtn = element.querySelector('.js-overlay-close');
         const background = element.querySelector('.js-overlay-background');
+
+        const updateScroller = overlayScroller({
+            screen: screenEl,
+            scroller: contentEl,
+        });
 
         /**
          * Print default content (js)
          */
         const { activeContent } = getState();
-        printContent({ getState, contentEl, currentKey: activeContent });
+        printContent({
+            getState,
+            contentEl,
+            currentKey: activeContent,
+            updateScroller,
+        });
 
         /**
          * Watch content change, and update content.
          */
         const unWatchActiveContent = watch('activeContent', (currentKey) =>
-            printContent({ getState, contentEl, currentKey })
+            printContent({ getState, contentEl, currentKey, updateScroller })
         );
 
         /**
@@ -84,7 +112,11 @@ export const CodeOverlay = ({
                     ></button>
                     ${getButtons({ contents, setState })}
                 </div>
-                <div class="code-overlay__content js-overlay-content"></div>
+                <div class="code-overlay__content js-overlay-screen">
+                    <code>
+                        <pre class="js-overlay-content"></pre>
+                    </code>
+                </div>
             </div>
         </div>
     `);

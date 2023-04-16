@@ -50,9 +50,9 @@ export const Header = ({ render, onMount }) => {
                 <div class="l-header__navinfo">
                     <p class="p--small"></p>
                     <CodeButton
-                        data-js="/js"
-                        data-scss="/scss"
-                        data-html="/html1"
+                        data-js="/codeExample/layout/navigation/script.js"
+                        data-scss=""
+                        data-html=""
                         data-style="primary"
                     >
                     </CodeButton>
