@@ -1,5 +1,9 @@
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { overlayScroller } from './animation/overlayScroller';
+
+hljs.registerLanguage('javascript', javascript);
 
 const getButtons = ({ contents, setState }) => {
     return contents
@@ -35,6 +39,7 @@ const printContent = async ({
     const states = getState();
     const data = await loadContent({ url: states[currentKey] });
     contentEl.textContent = data;
+    hljs.highlightElement(contentEl);
     updateScroller();
 };
 
