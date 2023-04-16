@@ -1,14 +1,14 @@
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 
-const validContent = ['js', 'scss', 'html', ''];
+const validContent = ['js', 'scss', 'html'];
 
 export const codeOverlayComponentDef = {
     CodeOverlay: {
         componentFunction: CodeOverlay,
         componentParams: {
             props: {
-                contents: validContent,
+                contents: [...validContent],
             },
             state: {
                 js: () => ({
@@ -27,7 +27,7 @@ export const codeOverlayComponentDef = {
                     value: '',
                     type: String,
                     validate: (val) => {
-                        return validContent.includes(val);
+                        return [...validContent, ''].includes(val);
                     },
                 }),
                 isOpen: () => ({

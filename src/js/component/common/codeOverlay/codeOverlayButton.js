@@ -4,16 +4,35 @@ export const CodeOverlayButton = ({ render, onMount, props, watchParent }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => callback());
 
-        const unWatchParent = watchParent('activeContent', (activeKey) => {
-            if (activeKey === key) {
-                element.classList.add('active');
-            } else {
+        /**
+         * Check if active drawer is itself.
+         */
+        const unWatchParentActiveContent = watchParent(
+            'activeContent',
+            (parentActiveKey) => {
+                if (parentActiveKey === key) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            }
+        );
+
+        /**
+         * Check if button is cliccable ( drawer has content )
+         */
+        const unWatchParentKey = watchParent(key, (value) => {
+            if (value && value !== '') {
+                element.classList.remove('disable');
                 element.classList.remove('active');
+            } else {
+                element.classList.add('disable');
             }
         });
 
         return () => {
-            unWatchParent();
+            unWatchParentActiveContent();
+            unWatchParentKey();
         };
     });
 
