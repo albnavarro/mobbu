@@ -22,7 +22,7 @@ export const CodeOverlayButton = ({ render, onMount, props, watchParent }) => {
          * Check if button is cliccable ( drawer has content )
          */
         const unWatchParentKey = watchParent(key, (value) => {
-            if (value && value !== '') {
+            if (value && value.length) {
                 element.classList.remove('disable');
                 element.classList.remove('active');
             } else {
