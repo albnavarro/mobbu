@@ -69,7 +69,7 @@ return `<span data-repeatid="${currentRepeatId}" style="display:none;"/>`;
 
 ## 4) coponentParse.js
 
--   Esegue un querySelector all' interno dell' elemento corrente alla ricerca dei placeholder (data-repeatid) e rispettivo id, e recupera il parentNode.
+-   Esegue un querySelector all' interno dell' elemento corrente alla ricerca dei placeholder (data-repeatid) e rispettivo id, e recupera il parentNode ( qui il componente é giá stato renderizzato ).
 -   Cicla l'array di id univoci di repeater ritornati dal componente e per ogni occorrenza lancia la funzione executeRepeat() pasandogli, id e un oggetto con tutti i dati di ogni sigola lista che saranno poi filtrati.
 
 ```js
