@@ -1,7 +1,6 @@
-import { scroller, tween } from '../../../../mobbu';
-import { SmoothScroller } from '../../../../mobbu/plugin';
-import { outerHeight } from '../../../../mobbu/utils/vanillaFunction';
-import { navigationStore } from '../store/navStore';
+import { scroller, tween } from 'path/mobbu';
+import { SmoothScroller } from 'path/mobbu/plugin';
+import { outerHeight } from 'path/mobbu/utils/vanillaFunction';
 
 export const navigationScoller = () => {
     const screenEl = document.querySelector('.l-navcontainer__wrap');
@@ -55,10 +54,7 @@ export const navigationScoller = () => {
         breackpoint: 'tablet',
         children: [...children],
         onUpdate: ({ percent }) => {
-            const { navigationIsOpen } = navigationStore.get();
-            if (!navigationIsOpen) return;
-
-            percentEl.style.transform = `scaleX(${parseInt(percent) / 100})`;
+            ...
         },
     });
 
