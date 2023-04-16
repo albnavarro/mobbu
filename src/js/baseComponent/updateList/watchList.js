@@ -22,6 +22,9 @@ export const watchList = ({
     key,
     id,
 }) => {
+    /**
+     * Watcher is destroyd with the component tahu implement list repeater.
+     */
     return watch(state, async (current, previous) => {
         if (!checkType(Array, current)) return;
 

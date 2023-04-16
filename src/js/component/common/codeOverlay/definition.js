@@ -1,7 +1,7 @@
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 
-const validContent = ['js', 'scss', 'html'];
+const validContent = ['js', 'scss', 'html', ''];
 
 export const codeOverlayComponentDef = {
     CodeOverlay: {
