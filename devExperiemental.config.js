@@ -15,6 +15,7 @@ const ctx = await esbuild.context({
     banner: {
         js: reload,
     },
+    loader: { '.svg': 'text' },
     plugins: [sassPlugin()],
     logLevel: 'info',
 });

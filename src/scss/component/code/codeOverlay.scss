@@ -54,10 +54,33 @@
     }
 
     &__close {
-        height: var(--header-height);
-        width: var(--header-height);
-        background: $black;
+        position: absolute;
+        top: calc(var(--header-height) + #{rem(10)});
+        right: rem(10);
+        z-index: 10;
+        height: rem(40);
+        width: rem(40);
         border: 0;
+        background: transparent;
+
+        &::after,
+        &::before {
+            content: '';
+            position: absolute;
+            width: rem(20);
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            background: $green;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(135deg);
+        }
     }
 
     &__button {
@@ -65,13 +88,16 @@
         width: 100%;
         height: var(--header-height);
         margin: 0;
-        border: 1px $black solid;
+        border: 0;
         background: $white;
-        color: $black;
+        color: $dark-green;
+
+        &:last-of-type {
+            border-right: 0;
+        }
 
         &.active {
-            background: $black;
-            color: $white;
+            background: $green;
         }
 
         &.disable {
@@ -83,8 +109,8 @@
     &__content {
         width: 100%;
         height: calc(100vh - var(--header-height));
-        border: 1px $black solid;
-        background: $black;
+        border: 1px $dark-green solid;
+        background: $dark-green;
         color: $white;
         line-height: 1.4;
         font-size: rem(15);

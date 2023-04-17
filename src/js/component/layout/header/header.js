@@ -53,7 +53,7 @@ export const Header = ({ render, onMount }) => {
                         data-js="/codeExample/layout/navigation/script.js"
                         data-scss=""
                         data-html=""
-                        data-style="primary"
+                        data-style="green"
                     >
                     </CodeButton>
                 </div>

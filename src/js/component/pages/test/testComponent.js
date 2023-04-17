@@ -121,7 +121,6 @@ export const TestComponent = async ({
                         style: 'primary',
                     })}"
                 >
-                    slot
                 </Codebutton>
             </TestComponent2>
         </div>

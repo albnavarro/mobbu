@@ -56,7 +56,6 @@ export const TestComponent2 = async ({
                 toggle
             </button>
             <Codebutton data-props="${createProps({ style: 'primary' })}">
-                code bnt
             </Codebutton>
         </div>
     `);

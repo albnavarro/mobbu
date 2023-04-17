@@ -1,4 +1,5 @@
 import { setStateById } from '../../../baseComponent/componentStore/action/state';
+import codeIcon from '../../../../svg/icon-code.svg';
 
 /**
  * Create component
@@ -21,7 +22,9 @@ export const CodeButton = ({ props, render, onMount }) => {
         };
     });
 
-    return render(
-        /* HTML */ ` <button class="c-code-btn c-code-btn--${style}"></button> `
-    );
+    return render(/* HTML */ `
+        <button class="c-code-btn c-code-btn--${style}">
+            <span class="c-code-btn__icon">${codeIcon}</span>
+        </button>
+    `);
 };

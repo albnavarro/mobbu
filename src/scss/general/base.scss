@@ -69,7 +69,8 @@ main {
 
 .container {
     margin: auto;
-    max-width: map.get($breakpoints, xxlarge);
+
+    // max-width: map.get($breakpoints, xxlarge);
 
     &--padding {
         padding: rem(20);

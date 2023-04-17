@@ -110,11 +110,11 @@ export const CodeOverlay = ({
         <div class="code-overlay js-overlay">
             <span class="code-overlay__background js-overlay-background"></span>
             <div class="code-overlay__wrap js-overlay-wrap">
+                <button
+                    type="button"
+                    class="code-overlay__close js-overlay-close"
+                ></button>
                 <div class="code-overlay__header">
-                    <button
-                        type="button"
-                        class="code-overlay__close js-overlay-close"
-                    ></button>
                     ${getButtons({ contents, setState })}
                 </div>
                 <div class="code-overlay__content js-overlay-screen">

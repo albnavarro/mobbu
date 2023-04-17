@@ -1,7 +1,9 @@
-$black: #1a1b26;
 $white: #fff;
+$black: #000;
 $grey: #eee;
 $orange: #ffb700;
+$green: #9ece6a;
+$dark-green: #1a1b26;
 $breakpoints: (
     'xsmall': 320px,
     'small': 360px,
@@ -18,8 +20,8 @@ $html-font-size: (
     'small': 16px,
     'medium': 16px,
     'tablet': 16px,
-    'desktop': 20px,
-    'large': 20px,
+    'desktop': 18px,
+    'large': 18px,
     'xlarge': 20px,
     'xxlarge': 22px,
 );
