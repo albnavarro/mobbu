@@ -23,7 +23,7 @@
 
     &__link {
         text-decoration: none;
-        padding: rem(5) rem(20);
+        padding: rem(10) rem(20);
         display: block;
         color: $dark-green;
         transition: background 0.35s, color 0.35s, border-color 0.35s;
@@ -58,10 +58,6 @@
             padding-left: rem(30);
             position: relative;
             background: $grey;
-
-            &:hover {
-                background: rgba($grey, 0.3);
-            }
         }
     }
 

@@ -1,7 +1,9 @@
 @use '../vars' as *;
 @use '../abstract' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Questrial:wght@300;400;700;900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;900&display=swap');
+
+@import 'https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;700;900&display=swap';
 
 /*
  * -- BASE STYLES --
@@ -11,7 +13,9 @@ html {
     line-height: 1.7em;
     color: $dark-green;
     height: 100%;
-    font-family: 'Questrial', sans-serif;
+
+    // font-family: Cormorant Garamond, sans-serif;
+    font-family: 'Hind Vadodara', sans-serif;
 
     @include font-size-map;
 }
@@ -69,5 +73,5 @@ a {
 
 pre,
 code {
-    font-size: rem(14);
+    font-size: rem(16);
 }

@@ -118,6 +118,7 @@
         padding: 0;
         margin: 0;
         transition: transform 0.55s;
+        width: calc(100% + 2px);
 
         @include when-inside('.active') {
             transform: translateY(0);
@@ -141,7 +142,7 @@
         left: 100%;
         top: 0;
         width: calc(100vw - var(--nav-width));
-        background: $dark-green;
+        background: $green;
         height: rem(10);
         transform-origin: left;
         transform: scaleX(0);

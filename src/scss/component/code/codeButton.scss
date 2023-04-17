@@ -9,12 +9,23 @@
     padding: rem(5);
     background: $dark-green;
     color: $white;
-    width: rem(35);
-    height: rem(35);
+    height: var(--header-navinfo);
+    width: rem(40);
+    transition: transform 0.55s, background 0.55s;
 
     &--green {
         background: $green;
     }
+
+    &:hover {
+        background: $black;
+    }
+
+    // &:hover {
+    //     .c-code-label {
+    //         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    //     }
+    // }
 
     &__icon {
         position: absolute;
@@ -30,4 +41,16 @@
             height: 100%;
         }
     }
+
+    // &__label {
+    //     position: absolute;
+    //     width: rem(120);
+    //     height: var(--header-navinfo);
+    //     line-height: var(--header-navinfo);
+    //     left: calc(100% - 1px);
+    //     top: 0;
+    //     background: $green;
+    //     clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    //     transition: clip-path 0.55s;
+    // }
 }
