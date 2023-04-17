@@ -22,12 +22,12 @@
     }
 
     &__background {
-        background: rgba($white, 0.9);
+        background: rgba($white, 0.95);
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: calc(100% - var(--footer-height));
+        height: 100%;
         cursor: pointer;
     }
 
