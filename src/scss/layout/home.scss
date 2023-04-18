@@ -3,28 +3,9 @@
 @use '../../../node_modules/sass-mq/mq';
 
 .l-index {
-    &__grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        column-gap: rem(20);
-
-        @include mq.mq(desktop) {
-            grid-template-columns: rem(300) 1fr;
-            align-items: flex-start;
-        }
-    }
-
-    &__content {
-        order: 1;
-
-        @include mq.mq(desktop) {
-            order: 2;
-            position: sticky;
-            top: calc(var(--header-height) + rem(20));
-            height: calc(
-                100vh - var(--header-height) - var(--footer-height) - rem(40)
-            );
-            overflow: hidden;
-        }
-    }
+    height: calc(100vh - var(--header-height) - #{rem(120)});
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

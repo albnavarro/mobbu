@@ -1,0 +1,22 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.l-index {
+    &__svg {
+        width: 500px;
+        height: 500px;
+        overflow: visible !important;
+
+        rect {
+            @for $i from 1 through 30 {
+                &:nth-of-type(#{$i}) {
+                    fill: none;
+                    fill: white;
+                    stroke-width: 0.1;
+                    opacity: #{$i * 0.05};
+                }
+            }
+        }
+    }
+}

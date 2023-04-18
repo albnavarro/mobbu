@@ -1,3 +1,5 @@
 export const homeModule = () => {
-    return /* HTML */ ` <div>home page</div> `;
+    return /* HTML */ `<div class="l-index">
+        <HomeAnimation></HomeAnimation>
+    </div>`;
 };
