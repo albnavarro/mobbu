@@ -5,12 +5,11 @@ export const homePageComponentDef = {
         componentFunction: HomeAnimation,
         componentParams: {
             props: {
-                amountOfPath: 30,
-                rx: 100,
+                amountOfPath: 40,
+                rx: 10,
                 viewBox: 100,
-                startColor: '#fff',
+                startColor: '#ccc',
                 endColor: '#1a1b26',
-                multiplier: 2.3,
             },
         },
     },
