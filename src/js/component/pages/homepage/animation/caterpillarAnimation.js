@@ -19,6 +19,9 @@ export const createCaterpillarAnimation = ({ rect }) => {
         ease: 'easeLinear',
     });
 
+    /**
+     * Subscribe rect to tween.
+     */
     [...rect].forEach((item, i) => {
         const unitInverse = rect.length - i;
         rectTween.subscribeCache(
