@@ -2,8 +2,14 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { overlayScroller } from './animation/overlayScroller';
+import copyIcon from '../../../../svg/icon-copy.svg';
 
 hljs.registerLanguage('javascript', javascript);
+
+const copyToClipboard = ({ getState }) => {
+    const { rawContent } = getState();
+    navigator.clipboard.writeText(rawContent);
+};
 
 const getButtons = ({ contents, setState }) => {
     return contents
@@ -31,6 +37,7 @@ const loadContent = async ({ url }) => {
 };
 
 const printContent = async ({
+    setState,
     getState,
     contentEl,
     currentKey,
@@ -39,6 +46,7 @@ const printContent = async ({
     const states = getState();
     const data = await loadContent({ url: states[currentKey] });
     contentEl.textContent = data;
+    setState('rawContent', data);
     hljs.highlightElement(contentEl);
     updateScroller();
 };
@@ -58,8 +66,9 @@ export const CodeOverlay = ({
         const contentEl = element.querySelector('.js-overlay-content');
         const closebtn = element.querySelector('.js-overlay-close');
         const background = element.querySelector('.js-overlay-background');
+        const copyButton = element.querySelector('.js-overlay-copy');
 
-        const updateScroller = overlayScroller({
+        const { updateScroller, goToTop } = overlayScroller({
             screen: screenEl,
             scroller: contentEl,
         });
@@ -69,6 +78,7 @@ export const CodeOverlay = ({
          */
         const { activeContent } = getState();
         printContent({
+            setState,
             getState,
             contentEl,
             currentKey: activeContent,
@@ -79,7 +89,13 @@ export const CodeOverlay = ({
          * Watch content change, and update content.
          */
         const unWatchActiveContent = watch('activeContent', (currentKey) =>
-            printContent({ getState, contentEl, currentKey, updateScroller })
+            printContent({
+                setState,
+                getState,
+                contentEl,
+                currentKey,
+                updateScroller,
+            })
         );
 
         /**
@@ -87,6 +103,9 @@ export const CodeOverlay = ({
          */
         closebtn.addEventListener('click', () => setState('isOpen', false));
         background.addEventListener('click', () => setState('isOpen', false));
+        copyButton.addEventListener('click', () =>
+            copyToClipboard({ getState })
+        );
 
         /**
          * Toggle visible state.
@@ -94,6 +113,7 @@ export const CodeOverlay = ({
         const unWatchVisibleState = watch('isOpen', (isOpen) => {
             if (isOpen) {
                 element.classList.add('active');
+                goToTop();
             } else {
                 element.classList.remove('active');
                 contentEl.textContent = '';
@@ -114,6 +134,12 @@ export const CodeOverlay = ({
                     type="button"
                     class="code-overlay__close js-overlay-close"
                 ></button>
+                <button
+                    type="button"
+                    class="code-overlay__copy js-overlay-copy"
+                >
+                    ${copyIcon}
+                </button>
                 <div class="code-overlay__header">
                     ${getButtons({ contents, setState })}
                 </div>

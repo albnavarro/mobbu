@@ -31,6 +31,10 @@ export const codeOverlayComponentDef = {
                         return [...validContent, ''].includes(val);
                     },
                 }),
+                rawContent: () => ({
+                    value: '',
+                    type: String,
+                }),
                 isOpen: () => ({
                     value: false,
                     type: Boolean,

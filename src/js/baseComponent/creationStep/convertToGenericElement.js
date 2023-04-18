@@ -17,8 +17,10 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
      */
     const propsId = component.dataset.props;
     const propsSlot = component.dataset[PROPS_FROM_SLOT];
-    const propsFromParent = getPropsFromParent(propsId);
-    const propsFromSlot = getPropsFromParent(propsSlot);
+    const cleanProsId = propsId?.split(' ').join('');
+    const cleanProsFromSlot = propsSlot?.split(' ').join('');
+    const propsFromParent = getPropsFromParent(cleanProsId);
+    const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
 
     /**
      * Add element to DOM

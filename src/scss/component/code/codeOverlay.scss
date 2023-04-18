@@ -83,6 +83,23 @@
         }
     }
 
+    &__copy {
+        position: absolute;
+        top: calc(var(--header-height) + #{rem(13)});
+        right: rem(40);
+        z-index: 10;
+        height: rem(40);
+        width: rem(40);
+        border: 0;
+        background: transparent;
+
+        svg {
+            fill: $green;
+            width: rem(20);
+            height: rem(20);
+        }
+    }
+
     &__button {
         flex: 1;
         width: 100%;

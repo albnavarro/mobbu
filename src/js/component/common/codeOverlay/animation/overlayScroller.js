@@ -12,5 +12,8 @@ export const overlayScroller = ({ screen, scroller }) => {
 
     instance.init();
 
-    return () => instance.refresh();
+    return {
+        updateScroller: () => instance.refresh(),
+        goToTop: () => instance.move(0),
+    };
 };

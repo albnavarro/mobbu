@@ -1,21 +1,5 @@
+import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { navigationStore } from '../navigation/store/navStore';
-
-function addHandler({ button }) {
-    // Toggle button
-    button.addEventListener('click', () => {
-        const { navigationIsOpen } = navigationStore.get('navigationIsOpen');
-
-        if (navigationIsOpen) {
-            button.classList.remove('open');
-            navigationStore.emit('closeNavigation');
-        } else {
-            button.classList.add('open');
-            navigationStore.emit('openNavigation');
-        }
-
-        navigationStore.set('navigationIsOpen', (state) => !state);
-    });
-}
 
 function openInfo({ navInfo }) {
     navInfo.classList.add('open');
@@ -27,11 +11,9 @@ function closeInfo({ navInfo }) {
 
 export const Header = ({ render, onMount }) => {
     onMount(({ element }) => {
-        const toggle = element.querySelector('.l-header__toggle');
         const navInfo = element.querySelector('.l-header__navinfo');
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
-        addHandler({ button: toggle });
     });
 
     return render(/* HTML */ `
@@ -39,7 +21,7 @@ export const Header = ({ render, onMount }) => {
             <CodeOverlay> </CodeOverlay>
             <div class="l-header__container">
                 <div class="l-header__grid">
-                    <button type="button" class="l-header__toggle"></button>
+                    <HeaderToggle></HeaderToggle>
                     <div class="l-header__title">
                         <a href="#"> title </a>
                     </div>
@@ -50,10 +32,12 @@ export const Header = ({ render, onMount }) => {
                 <div class="l-header__navinfo">
                     <p class="p--small"></p>
                     <CodeButton
-                        data-js="/codeExample/layout/navigation/script.js"
-                        data-scss=""
-                        data-html=""
-                        data-style="green"
+                        data-props="${createProps({
+                            js: '/codeExample/layout/navigation/script.js',
+                            scss: '',
+                            html: '',
+                            style: 'green',
+                        })}"
                     >
                     </CodeButton>
                 </div>

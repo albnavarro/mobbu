@@ -9,6 +9,7 @@ esbuild.build({
     bundle: true,
     sourcemap: true,
     outdir: 'dist',
+    loader: { '.svg': 'text' },
     plugins: [sassPlugin()],
 });
 
@@ -17,6 +18,7 @@ const ctx = await esbuild.context({
     bundle: true,
     sourcemap: true,
     outdir: 'dist',
+    loader: { '.svg': 'text' },
     plugins: [sassPlugin()],
 });
 
