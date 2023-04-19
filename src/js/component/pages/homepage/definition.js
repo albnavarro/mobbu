@@ -18,7 +18,7 @@ export const homePageComponentDef = {
                 xOrigin: 3,
                 yOrigin: 10,
                 opacity: 0.1,
-                duration: 5000,
+                duration: 10000,
             },
         },
     },
