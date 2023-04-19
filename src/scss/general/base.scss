@@ -53,8 +53,7 @@ img {
 }
 
 main {
-    padding-top: calc(var(--header-height) + #{rem(20)});
-    padding-bottom: var(--footer-height);
+    padding-top: calc(var(--header-height));
     transition: transform 0.55s, opacity 0.55s;
     min-height: calc(100vh - var(--header-height));
 
@@ -69,17 +68,12 @@ main {
 
 .container {
     margin: auto;
+    padding-left: rem(40);
 
     // max-width: map.get($breakpoints, xxlarge);
 
     &--padding {
         padding: rem(20) rem(40);
-    }
-}
-
-.inner-wrap {
-    @include mq.mq(desktop) {
-        padding-left: rem(40);
     }
 }
 

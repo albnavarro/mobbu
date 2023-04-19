@@ -8,10 +8,10 @@ export const homePageComponentDef = {
         componentFunction: HomeAnimation,
         componentParams: {
             props: {
-                amountOfPath: 28,
-                xScale: 1.8,
-                yScale: 1.2,
-                rx: 10,
+                amountOfPath: 10,
+                xScale: 9,
+                yScale: 8,
+                rx: 50,
                 viewBox: 100,
             },
         },

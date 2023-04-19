@@ -30,12 +30,12 @@ export const HomeInteractionItem = ({ onMount, render, props }) => {
          */
         const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
             const { x } = client;
-            const xCenter = window.innerWidth + window.innerWidth - x;
-            const rotateX = parseInt(xCenter / 300) * index;
+            const xCenter = window.innerWidth / 2 - x;
+            const rotateX = parseInt(xCenter / 40) * index;
             rectTween.goTo({ rotate: rotateX });
         });
 
-        rectTween.goTo({ rotate: 100 });
+        rectTween.goTo({ rotate: 10 * index });
 
         return () => {
             rectTween.destroy();

@@ -9,7 +9,7 @@ function createPath({ amountOfPath, rx }) {
                     ? amountOfPath / 2 + (amountOfPath / 2 - i)
                     : i;
 
-            const opacity = relativeIndex * 0.03;
+            const opacity = relativeIndex * 0.06;
 
             return `<g id="group-${i}"><rect rx="${rx}" opacity="${opacity}"></rect></g>`;
         })

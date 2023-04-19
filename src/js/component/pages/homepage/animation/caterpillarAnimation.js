@@ -1,5 +1,4 @@
 import { timeline, tween } from '../../../../mobbu';
-import { detectSafari } from '../../../../utils/utils';
 import { navigationStore } from '../../../layout/navigation/store/navStore';
 
 export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
@@ -16,7 +15,7 @@ export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
      * Create tween.
      */
     const rectTween = tween.createTween({
-        data: { rotate: 0, transformXfactor: 1, transformYfactor: 1 },
+        data: { rotate: 0 },
         stagger: { each: 3, from: 'center' },
         ease: 'easeLinear',
     });
@@ -31,26 +30,19 @@ export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
      */
     [...rect].forEach((item, i) => {
         const unitInverse = rect.length - i;
-        rectTween.subscribeCache(
-            item,
-            ({ rotate, transformXfactor, transformYfactor }) => {
-                /**
-                 * Set position
-                 */
-                item.style.transform = `translateZ(0) translate(${
-                    50 - unitInverse * transformXfactor
-                }px, ${
-                    50 - unitInverse * transformYfactor
-                }px) rotate(${rotate}deg)`;
+        rectTween.subscribeCache(item, ({ rotate }) => {
+            /**
+             * Set position
+             */
+            item.style.transform = `translateZ(0) translate(${
+                50 - unitInverse
+            }px, ${50 - unitInverse}px) rotate(${rotate}deg)`;
 
-                /**
-                 * Set transform origin
-                 */
-                item.style.transformOrigin = `${
-                    unitInverse * transformXfactor
-                }px ${i * transformYfactor}px`;
-            }
-        );
+            /**
+             * Set transform origin
+             */
+            item.style.transformOrigin = `${unitInverse * (i * 2)}px ${i}px`;
+        });
     });
 
     /**
@@ -65,23 +57,7 @@ export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
      * Anim timeline.
      */
     rectTimeline
-        .goTo(
-            rectTween,
-            { rotate: 360, transformXfactor: 2 },
-            { duration: 50000 }
-        )
-        .set(rectTween, { rotate: 0 })
-        .goTo(
-            rectTween,
-            { transformXfactor: 3, transformYfactor: 1, rotate: 360 },
-            { duration: 50000 }
-        )
-        .set(rectTween, { rotate: 0 })
-        .goTo(
-            rectTween,
-            { transformXfacotr: 1, transformYfactor: 3, rotate: 360 },
-            { duration: 50000 }
-        )
+        .goTo(rectTween, { rotate: 360 }, { duration: 50000 })
         .set(rectTween, { rotate: 0 });
 
     /**

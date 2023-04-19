@@ -3,7 +3,7 @@
 @use '../../../node_modules/sass-mq/mq';
 
 .l-index {
-    height: calc(100vh - var(--header-height) - #{rem(120)});
+    height: calc(100vh - var(--header-height) - var(--footer-height));
     width: 100%;
     display: flex;
     justify-content: center;
