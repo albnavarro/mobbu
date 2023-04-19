@@ -9,6 +9,7 @@ export const createCaterpillarAnimation = ({
     yOffset,
     xOrigin,
     yOrigin,
+    duration,
 }) => {
     /**
      * Set rect height.
@@ -67,7 +68,7 @@ export const createCaterpillarAnimation = ({
      * Anim timeline.
      */
     rectTimeline
-        .goTo(rectTween, { rotate: 360 }, { duration: 50000 })
+        .goTo(rectTween, { rotate: 360 }, { duration })
         .set(rectTween, { rotate: 0 });
 
     /**

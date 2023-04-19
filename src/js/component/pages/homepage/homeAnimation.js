@@ -1,7 +1,7 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { createCaterpillarAnimation } from './animation/caterpillarAnimation';
 
-function createPath({ amountOfPath, rx }) {
+function createPath({ amountOfPath, rx, opacity }) {
     return [...Array(amountOfPath).keys()]
         .map((_item, i) => {
             const relativeIndex =
@@ -9,9 +9,9 @@ function createPath({ amountOfPath, rx }) {
                     ? amountOfPath / 2 + (amountOfPath / 2 - i)
                     : i;
 
-            const opacity = relativeIndex * 0.06;
+            const opacityParsed = relativeIndex * opacity;
 
-            return `<g id="group-${i}"><rect rx="${rx}" opacity="${opacity}"></rect></g>`;
+            return `<g id="group-${i}"><rect rx="${rx}" opacity="${opacityParsed}"></rect></g>`;
         })
         .join('');
 }
@@ -27,6 +27,8 @@ export const HomeAnimation = ({ onMount, render, props }) => {
         yOffset,
         xOrigin,
         yOrigin,
+        opacity,
+        duration,
     } = props;
 
     onMount(({ element }) => {
@@ -39,6 +41,8 @@ export const HomeAnimation = ({ onMount, render, props }) => {
             yOffset,
             xOrigin,
             yOrigin,
+            opacity,
+            duration,
         });
 
         return () => {
@@ -48,12 +52,12 @@ export const HomeAnimation = ({ onMount, render, props }) => {
 
     return render(/* HTML */ `
         <div>
+            <HomeContent></HomeContent>
             <HomeInteraction
                 data-props="${createProps({ amountOfPath })}"
             ></HomeInteraction>
-            <HomeContent> </HomeContent>
             <svg class="l-index__svg" viewBox="0 0 ${viewBox} ${viewBox}">
-                ${createPath({ amountOfPath, rx })}
+                ${createPath({ amountOfPath, rx, opacity })}
             </svg>
         </div>
     `);
