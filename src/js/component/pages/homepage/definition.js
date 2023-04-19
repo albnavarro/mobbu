@@ -9,10 +9,14 @@ export const homePageComponentDef = {
         componentParams: {
             props: {
                 amountOfPath: 10,
+                viewBox: 100,
+                rx: 50,
                 xScale: 9,
                 yScale: 8,
-                rx: 50,
-                viewBox: 100,
+                xOffset: 20,
+                yOffset: 50,
+                xOrigin: 3,
+                yOrigin: 10,
             },
         },
     },

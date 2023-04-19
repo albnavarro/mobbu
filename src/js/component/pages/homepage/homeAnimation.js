@@ -17,7 +17,17 @@ function createPath({ amountOfPath, rx }) {
 }
 
 export const HomeAnimation = ({ onMount, render, props }) => {
-    const { amountOfPath, rx, viewBox, xScale, yScale } = props;
+    const {
+        amountOfPath,
+        rx,
+        viewBox,
+        xScale,
+        yScale,
+        xOffset,
+        yOffset,
+        xOrigin,
+        yOrigin,
+    } = props;
 
     onMount(({ element }) => {
         const rect = element.querySelectorAll('rect');
@@ -25,6 +35,10 @@ export const HomeAnimation = ({ onMount, render, props }) => {
             rect,
             xScale,
             yScale,
+            xOffset,
+            yOffset,
+            xOrigin,
+            yOrigin,
         });
 
         return () => {

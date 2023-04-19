@@ -1,7 +1,15 @@
 import { timeline, tween } from '../../../../mobbu';
 import { navigationStore } from '../../../layout/navigation/store/navStore';
 
-export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
+export const createCaterpillarAnimation = ({
+    rect,
+    xScale,
+    yScale,
+    xOffset,
+    yOffset,
+    xOrigin,
+    yOrigin,
+}) => {
     /**
      * Set rect height.
      */
@@ -35,13 +43,15 @@ export const createCaterpillarAnimation = ({ rect, xScale, yScale }) => {
              * Set position
              */
             item.style.transform = `translateZ(0) translate(${
-                50 - unitInverse
-            }px, ${50 - unitInverse}px) rotate(${rotate}deg)`;
+                xOffset - unitInverse
+            }px, ${yOffset - unitInverse}px) rotate(${rotate}deg)`;
 
             /**
              * Set transform origin
              */
-            item.style.transformOrigin = `${unitInverse * (i * 2)}px ${i}px`;
+            item.style.transformOrigin = `${unitInverse * (i * xOrigin)}px ${
+                i * yOrigin
+            }px`;
         });
     });
 
