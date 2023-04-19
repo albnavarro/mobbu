@@ -30,7 +30,7 @@
     }
 
     &__toggle {
-        height: 100%;
+        height: var(--header-height);
         width: var(--header-height);
         grid-area: toggle;
         background: $dark-green;

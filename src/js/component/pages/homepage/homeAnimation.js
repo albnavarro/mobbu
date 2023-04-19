@@ -1,3 +1,4 @@
+import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { createCaterpillarAnimation } from './animation/caterpillarAnimation';
 
 function createPath({ amountOfPath, rx }) {
@@ -8,20 +9,22 @@ function createPath({ amountOfPath, rx }) {
                     ? amountOfPath / 2 + (amountOfPath / 2 - i)
                     : i;
 
-            const opacity = relativeIndex * 0.05;
+            const opacity = relativeIndex * 0.03;
 
-            return `<g><rect stroke="url(#gradient)" rx="${rx}" opacity="${opacity}"></rect></g>`;
+            return `<g id="group-${i}"><rect rx="${rx}" opacity="${opacity}"></rect></g>`;
         })
         .join('');
 }
 
 export const HomeAnimation = ({ onMount, render, props }) => {
-    const { amountOfPath, rx, viewBox, startColor, endColor } = props;
+    const { amountOfPath, rx, viewBox, xScale, yScale } = props;
 
     onMount(({ element }) => {
         const rect = element.querySelectorAll('rect');
         const destroyAnimation = createCaterpillarAnimation({
             rect,
+            xScale,
+            yScale,
         });
 
         return () => {
@@ -30,12 +33,14 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     });
 
     return render(/* HTML */ `
-        <svg class="l-index__svg" viewBox="0 0 ${viewBox} ${viewBox}">
-            <lineargradient id="gradient">
-                <stop offset="0%" stop-color="${startColor}"></stop>
-                <stop offset="100%" stop-color="${endColor}"></stop>
-            </lineargradient>
-            ${createPath({ amountOfPath, rx })}
-        </svg>
+        <div>
+            <HomeInteraction
+                data-props="${createProps({ amountOfPath })}"
+            ></HomeInteraction>
+            <HomeContent> </HomeContent>
+            <svg class="l-index__svg" viewBox="0 0 ${viewBox} ${viewBox}">
+                ${createPath({ amountOfPath, rx })}
+            </svg>
+        </div>
     `);
 };
