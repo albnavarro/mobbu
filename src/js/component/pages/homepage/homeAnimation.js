@@ -52,7 +52,6 @@ export const HomeAnimation = ({ onMount, render, props }) => {
 
     return render(/* HTML */ `
         <div>
-            <HomeContent></HomeContent>
             <HomeInteraction
                 data-props="${createProps({ amountOfPath })}"
             ></HomeInteraction>
