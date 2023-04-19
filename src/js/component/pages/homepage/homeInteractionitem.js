@@ -14,8 +14,8 @@ export const HomeInteractionItem = ({ onMount, render, props }) => {
         /**
          * Create spring.
          */
-        const rectTween = tween.createLerp({
-            data: { rotate: 0 },
+        const rectTween = tween.createSpring({
+            data: { rotate: 200 },
         });
 
         /**
@@ -34,6 +34,8 @@ export const HomeInteractionItem = ({ onMount, render, props }) => {
             const rotateX = parseInt(xCenter / 300) * index;
             rectTween.goTo({ rotate: rotateX });
         });
+
+        rectTween.goTo({ rotate: 100 });
 
         return () => {
             rectTween.destroy();
