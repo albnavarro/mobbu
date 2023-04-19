@@ -84,7 +84,9 @@ export const createCaterpillarAnimation = ({
     );
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
-        rectTimeline.resume()
+        setTimeout(() => {
+            rectTimeline.resume();
+        }, 800)
     );
 
     return () => {
