@@ -15,7 +15,7 @@ export const HomeInteractionItem = ({ onMount, render, props }) => {
          * Create spring.
          */
         const rectTween = tween.createSpring({
-            data: { rotate: 1000 },
+            data: { rotate: 0 },
         });
 
         /**
@@ -34,8 +34,6 @@ export const HomeInteractionItem = ({ onMount, render, props }) => {
             const rotateX = parseInt(xCenter / 40) * index;
             rectTween.goTo({ rotate: rotateX });
         });
-
-        rectTween.goTo({ rotate: 10 * index }, { config: 'scroller' });
 
         return () => {
             rectTween.destroy();

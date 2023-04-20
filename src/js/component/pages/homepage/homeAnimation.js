@@ -1,7 +1,15 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { createCaterpillarAnimation } from './animation/caterpillarAnimation';
 
-function createPath({ amountOfPath, rx, opacity }) {
+function createPath({
+    amountOfPath,
+    rx,
+    opacity,
+    xScale,
+    yScale,
+    fill,
+    stroke,
+}) {
     return [...Array(amountOfPath).keys()]
         .map((_item, i) => {
             const relativeIndex =
@@ -10,8 +18,23 @@ function createPath({ amountOfPath, rx, opacity }) {
                     : i;
 
             const opacityParsed = relativeIndex * opacity;
+            const unitInverse = amountOfPath - i;
+            const width = `${unitInverse * xScale * i}px`;
+            const height = `${unitInverse * yScale * i}px`;
 
-            return `<g id="group-${i}"><rect rx="${rx}" stroke-opacity="${opacityParsed}" fill-opacity="${opacityParsed}"></rect></g>`;
+            return /* HTML */ `<g id="group-${i}">
+                <rect
+                    rx="${rx}"
+                    fill="${fill}"
+                    stroke="${stroke}"
+                    stroke-width="0.15"
+                    stroke-opacity="${opacityParsed}"
+                    fill-opacity="${opacityParsed}"
+                    width="${width}"
+                    height="${height}"
+                >
+                </rect>
+            </g>`;
         })
         .join('');
 }
@@ -20,6 +43,8 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     const {
         amountOfPath,
         rx,
+        fill,
+        stroke,
         viewBox,
         xScale,
         yScale,
@@ -32,11 +57,11 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     } = props;
 
     onMount(({ element }) => {
+        const svg = element.querySelector('svg');
         const rect = element.querySelectorAll('rect');
         const destroyAnimation = createCaterpillarAnimation({
+            svg,
             rect,
-            xScale,
-            yScale,
             xOffset,
             yOffset,
             xOrigin,
@@ -51,12 +76,20 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     });
 
     return render(/* HTML */ `
-        <div>
+        <div class="l-index__animation">
             <HomeInteraction
                 data-props="${createProps({ amountOfPath })}"
             ></HomeInteraction>
             <svg class="l-index__svg" viewBox="0 0 ${viewBox} ${viewBox}">
-                ${createPath({ amountOfPath, rx, opacity })}
+                ${createPath({
+                    amountOfPath,
+                    rx,
+                    opacity,
+                    xScale,
+                    yScale,
+                    fill,
+                    stroke,
+                })}
             </svg>
         </div>
     `);

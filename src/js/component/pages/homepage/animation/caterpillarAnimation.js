@@ -3,23 +3,13 @@ import { navigationStore } from '../../../layout/navigation/store/navStore';
 
 export const createCaterpillarAnimation = ({
     rect,
-    xScale,
-    yScale,
     xOffset,
     yOffset,
     xOrigin,
     yOrigin,
     duration,
+    svg,
 }) => {
-    /**
-     * Set rect height.
-     */
-    [...rect].forEach((item, i) => {
-        const unitInverse = rect.length - i;
-        item.style.width = `${unitInverse * xScale * i}px`;
-        item.style.height = `${unitInverse * yScale * i}px`;
-    });
-
     /**
      * Create tween.
      */
@@ -68,8 +58,9 @@ export const createCaterpillarAnimation = ({
      * Anim timeline.
      */
     rectTimeline
-        .goTo(rectTween, { rotate: 359 }, { duration })
-        .set(rectTween, { rotate: 0 });
+        .set(rectTween, { rotate: 0 })
+        .add(() => svg.classList.add('active'))
+        .goTo(rectTween, { rotate: 359 }, { duration });
 
     /**
      * Play
