@@ -13,16 +13,23 @@
         height: 100%;
         position: absolute;
         background: radial-gradient(
-            circle,
+            ellipse at center,
             rgba($white, 0) 0%,
             rgba($white, 1) 100%
         );
+
+        @include mq.mq('xxlarge') {
+            background: radial-gradient(
+                ellipse at center,
+                rgba($white, 0) 0%,
+                rgba($white, 1) 70%
+            );
+        }
     }
 
     &__svg {
-        width: 500px;
-        height: 500px;
-        overflow: visible !important;
+        width: 1920px;
+        height: 768px;
 
         g {
             transform-origin: center center;
