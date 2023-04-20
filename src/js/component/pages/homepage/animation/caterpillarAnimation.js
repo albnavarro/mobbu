@@ -68,7 +68,7 @@ export const createCaterpillarAnimation = ({
      * Anim timeline.
      */
     rectTimeline
-        .goTo(rectTween, { rotate: 360 }, { duration })
+        .goTo(rectTween, { rotate: 359 }, { duration })
         .set(rectTween, { rotate: 0 });
 
     /**

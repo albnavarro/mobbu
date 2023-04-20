@@ -11,7 +11,7 @@ function createPath({ amountOfPath, rx, opacity }) {
 
             const opacityParsed = relativeIndex * opacity;
 
-            return `<g id="group-${i}"><rect rx="${rx}" opacity="${opacityParsed}"></rect></g>`;
+            return `<g id="group-${i}"><rect rx="${rx}" stroke-opacity="${opacityParsed}" fill-opacity="${opacityParsed}"></rect></g>`;
         })
         .join('');
 }
