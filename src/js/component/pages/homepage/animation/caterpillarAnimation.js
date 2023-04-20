@@ -10,6 +10,17 @@ export const createCaterpillarAnimation = ({
     duration,
     svg,
 }) => {
+    [...rect].forEach((element, i) => {
+        const unitInverse = rect.length - i;
+
+        /**
+         * Set transform origin
+         */
+        element.style.transformOrigin = `${unitInverse * (i * xOrigin)}px ${
+            i * yOrigin
+        }px`;
+    });
+
     /**
      * Create tween.
      */
@@ -18,11 +29,6 @@ export const createCaterpillarAnimation = ({
         stagger: { each: 3, from: 'center' },
         ease: 'easeLinear',
     });
-
-    /**
-     * Disable 3D on safari.
-     */
-    // const enable3D = detectSafari() ? '' : 'translate3D(0,0,0)';
 
     /**
      * Subscribe rect to tween.
@@ -36,13 +42,6 @@ export const createCaterpillarAnimation = ({
             item.style.transform = `translateZ(0) translate(${
                 xOffset - unitInverse
             }px, ${yOffset - unitInverse}px) rotate(${rotate}deg)`;
-
-            /**
-             * Set transform origin
-             */
-            item.style.transformOrigin = `${unitInverse * (i * xOrigin)}px ${
-                i * yOrigin
-            }px`;
         });
     });
 
