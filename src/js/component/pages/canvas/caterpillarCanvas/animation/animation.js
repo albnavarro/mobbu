@@ -205,8 +205,8 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
         rotationTween = null;
         centerTween = null;
         rectTimeline = null;
-        isActive = false;
         ctx = null;
         squareData = [];
+        isActive = false;
     };
 };

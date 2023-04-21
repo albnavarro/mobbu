@@ -1,7 +1,7 @@
 import { timeline, tween } from '../../../../mobbu';
 import { navigationStore } from '../../../layout/navigation/store/navStore';
 
-export const createCaterpillarAnimation = ({
+export const caterpillarSvgTimeline = ({
     rect,
     xOffset,
     yOffset,
@@ -13,7 +13,7 @@ export const createCaterpillarAnimation = ({
     let rectTween = {};
     let rectTimeline = {};
 
-    rectTween.forEach((element, i) => {
+    [...rect].forEach((element, i) => {
         const unitInverse = rect.length - i;
 
         /**
