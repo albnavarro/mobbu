@@ -8,4 +8,9 @@
         100vh - var(--header-height) - var(--default-padding) - #{rem(100)}
     );
     border: 1px #000 solid;
+
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
 }
