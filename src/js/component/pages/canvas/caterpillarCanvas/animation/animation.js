@@ -23,21 +23,22 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      *
      */
-    const numItems = 40;
+    const numItems = 20;
     const squareData = [...Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
         return {
-            width: i * 30,
-            height: i * 30,
+            width: relativeIndex * 60,
+            height: relativeIndex * 60,
             color: '#fff',
             borderColor: '#000',
             x: 4,
             y: 4,
-            opacity: relativeIndex * 0.05,
-            radius: 50,
+            opacity: relativeIndex * 0.08,
+            radius: 100,
             rotate: 0,
+            relativeIndex,
         };
     });
 
@@ -46,7 +47,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
      */
     const rotationTween = tween.createTween({
         data: { rotate: 0 },
-        stagger: { each: 3, from: 'center' },
+        stagger: { each: 15, from: 'edges' },
         ease: 'easeLinear',
         relative: true,
     });
@@ -65,7 +66,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
      */
     const centerTween = tween.createTween({
         data: { x: 0, y: 0 },
-        stagger: { each: 3, from: 'center' },
+        stagger: { each: 15, from: 'center' },
         ease: 'easeLinear',
     });
 
@@ -84,7 +85,6 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
      */
     const draw = () => {
         canvas.width = canvas.width;
-
         squareData.forEach(
             (
                 {
@@ -97,9 +97,11 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
                     radius,
                     borderColor,
                     rotate,
+                    relativeIndex,
                 },
                 i
             ) => {
+                const unitInverse = squareData.length - i;
                 const centerX = canvas.width / 2 - width / 2;
                 const centerY = canvas.height / 2 - height / 2;
                 ctx.save();
@@ -108,20 +110,23 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
                  * Center canvas
                  */
                 ctx.translate(
-                    centerX + width / 2 + x * i,
-                    centerY + height / 2 + y * i
+                    Math.floor(centerX + width / 2 + x * i),
+                    Math.floor(centerY + height / 2 + y * unitInverse)
                 );
                 ctx.rotate((Math.PI / 180) * rotate);
-                // ctx.scale(0.5, 0.5);
 
                 /**
                  * Restore canvas center
                  */
-                ctx.translate(-centerX - width / 2, -centerY - height / 2);
+                ctx.translate(
+                    parseInt(-centerX - width / 2),
+                    parseInt(-centerY - height / 2)
+                );
                 ctx.globalAlpha = opacity;
                 roundRectCustom(ctx, centerX, centerY, width, height, radius);
                 ctx.stroke();
-                // ctx.fill();
+                ctx.fillStyle = color;
+                ctx.fill();
                 ctx.globalAlpha = 1;
                 ctx.restore();
             }
@@ -141,10 +146,15 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
      */
     rectTimeline
         .createGroup({ waitComplete: false })
-        .goTo(rotationTween, { rotate: 360 }, { duration: 6000 })
-        .goTo(centerTween, { x: 30, y: 10 }, { duration: 3000 })
+        .goTo(rotationTween, { rotate: 360 }, { duration: 10000 })
+        .goTo(centerTween, { x: 10, y: 10 }, { duration: 5000 })
         .closeGroup()
-        .goTo(centerTween, { x: -30, y: -10 }, { duration: 3000 });
+        .goTo(centerTween, { x: -30, y: -10 }, { duration: 5000 })
+        .createGroup({ waitComplete: false })
+        .goTo(rotationTween, { rotate: 720 }, { duration: 10000 })
+        .goTo(centerTween, { x: -20, y: -40 }, { duration: 5000 })
+        .closeGroup()
+        .goTo(centerTween, { x: 30, y: 10 }, { duration: 5000 });
 
     /**
      * Play
@@ -166,22 +176,25 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      * Pause/Resume animation on nav open.
      */
-    // const unWatchPause = navigationStore.watch('openNavigation', () =>
-    //     rectTimeline.pause()
-    // );
-    //
-    // const unWatchResume = navigationStore.watch('closeNavigation', () =>
-    //     setTimeout(() => {
-    //         rectTimeline.resume();
-    //     }, 800)
-    // );
+    const unWatchPause = navigationStore.watch('openNavigation', () => {
+        isActive = false;
+        rectTimeline.pause();
+    });
+
+    const unWatchResume = navigationStore.watch('closeNavigation', () =>
+        setTimeout(() => {
+            isActive = true;
+            rectTimeline.resume();
+            core.useFrame(() => loop());
+        }, 800)
+    );
 
     return () => {
         unsubscribeResize();
         rotationTween.destroy();
         rectTimeline.destroy();
-        // unWatchPause();
-        // unWatchResume();
+        unWatchPause();
+        unWatchResume();
         isActive = false;
     };
 };
