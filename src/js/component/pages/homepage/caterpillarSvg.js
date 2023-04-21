@@ -1,5 +1,5 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
-import { createCaterpillarAnimation } from './animation/caterpillarAnimation';
+import { caterpillarSvgTimeline } from './animation/caterpillarSvgTimeline';
 
 function createPath({
     amountOfPath,
@@ -39,7 +39,7 @@ function createPath({
         .join('');
 }
 
-export const HomeAnimation = ({ onMount, render, props }) => {
+export const CaterpillarSvg = ({ onMount, render, props }) => {
     const {
         amountOfPath,
         rx,
@@ -59,7 +59,7 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     onMount(({ element }) => {
         const svg = element.querySelector('svg');
         const rect = element.querySelectorAll('rect');
-        const destroyAnimation = createCaterpillarAnimation({
+        const destroyAnimation = caterpillarSvgTimeline({
             svg,
             rect,
             xOffset,
@@ -76,11 +76,14 @@ export const HomeAnimation = ({ onMount, render, props }) => {
     });
 
     return render(/* HTML */ `
-        <div class="l-index__animation">
-            <HomeInteraction
+        <div class="caterpillar-svg">
+            <CaterpillarSvgInteraction
                 data-props="${createProps({ amountOfPath })}"
-            ></HomeInteraction>
-            <svg class="l-index__svg" viewBox="0 0 ${viewBox} ${viewBox}">
+            ></CaterpillarSvgInteraction>
+            <svg
+                class="caterpillar-svg__svg"
+                viewBox="0 0 ${viewBox} ${viewBox}"
+            >
                 ${createPath({
                     amountOfPath,
                     rx,

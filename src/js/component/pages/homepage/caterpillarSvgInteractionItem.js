@@ -1,6 +1,6 @@
 import { core, tween } from '../../../mobbu';
 
-export const HomeInteractionItem = ({ onMount, render, props }) => {
+export const CaterpillarSvgInteractionItem = ({ onMount, render, props }) => {
     const { index } = props;
 
     onMount(() => {

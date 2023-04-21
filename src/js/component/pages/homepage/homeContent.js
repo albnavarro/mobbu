@@ -3,5 +3,5 @@ export const HomeContent = ({ onMount, render }) => {
         console.log(element);
     });
 
-    return render(/* HTML */ ` <div class="l-index__content"></div> `);
+    return render(/* HTML */ ` <div class="l-index__content">test</div> `);
 };

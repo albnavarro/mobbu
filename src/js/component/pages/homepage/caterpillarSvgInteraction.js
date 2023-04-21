@@ -3,18 +3,18 @@ import { createProps } from '../../../baseComponent/mainStore/actions/props';
 const createChildren = ({ amountOfPath }) => {
     return [...Array(amountOfPath).keys()]
         .map((_item, index) => {
-            return `<HomeInteractionItem data-props="${createProps({
+            return `<CaterpillarSvgInteractionItem data-props="${createProps({
                 index,
-            })}"></HomeInteractionItem>`;
+            })}"></CaterpillarSvgInteractionItem>`;
         })
         .join('');
 };
 
-export const HomeInteraction = ({ render, props }) => {
+export const CaterpillarSvgInteraction = ({ render, props }) => {
     const { amountOfPath } = props;
 
     return render(/* HTML */ `
-        <div class="l-index__interaction">
+        <div class="caterpillar-svg__interaction">
             ${createChildren({ amountOfPath })}
         </div>
     `);

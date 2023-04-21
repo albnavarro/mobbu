@@ -1,6 +1,6 @@
 export const homeModule = () => {
     return /* HTML */ `<div class="l-index">
         <HomeContent data-cancellable></HomeContent>
-        <HomeAnimation data-cancellable></HomeAnimation>
+        <CaterpillarSvg data-cancellable></CaterpillarSvg>
     </div>`;
 };

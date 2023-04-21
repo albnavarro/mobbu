@@ -1,11 +1,11 @@
-import { HomeAnimation } from './homeAnimation';
 import { HomeContent } from './homeContent';
-import { HomeInteraction } from './homeInteraction';
-import { HomeInteractionItem } from './homeInteractionitem';
+import { CaterpillarSvg } from './caterpillarSvg';
+import { CaterpillarSvgInteraction } from './caterpillarSvgInteraction';
+import { CaterpillarSvgInteractionItem } from './caterpillarSvgInteractionItem';
 
 export const homePageComponentDef = {
-    HomeAnimation: {
-        componentFunction: HomeAnimation,
+    CaterpillarSvg: {
+        componentFunction: CaterpillarSvg,
         componentParams: {
             props: {
                 amountOfPath: 10,
@@ -24,16 +24,16 @@ export const homePageComponentDef = {
             },
         },
     },
-    HomeInteraction: {
-        componentFunction: HomeInteraction,
+    CaterpillarSvgInteraction: {
+        componentFunction: CaterpillarSvgInteraction,
         componentParams: {
             props: {
                 amountOfPath: 20,
             },
         },
     },
-    HomeInteractionItem: {
-        componentFunction: HomeInteractionItem,
+    CaterpillarSvgInteractionItem: {
+        componentFunction: CaterpillarSvgInteractionItem,
         componentParams: {
             props: {
                 index: 1,
