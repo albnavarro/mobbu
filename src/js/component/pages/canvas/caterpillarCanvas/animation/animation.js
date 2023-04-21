@@ -18,7 +18,6 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
     /**
      *
      */
-    numItems = 20;
     squareData = [...Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
