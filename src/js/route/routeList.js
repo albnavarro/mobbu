@@ -1,4 +1,5 @@
 import { pageNotFoundModule } from '../pages/404';
+import { caterpillarCanvasModule } from '../pages/canvas/caterpillarCanvas';
 import { homeModule } from '../pages/home';
 import { testModule } from '../pages/test';
 
@@ -8,6 +9,7 @@ import { testModule } from '../pages/test';
 export const routeList = {
     home: homeModule,
     test: testModule,
+    caterpillarCanvas: caterpillarCanvasModule,
     pageNotFound: pageNotFoundModule,
 };
 

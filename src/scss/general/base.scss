@@ -16,6 +16,7 @@
     --header-navinfo: #{rem(40)};
     --footer-height: #{rem(40)};
     --nav-width: 100vw;
+    --default-padding: #{rem(100)};
 
     @include mq.mq(tablet) {
         --nav-width: #{rem(340)};
@@ -79,4 +80,8 @@ main {
 
 .inner-main {
     padding-top: rem(150);
+}
+
+.l-padding {
+    padding: var(--default-padding);
 }

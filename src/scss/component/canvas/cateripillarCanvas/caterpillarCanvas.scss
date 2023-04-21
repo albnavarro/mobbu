@@ -1,0 +1,11 @@
+@use '../../../vars' as *;
+@use '../../../abstract' as *;
+@use '../../../../../node_modules/sass-mq/mq';
+
+.caterpillar-canvas {
+    width: 100%;
+    height: calc(
+        100vh - var(--header-height) - var(--default-padding) - #{rem(100)}
+    );
+    border: 1px #000 solid;
+}

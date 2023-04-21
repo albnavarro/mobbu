@@ -22,17 +22,12 @@
             "children": null
         },
         {
-            "label": "test repeat list",
-            "url": "test",
-            "children": null
-        },
-        {
-            "label": "test2",
+            "label": "canvas",
             "url": "#",
             "children": [
                 {
-                    "label": "submenu test1",
-                    "url": "submenutest1"
+                    "label": "cateripillar",
+                    "url": "caterpillarCanvas"
                 },
                 {
                     "label": "submenu test2",
@@ -43,6 +38,11 @@
                     "url": "submenutest3"
                 }
             ]
+        },
+        {
+            "label": "test repeat list",
+            "url": "test",
+            "children": null
         },
         {
             "label": "test",
