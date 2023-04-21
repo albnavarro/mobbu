@@ -59,9 +59,9 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
     /**
      * Create rotation tween.
      */
-    centerTween = tween.createTween({
+    centerTween = tween.createSpring({
         data: { x: 0, y: 0 },
-        stagger: { each: 15, from: 'center' },
+        stagger: { each: 5, from: 'end' },
         ease: 'easeLinear',
     });
 
@@ -141,17 +141,7 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
     /**
      * Anim timeline.
      */
-    rectTimeline
-        .createGroup({ waitComplete: false })
-        .goTo(rotationTween, { rotate: 360 }, { duration: 10000 })
-        .goTo(centerTween, { x: 10, y: 10 }, { duration: 5000 })
-        .closeGroup()
-        .goTo(centerTween, { x: -30, y: -10 }, { duration: 5000 })
-        .createGroup({ waitComplete: false })
-        .goTo(rotationTween, { rotate: 720 }, { duration: 10000 })
-        .goTo(centerTween, { x: -20, y: -40 }, { duration: 5000 })
-        .closeGroup()
-        .goTo(centerTween, { x: 30, y: 10 }, { duration: 5000 });
+    rectTimeline.goTo(rotationTween, { rotate: 360 }, { duration: 10000 });
 
     /**
      * Play
@@ -179,6 +169,13 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
         draw();
     });
 
+    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
+        const { x, y } = client;
+        const xCenter = window.innerWidth / 2 - x;
+        const yCenter = window.innerHeight / 2 - y;
+        centerTween.goTo({ x: -xCenter / 10, y: -yCenter / 10 });
+    });
+
     /**
      * Pause/Resume animation on nav open.
      */
@@ -200,6 +197,7 @@ export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
         centerTween.destroy();
         rectTimeline.destroy();
         unsubscribeResize();
+        unsubscribeMouseMove();
         unWatchPause();
         unWatchResume();
         rotationTween = null;
