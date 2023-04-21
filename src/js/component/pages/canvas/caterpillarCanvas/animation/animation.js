@@ -2,29 +2,24 @@ import { core, timeline, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const caterpillarCanvasAnimation = ({ canvas }) => {
+export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
     /**
      *
      */
     let isActive = true;
-    const ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d');
+    let squareData = [];
+    let rotationTween = {};
+    let centerTween = {};
+    let rectTimeline = {};
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
     /**
-     * Resize canvas.
-     */
-    const unsubscribeResize = core.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        draw();
-    });
-
-    /**
      *
      */
-    const numItems = 20;
-    const squareData = [...Array(numItems).keys()].map((_item, i) => {
+    numItems = 20;
+    squareData = [...Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
@@ -35,7 +30,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
             borderColor: '#000',
             x: 4,
             y: 4,
-            opacity: relativeIndex * 0.08,
+            opacity: relativeIndex * 0.1,
             radius: 100,
             rotate: 0,
             relativeIndex,
@@ -45,7 +40,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      * Create rotation tween.
      */
-    const rotationTween = tween.createTween({
+    rotationTween = tween.createTween({
         data: { rotate: 0 },
         stagger: { each: 15, from: 'edges' },
         ease: 'easeLinear',
@@ -64,7 +59,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      * Create rotation tween.
      */
-    const centerTween = tween.createTween({
+    centerTween = tween.createTween({
         data: { x: 0, y: 0 },
         stagger: { each: 15, from: 'center' },
         ease: 'easeLinear',
@@ -84,7 +79,9 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
      * Draw
      */
     const draw = () => {
-        canvas.width = canvas.width;
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
             (
                 {
@@ -97,7 +94,6 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
                     radius,
                     borderColor,
                     rotate,
-                    relativeIndex,
                 },
                 i
             ) => {
@@ -110,8 +106,8 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
                  * Center canvas
                  */
                 ctx.translate(
-                    Math.floor(centerX + width / 2 + x * i),
-                    Math.floor(centerY + height / 2 + y * unitInverse)
+                    centerX + width / 2 + x * i,
+                    centerY + height / 2 + y * unitInverse
                 );
                 ctx.rotate((Math.PI / 180) * rotate);
 
@@ -124,6 +120,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
                 );
                 ctx.globalAlpha = opacity;
                 roundRectCustom(ctx, centerX, centerY, width, height, radius);
+                ctx.strokeStyle = borderColor;
                 ctx.stroke();
                 ctx.fillStyle = color;
                 ctx.fill();
@@ -136,7 +133,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      * Create timeline
      */
-    const rectTimeline = timeline.createAsyncTimeline({
+    rectTimeline = timeline.createAsyncTimeline({
         repeat: -1,
         yoyo: false,
     });
@@ -174,6 +171,15 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     core.useFrame(() => loop());
 
     /**
+     * Resize canvas.
+     */
+    const unsubscribeResize = core.useResize(() => {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        draw();
+    });
+
+    /**
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
@@ -190,11 +196,17 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     );
 
     return () => {
-        unsubscribeResize();
         rotationTween.destroy();
+        centerTween.destroy();
         rectTimeline.destroy();
+        unsubscribeResize();
         unWatchPause();
         unWatchResume();
+        rotationTween = null;
+        centerTween = null;
+        rectTimeline = null;
         isActive = false;
+        ctx = null;
+        squareData = [];
     };
 };

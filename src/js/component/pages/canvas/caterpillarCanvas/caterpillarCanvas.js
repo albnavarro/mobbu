@@ -5,7 +5,10 @@ export const CaterpillarCanvas = ({ onMount, render }) => {
         console.log(element);
         const canvas = element.querySelector('canvas');
 
-        const destroyAnimation = caterpillarCanvasAnimation({ canvas });
+        const destroyAnimation = caterpillarCanvasAnimation({
+            canvas,
+            numItems: 20,
+        });
 
         return () => {
             destroyAnimation();

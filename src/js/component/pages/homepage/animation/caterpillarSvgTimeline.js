@@ -1,7 +1,7 @@
 import { timeline, tween } from '../../../../mobbu';
 import { navigationStore } from '../../../layout/navigation/store/navStore';
 
-export const caterpillarSvgTimeline = ({
+export const createCaterpillarAnimation = ({
     rect,
     xOffset,
     yOffset,
@@ -10,7 +10,10 @@ export const caterpillarSvgTimeline = ({
     duration,
     svg,
 }) => {
-    [...rect].forEach((element, i) => {
+    let rectTween = {};
+    let rectTimeline = {};
+
+    rectTween.forEach((element, i) => {
         const unitInverse = rect.length - i;
 
         /**
@@ -24,7 +27,7 @@ export const caterpillarSvgTimeline = ({
     /**
      * Create tween.
      */
-    const rectTween = tween.createTween({
+    rectTween = tween.createTween({
         data: { rotate: 0 },
         stagger: { each: 3, from: 'center' },
         ease: 'easeLinear',
@@ -48,7 +51,7 @@ export const caterpillarSvgTimeline = ({
     /**
      * Create timeline
      */
-    const rectTimeline = timeline.createAsyncTimeline({
+    rectTimeline = timeline.createAsyncTimeline({
         repeat: -1,
         yoyo: false,
     });
@@ -82,6 +85,8 @@ export const caterpillarSvgTimeline = ({
     return () => {
         rectTween.destroy();
         rectTimeline.destroy();
+        rectTween = null;
+        rectTimeline = null;
         unWatchPause();
         unWatchResume();
     };
