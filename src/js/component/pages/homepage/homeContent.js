@@ -5,10 +5,8 @@ export const HomeContent = ({ onMount, render }) => {
 
     return render(/* HTML */ `
         <div class="l-index__content">
-            <h1>Title</h1>
-            <h2>Subtitle</h2>
-            <h3>third title</h3>
-            <p>Lorem ipsum dolor sit amet</p>
+            <h1>Lorem ipsum</h1>
+            <h3>Lorem ipsum dolor sit amet</h3>
         </div>
     `);
 };
