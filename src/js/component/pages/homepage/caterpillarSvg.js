@@ -80,20 +80,22 @@ export const CaterpillarSvg = ({ onMount, render, props }) => {
             <CaterpillarSvgInteraction
                 data-props="${createProps({ amountOfPath })}"
             ></CaterpillarSvgInteraction>
-            <svg
-                class="caterpillar-svg__svg"
-                viewBox="0 0 ${viewBox} ${viewBox}"
-            >
-                ${createPath({
-                    amountOfPath,
-                    rx,
-                    opacity,
-                    xScale,
-                    yScale,
-                    fill,
-                    stroke,
-                })}
-            </svg>
+            <div class="caterpillar-svg__wrap">
+                <svg
+                    class="caterpillar-svg__svg"
+                    viewBox="0 0 ${viewBox} ${viewBox}"
+                >
+                    ${createPath({
+                        amountOfPath,
+                        rx,
+                        opacity,
+                        xScale,
+                        yScale,
+                        fill,
+                        stroke,
+                    })}
+                </svg>
+            </div>
         </div>
     `);
 };

@@ -14,7 +14,9 @@ export const CaterpillarCanvas = ({ onMount, render }) => {
 
     return render(/* HTML */ `
         <div class="caterpillar-canvas">
-            <canvas></canvas>
+            <div class="caterpillar-canvas__wrap">
+                <canvas></canvas>
+            </div>
         </div>
     `);
 };

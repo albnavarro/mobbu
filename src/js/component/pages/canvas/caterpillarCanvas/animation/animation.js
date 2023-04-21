@@ -28,8 +28,8 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
         return {
-            width: i * 20,
-            height: i * 20,
+            width: i * 30,
+            height: i * 30,
             color: '#fff',
             borderColor: '#000',
             x: 4,
@@ -41,7 +41,7 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     });
 
     /**
-     * Create tween.
+     * Create rotation tween.
      */
     const rotationTween = tween.createTween({
         data: { rotate: 0 },
@@ -51,11 +51,30 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     });
 
     /**
-     * Subscribe rect to tween.
+     * Subscribe rect to rotation tween.
      */
     [...squareData].forEach((item) => {
         rotationTween.subscribeCache(item, ({ rotate }) => {
             item.rotate = rotate;
+        });
+    });
+
+    /**
+     * Create rotation tween.
+     */
+    const centerTween = tween.createTween({
+        data: { x: 0, y: 0 },
+        stagger: { each: 3, from: 'center' },
+        ease: 'easeLinear',
+    });
+
+    /**
+     * Subscribe rect to rotation tween.
+     */
+    [...squareData].forEach((item) => {
+        centerTween.subscribeCache(item, ({ x, y }) => {
+            item.x = x;
+            item.y = y;
         });
     });
 
@@ -119,7 +138,12 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
      * Anim timeline.
      */
-    rectTimeline.goTo(rotationTween, { rotate: 360 }, { duration: 7000 });
+    rectTimeline
+        .createGroup({ waitComplete: false })
+        .goTo(rotationTween, { rotate: 360 }, { duration: 6000 })
+        .goTo(centerTween, { x: 30, y: 10 }, { duration: 3000 })
+        .closeGroup()
+        .goTo(centerTween, { x: -30, y: -10 }, { duration: 3000 });
 
     /**
      * Play
