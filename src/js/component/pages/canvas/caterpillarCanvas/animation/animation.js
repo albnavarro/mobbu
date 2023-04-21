@@ -1,5 +1,6 @@
 import { core, timeline, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
+import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const caterpillarCanvasAnimation = ({ canvas }) => {
     /**
@@ -162,10 +163,25 @@ export const caterpillarCanvasAnimation = ({ canvas }) => {
 
     core.useFrame(() => loop());
 
+    /**
+     * Pause/Resume animation on nav open.
+     */
+    // const unWatchPause = navigationStore.watch('openNavigation', () =>
+    //     rectTimeline.pause()
+    // );
+    //
+    // const unWatchResume = navigationStore.watch('closeNavigation', () =>
+    //     setTimeout(() => {
+    //         rectTimeline.resume();
+    //     }, 800)
+    // );
+
     return () => {
         unsubscribeResize();
         rotationTween.destroy();
         rectTimeline.destroy();
+        // unWatchPause();
+        // unWatchResume();
         isActive = false;
     };
 };
