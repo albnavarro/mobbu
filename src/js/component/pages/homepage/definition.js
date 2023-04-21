@@ -19,7 +19,7 @@ export const homePageComponentDef = {
                 yOffset: 50,
                 xOrigin: 3,
                 yOrigin: 10,
-                opacity: 0.2,
+                opacity: 0.3,
                 duration: 10000,
             },
         },
