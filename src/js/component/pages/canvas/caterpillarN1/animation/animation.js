@@ -222,6 +222,7 @@ export const caterpillarN1Animation = ({
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         isActive = false;
         rectTimeline?.pause();
+        canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
@@ -229,7 +230,8 @@ export const caterpillarN1Animation = ({
             isActive = true;
             rectTimeline?.resume();
             core.useFrame(() => loop());
-        }, 800)
+            canvas.classList.add('active');
+        }, 500)
     );
 
     return () => {

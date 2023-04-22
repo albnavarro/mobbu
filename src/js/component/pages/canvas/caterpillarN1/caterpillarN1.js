@@ -1,3 +1,5 @@
+import { createProps } from '../../../../baseComponent/mainStore/actions/props';
+import { getLegendData } from '../../../../route';
 import { caterpillarN1Animation } from './animation/animation';
 
 export const CaterpillarN1 = ({ onMount, render, props }) => {
@@ -14,10 +16,23 @@ export const CaterpillarN1 = ({ onMount, render, props }) => {
         };
     });
 
+    const { caterpillarN1 } = getLegendData();
+    const { title, description, type, source } = caterpillarN1;
+
     return render(/* HTML */ `
-        <div class="caterpillar-canvas">
-            <div class="caterpillar-canvas__wrap">
-                <canvas></canvas>
+        <div>
+            <legend
+                data-props="${createProps({
+                    title,
+                    description,
+                    type,
+                    source,
+                })}"
+            ></legend>
+            <div class="caterpillar-canvas">
+                <div class="caterpillar-canvas__wrap">
+                    <canvas></canvas>
+                </div>
             </div>
         </div>
     `);

@@ -1,5 +1,4 @@
 import { parseComponents } from '../baseComponent/componentParse';
-import { resetParserCounter } from '../baseComponent/mainStore/actions/parser';
 import { removeOrphansPropsFromParent } from '../baseComponent/mainStore/actions/props';
 import { mainStore } from '../baseComponent/mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../baseComponent/updateList/addWithoutKey';
@@ -11,18 +10,25 @@ import { debugRoute } from './test';
 
 const root = document.querySelector('#content');
 let commonData = {};
+let legendData = {};
 export const getCommonData = () => commonData;
+export const getLegendData = () => legendData;
 
 /**
  * Load common data.
  */
 const loadData = async () => {
-    const data = await fetch(`../data/common.json`)
+    const commonData = await fetch(`../data/common.json`)
         .then((response) => response.json())
         .then((data) => data)
         .catch((err) => console.warn('Something went wrong.', err));
 
-    return data;
+    const legendData = await fetch(`../data/legend.json`)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((err) => console.warn('Something went wrong.', err));
+
+    return { commonData, legendData };
 };
 
 /**
@@ -30,7 +36,9 @@ const loadData = async () => {
  * TODO get route from url ( /index.html#route )
  */
 export const inizializeApp = async () => {
-    commonData = await loadData();
+    const data = await loadData();
+    commonData = data?.commonData;
+    legendData = data?.legendData;
 
     /**
      * Render common layout component.
