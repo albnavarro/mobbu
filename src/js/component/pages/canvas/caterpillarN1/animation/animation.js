@@ -1,4 +1,5 @@
 import { core, timeline, tween } from '../../../../../mobbu';
+// import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
@@ -200,6 +201,10 @@ export const caterpillarN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
+        // const { left, top } = offset(canvas);
+        // const xCenter = x - (canvas.width + left) / 2;
+        // const yCenter = y - (canvas.height + top) / 2;
+
         const xCenter = x - canvas.width / 2;
         const yCenter = y - canvas.height / 2;
         centerTween.goTo({ x: xCenter, y: yCenter });
