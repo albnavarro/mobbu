@@ -108,11 +108,13 @@
         border: 0;
         background: $white;
         color: $dark-green;
+        transition: background 0.55s;
 
         &:last-of-type {
             border-right: 0;
         }
 
+        &:hover,
         &.active {
             background: $green;
         }

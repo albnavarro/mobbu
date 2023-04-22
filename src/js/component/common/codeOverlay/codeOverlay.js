@@ -113,10 +113,10 @@ export const CodeOverlay = ({
         const unWatchVisibleState = watch('isOpen', (isOpen) => {
             if (isOpen) {
                 element.classList.add('active');
-                goToTop();
             } else {
                 element.classList.remove('active');
                 contentEl.textContent = '';
+                goToTop();
             }
         });
 

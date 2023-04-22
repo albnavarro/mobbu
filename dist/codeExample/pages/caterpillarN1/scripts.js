@@ -1,8 +1,7 @@
-import { core, timeline, tween } from '../../../../../mobbu';
-import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
-// import { offset } from '../../../../../mobbu/utils/vanillaFunction';
-import { roundRectCustom } from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { core, timeline, tween } from '<path>/mobbu';
+import { clamp } from '<path>/mobbu/animation/utils/animationUtils';
+import { roundRectCustom } from '<path>/utils/canvasUtils';
+import { navigationStore } from '<path>/layout/navigation/store/navStore';
 
 export const caterpillarN1Animation = ({
     canvas,
@@ -124,13 +123,11 @@ export const caterpillarN1Animation = ({
                      */
                     centerX + width / 2 + x + (unitInverse * x) / 10,
                     centerY + height / 2 + y + (unitInverse * y) / 10
-
-                    /**
-                     * Centered.
-                     */
-                    // centerX + width / 2 + x,
-                    // centerY + height / 2 + y
                 );
+
+                /**
+                 * ROtate item.
+                 */
                 ctx.rotate((Math.PI / 180) * rotate);
 
                 /**
@@ -202,10 +199,6 @@ export const caterpillarN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        // const { left, top } = offset(canvas);
-        // const xCenter = x - (canvas.width + left) / 2;
-        // const yCenter = y - (canvas.height + top) / 2;
-
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
         const xCenter = x - canvas.width / 2;

@@ -8,8 +8,10 @@
 
     &__title,
     &__type,
-    &__description {
+    &__description,
+    &__code {
         margin-bottom: rem(10);
+        opacity: 0;
     }
 
     &__description {
