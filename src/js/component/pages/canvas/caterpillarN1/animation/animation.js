@@ -11,6 +11,9 @@ export const caterpillarN1Animation = ({
     borderColor,
     opacity,
     radius,
+    rotationDuration,
+    rotationEach,
+    centerEach,
 }) => {
     /**
      *
@@ -50,7 +53,7 @@ export const caterpillarN1Animation = ({
      */
     rotationTween = tween.createTween({
         data: { rotate: 0 },
-        stagger: { each: 15, from: 'edges' },
+        stagger: { each: rotationEach, from: 'edges' },
         ease: 'easeLinear',
         relative: true,
     });
@@ -69,7 +72,7 @@ export const caterpillarN1Animation = ({
      */
     centerTween = tween.createSpring({
         data: { x: 0, y: 0 },
-        stagger: { each: 5, from: 'end' },
+        stagger: { each: centerEach, from: 'end' },
         ease: 'easeLinear',
     });
 
@@ -149,7 +152,11 @@ export const caterpillarN1Animation = ({
     /**
      * Anim timeline.
      */
-    rectTimeline.goTo(rotationTween, { rotate: 360 }, { duration: 5000 });
+    rectTimeline.goTo(
+        rotationTween,
+        { rotate: 360 },
+        { duration: rotationDuration }
+    );
 
     /**
      * Initial transition
