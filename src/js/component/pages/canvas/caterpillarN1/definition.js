@@ -5,6 +5,7 @@ export const caterpillarN1Def = {
         componentFunction: CaterpillarN1,
         componentParams: {
             props: {
+                numItems: 20,
                 width: 60,
                 height: 60,
                 color: '#fff',
