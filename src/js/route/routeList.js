@@ -1,5 +1,5 @@
 import { pageNotFoundModule } from '../pages/404';
-import { caterpillarCanvasModule } from '../pages/canvas/caterpillarCanvas';
+import { caterpillarN1Module } from '../pages/canvas/caterpillarN1';
 import { homeModule } from '../pages/home';
 import { testModule } from '../pages/test';
 
@@ -9,7 +9,7 @@ import { testModule } from '../pages/test';
 export const routeList = {
     home: homeModule,
     test: testModule,
-    caterpillarCanvas: caterpillarCanvasModule,
+    caterpillarN1: caterpillarN1Module,
     pageNotFound: pageNotFoundModule,
 };
 

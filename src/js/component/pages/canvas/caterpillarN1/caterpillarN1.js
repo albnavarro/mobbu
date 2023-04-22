@@ -1,10 +1,10 @@
-import { caterpillarCanvasAnimation } from './animation/animation';
+import { caterpillarN1Animation } from './animation/animation';
 
-export const CaterpillarCanvas = ({ onMount, render }) => {
+export const CaterpillarN1 = ({ onMount, render }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
-        const destroyAnimation = caterpillarCanvasAnimation({
+        const destroyAnimation = caterpillarN1Animation({
             canvas,
             numItems: 20,
         });

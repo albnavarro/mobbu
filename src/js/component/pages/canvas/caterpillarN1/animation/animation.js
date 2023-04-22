@@ -2,7 +2,7 @@ import { core, timeline, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const caterpillarCanvasAnimation = ({ canvas, numItems }) => {
+export const caterpillarN1Animation = ({ canvas, numItems }) => {
     /**
      *
      */
