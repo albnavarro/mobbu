@@ -140,7 +140,12 @@ export const caterpillarN1Animation = ({ canvas, numItems }) => {
     /**
      * Anim timeline.
      */
-    rectTimeline.goTo(rotationTween, { rotate: 360 }, { duration: 10000 });
+    rectTimeline.goTo(rotationTween, { rotate: 360 }, { duration: 5000 });
+
+    /**
+     * Initial transition
+     */
+    canvas.classList.add('active');
 
     /**
      * Play
