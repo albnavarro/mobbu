@@ -117,8 +117,17 @@ export const caterpillarN1Animation = ({
                  * Center canvas
                  */
                 ctx.translate(
-                    centerX + width / 2 + x * i,
-                    centerY + height / 2 + y * unitInverse
+                    /**
+                     * offset
+                     */
+                    centerX + width / 2 + x + (unitInverse * x) / 10,
+                    centerY + height / 2 + y + (unitInverse * y) / 10
+
+                    /**
+                     * Centered.
+                     */
+                    // centerX + width / 2 + x,
+                    // centerY + height / 2 + y
                 );
                 ctx.rotate((Math.PI / 180) * rotate);
 
@@ -191,9 +200,9 @@ export const caterpillarN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        const xCenter = window.innerWidth / 2 - x;
-        const yCenter = window.innerHeight / 2 - y;
-        centerTween.goTo({ x: -xCenter / 10, y: -yCenter / 10 });
+        const xCenter = x - canvas.width / 2;
+        const yCenter = y - canvas.height / 2;
+        centerTween.goTo({ x: xCenter, y: yCenter });
     });
 
     /**
