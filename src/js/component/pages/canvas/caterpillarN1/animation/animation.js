@@ -1,4 +1,5 @@
 import { core, timeline, tween } from '../../../../../mobbu';
+import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
 // import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
@@ -205,9 +206,14 @@ export const caterpillarN1Animation = ({
         // const xCenter = x - (canvas.width + left) / 2;
         // const yCenter = y - (canvas.height + top) / 2;
 
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
         const xCenter = x - canvas.width / 2;
         const yCenter = y - canvas.height / 2;
-        centerTween.goTo({ x: xCenter, y: yCenter });
+        centerTween.goTo({
+            x: clamp(xCenter, -winWidth / 2 + 400, winWidth / 2 - 400),
+            y: clamp(yCenter, -winHeight / 2 + 200, winHeight / 2 - 200),
+        });
     });
 
     /**
