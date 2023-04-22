@@ -2,7 +2,16 @@ import { core, timeline, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const caterpillarN1Animation = ({ canvas, numItems }) => {
+export const caterpillarN1Animation = ({
+    canvas,
+    numItems,
+    width,
+    height,
+    color,
+    borderColor,
+    opacity,
+    radius,
+}) => {
     /**
      *
      */
@@ -23,14 +32,14 @@ export const caterpillarN1Animation = ({ canvas, numItems }) => {
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
         return {
-            width: relativeIndex * 60,
-            height: relativeIndex * 60,
-            color: '#fff',
-            borderColor: '#000',
-            x: 4,
-            y: 4,
-            opacity: relativeIndex * 0.1,
-            radius: 100,
+            width: relativeIndex * width,
+            height: relativeIndex * height,
+            color,
+            borderColor,
+            x: 0,
+            y: 0,
+            opacity: relativeIndex * opacity,
+            radius,
             rotate: 0,
             relativeIndex,
         };

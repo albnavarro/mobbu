@@ -4,7 +4,14 @@ export const caterpillarN1Def = {
     CaterpillarN1: {
         componentFunction: CaterpillarN1,
         componentParams: {
-            props: {},
+            props: {
+                width: 60,
+                height: 60,
+                color: '#fff',
+                borderColor: '#000',
+                opacity: 0.1,
+                radius: 100,
+            },
         },
     },
 };
