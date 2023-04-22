@@ -95,6 +95,8 @@
 
         &__link {
             color: $dark-green;
+            background: transparent;
+            border: 0;
 
             @include mq.mq(desktop) {
                 margin: 0 rem(10);

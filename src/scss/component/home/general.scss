@@ -10,10 +10,11 @@
         padding: rem(100) rem(40) rem(40) rem(100);
         position: relative;
         z-index: 2;
+        max-width: 700px;
 
-        &__copy {
-            width: 100%;
-            max-width: 600px;
+        &__title,
+        &__row {
+            margin-bottom: rem(20);
         }
     }
 }

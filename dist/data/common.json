@@ -3,15 +3,18 @@
         "links": [
             {
                 "label": "home",
-                "url": "/#home"
+                "url": "#home",
+                "internal": true
             },
             {
                 "label": "info",
-                "url": "#"
+                "url": "#",
+                "internal": false
             },
             {
                 "label": "Github",
-                "url": "#"
+                "url": "#",
+                "internal": false
             }
         ]
     },
