@@ -3,7 +3,7 @@
         "links": [
             {
                 "label": "home",
-                "url": "/index.html"
+                "url": "/#home"
             },
             {
                 "label": "info",

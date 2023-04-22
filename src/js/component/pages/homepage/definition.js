@@ -8,9 +8,9 @@ export const homePageComponentDef = {
         componentFunction: CaterpillarSvg,
         componentParams: {
             props: {
-                amountOfPath: 10,
+                amountOfPath: 11,
                 viewBox: 100,
-                rx: 30,
+                rx: 0,
                 fill: '#ffffff',
                 stroke: '#555',
                 xScale: 5,
@@ -19,7 +19,7 @@ export const homePageComponentDef = {
                 yOffset: 50,
                 xOrigin: 3,
                 yOrigin: 10,
-                opacity: 0.2,
+                opacity: 0.5,
                 duration: 10000,
             },
         },
