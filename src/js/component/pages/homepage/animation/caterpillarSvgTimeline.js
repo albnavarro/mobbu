@@ -31,6 +31,7 @@ export const caterpillarSvgTimeline = ({
         data: { rotate: 0 },
         stagger: { each: 3, from: 'center' },
         ease: 'easeLinear',
+        relative: true,
     });
 
     /**
@@ -60,9 +61,8 @@ export const caterpillarSvgTimeline = ({
      * Anim timeline.
      */
     rectTimeline
-        .set(rectTween, { rotate: 0 })
         .add(() => svg.classList.add('active'))
-        .goTo(rectTween, { rotate: 359 }, { duration });
+        .goTo(rectTween, { rotate: 360 }, { duration });
 
     /**
      * Play
