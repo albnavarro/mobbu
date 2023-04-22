@@ -22,83 +22,65 @@
             "children": null
         },
         {
-            "label": "canvas",
+            "label": "js component library",
             "url": "#",
             "children": [
                 {
-                    "label": "cateripillar",
-                    "url": "caterpillarCanvas"
-                },
-                {
-                    "label": "submenu test2",
-                    "url": "submenutest2"
-                },
-                {
-                    "label": "submenu test3",
-                    "url": "submenutest3"
-                }
-            ]
-        },
-        {
-            "label": "test repeat list",
-            "url": "test",
-            "children": null
-        },
-        {
-            "label": "test",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test",
-            "url": "#",
-            "children": [
-                {
-                    "label": "test",
+                    "label": "section 1",
                     "url": "#"
                 },
                 {
-                    "label": "test",
+                    "label": "section 2",
                     "url": "#"
                 },
                 {
-                    "label": "test",
+                    "label": "section 3",
                     "url": "#"
                 }
             ]
         },
         {
-            "label": "test",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test",
+            "label": "js animation library",
             "url": "#",
             "children": [
                 {
-                    "label": "test",
+                    "label": "section 1",
                     "url": "#"
                 },
                 {
-                    "label": "test",
+                    "label": "section 2",
                     "url": "#"
                 },
                 {
-                    "label": "test",
+                    "label": "section 3",
                     "url": "#"
                 }
             ]
+        },
+        {
+            "label": "caterpillar n.1",
+            "url": "caterpillarCanvas",
+            "children": null
+        },
+        {
+            "label": "test",
+            "url": "#",
+            "children": null
+        },
+        {
+            "label": "test",
+            "url": "#",
+            "children": null
+        },
+        {
+            "label": "test",
+            "url": "#",
+            "children": null
+        },
+        {
+            "label": "test",
+            "url": "#",
+            "children": null
         },
         {
             "label": "test",
