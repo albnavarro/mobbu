@@ -73,12 +73,12 @@ export const caterpillarSvgTimeline = ({
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('openNavigation', () =>
-        rectTimeline.pause()
+        rectTimeline?.pause()
     );
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
-            rectTimeline.resume();
+            rectTimeline?.resume();
         }, 800)
     );
 

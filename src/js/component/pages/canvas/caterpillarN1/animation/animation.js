@@ -221,13 +221,13 @@ export const caterpillarN1Animation = ({
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         isActive = false;
-        rectTimeline.pause();
+        rectTimeline?.pause();
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
             isActive = true;
-            rectTimeline.resume();
+            rectTimeline?.resume();
             core.useFrame(() => loop());
         }, 800)
     );
