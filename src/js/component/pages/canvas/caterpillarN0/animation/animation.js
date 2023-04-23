@@ -58,8 +58,12 @@ export const caterpillarN0Animation = ({
         const relativeIndex = index - (amountOfPath - index);
 
         return {
-            width: getWithRounded({ width, relativeIndex, amountOfPath }),
-            height: getHeightRounded({ height, relativeIndex, amountOfPath }),
+            width: Math.floor(
+                getWithRounded({ width, relativeIndex, amountOfPath })
+            ),
+            height: Math.floor(
+                getHeightRounded({ height, relativeIndex, amountOfPath })
+            ),
             fill,
             stroke,
             opacity: relativeIndex * opacity,
