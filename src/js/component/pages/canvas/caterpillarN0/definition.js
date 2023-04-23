@@ -1,4 +1,4 @@
-import { CaterpillarN0 } from './caterpillarSvg';
+import { CaterpillarN0 } from './caterpillarN0';
 
 export const caterpillarN0Def = {
     CaterpillarN0: {
