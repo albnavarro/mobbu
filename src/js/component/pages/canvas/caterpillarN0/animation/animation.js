@@ -2,44 +2,52 @@ import { core, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const caterpillarN0Animation = ({ canvas }) => {
+export const caterpillarN0Animation = ({
+    canvas,
+    amountOfPath,
+    width,
+    height,
+    radius,
+    fill,
+    stroke,
+    opacity,
+}) => {
     let isActive = true;
     let ctx = canvas.getContext('2d');
     let stemData = [];
     let stemData2 = [];
     let mainTween = {};
-    const stemNumber = 17;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    stemData2 = [...Array(stemNumber).keys()].map((_item, i) => {
+    stemData2 = [...Array(amountOfPath).keys()].map((_item, i) => {
         const count = i;
-        const index = count < stemNumber / 2 ? stemNumber - count : count;
-        const relativeIndex = index - (stemNumber - index);
-        const h = 30;
-        const w = 30;
+        const index = count < amountOfPath / 2 ? amountOfPath - count : count;
+        const relativeIndex = index - (amountOfPath - index);
 
         return {
             width:
                 Math.sqrt(
-                    Math.pow(w * relativeIndex, 2) -
+                    Math.pow(width * relativeIndex, 2) -
                         Math.pow(
-                            ((w * relativeIndex) / stemNumber) * relativeIndex,
+                            ((width * relativeIndex) / amountOfPath) *
+                                relativeIndex,
                             2
                         )
                 ) * 2,
             height:
                 Math.sqrt(
-                    Math.pow(h * relativeIndex, 2) -
+                    Math.pow(height * relativeIndex, 2) -
                         Math.pow(
-                            ((h * relativeIndex) / stemNumber) * relativeIndex,
+                            ((height * relativeIndex) / amountOfPath) *
+                                relativeIndex,
                             2
                         )
                 ) * 2,
-            color: '#ffff',
-            borderColor: '#000',
-            opacity: relativeIndex * 0.05,
+            fill,
+            stroke,
+            opacity: relativeIndex * opacity,
             rotate: 0,
             y: 0,
             relativeIndex,
@@ -79,9 +87,9 @@ export const caterpillarN0Animation = ({ canvas }) => {
             ({
                 width,
                 height,
-                color,
+                fill,
                 opacity,
-                borderColor,
+                stroke,
                 rotate,
                 relativeIndex,
                 index: i,
@@ -92,12 +100,12 @@ export const caterpillarN0Animation = ({ canvas }) => {
                 ctx.save();
                 const offset = Math.sin(time / 1000) * 4 * relativeIndex;
                 const offsetInverse =
-                    i < stemNumber / 2
+                    i < amountOfPath / 2
                         ? offset + (15 * relativeIndex) / 2
                         : -offset - (15 * relativeIndex) / 2;
 
-                const spacerY = i < stemNumber / 2 ? 200 : -400;
-                const centerDirection = i < stemNumber / 2 ? -1 : 1;
+                const spacerY = i < amountOfPath / 2 ? 200 : -400;
+                const centerDirection = i < amountOfPath / 2 ? -1 : 1;
 
                 /**
                  * Center canvas in the screen
@@ -116,12 +124,12 @@ export const caterpillarN0Animation = ({ canvas }) => {
                     centerY - height / 2 + offsetInverse + spacerY,
                     width,
                     height,
-                    100
+                    radius
                 );
 
-                ctx.strokeStyle = borderColor;
+                ctx.strokeStyle = stroke;
                 ctx.stroke();
-                ctx.fillStyle = color;
+                ctx.fillStyle = fill;
                 ctx.fill();
                 ctx.globalAlpha = 1;
                 ctx.restore();
