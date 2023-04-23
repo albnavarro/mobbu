@@ -3,18 +3,13 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .l-index {
-    position: relative;
     height: calc(100vh - var(--header-height) - var(--footer-height));
 
     &__content {
-        padding: rem(100) rem(40) rem(40) rem(100);
-        position: relative;
+        position: absolute;
         z-index: 2;
-        max-width: 700px;
-
-        &__title,
-        &__row {
-            margin-bottom: rem(20);
-        }
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }

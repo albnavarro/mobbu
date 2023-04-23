@@ -75,7 +75,6 @@ export const caterpillarN1Animation = ({
     centerTween = tween.createSpring({
         data: { x: 0, y: 0 },
         stagger: { each: centerEach, from: 'end' },
-        ease: 'easeLinear',
     });
 
     /**
