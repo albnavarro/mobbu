@@ -7,7 +7,7 @@ export const mushroomAnimation = ({ canvas }) => {
     let ctx = canvas.getContext('2d');
     let stemData = [];
     let mainTween = {};
-    const stemNumber = 30;
+    const stemNumber = 20;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -56,7 +56,7 @@ export const mushroomAnimation = ({ canvas }) => {
                 ) * 2,
             color: '#ffff',
             borderColor: '#000',
-            opacity: relativeIndex * 0.03,
+            opacity: relativeIndex * 0.05,
             rotate: 0,
             y: 0,
             relativeIndex,
@@ -101,10 +101,13 @@ export const mushroomAnimation = ({ canvas }) => {
                  * Center canvas on bottom right of the screen.
                  */
                 const centerX = canvas.width / 2;
-                const centerY = canvas.height - i * 30;
+                const centerY = canvas.height / 2;
                 ctx.save();
                 const offset = Math.sin(time / 1000) * 2 * relativeIndex;
-                const offsetInverse = i < stemNumber / 2 ? offset : -offset;
+                const offsetInverse =
+                    i < stemNumber / 2
+                        ? offset + 15 * relativeIndex
+                        : -offset - 15 * relativeIndex;
 
                 /**
                  * Center canvas in the screen
