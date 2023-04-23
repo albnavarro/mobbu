@@ -8,7 +8,7 @@ export const mushroomAnimation = ({ canvas }) => {
     let stemData = [];
     let stemData2 = [];
     let mainTween = {};
-    const stemNumber = 20;
+    const stemNumber = 17;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -154,10 +154,10 @@ export const mushroomAnimation = ({ canvas }) => {
     });
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
-        const { x, y } = client;
+        const { x } = client;
         const xCenter = x - canvas.width / 2;
         mainTween.goTo({
-            rotate: xCenter / 30,
+            rotate: xCenter / 10,
         });
     });
 
@@ -177,6 +177,11 @@ export const mushroomAnimation = ({ canvas }) => {
         }, 500)
     );
 
+    /**
+     * Initial transition
+     */
+    canvas.classList.add('active');
+
     return () => {
         mainTween.destroy();
         unsubscribeResize();
@@ -186,6 +191,7 @@ export const mushroomAnimation = ({ canvas }) => {
         mainTween = null;
         ctx = null;
         stemData = [];
+        stemData2 = [];
         isActive = false;
     };
 };
