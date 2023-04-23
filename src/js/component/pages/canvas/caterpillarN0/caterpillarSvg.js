@@ -1,12 +1,12 @@
-import { mushroomAnimation } from './animation/mushroomAnimation';
+import { caterpillarN0Animation } from './animation/animation';
 
-export const CaterpillarSvg = ({ onMount, render, props }) => {
+export const CaterpillarN0 = ({ onMount, render, props }) => {
     const {} = props;
 
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
-        const destroyAnimation = mushroomAnimation({
+        const destroyAnimation = caterpillarN0Animation({
             canvas,
         });
 
@@ -16,8 +16,8 @@ export const CaterpillarSvg = ({ onMount, render, props }) => {
     });
 
     return render(/* HTML */ `
-        <div class="mushroom">
-            <div class="mushroom__wrap">
+        <div class="c-canvas">
+            <div class="c-canvas__wrap">
                 <canvas></canvas>
             </div>
         </div>

@@ -29,8 +29,8 @@ export const CaterpillarN1 = ({ onMount, render, props }) => {
                     source,
                 })}"
             ></legend>
-            <div class="caterpillar-canvas">
-                <div class="caterpillar-canvas__wrap">
+            <div class="c-canvas">
+                <div class="c-canvas__wrap">
                     <canvas></canvas>
                 </div>
             </div>

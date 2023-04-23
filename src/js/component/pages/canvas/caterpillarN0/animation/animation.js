@@ -1,8 +1,8 @@
-import { core, tween } from '../../../../mobbu';
-import { roundRectCustom } from '../../../../utils/canvasUtils';
-import { navigationStore } from '../../../layout/navigation/store/navStore';
+import { core, tween } from '../../../../../mobbu';
+import { roundRectCustom } from '../../../../../utils/canvasUtils';
+import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const mushroomAnimation = ({ canvas }) => {
+export const caterpillarN0Animation = ({ canvas }) => {
     let isActive = true;
     let ctx = canvas.getContext('2d');
     let stemData = [];
@@ -71,6 +71,9 @@ export const mushroomAnimation = ({ canvas }) => {
     const draw = ({ time = 0 }) => {
         if (!ctx) return;
 
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         stemData.forEach(
             ({
@@ -86,8 +89,6 @@ export const mushroomAnimation = ({ canvas }) => {
                 /**
                  * Center canvas on bottom right of the screen.
                  */
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
                 ctx.save();
                 const offset = Math.sin(time / 1000) * 4 * relativeIndex;
                 const offsetInverse =
