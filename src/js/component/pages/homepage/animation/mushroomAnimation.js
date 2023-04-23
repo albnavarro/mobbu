@@ -1,5 +1,5 @@
 import { core, tween } from '../../../../mobbu';
-import { clamp } from '../../../../mobbu/animation/utils/animationUtils';
+import { roundRectCustom } from '../../../../utils/canvasUtils';
 import { navigationStore } from '../../../layout/navigation/store/navStore';
 
 export const mushroomAnimation = ({ canvas }) => {
@@ -8,7 +8,7 @@ export const mushroomAnimation = ({ canvas }) => {
     let stemData = [];
     let stemData2 = [];
     let mainTween = {};
-    const stemNumber = 30;
+    const stemNumber = 20;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -17,28 +17,10 @@ export const mushroomAnimation = ({ canvas }) => {
         const count = i;
         const index = count < stemNumber / 2 ? stemNumber - count : count;
         const relativeIndex = index - (stemNumber - index);
-        const h = 4;
-        const w = 10;
+        const h = 30;
+        const w = 30;
 
         return {
-            /**
-             * Circle.
-             */
-            // width:
-            //     Math.sqrt(
-            //         Math.pow(w, 2) -
-            //             Math.pow((w / stemNumber) * relativeIndex, 2)
-            //     ) * 2,
-            // height:
-            //     Math.sqrt(
-            //         Math.pow(h, 2) -
-            //             Math.pow((h / stemNumber) * relativeIndex, 2)
-            //     ) * 2,
-
-            /**
-             * Clessidra.
-             */
-
             width:
                 Math.sqrt(
                     Math.pow(w * relativeIndex, 2) -
@@ -107,33 +89,33 @@ export const mushroomAnimation = ({ canvas }) => {
                 const centerX = canvas.width / 2;
                 const centerY = canvas.height / 2;
                 ctx.save();
-                const offset = Math.sin(time / 1000) * 2 * relativeIndex;
+                const offset = Math.sin(time / 1000) * 4 * relativeIndex;
                 const offsetInverse =
                     i < stemNumber / 2
-                        ? offset + 15 * relativeIndex
-                        : -offset - 15 * relativeIndex;
+                        ? offset + (15 * relativeIndex) / 2
+                        : -offset - (15 * relativeIndex) / 2;
+
+                const spacerY = i < stemNumber / 2 ? 200 : -400;
+                const centerDirection = i < stemNumber / 2 ? -1 : 1;
 
                 /**
                  * Center canvas in the screen
                  */
                 ctx.translate(centerX + width / 2, centerY + height / 2);
-                const rotateInverse = i < stemNumber / 2 ? rotate : -rotate;
-                ctx.rotate((Math.PI / 180) * rotateInverse);
+                ctx.rotate((Math.PI / 180) * (rotate - 33));
                 ctx.translate(
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
                 ctx.globalAlpha = opacity;
 
-                ctx.beginPath();
-                ctx.ellipse(
-                    centerX,
-                    centerY + offsetInverse,
+                roundRectCustom(
+                    ctx,
+                    centerX - (width * centerDirection) / 2,
+                    centerY - height / 2 + offsetInverse + spacerY,
                     width,
                     height,
-                    0,
-                    0,
-                    4 * Math.PI
+                    100
                 );
 
                 ctx.strokeStyle = borderColor;
@@ -174,9 +156,8 @@ export const mushroomAnimation = ({ canvas }) => {
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
         const xCenter = x - canvas.width / 2;
-        const yCenter = y - canvas.height / 2;
         mainTween.goTo({
-            rotate: xCenter / 40,
+            rotate: xCenter / 30,
         });
     });
 
