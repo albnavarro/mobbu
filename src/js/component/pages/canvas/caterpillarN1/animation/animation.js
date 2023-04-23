@@ -21,7 +21,7 @@ export const caterpillarN1Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d', { alpha: false });
     let squareData = [];
     let rotationTween = {};
     let centerTween = {};
@@ -93,7 +93,8 @@ export const caterpillarN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f6f6f6';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
             (
                 {

@@ -44,7 +44,7 @@ export const caterpillarN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext('2d');
+    let ctx = canvas.getContext('2d', { alpha: false });
     let stemData = [];
     let steamDataReorded = [];
     let mainTween = {};
@@ -113,7 +113,8 @@ export const caterpillarN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f6f6f6';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(
             ({
