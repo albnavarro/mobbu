@@ -6,13 +6,14 @@ export const mushroomAnimation = ({ canvas }) => {
     let isActive = true;
     let ctx = canvas.getContext('2d');
     let stemData = [];
+    let stemData2 = [];
     let mainTween = {};
-    const stemNumber = 20;
+    const stemNumber = 30;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    stemData = [...Array(stemNumber).keys()].map((_item, i) => {
+    stemData2 = [...Array(stemNumber).keys()].map((_item, i) => {
         const count = i;
         const index = count < stemNumber / 2 ? stemNumber - count : count;
         const relativeIndex = index - (stemNumber - index);
@@ -60,8 +61,13 @@ export const mushroomAnimation = ({ canvas }) => {
             rotate: 0,
             y: 0,
             relativeIndex,
+            index: i,
         };
     });
+
+    stemData = stemData2
+        .splice(0, stemData2.length / 2)
+        .concat(stemData2.reverse());
 
     /**
      * Create rotation tween.
@@ -85,18 +91,16 @@ export const mushroomAnimation = ({ canvas }) => {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         stemData.forEach(
-            (
-                {
-                    width,
-                    height,
-                    color,
-                    opacity,
-                    borderColor,
-                    rotate,
-                    relativeIndex,
-                },
-                i
-            ) => {
+            ({
+                width,
+                height,
+                color,
+                opacity,
+                borderColor,
+                rotate,
+                relativeIndex,
+                index: i,
+            }) => {
                 /**
                  * Center canvas on bottom right of the screen.
                  */
