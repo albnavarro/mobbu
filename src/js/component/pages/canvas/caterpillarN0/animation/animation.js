@@ -2,6 +2,30 @@ import { core, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
+function getWithRounded({ width, relativeIndex, amountOfPath }) {
+    return (
+        Math.sqrt(
+            Math.pow(width * relativeIndex, 2) -
+                Math.pow(
+                    ((width * relativeIndex) / amountOfPath) * relativeIndex,
+                    2
+                )
+        ) * 2
+    );
+}
+
+function getHeightRounded({ height, relativeIndex, amountOfPath }) {
+    return (
+        Math.sqrt(
+            Math.pow(height * relativeIndex, 2) -
+                Math.pow(
+                    ((height * relativeIndex) / amountOfPath) * relativeIndex,
+                    2
+                )
+        ) * 2
+    );
+}
+
 export const caterpillarN0Animation = ({
     canvas,
     amountOfPath,
@@ -11,40 +35,31 @@ export const caterpillarN0Animation = ({
     fill,
     stroke,
     opacity,
+    spacerY,
+    intialRotation,
+    perpetualRatio,
+    mouseMoveRatio,
 }) => {
+    /**
+     * Mutable keyword is used for destroy reference.
+     */
     let isActive = true;
     let ctx = canvas.getContext('2d');
     let stemData = [];
-    let stemData2 = [];
+    let steamDataReorded = [];
     let mainTween = {};
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    stemData2 = [...Array(amountOfPath).keys()].map((_item, i) => {
+    stemData = [...Array(amountOfPath).keys()].map((_item, i) => {
         const count = i;
         const index = count < amountOfPath / 2 ? amountOfPath - count : count;
         const relativeIndex = index - (amountOfPath - index);
 
         return {
-            width:
-                Math.sqrt(
-                    Math.pow(width * relativeIndex, 2) -
-                        Math.pow(
-                            ((width * relativeIndex) / amountOfPath) *
-                                relativeIndex,
-                            2
-                        )
-                ) * 2,
-            height:
-                Math.sqrt(
-                    Math.pow(height * relativeIndex, 2) -
-                        Math.pow(
-                            ((height * relativeIndex) / amountOfPath) *
-                                relativeIndex,
-                            2
-                        )
-                ) * 2,
+            width: getWithRounded({ width, relativeIndex, amountOfPath }),
+            height: getHeightRounded({ height, relativeIndex, amountOfPath }),
             fill,
             stroke,
             opacity: relativeIndex * opacity,
@@ -55,12 +70,15 @@ export const caterpillarN0Animation = ({
         };
     });
 
-    stemData = stemData2
-        .splice(0, stemData2.length / 2)
-        .concat(stemData2.reverse());
+    /**
+     * Subdived oginal array in half and reverse the half section.
+     */
+    steamDataReorded = stemData
+        .splice(0, stemData.length / 2)
+        .concat(stemData.reverse());
 
     /**
-     * Create rotation tween.
+     * Create tween.
      */
     mainTween = tween.createSpring({
         data: { rotate: 0, y: 0 },
@@ -70,20 +88,30 @@ export const caterpillarN0Animation = ({
     /**
      * Subscribe rect to rotation tween.
      */
-    [...stemData].forEach((item) => {
+    [...steamDataReorded].forEach((item) => {
         mainTween.subscribeCache(item, ({ rotate }) => {
             item.rotate = rotate;
         });
     });
 
+    /**
+     * Main draw function.
+     */
     const draw = ({ time = 0 }) => {
         if (!ctx) return;
 
+        /**
+         * Get center of canvas.
+         */
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
+        /**
+         * Clear rpevious render.
+         */
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stemData.forEach(
+
+        steamDataReorded.forEach(
             ({
                 width,
                 height,
@@ -98,35 +126,59 @@ export const caterpillarN0Animation = ({
                  * Center canvas on bottom right of the screen.
                  */
                 ctx.save();
-                const offset = Math.sin(time / 1000) * 4 * relativeIndex;
+
+                /**
+                 * Pertual movment based on timeframe.
+                 */
+                const offset =
+                    Math.sin(time / 1000) * perpetualRatio * relativeIndex;
+
+                /**
+                 * Invert perpetual movment by the two half of array and set multiplier.
+                 */
                 const offsetInverse =
                     i < amountOfPath / 2
                         ? offset + (15 * relativeIndex) / 2
                         : -offset - (15 * relativeIndex) / 2;
 
-                const spacerY = i < amountOfPath / 2 ? 200 : -400;
+                /**
+                 * Space between tho half
+                 */
                 const centerDirection = i < amountOfPath / 2 ? -1 : 1;
 
                 /**
                  * Center canvas in the screen
                  */
                 ctx.translate(centerX + width / 2, centerY + height / 2);
-                ctx.rotate((Math.PI / 180) * (rotate - 33));
+                ctx.rotate((Math.PI / 180) * (rotate - intialRotation));
                 ctx.translate(
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
+
+                /**
+                 * Set oapcity
+                 */
                 ctx.globalAlpha = opacity;
 
+                /**
+                 * Shape
+                 */
                 roundRectCustom(
                     ctx,
                     centerX - (width * centerDirection) / 2,
-                    centerY - height / 2 + offsetInverse + spacerY,
+                    centerY -
+                        height / 2 +
+                        offsetInverse +
+                        spacerY(i < amountOfPath / 2),
                     width,
                     height,
                     radius
                 );
 
+                /**
+                 * Color.
+                 */
                 ctx.strokeStyle = stroke;
                 ctx.stroke();
                 ctx.fillStyle = fill;
@@ -147,6 +199,9 @@ export const caterpillarN0Animation = ({
         core.useNextFrame(({ time }) => loop({ time }));
     };
 
+    /**
+     * Start loop.
+     */
     core.useFrame(({ time }) => {
         loop({ time });
     });
@@ -162,11 +217,14 @@ export const caterpillarN0Animation = ({
         });
     });
 
+    /**
+     * Mouse move.
+     */
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x } = client;
         const xCenter = x - canvas.width / 2;
         mainTween.goTo({
-            rotate: xCenter / 10,
+            rotate: xCenter / mouseMoveRatio,
         });
     });
 
@@ -197,10 +255,10 @@ export const caterpillarN0Animation = ({
         unsubscribeMouseMove();
         unWatchResume();
         unWatchPause();
-        mainTween = null;
         ctx = null;
+        mainTween = null;
+        steamDataReorded = [];
         stemData = [];
-        stemData2 = [];
         isActive = false;
     };
 };
