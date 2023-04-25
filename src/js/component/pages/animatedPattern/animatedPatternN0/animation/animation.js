@@ -3,6 +3,7 @@ import { createGrid, roundRectCustom } from '../../../../../utils/canvasUtils';
 
 export const animatedPatternN0Animation = ({ canvas }) => {
     let isActive = true;
+    let gridData = [];
     let data = [];
     let ctx = canvas.getContext('2d', { alpha: false });
 
@@ -10,12 +11,15 @@ export const animatedPatternN0Animation = ({ canvas }) => {
     const nCol = 20;
     const cellWidth = 50;
     const cellHeight = 50;
-    const gutter = 20;
+    const gutter = 10;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    data = createGrid({ nRow, nCol, cellWidth, cellHeight, gutter }).items;
+    gridData = createGrid({ nRow, nCol, cellWidth, cellHeight, gutter }).items;
+    data = gridData.map((item) => {
+        return { ...item, ...{ opacity: 0, rotate: 0 } };
+    });
 
     const draw = () => {
         if (!ctx) return;
@@ -34,11 +38,12 @@ export const animatedPatternN0Animation = ({ canvas }) => {
 
         data.forEach(({ x, y, width, height }) => {
             ctx.save();
-            // ctx.translate(centerX + width / 2, centerY + height / 2);
-            // ctx.translate(
-            //     parseInt(-centerX - width / 2),
-            //     parseInt(-centerY - height / 2)
-            // );
+
+            ctx.translate(centerX + width / 2, centerY + height / 2);
+            ctx.translate(
+                parseInt(-centerX - width / 2),
+                parseInt(-centerY - height / 2)
+            );
 
             const halfColLenght =
                 ((width + gutter) * (nCol + 1)) / 2 - gutter / 2;
