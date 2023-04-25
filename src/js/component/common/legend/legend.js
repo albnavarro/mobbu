@@ -48,7 +48,7 @@ export const Legend = ({ onMount, render, props, setState, watch }) => {
             ></button>
             <div class="c-legend">
                 <div class="c-legend__wrap js-legend-wrap">
-                    <h2 class="c-legend__title js-legend-title">${title}</h2>
+                    <h3 class="c-legend__title js-legend-title">${title}</h3>
                     <h4 class="c-legend__type js-legend-type">
                         Type: <span class="fw-400">${type}</span>
                     </h4>

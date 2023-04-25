@@ -121,12 +121,12 @@ export const animatedPatternN0Animation = ({
      */
     gridTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
+        .label({ name: 'label1' })
         .goTo(gridTween, { scale: 1.5 }, { duration: 1000 })
         .goTo(gridTween, { scale: 0.5 }, { duration: 500 })
         .goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 })
         .goTo(gridTween, { scale: 1.3 }, { duration: 500 })
-        .goTo(gridTween, { opacity: 0.5 }, { duration: 1200 })
-        .goTo(gridTween, { opacity: 1, scale: 1 }, { duration: 1200 });
+        .goTo(gridTween, { scale: 1 }, { duration: 1200 });
 
     /**
      * Start timeline.
@@ -160,15 +160,15 @@ export const animatedPatternN0Animation = ({
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
+        gridTimeline?.stop();
         isActive = false;
-        gridTimeline?.pause();
         canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
-        setTimeout(() => {
+        setTimeout(async () => {
             isActive = true;
-            gridTimeline?.resume();
+            gridTimeline?.play();
             core.useFrame(() => loop());
             canvas.classList.add('active');
         }, 500)
