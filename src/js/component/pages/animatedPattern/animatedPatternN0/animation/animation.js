@@ -10,8 +10,8 @@ export const animatedPatternN0Animation = ({ canvas }) => {
     let gridTimeline = {};
     let ctx = canvas.getContext('2d', { alpha: false });
 
-    const nRow = 7;
-    const nCol = 20;
+    const nRow = 10;
+    const nCol = 10;
     const cellWidth = 50;
     const cellHeight = 50;
     const gutter = 10;
@@ -50,8 +50,6 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         /**
          * Get center of canvas.
          */
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
 
         /**
          * Clear rpevious render.
@@ -60,6 +58,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(({ x, y, width, height, rotate, scale }) => {
+            const centerX = x + width / 2;
+            const centerY = y + height / 2;
+
             ctx.save();
 
             const halfColLenght =
@@ -70,19 +71,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
             ctx.translate(centerX, centerY);
             ctx.rotate((Math.PI / 180) * rotate);
             ctx.scale(scale, scale);
-            ctx.translate(
-                parseInt(-centerX - width / 2),
-                parseInt(-centerY - height / 2)
-            );
+            ctx.translate(-centerX, -centerY);
 
-            roundRectCustom(
-                ctx,
-                x + centerX - halfColLenght,
-                y + centerY - halfRowLenght,
-                width,
-                height,
-                0
-            );
+            roundRectCustom(ctx, x, y, width, height, 0);
 
             ctx.strokeStyle = '#000';
             ctx.stroke();
