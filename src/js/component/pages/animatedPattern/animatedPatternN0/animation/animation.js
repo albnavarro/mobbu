@@ -1,5 +1,5 @@
 import { core } from '../../../../../mobbu';
-import { roundRectCustom } from '../../../../../utils/canvasUtils';
+import { createGrid, roundRectCustom } from '../../../../../utils/canvasUtils';
 
 export const animatedPatternN0Animation = ({ canvas }) => {
     let isActive = true;
@@ -14,31 +14,7 @@ export const animatedPatternN0Animation = ({ canvas }) => {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    data = [...Array(nRow * nCol + (nRow - 1)).keys()].reduce(
-        (previous) => {
-            const { row, col, items: previousItems } = previous;
-            const newCol = col < nCol ? col + 1 : 0;
-            const newRow = newCol === 0 ? row + 1 : row;
-
-            const x = cellWidth * newCol;
-            const y = cellHeight * newRow;
-
-            return {
-                row: newRow,
-                col: newCol,
-                items: [
-                    ...previousItems,
-                    {
-                        width: cellWidth,
-                        height: cellHeight,
-                        x,
-                        y,
-                    },
-                ],
-            };
-        },
-        { row: 0, col: 0, items: [] }
-    );
+    data = createGrid({ nRow, nCol, cellWidth, cellHeight }).items;
 
     const draw = () => {
         if (!ctx) return;
@@ -55,14 +31,25 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         ctx.fillStyle = '#f6f6f6';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        data.items.forEach(({ x, y, width, height }) => {
+        data.forEach(({ x, y, width, height }) => {
             ctx.save();
-            ctx.translate(centerX + width / 2, centerY + height / 2);
-            ctx.translate(
-                parseInt(-centerX - width / 2),
-                parseInt(-centerY - height / 2)
+            // ctx.translate(centerX + width / 2, centerY + height / 2);
+            // ctx.translate(
+            //     parseInt(-centerX - width / 2),
+            //     parseInt(-centerY - height / 2)
+            // );
+
+            const halfColLenght = (width * nCol) / 2;
+            const halfRowLenght = (height * nRow) / 2;
+
+            roundRectCustom(
+                ctx,
+                x + centerX - halfColLenght,
+                y + centerY - halfRowLenght,
+                width,
+                height,
+                0
             );
-            roundRectCustom(ctx, x, y, width, height, 0);
 
             ctx.strokeStyle = '#000';
             ctx.stroke();
