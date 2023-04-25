@@ -66,6 +66,11 @@
             "children": null
         },
         {
+            "label": "animated pattern n.0",
+            "url": "animatedPatternN0",
+            "children": null
+        },
+        {
             "label": "test repeater",
             "url": "test",
             "children": null
