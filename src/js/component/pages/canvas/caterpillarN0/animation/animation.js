@@ -1,4 +1,8 @@
 import { core, tween } from '../../../../../mobbu';
+import {
+    outerHeight,
+    outerWidth,
+} from '../../../../../mobbu/utils/vanillaFunction';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
@@ -28,6 +32,7 @@ function getHeightRounded({ height, relativeIndex, amountOfPath }) {
 
 export const caterpillarN0Animation = ({
     canvas,
+    wrap,
     amountOfPath,
     width,
     height,
@@ -44,13 +49,23 @@ export const caterpillarN0Animation = ({
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext('2d', { alpha: false });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
+    /**
+     *
+     */
+    const offscreen = canvas.transferControlToOffscreen();
+    const worker = new Worker('../workers/canvas.js', {
+        type: 'module',
+    });
+    /**
+     *
+     */
+
     let stemData = [];
     let steamDataReorded = [];
     let mainTween = {};
-
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
 
     stemData = [...Array(amountOfPath).keys()].map((_item, i) => {
         const count = i;
@@ -98,107 +113,32 @@ export const caterpillarN0Animation = ({
         });
     });
 
-    /**
-     * Main draw function.
-     */
-    const draw = ({ time = 0 }) => {
-        if (!ctx) return;
+    worker.postMessage(
+        {
+            canvas: offscreen,
+        },
+        [offscreen]
+    );
 
-        /**
-         * Get center of canvas.
-         */
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-        /**
-         * Clear rpevious render.
-         */
-        ctx.fillStyle = '#f6f6f6';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        steamDataReorded.forEach(
-            ({
-                width,
-                height,
-                fill,
-                opacity,
-                stroke,
-                rotate,
-                relativeIndex,
-                index: i,
-            }) => {
-                /**
-                 * Center canvas on bottom right of the screen.
-                 */
-                ctx.save();
-
-                /**
-                 * Pertual movment based on timeframe.
-                 */
-                const offset =
-                    Math.sin(time / 1000) * perpetualRatio * relativeIndex;
-
-                /**
-                 * Invert perpetual movment by the two half of array and set multiplier.
-                 */
-                const offsetInverse =
-                    i < amountOfPath / 2
-                        ? offset + (15 * relativeIndex) / 2
-                        : -offset - (15 * relativeIndex) / 2;
-
-                /**
-                 * Space between tho half
-                 */
-                const centerDirection = i < amountOfPath / 2 ? -1 : 1;
-
-                /**
-                 * Center canvas in the screen
-                 */
-                ctx.translate(centerX + width / 2, centerY + height / 2);
-                ctx.rotate((Math.PI / 180) * (rotate - intialRotation));
-                ctx.translate(
-                    parseInt(-centerX - width / 2),
-                    parseInt(-centerY - height / 2)
-                );
-
-                /**
-                 * Set oapcity
-                 */
-                ctx.globalAlpha = opacity;
-
-                /**
-                 * Shape
-                 */
-                roundRectCustom(
-                    ctx,
-                    centerX - (width * centerDirection) / 2,
-                    centerY -
-                        height / 2 +
-                        offsetInverse +
-                        spacerY(i < amountOfPath / 2),
-                    width,
-                    height,
-                    radius
-                );
-
-                /**
-                 * Color.
-                 */
-                ctx.strokeStyle = stroke;
-                ctx.stroke();
-                ctx.fillStyle = fill;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-                ctx.restore();
-            }
-        );
+    const sendData = ({ time }) => {
+        worker.postMessage({
+            steamDataReorded,
+            time,
+            radius,
+            spacerY: 100,
+            amountOfPath,
+            intialRotation,
+            perpetualRatio,
+            canvasWidth: outerWidth(wrap),
+            canvasHeight: outerHeight(wrap),
+        });
     };
 
     /**
      * Loop
      */
     const loop = ({ time = 0 }) => {
-        draw({ time });
+        sendData({ time });
 
         if (!isActive) return;
         core.useNextFrame(({ time }) => loop({ time }));
@@ -215,10 +155,10 @@ export const caterpillarN0Animation = ({
      * Resize canvas.
      */
     const unsubscribeResize = core.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        // canvas.width = outerWidth(wrap);
+        // canvas.height = outerHeight(wrap);
         core.useFrame(({ time }) => {
-            draw({ time });
+            sendData({ time });
         });
     });
 
@@ -260,10 +200,10 @@ export const caterpillarN0Animation = ({
         unsubscribeMouseMove();
         unWatchResume();
         unWatchPause();
-        ctx = null;
         mainTween = null;
         steamDataReorded = [];
         stemData = [];
         isActive = false;
+        worker.terminate();
     };
 };

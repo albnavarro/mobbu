@@ -49,16 +49,18 @@ http.createServer((request, response) => {
     request.pipe(proxyReq, { end: true });
 }).listen(proxiPort);
 
-chokidar.watch(['./dist/**/*.html']).on('change', (page) => {
-    console.log(`[update] ${page}`);
+chokidar
+    .watch(['./dist/**/*.html', './dist/workers/**/*.js'])
+    .on('change', (page) => {
+        console.log(`[update] ${page}`);
 
-    clients.forEach((response) => {
-        response.write(`event: change\n`);
-        response.write(`data: {"page": ${page}}\n\n`);
-        response.end();
+        clients.forEach((response) => {
+            response.write(`event: change\n`);
+            response.write(`data: {"page": ${page}}\n\n`);
+            response.end();
+        });
+        clients.length = 0;
     });
-    clients.length = 0;
-});
 
 console.log(` > proxy: http://127.0.0.1:${proxiPort}`);
 console.log(``);
