@@ -2,28 +2,49 @@ import { core, timeline, tween } from '../../../../../mobbu';
 import { createGrid, roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
-export const animatedPatternN0Animation = ({ canvas }) => {
+export const animatedPatternN0Animation = ({
+    canvas,
+    numerOfRow,
+    numberOfColumn,
+    cellWidth,
+    cellHeight,
+    gutter,
+    fill,
+    stroke,
+}) => {
+    /**
+     * Mutable keyword is used for destroy reference.
+     */
     let isActive = true;
     let gridData = [];
     let data = [];
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext('2d', { alpha: false });
-
-    const nRow = 10;
-    const nCol = 10;
-    const cellWidth = 50;
-    const cellHeight = 50;
-    const gutter = 10;
-
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    gridData = createGrid({ nRow, nCol, cellWidth, cellHeight, gutter }).items;
+    /**
+     * Create basic grid.
+     */
+    gridData = createGrid({
+        numerOfRow,
+        numberOfColumn,
+        cellWidth,
+        cellHeight,
+        gutter,
+    }).items;
+
+    /**
+     * Add props to transform.
+     */
     data = gridData.map((item) => {
         return { ...item, ...{ opacity: 0, rotate: 0 } };
     });
 
+    /**
+     * Create tween
+     */
     gridTween = tween.createTween({
         ease: 'easeInOutQuad',
         stagger: {
@@ -36,6 +57,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         data: { scale: 1, rotate: 0, opacity: 1 },
     });
 
+    /**
+     * Subscribe to tween
+     */
     data.forEach((item) => {
         gridTween.subscribeCache(item, ({ scale, rotate, opacity }) => {
             item.rotate = rotate;
@@ -44,6 +68,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         });
     });
 
+    /**
+     * Main draw function.
+     */
     const draw = () => {
         if (!ctx) return;
 
@@ -59,11 +86,13 @@ export const animatedPatternN0Animation = ({ canvas }) => {
 
         data.forEach(({ x, y, width, height, rotate, scale }) => {
             const offsetXCenter =
-                canvas.width / 2 - ((width + gutter) * nCol) / 2 - width / 2;
+                canvas.width / 2 -
+                ((width + gutter) * numberOfColumn) / 2 -
+                width / 2;
 
             const offsetYCenter =
                 canvas.height / 2 -
-                ((height + gutter) * (nRow + 1)) / 2 -
+                ((height + gutter) * (numerOfRow + 1)) / 2 -
                 height / 2;
 
             const centerX = x + width / 2;
@@ -78,15 +107,18 @@ export const animatedPatternN0Animation = ({ canvas }) => {
 
             roundRectCustom(ctx, x, y, width, height, 0);
 
-            ctx.strokeStyle = '#000';
+            ctx.strokeStyle = stroke;
             ctx.stroke();
-            ctx.fillStyle = '#fff';
+            ctx.fillStyle = fill;
             ctx.fill();
 
             ctx.restore();
         });
     };
 
+    /**
+     * Create timeline.
+     */
     gridTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
         .goTo(gridTween, { scale: 1.5 }, { duration: 1000 })
@@ -96,6 +128,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         .goTo(gridTween, { opacity: 0.5 }, { duration: 1200 })
         .goTo(gridTween, { opacity: 1, scale: 1 }, { duration: 1200 });
 
+    /**
+     * Start timeline.
+     */
     gridTimeline.play();
 
     /**
@@ -144,6 +179,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
      */
     canvas.classList.add('active');
 
+    /**
+     * Destroy.
+     */
     return () => {
         gridTween.destroy();
         gridTimeline.destroy();

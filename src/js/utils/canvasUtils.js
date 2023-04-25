@@ -10,11 +10,17 @@ export const roundRectCustom = (ctx, x, y, w, h, r) => {
     ctx.closePath();
 };
 
-export const createGrid = ({ nRow, nCol, cellWidth, cellHeight, gutter }) => {
-    return [...Array(nRow * nCol + nRow).keys()].reduce(
+export const createGrid = ({
+    numerOfRow,
+    numberOfColumn,
+    cellWidth,
+    cellHeight,
+    gutter,
+}) => {
+    return [...Array(numerOfRow * numberOfColumn + numerOfRow).keys()].reduce(
         (previous) => {
             const { row, col, items: previousItems } = previous;
-            const newCol = col < nCol ? col + 1 : 0;
+            const newCol = col < numberOfColumn ? col + 1 : 0;
             const newRow = newCol === 0 ? row + 1 : row;
 
             const x = (cellWidth + gutter) * newCol;
