@@ -11,7 +11,7 @@ export const animatedPatternN0Def = {
                 cellHeight: 50,
                 gutter: 10,
                 fill: '#fff',
-                stroke: '#333',
+                stroke: '#666',
             },
         },
     },
