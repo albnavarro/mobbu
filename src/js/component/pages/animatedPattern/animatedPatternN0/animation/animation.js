@@ -28,9 +28,9 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         ease: 'easeInOutQuad',
         stagger: {
             each: 15,
-            from: 'center',
+            from: 'start',
             // from: { x: 23, y: 10 },
-            grid: { col: 45, row: 45, direction: 'row' },
+            // grid: { col: 45, row: 45, direction: 'row' },
             waitComplete: false,
         },
         data: { scale: 1, rotate: 0, opacity: 1 },
@@ -59,10 +59,12 @@ export const animatedPatternN0Animation = ({ canvas }) => {
 
         data.forEach(({ x, y, width, height, rotate, scale }) => {
             const offsetXCenter =
-                canvas.width / 2 - ((width + gutter) * nCol) / 2 - gutter / 2;
+                canvas.width / 2 - ((width + gutter) * nCol) / 2 - width / 2;
 
             const offsetYCenter =
-                canvas.height / 2 - ((height + gutter) * nRow) / 2 - gutter / 2;
+                canvas.height / 2 -
+                ((height + gutter) * (nRow + 1)) / 2 -
+                height / 2;
 
             const centerX = x + width / 2;
             const centerY = y + height / 2;
