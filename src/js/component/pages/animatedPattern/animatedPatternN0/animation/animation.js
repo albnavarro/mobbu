@@ -6,15 +6,16 @@ export const animatedPatternN0Animation = ({ canvas }) => {
     let data = [];
     let ctx = canvas.getContext('2d', { alpha: false });
 
-    const nRow = 4;
-    const nCol = 9;
+    const nRow = 7;
+    const nCol = 20;
     const cellWidth = 50;
     const cellHeight = 50;
+    const gutter = 20;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    data = createGrid({ nRow, nCol, cellWidth, cellHeight }).items;
+    data = createGrid({ nRow, nCol, cellWidth, cellHeight, gutter }).items;
 
     const draw = () => {
         if (!ctx) return;
@@ -39,8 +40,10 @@ export const animatedPatternN0Animation = ({ canvas }) => {
             //     parseInt(-centerY - height / 2)
             // );
 
-            const halfColLenght = (width * nCol) / 2;
-            const halfRowLenght = (height * nRow) / 2;
+            const halfColLenght =
+                ((width + gutter) * (nCol + 1)) / 2 - gutter / 2;
+            const halfRowLenght =
+                ((height + gutter) * (nRow + 2)) / 2 - gutter / 2;
 
             roundRectCustom(
                 ctx,
