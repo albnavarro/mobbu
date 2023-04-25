@@ -1,5 +1,7 @@
 import { core } from '../../../../../mobbu';
 import { createGrid, roundRectCustom } from '../../../../../utils/canvasUtils';
+import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { originalData } from '../../../test/data';
 
 export const animatedPatternN0Animation = ({ canvas }) => {
     let isActive = true;
@@ -68,6 +70,23 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         });
     };
 
+    /**
+     * Loop
+     */
+    const loop = ({ time = 0 }) => {
+        draw({ time });
+
+        if (!isActive) return;
+        core.useNextFrame(({ time }) => loop({ time }));
+    };
+
+    /**
+     * Start loop.
+     */
+    core.useFrame(({ time }) => {
+        loop({ time });
+    });
+
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -77,15 +96,32 @@ export const animatedPatternN0Animation = ({ canvas }) => {
     });
 
     /**
+     * Pause/Resume animation on nav open.
+     */
+    const unWatchPause = navigationStore.watch('openNavigation', () => {
+        isActive = false;
+        canvas.classList.remove('active');
+    });
+
+    const unWatchResume = navigationStore.watch('closeNavigation', () =>
+        setTimeout(() => {
+            isActive = true;
+            core.useFrame(({ time }) => loop({ time }));
+            canvas.classList.add('active');
+        }, 500)
+    );
+
+    /**
      * Initial transition
      */
     canvas.classList.add('active');
 
-    draw();
-
     return () => {
         unsubscribeResize();
+        unWatchResume();
+        unWatchPause();
         ctx = null;
+        gridData = [];
         data = [];
         isActive = false;
     };
