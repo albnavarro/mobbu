@@ -58,17 +58,18 @@ export const animatedPatternN0Animation = ({ canvas }) => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(({ x, y, width, height, rotate, scale }) => {
+            const offsetXCenter =
+                canvas.width / 2 - ((width + gutter) * nCol) / 2 - gutter / 2;
+
+            const offsetYCenter =
+                canvas.height / 2 - ((height + gutter) * nRow) / 2 - gutter / 2;
+
             const centerX = x + width / 2;
             const centerY = y + height / 2;
 
             ctx.save();
 
-            const halfColLenght =
-                ((width + gutter) * (nCol + 1)) / 2 - gutter / 2;
-            const halfRowLenght =
-                ((height + gutter) * (nRow + 2)) / 2 - gutter / 2;
-
-            ctx.translate(centerX, centerY);
+            ctx.translate(centerX + offsetXCenter, centerY + offsetYCenter);
             ctx.rotate((Math.PI / 180) * rotate);
             ctx.scale(scale, scale);
             ctx.translate(-centerX, -centerY);
