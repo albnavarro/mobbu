@@ -1,5 +1,5 @@
 import { core, timeline, tween } from '../../../../../mobbu';
-import { createGrid, roundRectCustom } from '../../../../../utils/canvasUtils';
+import { createGrid } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const animatedPatternN0Animation = ({
@@ -39,7 +39,7 @@ export const animatedPatternN0Animation = ({
      * Add props to transform.
      */
     data = gridData.map((item) => {
-        return { ...item, ...{ opacity: 0, rotate: 0 } };
+        return { ...item, ...{ scale: 1, rotate: 0 } };
     });
 
     /**
@@ -50,20 +50,18 @@ export const animatedPatternN0Animation = ({
         stagger: {
             each: 15,
             from: 'start',
-            // from: { x: 23, y: 10 },
-            // grid: { col: 45, row: 45, direction: 'row' },
+            grid: { col: 11, row: 11, direction: 'row' },
             waitComplete: false,
         },
-        data: { scale: 1, rotate: 0, opacity: 1 },
+        data: { scale: 1, rotate: 0 },
     });
 
     /**
      * Subscribe to tween
      */
     data.forEach((item) => {
-        gridTween.subscribeCache(item, ({ scale, rotate, opacity }) => {
+        gridTween.subscribeCache(item, ({ scale, rotate }) => {
             item.rotate = rotate;
-            item.opacity = opacity;
             item.scale = scale;
         });
     });
@@ -100,17 +98,21 @@ export const animatedPatternN0Animation = ({
 
             ctx.save();
 
-            ctx.translate(centerX + offsetXCenter, centerY + offsetYCenter);
+            ctx.translate(
+                Math.round(centerX + offsetXCenter),
+                Math.round(centerY + offsetYCenter)
+            );
             ctx.rotate((Math.PI / 180) * rotate);
-            ctx.scale(scale, scale);
-            ctx.translate(-centerX, -centerY);
 
-            roundRectCustom(ctx, x, y, width, height, 0);
+            ctx.scale(scale, scale);
+            ctx.translate(-Math.round(centerX), -Math.round(centerY));
 
             ctx.strokeStyle = stroke;
-            ctx.stroke();
+            ctx.lineWidth = 1;
+            ctx.strokeRect(Math.round(x), Math.round(y), width, height);
+
             ctx.fillStyle = fill;
-            ctx.fill();
+            ctx.fillRect(Math.round(x), Math.round(y), width, height);
 
             ctx.restore();
         });
