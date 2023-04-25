@@ -107,9 +107,9 @@
 
     &__totop {
         position: absolute;
-        bottom: -1px;
-        left: -1px;
-        right: -1px;
+        bottom: 0;
+        left: 0;
+        right: 0;
         height: var(--footer-height);
         border: 0;
         background: $green;
@@ -117,7 +117,7 @@
         padding: 0;
         margin: 0;
         transition: transform 0.55s;
-        width: calc(100% + 2px);
+        width: 100%;
 
         @include when-inside('.active') {
             transform: translateY(0);
