@@ -56,7 +56,7 @@ img {
 main {
     padding-top: calc(var(--header-height));
     transition: transform 0.55s, opacity 0.55s;
-    min-height: calc(100vh - var(--header-height));
+    min-height: 100vh;
 
     &.shift {
         @include mq.mq(tablet) {

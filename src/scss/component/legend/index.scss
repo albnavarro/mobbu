@@ -3,15 +3,68 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-legend {
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    top: var(--header-height);
+    left: calc(var(--header-height) / 2);
+    width: rem(500);
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    z-index: 10;
+    overflow: hidden;
+
+    &__wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: rgba($white, 0.8);
+        padding: rem(40) rem(40) rem(40) rem(80);
+        transform: translateX(-100%);
+        transition: transform 0.55s;
+
+        @include when-inside('.active') {
+            transform: translateX(0);
+        }
+    }
+
+    &__btn {
+        position: absolute;
+        bottom: var(--footer-height);
+        left: calc(var(--header-height) / 2);
+        z-index: 11;
+        width: var(--header-height);
+        height: var(--header-height);
+        background: $green;
+        border: 0;
+        transform: translateX(0);
+        transition: transform 0.55s, background 0.55s;
+
+        &.hide {
+            transform: translateX(calc(var(--header-height) / 2));
+            background: $white;
+        }
+    }
+
+    &__overlay {
+        position: absolute;
+        top: calc(var(--header-height));
+        left: var(--header-height);
+        height: calc(100vh - var(--header-height));
+        background: transparent;
+        width: 100vw;
+        border: 0;
+        z-index: 11;
+        pointer-events: none;
+
+        @include when-inside('.active') {
+            transform: translateX(calc(#{rem(450)}));
+            pointer-events: all;
+        }
+    }
 
     &__title,
     &__type,
     &__description,
     &__code {
         margin-bottom: rem(10);
-        opacity: 0;
     }
 
     &__description {

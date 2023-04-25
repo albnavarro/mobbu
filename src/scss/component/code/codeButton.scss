@@ -17,15 +17,19 @@
         background: $green;
     }
 
+    &--legend {
+        background: $green;
+        width: var(--header-height);
+        height: var(--header-height);
+        position: absolute;
+        bottom: var(--footer-height);
+        left: calc(var(--header-height) * 1.5);
+        z-index: 11;
+    }
+
     &:hover {
         background: $black;
     }
-
-    // &:hover {
-    //     .c-code-label {
-    //         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    //     }
-    // }
 
     &__icon {
         position: absolute;
@@ -41,16 +45,4 @@
             height: 100%;
         }
     }
-
-    // &__label {
-    //     position: absolute;
-    //     width: rem(120);
-    //     height: var(--header-navinfo);
-    //     line-height: var(--header-navinfo);
-    //     left: calc(100% - 1px);
-    //     top: 0;
-    //     background: $green;
-    //     clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
-    //     transition: clip-path 0.55s;
-    // }
 }

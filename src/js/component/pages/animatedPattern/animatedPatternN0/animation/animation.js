@@ -136,11 +136,11 @@ export const animatedPatternN0Animation = ({
     /**
      * Loop
      */
-    const loop = ({ time = 0 }) => {
-        draw({ time });
+    const loop = () => {
+        draw();
 
         if (!isActive) return;
-        core.useNextFrame(({ time }) => loop({ time }));
+        core.useNextFrame(() => loop());
     };
 
     /**
@@ -153,9 +153,7 @@ export const animatedPatternN0Animation = ({
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
-        core.useFrame(({ time }) => {
-            draw({ time });
-        });
+        core.useFrame(() => draw());
     });
 
     /**
@@ -163,13 +161,15 @@ export const animatedPatternN0Animation = ({
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         isActive = false;
+        gridTimeline?.pause();
         canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
             isActive = true;
-            core.useFrame(({ time }) => loop({ time }));
+            gridTimeline?.resume();
+            core.useFrame(() => loop());
             canvas.classList.add('active');
         }, 500)
     );

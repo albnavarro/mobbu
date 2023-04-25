@@ -92,8 +92,6 @@
     }
 
     &__side {
-        border-left: 1px $grey solid;
-        border-right: 1px $grey solid;
         position: absolute;
         left: 100%;
         width: calc(var(--header-height) / 2);

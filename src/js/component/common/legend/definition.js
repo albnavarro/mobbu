@@ -10,6 +10,12 @@ export const legendComponentDef = {
                 type: '',
                 source: '',
             },
+            state: {
+                isOpen: () => ({
+                    value: false,
+                    type: Boolean,
+                }),
+            },
         },
     },
 };
