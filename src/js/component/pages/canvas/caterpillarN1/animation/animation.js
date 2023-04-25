@@ -1,3 +1,4 @@
+import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
 // import { offset } from '../../../../../mobbu/utils/vanillaFunction';
@@ -26,6 +27,8 @@ export const caterpillarN1Animation = ({
     let rotationTween = {};
     let centerTween = {};
     let rectTimeline = {};
+    const { activeRoute } = mainStore.get();
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -228,6 +231,16 @@ export const caterpillarN1Animation = ({
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
             isActive = true;
+
+            /**
+             * If close nav but change route skip.
+             */
+            const { activeRoute: currentRoute } = mainStore.get();
+            if (currentRoute !== activeRoute) return;
+
+            /**
+             * Restart loop
+             */
             rectTimeline?.resume();
             core.useFrame(() => loop());
             canvas.classList.add('active');

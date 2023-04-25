@@ -1,3 +1,4 @@
+import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { createGrid } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
@@ -21,6 +22,8 @@ export const animatedPatternN0Animation = ({
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext('2d', { alpha: false });
+    const { activeRoute } = mainStore.get();
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -170,6 +173,16 @@ export const animatedPatternN0Animation = ({
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(async () => {
             isActive = true;
+
+            /**
+             * If close nav but change route skip.
+             */
+            const { activeRoute: currentRoute } = mainStore.get();
+            if (currentRoute !== activeRoute) return;
+
+            /**
+             * Restart loop
+             */
             gridTimeline?.play();
             core.useFrame(() => loop());
             canvas.classList.add('active');

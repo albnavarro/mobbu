@@ -1,3 +1,4 @@
+import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, tween } from '../../../../../mobbu';
 import { roundRectCustom } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
@@ -48,6 +49,7 @@ export const caterpillarN0Animation = ({
     let stemData = [];
     let steamDataReorded = [];
     let mainTween = {};
+    const { activeRoute } = mainStore.get();
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -201,6 +203,7 @@ export const caterpillarN0Animation = ({
         draw({ time });
 
         if (!isActive) return;
+
         core.useNextFrame(({ time }) => loop({ time }));
     };
 
@@ -241,13 +244,23 @@ export const caterpillarN0Animation = ({
         canvas.classList.remove('active');
     });
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () =>
+    const unWatchResume = navigationStore.watch('closeNavigation', () => {
         setTimeout(() => {
             isActive = true;
+
+            /**
+             * If close nav but change route skip.
+             */
+            const { activeRoute: currentRoute } = mainStore.get();
+            if (currentRoute !== activeRoute) return;
+
+            /**
+             * Restart loop
+             */
             core.useFrame(({ time }) => loop({ time }));
             canvas.classList.add('active');
-        }, 500)
-    );
+        }, 500);
+    });
 
     /**
      * Initial transition
@@ -260,6 +273,7 @@ export const caterpillarN0Animation = ({
         unsubscribeMouseMove();
         unWatchResume();
         unWatchPause();
+        // unWatchRouteChange();
         ctx = null;
         mainTween = null;
         steamDataReorded = [];
