@@ -129,16 +129,21 @@ export const animatedPatternN1Animation = ({
                     mouseY -
                     (canvas.height - (height + gutter) * numerOfRow) / 2;
 
-                const xScale = (x - mouseXparsed) / 100;
-                const yScale = (y - mouseYparsed) / 100;
+                const xScale = (x - mouseXparsed) / 250;
+                const yScale = (y - mouseYparsed) / 250;
+
+                const delta = Math.sqrt(
+                    Math.pow(Math.abs(xScale), 2) +
+                        Math.pow(Math.abs(yScale), 2)
+                );
 
                 ctx.translate(
                     Math.round(centerX + offsetXCenter),
                     Math.round(centerY + offsetYCenter)
                 );
                 ctx.scale(
-                    clamp(Math.abs(xScale), 0.1, 1),
-                    clamp(Math.abs(yScale), 0.1, 1)
+                    clamp(Math.abs(delta), 0.1, 1),
+                    clamp(Math.abs(delta), 0.1, 1)
                 );
 
                 ctx.translate(-Math.round(centerX), -Math.round(centerY));
@@ -157,8 +162,6 @@ export const animatedPatternN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        const mouseX = x - canvas.width / 2;
-        const mouseY = y - canvas.height / 2;
         centerTween.goTo({ mouseX: x, mouseY: y });
     });
 
