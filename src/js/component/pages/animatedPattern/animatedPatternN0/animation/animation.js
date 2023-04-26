@@ -51,7 +51,7 @@ export const animatedPatternN0Animation = ({
     gridTween = tween.createTween({
         ease: 'easeInOutQuad',
         stagger: {
-            each: 15,
+            each: 5,
             from: 'start',
             grid: { col: 11, row: 11, direction: 'row' },
             waitComplete: false,
