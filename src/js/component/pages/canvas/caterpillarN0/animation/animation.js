@@ -1,6 +1,9 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, tween } from '../../../../../mobbu';
-import { roundRectCustom } from '../../../../../utils/canvasUtils';
+import {
+    roundRectCustom,
+    roundRectIsSupported,
+} from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
@@ -50,6 +53,7 @@ export const caterpillarN0Animation = ({
     let steamDataReorded = [];
     let mainTween = {};
     const { activeRoute } = mainStore.get();
+    const useRoundRect = roundRectIsSupported(ctx);
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -171,17 +175,31 @@ export const caterpillarN0Animation = ({
                 /**
                  * Shape
                  */
-                roundRectCustom(
-                    ctx,
-                    centerX - (width * centerDirection) / 2,
-                    centerY -
-                        height / 2 +
-                        offsetInverse +
-                        spacerY(i < amountOfPath / 2),
-                    width,
-                    height,
-                    radius
-                );
+                if (useRoundRect) {
+                    ctx.beginPath();
+                    ctx.roundRect(
+                        centerX - (width * centerDirection) / 2,
+                        centerY -
+                            height / 2 +
+                            offsetInverse +
+                            spacerY(i < amountOfPath / 2),
+                        width,
+                        height,
+                        radius
+                    );
+                } else {
+                    roundRectCustom(
+                        ctx,
+                        centerX - (width * centerDirection) / 2,
+                        centerY -
+                            height / 2 +
+                            offsetInverse +
+                            spacerY(i < amountOfPath / 2),
+                        width,
+                        height,
+                        radius
+                    );
+                }
 
                 /**
                  * Color.

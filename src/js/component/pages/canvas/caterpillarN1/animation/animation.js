@@ -2,7 +2,10 @@ import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
 // import { offset } from '../../../../../mobbu/utils/vanillaFunction';
-import { roundRectCustom } from '../../../../../utils/canvasUtils';
+import {
+    roundRectCustom,
+    roundRectIsSupported,
+} from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const caterpillarN1Animation = ({
@@ -28,6 +31,7 @@ export const caterpillarN1Animation = ({
     let centerTween = {};
     let rectTimeline = {};
     const { activeRoute } = mainStore.get();
+    const useRoundRect = roundRectIsSupported(ctx);
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -143,8 +147,22 @@ export const caterpillarN1Animation = ({
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
+
                 ctx.globalAlpha = opacity;
-                roundRectCustom(ctx, centerX, centerY, width, height, radius);
+
+                if (useRoundRect) {
+                    ctx.beginPath();
+                    ctx.roundRect(centerX, centerY, width, height, radius);
+                } else {
+                    roundRectCustom(
+                        ctx,
+                        centerX,
+                        centerY,
+                        width,
+                        height,
+                        radius
+                    );
+                }
                 ctx.strokeStyle = borderColor;
                 ctx.stroke();
                 ctx.fillStyle = color;
