@@ -1,5 +1,5 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
-import { core, tween } from '../../../../../mobbu';
+import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
 import { createGrid } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
@@ -21,6 +21,9 @@ export const animatedPatternN1Animation = ({
     let gridData = [];
     let data = [];
     let centerTween = {};
+
+    let gridTween = {};
+    let gridTimeline = {};
     let ctx = canvas.getContext('2d', { alpha: false });
     const { activeRoute } = mainStore.get();
 
@@ -63,6 +66,29 @@ export const animatedPatternN1Animation = ({
     });
 
     /**
+     * Create tween
+     */
+    gridTween = tween.createTween({
+        ease: 'easeInOutSine',
+        stagger: {
+            each: 5,
+            from: 'start',
+            grid: { col: 15, row: 10, direction: 'row' },
+            waitComplete: false,
+        },
+        data: { scale: 0 },
+    });
+
+    /**
+     * Subscribe to tween
+     */
+    data.forEach((item) => {
+        gridTween.subscribeCache(item, ({ scale }) => {
+            item.scale = scale;
+        });
+    });
+
+    /**
      * Main draw function.
      */
     const draw = () => {
@@ -78,7 +104,7 @@ export const animatedPatternN1Animation = ({
         ctx.fillStyle = '#f6f6f6';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        data.forEach(({ x, y, width, height, mouseX, mouseY }) => {
+        data.forEach(({ x, y, width, height, mouseX, mouseY, scale }) => {
             const offsetXCenter =
                 canvas.width / 2 -
                 ((width + gutter) * numberOfColumn) / 2 -
@@ -100,8 +126,8 @@ export const animatedPatternN1Animation = ({
             const mouseYparsed =
                 mouseY - (canvas.height - (height + gutter) * numerOfRow) / 2;
 
-            const xScale = (x - mouseXparsed) / 250;
-            const yScale = (y - mouseYparsed) / 250;
+            const xScale = (x - mouseXparsed) / 350;
+            const yScale = (y - mouseYparsed) / 350;
 
             const delta = Math.sqrt(
                 Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
@@ -111,10 +137,10 @@ export const animatedPatternN1Animation = ({
                 Math.round(centerX + offsetXCenter),
                 Math.round(centerY + offsetYCenter)
             );
-            ctx.scale(
-                clamp(Math.abs(delta), 0.1, 2),
-                clamp(Math.abs(delta), 0.1, 2)
-            );
+
+            const scaleFactor = clamp(Math.abs(delta), 0.1, 1);
+
+            ctx.scale(scaleFactor + scale, scaleFactor + scale);
 
             ctx.translate(-Math.round(centerX), -Math.round(centerY));
 
@@ -128,6 +154,18 @@ export const animatedPatternN1Animation = ({
             ctx.restore();
         });
     };
+
+    /**
+     * Create timeline.
+     */
+    gridTimeline = timeline
+        .createAsyncTimeline({ repeat: -1, yoyo: true })
+        .goTo(gridTween, { scale: 0.2 }, { duration: 500 });
+
+    /**
+     * Start timeline.
+     */
+    gridTimeline.play();
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
@@ -161,6 +199,7 @@ export const animatedPatternN1Animation = ({
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
+        gridTimeline?.stop();
         isActive = false;
         canvas.classList.remove('active');
     });
@@ -178,6 +217,7 @@ export const animatedPatternN1Animation = ({
             /**
              * Restart loop
              */
+            gridTimeline?.play();
             core.useFrame(() => loop());
             canvas.classList.add('active');
         }, 500)
@@ -192,11 +232,15 @@ export const animatedPatternN1Animation = ({
      * Destroy.
      */
     return () => {
+        gridTween.destroy();
+        gridTimeline.destroy();
         centerTween.destroy();
         unsubscribeResize();
         unsubscribeMouseMove();
         unWatchResume();
         unWatchPause();
+        gridTween = null;
+        gridTimeline = null;
         centerTween = null;
         ctx = null;
         gridData = [];
