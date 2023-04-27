@@ -16,6 +16,7 @@ export const caterpillarN0Def = {
                 intialRotation: 33,
                 perpetualRatio: 6,
                 mouseMoveRatio: 10,
+                disableOffcanvas: false,
             },
         },
     },

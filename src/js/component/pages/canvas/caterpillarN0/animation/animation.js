@@ -43,21 +43,42 @@ export const caterpillarN0Animation = ({
     intialRotation,
     perpetualRatio,
     mouseMoveRatio,
+    disableOffcanvas,
 }) => {
+    /**
+     * Check if offscrennCanvas can be used.
+     */
+    const useOffscreen = 'OffscreenCanvas' in window && !disableOffcanvas;
+    const context = useOffscreen ? 'bitmaprenderer' : '2d';
+
     /**
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext('2d', { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: false });
     let stemData = [];
     let steamDataReorded = [];
     let mainTween = {};
     const { activeRoute } = mainStore.get();
     const useRoundRect = roundRectIsSupported(ctx);
 
+    /**
+     * If offscreen is supported use.
+     */
+    let offscreen = useOffscreen
+        ? new OffscreenCanvas(canvas.width, canvas.height)
+        : null;
+    let offScreenCtx = useOffscreen ? offscreen.getContext('2d') : null;
+
+    /**
+     * Initial misure.
+     */
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
+    /**
+     * Setup data.
+     */
     stemData = [...Array(amountOfPath).keys()].map((_item, i) => {
         const count = i;
         const index = count < amountOfPath / 2 ? amountOfPath - count : count;
@@ -110,6 +131,13 @@ export const caterpillarN0Animation = ({
     const draw = ({ time = 0 }) => {
         if (!ctx) return;
 
+        if (useOffscreen) {
+            offscreen.width = canvas.width;
+            offscreen.height = canvas.height;
+        }
+
+        const context = offscreen ? offScreenCtx : ctx;
+
         /**
          * Get center of canvas.
          */
@@ -119,8 +147,8 @@ export const caterpillarN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        ctx.fillStyle = '#f6f6f6';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = '#f6f6f6';
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(
             ({
@@ -136,7 +164,7 @@ export const caterpillarN0Animation = ({
                 /**
                  * Center canvas on bottom right of the screen.
                  */
-                ctx.save();
+                context.save();
 
                 /**
                  * Pertual movment based on timeframe.
@@ -160,9 +188,9 @@ export const caterpillarN0Animation = ({
                 /**
                  * Center canvas in the screen
                  */
-                ctx.translate(centerX + width / 2, centerY + height / 2);
-                ctx.rotate((Math.PI / 180) * (rotate - intialRotation));
-                ctx.translate(
+                context.translate(centerX + width / 2, centerY + height / 2);
+                context.rotate((Math.PI / 180) * (rotate - intialRotation));
+                context.translate(
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
@@ -170,14 +198,14 @@ export const caterpillarN0Animation = ({
                 /**
                  * Set oapcity
                  */
-                ctx.globalAlpha = opacity;
+                context.globalAlpha = opacity;
 
                 /**
                  * Shape
                  */
                 if (useRoundRect) {
-                    ctx.beginPath();
-                    ctx.roundRect(
+                    context.beginPath();
+                    context.roundRect(
                         centerX - (width * centerDirection) / 2,
                         centerY -
                             height / 2 +
@@ -189,7 +217,7 @@ export const caterpillarN0Animation = ({
                     );
                 } else {
                     roundRectCustom(
-                        ctx,
+                        context,
                         centerX - (width * centerDirection) / 2,
                         centerY -
                             height / 2 +
@@ -204,14 +232,19 @@ export const caterpillarN0Animation = ({
                 /**
                  * Color.
                  */
-                ctx.strokeStyle = stroke;
-                ctx.stroke();
-                ctx.fillStyle = fill;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-                ctx.restore();
+                context.strokeStyle = stroke;
+                context.stroke();
+                context.fillStyle = fill;
+                context.fill();
+                context.globalAlpha = 1;
+                context.restore();
             }
         );
+
+        if (useOffscreen) {
+            const bitmap = offscreen.transferToImageBitmap();
+            ctx.transferFromImageBitmap(bitmap);
+        }
     };
 
     /**
@@ -291,8 +324,9 @@ export const caterpillarN0Animation = ({
         unsubscribeMouseMove();
         unWatchResume();
         unWatchPause();
-        // unWatchRouteChange();
         ctx = null;
+        offscreen = null;
+        offScreenCtx = null;
         mainTween = null;
         steamDataReorded = [];
         stemData = [];
