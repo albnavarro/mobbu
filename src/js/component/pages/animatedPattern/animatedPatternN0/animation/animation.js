@@ -1,11 +1,15 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
-import { createGrid } from '../../../../../utils/canvasUtils';
+import {
+    createGrid,
+    getOffsetXCenter,
+    getOffsetYCenter,
+} from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const animatedPatternN0Animation = ({
     canvas,
-    numerOfRow,
+    numberOfRow,
     numberOfColumn,
     cellWidth,
     cellHeight,
@@ -31,7 +35,8 @@ export const animatedPatternN0Animation = ({
      * Create basic grid.
      */
     gridData = createGrid({
-        numerOfRow,
+        canvas,
+        numberOfRow,
         numberOfColumn,
         cellWidth,
         cellHeight,
@@ -76,49 +81,61 @@ export const animatedPatternN0Animation = ({
         if (!ctx) return;
 
         /**
-         * Get center of canvas.
-         */
-
-        /**
          * Clear rpevious render.
          */
         ctx.fillStyle = '#f6f6f6';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        data.forEach(({ x, y, width, height, rotate, scale }) => {
-            const offsetXCenter =
-                canvas.width / 2 -
-                ((width + gutter) * numberOfColumn) / 2 -
-                width / 2;
+        data.forEach(
+            ({
+                x,
+                y,
+                centerX,
+                centerY,
+                width,
+                height,
+                rotate,
+                scale,
+                offsetXCenter,
+                offsetYCenter,
+            }) => {
+                ctx.save();
 
-            const offsetYCenter =
-                canvas.height / 2 -
-                ((height + gutter) * (numerOfRow + 1)) / 2 -
-                height / 2;
+                /**
+                 * Center canvas in center of item.
+                 */
+                ctx.translate(
+                    Math.round(centerX + offsetXCenter),
+                    Math.round(centerY + offsetYCenter)
+                );
 
-            const centerX = x + width / 2;
-            const centerY = y + height / 2;
+                /**
+                 * Rotate item.
+                 */
+                ctx.rotate((Math.PI / 180) * rotate);
 
-            ctx.save();
+                /**
+                 * Scale item
+                 */
+                ctx.scale(scale, scale);
 
-            ctx.translate(
-                Math.round(centerX + offsetXCenter),
-                Math.round(centerY + offsetYCenter)
-            );
-            ctx.rotate((Math.PI / 180) * rotate);
+                /**
+                 * Resent center.
+                 */
+                ctx.translate(-Math.round(centerX), -Math.round(centerY));
 
-            ctx.scale(scale, scale);
-            ctx.translate(-Math.round(centerX), -Math.round(centerY));
+                /**
+                 * Draw.
+                 */
+                ctx.strokeStyle = stroke;
+                ctx.lineWidth = 1;
+                ctx.strokeRect(Math.round(x), Math.round(y), width, height);
+                ctx.fillStyle = fill;
+                ctx.fillRect(Math.round(x), Math.round(y), width, height);
 
-            ctx.strokeStyle = stroke;
-            ctx.lineWidth = 1;
-            ctx.strokeRect(Math.round(x), Math.round(y), width, height);
-
-            ctx.fillStyle = fill;
-            ctx.fillRect(Math.round(x), Math.round(y), width, height);
-
-            ctx.restore();
-        });
+                ctx.restore();
+            }
+        );
     };
 
     /**
@@ -158,6 +175,31 @@ export const animatedPatternN0Animation = ({
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+
+        /**
+         * Update offset position to center grid in canvas.
+         */
+        data.forEach((item) => {
+            const { width, height, gutter, numberOfColumn } = item;
+
+            item.offsetXCenter = getOffsetXCenter({
+                canvasWidth: canvas.width,
+                width,
+                gutter,
+                numberOfColumn,
+            });
+
+            item.offsetYCenter = getOffsetYCenter({
+                canvasHeight: canvas.height,
+                height,
+                gutter,
+                numberOfRow,
+            });
+        });
+
+        /**
+         * Render.
+         */
         core.useFrame(() => draw());
     });
 

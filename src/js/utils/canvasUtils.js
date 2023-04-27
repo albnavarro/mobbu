@@ -11,13 +11,14 @@ export const roundRectCustom = (ctx, x, y, w, h, r) => {
 };
 
 export const createGrid = ({
-    numerOfRow,
+    canvas,
+    numberOfRow,
     numberOfColumn,
     cellWidth,
     cellHeight,
     gutter,
 }) => {
-    return [...Array(numerOfRow * numberOfColumn + numerOfRow).keys()].reduce(
+    return [...Array(numberOfRow * numberOfColumn + numberOfRow).keys()].reduce(
         (previous) => {
             const { row, col, items: previousItems } = previous;
             const newCol = col < numberOfColumn ? col + 1 : 0;
@@ -36,10 +37,50 @@ export const createGrid = ({
                         height: cellHeight,
                         x,
                         y,
+                        centerX: x + cellWidth / 2,
+                        centerY: y + cellHeight / 2,
+                        offsetXCenter: getOffsetXCenter({
+                            canvasWidth: canvas.width,
+                            width: cellWidth,
+                            gutter,
+                            numberOfColumn,
+                        }),
+                        offsetYCenter: getOffsetYCenter({
+                            canvasHeight: canvas.height,
+                            height: cellHeight,
+                            gutter,
+                            numberOfRow,
+                        }),
+                        gutter,
+                        numberOfColumn,
                     },
                 ],
             };
         },
         { row: 0, col: -1, items: [] }
+    );
+};
+
+export const getOffsetXCenter = ({
+    canvasWidth,
+    width,
+    gutter,
+    numberOfColumn,
+}) => {
+    return (
+        canvasWidth / 2 - ((width + gutter) * numberOfColumn) / 2 - width / 2
+    );
+};
+
+export const getOffsetYCenter = ({
+    canvasHeight,
+    height,
+    gutter,
+    numberOfRow,
+}) => {
+    return (
+        canvasHeight / 2 -
+        ((height + gutter) * (numberOfRow + 1)) / 2 -
+        height / 2
     );
 };

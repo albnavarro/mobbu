@@ -5,7 +5,7 @@ export const animatedPatternN0Def = {
         componentFunction: AnimatedPatternN0,
         componentParams: {
             props: {
-                numerOfRow: 10,
+                numberOfRow: 10,
                 numberOfColumn: 10,
                 cellWidth: 50,
                 cellHeight: 50,

@@ -1,12 +1,16 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
-import { createGrid } from '../../../../../utils/canvasUtils';
+import {
+    createGrid,
+    getOffsetXCenter,
+    getOffsetYCenter,
+} from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const animatedPatternN1Animation = ({
     canvas,
-    numerOfRow,
+    numberOfRow,
     numberOfColumn,
     cellWidth,
     cellHeight,
@@ -34,7 +38,8 @@ export const animatedPatternN1Animation = ({
      * Create basic grid.
      */
     gridData = createGrid({
-        numerOfRow,
+        canvas,
+        numberOfRow,
         numberOfColumn,
         cellWidth,
         cellHeight,
@@ -95,64 +100,90 @@ export const animatedPatternN1Animation = ({
         if (!ctx) return;
 
         /**
-         * Get center of canvas.
-         */
-
-        /**
          * Clear rpevious render.
          */
         ctx.fillStyle = '#f6f6f6';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        data.forEach(({ x, y, width, height, mouseX, mouseY, scale }) => {
-            const offsetXCenter =
-                canvas.width / 2 -
-                ((width + gutter) * numberOfColumn) / 2 -
-                width / 2;
+        data.forEach(
+            ({
+                x,
+                y,
+                centerX,
+                centerY,
+                width,
+                height,
+                mouseX,
+                mouseY,
+                scale,
+                offsetXCenter,
+                offsetYCenter,
+            }) => {
+                ctx.save();
 
-            const offsetYCenter =
-                canvas.height / 2 -
-                ((height + gutter) * (numerOfRow + 1)) / 2 -
-                height / 2;
+                /**
+                 * X difference in px form mouse to sqaure.
+                 */
+                const mouseXparsed =
+                    mouseX -
+                    (canvas.width - (width + gutter) * numberOfColumn) / 2;
 
-            const centerX = x + width / 2;
-            const centerY = y + height / 2;
+                /**
+                 * Y difference in px form mouse to sqaure.
+                 */
+                const mouseYparsed =
+                    mouseY -
+                    (canvas.height - (height + gutter) * numberOfRow) / 2;
 
-            ctx.save();
+                /**
+                 * Scale value
+                 */
+                const xScale = (x - mouseXparsed) / 350;
+                const yScale = (y - mouseYparsed) / 350;
 
-            const mouseXparsed =
-                mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+                /**
+                 * Scale factor y and x together.
+                 */
+                const delta = Math.sqrt(
+                    Math.pow(Math.abs(xScale), 2) +
+                        Math.pow(Math.abs(yScale), 2)
+                );
 
-            const mouseYparsed =
-                mouseY - (canvas.height - (height + gutter) * numerOfRow) / 2;
+                /**
+                 * Clamp scale factor bwtween .1 and 1.
+                 */
+                const scaleFactor = clamp(Math.abs(delta), 0.1, 1);
 
-            const xScale = (x - mouseXparsed) / 350;
-            const yScale = (y - mouseYparsed) / 350;
+                /**
+                 * Center canvas in center of item.
+                 */
+                ctx.translate(
+                    Math.round(centerX + offsetXCenter),
+                    Math.round(centerY + offsetYCenter)
+                );
 
-            const delta = Math.sqrt(
-                Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
-            );
+                /**
+                 * Scale item
+                 */
+                ctx.scale(scaleFactor + scale, scaleFactor + scale);
 
-            ctx.translate(
-                Math.round(centerX + offsetXCenter),
-                Math.round(centerY + offsetYCenter)
-            );
+                /**
+                 * Resent center.
+                 */
+                ctx.translate(-Math.round(centerX), -Math.round(centerY));
 
-            const scaleFactor = clamp(Math.abs(delta), 0.1, 1);
+                /**
+                 * Draw.
+                 */
+                ctx.strokeStyle = stroke;
+                ctx.lineWidth = 1;
+                ctx.strokeRect(Math.round(x), Math.round(y), width, height);
+                ctx.fillStyle = fill;
+                ctx.fillRect(Math.round(x), Math.round(y), width, height);
 
-            ctx.scale(scaleFactor + scale, scaleFactor + scale);
-
-            ctx.translate(-Math.round(centerX), -Math.round(centerY));
-
-            ctx.strokeStyle = stroke;
-            ctx.lineWidth = 1;
-            ctx.strokeRect(Math.round(x), Math.round(y), width, height);
-
-            ctx.fillStyle = fill;
-            ctx.fillRect(Math.round(x), Math.round(y), width, height);
-
-            ctx.restore();
-        });
+                ctx.restore();
+            }
+        );
     };
 
     /**
@@ -189,9 +220,37 @@ export const animatedPatternN1Animation = ({
         loop({ time });
     });
 
+    /**
+     * On resize.
+     */
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+
+        /**
+         * Update offset position to center grid in canvas.
+         */
+        data.forEach((item) => {
+            const { width, height, gutter, numberOfColumn } = item;
+
+            item.offsetXCenter = getOffsetXCenter({
+                canvasWidth: canvas.width,
+                width,
+                gutter,
+                numberOfColumn,
+            });
+
+            item.offsetYCenter = getOffsetYCenter({
+                canvasHeight: canvas.height,
+                height,
+                gutter,
+                numberOfRow,
+            });
+        });
+
+        /**
+         * Render.
+         */
         core.useFrame(() => draw());
     });
 
