@@ -175,11 +175,12 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Draw.
                  */
+                ctx.fillStyle = fill;
+                ctx.fillRect(Math.round(x), Math.round(y), width, height);
+
                 ctx.strokeStyle = stroke;
                 ctx.lineWidth = 1;
                 ctx.strokeRect(Math.round(x), Math.round(y), width, height);
-                ctx.fillStyle = fill;
-                ctx.fillRect(Math.round(x), Math.round(y), width, height);
 
                 ctx.restore();
             }
