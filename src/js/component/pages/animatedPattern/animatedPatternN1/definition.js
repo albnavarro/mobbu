@@ -5,10 +5,10 @@ export const animatedPatternN1Def = {
         componentFunction: AnimatedPatternN1,
         componentParams: {
             props: {
-                numerOfRow: 10,
+                numerOfRow: 7,
                 numberOfColumn: 15,
-                cellWidth: 50,
-                cellHeight: 50,
+                cellWidth: 70,
+                cellHeight: 70,
                 gutter: 10,
                 fill: '#fff',
                 stroke: '#999',

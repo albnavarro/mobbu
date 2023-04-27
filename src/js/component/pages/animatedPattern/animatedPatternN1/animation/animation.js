@@ -51,7 +51,7 @@ export const animatedPatternN1Animation = ({
     /**
      * Create rotation tween.
      */
-    centerTween = tween.createSpring({
+    centerTween = tween.createLerp({
         data: { mouseX: 0, mouseY: 0 },
     });
 
@@ -73,7 +73,7 @@ export const animatedPatternN1Animation = ({
         stagger: {
             each: 5,
             from: 'start',
-            grid: { col: 15, row: 10, direction: 'row' },
+            grid: { col: 15, row: 7, direction: 'row' },
             waitComplete: false,
         },
         data: { scale: 0 },
