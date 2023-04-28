@@ -1,8 +1,10 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
-// import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import {
+    copyCanvasBitmap,
+    getCanvasContext,
+    getOffsetCanvas,
     roundRectCustom,
     roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
@@ -20,12 +22,18 @@ export const caterpillarN1Animation = ({
     rotationDuration,
     rotationEach,
     centerEach,
+    disableOffcanvas,
 }) => {
+    /**
+     * Check if offscrennCanvas can be used.
+     */
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+
     /**
      * Mutable keyword is used for destroy reference.
      */
     let isActive = true;
-    let ctx = canvas.getContext('2d', { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
     let rotationTween = {};
     let centerTween = {};
@@ -33,6 +41,14 @@ export const caterpillarN1Animation = ({
     const { activeRoute } = mainStore.get();
     const useRoundRect = roundRectIsSupported(ctx);
 
+    /**
+     * If offscreen is supported use.
+     */
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+
+    /**
+     * Initial misure.
+     */
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
@@ -100,8 +116,15 @@ export const caterpillarN1Animation = ({
     const draw = () => {
         if (!ctx) return;
 
-        ctx.fillStyle = '#f6f6f6';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (useOffscreen) {
+            offscreen.width = canvas.width;
+            offscreen.height = canvas.height;
+        }
+
+        const context = offscreen ? offScreenCtx : ctx;
+
+        context.fillStyle = '#f6f6f6';
+        context.fillRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
             (
                 {
@@ -120,12 +143,12 @@ export const caterpillarN1Animation = ({
                 const unitInverse = squareData.length - i;
                 const centerX = canvas.width / 2 - width / 2;
                 const centerY = canvas.height / 2 - height / 2;
-                ctx.save();
+                context.save();
 
                 /**
                  * Center canvas
                  */
-                ctx.translate(
+                context.translate(
                     /**
                      * offset
                      */
@@ -138,24 +161,24 @@ export const caterpillarN1Animation = ({
                     // centerX + width / 2 + x,
                     // centerY + height / 2 + y
                 );
-                ctx.rotate((Math.PI / 180) * rotate);
+                context.rotate((Math.PI / 180) * rotate);
 
                 /**
                  * Restore canvas center
                  */
-                ctx.translate(
+                context.translate(
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
 
-                ctx.globalAlpha = opacity;
+                context.globalAlpha = opacity;
 
                 if (useRoundRect) {
-                    ctx.beginPath();
-                    ctx.roundRect(centerX, centerY, width, height, radius);
+                    context.beginPath();
+                    context.roundRect(centerX, centerY, width, height, radius);
                 } else {
                     roundRectCustom(
-                        ctx,
+                        context,
                         centerX,
                         centerY,
                         width,
@@ -163,14 +186,16 @@ export const caterpillarN1Animation = ({
                         radius
                     );
                 }
-                ctx.strokeStyle = borderColor;
-                ctx.stroke();
-                ctx.fillStyle = color;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-                ctx.restore();
+                context.strokeStyle = borderColor;
+                context.stroke();
+                context.fillStyle = color;
+                context.fill();
+                context.globalAlpha = 1;
+                context.restore();
             }
         );
+
+        copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
     /**
@@ -223,9 +248,6 @@ export const caterpillarN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        // const { left, top } = offset(canvas);
-        // const xCenter = x - (canvas.width + left) / 2;
-        // const yCenter = y - (canvas.height + top) / 2;
 
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
@@ -277,6 +299,8 @@ export const caterpillarN1Animation = ({
         centerTween = null;
         rectTimeline = null;
         ctx = null;
+        offscreen = null;
+        offScreenCtx = null;
         squareData = [];
         isActive = false;
     };

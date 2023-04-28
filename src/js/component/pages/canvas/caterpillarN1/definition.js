@@ -15,6 +15,7 @@ export const caterpillarN1Def = {
                 rotationEach: 15,
                 centerEach: 5,
                 rotationDuration: 5000,
+                disableOffcanvas: false,
             },
         },
     },

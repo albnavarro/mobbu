@@ -1,6 +1,9 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, tween } from '../../../../../mobbu';
 import {
+    copyCanvasBitmap,
+    getCanvasContext,
+    getOffsetCanvas,
     roundRectCustom,
     roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
@@ -48,8 +51,7 @@ export const caterpillarN0Animation = ({
     /**
      * Check if offscrennCanvas can be used.
      */
-    const useOffscreen = 'OffscreenCanvas' in window && !disableOffcanvas;
-    const context = useOffscreen ? 'bitmaprenderer' : '2d';
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
 
     /**
      * Mutable keyword is used for destroy reference.
@@ -65,10 +67,7 @@ export const caterpillarN0Animation = ({
     /**
      * If offscreen is supported use.
      */
-    let offscreen = useOffscreen
-        ? new OffscreenCanvas(canvas.width, canvas.height)
-        : null;
-    let offScreenCtx = useOffscreen ? offscreen.getContext('2d') : null;
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
 
     /**
      * Initial misure.
@@ -241,10 +240,7 @@ export const caterpillarN0Animation = ({
             }
         );
 
-        if (useOffscreen) {
-            const bitmap = offscreen.transferToImageBitmap();
-            ctx.transferFromImageBitmap(bitmap);
-        }
+        copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
     /**

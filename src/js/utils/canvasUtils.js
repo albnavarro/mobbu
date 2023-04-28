@@ -1,3 +1,25 @@
+export const getCanvasContext = ({ disableOffcanvas }) => {
+    const useOffscreen = 'OffscreenCanvas' in window && !disableOffcanvas;
+    const context = useOffscreen ? 'bitmaprenderer' : '2d';
+    return { useOffscreen, context };
+};
+
+export const getOffsetCanvas = ({ useOffscreen, canvas }) => {
+    const offscreen = useOffscreen
+        ? new OffscreenCanvas(canvas.width, canvas.height)
+        : null;
+    const offScreenCtx = useOffscreen ? offscreen.getContext('2d') : null;
+
+    return { offscreen, offScreenCtx };
+};
+
+export const copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
+    if (useOffscreen) {
+        const bitmap = offscreen.transferToImageBitmap();
+        ctx.transferFromImageBitmap(bitmap);
+    }
+};
+
 export const roundRectIsSupported = (ctx) => 'roundRect' in ctx;
 
 export const roundRectCustom = (ctx, x, y, w, h, r) => {
