@@ -121,7 +121,7 @@ export const caterpillarN1Animation = ({
             offscreen.height = canvas.height;
         }
 
-        const context = offscreen ? offScreenCtx : ctx;
+        const context = useOffscreen ? offScreenCtx : ctx;
 
         context.fillStyle = '#f6f6f6';
         context.fillRect(0, 0, canvas.width, canvas.height);

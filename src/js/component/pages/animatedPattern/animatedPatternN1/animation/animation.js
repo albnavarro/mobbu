@@ -118,7 +118,7 @@ export const animatedPatternN1Animation = ({
             offscreen.height = canvas.height;
         }
 
-        const context = offscreen ? offScreenCtx : ctx;
+        const context = useOffscreen ? offScreenCtx : ctx;
 
         /**
          * Clear rpevious render.

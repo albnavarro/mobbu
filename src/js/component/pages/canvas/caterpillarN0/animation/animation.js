@@ -135,7 +135,7 @@ export const caterpillarN0Animation = ({
             offscreen.height = canvas.height;
         }
 
-        const context = offscreen ? offScreenCtx : ctx;
+        const context = useOffscreen ? offScreenCtx : ctx;
 
         /**
          * Get center of canvas.
