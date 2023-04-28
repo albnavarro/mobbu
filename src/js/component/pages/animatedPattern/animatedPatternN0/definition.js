@@ -12,6 +12,7 @@ export const animatedPatternN0Def = {
                 gutter: 10,
                 fill: '#fff',
                 stroke: '#999',
+                disableOffcanvas: false,
             },
         },
     },

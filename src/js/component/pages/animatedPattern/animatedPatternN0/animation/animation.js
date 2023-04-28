@@ -1,7 +1,10 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import {
+    copyCanvasBitmap,
     createGrid,
+    getCanvasContext,
+    getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
 } from '../../../../../utils/canvasUtils';
@@ -16,7 +19,13 @@ export const animatedPatternN0Animation = ({
     gutter,
     fill,
     stroke,
+    disableOffcanvas,
 }) => {
+    /**
+     * Check if offscrennCanvas can be used.
+     */
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+
     /**
      * Mutable keyword is used for destroy reference.
      */
@@ -25,8 +34,13 @@ export const animatedPatternN0Animation = ({
     let data = [];
     let gridTween = {};
     let gridTimeline = {};
-    let ctx = canvas.getContext('2d', { alpha: false });
+    let ctx = canvas.getContext(context, { alpha: false });
     const { activeRoute } = mainStore.get();
+
+    /**
+     * If offscreen is supported use.
+     */
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -80,11 +94,18 @@ export const animatedPatternN0Animation = ({
     const draw = () => {
         if (!ctx) return;
 
+        if (useOffscreen) {
+            offscreen.width = canvas.width;
+            offscreen.height = canvas.height;
+        }
+
+        const context = offscreen ? offScreenCtx : ctx;
+
         /**
          * Clear rpevious render.
          */
-        ctx.fillStyle = '#f6f6f6';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = '#f6f6f6';
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(
             ({
@@ -99,12 +120,12 @@ export const animatedPatternN0Animation = ({
                 offsetXCenter,
                 offsetYCenter,
             }) => {
-                ctx.save();
+                context.save();
 
                 /**
                  * Center canvas in center of item.
                  */
-                ctx.translate(
+                context.translate(
                     Math.round(centerX + offsetXCenter),
                     Math.round(centerY + offsetYCenter)
                 );
@@ -112,31 +133,33 @@ export const animatedPatternN0Animation = ({
                 /**
                  * Rotate item.
                  */
-                ctx.rotate((Math.PI / 180) * rotate);
+                context.rotate((Math.PI / 180) * rotate);
 
                 /**
                  * Scale item
                  */
-                ctx.scale(scale, scale);
+                context.scale(scale, scale);
 
                 /**
                  * Resent center.
                  */
-                ctx.translate(-Math.round(centerX), -Math.round(centerY));
+                context.translate(-Math.round(centerX), -Math.round(centerY));
 
                 /**
                  * Draw.
                  */
-                ctx.fillStyle = fill;
-                ctx.fillRect(Math.round(x), Math.round(y), width, height);
+                context.fillStyle = fill;
+                context.fillRect(Math.round(x), Math.round(y), width, height);
 
-                ctx.strokeStyle = stroke;
-                ctx.lineWidth = 1;
-                ctx.strokeRect(Math.round(x), Math.round(y), width, height);
+                context.strokeStyle = stroke;
+                context.lineWidth = 1;
+                context.strokeRect(Math.round(x), Math.round(y), width, height);
 
-                ctx.restore();
+                context.restore();
             }
         );
+
+        copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
 
     /**
@@ -249,6 +272,8 @@ export const animatedPatternN0Animation = ({
         gridTween = null;
         gridTimeline = null;
         ctx = null;
+        offscreen = null;
+        offScreenCtx = null;
         gridData = [];
         data = [];
         isActive = false;
