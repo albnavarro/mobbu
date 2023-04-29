@@ -3,19 +3,24 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-legend {
-    position: absolute;
+    position: fixed;
     top: var(--header-height);
     left: calc(var(--header-height) / 2);
     width: rem(500);
     height: calc(100vh - var(--header-height) - var(--footer-height));
     z-index: 10;
     overflow: hidden;
+    pointer-events: none;
+
+    @include when-inside('.active') {
+        pointer-events: all;
+    }
 
     &__wrap {
         position: relative;
         width: 100%;
         height: 100%;
-        background: rgba($white, 0.8);
+        background: $white;
         padding: rem(40);
         transform: translateX(-100%);
         transition: transform 0.55s;
@@ -26,7 +31,7 @@
     }
 
     &__btn {
-        position: absolute;
+        position: fixed;
         bottom: var(--footer-height);
         left: calc(var(--header-height) / 2);
         z-index: 11;
@@ -44,7 +49,7 @@
     }
 
     &__overlay {
-        position: absolute;
+        position: fixed;
         top: calc(var(--header-height));
         left: var(--header-height);
         height: calc(100vh - var(--header-height));

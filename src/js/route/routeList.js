@@ -3,6 +3,7 @@ import { animatedPatternN0Module } from '../pages/animatedPattern/animatedPatter
 import { animatedPatternN1Module } from '../pages/animatedPattern/animatedPatternN1';
 import { caterpillarN1Module } from '../pages/canvas/caterpillarN1';
 import { homeModule } from '../pages/home';
+import { horizontalScrollerModule } from '../pages/horizontalScroller';
 import { testModule } from '../pages/test';
 
 /**
@@ -14,6 +15,7 @@ export const routeList = {
     caterpillarN1: caterpillarN1Module,
     animatedPatternN0: animatedPatternN0Module,
     animatedPatternN1: animatedPatternN1Module,
+    horizontalScroller: horizontalScrollerModule,
     pageNotFound: pageNotFoundModule,
 };
 

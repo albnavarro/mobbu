@@ -76,6 +76,11 @@
             "children": null
         },
         {
+            "label": "horizotnal scroller",
+            "url": "horizontalScroller",
+            "children": null
+        },
+        {
             "label": "test repeater",
             "url": "test",
             "children": null
