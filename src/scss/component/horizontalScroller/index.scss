@@ -25,5 +25,10 @@
         width: rem(60);
         height: rem(60);
         color: $white;
+        transition: background 0.55s;
+
+        &:hover {
+            background: $dark-green;
+        }
     }
 }
