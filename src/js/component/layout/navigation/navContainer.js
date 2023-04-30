@@ -1,3 +1,4 @@
+import { bodyScroll } from '../../../mobbu/plugin';
 import { navigationStore } from './store/navStore';
 
 function closeNavigation({ element, main }) {
@@ -25,6 +26,9 @@ function addHandler({ main, toTopBtn }) {
     toTopBtn.addEventListener('click', () => {
         navigationStore.emit('closeAllItems');
         navigationStore.emit('goToTop');
+
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) bodyScroll.to(0);
     });
 }
 

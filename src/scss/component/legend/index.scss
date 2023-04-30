@@ -4,11 +4,11 @@
 
 .c-legend {
     position: fixed;
-    top: var(--header-height);
-    left: calc(var(--header-height) / 2);
-    width: rem(500);
-    height: calc(100vh - var(--header-height) - var(--footer-height));
-    z-index: 13;
+    top: 0;
+    left: 0;
+    width: rem(1000);
+    height: calc(100vh - var(--footer-height));
+    z-index: 14;
     overflow: hidden;
     pointer-events: none;
 
@@ -21,9 +21,20 @@
         width: 100%;
         height: 100%;
         background: $white;
-        padding: rem(40);
+        padding: rem(40) rem(40) rem(40)
+            calc(var(--header-height) / 2 + #{rem(40)});
         transform: translateX(-100%);
         transition: transform 0.55s;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: calc(var(--header-height) / 2);
+            background: $green;
+        }
 
         @include when-inside('.active') {
             transform: translateX(0);
@@ -34,7 +45,7 @@
         position: fixed;
         bottom: var(--footer-height);
         left: calc(var(--header-height) / 2);
-        z-index: 14;
+        z-index: 15;
         width: var(--header-height);
         height: var(--header-height);
         background: $green;
@@ -51,17 +62,19 @@
     &__overlay {
         position: fixed;
         top: calc(var(--header-height));
-        left: var(--header-height);
+        left: 0;
         height: calc(100vh - var(--header-height));
-        background: transparent;
+        background: rgba($dark-green, 0.95);
+        opacity: 0;
         width: 100vw;
         border: 0;
         z-index: 11;
         pointer-events: none;
+        transition: opacity 0.55s;
 
         @include when-inside('.active') {
-            transform: translateX(calc(#{rem(450)}));
             pointer-events: all;
+            opacity: 1;
         }
     }
 
@@ -70,9 +83,5 @@
     &__description,
     &__code {
         margin-bottom: rem(10);
-    }
-
-    &__description {
-        max-width: 600px;
     }
 }
