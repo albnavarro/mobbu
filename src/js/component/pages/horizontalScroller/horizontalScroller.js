@@ -81,8 +81,11 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 const { top } = offset(shadowCenter);
                 const height = outerHeight(shadowCenter);
                 const scrollValue =
+                    /**
+                     * Need previous and current value to enter/leave etc.. so add 20 px to first item.
+                     */
                     parseInt(id) === 0
-                        ? window.innerHeight
+                        ? window.innerHeight + 20
                         : top + height - window.innerHeight;
 
                 /**
