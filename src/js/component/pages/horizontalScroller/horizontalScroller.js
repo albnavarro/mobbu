@@ -56,6 +56,11 @@ export const HorizontalScroller = ({ onMount, render }) => {
             nav,
         });
 
+        /**
+         * Prevent landing at bottom of the page.
+         */
+        window.scrollTo(0, 0);
+
         [...navButtons].forEach((button) => {
             button.addEventListener('click', async (e) => {
                 const target = e.currentTarget;
@@ -121,9 +126,6 @@ export const HorizontalScroller = ({ onMount, render }) => {
             <div class="l-h-scroller__container js-container">
                 <div class="l-h-scroller__row js-row">
                     ${getColumns({ numOfCol: 10 })}
-                    <section
-                        class="l-h-scroller__column l-h-scroller__column--last js-column"
-                    ></section>
                 </div>
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>
