@@ -84,7 +84,7 @@ export const HorizontalScroller = ({ onMount, render }) => {
                      * Need previous and current value to enter/leave etc.. so add 20 px to first item.
                      */
                     parseInt(id) === 0
-                        ? window.innerHeight
+                        ? window.innerHeight + 1
                         : top + height - window.innerHeight;
 
                 /**

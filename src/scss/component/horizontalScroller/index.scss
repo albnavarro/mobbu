@@ -34,7 +34,7 @@
     }
 
     &__wrap {
-        border: 5px $green solid;
+        border: 1px $dark-green solid;
         height: 100%;
         position: relative;
     }
@@ -68,6 +68,7 @@
             background: transparent;
             border: 0;
             transition: background 0.55s;
+            position: relative;
 
             &:hover {
                 background: $green;

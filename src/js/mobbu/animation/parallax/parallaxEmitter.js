@@ -14,8 +14,8 @@ export function parallaxEmitter({
          * ON_LEAVE
          **/
         if (
-            (value > maxVal && prevValue < maxVal && maxVal > 0) ||
-            (value < maxVal && prevValue > maxVal && maxVal < 0)
+            (value >= maxVal && prevValue <= maxVal && maxVal >= 0) ||
+            (value <= maxVal && prevValue >= maxVal && maxVal <= 0)
         )
             return parallaxConstant.ON_LEAVE;
 
@@ -23,8 +23,8 @@ export function parallaxEmitter({
          * ON_ENTER_BACK
          **/
         if (
-            (value > maxVal && prevValue < maxVal && maxVal < 0) ||
-            (value < maxVal && prevValue > maxVal && maxVal > 0)
+            (value > maxVal && prevValue <= maxVal && maxVal <= 0) ||
+            (value < maxVal && prevValue >= maxVal && maxVal >= 0)
         )
             return parallaxConstant.ON_ENTER_BACK;
 
@@ -32,8 +32,8 @@ export function parallaxEmitter({
          * ON_LEAVE_BACK
          **/
         if (
-            (value > 0 && prevValue < 0 && maxVal < 0) ||
-            (value < 0 && prevValue > 0 && maxVal > 0)
+            (value >= 0 && prevValue <= 0 && maxVal <= 0) ||
+            (value <= 0 && prevValue >= 0 && maxVal >= 0)
         )
             return parallaxConstant.ON_LEAVE_BACK;
 
@@ -41,8 +41,8 @@ export function parallaxEmitter({
          * ON_ENTER
          **/
         if (
-            (value > 0 && value < maxVal && prevValue < 0 && maxVal > 0) ||
-            (value < 0 && prevValue > 0 && maxVal < 0)
+            (value > 0 && value < maxVal && prevValue <= 0 && maxVal >= 0) ||
+            (value < 0 && prevValue >= 0 && maxVal <= 0)
         )
             return parallaxConstant.ON_ENTER;
 

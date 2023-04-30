@@ -98,7 +98,7 @@
         top: 0;
         height: calc(100% - var(--header-height));
         display: none;
-        background: rgba($black, 0.15);
+        background: rgba($black, 0.05);
 
         @include mq.mq(tablet) {
             display: block;
