@@ -1,32 +1,10 @@
 {
     "caterpillarN1": {
-        "title": "caterpillar n.1",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled",
-        "type": "convas",
         "source": {
-            "js": "/codeExample/pages/caterpillarN1/scripts.js",
+            "description": "/codeExample/test/description.html",
+            "js": "/codeExample/test/scripts.js",
             "scss": "",
-            "html": "/codeExample/pages/caterpillarN1/index.js"
-        }
-    },
-    "animatedPatternN0": {
-        "title": "animatedPattern n.0",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled",
-        "type": "convas",
-        "source": {
-            "js": "/codeExample/pages/caterpillarN1/scripts.js",
-            "scss": "",
-            "html": "/codeExample/pages/caterpillarN1/index.js"
-        }
-    },
-    "animatedPatternN1": {
-        "title": "animatedPattern n.1",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled",
-        "type": "convas",
-        "source": {
-            "js": "/codeExample/pages/caterpillarN1/scripts.js",
-            "scss": "",
-            "html": "/codeExample/pages/caterpillarN1/index.js"
+            "html": "/codeExample/test/index.js"
         }
     }
 }

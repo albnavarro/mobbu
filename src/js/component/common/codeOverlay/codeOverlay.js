@@ -40,15 +40,30 @@ const printContent = async ({
     setState,
     getState,
     contentEl,
+    descriptionEl,
     currentKey,
     updateScroller,
+    goToTop,
 }) => {
     const states = getState();
     const data = await loadContent({ url: states[currentKey] });
-    contentEl.textContent = data;
-    setState('rawContent', data);
-    hljs.highlightElement(contentEl);
+    setState('rawContent', /* HTML */ data);
+
+    if (currentKey === 'description') {
+        descriptionEl.classList.remove('hide');
+        contentEl.classList.add('hide');
+        descriptionEl.insertAdjacentHTML('afterbegin', data);
+        contentEl.textContent = '';
+    } else {
+        descriptionEl.classList.add('hide');
+        contentEl.classList.remove('hide');
+        descriptionEl.textContent = '';
+        contentEl.textContent = data;
+        hljs.highlightElement(contentEl, { language: 'javascript' });
+    }
+
     updateScroller();
+    goToTop();
 };
 
 export const CodeOverlay = ({
@@ -64,13 +79,15 @@ export const CodeOverlay = ({
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');
         const contentEl = element.querySelector('.js-overlay-content');
+        const scrollerEl = element.querySelector('.js-overlay-scroller');
+        const descriptionEl = element.querySelector('.js-overlay-description');
         const closebtn = element.querySelector('.js-overlay-close');
         const background = element.querySelector('.js-overlay-background');
         const copyButton = element.querySelector('.js-overlay-copy');
 
         const { updateScroller, goToTop } = overlayScroller({
             screen: screenEl,
-            scroller: contentEl,
+            scroller: scrollerEl,
         });
 
         /**
@@ -81,8 +98,10 @@ export const CodeOverlay = ({
             setState,
             getState,
             contentEl,
+            descriptionEl,
             currentKey: activeContent,
             updateScroller,
+            goToTop,
         });
 
         /**
@@ -93,8 +112,10 @@ export const CodeOverlay = ({
                 setState,
                 getState,
                 contentEl,
+                descriptionEl,
                 currentKey,
                 updateScroller,
+                goToTop,
             })
         );
 
@@ -118,6 +139,7 @@ export const CodeOverlay = ({
                 element.classList.remove('active');
                 document.body.style.overflow = '';
                 contentEl.textContent = '';
+                descriptionEl.textContent = '';
                 goToTop();
             }
         });
@@ -146,9 +168,16 @@ export const CodeOverlay = ({
                     ${getButtons({ contents, setState })}
                 </div>
                 <div class="code-overlay__content js-overlay-screen">
-                    <code>
-                        <pre class="js-overlay-content"></pre>
-                    </code>
+                    <div class="js-overlay-scroller">
+                        <code class=" js-overlay-code">
+                            <pre
+                                class="code-overlay__content__code js-overlay-content"
+                            ></pre>
+                        </code>
+                        <div
+                            class="code-overlay__content__description js-overlay-description"
+                        ></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -78,18 +78,20 @@ export const HorizontalScroller = ({ onMount, render }) => {
     });
 
     const { caterpillarN1 } = getLegendData();
-    const { title, description, type, source } = caterpillarN1;
+    const { source } = caterpillarN1;
 
     return render(/* HTML */ `<div class="l-h-scroller">
         <div class="l-h-scroller__top">scroll</div>
-        <legend
+        <CodeButton
             data-props="${createProps({
-                title,
-                description,
-                type,
-                source,
+                description: source.description,
+                js: source.js,
+                scss: source.scss,
+                html: source.html,
+                style: 'legend',
             })}"
-        ></legend>
+        >
+        </CodeButton>
         <ul class="l-h-scroller__nav js-nav">
             ${getNav({ numOfCol: 10 })}
         </ul>

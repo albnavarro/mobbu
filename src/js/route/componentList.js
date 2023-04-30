@@ -1,7 +1,6 @@
 import { codeButtonComponentDef } from '../component/common/codeButton/definition';
 import { codeOverlayComponentDef } from '../component/common/codeOverlay/definition';
 import { degubButtonComponentDef } from '../component/common/debug/definition';
-import { legendComponentDef } from '../component/common/legend/definition';
 import { footerComponentDef } from '../component/layout/footer/definition';
 import { headerComponentDef } from '../component/layout/header/definition';
 import { navigationComponentDef } from '../component/layout/navigation/definition';
@@ -19,7 +18,6 @@ export const componentList = {
     ...navigationComponentDef,
     ...codeButtonComponentDef,
     ...codeOverlayComponentDef,
-    ...legendComponentDef,
     ...degubButtonComponentDef,
     ...homePageComponentDef,
     ...caterpillarN1Def,

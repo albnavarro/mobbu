@@ -17,18 +17,20 @@ export const CaterpillarN1 = ({ onMount, render, props }) => {
     });
 
     const { caterpillarN1 } = getLegendData();
-    const { title, description, type, source } = caterpillarN1;
+    const { source } = caterpillarN1;
 
     return render(/* HTML */ `
         <div>
-            <legend
+            <CodeButton
                 data-props="${createProps({
-                    title,
-                    description,
-                    type,
-                    source,
+                    description: source.description,
+                    js: source.js,
+                    scss: source.scss,
+                    html: source.html,
+                    style: 'legend',
                 })}"
-            ></legend>
+            >
+            </CodeButton>
             <div class="c-canvas">
                 <div class="c-canvas__wrap">
                     <canvas></canvas>

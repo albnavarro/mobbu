@@ -6,6 +6,7 @@ export const codeButtonComponentDef = {
         componentParams: {
             props: {
                 style: '',
+                description: '',
                 js: '',
                 scss: '',
                 html: '',

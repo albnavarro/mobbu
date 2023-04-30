@@ -1,7 +1,7 @@
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 
-const validContent = ['js', 'scss', 'html'];
+const validContent = ['description', 'js', 'scss', 'html'];
 
 export const codeOverlayComponentDef = {
     CodeOverlay: {
@@ -11,6 +11,11 @@ export const codeOverlayComponentDef = {
                 contents: [...validContent],
             },
             state: {
+                description: () => ({
+                    value: 'md url content',
+                    type: String,
+                }),
+
                 js: () => ({
                     value: 'js url content',
                     type: String,
