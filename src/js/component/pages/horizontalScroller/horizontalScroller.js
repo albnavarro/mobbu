@@ -61,6 +61,9 @@ export const HorizontalScroller = ({ onMount, render }) => {
          */
         window.scrollTo(0, 0);
 
+        /**
+         * Navigation
+         */
         [...navButtons].forEach((button) => {
             button.addEventListener('click', async (e) => {
                 const target = e.currentTarget;
@@ -86,7 +89,8 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 const height = outerHeight(shadowCenter);
                 const scrollValue =
                     /**
-                     * Need previous and current value to enter/leave etc.. so add 20 px to first item.
+                     * Need previous and current value diffrence > 0 so add 1px.
+                     * ( onLeaveBack issue )
                      */
                     parseInt(id) === 0
                         ? window.innerHeight + 1
