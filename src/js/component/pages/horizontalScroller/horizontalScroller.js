@@ -48,9 +48,10 @@ const getNav = ({ numOfCol }) => {
 export const HorizontalScroller = ({ onMount, render }) => {
     onMount(({ element }) => {
         const buttons = element.querySelectorAll('.js-button');
+        const nav = element.querySelector('.js-nav');
         const navButtons = element.querySelectorAll('.js-nav-button');
         const titles = element.querySelectorAll('.js-title h1');
-        const destroy = horizontalScrollerAnimation({ buttons, titles });
+        const destroy = horizontalScrollerAnimation({ buttons, titles, nav });
 
         [...navButtons].forEach((button) => {
             button.addEventListener('click', (e) => {
@@ -63,7 +64,9 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 const height = outerHeight(shadowCenter);
 
                 const scrollValue =
-                    parseInt(id) === 0 ? 0 : top + height - window.innerHeight;
+                    parseInt(id) === 0
+                        ? window.innerHeight
+                        : top + height - window.innerHeight;
 
                 bodyScroll.to(scrollValue, { duration: 2000 });
             });
@@ -87,7 +90,7 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 source,
             })}"
         ></legend>
-        <ul class="l-h-scroller__nav">
+        <ul class="l-h-scroller__nav js-nav">
             ${getNav({ numOfCol: 10 })}
         </ul>
         <div class="l-h-scroller__root js-root">

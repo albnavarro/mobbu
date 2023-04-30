@@ -40,6 +40,12 @@
         list-style-type: none;
         font-size: 0;
         z-index: 12;
+        opacity: 0;
+        transition: opacity 0.35s;
+
+        &.active {
+            opacity: 1;
+        }
 
         li {
             display: inline-block;
@@ -76,9 +82,14 @@
         width: rem(60);
         height: rem(60);
         color: $white;
-        transition: background 0.55s;
+        transition: background 0.55s, opacity 0.55s;
         font-size: rem(16);
         pointer-events: none;
+        opacity: 0;
+
+        &.active {
+            opacity: 1;
+        }
 
         &:hover {
             background: $dark-green;

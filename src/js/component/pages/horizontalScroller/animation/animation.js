@@ -39,7 +39,25 @@ const createParallax = ({ titles }) => {
     });
 };
 
-export const horizontalScrollerAnimation = ({ buttons, titles }) => {
+const showNav = ({ nav }) => {
+    nav.classList.add('active');
+
+    const buttons = document.querySelectorAll('.js-button');
+    [...buttons].forEach((button) => {
+        button.classList.add('active');
+    });
+};
+
+const hideNav = ({ nav }) => {
+    nav.classList.remove('active');
+
+    const buttons = document.querySelectorAll('.js-button');
+    [...buttons].forEach((button) => {
+        button.classList.remove('active');
+    });
+};
+
+export const horizontalScrollerAnimation = ({ buttons, titles, nav }) => {
     const pins = createPins({ buttons });
     const titlesParallax = createParallax({ titles });
 
@@ -61,6 +79,19 @@ export const horizontalScrollerAnimation = ({ buttons, titles }) => {
         columnAlign: 'center',
         breackpoint: 'tablet',
         children: [...pins, ...titlesParallax],
+        onEnter: () => {
+            showNav({ nav, buttons });
+        },
+        onEnterBack: () => {
+            showNav({ nav, buttons });
+        },
+        onLeave: () => {
+            hideNav({ nav, buttons });
+        },
+
+        onLeaveBack: () => {
+            hideNav({ nav, buttons });
+        },
     });
 
     horizontalCustom.init();
