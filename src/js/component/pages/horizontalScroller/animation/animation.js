@@ -2,8 +2,8 @@ import { scroller } from '../../../../mobbu';
 import { HorizontalScroller } from '../../../../mobbu/plugin';
 import { outerWidth } from '../../../../mobbu/utils/vanillaFunction';
 
-const createPins = ({ buttons }) => {
-    return [...buttons].map((button, i) => {
+const createPins = ({ indicators }) => {
+    return [...indicators].map((button, i) => {
         return scroller.createScrollTrigger({
             item: button,
             pin: true,
@@ -20,7 +20,7 @@ const createPins = ({ buttons }) => {
             dynamicEnd: {
                 position: 'right',
                 value: () => {
-                    const relativeIndex = buttons.length - (i - 2);
+                    const relativeIndex = indicators.length - (i - 2);
                     return (window.innerWidth / 10) * 9 * relativeIndex;
                 },
             },
@@ -42,23 +42,23 @@ const createParallax = ({ titles }) => {
 const showNav = ({ nav }) => {
     nav.classList.add('active');
 
-    const buttons = document.querySelectorAll('.js-button');
-    [...buttons].forEach((button) => {
-        button.classList.add('active');
+    const indicators = document.querySelectorAll('.js-indicator');
+    [...indicators].forEach((indicator) => {
+        indicator.classList.add('active');
     });
 };
 
 const hideNav = ({ nav }) => {
     nav.classList.remove('active');
 
-    const buttons = document.querySelectorAll('.js-button');
-    [...buttons].forEach((button) => {
-        button.classList.remove('active');
+    const indicators = document.querySelectorAll('.js-indicator');
+    [...indicators].forEach((indicator) => {
+        indicator.classList.remove('active');
     });
 };
 
-export const horizontalScrollerAnimation = ({ buttons, titles, nav }) => {
-    const pins = createPins({ buttons });
+export const horizontalScrollerAnimation = ({ indicators, titles, nav }) => {
+    const pins = createPins({ indicators });
     const titlesParallax = createParallax({ titles });
 
     const horizontalCustom = new HorizontalScroller({
@@ -80,16 +80,16 @@ export const horizontalScrollerAnimation = ({ buttons, titles, nav }) => {
         breackpoint: 'tablet',
         children: [...pins, ...titlesParallax],
         onEnter: () => {
-            showNav({ nav, buttons });
+            showNav({ nav, indicators });
         },
         onEnterBack: () => {
-            showNav({ nav, buttons });
+            showNav({ nav, indicators });
         },
         onLeave: () => {
-            hideNav({ nav, buttons });
+            hideNav({ nav, indicators });
         },
         onLeaveBack: () => {
-            hideNav({ nav, buttons });
+            hideNav({ nav, indicators });
         },
     });
 

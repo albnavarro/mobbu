@@ -49,7 +49,8 @@
         font-size: 0;
         z-index: 12;
         opacity: 0;
-        transition: opacity 0.35s;
+        transition: opacity 0.15s;
+        transform: translateY(-100%);
 
         &.active {
             opacity: 1;
@@ -66,6 +67,11 @@
             font-size: rem(16);
             background: transparent;
             border: 0;
+            transition: background 0.55s;
+
+            &:hover {
+                background: $green;
+            }
         }
     }
 
@@ -83,17 +89,27 @@
         }
     }
 
-    &__btn {
-        background: $green;
+    &__indicator {
         border-right: 1px $white solid;
         border: 0;
         width: rem(60);
-        height: rem(60);
+        height: rem(20);
         color: $white;
-        transition: background 0.55s, opacity 0.55s;
+        transition: background 0.15s, opacity 0.15s;
         font-size: rem(16);
         pointer-events: none;
         opacity: 0;
+        padding: 0;
+        margin: 0;
+        display: block;
+
+        span {
+            background: $dark-green;
+            display: block;
+            width: rem(60);
+            height: rem(10);
+            transform: translateY(-100%);
+        }
 
         &.active {
             opacity: 1;

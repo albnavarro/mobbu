@@ -13,10 +13,9 @@ const getColumns = ({ numOfCol }) => {
                     data-shadow="section-${i}"
                 >
                     <div class="l-h-scroller__wrap">
-                        <button
-                            type="button"
-                            class="l-h-scroller__btn js-button"
-                        ></button>
+                        <span class="l-h-scroller__indicator js-indicator">
+                            <span></span>
+                        </span>
                         <div class="l-h-scroller__title js-title">
                             <h1>${i}</h1>
                         </div>
@@ -47,12 +46,12 @@ const getNav = ({ numOfCol }) => {
 
 export const HorizontalScroller = ({ onMount, render }) => {
     onMount(({ element }) => {
-        const buttons = element.querySelectorAll('.js-button');
+        const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
         const navButtons = element.querySelectorAll('.js-nav-button');
         const titles = element.querySelectorAll('.js-title h1');
         const { destroy, refresh } = horizontalScrollerAnimation({
-            buttons,
+            indicators,
             titles,
             nav,
         });
