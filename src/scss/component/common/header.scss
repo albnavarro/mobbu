@@ -20,6 +20,10 @@
     color: $dark-green;
     z-index: 14;
 
+    @include when-inside('[data-route="horizontalScroller"]') {
+        background: $white;
+    }
+
     &__grid {
         display: grid;
         grid-template-areas: 'toggle title utils';

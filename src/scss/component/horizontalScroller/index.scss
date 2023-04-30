@@ -8,7 +8,7 @@
 
     &__top,
     &__bottom {
-        height: 100vh;
+        height: calc(100vh - var(--header-height));
         background: $green;
         display: flex;
         flex-direction: column;
@@ -20,8 +20,20 @@
         font-weight: 800;
     }
 
+    &__top {
+        margin-top: var(--header-height);
+    }
+
+    &__bottom {
+        position: relative;
+    }
+
     &__container {
         pointer-events: none;
+    }
+
+    &__row {
+        background-color: $grey-light;
     }
 
     &__column {

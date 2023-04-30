@@ -108,6 +108,11 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     if (!skip) mainStore.set('atfterRouteChange', route);
 
     /**
+     * Set active route to body data-route
+     */
+    document.body.dataset.route = route;
+
+    /**
      * Remove watcher.
      */
     unWatchRouteChange?.();
