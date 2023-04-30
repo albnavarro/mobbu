@@ -26,41 +26,41 @@ import {
 /**
  * @typedef {Object} horizontalScrollerType
 
- * @prop {boolean} [ useDrag = false ] 
+ * @prop {boolean} [ useDrag = false ]
     Enable drag.
- * @prop {Number} [ threshold = 30 ] 
+ * @prop {Number} [ threshold = 30 ]
     Modify threshold value for click action.
     Default value is `30`.
- * @prop {boolean} [ ease = false ] 
+ * @prop {boolean} [ ease = false ]
     Defines whether the animation will have ease.
     The default value is `false`.
- * @prop {boolean} [ animateAtStart = false ] 
+ * @prop {boolean} [ animateAtStart = false ]
     The element will animate with easing (if used) on loading the page or animation.
     The default value is `false`.
- * @prop {('spring'|'lerp')} [ easeType = 'lerp'] 
+ * @prop {('spring'|'lerp')} [ easeType = 'lerp']
     Defines the type of easing. The default is `lerp`.
- * @prop {boolean} [ useThrottle = false ] 
+ * @prop {boolean} [ useThrottle = false ]
     Enable a Throttle function on the scroll.
     The option will not be enabled with the presence of an active pin to maintain accuracy.
     The default value is `false`.
- * @prop {boolean} [ forceTranspond = false ] 
+ * @prop {boolean} [ forceTranspond = false ]
     Property valid only with `useSticky = false`.
     The element will always be appended to the document body.
     The default value is false.
  * @prop {function():void} [ onEnterBack = null ] -
  * @prop {function():void} [ onLeave = null ] -
  * @prop {function():void} [ onLeaveBack = null ]-
- * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ] 
+ * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ]
    Function that is launched at each tick.
    The function will have an Object as input parameter.
    `value`: scroll value
    `percent`: scroll value in percent
    `parentIsMoving`: A boolean value indicating whether the scroller has stopped ( last tick )
- * @prop {function():void} [ afterRefresh = null ] 
+ * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
- * @prop {function():void} [ afterInit = null ] 
+ * @prop {function():void} [ afterInit = null ]
    Function that is launched after inizialization
- * @prop {function():void} [ afterDestroy = null ] 
+ * @prop {function():void} [ afterDestroy = null ]
    Function that is launched after destroy
  * @prop {Boolean} [ useWillChange ]
     Enable the css property will-change: transform; when the frame rate falls below 3/5 of the optimal value.
@@ -68,7 +68,7 @@ import {
     If after the previous value the fps value is back to normal the will-change property is disabled.
     `Use with CAUTION only if necessary.`
     The default value is `false`.
- * @prop {boolean} [ animatePin = false ] 
+ * @prop {boolean} [ animatePin = false ]
     Property valid only with `useSticky = false`.
     A spring animation will be applied to the pinned element on state change.
 
@@ -80,38 +80,38 @@ import {
     Default value is `true`.
  * @prop {Number} [columnHeight]
     If the addCss property is active, it is possible to define a default height for the columns.
-    The value must be a number between 0 and 100. 
+    The value must be a number between 0 and 100.
     The unit of measure used in vh
     The default value is `100`.
  * @prop {Number} [columnWidth]
     If the addCss property is active, it is possible to define a default width for the columns.
-    The value must be a number between 0 and 100. 
+    The value must be a number between 0 and 100.
     The unit of measure used in `vh`
     The default value is null ( no value will be applied ).
 * @prop {('start'|'center'|'end')} columnAlign
     If the addCss property is active, it is possible to define the vertical alignment of the columns.
     The default value is `start`.
-* @prop {string} root 
+* @prop {string} root
     Root element.
     Accept only a unique class in the form of a string (dot included)
     It is necessary to provide a string in order to create the necessary css.
-* @prop {string} container 
+* @prop {string} container
     Container element.
     Accept only a unique class in the form of a string (dot included)
     It is necessary to provide a string in order to create the necessary css.
-* @prop {string} row 
+* @prop {string} row
     Row element.
     Accept only a unique class in the form of a string (dot included)
     It is necessary to provide a string in order to create the necessary css.
-* @prop {string} column 
+* @prop {string} column
     Column element.
     Accept only a unique class in the form of a string (dot included)
     It is necessary to provide a string in order to create the necessary css.
-* @prop {string} trigger 
+* @prop {string} trigger
     Trigger element.
     Accept only a unique class in the form of a string (dot included)
     It is necessary to provide a string in order to create the necessary css.
-* @prop {string} shadowClass 
+* @prop {string} shadowClass
     The name of the class that will be used to create vertical shadow elements.
     In this case the dot is optional.
 * @prop {Array.<ParallaxClass>} children
@@ -147,10 +147,10 @@ export class HorizontalScroller {
     * Special attributes to handle shadow elements:
     * Apply the following data-attributes to any element
     *
-    * `data-shadow="<String>"` 
+    * `data-shadow="<String>"`
     * Create a vertical shadow element with a custom className.
     *
-    * `data-debug` 
+    * `data-debug`
     * Makes the shadow element visible
     *
     * Available methods:
@@ -1146,18 +1146,21 @@ export class HorizontalScroller {
         if (!this.moduleisActive || !mq[this.queryType](this.breackpoint))
             return;
 
-        pipe(
-            this.getWidth.bind(this),
-            this.setDimension.bind(this),
-            this.updateShadow.bind(this)
-        )().then(() => {
-            this.scrollTriggerInstance?.stopMotion?.();
-            this.triggerTopPosition = offset(this.trigger).top;
+        return new Promise((resolve) => {
+            pipe(
+                this.getWidth.bind(this),
+                this.setDimension.bind(this),
+                this.updateShadow.bind(this)
+            )().then(() => {
+                this.scrollTriggerInstance?.stopMotion?.();
+                this.triggerTopPosition = offset(this.trigger).top;
 
-            if (this.moduleisActive) {
-                this.scrollTriggerInstance?.refresh?.();
-                this.refreshChildren();
-            }
+                if (this.moduleisActive) {
+                    this.scrollTriggerInstance?.refresh?.();
+                    this.refreshChildren();
+                }
+                resolve();
+            });
         });
     }
 

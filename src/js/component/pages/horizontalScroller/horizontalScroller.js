@@ -51,23 +51,43 @@ export const HorizontalScroller = ({ onMount, render }) => {
         const nav = element.querySelector('.js-nav');
         const navButtons = element.querySelectorAll('.js-nav-button');
         const titles = element.querySelectorAll('.js-title h1');
-        const destroy = horizontalScrollerAnimation({ buttons, titles, nav });
+        const { destroy, refresh } = horizontalScrollerAnimation({
+            buttons,
+            titles,
+            nav,
+        });
 
         [...navButtons].forEach((button) => {
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', async (e) => {
                 const target = e.currentTarget;
                 const { id } = target.dataset;
+
+                /**
+                 * Hre the nav is open so on route landing the offset is wrong
+                 * So, refresh scroller and the scroll to item.
+                 */
+                await refresh();
+
+                /**
+                 * Get item shadow element.
+                 */
                 const shadowCenter = element.querySelector(
                     `.shadowClass--section-${id} .shadowClass--in-center`
                 );
+
+                /**
+                 * Get scroll value.
+                 */
                 const { top } = offset(shadowCenter);
                 const height = outerHeight(shadowCenter);
-
                 const scrollValue =
                     parseInt(id) === 0
                         ? window.innerHeight
                         : top + height - window.innerHeight;
 
+                /**
+                 * Scroll
+                 */
                 bodyScroll.to(scrollValue, { duration: 2000 });
             });
         });

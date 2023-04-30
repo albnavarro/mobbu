@@ -96,7 +96,8 @@ export const horizontalScrollerAnimation = ({ buttons, titles, nav }) => {
 
     horizontalCustom.init();
 
-    return () => {
-        horizontalCustom.destroy();
+    return {
+        destroy: () => horizontalCustom.destroy(),
+        refresh: () => horizontalCustom.refresh(),
     };
 };
