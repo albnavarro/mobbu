@@ -39,7 +39,7 @@ const loadContent = async ({ url }) => {
 const printContent = async ({
     setState,
     getState,
-    contentEl,
+    codeEl,
     descriptionEl,
     currentKey,
     updateScroller,
@@ -51,15 +51,15 @@ const printContent = async ({
 
     if (currentKey === 'description') {
         descriptionEl.classList.remove('hide');
-        contentEl.classList.add('hide');
+        codeEl.classList.add('hide');
         descriptionEl.insertAdjacentHTML('afterbegin', data);
-        contentEl.textContent = '';
+        codeEl.textContent = '';
     } else {
         descriptionEl.classList.add('hide');
-        contentEl.classList.remove('hide');
+        codeEl.classList.remove('hide');
         descriptionEl.textContent = '';
-        contentEl.textContent = data;
-        hljs.highlightElement(contentEl, { language: 'javascript' });
+        codeEl.textContent = data;
+        hljs.highlightElement(codeEl, { language: 'javascript' });
     }
 
     updateScroller();
@@ -78,7 +78,7 @@ export const CodeOverlay = ({
 
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');
-        const contentEl = element.querySelector('.js-overlay-content');
+        const codeEl = element.querySelector('.js-overlay-code');
         const scrollerEl = element.querySelector('.js-overlay-scroller');
         const descriptionEl = element.querySelector('.js-overlay-description');
         const closebtn = element.querySelector('.js-overlay-close');
@@ -97,7 +97,7 @@ export const CodeOverlay = ({
         printContent({
             setState,
             getState,
-            contentEl,
+            codeEl,
             descriptionEl,
             currentKey: activeContent,
             updateScroller,
@@ -111,7 +111,7 @@ export const CodeOverlay = ({
             printContent({
                 setState,
                 getState,
-                contentEl,
+                codeEl,
                 descriptionEl,
                 currentKey,
                 updateScroller,
@@ -138,7 +138,7 @@ export const CodeOverlay = ({
             } else {
                 element.classList.remove('active');
                 document.body.style.overflow = '';
-                contentEl.textContent = '';
+                codeEl.textContent = '';
                 descriptionEl.textContent = '';
                 goToTop();
             }
@@ -169,9 +169,9 @@ export const CodeOverlay = ({
                 </div>
                 <div class="code-overlay__content js-overlay-screen">
                     <div class="js-overlay-scroller">
-                        <code class=" js-overlay-code">
+                        <code>
                             <pre
-                                class="code-overlay__content__code js-overlay-content"
+                                class="code-overlay__content__code js-overlay-code"
                             ></pre>
                         </code>
                         <div
