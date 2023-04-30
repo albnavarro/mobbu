@@ -60,7 +60,7 @@ main {
 
     &.shift {
         @include mq.mq(tablet) {
-            transform: translateX(calc(var(--nav-width)));
+            // transform: translateX(calc(var(--nav-width)));
             opacity: 0.2;
             cursor: pointer;
         }

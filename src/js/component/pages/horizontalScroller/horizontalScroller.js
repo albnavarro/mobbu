@@ -104,7 +104,7 @@ export const HorizontalScroller = ({ onMount, render }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `<div class="l-h-scroller">
-        <div class="l-h-scroller__top">scroll</div>
+        <div class="l-h-scroller__top">scroll down</div>
         <CodeButton
             data-props="${createProps({
                 description: source.description,
@@ -129,6 +129,6 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>
         </div>
-        <div class="l-h-scroller__bottom">scroll</div>
+        <div class="l-h-scroller__bottom">scroll up</div>
     </div>`);
 };

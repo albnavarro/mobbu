@@ -10,6 +10,14 @@
     &__bottom {
         height: 100vh;
         background: $green;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        text-transform: uppercase;
+        font-size: rem(50);
+        font-weight: 800;
     }
 
     &__container {
