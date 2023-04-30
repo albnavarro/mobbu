@@ -60,9 +60,12 @@ main {
 
     &.shift {
         @include mq.mq(tablet) {
-            // transform: translateX(calc(var(--nav-width)));
             opacity: 0.2;
             cursor: pointer;
+
+            @include when-inside('[data-route="horizontalScroller"]') {
+                opacity: 0.9;
+            }
         }
     }
 }

@@ -18,6 +18,11 @@
         text-transform: uppercase;
         font-size: rem(50);
         font-weight: 800;
+        transition: background 0.55s;
+
+        @include when-inside('.shift') {
+            background: $dark-green;
+        }
     }
 
     &__top {
@@ -33,7 +38,7 @@
     }
 
     &__row {
-        background-color: $grey-light;
+        background-color: $medium-green;
     }
 
     &__column {
@@ -93,7 +98,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 10px $grey solid;
+        border: 10px rgba($white, 0.15) solid;
         width: rem(200);
         text-align: center;
 
