@@ -28,8 +28,20 @@ const createPins = ({ buttons }) => {
     });
 };
 
-export const horizontalScrollerAnimation = ({ buttons }) => {
-    const children = createPins({ buttons });
+const createParallax = ({ titles }) => {
+    return [...titles].map((title) => {
+        return scroller.createParallax({
+            item: title,
+            propierties: 'x',
+            reverse: true,
+            range: '9',
+        });
+    });
+};
+
+export const horizontalScrollerAnimation = ({ buttons, titles }) => {
+    const pins = createPins({ buttons });
+    const titlesParallax = createParallax({ titles });
 
     const horizontalCustom = new HorizontalScroller({
         root: '.js-root',
@@ -45,9 +57,10 @@ export const horizontalScrollerAnimation = ({ buttons }) => {
         ease: true,
         addCss: true,
         columnHeight: 70,
-        columnWidth: 90,
+        columnWidth: 100,
         columnAlign: 'center',
-        children,
+        breackpoint: 'tablet',
+        children: [...pins, ...titlesParallax],
     });
 
     horizontalCustom.init();

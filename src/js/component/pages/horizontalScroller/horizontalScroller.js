@@ -17,6 +17,9 @@ const getColumns = ({ numOfCol }) => {
                         >
                             ${i}
                         </button>
+                        <div class="l-h-scroller__title js-title">
+                            <h1>${i}</h1>
+                        </div>
                     </div>
                 </section>
             `;
@@ -27,7 +30,8 @@ const getColumns = ({ numOfCol }) => {
 export const HorizontalScroller = ({ onMount, render }) => {
     onMount(({ element }) => {
         const buttons = element.querySelectorAll('.js-button');
-        const destroy = horizontalScrollerAnimation({ buttons });
+        const titles = element.querySelectorAll('.js-title h1');
+        const destroy = horizontalScrollerAnimation({ buttons, titles });
 
         return () => {
             destroy();

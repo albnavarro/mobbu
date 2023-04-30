@@ -4,9 +4,10 @@
 
 .l-h-scroller {
     margin-top: calc(var(--header-height) * -1);
+    margin-left: calc(var(--header-height) * -0.5);
 
     &__column {
-        padding: rem(20);
+        padding: calc(var(--header-height) * 0.5);
 
         &--last {
             width: rem(100) !important;
@@ -16,6 +17,21 @@
     &__wrap {
         border: 5px $green solid;
         height: 100%;
+        position: relative;
+    }
+
+    &__title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 10px $grey solid;
+        width: rem(200);
+        text-align: center;
+
+        h1 {
+            font-size: rem(200);
+        }
     }
 
     &__btn {
