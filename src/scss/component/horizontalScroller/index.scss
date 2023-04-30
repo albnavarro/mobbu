@@ -6,8 +6,19 @@
     margin-top: calc(var(--header-height) * -1);
     margin-left: calc(var(--header-height) * -0.5);
 
+    &__top,
+    &__bottom {
+        height: 100vh;
+        background: $green;
+    }
+
+    &__container {
+        pointer-events: none;
+    }
+
     &__column {
         padding: calc(var(--header-height) * 0.5);
+        pointer-events: all;
 
         &--last {
             width: rem(100) !important;
@@ -28,7 +39,7 @@
         padding: 0;
         list-style-type: none;
         font-size: 0;
-        // z-index: 10;
+        z-index: 12;
 
         li {
             display: inline-block;
@@ -37,9 +48,10 @@
         &__btn {
             width: rem(60);
             height: rem(60);
-            border: 0;
             margin: 0;
             font-size: rem(16);
+            background: transparent;
+            border: 0;
         }
     }
 

@@ -1,4 +1,6 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { bodyScroll } from '../../../mobbu/plugin';
+import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
 import { getLegendData } from '../../../route';
 import { horizontalScrollerAnimation } from './animation/animation';
 
@@ -14,9 +16,7 @@ const getColumns = ({ numOfCol }) => {
                         <button
                             type="button"
                             class="l-h-scroller__btn js-button"
-                        >
-                            ${i}
-                        </button>
+                        ></button>
                         <div class="l-h-scroller__title js-title">
                             <h1>${i}</h1>
                         </div>
@@ -34,6 +34,7 @@ const getNav = ({ numOfCol }) => {
                 <li>
                     <button
                         type="button"
+                        data-id="${i}"
                         class="l-h-scroller__nav__btn js-nav-button"
                     >
                         ${i}
@@ -47,8 +48,26 @@ const getNav = ({ numOfCol }) => {
 export const HorizontalScroller = ({ onMount, render }) => {
     onMount(({ element }) => {
         const buttons = element.querySelectorAll('.js-button');
+        const navButtons = element.querySelectorAll('.js-nav-button');
         const titles = element.querySelectorAll('.js-title h1');
         const destroy = horizontalScrollerAnimation({ buttons, titles });
+
+        [...navButtons].forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const target = e.currentTarget;
+                const { id } = target.dataset;
+                const shadowCenter = element.querySelector(
+                    `.shadowClass--section-${id} .shadowClass--in-center`
+                );
+                const { top } = offset(shadowCenter);
+                const height = outerHeight(shadowCenter);
+
+                const scrollValue =
+                    parseInt(id) === 0 ? 0 : top + height - window.innerHeight;
+
+                bodyScroll.to(scrollValue, { duration: 2000 });
+            });
+        });
 
         return () => {
             destroy();
@@ -59,6 +78,7 @@ export const HorizontalScroller = ({ onMount, render }) => {
     const { title, description, type, source } = caterpillarN1;
 
     return render(/* HTML */ `<div class="l-h-scroller">
+        <div class="l-h-scroller__top">scroll</div>
         <legend
             data-props="${createProps({
                 title,
@@ -81,5 +101,6 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>
         </div>
+        <div class="l-h-scroller__bottom">scroll</div>
     </div>`);
 };

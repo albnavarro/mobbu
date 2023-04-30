@@ -49,7 +49,7 @@ export const horizontalScrollerAnimation = ({ buttons, titles }) => {
         row: '.js-row',
         column: '.js-column',
         trigger: '.js-trigger',
-        shadowClass: '.shadowClass1',
+        shadowClass: '.shadowClass',
         useWillChange: true,
         useDrag: true,
         useSticky: true,
