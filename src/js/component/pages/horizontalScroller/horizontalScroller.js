@@ -27,6 +27,23 @@ const getColumns = ({ numOfCol }) => {
         .join('');
 };
 
+const getNav = ({ numOfCol }) => {
+    return [...Array(numOfCol).keys()]
+        .map((_col, i) => {
+            return /* HTML */ `
+                <li>
+                    <button
+                        type="button"
+                        class="l-h-scroller__nav__btn js-nav-button"
+                    >
+                        ${i}
+                    </button>
+                </li>
+            `;
+        })
+        .join('');
+};
+
 export const HorizontalScroller = ({ onMount, render }) => {
     onMount(({ element }) => {
         const buttons = element.querySelectorAll('.js-button');
@@ -50,6 +67,9 @@ export const HorizontalScroller = ({ onMount, render }) => {
                 source,
             })}"
         ></legend>
+        <ul class="l-h-scroller__nav">
+            ${getNav({ numOfCol: 10 })}
+        </ul>
         <div class="l-h-scroller__root js-root">
             <div class="l-h-scroller__container js-container">
                 <div class="l-h-scroller__row js-row">

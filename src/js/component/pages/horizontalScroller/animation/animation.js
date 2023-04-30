@@ -20,7 +20,7 @@ const createPins = ({ buttons }) => {
             dynamicEnd: {
                 position: 'right',
                 value: () => {
-                    const relativeIndex = buttons.length - (i - 1);
+                    const relativeIndex = buttons.length - (i - 2);
                     return (window.innerWidth / 10) * 9 * relativeIndex;
                 },
             },
