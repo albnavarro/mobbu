@@ -114,6 +114,7 @@ export default class SmoothScroller {
        mySmoothScroll.refresh();
        mySmoothScroll.destroy();
        mySmoothScroll.move();
+       mySmoothScroll.set();
 
      * @example
        ```js
@@ -770,6 +771,25 @@ export default class SmoothScroller {
         this.percent = percent;
         this.endValue = (this.percent * this.maxValue) / 100;
         this.motion.goTo({ val: this.endValue }).catch(() => {});
+    }
+
+    /**
+     *
+     * @description
+     * Move scroller immediatr
+     *
+     * @prop {Number} new position in percent, from 0 to 100
+     *
+     * @example
+     * myInstance.set(val);
+     */
+    set(percent) {
+        if (!mq[this.queryType](this.breackpoint)) return;
+
+        this.scrollbarIsRunning = true;
+        this.percent = percent;
+        this.endValue = (this.percent * this.maxValue) / 100;
+        this.motion.set({ val: this.endValue }).catch(() => {});
     }
 
     /**
