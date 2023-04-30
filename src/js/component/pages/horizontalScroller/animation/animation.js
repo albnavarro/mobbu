@@ -88,7 +88,6 @@ export const horizontalScrollerAnimation = ({ buttons, titles, nav }) => {
         onLeave: () => {
             hideNav({ nav, buttons });
         },
-
         onLeaveBack: () => {
             hideNav({ nav, buttons });
         },
