@@ -28,6 +28,16 @@ const createPins = ({ indicators }) => {
     });
 };
 
+/**
+ * Referesh pins position
+ */
+const refreshPins = ({ pins }) => {
+    pins.forEach((pin) => pin.refresh());
+};
+
+/**
+ * Create parallax titles
+ */
 const createParallax = ({ titles }) => {
     return [...titles].map((title) => {
         return scroller.createParallax({
@@ -39,6 +49,9 @@ const createParallax = ({ titles }) => {
     });
 };
 
+/**
+ * Hide navigation on scroll unpin
+ */
 const showNav = ({ nav }) => {
     nav.classList.add('active');
 
@@ -48,6 +61,9 @@ const showNav = ({ nav }) => {
     });
 };
 
+/**
+ * Shor navigation on scroll pin
+ */
 const hideNav = ({ nav }) => {
     nav.classList.remove('active');
 
@@ -57,6 +73,9 @@ const hideNav = ({ nav }) => {
     });
 };
 
+/**
+ * Create main scroller.
+ */
 export const horizontalScrollerAnimation = ({ indicators, titles, nav }) => {
     const pins = createPins({ indicators });
     const titlesParallax = createParallax({ titles });
@@ -83,6 +102,11 @@ export const horizontalScrollerAnimation = ({ indicators, titles, nav }) => {
             showNav({ nav, indicators });
         },
         onEnterBack: () => {
+            /**
+             * With fast scroll forward bottom of the page pin can lost position.
+             * So upodate when scroller back active.
+             */
+            refreshPins({ pins });
             showNav({ nav, indicators });
         },
         onLeave: () => {
