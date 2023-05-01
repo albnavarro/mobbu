@@ -15,7 +15,7 @@ export const caterpillarN1Animation = ({
     numItems,
     width,
     height,
-    color,
+    fill,
     borderColor,
     opacity,
     radius,
@@ -62,7 +62,7 @@ export const caterpillarN1Animation = ({
         return {
             width: relativeIndex * width,
             height: relativeIndex * height,
-            color,
+            fill: fill?.[relativeIndex] ?? fill[fill.length - 1],
             borderColor,
             x: 0,
             y: 0,
@@ -123,7 +123,7 @@ export const caterpillarN1Animation = ({
 
         const context = useOffscreen ? offScreenCtx : ctx;
 
-        context.fillStyle = '#f6f6f6';
+        context.fillStyle = '#1a1b26';
         context.fillRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
             (
@@ -132,7 +132,7 @@ export const caterpillarN1Animation = ({
                     height,
                     x,
                     y,
-                    color,
+                    fill,
                     opacity,
                     radius,
                     borderColor,
@@ -188,7 +188,7 @@ export const caterpillarN1Animation = ({
                 }
                 context.strokeStyle = borderColor;
                 context.stroke();
-                context.fillStyle = color;
+                context.fillStyle = fill;
                 context.fill();
                 context.globalAlpha = 1;
                 context.restore();

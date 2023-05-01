@@ -146,7 +146,7 @@ export const caterpillarN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#f6f6f6';
+        context.fillStyle = '#1a1b26';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(

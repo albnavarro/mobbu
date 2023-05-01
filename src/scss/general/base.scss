@@ -28,7 +28,7 @@ html {
 }
 
 body {
-    background-color: $grey-light;
+    background-color: $dark-green;
     overflow-x: hidden;
 }
 
@@ -60,12 +60,7 @@ main {
 
     &.shift {
         @include mq.mq(tablet) {
-            opacity: 0.2;
             cursor: pointer;
-
-            @include when-inside('[data-route="horizontalScroller"]') {
-                opacity: 0.9;
-            }
         }
     }
 }

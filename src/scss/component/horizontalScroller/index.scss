@@ -9,7 +9,7 @@
     &__top,
     &__bottom {
         height: calc(100vh - var(--header-height));
-        background: $green;
+        background: $dark-green;
         display: flex;
         flex-direction: column;
         justify-content: center;

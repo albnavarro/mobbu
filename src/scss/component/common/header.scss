@@ -16,13 +16,9 @@
     top: 0;
     left: 0;
     right: 0;
-    background: rgba($white, 0.8);
-    color: $dark-green;
+    background: $black;
+    color: $white;
     z-index: 14;
-
-    @include when-inside('[data-route="horizontalScroller"]') {
-        background: $white;
-    }
 
     &__grid {
         display: grid;
@@ -77,7 +73,7 @@
     }
 
     &__title {
-        color: $grey;
+        color: $white;
         display: inline-block;
         grid-area: title;
         padding-left: rem(20);
@@ -97,7 +93,7 @@
         }
 
         &__link {
-            color: $dark-green;
+            color: $white;
             background: transparent;
             border: 0;
 

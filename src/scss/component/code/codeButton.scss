@@ -11,7 +11,7 @@
     color: $white;
     height: var(--header-navinfo);
     width: rem(40);
-    transition: transform 0.55s, background 0.55s;
+    transition: transform 0.55s, background 0.55s, opacity 0.55s;
 
     &--green {
         background: $green;
@@ -25,6 +25,12 @@
         bottom: var(--footer-height);
         left: calc(var(--header-height) * 0.5);
         z-index: 15;
+
+        @include when-inside('.shift') {
+            transform: translateX(var(--nav-width));
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 
     &:hover {
