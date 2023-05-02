@@ -59,15 +59,15 @@ export const caterpillarN1Animation = ({
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
-        const fillColor = fill?.[relativeIndex] ?? fill[fill.length - 1];
+        const opacityVal = !fill.includes(i) ? relativeIndex * opacity : 1;
+
         return {
             width: relativeIndex * width,
             height: relativeIndex * height,
-            fill: fillColor,
-            borderColor: fillColor === '' ? borderColor : '',
             x: 0,
             y: 0,
-            opacity: fillColor === '' ? relativeIndex * opacity : 1,
+            hasFill: fill.includes(i),
+            opacity: opacityVal,
             radius,
             rotate: 0,
             relativeIndex,
@@ -127,24 +127,10 @@ export const caterpillarN1Animation = ({
         context.fillStyle = '#1a1b26';
         context.fillRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
-            (
-                {
-                    width,
-                    height,
-                    x,
-                    y,
-                    fill,
-                    opacity,
-                    radius,
-                    borderColor,
-                    rotate,
-                },
-                i
-            ) => {
+            ({ width, height, x, y, radius, opacity, rotate, hasFill }, i) => {
                 const unitInverse = squareData.length - i;
                 const centerX = canvas.width / 2 - width / 2;
                 const centerY = canvas.height / 2 - height / 2;
-                context.save();
 
                 /**
                  * Center canvas
@@ -162,6 +148,7 @@ export const caterpillarN1Animation = ({
                     // centerX + width / 2 + x,
                     // centerY + height / 2 + y
                 );
+
                 context.rotate((Math.PI / 180) * rotate);
 
                 /**
@@ -171,8 +158,6 @@ export const caterpillarN1Animation = ({
                     parseInt(-centerX - width / 2),
                     parseInt(-centerY - height / 2)
                 );
-
-                context.globalAlpha = opacity;
 
                 if (useRoundRect) {
                     context.beginPath();
@@ -187,12 +172,19 @@ export const caterpillarN1Animation = ({
                         radius
                     );
                 }
-                context.strokeStyle = borderColor;
-                context.stroke();
-                context.fillStyle = fill;
+                if (hasFill) {
+                    context.fillStyle = `rgba(158, 206, 106, 1)`;
+                } else {
+                    context.fillStyle = `rgba(26, 27, 38, ${opacity})`;
+                    context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                    context.stroke();
+                }
                 context.fill();
-                context.globalAlpha = 1;
-                context.restore();
+
+                /**
+                 * Reset all transform instead save() restore().
+                 */
+                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
