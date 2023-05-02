@@ -79,7 +79,7 @@ export const caterpillarN1Animation = ({
      */
     rotationTween = tween.createTween({
         data: { rotate: 0 },
-        stagger: { each: rotationEach, from: 'edges' },
+        stagger: { each: rotationEach, from: 'center' },
         ease: 'easeLinear',
         relative: true,
     });
