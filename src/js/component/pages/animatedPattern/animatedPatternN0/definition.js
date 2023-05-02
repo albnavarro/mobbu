@@ -1,3 +1,4 @@
+import { detectFirefox } from '../../../../utils/utils';
 import { AnimatedPatternN0 } from './animatedPatternN0';
 
 export const animatedPatternN0Def = {
@@ -12,7 +13,7 @@ export const animatedPatternN0Def = {
                 gutter: 10,
                 fill: '#2c2a3a',
                 stroke: '#000',
-                disableOffcanvas: false,
+                disableOffcanvas: detectFirefox() ? true : false,
             },
         },
     },

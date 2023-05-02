@@ -6,3 +6,12 @@ export function detectSafari() {
 
     return safariAgent;
 }
+
+export function detectFirefox() {
+    const userAgentString = navigator.userAgent;
+    let firefixAgent = userAgentString.indexOf('Firefox') > -1;
+    const chromeAgent = userAgentString.indexOf('Chrome') > -1;
+    if (chromeAgent && firefixAgent) firefixAgent = false;
+
+    return firefixAgent;
+}

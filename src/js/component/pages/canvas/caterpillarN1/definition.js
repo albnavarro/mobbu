@@ -1,3 +1,4 @@
+import { detectFirefox } from '../../../../utils/utils';
 import { CaterpillarN1 } from './caterpillarN1';
 
 export const caterpillarN1Def = {
@@ -8,14 +9,14 @@ export const caterpillarN1Def = {
                 numItems: 20,
                 width: 60,
                 height: 60,
-                fill: [''],
+                fill: ['', '', '', '', '', '', '#9ece6a', '', '', '', ''],
                 borderColor: '#fff',
-                opacity: 0.05,
+                opacity: 0.08,
                 radius: 100,
                 rotationEach: 15,
                 centerEach: 5,
                 rotationDuration: 5000,
-                disableOffcanvas: false,
+                disableOffcanvas: detectFirefox() ? true : false,
             },
         },
     },

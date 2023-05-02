@@ -59,14 +59,15 @@ export const caterpillarN1Animation = ({
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
+        const fillColor = fill?.[relativeIndex] ?? fill[fill.length - 1];
         return {
             width: relativeIndex * width,
             height: relativeIndex * height,
-            fill: fill?.[relativeIndex] ?? fill[fill.length - 1],
-            borderColor,
+            fill: fillColor,
+            borderColor: fillColor === '' ? borderColor : '',
             x: 0,
             y: 0,
-            opacity: relativeIndex * opacity,
+            opacity: fillColor === '' ? relativeIndex * opacity : 1,
             radius,
             rotate: 0,
             relativeIndex,
