@@ -140,8 +140,6 @@ export const animatedPatternN1Animation = ({
                 offsetXCenter,
                 offsetYCenter,
             }) => {
-                context.save();
-
                 /**
                  * X difference in px form mouse to sqaure.
                  */
@@ -176,34 +174,48 @@ export const animatedPatternN1Animation = ({
                 const scaleFactor = clamp(Math.abs(delta), 0.1, 1);
 
                 /**
-                 * Center canvas in center of item.
+                 * Basic data for setTransform.
                  */
-                context.translate(
+                const rotation = 0;
+                const xx = Math.cos(rotation) * (scaleFactor + scale);
+                const xy = Math.sin(rotation) * (scaleFactor + scale);
+
+                /**
+                 * Apply scale/rotation/scale all toghether.
+                 */
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
                     Math.round(centerX + offsetXCenter),
                     Math.round(centerY + offsetYCenter)
                 );
 
                 /**
-                 * Scale item
-                 */
-                context.scale(scaleFactor + scale, scaleFactor + scale);
-
-                /**
-                 * Resent center.
-                 */
-                context.translate(-Math.round(centerX), -Math.round(centerY));
-
-                /**
                  * Draw.
                  */
                 context.fillStyle = fill;
-                context.fillRect(Math.round(x), Math.round(y), width, height);
+                context.fillRect(
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height
+                );
 
                 context.strokeStyle = stroke;
                 context.lineWidth = 1;
-                context.strokeRect(Math.round(x), Math.round(y), width, height);
+                context.strokeRect(
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height
+                );
 
-                context.restore();
+                /**
+                 * Reset all transform instead save() restore().
+                 */
+                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
