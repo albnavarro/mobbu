@@ -120,42 +120,46 @@ export const animatedPatternN0Animation = ({
                 offsetXCenter,
                 offsetYCenter,
             }) => {
-                context.save();
+                const rotation = (Math.PI / 180) * rotate;
+                const xx = Math.cos(rotation) * scale;
+                const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Center canvas in center of item.
+                 * Apply scale/rotation/scale all toghether.
                  */
-                context.translate(
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
                     Math.round(centerX + offsetXCenter),
                     Math.round(centerY + offsetYCenter)
                 );
 
                 /**
-                 * Rotate item.
-                 */
-                context.rotate((Math.PI / 180) * rotate);
-
-                /**
-                 * Scale item
-                 */
-                context.scale(scale, scale);
-
-                /**
-                 * Resent center.
-                 */
-                context.translate(-Math.round(centerX), -Math.round(centerY));
-
-                /**
                  * Draw.
                  */
                 context.fillStyle = fill;
-                context.fillRect(Math.round(x), Math.round(y), width, height);
+                context.fillRect(
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height
+                );
 
                 context.strokeStyle = stroke;
                 context.lineWidth = 1;
-                context.strokeRect(Math.round(x), Math.round(y), width, height);
+                context.strokeRect(
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height
+                );
 
-                context.restore();
+                /**
+                 * Reset all transform instead save() restore().
+                 */
+                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
