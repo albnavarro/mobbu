@@ -6,7 +6,6 @@ import {
     getCanvasContext,
     getOffsetCanvas,
     roundRectCustom,
-    roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 

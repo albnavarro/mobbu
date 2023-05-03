@@ -5,7 +5,6 @@ import {
     getCanvasContext,
     getOffsetCanvas,
     roundRectCustom,
-    roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
@@ -62,7 +61,6 @@ export const caterpillarN0Animation = ({
     let steamDataReorded = [];
     let mainTween = {};
     const { activeRoute } = mainStore.get();
-    const useRoundRect = roundRectIsSupported(ctx);
 
     /**
      * If offscreen is supported use.
@@ -150,21 +148,7 @@ export const caterpillarN0Animation = ({
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         steamDataReorded.forEach(
-            ({
-                width,
-                height,
-                fill,
-                opacity,
-                stroke,
-                rotate,
-                relativeIndex,
-                index: i,
-            }) => {
-                /**
-                 * Center canvas on bottom right of the screen.
-                 */
-                context.save();
-
+            ({ width, height, opacity, rotate, relativeIndex, index: i }) => {
                 /**
                  * Pertual movment based on timeframe.
                  */
@@ -187,56 +171,48 @@ export const caterpillarN0Animation = ({
                 /**
                  * Center canvas in the screen
                  */
-                context.translate(centerX + width / 2, centerY + height / 2);
-                context.rotate((Math.PI / 180) * (rotate - intialRotation));
-                context.translate(
-                    parseInt(-centerX - width / 2),
-                    parseInt(-centerY - height / 2)
-                );
+
+                const scale = 1;
+                const rotation = (Math.PI / 180) * (rotate - intialRotation);
+                const xx = Math.cos(rotation) * scale;
+                const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Set oapcity
+                 * Apply scale/rotation/scale all toghether.
                  */
-                context.globalAlpha = opacity;
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
+                    centerX,
+                    centerY + height / 2
+                );
 
                 /**
                  * Shape
                  */
-                if (useRoundRect) {
-                    context.beginPath();
-                    context.roundRect(
-                        centerX - (width * centerDirection) / 2,
-                        centerY -
-                            height / 2 +
-                            offsetInverse +
-                            spacerY(i < amountOfPath / 2),
-                        width,
-                        height,
-                        radius
-                    );
-                } else {
-                    roundRectCustom(
-                        context,
-                        centerX - (width * centerDirection) / 2,
-                        centerY -
-                            height / 2 +
-                            offsetInverse +
-                            spacerY(i < amountOfPath / 2),
-                        width,
-                        height,
-                        radius
-                    );
-                }
+                roundRectCustom(
+                    context,
+                    -(width * centerDirection) / 2,
+                    -height / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
+                    width,
+                    height,
+                    radius
+                );
 
                 /**
                  * Color.
                  */
-                context.strokeStyle = stroke;
+                context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                context.fillStyle = `rgba(26, 27, 38, ${opacity})`;
                 context.stroke();
-                context.fillStyle = fill;
                 context.fill();
-                context.globalAlpha = 1;
-                context.restore();
+
+                /**
+                 * Reset all transform instead save() restore().
+                 */
+                context.setTransform(1, 0, 0, 1, 0, 0);
             }
         );
 
