@@ -16,7 +16,6 @@ export const caterpillarN1Animation = ({
     width,
     height,
     fill,
-    borderColor,
     opacity,
     radius,
     rotationDuration,
@@ -39,7 +38,6 @@ export const caterpillarN1Animation = ({
     let centerTween = {};
     let rectTimeline = {};
     const { activeRoute } = mainStore.get();
-    const useRoundRect = roundRectIsSupported(ctx);
 
     /**
      * If offscreen is supported use.
@@ -129,49 +127,42 @@ export const caterpillarN1Animation = ({
         squareData.forEach(
             ({ width, height, x, y, radius, opacity, rotate, hasFill }, i) => {
                 const unitInverse = squareData.length - i;
-                const centerX = canvas.width / 2 - width / 2;
-                const centerY = canvas.height / 2 - height / 2;
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
 
                 /**
                  * Center canvas
                  */
-                context.translate(
-                    /**
-                     * offset
-                     */
-                    centerX + width / 2 + x + (unitInverse * x) / 10,
-                    centerY + height / 2 + y + (unitInverse * y) / 10
 
-                    /**
-                     * Centered.
-                     */
-                    // centerX + width / 2 + x,
-                    // centerY + height / 2 + y
+                const scale = 1;
+                const rotation = (Math.PI / 180) * rotate;
+                const xx = Math.cos(rotation) * scale;
+                const xy = Math.sin(rotation) * scale;
+
+                /**
+                 * Apply scale/rotation/scale all toghether.
+                 */
+                context.setTransform(
+                    xx,
+                    xy,
+                    -xy,
+                    xx,
+                    centerX + x + (unitInverse * x) / 10,
+                    centerY + y + (unitInverse * y) / 10
                 );
-
-                context.rotate((Math.PI / 180) * rotate);
 
                 /**
                  * Restore canvas center
                  */
-                context.translate(
-                    parseInt(-centerX - width / 2),
-                    parseInt(-centerY - height / 2)
+                roundRectCustom(
+                    context,
+                    parseInt(-width / 2),
+                    parseInt(-height / 2),
+                    width,
+                    height,
+                    radius
                 );
 
-                if (useRoundRect) {
-                    context.beginPath();
-                    context.roundRect(centerX, centerY, width, height, radius);
-                } else {
-                    roundRectCustom(
-                        context,
-                        centerX,
-                        centerY,
-                        width,
-                        height,
-                        radius
-                    );
-                }
                 if (hasFill) {
                     context.fillStyle = `rgba(158, 206, 106, 1)`;
                 } else {
