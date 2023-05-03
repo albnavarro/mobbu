@@ -11,7 +11,7 @@ export const animatedPatternN1Def = {
                 cellWidth: 70,
                 cellHeight: 70,
                 gutter: 10,
-                fill: '#2c2a3a',
+                fill: '#353244',
                 stroke: '#000',
                 disableOffcanvas: detectFirefox() ? true : false,
             },
