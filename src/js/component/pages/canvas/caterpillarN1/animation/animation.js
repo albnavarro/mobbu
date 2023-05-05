@@ -1,6 +1,7 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
+import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import {
     copyCanvasBitmap,
     getCanvasContext,
@@ -36,6 +37,7 @@ export const caterpillarN1Animation = ({
     let rotationTween = {};
     let centerTween = {};
     let rectTimeline = {};
+    let { top, left } = offset(canvas);
     const { activeRoute } = mainStore.get();
 
     /**
@@ -226,6 +228,8 @@ export const caterpillarN1Animation = ({
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+        top = offset(canvas).top;
+        left = offset(canvas).left;
         draw();
     });
 
@@ -234,11 +238,19 @@ export const caterpillarN1Animation = ({
 
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
-        const xCenter = x - canvas.width / 2;
-        const yCenter = y - canvas.height / 2;
+        const xCenter = x - canvas.width / 2 - left;
+        const yCenter = y - canvas.height / 2 - top;
         centerTween.goTo({
-            x: clamp(xCenter, -winWidth / 2 + 400, winWidth / 2 - 400),
-            y: clamp(yCenter, -winHeight / 2 + 200, winHeight / 2 - 200),
+            x: clamp(
+                xCenter,
+                -winWidth / 2 + 400 + left,
+                winWidth / 2 - 400 - left
+            ),
+            y: clamp(
+                yCenter,
+                -winHeight / 2 + 200 + top,
+                winHeight / 2 - 200 - top
+            ),
         });
     });
 

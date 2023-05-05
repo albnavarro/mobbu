@@ -1,6 +1,7 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
+import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import {
     copyCanvasBitmap,
     createGrid,
@@ -34,9 +35,9 @@ export const animatedPatternN1Animation = ({
     let gridData = [];
     let data = [];
     let centerTween = {};
-
     let gridTween = {};
     let gridTimeline = {};
+    let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
     const { activeRoute } = mainStore.get();
 
@@ -236,7 +237,7 @@ export const animatedPatternN1Animation = ({
 
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        centerTween.goTo({ mouseX: x, mouseY: y });
+        centerTween.goTo({ mouseX: x - left, mouseY: y - top });
     });
 
     /**
@@ -262,6 +263,8 @@ export const animatedPatternN1Animation = ({
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+        top = offset(canvas).top;
+        left = offset(canvas).left;
 
         /**
          * Update offset position to center grid in canvas.

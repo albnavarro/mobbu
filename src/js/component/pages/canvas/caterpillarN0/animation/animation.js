@@ -1,5 +1,6 @@
 import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, tween } from '../../../../../mobbu';
+import { offset } from '../../../../../mobbu/utils/vanillaFunction';
 import {
     copyCanvasBitmap,
     getCanvasContext,
@@ -60,6 +61,7 @@ export const caterpillarN0Animation = ({
     let stemData = [];
     let steamDataReorded = [];
     let mainTween = {};
+    let { left } = offset(canvas);
     const { activeRoute } = mainStore.get();
 
     /**
@@ -243,6 +245,7 @@ export const caterpillarN0Animation = ({
     const unsubscribeResize = core.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+        left = offset(canvas).left;
         core.useFrame(({ time }) => {
             draw({ time });
         });
@@ -253,7 +256,7 @@ export const caterpillarN0Animation = ({
      */
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x } = client;
-        const xCenter = x - canvas.width / 2;
+        const xCenter = x - canvas.width / 2 - left;
         mainTween.goTo({
             rotate: xCenter / mouseMoveRatio,
         });

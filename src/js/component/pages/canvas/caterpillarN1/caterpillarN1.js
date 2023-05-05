@@ -32,7 +32,7 @@ export const CaterpillarN1 = ({ onMount, render, props }) => {
             >
             </CodeButton>
             <div class="c-canvas">
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--border">
                     <canvas></canvas>
                 </div>
             </div>

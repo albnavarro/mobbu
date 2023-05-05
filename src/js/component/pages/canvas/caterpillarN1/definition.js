@@ -1,4 +1,4 @@
-import { detectFirefox } from '../../../../utils/utils';
+import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN1 } from './caterpillarN1';
 
 export const caterpillarN1Def = {
@@ -15,7 +15,8 @@ export const caterpillarN1Def = {
                 rotationEach: 15,
                 centerEach: 5,
                 rotationDuration: 5000,
-                disableOffcanvas: detectFirefox() ? true : false,
+                disableOffcanvas:
+                    detectFirefox() || detectSafari() ? true : false,
             },
         },
     },
