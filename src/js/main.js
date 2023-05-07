@@ -1,6 +1,11 @@
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
 
+let commonData = {};
+let legendData = {};
+export const getCommonData = () => commonData;
+export const getLegendData = () => legendData;
+
 /**
  * Set default
  */
@@ -28,4 +33,29 @@ core.useLoad(() => {
     core.printDefault();
 });
 
-inizializeApp();
+/**
+ * Load common data.
+ */
+const loadData = async () => {
+    const commonData = await fetch(`../data/common.json`)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((err) => console.warn('Something went wrong.', err));
+
+    const legendData = await fetch(`../data/legend.json`)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((err) => console.warn('Something went wrong.', err));
+
+    return { commonData, legendData };
+};
+
+const init = async () => {
+    const data = await loadData();
+    commonData = data?.commonData;
+    legendData = data?.legendData;
+
+    inizializeApp();
+};
+
+init();

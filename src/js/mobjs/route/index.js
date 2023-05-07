@@ -9,37 +9,12 @@ import { router } from './router';
 import { debugRoute } from './test';
 
 const root = document.querySelector('#content');
-let commonData = {};
-let legendData = {};
-export const getCommonData = () => commonData;
-export const getLegendData = () => legendData;
-
-/**
- * Load common data.
- */
-const loadData = async () => {
-    const commonData = await fetch(`../data/common.json`)
-        .then((response) => response.json())
-        .then((data) => data)
-        .catch((err) => console.warn('Something went wrong.', err));
-
-    const legendData = await fetch(`../data/legend.json`)
-        .then((response) => response.json())
-        .then((data) => data)
-        .catch((err) => console.warn('Something went wrong.', err));
-
-    return { commonData, legendData };
-};
 
 /**
  * Inizializa default route.
  * TODO get route from url ( /index.html#route )
  */
 export const inizializeApp = async () => {
-    const data = await loadData();
-    commonData = data?.commonData;
-    legendData = data?.legendData;
-
     /**
      * Render common layout component.
      * Inizialize js on common layout component.

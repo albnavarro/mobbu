@@ -1,5 +1,5 @@
+import { getCommonData } from '../../../main';
 import { createProps } from '../../../mobjs';
-import { getCommonData } from '../../../mobjs/route';
 
 /**
  * Create second levels item.
