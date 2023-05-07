@@ -1,30 +1,26 @@
+import { createComponentDefinition } from '../../../route/utils';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
 import { NavigationButton } from './navigationButton';
 
-export const navigationComponentDef = {
-    NavigationContainer: {
-        componentFunction: NavigationContainer,
-        componentParams: {
-            props: {},
-        },
+export const navigationComponentDef = createComponentDefinition({
+    name: 'NavigationContainer',
+    component: NavigationContainer,
+});
+
+export const navigationDef = createComponentDefinition({
+    name: 'Navigation',
+    component: Navigation,
+});
+
+export const navigationButtonDef = createComponentDefinition({
+    name: 'NavigationButton',
+    component: NavigationButton,
+    props: {
+        label: '',
+        url: '#',
+        arrowClass: '',
+        subMenuClass: '',
+        fireRoute: true,
     },
-    Navigation: {
-        componentFunction: Navigation,
-        componentParams: {
-            props: {},
-        },
-    },
-    NavigationButton: {
-        componentFunction: NavigationButton,
-        componentParams: {
-            props: {
-                label: '',
-                url: '#',
-                arrowClass: '',
-                subMenuClass: '',
-                fireRoute: true,
-            },
-        },
-    },
-};
+});

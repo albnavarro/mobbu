@@ -1,38 +1,36 @@
+import { createComponentDefinition } from '../../../route/utils';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
 
-export const testComponentDef = {
-    TestComponent: {
-        componentFunction: TestComponent,
-        componentParams: {
-            props: {
-                title: '',
-            },
-            state: {
-                counter: () => ({
-                    value: 2,
-                    type: Number,
-                }),
-                data: () => ({
-                    value: [],
-                    type: Array,
-                }),
-            },
-        },
+export const testComponentDef = createComponentDefinition({
+    name: 'TestComponent',
+    component: TestComponent,
+    props: {
+        title: '',
     },
-    TestComponent2: {
-        componentFunction: TestComponent2,
-        componentParams: {
-            props: {
-                label: () => {},
-            },
-            state: {
-                index: () => ({
-                    value: -1,
-                    type: Number,
-                }),
-                isSelected: false,
-            },
-        },
+    state: {
+        counter: () => ({
+            value: 2,
+            type: Number,
+        }),
+        data: () => ({
+            value: [],
+            type: Array,
+        }),
     },
-};
+});
+
+export const testComponent2Def = createComponentDefinition({
+    name: 'TestComponent2',
+    component: TestComponent2,
+    props: {
+        label: () => {},
+    },
+    state: {
+        index: () => ({
+            value: -1,
+            type: Number,
+        }),
+        isSelected: false,
+    },
+});

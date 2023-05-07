@@ -1,10 +1,7 @@
+import { createComponentDefinition } from '../../../route/utils';
 import { Footer } from './footer';
 
-export const footerComponentDef = {
-    Footer: {
-        componentFunction: Footer,
-        componentParams: {
-            props: {},
-        },
-    },
-};
+export const footerComponentDef = createComponentDefinition({
+    name: 'Footer',
+    component: Footer,
+});

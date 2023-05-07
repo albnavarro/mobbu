@@ -1,10 +1,7 @@
+import { createComponentDefinition } from '../../../route/utils';
 import { DebugButton } from './debugButton';
 
-export const degubButtonComponentDef = {
-    DebugButton: {
-        componentFunction: DebugButton,
-        componentParams: {
-            props: {},
-        },
-    },
-};
+export const degubButtonComponentDef = createComponentDefinition({
+    name: 'DebugButton',
+    component: DebugButton,
+});
