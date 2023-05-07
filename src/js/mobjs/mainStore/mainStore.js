@@ -1,6 +1,10 @@
 import { core } from '../../mobbu';
 
 export const mainStore = core.createStore({
+    root: () => ({
+        value: document.createElement('div'),
+        type: Element,
+    }),
     propsToChildren: () => ({
         value: [],
         type: Array,

@@ -55,7 +55,7 @@ const init = async () => {
     commonData = data?.commonData;
     legendData = data?.legendData;
 
-    inizializeApp();
+    inizializeApp({ root: document.querySelector('#content') });
 };
 
 init();

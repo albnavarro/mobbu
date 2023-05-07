@@ -2,19 +2,25 @@ import { navAccordion } from '../../component/layout/navigation/animation/navAcc
 import { navigationScoller } from '../../component/layout/navigation/animation/navScroller';
 import { parseComponents } from '../componentParse';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
+import { getRoot, setRoot } from '../mainStore/actions/root';
 import { mainStore } from '../mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../updateList/addWithoutKey';
 import { routeList } from './routeList';
 import { router } from './router';
 import { debugRoute } from './test';
 
-const root = document.querySelector('#content');
-
 /**
  * Inizializa default route.
  * TODO get route from url ( /index.html#route )
  */
-export const inizializeApp = async () => {
+export const inizializeApp = async ({ root = null }) => {
+    if (!root) return;
+
+    /**
+     *
+     */
+    setRoot({ root });
+
     /**
      * Render common layout component.
      * Inizialize js on common layout component.
@@ -38,6 +44,11 @@ export const inizializeApp = async () => {
  * Load new route.
  */
 export const loadRoute = async ({ route = '', removePrevious = true }) => {
+    /**
+     *
+     */
+    const root = getRoot();
+
     /**
      * Set before Change props
      */
