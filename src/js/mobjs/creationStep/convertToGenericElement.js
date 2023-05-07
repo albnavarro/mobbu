@@ -1,6 +1,6 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
-import { IS_COMPONENT, PROPS_FROM_SLOT } from '../utils';
+import { IS_COMPONENT, PROPS_FROM_SLOT } from '../constant';
 import { propsValidate } from './utils';
 
 /**

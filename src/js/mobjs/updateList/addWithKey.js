@@ -4,7 +4,7 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import { IS_RUNTIME } from '../utils';
+import { IS_RUNTIME } from '../constant';
 import { createProps } from '../mainStore/actions/props';
 import {
     getElementById,

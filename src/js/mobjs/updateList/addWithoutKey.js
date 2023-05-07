@@ -1,7 +1,7 @@
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { componentStore } from '../componentStore/store';
 import { createProps } from '../mainStore/actions/props';
-import { IS_RUNTIME } from '../utils';
+import { IS_RUNTIME } from '../constant';
 import { getChildrenInsideElement } from './utils';
 
 /**

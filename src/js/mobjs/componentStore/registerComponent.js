@@ -1,5 +1,5 @@
 import { core } from '../../mobbu';
-import { IS_CANCELLABLE } from '../utils';
+import { IS_CANCELLABLE } from '../constant';
 import { componentStore } from './store';
 
 /**

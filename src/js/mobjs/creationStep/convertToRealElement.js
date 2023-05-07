@@ -3,7 +3,7 @@ import {
     PROPS_FROM_SLOT,
     SLOT_NAME,
     SLOT_POSITION,
-} from '../utils';
+} from '../constant';
 
 /**
  * Get new element from content ( render ).

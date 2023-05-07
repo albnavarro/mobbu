@@ -1,4 +1,4 @@
-import { IS_COMPONENT } from '../../utils';
+import { IS_COMPONENT } from '../../constant';
 import { componentStore } from '../store';
 import { updateChildrenArray } from '../utils';
 

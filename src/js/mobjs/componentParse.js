@@ -10,7 +10,7 @@ import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { executeRepeat } from './mainStore/actions/repeat';
 import { componentList } from './route/componentList';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
-import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
+import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './constant';
 
 /**
  * Get component Object with name in upepr canse and the value is the original name.
