@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../mobjs';
 import { Header } from './header';
 import { Headernav } from './headernav';
 import { HeaderToggle } from './headerToggle';

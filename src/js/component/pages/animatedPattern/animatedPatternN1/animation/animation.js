@@ -1,7 +1,7 @@
-import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
 import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
 import { offset } from '../../../../../mobbu/utils/vanillaFunction';
+import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
     createGrid,

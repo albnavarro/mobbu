@@ -1,6 +1,6 @@
-import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, tween } from '../../../../../mobbu';
 import { offset } from '../../../../../mobbu/utils/vanillaFunction';
+import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
     getCanvasContext,

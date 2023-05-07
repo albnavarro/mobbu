@@ -1,4 +1,4 @@
-import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { createProps } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {

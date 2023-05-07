@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../mobjs';
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 

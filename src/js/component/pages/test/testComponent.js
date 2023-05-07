@@ -1,4 +1,4 @@
-import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { createProps } from '../../../mobjs';
 import { addedData, addedData2, originalData, removeData } from './data';
 
 function logChildren(getChildren) {

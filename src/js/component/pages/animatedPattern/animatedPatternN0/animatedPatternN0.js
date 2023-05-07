@@ -1,5 +1,5 @@
-import { createProps } from '../../../../baseComponent/mainStore/actions/props';
-import { getLegendData } from '../../../../baseComponent/route';
+import { createProps } from '../../../../mobjs';
+import { getLegendData } from '../../../../mobjs/route';
 import { animatedPatternN0Animation } from './animation/animation';
 
 export const AnimatedPatternN0 = ({ onMount, render, props }) => {

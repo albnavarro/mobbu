@@ -1,5 +1,5 @@
-import { setStateById } from '../../../baseComponent/componentStore/action/state';
 import codeIcon from '../../../../svg/icon-code.svg';
+import { setStateById } from '../../../mobjs';
 
 /**
  * Create component

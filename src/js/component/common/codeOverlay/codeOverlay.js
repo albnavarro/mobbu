@@ -1,8 +1,8 @@
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { createProps } from '../../../baseComponent/mainStore/actions/props';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
+import { createProps } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 

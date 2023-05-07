@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../mobjs';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
 import { NavigationButton } from './navigationButton';

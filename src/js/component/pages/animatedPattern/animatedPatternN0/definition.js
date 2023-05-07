@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { AnimatedPatternN0 } from './animatedPatternN0';
 

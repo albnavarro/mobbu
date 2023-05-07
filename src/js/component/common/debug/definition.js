@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../mobjs';
 import { DebugButton } from './debugButton';
 
 export const degubButtonComponentDef = createComponentDefinition({

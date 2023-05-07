@@ -1,4 +1,4 @@
-import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { createProps } from '../../../mobjs';
 
 function asyncTest() {
     return new Promise((resolve) => {

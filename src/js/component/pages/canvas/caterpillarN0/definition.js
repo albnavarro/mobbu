@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN0 } from './caterpillarN0';
 

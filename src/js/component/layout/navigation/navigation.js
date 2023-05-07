@@ -1,5 +1,5 @@
-import { createProps } from '../../../baseComponent/mainStore/actions/props';
-import { getCommonData } from '../../../baseComponent/route';
+import { createProps } from '../../../mobjs';
+import { getCommonData } from '../../../mobjs/route';
 
 /**
  * Create second levels item.

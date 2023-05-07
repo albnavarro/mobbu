@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../baseComponent/route/utils';
+import { createComponentDefinition } from '../../../mobjs';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
 

@@ -1,5 +1,5 @@
-import { mainStore } from '../../../../../baseComponent/mainStore/mainStore';
 import { core, timeline, tween } from '../../../../../mobbu';
+import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
     createGrid,
