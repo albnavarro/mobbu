@@ -1,4 +1,4 @@
-import { getCommonData } from '../../../route';
+import { getCommonData } from '../../../baseComponent/route';
 import { navigationStore } from '../navigation/store/navStore';
 
 function additems() {

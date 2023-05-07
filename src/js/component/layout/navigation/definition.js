@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../route/utils';
+import { createComponentDefinition } from '../../../baseComponent/route/utils';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
 import { NavigationButton } from './navigationButton';

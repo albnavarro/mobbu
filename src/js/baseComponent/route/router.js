@@ -1,5 +1,5 @@
 import { loadRoute } from '.';
-import { mainStore } from '../baseComponent/mainStore/mainStore';
+import { mainStore } from '../mainStore/mainStore';
 import { getRouteModule } from './routeList';
 
 const getHash = () => {

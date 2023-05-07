@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../route/utils';
+import { createComponentDefinition } from '../../../baseComponent/route/utils';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
 

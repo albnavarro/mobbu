@@ -1,7 +1,7 @@
 import { createProps } from '../../../baseComponent/mainStore/actions/props';
+import { getLegendData } from '../../../baseComponent/route';
 import { bodyScroll } from '../../../mobbu/plugin';
 import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
-import { getLegendData } from '../../../route';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 const getColumns = ({ numOfCol }) => {

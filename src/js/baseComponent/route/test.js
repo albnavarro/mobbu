@@ -1,4 +1,4 @@
-import { mainStore } from '../baseComponent/mainStore/mainStore';
+import { mainStore } from '../mainStore/mainStore';
 
 export const debugRoute = () => {
     /**

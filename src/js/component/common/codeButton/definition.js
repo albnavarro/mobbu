@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../route/utils';
+import { createComponentDefinition } from '../../../baseComponent/route/utils';
 import { CodeButton } from './codeButton';
 
 export const codeButtonComponentDef = createComponentDefinition({

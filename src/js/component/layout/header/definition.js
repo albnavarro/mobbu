@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../route/utils';
+import { createComponentDefinition } from '../../../baseComponent/route/utils';
 import { Header } from './header';
 import { Headernav } from './headernav';
 import { HeaderToggle } from './headerToggle';

@@ -1,9 +1,9 @@
-import { parseComponents } from '../baseComponent/componentParse';
-import { removeOrphansPropsFromParent } from '../baseComponent/mainStore/actions/props';
-import { mainStore } from '../baseComponent/mainStore/mainStore';
-import { removeCancellableComponentFromStore } from '../baseComponent/updateList/addWithoutKey';
-import { navAccordion } from '../component/layout/navigation/animation/navAccordion';
-import { navigationScoller } from '../component/layout/navigation/animation/navScroller';
+import { navAccordion } from '../../component/layout/navigation/animation/navAccordion';
+import { navigationScoller } from '../../component/layout/navigation/animation/navScroller';
+import { parseComponents } from '../componentParse';
+import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
+import { mainStore } from '../mainStore/mainStore';
+import { removeCancellableComponentFromStore } from '../updateList/addWithoutKey';
 import { routeList } from './routeList';
 import { router } from './router';
 import { debugRoute } from './test';

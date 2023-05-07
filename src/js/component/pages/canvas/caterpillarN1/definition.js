@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../../route/utils';
+import { createComponentDefinition } from '../../../../baseComponent/route/utils';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN1 } from './caterpillarN1';
 

@@ -1,4 +1,3 @@
-import { componentList } from '../route/componentList';
 import { setElementById } from './componentStore/action/element';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
@@ -9,6 +8,7 @@ import {
 } from './mainStore/actions/parser';
 import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { executeRepeat } from './mainStore/actions/repeat';
+import { componentList } from './route/componentList';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
 import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './utils';
 

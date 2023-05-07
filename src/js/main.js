@@ -1,5 +1,5 @@
+import { inizializeApp } from './baseComponent/route';
 import { core } from './mobbu';
-import { inizializeApp } from './route';
 
 /**
  * Set default
