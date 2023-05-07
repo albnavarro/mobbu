@@ -1,5 +1,3 @@
-import { navAccordion } from '../../component/layout/navigation/animation/navAccordion';
-import { navigationScoller } from '../../component/layout/navigation/animation/navScroller';
 import { parseComponents } from '../componentParse';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot, setRoot } from '../mainStore/actions/root';
@@ -13,7 +11,7 @@ import { debugRoute } from './test';
  * Inizializa default route.
  * TODO get route from url ( /index.html#route )
  */
-export const inizializeApp = async ({ root = null }) => {
+export const inizializeApp = async ({ root = null, callback = () => {} }) => {
     if (!root) return;
 
     /**
@@ -26,8 +24,11 @@ export const inizializeApp = async ({ root = null }) => {
      * Inizialize js on common layout component.
      */
     await parseComponents({ element: document.body });
-    navAccordion();
-    navigationScoller();
+
+    /**
+     * First callback after parse index.html first time.
+     */
+    callback();
 
     /**
      * Debug

@@ -1,3 +1,5 @@
+import { navAccordion } from './component/layout/navigation/animation/navAccordion';
+import { navigationScoller } from './component/layout/navigation/animation/navScroller';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
 
@@ -55,7 +57,13 @@ const init = async () => {
     commonData = data?.commonData;
     legendData = data?.legendData;
 
-    inizializeApp({ root: document.querySelector('#content') });
+    inizializeApp({
+        root: document.querySelector('#content'),
+        callback: () => {
+            navAccordion();
+            navigationScoller();
+        },
+    });
 };
 
 init();
