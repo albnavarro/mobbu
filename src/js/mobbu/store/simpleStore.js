@@ -551,7 +551,7 @@ export class SimpleStore {
             return;
         }
 
-        // Check type of eachpropierties
+        // Check type of each propierties
         const isValidType = Object.entries(val)
             .map((item) => {
                 const [subProp, subVal] = item;
@@ -599,6 +599,7 @@ export class SimpleStore {
         const allStrictFail = strictObjectResult.every(
             (item) => item === false
         );
+
         if (allStrictFail) return;
 
         /**
@@ -670,8 +671,6 @@ export class SimpleStore {
     }
 
     /**
-     * @private
-     *
      * @param {String} prop - propierties to update
      * @param {any} value - new value
      *
