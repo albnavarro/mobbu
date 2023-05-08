@@ -5,6 +5,10 @@ export const mainStore = core.createStore({
         value: document.createElement('div'),
         type: Element,
     }),
+    componentList: () => ({
+        value: [],
+        type: Array,
+    }),
     propsToChildren: () => ({
         value: [],
         type: Array,

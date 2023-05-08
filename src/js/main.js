@@ -1,3 +1,4 @@
+import { componentList } from './component/componentList';
 import { navAccordion } from './component/layout/navigation/animation/navAccordion';
 import { navigationScoller } from './component/layout/navigation/animation/navScroller';
 import { core } from './mobbu';
@@ -59,6 +60,7 @@ const init = async () => {
 
     inizializeApp({
         root: document.querySelector('#content'),
+        componentList,
         callback: () => {
             navAccordion();
             navigationScoller();

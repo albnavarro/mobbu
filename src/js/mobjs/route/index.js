@@ -1,4 +1,5 @@
 import { parseComponents } from '../componentParse';
+import { setComponentList } from '../mainStore/actions/componentList';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot, setRoot } from '../mainStore/actions/root';
 import { mainStore } from '../mainStore/mainStore';
@@ -11,8 +12,17 @@ import { debugRoute } from './test';
  * Inizializa default route.
  * TODO get route from url ( /index.html#route )
  */
-export const inizializeApp = async ({ root = null, callback = () => {} }) => {
+export const inizializeApp = async ({
+    root = null,
+    callback = () => {},
+    componentList = {},
+}) => {
     if (!root) return;
+
+    /**
+     *
+     */
+    setComponentList(componentList);
 
     /**
      *

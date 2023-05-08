@@ -8,43 +8,24 @@ import {
 } from './mainStore/actions/parser';
 import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { executeRepeat } from './mainStore/actions/repeat';
-import { componentList } from './route/componentList';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
 import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './constant';
-
-/**
- * Get component Object with name in upepr canse and the value is the original name.
- * Name in uppercase is necessary for element.tagName
- */
-const componentsReference = Object.keys(componentList)
-    .map((key) => ({
-        [key.toUpperCase()]: key,
-    }))
-    .reduce((previous, current) => {
-        return { ...previous, ...current };
-    }, {});
-
-/**
- * Non runtime default
- * Select [data-component]:not[is-runtime]:not[data-iscomponent]
- */
-export const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${IS_COMPONENT}]))`;
-
-/**
- * Select component default by tagname.
- * Select <component name>:not[is-runtime]:not[data-iscomponent]
- */
-export const selectorDefaultTag = Object.values(componentsReference)
-    .map((value) => {
-        return `${value}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
-    })
-    .join(', ');
+import {
+    getComponentsReference,
+    getSelectorDefaultTag,
+    selectorDefault,
+} from './utils';
+import { getComponentList } from './mainStore/actions/componentList';
 
 /**
  * Create all component from DOM.
  */
 const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     if (!element) return Promise.resolve();
+
+    const componentsReference = getComponentsReference();
+    const selectorDefaultTag = getSelectorDefaultTag();
+    const componentList = getComponentList();
 
     /**
      * Get the first data-component element.
