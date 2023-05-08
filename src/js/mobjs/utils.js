@@ -12,7 +12,7 @@ import { getComponentList } from './mainStore/actions/componentList';
  * Add a runtime id to all component inside a div
  * Return the runtime id.
  */
-export const createRunTimeComponent = async ({ container }) => {
+export const createRunTimeComponent = ({ container }) => {
     const selectorDefaultTag = getSelectorDefaultTag();
     const uniqueId = getUnivoqueId();
     const innerComponents = container.querySelectorAll(
@@ -35,7 +35,7 @@ export const parseRuntime = async ({ container }) => {
      * Search for innercomponent and add a runtime id
      * So run a concurrent parseComponents outside the main parse.
      */
-    const { uniqueId, hasComponentInside } = await createRunTimeComponent({
+    const { uniqueId, hasComponentInside } = createRunTimeComponent({
         container,
     });
 
