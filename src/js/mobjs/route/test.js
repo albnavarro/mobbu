@@ -4,8 +4,12 @@ export const debugRoute = () => {
     /**
      * Some event test.
      */
-    mainStore.watch('beforeRouteChange', (current, previous) => {
+    mainStore.watch('beforeRouteLeave', (current) => {
         console.log('----------------');
+        console.log(`before route leave`, current);
+    });
+
+    mainStore.watch('beforeRouteChange', (current, previous) => {
         console.log('before route change:');
         console.log(`previous:`, previous);
         console.log(`current:`, current);

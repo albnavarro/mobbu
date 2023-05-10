@@ -9,6 +9,10 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    routeList: () => ({
+        value: [],
+        type: Array,
+    }),
     propsToChildren: () => ({
         value: [],
         type: Array,
@@ -32,6 +36,11 @@ export const mainStore = core.createStore({
     activeRoute: () => ({
         value: '',
         type: String,
+    }),
+    beforeRouteLeave: () => ({
+        value: '',
+        type: String,
+        skipEqual: false,
     }),
     beforeRouteChange: () => ({
         value: '',

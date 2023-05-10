@@ -1,6 +1,6 @@
 import { loadRoute } from '.';
 import { mainStore } from '../mainStore/mainStore';
-import { getRouteModule } from './routeList';
+import { getRouteModule } from './utils';
 
 const getHash = () => {
     const locationHash = window.location.hash.substring(1);

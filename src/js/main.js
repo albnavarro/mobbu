@@ -3,6 +3,7 @@ import { navAccordion } from './component/layout/navigation/animation/navAccordi
 import { navigationScoller } from './component/layout/navigation/animation/navScroller';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
+import { routeList } from './pages/routeList';
 
 let commonData = {};
 let legendData = {};
@@ -61,7 +62,8 @@ const init = async () => {
     inizializeApp({
         root: document.querySelector('#content'),
         componentList,
-        callback: () => {
+        routeList,
+        afterInit: () => {
             navAccordion();
             navigationScoller();
         },

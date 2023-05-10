@@ -2,9 +2,9 @@ import { parseComponents } from '../componentParse';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot, setRoot } from '../mainStore/actions/root';
+import { getRouteList, setRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../updateList/addWithoutKey';
-import { routeList } from './routeList';
 import { router } from './router';
 import { debugRoute } from './test';
 
@@ -14,8 +14,9 @@ import { debugRoute } from './test';
  */
 export const inizializeApp = async ({
     root = null,
-    callback = () => {},
     componentList = {},
+    routeList = {},
+    afterInit = () => {},
 }) => {
     if (!root) return;
 
@@ -23,6 +24,11 @@ export const inizializeApp = async ({
      *
      */
     setComponentList(componentList);
+
+    /**
+     *
+     */
+    setRouteList(routeList);
 
     /**
      *
@@ -38,7 +44,7 @@ export const inizializeApp = async ({
     /**
      * First callback after parse index.html first time.
      */
-    callback();
+    afterInit();
 
     /**
      * Debug
@@ -59,6 +65,12 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
      *
      */
     const root = getRoot();
+
+    /**
+     * Set before Route leave.
+     */
+    const { activeRoute } = mainStore.get();
+    mainStore.set('beforeRouteLeave', activeRoute);
 
     /**
      * Set before Change props
@@ -84,7 +96,7 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
-    const content = routeList?.[route]?.({ root });
+    const content = getRouteList()?.[route]?.({ root });
     root.innerHTML = '';
     root.insertAdjacentHTML('afterbegin', content);
 
