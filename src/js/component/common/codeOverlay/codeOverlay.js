@@ -30,10 +30,18 @@ const getButtons = ({ contents, setState }) => {
 const loadContent = async ({ url }) => {
     const response = await fetch(url);
     if (!response.ok) {
-        return `${url} not found`;
+        console.warn(`${url} not found`);
+
+        return {
+            success: false,
+            data: '',
+        };
     }
     const data = await response.text();
-    return data;
+    return {
+        success: true,
+        data,
+    };
 };
 
 const printContent = async ({
@@ -45,8 +53,24 @@ const printContent = async ({
     updateScroller,
     goToTop,
 }) => {
-    const states = getState();
-    const data = await loadContent({ url: states[currentKey] });
+    const { urls } = getState();
+    const url = urls[currentKey];
+
+    /**
+     * If url id not defined or is an ampty string return
+     * On overlay close url is empty.
+     */
+    if (!url?.length) return;
+
+    /**
+     * Load data.
+     */
+    const { success, data } = await loadContent({ url });
+    if (!success) return;
+
+    /**
+     * Save raw data.
+     */
     setState('rawContent', /* HTML */ data);
 
     if (currentKey === 'description') {
@@ -91,20 +115,6 @@ export const CodeOverlay = ({
         });
 
         /**
-         * Print default content (js)
-         */
-        const { activeContent } = getState();
-        printContent({
-            setState,
-            getState,
-            codeEl,
-            descriptionEl,
-            currentKey: activeContent,
-            updateScroller,
-            goToTop,
-        });
-
-        /**
          * Watch content change, and update content.
          */
         const unWatchActiveContent = watch('activeContent', (currentKey) =>
@@ -140,6 +150,11 @@ export const CodeOverlay = ({
                 document.body.style.overflow = '';
                 codeEl.textContent = '';
                 descriptionEl.textContent = '';
+
+                /**
+                 * Reset buttons state on overlay close.
+                 */
+                setState('activeContent', '');
                 goToTop();
             }
         });

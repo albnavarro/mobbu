@@ -1,42 +1,77 @@
-export const CodeOverlayButton = ({ render, onMount, props, watchParent }) => {
+export const CodeOverlayButton = ({
+    render,
+    onMount,
+    props,
+    watch,
+    watchParent,
+    getState,
+    setState,
+}) => {
     const { key, callback } = props;
 
     onMount(({ element }) => {
-        element.addEventListener('click', () => callback());
+        element.addEventListener('click', () => {
+            /**
+             * If is just selected  or disabled (secure check) return
+             */
+            const { disable, selected } = getState();
+            if (selected || disable) return;
+
+            /**
+             * Set active drawer to parent.
+             */
+            callback();
+        });
+
+        /**
+         * Check if button is cliccable ( url is settled ).
+         */
+        const unWatchParentKey = watchParent('urls', ({ [key]: url }) => {
+            setState('disable', !(url && url.length));
+        });
 
         /**
          * Check if active drawer is itself.
          */
         const unWatchParentActiveContent = watchParent(
             'activeContent',
-            (parentActiveKey) => {
-                if (parentActiveKey === key) {
-                    element.classList.add('active');
-                } else {
-                    element.classList.remove('active');
-                }
-            }
+            (parentActiveKey) => setState('selected', parentActiveKey === key)
         );
 
         /**
-         * Check if button is cliccable ( drawer has content )
+         * Set selected class.
          */
-        const unWatchParentKey = watchParent(key, (value) => {
-            if (value && value.length) {
-                element.classList.remove('disable');
-                element.classList.remove('active');
+        const unwatchSelected = watch('selected', (selected) => {
+            if (selected) {
+                element.classList.add('selected');
             } else {
+                element.classList.remove('selected');
+            }
+        });
+
+        /**
+         * Disable button if there is no content.
+         */
+        const unwatchActive = watch('disable', (disable) => {
+            if (disable) {
                 element.classList.add('disable');
+            } else {
+                element.classList.remove('disable');
             }
         });
 
         return () => {
+            unwatchSelected();
+            unwatchActive();
             unWatchParentActiveContent();
             unWatchParentKey();
         };
     });
 
-    return render(
-        /* HTML */ ` <button class="code-overlay__button">${key}</button> `
-    );
+    /**
+     * First render button is disabled.
+     */
+    return render(/* HTML */ `
+        <button class="code-overlay__button disable">${key}</button>
+    `);
 };

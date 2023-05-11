@@ -115,10 +115,12 @@ export const HorizontalScroller = ({ onMount, render }) => {
         <div class="l-h-scroller__top">scroll down</div>
         <CodeButton
             data-props="${createProps({
-                description: source.description,
-                js: source.js,
-                scss: source.scss,
-                html: source.html,
+                drawers: {
+                    description: source.description,
+                    js: source.js,
+                    scss: source.scss,
+                    component: source.component,
+                },
                 style: 'legend',
             })}"
         >

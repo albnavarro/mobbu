@@ -115,9 +115,11 @@ export const TestComponent = async ({
                 <Codebutton
                     data-slotposition="slot2"
                     data-props="${createProps({
-                        js: 'test-js',
-                        scss: 'test-scss',
-                        html: 'test-html',
+                        drawers: {
+                            js: 'test-js',
+                            scss: 'test-scss',
+                            component: 'test-html',
+                        },
                         style: 'primary',
                     })}"
                 >

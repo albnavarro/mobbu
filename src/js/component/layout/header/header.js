@@ -32,9 +32,11 @@ export const Header = ({ render, onMount }) => {
                     <p class="p--small"></p>
                     <CodeButton
                         data-props="${createProps({
-                            js: '/codeExample/layout/navigation/script.js',
-                            scss: '',
-                            html: '',
+                            drawers: {
+                                js: '/codeExample/layout/navigation/script.js',
+                                scss: '',
+                                component: '',
+                            },
                             style: 'green',
                         })}"
                     >

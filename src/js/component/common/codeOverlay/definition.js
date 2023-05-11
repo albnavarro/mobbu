@@ -2,38 +2,43 @@ import { createComponentDefinition } from '../../../mobjs';
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 
-const validContent = ['description', 'js', 'scss', 'html'];
+/**
+ * Drawer list.
+ */
+export const overlayDrawers = ['description', 'js', 'scss', 'component'];
 
+/**
+ * Create urls Object for overlay state.
+ */
+const urls = overlayDrawers.reduce((previous, current) => {
+    return {
+        ...previous,
+        ...{
+            [current]: () => ({
+                value: '',
+                type: String,
+            }),
+        },
+    };
+}, {});
+
+/**
+ * Overlay state
+ */
 export const codeOverlayDef = createComponentDefinition({
     name: 'CodeOverlay',
     component: CodeOverlay,
     props: {
-        contents: [...validContent],
+        contents: [...overlayDrawers],
     },
     state: {
-        description: () => ({
-            value: 'md url content',
-            type: String,
-        }),
-
-        js: () => ({
-            value: 'js url content',
-            type: String,
-        }),
-        scss: () => ({
-            value: 'scss url content',
-            type: String,
-        }),
-        html: () => ({
-            value: 'html url content',
-            type: String,
-        }),
+        urls,
         activeContent: () => ({
             value: '',
             type: String,
             skipEqual: false,
             validate: (val) => {
-                return [...validContent, ''].includes(val);
+                return [...overlayDrawers, ''].includes(val);
             },
         }),
         rawContent: () => ({
@@ -47,11 +52,24 @@ export const codeOverlayDef = createComponentDefinition({
     },
 });
 
+/**
+ * Button state ( each for every drawer ).
+ */
 export const codeOverlayButtonDef = createComponentDefinition({
     name: 'CodeOverlayButton',
     component: CodeOverlayButton,
     props: {
         key: '',
         callback: () => {},
+    },
+    state: {
+        selected: () => ({
+            value: false,
+            type: Boolean,
+        }),
+        disable: () => ({
+            value: true,
+            type: Boolean,
+        }),
     },
 });

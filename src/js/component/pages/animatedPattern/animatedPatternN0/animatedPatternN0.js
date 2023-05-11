@@ -23,10 +23,12 @@ export const AnimatedPatternN0 = ({ onMount, render, props }) => {
         <div>
             <CodeButton
                 data-props="${createProps({
-                    description: source.description,
-                    js: source.js,
-                    scss: source.scss,
-                    html: source.html,
+                    drawers: {
+                        description: source.description,
+                        js: source.js,
+                        scss: source.scss,
+                        component: source.component,
+                    },
                     style: 'legend',
                 })}"
             >
