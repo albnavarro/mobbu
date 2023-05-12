@@ -20,7 +20,12 @@ import { getComponentList } from './mainStore/actions/componentList';
 /**
  * Create all component from DOM.
  */
-const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
+const parseComponentsRecursive = async ({
+    element,
+    index,
+    runtimeId,
+    onMountQueque = [],
+}) => {
     if (!element) return Promise.resolve();
 
     const componentsReference = getComponentsReference();
@@ -91,6 +96,11 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
             removeOrphansPropsFromParent();
             removeOrphanComponent();
         }
+        /**
+         * Fire onMount queue.
+         * Wait parse is ended to fire onMount callback.
+         */
+        onMountQueque.forEach((fn) => fn());
         return Promise.resolve();
     }
 
@@ -119,6 +129,8 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
         await parseComponentsRecursive({
             element,
             index: index++,
+            runtimeId,
+            onMountQueque,
         });
         return;
     }
@@ -185,15 +197,17 @@ const parseComponentsRecursive = async ({ element, index, runtimeId }) => {
     });
 
     /**
-     * Fire onMount callback
+     * Store onMount callback.
+     * Fire all onMount at the end of the current parse.
      */
-    fireOnMountCallBack({ id, element: newElement });
+    onMountQueque.push(() => fireOnMountCallBack({ id, element: newElement }));
 
     // Check for another component
     await parseComponentsRecursive({
         element,
         index: index++,
         runtimeId,
+        onMountQueque,
     });
 };
 
