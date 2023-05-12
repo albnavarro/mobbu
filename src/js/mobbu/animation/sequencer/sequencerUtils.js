@@ -21,7 +21,7 @@ import { getStaggerFromProps } from '../utils/stagger/staggerUtils.js';
 
 /**
  * @typedef {Object} createSequencerTypes
- * @prop {[Element,Object]} items Generally an array of HTMLelements but it is possible to use an array of objects as well
+ * @prop {Array.<Element|Object>} items Generally an array of HTMLelements but it is possible to use an array of objects as well
  * @prop {number} [ duration=10] Defines the time range of the animation, both syncTimeline and scrollTrigger will take care of processing the value as needed. The default value is 10
  **/
 

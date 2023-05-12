@@ -47,6 +47,7 @@ import {
     Property valid only with `useSticky = false`.
     The element will always be appended to the document body.
     The default value is false.
+ * @prop {function():void} [ onEnter = null ] -
  * @prop {function():void} [ onEnterBack = null ] -
  * @prop {function():void} [ onLeave = null ] -
  * @prop {function():void} [ onLeaveBack = null ]-

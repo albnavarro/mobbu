@@ -19,7 +19,7 @@ import { handleSetUp } from '../setup.js';
 
 /**
  * @typedef {Object} breackPointTypeObj
- * @prop {('xSmall'|'small'|'medium'|'tablet'|"desktop"|'large'|'xLarge' )} breackpoint
+ * @prop {('xSmall'|'small'|'medium'|'tablet'|"desktop"|'large'|'xLarge' )} [ breackpoint ]
  */
 
 /**

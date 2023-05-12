@@ -1,6 +1,6 @@
 /**
  * @typedef {Object} springConfigTypes
- * @prop {('default'|'gentle'|'wobbly'|'bounce'|'scroller')} config spring configuration list
+ * @prop {('default'|'gentle'|'wobbly'|'bounce'|'scroller')} [ config = default ] spring configuration list
  **/
 
 /**
@@ -10,7 +10,7 @@
 
 /**
  * @typedef {Object} springConfigPropsTypes
- * @prop {Object} configProp single spring config propierties
+ * @prop {Object} [ configProp ] single spring config propierties
  * @prop {Number} [ configProp.tension ] tension - A positive number
  * @prop {Number} [ configProp.mass ] mass - A positive number
  * @prop {Number} [ configProp.friction ] friction - A positive number

@@ -30,17 +30,17 @@ import { asyncReduceTween } from './asyncReduceTween.js';
 
 /**
  * @typedef {Object} asyncTimelineTypes
- * @prop {Boolean} [yoyo=0] 
+ * @prop {Boolean} [yoyo=0]
     Reverse the direction each time the animation ends.
- * @prop {Number} [repeat=1] 
+ * @prop {Number} [repeat=1]
     How many times the animation should be repeated.
     -1 means that the animation will run in an infinite loop.
- * @prop {Boolean} [freeMode=false] 
+ * @prop {Boolean} [freeMode=false]
     By default when a play or a playReverse is performed a `set method` is executed on each tween using the `initial values` (play)
     or the `final values` (playReverse) to make each tween start from a 'neutral' position regardless of its value current.
     Sets are not saved in the timeline but are temporary.
     If the `freeMode` property is set to `false` the sets are not executed so that multiple timelines can control the same tweens always starting from the current value of each tween. `The default is false`.
- * @prop {Boolean} [autoSet=false] 
+ * @prop {Boolean} [autoSet=false]
     If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created.
     The newly created methods will be `permanently` added to the ends of the timeline.
     As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value.
@@ -1344,8 +1344,8 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {Object} groupProps
-     * @param {Boolean} groupProps.waitComplete
+     * @param {Object} [ groupProps ]
+     * @param {Boolean} [ groupProps.waitComplete ]
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -1467,7 +1467,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {Object} labelProps
-     * @param {String} name - label name
+     * @param {String} labelProps.name - label name
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -2121,7 +2121,7 @@ export default class HandleAsyncTimeline {
      * @typedef {Object} asyncTimelineStopTypes
      * @prop {Boolean} resetImmediateStatus
         Internal use
-     * @prop {Boolean} clearCache 
+     * @prop {Boolean} clearCache
        Stop all stagger implemented with subscribeCache methods.
      */
 
