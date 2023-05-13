@@ -13,7 +13,7 @@ export const caterpillarN1Def = createComponentDefinition({
         opacity: 0.05,
         radius: 100,
         rotationEach: 15,
-        centerEach: 5,
+        centerEach: 3,
         rotationDuration: 5000,
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
