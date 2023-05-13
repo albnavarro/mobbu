@@ -988,6 +988,7 @@ export default class HandleSyncTimeline {
      * Destroy timeline and all the sequencer
      */
     destroy() {
+        this.stop();
         this.sequencers.forEach((item) => item.destroy());
         this.sequencers = [];
         this.callbackOnUpdate = [];
