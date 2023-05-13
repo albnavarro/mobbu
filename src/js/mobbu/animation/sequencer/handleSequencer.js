@@ -883,7 +883,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {('Object'|'HTMLElement')} item
+     * @param {(Object|HTMLElement)} item
      * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} fn - callback function.
      * @return {Function} unsubscribe callback
      *
