@@ -19,6 +19,7 @@ import { animatedPatternN0Def } from './pages/animatedPattern/animatedPatternN0/
 import { animatedPatternN1Def } from './pages/animatedPattern/animatedPatternN1/definition';
 import { caterpillarN0Def } from './pages/canvas/caterpillarN0/definition';
 import { caterpillarN1Def } from './pages/canvas/caterpillarN1/definition';
+import { caterpillarN2Def } from './pages/canvas/caterpillarN2/definition';
 import { homePageComponentDef } from './pages/homepage/definition';
 import { horizontalScrollerDef } from './pages/horizontalScroller/definition';
 import { testComponent2Def, testComponentDef } from './pages/test/definition';
@@ -38,6 +39,7 @@ export const componentList = {
     ...homePageComponentDef,
     ...caterpillarN1Def,
     ...caterpillarN0Def,
+    ...caterpillarN2Def,
     ...animatedPatternN0Def,
     ...animatedPatternN1Def,
     ...horizontalScrollerDef,
