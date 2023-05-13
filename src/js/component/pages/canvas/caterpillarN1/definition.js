@@ -7,8 +7,8 @@ export const caterpillarN1Def = createComponentDefinition({
     component: CaterpillarN1,
     props: {
         numItems: 20,
-        width: 60,
-        height: 60,
+        width: 40,
+        height: 40,
         fill: [14],
         opacity: 0.05,
         radius: 100,
