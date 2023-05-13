@@ -1,6 +1,10 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
-import { IS_COMPONENT, PROPS_FROM_SLOT } from '../constant';
+import {
+    INSTANCENAME_DATASET,
+    IS_COMPONENT,
+    PROPS_FROM_SLOT,
+} from '../constant';
 import { propsValidate } from './utils';
 
 /**
@@ -15,7 +19,7 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     /**
      * Get props
      */
-    const instanceName = component.dataset?.instancename ?? '';
+    const instanceName = component.dataset?.[INSTANCENAME_DATASET] ?? '';
     const propsId = component.dataset.props;
     const propsSlot = component.dataset[PROPS_FROM_SLOT];
     const cleanProsId = propsId?.split(' ').join('');
