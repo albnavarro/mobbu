@@ -8,6 +8,7 @@ import { componentStore } from './store';
 export const registerComponent = ({
     placeholderElement = {},
     component = {},
+    instanceName = '',
     props = {},
     state = {},
     key = null,
@@ -22,6 +23,7 @@ export const registerComponent = ({
             {
                 element: placeholderElement,
                 component: componentName,
+                instanceName,
                 props,
                 destroy,
                 key,

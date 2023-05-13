@@ -17,6 +17,7 @@ export const componentStore = core.createStore({
                     item?.props &&
                     item?.state &&
                     item?.child &&
+                    'instanceName' in item &&
                     'parentId' in item &&
                     'key' in item &&
                     'cancellable' in item &&

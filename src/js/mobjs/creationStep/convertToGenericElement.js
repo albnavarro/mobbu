@@ -15,6 +15,7 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     /**
      * Get props
      */
+    const instanceName = component.dataset?.instancename ?? '';
     const propsId = component.dataset.props;
     const propsSlot = component.dataset[PROPS_FROM_SLOT];
     const cleanProsId = propsId?.split(' ').join('');
@@ -68,6 +69,7 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
         },
         id,
         componentName,
+        instanceName,
         key,
     };
 };

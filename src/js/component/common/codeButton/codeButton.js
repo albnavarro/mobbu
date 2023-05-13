@@ -1,5 +1,5 @@
 import codeIcon from '../../../../svg/icon-code.svg';
-import { setStateById } from '../../../mobjs';
+import { getIdByName, setStateById } from '../../../mobjs';
 import { overlayDrawers } from '../codeOverlay/definition';
 
 /**
@@ -25,24 +25,26 @@ export const CodeButton = ({ props, render, onMount }) => {
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {
-            const overlayCode = document.querySelector('.js-overlay');
-            const { id } = overlayCode;
+            /**
+             * Get overlay id.
+             */
+            const codeOverlayId = getIdByName('codeOverlay');
 
             /**
              * Update overlay urls state.
              */
-            setStateById(id, 'urls', drawersMergedWithDefaults);
+            setStateById(codeOverlayId, 'urls', drawersMergedWithDefaults);
 
             /**
              * If description is active set to default active content.
              */
             if (drawersMergedWithDefaults.description.length)
-                setStateById(id, 'activeContent', 'description');
+                setStateById(codeOverlayId, 'activeContent', 'description');
 
             /**
              * Open overlay.
              */
-            setStateById(id, 'isOpen', true);
+            setStateById(codeOverlayId, 'isOpen', true);
         });
 
         return () => {

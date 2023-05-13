@@ -19,3 +19,23 @@ export const getComponentNameById = (id) => {
 
     return componentName;
 };
+
+/**
+ * Get id by user definition name.
+ */
+export const getIdByName = (name = '') => {
+    if (!name) return null;
+
+    const { instances } = componentStore.get();
+    const instance = instances.find(({ instanceName }) => {
+        return instanceName === name;
+    });
+
+    const id = instance?.id;
+    if (!id) {
+        console.warn(`getIdByName failed no name`);
+        return null;
+    }
+
+    return id;
+};

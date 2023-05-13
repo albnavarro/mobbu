@@ -27,6 +27,7 @@ export const registerGenericElement = ({
         props: propsUpdated,
         id,
         componentName,
+        instanceName,
         key,
     } = convertToGenericElement({
         component,
@@ -44,6 +45,7 @@ export const registerGenericElement = ({
         destroy: () => {},
         id,
         componentName,
+        instanceName,
         key,
     });
 

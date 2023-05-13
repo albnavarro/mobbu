@@ -1,7 +1,13 @@
 /**
  * Exclude this props becouse if a reserved props keys.
  */
-const propsKeyToExclude = ['component', 'key', 'props', 'cancellable'];
+const propsKeyToExclude = [
+    'component',
+    'key',
+    'props',
+    'cancellable',
+    'instancename',
+];
 
 /**
  * Check if props is defined in component definition.
