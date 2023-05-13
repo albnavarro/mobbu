@@ -148,8 +148,8 @@ export const caterpillarN1Animation = ({
                     xy,
                     -xy,
                     xx,
-                    centerX + x + (unitInverse * x) / 10,
-                    centerY + y + (unitInverse * y) / 10
+                    centerX + x + (unitInverse * x) / 20,
+                    centerY + y + (unitInverse * y) / 20
                 );
 
                 /**

@@ -8,7 +8,7 @@ export const caterpillarN2Def = createComponentDefinition({
     name: 'Caterpillarn2',
     component: CaterpillarN2,
     props: {
-        numItems: 20,
+        numItems: 30,
         width: 60,
         height: 60,
         radius: 20,
