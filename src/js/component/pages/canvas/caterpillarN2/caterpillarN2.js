@@ -1,12 +1,12 @@
 import { getLegendData } from '../../../../main';
 import { createProps } from '../../../../mobjs';
-import { caterpillarN1Animation } from './animation/animation';
+import { caterpillarN2Animation } from './animation/animation';
 
 export const CaterpillarN2 = ({ onMount, render, props }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
-        const destroyAnimation = caterpillarN1Animation({
+        const destroyAnimation = caterpillarN2Animation({
             canvas,
             ...props,
         });

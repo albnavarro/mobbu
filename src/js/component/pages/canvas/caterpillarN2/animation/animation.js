@@ -1,4 +1,4 @@
-export const caterpillarN1Animation = ({
+export const caterpillarN2Animation = ({
     canvas,
     numItems,
     width,
