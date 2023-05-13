@@ -1,5 +1,5 @@
 import codeIcon from '../../../../svg/icon-code.svg';
-import { getIdByName, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { overlayDrawers } from '../codeOverlay/definition';
 
 /**
@@ -28,7 +28,7 @@ export const CodeButton = ({ props, render, onMount }) => {
             /**
              * Get overlay id.
              */
-            const codeOverlayId = getIdByName('codeOverlay');
+            const codeOverlayId = getIdByInstanceName('codeOverlay');
 
             /**
              * Update overlay urls state.

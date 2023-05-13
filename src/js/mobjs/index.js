@@ -2,7 +2,7 @@ export { componentStore } from './componentStore/store';
 export { mainStore } from './mainStore/mainStore';
 export { createComponentDefinition } from './route/utils';
 export { inizializeApp } from './route';
-export { getIdByName } from './componentStore/action/component';
+export { getIdByInstanceName } from './componentStore/action/component';
 export { watchById } from './componentStore/action/watch';
 export { setStateById } from './componentStore/action/state';
 export { getStateById } from './componentStore/action/state';

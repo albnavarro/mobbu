@@ -23,7 +23,7 @@ export const getComponentNameById = (id) => {
 /**
  * Get id by user definition name.
  */
-export const getIdByName = (name = '') => {
+export const getIdByInstanceName = (name = '') => {
     if (!name) return null;
 
     const { instances } = componentStore.get();
