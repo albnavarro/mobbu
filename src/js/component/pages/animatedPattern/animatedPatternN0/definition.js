@@ -11,8 +11,8 @@ export const animatedPatternN0Def = createComponentDefinition({
         cellWidth: 50,
         cellHeight: 50,
         gutter: 10,
-        fill: '#353244',
-        stroke: '#000',
+        fill: [16, 27, 38, 49, 60, 71, 82, 93],
+        stroke: '#222',
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
 });

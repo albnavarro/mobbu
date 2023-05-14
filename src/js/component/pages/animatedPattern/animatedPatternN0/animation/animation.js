@@ -35,6 +35,8 @@ export const animatedPatternN0Animation = ({
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
+    const defaultFill = '#000';
+    const highlightFill = '#9ece6a';
     const { activeRoute } = mainStore.get();
 
     /**
@@ -59,10 +61,16 @@ export const animatedPatternN0Animation = ({
 
     /**
      * Add props to transform.
+     * Order byy hasFill, so is linke z-index: -1.
      */
-    data = gridData.map((item) => {
-        return { ...item, ...{ scale: 1, rotate: 0 } };
-    });
+    data = gridData
+        .map((item, i) => {
+            return {
+                ...item,
+                ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
+            };
+        })
+        .sort((value) => (value.hasFill ? -1 : 1));
 
     /**
      * Create tween
@@ -71,7 +79,7 @@ export const animatedPatternN0Animation = ({
         ease: 'easeInOutQuad',
         stagger: {
             each: 5,
-            from: 'start',
+            // from: 'start',
             grid: { col: 11, row: 11, direction: 'row' },
             waitComplete: false,
         },
@@ -117,6 +125,7 @@ export const animatedPatternN0Animation = ({
                 height,
                 rotate,
                 scale,
+                hasFill,
                 offsetXCenter,
                 offsetYCenter,
             }) => {
@@ -139,7 +148,7 @@ export const animatedPatternN0Animation = ({
                 /**
                  * Draw.
                  */
-                context.fillStyle = fill;
+                context.fillStyle = hasFill ? highlightFill : defaultFill;
                 context.fillRect(
                     Math.round(-centerX + x),
                     Math.round(-centerY + y),
