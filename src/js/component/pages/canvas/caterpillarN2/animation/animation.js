@@ -245,6 +245,7 @@ export const caterpillarN2Animation = ({
             unsubscribeResize();
             unWatchPause();
             unWatchResume();
+            infiniteTween.destroy();
             syncTimeline.destroy();
             ctx = null;
             offscreen = null;
