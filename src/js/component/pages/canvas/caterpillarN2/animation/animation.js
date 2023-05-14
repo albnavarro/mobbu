@@ -20,6 +20,7 @@ export const caterpillarN2Animation = ({
     yAmplitude,
     duration,
     friction,
+    rotationDefault,
     disableOffcanvas,
 }) => {
     /**
@@ -33,6 +34,7 @@ export const caterpillarN2Animation = ({
     let isActive = true;
     let ctx = canvas.getContext(context, { alpha: false });
     let squareData = [];
+    let userRotation = rotationDefault;
     const { activeRoute } = mainStore.get();
 
     /**
@@ -82,11 +84,11 @@ export const caterpillarN2Animation = ({
             { x: duration + duration / 4 },
             { start: 0, end: duration, ease: 'easeLinear' }
         )
-        .goTo({ rotate: -360 }, { start: 0, end: 4.9, ease: 'easeInOutBack' })
         .goTo(
-            { rotate: 0 },
-            { start: 5.1, end: duration, ease: 'easeInOutBack' }
+            { rotate: () => -userRotation },
+            { start: 0, end: 5, ease: 'easeInOutBack' }
         )
+        .goTo({ rotate: 0 }, { start: 5, end: duration, ease: 'easeInOutBack' })
         .label('mylabel', 2);
 
     /**
@@ -272,5 +274,6 @@ export const caterpillarN2Animation = ({
         pause: () => syncTimeline.pause(),
         resume: () => syncTimeline.resume(),
         reverse: () => syncTimeline.reverse(),
+        setRotation: (value) => (userRotation = value),
     };
 };

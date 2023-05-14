@@ -14,11 +14,11 @@ const buttons = {
         method: 'playReverse',
     },
     'js-CN2-play-current': {
-        label: 'go forward if is playing backward',
+        label: 'go forward if is backward',
         method: 'playUseCurrent',
     },
     'js-CN2-playReverse-current': {
-        label: 'go backward if is playing forward',
+        label: 'go backward if is forward',
         method: 'playReverseUseCurrent',
     },
     'js-CN2-play-label': {
@@ -60,6 +60,7 @@ export const caterpillarN2Def = createComponentDefinition({
         xAmplitude: 500,
         yAmplitude: 400,
         duration: 10,
+        rotationDefault: 360,
         friction: duration / 2 / Math.PI,
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
         buttons,

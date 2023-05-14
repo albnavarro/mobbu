@@ -20,10 +20,14 @@ function getControls({ buttons }) {
 }
 
 export const CaterpillarN2 = ({ onMount, render, props }) => {
-    const { buttons } = props;
+    const { buttons, rotationDefault } = props;
 
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
+        const rangeValue = element.querySelector('.js-range-value');
+        const rotationButton = element.querySelector(
+            '.c-canvas__controls__range input'
+        );
 
         /**
          * Inizializa animation and get anima methods.
@@ -36,7 +40,7 @@ export const CaterpillarN2 = ({ onMount, render, props }) => {
         /**
          * Get destroy methods.
          */
-        const { destroy } = animationMethods;
+        const { destroy, setRotation } = animationMethods;
 
         /**
          * Inizalize controls handler.
@@ -45,6 +49,15 @@ export const CaterpillarN2 = ({ onMount, render, props }) => {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
             btn.addEventListener('click', () => animationMethods?.[method]());
+        });
+
+        /**
+         * Rotation handler
+         */
+        rotationButton.addEventListener('change', () => {
+            const value = rotationButton.value;
+            setRotation(value);
+            rangeValue.textContent = value;
         });
 
         return () => {
@@ -72,6 +85,23 @@ export const CaterpillarN2 = ({ onMount, render, props }) => {
             <div class="c-canvas">
                 <ul class="c-canvas__controls">
                     ${getControls({ buttons })}
+                    <li class="c-canvas__controls__item">
+                        <label class="c-canvas__controls__label">
+                            change rotation:
+                            <span class="js-range-value"
+                                >${rotationDefault}</span
+                            >
+                        </label>
+                        <div class="c-canvas__controls__range">
+                            <input
+                                type="range"
+                                min="0"
+                                max="720"
+                                value="${rotationDefault}"
+                                step="1"
+                            />
+                        </div>
+                    </li>
                 </ul>
                 <div class="c-canvas__wrap c-canvas__wrap">
                     <canvas></canvas>
