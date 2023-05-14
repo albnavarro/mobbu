@@ -8,11 +8,10 @@ export const animatedPatternN0Def = createComponentDefinition({
     props: {
         numberOfRow: 10,
         numberOfColumn: 10,
-        cellWidth: 50,
-        cellHeight: 50,
-        gutter: 10,
+        cellWidth: 65,
+        cellHeight: 65,
+        gutter: 1,
         fill: [16, 27, 38, 49, 60, 71, 82, 93],
-        stroke: '#222',
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
 });

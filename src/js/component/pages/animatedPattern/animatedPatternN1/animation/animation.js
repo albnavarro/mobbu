@@ -9,6 +9,7 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
+    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
@@ -20,7 +21,6 @@ export const animatedPatternN1Animation = ({
     cellHeight,
     gutter,
     fill,
-    stroke,
     disableOffcanvas,
 }) => {
     /**
@@ -39,6 +39,8 @@ export const animatedPatternN1Animation = ({
     let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
+    const defaultFill = '#000';
+    const highlightFill = '#fff';
     const { activeRoute } = mainStore.get();
 
     /**
@@ -64,9 +66,19 @@ export const animatedPatternN1Animation = ({
     /**
      * Add props to transform.
      */
-    data = gridData.map((item) => {
-        return { ...item, ...{ scale: 1, mouseX: 0, mouseY: 0 } };
-    });
+    data = gridData
+        .map((item, i) => {
+            return {
+                ...item,
+                ...{
+                    scale: 0,
+                    mouseX: 0,
+                    mouseY: 0,
+                    hasFill: fill.includes(i),
+                },
+            };
+        })
+        .sort((value) => (value.hasFill ? -1 : 1));
 
     /**
      * Create rotation tween.
@@ -92,8 +104,8 @@ export const animatedPatternN1Animation = ({
         ease: 'easeInOutSine',
         stagger: {
             each: 5,
-            from: 'start',
-            grid: { col: 15, row: 7, direction: 'row' },
+            from: 'center',
+            // grid: { col: 15, row: 7, direction: 'row' },
             waitComplete: false,
         },
         data: { scale: 0 },
@@ -138,6 +150,7 @@ export const animatedPatternN1Animation = ({
                 mouseX,
                 mouseY,
                 scale,
+                hasFill,
                 offsetXCenter,
                 offsetYCenter,
             }) => {
@@ -158,8 +171,8 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Scale value
                  */
-                const xScale = (x - mouseXparsed) / 350;
-                const yScale = (y - mouseYparsed) / 350;
+                const xScale = (x - mouseXparsed) / 250;
+                const yScale = (y - mouseYparsed) / 250;
 
                 /**
                  * Scale factor y and x together.
@@ -172,7 +185,7 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Clamp scale factor bwtween .1 and 1.
                  */
-                const scaleFactor = clamp(Math.abs(delta), 0.1, 1);
+                const scaleFactor = clamp(Math.abs(delta), 0, 2);
 
                 /**
                  * Basic data for setTransform.
@@ -196,22 +209,16 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Draw.
                  */
-                context.fillStyle = fill;
-                context.fillRect(
+                roundRectCustom(
+                    context,
                     Math.round(-centerX + x),
                     Math.round(-centerY + y),
                     width,
-                    height
+                    height,
+                    0
                 );
-
-                context.strokeStyle = stroke;
-                context.lineWidth = 1;
-                context.strokeRect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
-                    width,
-                    height
-                );
+                context.fillStyle = hasFill ? highlightFill : defaultFill;
+                context.fill();
 
                 /**
                  * Reset all transform instead save() restore().
@@ -228,7 +235,7 @@ export const animatedPatternN1Animation = ({
      */
     gridTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
-        .goTo(gridTween, { scale: 0.2 }, { duration: 500 });
+        .goTo(gridTween, { scale: 0.3 }, { duration: 1000 });
 
     /**
      * Start timeline.

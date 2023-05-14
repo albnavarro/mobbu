@@ -7,6 +7,7 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
+    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
@@ -18,7 +19,6 @@ export const animatedPatternN0Animation = ({
     cellHeight,
     gutter,
     fill,
-    stroke,
     disableOffcanvas,
 }) => {
     /**
@@ -36,7 +36,7 @@ export const animatedPatternN0Animation = ({
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
     const defaultFill = '#000';
-    const highlightFill = '#9ece6a';
+    const highlightFill = '#fff';
     const { activeRoute } = mainStore.get();
 
     /**
@@ -70,7 +70,8 @@ export const animatedPatternN0Animation = ({
                 ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
             };
         })
-        .sort((value) => (value.hasFill ? -1 : 1));
+        .sort((value) => (value.hasFill ? -1 : 1))
+        .reverse();
 
     /**
      * Create tween
@@ -148,22 +149,16 @@ export const animatedPatternN0Animation = ({
                 /**
                  * Draw.
                  */
+                roundRectCustom(
+                    context,
+                    Math.round(-centerX + x),
+                    Math.round(-centerY + y),
+                    width,
+                    height,
+                    5
+                );
                 context.fillStyle = hasFill ? highlightFill : defaultFill;
-                context.fillRect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
-                    width,
-                    height
-                );
-
-                context.strokeStyle = stroke;
-                context.lineWidth = 1;
-                context.strokeRect(
-                    Math.round(-centerX + x),
-                    Math.round(-centerY + y),
-                    width,
-                    height
-                );
+                context.fill();
 
                 /**
                  * Reset all transform instead save() restore().
@@ -181,7 +176,7 @@ export const animatedPatternN0Animation = ({
     gridTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
         .label({ name: 'label1' })
-        .goTo(gridTween, { scale: 1.5 }, { duration: 1000 })
+        .goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1000 })
         .goTo(gridTween, { scale: 0.5 }, { duration: 500 })
         .goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 })
         .goTo(gridTween, { scale: 1.3 }, { duration: 500 })
