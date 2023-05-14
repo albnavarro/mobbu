@@ -86,7 +86,8 @@ export const caterpillarN2Animation = ({
         .goTo(
             { rotate: 0 },
             { start: 5.1, end: duration, ease: 'easeInOutBack' }
-        );
+        )
+        .label('mylabel', 2);
 
     /**
      * Subscribe sequencer to timeline.
@@ -236,15 +237,40 @@ export const caterpillarN2Animation = ({
         }, 500)
     );
 
-    return () => {
-        isActive = false;
-        unsubscribeResize();
-        unWatchPause();
-        unWatchResume();
-        syncTimeline.destroy();
-        ctx = null;
-        offscreen = null;
-        offScreenCtx = null;
-        squareData = [];
+    return {
+        destroy: () => {
+            isActive = false;
+            unsubscribeResize();
+            unWatchPause();
+            unWatchResume();
+            syncTimeline.destroy();
+            ctx = null;
+            offscreen = null;
+            offScreenCtx = null;
+            squareData = [];
+        },
+        play: () => {
+            syncTimeline.stop();
+            syncTimeline.play();
+        },
+        playReverse: () => {
+            syncTimeline.stop();
+            syncTimeline.playReverse();
+        },
+        playUseCurrent: () => syncTimeline.play({ useCurrent: true }),
+        playReverseUseCurrent: () =>
+            syncTimeline.playReverse({ useCurrent: true }),
+        playFromLabel: () => {
+            syncTimeline.stop();
+            syncTimeline.playFrom('mylabel');
+        },
+        plaFromLabelReverse: () => {
+            syncTimeline.stop();
+            syncTimeline.playFromReverse('mylabel');
+        },
+        stop: () => syncTimeline.stop(),
+        pause: () => syncTimeline.pause(),
+        resume: () => syncTimeline.resume(),
+        reverse: () => syncTimeline.reverse(),
     };
 };
