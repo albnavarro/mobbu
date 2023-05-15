@@ -13,3 +13,7 @@ export const router = () => {
     getHash();
     window.addEventListener('hashchange', () => getHash());
 };
+
+export const loadUrl = ({ url = '' }) => {
+    window.location.hash = url;
+};
