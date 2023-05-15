@@ -210,20 +210,16 @@ export const caterpillarN2Animation = ({
     });
 
     /**
-     * Initial transition
-     */
-    canvas.classList.add('active');
-
-    /**
      * Pause/Resume animation on nav open.
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
+        isActive = false;
         syncTimeline?.pause();
-        canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
+            isActive = true;
             /**
              * If close nav but change route skip.
              */
@@ -235,7 +231,6 @@ export const caterpillarN2Animation = ({
              */
             syncTimeline?.resume();
             core.useFrame(() => loop());
-            canvas.classList.add('active');
         }, 500)
     );
 

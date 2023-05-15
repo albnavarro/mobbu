@@ -9,13 +9,19 @@ import {
 import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { executeRepeat } from './mainStore/actions/repeat';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
-import { IS_COMPONENT, IS_RUNTIME, WILL_COMPONENT } from './constant';
+import {
+    frameDelayAfterParse,
+    IS_COMPONENT,
+    IS_RUNTIME,
+    WILL_COMPONENT,
+} from './constant';
 import {
     getComponentsReference,
     getSelectorDefaultTag,
     selectorDefault,
 } from './utils';
 import { getComponentList } from './mainStore/actions/componentList';
+import { core } from '../mobbu';
 
 /**
  * Create all component from DOM.
@@ -99,8 +105,14 @@ const parseComponentsRecursive = async ({
         /**
          * Fire onMount queue.
          * Wait parse is ended to fire onMount callback.
+         * Wait 5 frames, so browser can clear gargbage collector created in parse step.
          */
-        onMountQueque.forEach((fn) => fn());
+        core.useFrameIndex(() => {
+            core.useNextTick(() => {
+                onMountQueque.forEach((fn) => fn());
+            });
+        }, frameDelayAfterParse);
+
         return Promise.resolve();
     }
 

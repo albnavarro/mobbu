@@ -201,11 +201,6 @@ export const caterpillarN1Animation = ({
     );
 
     /**
-     * Initial transition
-     */
-    canvas.classList.add('active');
-
-    /**
      * Play
      */
     rectTimeline.play();
@@ -260,7 +255,6 @@ export const caterpillarN1Animation = ({
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         isActive = false;
         rectTimeline?.pause();
-        canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
@@ -278,7 +272,6 @@ export const caterpillarN1Animation = ({
              */
             rectTimeline?.resume();
             core.useFrame(() => loop());
-            canvas.classList.add('active');
         }, 500)
     );
 

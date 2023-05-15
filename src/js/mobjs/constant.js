@@ -7,3 +7,4 @@ export const SLOT_POSITION = 'data-slotposition';
 export const SLOT_NAME = 'data-slotname';
 export const PROPS_FROM_SLOT = 'propsfromslot';
 export const INSTANCENAME_DATASET = 'instancename';
+export const frameDelayAfterParse = 5;

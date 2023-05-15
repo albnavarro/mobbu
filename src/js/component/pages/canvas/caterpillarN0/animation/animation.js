@@ -267,7 +267,6 @@ export const caterpillarN0Animation = ({
      */
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         isActive = false;
-        canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () => {
@@ -284,14 +283,8 @@ export const caterpillarN0Animation = ({
              * Restart loop
              */
             core.useFrame(({ time }) => loop({ time }));
-            canvas.classList.add('active');
         }, 500);
     });
-
-    /**
-     * Initial transition
-     */
-    canvas.classList.add('active');
 
     return () => {
         mainTween.destroy();

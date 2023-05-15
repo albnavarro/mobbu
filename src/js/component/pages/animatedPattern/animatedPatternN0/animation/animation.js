@@ -241,7 +241,6 @@ export const animatedPatternN0Animation = ({
     const unWatchPause = navigationStore.watch('openNavigation', () => {
         gridTimeline?.stop();
         isActive = false;
-        canvas.classList.remove('active');
     });
 
     const unWatchResume = navigationStore.watch('closeNavigation', () =>
@@ -259,14 +258,8 @@ export const animatedPatternN0Animation = ({
              */
             gridTimeline?.play();
             core.useFrame(() => loop());
-            canvas.classList.add('active');
         }, 500)
     );
-
-    /**
-     * Initial transition
-     */
-    canvas.classList.add('active');
 
     /**
      * Destroy.

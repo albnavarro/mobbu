@@ -1,4 +1,6 @@
+import { core } from '../../mobbu';
 import { parseComponents } from '../componentParse';
+import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot, setRoot } from '../mainStore/actions/root';
@@ -43,8 +45,13 @@ export const inizializeApp = async ({
 
     /**
      * First callback after parse index.html first time.
+     * Wait 5 frames, so browser can clear gargbage collector created in parse step.
      */
-    afterInit();
+    core.useFrameIndex(() => {
+        core.useNextTick(() => {
+            afterInit();
+        });
+    }, frameDelayAfterParse);
 
     /**
      * Debug
