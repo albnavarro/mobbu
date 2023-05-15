@@ -1,5 +1,5 @@
 import { getCommonData } from '../../../main';
-import { loadUrl } from '../../../mobjs';
+import { getIdByInstanceName, loadUrl, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function additems() {
@@ -41,7 +41,11 @@ export const Headernav = ({ render, onMount }) => {
         [...buttons].forEach((button) => {
             button.addEventListener('click', () => {
                 const { url } = button.dataset;
-                loadUrl({ url });
+
+                const pageTransitionId = getIdByInstanceName('page-transition');
+                setStateById(pageTransitionId, 'url', url);
+
+                // loadUrl({ url });
                 navigationStore.set('navigationIsOpen', false);
                 navigationStore.emit('closeNavigation');
             });

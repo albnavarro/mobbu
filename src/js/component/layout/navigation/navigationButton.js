@@ -1,4 +1,4 @@
-import { loadUrl } from '../../../mobjs';
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 export const NavigationButton = ({ props, render, onMount }) => {
@@ -8,7 +8,9 @@ export const NavigationButton = ({ props, render, onMount }) => {
         element.addEventListener('click', () => {
             if (!fireRoute) return;
 
-            loadUrl({ url });
+            const pageTransitionId = getIdByInstanceName('page-transition');
+            setStateById(pageTransitionId, 'url', url);
+
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
         });

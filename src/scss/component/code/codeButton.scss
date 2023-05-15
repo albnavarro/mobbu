@@ -24,7 +24,7 @@
         position: fixed;
         bottom: var(--footer-height);
         left: calc(var(--header-height) * 0.5);
-        z-index: 15;
+        z-index: 10;
 
         @include when-inside('.shift') {
             transform: translateX(var(--nav-width));

@@ -4,6 +4,7 @@ import {
     codeOverlayDef,
 } from './common/codeOverlay/definition';
 import { degubButtonComponentDef } from './common/debug/definition';
+import { pageTransitionComponentDef } from './common/pageTransition/definition';
 import { footerComponentDef } from './layout/footer/definition';
 import {
     headerComponentDef,
@@ -32,6 +33,7 @@ export const componentList = {
     ...navigationDef,
     ...navigationButtonDef,
     ...footerComponentDef,
+    ...pageTransitionComponentDef,
     ...codeButtonComponentDef,
     ...codeOverlayDef,
     ...codeOverlayButtonDef,
