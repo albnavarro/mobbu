@@ -5,6 +5,14 @@ export const mainStore = core.createStore({
         value: document.createElement('div'),
         type: Element,
     }),
+    index: () => ({
+        value: '',
+        type: String,
+    }),
+    pageNotFound: () => ({
+        value: '',
+        type: String,
+    }),
     componentList: () => ({
         value: [],
         type: Array,

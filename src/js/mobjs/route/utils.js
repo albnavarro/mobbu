@@ -1,8 +1,11 @@
 import { getRouteList } from '../mainStore/actions/routeList';
+import { mainStore } from '../mainStore/mainStore';
 
 export const getRouteModule = ({ url = '' }) => {
-    if (url === '') return 'home';
-    return url in getRouteList() ? url : 'pageNotFound';
+    const { index, pageNotFound } = mainStore.get();
+
+    if (url === '') return index;
+    return url in getRouteList() ? url : pageNotFound;
 };
 
 export const createComponentDefinition = ({

@@ -63,6 +63,8 @@ const init = async () => {
         root: document.querySelector('#content'),
         componentList,
         routeList,
+        index: 'home',
+        pageNotFound: 'pageNotFound',
         afterInit: () => {
             navAccordion();
             navigationScoller();

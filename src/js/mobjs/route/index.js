@@ -4,7 +4,12 @@ import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot, setRoot } from '../mainStore/actions/root';
-import { getRouteList, setRouteList } from '../mainStore/actions/routeList';
+import {
+    getRouteList,
+    setIndex,
+    setPageNotFound,
+    setRouteList,
+} from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { removeCancellableComponentFromStore } from '../updateList/addWithoutKey';
 import { router } from './router';
@@ -12,13 +17,14 @@ import { debugRoute } from './test';
 
 /**
  * Inizializa default route.
- * TODO get route from url ( /index.html#route )
  */
 export const inizializeApp = async ({
     root = null,
     componentList = {},
     routeList = {},
     afterInit = () => {},
+    index = 'home',
+    pageNotFound = 'pageNotFound',
 }) => {
     if (!root) return;
 
@@ -31,6 +37,16 @@ export const inizializeApp = async ({
      *
      */
     setRouteList(routeList);
+
+    /**
+     * Set idnex route
+     */
+    setIndex({ routeName: index });
+
+    /**
+     * Set idnex route
+     */
+    setPageNotFound({ routeName: pageNotFound });
 
     /**
      *
