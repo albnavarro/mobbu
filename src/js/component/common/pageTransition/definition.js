@@ -6,7 +6,7 @@ export const pageTransitionComponentDef = createComponentDefinition({
     component: PageTransition,
     state: {
         url: () => ({
-            value: () => {},
+            value: '',
             type: String,
         }),
     },
