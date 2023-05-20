@@ -5,6 +5,7 @@ import { caterpillarN1Module } from './canvas/caterpillarN1';
 import { caterpillarN2Module } from './canvas/caterpillarN2';
 import { homeModule } from './home';
 import { horizontalScrollerModule } from './horizontalScroller';
+import { scrollerN0Module } from './scroller/scrollerN0';
 import { testModule } from './test';
 
 /**
@@ -17,6 +18,7 @@ export const routeList = {
     caterpillarN2: caterpillarN2Module,
     animatedPatternN0: animatedPatternN0Module,
     animatedPatternN1: animatedPatternN1Module,
+    scrollerN0: scrollerN0Module,
     horizontalScroller: horizontalScrollerModule,
     pageNotFound: pageNotFoundModule,
 };

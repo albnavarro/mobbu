@@ -23,7 +23,7 @@ export const PageTransition = ({ render, onMount, watch }) => {
          */
         const transitionTween = tween.createTween({
             data: { xIn: 0, xOut: 0 },
-            stagger: { each: 15 },
+            stagger: { each: 8 },
         });
 
         /**
