@@ -71,8 +71,7 @@ export const scrollerN0Animation = ({
                 ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
             };
         })
-        .sort((value) => (value.hasFill ? -1 : 1))
-        .reverse();
+        .sort((value) => (value.hasFill ? -1 : 1));
 
     /**
      * Create staggers array.
@@ -84,8 +83,8 @@ export const scrollerN0Animation = ({
             each: 6,
             from: { x: 5, y: 5 },
             grid: {
-                col: 11,
-                row: 11,
+                col: 10,
+                row: 10,
                 direction: 'radial',
             },
         },
@@ -96,9 +95,10 @@ export const scrollerN0Animation = ({
      */
     const createSequencerInstances = () => {
         return staggers.map(({ item, start, end }) => {
+            const scale = item.hasFill ? 1.9 : 1;
             const sequencer = tween
                 .createSequencer({ data: { scale: 0 } })
-                .goTo({ scale: 1 }, { start, end, ease: 'easeInOutBack' });
+                .goTo({ scale }, { start, end, ease: 'easeInOutBack' });
 
             const unsubscribe = sequencer.subscribe(({ scale }) => {
                 item.scale = scale;

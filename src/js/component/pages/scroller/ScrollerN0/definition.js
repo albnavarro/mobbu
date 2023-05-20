@@ -11,7 +11,7 @@ export const scrollerN0Def = createComponentDefinition({
         cellWidth: 65,
         cellHeight: 65,
         gutter: 1,
-        fill: [16, 27, 38, 49, 60, 71, 82, 93],
+        fill: [36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84],
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
 });
