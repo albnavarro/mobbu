@@ -1,4 +1,5 @@
-import { core } from '../../../../../mobbu';
+import { core, scroller, tween } from '../../../../../mobbu';
+import { outerHeight } from '../../../../../mobbu/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -13,6 +14,7 @@ import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
 export const scrollerN0Animation = ({
     canvas,
+    canvasScroller,
     numberOfRow,
     numberOfColumn,
     cellWidth,
@@ -32,6 +34,7 @@ export const scrollerN0Animation = ({
     let isActive = true;
     let gridData = [];
     let data = [];
+    let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
     const defaultFill = '#000';
     const highlightFill = '#fff';
@@ -65,11 +68,51 @@ export const scrollerN0Animation = ({
         .map((item, i) => {
             return {
                 ...item,
-                ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
+                ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
             };
         })
         .sort((value) => (value.hasFill ? -1 : 1))
         .reverse();
+
+    /**
+     * Create staggers array.
+     */
+    let staggers = tween.createStaggers({
+        items: data,
+        stagger: {
+            type: 'equal',
+            each: 6,
+            from: { x: 5, y: 5 },
+            grid: {
+                col: 11,
+                row: 11,
+                direction: 'radial',
+            },
+        },
+    });
+
+    /**
+     * Create sequencer instances from staggera array
+     */
+    const createSequencerInstances = () => {
+        return staggers.map(({ item, start, end }) => {
+            const sequencer = tween
+                .createSequencer({ data: { scale: 0 } })
+                .goTo({ scale: 1 }, { start, end, ease: 'easeInOutBack' });
+
+            const unsubscribe = sequencer.subscribe(({ scale }) => {
+                item.scale = scale;
+            });
+
+            masterSequencer.add(sequencer);
+            return { sequencer, unsubscribe };
+        });
+    };
+
+    /**
+     * Create.
+     */
+    let sequencersInstances = createSequencerInstances();
 
     /**
      * Main draw function.
@@ -143,6 +186,30 @@ export const scrollerN0Animation = ({
 
         copyCanvasBitmap({ useOffscreen, offscreen, ctx });
     };
+
+    /**
+     * Create scrollTrigger.
+     */
+    let scrollerInstance = scroller.createScrollTrigger({
+        trigger: canvasScroller,
+        propierties: 'tween',
+        tween: masterSequencer,
+        dynamicStart: {
+            position: 'bottom',
+            value: () => window.innerHeight,
+        },
+        dynamicEnd: {
+            position: 'bottom',
+            value: () => outerHeight(canvasScroller),
+        },
+        ease: true,
+        easeType: 'lerp',
+    });
+
+    /**
+     * Inizialize scrollTrigger.
+     */
+    scrollerInstance.init();
 
     /**
      * Loop
@@ -223,6 +290,16 @@ export const scrollerN0Animation = ({
         unsubscribeResize();
         unWatchResume();
         unWatchPause();
+        sequencersInstances.forEach(({ sequencer, unsubscribe }) => {
+            sequencer.destroy();
+            unsubscribe();
+        });
+        sequencersInstances = [];
+        masterSequencer.destroy();
+        masterSequencer = null;
+        staggers = [];
+        scrollerInstance.destroy();
+        scrollerInstance = null;
         ctx = null;
         offscreen = null;
         offScreenCtx = null;

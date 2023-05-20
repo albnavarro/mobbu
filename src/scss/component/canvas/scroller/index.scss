@@ -1,0 +1,9 @@
+@use '../../../vars' as *;
+@use '../../../abstract' as *;
+@use '../../../../../node_modules/sass-mq/mq';
+
+.canvas-scroller {
+    position: relative;
+    height: 300vh;
+    pointer-events: none;
+}
