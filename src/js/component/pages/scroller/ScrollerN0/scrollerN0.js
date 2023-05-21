@@ -7,6 +7,11 @@ export const ScrollerN0 = ({ onMount, render, props }) => {
         const canvas = element.querySelector('canvas');
         const canvasScroller = element.querySelector('.canvas-scroller');
 
+        /**
+         * Prevent landing at bottom of the page.
+         */
+        window.scrollTo(0, 0);
+
         const destroyAnimation = scrollerN0Animation({
             canvas,
             canvasScroller,
