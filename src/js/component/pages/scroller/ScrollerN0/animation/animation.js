@@ -81,12 +81,7 @@ export const scrollerN0Animation = ({
         stagger: {
             type: 'equal',
             each: 6,
-            from: { x: 5, y: 5 },
-            grid: {
-                col: 10,
-                row: 10,
-                direction: 'radial',
-            },
+            from: 'random',
         },
     });
 
@@ -95,7 +90,8 @@ export const scrollerN0Animation = ({
      */
     const createSequencerInstances = () => {
         return staggers.map(({ item, start, end }) => {
-            const scale = item.hasFill ? 1.9 : 1;
+            const scale = item.hasFill ? 1.1 : 1;
+
             const sequencer = tween
                 .createSequencer({ data: { scale: 0 } })
                 .goTo({ scale }, { start, end, ease: 'easeInOutBack' });
