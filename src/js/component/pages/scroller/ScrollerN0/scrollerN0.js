@@ -46,6 +46,9 @@ export const ScrollerN0 = ({ onMount, render, props }) => {
                 </div>
             </div>
             <div class="canvas-scroller"></div>
+            <div class="canvas-scroller-title">
+                <h1>Scroll down</h2>
+            </div>
         </div>
     `);
 };

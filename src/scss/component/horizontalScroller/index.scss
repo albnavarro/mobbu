@@ -15,9 +15,9 @@
         justify-content: center;
         align-items: center;
         color: $white;
-        text-transform: uppercase;
-        font-size: rem(50);
-        font-weight: 800;
+        text-transform: capitalize;
+        font-size: rem(25);
+        font-weight: 400;
         transition: background 0.55s;
 
         @include when-inside('.shift') {

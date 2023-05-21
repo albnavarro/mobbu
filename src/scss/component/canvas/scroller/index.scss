@@ -7,3 +7,19 @@
     height: 500vh;
     pointer-events: none;
 }
+
+.canvas-scroller-title {
+    position: fixed;
+    bottom: calc(var(--footer-height) + (var(--header-height) / 2));
+    left: 50%;
+    transform: translate(-50%, +50%);
+    text-align: center;
+    z-index: 11;
+
+    h1 {
+        text-transform: capitalize;
+        font-weight: 400;
+        font-size: rem(25);
+        color: $white;
+    }
+}
