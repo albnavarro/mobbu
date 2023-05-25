@@ -1,3 +1,5 @@
+// @ts-check
+
 import { core } from '../../mobbu';
 
 export const mainStore = core.createStore({

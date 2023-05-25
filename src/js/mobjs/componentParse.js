@@ -1,3 +1,5 @@
+// @ts-check
+
 import { setElementById } from './componentStore/action/element';
 import { convertToRealElement } from './creationStep/convertToRealElement';
 import { registerGenericElement } from './creationStep/registerGenericElement';
@@ -24,11 +26,17 @@ import { getComponentList } from './mainStore/actions/componentList';
 import { core } from '../mobbu';
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.element
+ * @param {string|null} obj.runtimeId
+ * @param {Array.<Function>} [ obj.onMountQueque ]
+ * @return {Promise<void>}
+ *
+ * @description
  * Create all component from DOM.
  */
 const parseComponentsRecursive = async ({
     element,
-    index,
     runtimeId,
     onMountQueque = [],
 }) => {
@@ -67,21 +75,25 @@ const parseComponentsRecursive = async ({
         .join(', ');
 
     /**
-     * Select.
+     * @type {Array.<HTMLElement>} componentToParseArray
      */
-    const componentToParseArray = !runtimeId
-        ? [
-              ...element.querySelectorAll(
-                  `${selectorDefault}, ${selectorDefaultTag}`
-              ),
-          ]
-        : [
-              ...element.querySelectorAll(
-                  `${selectoreRuntime}, ${selectoreRuntimeTag}`
-              ),
-          ];
+    const componentToParseArray = /** @type {Array.<HTMLElement>} */ (
+        !runtimeId
+            ? [
+                  ...element.querySelectorAll(
+                      `${selectorDefault}, ${selectorDefaultTag}`
+                  ),
+              ]
+            : [
+                  ...element.querySelectorAll(
+                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
+                  ),
+              ]
+    );
 
     /**
+     * @type {HTMLElement} componentToParse
+     *
      * Get first item.
      */
     const componentToParse = componentToParseArray?.[0];
@@ -127,7 +139,7 @@ const parseComponentsRecursive = async ({
     /**
      * Get component params from list definition.
      */
-    const key = componentToParse?.dataset?.component;
+    const key = componentToParse?.dataset?.component ?? '';
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
 
@@ -140,7 +152,6 @@ const parseComponentsRecursive = async ({
         componentToParse.remove();
         await parseComponentsRecursive({
             element,
-            index: index++,
             runtimeId,
             onMountQueque,
         });
@@ -217,22 +228,24 @@ const parseComponentsRecursive = async ({
     // Check for another component
     await parseComponentsRecursive({
         element,
-        index: index++,
         runtimeId,
         onMountQueque,
     });
 };
 
-export const parseComponents = async ({
-    element = null,
-    index = 0,
-    runtimeId = null,
-}) => {
+/**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.element
+ * @param {string|null} [ obj.runtimeId ]
+ * @return {Promise<void>} A promise to the token.
+ *
+ * @description
+ */
+export const parseComponents = async ({ element, runtimeId = null }) => {
     incrementParserCounter();
 
     await parseComponentsRecursive({
         element,
-        index,
         runtimeId,
     });
 };

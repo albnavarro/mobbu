@@ -1,3 +1,5 @@
+// @ts-check
+
 import { core } from '../../mobbu';
 import { parseComponents } from '../componentParse';
 import { frameDelayAfterParse } from '../constant';

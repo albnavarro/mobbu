@@ -1,6 +1,8 @@
+// @ts-check
+
 import { mainStore } from '../mainStore';
 
-export const setComponentList = (list) =>
+export const setComponentList = (list = {}) =>
     mainStore.set('componentList', [list]);
 
 export const getComponentList = () => {
