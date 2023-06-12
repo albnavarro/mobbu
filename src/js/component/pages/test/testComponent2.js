@@ -19,7 +19,7 @@ export const TestComponent2 = async ({
     key,
     // watchParent,
 }) => {
-    const { label } = props;
+    const { label, index } = props;
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');
@@ -46,7 +46,7 @@ export const TestComponent2 = async ({
         <div class="c-test-comp__inner">
             <div>Label: <span class="label"> ${label()}</span></div>
             <slot data-slotname="slot1"></slot>
-            <div>Id:<span class="counter"></span></div>
+            <div>Id:<span class="counter">${index}</span></div>
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"

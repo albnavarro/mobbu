@@ -25,6 +25,7 @@ export const testComponent2Def = createComponentDefinition({
     component: TestComponent2,
     props: {
         label: () => {},
+        index: 0,
     },
     state: {
         index: () => ({

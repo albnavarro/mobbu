@@ -71,12 +71,13 @@ export const TestComponent = async ({
                     key: 'label',
                     // eslint-disable-next-line no-unused-vars
                     props: ({ current, index }) => {
-                        // console.log(index);
-                        return { label: () => current.label };
+                        return {
+                            label: () => current.label,
+                            index,
+                        };
                     },
                     // eslint-disable-next-line no-unused-vars
                     updateState: ({ current, index, setChildState }) => {
-                        // console.log(current);
                         setChildState('index', index);
                     },
                     // beforeUpdate: ({ container, childrenId }) => {
@@ -92,8 +93,8 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    props: ({ current }) => {
-                        return { label: () => `${current.label}2` };
+                    props: ({ current, index }) => {
+                        return { label: () => `${current.label}2`, index };
                     },
                     updateState: ({ index, setChildState }) => {
                         setChildState('index', index + 1);
