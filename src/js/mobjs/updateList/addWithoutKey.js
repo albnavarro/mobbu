@@ -1,3 +1,5 @@
+// @ts-check
+
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { componentStore } from '../componentStore/store';
 import { createProps } from '../mainStore/actions/props';
@@ -129,12 +131,17 @@ export const removeOrphanComponent = () => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {Object} [ obj.cb ] destroy callback function
+ * @param {Object} [ obj.id ] component id
+ *
+ * @description
  * Update deestroy call back by id.
  */
 export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
     if (!id) return;
 
-    componentStore.set('instances', (prevInstances) => {
+    componentStore.set('instances', (/** @type Array */ prevInstances) => {
         return prevInstances.map((item) => {
             const { id: currentId } = item;
 
