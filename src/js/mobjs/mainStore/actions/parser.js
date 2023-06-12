@@ -1,19 +1,27 @@
+// @ts-check
+
 import { mainStore } from '../mainStore';
 
 /**
+ * @return void
+ *
+ * @description
  * Increment the number of parser active.
  */
 export const incrementParserCounter = () => {
-    mainStore.set('activeParser', (prev) => {
+    mainStore.set('activeParser', (/** @type {Number} */ prev) => {
         return prev + 1;
     });
 };
 
 /**
+ * @return Number - how many parser is active.
+ *
+ * @description
  * Decrement the number of parser active.
  */
 export const decrementParserCounter = () => {
-    mainStore.set('activeParser', (prev) => {
+    mainStore.set('activeParser', (/** @type {Number} */ prev) => {
         return prev - 1;
     });
 
@@ -22,6 +30,9 @@ export const decrementParserCounter = () => {
 };
 
 /**
+ * @return void
+ *
+ * @description
  * reset paresercounter;
  */
 export const resetParserCounter = () => {

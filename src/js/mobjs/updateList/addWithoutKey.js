@@ -17,7 +17,7 @@ export const addWithoutKey = ({
     targetComponent,
     getChildren,
     runtimeId,
-    props = null,
+    props = () => {},
 }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
@@ -38,6 +38,7 @@ export const addWithoutKey = ({
                         index: index + previousLenght,
                     })
                 );
+
                 return /* HTML */ `
                     <component
                         data-props=${currentProps}
