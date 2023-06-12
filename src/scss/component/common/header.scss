@@ -74,9 +74,13 @@
 
     &__title {
         color: $white;
-        display: inline-block;
         grid-area: title;
         padding-left: rem(20);
+        display: inline-block;
+        background: transparent;
+        width: auto;
+        border: 0;
+        text-align: left;
     }
 
     &__utils {

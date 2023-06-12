@@ -1,5 +1,5 @@
 import { getCommonData } from '../../../main';
-import { getIdByInstanceName, loadUrl, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function additems() {

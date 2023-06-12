@@ -1,4 +1,4 @@
-import { createProps } from '../../../mobjs';
+import { createProps, getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -12,8 +12,14 @@ function closeInfo({ navInfo }) {
 export const Header = ({ render, onMount }) => {
     onMount(({ element }) => {
         const navInfo = element.querySelector('.l-header__navinfo');
+        const titleLink = element.querySelector('.l-header__title');
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
+
+        titleLink.addEventListener('click', () => {
+            const pageTransitionId = getIdByInstanceName('page-transition');
+            setStateById(pageTransitionId, 'url', '#home');
+        });
     });
 
     return render(/* HTML */ `
@@ -21,9 +27,7 @@ export const Header = ({ render, onMount }) => {
             <div class="l-header__container">
                 <div class="l-header__grid">
                     <HeaderToggle></HeaderToggle>
-                    <div class="l-header__title">
-                        <a href="#"> title </a>
-                    </div>
+                    <button type="button" class="l-header__title">title</button>
                     <div class="l-header__utils">
                         <Headernav></Headernav>
                     </div>
