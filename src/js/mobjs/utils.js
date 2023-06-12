@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 import { parseComponents } from './componentParse';
 import {
@@ -9,15 +11,32 @@ import {
 import { getComponentList } from './mainStore/actions/componentList';
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.container
+ * @returns {{uniqueId:String, hasComponentInside: Number}}
+ *
+ * @description
  * Add a runtime id to all component inside a div
- * Return the runtime id.
+ * Return the runtime id and the number of components inside container with.
  */
 export const createRunTimeComponent = ({ container }) => {
+    /**
+     * @type {String}
+     */
     const selectorDefaultTag = getSelectorDefaultTag();
+
+    /**
+     * @type {String}
+     */
     const uniqueId = getUnivoqueId();
+
+    /**
+     * @type {NodeListOf.<HTMLElement>} innerComponents
+     */
     const innerComponents = container.querySelectorAll(
         `${selectorDefault}, ${selectorDefaultTag}`
     );
+
     [...innerComponents].forEach(
         (component) => (component.dataset[IS_RUNTIME_DATASET] = uniqueId)
     );
@@ -26,6 +45,10 @@ export const createRunTimeComponent = ({ container }) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.container
+ * @return void
+ *
  * Parse DOM element searching component.
  * in recursive mode until there is.
  * All parse has a runtime idd.
@@ -53,7 +76,12 @@ export const parseRuntime = async ({ container }) => {
 };
 
 /**
- * Get component Object with name in upepr canse and the value is the original name.
+ * @return {Object} Return Object with
+ * key: component name in uppercase.
+ * value: component name original
+ *
+ * @description
+ * Get component Object with name in uppercase and the value is the original name.
  * Name in uppercase is necessary for element.tagName
  */
 export const getComponentsReference = () => {
@@ -69,8 +97,12 @@ export const getComponentsReference = () => {
 };
 
 /**
- * Select component default by tagname.
- * Select <component name>:not[is-runtime]:not[data-iscomponent]
+ * @reurn { String }
+ *
+ * @description
+ * For each component registered:
+ * Return <component name>:not[is-runtime]:not[data-iscomponent], ...
+ *
  */
 export const getSelectorDefaultTag = () => {
     const componentsReference = getComponentsReference();
@@ -83,6 +115,8 @@ export const getSelectorDefaultTag = () => {
 };
 
 /**
+ * @type {String}
+ *
  * Non runtime default
  * Select [data-component]:not[is-runtime]:not[data-iscomponent]
  */

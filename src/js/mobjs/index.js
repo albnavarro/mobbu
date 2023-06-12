@@ -1,3 +1,5 @@
+// @ts-check
+
 export { componentStore } from './componentStore/store';
 export { mainStore } from './mainStore/mainStore';
 export { loadUrl } from './route/router';
