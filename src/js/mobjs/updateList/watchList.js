@@ -1,3 +1,5 @@
+// @ts-check
+
 import { checkType } from '../../mobbu/store/storeType';
 import { setStateById } from '../componentStore/action/state';
 import {
@@ -9,18 +11,32 @@ import { parseRuntime } from '../utils';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
+/**
+ * @param {Object} obj
+   @param { Function } obj.afterUpdate
+   @param { Function } obj.beforeUpdate
+   @param { Function } obj.getChildren
+   @param { String } obj.id
+   @param { String } obj.key
+   @param { Object } obj.props
+   @param { String } obj.state
+   @param { String } obj.targetComponent
+   @param { Function } obj.updateState
+   @param { Function } obj.watch
+   @param { HTMLElement } obj.containerList
+ */
 export const watchList = ({
-    state,
-    watch,
-    containerList,
-    props,
-    updateState,
-    beforeUpdate,
-    afterUpdate,
-    targetComponent,
-    getChildren,
-    key,
-    id,
+    state = '',
+    watch = () => {},
+    containerList = document.createElement('div'),
+    props = {},
+    updateState = () => {},
+    beforeUpdate = () => {},
+    afterUpdate = () => {},
+    targetComponent = '',
+    getChildren = () => {},
+    key = '',
+    id = '',
 }) => {
     /**
      * Watcher is destroyd with the component tahu implement list repeater.

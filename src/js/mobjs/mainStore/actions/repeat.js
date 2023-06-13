@@ -1,3 +1,5 @@
+// @ts-check
+
 import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
@@ -6,26 +8,57 @@ import { mainStore } from '../mainStore';
  * Tehe repeater will execute after component render.
  */
 export const addRepeat = ({ repeatId, obj }) => {
-    mainStore.set('repeat', (prev) => {
+    mainStore.set('repeat', (/** @type {Array} */ prev) => {
         return [...prev, { [repeatId]: obj }];
     });
 };
 
 /**
+ * @param {Object} obj
+ * @param {String} obj.repeatId - current unique id for repater.
+ * @param {Array.<{ parent:HTMLElement, id:string }>} obj.placeholderListObj
+  - all repeat placholder active in current parse.
+ *
+ * @description
  * Launch repeater from id. And find parent from placeholder.
  */
 export const executeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId) return;
 
+    /**
+     *
+     * @type {{repeat: Array.<{id: {
+          afterUpdate:Function,
+          beforeUpdate:Function,
+          getChildren :Function,
+          id: String,
+          key: String,
+          props: Object,
+          state: String,
+          targetComponent: String,
+          updateState: Function,
+          watch: Function
+       }}>}}
+     *
+     * @description
+     * Get all repeat from store
+     */
     const { repeat } = mainStore.get();
     const currentItem = repeat.find((item) => {
         return item?.[repeatId];
-    });
+    }) ?? { id: undefined };
 
+    /**
+     * @type { typeof currentItem.id }
+     *
+     * @description
+     * Check if there is a valid item.
+     */
     const obj = currentItem?.[repeatId];
     if (!obj) return;
 
     /**
+     * @description
      * Get parentNode of list.
      */
     const containerList = placeholderListObj.find(({ id }) => {
@@ -37,7 +70,7 @@ export const executeRepeat = ({ repeatId, placeholderListObj }) => {
      */
     watchList({
         ...obj,
-        containerList: containerList?.parent,
+        containerList: containerList?.parent ?? document.createElement('div'),
     });
 
     /**
