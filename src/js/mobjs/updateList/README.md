@@ -70,7 +70,7 @@ return `<span data-repeatid="${currentRepeatId}" style="display:none;"/>`;
 ## 4) coponentParse.js
 
 -   Esegue un querySelector all' interno dell' elemento corrente alla ricerca dei placeholder (data-repeatid) e rispettivo id, e recupera il parentNode ( qui il componente é giá stato renderizzato ).
--   Cicla l'array di id univoci di repeater ritornati dal componente e per ogni occorrenza lancia la funzione executeRepeat() pasandogli, id e un oggetto con tutti i dati di ogni sigola lista che saranno poi filtrati.
+-   Cicla l'array di id univoci di repeater ritornati dal componente e per ogni occorrenza lancia la funzione inizializeRepeat() pasandogli, id e un oggetto con tutti i dati di ogni sigola lista che saranno poi filtrati.
 
 ```js
 const placeholdreList = newElement.querySelectorAll('[data-repeatid]');
@@ -84,7 +84,7 @@ const placeholderListObj = [...placeholdreList].map((placeholder) => {
 
 const repeatIdArray = componentData?.repeatId;
 repeatIdArray.forEach((repeatId) => {
-    executeRepeat({
+    inizializeRepeat({
         repeatId,
         placeholderListObj,
     });
@@ -93,7 +93,7 @@ repeatIdArray.forEach((repeatId) => {
 
 ## 5) repeat.js
 
-La funzione execute repaeat eseguirá:
+La funzione inizializeRepeat eseguirá:
 
 -   Recupera i dati del singolo repeater ( obj )
 -   Recupera il nodo parente della lista

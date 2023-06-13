@@ -4,6 +4,21 @@ import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
 /**
+ * @param { Object } mainObject
+ * @param { String } mainObject.repeatId
+ * @param { Object } mainObject.obj
+ * @param { Function } mainObject.obj.afterUpdate
+ * @param { Function } mainObject.obj.beforeUpdate
+ * @param { Function } mainObject.obj.getChildren
+ * @param { String } mainObject.obj.id
+ * @param { String } mainObject.obj.key
+ * @param { Object } mainObject.obj.props
+ * @param { String } mainObject.obj.state
+ * @param { String } mainObject.obj.targetComponent
+ * @param { Function } mainObject.obj.updateState
+ * @param { Function } mainObject.obj.watch
+ *
+ * @description
  * Add new repeater id and props.
  * Tehe repeater will execute after component render.
  */
@@ -22,7 +37,7 @@ export const addRepeat = ({ repeatId, obj }) => {
  * @description
  * Launch repeater from id. And find parent from placeholder.
  */
-export const executeRepeat = ({ repeatId, placeholderListObj }) => {
+export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId) return;
 
     /**

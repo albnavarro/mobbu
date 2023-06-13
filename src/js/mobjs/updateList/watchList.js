@@ -13,17 +13,17 @@ import { getChildrenInsideElement } from './utils';
 
 /**
  * @param {Object} obj
-   @param { Function } obj.afterUpdate
-   @param { Function } obj.beforeUpdate
-   @param { Function } obj.getChildren
-   @param { String } obj.id
-   @param { String } obj.key
-   @param { Object } obj.props
-   @param { String } obj.state
-   @param { String } obj.targetComponent
-   @param { Function } obj.updateState
-   @param { Function } obj.watch
-   @param { HTMLElement } obj.containerList
+ * @param { Function } obj.afterUpdate
+ * @param { Function } obj.beforeUpdate
+ * @param { Function } obj.getChildren
+ * @param { String } obj.id
+ * @param { String } obj.key
+ * @param { Object } obj.props
+ * @param { String } obj.state
+ * @param { String } obj.targetComponent
+ * @param { Function } obj.updateState
+ * @param { Function } obj.watch
+ * @param { HTMLElement } obj.containerList
  */
 export const watchList = ({
     state = '',

@@ -9,7 +9,7 @@ import {
     decrementParserCounter,
 } from './mainStore/actions/parser';
 import { removeOrphansPropsFromParent } from './mainStore/actions/props';
-import { executeRepeat } from './mainStore/actions/repeat';
+import { inizializeRepeat } from './mainStore/actions/repeat';
 import { removeOrphanComponent } from './updateList/addWithoutKey';
 import {
     frameDelayAfterParse,
@@ -213,7 +213,7 @@ const parseComponentsRecursive = async ({
      */
     const repeatIdArray = componentData?.repeatId;
     repeatIdArray.forEach((repeatId) => {
-        executeRepeat({
+        inizializeRepeat({
             repeatId,
             placeholderListObj,
         });
