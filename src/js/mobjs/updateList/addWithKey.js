@@ -1,3 +1,5 @@
+// @ts-check
+
 import {
     getChildrenInsideElement,
     getNewElement,
@@ -44,28 +46,41 @@ function getPArtialsComponentList({
 }
 
 /**
+ * @param {Object} obj
+ * @param {string} obj.state
+ * @param {Array} obj.current
+ * @param {Array} obj.previous
+ * @param {HTMLElement} obj.containerList
+ * @param {string} obj.targetComponent
+ * @param {function} obj.getChildren
+ * @param {object} obj.props
+ * @param {string} obj.key
+ * @param {string} obj.id
+ * @param {string} obj.runtimeId
+ * @return {Array}
+ *
+ * @description
  * Add new children by key.
  */
 export const addWithKey = ({
-    state,
+    state = '',
     current = [],
     previous = [],
     containerList = document.createElement('div'),
-    targetComponent = {},
+    targetComponent = '',
     getChildren = () => {},
     key = '',
-    props = null,
-    id,
+    props = {},
+    id = '',
     runtimeId = '',
-} = {}) => {
+}) => {
     /**
      * Get univoqueId for Runtime.
      */
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
     /**
-     * Get element to delete before lement is removed from dom
-     * in reorder list step
+     * Get element to delete before element is removed from dom in reorder list step.
      */
     const elementToRemoveObj = getNewElement(previous, currentUnique, key);
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
@@ -78,12 +93,14 @@ export const addWithKey = ({
     });
 
     /*
-     * get univoque current array by key without fire callback.
+     * Update main component state with an array of unique item.
+     * addWithKey means we have an array of unique key, no duplicates.
      */
     setStateById(id, state, () => currentUnique, false);
 
     /**
-     * Get set of data with the right sequence of new list element mixinig old and news.
+     * Get set of data with the right sequence of new list element
+     * mark old and new element with isNewElement props.
      */
     const elementToAddObj = mixPreviousAndCurrentData(
         currentUnique,
@@ -93,13 +110,12 @@ export const addWithKey = ({
 
     /**
      * --------------------------
-     * REORDER PERSISITE ELEMENT DI POSITION CHANGE
+     * REORDER PERSISTENT ELEMENT DI POSITION CHANGE
      * --------------------------
      */
 
     /**
-     * Get an array with the new order of previous list element
-     * !chouldInser means that the element is not a new element.
+     * Get an array with only old element that is not deleted
      */
     const newPersistentElementOrder = elementToAddObj
         .filter(({ isNewElement }) => !isNewElement)
@@ -112,16 +128,20 @@ export const addWithKey = ({
         });
 
     /**
-     * get parte element to reorder.
+     * @type {HTMLElement|undefined}
+     *
+     * @description
+     * get parent element to reorder.
      */
+    // @ts-ignore
     const parent = newPersistentElementOrder[0]?.parentNode ?? containerList;
 
     /**
-     * Remove the node and reinser the same in right position
+     * Remove the node and reinsert the old pers element in right position.
      */
     if (parent) parent.innerHTML = '';
-    newPersistentElementOrder.forEach((item) => {
-        if (item) parent.appendChild(item);
+    newPersistentElementOrder.forEach((/** {HTMLElement} */ item) => {
+        if (parent && item) parent.appendChild(item);
     });
 
     /**
@@ -154,13 +174,16 @@ export const addWithKey = ({
      */
 
     /**
+     * @type {Array.<Array.<{isNewElement: boolean, key:string, index:number}>>}
+     *
+     * @description
      * Chunk the sequentially new element in group.
      * So then insert the block of new element.
      * Every persisten element go in index 0 of chunk
      * This element is used to append new element.
      */
     const chunkedElementToAdd = elementToAddObj.reduce(
-        (previous, current) => {
+        (/** @type {Array} */ previous, current) => {
             return !current.isNewElement
                 ? [...previous, [current]]
                 : (() => {

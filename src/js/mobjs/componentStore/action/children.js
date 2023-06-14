@@ -1,3 +1,5 @@
+// @ts-check
+
 import { IS_COMPONENT } from '../../constant';
 import { componentStore } from '../store';
 import { getComponentNameById } from './component';
@@ -24,6 +26,13 @@ export const getChildrenIdByName = ({ id, component }) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {string} obj.id
+ * @param {string} obj.component
+ * @return void
+ *
+ *
+ * @description
  * Update children order of a component
  */
 export const updateChildrenOrder = ({ id, component }) => {
@@ -49,8 +58,8 @@ export const updateChildrenOrder = ({ id, component }) => {
     /**
      * Update children store od element with the DOM actual order.
      */
-    componentStore.set('instances', (prevInstances) => {
-        return prevInstances.map((item) => {
+    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
+        return prevInstances.map((/** @type {Object} */ item) => {
             const { id: currentId } = item;
 
             return currentId === id

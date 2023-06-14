@@ -1,3 +1,5 @@
+// @ts-check
+
 import { isDescendant } from '../../../mobbu/utils/vanillaFunction';
 import { componentStore } from '../store';
 
@@ -21,8 +23,8 @@ export const setElementById = ({ id = null, newElement }) => {
 /**
  * Get element by id
  */
-export const getElementById = ({ id = null }) => {
-    if (!id) return null;
+export const getElementById = ({ id = '' }) => {
+    if (!id || id === '') return null;
 
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => currentId === id);
@@ -37,14 +39,23 @@ export const getElementById = ({ id = null }) => {
 };
 
 /**
- * Get element by key
+ *
+ * @param {Object} obj
+ * @param {string} obj.key
+ * @param {string} obj.parentId
+ * @param {HTMLElement} obj.container
+ * @return {HTMLElement|undefined}
+ *
+ *
+ * @description
+ * Get element by key and parentId and child if specific HTMLElement
  */
 export const getElementByKeyInContainer = ({
-    key = null,
-    parentId = null,
+    key = '',
+    parentId = '',
     container = document.createElement('div'),
 }) => {
-    if (!key) return null;
+    if (!key || key === '') return undefined;
 
     const { instances } = componentStore.get();
     const instance = instances.find(
@@ -56,8 +67,8 @@ export const getElementByKeyInContainer = ({
 
     const element = instance?.element;
     if (!element) {
-        console.warn(`getElementByKey failed no id found`);
-        return null;
+        console.warn(`getElementByKey failed no element found`);
+        return undefined;
     }
 
     return element;

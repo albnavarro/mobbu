@@ -5,8 +5,8 @@ import { removeChildFromChildrenArray } from '../utils';
 /**
  * Remove component to store and destry it.
  */
-export const removeAndDestroyById = ({ id = null }) => {
-    if (!id) return;
+export const removeAndDestroyById = ({ id = '' }) => {
+    if (!id || id === '') return;
 
     const { instances } = componentStore.get();
 
