@@ -1,6 +1,6 @@
 // @ts-check
 
-import { setDestroyCallback } from '../../updateList/addWithoutKey';
+import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { mainStore } from '../mainStore';
 
 /**

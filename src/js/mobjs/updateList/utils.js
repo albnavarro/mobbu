@@ -21,17 +21,6 @@ export const getNewElement = (current = [], previous = [], key = '') => {
 };
 
 /**
- * Get new element index.
- */
-export const findNewElementIndex = (current, newElement, key) => {
-    return newElement.reduce((prev, curr) => {
-        const keyVal = curr[key];
-        const index = current.findIndex((el) => el?.[key] === keyVal);
-        return [...prev, { index: index, item: curr }];
-    }, []);
-};
-
-/**
  * @param {array} current
  * @param {array} previous
  * @param {string} key
@@ -52,15 +41,28 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {Array} obj.arr
+ * @param {String} obj.key
+ * @return {Boolean}
+ *
+ * @description
  * Check if all new item in lsit has key.
  */
-const arrayhaskey = ({ arr, key }) => {
-    return arr.every((item) => {
-        return [key] in item;
+const arrayhaskey = ({ arr = [], key = '' }) => {
+    return arr.every((/** @type {Object} */ item) => {
+        return item?.[key];
     });
 };
 
 /**
+ * @param {Object} obj
+ * @param {Array} obj.current
+ * @param {Array} obj.previous
+ * @param {String} obj.key
+ * @return {Boolean}
+ *
+ * @description
  * Check if current and previous array has key.
  */
 export const listKeyExist = ({ current, previous, key }) => {

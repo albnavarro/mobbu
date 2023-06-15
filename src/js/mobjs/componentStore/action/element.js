@@ -21,10 +21,16 @@ export const setElementById = ({ id = null, newElement }) => {
 };
 
 /**
+ *
+ * @param {Object} obj
+ * @param {string} obj.id
+ * @return {HTMLElement|undefined}
+ *
+ * @description
  * Get element by id
  */
 export const getElementById = ({ id = '' }) => {
-    if (!id || id === '') return null;
+    if (!id || id === '') return undefined;
 
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => currentId === id);
@@ -32,7 +38,7 @@ export const getElementById = ({ id = '' }) => {
     const element = instance?.element;
     if (!element) {
         console.warn(`getElementById failed no id found`);
-        return null;
+        return undefined;
     }
 
     return element;

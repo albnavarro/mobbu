@@ -1,7 +1,6 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { componentStore } from '../componentStore/store';
 import { createProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../constant';
 import { getChildrenInsideElement } from './utils';
@@ -30,8 +29,19 @@ export const addWithoutKey = ({
     runtimeId = '',
     props = {},
 }) => {
+    /**
+     * @type {number}
+     */
     const currentLenght = current.length;
+
+    /**
+     * @type {number}
+     */
     const previousLenght = previous.length;
+
+    /**
+     * @type {number}
+     */
     const diff = currentLenght - previousLenght;
 
     /**
@@ -113,51 +123,4 @@ export const addWithoutKey = ({
     });
 
     return current;
-};
-
-/**
- * Remove cancellable component to store.
- */
-export const removeCancellableComponentFromStore = () => {
-    const { instances } = componentStore.get();
-    const cancellableComponents = instances.filter(({ cancellable }) => {
-        return cancellable;
-    });
-
-    cancellableComponents.forEach(({ id }) => {
-        removeAndDestroyById({ id });
-    });
-};
-
-/**
- * Remove orphan omponent from store.
- */
-export const removeOrphanComponent = () => {
-    const { instances } = componentStore.get();
-
-    const orphans = instances.filter(
-        ({ element }) => !document.body.contains(element)
-    );
-
-    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
-};
-
-/**
- * @param {Object} obj
- * @param {Object} [ obj.cb ] destroy callback function
- * @param {Object} [ obj.id ] component id
- *
- * @description
- * Update deestroy call back by id.
- */
-export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
-    if (!id) return;
-
-    componentStore.set('instances', (/** @type Array */ prevInstances) => {
-        return prevInstances.map((item) => {
-            const { id: currentId } = item;
-
-            return id === currentId ? { ...item, ...{ destroy: cb } } : item;
-        });
-    });
 };

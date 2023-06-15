@@ -2,6 +2,7 @@
 
 import { core } from '../../mobbu';
 import { parseComponents } from '../componentParse';
+import { removeCancellableComponentFromStore } from '../componentStore/action/removeAndDestroy';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
@@ -13,7 +14,6 @@ import {
     setRouteList,
 } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
-import { removeCancellableComponentFromStore } from '../updateList/addWithoutKey';
 import { router } from './router';
 import { debugRoute } from './test';
 

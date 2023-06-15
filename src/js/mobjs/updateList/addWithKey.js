@@ -20,9 +20,20 @@ const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
 
 /**
- * get partial list to add from chunked array of components.
+ * @param {Object} obj
+ * @param {string} obj.targetComponent
+ * @param {string} obj.key
+ * @param {string} obj.runtimeId
+ * @param {object} obj.props
+ * @param {Array} obj.currentUnique
+ * @param {number} obj.index
+ *
+ * @return {String}
+ *
+ * @description
+ * Get partial list to add from chunked array of components.
  */
-function getPArtialsComponentList({
+function getPartialsComponentList({
     targetComponent,
     key,
     runtimeId,
@@ -75,7 +86,8 @@ export const addWithKey = ({
     runtimeId = '',
 }) => {
     /**
-     * Get univoqueId for Runtime.
+     * @description
+     * Get unique data array by key
      */
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
@@ -204,6 +216,7 @@ export const addWithKey = ({
         const { isNewElement: firstElementIsNew } = firstEl;
 
         /**
+         * @description
          * 1 - If the first element of the lsit is new append before
          * the first existing element
          *
@@ -226,7 +239,7 @@ export const addWithKey = ({
         const componentToAppend = item
             .filter((element) => element.isNewElement)
             .map((element) =>
-                getPArtialsComponentList({
+                getPartialsComponentList({
                     targetComponent,
                     key: element.key,
                     runtimeId,

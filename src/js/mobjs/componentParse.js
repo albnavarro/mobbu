@@ -10,7 +10,6 @@ import {
 } from './mainStore/actions/parser';
 import { removeOrphansPropsFromParent } from './mainStore/actions/props';
 import { inizializeRepeat } from './mainStore/actions/repeat';
-import { removeOrphanComponent } from './updateList/addWithoutKey';
 import {
     frameDelayAfterParse,
     IS_COMPONENT,
@@ -24,6 +23,7 @@ import {
 } from './utils';
 import { getComponentList } from './mainStore/actions/componentList';
 import { core } from '../mobbu';
+import { removeOrphanComponent } from './componentStore/action/removeAndDestroy';
 
 /**
  * @param {Object} obj

@@ -18,7 +18,7 @@ import { listKeyExist } from './utils';
  * @param {object} obj.props
  * @param {string} obj.key
  * @param {string} obj.id
- * @return {Promise.<Array.<{key: string}>>}
+ * @return {Promise.<Array.<Object>>}
  *
  * @description
  * Update repater list.
@@ -57,6 +57,7 @@ export const updateChildren = async ({
 
     /**
      * Execue function.
+     * Get unique array of data ( current compared with previous )
      */
     const currentUnivoque = fn({
         runtimeId,

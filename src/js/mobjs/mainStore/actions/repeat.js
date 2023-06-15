@@ -43,8 +43,8 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
     /**
      *
      * @type {{repeat: Array.<{id: {
-          afterUpdate:Function,
-          beforeUpdate:Function,
+          afterUpdate:function({container:HTMLElement, childrenId:Array.<String>}):void ,
+          beforeUpdate:function({container:HTMLElement, childrenId:Array.<String>}):void ,
           getChildren :Function,
           id: String,
           key: String,
