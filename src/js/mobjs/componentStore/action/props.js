@@ -1,11 +1,20 @@
+// @ts-check
+
 import { componentStore } from '../store';
 
 /**
+ * @param {String} id
+ * @return Object
+ *
+ * @description
  * Get element by Dom instance
  */
-export const getPropsById = (id) => {
-    if (!id) return null;
+export const getPropsById = (id = '') => {
+    if (!id || id === '') return undefined;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => currentId === id);
 

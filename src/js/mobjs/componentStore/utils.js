@@ -2,11 +2,11 @@
 
 /**
  * @param {Object} obj
- * @param {Array.<{string: Array.<string>}>} obj.currentChild
+ * @param {{String: Array.<string>}} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
  *
- * @return {Array.<{string: Array.<string>}>}
+ * @return {{String: Array.<string>}}
  *
  *
  * @description
@@ -16,7 +16,7 @@
  * [componentName] : [string, string, ...]
  */
 export const updateChildrenArray = ({
-    currentChild = [],
+    currentChild,
     id = '',
     componentName = '',
 }) => {
@@ -27,11 +27,11 @@ export const updateChildrenArray = ({
 
 /**
  * @param {Object} obj
- * @param {Array.<{string: Array.<string>}>} obj.currentChild
- * @param {string} obj.id
- * @param {string} obj.componentName
+ * @param {{String: Array.<string>}} obj.currentChild
+ * @param {String} obj.id
+ * @param {String} obj.componentName
  *
- * @return {Array.<{string: Array.<string>}>}
+ * @return {{String: Array.<string>}}
  *
  *
  * @description
@@ -41,8 +41,8 @@ export const updateChildrenArray = ({
  */
 export const removeChildFromChildrenArray = ({
     currentChild,
-    id,
-    componentName,
+    id = '',
+    componentName = '',
 }) => {
     const arr = currentChild?.[componentName] ?? [];
     currentChild[componentName] = arr.filter(

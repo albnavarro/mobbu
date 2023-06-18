@@ -16,6 +16,9 @@ import { removeChildFromChildrenArray } from '../utils';
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
 
     const { component: componentName, element } =
@@ -23,7 +26,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
             return currentId === id;
         }) || {};
 
-    if (!element) return;
+    if (!element || !componentName) return;
 
     /**
      * Destroy all component nested.
@@ -51,50 +54,66 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * get parentId, and remove id from parent
      */
     const parentId = parentInstance?.id;
-    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
-        return prevInstances.map((item) => {
-            const { id: currentId } = item;
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.map((item) => {
+                const { id: currentId } = item;
 
-            return currentId === parentId
-                ? {
-                      ...item,
-                      ...{
-                          child: {
-                              ...item.child,
-                              ...removeChildFromChildrenArray({
-                                  currentChild: item.child,
-                                  id,
-                                  componentName,
-                              }),
+                return currentId === parentId
+                    ? {
+                          ...item,
+                          ...{
+                              child: {
+                                  ...item.child,
+                                  ...removeChildFromChildrenArray({
+                                      currentChild: item.child,
+                                      id,
+                                      componentName,
+                                  }),
+                              },
                           },
-                      },
-                  }
-                : item;
-        });
-    });
+                      }
+                    : item;
+            });
+        }
+    );
 
     /**
      * Remove item From store.
      */
-    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
-        return prevInstances.filter((current) => {
-            const { state, destroy, element, id: currentId } = current;
-            if (currentId === id) {
-                destroy();
-                state.destroy();
-                element?.remove();
-            }
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.filter((current) => {
+                const { state, destroy, element, id: currentId } = current;
+                if (currentId === id) {
+                    destroy();
+                    state.destroy();
+                    element?.remove();
+                }
 
-            // Assign is if existe a parent component and current parentId is null
-            return id !== currentId;
-        });
-    });
+                // Assign is if existe a parent component and current parentId is null
+                return id !== currentId;
+            });
+        }
+    );
 };
 
 /**
+ * @returns void
+ *
+ * @description
  * Remove cancellable component to store.
  */
 export const removeCancellableComponentFromStore = () => {
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const cancellableComponents = instances.filter(({ cancellable }) => {
         return cancellable;
@@ -106,9 +125,15 @@ export const removeCancellableComponentFromStore = () => {
 };
 
 /**
+ * @returns void
+ *
+ * @description
  * Remove orphan omponent from store.
  */
 export const removeOrphanComponent = () => {
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
 
     const orphans = instances.filter(
@@ -129,11 +154,18 @@ export const removeOrphanComponent = () => {
 export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
     if (!id) return;
 
-    componentStore.set('instances', (/** @type Array */ prevInstances) => {
-        return prevInstances.map((item) => {
-            const { id: currentId } = item;
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.map((item) => {
+                const { id: currentId } = item;
 
-            return id === currentId ? { ...item, ...{ destroy: cb } } : item;
-        });
-    });
+                return id === currentId
+                    ? { ...item, ...{ destroy: cb } }
+                    : item;
+            });
+        }
+    );
 };
