@@ -6,7 +6,7 @@ import {
     setParentsComponent,
 } from '../componentStore/action/parent';
 import { watchById } from '../componentStore/action/watch';
-import { registerComponent } from '../componentStore/registerComponent';
+import { addComponentToStore } from '../componentStore/registerComponent';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import { addRepeat } from '../mainStore/actions/repeat';
 import { convertToGenericElement } from './convertToGenericElement';
@@ -37,7 +37,7 @@ export const registerGenericElement = ({
     /**
      * Register component to store
      */
-    const { getState, setState, emit, computed, watch } = registerComponent({
+    const { getState, setState, emit, computed, watch } = addComponentToStore({
         component,
         placeholderElement,
         props: propsUpdated,

@@ -1,3 +1,4 @@
+// @ts-check
 import { core } from '../../mobbu';
 
 /**
@@ -8,7 +9,7 @@ export const componentStore = core.createStore({
         value: [],
         type: Array,
         strict: true,
-        validate: (val) => {
+        validate: (/** @type {Array} */ val) => {
             const isValid = val.every(
                 (item) =>
                     item?.element &&
