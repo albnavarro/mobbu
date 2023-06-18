@@ -3,11 +3,17 @@
 import { componentStore } from '../store';
 
 /**
+ * @param {String} id
+ *
+ * @description
  * get component name By id
  */
-export const getComponentNameById = (id) => {
-    if (!id) return null;
+export const getComponentNameById = (id = '') => {
+    if (!id || id === '') return undefined;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
@@ -23,11 +29,17 @@ export const getComponentNameById = (id) => {
 };
 
 /**
+ * @param {String} name
+ *
+ * @description
  * Get id by user definition name.
  */
 export const getIdByInstanceName = (name = '') => {
-    if (!name) return null;
+    if (!name) return undefined;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(({ instanceName }) => {
         return instanceName === name;

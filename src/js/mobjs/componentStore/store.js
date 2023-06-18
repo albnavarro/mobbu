@@ -2,6 +2,21 @@
 import { core } from '../../mobbu';
 
 /**
+ * @typedef {Object} componentStoreType
+ * @prop { HTMLElement } element
+ * @prop { String } component
+ * @prop { Function } destroy
+ * @prop { Object } props
+ * @prop { Object } state
+ * @prop {{ String: Array.<string> }} child
+ * @prop { String } instanceName
+ * @prop { String } parentId
+ * @prop { String } key
+ * @prop { Boolean } cancellable
+ * @prop { String } id
+ */
+
+/**
  * Inizializa component store
  */
 export const componentStore = core.createStore({

@@ -58,21 +58,26 @@ export const updateChildrenOrder = ({ id, component }) => {
     /**
      * Update children store od element with the DOM actual order.
      */
-    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
-        return prevInstances.map((/** @type {Object} */ item) => {
-            const { id: currentId } = item;
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.map((item) => {
+                const { id: currentId } = item;
 
-            return currentId === id
-                ? {
-                      ...item,
-                      ...{
-                          child: {
-                              ...item.child,
-                              ...{ [component]: componentsIdFiltered },
+                return currentId === id
+                    ? {
+                          ...item,
+                          ...{
+                              child: {
+                                  ...item.child,
+                                  ...{ [component]: componentsIdFiltered },
+                              },
                           },
-                      },
-                  }
-                : item;
-        });
-    });
+                      }
+                    : item;
+            });
+        }
+    );
 };

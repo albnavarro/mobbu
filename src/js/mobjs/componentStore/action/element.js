@@ -19,15 +19,20 @@ export const setElementById = ({
 }) => {
     if (!id || id === '') return undefined;
 
-    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
-        return prevInstances.map((item) => {
-            const { id: currentId } = item;
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.map((item) => {
+                const { id: currentId } = item;
 
-            return id === currentId
-                ? { ...item, ...{ element: newElement } }
-                : item;
-        });
-    });
+                return id === currentId
+                    ? { ...item, ...{ element: newElement } }
+                    : item;
+            });
+        }
+    );
 };
 
 /**
@@ -42,6 +47,9 @@ export const setElementById = ({
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return undefined;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
@@ -73,6 +81,9 @@ export const getElementByKeyInContainer = ({
 }) => {
     if (!key || key === '') return undefined;
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(
         ({ key: currentKey, parentId: currentParentId, element }) =>
