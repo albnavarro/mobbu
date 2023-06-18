@@ -4,12 +4,22 @@ import { isDescendant } from '../../../mobbu/utils/vanillaFunction';
 import { componentStore } from '../store';
 
 /**
+ *
+ * @param {Object} obj
+ * @param {string} obj.id
+ * @param {HTMLElement} obj.newElement
+ * @return { void }
+ *
+ * @description
  * Update element root from generic to real after conversion.
  */
-export const setElementById = ({ id = null, newElement }) => {
-    if (!id) return null;
+export const setElementById = ({
+    id = '',
+    newElement = document.createElement('div'),
+}) => {
+    if (!id || id === '') return undefined;
 
-    componentStore.set('instances', (prevInstances) => {
+    componentStore.set('instances', (/** @type {Array} */ prevInstances) => {
         return prevInstances.map((item) => {
             const { id: currentId } = item;
 
