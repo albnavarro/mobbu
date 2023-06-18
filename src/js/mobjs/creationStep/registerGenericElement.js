@@ -11,6 +11,8 @@ import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import { addRepeat } from '../mainStore/actions/repeat';
 import { convertToGenericElement } from './convertToGenericElement';
 
+// JSDOC usare infered type quando possibile.
+
 /**
  * Create component
  */
