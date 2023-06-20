@@ -13,7 +13,7 @@ import { propsValidate } from './utils';
  * @param {Object} obj
  * @param {HTMLElement} obj.component
  * @param {Object} obj.defaultProps
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:( String|undefined )}}
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String}}
  *
  * @description
  * Create base DOM component from component tag.
@@ -121,10 +121,10 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     const componentName = baseProps?.component ?? '';
 
     /**
-     * @type {String|undefined}
+     * @type {String}
      *
      */
-    const key = baseProps?.key;
+    const key = baseProps?.key ?? '';
 
     delete baseProps.props;
     delete baseProps.component;

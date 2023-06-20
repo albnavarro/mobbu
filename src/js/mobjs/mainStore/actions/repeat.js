@@ -11,9 +11,9 @@ import { mainStore } from '../mainStore';
  * @param { Function } mainObject.obj.beforeUpdate
  * @param { Function } mainObject.obj.getChildren
  * @param { String } mainObject.obj.id
- * @param { String } mainObject.obj.key
+ * @param { String|undefined } mainObject.obj.key
  * @param { Object } mainObject.obj.props
- * @param { String } mainObject.obj.state
+ * @param { String|undefined } mainObject.obj.state
  * @param { String } mainObject.obj.targetComponent
  * @param { Function } mainObject.obj.updateState
  * @param { Function } mainObject.obj.watch

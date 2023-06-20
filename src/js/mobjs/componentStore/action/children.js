@@ -6,11 +6,20 @@ import { getComponentNameById } from './component';
 import { getElementById } from './element';
 
 /**
+ * @param {Object} obj
+ * @param {string} obj.id
+ * @param {string} obj.component
+ * @returns {Array.<String>}
+ *
+ * @description
  * Get children id.
  */
-export const getChildrenIdByName = ({ id, component }) => {
-    if (!id) return null;
+export const getChildrenIdByName = ({ id = '', component = '' }) => {
+    if (!id || id === '') return [];
 
+    /**
+     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
+     */
     const { instances } = componentStore.get();
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
@@ -19,7 +28,7 @@ export const getChildrenIdByName = ({ id, component }) => {
     const child = instance?.child;
     if (!child) {
         console.warn(`getChildIdById failed no id found`);
-        return null;
+        return [];
     }
 
     return child?.[component] ?? [];

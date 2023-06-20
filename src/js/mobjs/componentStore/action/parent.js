@@ -6,6 +6,7 @@ import { updateChildrenArray } from '../utils';
 
 /**
  * @param {String} id
+ * @returns {String|undefined}
  *
  * @description
  * Get parent id By id
@@ -26,7 +27,7 @@ export const getParentIdById = (id = '') => {
     const parentId = instance?.parentId;
     if (!parentId) {
         console.warn(`getParentIdById failed no id found`);
-        return null;
+        return undefined;
     }
 
     return parentId;

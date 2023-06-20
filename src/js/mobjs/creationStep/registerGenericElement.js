@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import {
@@ -14,10 +16,18 @@ import { convertToGenericElement } from './convertToGenericElement';
 // JSDOC usare infered type quando possibile.
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.component
+ * @param {Object} obj.state
+ * @param {Object} obj.props
+ * @returns Object
+ *
+ * @description
  * Create component
+ * Reuturn all prosps/method for user function.
  */
 export const registerGenericElement = ({
-    component = null,
+    component,
     state = {},
     props = {},
 }) => {
@@ -62,7 +72,8 @@ export const registerGenericElement = ({
     addSelfToParentComponent({ id });
 
     const repeatId = [];
-    const getChildren = (component) => getChildrenIdByName({ id, component });
+    const getChildren = (/** @type {String} */ component) =>
+        getChildrenIdByName({ id, component });
 
     return {
         key,
@@ -77,23 +88,24 @@ export const registerGenericElement = ({
         repeatId,
         getChildren,
         getParentId: () => getParentIdById(id),
-        watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
-        render: (content) => {
+        watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
+            watchById(getParentIdById(id), prop, cb),
+        render: (/** @type{String} */ content) => {
             return {
                 id,
                 content,
                 placeholderElement,
             };
         },
-        onMount: (cb) => addOnMoutCallback({ id, cb }),
+        onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
         repeat: ({
-            watch: state = null,
-            component: targetComponent = '',
+            watch: stateToWatch = undefined, // use alias to maintain ured naming convention.
+            component: targetComponent = '', // use alias to maintain ured naming convention.
             props = () => {},
             updateState = () => {},
             beforeUpdate = () => {},
             afterUpdate = () => {},
-            key = null,
+            key = undefined,
         }) => {
             const currentRepeatId = getUnivoqueId();
             repeatId.push(currentRepeatId);
@@ -101,7 +113,7 @@ export const registerGenericElement = ({
             addRepeat({
                 repeatId: currentRepeatId,
                 obj: {
-                    state,
+                    state: stateToWatch,
                     watch,
                     targetComponent,
                     props,
