@@ -31,14 +31,15 @@ export const addRepeat = ({ repeatId, obj }) => {
 /**
  * @param {Object} obj
  * @param {String} obj.repeatId - current unique id for repater.
- * @param {Array.<{ parent:HTMLElement, id:string }>} obj.placeholderListObj
+ * @param {( Array.<{ parent:HTMLElement, id:(string|undefined) }>|undefined )} obj.placeholderListObj
   - all repeat placholder active in current parse.
  *
  * @description
  * Launch repeater from id. And find parent from placeholder.
  */
 export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
-    if (!repeatId) return;
+    if (!repeatId || !placeholderListObj || placeholderListObj.length === 0)
+        return;
 
     /**
      *

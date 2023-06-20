@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import {
@@ -8,23 +10,68 @@ import {
 import { propsValidate } from './utils';
 
 /**
- *  Create base DOM component from component tag.
+ * @param {Object} obj
+ * @param {HTMLElement} obj.component
+ * @param {Object} obj.defaultProps
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:( String|undefined )}}
+ *
+ * @description
+ * Create base DOM component from component tag.
  */
 export const convertToGenericElement = ({ component, defaultProps }) => {
-    const parentNode = component.parentNode;
+    /**
+     * @type {HTMLElement}
+     */
+    const parentNode = /** @type {HTMLElement} */ (component.parentNode);
+
+    /**
+     * @type {String}
+     */
     const prevContent = component.innerHTML;
+
+    /**
+     * @type {HTMLElement}
+     */
     const newComponent = document.createElement('div');
     newComponent.setAttribute(IS_COMPONENT, '');
 
     /**
      * Get props
      */
+
+    /**
+     * @type {String}
+     */
     const instanceName = component.dataset?.[INSTANCENAME_DATASET] ?? '';
-    const propsId = component.dataset.props;
-    const propsSlot = component.dataset[PROPS_FROM_SLOT];
+
+    /**
+     * @type {String|undefined}
+     */
+    const propsId = component.dataset?.props;
+
+    /**
+     * @type {String|undefined}
+     */
+    const propsSlot = component.dataset?.[PROPS_FROM_SLOT];
+
+    /**
+     * @type {String|undefined}
+     */
     const cleanProsId = propsId?.split(' ').join('');
+
+    /**
+     * @type {String|undefined}
+     */
     const cleanProsFromSlot = propsSlot?.split(' ').join('');
+
+    /**
+     * @type {Object}
+     */
     const propsFromParent = getPropsFromParent(cleanProsId);
+
+    /**
+     * @type {Object}
+     */
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
 
     /**
@@ -33,27 +80,52 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     component.replaceWith(newComponent);
 
     /**
+     * @type {String}
+     *
+     * @description
      * Create Univoque id
      */
     const id = getUnivoqueId();
     newComponent.id = id;
 
     /**
+     * @type {HTMLElement}
+     *
+     * @description
      * Get new component
      */
-    const placeholderElement = parentNode.querySelector(`#${id}`);
+    const placeholderElement = /** @type{HTMLElement} */ (
+        parentNode.querySelector(`#${id}`)
+    );
 
     /**
      * Add previous and new content.
      */
+    // @ts-ignore
     placeholderElement.insertAdjacentHTML('beforeEnd', prevContent);
 
     /**
+     * @type {Object}
+     *
+     * @description
      * Set props.
      */
     const baseProps = { ...component.dataset };
-    const componentName = baseProps?.component;
-    const key = baseProps?.key ?? null;
+
+    /**
+     * @type {String}
+     *
+     * @description
+     * Set props.
+     */
+    const componentName = baseProps?.component ?? '';
+
+    /**
+     * @type {String|undefined}
+     *
+     */
+    const key = baseProps?.key;
+
     delete baseProps.props;
     delete baseProps.component;
     delete baseProps.propsfromslot;

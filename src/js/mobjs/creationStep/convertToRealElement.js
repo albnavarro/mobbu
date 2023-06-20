@@ -1,3 +1,5 @@
+// @ts-check
+
 import {
     IS_COMPONENT,
     PROPS_FROM_SLOT,
@@ -6,6 +8,12 @@ import {
 } from '../constant';
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.placeholderElement
+ * @param {String} obj.content
+ * @returns {HTMLElement|undefined}
+ *
+ * @description
  * Get new element from content ( render ).
  * Prevent accidentally return of element or placeholderElement deleted runtime.
  * Check parentNode to insertAdjacentHTML possible error.
@@ -13,13 +21,20 @@ import {
 const getNewElement = ({ placeholderElement, content }) => {
     if (placeholderElement.parentNode) {
         placeholderElement.insertAdjacentHTML('afterend', content);
-        return placeholderElement.nextElementSibling;
+        return /** @type {HTMLElement} */ (
+            placeholderElement.nextElementSibling
+        );
     }
 
-    return null;
+    return undefined;
 };
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.element
+ * @returns void
+ *
+ * @description
  * Remove unused slot placehodler.
  * ( no element have sustitute slot )
  */
@@ -29,13 +44,25 @@ const removeOrphanSlot = ({ element }) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.element
+ * @returns void
+ *
+ * @description
  * Move element to related slot if defined.
  * And delete original slot placehodler
  */
 const addToSlot = ({ element }) => {
-    const componentWithSlot = element.querySelectorAll(`[${SLOT_POSITION}]`);
-    componentWithSlot.forEach((component) => {
+    const componentWithSlot = /** @type {NodeListOf.<HTMLElement>} */ (
+        element.querySelectorAll(`[${SLOT_POSITION}]`)
+    );
+
+    [...componentWithSlot].forEach((component) => {
         const slotTargetName = component.dataset?.slotposition;
+
+        /**
+         * @type {HTMLElement|null}
+         */
         const slot = element.querySelector(
             `slot[${SLOT_NAME}="${slotTargetName}"]`
         );
@@ -44,14 +71,20 @@ const addToSlot = ({ element }) => {
         /**
          * Add component/element before slot.
          */
-        slot.parentNode.insertBefore(component, slot);
-        const elementMoved = slot.previousSibling;
-        elementMoved.removeAttribute(SLOT_POSITION);
+        slot.parentNode?.insertBefore(component, slot);
+        const elementMoved = /** @type {HTMLElement} */ (slot.previousSibling);
+
+        if (elementMoved) {
+            elementMoved.removeAttribute(SLOT_POSITION);
+        }
 
         /**
+         * @type {String|undefined}
+         *
+         * @description
          * Set props id from slot to component.
          */
-        const propsIdFromSlot = slot.dataset.props;
+        const propsIdFromSlot = slot.dataset?.props;
         elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
 
         /**
@@ -62,6 +95,12 @@ const addToSlot = ({ element }) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.placeholderElement
+ * @param {String} obj.content
+ * @returns { Promise<{newElement:( HTMLElement|undefined )}> }
+ *
+ * @description
  * Add content to component
  *
  * Use async logic only for security or debug
@@ -73,6 +112,9 @@ const addToSlot = ({ element }) => {
 export const convertToRealElement = ({ placeholderElement, content }) => {
     return new Promise((resolve) => {
         /**
+         * @type {String}
+         *
+         * @description
          * Add real content from render function
          */
         const prevContent = placeholderElement.innerHTML;

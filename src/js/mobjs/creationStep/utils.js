@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Exclude this props becouse if a reserved props keys.
  */
@@ -10,10 +12,21 @@ const propsKeyToExclude = [
 ];
 
 /**
+ * @param {Object} obj
+ * @param {String} obj.componentName
+ * @param {Object} obj.defaultProps
+ * @param {Object} obj.props
+ * @returns Boolean
+ *
+ * @description
  * Check if props is defined in component definition.
- * Exclude reverded props name from check>
+ * Exclude reverded props name from check
  */
-export const propsValidate = ({ componentName, defaultProps, props }) => {
+export const propsValidate = ({
+    componentName = '',
+    defaultProps = {},
+    props = {},
+}) => {
     const defaultPropsKeys = Object.keys(defaultProps);
     const notDefinedProps = Object.keys(props).filter((key) => {
         return (

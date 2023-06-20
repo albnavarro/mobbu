@@ -199,11 +199,14 @@ const parseComponentsRecursive = async ({
     /**
      * Get all repeat placholder to check the parent div for each list.
      */
-    const placeholdreList = newElement.querySelectorAll('[data-repeatid]');
+    const placeholdreList = /** @type{NodeListOf.<HTMLElement>} */ (
+        newElement.querySelectorAll('[data-repeatid]')
+    );
+
     const placeholderListObj = [...placeholdreList].map((placeholder) => {
         const { repeatid: id } = placeholder.dataset;
         return {
-            parent: placeholder.parentNode,
+            parent: /** @type {HTMLElement} */ (placeholder.parentNode),
             id,
         };
     });
