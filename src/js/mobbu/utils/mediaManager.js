@@ -24,13 +24,13 @@ import { handleSetUp } from '../setup.js';
 
 /**
  * @typedef {Object} breackPointTypeObjKeyValue
- * @prop { Number } xSmall
- * @prop { Number } small
- * @prop { Number } medium
- * @prop { Number } tablet
- * @prop { Number } desktop
- * @prop { Number } large
- * @prop { Number } xLarge
+ * @prop { Number } [ xSmall ]
+ * @prop { Number } [ small ]
+ * @prop { Number } [ medium ]
+ * @prop { Number } [ tablet ]
+ * @prop { Number } [ desktop ]
+ * @prop { Number } [ large ]
+ * @prop { Number } [ xLarge ]
  */
 
 /**

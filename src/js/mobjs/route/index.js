@@ -18,10 +18,19 @@ import { router } from './router';
 import { debugRoute } from './test';
 
 /**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.root
+ * @param {{ string:{componentFunction:function,props:Object,state:Object} }|{}} obj.componentList
+ * @param {{string:function():string}|{}} obj.routeList
+ * @param {Function} obj.afterInit
+ * @param {String} obj.index
+ * @param {String} obj.pageNotFound
+ *
+ * @description
  * Inizializa default route.
  */
 export const inizializeApp = async ({
-    root = null,
+    root,
     componentList = {},
     routeList = {},
     afterInit = () => {},
@@ -83,6 +92,11 @@ export const inizializeApp = async ({
 };
 
 /**
+ * @param {Object} obj
+ * @param {String} obj.route
+ * @param {Boolean} obj.removePrevious
+ *
+ * @description
  * Load new route.
  */
 export const loadRoute = async ({ route = '', removePrevious = true }) => {
@@ -92,6 +106,7 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     const root = getRoot();
 
     /**
+     * @type {{ activeRoute:String }}
      * Set before Route leave.
      */
     const { activeRoute } = mainStore.get();

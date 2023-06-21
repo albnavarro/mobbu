@@ -16,7 +16,7 @@ export const setRoot = ({ root = document.createElement('div') }) => {
 };
 
 /**
- * returns HTMLElement
+ * @returns { HTMLElement }
  *
  * @description
  * Set root app.

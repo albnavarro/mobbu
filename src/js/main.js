@@ -1,3 +1,5 @@
+// @ts-check
+
 import { componentList } from './component/componentList';
 import { navAccordion } from './component/layout/navigation/animation/navAccordion';
 import { navigationScoller } from './component/layout/navigation/animation/navScroller';
