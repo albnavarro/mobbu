@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-check
 
 import { IS_COMPONENT } from '../../constant';
 import { componentStore } from '../store';
@@ -87,6 +87,8 @@ export const addSelfToParentComponent = ({ id = '' }) => {
 };
 
 /**
+ * @returns void
+ *
  * @description
  * Set a reference to parent component id for each component.
  */
@@ -98,12 +100,17 @@ export const setParentsComponent = () => {
         ) => {
             return prevInstances.map((item) => {
                 const { element, parentId } = item;
-                const parent = element?.parentNode?.closest(
-                    `[${IS_COMPONENT}]`
+
+                const parentNode = /** @type {HTMLElement|undefined} */ (
+                    element?.parentNode
                 );
 
-                // Assign is if existe a parent component and current parentId is null
-                return parent && !parentId
+                const parent = /** @type {HTMLElement|undefined} */ (
+                    parentNode?.closest(`[${IS_COMPONENT}]`)
+                );
+
+                // Assign is if existe a parent component and current parentId is null/undefined
+                return parent && (!parentId || parentId === undefined)
                     ? { ...item, ...{ parentId: parent.id } }
                     : item;
             });
