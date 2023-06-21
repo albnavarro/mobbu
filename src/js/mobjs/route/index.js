@@ -94,7 +94,7 @@ export const inizializeApp = async ({
 /**
  * @param {Object} obj
  * @param {String} obj.route
- * @param {Boolean} obj.removePrevious
+ * @param {Boolean} obj.removePrevious - Remove previous cancellabel elements.
  *
  * @description
  * Load new route.

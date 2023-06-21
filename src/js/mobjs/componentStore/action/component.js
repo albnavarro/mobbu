@@ -30,6 +30,7 @@ export const getComponentNameById = (id = '') => {
 
 /**
  * @param {String} name
+ * @returns {string|undefined}
  *
  * @description
  * Get id by user definition name.
@@ -48,7 +49,7 @@ export const getIdByInstanceName = (name = '') => {
     const id = instance?.id;
     if (!id) {
         console.warn(`getIdByName failed no name`);
-        return null;
+        return undefined;
     }
 
     return id;
