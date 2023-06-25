@@ -19,7 +19,7 @@ import { debugRoute } from './test';
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.root
+ * @param {HTMLElement|null} obj.root
  * @param {{ string:{componentFunction:function,props:Object,state:Object} }|{}} obj.componentList
  * @param {{string:function():string}|{}} obj.routeList
  * @param {Function} obj.afterInit
