@@ -374,13 +374,13 @@ export default class HandleSequencer {
                 });
             });
 
-            const cbObject = getValueObj(this.values, 'currentValue');
+            const callBackObject = getValueObj(this.values, 'currentValue');
 
             syncCallback({
                 each: this.stagger.each,
                 useStagger: this.useStagger,
                 isLastDraw,
-                cbObject,
+                callBackObject,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
                 callbackOnStop: this.callbackOnStop,

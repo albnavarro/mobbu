@@ -10,31 +10,31 @@ export const defaultCallback = ({
     stagger,
     callback,
     callbackCache,
-    cbObject,
+    callBackObject,
     useStagger,
 }) => {
     if (stagger.each === 0 || !useStagger) {
         handleFrame.add(() => {
             callback.forEach(({ cb }) => {
-                cb(cbObject);
+                cb(callBackObject);
             });
         });
 
         handleFrame.add(() => {
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: cbObject });
+                handleCache.fireObject({ id: cb, obj: callBackObject });
             });
         });
     } else {
         // Stagger
         callback.forEach(({ cb, frame }) => {
             handleFrameIndex.add(() => {
-                cb(cbObject);
+                cb(callBackObject);
             }, frame);
         });
 
         callbackCache.forEach(({ cb, frame }) => {
-            handleCache.update({ id: cb, cbObject, frame });
+            handleCache.update({ id: cb, callBackObject, frame });
         });
     }
 };
@@ -47,7 +47,7 @@ export const defaultCallbackOnComplete = ({
     callback,
     callbackCache,
     callbackOnComplete,
-    cbObject,
+    callBackObject,
     stagger,
     slowlestStagger,
     fastestStagger,
@@ -59,15 +59,15 @@ export const defaultCallbackOnComplete = ({
         handleNextFrame.add(() => {
             // Fire callback with exact end value
             callback.forEach(({ cb }) => {
-                cb(cbObject);
+                cb(callBackObject);
             });
 
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: cbObject });
+                handleCache.fireObject({ id: cb, obj: callBackObject });
             });
 
             callbackOnComplete.forEach(({ cb }) => {
-                cb(cbObject);
+                cb(callBackObject);
             });
         });
     } else {
@@ -75,12 +75,12 @@ export const defaultCallbackOnComplete = ({
             handleFrameIndex.add(() => {
                 if (stagger.waitComplete) {
                     if (i === slowlestStagger.index) {
-                        cb(cbObject);
+                        cb(callBackObject);
                         onComplete();
                     }
                 } else {
                     if (i === fastestStagger.index) {
-                        cb(cbObject);
+                        cb(callBackObject);
                         onComplete();
                     }
                 }
@@ -91,12 +91,12 @@ export const defaultCallbackOnComplete = ({
             handleFrameIndex.add(() => {
                 if (stagger.waitComplete) {
                     if (i === slowlestStagger.index) {
-                        handleCache.fireObject({ id: cb, obj: cbObject });
+                        handleCache.fireObject({ id: cb, obj: callBackObject });
                         onComplete();
                     }
                 } else {
                     if (i === fastestStagger.index) {
-                        handleCache.fireObject({ id: cb, obj: cbObject });
+                        handleCache.fireObject({ id: cb, obj: callBackObject });
                         onComplete();
                     }
                 }
@@ -105,7 +105,7 @@ export const defaultCallbackOnComplete = ({
 
         callbackOnComplete.forEach(({ cb, frame }) => {
             handleFrameIndex.add(() => {
-                cb(cbObject);
+                cb(callBackObject);
             }, frame + 1);
         });
     }

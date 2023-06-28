@@ -6,29 +6,29 @@ export const syncCallback = ({
     each,
     useStagger,
     isLastDraw,
-    cbObject,
+    callBackObject,
     callback,
     callbackCache,
     callbackOnStop,
 }) => {
     if (each === 0 || useStagger === false) {
         handleFrame.add(() => {
-            callback.forEach(({ cb }) => cb(cbObject));
+            callback.forEach(({ cb }) => cb(callBackObject));
         });
 
         handleFrame.add(() => {
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: cbObject });
+                handleCache.fireObject({ id: cb, obj: callBackObject });
             });
         });
     } else {
         // Stagger
         callback.forEach(({ cb, frame }) => {
-            handleFrameIndex.add(() => cb(cbObject), frame);
+            handleFrameIndex.add(() => cb(callBackObject), frame);
         });
 
         callbackCache.forEach(({ cb, frame }) => {
-            handleCache.update({ id: cb, cbObject, frame });
+            handleCache.update({ id: cb, callBackObject, frame });
         });
     }
 
@@ -36,12 +36,12 @@ export const syncCallback = ({
         if (each === 0 || useStagger === false) {
             // No stagger, run immediatly
             handleFrame.add(() => {
-                callbackOnStop.forEach(({ cb }) => cb(cbObject));
+                callbackOnStop.forEach(({ cb }) => cb(callBackObject));
             });
         } else {
             // Stagger
             callbackOnStop.forEach(({ cb, frame }) => {
-                handleFrameIndex.add(() => cb(cbObject), frame + 1);
+                handleFrameIndex.add(() => cb(callBackObject), frame + 1);
             });
         }
     }

@@ -297,13 +297,13 @@ export default class HandleLerp {
             });
 
             // Prepare an obj to pass to the callback
-            o.cbObject = getValueObj(this.values, 'currentValue');
+            o.callBackObject = getValueObj(this.values, 'currentValue');
 
             defaultCallback({
                 stagger: this.stagger,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
-                cbObject: o.cbObject,
+                callBackObject: o.callBackObject,
                 useStagger: this.useStagger,
             });
 
@@ -349,7 +349,7 @@ export default class HandleLerp {
                     callback: this.callback,
                     callbackCache: this.callbackCache,
                     callbackOnComplete: this.callbackOnComplete,
-                    cbObject: cbObjectSettled,
+                    callBackObject: cbObjectSettled,
                     stagger: this.stagger,
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,

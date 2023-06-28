@@ -1,5 +1,14 @@
+// @ts-check
+
 import { getTime } from '../utils/time.js';
 
+/**
+ * @param {Function} func
+ * @param {Number} limit
+ * @returns {Function}
+ *
+ * @description
+ */
 export const throttle = (func, limit) => {
     let lastFunc;
     let lastRan;

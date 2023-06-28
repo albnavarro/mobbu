@@ -166,7 +166,7 @@ const nextTickFn = () => {
 
     if (
         callback.length > 0 ||
-        handleFrameIndex.getIndexCallbackLenght() > 0 ||
+        handleFrameIndex.getAmountOfFrameToFire() > 0 ||
         handleCache.getCacheCounter() > 0 ||
         time < firstRunDuration
     ) {

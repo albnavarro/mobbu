@@ -1,62 +1,85 @@
+// @ts-check
+
 import { frameStore } from './frameStore.js';
 
 /**
  * @description
+ * @module handleFrameIndex
  * Execute a callback at a specific frame.
  */
 export const handleFrameIndex = (() => {
-    let indexCallback = {};
-    let indexCallbackLength = 0;
-    let indexCb = null;
+    /**
+     * @type {Object}
+     */
+    const indexCallbackObject = {};
 
     /**
+     * @type {Number}
+     */
+    let amountOfFrameToFire = 0;
+
+    /**
+     * @memberof module:handleFrameIndex
+     * @param {Number} currentFrameLimit
+     *
      * @description
      * Update each callback's frame when handleFrame resets its index to avoid too large numbers>
      */
     const updateKeys = (currentFrameLimit) => {
-        Object.keys(indexCallback).forEach((key) => {
-            delete Object.assign(indexCallback, {
-                [`${parseInt(key) - currentFrameLimit}`]: indexCallback[key],
+        Object.keys(indexCallbackObject).forEach((key) => {
+            delete Object.assign(indexCallbackObject, {
+                [`${parseInt(key) - currentFrameLimit}`]:
+                    indexCallbackObject[key],
             })[key];
         });
     };
 
     /**
+     * @memberof module:handleFrameIndex
+     * @param { Object } obj
+     * @param {Number} obj.currentFrame
+     * @param {Number} obj.time
+     * @param {Number} obj.fps
+     * @param {Boolean} obj.shouldRender
+     * @return void
+     *
      * @description
      * Fire callback
      *
-     * @param {import('./handleFrame.js').handleFrameTypes)}
+     * @examples
      *
-     * @example
      * ```js
-     * handleFrameIndex.add(({ fps, shouldRender, time });      *
+     * handleFrameIndex.fire(({ currentFrame, fps, shouldRender, time });      *
      * ```
      */
     const fire = ({ currentFrame, time, fps, shouldRender }) => {
-        /*
-        Get arrays of callBack related to the current currentFrame
-        indexCb is a 'global' variables instead constant to reduce garbage collector
-        */
-        indexCb = indexCallback[currentFrame];
-        if (indexCb) {
-            indexCb.forEach((item) => item({ time, fps, shouldRender }));
-            /*
-            Remove cb array once fired
-            */
-            indexCallback[currentFrame] = null;
-            delete indexCallback[currentFrame];
-            indexCallbackLength = indexCallbackLength - 1;
-        } else {
-            indexCb = null;
-        }
+        /**
+         * @type {Array.<Function>}
+         *
+         * @description
+         * Get arrays of callBack related to the current currentFrame
+         * indexCb is a 'global' variables instead constant to reduce garbage collector
+         */
+        const indexCallbackArray = indexCallbackObject[currentFrame];
+        if (!indexCallbackArray) return;
+
+        indexCallbackArray.forEach((item) => item({ time, fps, shouldRender }));
+
+        /**
+         * Remove cb array once fired
+         */
+        indexCallbackObject[currentFrame] = null;
+        delete indexCallbackObject[currentFrame];
+        amountOfFrameToFire = amountOfFrameToFire - 1;
     };
 
     /**
      * @description
      * Add callback to a specific frame.
      *
-     * @param {function(import('./handleFrame.js').handleFrameTypes):void } cb - callback function
-     * @pram {number} index
+     * @memberof module:handleFrameIndex
+     * @param {function(import('./handleFrame.js').handleFrameTypes):void } callback - callback function
+     * @param {number} index
      *
      * @example
      * ```js
@@ -66,7 +89,10 @@ export const handleFrameIndex = (() => {
      *
      * ```
      */
-    const add = (cb, index) => {
+    const add = (callback, index) => {
+        /**
+         * @type {Number}
+         */
         const frameIndex = index + frameStore.getProp('currentFrame');
 
         /**
@@ -74,11 +100,11 @@ export const handleFrameIndex = (() => {
          *  use frameIndex for key of Object so i can get the sb array in in the fastest way possible
          *  in a bigger set of callaback
          */
-        if (indexCallback[frameIndex]) {
-            indexCallback[frameIndex].push(cb);
+        if (indexCallbackObject[frameIndex]) {
+            indexCallbackObject[frameIndex].push(callback);
         } else {
-            indexCallback[frameIndex] = [cb];
-            indexCallbackLength++;
+            indexCallbackObject[frameIndex] = [callback];
+            amountOfFrameToFire++;
         }
 
         frameStore.emit('requestFrame');
@@ -88,16 +114,17 @@ export const handleFrameIndex = (() => {
      * @description
      * Get callabck array length
      *
+     * @memberof module:handleFrameIndex
      * @returns {number}
      */
-    const getIndexCallbackLenght = () => {
-        return indexCallbackLength;
+    const getAmountOfFrameToFire = () => {
+        return amountOfFrameToFire;
     };
 
     return {
         add,
         fire,
         updateKeys,
-        getIndexCallbackLenght,
+        getAmountOfFrameToFire,
     };
 })();

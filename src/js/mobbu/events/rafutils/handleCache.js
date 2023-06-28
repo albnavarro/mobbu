@@ -1,25 +1,51 @@
+// @ts-check
+
 import { frameStore } from './frameStore.js';
 
 /**
- * @private
+ * @description
+ * @module handleCache
  */
 export const handleCache = (() => {
+    /**
+     * @type {Number}
+     */
     let id = 0;
 
     /**
-     * Incremoene and decrement when we add or fire a item
-     * hadleFrme use that to check if the requestAnimationFrame have to go on
+     * @type {Number}
+     *
+     * @description
+     * Increment and decrement when we add or fire a item.
+     * hadleFrame use that to check if the requestAnimationFrame have to go on.
+     * Indeicate fi there is frame to render.
      */
     let cacheCoutner = 0;
+
+    /**
+     * @type {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
+     */
     const subscriber = {};
 
-    const add = (el, fn) => {
+    /**
+     * @memberof module:handleCache
+     * @param {Object|HTMLElement} el
+     * @param {Function} fn
+     * @returns {{id:Number,unsubscribe:function():void}}
+     *
+     * @description
+     * Add new item to cache.
+     */
+    const add = (el = {}, fn = () => {}) => {
         subscriber[id] = {
             el,
             fn,
             data: {},
         };
 
+        /**
+         * @type {Number}
+         */
         const prevId = id;
         id++;
 
@@ -41,22 +67,51 @@ export const handleCache = (() => {
         };
     };
 
-    const update = ({ id, cbObject, frame }) => {
+    /**
+     * @memberof module:handleCache
+     * @param {Object} obj
+     * @param {Number} obj.id
+     * @param {Object} obj.callBackObject
+     * @param {Number} obj.frame
+     * @returns void
+     *
+     * @description
+     * Add new data on existing id in a specific frame.
+     */
+    const update = ({ id, callBackObject, frame }) => {
         if (!subscriber[id]) return;
 
         const { currentFrame } = frameStore.get();
         const { data } = subscriber[id];
         if (data[frame + currentFrame]) return;
-        data[frame + currentFrame] = cbObject;
+        data[frame + currentFrame] = callBackObject;
         cacheCoutner++;
     };
 
-    const remove = (id) => {
-        if (id in subscriber) delete subscriber[id];
+    /**
+     * @memberof module:handleCache
+     * @param {Number|undefined} id
+     * @returns void
+     *
+     * @description
+     * Remove item from chache.
+     */
+    const remove = (id = undefined) => {
+        if (id && id in subscriber) delete subscriber[id];
     };
 
-    const clean = (id) => {
-        const el = subscriber[id];
+    /**
+     * @memberof module:handleCache
+     * @param {Number|undefined} id
+     * @returns void
+     *
+     * @description
+     * Reset item data
+     */
+    const clean = (id = undefined) => {
+        if (!id) return;
+
+        const el = subscriber?.[id];
         if (!el) return;
 
         /*
@@ -68,18 +123,38 @@ export const handleCache = (() => {
         el.data = {};
     };
 
-    const get = (id) => {
+    /**
+     * @memberof module:handleCache
+     * @param {Number|undefined} id
+     * @returns {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
+     *
+     * @description
+     * Get item object
+     */
+    const get = (id = undefined) => {
+        if (!id) return {};
+
         return subscriber?.[id];
     };
 
+    /**
+     * @memberof module:handleCache
+     * @param {Number} frameCounter - frame to render.
+     * @param {Boolean} shouldRender - should render.
+     * @returns void
+     *
+     * @description
+     * Render obj on specific frame and delete renderd object.
+     */
     const fire = (frameCounter, shouldRender) => {
         Object.values(subscriber).forEach(({ data, fn, el }) => {
-            const cbObject = data?.[frameCounter];
+            const callBackObject = data?.[frameCounter];
 
-            if (cbObject) {
+            if (callBackObject) {
                 if (shouldRender) {
-                    fn(cbObject, el);
+                    fn(callBackObject, el);
                 }
+
                 data[frameCounter] = null;
                 delete data[frameCounter];
                 cacheCoutner--;
@@ -87,15 +162,39 @@ export const handleCache = (() => {
         });
     };
 
-    const fireObject = ({ id, obj }) => {
-        if (!subscriber[id]) return;
+    /**
+     * @memberof module:handleCache
+     * @param {Object} obj
+     * @param {Number|undefined} obj.id
+     * @param {Object} obj.obj
+     * @returns void
+     *
+     * @description
+     * Render immediately obj using existing id/function
+     */
+    const fireObject = ({ id = undefined, obj = {} }) => {
+        if (!id || !subscriber?.[id]) return;
 
         const { el, fn } = subscriber[id];
         fn(obj, el);
     };
 
+    /**
+     * @memberof module:handleCache
+     * @returns {Number}
+     *
+     * @description
+     * Get current number of frame to render.
+     */
     const getCacheCounter = () => cacheCoutner;
 
+    /**
+     * @memberof module:handleCache
+     * @param {Number} maxFramecounter
+     *
+     * @description
+     * When frameCounter become too big reset and recalculate all the frame values.
+     */
     const updateFrameId = (maxFramecounter) => {
         Object.values(subscriber).forEach(({ data }) => {
             Object.keys(data).forEach((key) => {

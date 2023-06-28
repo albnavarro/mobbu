@@ -192,14 +192,14 @@ export default class ParallaxTween {
             });
 
             // Prepare an obj to pass to the callback
-            const cbObject = getValueObj(this.values, 'currentValue');
+            const callBackObject = getValueObj(this.values, 'currentValue');
 
             // Fire callback
             syncCallback({
                 each: this.stagger.each,
                 useStagger: true,
                 isLastDraw,
-                cbObject,
+                callBackObject,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
                 callbackOnStop: this.callbackOnStop,

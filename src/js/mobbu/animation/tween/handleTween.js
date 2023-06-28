@@ -64,7 +64,7 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 /**
  * @typedef {Object} tweenCommonStopProps
- * @prop {Boolean} clearCache 
+ * @prop {Boolean} clearCache
     Stop all stagger implemented with subscribeCache methods.
  */
 
@@ -342,13 +342,13 @@ export default class HandleTween {
             o.isSettled = parseInt(this.timeElapsed) === this.duration;
 
             // Prepare an obj to pass to the callback
-            o.cbObject = getValueObj(this.values, 'currentValue');
+            o.callBackObject = getValueObj(this.values, 'currentValue');
 
             defaultCallback({
                 stagger: this.stagger,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
-                cbObject: o.cbObject,
+                callBackObject: o.callBackObject,
                 useStagger: this.useStagger,
             });
 
@@ -395,7 +395,7 @@ export default class HandleTween {
                     callback: this.callback,
                     callbackCache: this.callbackCache,
                     callbackOnComplete: this.callbackOnComplete,
-                    cbObject: o.cbObject,
+                    callBackObject: o.callBackObject,
                     stagger: this.stagger,
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,
