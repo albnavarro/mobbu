@@ -1,15 +1,24 @@
+// @ts-check
+
 /**
+ * @module handleNextTick
+ *
  * @description
  * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
  */
 export const handleNextTick = (() => {
-    let callback = [];
+    /**
+     * @type {Array}
+     */
+    const callbacks = [];
 
     /**
      * @description
      * Add callback
      *
+     * @memberof module:handleNextTick
      * @param {function(import('./handleFrame.js').handleFrameTypes):void } cb - callback function
+     * @param {Number} [ priority ]
      *
      * @example
      * ```js
@@ -37,15 +46,16 @@ export const handleNextTick = (() => {
      * mobbu.default('set', { deferredNextTick: true });
      * ```
      */
-    const add = (cb, priority = 100) => {
-        callback.push({ cb, priority });
+    const add = (cb = () => {}, priority = 100) => {
+        callbacks.push({ cb, priority });
     };
 
     /**
      * @description
      * Fire callback
      *
-     * @param {function(import('./handleFrame.js').handleFrameTypes):void } cb - callback function
+     * @memberof module:handleNextTick
+     * @param {(import('./handleFrame.js').handleFrameTypes) } cb - callback function
      *
      * @example
      * ```js
@@ -54,11 +64,11 @@ export const handleNextTick = (() => {
      * ```
      */
     const fire = ({ time, fps, shouldRender }) => {
-        if (callback.length === 0) return;
+        if (callbacks.length === 0) return;
 
-        callback.sort((a, b) => a.priority - b.priority);
-        callback.forEach(({ cb }) => cb({ time, fps, shouldRender }));
-        callback.length = 0;
+        callbacks.sort((a, b) => a.priority - b.priority);
+        callbacks.forEach(({ cb }) => cb({ time, fps, shouldRender }));
+        callbacks.length = 0;
     };
 
     return { add, fire };
