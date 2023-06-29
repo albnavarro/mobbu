@@ -3,8 +3,9 @@
 import { frameStore } from './frameStore.js';
 
 /**
- * @description
  * @module handleFrameIndex
+ *
+ * @description
  * Execute a callback at a specific frame.
  */
 export const handleFrameIndex = (() => {

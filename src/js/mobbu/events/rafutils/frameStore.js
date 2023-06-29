@@ -1,3 +1,5 @@
+// @ts-check
+
 import { SimpleStore } from '../../store/simpleStore.js';
 import { handleSetUp } from '../../setup.js';
 import { NOOP } from '../../utils/functionsUtils.js';
