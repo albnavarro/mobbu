@@ -43,7 +43,7 @@ export const handleNextFrame = (() => {
      * @description
      * Reset callback
      *
-     * @returns {Array.<function>}
+     * @returns {Array.<function(import('./handleFrame.js').handleFrameTypes):void >}
      *
      */
     const get = () => {

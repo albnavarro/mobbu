@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getTime, defaultTimestep } from '../../utils/time.js';
 import { handleSetUp } from '../../setup.js';
 import { handleVisibilityChange } from '../visibilityChange/handleVisibilityChange.js';
@@ -28,24 +30,78 @@ import { loadFps } from './loadFps.js';
  */
 loadFps();
 
-/*
-    10000 is maximum stagger frame delay
-    */
+/**
+ * @description
+ * 10000 is maximum stagger frame delay
+ */
 const currentFrameLimit = 10000000;
+
+/**
+ * @type {Number}
+ */
 const firstRunDuration = 2000;
 
+/**
+ * @type {Boolean}
+ */
 let frameIsRuning = false;
+
+/**
+ * @type {Array.<function(handleFrameTypes):void>}
+ */
 let callback = [];
+
+/**
+ * @type {Number}
+ */
 let time = getTime();
+
+/**
+ * @type {Number}
+ */
 let startTime = 0;
+
+/**
+ * @type {Number}
+ */
 let rawTime = 0;
+
+/**
+ * @type {Number}
+ */
 let timeElapsed = 0;
+
+/**
+ * @type {Boolean}
+ */
 let isStopped = false;
-// Stable fps
+
+/**
+ * @type {Number}
+ *
+ * @description
+ * Stable fps
+ */
 let fps = handleSetUp.get('startFps');
+
+/**
+ * @type {Number}
+ */
 let maxFps = fps;
+
+/**
+ * @type {Number}
+ */
 let frames = 0;
+
+/**
+ * @type {Number}
+ */
 let fpsPrevTime = 0;
+
+/**
+ * @type {Number}
+ */
 let currentFrame = 0;
 
 /**
@@ -53,23 +109,51 @@ let currentFrame = 0;
  * when value is -1 || 2 animation ( or whoever use it ) is rendered
  * */
 let dropFrameCounter = -1;
+
+/**
+ * @type {Boolean}
+ */
 let shouldRender = true;
+
+/**
+ * @type {Object.<number, number>}
+ */
 let fpsScalePercent = handleSetUp.get('fpsScalePercent');
+
+/**
+ * @type {Boolean}
+ */
 let useScaleFpsf = handleSetUp.get('useScaleFps');
+
+/**
+ * @type {Boolean}
+ */
 let mustMakeSomethingIsActive = false;
+
+/**
+ * @type {Boolean}
+ */
 let shouldMakeSomethingIsActive = false;
 
 /**
+ * @returns {Boolean}
+ *
+ * @description
  * Check if frame dropped a lot.
  */
 const mustMakeSomethingCheck = () => fps < (maxFps / 5) * 3;
 
 /**
+ * @returns {Boolean}
+ *
  * Check if frame dropped medium.
  */
 const shouldMakeSomethingCheck = () => fps < (maxFps / 5) * 4;
 
 /**
+ * @returns void
+ *
+ * @description
  * If frame dropper for X seconds mustMakeSomethingIsActive = true
  */
 const mustMakeSomethingStart = () => {
@@ -82,6 +166,9 @@ const mustMakeSomethingStart = () => {
 };
 
 /**
+ * @returns void
+ *
+ * @description
  * If frame dropper for X seconds shouldMakeSomethingIsActive = true
  */
 const shouldMakeSomethingStart = () => {
@@ -93,7 +180,11 @@ const shouldMakeSomethingStart = () => {
     }, 4000);
 };
 
-// Stop timer when user change tab
+/**
+ *
+ * @description
+ * Stop timer when user change tab
+ */
 handleVisibilityChange(({ visibilityState }) => {
     isStopped = visibilityState === 'visible';
 });
@@ -104,10 +195,13 @@ catchAnimationReject();
 frameStore.watch('requestFrame', () => {
     initFrame();
 });
-/*
- * Check if animation is renderable in current frame
+
+/**
+ * @returns {Boolean}
  *
- **/
+ * @description
+ * Check if animation is renderable in current frame
+ */
 const getRenderStatus = () => {
     if (!useScaleFpsf) return true;
 
@@ -131,9 +225,12 @@ const getRenderStatus = () => {
     return dropFrameCounter === 0;
 };
 
-/*
+/**
+ * @returns void
+ *
+ * @description
  * Next tick function
- **/
+ */
 const nextTickFn = () => {
     /*
      * If currentFrame reach currentFrameLimit back to zero to avoid big numbers
@@ -151,17 +248,18 @@ const nextTickFn = () => {
         */
     handleNextTick.fire({ time, fps, shouldRender });
 
-    /*
-        Get next callback
-        */
+    /**
+     * Get next callback
+     */
     callback = [...callback, ...handleNextFrame.get()];
-    /*
-        Next frame condition
-        */
 
-    /*
-        RequestAnimationFrame is ended, ready for another
-        */
+    /**
+     * Next frame condition
+     */
+
+    /**
+     * RequestAnimationFrame is ended, ready for another
+     */
     frameIsRuning = false;
 
     if (
@@ -170,7 +268,9 @@ const nextTickFn = () => {
         handleCache.getCacheCounter() > 0 ||
         time < firstRunDuration
     ) {
-        // Call Next animationFrame
+        /**
+         * Call Next animationFrame
+         */
         initFrame();
     } else {
         isStopped = true;
@@ -179,6 +279,10 @@ const nextTickFn = () => {
     }
 };
 
+/**
+ * @param {Number} timestamp
+ * @returns void
+ */
 const render = (timestamp) => {
     /**
      * Update time
@@ -201,7 +305,7 @@ const render = (timestamp) => {
         /**
          * Calc fps
          * Set fps when stable after 2 seconds otherwise use instantFps
-         **/
+         */
         fps =
             time > firstRunDuration
                 ? Math.round((frames * 1000) / (time - fpsPrevTime))
@@ -223,7 +327,7 @@ const render = (timestamp) => {
 
     /**
      * Update max fps
-     * */
+     */
     if (fps > maxFps) maxFps = fps;
 
     /**
@@ -251,20 +355,20 @@ const render = (timestamp) => {
         */
     handleFrameIndex.fire({ currentFrame, time, fps, shouldRender });
 
-    /*
-        Fire handleCache callBack
-        */
+    /**
+     *Fire handleCache callBack
+     */
     handleCache.fire(currentFrame, shouldRender);
 
-    /*
-        Update currentFrame
-        */
+    /**
+     *  Update currentFrame
+     */
     currentFrame++;
     frameStore.quickSetProp('currentFrame', currentFrame);
 
-    /*
-        Reset props
-        */
+    /**
+     *Reset props
+     */
     callback.length = 0;
     isStopped = false;
 
@@ -278,6 +382,9 @@ const render = (timestamp) => {
 };
 
 /**
+ * @returns void
+ *
+ * @description
  * Init new frame if is not running
  */
 const initFrame = () => {
@@ -302,30 +409,33 @@ export const handleFrame = (() => {
      * @description
      * Get current fps
      *
-     * @param {number}
+     * @returns {number}
      */
     const getFps = () => fps;
 
     /**
+     * @returns {Boolean}
+     *
      * @description
      * Return the mustMakeSomethingIsActive status.
-     * IF frame dropped the value is true for X seconds.
-     *
+     * If frame dropped the value is true for X seconds.
      */
     const mustMakeSomething = () => mustMakeSomethingIsActive;
 
     /**
+     * @returns {Boolean}
+     *
      * @description
      * Return the mustMakeSomethingIsActive status.
-     * IF frame dropped the value is true for X seconds.
-     *
+     * If frame dropped the value is true for X seconds.
      */
     const shouldMakeSomething = () => shouldMakeSomethingIsActive;
 
     /**
+     * @returns {Boolean}
+     *
      * @description
      * Get drop frame status.
-     *
      */
     const getShouldRender = () => shouldRender;
 
@@ -334,6 +444,7 @@ export const handleFrame = (() => {
      * Add callback
      *
      * @param {function(handleFrameTypes):void } cb - callback function
+     * @returns void
      *
      * @example
      * ```js
@@ -352,7 +463,7 @@ export const handleFrame = (() => {
      * @description
      * Add an array of callback
      *
-     * @param {Array.<function>} arr - array of callback
+     * @param {Array.<function(handleFrameTypes):void >} arr - array of callback
      */
     const addMultiple = (arr = []) => {
         callback = [...callback, ...arr];
