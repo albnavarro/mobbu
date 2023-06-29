@@ -1,5 +1,10 @@
+// @ts-check
+
 import { frameStore } from './frameStore.js';
 
+/**
+ * @type {Boolean}
+ */
 let loadFpsIsReady = false;
 
 /**
@@ -9,10 +14,9 @@ let loadFpsIsReady = false;
  */
 
 /**
- * @description
-Runs a request animation frame loop to detect the frame rate of the monitor.
-After the method will be resolved the first time, subsequent calls will be resolved immediately returning the previously calculated value.
-The method is launched the first time automatically at the first loading.
+ * @description -  Runs a request animation frame loop to detect the frame rate of the monitor.
+ *   After the method will be resolved the first time, subsequent calls will be resolved immediately returning the previously calculated value.
+ *   The method is launched the first time automatically at the first loading.
  *
  * @param {number} [ duration = 30 ] - loop duration in frame, the default value is 30.
  * @return {Promise.<loadFpsType>} The promise launched after the loop
@@ -35,19 +39,56 @@ export const loadFps = (duration = 30) => {
     }
 
     return new Promise((resolve) => {
+        /**
+         * @type {Array.<Number>}
+         */
         const frameTimes = [];
+
+        /**
+         * @type {Number}
+         */
         const maxFrames = 20;
+
+        /**
+         * @type {Number}
+         */
         let frameCursor = 0;
+
+        /**
+         * @type {Number}
+         */
         let numFrames = 0;
+
+        /**
+         * @type {Number}
+         */
         let totalFPS = 0;
+
+        /**
+         * @type {Number}
+         */
         let then = 0;
+
+        /**
+         * @type {Number}
+         */
         let frameCounter = 0;
 
+        /**
+         * @param {Number} now
+         */
         const render = (now) => {
-            now *= 0.001; // convert to seconds
-            const deltaTime = now - then; // compute time since last frame
-            then = now; // remember time for next frame
-            const fps = 1 / deltaTime; // compute frames per second
+            // convert to seconds
+            now *= 0.001;
+
+            // compute time since last frame
+            const deltaTime = now - then;
+
+            // remember time for next frame
+            then = now;
+
+            // compute frames per second
+            const fps = 1 / deltaTime;
 
             // add the current fps and remove the oldest fps
             totalFPS += fps - (frameTimes[frameCursor] || 0);
@@ -61,7 +102,7 @@ export const loadFps = (duration = 30) => {
             // wrap the cursor
             frameCursor %= maxFrames;
 
-            const averageFPS = parseInt(totalFPS / numFrames);
+            const averageFPS = Math.round(totalFPS / numFrames);
 
             frameCounter++;
 
