@@ -1,13 +1,28 @@
+// @ts-check
+
 /**
+ * @module handleLoad
  * @description Function to execute a callback on page load
  */
 export const handleLoad = (() => {
+    /**
+     * @type{Boolean}
+     */
     let inizialized = false;
+
+    /**
+     * @type{Array}
+     */
     let callback = [];
+
+    /**
+     * @type{Number}
+     */
     let id = 0;
 
     /**
-     * @return {void}   description
+     * @memberof module:handleLoad
+     * @return void
      */
     function handler() {
         /**
@@ -21,16 +36,15 @@ export const handleLoad = (() => {
         }
 
         // Fire end of resize
-        callback.forEach(({ cb }) => {
-            cb();
-        });
-
+        callback.forEach(({ cb }) => cb());
         callback = [];
     }
 
     /**
+     * @description
      * init - if listener is not inizializad add it
      *
+     * @memberof module:handleLoad
      * @return {void}
      */
     function init() {
@@ -38,7 +52,7 @@ export const handleLoad = (() => {
         inizialized = true;
 
         // Add debunce function to detect scroll end
-        window.addEventListener('DOMContentLoaded', () => handler(), {
+        window.addEventListener('DOMContentLoaded', handler, {
             passive: false,
         });
     }
@@ -47,30 +61,29 @@ export const handleLoad = (() => {
      * @description
      * Add callback on page load
      *
-     * @param {function():void } cb - Callback function executed on page load
+     * @memberof module:handleLoad
+     * @param {function} cb - Callback function executed on page load
+     * @returns {function():void}
      *
      * @example
      * ```js
      *
      * handleLoad(() => {
-     *     // code
+     *     ...
      * });
      *
      * ```
      */
-    const addCb = (cb) => {
-        callback.push({ cb, id: id });
-        const cbId = id;
+    const addCallback = (cb) => {
+        callback.push({ cb, id });
+        const callbackId = id;
         id++;
 
-        if (typeof window !== 'undefined') {
-            init();
-        }
+        if (typeof window !== 'undefined') init();
 
-        return () => {
-            callback = callback.filter((item) => item.id !== cbId);
-        };
+        return () =>
+            (callback = callback.filter((item) => item.id !== callbackId));
     };
 
-    return addCb;
+    return addCallback;
 })();

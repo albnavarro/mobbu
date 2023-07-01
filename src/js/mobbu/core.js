@@ -1,3 +1,5 @@
+// @ts-check
+
 import { handleLoad } from './events/loadutils/handleLoad.js';
 import {
     handleMouseClick,
