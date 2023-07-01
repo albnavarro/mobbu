@@ -23,7 +23,6 @@ let cacheCoutner = 0;
 const subscriber = {};
 
 /**
- * @memberof module:handleCache
  * @param {Object|HTMLElement} el
  * @param {Function} fn
  * @returns {{id:Number,unsubscribe:function():void}}
@@ -63,7 +62,6 @@ const add = (el = {}, fn = () => {}) => {
 };
 
 /**
- * @memberof module:handleCache
  * @param {Object} obj
  * @param {Number} obj.id
  * @param {Object} obj.callBackObject
@@ -96,7 +94,6 @@ const remove = (id = undefined) => {
 };
 
 /**
- * @memberof module:handleCache
  * @param {Number|undefined} id
  * @returns void
  *
@@ -133,7 +130,6 @@ const get = (id = undefined) => {
 };
 
 /**
- * @memberof module:handleCache
  * @param {Number} frameCounter - frame to render.
  * @param {Boolean} shouldRender - should render.
  * @returns void
@@ -158,7 +154,6 @@ const fire = (frameCounter, shouldRender) => {
 };
 
 /**
- * @memberof module:handleCache
  * @param {Object} obj
  * @param {Number|undefined} obj.id
  * @param {Object} obj.obj
@@ -175,7 +170,6 @@ const fireObject = ({ id = undefined, obj = {} }) => {
 };
 
 /**
- * @memberof module:handleCache
  * @returns {Number}
  *
  * @description
@@ -184,7 +178,6 @@ const fireObject = ({ id = undefined, obj = {} }) => {
 const getCacheCounter = () => cacheCoutner;
 
 /**
- * @memberof module:handleCache
  * @param {Number} maxFramecounter
  *
  * @description

@@ -159,7 +159,7 @@ export const core = {
      * core.getDefault('parallax');
      * ```
      */
-    getDefault(prop = '') {
+    getDefault(prop) {
         return handleSetUp.get(prop);
     },
 

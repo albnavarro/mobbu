@@ -9,7 +9,6 @@ const callbacks = [];
  * @description
  * Add callback
  *
- * @memberof module:handleNextTick
  * @param {function(import('./handleFrame.js').handleFrameTypes):void } cb - callback function
  * @param {Number} [ priority ]
  *
