@@ -790,7 +790,7 @@ export const core = {
      *
      * ```
      **/
-    mq(action = '', breackpoint) {
+    mq(action, breackpoint) {
         switch (action) {
             case 'min':
                 return mq.min(breackpoint);
@@ -800,9 +800,6 @@ export const core = {
 
             case 'get':
                 return mq.getBreackpoint(breackpoint);
-
-            default:
-                console.warn(`${action} in core.mq not exist`);
         }
     },
 };
