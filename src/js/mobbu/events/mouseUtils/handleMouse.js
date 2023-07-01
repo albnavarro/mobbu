@@ -167,7 +167,7 @@ function handleMouse(event) {
  *
  * ```
  */
-export const handleMouseClick = new handleMouse('click');
+export const handleMouseClick = handleMouse('click');
 
 /**
  * @description
@@ -185,7 +185,7 @@ export const handleMouseClick = new handleMouse('click');
  *
  * ```
  */
-export const handleMouseDown = new handleMouse('mousedown');
+export const handleMouseDown = handleMouse('mousedown');
 
 /**
  * @description
@@ -203,7 +203,7 @@ export const handleMouseDown = new handleMouse('mousedown');
  *
  * ```
  */
-export const handleTouchStart = new handleMouse('touchstart');
+export const handleTouchStart = handleMouse('touchstart');
 
 /**
  * @description
@@ -221,7 +221,7 @@ export const handleTouchStart = new handleMouse('touchstart');
  *
  * ```
  */
-export const handleMouseMove = new handleMouse('mousemove');
+export const handleMouseMove = handleMouse('mousemove');
 
 /**
  * @description
@@ -239,7 +239,7 @@ export const handleMouseMove = new handleMouse('mousemove');
  *
  * ```
  */
-export const handleTouchMove = new handleMouse('touchmove');
+export const handleTouchMove = handleMouse('touchmove');
 
 /**
  * @description
@@ -257,7 +257,7 @@ export const handleTouchMove = new handleMouse('touchmove');
  *
  * ```
  */
-export const handleMouseUp = new handleMouse('mouseup');
+export const handleMouseUp = handleMouse('mouseup');
 
 /**
  * @description
@@ -275,7 +275,7 @@ export const handleMouseUp = new handleMouse('mouseup');
  *
  * ```
  */
-export const handleTouchEnd = new handleMouse('touchend');
+export const handleTouchEnd = handleMouse('touchend');
 
 /**
  * @description
@@ -303,4 +303,4 @@ export const handleTouchEnd = new handleMouse('touchend');
  *
  * ```
  */
-export const handleMouseWheel = new handleMouse('wheel');
+export const handleMouseWheel = handleMouse('wheel');

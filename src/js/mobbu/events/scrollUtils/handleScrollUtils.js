@@ -124,7 +124,7 @@ function handleScrollUtils(type) {
  *
  * ```
  */
-export const handleScrollStart = new handleScrollUtils('START');
+export const handleScrollStart = handleScrollUtils('START');
 
 /**
  * @description
@@ -140,4 +140,4 @@ export const handleScrollStart = new handleScrollUtils('START');
  *
  * ```
  */
-export const handleScrollEnd = new handleScrollUtils('END');
+export const handleScrollEnd = handleScrollUtils('END');
