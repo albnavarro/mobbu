@@ -83,26 +83,24 @@ const update = ({ id, callBackObject, frame }) => {
 
 /**
  * @memberof module:handleCache
- * @param {Number|undefined} id
+ * @param {Number} id
  * @returns void
  *
  * @description
  * Remove item from chache.
  */
-const remove = (id = undefined) => {
-    if (id && id in subscriber) delete subscriber[id];
+const remove = (id) => {
+    if (id in subscriber) delete subscriber[id];
 };
 
 /**
- * @param {Number|undefined} id
+ * @param {Number} id
  * @returns void
  *
  * @description
  * Reset item data
  */
-const clean = (id = undefined) => {
-    if (!id) return;
-
+const clean = (id) => {
     const el = subscriber?.[id];
     if (!el) return;
 
@@ -117,16 +115,14 @@ const clean = (id = undefined) => {
 
 /**
  * @memberof module:handleCache
- * @param {Number|undefined} id
+ * @param {Number} id
  * @returns {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
  *
  * @description
  * Get item object
  */
-const get = (id = undefined) => {
-    if (!id) return {};
-
-    return subscriber?.[id];
+const get = (id) => {
+    return subscriber?.[id] ?? {};
 };
 
 /**
@@ -155,15 +151,15 @@ const fire = (frameCounter, shouldRender) => {
 
 /**
  * @param {Object} obj
- * @param {Number|undefined} obj.id
+ * @param {Number} obj.id
  * @param {Object} obj.obj
  * @returns void
  *
  * @description
  * Render immediately obj using existing id/function
  */
-const fireObject = ({ id = undefined, obj = {} }) => {
-    if (!id || !subscriber?.[id]) return;
+const fireObject = ({ id, obj = {} }) => {
+    if (!subscriber?.[id]) return;
 
     const { el, fn } = subscriber[id];
     fn(obj, el);
