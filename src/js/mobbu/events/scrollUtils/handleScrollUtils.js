@@ -9,7 +9,6 @@ import { handleNextTick } from '../rafutils/handleNextTick.js';
  */
 
 /**
- * @constructor
  */
 function handleScrollUtils(type) {
     let inizialized = false;

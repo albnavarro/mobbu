@@ -29,7 +29,7 @@ export const setUpStore = new SimpleStore({
 });
 
 /**
- * @typedef {('startFps'|'fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
+ * @typedef {('startFps'|'fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
  */
 
 export const handleSetUp = (() => {

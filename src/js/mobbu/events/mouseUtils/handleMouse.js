@@ -1,3 +1,5 @@
+// @ts-check
+
 import { handleSetUp, setUpStore } from '../../setup.js';
 import { normalizeWheel } from './normalizeWhell.js';
 
@@ -40,7 +42,7 @@ function getClientData({ type, e }) {
 }
 
 /**
- * @constructor
+ *
  */
 function handleMouse(event) {
     let inizialized = false;
