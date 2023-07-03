@@ -1,3 +1,5 @@
+// @ts-check
+
 import { handleScrollImmediate } from './handleScrollImmediate.js';
 import { debounceFuncion } from '../debounce.js';
 import { handleFrame } from '../rafutils/handleFrame.js';
@@ -9,16 +11,47 @@ import { handleNextTick } from '../rafutils/handleNextTick.js';
  */
 
 /**
+ * @param {('START'|'END')} type
  */
 function handleScrollUtils(type) {
+    /**
+     * @type {Boolean}
+     */
     let inizialized = false;
+
+    /**
+     * @type {Array.<{id:number, cb:Function }>}
+     */
     let callback = [];
+
+    /**
+     * @type {Number}
+     */
     let id = 0;
+
+    /**
+     * @type {Boolean}
+     */
     let isScrolling = false;
+
+    /**
+     * @type {function}
+     */
     let unsubscribeScrollStart = () => {};
+
+    /**
+     * @type {function}
+     */
     let unsubscribeScrollEnd = () => {};
+
+    /**
+     * @type {any}
+     */
     let debouceFunctionReference = () => {};
 
+    /**
+     * @returns void
+     */
     function handler() {
         isScrolling = false;
 
@@ -64,7 +97,7 @@ function handleScrollUtils(type) {
         inizialized = true;
 
         // Add debunce function to detect scroll end
-        debouceFunctionReference = debounceFuncion((e) => handler(e));
+        debouceFunctionReference = debounceFuncion(() => handler());
         unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference);
 
         // Use normal scroll event ( no debuonce ) to detect if page is scrolling

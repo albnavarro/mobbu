@@ -25,6 +25,13 @@ import { normalizeWheel } from './normalizeWhell.js';
  *
  */
 
+/**
+ * @param {Object} obj
+ * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} obj.type
+ * @param {Object} obj.e
+ * @returns Object
+ * @description
+ */
 function getPageData({ type, e }) {
     // 'touchend'
     if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
@@ -33,6 +40,13 @@ function getPageData({ type, e }) {
     return e.touches ? e.touches[0] : e;
 }
 
+/**
+ * @param {Object} obj
+ * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} obj.type
+ * @param {Object} obj.e
+ * @returns Object
+ * @description
+ */
 function getClientData({ type, e }) {
     // 'touchend'
     if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
@@ -42,12 +56,27 @@ function getClientData({ type, e }) {
 }
 
 /**
- *
+ * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} event
  */
 function handleMouse(event) {
+    /**
+     * @type {boolean}
+     */
     let inizialized = false;
+
+    /**
+     * @type {Array.<{id:number, cb:Function }>}
+     */
     let callback = [];
+
+    /**
+     * @type {Number}
+     */
     let id = 0;
+
+    /**
+     * @type {boolean}
+     */
     let usePassive = handleSetUp.get('usePassive');
 
     /**
@@ -61,7 +90,7 @@ function handleMouse(event) {
     });
 
     /**
-     *
+     * @param {Object} e
      */
     function handler(e) {
         /**
@@ -74,16 +103,24 @@ function handleMouse(event) {
             return;
         }
 
-        // Get event type
+        /**
+         * @type {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} event
+         */
         const type = e.type;
 
-        // Get page coord
+        /**
+         * @type {{ pageX:Number, pageY:Number }}
+         */
         const { pageX, pageY } = getPageData({ type, e });
 
-        // Get client coord
+        /**
+         * @type {{ clientX:Number, clientY:Number }}
+         */
         const { clientX, clientY } = getClientData({ type, e });
 
-        // Get target
+        /**
+         * @type {HTMLElement}
+         */
         const target = e.target;
 
         // Prepare data to callback
@@ -113,7 +150,8 @@ function handleMouse(event) {
     }
 
     /**
-     * init - if istener is not inizializad remove it
+     * @description
+     * init - if listener is not inizializad remove it
      *
      * @return {void}
      */
