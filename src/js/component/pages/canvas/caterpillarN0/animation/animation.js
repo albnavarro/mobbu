@@ -251,15 +251,24 @@ export const caterpillarN0Animation = ({
         });
     });
 
+    const move = ({ x }) => {
+        const xCenter = x - canvas.width / 2 - left;
+        mainTween.goTo({
+            rotate: xCenter / mouseMoveRatio,
+        });
+    };
+
     /**
      * Mouse move.
      */
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x } = client;
-        const xCenter = x - canvas.width / 2 - left;
-        mainTween.goTo({
-            rotate: xCenter / mouseMoveRatio,
-        });
+        move({ x });
+    });
+
+    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+        const { x } = client;
+        move({ x });
     });
 
     /**
@@ -290,6 +299,7 @@ export const caterpillarN0Animation = ({
         mainTween.destroy();
         unsubscribeResize();
         unsubscribeMouseMove();
+        unsubscribeTouchMove();
         unWatchResume();
         unWatchPause();
         ctx = null;

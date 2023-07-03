@@ -242,9 +242,18 @@ export const animatedPatternN1Animation = ({
      */
     gridTimeline.play();
 
+    const move = ({ x, y }) => {
+        centerTween.goTo({ mouseX: x - left, mouseY: y - top });
+    };
+
     const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
         const { x, y } = client;
-        centerTween.goTo({ mouseX: x - left, mouseY: y - top });
+        move({ x, y });
+    });
+
+    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+        const { x, y } = client;
+        move({ x, y });
     });
 
     /**
@@ -335,6 +344,7 @@ export const animatedPatternN1Animation = ({
         centerTween.destroy();
         unsubscribeResize();
         unsubscribeMouseMove();
+        unsubscribeTouchMove();
         unWatchResume();
         unWatchPause();
         gridTween = null;

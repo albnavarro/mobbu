@@ -23,6 +23,22 @@ import { normalizeWheel } from './normalizeWhell.js';
  *
  */
 
+function getPageData({ type, e }) {
+    // 'touchend'
+    if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
+
+    // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
+    return e.touches ? e.touches[0] : e;
+}
+
+function getClientData({ type, e }) {
+    // 'touchend'
+    if (type === 'touchend' && e.changedTouches) return e.changedTouches[0];
+
+    // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
+    return e.touches ? e.touches[0] : e;
+}
+
 /**
  * @constructor
  */
@@ -60,24 +76,10 @@ function handleMouse(event) {
         const type = e.type;
 
         // Get page coord
-        const { pageX, pageY } = (() => {
-            // 'touchend'
-            if (type === 'touchend' && e.changedTouches)
-                return e.changedTouches[0];
-
-            // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-            return e.touches ? e.touches[0] : e;
-        })();
+        const { pageX, pageY } = getPageData({ type, e });
 
         // Get client coord
-        const { clientX, clientY } = (() => {
-            // 'touchend'
-            if (type === 'touchend' && e.changedTouches)
-                return e.changedTouches[0];
-
-            // 'mousedown', 'touchstart', 'mousemove', 'touchmove', 'mouseup'
-            return e.touches ? e.touches[0] : e;
-        })();
+        const { clientX, clientY } = getClientData({ type, e });
 
         // Get target
         const target = e.target;

@@ -228,9 +228,7 @@ export const caterpillarN1Animation = ({
         draw();
     });
 
-    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
-        const { x, y } = client;
-
+    const move = ({ x, y }) => {
         const winWidth = window.innerWidth;
         const winHeight = window.innerHeight;
         const xCenter = x - canvas.width / 2 - left;
@@ -247,6 +245,16 @@ export const caterpillarN1Animation = ({
                 winHeight / 2 - 200 - top
             ),
         });
+    };
+
+    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
+        const { x, y } = client;
+        move({ x, y });
+    });
+
+    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+        const { x, y } = client;
+        move({ x, y });
     });
 
     /**
@@ -281,6 +289,7 @@ export const caterpillarN1Animation = ({
         rectTimeline.destroy();
         unsubscribeResize();
         unsubscribeMouseMove();
+        unsubscribeTouchMove();
         unWatchPause();
         unWatchResume();
         rotationTween = null;
