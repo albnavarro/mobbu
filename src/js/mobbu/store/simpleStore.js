@@ -25,9 +25,13 @@ import {
     storeWatchWarning,
 } from './storeWarining.js';
 
+/**
+ * @typedef {( Object<string,function():{value:any,type?:any,validate?:function(any):Boolean,strict?:Boolean,skipEqual?:Boolean}> | Object<string,any> )} SimpleStoreType
+ */
+
 export class SimpleStore {
     /**
-     * @param {Object<string,(Object<string,any>|function({value:any,type:any,validate:function(any):Boolean,strict:Boolean,skipEqual:Boolean}):void|any)>} data
+     * @param {SimpleStoreType} data
      *
      * @description
      * SimpleStore inizialization.
@@ -156,7 +160,7 @@ export class SimpleStore {
          * @description
          * Object that store calidation status for each props
          */
-        this.validationStatusObject = { test: true };
+        this.validationStatusObject = {};
 
         /**
          * @private
@@ -449,7 +453,7 @@ export class SimpleStore {
      * @private
      *
      * @param {String} prop - propierties to update
-     * @param {any} value - new value
+     * @param {any} val - new value
      * @param {Boolean} fireCallback - fire watcher callback on update,  default value is `true`
      *
      * @description
@@ -531,7 +535,7 @@ export class SimpleStore {
      * @private
      *
      * @param {String} prop - propierties to update
-     * @param {any} value - new value
+     * @param {any} val - new value
      * @param {Boolean} fireCallback - fire watcher callback on update,  default value is `true`
      *
      * @description
@@ -623,6 +627,7 @@ export class SimpleStore {
             .filter(({ strictCheck }) => strictCheck === true);
 
         /**
+         * TODO: if strictObjectResult.length === 0 ?
          * If all Object prop fail strict check return
          */
         const allStrictFail = strictObjectResult.every(
@@ -701,7 +706,7 @@ export class SimpleStore {
 
     /**
      * @param {String} prop - propierties to update
-     * @param {any} value - new value
+     * @param {any} val - new value
      *
      * @description
      * Update a parameter omitting any type of control, method for internal use for maximum responsiveness.et prop without
@@ -783,8 +788,8 @@ export class SimpleStore {
 
     /**
      * @param {String} prop - property to watch.
-     * @param {function(any,any,(boolean|object))} callback - callback Function, fired on prop value change
-     * @returns {function} unsubscribe function
+     * @param {function(any,any,(boolean|object)):void} callback - callback Function, fired on prop value change
+     * @returns {function():void} unsubscribe function
      *
      * @description
      * Watch property mutation
@@ -803,7 +808,7 @@ export class SimpleStore {
     watch(prop, callback = () => {}) {
         if (!(prop in this.store)) {
             storeWatchWarning(prop, this.logStyle);
-            return;
+            return () => {};
         }
 
         this.callBackWatcher.push({
@@ -868,6 +873,9 @@ export class SimpleStore {
     }
 
     /**
+     * @param {String} string
+     * @returns void
+     *
      * @description
      * Modify style of warining.
      * Utils to have a different style for each store.
@@ -933,7 +941,7 @@ export class SimpleStore {
         /**
          * if - Key to watch can't be a prop used in some computed to avoid infinite loop
          *
-         * @param  {Bollean} keysIsusedInSomeComputed
+         * @param  {Boolean} keysIsusedInSomeComputed
          * @return {void}
          */
         if (keysIsusedInSomeComputed) {

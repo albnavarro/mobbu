@@ -20,7 +20,7 @@ export const maxDepth = (object) => {
 };
 
 /**
- * @param {Object<string,(Object<string,any>|function({value:any,type:any,validate:function(any):Boolean,strict:Boolean,skipEqual:Boolean}):void|any)>} data
+ * @param {import('./simpleStore.js').SimpleStoreType} data
  * @returns {Object<string,(Object<string,any>|any)>}
  *
  * @description
@@ -41,13 +41,21 @@ export const getDataRecursive = (data) => {
             ? /** @type {function} */ (value)()
             : {};
 
+        /**
+         * First level value is an object.
+         * Recursive function if find an Object.
+         */
         if (storeType.isObject(value)) {
-            // Recursive function if find an Object
             return {
                 ...p,
                 ...{ [key]: getDataRecursive(/** @type {Object} */ (value)) },
             };
-        } else if (
+        }
+
+        /**
+         * Complex data with validate|type|skipEqual.
+         */
+        if (
             storeType.isFunction(value) &&
             storeType.isObject(functionResult) &&
             'value' in functionResult &&
@@ -56,9 +64,12 @@ export const getDataRecursive = (data) => {
                 'skipEqual' in functionResult)
         ) {
             return { ...p, ...{ [key]: functionResult.value } };
-        } else {
-            return { ...p, ...{ [key]: value } };
         }
+
+        /**
+         * Simple value
+         */
+        return { ...p, ...{ [key]: value } };
     }, {});
 };
 
@@ -88,7 +99,7 @@ export const getPropRecursive = (data, prop, fallback) => {
 
 /**
  * @param {Object} obj
- * @param {Object<string,(Object<string,any>|function({value:any,type:any,validate:function(any):Boolean,strict:Boolean,skipEqual:Boolean}):void|any)>} obj.data
+ * @param {import('./simpleStore.js').SimpleStoreType} obj.data
  * @param {Number} obj.depth
  * @param {String} obj.logStyle
  * @returns {Object<string,(Object<string,any>|any)>}

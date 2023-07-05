@@ -215,7 +215,7 @@ export const core = {
        The default value is `true`.
      *
      *
-     * @param {Object} data - local data of the store.
+     * @param {import('./store/simpleStore.js').SimpleStoreType} data
      *
      * @example
      * ```js
