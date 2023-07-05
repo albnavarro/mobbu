@@ -1,6 +1,12 @@
+// @ts-check
+
 import { checkType, storeType } from './storeType.js';
 
-import { maxDepth, getDataRecursive, getPropRecursive } from './storeUtils.js';
+import {
+    maxDepth,
+    getPropRecursive,
+    inizializeStoreData,
+} from './storeUtils.js';
 import {
     storeComputedKeyUsedWarning,
     storeComputedWarning,
@@ -21,6 +27,8 @@ import {
 
 export class SimpleStore {
     /**
+     * @param {Object<string,(Object<string,any>|function({value:any,type:any,validate:function(any):Boolean,strict:Boolean,skipEqual:Boolean}):void|any)>} data
+     *
      * @description
      * SimpleStore inizialization.
      * The store accepts single properties or objects
@@ -51,7 +59,6 @@ export class SimpleStore {
        The default value is `true`.
      *
      *
-     * @param {Object} data - local data of the store.
      *
      * @example
      * ```js
@@ -106,10 +113,15 @@ export class SimpleStore {
      * ```
      */
     constructor(data = {}) {
+        /**
+         * @type {String}
+         */
         this.logStyle = 'padding: 10px;';
 
         /**
          * @private
+         *
+         * @type {Number}
          *
          * @description
          * Subscriber id counter
@@ -119,6 +131,8 @@ export class SimpleStore {
         /**
          * @private
          *
+         * @type {Array.<{prop:String,fn:Function,id:Number}>}
+         *
          * @description
          * Callback store
          */
@@ -126,6 +140,8 @@ export class SimpleStore {
 
         /**
          * @private
+         *
+         * @type {Array.<{prop:String,fn:Function,keys:Array.<string>}>}
          *
          * @description
          * Callback store
@@ -135,13 +151,18 @@ export class SimpleStore {
         /**
          * @private
          *
+         * @type {Object<string,(Boolean|Object<string,Boolean>)>}
+         *
          * @description
          * Object that store calidation status for each props
          */
-        this.validationStatusObject = {};
+        this.validationStatusObject = { test: true };
 
         /**
          * @private
+         *
+         * @type {Number}
+         *
          * @description
          * Depth of initial data object
          */
@@ -149,12 +170,18 @@ export class SimpleStore {
 
         /**
          * @private
+         *
+         * @type {Array.<String>}
+         * @description
          * Computed propierties update in tick.
          */
         this.computedPropFired = [];
 
         /**
          * @private
+         *
+         * @type {Array.<String>}
+         *
          * Queque of props changed.
          * Compued use this queque for checking mutation
          */
@@ -162,6 +189,10 @@ export class SimpleStore {
 
         /**
          * @private
+         *
+         * @type {Boolean}
+         *
+         * @description
          * Next tick ( settimeout 0 ) is fired.
          */
         this.computedRunning = false;
@@ -169,18 +200,16 @@ export class SimpleStore {
         /**
          * @private
          *
+         *
          * @description
          * Main Object that store the value of each props/Object.
          * Max depth allowed is 2.
          */
-        this.store = (() => {
-            if (this.dataDepth > 2) {
-                storeDepthWarning(this.dataDepth, this.logStyle);
-                return {};
-            } else {
-                return getDataRecursive(data);
-            }
-        })();
+        this.store = inizializeStoreData({
+            data,
+            depth: this.dataDepth,
+            logStyle: this.logStyle,
+        });
 
         /**
          * @private
