@@ -6,6 +6,7 @@ import {
     maxDepth,
     inizializeStoreData,
     inizializeSpecificProp,
+    CUSTOM_OBJECT,
 } from './storeUtils.js';
 import {
     storeComputedKeyUsedWarning,
@@ -448,7 +449,7 @@ export class SimpleStore {
         /**
          * Check if is an Object to stringyFy ( default is max depth === 2 )
          */
-        const isCustomObject = this.type[prop] === 'Object';
+        const isCustomObject = this.type[prop] === CUSTOM_OBJECT;
 
         if (storeType.isObject(this.store[prop]) && !isCustomObject) {
             this.setObj(prop, value, fireCallback);
@@ -474,7 +475,7 @@ export class SimpleStore {
      * ```
      */
     setProp(prop, val, fireCallback = true) {
-        const isCustomObject = this.type[prop] === 'Object';
+        const isCustomObject = this.type[prop] === CUSTOM_OBJECT;
 
         /**
          * Check if val is an Object

@@ -1,3 +1,5 @@
+import { CUSTOM_OBJECT } from './storeUtils';
+
 export const storeType = {
     isString: (value) =>
         Object.prototype.toString.call(value) === '[object String]',
@@ -43,8 +45,8 @@ export const getTypeName = (type) => {
         case NodeList:
             return 'NodeList';
 
-        case 'Object':
-            return 'Object';
+        case CUSTOM_OBJECT:
+            return CUSTOM_OBJECT;
 
         default:
             return 'Any';
@@ -77,7 +79,7 @@ export const checkType = (type, value) => {
         case NodeList:
             return storeType.isNodeList(value);
 
-        case 'Object':
+        case CUSTOM_OBJECT:
             return storeType.isObject(value);
 
         default:
