@@ -228,7 +228,7 @@ export class SimpleStore {
             prop: 'type',
             depth: this.dataDepth,
             logStyle: this.logStyle,
-            fallback: 'any',
+            fallback: 'Any',
         });
 
         /**
@@ -445,7 +445,12 @@ export class SimpleStore {
                 ? newValue(this.store[prop])
                 : newValue;
 
-        if (storeType.isObject(this.store[prop])) {
+        /**
+         * Check if is an Object to stringyFy ( default is max depth === 2 )
+         */
+        const isCustomObject = this.type[prop] === 'Object';
+
+        if (storeType.isObject(this.store[prop]) && !isCustomObject) {
             this.setObj(prop, value, fireCallback);
         } else {
             this.setProp(prop, value, fireCallback);
@@ -469,10 +474,12 @@ export class SimpleStore {
      * ```
      */
     setProp(prop, val, fireCallback = true) {
+        const isCustomObject = this.type[prop] === 'Object';
+
         /**
          * Check if val is an Object
          */
-        if (storeType.isObject(val)) {
+        if (storeType.isObject(val) && !isCustomObject) {
             storeSetPropValWarning(prop, val, this.logStyle);
             return;
         }
@@ -480,7 +487,7 @@ export class SimpleStore {
         /**
          * Check if prop is an Object
          */
-        if (storeType.isObject(this.store[prop])) {
+        if (storeType.isObject(this.store[prop]) && !isCustomObject) {
             storeSetPropPropWarning(prop, this.logStyle);
             return;
         }
@@ -517,7 +524,11 @@ export class SimpleStore {
          * Check if last value is equal new value.
          * if true and skipEqual is true for this prop return.
          */
-        if (oldVal === val && this.skipEqual[prop]) return;
+        const isEqual = isCustomObject
+            ? JSON.stringify(oldVal) === JSON.stringify(val)
+            : oldVal === val;
+
+        if (isEqual && this.skipEqual[prop]) return;
 
         /**
          * Finally set new value

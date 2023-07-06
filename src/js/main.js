@@ -74,4 +74,23 @@ core.useLoad(() => {
     };
 
     init();
+
+    const storeTest = core.createStore({
+        test: () => ({
+            value: { test: 1, p: { test2: 3 } },
+            type: 'Object',
+        }),
+    });
+
+    storeTest.watch('test', (value, oldval) => {
+        console.log(value, oldval);
+    });
+
+    storeTest.set('test', { test: 2, p: { test2: 3 } });
+    setTimeout(() => {
+        storeTest.set('test', { test: 2, p: { test2: 4 } });
+    }, 1300);
+    setTimeout(() => {
+        storeTest.set('test', { test: 2, p: { test2: 3, test4: 5 } });
+    }, 2300);
 });

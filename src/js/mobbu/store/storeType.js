@@ -43,6 +43,9 @@ export const getTypeName = (type) => {
         case NodeList:
             return 'NodeList';
 
+        case 'Object':
+            return 'Object';
+
         default:
             return 'Any';
     }
@@ -73,6 +76,9 @@ export const checkType = (type, value) => {
 
         case NodeList:
             return storeType.isNodeList(value);
+
+        case 'Object':
+            return storeType.isObject(value);
 
         default:
             return true;
