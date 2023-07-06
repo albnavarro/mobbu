@@ -4,13 +4,12 @@ import { checkType, storeType } from './storeType.js';
 
 import {
     maxDepth,
-    getPropRecursive,
     inizializeStoreData,
+    inizializeSpecificProp,
 } from './storeUtils.js';
 import {
     storeComputedKeyUsedWarning,
     storeComputedWarning,
-    storeDepthWarning,
     storeEmitWarning,
     storeGetPropWarning,
     storeSetObjDepthWarning,
@@ -218,66 +217,70 @@ export class SimpleStore {
         /**
          * @private
          *
+         * @type {Object<string,(Object<string,any>|any)>}
+         *
          * @description
          * Main Object that store the type of each props.
          * Max depth allowed is 2.
          */
-        this.type = (() => {
-            if (this.dataDepth > 2) {
-                storeDepthWarning(this.dataDepth, this.logStyle);
-                return {};
-            } else {
-                return getPropRecursive(data, 'type', 'any');
-            }
-        })();
+        this.type = inizializeSpecificProp({
+            data,
+            prop: 'type',
+            depth: this.dataDepth,
+            logStyle: this.logStyle,
+            fallback: 'any',
+        });
 
         /**
          * @private
+         *
+         * @type {Object<string,(Object<string,Function>|Function)>}
          *
          * @description
          * Main Object that store the validate function for every prop.
          * Max depth allowed is 2.
          */
-        this.fnValidate = (() => {
-            if (this.dataDepth > 2) {
-                storeDepthWarning(this.dataDepth, this.logStyle);
-                return {};
-            } else {
-                return getPropRecursive(data, 'validate', () => true);
-            }
-        })();
+        this.fnValidate = inizializeSpecificProp({
+            data,
+            prop: 'validate',
+            depth: this.dataDepth,
+            logStyle: this.logStyle,
+            fallback: () => true,
+        });
 
         /**
          * @private
+         *
+         * @type {Object<string,(Object<string,Boolean>|Boolean)>}
          *
          * @description
          * Main Object that store the strict state of each prop.
          * Max depth allowed is 2.
          */
-        this.strict = (() => {
-            if (this.dataDepth > 2) {
-                storeDepthWarning(this.dataDepth, this.logStyle);
-                return {};
-            } else {
-                return getPropRecursive(data, 'strict', false);
-            }
-        })();
+        this.strict = inizializeSpecificProp({
+            data,
+            prop: 'strict',
+            depth: this.dataDepth,
+            logStyle: this.logStyle,
+            fallback: false,
+        });
 
         /**
          * @private
+         *
+         * @type {Object<string,(Object<string,Boolean>|Boolean)>}
          *
          * @description
          * Main Object that store the skipEqual state.
          * Max depth allowed is 2.
          */
-        this.skipEqual = (() => {
-            if (this.dataDepth > 2) {
-                storeDepthWarning(this.dataDepth, this.logStyle);
-                return {};
-            } else {
-                return getPropRecursive(data, 'skipEqual', true);
-            }
-        })();
+        this.skipEqual = inizializeSpecificProp({
+            data,
+            prop: 'skipEqual',
+            depth: this.dataDepth,
+            logStyle: this.logStyle,
+            fallback: true,
+        });
 
         this.inizializeValidation();
     }
@@ -491,7 +494,9 @@ export class SimpleStore {
         /**
          * Get validate status
          */
-        const isValidated = this.fnValidate[prop](val);
+        const isValidated = /** @type {Object<string,Function>} */ (
+            this.fnValidate
+        )[prop](val);
 
         /**
          * In strict mode return is prop is not valid
@@ -627,13 +632,9 @@ export class SimpleStore {
             .filter(({ strictCheck }) => strictCheck === true);
 
         /**
-         * TODO: if strictObjectResult.length === 0 ?
          * If all Object prop fail strict check return
          */
-        const allStrictFail = strictObjectResult.every(
-            (item) => item === false
-        );
-
+        const allStrictFail = strictObjectResult.length === 0;
         if (allStrictFail) return;
 
         /**
