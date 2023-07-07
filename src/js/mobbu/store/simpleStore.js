@@ -652,8 +652,15 @@ export class SimpleStore {
          */
         Object.entries(newValParsedByStrict).forEach((item) => {
             const [subProp, subVal] = item;
-            this.validationStatusObject[prop][subProp] =
-                this.fnValidate[prop][subProp](subVal);
+            const validateResult = this.fnValidate[prop][subProp]?.(subVal);
+            if (validateResult === undefined) {
+                // TODO brig outside warning
+                console.warn(
+                    `Validation error: validation function return undefined or have you used Object intead '${CUSTOM_OBJECT}' ?`
+                );
+            }
+
+            this.validationStatusObject[prop][subProp] = validateResult;
         });
 
         /**
