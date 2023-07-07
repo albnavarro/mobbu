@@ -592,15 +592,6 @@ export class SimpleStore {
             return;
         }
 
-        /**
-         * Check val have nested Object
-         */
-        const dataDepth = maxDepth(val);
-        if (dataDepth > 1) {
-            storeSetObjDepthWarning(prop, val, this.logStyle);
-            return;
-        }
-
         // Check type of each propierties
         const isValidType = Object.entries(val)
             .map((item) => {
@@ -686,7 +677,23 @@ export class SimpleStore {
          * Check if all old props value is equal new props value.
          */
         const prevValueIsEqualNew = Object.entries(newObjectValues).every(
-            ([key, value]) => value === oldObjectValues[key]
+            ([key, value]) => {
+                const isCustomObject = this.type[prop][key] === CUSTOM_OBJECT;
+
+                /**
+                 * Check val have nested Object
+                 */
+                const dataDepth = maxDepth(value);
+                if (dataDepth > 1 && !isCustomObject) {
+                    storeSetObjDepthWarning(prop, val, this.logStyle);
+                    return;
+                }
+
+                return isCustomObject
+                    ? JSON.stringify(value) ===
+                          JSON.stringify(oldObjectValues[key])
+                    : value === oldObjectValues[key];
+            }
         );
 
         /**
