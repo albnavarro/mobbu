@@ -1,12 +1,11 @@
 // @ts-check
 
-import { checkType, storeType } from './storeType.js';
+import { checkType, CUSTOM_OBJECT, storeType } from './storeType.js';
 
 import {
     maxDepth,
     inizializeStoreData,
     inizializeSpecificProp,
-    CUSTOM_OBJECT,
 } from './storeUtils.js';
 import {
     storeComputedKeyUsedWarning,

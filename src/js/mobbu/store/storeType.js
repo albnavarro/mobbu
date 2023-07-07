@@ -1,4 +1,7 @@
-import { CUSTOM_OBJECT } from './storeUtils';
+/**
+ * @type {String}
+ */
+export const CUSTOM_OBJECT = 'Object';
 
 export const storeType = {
     isString: (value) =>

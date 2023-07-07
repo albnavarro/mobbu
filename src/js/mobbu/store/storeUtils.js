@@ -4,11 +4,6 @@ import { storeType } from './storeType.js';
 import { storeDepthWarning } from './storeWarining.js';
 
 /**
- * @type {String}
- */
-export const CUSTOM_OBJECT = 'Object';
-
-/**
  * @param {Object} object
  * @returns {Number}
  *
