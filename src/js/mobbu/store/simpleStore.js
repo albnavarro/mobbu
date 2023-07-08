@@ -1,6 +1,6 @@
 // @ts-check
 
-import { checkType, CUSTOM_OBJECT, storeType } from './storeType.js';
+import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
 
 import {
     maxDepth,
@@ -12,6 +12,7 @@ import {
     storeComputedWarning,
     storeEmitWarning,
     storeGetPropWarning,
+    storeObjectIsNotAnyWarning,
     storeSetObjDepthWarning,
     storeSetObjectPropWarning,
     storeSetObjectValWarning,
@@ -25,7 +26,19 @@ import {
 } from './storeWarining.js';
 
 /**
- * @typedef {( Object<string,function():{value:any,type?:any,validate?:function(any):Boolean,strict?:Boolean,skipEqual?:Boolean}> | Object<string,any> )} SimpleStoreType
+ * @typedef {('String'|'Number'|'Object'|'Function'|'Array'|'Boolean'|'Element'|'NodeList'|'Any')} SimpleStoreUsableType
+ */
+
+/**
+ * @typedef {(Number|String|Function|'FUNCTION'|Array|Boolean|Element|NodeList)} SimpleStoreBasicValues
+ */
+
+/**
+ * @typedef {function():{value:any,type?:SimpleStoreUsableType,validate?:function(any):Boolean,strict?:Boolean,skipEqual?:Boolean}} SimpleStoreTypeBase
+ */
+
+/**
+ * @typedef {Object<string,( SimpleStoreTypeBase|SimpleStoreBasicValues|Object<string,( SimpleStoreTypeBase|SimpleStoreBasicValues)>)>} SimpleStoreType
  */
 
 export class SimpleStore {
@@ -228,7 +241,7 @@ export class SimpleStore {
             prop: 'type',
             depth: this.dataDepth,
             logStyle: this.logStyle,
-            fallback: 'Any',
+            fallback: UNTYPED,
         });
 
         /**
@@ -448,7 +461,7 @@ export class SimpleStore {
         /**
          * Check if is an Object to stringyFy ( default is max depth === 2 )
          */
-        const isCustomObject = this.type[prop] === CUSTOM_OBJECT;
+        const isCustomObject = this.type[prop] === TYPE_IS_ANY;
 
         if (storeType.isObject(this.store[prop]) && !isCustomObject) {
             this.setObj(prop, value, fireCallback);
@@ -474,7 +487,7 @@ export class SimpleStore {
      * ```
      */
     setProp(prop, val, fireCallback = true) {
-        const isCustomObject = this.type[prop] === CUSTOM_OBJECT;
+        const isCustomObject = this.type[prop] === TYPE_IS_ANY;
 
         /**
          * Check if val is an Object
@@ -503,7 +516,7 @@ export class SimpleStore {
          */
         const isValidated = /** @type {Object<string,Function>} */ (
             this.fnValidate
-        )[prop](val);
+        )[prop]?.(val);
 
         /**
          * In strict mode return is prop is not valid
@@ -626,7 +639,7 @@ export class SimpleStore {
                 const [subProp, subVal] = item;
                 return this.strict[prop][subProp]
                     ? {
-                          strictCheck: this.fnValidate[prop][subProp](subVal),
+                          strictCheck: this.fnValidate[prop][subProp]?.(subVal),
                           item,
                       }
                     : { strictCheck: true, item };
@@ -654,10 +667,7 @@ export class SimpleStore {
             const [subProp, subVal] = item;
             const validateResult = this.fnValidate[prop][subProp]?.(subVal);
             if (validateResult === undefined) {
-                // TODO brig outside warning
-                console.warn(
-                    `Validation error: validation function return undefined or have you used Object intead '${CUSTOM_OBJECT}' ?`
-                );
+                storeObjectIsNotAnyWarning(this.logStyle, TYPE_IS_ANY);
             }
 
             this.validationStatusObject[prop][subProp] = validateResult;
@@ -684,7 +694,7 @@ export class SimpleStore {
          */
         const prevValueIsEqualNew = Object.entries(newObjectValues).every(
             ([key, value]) => {
-                const isCustomObject = this.type[prop][key] === CUSTOM_OBJECT;
+                const isCustomObject = this.type[prop][key] === TYPE_IS_ANY;
 
                 /**
                  * Check val have nested Object

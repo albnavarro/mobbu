@@ -21,6 +21,7 @@ export const maxDepth = (object) => {
 
 /**
  * @param {import('./simpleStore.js').SimpleStoreType} data
+ * @param {Boolean} shouldRecursive - max 1 level of recurisivity.
  * @returns {Object<string,(Object<string,any>|any)>}
  *
  * @description
@@ -34,7 +35,7 @@ export const maxDepth = (object) => {
  *
  * Returns initial props value.
  */
-export const getDataRecursive = (data) => {
+export const getDataRecursive = (data, shouldRecursive = true) => {
     return Object.entries(data).reduce((p, c) => {
         const [key, value] = c;
         const functionResult = storeType.isFunction(value)
@@ -45,10 +46,17 @@ export const getDataRecursive = (data) => {
          * First level value is an object.
          * Recursive function if find an Object.
          */
-        if (storeType.isObject(value)) {
+        if (storeType.isObject(value) && shouldRecursive) {
             return {
                 ...p,
-                ...{ [key]: getDataRecursive(/** @type {Object} */ (value)) },
+                ...{
+                    [key]: getDataRecursive(
+                        /** @type {import('./simpleStore.js').SimpleStoreType} */ (
+                            value
+                        ),
+                        false
+                    ),
+                },
             };
         }
 
@@ -77,24 +85,41 @@ export const getDataRecursive = (data) => {
  * @param {import('./simpleStore.js').SimpleStoreType} data
  * @param {String} prop
  * @param {any} fallback
+ * @param {Boolean} shouldRecursive - max 1 level of recursivity
  * @returns {Object<string,(Object<string,any>|any)>}
  *
  * @description
  * Returns specific object by Prop ( validate, skipequel, etc.. )
  */
-export const getPropRecursive = (data, prop, fallback) => {
+export const getPropRecursive = (
+    data,
+    prop,
+    fallback,
+    shouldRecursive = true
+) => {
     return Object.entries(data).reduce((p, c) => {
         const [key, value] = c;
-        const functionResult = storeType.isFunction(value) ? value() : {};
+        const functionResult = storeType.isFunction(value)
+            ? /** @type{function} */ (value)()
+            : {};
 
         /**
          * First level value is an object.
          * Recursive function if find an Object.
          */
-        if (storeType.isObject(value)) {
+        if (storeType.isObject(value) && shouldRecursive) {
             return {
                 ...p,
-                ...{ [key]: getPropRecursive(value, prop, fallback) },
+                ...{
+                    [key]: getPropRecursive(
+                        /** @type{import('./simpleStore.js').SimpleStoreType} */ (
+                            value
+                        ),
+                        prop,
+                        fallback,
+                        false
+                    ),
+                },
             };
         }
 
@@ -107,7 +132,11 @@ export const getPropRecursive = (data, prop, fallback) => {
             'value' in functionResult &&
             prop in functionResult
         ) {
-            return { ...p, ...{ [key]: functionResult[prop] } };
+            const propParsed = storeType.isString(functionResult[prop])
+                ? functionResult[prop].toUpperCase()
+                : functionResult[prop];
+
+            return { ...p, ...{ [key]: propParsed } };
         }
 
         /**

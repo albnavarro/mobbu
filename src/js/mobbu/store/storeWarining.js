@@ -9,7 +9,7 @@ import { getTypeName } from './storeType';
  */
 export const storeDepthWarning = (data, style) => {
     console.warn(
-        `%c SimpleStore supports an object with a depth of up to 2 levels, the input object has ${data} level`,
+        `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data} level`,
         style
     );
 };
@@ -198,6 +198,18 @@ export const storeComputedKeyUsedWarning = (keys, style) => {
 export const storeWatchWarning = (prop, style) => {
     console.warn(
         `%c SimpleStore error: the property ${prop} to watch doasn't exist in store`,
+        style
+    );
+};
+
+/**
+ * @param {String} style
+ * @param {String} CUSTOM_OBJECT
+ * @returns void
+ */
+export const storeObjectIsNotAnyWarning = (style, CUSTOM_OBJECT) => {
+    console.warn(
+        `%c Validation Object error: validation function return undefined or have you used Object instead '${CUSTOM_OBJECT}' ?`,
         style
     );
 };

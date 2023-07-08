@@ -1,89 +1,160 @@
+// @ts-check
+
 /**
  * @type {String}
  */
-export const CUSTOM_OBJECT = 'Object';
+export const TYPE_IS_ANY = 'ANY';
+
+/**
+ * @type {String}
+ */
+export const UNTYPED = 'UNTYPED';
+
+/**
+ * @type {String}
+ */
+const STRING = 'STRING';
+
+/**
+ * @type {String}
+ */
+const NUMBER = 'NUMBER';
+
+/**
+ * @type {String}
+ */
+const OBJECT = 'OBJECT';
+
+/**
+ * @type {String}
+ */
+const FUNCTION = 'FUNCTION';
+
+/**
+ * @type {String}
+ */
+const ARRAY = 'ARRAY';
+
+/**
+ * @type {String}
+ */
+const BOOLEAN = 'BOOLEAN';
+
+/**
+ * @type {String}
+ */
+const ELEMENT = 'ELEMENT';
+
+/**
+ * @type {String}
+ */
+const NODELIST = 'NODELIST';
 
 export const storeType = {
-    isString: (value) =>
+    isString: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object String]',
-    isNumber: (value) =>
+    isNumber: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Number]' &&
         isFinite(value),
-    isObject: (value) =>
+    isObject: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Object]',
-    isFunction: (value) =>
+    isFunction: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Function]',
-    isArray: (value) =>
+    isArray: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Array]',
-    isBoolean: (value) =>
+    isBoolean: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Boolean]',
-    isElement: (value) => value instanceof Element || value instanceof Document,
-    isNodeList: (value) =>
+    isElement: (/** @type{any} */ value) =>
+        value instanceof Element || value instanceof Document,
+    isNodeList: (/** @type{any} */ value) =>
         Object.prototype.isPrototypeOf.call(NodeList.prototype, value),
 };
 
+/**
+ * @param {any} type
+ */
 export const getTypeName = (type) => {
     switch (type) {
         case String:
+        case STRING:
             return 'String';
 
         case Number:
+        case NUMBER:
             return 'Number';
 
         case Object:
+        case OBJECT:
             return 'Object';
 
         case Function:
+        case FUNCTION:
             return 'Function';
 
         case Array:
+        case ARRAY:
             return 'Array';
 
         case Boolean:
+        case BOOLEAN:
             return 'Boolean';
 
         case Element:
+        case ELEMENT:
             return 'Element';
 
         case NodeList:
+        case NODELIST:
             return 'NodeList';
 
-        case CUSTOM_OBJECT:
-            return CUSTOM_OBJECT;
+        case TYPE_IS_ANY:
+            return TYPE_IS_ANY;
 
         default:
-            return 'Any';
+            return UNTYPED;
     }
 };
 
+/**
+ * @param {any} type
+ * @param {any} value
+ */
 export const checkType = (type, value) => {
     switch (type) {
         case String:
+        case STRING:
             return storeType.isString(value);
 
         case Number:
+        case NUMBER:
             return storeType.isNumber(value);
 
         case Object:
+        case OBJECT:
             return storeType.isObject(value);
 
         case Function:
+        case FUNCTION:
             return storeType.isFunction(value);
 
         case Array:
+        case ARRAY:
             return storeType.isArray(value);
 
         case Boolean:
+        case BOOLEAN:
             return storeType.isBoolean(value);
 
         case Element:
+        case ELEMENT:
             return storeType.isElement(value);
 
         case NodeList:
+        case NODELIST:
             return storeType.isNodeList(value);
 
-        case CUSTOM_OBJECT:
-            return storeType.isObject(value);
+        case TYPE_IS_ANY:
+            return true;
 
         default:
             return true;
