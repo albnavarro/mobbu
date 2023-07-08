@@ -672,6 +672,12 @@ export class SimpleStore {
             const [subProp, subVal] = item;
             const subValOld = this.store[prop][subProp];
 
+            /**
+             * If in first level we have an object without the 'Any' type  specified
+             * is interpreted like nested object, so fail the fnValidate function if we set a diffrent key with set methods.
+             * Becouse the new key doasn't exist in original object, so log a warining.
+             * The only way to use obj is specify 'Any' key to not broke the gloab object logic.
+             */
             const validateResult = this.fnValidate[prop][subProp]?.(
                 subVal,
                 subValOld
@@ -707,7 +713,7 @@ export class SimpleStore {
                 const isCustomObject = this.type[prop][key] === TYPE_IS_ANY;
 
                 /**
-                 * Check val have nested Object
+                 * Check val have nested Object ( not 'Any' )
                  */
                 const dataDepth = maxDepth(value);
                 if (dataDepth > 1 && !isCustomObject) {
