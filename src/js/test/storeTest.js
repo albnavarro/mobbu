@@ -49,11 +49,14 @@ export const storeTest = () => {
             console.log(value, oldval, validation);
         });
 
+        storeTest.watch('myComputed', (value, oldval, validation) => {
+            console.log(value, oldval, validation);
+        });
+
         storeTest.computed(
             'myComputed',
             ['myObj', 'mySecondProp', 'simpleObj'],
             (myObj, mySecondProp) => {
-                console.log('computed', myObj, mySecondProp);
                 return myObj.pippo + myObj.test2.test2 + mySecondProp;
             }
         );
@@ -73,7 +76,7 @@ export const storeTest = () => {
             console.log('2300');
             storeTest.set('myObj', {
                 test: { p: { o: 4 } },
-                test2: { test2: 4 },
+                test2: { test2: 5 },
                 pippo: 50,
             });
 
