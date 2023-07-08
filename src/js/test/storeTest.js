@@ -11,7 +11,11 @@ export const storeTest = () => {
                     value: { test: 1, p: { test2: { u: 4 } } },
                     type: 'Any',
                     skipEqual: true,
-                    validate: (value) => value === 1,
+                    validate: (value, oldVal) => {
+                        console.log('validate');
+                        console.log(value, oldVal);
+                        return value === 1;
+                    },
                     strict: false,
                 }),
                 pippo: () => ({
@@ -37,7 +41,11 @@ export const storeTest = () => {
             simpleObj: () => ({
                 value: { a: 0, b: { u: 1 } },
                 type: 'Any',
-                validate: (value) => value === 1,
+                validate: (value, oldVal) => {
+                    console.log('simpleObj validate');
+                    console.log(value, oldVal);
+                    return value === 1;
+                },
             }),
             simpleObj2: () => ({
                 value: 2,

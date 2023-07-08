@@ -34,7 +34,7 @@ import {
  */
 
 /**
- * @typedef {function():{value:any,type?:SimpleStoreUsableType,validate?:function(any):Boolean,strict?:Boolean,skipEqual?:Boolean}} SimpleStoreTypeBase
+ * @typedef {function():{value:any,type?:SimpleStoreUsableType,validate?:function(any,any):Boolean,strict?:Boolean,skipEqual?:Boolean}} SimpleStoreTypeBase
  */
 
 /**
@@ -64,7 +64,7 @@ export class SimpleStore {
 
        `validation`:
        Validation function to parse value.
-       This function will have the current value as input parameter and will return a boolean value.
+       This function will have the current value and old value as input parameter and will return a boolean value.
        The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
 
        `strict`:
@@ -90,7 +90,7 @@ export class SimpleStore {
      *     myProp: () => ({
      *         value: 10,
      *         type: Number,
-     *         validate: (val) => val < 10,
+     *         validate: (val, oldVal) => val < 10,
      *         strict: true,
      *         skipEqual: false,
      *     }),
@@ -102,7 +102,7 @@ export class SimpleStore {
      *         prop1: () => ({
      *             value: 0,
      *             type: Number,
-     *             validate: (val) => val < 10,
+     *             validate: (val, oldVal) => val < 10,
      *             strict: true,
      *             skipEqual: true,
      *         }),
@@ -512,11 +512,16 @@ export class SimpleStore {
         }
 
         /**
+         * Update value and fire callback associated
+         */
+        const oldVal = this.store[prop];
+
+        /**
          * Get validate status
          */
         const isValidated = /** @type {Object<string,Function>} */ (
             this.fnValidate
-        )[prop]?.(val);
+        )[prop]?.(val, oldVal);
 
         /**
          * In strict mode return is prop is not valid
@@ -527,11 +532,6 @@ export class SimpleStore {
          * Update validation array.
          */
         this.validationStatusObject[prop] = isValidated;
-
-        /**
-         * Update value and fire callback associated
-         */
-        const oldVal = this.store[prop];
 
         /**
          * Check if last value is equal new value.
@@ -637,9 +637,14 @@ export class SimpleStore {
         const strictObjectResult = Object.entries(val)
             .map((item) => {
                 const [subProp, subVal] = item;
+                const subValOld = this.store[prop][subProp];
+
                 return this.strict[prop][subProp]
                     ? {
-                          strictCheck: this.fnValidate[prop][subProp]?.(subVal),
+                          strictCheck: this.fnValidate[prop][subProp]?.(
+                              subVal,
+                              subValOld
+                          ),
                           item,
                       }
                     : { strictCheck: true, item };
@@ -665,7 +670,12 @@ export class SimpleStore {
          */
         Object.entries(newValParsedByStrict).forEach((item) => {
             const [subProp, subVal] = item;
-            const validateResult = this.fnValidate[prop][subProp]?.(subVal);
+            const subValOld = this.store[prop][subProp];
+
+            const validateResult = this.fnValidate[prop][subProp]?.(
+                subVal,
+                subValOld
+            );
             if (validateResult === undefined) {
                 storeObjectIsNotAnyWarning(this.logStyle, TYPE_IS_ANY);
             }

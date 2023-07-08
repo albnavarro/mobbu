@@ -204,7 +204,7 @@ export const core = {
 
        `validation`:
        Validation function to parse value.
-       This function will have the current value as input parameter and will return a boolean value.
+       This function will have the current value and old value as input parameter and will return a boolean value.
        The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
 
        `strict`:
@@ -231,7 +231,7 @@ export const core = {
      *     myProp: () => ({
      *         value: 10,
      *         type: Number,
-     *         validate: (val) => val < 10,
+     *         validate: (val, oldVal) => val < 10,
      *         strict: true,
      *         skipEqual: false,
      *     }),
@@ -243,7 +243,7 @@ export const core = {
      *         prop1: () => ({
      *             value: 0,
      *             type: Number,
-     *             validate: (val) => val < 10,
+     *             validate: (val, oldVal) => val < 10,
      *             strict: true,
      *             skipEqual: true,
      *         }),
