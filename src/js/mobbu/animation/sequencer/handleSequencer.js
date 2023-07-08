@@ -59,7 +59,7 @@ export default class HandleSequencer {
      * @param { sequencerTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * const mySequencer = new HandleSequencer({
      *   data: Object.<string, number>,
      *   duration: [ Number ],
@@ -80,7 +80,7 @@ export default class HandleSequencer {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * mySequencer.goTo()
      * mySequencer.goFrom()
      * mySequencer.goFromTo()
@@ -254,7 +254,7 @@ export default class HandleSequencer {
      * @param {sequencerDrawTypes & import('../utils/constant.js').directionTypes} props
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.draw(
      *      partial: 200,
      *      isLastDraw: true,
@@ -627,7 +627,7 @@ export default class HandleSequencer {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.goTo(
      *     { string: number|function, ... },
      *     { start: number, end: number, ease: string }
@@ -665,7 +665,7 @@ export default class HandleSequencer {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.goFrom(
      *     { string: number|function, ... },
      *     { start: number, end: number, ease: string }
@@ -703,7 +703,7 @@ export default class HandleSequencer {
      * @param {sequencerSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special properties
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.goFromTo(
      *     { string: number|function, ... },
      *     { string: number|function, ... },
@@ -747,7 +747,7 @@ export default class HandleSequencer {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.label('mylabel',5);
      *
      *
@@ -781,7 +781,7 @@ export default class HandleSequencer {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * mySequencer.add(({direction: string, value: number, isForced: boolean}) => {
      *      //code
      * }, time:number);
@@ -810,7 +810,7 @@ export default class HandleSequencer {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = mySequencer.subscribe(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -841,7 +841,7 @@ export default class HandleSequencer {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = mySequencer.onStop(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -865,7 +865,7 @@ export default class HandleSequencer {
        A typical example is to remove the teansform3D property:
 *
      * @example
-     * ```js
+     * ```javascript
      * // Use transform3D while item is active
      * mySequencer.subscribe(({x}) => {
      *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
@@ -888,7 +888,7 @@ export default class HandleSequencer {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * //Multiple DOM element ( stagger )
      * const unsubscribeStagger = [...elements].map((item) => {
      *   return mySequencer.subscribeCache(item, ({ x, y... }) => {

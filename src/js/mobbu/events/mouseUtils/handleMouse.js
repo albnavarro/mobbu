@@ -172,7 +172,7 @@ function handleMouse(event) {
      * @param {function(mouseType):void } cb - callback function fired on mouse action.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      * ```
      */
@@ -198,7 +198,7 @@ function handleMouse(event) {
  * Add callback on mouse click
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleMouseClick(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -216,7 +216,7 @@ export const handleMouseClick = handleMouse('click');
  * Add callback on mouse down
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleMouseDown(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -234,7 +234,7 @@ export const handleMouseDown = handleMouse('mousedown');
  * Add callback on touch start
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleTouchStart(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -252,7 +252,7 @@ export const handleTouchStart = handleMouse('touchstart');
  * Add callback on handleMouseMove
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleMouseMove(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -270,7 +270,7 @@ export const handleMouseMove = handleMouse('mousemove');
  * Add callback on touch move
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleTouchMove(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -288,7 +288,7 @@ export const handleTouchMove = handleMouse('touchmove');
  * Add callback on mouse up
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleMouseUp(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -306,7 +306,7 @@ export const handleMouseUp = handleMouse('mouseup');
  * Add callback on touc end
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleTouchEnd(
  *     ({ client, page, preventDefault, target, type }) => {
  *         // code
@@ -324,7 +324,7 @@ export const handleTouchEnd = handleMouse('touchend');
  * Add callback on mouse wheel
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleMouseWheel(
  *     ({
  *         client,

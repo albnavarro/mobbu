@@ -84,7 +84,7 @@ export default class HandleTween {
      * @param { tweenTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * const myTween = new HandleTween({
      *   data: Object.<string, number>,
      *   duration: [ Number ],
@@ -107,7 +107,7 @@ export default class HandleTween {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myTween.set()
      * myTween.goTo()
      * myTween.goFrom()
@@ -560,7 +560,7 @@ export default class HandleTween {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myTween.setData({ val: 100 });
@@ -657,7 +657,7 @@ export default class HandleTween {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myTween.goTo(
@@ -698,7 +698,7 @@ export default class HandleTween {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myTween.goFrom(
@@ -740,7 +740,7 @@ export default class HandleTween {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myTween.goFromTo(
@@ -787,7 +787,7 @@ export default class HandleTween {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myTween.set(
@@ -868,7 +868,7 @@ export default class HandleTween {
      * @return {Object} current value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.get();
@@ -885,7 +885,7 @@ export default class HandleTween {
      * @return {Object} initial value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.getIntialData();
@@ -902,7 +902,7 @@ export default class HandleTween {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.getFrom();
@@ -919,7 +919,7 @@ export default class HandleTween {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.getTo();
@@ -936,7 +936,7 @@ export default class HandleTween {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.getFromNativeType();
@@ -953,7 +953,7 @@ export default class HandleTween {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myTween.getToNativeType();
@@ -970,7 +970,7 @@ export default class HandleTween {
      * @return {string} tween type
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = myTween.getType();
@@ -987,7 +987,7 @@ export default class HandleTween {
      * @return {string} Univoque Id
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = myTween.getId();
@@ -1015,7 +1015,7 @@ export default class HandleTween {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = myTween.subscribe(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1060,7 +1060,7 @@ export default class HandleTween {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = myTween.onComplete(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1084,7 +1084,7 @@ export default class HandleTween {
      * A typical example is to remove the teansform3D property:
      *
      * @example
-     * ```js
+     * ```javascript
      * // Use transform3D while item is active
      * myTween.subscribe(({x}) => {
      *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
@@ -1108,7 +1108,7 @@ export default class HandleTween {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * //Multiple DOM element ( stagger )
      * const unsubscribeStagger = [...elements].map((item) => {
      *   return myTween.subscribeCache(item, ({ x, y... }) => {

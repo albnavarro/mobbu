@@ -30,7 +30,7 @@ import { getStaggerFromProps } from '../utils/stagger/staggerUtils.js';
  * @returns {Array<{ start: Number, end: Number,index: Number, item: (HTMLElement|Object) }>} Stagger array
  *
  * @example
- * ```js
+ * ```javascript
  *
  *
  * const staggers = createStagger({

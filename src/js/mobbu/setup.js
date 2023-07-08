@@ -94,7 +94,7 @@ export const handleSetUp = (() => {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      * Default value schema:
      *
      * handleSetUp.set({
@@ -212,7 +212,7 @@ export const handleSetUp = (() => {
      * @returns {Object}
      *
      * @example
-     * ```js
+     * ```javascript
      * handleSetUp.get('parallax');
      * ```
      */
@@ -229,7 +229,7 @@ export const handleSetUp = (() => {
      * Perform a console.log() of the default values
      *
      * @example
-     * ```js
+     * ```javascript
      * handleSetUp.print();
      * ```
      */

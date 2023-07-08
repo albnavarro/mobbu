@@ -447,7 +447,7 @@ export const handleFrame = (() => {
      * @returns void
      *
      * @example
-     * ```js
+     * ```javascript
      * handleFrame.add(({ fps, shouldRender, time }) => {
      *     // code ...
      * });

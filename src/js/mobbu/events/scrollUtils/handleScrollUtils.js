@@ -147,7 +147,7 @@ function handleScrollUtils(type) {
  * Execute a callback at the beginning of the scroll
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleScrollStart(({ scrollY }) => {
  *     // code
  * });
@@ -163,7 +163,7 @@ export const handleScrollStart = handleScrollUtils('START');
  * Execute a callback at the end of the scroll
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleScrollEnd(({ scrollY }) => {
  *     // code
  * });

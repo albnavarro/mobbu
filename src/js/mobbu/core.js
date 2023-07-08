@@ -39,7 +39,7 @@ export const core = {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      * Default value schema:
      *
      * core.setDefault.set({
@@ -155,7 +155,7 @@ export const core = {
      * @returns {Object}
      *
      * @example
-     * ```js
+     * ```javascript
      * core.getDefault('parallax');
      * ```
      */
@@ -168,7 +168,7 @@ export const core = {
      * Perform a console.log() of the default values
      *
      * @example
-     * ```js
+     * ```javascript
      * core.printDefault();
      * ```
      */
@@ -188,18 +188,19 @@ export const core = {
      * @description
      * SimpleStore inizialization.
      * The store accepts single properties or objects
-       If objects are used, it is not possible to nest more than two levels.
        Each individual property can be initialized with a simple value or via a more complex setup.
        A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
-       `type` || `validation` || `skipEqual`
+       `type` || `validation` || `skipEqual` || `strict`
      *
       `value`:
        Initial value.
 
       `type`:
        Supported types:
-      `String | Number | Object | Function | Array | Boolean | Element | NodeList`.
+      `String|Number|Object|Function|Array|Boolean|Element|NodeList|"Any"`.
        The property will not be updated if it doesn't match, you will have a waring.
+       Support Contructor || String.
+       Es: type: Number || type: 'Number'
 
        `validation`:
        Validation function to parse value.
@@ -218,15 +219,14 @@ export const core = {
      * @param {import('./store/simpleStore.js').SimpleStoreType} data
      *
      * @example
-     * ```js
      *
-     * Simlple propierties setup;
+     * ```javascript
+     *
      * const myStore = core.createStore({
      *     prop1: 0,
      *     prop2: 0
      * });
      *
-     * Complex propierties setup:
      * const myStore = core.createStore({
      *     myProp: () => ({
      *         value: 10,
@@ -234,6 +234,10 @@ export const core = {
      *         validate: (val) => val < 10,
      *         strict: true,
      *         skipEqual: false,
+     *     }),
+     *     myPropWithObject: () => ({
+     *         value: { prop: { prop1: 1}},
+     *         type: 'Any',
      *     }),
      *     myObject: {
      *         prop1: () => ({
@@ -301,7 +305,7 @@ export const core = {
      * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
      *
      * @example
-     * ```js
+     * ```javascript
      * core.useframe(({ fps, shouldrender, time }) => {
      *     // code ...
      * });
@@ -319,7 +323,7 @@ export const core = {
      * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
      *
      * @example
-     * ```js
+     * ```javascript
      * core.useFrame(() => {
      *     core.useNextTick(({ fps, shouldRender, time }) => {
      *         // code
@@ -357,7 +361,7 @@ export const core = {
      * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
      *
      * @example
-     * ```js
+     * ```javascript
      * const loop = () => {
      *     core.useNextFrame(({ fps, shouldRender, time }) => {
      *         // code
@@ -381,7 +385,7 @@ export const core = {
      * @pram {number} index
      *
      * @example
-     * ```js
+     * ```javascript
      * core.useFrameIndex(({ fps, shouldRender, time }) => {
      *     // code ...
      * }, 5);
@@ -413,7 +417,7 @@ export const core = {
      * @param {function():void } callback - Callback function executed on page load
      *
      * @example
-     * ```js
+     * ```javascript
      *
      * core.useLoad(() => {
      *     // code
@@ -432,7 +436,7 @@ export const core = {
      * @param {function(import('./events/resizeUtils/handleResize.js').handleResizeTypes):void } callback - callback function fired on resize.
      *
      * @example
-     * ```js
+     * ```javascript
      * core.useResize(
      *     ({
      *         documentHeight,
@@ -459,7 +463,7 @@ export const core = {
      * @param {function(import('./events/visibilityChange/handleVisibilityChange.js').visibilityChangeTYpe):void } callback - callback function fired on tab change.
      *
      * @example
-     * ```js
+     * ```javascript
      *  const unsubscribe = core.useVisibilityChange(({ visibilityState }) => {
      *      // code
      *  });
@@ -479,7 +483,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse click.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useMouseClick(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -501,7 +505,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse down.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useMouseDown(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -523,7 +527,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse touch start.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useTouchStart(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -545,7 +549,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse move.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useMouseMove(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -567,7 +571,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on touch move.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useTouchMove(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -589,7 +593,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse up.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useMouseUp(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -611,7 +615,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on touch end.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useTouchEnd(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
@@ -633,7 +637,7 @@ export const core = {
      * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType & import('./events/mouseUtils/handleMouse.js').mouseWheelType):void } callback - callback function fired on mouse wheel.
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useMouseWheel(
      *     ({
      *         client,
@@ -666,7 +670,7 @@ export const core = {
      * @return {Function} unsubscribe callback
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useScroll(({ direction, scrollY }) => {
      *     // code
      * });
@@ -687,7 +691,7 @@ export const core = {
      * @return {Function} unsubscribe callback
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useScrollImmediate(({ direction, scrollY }) => {
      *     // code
      * });
@@ -708,7 +712,7 @@ export const core = {
      * @return {Function} unsubscribe callback
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useScrollThrottle(({ direction, scrollY }) => {
      *    // code
      * });
@@ -734,7 +738,7 @@ export const core = {
      * @return {Function} unsubscribe callback
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useScrollStart(({ scrollY }) => {
      *     // code
      * });
@@ -755,7 +759,7 @@ export const core = {
      * @return {Function} unsubscribe callback
      *
      * @example
-     * ```js
+     * ```javascript
      * const unsubscribe = core.useScrollEnd(({ scrollY }) => {
      *     // code
      * });
@@ -778,7 +782,7 @@ export const core = {
      *
      * @example
      *
-     * ```js
+     * ```javascript
      *   Property schema:
      *   core.mq([String], [string])
      *

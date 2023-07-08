@@ -72,7 +72,7 @@ export default class HandleLerp {
      * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/staggerCostant.js').staggerTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * const myLerp = new HandleLerp({
      *   data: Object.<string, number>,
      *   precision: [ Number ],
@@ -95,7 +95,7 @@ export default class HandleLerp {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myLerp.set()
      * myLerp.goTo()
      * myLerp.goFrom()
@@ -517,7 +517,7 @@ export default class HandleLerp {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myLerp.setData({ val: 100 });
@@ -583,7 +583,7 @@ export default class HandleLerp {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myLerp.goTo(
@@ -625,7 +625,7 @@ export default class HandleLerp {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myLerp.goFrom(
@@ -667,7 +667,7 @@ export default class HandleLerp {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myLerp.goFromTo(
@@ -715,7 +715,7 @@ export default class HandleLerp {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * myLerp.set(
@@ -789,7 +789,7 @@ export default class HandleLerp {
      * @return {Object} current value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.get();
@@ -806,7 +806,7 @@ export default class HandleLerp {
      * @return {Object} initial value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.getIntialData();
@@ -823,7 +823,7 @@ export default class HandleLerp {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.getFrom();
@@ -840,7 +840,7 @@ export default class HandleLerp {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.getTo();
@@ -857,7 +857,7 @@ export default class HandleLerp {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.getFromNativeType();
@@ -874,7 +874,7 @@ export default class HandleLerp {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = myLerp.getToNativeType();
@@ -891,7 +891,7 @@ export default class HandleLerp {
      * @return {string} tween type
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = myLerp.getType();
@@ -908,7 +908,7 @@ export default class HandleLerp {
      * @return {string} Univoque Id
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = myLerp.getId();
@@ -922,7 +922,7 @@ export default class HandleLerp {
      * @param  {Number} velocity - New velocity value
      *
      * @example
-     * ```js
+     * ```javascript
      * myLerp.updateVelocity(0.1)
      *
      *
@@ -944,7 +944,7 @@ export default class HandleLerp {
      * @param  {Number} precision - New velocity value
      *
      * @example
-     * ```js
+     * ```javascript
      * myLerp.updatePrecision(0.5)
      *
      *
@@ -967,7 +967,7 @@ export default class HandleLerp {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = myLerp.subscribe(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1012,7 +1012,7 @@ export default class HandleLerp {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = myLerp.onComplete(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1036,7 +1036,7 @@ export default class HandleLerp {
        A typical example is to remove the teansform3D property:
 
      * @example
-     * ```js
+     * ```javascript
      * // Use transform3D while item is active
      * myLerp.subscribe(({x}) => {
      *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
@@ -1060,7 +1060,7 @@ export default class HandleLerp {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * //Multiple DOM element ( stagger )
      * const unsubscribeStagger = [...elements].map((item) => {
      *   return myLerp.subscribeCache(item, ({ x, y... }) => {

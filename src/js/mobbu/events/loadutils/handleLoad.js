@@ -58,7 +58,7 @@ function init() {
  * @returns {function():void}
  *
  * @example
- * ```js
+ * ```javascript
  *
  * handleLoad(() => {
  *     ...

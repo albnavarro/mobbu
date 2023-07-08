@@ -8,7 +8,7 @@
  *
  * @example
  *
- * ```js
+ * ```javascript
  * cont masterSequencer = new HandleMasterSequencer();
  * const staggers = mobbu.createStaggers({})
  * staggers.forEach(({ item, start, end, index }) => {

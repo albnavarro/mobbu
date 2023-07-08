@@ -178,7 +178,7 @@ export class HorizontalScroller {
             </div>
         </div>
     ```
-    ```js
+    ```javascript
         JS:
         const myHorizontalScroller = new HorizontalScroller({
             root: '.root',

@@ -25,7 +25,7 @@ export default class HandleSyncTimeline {
      * @param { syncTimelineTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * const myTimeline = new HandleSyncTimeline({
      *   duration: [ Number ],
      *   yoyo: [ Boolean ],
@@ -37,7 +37,7 @@ export default class HandleSyncTimeline {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myTimeline.add()
      * myTimeline.onLoopEnd()
      * myTimeline.onComplete()
@@ -443,7 +443,7 @@ export default class HandleSyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.play({
      *      useCurrent: true
      * }).then(() => {
@@ -485,7 +485,7 @@ export default class HandleSyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playFrom(1000).then(() => {
      *      // code
      * })
@@ -547,7 +547,7 @@ export default class HandleSyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playFromReverse(1000).then(() => {
      *      // code
      * })
@@ -583,7 +583,7 @@ export default class HandleSyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playReverse({
      *      useCurrent: true
      * }).then(() => {
@@ -689,7 +689,7 @@ export default class HandleSyncTimeline {
     /**
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.pause();
      *
      *
@@ -708,7 +708,7 @@ export default class HandleSyncTimeline {
     /**
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.resume();
      *
      *
@@ -727,7 +727,7 @@ export default class HandleSyncTimeline {
     /**
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.reverse();
      *
      *
@@ -753,7 +753,7 @@ export default class HandleSyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.stop();
      *
      *
@@ -790,7 +790,7 @@ export default class HandleSyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.add(mySequencer);
      * myTimeline.add(myMasterSequencer);
      *
@@ -821,7 +821,7 @@ export default class HandleSyncTimeline {
      * @return {Boolean} Active status
      *
      * @example
-     * ```js
+     * ```javascript
      * const isActive = myTimeline.isActive();
      *
      *
@@ -838,7 +838,7 @@ export default class HandleSyncTimeline {
      * @return {Boolean} Pause status
      *
      * @example
-     * ```js
+     * ```javascript
      * const isPaused = myTimeline.isPaused();
      *
      *
@@ -855,7 +855,7 @@ export default class HandleSyncTimeline {
      * @returns {import('../utils/constant.js').directionStringTypes}
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.getDirection();
      *
      *
@@ -876,7 +876,7 @@ export default class HandleSyncTimeline {
      * @returns {Number} Current time
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.getTime();
      *
      *
@@ -899,7 +899,7 @@ export default class HandleSyncTimeline {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
      *      /// code
      * })
@@ -927,7 +927,7 @@ export default class HandleSyncTimeline {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * const unsubscribeOnComplete = myTimeline.onComplete(() => {
      *      /// code
      * })
@@ -960,7 +960,7 @@ export default class HandleSyncTimeline {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * const unsubscribeOnUpdate = myTimeline.onUpdate(({direction, time}) => {
      *      /// code
      * })

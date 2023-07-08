@@ -71,7 +71,7 @@ export default class HandleAsyncTimeline {
      * @param { asyncTimelineTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * const myTimeline = new HandleAsyncTimeline({
      *   yoyo: [ Boolean ],
      *   repeat: [ Number ],
@@ -84,7 +84,7 @@ export default class HandleAsyncTimeline {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      *
      * `Methods to create timeline`
      * myTimeline.set()
@@ -935,7 +935,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.set(
      *      myTweenInstance,
      *      { Object.<string, number>, },
@@ -985,7 +985,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.goTo(
      *      myTweenInstance,
      *      { Object.<string, (Number|Function)> },
@@ -1061,7 +1061,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.goFrom(
      *      myTweenInstance,
      *      { Object.<string, (Number|Function)> },
@@ -1138,7 +1138,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.goFromTo(
      *      myTweenInstance,
      *      { Object.<string, (Number|Function)> },
@@ -1214,7 +1214,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      * myTimeline.add(() => {
      *      // code
@@ -1259,7 +1259,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      *   myTimeline.addAsync(({ loop, direction, resolve }) => {
      *       // code
      *       resolve();
@@ -1304,7 +1304,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.sync({ from: instanceA, to: instanceB });
      *
      *
@@ -1349,7 +1349,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline
      *      .createGroup({waitComplete: [Boolean]})
      *      .goTo(..)
@@ -1396,7 +1396,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline
      *      .createGroup({waitComplete: [Boolean]})
      *      .goTo(..)
@@ -1429,7 +1429,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.suspend(() => {
      *     return true
      * });
@@ -1471,7 +1471,7 @@ export default class HandleAsyncTimeline {
      * @returns {this} The instance on which this method was called.
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.label({ name: 'labelName' });
      *
      *
@@ -1576,7 +1576,7 @@ export default class HandleAsyncTimeline {
      * @returns {Promise} Return a promise which is resolved when tween is settled
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline
      *     .setTween('myLabel', [tweenA,tweenB])
      *     .then(() => {
@@ -1669,7 +1669,7 @@ export default class HandleAsyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.play().then(() => {
      *      // Code
      * });
@@ -1802,7 +1802,7 @@ export default class HandleAsyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playFrom('myLabel').then(() => {
      *      // Code
      * });
@@ -1843,7 +1843,7 @@ export default class HandleAsyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playFromReverse('myLabel').then(() => {
      *      // Code
      * });
@@ -1884,7 +1884,7 @@ export default class HandleAsyncTimeline {
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.playReverse().then(() => {
      *      // Code
      * });
@@ -1965,7 +1965,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.reverseNext();
      *
      *
@@ -2130,7 +2130,7 @@ export default class HandleAsyncTimeline {
      * @prop {Boolean} resetImmediateStatus
      *
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.stop();
      *
      *
@@ -2179,7 +2179,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.pause();
      *
      *
@@ -2197,7 +2197,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @example
-     * ```js
+     * ```javascript
      * myTimeline.resume();
      *
      *
@@ -2250,7 +2250,7 @@ export default class HandleAsyncTimeline {
     /**
      * @return {Array} - Returns an array with all tweens active at the time the method is called
      * @example
-     * ```js
+     * ```javascript
      * const tweens = myTimeline.get()
      *
      *
@@ -2265,7 +2265,7 @@ export default class HandleAsyncTimeline {
     /**
      * @return {Boolean} Returns a boolean value indicating whether the timeline is active
      * @example
-     * ```js
+     * ```javascript
      * const isActive = myTimeline.isActive();
      *
      *
@@ -2280,7 +2280,7 @@ export default class HandleAsyncTimeline {
     /**
      * @return {Boolean} Returns a boolean value indicating whether the timeline is in pause
      * @example
-     * ```js
+     * ```javascript
      * const isPaused = myTimeline.isPaused():
      *
      *
@@ -2295,7 +2295,7 @@ export default class HandleAsyncTimeline {
     /**
      * @return {Boolean} Returns a boolean value indicating whether the timeline is suspended
      * @example
-     * ```js
+     * ```javascript
      * const isSuspended = myTimeline.isSuspended();
      *
      *
@@ -2310,7 +2310,7 @@ export default class HandleAsyncTimeline {
     /**
      * @return {import('../utils/constant.js').directionStringTypes} Returns a boolean value indicating whether the timeline is suspended
      * @example
-     * ```js
+     * ```javascript
      * const direction = myTimeline.getDirection();
      *
      *
@@ -2342,7 +2342,7 @@ export default class HandleAsyncTimeline {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * const unsubscribeOnLoopEnd = myTimeline.onLoopEnd(({direction, loop})=>{
      *      /// code
      * })
@@ -2370,7 +2370,7 @@ export default class HandleAsyncTimeline {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * const unsubscribeOnComplete = myTimeline.onComplete(() => {
      *      /// code
      * })

@@ -64,7 +64,7 @@ function init() {
  * @returns function
  *
  * @example
- * ```js
+ * ```javascript
  *  const unsubscribe = handleVisibilityChange(({ visibilityState }) => {
  *      // code
  *  });

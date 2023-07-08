@@ -11,7 +11,7 @@ export const tween = {
      * @param { import('./animation/parallax/parallaxTween.js').parallaxTweenTypes & import('./animation/utils/stagger/staggerCostant.js').staggerTypes & import('./animation/tween/tweenConfig.js').easeTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -37,7 +37,7 @@ export const tween = {
      * Simplified tween specific to be used with scrollTrigger as an alternative to the more complex sequencer, ParallaxTween requires only one mutation step (from / to).
      *
      * Available methods:
-     * ```js
+     * ```javascript
      * myScrollerTween.subscribe()
      * myScrollerTween.subscribeCache()
      * myScrollerTween.onStop()
@@ -52,7 +52,7 @@ export const tween = {
      * @param {import('./animation/sequencer/handleSequencer.js').sequencerTypes & import('./animation/utils/stagger/staggerCostant.js').staggerTypes & import('./animation/tween/tweenConfig.js').easeTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -76,7 +76,7 @@ export const tween = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * mySequencer.goTo()
      * mySequencer.goFrom()
      * mySequencer.goFromTo()
@@ -102,7 +102,7 @@ export const tween = {
      *
      * @example
      *
-     * ```js
+     * ```javascript
      * cont masterSequencer = tween.createMasterSequencer();
      * const staggers = tween.createStaggers({})
      * staggers.forEach(({ item, start, end, index }) => {
@@ -124,7 +124,7 @@ export const tween = {
      * @returns {Array<{ start: Number, end: Number,index: Number, item: (HTMLElement|Object) }>} Stagger array
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -165,7 +165,7 @@ export const tween = {
      * @param { import('./animation/tween/handleTween.js').tweenTypes & import('./animation/utils/stagger/staggerCostant.js').staggerTypes & import('./animation/tween/tweenConfig.js').easeTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -191,7 +191,7 @@ export const tween = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myTween.set()
      * myTween.goTo()
      * myTween.goFrom()
@@ -218,7 +218,7 @@ export const tween = {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -250,7 +250,7 @@ export const tween = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * mySpring.set()
      * mySpring.goTo()
      * mySpring.goFrom()
@@ -277,7 +277,7 @@ export const tween = {
      * @param { import('./animation/lerp/handleLerp.js').lerpTypes & import('./animation/lerp/handleLerp.js').lerpPropTypes & import('./animation/utils/stagger/staggerCostant.js').staggerTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -303,7 +303,7 @@ export const tween = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myLerp.set()
      * myLerp.goTo()
      * myLerp.goFrom()

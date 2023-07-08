@@ -13,7 +13,7 @@ const callbacks = [];
  * @param {Number} [ priority ]
  *
  * @example
- * ```js
+ * ```javascript
  * handleFrame.add(() => {
  *     handleNextTick.add(({ fps, shouldRender, time }) => {
  *         // code
@@ -49,7 +49,7 @@ const add = (cb = () => {}, priority = 100) => {
  * @param {(import('./handleFrame.js').handleFrameTypes) } cb - callback function
  *
  * @example
- * ```js
+ * ```javascript
    handleNextTick.fire({ time, fps, shouldRender });
  *
  * ```

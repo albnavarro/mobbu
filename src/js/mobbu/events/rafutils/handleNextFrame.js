@@ -13,7 +13,7 @@ const callbacks = [];
  * @param {function(import('./handleFrame.js').handleFrameTypes):void } callBack - callback function
  *
  * @example
- * ```js
+ * ```javascript
  * const loop = () => {
  *     handleNextFrame.add(({ fps, shouldRender, time }) => {
  *         // code

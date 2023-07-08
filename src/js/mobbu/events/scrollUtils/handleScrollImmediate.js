@@ -107,7 +107,7 @@ function init() {
  * @return {Function} unsubscribe callback
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleScrollImmediate(({ direction, scrollY }) => {
  *     // code
  * });

@@ -22,7 +22,7 @@ let loadFpsIsReady = false;
  * @return {Promise.<loadFpsType>} The promise launched after the loop
  *
  * @example
- * ```js
+ * ```javascript
  *
  * loadFps(60).then(({ averageFPS }) => {
  *     // code

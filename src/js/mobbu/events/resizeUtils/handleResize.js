@@ -117,7 +117,7 @@ function init() {
  * @param {function(handleResizeTypes):void } cb - callback function fired on resize.
  *
  * @example
- * ```js
+ * ```javascript
  * handleResize(
  *     ({
  *         documentHeight,

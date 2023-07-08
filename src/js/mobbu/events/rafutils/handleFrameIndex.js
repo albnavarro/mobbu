@@ -39,7 +39,7 @@ const updateKeys = (currentFrameLimit) => {
  *
  * @examples
  *
- * ```js
+ * ```javascript
  * handleFrameIndex.fire(({ currentFrame, fps, shouldRender, time });      *
  * ```
  */
@@ -73,7 +73,7 @@ const fire = ({ currentFrame, time, fps, shouldRender }) => {
  * @param {number} index
  *
  * @example
- * ```js
+ * ```javascript
  * handleFrameIndex.add(({ fps, shouldRender, time }) => {
  *     // code ...
  * }, 5);

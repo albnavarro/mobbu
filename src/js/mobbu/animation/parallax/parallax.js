@@ -253,7 +253,7 @@ export default class ParallaxClass {
      *
      * @example
      *
-     * ```js
+     * ```javascript
      *  Parallax property schema:
      *
      *
@@ -340,7 +340,7 @@ export default class ParallaxClass {
      * @description
      * Available methods:
      *
-     * ```js
+     * ```javascript
      *
      *
      * myInstance.init()
@@ -1500,7 +1500,7 @@ export default class ParallaxClass {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * Control the instance from another scrollTrigger:

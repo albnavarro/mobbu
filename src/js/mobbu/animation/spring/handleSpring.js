@@ -66,7 +66,7 @@ export default class HandleSpring {
      * @param { springTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} data
      *
      * @example
-     * ```js
+     * ```javascript
      * const mySpring = new HandleSpring({
      *   data: Object.<string, number>,
      *   config: [ String ],
@@ -95,7 +95,7 @@ export default class HandleSpring {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * mySpring.set()
      * mySpring.goTo()
      * mySpring.goFrom()
@@ -525,7 +525,7 @@ export default class HandleSpring {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * mySpring.setData({ val: 100 });
@@ -612,7 +612,7 @@ export default class HandleSpring {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * mySpring.goTo(
@@ -659,7 +659,7 @@ export default class HandleSpring {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * mySpring.goFrom(
@@ -707,7 +707,7 @@ export default class HandleSpring {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * mySpring.goFromTo(
@@ -759,7 +759,7 @@ export default class HandleSpring {
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * mySpring.set(
@@ -833,7 +833,7 @@ export default class HandleSpring {
      * @return {Object} current value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.get();
@@ -850,7 +850,7 @@ export default class HandleSpring {
      * @return {Object} initial value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.getIntialData();
@@ -867,7 +867,7 @@ export default class HandleSpring {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.getFrom();
@@ -884,7 +884,7 @@ export default class HandleSpring {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.getTo();
@@ -901,7 +901,7 @@ export default class HandleSpring {
      * @return {Object} from value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.getFromNativeType();
@@ -918,7 +918,7 @@ export default class HandleSpring {
      * @return {Object} to value obj.
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const { prop } = mySpring.getToNativeType();
@@ -935,7 +935,7 @@ export default class HandleSpring {
      * @return {string} tween type
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = mySpring.getType();
@@ -952,7 +952,7 @@ export default class HandleSpring {
      * @return {string} Univoque Id
      *
      * @example
-     * ```js
+     * ```javascript
      *
      *
      * const type = mySpring.getId();
@@ -971,7 +971,7 @@ export default class HandleSpring {
      * @param {Number} [ configProp.precision ] precision - A positive number
      *
      *  @example
-     *  ```js
+     *  ```javascript
      *  mySpring.updateConfigProp({
      *      mass: 2,
      *      friction: 5
@@ -1012,7 +1012,7 @@ export default class HandleSpring {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = mySpring.subscribe(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1057,7 +1057,7 @@ export default class HandleSpring {
      * @return {Function} unsubscribe callback.
      *
      * @example
-     * ```js
+     * ```javascript
      * //Single DOM element
      * const unsubscribe = mySpring.onComplete(({ x,y... }) => {
      *      domEl.style.prop = `...`
@@ -1080,7 +1080,7 @@ export default class HandleSpring {
      * Useful for applying a different style to an inactive element.
      * A typical example is to remove the teansform3D property:
      * @example
-     * ```js
+     * ```javascript
      * // Use transform3D while item is active
      * mySpring.subscribe(({x}) => {
      *      domEl.style.transform = ` transform3D(0,0,0) translateX(${x}px)`
@@ -1104,7 +1104,7 @@ export default class HandleSpring {
      * @return {Function} unsubscribe callback
      *
      * @example
-     *```js
+     *```javascript
      * //Multiple DOM element ( stagger )
      * const unsubscribeStagger = [...elements].map((item) => {
      *   return mySpring.subscribeCache(item, ({ x, y... }) => {

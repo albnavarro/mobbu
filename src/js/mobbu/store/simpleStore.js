@@ -48,18 +48,19 @@ export class SimpleStore {
      * @description
      * SimpleStore inizialization.
      * The store accepts single properties or objects
-       If objects are used, it is not possible to nest more than two levels.
        Each individual property can be initialized with a simple value or via a more complex setup.
        A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
-       `type` || `validation` || `skipEqual`
+       `type` || `validation` || `skipEqual` || `strict`
      *
       `value`:
        Initial value.
 
       `type`:
        Supported types:
-      `String | Number | Object | Function | Array | Boolean | Element | NodeList`.
+      `String|Number|Object|Function|Array|Boolean|Element|NodeList|"Any"`.
        The property will not be updated if it doesn't match, you will have a waring.
+       Support Contructor || String.
+       Es: type: Number || type: 'Number'
 
        `validation`:
        Validation function to parse value.
@@ -77,16 +78,14 @@ export class SimpleStore {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      *
-     * Simlple propierties setup;
      * const myStore = new SimpleStore({
      *     prop1: 0,
      *     prop2: 0
      * });
      *
      *
-     * Complex propierties setup:
      * const myStore = new SimpleStore({
      *     myProp: () => ({
      *         value: 10,
@@ -94,6 +93,10 @@ export class SimpleStore {
      *         validate: (val) => val < 10,
      *         strict: true,
      *         skipEqual: false,
+     *     }),
+     *     myPropWithObject: () => ({
+     *         value: { prop: { prop1: 1}},
+     *         type: 'Any',
      *     }),
      *     myObject: {
      *         prop1: () => ({
@@ -113,9 +116,6 @@ export class SimpleStore {
      *
      * Available methods:
      * myStore.set();
-     * myStore.setProp();
-     * myStore.setProp();
-     * myStore.setObj();
      * myStore.computed();
      * myStore.get();
      * myStore.getProp();
@@ -427,7 +427,7 @@ export class SimpleStore {
      * Update object and non-objects propierties.
      *
      * @example
-     * ```js
+     * ```javascript
      * Direct value:
      * myStore.set('myProp', newValue, true);
      * myStore.set('myPropObject', { myProp: newValue, ... });
@@ -481,7 +481,7 @@ export class SimpleStore {
      * Update non-object propierties
      *
      * @example
-     * ```js
+     * ```javascript
      * myStore.setProp('myProp', newValue, true);
      *
      * ```
@@ -571,7 +571,7 @@ export class SimpleStore {
      * Update object propierties
      *
      * @example
-     * ```js
+     * ```javascript
      * myStore.set('myPropObject', { myProp: newValue, ... }, true);
      *
      * ```
@@ -772,7 +772,7 @@ export class SimpleStore {
      * Get store object
      *
      * @example
-     * ```js
+     * ```javascript
      * const storeObject = myStore.get();
      * const { myProp } = myStore.get();
      *
@@ -791,8 +791,8 @@ export class SimpleStore {
      * Get specific prop from store.
      *
      * @example
-     * ```js
-     * const myProp= myStore.get('myProp');
+     * ```javascript
+     * const myProp = myStore.get('myProp');
      *
      * ```
      */
@@ -811,7 +811,7 @@ export class SimpleStore {
      * Get validation object status
      *
      * @example
-     * ```js
+     * ```javascript
      * const storeValidationObject = myStore.getValidation();
      * const { myProp } = myStore.getValidation();
      *
@@ -831,7 +831,7 @@ export class SimpleStore {
      * Watch property mutation
      *
      * @example
-     * ```js
+     * ```javascript
      *
      * const unsubscribe =  myStore.watch('myProp', (newVal, oldVal, validate) => {
      *      // code
@@ -870,7 +870,7 @@ export class SimpleStore {
      * @param {string} prop
      *
      * @example
-     * ```js
+     * ```javascript
      * myStore.emit('myProp');
      * ```
      */
@@ -935,7 +935,7 @@ export class SimpleStore {
      *
      *
      * @example
-     * ```js
+     * ```javascript
      * Prop target is not an object, and dependency is not an object:
      * myStore.computed('prop', ['prop1', 'prop2'], (val1, val2) => {
      *     return val1 + val2;

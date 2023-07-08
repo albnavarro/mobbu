@@ -117,7 +117,7 @@ export default class SmoothScroller {
        mySmoothScroll.set();
 
      * @example
-       ```js
+       ```javascript
        const mySmoothScroller = new SmoothScroller({
            screen: [String | Element],
            scroller: [String | Element],

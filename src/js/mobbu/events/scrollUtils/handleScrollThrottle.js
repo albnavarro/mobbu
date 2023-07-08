@@ -80,7 +80,7 @@ function init() {
  * @return {Function} unsubscribe callback
  *
  * @example
- * ```js
+ * ```javascript
  * const unsubscribe = handleScrollThrottle(({ direction, scrollY }) => {
  *     // code
  * });

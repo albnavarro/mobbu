@@ -17,7 +17,7 @@ export const storeTest = () => {
                 pippo: () => ({
                     value: 0,
                     type: Number,
-                    skipEqual: false,
+                    skipEqual: true,
                     validate: (value) => value === 1,
                     strict: false,
                 }),
@@ -25,6 +25,12 @@ export const storeTest = () => {
                     value: { test: 1, p: { test2: { u: 4 } } },
                     type: 'Any',
                     skipEqual: true,
+                }),
+                ernesto: () => ({
+                    value: { pippo: { r: { r: { r: { r: { r: 2 } } } } } },
+                    type: 'Any',
+                    validate: (obj) => (obj?.pippo ? true : false),
+                    strict: true,
                 }),
             },
             myComputed: 0,
@@ -45,14 +51,6 @@ export const storeTest = () => {
             storeTest.debugStore();
         });
 
-        storeTest.watch('myObj', (value, oldval, validation) => {
-            console.log(value, oldval, validation);
-        });
-
-        storeTest.watch('myComputed', (value, oldval, validation) => {
-            console.log(value, oldval, validation);
-        });
-
         storeTest.computed(
             'myComputed',
             ['myObj', 'mySecondProp', 'simpleObj'],
@@ -61,14 +59,33 @@ export const storeTest = () => {
             }
         );
 
+        storeTest.watch('myObj', (value, oldval, validation) => {
+            console.log('------');
+            console.log('myObj');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
+        storeTest.watch('simpleObj', (value, oldval, validation) => {
+            console.log('------');
+            console.log('simpleObj');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
+        storeTest.watch('myComputed', (value, oldval, validation) => {
+            console.log('------');
+            console.log('myComputed');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
         storeTest.set('myObj', { test: { p: { o: 4 } }, test2: { test2: 4 } });
 
         setTimeout(() => {
             console.log('1300');
             storeTest.set('myObj', {
-                test: { p: { o: 4 } },
-                test2: { test2: 4 },
-                pippo: 0,
+                ernesto: { r: 800 },
             });
         }, 1300);
 
@@ -86,6 +103,7 @@ export const storeTest = () => {
                 test: { p: { o: { pippo: 'pluto' } } },
                 test2: { test2: 4 },
                 pippo: 100,
+                ernesto: { pippo: 1 },
             });
 
             storeTest.set('simpleObj', { a: 10, b: { u: { pluto: 1000 } } });

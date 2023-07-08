@@ -10,7 +10,7 @@ export const scroller = {
      * @param { createParallaxType } data
      *
      * @example
-     * ```js
+     * ```javascript
      *  Property schema:
      *
      *
@@ -47,7 +47,7 @@ export const scroller = {
      * @description
      * Available methods:
      *
-     * ```js
+     * ```javascript
      *
      *
      * myParallax.init()
@@ -74,7 +74,7 @@ export const scroller = {
      *
      * @example
      *
-     * ```js
+     * ```javascript
      *   Property schema:
      *
      *
@@ -129,7 +129,7 @@ export const scroller = {
      * @description
      * Available methods:
      *
-     * ```js
+     * ```javascript
      *
      *
      * myScrollTrigger.init()

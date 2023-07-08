@@ -6,7 +6,7 @@ export const timeline = {
      * @param {import('./animation/syncTimeline/handleSyncTimeline.js').syncTimelineTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -21,7 +21,7 @@ export const timeline = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      * myTimeline.add()
      * myTimeline.onLoopEnd()
      * myTimeline.onComplete()
@@ -49,7 +49,7 @@ export const timeline = {
      * @param { import('./animation/asyncTimeline/handleAsyncTimeline.js').asyncTimelineTypes } data
      *
      * @example
-     * ```js
+     * ```javascript
      * Property schema:
      *
      *
@@ -65,7 +65,7 @@ export const timeline = {
      *
      * @description
      * Available methods:
-     * ```js
+     * ```javascript
      *
      *
      * `Methods to create timeline`

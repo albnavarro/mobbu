@@ -9,7 +9,7 @@ import { outerHeight } from '../../utils/vanillaFunction.js';
  *
  * @example
  *
- * ```js
+ * ```javascript
  * Subscribe target in store:
  * const unsubscribe = slide.subscribe(target);
  *
@@ -115,7 +115,7 @@ export const slide = (() => {
      * Return a promise.
      *
      * @example
-     * ```js
+     * ```javascript
      * slide.up(myELement)
      *      .then(() => { ... })
      *      .catch(() => { ... })
@@ -155,7 +155,7 @@ export const slide = (() => {
      * Return a promise.
      *
      * @example
-     * ```js
+     * ```javascript
      * slide.down(myELement)
      *      .then(() => { ... })
      *      .catch(() => { ... })

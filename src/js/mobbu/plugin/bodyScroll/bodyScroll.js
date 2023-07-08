@@ -78,7 +78,7 @@ export const bodyScroll = (() => {
      * @description
      *
      * @example
-     *```js
+     *```javascript
        bodyScroll.to(0, {
            duration: 1000,
            overflow: true,
