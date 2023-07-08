@@ -45,7 +45,9 @@ export const Headernav = ({ render, onMount }) => {
                 const pageTransitionId = getIdByInstanceName('page-transition');
                 setStateById(pageTransitionId, 'url', url);
 
-                // loadUrl({ url });
+                const { navigationIsOpen } = navigationStore.get();
+                if (!navigationIsOpen) return;
+
                 navigationStore.set('navigationIsOpen', false);
                 navigationStore.emit('closeNavigation');
             });
