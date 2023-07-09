@@ -48,6 +48,11 @@ const ELEMENT = 'ELEMENT';
 /**
  * @type {String}
  */
+const HTMLELEMENT = 'HTMLELEMENT';
+
+/**
+ * @type {String}
+ */
 const NODELIST = 'NODELIST';
 
 export const storeType = {
@@ -66,6 +71,7 @@ export const storeType = {
         Object.prototype.toString.call(value) === '[object Boolean]',
     isElement: (/** @type{any} */ value) =>
         value instanceof Element || value instanceof Document,
+    isHTMLElement: (/** @type{any} */ value) => value instanceof HTMLElement,
     isNodeList: (/** @type{any} */ value) =>
         Object.prototype.isPrototypeOf.call(NodeList.prototype, value),
 };
@@ -102,6 +108,10 @@ export const getTypeName = (type) => {
         case Element:
         case ELEMENT:
             return 'Element';
+
+        case HTMLElement:
+        case HTMLELEMENT:
+            return 'HTMLElement';
 
         case NodeList:
         case NODELIST:
@@ -148,6 +158,10 @@ export const checkType = (type, value) => {
         case Element:
         case ELEMENT:
             return storeType.isElement(value);
+
+        case HTMLElement:
+        case HTMLELEMENT:
+            return storeType.isHTMLElement(value);
 
         case NodeList:
         case NODELIST:
