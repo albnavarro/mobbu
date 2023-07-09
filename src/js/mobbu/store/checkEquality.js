@@ -44,7 +44,6 @@ const arrayAreEquals = (a, b) => {
  * @returns {Boolean}
  *
  * @description
- * A function to compare if two arrays have the same elements regardless of their order
  */
 const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
     const checkDataOrderParanoic = false;
