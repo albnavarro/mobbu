@@ -51,9 +51,10 @@ export const storeTest = () => {
                     return value === 1;
                 },
             }),
-            simpleNumber: () => ({
-                value: 2,
-                type: Number,
+            simpleArray: () => ({
+                value: [],
+                type: Array,
+                skipEqual: true,
             }),
             setTest: () => ({
                 value: new Set(),
@@ -119,6 +120,13 @@ export const storeTest = () => {
             console.log('------');
         });
 
+        storeTest.watch('simpleArray', (value, oldval, validation) => {
+            console.log('------');
+            console.log('simpleArray');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
         storeTest.set('myObj', { test: { p: { o: 4 } }, test2: { test2: 4 } });
 
         setTimeout(() => {
@@ -160,8 +168,11 @@ export const storeTest = () => {
             });
 
             storeTest.set('simpleObj', { a: 10, b: { u: { pluto: 1000 } } });
-            storeTest.set('simpleNumber', (val) => {
-                return (val += 10);
+            storeTest.set('simpleArray', (val) => {
+                return [...val];
+            });
+            storeTest.set('simpleArray', (val) => {
+                return [...val, 1];
             });
             storeTest.set('setTest', (val) => {
                 val.add(2);

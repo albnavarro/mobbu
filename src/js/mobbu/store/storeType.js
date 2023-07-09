@@ -33,7 +33,7 @@ const FUNCTION = 'FUNCTION';
 /**
  * @type {String}
  */
-const ARRAY = 'ARRAY';
+export const ARRAY = 'ARRAY';
 
 /**
  * @type {String}
