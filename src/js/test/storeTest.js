@@ -167,7 +167,7 @@ export const storeTest = () => {
                 ernesto: { pippo: 1 },
             });
 
-            storeTest.set('simpleObj', { a: 10, b: { u: { pluto: 1000 } } });
+            storeTest.set('simpleObj', { a: 1, b: { u: 1 } });
             storeTest.set('simpleArray', (val) => {
                 return [...val];
             });
