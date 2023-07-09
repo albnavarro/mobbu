@@ -25,6 +25,10 @@ export const storeTest = () => {
                     validate: (value) => value === 1,
                     strict: false,
                 }),
+                setTest: () => ({
+                    value: new Set(),
+                    type: Set,
+                }),
                 test2: () => ({
                     value: { test: 1, p: { test2: { u: 4 } } },
                     type: 'Any',
@@ -47,9 +51,22 @@ export const storeTest = () => {
                     return value === 1;
                 },
             }),
-            simpleObj2: () => ({
+            simpleNumber: () => ({
                 value: 2,
                 type: Number,
+            }),
+            setTest: () => ({
+                value: new Set(),
+                type: Set,
+                validate: (value, oldValue) => {
+                    console.log('set test validate function');
+                    console.log(value, oldValue);
+                    return value.size === 0;
+                },
+            }),
+            mapTest: () => ({
+                value: new Map(),
+                type: Map,
             }),
         });
 
@@ -88,12 +105,40 @@ export const storeTest = () => {
             console.log('------');
         });
 
+        storeTest.watch('mapTest', (value, oldval, validation) => {
+            console.log('------');
+            console.log('mapTest');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
+        storeTest.watch('setTest', (value, oldval, validation) => {
+            console.log('------');
+            console.log('setTest');
+            console.log(value, oldval, validation);
+            console.log('------');
+        });
+
         storeTest.set('myObj', { test: { p: { o: 4 } }, test2: { test2: 4 } });
 
         setTimeout(() => {
             console.log('1300');
             storeTest.set('myObj', {
-                ernesto: { r: 800 },
+                ernesto: { pippo: { r: { r: { r: { r: { r: 2 } } } } } },
+                pippo: 10,
+                setTest: new Set().add(5),
+            });
+
+            storeTest.set('setTest', (val) => {
+                val.add(1);
+                val.add(5);
+                return val;
+            });
+
+            storeTest.set('mapTest', (val) => {
+                val.set('a', 11);
+                val.set('b', 5);
+                return val;
             });
         }, 1300);
 
@@ -115,7 +160,19 @@ export const storeTest = () => {
             });
 
             storeTest.set('simpleObj', { a: 10, b: { u: { pluto: 1000 } } });
-            storeTest.set('simpleObj2', 3);
+            storeTest.set('simpleNumber', (val) => {
+                return (val += 10);
+            });
+            storeTest.set('setTest', (val) => {
+                val.add(2);
+                val.add(5);
+                return val;
+            });
+            storeTest.set('mapTest', (val) => {
+                val.set('a', 6);
+                val.set('b', 5);
+                return val;
+            });
         }, 2300);
     }, 100);
 };

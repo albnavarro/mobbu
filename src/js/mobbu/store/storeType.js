@@ -55,6 +55,16 @@ const HTMLELEMENT = 'HTMLELEMENT';
  */
 const NODELIST = 'NODELIST';
 
+/**
+ * @type {String}
+ */
+export const SET = 'SET';
+
+/**
+ * @type {String}
+ */
+export const MAP = 'MAP';
+
 export const storeType = {
     isString: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object String]',
@@ -72,6 +82,8 @@ export const storeType = {
     isElement: (/** @type{any} */ value) =>
         value instanceof Element || value instanceof Document,
     isHTMLElement: (/** @type{any} */ value) => value instanceof HTMLElement,
+    isSet: (/** @type{any} */ value) => value instanceof Set,
+    isMap: (/** @type{any} */ value) => value instanceof Map,
     isNodeList: (/** @type{any} */ value) =>
         Object.prototype.isPrototypeOf.call(NodeList.prototype, value),
 };
@@ -116,6 +128,14 @@ export const getTypeName = (type) => {
         case NodeList:
         case NODELIST:
             return 'NodeList';
+
+        case Set:
+        case SET:
+            return 'Set';
+
+        case Map:
+        case MAP:
+            return 'Map';
 
         case TYPE_IS_ANY:
             return TYPE_IS_ANY;
@@ -166,6 +186,14 @@ export const checkType = (type, value) => {
         case NodeList:
         case NODELIST:
             return storeType.isNodeList(value);
+
+        case Set:
+        case SET:
+            return storeType.isSet(value);
+
+        case Map:
+        case MAP:
+            return storeType.isMap(value);
 
         case TYPE_IS_ANY:
             return true;

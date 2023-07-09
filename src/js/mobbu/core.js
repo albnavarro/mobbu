@@ -197,8 +197,9 @@ export const core = {
 
       `type`:
        Supported types:
-      `String|Number|Object|Function|Array|Boolean|Element|NodeList|"Any"`.
+      `String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
        The property will not be updated if it doesn't match, you will have a waring.
+       For custom Object use 'Any'.
        Support Contructor || String.
        Es: type: Number || type: 'Number'
 

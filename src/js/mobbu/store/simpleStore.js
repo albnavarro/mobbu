@@ -1,5 +1,6 @@
 // @ts-check
 
+import { checkEquality } from './checkEquality.js';
 import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
 
 import {
@@ -26,11 +27,11 @@ import {
 } from './storeWarining.js';
 
 /**
- * @typedef {('String'|'Number'|'Object'|'Function'|'Array'|'Boolean'|'Element'|'NodeList'|'Any')} SimpleStoreUsableType
+ * @typedef {('String'|'Number'|'Object'|'Function'|'Array'|'Boolean'|'Element'|'Map'|'Set'|'NodeList'|'Any')} SimpleStoreUsableType
  */
 
 /**
- * @typedef {(Number|String|Function|'FUNCTION'|Array|Boolean|Element|NodeList)} SimpleStoreBasicValues
+ * @typedef {(Number|String|Function|'FUNCTION'|Array|Boolean|Element|Map|Set|NodeList)} SimpleStoreBasicValues
  */
 
 /**
@@ -57,8 +58,9 @@ export class SimpleStore {
 
       `type`:
        Supported types:
-      `String|Number|Object|Function|Array|Boolean|Element|NodeList|"Any"`.
+      `String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
        The property will not be updated if it doesn't match, you will have a waring.
+       For custom Object use 'Any'.
        Support Contructor || String.
        Es: type: Number || type: 'Number'
 
@@ -422,6 +424,7 @@ export class SimpleStore {
      * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
        If the type of value used is a function, only the new function can be passed
      * @param {Boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
+     * @returns void
      *
      * @description
      * Update object and non-objects propierties.
@@ -448,14 +451,27 @@ export class SimpleStore {
         }
 
         /**
+         * Id value is Map or Set create a new old value.
+         * Map and Set mutate immediatly when newValue() is fired.
+         * ( when new value is the return of a function ).
+         */
+        const oldValueParse01 = checkType(Map, this.store[prop])
+            ? new Map(this.store[prop])
+            : this.store[prop];
+
+        const oldValueParse02 = checkType(Set, oldValueParse01)
+            ? new Set(oldValueParse01)
+            : oldValueParse01;
+
+        /**
          * Check if newValue is a param or function.
          * Id prop type is a function or last value is a function skip.
          */
         const value =
             checkType(Function, newValue) &&
-            !checkType(Function, this.store[prop]) &&
+            !checkType(Function, oldValueParse02) &&
             this.type[prop] !== Function
-                ? newValue(this.store[prop])
+                ? newValue(oldValueParse02)
                 : newValue;
 
         /**
@@ -463,7 +479,7 @@ export class SimpleStore {
          */
         const isCustomObject = this.type[prop] === TYPE_IS_ANY;
 
-        if (storeType.isObject(this.store[prop]) && !isCustomObject) {
+        if (storeType.isObject(oldValueParse02) && !isCustomObject) {
             this.setObj(prop, value, fireCallback);
         } else {
             this.setProp(prop, value, fireCallback);
@@ -537,10 +553,7 @@ export class SimpleStore {
          * Check if last value is equal new value.
          * if true and skipEqual is true for this prop return.
          */
-        const isEqual = isCustomObject
-            ? JSON.stringify(oldVal) === JSON.stringify(val)
-            : oldVal === val;
-
+        const isEqual = checkEquality(this.type[prop], oldVal, val);
         if (isEqual && this.skipEqual[prop]) return;
 
         /**
@@ -721,10 +734,11 @@ export class SimpleStore {
                     return;
                 }
 
-                return isCustomObject
-                    ? JSON.stringify(value) ===
-                          JSON.stringify(oldObjectValues[key])
-                    : value === oldObjectValues[key];
+                return checkEquality(
+                    this.type[prop][key],
+                    oldObjectValues[key],
+                    value
+                );
             }
         );
 
