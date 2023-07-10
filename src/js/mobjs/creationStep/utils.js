@@ -11,4 +11,6 @@ const propsKeyToExclude = [
     'props',
     'cancellable',
     'instancename',
+    'propsfromslot',
+    'runtime',
 ];
