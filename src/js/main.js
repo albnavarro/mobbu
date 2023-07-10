@@ -75,5 +75,5 @@ core.useLoad(() => {
     };
 
     init();
-    storeTest();
+    // storeTest();
 });
