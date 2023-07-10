@@ -23,4 +23,11 @@ export const navigationButtonDef = createComponentDefinition({
         subMenuClass: '',
         fireRoute: true,
     },
+    state: {
+        label: '',
+        url: '#',
+        arrowClass: '',
+        subMenuClass: '',
+        fireRoute: true,
+    },
 });

@@ -9,6 +9,7 @@ export const testComponentDef = createComponentDefinition({
         title: '',
     },
     state: {
+        title: '',
         counter: () => ({
             value: 2,
             type: Number,
@@ -28,6 +29,7 @@ export const testComponent2Def = createComponentDefinition({
         index: 0,
     },
     state: {
+        label: () => {},
         index: () => ({
             value: -1,
             type: Number,

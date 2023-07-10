@@ -33,6 +33,7 @@ export const codeOverlayDef = createComponentDefinition({
     },
     state: {
         urls,
+        contents: [...overlayDrawers],
         activeContent: () => ({
             value: '',
             type: String,
@@ -63,6 +64,8 @@ export const codeOverlayButtonDef = createComponentDefinition({
         callback: () => {},
     },
     state: {
+        key: '',
+        callback: () => {},
         selected: () => ({
             value: false,
             type: Boolean,

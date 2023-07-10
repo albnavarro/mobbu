@@ -21,4 +21,10 @@ export const codeButtonComponentDef = createComponentDefinition({
         // only test
         slotProps: 'no slot prop',
     },
+    state: {
+        drawers,
+        style: '',
+        // only test
+        slotProps: 'no slot prop',
+    },
 });

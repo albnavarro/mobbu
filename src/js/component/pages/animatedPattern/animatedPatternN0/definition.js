@@ -14,4 +14,13 @@ export const animatedPatternN0Def = createComponentDefinition({
         fill: [16, 27, 38, 49, 60, 71, 82, 93],
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
+    state: {
+        numberOfRow: 10,
+        numberOfColumn: 10,
+        cellWidth: 65,
+        cellHeight: 65,
+        gutter: 1,
+        fill: [16, 27, 38, 49, 60, 71, 82, 93],
+        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+    },
 });
