@@ -90,15 +90,8 @@ const printContent = async ({
     goToTop();
 };
 
-export const CodeOverlay = ({
-    render,
-    onMount,
-    props,
-    setState,
-    getState,
-    watch,
-}) => {
-    const { contents } = props;
+export const CodeOverlay = ({ render, onMount, setState, getState, watch }) => {
+    const { contents } = getState();
 
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');

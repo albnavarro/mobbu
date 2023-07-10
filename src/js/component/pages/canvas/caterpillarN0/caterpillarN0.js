@@ -1,12 +1,12 @@
 import { caterpillarN0Animation } from './animation/animation';
 
-export const CaterpillarN0 = ({ onMount, render, props }) => {
+export const CaterpillarN0 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
         const destroyAnimation = caterpillarN0Animation({
             canvas,
-            ...props,
+            ...getState(),
         });
 
         return () => {

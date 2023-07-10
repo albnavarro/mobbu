@@ -17,7 +17,7 @@ function asyncTest() {
  * Create component
  */
 export const TestComponent = async ({
-    props,
+    getState,
     setState,
     getChildren,
     render,
@@ -49,7 +49,7 @@ export const TestComponent = async ({
     return render(/* HTML */ `
         <div class="c-test-comp">
             <div class="c-test-comp__label">
-                <span>${props.title}:</span>
+                <span>${getState().title}:</span>
             </div>
             <div class="c-test-comp__top">
                 <button class="c-test-comp__btn add">add</button>

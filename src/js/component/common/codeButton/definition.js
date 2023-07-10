@@ -22,7 +22,10 @@ export const codeButtonComponentDef = createComponentDefinition({
         slotProps: 'no slot prop',
     },
     state: {
-        drawers,
+        drawers: () => ({
+            value: drawers,
+            type: 'Any',
+        }),
         style: '',
         // only test
         slotProps: 'no slot prop',

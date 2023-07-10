@@ -5,8 +5,8 @@ import { overlayDrawers } from '../codeOverlay/definition';
 /**
  * Create component
  */
-export const CodeButton = ({ props, render, onMount }) => {
-    const { style, drawers } = props;
+export const CodeButton = ({ getState, render, onMount }) => {
+    const { style, drawers } = getState();
 
     /**
      * Props with nested object is not merged deep by mobJs

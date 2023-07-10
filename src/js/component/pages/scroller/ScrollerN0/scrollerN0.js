@@ -2,7 +2,7 @@ import { getLegendData } from '../../../../main';
 import { createProps } from '../../../../mobjs';
 import { scrollerN0Animation } from './animation/animation';
 
-export const ScrollerN0 = ({ onMount, render, props }) => {
+export const ScrollerN0 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
         const canvasScroller = element.querySelector('.canvas-scroller');
@@ -15,7 +15,7 @@ export const ScrollerN0 = ({ onMount, render, props }) => {
         const destroyAnimation = scrollerN0Animation({
             canvas,
             canvasScroller,
-            ...props,
+            ...getState(),
         });
 
         return () => {

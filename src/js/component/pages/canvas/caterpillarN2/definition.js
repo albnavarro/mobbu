@@ -78,6 +78,9 @@ export const caterpillarN2Def = createComponentDefinition({
         rotationDefault: 360,
         friction: duration / 2 / Math.PI,
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
-        buttons,
+        buttons: () => ({
+            value: buttons,
+            type: 'Any',
+        }),
     },
 });

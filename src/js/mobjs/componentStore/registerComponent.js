@@ -3,6 +3,7 @@
 import { core } from '../../mobbu';
 import { IS_CANCELLABLE } from '../constant';
 import { componentStore } from './store';
+import { addPropsToState } from './utils';
 
 /**
  * @param {Object} obj
@@ -40,6 +41,8 @@ export const addComponentToStore = ({
     componentName = '',
 }) => {
     const store = core.createStore(state);
+    addPropsToState({ props, store });
+
     componentStore.set('instances', (/** @type {Array} */ prev) => {
         return [
             ...prev,

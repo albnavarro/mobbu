@@ -2,13 +2,13 @@ import { getLegendData } from '../../../../main';
 import { createProps } from '../../../../mobjs';
 import { animatedPatternN1Animation } from './animation/animation';
 
-export const AnimatedPatternN1 = ({ onMount, render, props }) => {
+export const AnimatedPatternN1 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
-            ...props,
+            ...getState(),
         });
 
         return () => {

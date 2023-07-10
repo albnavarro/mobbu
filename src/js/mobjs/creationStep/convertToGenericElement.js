@@ -130,6 +130,9 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     delete baseProps.component;
     delete baseProps.propsfromslot;
     delete baseProps.runtime;
+    delete baseProps.key;
+    delete baseProps.instancename;
+    delete baseProps.cancellable;
 
     propsValidate({ componentName, defaultProps, props: baseProps });
     propsValidate({ componentName, defaultProps, props: propsFromParent });

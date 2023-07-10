@@ -19,8 +19,8 @@ function getControls({ buttons }) {
         .join('');
 }
 
-export const CaterpillarN2 = ({ onMount, render, props }) => {
-    const { buttons, rotationDefault } = props;
+export const CaterpillarN2 = ({ onMount, render, getState }) => {
+    const { buttons, rotationDefault } = getState();
 
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
@@ -34,7 +34,7 @@ export const CaterpillarN2 = ({ onMount, render, props }) => {
          */
         const animationMethods = caterpillarN2Animation({
             canvas,
-            ...props,
+            ...getState(),
         });
 
         /**

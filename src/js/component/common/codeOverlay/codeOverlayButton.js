@@ -1,13 +1,12 @@
 export const CodeOverlayButton = ({
     render,
     onMount,
-    props,
     watch,
     watchParent,
     getState,
     setState,
 }) => {
-    const { key, callback } = props;
+    const { key, callback } = getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {

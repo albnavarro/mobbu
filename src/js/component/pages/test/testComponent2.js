@@ -11,7 +11,7 @@ function asyncTest() {
  * Create component
  */
 export const TestComponent2 = async ({
-    props,
+    getState,
     watch,
     render,
     onMount,
@@ -19,7 +19,7 @@ export const TestComponent2 = async ({
     key,
     // watchParent,
 }) => {
-    const { label, index } = props;
+    const { label, index } = getState();
 
     onMount(({ element }) => {
         const counterEl = element.querySelector('.counter');

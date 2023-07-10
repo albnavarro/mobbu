@@ -52,3 +52,15 @@ export const removeChildFromChildrenArray = ({
     );
     return currentChild;
 };
+
+/**
+ * @param {Object} obj
+ * @param {Object} obj.props
+ * @param {Object} obj.store - SimpleStore instance
+ * @returns {Object}
+ */
+export const addPropsToState = ({ props, store }) => {
+    Object.entries(props).forEach(([key, value]) => {
+        store.set(key, value);
+    });
+};
