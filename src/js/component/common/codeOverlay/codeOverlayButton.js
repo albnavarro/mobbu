@@ -41,22 +41,14 @@ export const CodeOverlayButton = ({
          * Set selected class.
          */
         const unwatchSelected = watch('selected', (selected) => {
-            if (selected) {
-                element.classList.add('selected');
-            } else {
-                element.classList.remove('selected');
-            }
+            element.classList.toggle('selected', selected);
         });
 
         /**
          * Disable button if there is no content.
          */
         const unwatchActive = watch('disable', (disable) => {
-            if (disable) {
-                element.classList.add('disable');
-            } else {
-                element.classList.remove('disable');
-            }
+            element.classList.toggle('disable', disable);
         });
 
         return () => {
