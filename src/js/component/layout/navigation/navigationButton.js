@@ -1,8 +1,8 @@
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
-export const NavigationButton = ({ props, render, onMount }) => {
-    const { label, url, arrowClass, subMenuClass, fireRoute } = props;
+export const NavigationButton = ({ getState, render, onMount }) => {
+    const { label, url, arrowClass, subMenuClass, fireRoute } = getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {

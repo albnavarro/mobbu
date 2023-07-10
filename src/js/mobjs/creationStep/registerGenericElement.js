@@ -74,7 +74,6 @@ export const registerGenericElement = ({ component, state = {} }) => {
         key,
         id,
         placeholderElement,
-        props: propsUpdated,
         getState,
         setState,
         emit,
