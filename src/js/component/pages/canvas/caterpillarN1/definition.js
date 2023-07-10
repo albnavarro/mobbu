@@ -5,18 +5,6 @@ import { CaterpillarN1 } from './caterpillarN1';
 export const caterpillarN1Def = createComponentDefinition({
     name: 'Caterpillarn1',
     component: CaterpillarN1,
-    props: {
-        numItems: 20,
-        width: 40,
-        height: 40,
-        fill: [14],
-        opacity: 0.05,
-        radius: 100,
-        rotationEach: 15,
-        centerEach: 3,
-        rotationDuration: 5000,
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
-    },
     state: {
         numItems: 20,
         width: 40,

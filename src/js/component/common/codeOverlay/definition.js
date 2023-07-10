@@ -28,9 +28,6 @@ const urls = overlayDrawers.reduce((previous, current) => {
 export const codeOverlayDef = createComponentDefinition({
     name: 'CodeOverlay',
     component: CodeOverlay,
-    props: {
-        contents: [...overlayDrawers],
-    },
     state: {
         urls,
         contents: [...overlayDrawers],
@@ -59,10 +56,6 @@ export const codeOverlayDef = createComponentDefinition({
 export const codeOverlayButtonDef = createComponentDefinition({
     name: 'CodeOverlayButton',
     component: CodeOverlayButton,
-    props: {
-        key: '',
-        callback: () => {},
-    },
     state: {
         key: '',
         callback: () => {},

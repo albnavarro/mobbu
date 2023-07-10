@@ -30,7 +30,6 @@ export const componentStore = core.createStore({
                     item?.element &&
                     item?.component &&
                     item?.destroy &&
-                    item?.props &&
                     item?.state &&
                     item?.child &&
                     'instanceName' in item &&

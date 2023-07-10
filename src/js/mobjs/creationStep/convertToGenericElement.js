@@ -7,18 +7,16 @@ import {
     IS_COMPONENT,
     PROPS_FROM_SLOT,
 } from '../constant';
-import { propsValidate } from './utils';
 
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @param {Object} obj.defaultProps
  * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String}}
  *
  * @description
  * Create base DOM component from component tag.
  */
-export const convertToGenericElement = ({ component, defaultProps }) => {
+export const convertToGenericElement = ({ component }) => {
     /**
      * @type {HTMLElement}
      */
@@ -134,14 +132,9 @@ export const convertToGenericElement = ({ component, defaultProps }) => {
     delete baseProps.instancename;
     delete baseProps.cancellable;
 
-    propsValidate({ componentName, defaultProps, props: baseProps });
-    propsValidate({ componentName, defaultProps, props: propsFromParent });
-    propsValidate({ componentName, defaultProps, props: propsFromSlot });
-
     return {
         placeholderElement,
         props: {
-            ...defaultProps,
             ...baseProps,
             ...propsFromParent,
             ...propsFromSlot,

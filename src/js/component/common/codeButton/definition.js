@@ -15,12 +15,6 @@ const drawers = overlayDrawers.reduce((previous, current) => {
 export const codeButtonComponentDef = createComponentDefinition({
     name: 'CodeButton',
     component: CodeButton,
-    props: {
-        drawers,
-        style: '',
-        // only test
-        slotProps: 'no slot prop',
-    },
     state: {
         drawers: () => ({
             value: drawers,

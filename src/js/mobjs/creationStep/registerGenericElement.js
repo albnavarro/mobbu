@@ -26,11 +26,7 @@ import { convertToGenericElement } from './convertToGenericElement';
  * Create component
  * Reuturn all prosps/method for user function.
  */
-export const registerGenericElement = ({
-    component,
-    state = {},
-    props = {},
-}) => {
+export const registerGenericElement = ({ component, state = {} }) => {
     /**
      * Create basic DOM element
      */
@@ -43,7 +39,6 @@ export const registerGenericElement = ({
         key,
     } = convertToGenericElement({
         component,
-        defaultProps: props,
     });
 
     /**

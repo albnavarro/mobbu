@@ -50,21 +50,6 @@ const buttons = {
 export const caterpillarN2Def = createComponentDefinition({
     name: 'Caterpillarn2',
     component: CaterpillarN2,
-    props: {
-        numItems: 30,
-        width: 60,
-        height: 60,
-        radius: 20,
-        fill: [2, 10],
-        opacity: 0.02,
-        xAmplitude: 500,
-        yAmplitude: 400,
-        duration: 10,
-        rotationDefault: 360,
-        friction: duration / 2 / Math.PI,
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
-        buttons,
-    },
     state: {
         numItems: 30,
         width: 60,

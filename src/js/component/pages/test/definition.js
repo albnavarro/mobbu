@@ -5,9 +5,6 @@ import { TestComponent2 } from './testComponent2';
 export const testComponentDef = createComponentDefinition({
     name: 'TestComponent',
     component: TestComponent,
-    props: {
-        title: '',
-    },
     state: {
         title: '',
         counter: () => ({
@@ -24,10 +21,6 @@ export const testComponentDef = createComponentDefinition({
 export const testComponent2Def = createComponentDefinition({
     name: 'TestComponent2',
     component: TestComponent2,
-    props: {
-        label: () => {},
-        index: 0,
-    },
     state: {
         label: () => {},
         index: () => ({
