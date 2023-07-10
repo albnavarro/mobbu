@@ -50,7 +50,6 @@ export const addComponentToStore = ({
                 element: placeholderElement,
                 component: componentName,
                 instanceName,
-                props,
                 destroy,
                 key,
                 id,

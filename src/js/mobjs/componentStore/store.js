@@ -6,7 +6,6 @@ import { core } from '../../mobbu';
  * @prop { HTMLElement } element
  * @prop { String } component
  * @prop { Function } destroy
- * @prop { Object } props
  * @prop { Object } state
  * @prop {{ String: Array.<string> }} child
  * @prop { String } instanceName
