@@ -133,18 +133,18 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     if (removePrevious) removeCancellableComponentFromStore();
 
     /**
+     * Remove props reference.
+     * Async loading and iterrupt can leave rubbish.
+     */
+    removeOrphansPropsFromParent();
+
+    /**
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
     const content = getRouteList()?.[route]?.({ root });
     root.innerHTML = '';
     root.insertAdjacentHTML('afterbegin', content);
-
-    /**
-     * Remove props reference.
-     * Async loading and iterrupt can leave rubbish.
-     */
-    removeOrphansPropsFromParent();
 
     /**
      * Wait for all render.
