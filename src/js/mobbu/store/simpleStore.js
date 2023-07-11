@@ -7,6 +7,7 @@ import {
     maxDepth,
     inizializeStoreData,
     inizializeSpecificProp,
+    cloneValueOrGet,
 } from './storeUtils.js';
 import {
     storeComputedKeyUsedWarning,
@@ -424,6 +425,9 @@ export class SimpleStore {
      * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
        If the type of value used is a function, only the new function can be passed
      * @param {Boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
+     * @param {Boolean} [ clone ] - Return a clone of original object for Map,Set,Onject and Array,
+       Useful for Map and Set because with this contructor doasn't support spread
+       Default value is `false`.
      * @returns void
      *
      * @description
@@ -431,17 +435,26 @@ export class SimpleStore {
      *
      * @example
      * ```javascript
-     * Direct value:
+     * //Direct value:
      * myStore.set('myProp', newValue, true);
      * myStore.set('myPropObject', { myProp: newValue, ... });
      *
-     * Function that return a value:
+     * //Function that return a value:
      * myStore.set('myProp', (currentValue) => currentValue + 1);
-     * myStore.set('myPropObject', (obj) => ({ prop: obj.prop + 1, ...}))
+     *
+     * //Use spred to return a new data without mutate original
+     * myStore.set('myArray', (arr) => [...arr, 1]);
+     * myStore.set('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
+     *
+     * // Use a Map and clone original data.
+     * myStore.set('mySet', (set) => {
+          set.add(<val>)
+          return set
+       }, true, true);
      *
      * ```
      */
-    set(prop, newValue, fireCallback = true) {
+    set(prop, newValue, fireCallback = true, clone = false) {
         /**
          * Check if prop exist in store
          */
@@ -451,17 +464,12 @@ export class SimpleStore {
         }
 
         /**
-         * Id value is Map or Set create a new old value.
-         * Map and Set mutate immediatly when newValue() is fired.
-         * ( when new value is the return of a function ).
+         * Id value is Map or Se or Objectt create a new old value.
+         * This is mutable promitives, if it passed by reference mutate the original.
          */
-        const oldValueParse01 = checkType(Map, this.store[prop])
-            ? new Map(this.store[prop])
+        const previousValue = clone
+            ? cloneValueOrGet({ value: this.store[prop] })
             : this.store[prop];
-
-        const oldValueParse02 = checkType(Set, oldValueParse01)
-            ? new Set(oldValueParse01)
-            : oldValueParse01;
 
         /**
          * Check if newValue is a param or function.
@@ -469,9 +477,9 @@ export class SimpleStore {
          */
         const value =
             checkType(Function, newValue) &&
-            !checkType(Function, oldValueParse02) &&
+            !checkType(Function, previousValue) &&
             this.type[prop] !== Function
-                ? newValue(oldValueParse02)
+                ? newValue(previousValue)
                 : newValue;
 
         /**
@@ -479,7 +487,7 @@ export class SimpleStore {
          */
         const isCustomObject = this.type[prop] === TYPE_IS_ANY;
 
-        if (storeType.isObject(oldValueParse02) && !isCustomObject) {
+        if (storeType.isObject(previousValue) && !isCustomObject) {
             this.setObj(prop, value, fireCallback);
         } else {
             this.setProp(prop, value, fireCallback);

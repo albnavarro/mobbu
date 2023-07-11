@@ -137,17 +137,27 @@ export const storeTest = () => {
                 setTest: new Set().add(5),
             });
 
-            storeTest.set('setTest', (val) => {
-                val.add(1);
-                val.add(5);
-                return val;
-            });
+            storeTest.set(
+                'setTest',
+                (val) => {
+                    val.add(1);
+                    val.add(5);
+                    return val;
+                },
+                true,
+                true
+            );
 
-            storeTest.set('mapTest', (val) => {
-                val.set('a', 11);
-                val.set('b', 5);
-                return val;
-            });
+            storeTest.set(
+                'mapTest',
+                (val) => {
+                    val.set('a', 11);
+                    val.set('b', 5);
+                    return val;
+                },
+                true,
+                true
+            );
         }, 1300);
 
         setTimeout(() => {
@@ -167,23 +177,37 @@ export const storeTest = () => {
                 ernesto: { pippo: 1 },
             });
 
-            storeTest.set('simpleObj', { a: 1, b: { u: 1 } });
+            // storeTest.set('simpleObj', { a: 1, b: { u: 1 } });
+            storeTest.set('simpleObj', (obj) => ({
+                ...obj,
+                ...{ resppp: 1000 },
+            }));
             storeTest.set('simpleArray', (val) => {
                 return [...val];
             });
             storeTest.set('simpleArray', (val) => {
                 return [...val, 1];
             });
-            storeTest.set('setTest', (val) => {
-                val.add(2);
-                val.add(5);
-                return val;
-            });
-            storeTest.set('mapTest', (val) => {
-                val.set('a', 6);
-                val.set('b', 5);
-                return val;
-            });
+            storeTest.set(
+                'setTest',
+                (val) => {
+                    val.add(2);
+                    val.add(5);
+                    return val;
+                },
+                true,
+                true
+            );
+            storeTest.set(
+                'mapTest',
+                (val) => {
+                    val.set('a', 6);
+                    val.set('b', 5);
+                    return val;
+                },
+                true,
+                true
+            );
         }, 2300);
     }, 100);
 };

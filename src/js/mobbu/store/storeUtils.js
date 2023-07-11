@@ -1,6 +1,6 @@
 // @ts-check
 
-import { storeType } from './storeType.js';
+import { checkType, storeType } from './storeType.js';
 import { storeDepthWarning } from './storeWarining.js';
 
 /**
@@ -184,4 +184,29 @@ export const inizializeSpecificProp = ({
     }
 
     return getPropRecursive(data, prop, fallback);
+};
+
+/**
+ * @param {Object} obj
+ * @param {any} obj.value
+ * @returns {any}
+ */
+export const cloneValueOrGet = ({ value }) => {
+    if (checkType(Map, value)) {
+        return new Map(value);
+    }
+
+    if (checkType(Set, value)) {
+        return new Set(value);
+    }
+
+    if (checkType(Object, value)) {
+        return { ...value };
+    }
+
+    if (checkType(Array, value)) {
+        return [...value];
+    }
+
+    return value;
 };
