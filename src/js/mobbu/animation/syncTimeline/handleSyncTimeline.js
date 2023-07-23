@@ -750,6 +750,8 @@ export default class HandleSyncTimeline {
     }
 
     /**
+     * @param {Object} obj
+     * @param {Boolean} obj.clearCache
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -762,26 +764,34 @@ export default class HandleSyncTimeline {
      * @description
      * Stop timeline
      */
-    stop() {
+    stop({ clearCache = true } = {}) {
         this.isStopped = true;
         this.isInPause = false;
         this.rejectPromise();
 
-        // TO DO: con lo stagger il render del last frame ( es senza translate3d)
-        // va in conflitto con cleanCachedId
+        if (clearCache) {
+            this.sequencers.forEach((item) => {
+                item.cleanCachedId();
+            });
+            return;
+        }
+
+        /**
+         * Con lo stagger il render del last frame ( es senza translate3d)
+         * va in conflitto con cleanCached
+         * Il render parziale viene perso.
+         * Utitlizziamo il render onStop solo se clarCahe é diabilitato cosi
+         * da far finire in maniera naturale il tween di ogni stagger.
+         */
 
         // Fire callbackLoop onStop of each sequencr
-        // this.sequencers.forEach((item) => {
-        //     item.draw({
-        //         partial: this.currentTime,
-        //         isLastDraw: true,
-        //         useFrame: true,
-        //         direction: this.getDirection(),
-        //     });
-        // });
-
         this.sequencers.forEach((item) => {
-            item.cleanCachedId();
+            item.draw({
+                partial: this.currentTime,
+                isLastDraw: true,
+                useFrame: true,
+                direction: this.getDirection(),
+            });
         });
     }
 
