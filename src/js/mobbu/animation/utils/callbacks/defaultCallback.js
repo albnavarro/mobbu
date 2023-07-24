@@ -1,10 +1,20 @@
+// @ts-check
+
 import { handleFrame } from '../../../events/rafutils/handleFrame.js';
 import { handleNextFrame } from '../../../events/rafutils/handleNextFrame.js';
 import { handleCache } from '../../../events/rafutils/handleCache.js';
 import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex.js';
 
 /**
- *Callback while Running
+ * @param {Object} obj
+ * @param {import('../stagger/staggerCostant.js').staggerTypesObject} obj.stagger
+ * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callback
+ * @param {Array.<{cb:number,id:number,index:Number,frame:Number}>} obj.callbackCache
+ * @param {Object.<string, number>} obj.callBackObject
+ * @param {Boolean} obj.useStagger
+ *
+ * @description
+ * Fire callback while Running
  */
 export const defaultCallback = ({
     stagger,
@@ -13,6 +23,9 @@ export const defaultCallback = ({
     callBackObject,
     useStagger,
 }) => {
+    /**
+     * Fire callback without stagger.
+     */
     if (stagger.each === 0 || !useStagger) {
         handleFrame.add(() => {
             callback.forEach(({ cb }) => {
@@ -20,6 +33,9 @@ export const defaultCallback = ({
             });
         });
 
+        /**
+         * Fire callback cache immediately.
+         */
         handleFrame.add(() => {
             callbackCache.forEach(({ cb }) => {
                 handleCache.fireObject({ id: cb, obj: callBackObject });
@@ -29,19 +45,37 @@ export const defaultCallback = ({
         return;
     }
 
-    // Stagger
+    /**
+     * Fire callback with default stagger.
+     */
     callback.forEach(({ cb, frame }) => {
         handleFrameIndex.add(() => {
             cb(callBackObject);
         }, frame);
     });
 
+    /**
+     * Fire callback with cache stagger.
+     * Update handleCache store.
+     */
     callbackCache.forEach(({ cb, frame }) => {
         handleCache.update({ id: cb, callBackObject, frame });
     });
 };
 
 /**
+ * @param {Object} obj
+ * @param {Function} obj.onComplete
+ * @param {import('../stagger/staggerCostant.js').staggerTypesObject} obj.stagger
+ * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callback
+ * @param {Array.<{cb:number,id:number,index:Number,frame:Number}>} obj.callbackCache
+ * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callbackOnComplete
+ * @param {Object.<string, number>} obj.callBackObject
+ * @param {{index:number, frame:number}} obj.slowlestStagger
+ * @param {{index:number, frame:number}} obj.fastestStagger
+ * @param {Boolean} obj.useStagger
+ *
+ * @description
  *Callback on complete
  */
 export const defaultCallbackOnComplete = ({
@@ -55,6 +89,9 @@ export const defaultCallbackOnComplete = ({
     fastestStagger,
     useStagger,
 }) => {
+    /**
+     * Fire callback without stagger.
+     */
     if (stagger.each === 0 || !useStagger) {
         onComplete();
 
@@ -64,6 +101,9 @@ export const defaultCallbackOnComplete = ({
                 cb(callBackObject);
             });
 
+            /**
+             * Fire callback cache immediately.
+             */
             callbackCache.forEach(({ cb }) => {
                 handleCache.fireObject({ id: cb, obj: callBackObject });
             });
@@ -76,40 +116,52 @@ export const defaultCallbackOnComplete = ({
         return;
     }
 
-    callback.forEach(({ cb, frame }, i) => {
+    /**
+     * Fire callback with default stagger.
+     */
+    callback.forEach(({ cb, frame }, /** @type {number} */ index) => {
         handleFrameIndex.add(() => {
             if (stagger.waitComplete) {
-                if (i === slowlestStagger.index) {
+                if (index === slowlestStagger.index) {
                     cb(callBackObject);
                     onComplete();
                 }
                 return;
             }
 
-            if (i === fastestStagger.index) {
+            if (index === fastestStagger.index) {
                 cb(callBackObject);
                 onComplete();
             }
         }, frame);
     });
 
-    callbackCache.forEach(({ cb, frame }, i) => {
+    /**
+     * Fire callback with cache stagger.
+     */
+    callbackCache.forEach(({ cb, frame }, /** @type {number} */ index) => {
         handleFrameIndex.add(() => {
             if (stagger.waitComplete) {
-                if (i === slowlestStagger.index) {
+                if (index === slowlestStagger.index) {
                     handleCache.fireObject({ id: cb, obj: callBackObject });
                     onComplete();
                 }
                 return;
             }
 
-            if (i === fastestStagger.index) {
+            /**
+             * Fire callback cache immediately.
+             */
+            if (index === fastestStagger.index) {
                 handleCache.fireObject({ id: cb, obj: callBackObject });
                 onComplete();
             }
         }, frame);
     });
 
+    /**
+     * Fire on complete callbacon complete callback
+     */
     callbackOnComplete.forEach(({ cb, frame }) => {
         handleFrameIndex.add(() => {
             cb(callBackObject);

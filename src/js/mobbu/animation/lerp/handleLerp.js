@@ -117,6 +117,7 @@ export default class HandleLerp {
     constructor(data = {}) {
         /**
          * @private
+         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
          */
         this.stagger = getStaggerFromProps(data);
 

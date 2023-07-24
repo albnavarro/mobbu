@@ -151,6 +151,7 @@ export default class HandleTween {
 
         /**
          * @private
+         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
          */
         this.stagger = getStaggerFromProps(data);
 

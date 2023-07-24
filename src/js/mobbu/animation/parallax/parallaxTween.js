@@ -75,6 +75,7 @@ export default class ParallaxTween {
 
         /**
          * @private
+         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
          */
         this.stagger = getStaggerFromProps(data);
 
