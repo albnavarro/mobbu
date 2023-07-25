@@ -1,7 +1,7 @@
 // @ts-check
 
-import { loadRoute } from '.';
 import { mainStore } from '../mainStore/mainStore';
+import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
 /**

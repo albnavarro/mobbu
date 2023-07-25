@@ -1,7 +1,6 @@
 // @ts-check
 
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
-import { parseComponents } from './componentParse';
 import {
     IS_COMPONENT,
     IS_RUNTIME,
@@ -42,37 +41,6 @@ export const createRunTimeComponent = ({ container }) => {
     );
 
     return { uniqueId, hasComponentInside: [...innerComponents].length };
-};
-
-/**
- * @param {Object} obj
- * @param {HTMLElement} obj.container
- * @return void
- *
- * Parse DOM element searching component.
- * in recursive mode until there is.
- * All parse has a runtime idd.
- */
-export const parseRuntime = async ({ container }) => {
-    /**
-     * Search for innercomponent and add a runtime id
-     * So run a concurrent parseComponents outside the main parse.
-     */
-    const { uniqueId, hasComponentInside } = createRunTimeComponent({
-        container,
-    });
-
-    if (!hasComponentInside) return;
-
-    /**
-     * Parse inner component.
-     */
-    await parseComponents({
-        element: container,
-        runtimeId: uniqueId,
-    });
-
-    parseRuntime({ container });
 };
 
 /**

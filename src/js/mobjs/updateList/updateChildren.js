@@ -1,8 +1,8 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
-import { parseComponents } from '../componentParse';
 import { updateChildrenOrder } from '../componentStore/action/children';
+import { parseComponents } from '../parseComponent/componentParse';
 import { addWithKey } from './addWithKey';
 import { addWithoutKey } from './addWithoutKey';
 import { listKeyExist } from './utils';

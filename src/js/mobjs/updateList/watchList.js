@@ -6,8 +6,8 @@ import {
     addActiveRepeat,
     getActiveRepeater,
     removeActiveRepeat,
-} from '../mainStore/actions/repeat';
-import { parseRuntime } from '../utils';
+} from '../mainStore/actions/repeatActions';
+import { parseRuntime } from '../parseComponent/parseRuntime';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 

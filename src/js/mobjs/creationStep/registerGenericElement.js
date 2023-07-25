@@ -9,8 +9,8 @@ import {
 } from '../componentStore/action/parent';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
+import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
-import { addRepeat } from '../mainStore/actions/repeat';
 import { convertToGenericElement } from './convertToGenericElement';
 
 // JSDOC usare infered type quando possibile.

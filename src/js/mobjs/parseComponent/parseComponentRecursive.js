@@ -1,29 +1,26 @@
 // @ts-check
 
-import { setElementById } from './componentStore/action/element';
-import { convertToRealElement } from './creationStep/convertToRealElement';
-import { registerGenericElement } from './creationStep/registerGenericElement';
-import { fireOnMountCallBack } from './mainStore/actions/onMount';
-import {
-    incrementParserCounter,
-    decrementParserCounter,
-} from './mainStore/actions/parser';
-import { removeOrphansPropsFromParent } from './mainStore/actions/props';
-import { inizializeRepeat } from './mainStore/actions/repeat';
+import { setElementById } from '../componentStore/action/element';
+import { convertToRealElement } from '../creationStep/convertToRealElement';
+import { registerGenericElement } from '../creationStep/registerGenericElement';
+import { fireOnMountCallBack } from '../mainStore/actions/onMount';
+import { decrementParserCounter } from '../mainStore/actions/parser';
+import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
+import { inizializeRepeat } from '../mainStore/actions/repeat';
 import {
     frameDelayAfterParse,
     IS_COMPONENT,
     IS_RUNTIME,
     WILL_COMPONENT,
-} from './constant';
+} from '../constant';
 import {
     getComponentsReference,
     getSelectorDefaultTag,
     selectorDefault,
-} from './utils';
-import { getComponentList } from './mainStore/actions/componentList';
-import { core } from '../mobbu';
-import { removeOrphanComponent } from './componentStore/action/removeAndDestroy';
+} from '../utils';
+import { getComponentList } from '../mainStore/actions/componentList';
+import { core } from '../../mobbu';
+import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 
 /**
  * @param {Object} obj
@@ -35,7 +32,7 @@ import { removeOrphanComponent } from './componentStore/action/removeAndDestroy'
  * @description
  * Create all component from DOM.
  */
-const parseComponentsRecursive = async ({
+export const parseComponentsRecursive = async ({
     element,
     runtimeId,
     onMountQueque = [],
@@ -233,22 +230,5 @@ const parseComponentsRecursive = async ({
         element,
         runtimeId,
         onMountQueque,
-    });
-};
-
-/**
- * @param {Object} obj
- * @param {HTMLElement} obj.element
- * @param {string|null} [ obj.runtimeId ]
- * @return {Promise<void>} A promise to the token.
- *
- * @description
- */
-export const parseComponents = async ({ element, runtimeId = null }) => {
-    incrementParserCounter();
-
-    await parseComponentsRecursive({
-        element,
-        runtimeId,
     });
 };
