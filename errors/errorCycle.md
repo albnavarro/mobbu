@@ -3,3 +3,11 @@ src/js/mobjs/updateList/updateChildren.js
 src/js/mobjs/updateList/watchList.js
 src/js/mobjs/parseComponent/componentParse.js
 src/js/mobjs/parseComponent/parseRuntime.js
+
+
+-- TODO
+src/js/mobjs/parseComponent/parseRuntime.js => parseComponent
+src/js/mobjs/updateList/updateChildren.js => parseComponent
+
+Isolare parseComponent a cappello di tutto.
+O usare pub/sub logic per agganciarsi a parseComponent.
