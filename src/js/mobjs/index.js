@@ -15,3 +15,21 @@ export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { getPropsFromParent } from './mainStore/actions/props';
 export { createProps } from './mainStore/actions/props';
+
+/**
+ * @typedef {{
+ *     key: String,
+ *     id: String,
+ *     getState: Function,
+ *     setState: Function,
+ *     emit: Function
+ *     computed: Function,
+ *     watch: Function,
+ *     getChildren: Function,
+ *     getParentId: Function,
+ *     watchParent: Function,
+ *     render: Function,
+ *     onMount: Function,
+ *     repeat: Function
+ * }} componentType
+ */
