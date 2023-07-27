@@ -935,15 +935,21 @@ export class SimpleStore {
      * Fire async callback related to specific property.
      *
      * @param {string} prop
+     * @returns Promise.<{success:boolean}>
      *
      * @example
      * ```javascript
      *
+     * // Module1.
      * myStore.watch('myProp', async (value) => {
-     *     await myFunction(val);
+     *     await myAsyncFunction(value);
      * });
      *
-     * await myStore.set('myProp', value, false);
+     * // Module2.
+     * // Set prop without execute related callBack.
+     * myStore.set('myProp', value, false);
+     *
+     * // Fire related async callBack.
      * await myStore.emitAsync('myProp');
      * ```
      */
@@ -960,8 +966,10 @@ export class SimpleStore {
                     this.validationStatusObject[prop] // Validate
                 );
             }
+            return { success: true };
         } else {
             storeEmitWarning(prop, this.logStyle);
+            return { success: false };
         }
     }
 
