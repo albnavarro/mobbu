@@ -20,9 +20,8 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Object} obj
  * @param {String} obj.name
  * @param {Function} obj.component
- * @param {Object} obj.props
  * @param {Object} obj.state
- * @returns {{ string:{componentFunction:function,props:Object,state:Object} }}
+ * @returns {{ string:{componentFunction:function,state:Object} }}
  *
  * @description
  * Format component definition in object key: value.
