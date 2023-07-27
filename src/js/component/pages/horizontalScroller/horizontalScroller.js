@@ -1,4 +1,4 @@
-import { getLegendData } from '../../../main';
+import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobbu/plugin';
 import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
 import { createProps } from '../../../mobjs';

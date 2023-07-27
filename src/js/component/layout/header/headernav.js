@@ -1,4 +1,4 @@
-import { getCommonData } from '../../../main';
+import { getCommonData } from '../../../data';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 

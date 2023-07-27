@@ -3,15 +3,11 @@
 import { componentList } from './component/componentList';
 import { navAccordion } from './component/layout/navigation/animation/navAccordion';
 import { navigationScoller } from './component/layout/navigation/animation/navScroller';
+import { loadData } from './data';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
 import { routeList } from './pages/routeList';
-import { storeTest } from './test/storeTest';
-
-let commonData = {};
-let legendData = {};
-export const getCommonData = () => commonData;
-export const getLegendData = () => legendData;
+// import { storeTest } from './test/storeTest';
 
 /**
  * Set default
@@ -39,27 +35,8 @@ core.useLoad(() => {
 
     core.printDefault();
 
-    /**
-     * Load common data.
-     */
-    const loadData = async () => {
-        const commonData = await fetch(`../data/common.json`)
-            .then((response) => response.json())
-            .then((data) => data)
-            .catch((err) => console.warn('Something went wrong.', err));
-
-        const legendData = await fetch(`../data/legend.json`)
-            .then((response) => response.json())
-            .then((data) => data)
-            .catch((err) => console.warn('Something went wrong.', err));
-
-        return { commonData, legendData };
-    };
-
     const init = async () => {
-        const data = await loadData();
-        commonData = data?.commonData;
-        legendData = data?.legendData;
+        await loadData();
 
         inizializeApp({
             root: document.querySelector('#content'),

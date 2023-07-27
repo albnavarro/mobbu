@@ -1,4 +1,4 @@
-import { getLegendData } from '../../../../main';
+import { getLegendData } from '../../../../data';
 import { createProps } from '../../../../mobjs';
 import { caterpillarN2Animation } from './animation/animation';
 

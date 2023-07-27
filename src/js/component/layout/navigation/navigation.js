@@ -1,4 +1,4 @@
-import { getCommonData } from '../../../main';
+import { getCommonData } from '../../../data';
 import { createProps } from '../../../mobjs';
 
 /**
