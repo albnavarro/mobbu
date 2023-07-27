@@ -20,7 +20,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Object} obj
  * @param {String} obj.name
  * @param {Function} obj.component
- * @param {Object} obj.state
+ * @param {import('../../mobbu').MobbuStoreType} obj.state
  * @returns {{ string:{componentFunction:function,state:Object} }}
  *
  * @description
