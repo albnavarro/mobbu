@@ -1,5 +1,5 @@
-import { parseComponents } from './componentParse';
 import { createRunTimeComponent } from '../utils';
+import { mainStore } from '../mainStore/mainStore';
 
 /**
  * @param {Object} obj
@@ -23,11 +23,14 @@ export const parseRuntime = async ({ container }) => {
 
     /**
      * Parse inner component.
+     * Use pub/sub to avoid circular dependencies.
      */
-    await parseComponents({
-        element: container,
-        runtimeId: uniqueId,
-    });
+    mainStore.set(
+        'parseComponentEvent',
+        { element: container, runtimeId: uniqueId },
+        false
+    );
+    await mainStore.emitAsync('parseComponentEvent');
 
     parseRuntime({ container });
 };

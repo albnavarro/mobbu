@@ -2,7 +2,7 @@
 
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { updateChildrenOrder } from '../componentStore/action/children';
-import { parseComponents } from '../parseComponent/componentParse';
+import { mainStore } from '../mainStore/mainStore';
 import { addWithKey } from './addWithKey';
 import { addWithoutKey } from './addWithoutKey';
 import { listKeyExist } from './utils';
@@ -73,12 +73,15 @@ export const updateChildren = async ({
     });
 
     /**
-     * Parse new component if there is ( added is executed )
+     * Parse inner component.
+     * Use pub/sub to avoid circular dependencies.
      */
-    await parseComponents({
-        element: containerList,
-        runtimeId,
-    });
+    mainStore.set(
+        'parseComponentEvent',
+        { element: containerList, runtimeId },
+        false
+    );
+    await mainStore.emitAsync('parseComponentEvent');
 
     updateChildrenOrder({
         id,

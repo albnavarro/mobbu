@@ -62,4 +62,14 @@ export const mainStore = core.createStore({
         type: String,
         skipEqual: false,
     }),
+    parseComponentEvent: {
+        element: () => ({
+            value: document.createElement('div'),
+            type: HTMLElement,
+        }),
+        runtimeId: () => ({
+            value: '',
+            type: String,
+        }),
+    },
 });

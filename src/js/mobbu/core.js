@@ -268,6 +268,7 @@ export const core = {
      * myStore.getValidation();
      * myStore.watch();
      * myStore.emit();
+     * myStore.emitAsync();
      * myStore.debugStore();
      * myStore.debugValidate();
      * myStore.setStyle();

@@ -2,7 +2,6 @@
 
 import { checkEquality } from './checkEquality.js';
 import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
-
 import {
     maxDepth,
     inizializeStoreData,
@@ -125,6 +124,7 @@ export class SimpleStore {
      * myStore.getValidation();
      * myStore.watch();
      * myStore.emit();
+     * myStore.emitAsync();
      * myStore.debugStore();
      * myStore.debugValidate();
      * myStore.setStyle();
@@ -925,6 +925,41 @@ export class SimpleStore {
                     this.validationStatusObject[prop]
                 );
             });
+        } else {
+            storeEmitWarning(prop, this.logStyle);
+        }
+    }
+
+    /**
+     * @description
+     * Fire async callback related to specific property.
+     *
+     * @param {string} prop
+     *
+     * @example
+     * ```javascript
+     *
+     * myStore.watch('myProp', async (value) => {
+     *     await myFunction(val);
+     * });
+     *
+     * await myStore.set('myProp', value, false);
+     * await myStore.emitAsync('myProp');
+     * ```
+     */
+    async emitAsync(prop) {
+        if (prop in this.store) {
+            const fnByProp = this.callBackWatcher.filter(
+                (item) => item.prop === prop
+            );
+
+            for (const item of fnByProp) {
+                await item.fn(
+                    this.store[prop], // Val
+                    this.store[prop], // OldVal
+                    this.validationStatusObject[prop] // Validate
+                );
+            }
         } else {
             storeEmitWarning(prop, this.logStyle);
         }
