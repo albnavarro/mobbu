@@ -9,7 +9,10 @@ import {
     setPageNotFound,
     setRouteList,
 } from '../mainStore/actions/routeList';
-import { parseComponents } from '../parseComponent/componentParse';
+import {
+    initParseWatcher,
+    parseComponents,
+} from '../parseComponent/componentParse';
 import { router } from './router';
 import { debugRoute } from './test';
 
@@ -34,6 +37,11 @@ export const inizializeApp = async ({
     pageNotFound = 'pageNotFound',
 }) => {
     if (!root) return;
+
+    /**
+     * Init parse watcher.
+     */
+    initParseWatcher();
 
     /**
      *
