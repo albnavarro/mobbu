@@ -20,6 +20,8 @@ export const animatedPatternN0Animation = ({
     gutter,
     fill,
     disableOffcanvas,
+    stagger,
+    reorder,
 }) => {
     /**
      * Check if offscrennCanvas can be used.
@@ -63,27 +65,30 @@ export const animatedPatternN0Animation = ({
      * Add props to transform.
      * Order byy hasFill, so is linke z-index: -1.
      */
-    data = gridData
-        .map((item, i) => {
-            return {
-                ...item,
-                ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
-            };
-        })
-        .sort((value) => (value.hasFill ? -1 : 1))
-        .reverse();
+    data = reorder
+        ? gridData
+              .map((item, i) => {
+                  return {
+                      ...item,
+                      ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
+                  };
+              })
+              .sort((value) => (value.hasFill ? -1 : 1))
+              .reverse()
+        : gridData.map((item, i) => {
+              const hasFill = fill.includes(i);
+              return {
+                  ...item,
+                  ...{ scale: 1, rotate: 0, hasFill },
+              };
+          });
 
     /**
      * Create tween
      */
     gridTween = tween.createTween({
         ease: 'easeInOutQuad',
-        stagger: {
-            each: 5,
-            // from: 'start',
-            grid: { col: 11, row: 11, direction: 'row' },
-            waitComplete: false,
-        },
+        stagger,
         data: { scale: 1, rotate: 0 },
     });
 

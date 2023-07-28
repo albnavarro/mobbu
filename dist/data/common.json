@@ -72,8 +72,21 @@
         },
         {
             "label": "animated pattern n.0",
-            "url": "animatedPatternN0",
-            "children": null
+            "url": "#",
+            "children": [
+                {
+                    "label": "animated pattern n.0 v1",
+                    "url": "animatedPatternN0v1"
+                },
+                {
+                    "label": "animated pattern n.0 v2",
+                    "url": "animatedPatternN0v2"
+                },
+                {
+                    "label": "animated pattern n.0 v3",
+                    "url": "animatedPatternN0v3"
+                }
+            ]
         },
         {
             "label": "animated pattern n.1",
