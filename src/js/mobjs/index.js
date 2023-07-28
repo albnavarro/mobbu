@@ -23,6 +23,7 @@ export { createProps } from './mainStore/actions/props';
  *     getState: Function,
  *     setState: Function,
  *     emit: Function
+ *     emitAsync: Function
  *     computed: Function,
  *     watch: Function,
  *     getChildren: Function,

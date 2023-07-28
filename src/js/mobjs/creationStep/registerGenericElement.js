@@ -44,17 +44,18 @@ export const registerGenericElement = ({ component, state = {} }) => {
     /**
      * Register component to store
      */
-    const { getState, setState, emit, computed, watch } = addComponentToStore({
-        component,
-        placeholderElement,
-        props: propsUpdated,
-        state,
-        destroy: () => {},
-        id,
-        componentName,
-        instanceName,
-        key,
-    });
+    const { getState, setState, emit, emitAsync, computed, watch } =
+        addComponentToStore({
+            component,
+            placeholderElement,
+            props: propsUpdated,
+            state,
+            destroy: () => {},
+            id,
+            componentName,
+            instanceName,
+            key,
+        });
 
     /**
      * Update Parent id before render, do child can use immediatly parentId.
@@ -77,6 +78,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
         getState,
         setState,
         emit,
+        emitAsync,
         computed,
         watch,
         repeatId,

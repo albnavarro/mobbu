@@ -21,6 +21,7 @@ import { addPropsToState } from './utils';
     getState: function():object,
     setState: function(string, any, boolean):void,
     emit: function(string):void,
+    emitAsync: function(string):Promise,
     computed: function(string, Array.<String>, function(any,any):any):void,
     watch: function(string, function(any,any,(boolean|object))):Function
  * }}
@@ -66,6 +67,7 @@ export const addComponentToStore = ({
         setState: (prop = '', value = {}, fire = true) =>
             store.set(prop, value, fire),
         emit: (prop = '') => store.emit(prop),
+        emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (prop = '', keys = [], fn = () => {}) =>
             store.computed(prop, keys, fn),
         watch: (prop = '', cb = () => {}) => store.watch(prop, cb),
