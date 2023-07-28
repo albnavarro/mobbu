@@ -68,7 +68,7 @@ export const TestComponent = async ({
                 ${repeat({
                     watch: 'data',
                     component: 'TestComponent2',
-                    key: 'label',
+                    key: 'key',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
@@ -92,7 +92,7 @@ export const TestComponent = async ({
                 ${repeat({
                     watch: 'data',
                     component: 'TestComponent2',
-                    key: 'label',
+                    key: 'key',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };

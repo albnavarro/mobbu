@@ -1,101 +1,131 @@
 export const originalData = [
     {
-        label: 'a',
+        key: 'a',
+        label: 'A',
     },
     {
-        label: 'b',
+        key: 'b',
+        label: 'B',
     },
     {
-        label: 'c',
+        key: 'c',
+        label: 'C',
     },
     {
-        label: 'd',
+        key: 'd',
+        label: 'D',
     },
 ];
 
 export const addedData = [
     {
-        label: 'f',
+        key: 'f',
+        label: 'F',
     },
     {
-        label: 'b',
+        key: 'b',
+        label: 'A',
     },
     {
-        label: 'b',
+        key: 'b',
+        label: 'B',
     },
     {
-        label: 'e',
+        key: 'e',
+        label: 'A',
     },
     {
-        label: 'c',
+        key: 'c',
+        label: 'C',
     },
     {
-        label: 'a',
+        key: 'a',
+        label: 'A',
     },
     {
-        label: 'g',
+        key: 'g',
+        label: 'G',
     },
     {
-        label: 'h',
+        key: 'h',
+        label: 'H',
     },
     {
-        label: 'd',
+        key: 'd',
+        label: 'D',
     },
 ];
 
 export const addedData2 = [
     {
-        label: 'm',
+        key: 'm',
+        label: 'M',
     },
     {
-        label: 'q',
+        key: 'q',
+        label: 'Q',
     },
     {
-        label: 'z',
+        key: 'z',
+        label: 'Z',
     },
     {
-        label: 'i',
+        key: 'i',
+        label: 'I',
     },
     {
-        label: 'b',
+        key: 'b',
+        label: 'B',
     },
     {
-        label: 'e',
+        key: 'e',
+        label: 'E',
     },
     {
-        label: 'n',
+        key: 'n',
+        label: 'N',
     },
     {
-        label: 'a',
+        key: 'a',
+        label: 'A',
     },
     {
-        label: 'g',
+        key: 'g',
+        label: 'G',
     },
     {
-        label: 'h',
+        key: 'h',
+        label: 'H',
     },
     {
-        label: 'l',
+        key: 'l',
+        label: 'L',
     },
     {
-        label: 'j',
+        key: 'j',
+        label: 'J',
     },
     {
-        label: 'd',
+        key: 'd',
+        label: 'D',
     },
 ];
 
 export const removeData = [
     {
-        label: 'a',
+        key: 'a',
+        label: 'A',
     },
     {
-        label: 'h',
+        key: 'h',
+        label: 'H',
     },
     {
-        label: 'f',
+        key: 'f',
+        label: 'F',
     },
     {
-        label: 'd',
+        key: 'd',
+        label: 'D',
     },
 ];
