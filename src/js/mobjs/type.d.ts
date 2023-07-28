@@ -206,9 +206,9 @@ export interface componentType {
              component: 'MyComponent',
              key: 'my_object_unique_key',
              props: ({ current, index }) => {
-                 const newStateValue = current;
+                 const initialStateValue = current;
                  return {
-                     childState: newStateValue
+                     childState: initialStateValue
                      index,
                  };
              },
