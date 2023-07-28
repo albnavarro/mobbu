@@ -24,6 +24,8 @@ export const parseRuntime = async ({ container }) => {
     /**
      * Parse inner component.
      * Use pub/sub to avoid circular dependencies.
+     * Parse current HTMLDom to create inner component.
+     * Scan and await the end of possible noew component creation.
      */
     mainStore.set(
         'parseComponentEvent',
@@ -32,5 +34,8 @@ export const parseRuntime = async ({ container }) => {
     );
     await mainStore.emitAsync('parseComponentEvent');
 
+    /**
+     * Rescan above result to check if there is another component inside.
+     */
     parseRuntime({ container });
 };

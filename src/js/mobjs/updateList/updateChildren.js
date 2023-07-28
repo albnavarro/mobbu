@@ -75,6 +75,8 @@ export const updateChildren = async ({
     /**
      * Parse inner component.
      * Use pub/sub to avoid circular dependencies.
+     * Parse current HTMLDom to create inner component.
+     * Scan and await the end of possible noew component creation.
      */
     mainStore.set(
         'parseComponentEvent',
