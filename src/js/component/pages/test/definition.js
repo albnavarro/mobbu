@@ -27,6 +27,7 @@ export const testComponent2Def = createComponentDefinition({
             value: -1,
             type: Number,
         }),
+        computedLabel: '',
         isSelected: false,
     },
 });

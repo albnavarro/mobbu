@@ -32,7 +32,7 @@ function additems() {
 }
 
 /**
- * Create component
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const Headernav = ({ render, onMount }) => {
     onMount(({ element }) => {

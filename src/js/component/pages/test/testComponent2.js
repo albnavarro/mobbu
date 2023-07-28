@@ -7,8 +7,9 @@ function asyncTest() {
         }, 100);
     });
 }
+
 /**
- * Create component
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const TestComponent2 = async ({
     getState,
@@ -17,23 +18,21 @@ export const TestComponent2 = async ({
     onMount,
     emit,
     key,
-    // watchParent,
+    computed,
 }) => {
     const { label, index } = getState();
 
     onMount(({ element }) => {
-        const counterEl = element.querySelector('.counter');
+        const labelEl = element.querySelector('.label');
         const button = element.querySelector('button');
-        button.addEventListener('click', () => emit('isSelected'));
-        watch('isSelected', () => element.classList.toggle('is-selected'));
-        watch('index', (value) => {
-            counterEl.textContent = value;
-        });
 
-        // watchParent('data', () => {
-        //     const labelEl = element.querySelector('.label');
-        //     labelEl.innerHTML = label?.();
-        // });
+        button.addEventListener('click', () => emit('isSelected'));
+
+        watch('isSelected', () => element.classList.toggle('is-selected'));
+
+        computed('computedLabel', ['index', 'label'], (index, label) => {
+            labelEl.textContent = `${label}-${index}`;
+        });
 
         return () => {
             element.remove();
@@ -44,9 +43,8 @@ export const TestComponent2 = async ({
 
     return render(/* HTML */ `
         <div class="c-test-comp__inner">
-            <div>Label: <span class="label"> ${label()}</span></div>
+            <div class="label">${label}-${index}</div>
             <slot data-slotname="slot1"></slot>
-            <div>Id:<span class="counter">${index}</span></div>
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"

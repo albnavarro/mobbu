@@ -14,7 +14,7 @@ function asyncTest() {
 }
 
 /**
- * Create component
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const TestComponent = async ({
     getState,
@@ -61,7 +61,7 @@ export const TestComponent = async ({
             </div>
             <TestComponent2
                 data-props="${createProps({
-                    label: () => `outer list el up`,
+                    label: `outer list el up`,
                 })}"
             ></TestComponent2>
             <div class="c-test-comp__list">
@@ -69,22 +69,22 @@ export const TestComponent = async ({
                     watch: 'data',
                     component: 'TestComponent2',
                     key: 'label',
-                    // eslint-disable-next-line no-unused-vars
                     props: ({ current, index }) => {
-                        return {
-                            label: () => current.label,
-                            index,
-                        };
+                        const { label } = current;
+                        return { label, index };
                     },
-                    // eslint-disable-next-line no-unused-vars
                     updateState: ({ current, index, setChildState }) => {
+                        const { label } = current;
                         setChildState('index', index);
+                        setChildState('label', label);
                     },
                     // beforeUpdate: ({ container, childrenId }) => {
-                    //     console.log(`before update`);
+                    //     console.log(
+                    //         `before update: ${(container, childrenId)}`
+                    //     );
                     // },
                     // afterUpdate: ({ container, childrenId }) => {
-                    //     console.log(`after update`);
+                    //     console.log(`after update: ${(container, childrenId)}`);
                     // },
                 })}
             </div>
@@ -94,22 +94,27 @@ export const TestComponent = async ({
                     component: 'TestComponent2',
                     key: 'label',
                     props: ({ current, index }) => {
-                        return { label: () => `${current.label}2`, index };
+                        const { label } = current;
+                        return { label, index };
                     },
-                    updateState: ({ index, setChildState }) => {
-                        setChildState('index', index + 1);
+                    updateState: ({ current, index, setChildState }) => {
+                        const { label } = current;
+                        setChildState('index', index);
+                        setChildState('label', label);
                     },
                     // beforeUpdate: ({ container, childrenId }) => {
-                    //     console.log(`before update`);
+                    //     console.log(
+                    //         `before update: ${(container, childrenId)}`
+                    //     );
                     // },
                     // afterUpdate: ({ container, childrenId }) => {
-                    //     console.log(`after update`);
+                    //     console.log(`after update: ${(container, childrenId)}`);
                     // },
                 })}
             </div>
             <TestComponent2
                 data-props="${createProps({
-                    label: () => `outer list el down`,
+                    label: `outer list el down`,
                 })}"
             >
                 <div data-slotposition="slot1"><span>slot1</span></div>

@@ -1,3 +1,6 @@
+/**
+ * @param {import("../../../mobjs/type").componentType}
+ */
 export const Footer = ({ render }) => {
     return render(/* HTML */ `
         <footer class="l-footer">

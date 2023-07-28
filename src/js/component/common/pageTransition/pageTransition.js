@@ -1,6 +1,9 @@
 import { timeline, tween } from '../../../mobbu';
 import { loadUrl } from '../../../mobjs';
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const PageTransition = ({ render, onMount, watch }) => {
     onMount(({ element }) => {
         let currentUrl = '';

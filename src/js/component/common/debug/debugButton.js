@@ -1,5 +1,8 @@
 import { componentStore, mainStore } from '../../../mobjs';
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const DebugButton = ({ render, onMount }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => {

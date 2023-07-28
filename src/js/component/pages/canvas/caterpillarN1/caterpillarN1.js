@@ -3,7 +3,7 @@ import { createProps } from '../../../../mobjs';
 import { caterpillarN1Animation } from './animation/animation';
 
 /**
- * @param {import('../../../../mobjs').componentType}
+ * @param {import('../../../../mobjs/type').componentType}
  */
 export const CaterpillarN1 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {

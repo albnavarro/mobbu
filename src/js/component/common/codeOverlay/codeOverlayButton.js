@@ -1,3 +1,6 @@
+/**
+ * @param {import("../../../mobjs/type").componentType}
+ */
 export const CodeOverlayButton = ({
     render,
     onMount,

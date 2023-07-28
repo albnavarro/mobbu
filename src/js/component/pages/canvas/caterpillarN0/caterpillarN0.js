@@ -1,5 +1,8 @@
 import { caterpillarN0Animation } from './animation/animation';
 
+/**
+ * @param {import('../../../../mobjs/type').componentType}
+ */
 export const CaterpillarN0 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');

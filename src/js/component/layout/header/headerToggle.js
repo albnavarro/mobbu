@@ -1,5 +1,8 @@
 import { navigationStore } from '../navigation/store/navStore';
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const HeaderToggle = ({ onMount, render }) => {
     onMount(({ element }) => {
         const hamburger = element.querySelector('.hamburger');

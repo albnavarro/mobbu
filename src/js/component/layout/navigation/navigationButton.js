@@ -1,6 +1,9 @@
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const NavigationButton = ({ getState, render, onMount }) => {
     const { label, url, arrowClass, subMenuClass, fireRoute } = getState();
 

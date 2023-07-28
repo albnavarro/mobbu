@@ -69,7 +69,7 @@ function getItems(data) {
 }
 
 /**
- * inizialize module
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const Navigation = ({ render }) => {
     const { navigation: data } = getCommonData();

@@ -90,6 +90,9 @@ const printContent = async ({
     goToTop();
 };
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const CodeOverlay = ({ render, onMount, setState, getState, watch }) => {
     const { contents } = getState();
 

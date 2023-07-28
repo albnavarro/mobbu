@@ -120,6 +120,9 @@ export const watchList = ({
              * Update children state.
              */
             [...childrenFiltered].forEach((id, index) => {
+                const current = currentUnivoque?.[index];
+                if (!current) return;
+
                 updateState({
                     current: currentUnivoque?.[index],
                     setChildState: (

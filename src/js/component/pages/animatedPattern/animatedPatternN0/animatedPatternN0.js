@@ -2,6 +2,9 @@ import { getLegendData } from '../../../../data';
 import { createProps } from '../../../../mobjs';
 import { animatedPatternN0Animation } from './animation/animation';
 
+/**
+ * @param {import('../../../../mobjs/type').componentType}
+ */
 export const AnimatedPatternN0 = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');

@@ -3,7 +3,7 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { overlayDrawers } from '../codeOverlay/definition';
 
 /**
- * Create component
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const CodeButton = ({ getState, render, onMount }) => {
     const { style, drawers } = getState();

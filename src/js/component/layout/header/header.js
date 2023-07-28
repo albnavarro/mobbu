@@ -9,6 +9,9 @@ function closeInfo({ navInfo }) {
     navInfo.classList.remove('open');
 }
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const Header = ({ render, onMount }) => {
     onMount(({ element }) => {
         const navInfo = element.querySelector('.l-header__navinfo');

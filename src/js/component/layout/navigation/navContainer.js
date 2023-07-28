@@ -33,7 +33,7 @@ function addHandler({ main, toTopBtn }) {
 }
 
 /**
- * Create container
+ * @param {import('../../../mobjs/type').componentType}
  */
 export const NavigationContainer = ({ render, onMount }) => {
     onMount(({ element }) => {

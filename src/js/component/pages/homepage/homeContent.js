@@ -1,5 +1,8 @@
 import { tween } from '../../../mobbu';
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const HomeContent = ({ onMount, render }) => {
     onMount(({ element }) => {
         const title = element.querySelector('.js-title');
