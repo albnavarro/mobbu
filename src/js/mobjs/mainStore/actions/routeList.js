@@ -9,7 +9,7 @@ import { mainStore } from '../mainStore';
  * @description
  * Add route list to store.
  */
-export const setRouteList = (list) => mainStore.set('routeList', [list]);
+export const setRouteList = (list) => mainStore.set('routeList', list);
 
 /**
  * @returns {{string:function():string}|{}} list
@@ -19,7 +19,7 @@ export const setRouteList = (list) => mainStore.set('routeList', [list]);
  */
 export const getRouteList = () => {
     const { routeList } = mainStore.get();
-    return routeList?.[0] ?? {};
+    return routeList;
 };
 
 /**

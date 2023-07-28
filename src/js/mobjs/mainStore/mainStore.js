@@ -16,12 +16,12 @@ export const mainStore = core.createStore({
         type: String,
     }),
     componentList: () => ({
-        value: [],
-        type: Array,
+        value: {},
+        type: 'any',
     }),
     routeList: () => ({
-        value: [],
-        type: Array,
+        value: {},
+        type: 'any',
     }),
     propsToChildren: () => ({
         value: [],
