@@ -48,6 +48,10 @@
         &--last {
             width: rem(100) !important;
         }
+
+        &:last-of-type {
+            margin-right: 1px;
+        }
     }
 
     &__wrap {
