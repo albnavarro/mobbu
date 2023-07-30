@@ -21,6 +21,8 @@ export const scrollerN0Animation = ({
     cellHeight,
     gutter,
     fill,
+    stagger,
+    reorder,
     disableOffcanvas,
 }) => {
     /**
@@ -64,25 +66,28 @@ export const scrollerN0Animation = ({
      * Add props to transform.
      * Order byy hasFill, so is linke z-index: -1.
      */
-    data = gridData
-        .map((item, i) => {
-            return {
-                ...item,
-                ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
-            };
-        })
-        .sort((value) => (value.hasFill ? -1 : 1));
+    data = reorder
+        ? gridData
+              .map((item, i) => {
+                  return {
+                      ...item,
+                      ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
+                  };
+              })
+              .sort((value) => (value.hasFill ? -1 : 1))
+        : gridData.map((item, i) => {
+              return {
+                  ...item,
+                  ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
+              };
+          });
 
     /**
      * Create staggers array.
      */
     let staggers = tween.createStaggers({
         items: data,
-        stagger: {
-            type: 'equal',
-            each: 6,
-            from: 'random',
-        },
+        stagger,
     });
 
     /**

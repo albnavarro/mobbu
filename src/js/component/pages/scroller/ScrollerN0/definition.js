@@ -6,12 +6,44 @@ export const scrollerN0Def = createComponentDefinition({
     name: 'scrollerN0',
     component: ScrollerN0,
     state: {
-        numberOfRow: 10,
-        numberOfColumn: 10,
-        cellWidth: 65,
-        cellHeight: 65,
-        gutter: 1,
-        fill: [36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84],
+        numberOfRow: () => ({
+            value: 10,
+            type: Number,
+        }),
+        numberOfColumn: () => ({
+            value: 10,
+            type: Number,
+        }),
+        cellWidth: () => ({
+            value: 65,
+            type: Number,
+        }),
+        cellHeight: () => ({
+            value: 65,
+            type: Number,
+        }),
+        gutter: () => ({
+            value: 1,
+            type: Number,
+        }),
+        fill: () => ({
+            value: [
+                36, 37, 38, 39, 40, 47, 51, 58, 62, 69, 73, 80, 81, 82, 83, 84,
+            ],
+            type: Array,
+        }),
+        stagger: () => ({
+            value: {
+                type: 'equal',
+                each: 6,
+                from: 'random',
+            },
+            type: 'Any',
+        }),
+        reorder: () => ({
+            value: true,
+            type: Boolean,
+        }),
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
 });

@@ -8,7 +8,8 @@ import { caterpillarN1Module } from './canvas/caterpillarN1';
 import { caterpillarN2Module } from './canvas/caterpillarN2';
 import { homeModule } from './home';
 import { horizontalScrollerModule } from './horizontalScroller';
-import { scrollerN0Module } from './scroller/scrollerN0';
+import { scrollerN0v1Module } from './scroler/scrollerN0v1';
+import { scrollerN0v2Module } from './scroler/scrollerN0v2';
 import { testModule } from './test';
 
 /**
@@ -24,7 +25,8 @@ export const routeList = {
     animatedPatternN0v3: animatedPatternN0v3Module,
     animatedPatternN0v4: animatedPatternN0v4Module,
     animatedPatternN1: animatedPatternN1Module,
-    scrollerN0: scrollerN0Module,
+    scrollerN0v1: scrollerN0v1Module,
+    scrollerN0v2: scrollerN0v2Module,
     horizontalScroller: horizontalScrollerModule,
     pageNotFound: pageNotFoundModule,
 };
