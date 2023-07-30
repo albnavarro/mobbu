@@ -76,8 +76,13 @@ const hideNav = ({ nav }) => {
 /**
  * Create main scroller.
  */
-export const horizontalScrollerAnimation = ({ indicators, titles, nav }) => {
-    const pins = createPins({ indicators });
+export const horizontalScrollerAnimation = ({
+    indicators,
+    titles,
+    nav,
+    animatePin,
+}) => {
+    const pins = !animatePin ? createPins({ indicators }) : [];
     const titlesParallax = createParallax({ titles });
 
     const horizontalCustom = new HorizontalScroller({
@@ -89,13 +94,15 @@ export const horizontalScrollerAnimation = ({ indicators, titles, nav }) => {
         shadowClass: '.shadowClass',
         useWillChange: true,
         useDrag: true,
-        useSticky: true,
+        useSticky: !animatePin,
         animateAtStart: false,
         ease: true,
         addCss: true,
         columnHeight: 70,
         columnWidth: 100,
         columnAlign: 'center',
+        pin: animatePin,
+        animatePin,
         breackpoint: 'tablet',
         children: [...pins, ...titlesParallax],
         onEnter: () => {

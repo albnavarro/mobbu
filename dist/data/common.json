@@ -113,8 +113,17 @@
         },
         {
             "label": "horizotnal scroller",
-            "url": "horizontalScroller",
-            "children": null
+            "url": "#",
+            "children": [
+                {
+                    "label": "horizotnal scroller v1",
+                    "url": "horizontalScrollerV1"
+                },
+                {
+                    "label": "horizotnal scroller v2",
+                    "url": "horizontalScrollerV2"
+                }
+            ]
         },
         {
             "label": "test repeater",

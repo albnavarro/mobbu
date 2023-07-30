@@ -47,7 +47,7 @@ const getNav = ({ numOfCol }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HorizontalScroller = ({ onMount, render }) => {
+export const HorizontalScroller = ({ onMount, render, getState }) => {
     onMount(({ element }) => {
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
@@ -57,6 +57,7 @@ export const HorizontalScroller = ({ onMount, render }) => {
             indicators,
             titles,
             nav,
+            ...getState(),
         });
 
         /**
