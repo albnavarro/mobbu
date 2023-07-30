@@ -49,6 +49,10 @@
             width: rem(100) !important;
         }
 
+        &:first-of-type {
+            margin-left: -1px;
+        }
+
         &:last-of-type {
             margin-right: 1px;
         }
