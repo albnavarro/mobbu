@@ -655,33 +655,33 @@ export default class HandleSyncTimeline {
     /**
      * Find label tha match the occurrency and return the time
      */
-    startAnimation(partial) {
+    async startAnimation(partial) {
         if (this.repeat === 0) return;
 
-        loadFps().then(({ averageFPS }) => {
-            fpsLoadedLog('sequencer', averageFPS);
-            this.isReverse = false;
+        const { averageFPS } = await loadFps();
 
-            this.sequencers.forEach((item) => {
-                item.inzializeStagger();
-                item.disableStagger();
-                item.draw({
-                    partial,
-                    isLastDraw: false,
-                    useFrame: true,
-                    direction: this.getDirection(),
-                });
+        fpsLoadedLog('sequencer', averageFPS);
+        this.isReverse = false;
+
+        this.sequencers.forEach((item) => {
+            item.inzializeStagger();
+            item.disableStagger();
+            item.draw({
+                partial,
+                isLastDraw: false,
+                useFrame: true,
+                direction: this.getDirection(),
             });
+        });
 
-            handleFrame.add(() => {
-                handleNextTick.add(({ time, fps }) => {
-                    this.startTime = time;
-                    this.fpsIsInLoading = false;
-                    this.isStopped = false;
-                    this.isInPause = false;
-                    this.loopCounter = 0;
-                    this.updateTime(time, fps);
-                });
+        handleFrame.add(() => {
+            handleNextTick.add(({ time, fps }) => {
+                this.startTime = time;
+                this.fpsIsInLoading = false;
+                this.isStopped = false;
+                this.isInPause = false;
+                this.loopCounter = 0;
+                this.updateTime(time, fps);
             });
         });
     }

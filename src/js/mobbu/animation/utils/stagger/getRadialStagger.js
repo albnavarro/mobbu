@@ -33,9 +33,9 @@ export const getRadialArray = (arr, stagger) => {
 
     // Get radial in x direction
     const getRadialX = (arr, x, y) => {
-        return arr.reduce((total, row, i) => {
+        return arr.reduce((total, _row, i) => {
             const offset = Math.abs(i - y);
-            let newRow = [];
+            const newRow = [];
 
             // Avoid duplicate form before and after y
             if (i >= y && i <= y * 2) {
@@ -76,7 +76,7 @@ export const getRadialArray = (arr, stagger) => {
     const radialArrX = getRadialX(radialArrY, x, y);
 
     // Merge  x and y array
-    const radialXY = radialArrY.reduce((p, c, i) => {
+    const radialXY = radialArrY.reduce((p, _c, i) => {
         const row = [...radialArrY[i], ...radialArrX[i]];
         p.push(row);
         return p;
@@ -89,7 +89,7 @@ export const getRadialArray = (arr, stagger) => {
 
     const finalArray = (() => {
         if (mergeDirection === MERGE_FROM_DOWN) {
-            return radialXY.reduce((p, c, i) => {
+            return radialXY.reduce((p, _c, i) => {
                 if (i < y) {
                     return p;
                 } else if (i === y) {
@@ -107,7 +107,7 @@ export const getRadialArray = (arr, stagger) => {
             }, []);
         } else {
             return radialXY
-                .reduce((p, c, i) => {
+                .reduce((p, _c, i) => {
                     if (i > y) {
                         return p;
                     } else if (i === y) {

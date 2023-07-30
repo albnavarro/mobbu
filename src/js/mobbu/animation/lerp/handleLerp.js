@@ -430,7 +430,7 @@ export default class HandleLerp {
     /**
      * @private
      */
-    startRaf(res, reject) {
+    async startRaf(res, reject) {
         if (this.fpsInLoading) return;
         this.currentResolve = res;
         this.currentReject = reject;
@@ -445,10 +445,10 @@ export default class HandleLerp {
 
         if (this.firstRun) {
             this.fpsInLoading = true;
-            this.inzializeStagger().then(() => {
-                cb();
-                this.fpsInLoading = false;
-            });
+            await this.inzializeStagger();
+
+            cb();
+            this.fpsInLoading = false;
         } else {
             cb();
             this.firstRun = false;
