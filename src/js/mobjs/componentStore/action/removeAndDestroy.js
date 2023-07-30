@@ -102,6 +102,11 @@ export const removeAndDestroyById = ({ id = '' }) => {
             });
         }
     );
+
+    /**
+     * Remove component from dom
+     */
+    element?.remove();
 };
 
 /**

@@ -126,6 +126,19 @@ export interface componentType {
     watch(prop: String, callback: Function): void;
 
     /**
+     * @description
+     * Remove and destroy component.
+     *
+     * @example
+     * ```javascript
+     *
+     * remove()
+     *
+     * ```
+     */
+    remove(): void;
+
+    /**
      * @example
      * ```javascript
      *

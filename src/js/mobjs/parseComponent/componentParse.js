@@ -36,3 +36,16 @@ export const initParseWatcher = () => {
         });
     });
 };
+
+/**
+ * @param {HTMLElement} element
+ * @return {Promise<void>} A promise to the token.
+ *
+ * @description
+ */
+export const parseDom = async (element) => {
+    await parseComponents({
+        element,
+        runtimeId: null,
+    });
+};

@@ -1,5 +1,7 @@
 // @ts-check
 
+export { removeAndDestroyById } from './componentStore/action/removeAndDestroy';
+export { parseDom } from './parseComponent/componentParse';
 export { componentStore } from './componentStore/store';
 export { mainStore } from './mainStore/mainStore';
 export { loadUrl } from './route/router';
