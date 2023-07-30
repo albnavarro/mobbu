@@ -127,7 +127,7 @@
         display: block;
 
         &.hidden {
-            display: none;
+            visibility: hidden;
         }
 
         span {
