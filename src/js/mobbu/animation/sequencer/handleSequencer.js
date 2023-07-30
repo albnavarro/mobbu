@@ -833,7 +833,12 @@ export default class HandleSequencer {
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method.
      */
     subscribe(cb = () => {}) {
-        const unsubscribeCb = setCallBack(cb, this.callback);
+        const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+            cb,
+            this.callback
+        );
+        this.callback = arrayOfCallbackUpdated;
+
         return () => (this.callback = unsubscribeCb(this.callback));
     }
 
@@ -879,7 +884,12 @@ export default class HandleSequencer {
      * ```
      */
     onStop(cb) {
-        const unsubscribeCb = setCallBack(cb, this.callbackOnStop);
+        const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+            cb,
+            this.callbackOnStop
+        );
+        this.callbackOnStop = arrayOfCallbackUpdated;
+
         return () => (this.callbackOnStop = unsubscribeCb(this.callbackOnStop));
     }
 
@@ -904,13 +914,15 @@ export default class HandleSequencer {
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
     subscribeCache(item, fn = () => {}) {
-        const { unsubscribeCb, unsubscribeCache } = setCallBackCache(
-            item,
-            fn,
-            this.callbackCache,
-            this.unsubscribeCache
-        );
+        const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
+            setCallBackCache(
+                item,
+                fn,
+                this.callbackCache,
+                this.unsubscribeCache
+            );
 
+        this.callbackCache = arrayOfCallbackUpdated;
         this.unsubscribeCache = unsubscribeCache;
         return () => (this.callbackCache = unsubscribeCb(this.callbackCache));
     }

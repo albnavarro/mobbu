@@ -990,7 +990,11 @@ export default class HandleLerp {
      * Callback that returns updated values ready to be usable, it is advisable to use it for single elements, although it works well on a not too large number of elements (approximately 100-200 elements) for large staggers it is advisable to use the subscribeCache method .
      */
     subscribe(cb) {
-        const unsubscribeCb = setCallBack(cb, this.callback);
+        const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+            cb,
+            this.callback
+        );
+        this.callback = arrayOfCallbackUpdated;
         return () => (this.callback = unsubscribeCb(this.callback));
     }
 
@@ -1004,7 +1008,11 @@ export default class HandleLerp {
      *
      */
     onStartInPause(cb) {
-        setCallBack(cb, this.callbackStartInPause);
+        const { arrayOfCallbackUpdated } = setCallBack(
+            cb,
+            this.callbackStartInPause
+        );
+        this.callbackStartInPause = arrayOfCallbackUpdated;
         return () => (this.callbackStartInPause = []);
     }
 
@@ -1050,7 +1058,12 @@ export default class HandleLerp {
      * ```
      */
     onComplete(cb) {
-        const unsubscribeCb = setCallBack(cb, this.callbackOnComplete);
+        const { arrayOfCallbackUpdated, unsubscribeCb } = setCallBack(
+            cb,
+            this.callbackOnComplete
+        );
+        this.callbackOnComplete = arrayOfCallbackUpdated;
+
         return () =>
             (this.callbackOnComplete = unsubscribeCb(this.callbackOnComplete));
     }
@@ -1076,13 +1089,15 @@ export default class HandleLerp {
      * Callback that returns updated values ready to be usable, specific to manage large staggers.
      */
     subscribeCache(item, fn) {
-        const { unsubscribeCb, unsubscribeCache } = setCallBackCache(
-            item,
-            fn,
-            this.callbackCache,
-            this.unsubscribeCache
-        );
+        const { arrayOfCallbackUpdated, unsubscribeCb, unsubscribeCache } =
+            setCallBackCache(
+                item,
+                fn,
+                this.callbackCache,
+                this.unsubscribeCache
+            );
 
+        this.callbackCache = arrayOfCallbackUpdated;
         this.unsubscribeCache = unsubscribeCache;
         return () => (this.callbackCache = unsubscribeCb(this.callbackCache));
     }

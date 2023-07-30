@@ -11,7 +11,7 @@ import { handleCache } from '../../../events/rafutils/handleCache.js';
 /**
  * @param {Function} currentCallback - callback to execute.
  * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} arrayOfCallback
- * @returns {function(Array.<{cb:function,id:number,index:Number,frame:Number}>):Array.<{cb:function,id:number,index:Number,frame:Number}>}
+ * @returns {{arrayOfCallbackUpdated:Array.<{cb:function,id:number,index:Number,frame:Number}>,unsubscribeCb: function(Array.<{cb:function,id:number,index:Number,frame:Number}>):Array.<{cb:function,id:number,index:Number,frame:Number}> }}
  *
  * @description
  * Add callback to Stack.
@@ -23,7 +23,11 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
 
     // Update main callback array.
     // index and frame is settled on first run of tween
-    arrayOfCallback.push({ cb: currentCallback, id, index: -1, frame: -1 });
+    // arrayOfCallback.push({ cb: currentCallback, id, index: -1, frame: -1 });
+    const arrayOfCallbackUpdated = [
+        ...arrayOfCallback,
+        { cb: currentCallback, id, index: -1, frame: -1 },
+    ];
 
     // Save current id for unsubscribe.
     const prevId = id;
@@ -32,12 +36,15 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
     callBackStore.quickSetProp('id', id + 1);
 
     // Delete item from arrayOfCallback, it is possibile unsubscribe a single stagger.
-    return (arrayOfCallback) =>
-        arrayOfCallback.map(({ id, cb, index, frame }) => {
-            // Set NOOP.
-            if (id === prevId) cb = () => {};
-            return { id, cb, index, frame };
-        });
+    return {
+        arrayOfCallbackUpdated,
+        unsubscribeCb: (arrayOfCallback) =>
+            arrayOfCallback.map(({ id, cb, index, frame }) => {
+                // Set NOOP.
+                if (id === prevId) cb = () => {};
+                return { id, cb, index, frame };
+            }),
+    };
 };
 
 /**
@@ -46,7 +53,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
  * @param {Array.<{cb:number,id:number,index:Number,frame:Number}>} arrayOfCallback
  * @param {Array.<function>} unsubscribeCacheArray - unsubscribe function of handleCache.
  *
- * @returns {{ unsubscribeCache:Array.<function>, unsubscribeCb:function(Array.<{cb:number,id:number,index:Number,frame:Number}>):Array.<{cb:number,id:number,index:Number,frame:Number}> }}
+ * @returns {{arrayOfCallbackUpdated:Array.<{cb:number,id:number,index:Number,frame:Number}>, unsubscribeCache:Array.<function>, unsubscribeCb:function(Array.<{cb:number,id:number,index:Number,frame:Number}>):Array.<{cb:number,id:number,index:Number,frame:Number}> }}
  */
 export const setCallBackCache = (
     item,
@@ -62,7 +69,10 @@ export const setCallBackCache = (
 
     // Update main callback array.
     // index and frame is settled on first run of tween
-    arrayOfCallback.push({ cb: cacheId, id, index: -1, frame: -1 });
+    const arrayOfCallbackUpdated = [
+        ...arrayOfCallback,
+        { cb: cacheId, id, index: -1, frame: -1 },
+    ];
 
     // Update unsubscribeCache store.
     unsubscribeCacheArray.push(unsubscribe);
@@ -73,6 +83,7 @@ export const setCallBackCache = (
     callBackStore.quickSetProp('id', id + 1);
 
     return {
+        arrayOfCallbackUpdated,
         unsubscribeCache: unsubscribeCacheArray,
         unsubscribeCb: (arrayOfCallback) => {
             // runsubscribe item from handleCache.
