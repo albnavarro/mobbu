@@ -4,7 +4,9 @@ import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
 import { createProps } from '../../../mobjs';
 import { horizontalScrollerAnimation } from './animation/animation';
 
-const getColumns = ({ numOfCol }) => {
+const getColumns = ({ numOfCol, pinIsVisible }) => {
+    const pinClass = pinIsVisible ? '' : 'hidden';
+
     return [...Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
@@ -13,7 +15,9 @@ const getColumns = ({ numOfCol }) => {
                     data-shadow="section-${i}"
                 >
                     <div class="l-h-scroller__wrap">
-                        <span class="l-h-scroller__indicator js-indicator">
+                        <span
+                            class="l-h-scroller__indicator js-indicator ${pinClass}"
+                        >
                             <span></span>
                         </span>
                         <div class="l-h-scroller__title js-title">
@@ -26,19 +30,16 @@ const getColumns = ({ numOfCol }) => {
         .join('');
 };
 
-const getNav = ({ numOfCol }) => {
+const getNav = ({ numOfCol, setState }) => {
     return [...Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
-                <li>
-                    <button
-                        type="button"
-                        data-id="${i}"
-                        class="l-h-scroller__nav__btn js-nav-button"
-                    >
-                        ${i}
-                    </button>
-                </li>
+                <HorizontalScrollerButton
+                    data-props=${createProps({
+                        id: i,
+                        callback: () => setState('currentId', i),
+                    })}
+                ></HorizontalScrollerButton>
             `;
         })
         .join('');
@@ -47,17 +48,25 @@ const getNav = ({ numOfCol }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HorizontalScroller = ({ onMount, render, getState }) => {
+export const HorizontalScroller = ({
+    onMount,
+    render,
+    getState,
+    setState,
+    watch,
+}) => {
+    const { animatePin } = getState();
+
     onMount(({ element }) => {
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
-        const navButtons = element.querySelectorAll('.js-nav-button');
         const titles = element.querySelectorAll('.js-title h1');
-        const { destroy, refresh } = horizontalScrollerAnimation({
+        const { destroy } = horizontalScrollerAnimation({
             indicators,
             titles,
             nav,
             ...getState(),
+            setState,
         });
 
         /**
@@ -65,46 +74,37 @@ export const HorizontalScroller = ({ onMount, render, getState }) => {
          */
         window.scrollTo(0, 0);
 
-        /**
-         * Navigation
-         */
-        [...navButtons].forEach((button) => {
-            button.addEventListener('click', async (e) => {
-                const target = e.currentTarget;
-                const { id } = target.dataset;
+        watch('currentId', (id) => {
+            /**
+             * Hre the nav is open so on route landing the offset is wrong
+             * So, refresh scroller and the scroll to item.
+             */
 
-                /**
-                 * Hre the nav is open so on route landing the offset is wrong
-                 * So, refresh scroller and the scroll to item.
-                 */
-                await refresh();
+            /**
+             * Get item shadow element.
+             */
+            const shadowCenter = element.querySelector(
+                `.shadowClass--section-${id} .shadowClass--in-center`
+            );
 
+            /**
+             * Get scroll value.
+             */
+            const { top } = offset(shadowCenter);
+            const height = outerHeight(shadowCenter);
+            const scrollValue =
                 /**
-                 * Get item shadow element.
+                 * Need previous and current value diffrence > 0 so add 1px.
+                 * ( onLeaveBack issue )
                  */
-                const shadowCenter = element.querySelector(
-                    `.shadowClass--section-${id} .shadowClass--in-center`
-                );
+                parseInt(id) === 0
+                    ? window.innerHeight + 1
+                    : top + height - window.innerHeight;
 
-                /**
-                 * Get scroll value.
-                 */
-                const { top } = offset(shadowCenter);
-                const height = outerHeight(shadowCenter);
-                const scrollValue =
-                    /**
-                     * Need previous and current value diffrence > 0 so add 1px.
-                     * ( onLeaveBack issue )
-                     */
-                    parseInt(id) === 0
-                        ? window.innerHeight + 1
-                        : top + height - window.innerHeight;
-
-                /**
-                 * Scroll
-                 */
-                bodyScroll.to(scrollValue, { duration: 2000 });
-            });
+            /**
+             * Scroll
+             */
+            bodyScroll.to(scrollValue, { duration: 2000 });
         });
 
         return () => {
@@ -130,12 +130,12 @@ export const HorizontalScroller = ({ onMount, render, getState }) => {
         >
         </CodeButton>
         <ul class="l-h-scroller__nav js-nav">
-            ${getNav({ numOfCol: 10 })}
+            ${getNav({ numOfCol: 10, setState })}
         </ul>
         <div class="l-h-scroller__root js-root">
             <div class="l-h-scroller__container js-container">
                 <div class="l-h-scroller__row js-row">
-                    ${getColumns({ numOfCol: 10 })}
+                    ${getColumns({ numOfCol: 10, pinIsVisible: !animatePin })}
                 </div>
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>

@@ -2,12 +2,13 @@ import { scroller } from '../../../../mobbu';
 import { HorizontalScroller } from '../../../../mobbu/plugin';
 import { outerWidth } from '../../../../mobbu/utils/vanillaFunction';
 
-const createPins = ({ indicators }) => {
+const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
         return scroller.createScrollTrigger({
             item: button,
             pin: true,
             animateAtStart: false,
+            range: '0.1px',
             animatePin: true,
             dynamicStart: {
                 position: 'right',
@@ -23,6 +24,12 @@ const createPins = ({ indicators }) => {
                     const relativeIndex = indicators.length - (i - 2);
                     return (window.innerWidth / 10) * 9 * relativeIndex;
                 },
+            },
+            onEnter: () => {
+                setState('currentIdFromScroll', i);
+            },
+            onLeaveBack: () => {
+                setState('currentIdFromScroll', i - 1);
             },
         });
     });
@@ -81,8 +88,9 @@ export const horizontalScrollerAnimation = ({
     titles,
     nav,
     animatePin,
+    setState,
 }) => {
-    const pins = !animatePin ? createPins({ indicators }) : [];
+    const pins = createPins({ indicators, setState });
     const titlesParallax = createParallax({ titles });
 
     const horizontalCustom = new HorizontalScroller({
