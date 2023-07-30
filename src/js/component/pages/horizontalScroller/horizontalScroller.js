@@ -10,21 +10,12 @@ const getColumns = ({ numOfCol, pinIsVisible }) => {
     return [...Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
-                <section
-                    class="l-h-scroller__column js-column"
-                    data-shadow="section-${i}"
-                >
-                    <div class="l-h-scroller__wrap">
-                        <span
-                            class="l-h-scroller__indicator js-indicator ${pinClass}"
-                        >
-                            <span></span>
-                        </span>
-                        <div class="l-h-scroller__title js-title">
-                            <h1>${i}</h1>
-                        </div>
-                    </div>
-                </section>
+                <HorizontalScrollerSection
+                    data-props="${createProps({
+                        id: i,
+                        pinClass,
+                    })}"
+                ></HorizontalScrollerSection>
             `;
         })
         .join('');
