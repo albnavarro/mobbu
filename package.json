@@ -9,21 +9,21 @@
         "dev": "npm run development"
     },
     "devDependencies": {
-        "eslint": "^8.20.0",
-        "eslint-plugin-import": "^2.27.5",
-        "npm": "^8.3.0",
-        "postcss": "^8.4.21",
-        "prettier-eslint-cli": "^6.0.1",
-        "stylelint": "^14.16.0",
-        "stylelint-config-standard-scss": "^6.1.0",
-        "stylelint-scss": "^4.2.0"
+        "eslint": "^8.46.0",
+        "eslint-plugin-import": "^2.28.0",
+        "npm": "^9.8.1",
+        "postcss": "^8.4.27",
+        "prettier-eslint-cli": "^7.1.0",
+        "stylelint": "^15.10.2",
+        "stylelint-config-standard-scss": "^10.0.0",
+        "stylelint-scss": "^5.0.1"
     },
     "dependencies": {
-        "browser-sync": "^2.28.3",
+        "browser-sync": "^2.29.3",
         "chokidar": "^3.5.3",
-        "esbuild": "0.17.10",
-        "esbuild-sass-plugin": "^2.6.0",
-        "highlight.js": "^11.7.0",
+        "esbuild": "^0.18.17",
+        "esbuild-sass-plugin": "^2.10.0",
+        "highlight.js": "^11.8.0",
         "sass-math": "^1.0.0",
         "sass-mq": "^6.0.0"
     }
