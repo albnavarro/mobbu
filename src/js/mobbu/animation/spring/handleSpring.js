@@ -372,8 +372,23 @@ export default class HandleSpring {
      * @description
      * Inzialize stagger array
      */
-    inzializeStagger() {
-        const getStagger = () => {
+    async inzializeStagger() {
+        /**
+         * First time il there is a stagger load fps then go next step
+         * next time no need to calcaulte stagger and jump directly next step
+         *
+         **/
+        if (
+            shouldInizializzeStagger(
+                this.stagger.each,
+                this.firstRun,
+                this.callbackCache,
+                this.callback
+            )
+        ) {
+            const { averageFPS } = await loadFps();
+
+            fpsLoadedLog('spring', averageFPS);
             const cb = getStaggerArray(this.callbackCache, this.callback);
 
             if (this.stagger.grid.col > cb.length) {
@@ -403,34 +418,10 @@ export default class HandleSpring {
             this.callbackOnComplete = staggerArrayOnComplete;
             this.slowlestStagger = slowlestStagger;
             this.fastestStagger = fastestStagger;
-            this.firstRun = false;
-        };
-
-        /**
-         * First time il there is a stagger load fps then go next step
-         * next time no need to calcaulte stagger and jump directly next step
-         *
-         **/
-        if (
-            shouldInizializzeStagger(
-                this.stagger.each,
-                this.firstRun,
-                this.callbackCache,
-                this.callback
-            )
-        ) {
-            return new Promise((resolve) => {
-                loadFps().then(({ averageFPS }) => {
-                    fpsLoadedLog('spring', averageFPS);
-                    getStagger();
-                    resolve();
-                });
-            });
-        } else {
-            return new Promise((resolve) => {
-                resolve();
-            });
         }
+
+        this.firstRun = false;
+        return { ready: true };
     }
 
     /**
@@ -441,24 +432,18 @@ export default class HandleSpring {
         this.currentResolve = res;
         this.currentReject = reject;
 
-        const cb = () =>
-            initRaf(
-                this.callbackStartInPause,
-                this.onReuqestAnim.bind(this),
-                this.pause.bind(this),
-                res
-            );
-
         if (this.firstRun) {
             this.fpsInLoading = true;
             await this.inzializeStagger();
-
-            cb();
             this.fpsInLoading = false;
-        } else {
-            cb();
-            this.firstRun = false;
         }
+
+        initRaf(
+            this.callbackStartInPause,
+            this.onReuqestAnim.bind(this),
+            this.pause.bind(this),
+            res
+        );
     }
 
     /**
