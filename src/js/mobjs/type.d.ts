@@ -73,7 +73,7 @@ export interface componentType {
      *
      * ```
      */
-    emitAsync(prop: string): promise<{ success: boolean }>;
+    emitAsync(prop: string): Promise<{ success: boolean }>;
 
     /**
      *
@@ -109,7 +109,7 @@ export interface componentType {
      *
      * ```
      */
-    computed(prop: String, keys: [String], callback: function): void;
+    computed(prop: String, keys: [String], callback: Function): void;
 
     /**
      * @example
@@ -245,13 +245,13 @@ export interface componentType {
          * @description
          * Array of object used to create list
          */
-        watch?: String;
+        watch: String;
 
         /**
          * @description
          * Unique key used to track the mutation of each individual component.
          */
-        key?: String;
+        key?: String | undefined;
 
         /**
          * @description
