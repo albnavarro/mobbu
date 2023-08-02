@@ -71,6 +71,11 @@ export const caterpillarN2Animation = ({
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
+    const logAddMethods = ({ value, direction, isForced }) => {
+        if (isForced) return;
+        console.log(`current: ${value}, direction: ${direction}`);
+    };
+
     /**
      * Create sequencer.
      */
@@ -89,7 +94,16 @@ export const caterpillarN2Animation = ({
             { start: 0, end: 5, ease: 'easeInOutBack' }
         )
         .goTo({ rotate: 0 }, { start: 5, end: duration, ease: 'easeInOutBack' })
-        .label('mylabel', 2);
+        .label('mylabel', 2)
+        .add(({ isForced, direction }) => {
+            logAddMethods({ isForced, direction, value: 1 });
+        }, 1)
+        .add(({ isForced, direction }) => {
+            logAddMethods({ isForced, direction, value: 5 });
+        }, 5)
+        .add(({ isForced, direction }) => {
+            logAddMethods({ isForced, direction, value: 9 });
+        }, 9);
 
     /**
      * Subscribe sequencer to timeline.

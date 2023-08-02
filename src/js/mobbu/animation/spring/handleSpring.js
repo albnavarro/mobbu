@@ -255,7 +255,7 @@ export default class HandleSpring {
      *
      * @param {Number} time current global time
      * @param {Boolean} fps current FPS
-     * @param {Boolean} res current promise resolve
+     * @param {function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
@@ -268,7 +268,11 @@ export default class HandleSpring {
 
         // Normalize spring config props
 
+        /**
+         * @type {Object|null}
+         */
         let o = {};
+
         o.tension = parseFloat(this.config.tension);
         o.friction = parseFloat(this.config.friction);
         o.mass = parseFloat(this.config.mass);
@@ -294,9 +298,7 @@ export default class HandleSpring {
                 o.isDisplacement =
                     o.tension !== 0
                         ? Math.abs(
-                              parseFloat(
-                                  item.toValue - item.currentValue
-                              ).toFixed(4)
+                              item.toValue - item.currentValue.toFixed(4)
                           ) <= o.precision
                         : true;
 
@@ -338,6 +340,7 @@ export default class HandleSpring {
                     if (!this.pauseStatus) {
                         // Remove reference to o Object
                         o = null;
+
                         //
                         res();
 

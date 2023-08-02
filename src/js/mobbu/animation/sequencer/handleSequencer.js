@@ -457,6 +457,7 @@ export default class HandleSequencer {
 
     /**
      * @private
+     * TODO provare a intercettare gli estremi ( es: 0 - 10 ).
      *
      * @property {number} [ time=0 ]
      *

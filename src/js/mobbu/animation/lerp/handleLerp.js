@@ -263,15 +263,19 @@ export default class HandleLerp {
      *
      * @param {Number} time current global time
      * @param {Boolean} fps current FPS
-     * @param {Boolean} res current promise resolve
+     * @param {function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
             item.currentValue = parseFloat(item.fromValue);
         });
 
+        /**
+         * @type {Object|null}
+         */
         let o = {};
-        o.velocity = parseFloat(this.velocity);
+
+        o.velocity = this.velocity;
 
         const draw = (_time, fps) => {
             this.isActive = true;
@@ -288,8 +292,8 @@ export default class HandleLerp {
                 item.currentValue = getRoundedValue(item.currentValue);
 
                 item.settled =
-                    Math.abs(
-                        parseFloat(item.toValue - item.currentValue).toFixed(4)
+                    Number(
+                        Math.abs(item.toValue - item.currentValue).toFixed(4)
                     ) <= this.precision;
 
                 if (item.settled) {
@@ -332,6 +336,7 @@ export default class HandleLerp {
                     if (!this.pauseStatus) {
                         // Remove reference to o Object
                         o = null;
+
                         //
                         res();
 
@@ -692,6 +697,7 @@ export default class HandleLerp {
         }
 
         const data = goFromToUtils(fromObj, toObj);
+
         return this.doAction(data, props, fromObj);
     }
 

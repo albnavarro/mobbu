@@ -64,7 +64,7 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 /**
  * @typedef {Object} tweenCommonStopProps
- * @prop {Boolean} clearCache
+ * @prop {Boolean} [ clearCache = true ]
     Stop all stagger implemented with subscribeCache methods.
  */
 
@@ -228,7 +228,7 @@ export default class HandleTween {
         /**
          * @private
          */
-        this.startTime = null;
+        this.startTime = 0;
 
         /**
          * @private
@@ -306,15 +306,18 @@ export default class HandleTween {
     /**
      * @private
      * @param {Number} time current global time
-     * @param {Boolean} fps current FPS
-     * @param {Boolean} res current promise resolve
+     * @param {Boolean} _fps current FPS
+     * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time, _fps, res) {
         this.startTime = time;
 
+        /**
+         * @type {Object|null}
+         */
         let o = {};
 
-        const draw = (time) => {
+        const draw = (/** @type{number} */ time) => {
             this.isActive = true;
 
             if (this.pauseStatus) {
@@ -322,7 +325,10 @@ export default class HandleTween {
             }
             this.timeElapsed = time - this.startTime - this.pauseTime;
 
-            if (this.isRunning && parseInt(this.timeElapsed) >= this.duration) {
+            if (
+                this.isRunning &&
+                Math.round(this.timeElapsed) >= this.duration
+            ) {
                 this.timeElapsed = this.duration;
             }
 
@@ -340,7 +346,7 @@ export default class HandleTween {
                 }
             });
 
-            o.isSettled = parseInt(this.timeElapsed) === this.duration;
+            o.isSettled = Math.round(this.timeElapsed) === this.duration;
 
             // Prepare an obj to pass to the callback
             o.callBackObject = getValueObj(this.values, 'currentValue');
@@ -381,6 +387,7 @@ export default class HandleTween {
                     if (!this.pauseStatus) {
                         // Remove reference to o Object
                         o = null;
+
                         //
                         res();
 

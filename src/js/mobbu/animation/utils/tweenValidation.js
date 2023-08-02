@@ -398,7 +398,7 @@ export const easeTweenIsValid = (ease) => {
 /**
  *
  * @param {String} spring config
- * @returns {String}
+ * @returns {Object}
  *
  * @description
  * Check if spring config is valid and return new config
