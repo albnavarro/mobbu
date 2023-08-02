@@ -1,7 +1,23 @@
+// @ts-check
+
 import { handleFrame } from '../../../events/rafutils/handleFrame.js';
 import { handleCache } from '../../../events/rafutils/handleCache.js';
 import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex.js';
 
+/**
+ * @param {Object} obj
+ * @param {Number} obj.each
+ * @param {Boolean} obj.useStagger
+ * @param {Boolean} obj.isLastDraw
+ * @param {Object.<string, number>} obj.callBackObject
+ * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callback
+ * @param {Array.<{cb:number,id:number,index:Number,frame:Number}>} obj.callbackCache
+ * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callbackOnStop
+ * @returns void
+ *
+ * @description
+ * Fire callback while Running
+ */
 export const syncCallback = ({
     each,
     useStagger,
