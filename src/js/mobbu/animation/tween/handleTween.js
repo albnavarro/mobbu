@@ -125,7 +125,7 @@ export default class HandleTween {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          *  This value lives from user call ( goTo etc..) until next call
          **/
@@ -465,9 +465,9 @@ export default class HandleTween {
             this.callbackOnComplete = staggerArrayOnComplete;
             this.slowlestStagger = slowlestStagger;
             this.fastestStagger = fastestStagger;
+            this.firstRun = false;
         }
 
-        this.firstRun = false;
         return { ready: true };
     }
 
@@ -730,7 +730,7 @@ export default class HandleTween {
      * @param {Object.<string, number|function>} fromObj from Values
      * @param {Object.<string, number|function>} toObj to Values
      * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|null} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -816,7 +816,7 @@ export default class HandleTween {
      * @param {Object.<string, number|function>} data Updated data
      * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
      * @param {Object.<string, number|function>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
      * Common oparation for set/goTo/goFrom/goFromTo methods.
@@ -829,18 +829,18 @@ export default class HandleTween {
         const { reverse, immediate, immediateNoPromise } =
             this.mergeProps(props);
 
-        if (valueIsBooleanAndTrue(reverse))
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
             this.value = setReverseValues(obj, this.values);
 
         this.values = setRelativeTween(this.values, this.relative);
 
-        if (valueIsBooleanAndTrue(immediate)) {
+        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
-            return new Promise((res) => res());
+            return Promise.resolve();
         }
 
-        if (valueIsBooleanAndTrue(immediateNoPromise)) {
+        if (valueIsBooleanAndTrue(immediateNoPromise, 'immediateNoPromise')) {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
             return;
@@ -852,7 +852,7 @@ export default class HandleTween {
             });
         }
 
-        return this.promise;
+        if (this.promise) return this.promise;
     }
 
     /**

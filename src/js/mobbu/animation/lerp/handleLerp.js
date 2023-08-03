@@ -52,6 +52,7 @@ import {
     lerpPrecisionIsValid,
     lerpVelocityIsValid,
     relativeIsValid,
+    valueIsBooleanAndTrue,
 } from '../utils/tweenValidation.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
 
@@ -114,7 +115,7 @@ export default class HandleLerp {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * @private
          * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
@@ -417,9 +418,9 @@ export default class HandleLerp {
             this.callbackOnComplete = staggerArrayOnComplete;
             this.slowlestStagger = slowlestStagger;
             this.fastestStagger = fastestStagger;
+            this.firstRun = false;
         }
 
-        this.firstRun = false;
         return { ready: true };
     }
 
@@ -571,7 +572,7 @@ export default class HandleLerp {
     /**
      * @param {Object.<string, number|function>} obj to Values
      * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes} props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -613,7 +614,7 @@ export default class HandleLerp {
     /**
      * @param {Object.<string, number|function>} obj from Values
      * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes } props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -655,7 +656,7 @@ export default class HandleLerp {
      * @param {Object.<string, number|function>} fromObj from Values
      * @param {Object.<string, number|function>} toObj to Values
      * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes } props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -704,7 +705,7 @@ export default class HandleLerp {
     /**
      * @param {Object.<string, number|function>} obj to Values
      * @param { import('../tween/handleTween.js').tweenCommonSpecialProps } props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -739,7 +740,7 @@ export default class HandleLerp {
      * @param {Object.<string, number|function>} data Updated data
      * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes} props special props
      * @param {Object.<string, number|function>} obj new data obj come from set/goTo/goFrom/goFromTo
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
      * Common oparation for set/goTo/goFrom/goFromTo methods.
@@ -750,16 +751,18 @@ export default class HandleLerp {
         const { reverse, immediate, immediateNoPromise } =
             this.mergeProps(props);
 
-        if (reverse) this.values = setReverseValues(obj, this.values);
+        if (valueIsBooleanAndTrue(reverse, 'reverse'))
+            this.values = setReverseValues(obj, this.values);
+
         this.values = setRelative(this.values, this.relative);
 
-        if (immediate) {
+        if (valueIsBooleanAndTrue(immediate, 'immediate ')) {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
-            return new Promise((res) => res());
+            return Promise.resolve();
         }
 
-        if (immediateNoPromise) {
+        if (valueIsBooleanAndTrue(immediateNoPromise, 'immediateNoPromise')) {
             this.isActive = false;
             this.values = setFromCurrentByTo(this.values);
             return;
@@ -771,7 +774,7 @@ export default class HandleLerp {
             });
         }
 
-        return this.promise;
+        if (this.promise) return this.promise;
     }
 
     /**
