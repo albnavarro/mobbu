@@ -639,7 +639,7 @@ export default class HandleTween {
         const newProps = { ...this.defaultProps, ...props };
         const { ease, duration, relative } = newProps;
         this.ease = easeTweenIsValidGetFunction(ease);
-        this.relative = relativeIsValid(relative);
+        this.relative = relativeIsValid(relative, 'tween');
         this.duration = durationIsNumberOrFunctionIsValid(duration);
         return newProps;
     }
@@ -765,6 +765,7 @@ export default class HandleTween {
     goFromTo(fromObj, toObj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
         this.useStagger = true;
+
         if (!compareKeys(fromObj, toObj)) {
             compareKeysWarning('tween goFromTo:', fromObj, toObj);
             return this.promise;

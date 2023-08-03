@@ -348,7 +348,7 @@ export const durationTweenIsValid = (duration) => {
 
 /**
  *
- * @param {Boolean} val  relative prop
+ * @param {Boolean|undefined} val  relative prop
  * @param {('tween'|'spring'|'lerp')} tweenType relative prop
  * @returns {Boolean}
  *
@@ -365,8 +365,8 @@ export const relativeIsValid = (val, tweenType) => {
 
 /**
  *
- * @param {String} ease
- * @returns {String}
+ * @param {String|undefined} ease
+ * @returns {Function}
  *
  * @description
  * Check if ease definition is valid
@@ -382,7 +382,7 @@ export const easeTweenIsValidGetFunction = (ease) => {
 
 /**
  *
- * @param {String} ease
+ * @param {String|undefined} ease
  * @returns {String}
  *
  * @description
@@ -484,7 +484,7 @@ export const springConfigPropIsValid = (obj) => {
 
 /**
  *
- * @param {(Number|Function)} duration
+ * @param {(Number|Function|undefined)} duration
  * @returns {Number}
  *
  * @description
