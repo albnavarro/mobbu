@@ -131,6 +131,10 @@ export const caterpillarN2Animation = ({
         })
         .add(infiniteTween);
 
+    syncTimeline.onLoopEnd(({ loop, direction }) => {
+        console.log(`loop end: ${loop} , ${direction}`);
+    });
+
     /**
      * Draw
      */

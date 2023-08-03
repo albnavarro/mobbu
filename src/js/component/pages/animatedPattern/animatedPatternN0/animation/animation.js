@@ -187,6 +187,10 @@ export const animatedPatternN0Animation = ({
         .goTo(gridTween, { scale: 1.3 }, { duration: 500 })
         .goTo(gridTween, { scale: 1 }, { duration: 1200 });
 
+    gridTimeline.onLoopEnd(({ direction, loop }) => {
+        console.log(`loop end: ${direction}, ${loop}`);
+    });
+
     /**
      * Start timeline.
      */

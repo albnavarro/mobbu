@@ -2404,6 +2404,7 @@ export default class HandleAsyncTimeline {
         this.tweenList = [];
         this.currentTween = [];
         this.callbackComplete = [];
+        this.callbackLoop = [];
         this.tweenStore = [];
         this.currentIndex = 0;
         this.actionAfterReject = {
