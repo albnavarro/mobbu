@@ -601,7 +601,7 @@ export default class HandleAsyncTimeline {
                 };
 
                 if (delay) {
-                    let start = getTime();
+                    const start = getTime();
                     this.delayIsRunning = true;
                     let deltaTimeOnpause = 0;
 
@@ -609,7 +609,7 @@ export default class HandleAsyncTimeline {
                      * Delay loop
                      */
                     const loop = () => {
-                        let current = getTime();
+                        const current = getTime();
                         let delta = current - start;
 
                         /*
@@ -2004,7 +2004,7 @@ export default class HandleAsyncTimeline {
         /**
          * Get current index for asyncReduceTween
          */
-        let index = this.isReverse
+        const index = this.isReverse
             ? this.tweenList.length - this.currentIndex
             : this.currentIndex;
 
