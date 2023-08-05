@@ -457,7 +457,6 @@ export default class HandleSequencer {
 
     /**
      * @private
-     * TODO provare a intercettare gli estremi ( es: 0 - 10 ).
      *
      * @property {number} [ time=0 ]
      *
@@ -773,26 +772,39 @@ export default class HandleSequencer {
 
     /**
      * @typedef {Object} sequencerAddProps
-     * @prop {number} value  the time value where the caalback is launched
+     * @prop {number} value  - The time value where the caalback is launched
      * @prop {boolean} isForced Indicates that the callback was launched the first time without having exceeded the temporal value, e.g .: combined with a scrollTrigger it is launched the first time the page is loaded if it exceeds the set value even if this value has not been exceeded (as it is missing still the previous value)
      **/
 
     /**
      * @param {function(import('../utils/constant.js').directionTypes & sequencerAddProps):void } fn - callback function
-     * @param {number} time - value between 0 and duration (default 0)
+     * @param {number} time - Value grater than 0 and minor duration.
      * @returns {this} The instance on which this method was called.
+     *
+     * @description
+     * Fire a function at a step in a range greater the 0 and minor duration.
+     * Both syncTimeline and scrollTrigger will take care of processing the value as needed.
+     *
+     * To interpect both end ( 0 and duration )
+     * use the syncTimeline/scrollTrigger built in function:
+     *
+     * ```javascript
+     * // For syncTimeline:
+     * myTimeline.onLoopEnd()
+     *
+     * // For scrollTrigger:
+     * myScrolltrigger.onEnter();
+     * myScrolltrigger.onEnterBack();
+     * myScrolltrigger.onLeave();
+     * myScrolltrigger.onLeaveBack();
+     * ```
      *
      * @example
      * ```javascript
      * mySequencer.add(({direction: string, value: number, isForced: boolean}) => {
      *      //code
      * }, time:number);
-     *
-     *
      * ```
-     * @description
-      Fire a function at a step in a range between 0 and duration (default: 10)
-      Both syncTimeline and scrollTrigger will take care of processing the value as needed
      */
     add(fn = () => {}, time = 0) {
         const fnIsValid = storeType.isFunction(fn);
