@@ -1,3 +1,5 @@
+// @ts-check
+
 import HandleAsyncTimeline from './animation/asyncTimeline/handleAsyncTimeline.js';
 import HandleSyncTimeline from './animation/syncTimeline/handleSyncTimeline.js';
 
@@ -41,7 +43,7 @@ export const timeline = {
      * myTimeline.destroy()
      * ```
      */
-    createSyncTimeline(data = {}) {
+    createSyncTimeline(data) {
         return new HandleSyncTimeline(data);
     },
 

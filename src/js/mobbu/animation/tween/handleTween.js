@@ -75,13 +75,13 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 /**
  * @typedef {Object} tweenTypes
- * @prop {Object.<string, number>} data Initial data Object.
+ * @prop {Object.<string, number>} [ data ] Initial data Object.
  * @prop {Number} [ duration=1000 ] defines the default duration of the tween, the value can be momentarily changed if necessary every time the goTo, goFrom, goFromTo methods are invoked.
  * @prop {Boolean} [ relative=false ] It defines the initial value of the relative properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, the default value is false. If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
  **/
 export default class HandleTween {
     /**
-     * @param { tweenTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} data
+     * @param { tweenTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} [ data ]
      *
      * @example
      * ```javascript
@@ -125,7 +125,7 @@ export default class HandleTween {
      *
      * ```
      */
-    constructor(data) {
+    constructor(data = {}) {
         /**
          *  This value lives from user call ( goTo etc..) until next call
          **/

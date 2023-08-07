@@ -16,7 +16,7 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 /**
  * @typedef {Object} syncTimelineTypes
- * @prop {Number} duration duration in millisecond of timeline,
+ * @prop {Number} [ duration ] duration in millisecond of timeline,
  * @prop {Boolean} [yoyo=0] Reverse the direction each time the animation ends
  * @prop {Number} [repeat=1] how many times the animation should be repeated, -1 means that the animation will run in an infinite loop
  */

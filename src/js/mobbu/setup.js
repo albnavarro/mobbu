@@ -1,3 +1,5 @@
+// @ts-check
+
 import { springPresetConfig } from './animation/spring/springConfig.js';
 import {
     defaultMqValueDefault,

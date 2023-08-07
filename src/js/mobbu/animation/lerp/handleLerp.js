@@ -58,7 +58,7 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 /**
  * @typedef {Object} lerpTypes
- * @prop {Object.<string, number>} data Initial data Object.
+ * @prop {Object.<string, number>} [ data ] Initial data Object.
  * @prop {Boolean} [ relative=false ] It defines the initial value of the relative properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, the default value is false. If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
  **/
 
@@ -70,7 +70,7 @@ import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationR
 
 export default class HandleLerp {
     /**
-     * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/staggerCostant.js').staggerTypes } data
+     * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/staggerCostant.js').staggerTypes } [ data  = {}]
      *
      * @example
      * ```javascript
@@ -115,7 +115,7 @@ export default class HandleLerp {
      *
      * ```
      */
-    constructor(data) {
+    constructor(data = {}) {
         /**
          * @private
          * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}

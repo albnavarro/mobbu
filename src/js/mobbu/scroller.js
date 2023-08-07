@@ -1,3 +1,5 @@
+// @ts-check
+
 import { parallaxConstant } from './animation/parallax/parallaxConstant.js';
 import ParallaxClass from './animation/parallax/parallax.js';
 
@@ -58,7 +60,7 @@ export const scroller = {
      * ```
      *
      */
-    createParallax(data = {}) {
+    createParallax(data) {
         return new ParallaxClass({
             ...data,
             ...{ type: parallaxConstant.TYPE_PARALLAX },
@@ -139,7 +141,7 @@ export const scroller = {
      *
      * ```
      */
-    createScrollTrigger(data = {}) {
+    createScrollTrigger(data) {
         return new ParallaxClass({
             ...data,
             ...{ type: parallaxConstant.TYPE_SCROLLTRIGGER },

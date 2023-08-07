@@ -1,3 +1,5 @@
+// @ts-check
+
 import HandleLerp from './animation/lerp/handleLerp.js';
 import ParallaxTween from './animation/parallax/parallaxTween.js';
 import HandleMasterSequencer from './animation/sequencer/handleMasterSequencer.js';
@@ -44,7 +46,7 @@ export const tween = {
      *
      * ```
      */
-    createScrollerTween(data = {}) {
+    createScrollerTween(data) {
         return new ParallaxTween(data);
     },
 
@@ -88,7 +90,7 @@ export const tween = {
      *
      * ```
      */
-    createSequencer(data = {}) {
+    createSequencer(data) {
         return new HandleSequencer(data);
     },
 
@@ -157,7 +159,7 @@ export const tween = {
      *
      * ```
      */
-    createStaggers(data = {}) {
+    createStaggers(data) {
         return createStaggers(data);
     },
 
@@ -209,7 +211,7 @@ export const tween = {
      *
      * ```
      */
-    createTween(data = {}) {
+    createTween(data) {
         return new HandleTween(data);
     },
 
@@ -269,7 +271,7 @@ export const tween = {
      *
      * ```
      */
-    createSpring(data = {}) {
+    createSpring(data) {
         return new HandleSpring(data);
     },
 
@@ -322,7 +324,7 @@ export const tween = {
      *
      * ```
      */
-    createLerp(data = {}) {
+    createLerp(data) {
         return new HandleLerp(data);
     },
 };

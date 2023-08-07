@@ -77,7 +77,7 @@ import { parallaxUtils } from './parallaxUtils.js';
     Enable a Throttle function on the scroll.
     The option will not be enabled with the presence of an active pin to maintain accuracy.
     The default value is false.
- * @prop {('parallax'|'scrolltrigger')} [ type = 'parallax' ]
+ * @prop {('parallax'|'scrolltrigger')} type = 'parallax'
     Main property that defines whether the instance will behave as a parallax or as a scrolltrigger.
     The default is 'parallax'.
  * @prop {(string|number)} [ range = 0 ]
