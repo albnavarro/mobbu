@@ -6,7 +6,6 @@ export {
     getSiblings,
     getParents,
     isDescendant,
-    simulateClick,
     getTranslateValues,
     isNode,
     isElement,

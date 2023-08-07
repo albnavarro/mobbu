@@ -1,21 +1,44 @@
-export function outerHeight(el) {
-    let height = el.offsetHeight;
-    const style = getComputedStyle(el);
+// @ts-check
+
+/**
+ * @param {HTMLElement} element
+ * @returns {Number}
+ *
+ * @description
+ * Return HTMLElement height with margin.
+ */
+export function outerHeight(element) {
+    let height = element.offsetHeight;
+    const style = getComputedStyle(element);
 
     height += parseInt(style.marginTop) + parseInt(style.marginBottom);
     return height;
 }
 
-export function outerWidth(el) {
-    let width = el.offsetWidth;
-    const style = getComputedStyle(el);
+/**
+ * @param {HTMLElement} element
+ * @returns {Number}
+ *
+ * @description
+ * Return HTMLElement width with margin.
+ */
+export function outerWidth(element) {
+    let width = element.offsetWidth;
+    const style = getComputedStyle(element);
 
     width += parseInt(style.marginLeft) + parseInt(style.marginRight);
     return width;
 }
 
-export function offset(el) {
-    const rect = el.getBoundingClientRect();
+/**
+ * @param {HTMLElement} element
+ * @returns {{top: Number, left:Number}}
+ *
+ * @description
+ * Return HTMLElement offset top/left value.
+ */
+export function offset(element) {
+    const rect = element.getBoundingClientRect();
     const offset = {
         top: rect.top + window.pageYOffset,
         left: rect.left + window.pageXOffset,
@@ -24,20 +47,36 @@ export function offset(el) {
     return offset;
 }
 
-export function position(el) {
-    const rect = el.getBoundingClientRect();
+/**
+ * @param {HTMLElement} element
+ * @returns {{bottom: Number, height:Number, left:Number, right:Number, top:Number, width:Number, x:Number, y:Number}}
+ *
+ * @description
+ * Return HTMLElement position object.
+ */
+export function position(element) {
+    const rect = element.getBoundingClientRect();
 
     return rect;
 }
 
-export function getSiblings(elem, selector) {
+/**
+ * @param {HTMLElement} element
+ * @param {String} selector
+ * @returns {Array.<ChildNode>}
+ *
+ * @description
+ * Return sinblings of element by className
+ */
+export function getSiblings(element, selector) {
     // Setup siblings array and get the first sibling
-    let siblings = [];
-    let sibling = elem.parentNode.firstChild;
+    const siblings = [];
+    let sibling = element?.parentNode?.firstChild;
 
     // Loop through each sibling and push to the array
     while (sibling) {
-        if (sibling.nodeType === 1 && sibling !== elem) {
+        if (sibling.nodeType === 1 && sibling !== element) {
+            // @ts-ignore
             if (sibling.classList.contains(selector)) {
                 siblings.push(sibling);
             }
@@ -48,29 +87,46 @@ export function getSiblings(elem, selector) {
     return siblings;
 }
 
-export function getParents(elem, selector) {
+/**
+ * @param {HTMLElement} element
+ * @param {String} selector
+ * @returns {Array.<ChildNode>}
+ *
+ * @description
+ * Return all parent of element.
+ */
+export function getParents(element, selector) {
     // Set up a parent array
     const parents = [];
 
     // Push each parent element to the array
-    for (; elem && elem !== document; elem = elem.parentNode) {
+    // @ts-ignore
+    for (; element && element !== document; element = element.parentNode) {
         if (selector) {
-            if (elem.classList.contains(selector)) {
-                parents.push(elem);
+            if (element.classList.contains(selector)) {
+                parents.push(element);
             }
             continue;
         }
-        parents.push(elem);
+        parents.push(element);
     }
 
     // Return our parent array
     return parents;
 }
 
+/**
+ * @param {HTMLElement} parent
+ * @param {HTMLElement} child
+ * @returns {boolean}
+ *
+ * @description
+ * Check if child is descendant od parent.
+ */
 export function isDescendant(parent, child) {
     let node = child.parentNode;
-    while (node != null) {
-        if (node == parent) {
+    while (node !== null) {
+        if (node === parent) {
             return true;
         }
         node = node.parentNode;
@@ -78,26 +134,18 @@ export function isDescendant(parent, child) {
     return false;
 }
 
-export const simulateClick = function (elem) {
-    // Create our event (with options)
-    const evt = new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-    });
-    // If cancelled, don't dispatch our event
-    let canceled = !elem.dispatchEvent(evt);
-};
-
 /**
- * Gets computed translate values
  * @param {HTMLElement} element
  * @returns {Object}
+ *
+ * @description
+ * Gets computed translate values
  */
 export function getTranslateValues(element) {
     const style = window.getComputedStyle(element);
     const matrix =
-        style['transform'] || style.webkitTransform || style.mozTransform;
+        // @ts-ignore
+        style['transform'] || style.mozTransform;
 
     // No transform property. Simply return 0 values.
     if (matrix === 'none' || typeof matrix === 'undefined') {
@@ -134,23 +182,35 @@ export function getTranslateValues(element) {
     }
 }
 
-//Returns true if it is a DOM node
-export function isNode(o) {
+/**
+ * @param {Element} element
+ * @returns {Boolean}
+ *
+ * @description
+ * Returns true if it is a DOM node
+ */
+export function isNode(element) {
     return typeof Node === 'object'
-        ? o instanceof Node
-        : o &&
-              typeof o === 'object' &&
-              typeof o.nodeType === 'number' &&
-              typeof o.nodeName === 'string';
+        ? element instanceof Node
+        : element &&
+              typeof element === 'object' &&
+              typeof element.nodeType === 'number' &&
+              typeof element.nodeName === 'string';
 }
 
-//Returns true if it is a DOM element
-export function isElement(o) {
+/**
+ * @param {Element} element
+ * @returns {Boolean}
+ *
+ * @description
+ * Returns true if it is a DOM element
+ */
+export function isElement(element) {
     return typeof HTMLElement === 'object'
-        ? o instanceof HTMLElement //DOM2
-        : o &&
-              typeof o === 'object' &&
-              o !== null &&
-              o.nodeType === 1 &&
-              typeof o.nodeName === 'string';
+        ? element instanceof HTMLElement //DOM2
+        : element &&
+              typeof element === 'object' &&
+              element !== null &&
+              element.nodeType === 1 &&
+              typeof element.nodeName === 'string';
 }
