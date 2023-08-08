@@ -1,15 +1,39 @@
+//@ts-check
+
 import { storeType } from '../../store/storeType.js';
 
+/**
+ * @returns {String}
+ *
+ * @description
+ * Generate univoque id
+ */
 export const getUnivoqueId = () => {
     return `_${Math.random().toString(36).substring(2, 9)}`;
 };
 
+/**
+ * @param {Array} arr
+ * @param {String} key
+ * @returns {Object}
+ *
+ * @description
+ * Get value of specific key from an array
+ * [{ prop: valueByKey }, ...]
+ */
 export const getValueObj = (arr, key) => {
     return arr
         .map((item) => ({ [item.prop]: parseFloat(item[key]) }))
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
 
+/**
+ * @param {Array} arr
+ * @returns {Object}
+ *
+ * @description
+ * Get toValue of specific key from an array ( function or number )
+ */
 export const getValueObjToNative = (arr) => {
     return arr
         .map((item) => {
@@ -19,6 +43,13 @@ export const getValueObjToNative = (arr) => {
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
 
+/**
+ * @param {Array} arr
+ * @returns {Object}
+ *
+ * @description
+ * Get fromValue of specific key from an array ( function or number )
+ */
 export const getValueObjFromNative = (arr) => {
     return arr
         .map((item) => {
@@ -28,6 +59,13 @@ export const getValueObjFromNative = (arr) => {
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
 
+/**
+ * @param {any} x
+ * @returns {Number}
+ *
+ * @description
+ * Sanitize Number in case is in calculator enutation.
+ */
 export const getRoundedValue = (x) => {
     if (storeType.isNumber(x)) {
         return Math.round(x * 10000) / 10000 || 0;
@@ -51,6 +89,14 @@ export const getRoundedValue = (x) => {
     }
 };
 
+/**
+ * @param {Array} newData
+ * @param {Array} data
+ * @returns {Array}
+ *
+ * @description
+ * Merge animation store of specific lerp/spring .. with new data from goTo etc..
+ */
 export const mergeArray = (newData, data) => {
     return data.map((item) => {
         const itemToMerge = newData.find((newItem) => {
@@ -62,6 +108,14 @@ export const mergeArray = (newData, data) => {
     });
 };
 
+/**
+ * @param {Array} newData
+ * @param {Array} data
+ * @returns {Array}
+ *
+ * @description
+ * Merge animation store of specific tween .. with new data from goTo etc..
+ */
 export const mergeArrayTween = (newData, data) => {
     return data.map((item) => {
         const itemToMerge = newData.find((newItem) => {
@@ -75,20 +129,50 @@ export const mergeArrayTween = (newData, data) => {
     });
 };
 
+/**
+ * @param {Number} num
+ * @param {Number} min
+ * @param {Number} max
+ */
 export const clamp = (num, min, max) => {
     return Math.min(Math.max(num, min), max);
 };
 
+/**
+ * @param {Number} start
+ * @param {Number} end
+ * @param {Number} amt
+ */
 export const lerp = (start, end, amt) => {
     return (1 - amt) * start + amt * end;
 };
 
+/**
+ * @param {Object} a
+ * @param {Object} b
+ * @returns {Boolean}
+ *
+ * @description
+ * Check if all keys of object is equal to another.
+ *
+ */
 export const compareKeys = (a, b) => {
     const aKeys = Object.keys(a).sort();
     const bKeys = Object.keys(b).sort();
-    return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+
+    return (
+        aKeys.length === bKeys.length &&
+        aKeys.every((element, index) => element === bKeys[index])
+    );
 };
 
+/**
+ * @param {Array} arr
+ * @param {Number} chunkSize
+ *
+ * @description
+ * Subdivide array into chunks
+ */
 export const sliceIntoChunks = (arr, chunkSize) => {
     const res = [];
     for (let i = 0; i < arr.length; i += chunkSize) {
@@ -98,4 +182,11 @@ export const sliceIntoChunks = (arr, chunkSize) => {
     return res;
 };
 
+/**
+ * @param {Array} arr
+ * @param {Number} n
+ *
+ * @description
+ * Subdivide array into columns
+ */
 export const arrayColumn = (arr, n) => arr.map((x) => x[n]);

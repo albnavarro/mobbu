@@ -1,11 +1,16 @@
+// @ts-check
+
 import { storeType } from '../../store/storeType.js';
 import { dataTweenValueIsValid } from './tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from './warning.js';
 
-/*
- * Set goTo value, used by spring and lerp
+/**
+ * @param {{ string: number|function():number }} obj
+ * @returns {Array<{prop:string,toValue:number,toFn:(function|number),toIsFn:boolean,settled:boolean}>}
  *
- **/
+ * @description
+ * Set goTo value, used by spring and lerp
+ */
 export const goToUtils = (obj) => {
     return Object.keys(obj).map((item) => {
         if (!dataTweenValueIsValid(obj[item])) {
@@ -32,10 +37,13 @@ export const goToUtils = (obj) => {
     });
 };
 
-/*
- * Set goFrom value, used by spring and lerp
+/**
+ * @param {{ string: number|function():number }} obj
+ * @returns {Array<{prop:string,fromValue:number,currentValue:number,fromFn:(function|number),fromIsFn:boolean,settled:boolean}>}
  *
- **/
+ * @description
+ * Set goFrom value, used by spring and lerp
+ */
 export const goFromUtils = (obj) => {
     return Object.keys(obj).map((item) => {
         if (!dataTweenValueIsValid(obj[item])) {
@@ -63,10 +71,14 @@ export const goFromUtils = (obj) => {
     });
 };
 
-/*
- * Set goFromTo value, used by spring and lerp
+/**
+ * @param {{ string: number|function():number }} fromObj
+ * @param {{ string: number|function():number }} toObj
+ * @returns {Array<{ prop:string, fromValue:number, fromFn:(function|number), fromIsFn:boolean, currentValue:number, toValue:number, toFn:(function|number), toIsFn:boolean, settled:boolean }>}
  *
- **/
+ * @description
+ * Set goFromTo value, used by spring and lerp
+ */
 export const goFromToUtils = (fromObj, toObj) => {
     return Object.keys(fromObj).map((item) => {
         if (
@@ -112,6 +124,13 @@ export const goFromToUtils = (fromObj, toObj) => {
     });
 };
 
+/**
+ * @param {{ string: number|function():number }} obj
+ * @returns {Array<{ prop:string, fromValue:number, fromFn:(function|number), fromIsFn:boolean, currentValue:number, toValue:number, toFn:(function|number), toIsFn:boolean, settled:boolean }>}
+ *
+ * @description
+ * Set set value, used by spring and lerp
+ */
 export const setUtils = (obj) => {
     return Object.keys(obj).map((item) => {
         if (!dataTweenValueIsValid(obj[item])) {
