@@ -637,7 +637,7 @@ export const core = {
      * @description
      * Add callback on mouse wheel.
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType & import('./events/mouseUtils/handleMouse.js').mouseWheelType):void } callback - callback function fired on mouse wheel.
+     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse wheel.
      *
      * @example
      * ```javascript

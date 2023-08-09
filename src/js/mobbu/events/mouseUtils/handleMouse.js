@@ -14,15 +14,10 @@ import { normalizeWheel } from './normalizeWhell.js';
  * @prop {Element} target
  * @prop {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} type
  * @prop {function} preventDefault
- */
-
-/**
- * @typedef {Object} mouseWheelType
- * @prop {Number} spinX
- * @prop {Number} spinY
- * @prop {Number} pixelX
- * @prop {Number} pixelY
- *
+ * @prop {Number} [ spinX ] - available only on mouseWheel
+ * @prop {Number} [ spinY ] - available only on mouseWheel
+ * @prop {Number} [ pixelX ] - available only on mouseWheel
+ * @prop {Number} [ pixelY ] - available only on mouseWheel
  */
 
 /**
