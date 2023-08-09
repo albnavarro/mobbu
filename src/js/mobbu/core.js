@@ -408,8 +408,9 @@ export const core = {
      * @return {Promise}
      *
      */
-    useFps(callback = () => {}) {
-        return loadFps().then((obj) => callback(obj));
+    async useFps(callback = () => {}) {
+        const obj = await loadFps();
+        callback(obj);
     },
 
     /**
