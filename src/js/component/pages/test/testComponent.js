@@ -67,16 +67,15 @@ export const TestComponent = async ({
             <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
-                    component: 'TestComponent2',
                     key: 'key',
+                    component: 'TestComponent2',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
                     },
-                    updateState: ({ current, index, setChildState }) => {
+                    updateState: ({ current, index }) => {
                         const { label } = current;
-                        setChildState('index', index);
-                        setChildState('label', label);
+                        return { label, index };
                     },
                     // beforeUpdate: ({ container, childrenId }) => {
                     //     console.log(
@@ -91,16 +90,15 @@ export const TestComponent = async ({
             <div class="c-test-comp__list">
                 ${repeat({
                     watch: 'data',
-                    component: 'TestComponent2',
                     key: 'key',
+                    component: 'TestComponent2',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
                     },
-                    updateState: ({ current, index, setChildState }) => {
+                    updateState: ({ current, index }) => {
                         const { label } = current;
-                        setChildState('index', index);
-                        setChildState('label', label);
+                        return { label, index };
                     },
                     // beforeUpdate: ({ container, childrenId }) => {
                     //     console.log(

@@ -225,9 +225,12 @@ export interface componentType {
                      index,
                  };
              },
-             updateState: ({ current, index, setChildState }) => {
-                 const newStateValue = current;
-                 setChildState('childState', newStateValue);
+             updateState: ({ current, index }) => {
+                 const initialStateValue = current;
+                 return {
+                     childState: initialStateValue
+                     index,
+                 };
              },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
@@ -290,21 +293,10 @@ export interface componentType {
 
             /**
              * @description
-             * Update the element state that change ( not new element )
-             */
-            setChildState(
-                prop: string,
-                newValue: any,
-                fireCallback?: Boolean,
-                clone?: Boolean
-            ): void;
-
-            /**
-             * @description
              * New position in original data.
              */
             index: Number;
-        }) => void;
+        }) => Object;
 
         /**
          * @description

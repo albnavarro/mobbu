@@ -123,13 +123,15 @@ export const watchList = ({
                 const current = currentUnivoque?.[index];
                 if (!current) return;
 
-                updateState({
+                const newState = updateState({
                     current: currentUnivoque?.[index],
-                    setChildState: (
-                        /** @type{any} */ prop,
-                        /** @type{any} */ val
-                    ) => setStateById(id, prop, val),
                     index,
+                });
+
+                // TODO check id newsState is an object
+                // anche in pros ?
+                Object.entries(newState).forEach(([key, value]) => {
+                    setStateById(id, key, value);
                 });
             });
 
