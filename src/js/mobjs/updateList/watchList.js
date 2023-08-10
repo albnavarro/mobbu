@@ -21,7 +21,6 @@ import { getChildrenInsideElement } from './utils';
  * @param { object } obj.props
  * @param { string } obj.state
  * @param { string } obj.targetComponent
- * @param { function } obj.updateState
  * @param { function } obj.watch
  * @param { HTMLElement } obj.containerList
  */
@@ -30,7 +29,6 @@ export const watchList = ({
     watch = () => {},
     containerList = document.createElement('div'),
     props = {},
-    updateState = () => {},
     beforeUpdate = () => {},
     afterUpdate = () => {},
     targetComponent = '',
@@ -123,7 +121,7 @@ export const watchList = ({
                 const current = currentUnivoque?.[index];
                 if (!current) return;
 
-                const newState = updateState({
+                const newState = props({
                     current: currentUnivoque?.[index],
                     index,
                 });

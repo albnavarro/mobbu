@@ -225,13 +225,6 @@ export interface componentType {
                      index,
                  };
              },
-             updateState: ({ current, index }) => {
-                 const initialStateValue = current;
-                 return {
-                     childState: initialStateValue
-                     index,
-                 };
-             },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
              },
@@ -267,24 +260,6 @@ export interface componentType {
          * Props passed to new component.
          */
         props: (arg0: {
-            /**
-             * @description
-             * The value corresponding to the unique key
-             */
-            current: any;
-
-            /**
-             * @description
-             * New position in original data.
-             */
-            index: Number;
-        }) => Object;
-
-        /**
-         * @description
-         * Update existing component.
-         */
-        updateState: (arg0: {
             /**
              * @description
              * The value corresponding to the unique key

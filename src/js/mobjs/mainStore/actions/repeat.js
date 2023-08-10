@@ -27,7 +27,6 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
           props: Object,
           state: String,
           targetComponent: String,
-          updateState: Function,
           watch: Function
        }}>}}
      *

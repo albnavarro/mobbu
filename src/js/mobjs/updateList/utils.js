@@ -104,7 +104,7 @@ export const getChildrenInsideElement = ({
     element,
 }) => {
     const children = getChildren(component);
-    if (!children) return [];
+    if (!children || !element) return [];
 
     return [...children].filter((id) => {
         return isDescendant(element, getElementById({ id }));

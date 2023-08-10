@@ -73,10 +73,6 @@ export const TestComponent = async ({
                         const { label } = current;
                         return { label, index };
                     },
-                    updateState: ({ current, index }) => {
-                        const { label } = current;
-                        return { label, index };
-                    },
                     // beforeUpdate: ({ container, childrenId }) => {
                     //     console.log(
                     //         `before update: ${(container, childrenId)}`
@@ -93,10 +89,6 @@ export const TestComponent = async ({
                     key: 'key',
                     component: 'TestComponent2',
                     props: ({ current, index }) => {
-                        const { label } = current;
-                        return { label, index };
-                    },
-                    updateState: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
                     },

@@ -12,9 +12,6 @@ ${repeat({
     props: ({ current }) => {
         return { childrenProp: () => <current?.prop>};
     },
-    updateState: ({ index, setChildState }) => {
-        setChildState('state', <myvalue>);
-    },
     beforeUpdate: ({ container, childrenId }) => {
         // Before update
     },
@@ -30,7 +27,9 @@ ${repeat({
 -   Esecuzione della funzione <b>addRepeat()</b>
 -   Ritorna uno span placeholder con un data attribute contente l'id univoco
 -   Il placeholder prendera momentaneamente il posto dei futuri eliementi della lista.
--   La userFunction ( funzione componente ) insieme a tutti idati del componente ( render, onMont, etc..) ritorna che l'array con tuytti gli id unici creati per ogni lsita ( repeatId ).
+-   La userFunction ( funzione componente ) insieme a tutti i dati del componente
+    ( render, onMont, etc..) ritorna che l'array con tutti gli id unici creati
+    per ogni lsita ( repeatId ).
 
 ```js
 const repeatId = [];
@@ -47,7 +46,6 @@ addRepeat({
         watch, // watch function of main component
         targetComponent, // children component to render in list
         props, // function used by the future children for props
-        updateState,
         beforeUpdate,
         afterUpdate,
         getChildren, // main component getChildren function
@@ -69,8 +67,12 @@ return `<span data-repeatid="${currentRepeatId}" style="display:none;"/>`;
 
 ## 4) coponentParse.js
 
--   Esegue un querySelector all' interno dell' elemento corrente alla ricerca dei placeholder (data-repeatid) e rispettivo id, e recupera il parentNode ( qui il componente é giá stato renderizzato ).
--   Cicla l'array di id univoci di repeater ritornati dal componente e per ogni occorrenza lancia la funzione inizializeRepeat() pasandogli, id e un oggetto con tutti i dati di ogni sigola lista che saranno poi filtrati.
+-   Esegue un querySelector all' interno dell' elemento corrente alla ricerca
+    dei placeholder (data-repeatid) e rispettivo id, e recupera il parentNode
+    ( qui il componente é giá stato renderizzato ).
+-   Cicla l'array di id univoci di repeater ritornati dal componente e
+    per ogni occorrenza lancia la funzione inizializeRepeat() pasandogli,
+    id e un oggetto con tutti i dati di ogni sigola lista che saranno poi filtrati.
 
 ```js
 const placeholdreList = newElement.querySelectorAll('[data-repeatid]');

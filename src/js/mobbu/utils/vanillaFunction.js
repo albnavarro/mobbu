@@ -116,20 +116,20 @@ export function getParents(element, selector) {
 }
 
 /**
- * @param {HTMLElement} parent
- * @param {HTMLElement} child
+ * @param {HTMLElement|undefined} parent
+ * @param {HTMLElement|undefined} child
  * @returns {boolean}
  *
  * @description
  * Check if child is descendant od parent.
  */
 export function isDescendant(parent, child) {
-    let node = child.parentNode;
+    let node = child?.parentNode;
     while (node !== null) {
         if (node === parent) {
             return true;
         }
-        node = node.parentNode;
+        node = node?.parentNode;
     }
     return false;
 }
