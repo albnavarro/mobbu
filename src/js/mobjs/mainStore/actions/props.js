@@ -88,17 +88,31 @@ const setDynamicProp = ({ componentId, states, props, fireCallback }) => {
 export const applyDynamicProps = ({ componentId }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
-    dynamicPropsToChildren.forEach((obj) => {
-        const { componentId: currentComponentId, propsObj } = obj;
-        if (currentComponentId !== componentId) return;
+    /**
+     * Get dynamic prop by component.
+     */
+    const dynamicPropsFiltered = dynamicPropsToChildren.find(
+        ({ componentId: currentComponentId }) =>
+            currentComponentId === componentId
+    );
 
-        const { watch, states, props } = propsObj;
+    /**
+     * If not return.
+     */
+    if (!dynamicPropsFiltered) return;
+
+    const {
+        propsObj: { watch, states, props },
+    } = dynamicPropsFiltered;
+
+    setDynamicProp({ componentId, states, props, fireCallback: true });
+    watchById(getParentIdById(componentId), watch, () => {
         setDynamicProp({ componentId, states, props, fireCallback: true });
-        watchById(getParentIdById(componentId), watch, () => {
-            setDynamicProp({ componentId, states, props, fireCallback: true });
-        });
     });
 
+    /**
+     * Remove current dynamic prop from store.
+     */
     mainStore.set('dynamicPropsToChildren', (prev) => {
         return prev.filter(({ componentId: currentComponentId }) => {
             return componentId !== currentComponentId;

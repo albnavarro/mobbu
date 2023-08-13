@@ -1,5 +1,4 @@
-import { createProps } from '../../../mobjs';
-import { createDynamicProps } from '../../../mobjs/mainStore/actions/props';
+import { createDynamicProps, createProps } from '../../../mobjs';
 import { addedData, addedData2, originalData, removeData } from './data';
 
 function logChildren(getChildren) {

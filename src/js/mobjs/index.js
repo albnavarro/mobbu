@@ -17,3 +17,4 @@ export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { getPropsFromParent } from './mainStore/actions/props';
 export { createProps } from './mainStore/actions/props';
+export { createDynamicProps } from './mainStore/actions/props';
