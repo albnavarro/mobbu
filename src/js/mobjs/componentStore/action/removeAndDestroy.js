@@ -90,11 +90,20 @@ export const removeAndDestroyById = ({ id = '' }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.filter((current) => {
-                const { state, destroy, element, id: currentId } = current;
+                const {
+                    state,
+                    destroy,
+                    element,
+                    id: currentId,
+                    parentPropsWatcher,
+                } = current;
                 if (currentId === id) {
                     destroy();
                     state.destroy();
                     element?.remove();
+                    parentPropsWatcher.forEach((unwatch) => {
+                        unwatch();
+                    });
                 }
 
                 // Assign is if existe a parent component and current parentId is null

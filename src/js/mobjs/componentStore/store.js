@@ -6,6 +6,7 @@ import { core } from '../../mobbu';
  * @prop { HTMLElement } element
  * @prop { String } component
  * @prop { Function } destroy
+ * @prop { Array<Function> } parentPropsWatcher
  * @prop { Object } state
  * @prop {{ String: Array.<string> }} child
  * @prop { String } instanceName
@@ -29,6 +30,7 @@ export const componentStore = core.createStore({
                     item?.element &&
                     item?.component &&
                     item?.destroy &&
+                    item?.parentPropsWatcher &&
                     item?.state &&
                     item?.child &&
                     'instanceName' in item &&

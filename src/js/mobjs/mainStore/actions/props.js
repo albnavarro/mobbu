@@ -2,6 +2,7 @@
 
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
 import { getParentIdById } from '../../componentStore/action/parent';
+import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
 import { mainStore } from '../mainStore';
@@ -79,7 +80,6 @@ const setDynamicProp = ({ componentId, states, props, fireCallback }) => {
 };
 
 // data-dynamic="${createDynamicProps({
-//     watch: 'data',
 //     states: ['counter', 'data'],
 //     props: ({ counter, data }) => {
 //         return { label: `${counter}-${data[0]?.key}` };
@@ -102,13 +102,45 @@ export const applyDynamicProps = ({ componentId }) => {
     if (!dynamicPropsFiltered) return;
 
     const {
-        propsObj: { watch, states, props },
+        propsObj: { states, props },
     } = dynamicPropsFiltered;
 
+    /**
+     * Set prop on component load
+     */
     setDynamicProp({ componentId, states, props, fireCallback: true });
-    watchById(getParentIdById(componentId), watch, () => {
-        setDynamicProp({ componentId, states, props, fireCallback: true });
+
+    /**
+     * Watch props on change
+     */
+    const propsController = { active: false };
+    const unWatchArray = states.map((state) => {
+        return watchById(getParentIdById(componentId), state, () => {
+            const { active } = propsController;
+            if (active) return;
+
+            /**
+             * Fire watch only once if multiple props change.
+             * Wait the end of current block.
+             */
+            propsController.active = true;
+            setTimeout(() => {
+                setDynamicProp({
+                    componentId,
+                    states,
+                    props,
+                    fireCallback: true,
+                });
+                propsController.active = false;
+            });
+        });
     });
+
+    /**
+     * Add unwatch function to store.
+     * So we lounch them on destroy.
+     */
+    setDynamicPropsWatch({ id: componentId, unWatchArray });
 
     /**
      * Remove current dynamic prop from store.

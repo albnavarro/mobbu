@@ -26,3 +26,24 @@ export const getPropsById = (id = '') => {
 
     return props;
 };
+
+export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
+    componentStore.set(
+        'instances',
+        (
+            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
+        ) => {
+            return prevInstances.map((item) => {
+                const { parentPropsWatcher, id: currentId } = item;
+
+                // Assign is if existe a parent component and current parentId is null/undefined
+                return id === currentId
+                    ? {
+                          ...item,
+                          ...{ parentPropsWatcher: unWatchArray },
+                      }
+                    : item;
+            });
+        }
+    );
+};
