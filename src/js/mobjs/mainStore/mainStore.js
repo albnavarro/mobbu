@@ -27,6 +27,10 @@ export const mainStore = core.createStore({
         value: [],
         type: Array,
     }),
+    dynamicPropsToChildren: () => ({
+        value: [],
+        type: Array,
+    }),
     onMountCallback: () => ({
         value: [],
         type: Array,

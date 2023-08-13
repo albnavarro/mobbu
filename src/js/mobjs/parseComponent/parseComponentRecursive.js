@@ -5,7 +5,10 @@ import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { registerGenericElement } from '../creationStep/registerGenericElement';
 import { fireOnMountCallBack } from '../mainStore/actions/onMount';
 import { decrementParserCounter } from '../mainStore/actions/parser';
-import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
+import {
+    applyDynamicProps,
+    removeOrphansPropsFromParent,
+} from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
 import {
     frameDelayAfterParse,
@@ -26,7 +29,7 @@ import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy
  * @param {Object} obj
  * @param {HTMLElement} obj.element
  * @param {string|null} obj.runtimeId
- * @param {Array.<Function>} [ obj.onMountQueque ]
+ * @param {Array<{onMount:Function, fireDynamic:function}>} [ obj.functionToFireAtTheEnd ]
  * @return {Promise<void>}
  *
  * @description
@@ -35,7 +38,7 @@ import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy
 export const parseComponentsRecursive = async ({
     element,
     runtimeId,
-    onMountQueque = [],
+    functionToFireAtTheEnd = [],
 }) => {
     if (!element) return Promise.resolve();
 
@@ -111,6 +114,7 @@ export const parseComponentsRecursive = async ({
             removeOrphansPropsFromParent();
             removeOrphanComponent();
         }
+
         /**
          * Fire onMount queue.
          * Wait parse is ended to fire onMount callback.
@@ -118,10 +122,12 @@ export const parseComponentsRecursive = async ({
          */
         core.useFrameIndex(() => {
             core.useNextTick(() => {
-                onMountQueque.forEach((fn) => fn());
+                functionToFireAtTheEnd.forEach(({ onMount, fireDynamic }) => {
+                    onMount();
+                    fireDynamic();
+                });
             });
         }, frameDelayAfterParse);
-
         return Promise.resolve();
     }
 
@@ -150,7 +156,7 @@ export const parseComponentsRecursive = async ({
         await parseComponentsRecursive({
             element,
             runtimeId,
-            onMountQueque,
+            functionToFireAtTheEnd,
         });
         return;
     }
@@ -223,12 +229,15 @@ export const parseComponentsRecursive = async ({
      * Store onMount callback.
      * Fire all onMount at the end of the current parse.
      */
-    onMountQueque.push(() => fireOnMountCallBack({ id, element: newElement }));
+    functionToFireAtTheEnd.push({
+        onMount: () => fireOnMountCallBack({ id, element: newElement }),
+        fireDynamic: () => applyDynamicProps({ componentId: id }),
+    });
 
     // Check for another component
     await parseComponentsRecursive({
         element,
         runtimeId,
-        onMountQueque,
+        functionToFireAtTheEnd,
     });
 };

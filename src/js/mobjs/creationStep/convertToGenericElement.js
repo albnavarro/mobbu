@@ -1,12 +1,18 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
-import { getPropsFromParent } from '../mainStore/actions/props';
 import {
+    addCurrentIdToDynamicProps,
+    getPropsFromParent,
+} from '../mainStore/actions/props';
+import {
+    DYNAMIC,
     INSTANCENAME_DATASET,
     IS_COMPONENT,
+    PROPS,
     PROPS_FROM_SLOT,
 } from '../constant';
+import { propsKeyToExclude } from './utils';
 
 /**
  * @param {Object} obj
@@ -34,6 +40,15 @@ export const convertToGenericElement = ({ component }) => {
     newComponent.setAttribute(IS_COMPONENT, '');
 
     /**
+     * @type {String}
+     *
+     * @description
+     * Create Univoque id
+     */
+    const id = getUnivoqueId();
+    newComponent.id = id;
+
+    /**
      * Get props
      */
 
@@ -45,7 +60,12 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * @type {String|undefined}
      */
-    const propsId = component.dataset?.props;
+    const propsId = component.dataset?.[PROPS];
+
+    addCurrentIdToDynamicProps({
+        propsId: component.dataset?.[DYNAMIC],
+        componentId: id,
+    });
 
     /**
      * @type {String|undefined}
@@ -76,15 +96,6 @@ export const convertToGenericElement = ({ component }) => {
      * Add element to DOM
      */
     component.replaceWith(newComponent);
-
-    /**
-     * @type {String}
-     *
-     * @description
-     * Create Univoque id
-     */
-    const id = getUnivoqueId();
-    newComponent.id = id;
 
     /**
      * @type {HTMLElement}
@@ -124,13 +135,10 @@ export const convertToGenericElement = ({ component }) => {
      */
     const key = baseProps?.key ?? '';
 
-    delete baseProps.props;
-    delete baseProps.component;
-    delete baseProps.propsfromslot;
-    delete baseProps.runtime;
-    delete baseProps.key;
-    delete baseProps.instancename;
-    delete baseProps.cancellable;
+    /**
+     * Remove
+     */
+    propsKeyToExclude.forEach((key) => delete baseProps[key]);
 
     return {
         placeholderElement,

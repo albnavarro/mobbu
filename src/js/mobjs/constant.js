@@ -38,6 +38,16 @@ export const SLOT_NAME = 'data-slotname';
 /**
  * @type {string};
  */
+export const PROPS = 'props';
+
+/**
+ * @type {string};
+ */
+export const DYNAMIC = 'dynamicprops';
+
+/**
+ * @type {string};
+ */
 export const PROPS_FROM_SLOT = 'propsfromslot';
 
 /**

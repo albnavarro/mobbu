@@ -24,7 +24,7 @@ export const addedData = [
     },
     {
         key: 'b',
-        label: 'A',
+        label: 'B',
     },
     {
         key: 'b',
@@ -32,7 +32,7 @@ export const addedData = [
     },
     {
         key: 'e',
-        label: 'A',
+        label: 'E',
     },
     {
         key: 'c',

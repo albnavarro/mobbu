@@ -1,4 +1,5 @@
 import { createProps } from '../../../mobjs';
+import { createDynamicProps } from '../../../mobjs/mainStore/actions/props';
 import { addedData, addedData2, originalData, removeData } from './data';
 
 function logChildren(getChildren) {
@@ -11,6 +12,10 @@ function asyncTest() {
             resolve();
         }, 500);
     });
+}
+
+function updateCounter({ setState }) {
+    setState('counter', (prev) => (prev += 1));
 }
 
 /**
@@ -32,9 +37,18 @@ export const TestComponent = async ({
         setState('data', originalData);
 
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
-        addEl.addEventListener('click', () => setState('data', addedData));
-        addEl2.addEventListener('click', () => setState('data', addedData2));
-        removeEl.addEventListener('click', () => setState('data', removeData));
+        addEl.addEventListener('click', () => {
+            updateCounter({ setState });
+            setState('data', addedData);
+        });
+        addEl2.addEventListener('click', () => {
+            updateCounter({ setState });
+            setState('data', addedData2);
+        });
+        removeEl.addEventListener('click', () => {
+            updateCounter({ setState });
+            setState('data', removeData);
+        });
 
         return () => {
             element.remove();
@@ -60,8 +74,12 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn children">Children</button>
             </div>
             <TestComponent2
-                data-props="${createProps({
-                    label: `outer list el up`,
+                data-dynamicprops="${createDynamicProps({
+                    watch: 'data',
+                    states: ['counter', 'data'],
+                    props: ({ counter, data }) => {
+                        return { label: data[0]?.key, index: counter };
+                    },
                 })}"
             ></TestComponent2>
             <div class="c-test-comp__list">
@@ -103,8 +121,12 @@ export const TestComponent = async ({
                 })}
             </div>
             <TestComponent2
-                data-props="${createProps({
-                    label: `outer list el down`,
+                data-dynamicprops="${createDynamicProps({
+                    watch: 'data',
+                    states: ['counter', 'data'],
+                    props: ({ counter, data }) => {
+                        return { label: data[1]?.key, index: counter };
+                    },
                 })}"
             >
                 <div data-slotposition="slot1"><span>slot1</span></div>

@@ -66,3 +66,10 @@ watchById(parentId, watch, (val) => {
     })
 })
 ```
+
+
+### Now:
+
+- aggiungere allos tore un array per salvare le funzioni di unwach di dynamicProps
+- onDestroy lanciarle
+- elminare watch e fare un watch per ogni state come se fosse un computed.
