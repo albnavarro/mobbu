@@ -13,6 +13,16 @@ import { mainStore } from '../mainStore';
  *
  * @description
  * Store props and return a unique indentifier
+ *
+ * @example
+ * ```javascript
+ *   <MyComponent
+ *       data-props="${createProps({
+ *           childState1: key,
+ *           callBack: () => setState('parentState', key)
+ *       })}"
+ *   ></MyComponent>
+ * ```
  */
 export const createProps = (props = {}) => {
     /**
@@ -27,19 +37,41 @@ export const createProps = (props = {}) => {
 };
 
 /**
- * @property {Object} [ props ]
+ * @property {Object} [ propsObj ]
  * @return {String} props id in store.
  *
  * @description
  * Store props and return a unique indentifier
+ *
+ * @example
+ * ```javascript
+ *   <MyComponent
+ *       data-dynamicprops="${createDynamicProps({
+ *           bind: ['state1', 'state1'],
+ *           props: ({ state1, state2 }) => {
+ *               return {
+ *                   childState1: state1,
+ *                   childState2: state2
+ *               };
+ *           },
+ *       })}"
+ *   ></MyComponent>
+ * ```
  */
-export const createDynamicProps = (props = {}) => {
+export const createDynamicProps = (propsObj = {}) => {
+    const propsIsValid = 'bind' in propsObj && 'props' in propsObj;
+
+    if (!propsIsValid) {
+        console.warn(`createDynamicProps not valid`);
+        return 'dynamic-prop-not-valid';
+    }
+
     /**
      * @type {String}
      */
     const id = getUnivoqueId();
     mainStore.set('dynamicPropsToChildren', (/** @type {Array} */ prev) => {
-        return [...prev, { propsId: id, propsObj: props }];
+        return [...prev, { propsId: id, propsObj }];
     });
 
     return id;
@@ -56,13 +88,13 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
     });
 };
 
-const setDynamicProp = ({ componentId, states, props, fireCallback }) => {
+const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     const parentId = getParentIdById(componentId);
     if (!parentId) return;
 
     const parentState = getStateById(parentId);
 
-    const values = states
+    const values = bind
         .map((currentState) => {
             return {
                 [currentState]: parentState[currentState],
@@ -79,12 +111,6 @@ const setDynamicProp = ({ componentId, states, props, fireCallback }) => {
     });
 };
 
-// data-dynamic="${createDynamicProps({
-//     states: ['counter', 'data'],
-//     props: ({ counter, data }) => {
-//         return { label: `${counter}-${data[0]?.key}` };
-//     },
-// })}"
 export const applyDynamicProps = ({ componentId }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
@@ -102,19 +128,19 @@ export const applyDynamicProps = ({ componentId }) => {
     if (!dynamicPropsFiltered) return;
 
     const {
-        propsObj: { states, props },
+        propsObj: { bind, props },
     } = dynamicPropsFiltered;
 
     /**
      * Set prop on component load
      */
-    setDynamicProp({ componentId, states, props, fireCallback: true });
+    setDynamicProp({ componentId, bind, props, fireCallback: true });
 
     /**
      * Watch props on change
      */
     const propsController = { active: false };
-    const unWatchArray = states.map((state) => {
+    const unWatchArray = bind.map((state) => {
         return watchById(getParentIdById(componentId), state, () => {
             const { active } = propsController;
             if (active) return;
@@ -127,7 +153,7 @@ export const applyDynamicProps = ({ componentId }) => {
             setTimeout(() => {
                 setDynamicProp({
                     componentId,
-                    states,
+                    bind,
                     props,
                     fireCallback: true,
                 });

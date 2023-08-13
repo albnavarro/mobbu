@@ -74,7 +74,7 @@ export const TestComponent = async ({
             </div>
             <TestComponent2
                 data-dynamicprops="${createDynamicProps({
-                    states: ['counter', 'data'],
+                    bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[0]?.key, index: counter };
                     },
@@ -120,7 +120,7 @@ export const TestComponent = async ({
             </div>
             <TestComponent2
                 data-dynamicprops="${createDynamicProps({
-                    states: ['counter', 'data'],
+                    bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[1]?.key, index: counter };
                     },
