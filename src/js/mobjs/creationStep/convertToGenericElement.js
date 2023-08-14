@@ -62,10 +62,7 @@ export const convertToGenericElement = ({ component }) => {
      */
     const propsId = component.dataset?.[PROPS];
 
-    addCurrentIdToDynamicProps({
-        propsId: component.dataset?.[DYNAMIC],
-        componentId: id,
-    });
+    const dynamicPropsId = component.dataset?.[DYNAMIC];
 
     /**
      * @type {String|undefined}
@@ -151,5 +148,6 @@ export const convertToGenericElement = ({ component }) => {
         componentName,
         instanceName,
         key,
+        dynamicPropsId,
     };
 };

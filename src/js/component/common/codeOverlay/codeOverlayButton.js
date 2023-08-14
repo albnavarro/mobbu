@@ -1,44 +1,13 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const CodeOverlayButton = ({
-    render,
-    onMount,
-    watch,
-    watchParent,
-    getState,
-    setState,
-}) => {
+export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
     const { key, callback } = getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {
-            /**
-             * If is just selected  or disabled (secure check) return
-             */
-            const { disable, selected } = getState();
-            if (selected || disable) return;
-
-            /**
-             * Set active drawer to parent.
-             */
             callback();
         });
-
-        /**
-         * Check if button is cliccable ( url is settled ).
-         */
-        const unWatchParentKey = watchParent('urls', ({ [key]: url }) => {
-            setState('disable', !(url && url.length));
-        });
-
-        /**
-         * Check if active drawer is itself.
-         */
-        const unWatchParentActiveContent = watchParent(
-            'activeContent',
-            (parentActiveKey) => setState('selected', parentActiveKey === key)
-        );
 
         /**
          * Set selected class.
@@ -57,8 +26,6 @@ export const CodeOverlayButton = ({
         return () => {
             unwatchSelected();
             unwatchActive();
-            unWatchParentActiveContent();
-            unWatchParentKey();
         };
     });
 

@@ -77,17 +77,6 @@ export const createDynamicProps = (propsObj = {}) => {
     return id;
 };
 
-export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
-    if (!propsId) return;
-
-    mainStore.set('dynamicPropsToChildren', (prev) => {
-        return prev.map((item) => {
-            const { propsId: id } = item;
-            return id === propsId ? { ...item, componentId } : item;
-        });
-    });
-};
-
 const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     const parentId = getParentIdById(componentId);
     if (!parentId) return;
@@ -111,7 +100,20 @@ const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     });
 };
 
-export const applyDynamicProps = ({ componentId }) => {
+export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
+    if (!propsId) return;
+
+    mainStore.set('dynamicPropsToChildren', (prev) => {
+        return prev.map((item) => {
+            const { propsId: id } = item;
+            return id === propsId ? { ...item, componentId } : item;
+        });
+    });
+
+    applyDynamicProps({ componentId, inizilizeWatcher: false });
+};
+
+export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
     /**
@@ -135,6 +137,8 @@ export const applyDynamicProps = ({ componentId }) => {
      * Set prop on component load
      */
     setDynamicProp({ componentId, bind, props, fireCallback: true });
+
+    if (!inizilizeWatcher) return;
 
     /**
      * Watch props on change

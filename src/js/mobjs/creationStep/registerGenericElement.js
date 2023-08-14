@@ -12,6 +12,7 @@ import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
 import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
+import { addCurrentIdToDynamicProps } from '../mainStore/actions/props';
 import { convertToGenericElement } from './convertToGenericElement';
 
 // JSDOC usare infered type quando possibile.
@@ -38,6 +39,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
         componentName,
         instanceName,
         key,
+        dynamicPropsId,
     } = convertToGenericElement({
         component,
     });
@@ -71,6 +73,15 @@ export const registerGenericElement = ({ component, state = {} }) => {
     const repeatId = [];
     const getChildren = (/** @type {String} */ component) =>
         getChildrenIdByName({ id, component });
+
+    /**
+     * Inizialize dynamic props and
+     * set initial state.
+     */
+    addCurrentIdToDynamicProps({
+        propsId: dynamicPropsId,
+        componentId: id,
+    });
 
     return {
         key,
