@@ -8,7 +8,7 @@ import { watchById } from '../../componentStore/action/watch';
 import { mainStore } from '../mainStore';
 
 /**
- * @property {Object} [ props ]
+ * @param {Object} [ props ]
  * @return {String} props id in store.
  *
  * @description
@@ -37,7 +37,7 @@ export const createProps = (props = {}) => {
 };
 
 /**
- * @property {Object} [ propsObj ]
+ * @param {Object} [ propsObj ]
  * @return {String} props id in store.
  *
  * @description
@@ -77,6 +77,18 @@ export const createDynamicProps = (propsObj = {}) => {
     return id;
 };
 
+/**
+ * @param {Object} obj
+ * @param {String} obj.componentId
+ * @param {Array<String>} obj.bind
+ * @param {Object} obj.props
+ * @param {Boolean} obj.fireCallback
+ * @return void
+ *
+ * @description
+ * Store props and return a unique indentifier
+ *
+ */
 const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     const parentId = getParentIdById(componentId);
     if (!parentId) return;
@@ -100,19 +112,42 @@ const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     });
 };
 
+/**
+ * @param {Object} obj
+ * @param {String} obj.propsId
+ * @param {String} obj.componentId
+ * @return void
+ *
+ * @description
+ * Store props and return a unique indentifier
+ *
+ */
 export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
     if (!propsId) return;
 
-    mainStore.set('dynamicPropsToChildren', (prev) => {
-        return prev.map((item) => {
-            const { propsId: id } = item;
-            return id === propsId ? { ...item, componentId } : item;
-        });
-    });
+    mainStore.set(
+        'dynamicPropsToChildren',
+        (/** @type {Array<Object>} */ prev) => {
+            return prev.map((item) => {
+                const { propsId: id } = item;
+                return id === propsId ? { ...item, componentId } : item;
+            });
+        }
+    );
 
     applyDynamicProps({ componentId, inizilizeWatcher: false });
 };
 
+/**
+ * @param {Object} obj
+ * @param {String} obj.componentId
+ * @param {Boolean} obj.inizilizeWatcher
+ * @return void
+ *
+ * @description
+ * Store props and return a unique indentifier
+ *
+ */
 export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
@@ -143,17 +178,16 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
     /**
      * Watch props on change
      */
-    const propsController = { active: false };
-    const unWatchArray = bind.map((state) => {
+    let watchIsRunning = false;
+    const unWatchArray = bind.map((/** @type{String} */ state) => {
         return watchById(getParentIdById(componentId), state, () => {
-            const { active } = propsController;
-            if (active) return;
+            if (watchIsRunning) return;
 
             /**
              * Fire watch only once if multiple props change.
              * Wait the end of current block.
              */
-            propsController.active = true;
+            watchIsRunning = true;
             setTimeout(() => {
                 setDynamicProp({
                     componentId,
@@ -161,7 +195,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
                     props,
                     fireCallback: true,
                 });
-                propsController.active = false;
+                watchIsRunning = false;
             });
         });
     });
@@ -175,11 +209,14 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
     /**
      * Remove current dynamic prop from store.
      */
-    mainStore.set('dynamicPropsToChildren', (prev) => {
-        return prev.filter(({ componentId: currentComponentId }) => {
-            return componentId !== currentComponentId;
-        });
-    });
+    mainStore.set(
+        'dynamicPropsToChildren',
+        (/** @type{Array<Object>} */ prev) => {
+            return prev.filter(({ componentId: currentComponentId }) => {
+                return componentId !== currentComponentId;
+            });
+        }
+    );
 };
 
 /**
