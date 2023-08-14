@@ -17,10 +17,11 @@ import { getElementById } from './element';
 export const getChildrenIdByName = ({ id = '', component = '' }) => {
     if (!id || id === '') return [];
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
     });

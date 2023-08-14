@@ -14,10 +14,11 @@ import { updateChildrenArray } from '../utils';
 export const getParentIdById = (id = '') => {
     if (!id || id === '') return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
     });
@@ -44,10 +45,11 @@ export const getParentIdById = (id = '') => {
 export const addSelfToParentComponent = ({ id = '' }) => {
     if (!id || id === '') return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
     });

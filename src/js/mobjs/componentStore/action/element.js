@@ -47,10 +47,11 @@ export const setElementById = ({
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
     const element = instance?.element;
@@ -81,10 +82,11 @@ export const getElementByKeyInContainer = ({
 }) => {
     if (!key || key === '') return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(
         ({ key: currentKey, parentId: currentParentId, element }) =>
             currentKey === key &&

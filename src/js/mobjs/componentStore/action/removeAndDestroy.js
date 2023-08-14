@@ -16,11 +16,11 @@ import { removeChildFromChildrenArray } from '../utils';
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
 
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const { component: componentName, element } =
         instances.find(({ id: currentId }) => {
             return currentId === id;
@@ -125,10 +125,11 @@ export const removeAndDestroyById = ({ id = '' }) => {
  * Remove cancellable component to store.
  */
 export const removeCancellableComponentFromStore = () => {
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {Array<import('../store.js').componentStoreType>}
+     */
     const cancellableComponents = instances.filter(({ cancellable }) => {
         return cancellable;
     });
@@ -145,11 +146,11 @@ export const removeCancellableComponentFromStore = () => {
  * Remove orphan omponent from store.
  */
 export const removeOrphanComponent = () => {
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
 
+    /**
+     * @type {Array<import('../store.js').componentStoreType>}
+     */
     const orphans = instances.filter(
         ({ element }) => !document.body.contains(element)
     );

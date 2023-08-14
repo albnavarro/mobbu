@@ -11,10 +11,11 @@ import { componentStore } from '../store';
 export const getComponentNameById = (id = '') => {
     if (!id || id === '') return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => {
         return currentId === id;
     });
@@ -38,10 +39,11 @@ export const getComponentNameById = (id = '') => {
 export const getIdByInstanceName = (name = '') => {
     if (!name) return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ instanceName }) => {
         return instanceName === name;
     });

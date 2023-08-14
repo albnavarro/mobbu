@@ -14,10 +14,11 @@ import { componentStore } from '../store';
 export const watchById = (id = '', prop = '', cb = () => {}) => {
     if ((!id || id === '') && (!prop || prop === '')) return undefined;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
     const state = instance?.state;

@@ -1,3 +1,5 @@
+// @ts-check
+
 import { componentStore } from '../store';
 
 /**
@@ -10,10 +12,11 @@ import { componentStore } from '../store';
 export const getStateById = (id = '') => {
     if (!id || id === '') return;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
     const state = instance?.state;
@@ -28,7 +31,7 @@ export const getStateById = (id = '') => {
 /**
  * @param {String} id
  * @param {String} prop
- * @param {Any} value
+ * @param {any} value
  * @param {Boolean} fire
  * @returns void
  *
@@ -38,10 +41,11 @@ export const getStateById = (id = '') => {
 export const setStateById = (id = '', prop = '', value, fire = true) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
 
-    /**
-     * @type {{instances: Array.<import('../store.js').componentStoreType >}}
-     */
     const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
     const state = instance?.state;
