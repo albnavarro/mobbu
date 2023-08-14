@@ -148,7 +148,7 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
  * Store props and return a unique indentifier
  *
  */
-export const applyDynamicProps = ({ componentId, inizilizeWatcher = true }) => {
+export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
     /**

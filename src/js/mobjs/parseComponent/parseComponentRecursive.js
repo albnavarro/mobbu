@@ -231,7 +231,8 @@ export const parseComponentsRecursive = async ({
      */
     functionToFireAtTheEnd.push({
         onMount: () => fireOnMountCallBack({ id, element: newElement }),
-        fireDynamic: () => applyDynamicProps({ componentId: id }),
+        fireDynamic: () =>
+            applyDynamicProps({ componentId: id, inizilizeWatcher: true }),
     });
 
     // Check for another component
