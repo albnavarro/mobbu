@@ -1,10 +1,7 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
-import {
-    addCurrentIdToDynamicProps,
-    getPropsFromParent,
-} from '../mainStore/actions/props';
+import { getPropsFromParent } from '../mainStore/actions/props';
 import {
     DYNAMIC,
     INSTANCENAME_DATASET,
@@ -17,7 +14,7 @@ import { propsKeyToExclude } from './utils';
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String}}
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined )}}
  *
  * @description
  * Create base DOM component from component tag.

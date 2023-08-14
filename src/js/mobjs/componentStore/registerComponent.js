@@ -13,7 +13,7 @@ import { addPropsToState } from './utils';
  * @param {Object} obj.props
  * @param {Object} obj.state
  * @param {string} obj.key
- * @param {Array} obj.parentPropsWatcher
+ * @param {Array} [ obj.parentPropsWatcher ]
  * @param {function} obj.destroy
  * @param {string} obj.id
  * @param {string} obj.componentName
