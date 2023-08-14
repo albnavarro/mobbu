@@ -114,7 +114,7 @@ const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
 
 /**
  * @param {Object} obj
- * @param {String} obj.propsId
+ * @param {String|undefined} obj.propsId
  * @param {String} obj.componentId
  * @return void
  *
