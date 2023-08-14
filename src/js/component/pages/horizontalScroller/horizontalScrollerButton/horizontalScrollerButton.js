@@ -3,7 +3,7 @@
  */
 export const HorizontalScrollerButton = ({
     getState,
-    watchParent,
+    watch,
     render,
     onMount,
 }) => {
@@ -13,12 +13,8 @@ export const HorizontalScrollerButton = ({
         const btn = element.querySelector('.js-nav-button');
         btn.addEventListener('click', () => callback());
 
-        watchParent('currentId', (currentId) => {
-            btn.classList.toggle('active', currentId === id);
-        });
-
-        watchParent('currentIdFromScroll', (currentId) => {
-            btn.classList.toggle('active', currentId === id);
+        watch('active', (active) => {
+            btn.classList.toggle('active', active);
         });
 
         return () => {};

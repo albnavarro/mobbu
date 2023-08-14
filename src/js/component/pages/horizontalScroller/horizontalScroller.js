@@ -1,7 +1,7 @@
 import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobbu/plugin';
 import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
-import { createProps } from '../../../mobjs';
+import { createDynamicProps, createProps } from '../../../mobjs';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 const getColumns = ({ numOfCol, pinIsVisible }) => {
@@ -26,9 +26,17 @@ const getNav = ({ numOfCol, setState }) => {
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
-                    data-props=${createProps({
-                        id: i,
-                        callback: () => setState('currentId', i),
+                    data-dynamicprops=${createDynamicProps({
+                        bind: ['currentId', 'currentIdFromScroll'],
+                        props: ({ currentId, currentIdFromScroll }) => {
+                            return {
+                                id: i,
+                                callback: () => setState('currentId', i),
+                                active:
+                                    currentId === i ||
+                                    currentIdFromScroll === i,
+                            };
+                        },
                     })}
                 ></HorizontalScrollerButton>
             `;
@@ -66,6 +74,7 @@ export const HorizontalScroller = ({
         window.scrollTo(0, 0);
 
         watch('currentId', (id) => {
+            active: currentId || currentIdFromScroll;
             /**
              * Hre the nav is open so on route landing the offset is wrong
              * So, refresh scroller and the scroll to item.
@@ -86,6 +95,7 @@ export const HorizontalScroller = ({
             const scrollValue =
                 /**
                  * Need previous and current value diffrence > 0 so add 1px.
+                 *                              active: currentId || currentIdFromScroll
                  * ( onLeaveBack issue )
                  */
                 parseInt(id) === 0

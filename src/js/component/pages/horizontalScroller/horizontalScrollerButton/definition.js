@@ -13,5 +13,9 @@ export const horizontalScrollerButtonDef = createComponentDefinition({
             value: () => {},
             type: Function,
         }),
+        active: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });
