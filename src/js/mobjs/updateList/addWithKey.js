@@ -7,7 +7,7 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import { IS_RUNTIME } from '../constant';
-import { createProps } from '../mainStore/actions/props';
+import { createDynamicProps, createProps } from '../mainStore/actions/props';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -25,6 +25,7 @@ const AFTER = 'afterend';
  * @param {string} obj.key
  * @param {string} obj.runtimeId
  * @param {object} obj.props
+ * @param {object} obj.dynamicProps
  * @param {Array} obj.currentUnique
  * @param {number} obj.index
  *
@@ -38,6 +39,7 @@ function getPartialsComponentList({
     key,
     runtimeId,
     props,
+    dynamicProps,
     currentUnique,
     index,
 }) {
@@ -45,9 +47,12 @@ function getPartialsComponentList({
         props({ current: currentUnique?.[index], index })
     );
 
+    const currentDynamicProps = createDynamicProps(dynamicProps);
+
     return /* HTML */ `
         <component
             data-props=${currentProps}
+            data-dynamicprops=${currentDynamicProps}
             ${IS_RUNTIME}="${runtimeId}"
             data-component="${targetComponent}"
             data-key="${key}"
@@ -65,6 +70,7 @@ function getPartialsComponentList({
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {object} obj.props
+ * @param {object} obj.dynamicProps
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.runtimeId
@@ -82,6 +88,7 @@ export const addWithKey = ({
     getChildren = () => {},
     key = '',
     props = {},
+    dynamicProps = {},
     id = '',
     runtimeId = '',
 }) => {
@@ -244,6 +251,7 @@ export const addWithKey = ({
                     key: element.key,
                     runtimeId,
                     props,
+                    dynamicProps,
                     currentUnique,
                     index: element.index,
                 })

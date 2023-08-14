@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { createProps } from '../mainStore/actions/props';
+import { createDynamicProps, createProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../constant';
 import { getChildrenInsideElement } from './utils';
 
@@ -13,6 +13,7 @@ import { getChildrenInsideElement } from './utils';
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {object} obj.props
+ * @param {object} obj.dynamicProps
  * @param {string} obj.runtimeId
  * @return {Array}
  *
@@ -28,6 +29,7 @@ export const addWithoutKey = ({
     getChildren = () => {},
     runtimeId = '',
     props = {},
+    dynamicProps = {},
 }) => {
     /**
      * @type {number}
@@ -60,9 +62,12 @@ export const addWithoutKey = ({
                     })
                 );
 
+                const currentDynamicProps = createDynamicProps(dynamicProps);
+
                 return /* HTML */ `
                     <component
                         data-props=${currentProps}
+                        data-dynamicprops=${currentDynamicProps}
                         ${IS_RUNTIME}="${runtimeId}"
                         data-component="${targetComponent}"
                     >

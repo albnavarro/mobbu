@@ -19,6 +19,7 @@ import { getChildrenInsideElement } from './utils';
  * @param { string } obj.id
  * @param { string } obj.key
  * @param { object } obj.props
+ * @param { object } obj.dynamicProps
  * @param { string } obj.state
  * @param { string } obj.targetComponent
  * @param { function } obj.watch
@@ -29,6 +30,7 @@ export const watchList = ({
     watch = () => {},
     containerList = document.createElement('div'),
     props = {},
+    dynamicProps = {},
     beforeUpdate = () => {},
     afterUpdate = () => {},
     targetComponent = '',
@@ -102,6 +104,7 @@ export const watchList = ({
                 getChildren,
                 key,
                 props,
+                dynamicProps,
                 id,
             });
 

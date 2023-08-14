@@ -27,7 +27,7 @@ export const getParentIdById = (id = '') => {
      */
     const parentId = instance?.parentId;
     if (!parentId) {
-        console.warn(`getParentIdById failed no id found`);
+        // console.warn(`getParentIdById failed no id found`);
         return undefined;
     }
 

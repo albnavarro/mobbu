@@ -225,6 +225,14 @@ export interface componentType {
                      index,
                  };
              },
+            dynamicProps: {
+                bind: ['state'],
+                props: ({ state }) => {
+                    return {
+                        childrenStet: state
+                    };
+                },
+            },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
              },
@@ -272,6 +280,26 @@ export interface componentType {
              */
             index: Number;
         }) => Object;
+
+        /**
+         *
+         * @description
+         * Dynamic props passed to new component
+         */
+        dynamicProps: {
+            /**
+             * @description
+             * Array of state to watch.
+             */
+            bind: Array<String>;
+
+            /**
+             * @description
+             * The value corresponding to each value of
+             * sate defined in bind array
+             */
+            props: (arg0: { String: any }) => Object;
+        };
 
         /**
          * @description

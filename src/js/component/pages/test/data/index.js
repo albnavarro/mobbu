@@ -1,4 +1,4 @@
-export const originalData = [
+export const startData = [
     {
         key: 'a',
         label: 'A',
@@ -17,7 +17,7 @@ export const originalData = [
     },
 ];
 
-export const addedData = [
+export const state1 = [
     {
         key: 'f',
         label: 'F',
@@ -56,7 +56,7 @@ export const addedData = [
     },
 ];
 
-export const addedData2 = [
+export const state2 = [
     {
         key: 'm',
         label: 'M',
@@ -111,7 +111,7 @@ export const addedData2 = [
     },
 ];
 
-export const removeData = [
+export const state3 = [
     {
         key: 'a',
         label: 'A',

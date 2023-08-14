@@ -15,6 +15,7 @@ import { mainStore } from '../mainStore';
  * @param { String|undefined } mainObject.obj.state
  * @param { String } mainObject.obj.targetComponent
  * @param { Function } mainObject.obj.watch
+ * @param { Object } mainObject.obj.dynamicProps
  *
  * @description
  * Add new repeater id and props.
