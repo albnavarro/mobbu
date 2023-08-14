@@ -4,6 +4,19 @@ import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
 /**
+ * @typedef {object} RepeatItemDef
+ * @property { function({container:HTMLElement, childrenId:Array.<String>}):void  } afterUpdate
+ * @property { function({container:HTMLElement, childrenId:Array.<String>}):void  } beforeUpdate
+ * @property { Function } getChildren
+ * @property { String } id
+ * @property { String } key
+ * @property { Object } props
+ * @property { String } state
+ * @property { String } targetComponent
+ * @property { Function } watch
+ */
+
+/**
  * @param {Object} obj
  * @param {String} obj.repeatId - current unique id for repater.
  * @param {( Array.<{ parent:HTMLElement, id:(string|undefined) }>|undefined )} obj.placeholderListObj
@@ -16,25 +29,8 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId || !placeholderListObj || placeholderListObj.length === 0)
         return;
 
-    /**
-     *
-     * @type {{repeat: Array.<{id: {
-          afterUpdate:function({container:HTMLElement, childrenId:Array.<String>}):void ,
-          beforeUpdate:function({container:HTMLElement, childrenId:Array.<String>}):void ,
-          getChildren :Function,
-          id: String,
-          key: String,
-          props: Object,
-          state: String,
-          targetComponent: String,
-          watch: Function
-       }}>}}
-     *
-     * @description
-     * Get all repeat from store
-     */
     const { repeat } = mainStore.get();
-    const currentItem = repeat.find((item) => {
+    const currentItem = repeat.find((/** @type{RepeatItemDef} */ item) => {
         return item?.[repeatId];
     }) ?? { id: undefined };
 
