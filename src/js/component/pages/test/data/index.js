@@ -113,16 +113,16 @@ export const state2 = [
 
 export const state3 = [
     {
-        key: 'a',
-        label: 'A',
-    },
-    {
         key: 'h',
         label: 'H',
     },
     {
         key: 'f',
         label: 'F',
+    },
+    {
+        key: 'a',
+        label: 'A',
     },
     {
         key: 'd',

@@ -34,19 +34,24 @@ export const TestComponent = async ({
         const resetEl = element.querySelector('.reset');
         const increaseCounterEl = element.querySelector('.counter');
         setState('data', startData);
+        setState('data2', startData);
 
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         state1El.addEventListener('click', () => {
             setState('data', state1);
+            setState('data2', state1);
         });
         state2El.addEventListener('click', () => {
             setState('data', state2);
+            setState('data2', state2);
         });
         state3El.addEventListener('click', () => {
             setState('data', state3);
+            setState('data2', state3);
         });
         resetEl.addEventListener('click', () => {
             setState('data', startData);
+            setState('data2', startData);
         });
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
@@ -114,8 +119,7 @@ export const TestComponent = async ({
             </div>
             <div class="c-test-comp__list">
                 ${repeat({
-                    watch: 'data',
-                    key: 'key',
+                    watch: 'data2',
                     component: 'TestComponent2',
                     props: ({ current, index }) => {
                         const { label } = current;

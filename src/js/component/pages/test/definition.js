@@ -18,6 +18,10 @@ export const testComponentDef = createComponentDefinition({
             value: [],
             type: Array,
         }),
+        data2: () => ({
+            value: [],
+            type: Array,
+        }),
     },
 });
 

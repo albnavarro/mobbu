@@ -209,6 +209,13 @@ export interface componentType {
     onMount(arg0: { element: HTMLElement }): Function;
 
     /**
+     * @description
+     * Dynamic list repeater, with or without key.
+     *
+     * Note:
+     * If the same state with the data array is used in the same component several times but one with key and others not, use two different states, otherwise you may have unwanted effects (all repeaters act only in the same state but the same one risks being changed in different ways)
+     *
+     *
      * @example
      *
      * ```javascript
@@ -225,14 +232,14 @@ export interface componentType {
                      index,
                  };
              },
-            dynamicProps: {
-                bind: ['state'],
-                props: ({ state }) => {
-                    return {
-                        childrenStet: state
-                    };
-                },
-            },
+             dynamicProps: {
+                 bind: ['state'],
+                 props: ({ state }) => {
+                     return {
+                         childrenStet: state
+                     };
+                 },
+             },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
              },
