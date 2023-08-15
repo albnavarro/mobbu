@@ -2,6 +2,7 @@
 
 import {
     IS_COMPONENT,
+    PROPS,
     PROPS_FROM_SLOT,
     SLOT_NAME,
     SLOT_POSITION,
@@ -84,7 +85,7 @@ const addToSlot = ({ element }) => {
          * @description
          * Set props id from slot to component.
          */
-        const propsIdFromSlot = slot.dataset?.props;
+        const propsIdFromSlot = slot.dataset?.[PROPS];
         elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
 
         /**
