@@ -81,7 +81,7 @@ export const createDynamicProps = (propsObj = {}) => {
  * @param {Object} obj
  * @param {String} obj.componentId
  * @param {Array<String>} obj.bind
- * @param {Object} obj.props
+ * @param {(args0: Object)=>Object} obj.props
  * @param {Boolean} obj.fireCallback
  * @return void
  *
@@ -93,7 +93,20 @@ const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
     const parentId = getParentIdById(componentId);
     if (!parentId) return;
 
+    /**
+     * Check id all bind props exist in parent state.
+     */
     const parentState = getStateById(parentId);
+    const parentStateKeys = Object.keys(parentState);
+    const bindArrayIsValid = bind.every((state) =>
+        parentStateKeys.includes(state)
+    );
+
+    if (!bindArrayIsValid) {
+        console.warn(
+            `bind props error: Some prop ${JSON.stringify(bind)} doasn't exist`
+        );
+    }
 
     const values = bind
         .map((currentState) => {
@@ -152,6 +165,9 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
     /**
+     * @type {{ propsId: String, componentId: String, propsObj: {bind:Array, props:(args0: Object) => Object} }}
+     *
+     * @description
      * Get dynamic prop by component.
      */
     const dynamicPropsFiltered = dynamicPropsToChildren.find(
