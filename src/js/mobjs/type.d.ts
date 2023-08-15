@@ -293,7 +293,7 @@ export interface componentType {
          * @description
          * Dynamic props passed to new component
          */
-        dynamicProps: {
+        bindProps: {
             /**
              * @description
              * Array of state to watch.

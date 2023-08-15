@@ -7,7 +7,7 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import { IS_RUNTIME } from '../constant';
-import { createDynamicProps, createProps } from '../mainStore/actions/props';
+import { bindProps, staticProps } from '../mainStore/actions/props';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -43,16 +43,16 @@ function getPartialsComponentList({
     currentUnique,
     index,
 }) {
-    const currentProps = createProps(
+    const currentProps = staticProps(
         props({ current: currentUnique?.[index], index })
     );
 
-    const currentDynamicProps = createDynamicProps(dynamicProps);
+    const currentDynamicProps = bindProps(dynamicProps);
 
     return /* HTML */ `
         <component
-            data-props=${currentProps}
-            data-dynamicprops=${currentDynamicProps}
+            data-staticprops=${currentProps}
+            data-bindprops=${currentDynamicProps}
             ${IS_RUNTIME}="${runtimeId}"
             data-component="${targetComponent}"
             data-key="${key}"

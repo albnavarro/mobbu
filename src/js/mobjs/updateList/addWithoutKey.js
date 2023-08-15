@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { createDynamicProps, createProps } from '../mainStore/actions/props';
+import { bindProps, staticProps } from '../mainStore/actions/props';
 import { IS_RUNTIME } from '../constant';
 import { getChildrenInsideElement } from './utils';
 
@@ -55,19 +55,19 @@ export const addWithoutKey = ({
          */
         const elementToAdd = [...Array(diff).keys()]
             .map((_item, index) => {
-                const currentProps = createProps(
+                const currentProps = staticProps(
                     props({
                         current: current?.[index + previousLenght],
                         index: index + previousLenght,
                     })
                 );
 
-                const currentDynamicProps = createDynamicProps(dynamicProps);
+                const currentDynamicProps = bindProps(dynamicProps);
 
                 return /* HTML */ `
                     <component
-                        data-props=${currentProps}
-                        data-dynamicprops=${currentDynamicProps}
+                        data-staticprops=${currentProps}
+                        data-bindprops=${currentDynamicProps}
                         ${IS_RUNTIME}="${runtimeId}"
                         data-component="${targetComponent}"
                     >

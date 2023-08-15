@@ -1,9 +1,9 @@
-import { createProps } from '../../../mobjs';
+import { staticProps } from '../../../mobjs';
 
 export const horizontalScrollerModuleV2 = () => {
     return /* HTML */ `<div>
         <HorizontalScroller
-            data-props="${createProps({
+            data-staticprops="${staticProps({
                 animatePin: true,
             })}"
             data-cancellable

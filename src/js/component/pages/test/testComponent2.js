@@ -1,4 +1,4 @@
-import { createProps } from '../../../mobjs';
+import { staticProps } from '../../../mobjs';
 
 function asyncTest() {
     return new Promise((resolve) => {
@@ -55,12 +55,12 @@ export const TestComponent2 = async ({
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"
-                data-props="${createProps({ slotProps: 'slot props' })}"
+                data-staticprops="${staticProps({ slotProps: 'slot props' })}"
             ></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>
-            <Codebutton data-props="${createProps({ style: 'primary' })}">
+            <Codebutton data-staticprops="${staticProps({ style: 'primary' })}">
             </Codebutton>
         </div>
     `);

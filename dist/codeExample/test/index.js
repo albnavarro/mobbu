@@ -1,4 +1,4 @@
-import { createProps } from '<path>/baseComponent/mainStore/actions/props';
+import { staticProps } from '<path>/baseComponent/mainStore/actions/props';
 import { getLegendData } from '<path>/route';
 import { caterpillarN1Animation } from './animation/animation';
 
@@ -22,7 +22,7 @@ export const CaterpillarN1 = ({ onMount, render, props }) => {
     return render(/* HTML */ `
         <div>
             <legend
-                data-props="${createProps({
+                data-staticprops="${staticProps({
                     title,
                     description,
                     type,

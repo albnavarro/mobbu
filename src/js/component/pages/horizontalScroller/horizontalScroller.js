@@ -1,7 +1,7 @@
 import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobbu/plugin';
 import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
-import { createDynamicProps, createProps } from '../../../mobjs';
+import { bindProps, staticProps } from '../../../mobjs';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 const getColumns = ({ numOfCol, pinIsVisible }) => {
@@ -11,7 +11,7 @@ const getColumns = ({ numOfCol, pinIsVisible }) => {
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerSection
-                    data-props="${createProps({
+                    data-staticprops="${staticProps({
                         id: i,
                         pinClass,
                     })}"
@@ -26,7 +26,7 @@ const getNav = ({ numOfCol, setState }) => {
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
-                    data-dynamicprops=${createDynamicProps({
+                    data-bindprops=${bindProps({
                         bind: ['currentId', 'currentIdFromScroll'],
                         props: ({ currentId, currentIdFromScroll }) => {
                             return {
@@ -119,7 +119,7 @@ export const HorizontalScroller = ({
     return render(/* HTML */ `<div class="l-h-scroller">
         <div class="l-h-scroller__top">scroll down</div>
         <CodeButton
-            data-props="${createProps({
+            data-staticprops="${staticProps({
                 drawers: {
                     description: source.description,
                     js: source.js,

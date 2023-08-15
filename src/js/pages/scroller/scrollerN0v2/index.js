@@ -1,9 +1,9 @@
-import { createProps } from '../../../mobjs';
+import { staticProps } from '../../../mobjs';
 
 export const scrollerN0v2Module = () => {
     return /* HTML */ `<div>
         <ScrollerN0
-            data-props=${createProps({
+            data-staticprops=${staticProps({
                 stagger: {
                     type: 'end',
                     each: 1,

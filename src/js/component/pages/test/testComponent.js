@@ -1,4 +1,4 @@
-import { createDynamicProps, createProps } from '../../../mobjs';
+import { bindProps, staticProps } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 function logChildren(getChildren) {
@@ -83,7 +83,7 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn children">Children</button>
             </div>
             <TestComponent2
-                data-dynamicprops="${createDynamicProps({
+                data-bindprops="${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[0]?.key ?? '', index: 0, counter };
@@ -99,7 +99,7 @@ export const TestComponent = async ({
                         const { label } = current;
                         return { label, index };
                     },
-                    dynamicProps: {
+                    bindProps: {
                         bind: ['counter'],
                         props: ({ counter }) => {
                             return {
@@ -125,7 +125,7 @@ export const TestComponent = async ({
                         const { label } = current;
                         return { label, index };
                     },
-                    dynamicProps: {
+                    bindProps: {
                         bind: ['counter'],
                         props: ({ counter }) => {
                             return {
@@ -144,7 +144,7 @@ export const TestComponent = async ({
                 })}
             </div>
             <TestComponent2
-                data-dynamicprops="${createDynamicProps({
+                data-bindprops="${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[1]?.key ?? '', index: 1, counter };
@@ -154,7 +154,7 @@ export const TestComponent = async ({
                 <div data-slotposition="slot1"><span>slot1</span></div>
                 <Codebutton
                     data-slotposition="slot2"
-                    data-props="${createProps({
+                    data-staticprops="${staticProps({
                         drawers: {
                             js: 'test-js',
                             scss: 'test-scss',

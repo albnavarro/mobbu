@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { createProps } from '../../../../mobjs';
+import { staticProps } from '../../../../mobjs';
 import { scrollerN0Animation } from './animation/animation';
 
 /**
@@ -33,7 +33,7 @@ export const ScrollerN0 = ({ onMount, render, getState }) => {
         <div>
             <div class="c-canvas c-canvas--fixed ">
                 <CodeButton
-                    data-props="${createProps({
+                    data-staticprops="${staticProps({
                         drawers: {
                             description: source.description,
                             js: source.js,

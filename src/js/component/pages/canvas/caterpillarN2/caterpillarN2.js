@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { createProps } from '../../../../mobjs';
+import { staticProps } from '../../../../mobjs';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -74,7 +74,7 @@ export const CaterpillarN2 = ({ onMount, render, getState }) => {
     return render(/* HTML */ `
         <div>
             <CodeButton
-                data-props="${createProps({
+                data-staticprops="${staticProps({
                     drawers: {
                         description: source.description,
                         js: source.js,

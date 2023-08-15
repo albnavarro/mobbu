@@ -1,5 +1,5 @@
 import { getCommonData } from '../../../data';
-import { createProps } from '../../../mobjs';
+import { staticProps } from '../../../mobjs';
 
 /**
  * Create second levels item.
@@ -8,7 +8,7 @@ function getSubmenu(items) {
     return items
         .map((item) => {
             const { label, url } = item;
-            const props = createProps({
+            const props = staticProps({
                 label,
                 url,
                 ...{ subMenuClass: 'l-navigation__link--submenu' },
@@ -16,7 +16,9 @@ function getSubmenu(items) {
 
             return /* HTML */ `
                 <li class="l-navigation__submenu__item">
-                    <NavigationButton data-props="${props}"></NavigationButton>
+                    <NavigationButton
+                        data-staticprops="${props}"
+                    ></NavigationButton>
                 </li>
             `;
         })
@@ -50,7 +52,7 @@ function getItems(data) {
                           fireRoute: true,
                       };
 
-            const props = createProps({
+            const props = staticProps({
                 label,
                 url,
                 arrowClass,
@@ -60,7 +62,9 @@ function getItems(data) {
 
             return /* HTML */ `
                 <li class="l-navigation__item ${hasChildrenClass}">
-                    <NavigationButton data-props="${props}"></NavigationButton>
+                    <NavigationButton
+                        data-staticprops="${props}"
+                    ></NavigationButton>
                     ${submenu}
                 </li>
             `;

@@ -4,10 +4,10 @@
  * Exclude this props becouse if a reserved props keys.
  */
 export const propsKeyToExclude = [
-    'props',
+    'staticprops',
     'component',
     'key',
-    'dynamicprops',
+    'bindprops',
     'cancellable',
     'instancename',
     'propsfromslot',

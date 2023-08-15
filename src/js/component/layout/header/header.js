@@ -1,4 +1,4 @@
-import { createProps, getIdByInstanceName, setStateById } from '../../../mobjs';
+import { staticProps, getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -38,7 +38,7 @@ export const Header = ({ render, onMount }) => {
                 <div class="l-header__navinfo">
                     <p class="p--small"></p>
                     <CodeButton
-                        data-props="${createProps({
+                        data-staticprops="${staticProps({
                             drawers: {
                                 js: '/codeExample/layout/navigation/script.js',
                                 scss: '',

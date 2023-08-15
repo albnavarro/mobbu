@@ -2,7 +2,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { createDynamicProps } from '../../../mobjs';
+import { bindProps } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -14,21 +14,19 @@ const copyToClipboard = ({ getState }) => {
 const getButtons = ({ contents, setState }) => {
     return contents
         .map((key) => {
-            return /*HTML*/ `<CodeOverlayButton data-dynamicprops="${createDynamicProps(
-                {
-                    bind: ['urls', 'activeContent'],
-                    props: ({ urls, activeContent }) => {
-                        return {
-                            key,
-                            callback: () => {
-                                setState('activeContent', key);
-                            },
-                            disable: !urls[key].length,
-                            selected: key === activeContent,
-                        };
-                    },
-                }
-            )}"></CodeOverlayButton>`;
+            return /*HTML*/ `<CodeOverlayButton data-bindprops="${bindProps({
+                bind: ['urls', 'activeContent'],
+                props: ({ urls, activeContent }) => {
+                    return {
+                        key,
+                        callback: () => {
+                            setState('activeContent', key);
+                        },
+                        disable: !urls[key].length,
+                        selected: key === activeContent,
+                    };
+                },
+            })}"></CodeOverlayButton>`;
         })
         .join('');
 };

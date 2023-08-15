@@ -17,14 +17,14 @@ import { mainStore } from '../mainStore';
  * @example
  * ```javascript
  *   <MyComponent
- *       data-props="${createProps({
+ *       data-staticprops="${staticProps({
  *           childState1: key,
  *           callBack: () => setState('parentState', key)
  *       })}"
  *   ></MyComponent>
  * ```
  */
-export const createProps = (props = {}) => {
+export const staticProps = (props = {}) => {
     /**
      * @type {String}
      */
@@ -46,7 +46,7 @@ export const createProps = (props = {}) => {
  * @example
  * ```javascript
  *   <MyComponent
- *       data-dynamicprops="${createDynamicProps({
+ *       data-bindprops="${bindProps({
  *           bind: ['state1', 'state1'],
  *           props: ({ state1, state2 }) => {
  *               return {
@@ -58,11 +58,11 @@ export const createProps = (props = {}) => {
  *   ></MyComponent>
  * ```
  */
-export const createDynamicProps = (propsObj = {}) => {
+export const bindProps = (propsObj = {}) => {
     const propsIsValid = 'bind' in propsObj && 'props' in propsObj;
 
     if (!propsIsValid) {
-        console.warn(`createDynamicProps not valid`);
+        console.warn(`bindProps not valid`);
         return 'dynamic-prop-not-valid';
     }
 
