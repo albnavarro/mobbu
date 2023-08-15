@@ -232,7 +232,7 @@ export interface componentType {
                      index,
                  };
              },
-             dynamicProps: {
+             bindProps: {
                  bind: ['state'],
                  props: ({ state }) => {
                      return {
