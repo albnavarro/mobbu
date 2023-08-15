@@ -69,6 +69,7 @@ export const TestComponent = async ({
 
     return render(/* HTML */ `
         <div class="c-test-comp">
+            <h4>t</h4>
             <div class="c-test-comp__label">
                 <span>${title}:</span>
             </div>
@@ -151,19 +152,23 @@ export const TestComponent = async ({
                     },
                 })}"
             >
-                <div data-slotposition="slot1"><span>slot1</span></div>
-                <Codebutton
+                <div data-slotposition="slot1">
+                    <div class="c-test3-comp">slot1</div>
+                </div>
+                <TestComponent3
                     data-slotposition="slot2"
                     data-staticprops="${staticProps({
-                        drawers: {
-                            js: 'test-js',
-                            scss: 'test-scss',
-                            component: 'test-html',
-                        },
-                        style: 'primary',
+                        parentParentState: `t state: ${JSON.stringify(
+                            getState()
+                            // Bind props is not usable here
+                            // look at TestComponent2 not TestComponent
+                            //
+                            // TODO override id quando salvo bindProps({})
+                            // e usale al posto di getParentId
+                        )}`,
                     })}"
                 >
-                </Codebutton>
+                </TestComponent3>
             </TestComponent2>
         </div>
     `);

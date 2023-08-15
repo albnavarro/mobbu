@@ -26,7 +26,11 @@ import { horizontalScrollerDef } from './pages/horizontalScroller/definition';
 import { horizontalScrollerButtonDef } from './pages/horizontalScroller/horizontalScrollerButton/definition';
 import { horizontalScrollerSectionDef } from './pages/horizontalScroller/horizontalScrollerSection/definition';
 import { scrollerN0Def } from './pages/scroller/ScrollerN0/definition';
-import { testComponent2Def, testComponentDef } from './pages/test/definition';
+import {
+    testComponent2Def,
+    testComponent3Def,
+    testComponentDef,
+} from './pages/test/definition';
 
 export const componentList = {
     ...headerComponentDef,
@@ -53,4 +57,5 @@ export const componentList = {
     ...horizontalScrollerSectionDef,
     ...testComponentDef,
     ...testComponent2Def,
+    ...testComponent3Def,
 };

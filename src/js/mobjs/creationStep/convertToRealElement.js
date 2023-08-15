@@ -1,6 +1,7 @@
 // @ts-check
 
 import {
+    DYNAMIC,
     IS_COMPONENT,
     PROPS,
     PROPS_FROM_SLOT,
@@ -88,6 +89,10 @@ const addToSlot = ({ element }) => {
         const propsIdFromSlot = slot.dataset?.[PROPS];
         if (propsIdFromSlot)
             elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
+
+        const bindPropsIdFromSlot = slot.dataset?.[DYNAMIC];
+        if (bindPropsIdFromSlot)
+            elementMoved.dataset[DYNAMIC] = bindPropsIdFromSlot;
 
         /**
          * Delete slot.

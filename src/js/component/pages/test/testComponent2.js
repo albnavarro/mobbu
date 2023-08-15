@@ -1,4 +1,4 @@
-import { staticProps } from '../../../mobjs';
+import { bindProps, staticProps } from '../../../mobjs';
 
 function asyncTest() {
     return new Promise((resolve) => {
@@ -49,13 +49,27 @@ export const TestComponent2 = async ({
 
     return render(/* HTML */ `
         <div class="c-test-comp__inner">
+            <h4>t2</h4>
             <div class="label">${label}-${index}</div>
             <div class="counter">${counter}</div>
             <slot data-slotname="slot1"></slot>
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"
-                data-staticprops="${staticProps({ slotProps: 'slot props' })}"
+                data-staticprops="${staticProps({
+                    staticFromSlot: `static prop from slot`,
+                })}"
+                data-bindprops="${bindProps({
+                    bind: ['counter', 'label', 'index'],
+                    props: ({ counter }) => {
+                        return {
+                            counter: `t2 counter (reactive): ${counter}`,
+                            parentState: `t2 state (reactive): ${JSON.stringify(
+                                getState()
+                            )}`,
+                        };
+                    },
+                })}"
             ></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle

@@ -1,6 +1,7 @@
 import { createComponentDefinition } from '../../../mobjs';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
+import { TestComponent3 } from './testComponent3';
 
 export const testComponentDef = createComponentDefinition({
     name: 'TestComponent',
@@ -44,6 +45,29 @@ export const testComponent2Def = createComponentDefinition({
         computedLabel: () => ({
             value: () => {},
             type: Function,
+        }),
+    },
+});
+
+export const testComponent3Def = createComponentDefinition({
+    name: 'TestComponent3',
+    component: TestComponent3,
+    state: {
+        staticFromSlot: () => ({
+            value: '',
+            type: 'any',
+        }),
+        parentParentState: () => ({
+            value: '',
+            type: 'any',
+        }),
+        parentState: () => ({
+            value: '',
+            type: 'any',
+        }),
+        counter: () => ({
+            value: 0,
+            type: 'any',
         }),
     },
 });
