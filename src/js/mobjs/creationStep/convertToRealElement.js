@@ -86,7 +86,8 @@ const addToSlot = ({ element }) => {
          * Set props id from slot to component.
          */
         const propsIdFromSlot = slot.dataset?.[PROPS];
-        elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
+        if (propsIdFromSlot)
+            elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
 
         /**
          * Delete slot.
