@@ -164,7 +164,8 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
  * @return void
  *
  * @description
- * Store props and return a unique indentifier
+ * Update component state, if inizilizeWatcher === true
+ * add watcher to parent ( or specific component ) state.
  *
  */
 export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
