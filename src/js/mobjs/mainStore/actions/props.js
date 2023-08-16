@@ -138,7 +138,7 @@ const setDynamicProp = ({
  * @return void
  *
  * @description
- * Store props and return a unique indentifier
+ * Add componentId to dynamic props stored and inizialize them.
  *
  */
 export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
