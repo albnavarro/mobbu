@@ -1,5 +1,4 @@
 import { getLegendData } from '../../../../data';
-import { staticProps } from '../../../../mobjs';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -22,7 +21,7 @@ function getControls({ buttons }) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN2 = ({ onMount, render, getState }) => {
+export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
     const { buttons, rotationDefault } = getState();
 
     onMount(({ element }) => {

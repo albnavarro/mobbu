@@ -1,10 +1,9 @@
 import { getCommonData } from '../../../data';
-import { staticProps } from '../../../mobjs';
 
 /**
  * Create second levels item.
  */
-function getSubmenu(items) {
+function getSubmenu(items, staticProps) {
     return items
         .map((item) => {
             const { label, url } = item;
@@ -28,7 +27,7 @@ function getSubmenu(items) {
 /**
  * Create first level items.
  */
-function getItems(data) {
+function getItems(data, staticProps) {
     return data
         .map((item) => {
             const { label, url, children } = item;
@@ -40,7 +39,7 @@ function getItems(data) {
                           arrowClass: 'l-navigation__link--arrow',
                           submenu: /* HTML */ `
                               <ul class="l-navigation__submenu">
-                                  ${getSubmenu(children)}
+                                  ${getSubmenu(children, staticProps)}
                               </ul>
                           `,
                           fireRoute: false,
@@ -52,18 +51,16 @@ function getItems(data) {
                           fireRoute: true,
                       };
 
-            const props = staticProps({
-                label,
-                url,
-                arrowClass,
-                subMenuClass: '',
-                fireRoute,
-            });
-
             return /* HTML */ `
                 <li class="l-navigation__item ${hasChildrenClass}">
                     <NavigationButton
-                        data-staticprops="${props}"
+                        data-staticprops="${staticProps({
+                            label,
+                            url,
+                            arrowClass,
+                            subMenuClass: '',
+                            fireRoute,
+                        })}"
                     ></NavigationButton>
                     ${submenu}
                 </li>
@@ -75,13 +72,13 @@ function getItems(data) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Navigation = ({ render }) => {
+export const Navigation = ({ render, staticProps }) => {
     const { navigation: data } = getCommonData();
 
     return render(/* HTML */ `
         <nav class="l-navigation">
             <ul class="l-navigation__list">
-                ${getItems(data)}
+                ${getItems(data, staticProps)}
             </ul>
         </nav>
     `);

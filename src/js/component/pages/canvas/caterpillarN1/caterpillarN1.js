@@ -1,11 +1,10 @@
 import { getLegendData } from '../../../../data';
-import { staticProps } from '../../../../mobjs';
 import { caterpillarN1Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN1 = ({ onMount, render, getState }) => {
+export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 

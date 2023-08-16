@@ -1,4 +1,3 @@
-import { bindProps, staticProps } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 function logChildren(getChildren) {
@@ -23,7 +22,8 @@ export const TestComponent = async ({
     render,
     onMount,
     repeat,
-    id,
+    staticProps,
+    bindProps,
 }) => {
     const { title } = getState();
 
@@ -162,7 +162,6 @@ export const TestComponent = async ({
                         staticFromComponent: `static prop from component`,
                     })}"
                     data-bindprops="${bindProps({
-                        parentId: id,
                         bind: ['data', 'data2', 'counter'],
                         props: () => {
                             return {

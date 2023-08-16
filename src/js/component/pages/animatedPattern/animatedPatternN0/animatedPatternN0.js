@@ -1,11 +1,15 @@
 import { getLegendData } from '../../../../data';
-import { staticProps } from '../../../../mobjs';
 import { animatedPatternN0Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const AnimatedPatternN0 = ({ onMount, render, getState }) => {
+export const AnimatedPatternN0 = ({
+    onMount,
+    render,
+    getState,
+    staticProps,
+}) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 

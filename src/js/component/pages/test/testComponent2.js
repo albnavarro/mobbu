@@ -1,5 +1,3 @@
-import { bindProps, staticProps } from '../../../mobjs';
-
 function asyncTest() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -17,6 +15,8 @@ export const TestComponent2 = async ({
     onMount,
     key,
     computed,
+    staticProps,
+    bindProps,
 }) => {
     const { label, index, counter } = getState();
 

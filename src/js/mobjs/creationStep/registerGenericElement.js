@@ -12,7 +12,11 @@ import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
 import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
-import { addCurrentIdToDynamicProps } from '../mainStore/actions/props';
+import {
+    addCurrentIdToDynamicProps,
+    bindProps,
+    staticProps,
+} from '../mainStore/actions/props';
 import { convertToGenericElement } from './convertToGenericElement';
 
 // JSDOC usare infered type quando possibile.
@@ -100,6 +104,10 @@ export const registerGenericElement = ({ component, state = {} }) => {
         computed,
         watch,
         repeatId,
+        bindProps: (
+            /** @type{{bind:Array<String>,props:() => Object}} */ obj
+        ) => bindProps({ ...obj, ...{ parentId: id } }),
+        staticProps: (/** @type{{String: any}} */ obj) => staticProps(obj),
         getChildren,
         remove: () => removeAndDestroyById({ id }),
         getParentId: () => getParentIdById(id),

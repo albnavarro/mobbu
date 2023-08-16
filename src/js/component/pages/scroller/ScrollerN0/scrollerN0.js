@@ -1,11 +1,10 @@
 import { getLegendData } from '../../../../data';
-import { staticProps } from '../../../../mobjs';
 import { scrollerN0Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const ScrollerN0 = ({ onMount, render, getState }) => {
+export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
         const canvasScroller = element.querySelector('.canvas-scroller');

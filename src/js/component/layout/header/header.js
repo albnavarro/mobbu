@@ -1,4 +1,4 @@
-import { staticProps, getIdByInstanceName, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -12,7 +12,7 @@ function closeInfo({ navInfo }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Header = ({ render, onMount }) => {
+export const Header = ({ render, onMount, staticProps }) => {
     onMount(({ element }) => {
         const navInfo = element.querySelector('.l-header__navinfo');
         const titleLink = element.querySelector('.l-header__title');

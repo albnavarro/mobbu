@@ -1,10 +1,9 @@
 import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobbu/plugin';
 import { offset, outerHeight } from '../../../mobbu/utils/vanillaFunction';
-import { bindProps, staticProps } from '../../../mobjs';
 import { horizontalScrollerAnimation } from './animation/animation';
 
-const getColumns = ({ numOfCol, pinIsVisible }) => {
+const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
     return [...Array(numOfCol).keys()]
@@ -21,7 +20,7 @@ const getColumns = ({ numOfCol, pinIsVisible }) => {
         .join('');
 };
 
-const getNav = ({ numOfCol, setState }) => {
+const getNav = ({ numOfCol, setState, bindProps }) => {
     return [...Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
@@ -53,6 +52,8 @@ export const HorizontalScroller = ({
     getState,
     setState,
     watch,
+    staticProps,
+    bindProps,
 }) => {
     const { animatePin } = getState();
 
@@ -74,7 +75,6 @@ export const HorizontalScroller = ({
         window.scrollTo(0, 0);
 
         watch('currentId', (id) => {
-            active: currentId || currentIdFromScroll;
             /**
              * Hre the nav is open so on route landing the offset is wrong
              * So, refresh scroller and the scroll to item.
@@ -131,12 +131,16 @@ export const HorizontalScroller = ({
         >
         </CodeButton>
         <ul class="l-h-scroller__nav js-nav">
-            ${getNav({ numOfCol: 10, setState })}
+            ${getNav({ numOfCol: 10, setState, bindProps })}
         </ul>
         <div class="l-h-scroller__root js-root">
             <div class="l-h-scroller__container js-container">
                 <div class="l-h-scroller__row js-row">
-                    ${getColumns({ numOfCol: 10, pinIsVisible: !animatePin })}
+                    ${getColumns({
+                        numOfCol: 10,
+                        pinIsVisible: !animatePin,
+                        staticProps,
+                    })}
                 </div>
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>

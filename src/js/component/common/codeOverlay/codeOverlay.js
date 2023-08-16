@@ -2,7 +2,6 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { bindProps } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -11,7 +10,7 @@ const copyToClipboard = ({ getState }) => {
     navigator.clipboard.writeText(rawContent);
 };
 
-const getButtons = ({ contents, setState }) => {
+const getButtons = ({ contents, setState, bindProps }) => {
     return contents
         .map((key) => {
             return /*HTML*/ `<CodeOverlayButton data-bindprops="${bindProps({
@@ -100,7 +99,14 @@ const printContent = async ({
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const CodeOverlay = ({ render, onMount, setState, getState, watch }) => {
+export const CodeOverlay = ({
+    render,
+    onMount,
+    setState,
+    getState,
+    watch,
+    bindProps,
+}) => {
     const { contents } = getState();
 
     onMount(({ element }) => {
@@ -183,7 +189,7 @@ export const CodeOverlay = ({ render, onMount, setState, getState, watch }) => {
                     ${copyIcon}
                 </button>
                 <div class="code-overlay__header">
-                    ${getButtons({ contents, setState })}
+                    ${getButtons({ contents, setState, bindProps })}
                 </div>
                 <div class="code-overlay__content js-overlay-screen">
                     <div class="js-overlay-scroller">
