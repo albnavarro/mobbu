@@ -11,5 +11,6 @@ export const propsKeyToExclude = [
     'cancellable',
     'instancename',
     'propsfromslot',
+    'dynamicpropsfromslot',
     'runtime',
 ];

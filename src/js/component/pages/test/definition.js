@@ -57,6 +57,10 @@ export const testComponent3Def = createComponentDefinition({
             value: '',
             type: 'any',
         }),
+        staticFromComponent: () => ({
+            value: '',
+            type: 'any',
+        }),
         parentParentState: () => ({
             value: '',
             type: 'any',

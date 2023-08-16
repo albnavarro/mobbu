@@ -4,6 +4,7 @@ import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import {
     DYNAMIC,
+    DYNAMIC_PROPS_FROM_SLOT,
     INSTANCENAME_DATASET,
     IS_COMPONENT,
     PROPS,
@@ -60,6 +61,7 @@ export const convertToGenericElement = ({ component }) => {
     const propsId = component.dataset?.[PROPS];
 
     const dynamicPropsId = component.dataset?.[DYNAMIC];
+    const dynamicPropsIdFromSlot = component.dataset?.[DYNAMIC_PROPS_FROM_SLOT];
 
     /**
      * @type {String|undefined}
@@ -146,5 +148,6 @@ export const convertToGenericElement = ({ component }) => {
         instanceName,
         key,
         dynamicPropsId,
+        dynamicPropsIdFromSlot,
     };
 };

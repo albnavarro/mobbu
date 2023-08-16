@@ -82,6 +82,7 @@ export const bindProps = (propsObj = {}) => {
  * @param {String} obj.componentId
  * @param {Array<String>} obj.bind
  * @param {(args0: Object)=>Object} obj.props
+ * @param {String} obj.currentParentId
  * @param {Boolean} obj.fireCallback
  * @return void
  *
@@ -89,14 +90,19 @@ export const bindProps = (propsObj = {}) => {
  * Store props and return a unique indentifier
  *
  */
-const setDynamicProp = ({ componentId, bind, props, fireCallback }) => {
-    const parentId = getParentIdById(componentId);
-    if (!parentId) return;
+const setDynamicProp = ({
+    componentId,
+    bind,
+    props,
+    currentParentId,
+    fireCallback,
+}) => {
+    if (!currentParentId) return;
 
     /**
      * Check id all bind props exist in parent state.
      */
-    const parentState = getStateById(parentId);
+    const parentState = getStateById(currentParentId);
     const parentStateKeys = Object.keys(parentState);
     const bindArrayIsValid = bind.every((state) =>
         parentStateKeys.includes(state)
@@ -165,12 +171,13 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     const { dynamicPropsToChildren } = mainStore.get();
 
     /**
-     * @type {{ propsId: String, componentId: String, propsObj: {bind:Array, props:(args0: Object) => Object} }}
+     * @type {Array<{ propsId: String, componentId: String, propsObj: {parentId: String, bind:Array, props:(args0: Object) => Object} }>}
      *
      * @description
      * Get dynamic prop by component.
+     * Dynamic props can arrive from component || props.
      */
-    const dynamicPropsFiltered = dynamicPropsToChildren.find(
+    const dynamicPropsFilteredArray = dynamicPropsToChildren.filter(
         ({ componentId: currentComponentId }) =>
             currentComponentId === componentId
     );
@@ -178,53 +185,80 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     /**
      * If not return.
      */
-    if (!dynamicPropsFiltered) return;
-
-    const {
-        propsObj: { bind, props },
-    } = dynamicPropsFiltered;
+    if (!dynamicPropsFilteredArray) return;
 
     /**
-     * Set prop on component load
+     * Cicle dynamicProps from component or from slot.
      */
-    setDynamicProp({ componentId, bind, props, fireCallback: true });
+    dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
+        const {
+            propsObj: { bind, props, parentId },
+        } = dynamicpropsfiltered;
 
-    if (!inizilizeWatcher) return;
+        /**
+         * Force parent id or get the natually parent id.
+         */
+        const currentParentId = parentId ?? getParentIdById(componentId);
 
-    /**
-     * Watch props on change
-     */
-    let watchIsRunning = false;
-    const unWatchArray = bind.map((/** @type{String} */ state) => {
-        return watchById(getParentIdById(componentId), state, () => {
-            if (watchIsRunning) return;
+        /**
+         * Set prop on component load
+         */
+        setDynamicProp({
+            componentId,
+            bind,
+            props,
+            currentParentId,
+            fireCallback: true,
+        });
 
-            /**
-             * Fire watch only once if multiple props change.
-             * Wait the end of current block.
-             */
-            watchIsRunning = true;
-            setTimeout(() => {
-                setDynamicProp({
-                    componentId,
-                    bind,
-                    props,
-                    fireCallback: true,
+        /**
+         *  Inzialize wacher after onMount function.
+         */
+        if (!inizilizeWatcher) return;
+
+        /**
+         * Watch props on change
+         */
+        let watchIsRunning = false;
+
+        const unWatchArray = bind.map((/** @type{String} */ state) => {
+            return watchById(currentParentId, state, () => {
+                if (watchIsRunning) return;
+
+                /**
+                 * Fire watch only once if multiple props change.
+                 * Wait the end of current block.
+                 */
+                watchIsRunning = true;
+                setTimeout(() => {
+                    setDynamicProp({
+                        componentId,
+                        bind,
+                        props,
+                        currentParentId,
+                        fireCallback: true,
+                    });
+                    watchIsRunning = false;
                 });
-                watchIsRunning = false;
             });
         });
+
+        /**
+         * Add unwatch function to store.
+         * So we lounch them on destroy.
+         */
+        setDynamicPropsWatch({ id: componentId, unWatchArray });
+
+        /**
+         * Remove current dynamic prop from store.
+         */
     });
 
     /**
-     * Add unwatch function to store.
-     * So we lounch them on destroy.
+     * If all watcher ( from component or from slot ) is inizialized deleter all reference from store
      */
-    setDynamicPropsWatch({ id: componentId, unWatchArray });
+    if (!inizilizeWatcher) return;
 
-    /**
-     * Remove current dynamic prop from store.
-     */
     mainStore.set(
         'dynamicPropsToChildren',
         (/** @type{Array<Object>} */ prev) => {

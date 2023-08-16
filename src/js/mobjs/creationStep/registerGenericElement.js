@@ -40,6 +40,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
         instanceName,
         key,
         dynamicPropsId,
+        dynamicPropsIdFromSlot,
     } = convertToGenericElement({
         component,
     });
@@ -80,6 +81,11 @@ export const registerGenericElement = ({ component, state = {} }) => {
      */
     addCurrentIdToDynamicProps({
         propsId: dynamicPropsId,
+        componentId: id,
+    });
+
+    addCurrentIdToDynamicProps({
+        propsId: dynamicPropsIdFromSlot,
         componentId: id,
     });
 

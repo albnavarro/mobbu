@@ -23,6 +23,7 @@ export const TestComponent = async ({
     render,
     onMount,
     repeat,
+    id,
 }) => {
     const { title } = getState();
 
@@ -158,14 +159,18 @@ export const TestComponent = async ({
                 <TestComponent3
                     data-slotposition="slot2"
                     data-staticprops="${staticProps({
-                        parentParentState: `t state: ${JSON.stringify(
-                            getState()
-                            // Bind props is not usable here
-                            // look at TestComponent2 not TestComponent
-                            //
-                            // TODO override id quando salvo bindProps({})
-                            // e usale al posto di getParentId
-                        )}`,
+                        staticFromComponent: `static prop from component`,
+                    })}"
+                    data-bindprops="${bindProps({
+                        parentId: id,
+                        bind: ['data', 'data2'],
+                        props: () => {
+                            return {
+                                parentParentState: `t state (reactive): ${JSON.stringify(
+                                    getState()
+                                )}`,
+                            };
+                        },
                     })}"
                 >
                 </TestComponent3>

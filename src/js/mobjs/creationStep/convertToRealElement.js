@@ -2,6 +2,7 @@
 
 import {
     DYNAMIC,
+    DYNAMIC_PROPS_FROM_SLOT,
     IS_COMPONENT,
     PROPS,
     PROPS_FROM_SLOT,
@@ -92,7 +93,7 @@ const addToSlot = ({ element }) => {
 
         const bindPropsIdFromSlot = slot.dataset?.[DYNAMIC];
         if (bindPropsIdFromSlot)
-            elementMoved.dataset[DYNAMIC] = bindPropsIdFromSlot;
+            elementMoved.dataset[DYNAMIC_PROPS_FROM_SLOT] = bindPropsIdFromSlot;
 
         /**
          * Delete slot.

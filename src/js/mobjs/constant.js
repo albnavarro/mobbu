@@ -53,6 +53,11 @@ export const PROPS_FROM_SLOT = 'propsfromslot';
 /**
  * @type {string};
  */
+export const DYNAMIC_PROPS_FROM_SLOT = 'dynamicpropsfromslot';
+
+/**
+ * @type {string};
+ */
 export const INSTANCENAME_DATASET = 'instancename';
 
 /**

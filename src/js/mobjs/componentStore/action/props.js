@@ -15,7 +15,12 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
                 return id === currentId
                     ? {
                           ...item,
-                          ...{ parentPropsWatcher: unWatchArray },
+                          ...{
+                              parentPropsWatcher: [
+                                  ...item.parentPropsWatcher,
+                                  ...unWatchArray,
+                              ],
+                          },
                       }
                     : item;
             });
