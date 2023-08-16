@@ -163,7 +163,7 @@ export const TestComponent = async ({
                     })}"
                     data-bindprops="${bindProps({
                         parentId: id,
-                        bind: ['data', 'data2'],
+                        bind: ['data', 'data2', 'counter'],
                         props: () => {
                             return {
                                 parentParentState: `t state (reactive): ${JSON.stringify(
