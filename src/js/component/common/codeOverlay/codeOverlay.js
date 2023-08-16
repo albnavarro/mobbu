@@ -13,7 +13,7 @@ const copyToClipboard = ({ getState }) => {
 const getButtons = ({ contents, setState, bindProps }) => {
     return contents
         .map((key) => {
-            return /*HTML*/ `<CodeOverlayButton data-bindprops="${bindProps({
+            return /*HTML*/ `<CodeOverlayButton ${bindProps({
                 bind: ['urls', 'activeContent'],
                 props: ({ urls, activeContent }) => {
                     return {
@@ -25,7 +25,7 @@ const getButtons = ({ contents, setState, bindProps }) => {
                         selected: key === activeContent,
                     };
                 },
-            })}"></CodeOverlayButton>`;
+            })}></CodeOverlayButton>`;
         })
         .join('');
 };

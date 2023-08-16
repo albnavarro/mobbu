@@ -29,7 +29,7 @@ export const AnimatedPatternN0 = ({
     return render(/* HTML */ `
         <div>
             <CodeButton
-                data-staticprops="${staticProps({
+                ${staticProps({
                     drawers: {
                         description: source.description,
                         js: source.js,
@@ -37,7 +37,7 @@ export const AnimatedPatternN0 = ({
                         component: source.component,
                     },
                     style: 'legend',
-                })}"
+                })}
             >
             </CodeButton>
             <div class="c-canvas">

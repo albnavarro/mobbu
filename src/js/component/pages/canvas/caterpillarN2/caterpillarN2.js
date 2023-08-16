@@ -73,7 +73,7 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
     return render(/* HTML */ `
         <div>
             <CodeButton
-                data-staticprops="${staticProps({
+                ${staticProps({
                     drawers: {
                         description: source.description,
                         js: source.js,
@@ -81,7 +81,7 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
                         component: source.component,
                     },
                     style: 'legend',
-                })}"
+                })}
             >
             </CodeButton>
             <div class="c-canvas">

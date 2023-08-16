@@ -104,11 +104,12 @@ export const registerGenericElement = ({ component, state = {} }) => {
         computed,
         watch,
         repeatId,
+        getChildren,
         bindProps: (
             /** @type{{bind:Array<String>,props:() => Object}} */ obj
-        ) => bindProps({ ...obj, ...{ parentId: id } }),
-        staticProps: (/** @type{{String: any}} */ obj) => staticProps(obj),
-        getChildren,
+        ) => ` data-bindprops="${bindProps({ ...obj, ...{ parentId: id } })}" `,
+        staticProps: (/** @type{{String: any}} */ obj) =>
+            ` data-staticprops="${staticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),
         getParentId: () => getParentIdById(id),
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>

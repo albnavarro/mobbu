@@ -7,16 +7,15 @@ function getSubmenu(items, staticProps) {
     return items
         .map((item) => {
             const { label, url } = item;
-            const props = staticProps({
-                label,
-                url,
-                ...{ subMenuClass: 'l-navigation__link--submenu' },
-            });
 
             return /* HTML */ `
                 <li class="l-navigation__submenu__item">
                     <NavigationButton
-                        data-staticprops="${props}"
+                        ${staticProps({
+                            label,
+                            url,
+                            ...{ subMenuClass: 'l-navigation__link--submenu' },
+                        })}
                     ></NavigationButton>
                 </li>
             `;
@@ -54,13 +53,13 @@ function getItems(data, staticProps) {
             return /* HTML */ `
                 <li class="l-navigation__item ${hasChildrenClass}">
                     <NavigationButton
-                        data-staticprops="${staticProps({
+                        ${staticProps({
                             label,
                             url,
                             arrowClass,
                             subMenuClass: '',
                             fireRoute,
-                        })}"
+                        })}
                     ></NavigationButton>
                     ${submenu}
                 </li>

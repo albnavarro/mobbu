@@ -174,29 +174,29 @@ export interface componentType {
     /**
      * @example
      * ```javascript
-     *   <MyComponent
-     *       data-staticprops="${staticProps({
-     *           childState1: key,
-     *           callBack: () => setState('parentState', key)
-     *       })}"
-     *   ></MyComponent>
+     * <MyComponent
+     *     ${staticProps({
+     *         childState1: key,
+     *         callBack: () => setState('parentState', key)
+     *     })}
+     * ></MyComponent>
      */
     staticProps(arg0: { [key: string]: any }): Object;
 
     /**
      * @example
      * ```javascript
-     *   <MyComponent
-     *       data-bindprops="${bindProps({
-     *           bind: ['state1', 'state1'],
-     *           props: ({ state1, state2 }) => {
-     *               return {
-     *                   childState1: state1,
-     *                   childState2: state2
-     *               };
-     *           },
-     *       })}"
-     *   ></MyComponent>
+     * <MyComponent
+     *     ${bindProps({
+     *         bind: ['state1', 'state1'],
+     *         props: ({ state1, state2 }) => {
+     *             return {
+     *                 childState1: state1,
+     *                 childState2: state2
+     *             };
+     *         },
+     *     })}
+     * ></MyComponent>
      * ```
      */
     bindProps(arg0: {

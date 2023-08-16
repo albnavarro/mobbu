@@ -85,12 +85,12 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn children">Children</button>
             </div>
             <TestComponent2
-                data-bindprops="${bindProps({
+                ${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[0]?.key ?? '', index: 0, counter };
                     },
-                })}"
+                })}
             ></TestComponent2>
             <div class="c-test-comp__list">
                 ${repeat({
@@ -146,22 +146,22 @@ export const TestComponent = async ({
                 })}
             </div>
             <TestComponent2
-                data-bindprops="${bindProps({
+                ${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
                         return { label: data[1]?.key ?? '', index: 1, counter };
                     },
-                })}"
+                })}
             >
                 <div data-slotposition="slot1">
                     <div class="c-test3-comp">slot1</div>
                 </div>
                 <TestComponent3
                     data-slotposition="slot2"
-                    data-staticprops="${staticProps({
+                    ${staticProps({
                         staticFromComponent: `static prop from component`,
-                    })}"
-                    data-bindprops="${bindProps({
+                    })}
+                    ${bindProps({
                         bind: ['data', 'data2', 'counter'],
                         props: () => {
                             return {
@@ -170,7 +170,7 @@ export const TestComponent = async ({
                                 )}`,
                             };
                         },
-                    })}"
+                    })}
                 >
                 </TestComponent3>
             </TestComponent2>

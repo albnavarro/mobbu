@@ -10,10 +10,10 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerSection
-                    data-staticprops="${staticProps({
+                    ${staticProps({
                         id: i,
                         pinClass,
-                    })}"
+                    })}
                 ></HorizontalScrollerSection>
             `;
         })
@@ -25,7 +25,7 @@ const getNav = ({ numOfCol, setState, bindProps }) => {
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
-                    data-bindprops=${bindProps({
+                    ${bindProps({
                         bind: ['currentId', 'currentIdFromScroll'],
                         props: ({ currentId, currentIdFromScroll }) => {
                             return {
@@ -119,7 +119,7 @@ export const HorizontalScroller = ({
     return render(/* HTML */ `<div class="l-h-scroller">
         <div class="l-h-scroller__top">scroll down</div>
         <CodeButton
-            data-staticprops="${staticProps({
+            ${staticProps({
                 drawers: {
                     description: source.description,
                     js: source.js,
@@ -127,7 +127,7 @@ export const HorizontalScroller = ({
                     component: source.component,
                 },
                 style: 'legend',
-            })}"
+            })}
         >
         </CodeButton>
         <ul class="l-h-scroller__nav js-nav">

@@ -38,14 +38,14 @@ export const Header = ({ render, onMount, staticProps }) => {
                 <div class="l-header__navinfo">
                     <p class="p--small"></p>
                     <CodeButton
-                        data-staticprops="${staticProps({
+                        ${staticProps({
                             drawers: {
                                 js: '/codeExample/layout/navigation/script.js',
                                 scss: '',
                                 component: '',
                             },
                             style: 'green',
-                        })}"
+                        })}
                     >
                     </CodeButton>
                 </div>

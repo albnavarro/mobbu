@@ -56,10 +56,10 @@ export const TestComponent2 = async ({
             <div class="key">key: ${key ?? ''}</div>
             <slot
                 data-slotname="slot2"
-                data-staticprops="${staticProps({
+                ${staticProps({
                     staticFromSlot: `static prop from slot`,
-                })}"
-                data-bindprops="${bindProps({
+                })}
+                ${bindProps({
                     bind: ['counter', 'label', 'index'],
                     props: ({ counter }) => {
                         return {
@@ -69,13 +69,12 @@ export const TestComponent2 = async ({
                             )}`,
                         };
                     },
-                })}"
+                })}
             ></slot>
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>
-            <Codebutton data-staticprops="${staticProps({ style: 'primary' })}">
-            </Codebutton>
+            <Codebutton ${staticProps({ style: 'primary' })}> </Codebutton>
         </div>
     `);
 };
