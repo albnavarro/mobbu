@@ -188,6 +188,10 @@ export interface componentType {
      * ```javascript
      * unBind()
      * ```
+     *
+     * @description
+     * Detach binbProps.
+     * Note: The function will be active as soon as the whole route is rendered.
      */
     unBind(): (arg0: { id: String }) => void;
 
