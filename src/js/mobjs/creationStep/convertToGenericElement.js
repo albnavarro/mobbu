@@ -15,7 +15,7 @@ import { propsKeyToExclude } from './utils';
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined )}}
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined )}}
  *
  * @description
  * Create base DOM component from component tag.

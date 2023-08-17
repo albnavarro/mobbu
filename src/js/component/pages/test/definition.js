@@ -12,7 +12,7 @@ export const testComponentDef = createComponentDefinition({
             type: String,
         }),
         counter: () => ({
-            value: 2,
+            value: 0,
             type: Number,
         }),
         data: () => ({

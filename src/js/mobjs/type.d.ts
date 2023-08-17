@@ -186,6 +186,14 @@ export interface componentType {
     /**
      * @example
      * ```javascript
+     * unBind()
+     * ```
+     */
+    unBind(): (arg0: { id: String }) => void;
+
+    /**
+     * @example
+     * ```javascript
      * <MyComponent
      *     ${bindProps({
      *         bind: ['state1', 'state1'],

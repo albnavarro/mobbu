@@ -27,3 +27,30 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
         }
     );
 };
+
+/**
+ * @param {Object} obj
+ * @param {string} obj.id
+ * @return void
+ *
+ *
+ * @description
+ * Unbind reactive props from component
+ */
+export const unBind = ({ id = '' }) => {
+    if (!id || id === '') return;
+
+    const { instances } = componentStore.get();
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
+    const { parentPropsWatcher } =
+        instances.find(({ id: currentId }) => {
+            return currentId === id;
+        }) || {};
+
+    parentPropsWatcher.forEach((unwatch) => {
+        unwatch();
+    });
+};

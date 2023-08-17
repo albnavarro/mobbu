@@ -7,6 +7,7 @@ import {
     getParentIdById,
     setParentsComponent,
 } from '../componentStore/action/parent';
+import { unBind } from '../componentStore/action/props';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
@@ -105,6 +106,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
         watch,
         repeatId,
         getChildren,
+        unBind: () => unBind({ id }),
         bindProps: (
             /** @type{{bind:Array<String>,props:() => Object}} */ obj
         ) => ` data-bindprops="${bindProps({ ...obj, ...{ parentId: id } })}" `,
