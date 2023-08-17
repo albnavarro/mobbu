@@ -69,7 +69,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
     /**
      * Update Parent id before render, do child can use immediatly parentId.
      */
-    setParentsComponent();
+    setParentsComponent({ componentId: id });
 
     /**
      * Update to parent component child array.

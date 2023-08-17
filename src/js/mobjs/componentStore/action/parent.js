@@ -94,14 +94,17 @@ export const addSelfToParentComponent = ({ id = '' }) => {
  * @description
  * Set a reference to parent component id for each component.
  */
-export const setParentsComponent = () => {
+export const setParentsComponent = ({ componentId }) => {
     componentStore.set(
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { element, parentId } = item;
+                const { id, element, parentId } = item;
+
+                // Check only current component by id
+                if (id !== componentId) return item;
 
                 const parentNode = /** @type {HTMLElement|undefined} */ (
                     element?.parentNode
@@ -111,6 +114,7 @@ export const setParentsComponent = () => {
                     parentNode?.closest(`[${IS_COMPONENT}]`)
                 );
 
+                // Secure check.
                 // Assign is if existe a parent component and current parentId is null/undefined
                 return parent && (!parentId || parentId === undefined)
                     ? { ...item, ...{ parentId: parent.id } }

@@ -176,7 +176,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
      *
      * @description
      * Get dynamic prop by component.
-     * Dynamic props can arrive from component || props.
+     * Dynamic props can arrive from component || slot.
      */
     const dynamicPropsFilteredArray = dynamicPropsToChildren.filter(
         ({ componentId: currentComponentId }) =>
@@ -265,6 +265,24 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
         (/** @type{Array<Object>} */ prev) => {
             return prev.filter(({ componentId: currentComponentId }) => {
                 return componentId !== currentComponentId;
+            });
+        }
+    );
+};
+
+/**
+ * @return void
+ *
+ * @description
+ * Clear all dynamicPropsToChildren Remainmed
+ * Props from slot remaind orphans ( has no component id ).
+ */
+export const clearOrphansDynamicPropsFromSlot = () => {
+    mainStore.set(
+        'dynamicPropsToChildren',
+        (/** @type{Array<Object>} */ prev) => {
+            return prev.filter(({ componentId }) => {
+                return componentId !== undefined;
             });
         }
     );

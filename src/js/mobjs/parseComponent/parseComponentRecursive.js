@@ -7,6 +7,7 @@ import { fireOnMountCallBack } from '../mainStore/actions/onMount';
 import { decrementParserCounter } from '../mainStore/actions/parser';
 import {
     applyDynamicProps,
+    clearOrphansDynamicPropsFromSlot,
     removeOrphansPropsFromParent,
 } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
@@ -113,6 +114,7 @@ export const parseComponentsRecursive = async ({
         if (!activeParser) {
             removeOrphansPropsFromParent();
             removeOrphanComponent();
+            clearOrphansDynamicPropsFromSlot();
         }
 
         /**

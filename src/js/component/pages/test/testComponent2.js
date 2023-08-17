@@ -63,8 +63,8 @@ export const TestComponent2 = async ({
                     bind: ['counter', 'label', 'index'],
                     props: ({ counter }) => {
                         return {
-                            counter: `t2 counter (reactive): ${counter}`,
-                            parentState: `t2 state (reactive): ${JSON.stringify(
+                            counter: `t2 counter from slot (reactive): ${counter}`,
+                            parentState: `t2 state from slot (reactive): ${JSON.stringify(
                                 getState()
                             )}`,
                         };
