@@ -13,11 +13,6 @@ export const IS_COMPONENT = 'data-iscomponent';
 /**
  * @type {string};
  */
-export const IS_CANCELLABLE = 'data-cancellable';
-
-/**
- * @type {string};
- */
 export const IS_RUNTIME = 'data-runtime';
 
 /**

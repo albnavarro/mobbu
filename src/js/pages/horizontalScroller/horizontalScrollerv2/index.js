@@ -6,7 +6,6 @@ export const horizontalScrollerModuleV2 = () => {
             data-staticprops="${staticProps({
                 animatePin: true,
             })}"
-            data-cancellable
         ></HorizontalScroller>
     </div>`;
 };

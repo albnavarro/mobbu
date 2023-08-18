@@ -1,4 +1,4 @@
-import { removeCancellableComponentFromStore } from '../componentStore/action/removeAndDestroy';
+import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getRoot } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
@@ -8,12 +8,11 @@ import { parseComponents } from '../parseComponent/componentParse';
 /**
  * @param {Object} obj
  * @param {String} obj.route
- * @param {Boolean} obj.removePrevious - Remove previous cancellabel elements.
  *
  * @description
  * Load new route.
  */
-export const loadRoute = async ({ route = '', removePrevious = true }) => {
+export const loadRoute = async ({ route = '' }) => {
     /**
      *
      */
@@ -42,11 +41,6 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     });
 
     /**
-     * Remove from component store all camcellbale elment and it's child.
-     */
-    if (removePrevious) removeCancellableComponentFromStore();
-
-    /**
      * Remove props reference.
      * Async loading and iterrupt can leave rubbish.
      */
@@ -58,6 +52,7 @@ export const loadRoute = async ({ route = '', removePrevious = true }) => {
     mainStore.set('activeRoute', route);
     const content = getRouteList()?.[route]?.({ root });
     root.innerHTML = '';
+    removeOrphanComponent();
     root.insertAdjacentHTML('afterbegin', content);
 
     /**

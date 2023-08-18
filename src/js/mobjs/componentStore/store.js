@@ -12,7 +12,6 @@ import { core } from '../../mobbu';
  * @prop { String } instanceName
  * @prop { String } parentId
  * @prop { String } key
- * @prop { Boolean } cancellable
  * @prop { String } id
  */
 
@@ -36,7 +35,6 @@ export const componentStore = core.createStore({
                     'instanceName' in item &&
                     'parentId' in item &&
                     'key' in item &&
-                    'cancellable' in item &&
                     'id' in item
             );
 

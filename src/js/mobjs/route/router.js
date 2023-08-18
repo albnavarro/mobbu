@@ -1,6 +1,4 @@
 // @ts-check
-
-import { mainStore } from '../mainStore/mainStore';
 import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
@@ -10,9 +8,7 @@ import { getRouteModule } from './utils';
  */
 const getHash = () => {
     const locationHash = window.location.hash.substring(1);
-    const { activeRoute } = mainStore.get();
-    const removePrevious = activeRoute.length;
-    loadRoute({ route: getRouteModule({ url: locationHash }), removePrevious });
+    loadRoute({ route: getRouteModule({ url: locationHash }) });
 };
 
 /**

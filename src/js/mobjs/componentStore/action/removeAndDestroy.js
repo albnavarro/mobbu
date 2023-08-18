@@ -122,27 +122,6 @@ export const removeAndDestroyById = ({ id = '' }) => {
  * @returns void
  *
  * @description
- * Remove cancellable component to store.
- */
-export const removeCancellableComponentFromStore = () => {
-    const { instances } = componentStore.get();
-
-    /**
-     * @type {Array<import('../store.js').componentStoreType>}
-     */
-    const cancellableComponents = instances.filter(({ cancellable }) => {
-        return cancellable;
-    });
-
-    cancellableComponents.forEach(({ id }) => {
-        removeAndDestroyById({ id });
-    });
-};
-
-/**
- * @returns void
- *
- * @description
  * Remove orphan omponent from store.
  */
 export const removeOrphanComponent = () => {

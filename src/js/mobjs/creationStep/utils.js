@@ -8,7 +8,6 @@ export const propsKeyToExclude = [
     'component',
     'key',
     'bindprops',
-    'cancellable',
     'instancename',
     'propsfromslot',
     'dynamicpropsfromslot',

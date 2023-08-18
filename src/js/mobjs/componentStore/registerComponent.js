@@ -1,7 +1,6 @@
 // @ts-check
 
 import { core } from '../../mobbu';
-import { IS_CANCELLABLE } from '../constant';
 import { componentStore } from './store';
 import { addPropsToState } from './utils';
 
@@ -33,7 +32,6 @@ import { addPropsToState } from './utils';
  */
 export const addComponentToStore = ({
     placeholderElement = document.createElement('div'),
-    component = document.createElement('div'),
     instanceName = '',
     props = {},
     state = {},
@@ -59,7 +57,6 @@ export const addComponentToStore = ({
                 id,
                 parentId: null,
                 child: {},
-                cancellable: component.hasAttribute(IS_CANCELLABLE),
                 state: store,
             },
         ];

@@ -12,7 +12,6 @@ export const scrollerN0v2Module = () => {
                 },
                 reorder: false,
             })}
-            data-cancellable
         ></ScrollerN0>
     </div>`;
 };

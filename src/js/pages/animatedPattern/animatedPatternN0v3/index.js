@@ -20,7 +20,6 @@ export const animatedPatternN0v3Module = () => {
                 },
                 reorder: false,
             })}
-            data-cancellable
         ></AnimatedPatternN0>
     </div>`;
 };
