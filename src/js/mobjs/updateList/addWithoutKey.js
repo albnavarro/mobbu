@@ -2,7 +2,12 @@
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { bindProps, staticProps } from '../mainStore/actions/props';
-import { IS_RUNTIME } from '../constant';
+import {
+    ATTR_DYNAMIC,
+    ATTR_IS_RUNTIME,
+    ATTR_PROPS,
+    ATTR_WILL_COMPONENT,
+} from '../constant';
 import { getChildrenInsideElement } from './utils';
 
 /**
@@ -66,10 +71,10 @@ export const addWithoutKey = ({
 
                 return /* HTML */ `
                     <component
-                        data-staticprops=${currentProps}
-                        data-bindprops=${currentDynamicProps}
-                        ${IS_RUNTIME}="${runtimeId}"
-                        data-component="${targetComponent}"
+                        ${ATTR_PROPS}=${currentProps}
+                        ${ATTR_DYNAMIC}=${currentDynamicProps}
+                        ${ATTR_IS_RUNTIME}="${runtimeId}"
+                        ${ATTR_WILL_COMPONENT}="${targetComponent}"
                     >
                     </component>
                 `;

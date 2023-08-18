@@ -1,13 +1,13 @@
 // @ts-check
 
 import {
-    DYNAMIC,
-    DYNAMIC_PROPS_FROM_SLOT,
-    IS_COMPONENT,
-    PROPS,
-    PROPS_FROM_SLOT,
-    SLOT_NAME,
-    SLOT_POSITION,
+    ATTR_DYNAMIC_PARTIAL,
+    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_IS_COMPONENT,
+    ATTR_PROPS_PARTIAL,
+    ATTR_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_SLOT_NAME,
+    ATTR_SLOT_POSITION,
 } from '../constant';
 
 /**
@@ -57,7 +57,7 @@ const removeOrphanSlot = ({ element }) => {
  */
 const addToSlot = ({ element }) => {
     const componentWithSlot = /** @type {NodeListOf.<HTMLElement>} */ (
-        element.querySelectorAll(`[${SLOT_POSITION}]`)
+        element.querySelectorAll(`[${ATTR_SLOT_POSITION}]`)
     );
 
     [...componentWithSlot].forEach((component) => {
@@ -67,7 +67,7 @@ const addToSlot = ({ element }) => {
          * @type {HTMLElement|null}
          */
         const slot = element.querySelector(
-            `slot[${SLOT_NAME}="${slotTargetName}"]`
+            `slot[${ATTR_SLOT_NAME}="${slotTargetName}"]`
         );
         if (!slot) return;
 
@@ -78,7 +78,7 @@ const addToSlot = ({ element }) => {
         const elementMoved = /** @type {HTMLElement} */ (slot.previousSibling);
 
         if (elementMoved) {
-            elementMoved.removeAttribute(SLOT_POSITION);
+            elementMoved.removeAttribute(ATTR_SLOT_POSITION);
         }
 
         /**
@@ -87,13 +87,15 @@ const addToSlot = ({ element }) => {
          * @description
          * Set props id from slot to component.
          */
-        const propsIdFromSlot = slot.dataset?.[PROPS];
+        const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
         if (propsIdFromSlot)
-            elementMoved.dataset[PROPS_FROM_SLOT] = propsIdFromSlot;
+            elementMoved.dataset[ATTR_PROPS_FROM_SLOT_PARTIAL] =
+                propsIdFromSlot;
 
-        const bindPropsIdFromSlot = slot.dataset?.[DYNAMIC];
+        const bindPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
         if (bindPropsIdFromSlot)
-            elementMoved.dataset[DYNAMIC_PROPS_FROM_SLOT] = bindPropsIdFromSlot;
+            elementMoved.dataset[ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL] =
+                bindPropsIdFromSlot;
 
         /**
          * Delete slot.
@@ -137,7 +139,7 @@ export const convertToRealElement = ({ placeholderElement, content }) => {
             addToSlot({ element: newElement });
             removeOrphanSlot({ element: newElement });
             newElement.id = id;
-            newElement.setAttribute(IS_COMPONENT, '');
+            newElement.setAttribute(ATTR_IS_COMPONENT, '');
         }
 
         /**

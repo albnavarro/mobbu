@@ -1,15 +1,26 @@
 // @ts-check
 
+import {
+    ATTR_DYNAMIC_PARTIAL,
+    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_INSTANCENAME_PARTIAL,
+    ATTR_IS_RUNTIME_PARTIAL,
+    ATTR_KEY_PARTIAL,
+    ATTR_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_PROPS_PARTIAL,
+    ATTR_WILL_COMPONENT_PARTIAL,
+} from '../constant';
+
 /**
  * Exclude this props becouse if a reserved props keys.
  */
 export const propsKeyToExclude = [
-    'staticprops',
-    'component',
-    'key',
-    'bindprops',
-    'instancename',
-    'propsfromslot',
-    'dynamicpropsfromslot',
-    'runtime',
+    `${ATTR_PROPS_PARTIAL}`,
+    `${ATTR_WILL_COMPONENT_PARTIAL}`,
+    `${ATTR_KEY_PARTIAL}`,
+    `${ATTR_DYNAMIC_PARTIAL}`,
+    `${ATTR_INSTANCENAME_PARTIAL}`,
+    `${ATTR_PROPS_FROM_SLOT_PARTIAL}`,
+    `${ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL}`,
+    `${ATTR_IS_RUNTIME_PARTIAL}`,
 ];

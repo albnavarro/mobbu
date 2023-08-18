@@ -11,6 +11,7 @@ import { unBind } from '../componentStore/action/props';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
+import { ATTR_DYNAMIC, ATTR_PROPS, ATTR_REPEATID } from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import {
@@ -109,9 +110,10 @@ export const registerGenericElement = ({ component, state = {} }) => {
         unBind: () => unBind({ id }),
         bindProps: (
             /** @type{{bind:Array<String>,props:() => Object}} */ obj
-        ) => ` data-bindprops="${bindProps({ ...obj, ...{ parentId: id } })}" `,
+        ) =>
+            ` ${ATTR_DYNAMIC}="${bindProps({ ...obj, ...{ parentId: id } })}" `,
         staticProps: (/** @type{{String: any}} */ obj) =>
-            ` data-staticprops="${staticProps(obj)}" `,
+            ` ${ATTR_PROPS}="${staticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),
         getParentId: () => getParentIdById(id),
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
@@ -152,7 +154,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
                 },
             });
 
-            return `<span data-repeatid="${currentRepeatId}" style="display:none;"/>`;
+            return `<span ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"/>`;
         },
     };
 };

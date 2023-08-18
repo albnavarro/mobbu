@@ -1,6 +1,6 @@
 // @ts-check
 
-import { IS_COMPONENT } from '../../constant';
+import { ATTR_IS_COMPONENT } from '../../constant';
 import { componentStore } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -111,7 +111,7 @@ export const setParentsComponent = ({ componentId }) => {
                 );
 
                 const parent = /** @type {HTMLElement|undefined} */ (
-                    parentNode?.closest(`[${IS_COMPONENT}]`)
+                    parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
                 );
 
                 // Secure check.

@@ -3,12 +3,12 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import {
-    DYNAMIC,
-    DYNAMIC_PROPS_FROM_SLOT,
-    INSTANCENAME_DATASET,
-    IS_COMPONENT,
-    PROPS,
-    PROPS_FROM_SLOT,
+    ATTR_DYNAMIC_PARTIAL,
+    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_INSTANCENAME_PARTIAL,
+    ATTR_IS_COMPONENT,
+    ATTR_PROPS_PARTIAL,
+    ATTR_PROPS_FROM_SLOT_PARTIAL,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
 
@@ -35,7 +35,7 @@ export const convertToGenericElement = ({ component }) => {
      * @type {HTMLElement}
      */
     const newComponent = document.createElement('div');
-    newComponent.setAttribute(IS_COMPONENT, '');
+    newComponent.setAttribute(ATTR_IS_COMPONENT, '');
 
     /**
      * @type {String}
@@ -53,20 +53,21 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * @type {String}
      */
-    const instanceName = component.dataset?.[INSTANCENAME_DATASET] ?? '';
+    const instanceName = component.dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
 
     /**
      * @type {String|undefined}
      */
-    const propsId = component.dataset?.[PROPS];
+    const propsId = component.dataset?.[ATTR_PROPS_PARTIAL];
 
-    const dynamicPropsId = component.dataset?.[DYNAMIC];
-    const dynamicPropsIdFromSlot = component.dataset?.[DYNAMIC_PROPS_FROM_SLOT];
+    const dynamicPropsId = component.dataset?.[ATTR_DYNAMIC_PARTIAL];
+    const dynamicPropsIdFromSlot =
+        component.dataset?.[ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL];
 
     /**
      * @type {String|undefined}
      */
-    const propsSlot = component.dataset?.[PROPS_FROM_SLOT];
+    const propsSlot = component.dataset?.[ATTR_PROPS_FROM_SLOT_PARTIAL];
 
     /**
      * @type {String|undefined}

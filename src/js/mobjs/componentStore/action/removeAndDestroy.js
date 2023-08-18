@@ -1,6 +1,6 @@
 // @ts-check
 
-import { IS_COMPONENT } from '../../constant';
+import { ATTR_IS_COMPONENT } from '../../constant';
 import { componentStore } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
@@ -31,7 +31,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Destroy all component nested.
      */
-    const componentNested = element.querySelectorAll(`[${IS_COMPONENT}]`);
+    const componentNested = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
     [...componentNested].forEach((component) =>
         removeAndDestroyById({ id: component.id })
     );

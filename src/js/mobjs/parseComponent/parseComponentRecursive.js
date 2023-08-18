@@ -13,9 +13,10 @@ import {
 import { inizializeRepeat } from '../mainStore/actions/repeat';
 import {
     frameDelayAfterParse,
-    IS_COMPONENT,
-    IS_RUNTIME,
-    WILL_COMPONENT,
+    ATTR_IS_COMPONENT,
+    ATTR_IS_RUNTIME,
+    ATTR_REPEATID,
+    ATTR_WILL_COMPONENT,
 } from '../constant';
 import {
     getComponentsReference,
@@ -61,17 +62,17 @@ export const parseComponentsRecursive = async ({
 
     /**
      * Runtime deafult
-     * Select [data-component][is-runtime='<hash>']:not[data-iscomponent]
+     * Select [data-component][is-runtime='<hash>']:not[data-mobjs]
      */
-    const selectoreRuntime = `[${WILL_COMPONENT}][${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
+    const selectoreRuntime = `[${ATTR_WILL_COMPONENT}][${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
 
     /**
      * Select runtiem component by tagname.
-     * Select <component name>[is-runtime='<hash>']:not[data-iscomponent]
+     * Select <component name>[is-runtime='<hash>']:not[data-mobjs]
      */
     const selectoreRuntimeTag = Object.values(componentsReference)
         .map((value) => {
-            return `${value}[${IS_RUNTIME}="${runtimeId}"]:not([${IS_COMPONENT}])`;
+            return `${value}[${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
         })
         .join(', ');
 
@@ -205,7 +206,7 @@ export const parseComponentsRecursive = async ({
      * Get all repeat placholder to check the parent div for each list.
      */
     const placeholdreList = /** @type{NodeListOf.<HTMLElement>} */ (
-        newElement.querySelectorAll('[data-repeatid]')
+        newElement.querySelectorAll(`[${ATTR_REPEATID}]`)
     );
 
     const placeholderListObj = [...placeholdreList].map((placeholder) => {

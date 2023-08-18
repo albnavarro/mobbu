@@ -2,10 +2,10 @@
 
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 import {
-    IS_COMPONENT,
-    IS_RUNTIME,
-    IS_RUNTIME_DATASET,
-    WILL_COMPONENT,
+    ATTR_IS_COMPONENT,
+    ATTR_IS_RUNTIME,
+    ATTR_IS_RUNTIME_PARTIAL,
+    ATTR_WILL_COMPONENT,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
 
@@ -37,7 +37,7 @@ export const createRunTimeComponent = ({ container }) => {
     );
 
     [...innerComponents].forEach(
-        (component) => (component.dataset[IS_RUNTIME_DATASET] = uniqueId)
+        (component) => (component.dataset[ATTR_IS_RUNTIME_PARTIAL] = uniqueId)
     );
 
     return { uniqueId, hasComponentInside: [...innerComponents].length };
@@ -69,7 +69,7 @@ export const getComponentsReference = () => {
  *
  * @description
  * For each component registered:
- * Return <component name>:not[is-runtime]:not[data-iscomponent], ...
+ * Return <component name>:not[is-runtime]:not[data-mobjs], ...
  *
  */
 export const getSelectorDefaultTag = () => {
@@ -77,7 +77,7 @@ export const getSelectorDefaultTag = () => {
 
     return Object.values(componentsReference)
         .map((value) => {
-            return `${value}:not([${IS_RUNTIME}]):not([${IS_COMPONENT}])`;
+            return `${value}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
         })
         .join(', ');
 };
@@ -86,6 +86,6 @@ export const getSelectorDefaultTag = () => {
  * @type {String}
  *
  * Non runtime default
- * Select [data-component]:not[is-runtime]:not[data-iscomponent]
+ * Select [data-component]:not[is-runtime]:not[data-mobjs]
  */
-export const selectorDefault = `[${WILL_COMPONENT}]:not([${IS_RUNTIME}]:not([${IS_COMPONENT}]))`;
+export const selectorDefault = `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}]:not([${ATTR_IS_COMPONENT}]))`;

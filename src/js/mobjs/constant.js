@@ -3,57 +3,87 @@
 /**
  * @type {string};
  */
-export const WILL_COMPONENT = 'data-component';
+export const ATTR_WILL_COMPONENT = 'data-component';
 
 /**
  * @type {string};
  */
-export const IS_COMPONENT = 'data-iscomponent';
+export const ATTR_WILL_COMPONENT_PARTIAL = 'component';
 
 /**
  * @type {string};
  */
-export const IS_RUNTIME = 'data-runtime';
+export const ATTR_IS_COMPONENT = 'data-mobjs';
 
 /**
  * @type {string};
  */
-export const IS_RUNTIME_DATASET = 'runtime';
+export const ATTR_IS_RUNTIME = 'data-runtime';
 
 /**
  * @type {string};
  */
-export const SLOT_POSITION = 'data-slotposition';
+export const ATTR_IS_RUNTIME_PARTIAL = 'runtime';
 
 /**
  * @type {string};
  */
-export const SLOT_NAME = 'data-slotname';
+export const ATTR_SLOT_POSITION = 'data-slotposition';
 
 /**
  * @type {string};
  */
-export const PROPS = 'staticprops';
+export const ATTR_SLOT_NAME = 'data-slotname';
 
 /**
  * @type {string};
  */
-export const DYNAMIC = 'bindprops';
+export const ATTR_PROPS = 'data-staticprops';
 
 /**
  * @type {string};
  */
-export const PROPS_FROM_SLOT = 'propsfromslot';
+export const ATTR_PROPS_PARTIAL = 'staticprops';
 
 /**
  * @type {string};
  */
-export const DYNAMIC_PROPS_FROM_SLOT = 'dynamicpropsfromslot';
+export const ATTR_DYNAMIC = 'data-bindprops';
 
 /**
  * @type {string};
  */
-export const INSTANCENAME_DATASET = 'instancename';
+export const ATTR_DYNAMIC_PARTIAL = 'bindprops';
+
+/**
+ * @type {string};
+ */
+export const ATTR_PROPS_FROM_SLOT_PARTIAL = 'propsfromslot';
+
+/**
+ * @type {string};
+ */
+export const ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL = 'dynamicpropsfromslot';
+
+/**
+ * @type {string};
+ */
+export const ATTR_INSTANCENAME_PARTIAL = 'instancename';
+
+/**
+ * @type {string};
+ */
+export const ATTR_REPEATID = 'data-repeatid';
+
+/**
+ * @type {string};
+ */
+export const ATTR_KEY_PARTIAL = 'key';
+
+/**
+ * @type {string};
+ */
+export const ATTR_KEY = 'data-key';
 
 /**
  * @type {Number};

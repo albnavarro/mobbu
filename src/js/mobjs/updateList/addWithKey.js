@@ -6,7 +6,13 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import { IS_RUNTIME } from '../constant';
+import {
+    ATTR_DYNAMIC,
+    ATTR_IS_RUNTIME,
+    ATTR_KEY,
+    ATTR_PROPS,
+    ATTR_WILL_COMPONENT,
+} from '../constant';
 import { bindProps, staticProps } from '../mainStore/actions/props';
 import {
     getElementById,
@@ -51,11 +57,11 @@ function getPartialsComponentList({
 
     return /* HTML */ `
         <component
-            data-staticprops=${currentProps}
-            data-bindprops=${currentDynamicProps}
-            ${IS_RUNTIME}="${runtimeId}"
-            data-component="${targetComponent}"
-            data-key="${key}"
+            ${ATTR_PROPS}=${currentProps}
+            ${ATTR_DYNAMIC}=${currentDynamicProps}
+            ${ATTR_IS_RUNTIME}="${runtimeId}"
+            ${ATTR_WILL_COMPONENT}="${targetComponent}"
+            ${ATTR_KEY}="${key}"
         >
         </component>
     `;
