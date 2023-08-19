@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT } from '../../constant';
+import { removeOnMountCallbackReference } from '../../mainStore/actions/onMount';
 import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
 import { componentStore } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
@@ -102,11 +103,15 @@ export const removeAndDestroyById = ({ id = '' }) => {
                     destroy();
                     state.destroy();
                     element?.remove();
-                    //Secure check remove orphas reference in mainStore
-                    removeCurrentIdToDynamicProps({ componentId: currentId });
                     parentPropsWatcher.forEach((unwatch) => {
                         unwatch();
                     });
+
+                    /**
+                     * Secure check: remove orphas reference from mainStore
+                     */
+                    removeOnMountCallbackReference({ id: currentId });
+                    removeCurrentIdToDynamicProps({ componentId: currentId });
                 }
 
                 // Assign is if existe a parent component and current parentId is null
