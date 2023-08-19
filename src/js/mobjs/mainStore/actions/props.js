@@ -157,6 +157,16 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
     applyDynamicProps({ componentId, inizilizeWatcher: false });
 };
 
+/**
+ * @param {Object} obj
+ * @param {String|undefined} obj.propsId
+ * @param {String} obj.componentId
+ * @return void
+ *
+ * @description
+ * Remove dynamic prop reference by componentId.
+ *
+ */
 export const removeCurrentIdToDynamicProps = ({ componentId }) => {
     if (!componentId) return;
 
@@ -168,8 +178,6 @@ export const removeCurrentIdToDynamicProps = ({ componentId }) => {
             });
         }
     );
-
-    applyDynamicProps({ componentId, inizilizeWatcher: false });
 };
 
 /**
