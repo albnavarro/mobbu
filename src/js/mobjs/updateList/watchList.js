@@ -1,7 +1,9 @@
 // @ts-check
 
+import { core } from '../../mobbu';
 import { checkType } from '../../mobbu/store/storeType';
 import { setStateById } from '../componentStore/action/state';
+import { frameDelayAfterParse } from '../constant';
 import {
     addActiveRepeat,
     getActiveRepeater,
@@ -146,18 +148,28 @@ export const watchList = ({
                 await parseRuntime({ container: containerList });
 
                 /**
-                 * Remove active repeater after all so avoid multiple
-                 * fire on the same repeater while running.
-                 */
-                removeActiveRepeat({ id, state, container: containerList });
-
-                /**
                  * Execute afterUpdate function
                  */
                 afterUpdate({
                     container: containerList,
                     childrenId: childrenFiltered,
                 });
+
+                /**
+                 * Remove active repeater after all so avoid multiple
+                 * fire on the same repeater while running.
+                 *
+                 * Use 2 frmae after onMount/Fyre dynamic timing.
+                 */
+                core.useFrameIndex(() => {
+                    core.useNextTick(() => {
+                        removeActiveRepeat({
+                            id,
+                            state,
+                            container: containerList,
+                        });
+                    });
+                }, frameDelayAfterParse + 2);
             });
         }
     );
