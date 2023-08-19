@@ -141,14 +141,15 @@ export const watchList = ({
              */
             setTimeout(async () => {
                 /**
-                 * Remove active repeater
-                 */
-                removeActiveRepeat({ id, state, container: containerList });
-
-                /**
                  * Check inner component until there is (recursive).
                  */
                 await parseRuntime({ container: containerList });
+
+                /**
+                 * Remove active repeater after all so avoid multiple
+                 * fire on the same repeater while running.
+                 */
+                removeActiveRepeat({ id, state, container: containerList });
 
                 /**
                  * Execute afterUpdate function
