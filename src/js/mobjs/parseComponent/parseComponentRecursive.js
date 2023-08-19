@@ -162,6 +162,7 @@ export const parseComponentsRecursive = async ({
             runtimeId,
             functionToFireAtTheEnd,
         });
+
         return;
     }
 
@@ -196,7 +197,16 @@ export const parseComponentsRecursive = async ({
      * es: repat function fired with async component to fast
      * return without render dom component.
      */
-    if (!newElement) return Promise.resolve();
+    if (!newElement) {
+        const activeParser = decrementParserCounter();
+        if (!activeParser) {
+            removeOrphansPropsFromParent();
+            removeOrphanComponent();
+            clearOrphansDynamicPropsFromSlot();
+        }
+
+        return Promise.resolve();
+    }
 
     /**
      * Update last DOM element in store.

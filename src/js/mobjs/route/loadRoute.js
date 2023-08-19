@@ -26,12 +26,6 @@ export const loadRoute = async ({ route = '' }) => {
     mainStore.set('beforeRouteLeave', activeRoute);
 
     /**
-     * Secure check.
-     * Reset number of active parser.
-     */
-    mainStore.set('activeParser', 0);
-
-    /**
      * Set before Change props
      */
     mainStore.set('beforeRouteChange', route);
