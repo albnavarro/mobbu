@@ -159,7 +159,6 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
 
 /**
  * @param {Object} obj
- * @param {String|undefined} obj.propsId
  * @param {String} obj.componentId
  * @return void
  *
