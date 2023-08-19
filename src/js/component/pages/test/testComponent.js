@@ -26,6 +26,8 @@ export const TestComponent = async ({
     bindProps,
 }) => {
     const { title } = getState();
+    let freezeButtonsData1 = false;
+    let freezeButtonsData2 = false;
 
     onMount(({ element }) => {
         const childrenBtn = element.querySelector('.children');
@@ -39,20 +41,40 @@ export const TestComponent = async ({
 
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         state1El.addEventListener('click', () => {
-            setState('data', state1);
-            setState('data2', state1);
+            if (!freezeButtonsData1) {
+                setState('data', state1);
+            }
+
+            if (!freezeButtonsData2) {
+                setState('data2', state1);
+            }
         });
         state2El.addEventListener('click', () => {
-            setState('data', state2);
-            setState('data2', state2);
+            if (!freezeButtonsData1) {
+                setState('data', state2);
+            }
+
+            if (!freezeButtonsData2) {
+                setState('data2', state2);
+            }
         });
         state3El.addEventListener('click', () => {
-            setState('data', state3);
-            setState('data2', state3);
+            if (!freezeButtonsData1) {
+                setState('data', state3);
+            }
+
+            if (!freezeButtonsData2) {
+                setState('data2', state3);
+            }
         });
         resetEl.addEventListener('click', () => {
-            setState('data', startData);
-            setState('data2', startData);
+            if (!freezeButtonsData1) {
+                setState('data', startData);
+            }
+
+            if (!freezeButtonsData2) {
+                setState('data2', startData);
+            }
         });
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
@@ -109,14 +131,14 @@ export const TestComponent = async ({
                             };
                         },
                     },
-                    // beforeUpdate: ({ container, childrenId }) => {
-                    //     console.log(
-                    //         `before update: ${(container, childrenId)}`
-                    //     );
-                    // },
-                    // afterUpdate: ({ container, childrenId }) => {
-                    //     console.log(`after update: ${(container, childrenId)}`);
-                    // },
+                    // eslint-disable-next-line no-unused-vars
+                    beforeUpdate: ({ container, childrenId }) => {
+                        freezeButtonsData1 = true;
+                    },
+                    // eslint-disable-next-line no-unused-vars
+                    afterUpdate: ({ container, childrenId }) => {
+                        freezeButtonsData1 = false;
+                    },
                 })}
             </div>
             <div class="c-test-comp__list">
@@ -135,14 +157,14 @@ export const TestComponent = async ({
                             };
                         },
                     },
-                    // beforeUpdate: ({ container, childrenId }) => {
-                    //     console.log(
-                    //         `before update: ${(container, childrenId)}`
-                    //     );
-                    // },
-                    // afterUpdate: ({ container, childrenId }) => {
-                    //     console.log(`after update: ${(container, childrenId)}`);
-                    // },
+                    // eslint-disable-next-line no-unused-vars
+                    beforeUpdate: ({ container, childrenId }) => {
+                        freezeButtonsData2 = true;
+                    },
+                    // eslint-disable-next-line no-unused-vars
+                    afterUpdate: ({ container, childrenId }) => {
+                        freezeButtonsData2 = false;
+                    },
                 })}
             </div>
             <TestComponent2
