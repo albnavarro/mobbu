@@ -12,7 +12,6 @@ import {
 } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
 import {
-    frameDelayAfterParse,
     ATTR_IS_COMPONENT,
     ATTR_IS_RUNTIME,
     ATTR_REPEATID,
@@ -24,7 +23,6 @@ import {
     selectorDefault,
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
-import { core } from '../../mobbu';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 
 /**
@@ -123,14 +121,11 @@ export const parseComponentsRecursive = async ({
          * Wait parse is ended to fire onMount callback.
          * Wait 5 frames, so browser can clear gargbage collector created in parse step.
          */
-        core.useFrameIndex(() => {
-            core.useNextTick(() => {
-                functionToFireAtTheEnd.forEach(({ onMount, fireDynamic }) => {
-                    onMount();
-                    fireDynamic();
-                });
-            });
-        }, frameDelayAfterParse);
+        functionToFireAtTheEnd.forEach(({ onMount, fireDynamic }) => {
+            onMount();
+            fireDynamic();
+        });
+
         return Promise.resolve();
     }
 
