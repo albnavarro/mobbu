@@ -26,6 +26,7 @@ import {
 import { getComponentList } from '../mainStore/actions/componentList';
 import { core } from '../../mobbu';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
+import { mainStore } from '../mainStore/mainStore';
 
 /**
  * @param {Object} obj

@@ -157,6 +157,21 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
     applyDynamicProps({ componentId, inizilizeWatcher: false });
 };
 
+export const removeCurrentIdToDynamicProps = ({ componentId }) => {
+    if (!componentId) return;
+
+    mainStore.set(
+        'dynamicPropsToChildren',
+        (/** @type {Array<Object>} */ prev) => {
+            return prev.filter(({ componentId: currentComponentId }) => {
+                return currentComponentId !== componentId;
+            });
+        }
+    );
+
+    applyDynamicProps({ componentId, inizilizeWatcher: false });
+};
+
 /**
  * @param {Object} obj
  * @param {String} obj.componentId

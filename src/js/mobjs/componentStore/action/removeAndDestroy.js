@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT } from '../../constant';
+import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
 import { componentStore } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
@@ -101,6 +102,8 @@ export const removeAndDestroyById = ({ id = '' }) => {
                     destroy();
                     state.destroy();
                     element?.remove();
+                    //Secure check remove orphas reference in mainStore
+                    removeCurrentIdToDynamicProps({ componentId: currentId });
                     parentPropsWatcher.forEach((unwatch) => {
                         unwatch();
                     });
