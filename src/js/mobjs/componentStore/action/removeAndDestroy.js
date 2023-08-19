@@ -1,7 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT } from '../../constant';
-import { removeOnMountCallbackReference } from '../../mainStore/actions/onMount';
+import { removeOnMountCallbackReference } from '../../mainStore/actions/onMountReference';
 import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
 import { componentStore } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
