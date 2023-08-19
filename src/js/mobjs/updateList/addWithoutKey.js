@@ -34,7 +34,7 @@ export const addWithoutKey = ({
     getChildren = () => {},
     runtimeId = '',
     props = {},
-    dynamicProps = {},
+    dynamicProps = undefined,
 }) => {
     /**
      * @type {number}
@@ -67,12 +67,14 @@ export const addWithoutKey = ({
                     })
                 );
 
-                const currentDynamicProps = bindProps(dynamicProps);
+                const currentDynamicProps = dynamicProps
+                    ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
+                    : '';
 
                 return /* HTML */ `
                     <component
                         ${ATTR_PROPS}=${currentProps}
-                        ${ATTR_DYNAMIC}=${currentDynamicProps}
+                        ${currentDynamicProps}
                         ${ATTR_IS_RUNTIME}="${runtimeId}"
                         ${ATTR_WILL_COMPONENT}="${targetComponent}"
                     >

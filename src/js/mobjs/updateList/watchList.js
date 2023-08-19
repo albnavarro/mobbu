@@ -30,7 +30,7 @@ export const watchList = ({
     watch = () => {},
     containerList = document.createElement('div'),
     props = {},
-    dynamicProps = {},
+    dynamicProps = undefined,
     beforeUpdate = () => {},
     afterUpdate = () => {},
     targetComponent = '',

@@ -53,12 +53,14 @@ function getPartialsComponentList({
         props({ current: currentUnique?.[index], index })
     );
 
-    const currentDynamicProps = bindProps(dynamicProps);
+    const currentDynamicProps = dynamicProps
+        ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
+        : '';
 
     return /* HTML */ `
         <component
             ${ATTR_PROPS}=${currentProps}
-            ${ATTR_DYNAMIC}=${currentDynamicProps}
+            ${currentDynamicProps}
             ${ATTR_IS_RUNTIME}="${runtimeId}"
             ${ATTR_WILL_COMPONENT}="${targetComponent}"
             ${ATTR_KEY}="${key}"
@@ -94,7 +96,7 @@ export const addWithKey = ({
     getChildren = () => {},
     key = '',
     props = {},
-    dynamicProps = {},
+    dynamicProps = undefined,
     id = '',
     runtimeId = '',
 }) => {

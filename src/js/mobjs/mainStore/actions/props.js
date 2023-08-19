@@ -38,7 +38,7 @@ export const staticProps = (props = {}) => {
 
 /**
  * @param {Object} [ propsObj ]
- * @return {String} props id in store.
+ * @return {String|undefined} props id in store.
  *
  * @description
  * Store props and return a unique indentifier
@@ -63,7 +63,7 @@ export const bindProps = (propsObj = {}) => {
 
     if (!propsIsValid) {
         console.warn(`bindProps not valid`);
-        return 'dynamic-prop-not-valid';
+        return undefined;
     }
 
     /**
