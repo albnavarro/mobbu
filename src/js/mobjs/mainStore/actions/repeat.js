@@ -1,6 +1,5 @@
 // @ts-check
 
-import { ATTR_REPEATID } from '../../constant';
 import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
