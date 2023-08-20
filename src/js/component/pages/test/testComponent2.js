@@ -17,6 +17,7 @@ export const TestComponent2 = async ({
     computed,
     staticProps,
     bindProps,
+    slotName,
 }) => {
     const { label, index, counter } = getState();
 
@@ -52,10 +53,10 @@ export const TestComponent2 = async ({
             <h4>t2</h4>
             <div class="label">${label}-${index}</div>
             <div class="counter">${counter}</div>
-            <slot data-slotname="slot1"></slot>
+            <slot ${slotName('slot1')}></slot>
             <div class="key">key: ${key ?? ''}</div>
             <slot
-                data-slotname="slot2"
+                ${slotName('slot2')}
                 ${staticProps({
                     staticFromSlot: `static prop from slot`,
                 })}

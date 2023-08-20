@@ -24,6 +24,7 @@ export const TestComponent = async ({
     repeat,
     staticProps,
     bindProps,
+    useSlot,
 }) => {
     const { title } = getState();
 
@@ -145,11 +146,11 @@ export const TestComponent = async ({
                     },
                 })}
             >
-                <div data-slotposition="slot1">
+                <div ${useSlot('slot1')}>
                     <div class="c-test3-comp">slot1</div>
                 </div>
                 <TestComponent3
-                    data-slotposition="slot2"
+                    ${useSlot('slot2')}
                     ${staticProps({
                         staticFromComponent: `static prop from component`,
                     })}

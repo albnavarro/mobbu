@@ -15,7 +15,13 @@ import { unBind } from '../componentStore/action/props';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
-import { ATTR_DYNAMIC, ATTR_PROPS, ATTR_REPEATID } from '../constant';
+import {
+    ATTR_DYNAMIC,
+    ATTR_PROPS,
+    ATTR_REPEATID,
+    ATTR_SLOT_NAME,
+    ATTR_SLOT_POSITION,
+} from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import {
@@ -111,6 +117,10 @@ export const registerGenericElement = ({ component, state = {} }) => {
         watch,
         repeatId,
         getChildren,
+        slotName: (/** @type{String} */ slotName) =>
+            `${ATTR_SLOT_NAME}=${slotName}`,
+        useSlot: (/** @type{String} */ slotName) =>
+            `${ATTR_SLOT_POSITION}=${slotName}`,
         freezeProp: (/** @type{String} */ prop) => freezePropById({ id, prop }),
         unFreezeProp: (/** @type{String} */ prop) =>
             unFreezePropById({ id, prop }),
