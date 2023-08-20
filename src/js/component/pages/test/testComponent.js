@@ -41,40 +41,20 @@ export const TestComponent = async ({
 
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         state1El.addEventListener('click', () => {
-            if (!freezeButtonsData1) {
-                setState('data', state1);
-            }
-
-            if (!freezeButtonsData2) {
-                setState('data2', state1);
-            }
+            setState('data', state1);
+            setState('data2', state1);
         });
         state2El.addEventListener('click', () => {
-            if (!freezeButtonsData1) {
-                setState('data', state2);
-            }
-
-            if (!freezeButtonsData2) {
-                setState('data2', state2);
-            }
+            setState('data', state2);
+            setState('data2', state2);
         });
         state3El.addEventListener('click', () => {
-            if (!freezeButtonsData1) {
-                setState('data', state3);
-            }
-
-            if (!freezeButtonsData2) {
-                setState('data2', state3);
-            }
+            setState('data', state3);
+            setState('data2', state3);
         });
         resetEl.addEventListener('click', () => {
-            if (!freezeButtonsData1) {
-                setState('data', startData);
-            }
-
-            if (!freezeButtonsData2) {
-                setState('data2', startData);
-            }
+            setState('data', startData);
+            setState('data2', startData);
         });
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
@@ -132,13 +112,9 @@ export const TestComponent = async ({
                         },
                     },
                     // eslint-disable-next-line no-unused-vars
-                    beforeUpdate: ({ container, childrenId }) => {
-                        freezeButtonsData1 = true;
-                    },
+                    beforeUpdate: ({ container, childrenId }) => {},
                     // eslint-disable-next-line no-unused-vars
-                    afterUpdate: ({ container, childrenId }) => {
-                        freezeButtonsData1 = false;
-                    },
+                    afterUpdate: ({ container, childrenId }) => {},
                 })}
             </div>
             <div class="c-test-comp__list">
@@ -158,13 +134,9 @@ export const TestComponent = async ({
                         },
                     },
                     // eslint-disable-next-line no-unused-vars
-                    beforeUpdate: ({ container, childrenId }) => {
-                        freezeButtonsData2 = true;
-                    },
+                    beforeUpdate: ({ container, childrenId }) => {},
                     // eslint-disable-next-line no-unused-vars
-                    afterUpdate: ({ container, childrenId }) => {
-                        freezeButtonsData2 = false;
-                    },
+                    afterUpdate: ({ container, childrenId }) => {},
                 })}
             </div>
             <TestComponent2

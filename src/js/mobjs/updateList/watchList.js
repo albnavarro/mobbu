@@ -1,6 +1,10 @@
 // @ts-check
 
 import { checkType } from '../../mobbu/store/storeType';
+import {
+    freezePropById,
+    unFreezePropById,
+} from '../componentStore/action/freeze';
 import { setStateById } from '../componentStore/action/state';
 import {
     addActiveRepeat,
@@ -48,16 +52,17 @@ export const watchList = ({
             if (!checkType(Array, current)) return;
 
             /**
+             * Secure step 1.
+             * Avoid state mutation during list contruction.
+             * Useful when list component is async.
+             */
+            freezePropById({ id, prop: state });
+
+            /**
+             * Secure step 2 ( if step 1 fail, but i don't think ).
              * Check if the same repeat is running
              * Id true, skip and revert the new state to previous without fire watch
              * So the data is consistent with dom
-             *
-             * TODO May be if the state will revert to previous, other watches will be misaligned
-             * But it is extreme situation with asyncronous component.
-             * use beforeUpdate and afterUpdate to inhibit stet change during updateList
-             * But! this watcher is the first watcher instance , created before onMount.
-             * So maybe the other watcher take the righr ( previous ) value
-             * To check.
              *
              */
             const repeatIsRunning = getActiveRepeater({
@@ -164,6 +169,8 @@ export const watchList = ({
                     state,
                     container: containerList,
                 });
+
+                unFreezePropById({ id, prop: state });
             });
         }
     );

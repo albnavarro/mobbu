@@ -1,6 +1,7 @@
 // @ts-check
 
 import { core } from '../../mobbu';
+import { getFreezePropStatus } from './action/freeze';
 import { componentStore } from './store';
 import { addPropsToState } from './utils';
 
@@ -13,6 +14,7 @@ import { addPropsToState } from './utils';
  * @param {Object} obj.state
  * @param {string} obj.key
  * @param {Array} [ obj.parentPropsWatcher ]
+ * @param {Array} [ obj.freezedPros ]
  * @param {function} obj.destroy
  * @param {string} obj.id
  * @param {string} obj.componentName
@@ -38,6 +40,7 @@ export const addComponentToStore = ({
     key = '',
     parentPropsWatcher = [],
     destroy = () => {},
+    freezedPros = [],
     id = '',
     componentName = '',
 }) => {
@@ -56,6 +59,7 @@ export const addComponentToStore = ({
                 key,
                 id,
                 parentId: null,
+                freezedPros,
                 child: {},
                 state: store,
             },
@@ -64,8 +68,12 @@ export const addComponentToStore = ({
 
     return {
         getState: () => store.get(),
-        setState: (prop = '', value = {}, fire = true) =>
-            store.set(prop, value, fire),
+        setState: (prop = '', value = {}, fire = true) => {
+            const isFreezed = getFreezePropStatus({ id, prop });
+            if (isFreezed) return;
+
+            store.set(prop, value, fire);
+        },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (prop = '', keys = [], fn = () => {}) =>
