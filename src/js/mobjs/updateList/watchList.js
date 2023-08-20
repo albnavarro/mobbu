@@ -6,6 +6,7 @@ import {
     unFreezePropById,
 } from '../componentStore/action/freeze';
 import { setStateById } from '../componentStore/action/state';
+import { ATTR_REPEATID } from '../constant';
 import {
     addActiveRepeat,
     getActiveRepeater,
@@ -28,6 +29,7 @@ import { getChildrenInsideElement } from './utils';
  * @param { string } obj.targetComponent
  * @param { function } obj.watch
  * @param { HTMLElement } obj.containerList
+ * @param { String } obj.repeatId
  */
 export const watchList = ({
     state = '',
@@ -41,7 +43,16 @@ export const watchList = ({
     getChildren = () => {},
     key = '',
     id = '',
+    repeatId = '',
 }) => {
+    /**
+     * Remove repeater placeholder
+     */
+    const repeaterEl = containerList.querySelector(
+        `[${ATTR_REPEATID}='${repeatId}']`
+    );
+    repeaterEl?.remove();
+
     /**
      * Watcher is destroyed with the component tahu implement list repeater.
      * repater works if data is an array ( is a list so data must be an array )

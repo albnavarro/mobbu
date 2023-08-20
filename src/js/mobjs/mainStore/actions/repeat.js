@@ -1,5 +1,6 @@
 // @ts-check
 
+import { ATTR_REPEATID } from '../../constant';
 import { watchList } from '../../updateList/watchList';
 import { mainStore } from '../mainStore';
 
@@ -56,6 +57,7 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
      */
     watchList({
         ...obj,
+        repeatId,
         containerList: containerList?.parent ?? document.createElement('div'),
     });
 
