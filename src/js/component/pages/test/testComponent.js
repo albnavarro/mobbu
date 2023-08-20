@@ -26,8 +26,6 @@ export const TestComponent = async ({
     bindProps,
 }) => {
     const { title } = getState();
-    let freezeButtonsData1 = false;
-    let freezeButtonsData2 = false;
 
     onMount(({ element }) => {
         const childrenBtn = element.querySelector('.children');

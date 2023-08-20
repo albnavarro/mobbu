@@ -3,6 +3,10 @@
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import {
+    freezePropById,
+    unFreezePropById,
+} from '../componentStore/action/freeze';
+import {
     addSelfToParentComponent,
     getParentIdById,
     setParentsComponent,
@@ -107,6 +111,9 @@ export const registerGenericElement = ({ component, state = {} }) => {
         watch,
         repeatId,
         getChildren,
+        freezeProp: (/** @type{String} */ prop) => freezePropById({ id, prop }),
+        unFreezeProp: (/** @type{String} */ prop) =>
+            unFreezePropById({ id, prop }),
         unBind: () => unBind({ id }),
         bindProps: (
             /** @type{{bind:Array<String>,props:() => Object}} */ obj

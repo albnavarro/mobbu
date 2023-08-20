@@ -152,6 +152,26 @@ export interface componentType {
      * @example
      * ```javascript
      *
+     * freezeProp('myStateProp');
+     *
+     * ```
+     */
+    freezeProp(prop: String): void;
+
+    /**
+     * @example
+     * ```javascript
+     *
+     * unFreezeProp('myStateProp');
+     *
+     * ```
+     */
+    unFreezeProp(prop: String): void;
+
+    /**
+     * @example
+     * ```javascript
+     *
      * const parentId = getParentId():
      *
      * ```
