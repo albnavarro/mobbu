@@ -13,6 +13,7 @@ import { addPropsToState } from './utils';
  * @param {Object} obj.props
  * @param {Object} obj.state
  * @param {string} obj.key
+ * @param {Object} obj.currentRepeaterState
  * @param {Array} [ obj.parentPropsWatcher ]
  * @param {Array} [ obj.freezedPros ]
  * @param {function} obj.destroy
@@ -38,6 +39,7 @@ export const addComponentToStore = ({
     props = {},
     state = {},
     key = '',
+    currentRepeaterState = {},
     parentPropsWatcher = [],
     destroy = () => {},
     freezedPros = [],
@@ -57,6 +59,7 @@ export const addComponentToStore = ({
                 destroy,
                 parentPropsWatcher,
                 key,
+                currentRepeaterState,
                 id,
                 parentId: null,
                 freezedPros,

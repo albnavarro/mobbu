@@ -2,7 +2,7 @@
  * @param {import("../../../mobjs/type").componentType}
  */
 export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
-    const { key, callback } = getState();
+    const { key, callback, disable } = getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {
@@ -16,23 +16,17 @@ export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
             element.classList.toggle('selected', selected);
         });
 
-        /**
-         * Disable button if there is no content.
-         */
-        const unwatchActive = watch('disable', (disable) => {
-            element.classList.toggle('disable', disable);
-        });
-
         return () => {
             unwatchSelected();
-            unwatchActive();
         };
     });
+
+    const isDisable = disable ? 'disable' : '';
 
     /**
      * First render button is disabled.
      */
     return render(/* HTML */ `
-        <button class="code-overlay__button disable">${key}</button>
+        <button class="code-overlay__button ${isDisable}">${key}</button>
     `);
 };

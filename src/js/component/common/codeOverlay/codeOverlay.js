@@ -10,33 +10,13 @@ const copyToClipboard = ({ getState }) => {
     navigator.clipboard.writeText(rawContent);
 };
 
-const getButtons = ({ contents, setState, bindProps }) => {
-    return contents
-        .map((key) => {
-            return /*HTML*/ `<CodeOverlayButton ${bindProps({
-                bind: ['urls', 'activeContent'],
-                props: ({ urls, activeContent }) => {
-                    return {
-                        key,
-                        callback: () => {
-                            setState('activeContent', key);
-                        },
-                        disable: !urls[key].length,
-                        selected: key === activeContent,
-                    };
-                },
-            })}></CodeOverlayButton>`;
-        })
-        .join('');
-};
-
 /**
  * Load common data.
  */
-const loadContent = async ({ url }) => {
-    const response = await fetch(url);
+const loadContent = async ({ source }) => {
+    const response = await fetch(source);
     if (!response.ok) {
-        console.warn(`${url} not found`);
+        console.warn(`${source} not found`);
 
         return {
             success: false,
@@ -60,18 +40,22 @@ const printContent = async ({
     goToTop,
 }) => {
     const { urls } = getState();
-    const url = urls[currentKey];
+    const currentItem = urls.find(({ label }) => {
+        return label === currentKey;
+    });
+
+    const source = currentItem?.source;
 
     /**
      * If url id not defined or is an ampty string return
      * On overlay close url is empty.
      */
-    if (!url?.length) return;
+    if (!source?.length) return;
 
     /**
      * Load data.
      */
-    const { success, data } = await loadContent({ url });
+    const { success, data } = await loadContent({ source });
     if (!success) return;
 
     /**
@@ -105,10 +89,8 @@ export const CodeOverlay = ({
     setState,
     getState,
     watch,
-    bindProps,
+    repeat,
 }) => {
-    const { contents } = getState();
-
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');
         const codeEl = element.querySelector('.js-overlay-code');
@@ -126,7 +108,7 @@ export const CodeOverlay = ({
         /**
          * Watch content change, and update content.
          */
-        const unWatchActiveContent = watch('activeContent', (currentKey) =>
+        const unWatchActiveContent = watch('activeContent', (currentKey) => {
             printContent({
                 setState,
                 getState,
@@ -135,8 +117,8 @@ export const CodeOverlay = ({
                 currentKey,
                 updateScroller,
                 goToTop,
-            })
-        );
+            });
+        });
 
         /**
          * Close overlay.
@@ -189,7 +171,31 @@ export const CodeOverlay = ({
                     ${copyIcon}
                 </button>
                 <div class="code-overlay__header">
-                    ${getButtons({ contents, setState, bindProps })}
+                    ${repeat({
+                        watch: 'urls',
+                        component: 'CodeOverlayButton',
+                        props: ({ current }) => {
+                            const { label, source } = current;
+
+                            return {
+                                key: label,
+                                disable: !source.length,
+                                callback: () => {
+                                    setState('activeContent', label);
+                                },
+                            };
+                        },
+                        bindProps: {
+                            bind: ['activeContent'],
+                            props: ({ activeContent }, current) => {
+                                const { label } = current;
+
+                                return {
+                                    selected: label === activeContent,
+                                };
+                            },
+                        },
+                    })}
                 </div>
                 <div class="code-overlay__content js-overlay-screen">
                     <div class="js-overlay-scroller">

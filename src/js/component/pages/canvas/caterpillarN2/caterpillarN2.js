@@ -74,12 +74,20 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
         <div>
             <CodeButton
                 ${staticProps({
-                    drawers: {
-                        description: source.description,
-                        js: source.js,
-                        scss: source.scss,
-                        component: source.component,
-                    },
+                    drawers: [
+                        {
+                            label: 'description',
+                            source: source.description,
+                        },
+                        {
+                            label: 'animation',
+                            source: source.js,
+                        },
+                        {
+                            label: 'component',
+                            source: source.component,
+                        },
+                    ],
                     style: 'legend',
                 })}
             >

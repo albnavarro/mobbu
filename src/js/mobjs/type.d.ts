@@ -317,7 +317,7 @@ export interface componentType {
              },
              bindProps: {
                  bind: ['state'],
-                 props: ({ state }) => {
+                 props: ({ state }, current) => {
                      return {
                          childrenStet: state
                      };
@@ -360,7 +360,7 @@ export interface componentType {
         props: (arg0: {
             /**
              * @description
-             * The value corresponding to the unique key
+             * Arg1: The value corresponding to current item in watch array
              */
             current: any;
 
@@ -385,10 +385,13 @@ export interface componentType {
 
             /**
              * @description
-             * The value corresponding to each value of
+             *
+             * Arg0: The value corresponding to each value of
              * sate defined in bind array
+             *
+             * Arg1: The value corresponding to current item in watch array
              */
-            props: (arg0: { String: any }) => Object;
+            props: (arg0: { String: any }, arg1: { String: any }) => Object;
         };
 
         /**

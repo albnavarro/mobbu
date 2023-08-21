@@ -1,6 +1,7 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
+import { getCurrentById } from '../../componentStore/action/current';
 import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
@@ -81,7 +82,7 @@ export const bindProps = (propsObj = {}) => {
  * @param {Object} obj
  * @param {String} obj.componentId
  * @param {Array<String>} obj.bind
- * @param {(args0: Object)=>Object} obj.props
+ * @param {(args0: Object, org0: any)=>Object} obj.props
  * @param {String} obj.currentParentId
  * @param {Boolean} obj.fireCallback
  * @return void
@@ -122,7 +123,8 @@ const setDynamicProp = ({
         })
         .reduce((previous, current) => ({ ...previous, ...current }), {});
 
-    const newProps = props?.(values);
+    const currentRepeaterState = getCurrentById({ id: componentId });
+    const newProps = props?.(values, currentRepeaterState);
 
     if (!newProps) return;
 

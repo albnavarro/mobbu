@@ -1,6 +1,7 @@
 // @ts-check
 
 import { checkType } from '../../mobbu/store/storeType';
+import { setCurrentById } from '../componentStore/action/current';
 import {
     freezePropById,
     unFreezePropById,
@@ -139,6 +140,12 @@ export const watchList = ({
             [...childrenFiltered].forEach((id, index) => {
                 const current = currentUnivoque?.[index];
                 if (!current) return;
+
+                /**
+                 * Store current value in store
+                 * to use in dynamicProps
+                 */
+                setCurrentById({ id, value: current });
 
                 const newState = props({
                     current: currentUnivoque?.[index],

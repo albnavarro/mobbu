@@ -39,11 +39,28 @@ export const Header = ({ render, onMount, staticProps }) => {
                     <p class="p--small"></p>
                     <CodeButton
                         ${staticProps({
-                            drawers: {
-                                js: '/codeExample/layout/navigation/script.js',
-                                scss: '',
-                                component: '',
-                            },
+                            drawers: [
+                                {
+                                    label: 'description',
+                                    source: '/codeExample/test/description.html',
+                                },
+                                {
+                                    label: 'animation',
+                                    source: '/codeExample/test/index.js',
+                                },
+                                {
+                                    label: 'component',
+                                    source: '/codeExample/test/index.js',
+                                },
+                                {
+                                    label: 'animation2',
+                                    source: '/codeExample/test/index.js',
+                                },
+                                {
+                                    label: 'component2',
+                                    source: '/codeExample/test/index.js',
+                                },
+                            ],
                             style: 'green',
                         })}
                     >

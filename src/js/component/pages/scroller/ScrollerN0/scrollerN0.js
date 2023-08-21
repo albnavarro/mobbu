@@ -32,15 +32,23 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
         <div>
             <div class="c-canvas c-canvas--fixed ">
                 <CodeButton
-                    ${staticProps({
-                        drawers: {
-                            description: source.description,
-                            js: source.js,
-                            scss: source.scss,
-                            component: source.component,
+                ${staticProps({
+                    drawers: [
+                        {
+                            label: 'description',
+                            source: source.description,
                         },
-                        style: 'legend',
-                    })}
+                        {
+                            label: 'animation',
+                            source: source.js,
+                        },
+                        {
+                            label: 'component',
+                            source: source.component,
+                        },
+                    ],
+                    style: 'legend',
+                })}
                 >
                 </CodeButton>
                 <div class="c-canvas__wrap c-canvas__wrap--border">
