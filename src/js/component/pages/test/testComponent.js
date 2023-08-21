@@ -104,7 +104,8 @@ export const TestComponent = async ({
                     },
                     bindProps: {
                         bind: ['counter'],
-                        props: ({ counter }) => {
+                        // eslint-disable-next-line no-unused-vars
+                        props: ({ counter }, current) => {
                             return {
                                 counter,
                             };
@@ -126,7 +127,8 @@ export const TestComponent = async ({
                     },
                     bindProps: {
                         bind: ['counter'],
-                        props: ({ counter }) => {
+                        // eslint-disable-next-line no-unused-vars
+                        props: ({ counter }, current) => {
                             return {
                                 counter,
                             };

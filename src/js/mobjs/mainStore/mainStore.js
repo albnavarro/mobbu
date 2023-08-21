@@ -76,4 +76,8 @@ export const mainStore = core.createStore({
             type: String,
         }),
     },
+    currentListValue: () => ({
+        value: [],
+        type: Array,
+    }),
 });

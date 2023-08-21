@@ -7,6 +7,7 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import {
+    ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_RUNTIME,
     ATTR_KEY,
@@ -21,6 +22,7 @@ import {
 import { setStateById } from '../componentStore/action/state';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
+import { setCurrentValueList } from '../mainStore/actions/currentListValue';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -64,6 +66,9 @@ function getPartialsComponentList({
             ${ATTR_IS_RUNTIME}="${runtimeId}"
             ${ATTR_WILL_COMPONENT}="${targetComponent}"
             ${ATTR_KEY}="${key}"
+            ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+                currentUnique?.[index]
+            )}"
         >
         </component>
     `;

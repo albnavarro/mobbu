@@ -9,13 +9,15 @@ import {
     ATTR_IS_COMPONENT,
     ATTR_PROPS_PARTIAL,
     ATTR_PROPS_FROM_SLOT_PARTIAL,
+    ATTR_CURRENT_LIST_VALUE_PARTIAL,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
+import { getCurrentValueList } from '../mainStore/actions/currentListValue';
 
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined )}}
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ), currentListValueReal: any}}
  *
  * @description
  * Create base DOM component from component tag.
@@ -68,6 +70,17 @@ export const convertToGenericElement = ({ component }) => {
      * @type {String|undefined}
      */
     const propsSlot = component.dataset?.[ATTR_PROPS_FROM_SLOT_PARTIAL];
+
+    /**
+     *
+     */
+    const currentListValue =
+        component.dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL];
+    const currentListValueReal = getCurrentValueList(currentListValue) ?? {};
+
+    /**
+     *
+     */
 
     /**
      * @type {String|undefined}
@@ -150,5 +163,6 @@ export const convertToGenericElement = ({ component }) => {
         key,
         dynamicPropsId,
         dynamicPropsIdFromSlot,
+        currentListValueReal,
     };
 };

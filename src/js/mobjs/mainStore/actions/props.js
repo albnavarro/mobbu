@@ -1,7 +1,7 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
-import { getCurrentById } from '../../componentStore/action/current';
+import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
 import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
@@ -123,10 +123,8 @@ const setDynamicProp = ({
         })
         .reduce((previous, current) => ({ ...previous, ...current }), {});
 
-    const currentRepeaterState = getCurrentById({ id: componentId });
-    const current = currentRepeaterState?.current;
-    const index = currentRepeaterState?.index;
-    const newProps = props?.(values, { current, index });
+    const currentRepeaterState = getCurrentListValueById({ id: componentId });
+    const newProps = props?.(values, currentRepeaterState);
 
     if (!newProps) return;
 

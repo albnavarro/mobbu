@@ -12,7 +12,7 @@ import { componentStore } from '../store.js';
  * @description
  * Update element root from generic to real after conversion.
  */
-export const setCurrentById = ({ id = '', value }) => {
+export const setCurrentListValueById = ({ id = '', value }) => {
     if (!id || id === '') return undefined;
 
     componentStore.set(
@@ -43,7 +43,7 @@ export const setCurrentById = ({ id = '', value }) => {
  * @description
  * Update element root from generic to real after conversion.
  */
-export const getCurrentById = ({ id = '' }) => {
+export const getCurrentListValueById = ({ id = '' }) => {
     if (!id || id === '') return false;
 
     const { instances } = componentStore.get();

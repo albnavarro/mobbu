@@ -2,6 +2,7 @@
 
 import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
 import { getChildrenIdByName } from '../componentStore/action/children';
+import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
     freezePropById,
     unFreezePropById,
@@ -57,6 +58,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
         key,
         dynamicPropsId,
         dynamicPropsIdFromSlot,
+        currentListValueReal,
     } = convertToGenericElement({
         component,
     });
@@ -90,6 +92,12 @@ export const registerGenericElement = ({ component, state = {} }) => {
     const repeatId = [];
     const getChildren = (/** @type {String} */ component) =>
         getChildrenIdByName({ id, component });
+
+    /**
+     * Set initial repate list current value to pass to dynamicProps.
+     * When component is created.
+     */
+    setCurrentListValueById({ id, value: currentListValueReal });
 
     /**
      * Inizialize dynamic props and

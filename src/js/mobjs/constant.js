@@ -86,6 +86,16 @@ export const ATTR_KEY_PARTIAL = 'key';
 export const ATTR_KEY = 'data-key';
 
 /**
+ * @type {string};
+ */
+export const ATTR_CURRENT_LIST_VALUE_PARTIAL = 'currentlistvalue';
+
+/**
+ * @type {string};
+ */
+export const ATTR_CURRENT_LIST_VALUE = 'data-currentlistvalue';
+
+/**
  * @type {Number};
  */
 export const frameDelayAfterParse = 5;

@@ -1,7 +1,7 @@
 // @ts-check
 
 import { checkType } from '../../mobbu/store/storeType';
-import { setCurrentById } from '../componentStore/action/current';
+import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
     freezePropById,
     unFreezePropById,
@@ -143,20 +143,19 @@ export const watchList = ({
 
                 /**
                  * Store current value in store
-                 * to use in dynamicProps
+                 * to use in dynamicrops
                  */
-                setCurrentById({ id, value: { current, index } });
+                setCurrentListValueById({ id, value: current });
 
                 const newState = props({
                     current: currentUnivoque?.[index],
                     index,
                 });
 
-                // TODO check id newsState is an object
-                // anche in pros ?
-                Object.entries(newState).forEach(([key, value]) => {
-                    setStateById(id, key, value);
-                });
+                if (newState)
+                    Object.entries(newState).forEach(([key, value]) => {
+                        setStateById(id, key, value);
+                    });
             });
 
             /**

@@ -3,12 +3,14 @@
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { bindProps, staticProps } from '../mainStore/actions/props';
 import {
+    ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_RUNTIME,
     ATTR_PROPS,
     ATTR_WILL_COMPONENT,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
+import { setCurrentValueList } from '../mainStore/actions/currentListValue';
 
 /**
  * @param {Object} obj
@@ -77,6 +79,9 @@ export const addWithoutKey = ({
                         ${currentDynamicProps}
                         ${ATTR_IS_RUNTIME}="${runtimeId}"
                         ${ATTR_WILL_COMPONENT}="${targetComponent}"
+                        ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+                            current?.[index + previousLenght]
+                        )}"
                     >
                     </component>
                 `;
