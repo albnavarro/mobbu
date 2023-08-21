@@ -108,44 +108,38 @@ const addToSlot = ({ element }) => {
  * @param {Object} obj
  * @param {HTMLElement} obj.placeholderElement
  * @param {String} obj.content
- * @returns { Promise<{newElement:( HTMLElement|undefined )}> }
+ * @returns {{newElement:( HTMLElement|undefined )}}
  *
  * @description
  * Add content to component
- *
- * Use async logic only for security or debug
- * With a setTimeout it is possible dibug the sequence of cration more easly
- *
  * It is possible use parseComponents() to launch the parse of
  * custom DOM added to the component immadatly
  */
 export const convertToRealElement = ({ placeholderElement, content }) => {
-    return new Promise((resolve) => {
-        /**
-         * @type {String}
-         *
-         * @description
-         * Add real content from render function
-         */
-        const prevContent = placeholderElement.innerHTML;
-        const newElement = getNewElement({ placeholderElement, content });
+    /**
+     * @type {String}
+     *
+     * @description
+     * Add real content from render function
+     */
+    const prevContent = placeholderElement.innerHTML;
+    const newElement = getNewElement({ placeholderElement, content });
 
-        /**
-         * Get inner content and copy data from provvisory component
-         */
-        if (newElement) {
-            const id = placeholderElement.id;
-            newElement.insertAdjacentHTML('afterbegin', prevContent);
-            addToSlot({ element: newElement });
-            removeOrphanSlot({ element: newElement });
-            newElement.id = id;
-            newElement.setAttribute(ATTR_IS_COMPONENT, '');
-        }
+    /**
+     * Get inner content and copy data from provvisory component
+     */
+    if (newElement) {
+        const id = placeholderElement.id;
+        newElement.insertAdjacentHTML('afterbegin', prevContent);
+        addToSlot({ element: newElement });
+        removeOrphanSlot({ element: newElement });
+        newElement.id = id;
+        newElement.setAttribute(ATTR_IS_COMPONENT, '');
+    }
 
-        /**
-         * Delete provvisory component and add real component.
-         */
-        placeholderElement.remove();
-        resolve({ newElement });
-    });
+    /**
+     * Delete provvisory component and add real component.
+     */
+    placeholderElement.remove();
+    return { newElement };
 };
