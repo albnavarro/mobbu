@@ -187,7 +187,7 @@ export const CodeOverlay = ({
                         },
                         bindProps: {
                             bind: ['activeContent'],
-                            props: ({ activeContent }, current) => {
+                            props: ({ activeContent }, { current }) => {
                                 const { label } = current;
 
                                 return {

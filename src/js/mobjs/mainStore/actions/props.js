@@ -124,7 +124,9 @@ const setDynamicProp = ({
         .reduce((previous, current) => ({ ...previous, ...current }), {});
 
     const currentRepeaterState = getCurrentById({ id: componentId });
-    const newProps = props?.(values, currentRepeaterState);
+    const current = currentRepeaterState?.current;
+    const index = currentRepeaterState?.index;
+    const newProps = props?.(values, { current, index });
 
     if (!newProps) return;
 
