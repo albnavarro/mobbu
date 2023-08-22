@@ -1,4 +1,5 @@
 import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
+import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
 import { mainStore } from '../mainStore';
 
 export const setCurrentValueList = (current = {}) => {
@@ -33,5 +34,5 @@ export const getCurrentValueList = (id = '') => {
         });
     });
 
-    return props ? props[id] : {};
+    return props ? props[id] : DEFAULT_CURRENT_REPEATER_STATE;
 };

@@ -62,10 +62,13 @@ export const addWithoutKey = ({
          */
         const elementToAdd = [...Array(diff).keys()]
             .map((_item, index) => {
+                const currentValue = current?.[index + previousLenght];
+                const currentIndex = index + previousLenght;
+
                 const currentProps = staticProps(
                     props({
-                        current: current?.[index + previousLenght],
-                        index: index + previousLenght,
+                        current: currentValue,
+                        index: currentIndex,
                     })
                 );
 
@@ -79,9 +82,10 @@ export const addWithoutKey = ({
                         ${currentDynamicProps}
                         ${ATTR_IS_RUNTIME}="${runtimeId}"
                         ${ATTR_WILL_COMPONENT}="${targetComponent}"
-                        ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
-                            current?.[index + previousLenght]
-                        )}"
+                        ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+                            current: currentValue,
+                            index: currentIndex,
+                        })}"
                     >
                     </component>
                 `;

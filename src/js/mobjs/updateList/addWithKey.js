@@ -51,9 +51,9 @@ function getPartialsComponentList({
     currentUnique,
     index,
 }) {
-    const currentProps = staticProps(
-        props({ current: currentUnique?.[index], index })
-    );
+    const currentValue = currentUnique?.[index];
+
+    const currentProps = staticProps(props({ current: currentValue, index }));
 
     const currentDynamicProps = dynamicProps
         ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
@@ -66,9 +66,10 @@ function getPartialsComponentList({
             ${ATTR_IS_RUNTIME}="${runtimeId}"
             ${ATTR_WILL_COMPONENT}="${targetComponent}"
             ${ATTR_KEY}="${key}"
-            ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
-                currentUnique?.[index]
-            )}"
+            ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+                current: currentValue,
+                index,
+            })}"
         >
         </component>
     `;

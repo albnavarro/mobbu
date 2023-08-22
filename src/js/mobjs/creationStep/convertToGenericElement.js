@@ -76,7 +76,7 @@ export const convertToGenericElement = ({ component }) => {
      */
     const currentListValue =
         component.dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL];
-    const currentListValueReal = getCurrentValueList(currentListValue) ?? {};
+    const currentListValueReal = getCurrentValueList(currentListValue);
 
     /**
      *

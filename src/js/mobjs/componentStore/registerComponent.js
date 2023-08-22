@@ -1,6 +1,7 @@
 // @ts-check
 
 import { core } from '../../mobbu';
+import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { getFreezePropStatus } from './action/freeze';
 import { componentStore } from './store';
 import { addPropsToState } from './utils';
@@ -13,7 +14,7 @@ import { addPropsToState } from './utils';
  * @param {Object} obj.props
  * @param {Object} obj.state
  * @param {string} obj.key
- * @param {Object} [ obj.currentRepeaterState ]
+ * @param {{current:Object, index: Number}} [ obj.currentRepeaterState ]
  * @param {Array} [ obj.parentPropsWatcher ]
  * @param {Array} [ obj.freezedPros ]
  * @param {function} obj.destroy
@@ -39,7 +40,7 @@ export const addComponentToStore = ({
     props = {},
     state = {},
     key = '',
-    currentRepeaterState = {},
+    currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
     parentPropsWatcher = [],
     destroy = () => {},
     freezedPros = [],

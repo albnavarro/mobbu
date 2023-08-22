@@ -145,7 +145,7 @@ export const watchList = ({
                  * Store current value in store
                  * to use in dynamicrops
                  */
-                setCurrentListValueById({ id, value: current });
+                setCurrentListValueById({ id, value: { current, index } });
 
                 const newState = props({
                     current: currentUnivoque?.[index],

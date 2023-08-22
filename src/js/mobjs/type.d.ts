@@ -316,8 +316,8 @@ export interface componentType {
                  };
              },
              bindProps: {
-                 bind: ['state'],
-                 props: ({ state }, current) => {
+                 bind: ['state1','state2'],
+                 props: ({ state1, state2 }, { current, index }) => {
                      return {
                          childrenStet: state
                      };
@@ -392,7 +392,19 @@ export interface componentType {
              * Arg1: The value corresponding to current item in watch array
              */
             props: (
-                arg0: { String: any },
+                arg0: {
+                    /**
+                     * @description
+                     * Arg1: The value corresponding to current item in watch array
+                     */
+                    current: any;
+
+                    /**
+                     * @description
+                     * New position in original data.
+                     */
+                    index: Number;
+                },
                 /**
                  * @description
                  * Arg1: The value corresponding to current item in watch array

@@ -99,3 +99,8 @@ export const ATTR_CURRENT_LIST_VALUE = 'data-currentlistvalue';
  * @type {Number};
  */
 export const frameDelayAfterParse = 5;
+
+/**
+ * @type {{current:Object, index: Number}};
+ */
+export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
