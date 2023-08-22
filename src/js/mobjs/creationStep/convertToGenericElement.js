@@ -49,10 +49,6 @@ export const convertToGenericElement = ({ component }) => {
     newComponent.id = id;
 
     /**
-     * Get props
-     */
-
-    /**
      * @type {String}
      */
     const instanceName = component.dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
@@ -62,7 +58,14 @@ export const convertToGenericElement = ({ component }) => {
      */
     const propsId = component.dataset?.[ATTR_PROPS_PARTIAL];
 
+    /**
+     * @type {String|undefined}
+     */
     const dynamicPropsId = component.dataset?.[ATTR_DYNAMIC_PARTIAL];
+
+    /**
+     * @type {String|undefined}
+     */
     const dynamicPropsIdFromSlot =
         component.dataset?.[ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL];
 
@@ -72,15 +75,11 @@ export const convertToGenericElement = ({ component }) => {
     const propsSlot = component.dataset?.[ATTR_PROPS_FROM_SLOT_PARTIAL];
 
     /**
-     *
+     * @type {String|undefined}
      */
     const currentListValue =
         component.dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL];
     const currentListValueReal = getCurrentValueList(currentListValue);
-
-    /**
-     *
-     */
 
     /**
      * @type {String|undefined}
