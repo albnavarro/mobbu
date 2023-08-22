@@ -172,6 +172,7 @@ export const CodeOverlay = ({
                 </button>
                 <div class="code-overlay__header">
                     ${repeat({
+                        clean: true,
                         watch: 'urls',
                         component: 'CodeOverlayButton',
                         props: ({ current }) => {

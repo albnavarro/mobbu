@@ -10,6 +10,7 @@ import { mainStore } from '../mainStore';
  * @param { Function } mainObject.obj.beforeUpdate
  * @param { Function } mainObject.obj.getChildren
  * @param { String } mainObject.obj.id
+ * @param { Boolean } mainObject.obj.clean
  * @param { String|undefined } mainObject.obj.key
  * @param { Object } mainObject.obj.props
  * @param { String|undefined } mainObject.obj.state

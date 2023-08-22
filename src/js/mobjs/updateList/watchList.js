@@ -6,6 +6,7 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../componentStore/action/freeze';
+import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setStateById } from '../componentStore/action/state';
 import { ATTR_REPEATID } from '../constant';
 import {
@@ -25,6 +26,7 @@ import { getChildrenInsideElement } from './utils';
  * @param { string } obj.id
  * @param { string } obj.key
  * @param { object } obj.props
+ * @param { Boolean } obj.clean
  * @param { object } obj.dynamicProps
  * @param { string } obj.state
  * @param { string } obj.targetComponent
@@ -37,6 +39,7 @@ export const watchList = ({
     watch = () => {},
     containerList = document.createElement('div'),
     props = {},
+    clean = false,
     dynamicProps = undefined,
     beforeUpdate = () => {},
     afterUpdate = () => {},
@@ -62,6 +65,21 @@ export const watchList = ({
         state,
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
             if (!checkType(Array, current)) return;
+
+            /**
+             * If clean is active remove previous children.
+             */
+            if (clean) {
+                const currentChildern = getChildrenInsideElement({
+                    component: targetComponent,
+                    getChildren,
+                    element: containerList,
+                });
+
+                currentChildern.forEach((id) => {
+                    removeAndDestroyById({ id });
+                });
+            }
 
             /**
              * Secure step 1.
@@ -117,7 +135,7 @@ export const watchList = ({
                 containerList,
                 targetComponent,
                 current,
-                previous,
+                previous: !clean ? previous : [], // Clean previous, use new array.
                 getChildren,
                 key,
                 props,

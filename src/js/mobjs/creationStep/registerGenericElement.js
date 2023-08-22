@@ -155,6 +155,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
             watch: stateToWatch = undefined, // use alias to maintain ured naming convention.
             component: targetComponent = '', // use alias to maintain ured naming convention.
             props = () => {},
+            clean = false,
             bindProps: dynamicProps = undefined, // use alias to maintain ured naming convention.
             beforeUpdate = () => {},
             afterUpdate = () => {},
@@ -170,6 +171,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
                     watch,
                     targetComponent,
                     props,
+                    clean,
                     dynamicProps,
                     beforeUpdate,
                     afterUpdate,

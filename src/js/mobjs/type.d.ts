@@ -305,6 +305,7 @@ export interface componentType {
      *
      <div>
          ${repeat({
+             clean: false,
              watch: 'my_state',
              component: 'MyComponent',
              key: 'my_object_unique_key',
@@ -335,6 +336,12 @@ export interface componentType {
      * ```
      */
     repeat(arg0: {
+        /**
+         * @description
+         * Clean previous item.
+         */
+        clean: Boolean;
+
         /**
          * @description
          * Array of object used to create list
