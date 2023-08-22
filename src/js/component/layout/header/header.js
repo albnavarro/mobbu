@@ -49,8 +49,8 @@ export const Header = ({ render, onMount, staticProps }) => {
                                     source: '/codeExample/test/index.js',
                                 },
                                 {
-                                    label: 'component',
-                                    source: '/codeExample/test/index.js',
+                                    label: 'css',
+                                    source: '/codeExample/test/test.scss',
                                 },
                                 {
                                     label: 'animation2',
