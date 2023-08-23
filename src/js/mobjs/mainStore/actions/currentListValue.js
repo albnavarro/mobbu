@@ -3,7 +3,7 @@ import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
- * @type {{ current:Object, index:Number}}
+ * @params {{ current:Object, index:Number}}
  * @returns String
  */
 export const setCurrentValueList = (current = {}) => {

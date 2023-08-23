@@ -16,11 +16,29 @@ export const testComponentDef = createComponentDefinition({
             type: Number,
         }),
         data: () => ({
-            value: [],
+            value: [
+                {
+                    key: 'a',
+                    label: 'A',
+                },
+                {
+                    key: 'b',
+                    label: 'B',
+                },
+            ],
             type: Array,
         }),
         data2: () => ({
-            value: [],
+            value: [
+                {
+                    key: 'a',
+                    label: 'A',
+                },
+                {
+                    key: 'b',
+                    label: 'B',
+                },
+            ],
             type: Array,
         }),
     },

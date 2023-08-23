@@ -16,6 +16,7 @@ import { mainStore } from '../mainStore';
  * @param { String|undefined } mainObject.obj.state
  * @param { String } mainObject.obj.targetComponent
  * @param { Function } mainObject.obj.watch
+ * @param { Function } mainObject.obj.emit
  * @param { Object } mainObject.obj.dynamicProps
  *
  * @description

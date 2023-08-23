@@ -168,6 +168,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
                 repeatId: currentRepeatId,
                 obj: {
                     state: stateToWatch,
+                    emit,
                     watch,
                     targetComponent,
                     props,

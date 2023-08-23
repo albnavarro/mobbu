@@ -29,7 +29,7 @@ import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy
  * @param {Object} obj
  * @param {HTMLElement} obj.element
  * @param {string|null} obj.runtimeId
- * @param {Array<{onMount:Function, fireDynamic:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
  * @return {Promise<void>}
  *
  * @description
@@ -121,10 +121,13 @@ export const parseComponentsRecursive = async ({
          * Wait parse is ended to fire onMount callback.
          * Wait 5 frames, so browser can clear gargbage collector created in parse step.
          */
-        functionToFireAtTheEnd.forEach(({ onMount, fireDynamic }) => {
-            onMount();
-            fireDynamic();
-        });
+        functionToFireAtTheEnd.forEach(
+            ({ onMount, fireDynamic, fireFirstRepeat }) => {
+                onMount();
+                fireDynamic();
+                fireFirstRepeat();
+            }
+        );
 
         return Promise.resolve();
     }
@@ -226,8 +229,8 @@ export const parseComponentsRecursive = async ({
      * Execute repeat List function
      */
     const repeatIdArray = componentData?.repeatId;
-    repeatIdArray.forEach((repeatId) => {
-        inizializeRepeat({
+    const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
+        return inizializeRepeat({
             repeatId,
             placeholderListObj,
         });
@@ -235,13 +238,23 @@ export const parseComponentsRecursive = async ({
 
     /**
      * Store onMount callback.
-     * Fire all onMount at the end of the current parse.
+     * Fire :
+     * 1 - onMount callback.
+     * 2 - Dynamic props.
+     * 3 - First repat from current state.
      */
     functionToFireAtTheEnd.push({
         onMount: () => fireOnMountCallBack({ id, element: newElement }),
         fireDynamic: () => {
             applyDynamicProps({ componentId: id, inizilizeWatcher: true });
         },
+        fireFirstRepeat: firstRepeatEmitArray.length
+            ? () => {
+                  firstRepeatEmitArray.forEach((fn) => {
+                      fn?.();
+                  });
+              }
+            : () => {},
     });
 
     // Check for another component

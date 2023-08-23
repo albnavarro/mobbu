@@ -234,6 +234,10 @@ export interface componentType {
     unBind(): (arg0: { id: String }) => void;
 
     /**
+     * @description
+     * Bind props from parent to Children.
+     * The watch function must be used inside onMount() function.
+     *
      * @example
      * ```javascript
      * <MyComponent

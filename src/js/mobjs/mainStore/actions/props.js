@@ -225,21 +225,20 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
          */
         const currentParentId = parentId ?? getParentIdById(componentId);
 
-        /**
-         * Set prop on component load
-         */
-        setDynamicProp({
-            componentId,
-            bind,
-            props,
-            currentParentId,
-            fireCallback: true,
-        });
+        if (!inizilizeWatcher) {
+            /**
+             * Set first bind state on component created
+             */
+            setDynamicProp({
+                componentId,
+                bind,
+                props,
+                currentParentId,
+                fireCallback: true,
+            });
 
-        /**
-         *  Inzialize wacher after onMount function.
-         */
-        if (!inizilizeWatcher) return;
+            return;
+        }
 
         /**
          * Watch props on change

@@ -35,8 +35,6 @@ export const TestComponent = async ({
         const state3El = element.querySelector('.state3');
         const resetEl = element.querySelector('.reset');
         const increaseCounterEl = element.querySelector('.counter');
-        setState('data', startData);
-        setState('data2', startData);
 
         childrenBtn.addEventListener('click', () => logChildren(getChildren));
         state1El.addEventListener('click', () => {
@@ -106,7 +104,6 @@ export const TestComponent = async ({
                         bind: ['counter'],
                         // eslint-disable-next-line no-unused-vars
                         props: ({ counter }, { current, index }) => {
-                            // console.log(current, index);
                             return {
                                 counter,
                             };

@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-checc
 
 import { checkType } from '../../mobbu/store/storeType';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
@@ -33,9 +33,12 @@ import { getChildrenInsideElement } from './utils';
  * @param { function } obj.watch
  * @param { HTMLElement } obj.containerList
  * @param { String } obj.repeatId
+ *
+ * @return {() => Function}
  */
 export const watchList = ({
     state = '',
+    emit = () => {},
     watch = () => {},
     containerList = document.createElement('div'),
     props = {},
@@ -58,6 +61,12 @@ export const watchList = ({
     repeaterEl?.remove();
 
     /**
+     * First run use an empty previus array
+     * To run first emit from definition store.
+     */
+    let forceRepeater = true;
+
+    /**
      * Watcher is destroyed with the component tahu implement list repeater.
      * repater works if data is an array ( is a list so data must be an array )
      */
@@ -69,7 +78,7 @@ export const watchList = ({
             /**
              * If clean is active remove previous children.
              */
-            if (clean) {
+            if (clean || forceRepeater) {
                 const currentChildern = getChildrenInsideElement({
                     component: targetComponent,
                     getChildren,
@@ -135,13 +144,18 @@ export const watchList = ({
                 containerList,
                 targetComponent,
                 current,
-                previous: !clean ? previous : [], // Clean previous, use new array.
+                previous: clean || forceRepeater ? [] : previous,
                 getChildren,
                 key,
                 props,
                 dynamicProps,
                 id,
             });
+
+            /**
+             * Now reset previous only with clean props.
+             */
+            forceRepeater = false;
 
             /**
              * Filter children inside containerList
@@ -209,4 +223,6 @@ export const watchList = ({
             });
         }
     );
+
+    return () => emit(state);
 };

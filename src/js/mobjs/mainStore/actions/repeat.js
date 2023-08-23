@@ -54,7 +54,7 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
     /**
      * Run watch list
      */
-    watchList({
+    const fireFirstRepeat = watchList({
         ...obj,
         repeatId,
         containerList: containerList?.parent ?? document.createElement('div'),
@@ -68,4 +68,6 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
             return !(repeatId in item);
         });
     });
+
+    return fireFirstRepeat;
 };
