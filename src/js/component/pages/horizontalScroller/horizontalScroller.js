@@ -20,17 +20,19 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .join('');
 };
 
-const getNav = ({ numOfCol, setState, bindProps }) => {
+const getNav = ({ numOfCol, setState, bindProps, staticProps }) => {
     return [...Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
+                    ${staticProps({
+                        id: i,
+                        callback: () => setState('currentId', i),
+                    })}
                     ${bindProps({
                         bind: ['currentId', 'currentIdFromScroll'],
                         props: ({ currentId, currentIdFromScroll }) => {
                             return {
-                                id: i,
-                                callback: () => setState('currentId', i),
                                 active:
                                     currentId === i ||
                                     currentIdFromScroll === i,
@@ -139,7 +141,7 @@ export const HorizontalScroller = ({
         >
         </CodeButton>
         <ul class="l-h-scroller__nav js-nav">
-            ${getNav({ numOfCol: 10, setState, bindProps })}
+            ${getNav({ numOfCol: 10, setState, bindProps, staticProps })}
         </ul>
         <div class="l-h-scroller__root js-root">
             <div class="l-h-scroller__container js-container">
