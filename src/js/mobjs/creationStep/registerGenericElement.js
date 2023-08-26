@@ -31,6 +31,7 @@ import {
     staticProps,
 } from '../mainStore/actions/props';
 import { convertToGenericElement } from './convertToGenericElement';
+import { removeWatchFromDynamicProps } from './utils';
 
 // JSDOC usare infered type quando possibile.
 
@@ -165,6 +166,14 @@ export const registerGenericElement = ({ component, state = {} }) => {
             const currentRepeatId = getUnivoqueId();
             repeatId.push(currentRepeatId);
 
+            /**
+             * Remove watch state from bind.
+             */
+            const dynamicPropsSanitized = removeWatchFromDynamicProps({
+                dynamicProps,
+                stateToWatch,
+            });
+
             addRepeat({
                 repeatId: currentRepeatId,
                 obj: {
@@ -174,7 +183,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
                     targetComponent,
                     props,
                     clean,
-                    dynamicProps,
+                    dynamicProps: dynamicPropsSanitized,
                     beforeUpdate,
                     afterUpdate,
                     getChildren,

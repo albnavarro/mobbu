@@ -395,6 +395,8 @@ export interface componentType {
             /**
              * @description
              * Array of state to watch.
+             * Watch state is not allowed.
+             * If used will be removed automatically.
              */
             bind: Array<String>;
 
