@@ -26,7 +26,7 @@ export const setCurrentListValueById = ({ id = '', value }) => {
                 return id === currentId
                     ? {
                           ...item,
-                          ...{ currentRepeaterState: value },
+                          ...{ currentRepeaterState: value, isRepeater: true },
                       }
                     : item;
             });

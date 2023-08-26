@@ -14,6 +14,7 @@ import { core } from '../../mobbu';
  * @prop { String } parentId
  * @prop { String } key
  * @prop { Object } currentRepeaterState
+ * @prop { Boolean } isRepeater
  * @prop { String } id
  */
 
@@ -36,6 +37,7 @@ export const componentStore = core.createStore({
                     item?.child &&
                     item?.freezedPros &&
                     'currentRepeaterState' in item &&
+                    'isRepeater' in item &&
                     'instanceName' in item &&
                     'parentId' in item &&
                     'key' in item &&

@@ -15,6 +15,7 @@ import { addPropsToState } from './utils';
  * @param {Object} obj.state
  * @param {string} obj.key
  * @param {{current:Object, index: Number}} [ obj.currentRepeaterState ]
+ * @param {Boolean} [ obj.isRepeater ]
  * @param {Array} [ obj.parentPropsWatcher ]
  * @param {Array} [ obj.freezedPros ]
  * @param {function} obj.destroy
@@ -41,6 +42,7 @@ export const addComponentToStore = ({
     state = {},
     key = '',
     currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
+    isRepeater = false,
     parentPropsWatcher = [],
     destroy = () => {},
     freezedPros = [],
@@ -61,6 +63,7 @@ export const addComponentToStore = ({
                 parentPropsWatcher,
                 key,
                 currentRepeaterState,
+                isRepeater,
                 id,
                 parentId: null,
                 freezedPros,

@@ -179,10 +179,7 @@ export const watchList = ({
                  */
                 setCurrentListValueById({ id, value: { current, index } });
 
-                const newState = props({
-                    current: currentUnivoque?.[index],
-                    index,
-                });
+                const newState = props({ current, index });
 
                 if (newState)
                     Object.entries(newState).forEach(([key, value]) => {

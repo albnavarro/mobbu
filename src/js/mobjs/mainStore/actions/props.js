@@ -6,6 +6,7 @@ import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
+import { componentStore } from '../../componentStore/store';
 import { mainStore } from '../mainStore';
 
 /**
@@ -122,6 +123,18 @@ const setDynamicProp = ({
             };
         })
         .reduce((previous, current) => ({ ...previous, ...current }), {});
+
+    /**
+     * If element is deleted from list don't update state.
+     */
+    const { instances } = componentStore.get();
+    const instance = instances.find(
+        ({ id: currentId }) => currentId === componentId
+    );
+    if (!instance) return;
+    /**
+     *
+     */
 
     const currentRepeaterState = getCurrentListValueById({ id: componentId });
     const newProps = props?.(values, currentRepeaterState);
