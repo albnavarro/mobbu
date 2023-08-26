@@ -188,7 +188,6 @@ export const CodeOverlay = ({
                         },
                         bindProps: {
                             bind: ['activeContent'],
-                            // eslint-disable-next-line no-unused-vars
                             props: ({ activeContent }, { current }) => {
                                 const { label } = current;
 
