@@ -367,6 +367,10 @@ export interface componentType {
         /**
          * @description
          * Props passed to new component.
+         * The function is Fired twice:
+         * 1 - Excute prop function on before component creation, without fire setState.
+         *     Only get current, index to use in bindProps.
+         * 2 - Execute porp function when component is created and set internal state.
          */
         props: (arg0: {
             /**
