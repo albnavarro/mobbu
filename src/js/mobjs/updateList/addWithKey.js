@@ -51,10 +51,16 @@ function getPartialsComponentList({
     currentUnique,
     index,
 }) {
+    /**
+     * Execute prop function.
+     * Get current value and save in component store item.
+     */
     const currentValue = currentUnique?.[index];
-
     const currentProps = staticProps(props({ current: currentValue, index }));
 
+    /**
+     * Gat and save dynamicProps.
+     */
     const currentDynamicProps = dynamicProps
         ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
         : '';
