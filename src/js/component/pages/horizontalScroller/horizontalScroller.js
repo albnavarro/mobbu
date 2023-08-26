@@ -77,6 +77,8 @@ export const HorizontalScroller = ({
         window.scrollTo(0, 0);
 
         watch('currentId', (id) => {
+            if (id === -1) return;
+
             /**
              * Hre the nav is open so on route landing the offset is wrong
              * So, refresh scroller and the scroll to item.

@@ -26,9 +26,11 @@ const createPins = ({ indicators, setState }) => {
                 },
             },
             onEnter: () => {
+                setState('currentId', -1);
                 setState('currentIdFromScroll', i);
             },
             onLeaveBack: () => {
+                setState('currentId', -1);
                 setState('currentIdFromScroll', i - 1);
             },
         });

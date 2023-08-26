@@ -6,11 +6,11 @@ export const horizontalScrollerDef = createComponentDefinition({
     component: HorizontalScroller,
     state: {
         currentId: () => ({
-            id: -1,
+            value: 0,
             type: Number,
         }),
         currentIdFromScroll: () => ({
-            id: -1,
+            value: 0,
             type: Number,
         }),
         animatePin: () => ({
