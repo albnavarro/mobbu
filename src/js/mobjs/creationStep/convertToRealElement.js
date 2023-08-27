@@ -1,5 +1,6 @@
 // @ts-check
 
+import { core } from '../../mobbu';
 import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
@@ -108,38 +109,44 @@ const addToSlot = ({ element }) => {
  * @param {Object} obj
  * @param {HTMLElement} obj.placeholderElement
  * @param {String} obj.content
- * @returns {{newElement:( HTMLElement|undefined )}}
+ * @returns { Promise<{newElement:( HTMLElement|undefined )}> }
  *
  * @description
  * Add content to component
- * It is possible use parseComponents() to launch the parse of
- * custom DOM added to the component immadatly
+ *
  */
 export const convertToRealElement = ({ placeholderElement, content }) => {
-    /**
-     * @type {String}
-     *
-     * @description
-     * Add real content from render function
-     */
-    const prevContent = placeholderElement.innerHTML;
-    const newElement = getNewElement({ placeholderElement, content });
+    return new Promise((resolve) => {
+        core.useFrame(() => {
+            /**
+             * @type {String}
+             *
+             * @description
+             * Add real content from render function
+             */
+            const prevContent = placeholderElement.innerHTML;
+            const newElement = getNewElement({ placeholderElement, content });
 
-    /**
-     * Get inner content and copy data from provvisory component
-     */
-    if (newElement) {
-        const id = placeholderElement.id;
-        newElement.insertAdjacentHTML('afterbegin', prevContent);
-        addToSlot({ element: newElement });
-        removeOrphanSlot({ element: newElement });
-        newElement.id = id;
-        newElement.setAttribute(ATTR_IS_COMPONENT, '');
-    }
+            /**
+             * Get inner content and copy data from provvisory component
+             */
+            if (newElement) {
+                const id = placeholderElement.id;
+                newElement.insertAdjacentHTML('afterbegin', prevContent);
+                addToSlot({ element: newElement });
+                removeOrphanSlot({ element: newElement });
+                newElement.id = id;
+                newElement.setAttribute(ATTR_IS_COMPONENT, '');
+            }
 
-    /**
-     * Delete provvisory component and add real component.
-     */
-    placeholderElement.remove();
-    return { newElement };
+            /**
+             * Delete provvisory component and add real component.
+             */
+            placeholderElement.remove();
+
+            core.useNextTick(() => {
+                resolve({ newElement });
+            });
+        });
+    });
 };

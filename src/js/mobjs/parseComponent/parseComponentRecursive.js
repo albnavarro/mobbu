@@ -24,6 +24,7 @@ import {
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
+import { core } from '../../mobbu';
 
 /**
  * @param {Object} obj
@@ -121,13 +122,17 @@ export const parseComponentsRecursive = async ({
          * Wait parse is ended to fire onMount callback.
          * Wait 5 frames, so browser can clear gargbage collector created in parse step.
          */
-        functionToFireAtTheEnd.forEach(
-            ({ onMount, fireDynamic, fireFirstRepeat }) => {
-                onMount();
-                fireDynamic();
-                fireFirstRepeat();
-            }
-        );
+        core.useFrameIndex(() => {
+            core.useNextTick(() => {
+                functionToFireAtTheEnd.forEach(
+                    ({ onMount, fireDynamic, fireFirstRepeat }) => {
+                        onMount();
+                        fireDynamic();
+                        fireFirstRepeat();
+                    }
+                );
+            });
+        }, 5);
 
         return Promise.resolve();
     }
@@ -184,7 +189,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Add custom DOM to basic component
      */
-    const { newElement } = convertToRealElement({
+    const { newElement } = await convertToRealElement({
         content,
         placeholderElement,
     });
