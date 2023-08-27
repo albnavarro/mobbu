@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 
@@ -20,8 +22,9 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Object} obj
  * @param {String} obj.name
  * @param {Function} obj.component
+ * @param {Array<String>} obj.exportState
  * @param {import('../../mobbu').MobbuStoreType} obj.state
- * @returns {{ string:{componentFunction:function,state:Object} }}
+ * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description
  * Format component definition in object key: value.
@@ -30,12 +33,14 @@ export const getRouteModule = ({ url = '' }) => {
 export const createComponentDefinition = ({
     name = '',
     component = () => {},
+    exportState = [],
     state = {},
 }) => {
     return {
         [name]: {
             componentFunction: component,
             componentParams: {
+                exportState,
                 state,
             },
         },

@@ -16,6 +16,7 @@ export const navigationDef = createComponentDefinition({
 export const navigationButtonDef = createComponentDefinition({
     name: 'NavigationButton',
     component: NavigationButton,
+    exportState: ['label', 'url', 'arrowClass', 'subMenuClass', 'fireRoute'],
     state: {
         label: '',
         url: '#',

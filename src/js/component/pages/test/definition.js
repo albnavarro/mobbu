@@ -6,6 +6,7 @@ import { TestComponent3 } from './testComponent3';
 export const testComponentDef = createComponentDefinition({
     name: 'TestComponent',
     component: TestComponent,
+    exportState: ['title'],
     state: {
         title: () => ({
             value: '',
@@ -47,6 +48,7 @@ export const testComponentDef = createComponentDefinition({
 export const testComponent2Def = createComponentDefinition({
     name: 'TestComponent2',
     component: TestComponent2,
+    exportState: ['label', 'index', 'counter'],
     state: {
         label: () => ({
             value: '',
@@ -70,6 +72,13 @@ export const testComponent2Def = createComponentDefinition({
 export const testComponent3Def = createComponentDefinition({
     name: 'TestComponent3',
     component: TestComponent3,
+    exportState: [
+        'staticFromSlot',
+        'staticFromComponent',
+        'parentParentState',
+        'parentState',
+        'counter',
+    ],
     state: {
         staticFromSlot: () => ({
             value: '',

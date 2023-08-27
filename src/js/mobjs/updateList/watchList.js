@@ -29,6 +29,7 @@ import { getChildrenInsideElement } from './utils';
  * @param { Boolean } obj.clean
  * @param { object } obj.dynamicProps
  * @param { string } obj.state
+ * @param { Function } obj.setState
  * @param { string } obj.targetComponent
  * @param { function } obj.watch
  * @param { HTMLElement } obj.containerList
@@ -38,6 +39,7 @@ import { getChildrenInsideElement } from './utils';
  */
 export const watchList = ({
     state = '',
+    setState = () => {},
     emit = () => {},
     watch = () => {},
     containerList = document.createElement('div'),
@@ -115,7 +117,7 @@ export const watchList = ({
                  * If repater is running:
                  * back to previous state without fire callback
                  */
-                setStateById(id, state, previous, false);
+                setState(state, previous, false);
                 return;
             }
 
@@ -217,6 +219,12 @@ export const watchList = ({
                 });
 
                 unFreezePropById({ id, prop: state });
+
+                /**
+                 * Update watch state.
+                 * If key is used duplicated item is removed.
+                 */
+                setState(state, currentUnivoque, false);
             });
         }
     );

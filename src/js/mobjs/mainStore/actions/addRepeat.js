@@ -14,6 +14,7 @@ import { mainStore } from '../mainStore';
  * @param { String|undefined } mainObject.obj.key
  * @param { Object } mainObject.obj.props
  * @param { String|undefined } mainObject.obj.state
+ * @param { Function } mainObject.obj.setState
  * @param { String } mainObject.obj.targetComponent
  * @param { Function } mainObject.obj.watch
  * @param { Function } mainObject.obj.emit

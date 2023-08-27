@@ -1,5 +1,6 @@
 // @ts-check
 
+import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
 import { componentStore } from '../store';
 
 /**
@@ -49,6 +50,20 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
     const instance = instances.find(({ id: currentId }) => currentId === id);
 
     const state = instance?.state;
+    const componentName = instance?.component;
+
+    const stateIsExportable = checkIfStateIsExportable({
+        componentName,
+        propName: prop,
+    });
+
+    if (!stateIsExportable) {
+        console.warn(
+            `setStateById failed ${prop} in: ${componentName} is not exportable`
+        );
+        return null;
+    }
+
     if (!state) {
         console.warn(`setStateById failed no id found on prop: ${prop}`);
         return null;

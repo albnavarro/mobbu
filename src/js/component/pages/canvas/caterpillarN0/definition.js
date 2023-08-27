@@ -5,6 +5,20 @@ import { CaterpillarN0 } from './caterpillarN0';
 export const caterpillarN0Def = createComponentDefinition({
     name: 'CaterpillarN0',
     component: CaterpillarN0,
+    exportState: [
+        'amountOfPath',
+        'width',
+        'height',
+        'radius',
+        'fill',
+        'stroke',
+        'opacity',
+        'spacerY',
+        'intialRotation',
+        'perpetualRatio',
+        'mouseMoveRatio',
+        'disableOffcanvas',
+    ],
     state: {
         amountOfPath: 17,
         width: 30,

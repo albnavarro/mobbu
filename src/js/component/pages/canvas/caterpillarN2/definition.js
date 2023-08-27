@@ -50,6 +50,20 @@ const buttons = {
 export const caterpillarN2Def = createComponentDefinition({
     name: 'Caterpillarn2',
     component: CaterpillarN2,
+    exportState: [
+        'numItems',
+        'width',
+        'height',
+        'radius',
+        'fill',
+        'opacity',
+        'xAmplitude',
+        'yAmplitude',
+        'duration',
+        'rotationDefault',
+        'friction',
+        'disableOffcanvas',
+    ],
     state: {
         numItems: 30,
         width: 60,

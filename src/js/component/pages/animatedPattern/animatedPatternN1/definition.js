@@ -5,6 +5,15 @@ import { AnimatedPatternN1 } from './animatedPatternN1';
 export const animatedPatternN1Def = createComponentDefinition({
     name: 'AnimatedPatternN1',
     component: AnimatedPatternN1,
+    exportState: [
+        'numberOfRow',
+        'numberOfColumn',
+        'cellWidth',
+        'cellHeight',
+        'gutter',
+        'fill',
+        'disableOffcanvas',
+    ],
     state: {
         numberOfRow: 7,
         numberOfColumn: 15,

@@ -25,7 +25,6 @@ import { listKeyExist } from './utils';
  * Update repater list.
  */
 export const updateChildren = async ({
-    state = '',
     containerList = document.createElement('div'),
     targetComponent = '',
     current = [],
@@ -63,7 +62,6 @@ export const updateChildren = async ({
      */
     const currentUnivoque = fn({
         runtimeId,
-        state,
         current,
         previous,
         containerList,

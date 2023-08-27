@@ -19,7 +19,6 @@ import {
     getElementById,
     getElementByKeyInContainer,
 } from '../componentStore/action/element';
-import { setStateById } from '../componentStore/action/state';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setCurrentValueList } from '../mainStore/actions/currentListValue';
@@ -83,7 +82,6 @@ function getPartialsComponentList({
 
 /**
  * @param {Object} obj
- * @param {string} obj.state
  * @param {Array} obj.current
  * @param {Array} obj.previous
  * @param {HTMLElement} obj.containerList
@@ -100,7 +98,6 @@ function getPartialsComponentList({
  * Add new children by key.
  */
 export const addWithKey = ({
-    state = '',
     current = [],
     previous = [],
     containerList = document.createElement('div'),
@@ -130,12 +127,6 @@ export const addWithKey = ({
             container: containerList,
         });
     });
-
-    /*
-     * Update main component state with an array of unique item.
-     * addWithKey means we have an array of unique key, no duplicates.
-     */
-    setStateById(id, state, () => currentUnique, false);
 
     /**
      * Get set of data with the right sequence of new list element

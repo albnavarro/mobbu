@@ -8,6 +8,7 @@ import { CodeOverlayButton } from './codeOverlayButton';
 export const codeOverlayDef = createComponentDefinition({
     name: 'CodeOverlay',
     component: CodeOverlay,
+    exportState: ['urls', 'isOpen'],
     state: {
         urls: () => ({
             value: [],
@@ -35,6 +36,7 @@ export const codeOverlayDef = createComponentDefinition({
 export const codeOverlayButtonDef = createComponentDefinition({
     name: 'CodeOverlayButton',
     component: CodeOverlayButton,
+    exportState: ['key', 'callback', 'selected', 'disable'],
     state: {
         key: '',
         callback: () => {},

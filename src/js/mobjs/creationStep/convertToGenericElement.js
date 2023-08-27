@@ -13,6 +13,7 @@ import {
 } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { getCurrentValueList } from '../mainStore/actions/currentListValue';
+import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 
 /**
  * @param {Object} obj
@@ -152,9 +153,18 @@ export const convertToGenericElement = ({ component }) => {
     return {
         placeholderElement,
         props: {
-            ...baseProps,
-            ...propsFromParent,
-            ...propsFromSlot,
+            ...filterExportableStateFromObject({
+                componentName,
+                currentProps: baseProps,
+            }),
+            ...filterExportableStateFromObject({
+                componentName,
+                currentProps: propsFromParent,
+            }),
+            ...filterExportableStateFromObject({
+                componentName,
+                currentProps: propsFromSlot,
+            }),
         },
         id,
         componentName,

@@ -4,6 +4,7 @@ import { HorizontalScrollerButton } from './horizontalScrollerButton';
 export const horizontalScrollerButtonDef = createComponentDefinition({
     name: 'HorizontalScrollerButton',
     component: HorizontalScrollerButton,
+    exportState: ['id', 'callback', 'active'],
     state: {
         id: () => ({
             value: -1,
