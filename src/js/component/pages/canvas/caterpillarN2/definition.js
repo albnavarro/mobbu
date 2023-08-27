@@ -65,7 +65,7 @@ export const caterpillarN2Def = createComponentDefinition({
         'disableOffcanvas',
     ],
     state: {
-        numItems: 30,
+        numItems: 20,
         width: 60,
         height: 60,
         radius: 20,
