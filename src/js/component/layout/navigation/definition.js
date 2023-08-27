@@ -12,13 +12,23 @@ export const navigationComponentDef = createComponentDefinition({
 export const navigationDef = createComponentDefinition({
     name: 'Navigation',
     component: Navigation,
+    state: {
+        currentAccordionId: () => ({
+            value: -1,
+            type: Number,
+        }),
+    },
 });
 
 export const navigationSubmenuDef = createComponentDefinition({
     name: 'NavigationSubmenu',
     component: NavigationSubmenu,
-    exportState: ['children', 'headerButton'],
+    exportState: ['children', 'headerButton', 'isOpen', 'callback'],
     state: {
+        callback: () => ({
+            value: () => {},
+            type: Function,
+        }),
         headerButton: () => ({
             value: {},
             type: 'Any',
@@ -39,10 +49,25 @@ export const navigationButtonDef = createComponentDefinition({
     component: NavigationButton,
     exportState: ['label', 'url', 'arrowClass', 'subMenuClass', 'fireRoute'],
     state: {
-        label: '',
-        url: '#',
-        arrowClass: '',
-        subMenuClass: '',
-        fireRoute: true,
+        label: () => ({
+            value: '',
+            type: String,
+        }),
+        url: () => ({
+            value: '',
+            type: String,
+        }),
+        arrowClass: () => ({
+            value: '',
+            type: String,
+        }),
+        subMenuClass: () => ({
+            value: '',
+            type: String,
+        }),
+        fireRoute: () => ({
+            value: true,
+            type: Boolean,
+        }),
     },
 });

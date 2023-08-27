@@ -4,7 +4,7 @@ import { core } from '../../../../mobbu';
  * Navigation store utils.
  */
 export const navigationStore = core.createStore({
-    closeAllItems: () => {},
+    closeAllAccordion: () => {},
     refreshScroller: () => {},
     openNavigation: () => {},
     closeNavigation: () => {},

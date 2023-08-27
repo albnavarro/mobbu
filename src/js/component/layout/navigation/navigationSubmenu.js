@@ -32,7 +32,7 @@ export const NavigationSubmenu = ({
     staticProps,
     watch,
 }) => {
-    const { children, headerButton } = getState();
+    const { children, headerButton, callback } = getState();
     const { label, url } = headerButton;
 
     onMount(({ element }) => {
@@ -46,6 +46,9 @@ export const NavigationSubmenu = ({
 
         button.addEventListener('click', () => {
             setState('isOpen', (prev) => !prev);
+
+            const isOpen = getState('isOpen');
+            if (isOpen) callback();
         });
 
         watch('isOpen', (isOpen) => {
@@ -54,7 +57,7 @@ export const NavigationSubmenu = ({
             button.classList.toggle('active', isOpen);
         });
 
-        navigationStore.watch('closeAllItems', () => {
+        navigationStore.watch('closeAllAccordion', () => {
             setState('isOpen', false);
         });
 

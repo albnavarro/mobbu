@@ -6,7 +6,8 @@ function closeNavigation({ element, main }) {
     element.classList.remove('active');
     main.classList.remove('shift');
     document.body.style.overflow = '';
-    navigationStore.emit('closeAllItems');
+    navigationStore.emit('closeAllAccordion');
+    navigationStore.emit('goToTop');
 }
 
 function openNavigation({ element, main }) {
@@ -22,10 +23,11 @@ function addHandler({ main, toTopBtn }) {
         if (!navigationIsOpen) return;
         navigationStore.set('navigationIsOpen', false);
         navigationStore.emit('closeNavigation');
+        navigationStore.emit('goToTop');
     });
 
     toTopBtn.addEventListener('click', () => {
-        navigationStore.emit('closeAllItems');
+        navigationStore.emit('closeAllAccordion');
         navigationStore.emit('goToTop');
 
         const { navigationIsOpen } = navigationStore.get();

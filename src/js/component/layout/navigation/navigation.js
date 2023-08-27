@@ -3,45 +3,44 @@ import { getCommonData } from '../../../data';
 /**
  * Create first level items.
  */
-function getItems(data, staticProps) {
+function getItems({ data, staticProps, setState, bindProps }) {
     return data
-        .map((item) => {
+        .map((item, index) => {
             const { label, url, children } = item;
 
-            const { DOM } = children
-                ? {
-                      DOM: /* HTML */ `
-                          <NavigationSubmenu
+            return children
+                ? /* HTML */ `
+                      <NavigationSubmenu
+                          ${staticProps({
+                              headerButton: {
+                                  label,
+                                  url,
+                              },
+                              children,
+                              callback: () =>
+                                  setState('currentAccordionId', index),
+                          })}
+                          ${bindProps({
+                              bind: ['currentAccordionId'],
+                              props: ({ currentAccordionId }) => {
+                                  return {
+                                      isOpen: currentAccordionId === index,
+                                  };
+                              },
+                          })}
+                      >
+                      </NavigationSubmenu>
+                  `
+                : /* HTML */ `
+                      <li class="l-navigation__item">
+                          <NavigationButton
                               ${staticProps({
-                                  headerButton: {
-                                      label,
-                                      url,
-                                  },
-                                  children,
+                                  label,
+                                  url,
                               })}
-                          >
-                          </NavigationSubmenu>
-                      `,
-                  }
-                : {
-                      hasChildrenClass: '',
-                      DOM: /* HTML */ `
-                          <li class="l-navigation__item">
-                              <NavigationButton
-                                  ${staticProps({
-                                      label,
-                                      url,
-                                      arrowClass: '',
-                                      fireRoute: true,
-                                  })}
-                              ></NavigationButton>
-                          </li>
-                      `,
-                  };
-
-            return /* HTML */ `
-                ${DOM}</li>
-            `;
+                          ></NavigationButton>
+                      </li>
+                  `;
         })
         .join('');
 }
@@ -49,13 +48,13 @@ function getItems(data, staticProps) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Navigation = ({ render, staticProps }) => {
+export const Navigation = ({ render, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
 
     return render(/* HTML */ `
         <nav class="l-navigation">
             <ul class="l-navigation__list">
-                ${getItems(data, staticProps)}
+                ${getItems({ data, staticProps, setState, bindProps })}
             </ul>
         </nav>
     `);

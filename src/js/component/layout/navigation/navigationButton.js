@@ -16,6 +16,7 @@ export const NavigationButton = ({ getState, render, onMount }) => {
 
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
+            navigationStore.emit('goToTop');
         });
     });
 
