@@ -7,7 +7,6 @@ function closeNavigation({ element, main }) {
     main.classList.remove('shift');
     document.body.style.overflow = '';
     navigationStore.emit('closeAllAccordion');
-    navigationStore.emit('goToTop');
 }
 
 function openNavigation({ element, main }) {
@@ -23,7 +22,6 @@ function addHandler({ main, toTopBtn }) {
         if (!navigationIsOpen) return;
         navigationStore.set('navigationIsOpen', false);
         navigationStore.emit('closeNavigation');
-        navigationStore.emit('goToTop');
     });
 
     toTopBtn.addEventListener('click', () => {
