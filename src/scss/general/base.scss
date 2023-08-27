@@ -55,13 +55,13 @@ img {
 
 main {
     padding-top: calc(var(--header-height));
-    transition: transform 0.55s, opacity 0.55s;
+    transition: transform 0.55s, opacity 1s 0.5s;
     min-height: 100vh;
 
     &.shift {
-        @include mq.mq(tablet) {
-            cursor: pointer;
-        }
+        transition: transform 0.55s, opacity 0.55s;
+        cursor: pointer;
+        opacity: 0;
     }
 }
 
