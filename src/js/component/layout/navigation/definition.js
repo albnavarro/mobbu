@@ -17,11 +17,19 @@ export const navigationDef = createComponentDefinition({
 export const navigationSubmenuDef = createComponentDefinition({
     name: 'NavigationSubmenu',
     component: NavigationSubmenu,
-    exportState: ['children'],
+    exportState: ['children', 'headerButton'],
     state: {
+        headerButton: () => ({
+            value: {},
+            type: 'Any',
+        }),
         children: () => ({
             value: [],
             type: Array,
+        }),
+        isOpen: () => ({
+            value: false,
+            type: Boolean,
         }),
     },
 });

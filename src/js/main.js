@@ -1,7 +1,6 @@
 // @ts-check
 
 import { componentList } from './component/componentList';
-import { navAccordion } from './component/layout/navigation/animation/navAccordion';
 import { loadData } from './data';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
@@ -44,7 +43,7 @@ core.useLoad(() => {
             index: 'home',
             pageNotFound: 'pageNotFound',
             afterInit: () => {
-                navAccordion();
+                console.log('after init');
             },
         });
     };

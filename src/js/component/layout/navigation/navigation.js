@@ -8,37 +8,39 @@ function getItems(data, staticProps) {
         .map((item) => {
             const { label, url, children } = item;
 
-            const { hasChildrenClass, arrowClass, submenu, fireRoute } =
-                children
-                    ? {
-                          hasChildrenClass: 'has-child',
-                          arrowClass: 'l-navigation__link--arrow',
-                          submenu: /* HTML */ `
-                              <NavigationSubmenu ${staticProps({ children })}>
-                              </NavigationSubmenu>
-                          `,
-                          fireRoute: false,
-                      }
-                    : {
-                          hasChildrenClass: '',
-                          arrowClass: '',
-                          submenu: '',
-                          fireRoute: true,
-                      };
+            const { DOM } = children
+                ? {
+                      DOM: /* HTML */ `
+                          <NavigationSubmenu
+                              ${staticProps({
+                                  headerButton: {
+                                      label,
+                                      url,
+                                  },
+                                  children,
+                              })}
+                          >
+                          </NavigationSubmenu>
+                      `,
+                  }
+                : {
+                      hasChildrenClass: '',
+                      DOM: /* HTML */ `
+                          <li class="l-navigation__item">
+                              <NavigationButton
+                                  ${staticProps({
+                                      label,
+                                      url,
+                                      arrowClass: '',
+                                      fireRoute: true,
+                                  })}
+                              ></NavigationButton>
+                          </li>
+                      `,
+                  };
 
             return /* HTML */ `
-                <li class="l-navigation__item ${hasChildrenClass}">
-                    <NavigationButton
-                        ${staticProps({
-                            label,
-                            url,
-                            arrowClass,
-                            subMenuClass: '',
-                            fireRoute,
-                        })}
-                    ></NavigationButton>
-                    ${submenu}
-                </li>
+                ${DOM}</li>
             `;
         })
         .join('');
