@@ -15,6 +15,7 @@ import {
     navigationButtonDef,
     navigationComponentDef,
     navigationDef,
+    navigationSubmenuDef,
 } from './layout/navigation/definition';
 import { animatedPatternN0Def } from './pages/animatedPattern/animatedPatternN0/definition';
 import { animatedPatternN1Def } from './pages/animatedPattern/animatedPatternN1/definition';
@@ -38,6 +39,7 @@ export const componentList = {
     ...headerToggleComponentDef,
     ...navigationComponentDef,
     ...navigationDef,
+    ...navigationSubmenuDef,
     ...navigationButtonDef,
     ...footerComponentDef,
     ...pageTransitionComponentDef,

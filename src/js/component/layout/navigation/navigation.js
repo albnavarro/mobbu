@@ -1,29 +1,6 @@
 import { getCommonData } from '../../../data';
 
 /**
- * Create second levels item.
- */
-function getSubmenu(items, staticProps) {
-    return items
-        .map((item) => {
-            const { label, url } = item;
-
-            return /* HTML */ `
-                <li class="l-navigation__submenu__item">
-                    <NavigationButton
-                        ${staticProps({
-                            label,
-                            url,
-                            ...{ subMenuClass: 'l-navigation__link--submenu' },
-                        })}
-                    ></NavigationButton>
-                </li>
-            `;
-        })
-        .join('');
-}
-
-/**
  * Create first level items.
  */
 function getItems(data, staticProps) {
@@ -37,9 +14,8 @@ function getItems(data, staticProps) {
                           hasChildrenClass: 'has-child',
                           arrowClass: 'l-navigation__link--arrow',
                           submenu: /* HTML */ `
-                              <ul class="l-navigation__submenu">
-                                  ${getSubmenu(children, staticProps)}
-                              </ul>
+                              <NavigationSubmenu ${staticProps({ children })}>
+                              </NavigationSubmenu>
                           `,
                           fireRoute: false,
                       }

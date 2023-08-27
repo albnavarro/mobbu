@@ -2,7 +2,6 @@
 
 import { componentList } from './component/componentList';
 import { navAccordion } from './component/layout/navigation/animation/navAccordion';
-import { navigationScoller } from './component/layout/navigation/animation/navScroller';
 import { loadData } from './data';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
@@ -46,7 +45,6 @@ core.useLoad(() => {
             pageNotFound: 'pageNotFound',
             afterInit: () => {
                 navAccordion();
-                navigationScoller();
             },
         });
     };

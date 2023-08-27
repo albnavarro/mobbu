@@ -3,11 +3,11 @@ import { SmoothScroller } from '../../../../mobbu/plugin';
 import { outerHeight } from '../../../../mobbu/utils/vanillaFunction';
 import { navigationStore } from '../store/navStore';
 
-export const navigationScoller = () => {
-    const screenEl = document.querySelector('.l-navcontainer__wrap');
-    const scrollerEl = document.querySelector('.l-navcontainer__scroll');
-    const buttons = document.querySelectorAll('.l-navigation__item');
-    const percentEl = document.querySelector('.l-navcontainer__percent');
+export const initNavigationScoller = ({ root }) => {
+    const screenEl = root.querySelector('.l-navcontainer__wrap');
+    const scrollerEl = root.querySelector('.l-navcontainer__scroll');
+    const buttons = root.querySelectorAll('.l-navigation__item');
+    const percentEl = root.querySelector('.l-navcontainer__percent');
 
     /**
      * Create scrollTrigger children.

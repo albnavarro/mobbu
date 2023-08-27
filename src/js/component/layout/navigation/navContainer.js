@@ -1,4 +1,5 @@
 import { bodyScroll } from '../../../mobbu/plugin';
+import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
 function closeNavigation({ element, main }) {
@@ -46,6 +47,7 @@ export const NavigationContainer = ({ render, onMount }) => {
             closeNavigation({ element, main })
         );
         addHandler({ main, toTopBtn });
+        initNavigationScoller({ root: element });
     });
 
     return render(/* HTML */ `
