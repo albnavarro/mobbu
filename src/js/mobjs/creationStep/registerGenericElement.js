@@ -98,7 +98,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
      * Set initial repate list current value to pass to dynamicProps.
      * When component is created.
      */
-    if (currentListValueReal)
+    if (currentListValueReal?.index !== -1)
         setCurrentListValueById({ id, value: currentListValueReal });
 
     /**
