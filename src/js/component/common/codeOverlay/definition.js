@@ -8,6 +8,7 @@ import { CodeOverlayButton } from './codeOverlayButton';
 export const codeOverlayDef = createComponentDefinition({
     name: 'CodeOverlay',
     component: CodeOverlay,
+    asyncLoading: true,
     exportState: ['urls', 'isOpen'],
     state: {
         urls: () => ({

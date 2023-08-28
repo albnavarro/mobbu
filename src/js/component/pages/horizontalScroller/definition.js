@@ -4,6 +4,7 @@ import { HorizontalScroller } from './horizontalScroller';
 export const horizontalScrollerDef = createComponentDefinition({
     name: 'HorizontalScroller',
     component: HorizontalScroller,
+    asyncLoading: true,
     exportState: ['currentId', 'currentIdFromScroll', 'animatePin'],
     state: {
         currentId: () => ({

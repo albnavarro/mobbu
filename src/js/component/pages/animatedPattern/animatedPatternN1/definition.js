@@ -5,6 +5,7 @@ import { AnimatedPatternN1 } from './animatedPatternN1';
 export const animatedPatternN1Def = createComponentDefinition({
     name: 'AnimatedPatternN1',
     component: AnimatedPatternN1,
+    asyncLoading: true,
     exportState: [
         'numberOfRow',
         'numberOfColumn',

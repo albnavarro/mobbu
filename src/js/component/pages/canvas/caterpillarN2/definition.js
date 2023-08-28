@@ -50,6 +50,7 @@ const buttons = {
 export const caterpillarN2Def = createComponentDefinition({
     name: 'Caterpillarn2',
     component: CaterpillarN2,
+    asyncLoading: true,
     exportState: [
         'numItems',
         'width',

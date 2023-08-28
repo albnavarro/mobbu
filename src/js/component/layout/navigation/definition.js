@@ -7,6 +7,7 @@ import { NavigationSubmenu } from './navigationSubmenu';
 export const navigationComponentDef = createComponentDefinition({
     name: 'NavigationContainer',
     component: NavigationContainer,
+    asyncLoading: true,
 });
 
 export const navigationDef = createComponentDefinition({
@@ -23,6 +24,7 @@ export const navigationDef = createComponentDefinition({
 export const navigationSubmenuDef = createComponentDefinition({
     name: 'NavigationSubmenu',
     component: NavigationSubmenu,
+    asyncLoading: true,
     exportState: ['children', 'headerButton', 'isOpen', 'callback'],
     state: {
         callback: () => ({
