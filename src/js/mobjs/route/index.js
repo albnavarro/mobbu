@@ -3,7 +3,7 @@
 import { core } from '../../mobbu';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
-import { setRoot } from '../mainStore/actions/root';
+import { setContent } from '../mainStore/actions/root';
 import {
     setIndex,
     setPageNotFound,
@@ -18,9 +18,11 @@ import { debugRoute } from './test';
 
 /**
  * @param {Object} obj
- * @param {HTMLElement|null} obj.root
- * @param {{ string:{componentFunction:function,props:Object,state:Object} }|{}} obj.componentList
- * @param {{string:function():string}|{}} obj.routeList
+ * @param {String} obj.rootId
+ * @param {Function} obj.wrapper
+ * @param {String} obj.contentId
+ * @param {{ string:{componentFunction:function,props:Object,state:Object} }|{}} obj.components
+ * @param {{string:function():string}|{}} obj.pages
  * @param {Function} obj.afterInit
  * @param {String} obj.index
  * @param {String} obj.pageNotFound
@@ -29,14 +31,26 @@ import { debugRoute } from './test';
  * Inizializa default route.
  */
 export const inizializeApp = async ({
-    root,
-    componentList = {},
-    routeList = {},
+    rootId,
+    wrapper,
+    contentId,
+    components = {},
+    pages = {},
     afterInit = () => {},
     index = 'home',
     pageNotFound = 'pageNotFound',
 }) => {
-    if (!root) return;
+    /**
+     * @type {HTMLElement|null}
+     */
+    const rootEl = /** @type{HTMLElement} */ document.querySelector(rootId);
+    const wrapperDOM = wrapper();
+
+    /**
+     * Validate intial data.
+     * Else skip.
+     */
+    if (!contentId || !rootEl) return;
 
     /**
      * Init parse watcher.
@@ -46,12 +60,12 @@ export const inizializeApp = async ({
     /**
      *
      */
-    setComponentList(componentList);
+    setComponentList(components);
 
     /**
      *
      */
-    setRouteList(routeList);
+    setRouteList(pages);
 
     /**
      * Set idnex route
@@ -66,13 +80,18 @@ export const inizializeApp = async ({
     /**
      *
      */
-    setRoot({ root });
+    setContent({ contentId });
+
+    /**
+     * Add wrapper to root node.
+     */
+    rootEl.insertAdjacentHTML('afterbegin', wrapperDOM);
 
     /**
      * Render common layout component.
      * Inizialize js on common layout component.
      */
-    await parseComponents({ element: document.body });
+    await parseComponents({ element: rootEl });
 
     /**
      * First callback after parse index.html first time.

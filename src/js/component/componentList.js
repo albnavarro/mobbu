@@ -33,7 +33,7 @@ import {
     testComponentDef,
 } from './pages/test/definition';
 
-export const componentList = {
+export const components = {
     ...headerComponentDef,
     ...headerNavComponentDef,
     ...headerToggleComponentDef,

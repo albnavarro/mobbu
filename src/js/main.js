@@ -1,10 +1,11 @@
 // @ts-check
 
-import { componentList } from './component/componentList';
+import { components } from './component/componentList';
 import { loadData } from './data';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
-import { routeList } from './pages/routeList';
+import { pages } from './pages/routeList';
+import { wrapper } from './wrapper';
 // import { storeTest } from './test/storeTest';
 
 /**
@@ -37,9 +38,11 @@ core.useLoad(() => {
         await loadData();
 
         inizializeApp({
-            root: document.querySelector('#content'),
-            componentList,
-            routeList,
+            rootId: '#root',
+            contentId: '#content',
+            wrapper: wrapper,
+            components,
+            pages,
             index: 'home',
             pageNotFound: 'pageNotFound',
             afterInit: () => {

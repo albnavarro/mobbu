@@ -3,9 +3,9 @@
 import { core } from '../../mobbu';
 
 export const mainStore = core.createStore({
-    root: () => ({
-        value: document.createElement('div'),
-        type: Element,
+    contentId: () => ({
+        value: '',
+        type: String,
     }),
     index: () => ({
         value: '',

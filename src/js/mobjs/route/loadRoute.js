@@ -1,6 +1,6 @@
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
-import { getRoot } from '../mainStore/actions/root';
+import { getContent } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
@@ -16,7 +16,8 @@ export const loadRoute = async ({ route = '' }) => {
     /**
      *
      */
-    const root = getRoot();
+    const contentId = getContent();
+    const contentEl = document?.querySelector(contentId);
 
     /**
      * @type {{ activeRoute:String }}
@@ -50,15 +51,15 @@ export const loadRoute = async ({ route = '' }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
-    const content = getRouteList()?.[route]?.({ root });
-    root.innerHTML = '';
+    const content = getRouteList()?.[route]?.();
+    contentEl.innerHTML = '';
     removeOrphanComponent();
-    root.insertAdjacentHTML('afterbegin', content);
+    contentEl.insertAdjacentHTML('afterbegin', content);
 
-    /**
+    /**jj
      * Wait for all render.
      */
-    await parseComponents({ element: root });
+    await parseComponents({ element: contentEl });
 
     /**
      * SKit after route change if another route is called.

@@ -4,15 +4,15 @@ import { mainStore } from '../mainStore';
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.root
+ * @param {String} obj.contentId
  * returns void
  *
  *
  * @description
  * Set root app.
  */
-export const setRoot = ({ root = document.createElement('div') }) => {
-    mainStore.set('root', root);
+export const setContent = ({ contentId = '' }) => {
+    mainStore.set('contentId', contentId);
 };
 
 /**
@@ -21,7 +21,7 @@ export const setRoot = ({ root = document.createElement('div') }) => {
  * @description
  * Set root app.
  */
-export const getRoot = () => {
-    const { root } = mainStore.get();
-    return root;
+export const getContent = () => {
+    const { contentId } = mainStore.get();
+    return contentId;
 };

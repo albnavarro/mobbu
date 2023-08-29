@@ -16,7 +16,7 @@ import { testModule } from './test';
 /**
  * Route
  */
-export const routeList = {
+export const pages = {
     home: homeModule,
     test: testModule,
     caterpillarN1: caterpillarN1Module,
