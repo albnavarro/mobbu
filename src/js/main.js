@@ -40,7 +40,7 @@ core.useLoad(() => {
         inizializeApp({
             rootId: '#root',
             contentId: '#content',
-            wrapper: wrapper,
+            wrapper,
             components,
             pages,
             index: 'home',
