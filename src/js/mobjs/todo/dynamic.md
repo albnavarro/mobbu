@@ -54,3 +54,11 @@ pageNotFound: [
 LoadRoute si avrá in ingresso il paramanto name.
 getContent diventa getContent({name: myName})
 In assenza di valore userá il primo.
+
+
+E questi ? come li gestiamo senza creare uno store apposito ?
+
+activeRoute: "test"
+atfterRouteChange: "test"
+beforeRouteChange: "test"
+beforeRouteLeave: ""
