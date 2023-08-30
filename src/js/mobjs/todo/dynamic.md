@@ -22,6 +22,7 @@ Parametri per ogni singola "istanza":
 - afterInit ( viene usato solo qui )
 
 Il trick é che inizializeApp avrá in entrata un paramantro name.
+Al nodo root si puó aggiungere un data-attribute data-mobjsroot="<contentId>" .. index .. pageNotFound ..
 Il contentId sará un oggetto come il seguente:
 
 contentId: [
@@ -51,12 +52,18 @@ pageNotFound: [
     }
 ]
 
+La funzione di cambio rotta andra a carcare il parent root e da li puó recupeare il
+contentId da passare a LoadRoute ( o chi per lei )
+
 LoadRoute si avrá in ingresso il paramanto name.
 getContent diventa getContent({name: myName})
 In assenza di valore userá il primo.
 
 
 E questi ? come li gestiamo senza creare uno store apposito ?
+Oppure con piu istanza muoiono ?
+Oppure vanno bene cosi ?
+Sarebbe da usare la funzione di cambio rotta bypassando il concetto di hash nell'url.
 
 activeRoute: "test"
 atfterRouteChange: "test"
