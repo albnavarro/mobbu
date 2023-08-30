@@ -1,10 +1,10 @@
 // @ts-check
 
-import { components } from './component/componentList';
+import * as components from './component/componentList';
+import * as pages from './pages/routeList';
 import { loadData } from './data';
 import { core } from './mobbu';
 import { inizializeApp } from './mobjs';
-import { pages } from './pages/routeList';
 import { wrapper } from './wrapper';
 // import { storeTest } from './test/storeTest';
 

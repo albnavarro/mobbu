@@ -1,4 +1,4 @@
-export const caterpillarN2Module = () => {
+export const caterpillarN2 = () => {
     return /* HTML */ `<div class="l-padding">
         <CaterpillarN2></CaterpillarN2>
     </div>`;

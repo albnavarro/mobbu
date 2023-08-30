@@ -1,6 +1,6 @@
 import { staticProps } from '../../../mobjs';
 
-export const horizontalScrollerModuleV2 = () => {
+export const horizontalScrollerV2 = () => {
     return /* HTML */ `<div>
         <HorizontalScroller
             data-staticprops="${staticProps({

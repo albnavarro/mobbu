@@ -1,6 +1,6 @@
 import { staticProps } from '../../../mobjs';
 
-export const animatedPatternN0v2Module = () => {
+export const animatedPatternN0v2 = () => {
     return /* HTML */ `<div class="l-padding">
         <AnimatedPatternN0
             data-staticprops=${staticProps({

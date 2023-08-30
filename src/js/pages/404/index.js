@@ -1,3 +1,3 @@
-export const pageNotFoundModule = () => {
+export const pageNotFound = () => {
     return /* HTML */ ` <div>page not found</div> `;
 };

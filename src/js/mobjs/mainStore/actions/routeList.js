@@ -9,7 +9,14 @@ import { mainStore } from '../mainStore';
  * @description
  * Add route list to store.
  */
-export const setRouteList = (list) => mainStore.set('routeList', list);
+export const setRouteList = (list) => {
+    const listParsed = Object.entries(list).reduce((previous, current) => {
+        const [key, value] = current;
+        return { ...previous, ...{ [key]: value } };
+    }, {});
+
+    mainStore.set('routeList', listParsed);
+};
 
 /**
  * @returns {{string:function():string}|{}} list

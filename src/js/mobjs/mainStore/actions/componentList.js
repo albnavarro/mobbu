@@ -7,8 +7,14 @@ import { mainStore } from '../mainStore';
  *
  * @returns void
  */
-export const setComponentList = (list = {}) =>
-    mainStore.set('componentList', list);
+export const setComponentList = (list = {}) => {
+    const listParsed = Object.values(list).reduce(
+        (previous, current) => ({ ...previous, ...current }),
+        {}
+    );
+
+    mainStore.set('componentList', listParsed);
+};
 
 /**
  * @description
