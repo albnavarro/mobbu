@@ -244,20 +244,26 @@ export const parseComponentsRecursive = async ({
      * 3 - First repat from current state.
      */
     functionToFireAtTheEnd.push({
-        onMount: async () => {
+        onMount: () => {
             return asyncLoading
-                ? new Promise((resolve) => {
-                      core.useFrame(() => {
-                          core.useNextTick(async () => {
-                              await fireOnMountCallBack({
-                                  id,
-                                  element: newElement,
+                ? (async () => {
+                      await fireOnMountCallBack({
+                          id,
+                          element: newElement,
+                      });
+
+                      /**
+                       * With heavy onMount function fire next one frame after.
+                       */
+                      return new Promise((resolve) => {
+                          core.useFrame(() => {
+                              core.useNextTick(() => {
+                                  resolve({ success: true });
                               });
-                              resolve({ success: true });
                           });
                       });
-                  })
-                : await fireOnMountCallBack({ id, element: newElement });
+                  })()
+                : fireOnMountCallBack({ id, element: newElement });
         },
         fireDynamic: () => {
             applyDynamicProps({ componentId: id, inizilizeWatcher: true });
