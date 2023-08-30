@@ -25,6 +25,8 @@ export const HeaderToggle = ({ onMount, render }) => {
         navigationStore.watch('closeNavigation', () => {
             hamburger.classList.remove('is-open');
         });
+
+        return () => {};
     });
 
     return render(/* HTML */ `

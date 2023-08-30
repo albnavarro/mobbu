@@ -23,6 +23,8 @@ export const Header = ({ render, onMount, staticProps }) => {
             const pageTransitionId = getIdByInstanceName('page-transition');
             setStateById(pageTransitionId, 'url', '#home');
         });
+
+        return () => {};
     });
 
     return render(/* HTML */ `

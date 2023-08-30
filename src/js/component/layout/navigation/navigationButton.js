@@ -17,6 +17,8 @@ export const NavigationButton = ({ getState, render, onMount }) => {
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
         });
+
+        return () => {};
     });
 
     return render(/* HTML */ `

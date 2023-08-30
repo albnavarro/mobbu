@@ -9,6 +9,8 @@ export const DebugButton = ({ render, onMount }) => {
             mainStore.debugStore();
             componentStore.debugStore();
         });
+
+        return () => {};
     });
 
     return render(/* HTML */ `

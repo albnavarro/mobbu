@@ -1,4 +1,3 @@
 ### Repeat
 
-- add bind!.
-- watch => listData.
+- Multiple instance.

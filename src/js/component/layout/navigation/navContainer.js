@@ -48,6 +48,8 @@ export const NavigationContainer = ({ render, onMount }) => {
         );
         addHandler({ main, toTopBtn });
         initNavigationScoller({ root: element });
+
+        return () => {};
     });
 
     return render(/* HTML */ `

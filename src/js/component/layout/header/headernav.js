@@ -52,6 +52,8 @@ export const Headernav = ({ render, onMount }) => {
                 navigationStore.emit('closeNavigation');
             });
         });
+
+        return () => {};
     });
 
     return render(/* HTML */ `
