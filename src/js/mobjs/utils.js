@@ -99,6 +99,13 @@ export const selectorDefault = `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}
  *
  * @description
  * Set instance name.
+ *
+ * @example
+ * ```javascript
+ * <MyComponent ${instanceName('my-instance-component')}></MyComponent>
+ *
+ * ```
+ *
  */
 export const instanceName = (name = '') => {
     return `${ATTR_INSTANCENAME}="${name}"`;
@@ -110,6 +117,13 @@ export const instanceName = (name = '') => {
  *
  * @description
  * Set instance name.
+ *
+ * @example
+ * ```javascript
+ * <slot ${slotName('slot2')}></slot>
+ *
+ * ```
+ *
  */
 export const slotName = (name = '') => {
     return `${ATTR_SLOT_NAME}="${name}"`;
@@ -121,6 +135,13 @@ export const slotName = (name = '') => {
  *
  * @description
  * Set instance name.
+ *
+ * @example
+ * ```javascript
+ * <MyComponent ${useSlot('slot2')}></MyComponent>
+ *
+ * ```
+ *
  */
 export const useSlot = (name = '') => {
     return `${ATTR_SLOT_POSITION}="${name}"`;
