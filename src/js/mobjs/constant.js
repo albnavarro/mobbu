@@ -68,6 +68,11 @@ export const ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL = 'dynamicpropsfromslot';
 /**
  * @type {string};
  */
+export const ATTR_INSTANCENAME = 'data-instancename';
+
+/**
+ * @type {string};
+ */
 export const ATTR_INSTANCENAME_PARTIAL = 'instancename';
 
 /**

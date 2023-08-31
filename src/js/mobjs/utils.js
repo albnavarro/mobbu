@@ -2,9 +2,12 @@
 
 import { getUnivoqueId } from '../mobbu/animation/utils/animationUtils';
 import {
+    ATTR_INSTANCENAME,
     ATTR_IS_COMPONENT,
     ATTR_IS_RUNTIME,
     ATTR_IS_RUNTIME_PARTIAL,
+    ATTR_SLOT_NAME,
+    ATTR_SLOT_POSITION,
     ATTR_WILL_COMPONENT,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
@@ -89,3 +92,36 @@ export const getSelectorDefaultTag = () => {
  * Select [data-component]:not[is-runtime]:not[data-mobjs]
  */
 export const selectorDefault = `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}]:not([${ATTR_IS_COMPONENT}]))`;
+
+/**
+ * @param {String} name
+ * @returns {String}
+ *
+ * @description
+ * Set instance name.
+ */
+export const instanceName = (name = '') => {
+    return `${ATTR_INSTANCENAME}="${name}"`;
+};
+
+/**
+ * @param {String} name
+ * @returns {String}
+ *
+ * @description
+ * Set instance name.
+ */
+export const slotName = (name = '') => {
+    return `${ATTR_SLOT_NAME}="${name}"`;
+};
+
+/**
+ * @param {String} name
+ * @returns {String}
+ *
+ * @description
+ * Set instance name.
+ */
+export const useSlot = (name = '') => {
+    return `${ATTR_SLOT_POSITION}="${name}"`;
+};

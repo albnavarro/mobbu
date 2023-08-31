@@ -20,7 +20,6 @@ import {
     ATTR_DYNAMIC,
     ATTR_PROPS,
     ATTR_REPEATID,
-    ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
 } from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
@@ -30,6 +29,11 @@ import {
     bindProps,
     staticProps,
 } from '../mainStore/actions/props';
+import {
+    instanceName as setInstanceName,
+    slotName as setSlotName,
+    useSlot,
+} from '../utils';
 import { convertToGenericElement } from './convertToGenericElement';
 import { removeWatchFromDynamicProps } from './utils';
 
@@ -127,10 +131,9 @@ export const registerGenericElement = ({ component, state = {} }) => {
         watch,
         repeatId,
         getChildren,
-        slotName: (/** @type{String} */ slotName) =>
-            `${ATTR_SLOT_NAME}=${slotName}`,
-        useSlot: (/** @type{String} */ slotName) =>
-            `${ATTR_SLOT_POSITION}=${slotName}`,
+        instanceName: (name = '') => setInstanceName(name),
+        slotName: (/** @type{String} */ slotName) => setSlotName(slotName),
+        useSlot: (/** @type{String} */ slotName) => useSlot(slotName),
         freezeProp: (/** @type{String} */ prop) => freezePropById({ id, prop }),
         unFreezeProp: (/** @type{String} */ prop) =>
             unFreezePropById({ id, prop }),

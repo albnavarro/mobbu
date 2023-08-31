@@ -1,6 +1,8 @@
+import { instanceName } from '../mobjs';
+
 export const wrapper = () => {
     return /* HTML */ `
-        <CodeOverlay data-instancename="codeOverlay"></CodeOverlay>
+        <CodeOverlay ${instanceName('codeOverlay')}></CodeOverlay>
         <div data-component="Header"></div>
         <NavigationContainer></NavigationContainer>
         <main class="main">
@@ -13,6 +15,6 @@ export const wrapper = () => {
         <div data-component="Footer">
             <DebugButton data-slotposition="debug"> </DebugButton>
         </div>
-        <PageTransition data-instancename="page-transition"></PageTransition>
+        <PageTransition ${instanceName('page-transition')}></PageTransition>
     `;
 };
