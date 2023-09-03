@@ -19,7 +19,7 @@ export const TestComponent2 = async ({
     bindProps,
     slotName,
 }) => {
-    const { label, index, counter } = getState();
+    const { isFull, label, index, counter } = getState();
 
     onMount(({ element }) => {
         const labelEl = element.querySelector('.label');
@@ -48,8 +48,10 @@ export const TestComponent2 = async ({
 
     await asyncTest();
 
+    const isFullClass = isFull ? 'is-full' : '';
+
     return render(/* HTML */ `
-        <div class="c-test-comp__inner">
+        <div class="c-test-comp__inner ${isFullClass}">
             <h4>t2</h4>
             <div class="label">${label}-${index}</div>
             <div class="counter">${counter}</div>

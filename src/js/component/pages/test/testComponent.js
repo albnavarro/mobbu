@@ -84,6 +84,7 @@ export const TestComponent = async ({
                 <button class="c-test-comp__btn children">Children</button>
             </div>
             <TestComponent2
+                ${staticProps({ isFull: true })}
                 ${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {
@@ -140,6 +141,7 @@ export const TestComponent = async ({
                 })}
             </div>
             <TestComponent2
+                ${staticProps({ isFull: true })}
                 ${bindProps({
                     bind: ['counter', 'data'],
                     props: ({ counter, data }) => {

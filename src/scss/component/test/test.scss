@@ -26,6 +26,12 @@
         margin-bottom: 2px;
     }
 
+    &__list {
+        border-top: 5px $black solid;
+        border-bottom: 5px $black solid;
+        margin-bottom: rem(30);
+    }
+
     &__btn {
         flex: 1;
         background: transparent;
@@ -33,7 +39,7 @@
     }
 
     &__inner {
-        flex: 25%;
+        flex: 0 1 25%;
         padding: rem(10);
         text-align: left;
         font-size: rem(14);
@@ -43,6 +49,10 @@
 
         &.is-selected {
             background: $grey;
+        }
+
+        &.is-full {
+            flex: 1;
         }
 
         &__btn {

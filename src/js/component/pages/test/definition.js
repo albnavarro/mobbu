@@ -50,8 +50,12 @@ export const testComponent2Def = createComponent({
     name: 'TestComponent2',
     component: TestComponent2,
     asyncCreation: false,
-    exportState: ['label', 'index', 'counter'],
+    exportState: ['isFull', 'label', 'index', 'counter'],
     state: {
+        isFull: () => ({
+            value: false,
+            type: Boolean,
+        }),
         label: () => ({
             value: '',
             type: String,
