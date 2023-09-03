@@ -125,10 +125,8 @@ export function getParents(element, selector) {
  */
 export function isDescendant(parent, child) {
     let node = child?.parentNode;
-    while (node !== null) {
-        if (node === parent) {
-            return true;
-        }
+    while (node) {
+        if (node === parent) return true;
         node = node?.parentNode;
     }
     return false;

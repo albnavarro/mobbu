@@ -26,7 +26,7 @@ import { mainStore } from '../mainStore';
  *   ></MyComponent>
  * ```
  */
-export const staticProps = (props = {}) => {
+export const setStaticProps = (props = {}) => {
     /**
      * @type {String}
      */
@@ -60,7 +60,7 @@ export const staticProps = (props = {}) => {
  *   ></MyComponent>
  * ```
  */
-export const bindProps = (propsObj = {}) => {
+export const setBindProps = (propsObj = {}) => {
     const propsIsValid = 'bind' in propsObj && 'props' in propsObj;
 
     if (!propsIsValid) {

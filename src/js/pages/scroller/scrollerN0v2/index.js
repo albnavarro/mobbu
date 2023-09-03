@@ -3,7 +3,7 @@ import { staticProps } from '../../../mobjs';
 export const scrollerN0v2 = () => {
     return /* HTML */ `<div>
         <ScrollerN0
-            data-staticprops=${staticProps({
+            ${staticProps({
                 stagger: {
                     type: 'end',
                     each: 1,

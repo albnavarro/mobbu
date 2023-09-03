@@ -6,11 +6,13 @@ import {
     ATTR_IS_COMPONENT,
     ATTR_IS_RUNTIME,
     ATTR_IS_RUNTIME_PARTIAL,
+    ATTR_PROPS,
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
     ATTR_WILL_COMPONENT,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
+import { setStaticProps } from './mainStore/actions/props';
 
 /**
  * @param {Object} obj
@@ -145,4 +147,27 @@ export const slotName = (name = '') => {
  */
 export const useSlot = (name = '') => {
     return `${ATTR_SLOT_POSITION}="${name}"`;
+};
+
+/**
+ * @param {{String:any}|{}} props
+ * @returns {String}
+ *
+ * @description
+ * Set static props
+ *
+ * @example
+ * ```javascript
+ * <MyComponent
+ *     ${staticProps({
+ *         gutter: 1,
+ *         ...
+ *     })}
+ * ></MyComponent>
+ *
+ * ```
+ *
+ */
+export const staticProps = (props = {}) => {
+    return `${ATTR_PROPS}="${setStaticProps(props)}"`;
 };

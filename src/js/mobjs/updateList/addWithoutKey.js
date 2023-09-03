@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { bindProps, staticProps } from '../mainStore/actions/props';
+import { setBindProps, setStaticProps } from '../mainStore/actions/props';
 import {
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
@@ -65,7 +65,7 @@ export const addWithoutKey = ({
                 const currentValue = current?.[index + previousLenght];
                 const currentIndex = index + previousLenght;
 
-                const currentProps = staticProps(
+                const currentProps = setStaticProps(
                     props({
                         current: currentValue,
                         index: currentIndex,
@@ -73,7 +73,7 @@ export const addWithoutKey = ({
                 );
 
                 const currentDynamicProps = dynamicProps
-                    ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
+                    ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
                     : '';
 
                 return /* HTML */ `

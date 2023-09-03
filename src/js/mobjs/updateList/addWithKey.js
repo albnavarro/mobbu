@@ -14,7 +14,7 @@ import {
     ATTR_PROPS,
     ATTR_WILL_COMPONENT,
 } from '../constant';
-import { bindProps, staticProps } from '../mainStore/actions/props';
+import { setBindProps, setStaticProps } from '../mainStore/actions/props';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -55,13 +55,13 @@ function getPartialsComponentList({
      * Get current value and save in component store item.
      */
     const currentValue = currentUnique?.[index];
-    const currentProps = staticProps(props({ current: currentValue, index }));
+    const currentProps = setStaticProps(props({ current: currentValue, index }));
 
     /**
      * Gat and save dynamicProps.
      */
     const currentDynamicProps = dynamicProps
-        ? `${ATTR_DYNAMIC}=${bindProps(dynamicProps)}`
+        ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
         : '';
 
     return /* HTML */ `

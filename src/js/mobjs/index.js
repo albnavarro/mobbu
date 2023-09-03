@@ -15,6 +15,4 @@ export { getChildrenIdByName } from './componentStore/action/children';
 export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { getPropsFromParent } from './mainStore/actions/props';
-export { staticProps } from './mainStore/actions/props';
-export { bindProps } from './mainStore/actions/props';
-export { slotName, useSlot, instanceName } from './utils';
+export { slotName, useSlot, instanceName, staticProps } from './utils';

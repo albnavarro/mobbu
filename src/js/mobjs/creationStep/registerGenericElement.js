@@ -16,18 +16,13 @@ import { unBind } from '../componentStore/action/props';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
-import {
-    ATTR_DYNAMIC,
-    ATTR_PROPS,
-    ATTR_REPEATID,
-    ATTR_SLOT_POSITION,
-} from '../constant';
+import { ATTR_DYNAMIC, ATTR_PROPS, ATTR_REPEATID } from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import {
     addCurrentIdToDynamicProps,
-    bindProps,
-    staticProps,
+    setBindProps,
+    setStaticProps,
 } from '../mainStore/actions/props';
 import {
     instanceName as setInstanceName,
@@ -141,9 +136,12 @@ export const registerGenericElement = ({ component, state = {} }) => {
         bindProps: (
             /** @type{{bind:Array<String>,props:() => Object}} */ obj
         ) =>
-            ` ${ATTR_DYNAMIC}="${bindProps({ ...obj, ...{ parentId: id } })}" `,
+            ` ${ATTR_DYNAMIC}="${setBindProps({
+                ...obj,
+                ...{ parentId: id },
+            })}" `,
         staticProps: (/** @type{{String: any}} */ obj) =>
-            ` ${ATTR_PROPS}="${staticProps(obj)}" `,
+            ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),
         getParentId: () => getParentIdById(id),
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
