@@ -1,5 +1,6 @@
 // @ts-check
 
+import { core } from '../../../mobMotion';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { mainStore } from '../mainStore';
 
@@ -67,4 +68,36 @@ export const fireOnMountCallBack = async ({ id, element }) => {
             return !(id in item);
         });
     });
+};
+
+/**
+ * @param {Object} obj
+ * @param {Boolean} obj.asyncLoading
+ * @param {String} obj.id - component id
+ * @param {HTMLElement} obj.element - root component HTMLElement.
+ * @returns Function
+ *
+ * @description
+ * Fire onMount callback.
+ */
+export const executeFireOnMountCallBack = ({ asyncLoading, id, element }) => {
+    return asyncLoading
+        ? (async () => {
+              await fireOnMountCallBack({
+                  id,
+                  element,
+              });
+
+              /**
+               * With heavy onMount function fire next one frame after.
+               */
+              return new Promise((resolve) => {
+                  core.useFrame(() => {
+                      core.useNextTick(() => {
+                          resolve({ success: true });
+                      });
+                  });
+              });
+          })()
+        : fireOnMountCallBack({ id, element });
 };

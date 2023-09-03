@@ -3,7 +3,7 @@
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { registerGenericElement } from '../creationStep/registerGenericElement';
-import { fireOnMountCallBack } from '../mainStore/actions/onMount';
+import { executeFireOnMountCallBack } from '../mainStore/actions/onMount';
 import { decrementParserCounter } from '../mainStore/actions/parser';
 import {
     applyDynamicProps,
@@ -24,7 +24,6 @@ import {
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
-import { core } from '../../mobMotion';
 
 /**
  * @param {Object} obj
@@ -145,7 +144,7 @@ export const parseComponentsRecursive = async ({
     const key = componentToParse?.dataset?.component ?? '';
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
-    const { asyncLoading, asyncCreation } = componentParams;
+    const { asyncLoading, asyncCreation, scoped } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
@@ -238,6 +237,17 @@ export const parseComponentsRecursive = async ({
     });
 
     /**
+     * Fire immediatly onMount callback, scoped to current component DOM.
+     * Child is ignored.
+     */
+    if (scoped)
+        executeFireOnMountCallBack({
+            asyncLoading,
+            id,
+            element: newElement,
+        });
+
+    /**
      * Store onMount callback.
      * Fire :
      * 1 - onMount callback.
@@ -246,25 +256,16 @@ export const parseComponentsRecursive = async ({
      */
     functionToFireAtTheEnd.push({
         onMount: () => {
-            return asyncLoading
-                ? (async () => {
-                      await fireOnMountCallBack({
-                          id,
-                          element: newElement,
-                      });
+            if (scoped) return;
 
-                      /**
-                       * With heavy onMount function fire next one frame after.
-                       */
-                      return new Promise((resolve) => {
-                          core.useFrame(() => {
-                              core.useNextTick(() => {
-                                  resolve({ success: true });
-                              });
-                          });
-                      });
-                  })()
-                : fireOnMountCallBack({ id, element: newElement });
+            /**
+             * Fire onMount callback at the end of current parse.
+             */
+            executeFireOnMountCallBack({
+                asyncLoading,
+                id,
+                element: newElement,
+            });
         },
         fireDynamic: () => {
             applyDynamicProps({ componentId: id, inizilizeWatcher: true });
