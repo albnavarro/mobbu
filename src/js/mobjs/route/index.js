@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobbu';
+import { core } from '../../mobMotion';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { setContent } from '../mainStore/actions/root';

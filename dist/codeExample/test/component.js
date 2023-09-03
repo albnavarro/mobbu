@@ -1,3 +1,5 @@
+// TEST EXAMPLE FILE.
+
 import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { offset, outerHeight } from '../../../mobMotion/utils/vanillaFunction';
@@ -130,16 +132,12 @@ export const HorizontalScroller = ({
                         source: source.description,
                     },
                     {
-                        label: 'definition',
-                        source: source.definition,
+                        label: 'animation',
+                        source: source.js,
                     },
                     {
                         label: 'component',
                         source: source.component,
-                    },
-                    {
-                        label: 'animation',
-                        source: source.animation,
                     },
                 ],
                 style: 'legend',

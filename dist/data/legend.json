@@ -2,8 +2,9 @@
     "caterpillarN1": {
         "source": {
             "description": "/codeExample/test/description.html",
-            "component": "/codeExample/test/index.js",
-            "js": "/codeExample/test/scripts.js",
+            "definition": "/codeExample/test/definition.js",
+            "component": "/codeExample/test/component.js",
+            "animation": "/codeExample/test/animation.js",
             "scss": "/codeExample/test/test.scss"
         }
     }

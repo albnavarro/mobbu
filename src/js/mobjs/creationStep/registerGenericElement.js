@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
+import { getUnivoqueId } from '../../mobMotion/animation/utils/animationUtils';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {

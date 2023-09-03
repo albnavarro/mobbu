@@ -24,7 +24,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Function} obj.component - Component function.
  * @param {Array<String>} obj.exportState - State editable from outside.
  * @param {Boolean} obj.asyncLoading - Fire onMount callback in a separate animation Frame.
- * @param {import('../../mobbu').MobbuStoreType} obj.state - Component state
+ * @param {import('../../mobMotion').MobbuStoreType} obj.state - Component state
  * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description

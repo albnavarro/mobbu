@@ -1,6 +1,6 @@
 // @ts-checc
 
-import { checkType } from '../../mobbu/store/storeType';
+import { checkType } from '../../mobMotion/store/storeType';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
     freezePropById,

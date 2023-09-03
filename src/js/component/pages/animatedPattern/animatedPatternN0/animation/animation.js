@@ -1,4 +1,4 @@
-import { core, timeline, tween } from '../../../../../mobbu';
+import { core, timeline, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,

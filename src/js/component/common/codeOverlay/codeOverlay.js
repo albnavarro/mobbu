@@ -121,15 +121,6 @@ export const CodeOverlay = ({
         });
 
         /**
-         * Close overlay.
-         */
-        closebtn.addEventListener('click', () => setState('isOpen', false));
-        background.addEventListener('click', () => setState('isOpen', false));
-        copyButton.addEventListener('click', () =>
-            copyToClipboard({ getState })
-        );
-
-        /**
          * Toggle visible state.
          */
         const unWatchVisibleState = watch('isOpen', (isOpen) => {
@@ -149,6 +140,15 @@ export const CodeOverlay = ({
                 goToTop();
             }
         });
+
+        /**
+         * Close overlay.
+         */
+        closebtn.addEventListener('click', () => setState('isOpen', false));
+        background.addEventListener('click', () => setState('isOpen', false));
+        copyButton.addEventListener('click', () =>
+            copyToClipboard({ getState })
+        );
 
         return () => {
             unWatchVisibleState();

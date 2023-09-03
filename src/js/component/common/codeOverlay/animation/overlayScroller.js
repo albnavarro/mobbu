@@ -1,4 +1,4 @@
-import { SmoothScroller } from '../../../../mobbu/plugin';
+import { SmoothScroller } from '../../../../mobMotion/plugin';
 
 export const overlayScroller = ({ screen, scroller }) => {
     const instance = new SmoothScroller({

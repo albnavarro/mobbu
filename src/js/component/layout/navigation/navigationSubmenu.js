@@ -1,4 +1,4 @@
-import { slide } from '../../../mobbu/plugin';
+import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
 
 function getSubmenu(children, staticProps) {

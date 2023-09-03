@@ -1,6 +1,6 @@
 // @ts-check
 
-import { isDescendant } from '../../mobbu/utils/vanillaFunction';
+import { isDescendant } from '../../mobMotion/utils/vanillaFunction';
 import { getElementById } from '../componentStore/action/element';
 
 /**

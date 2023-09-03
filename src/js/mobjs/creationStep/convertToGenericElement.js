@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../mobbu/animation/utils/animationUtils';
+import { getUnivoqueId } from '../../mobMotion/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import {
     ATTR_DYNAMIC_PARTIAL,

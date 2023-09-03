@@ -1,6 +1,6 @@
-import { core, timeline, tween } from '../../../../../mobbu';
-import { clamp } from '../../../../../mobbu/animation/utils/animationUtils';
-import { offset } from '../../../../../mobbu/utils/vanillaFunction';
+import { core, timeline, tween } from '../../../../../mobMotion';
+import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
+import { offset } from '../../../../../mobMotion/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,

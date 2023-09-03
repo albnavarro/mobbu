@@ -1,4 +1,4 @@
-import { bodyScroll } from '../../../mobbu/plugin';
+import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 

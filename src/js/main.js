@@ -3,7 +3,7 @@
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
-import { core } from './mobbu';
+import { core } from './mobMotion';
 import { inizializeApp } from './mobjs';
 import { wrapper } from './wrapper';
 // import { storeTest } from './test/storeTest';

@@ -1,4 +1,4 @@
-import { getUnivoqueId } from '../../../mobbu/animation/utils/animationUtils';
+import { getUnivoqueId } from '../../../mobMotion/animation/utils/animationUtils';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
 import { mainStore } from '../mainStore';
 

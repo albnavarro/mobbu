@@ -1,3 +1,4 @@
+import { getLegendData } from '../../../data';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
@@ -27,6 +28,9 @@ export const Header = ({ render, onMount, staticProps }) => {
         return () => {};
     });
 
+    const { caterpillarN1 } = getLegendData();
+    const { source } = caterpillarN1;
+
     return render(/* HTML */ `
         <header class="l-header">
             <div class="l-header__container">
@@ -44,23 +48,19 @@ export const Header = ({ render, onMount, staticProps }) => {
                             drawers: [
                                 {
                                     label: 'description',
-                                    source: '/codeExample/test/description.html',
+                                    source: source.description,
+                                },
+                                {
+                                    label: 'definition',
+                                    source: source.definition,
+                                },
+                                {
+                                    label: 'component',
+                                    source: source.component,
                                 },
                                 {
                                     label: 'animation',
-                                    source: '/codeExample/test/index.js',
-                                },
-                                {
-                                    label: 'css',
-                                    source: '/codeExample/test/test.scss',
-                                },
-                                {
-                                    label: 'animation2',
-                                    source: '/codeExample/test/index.js',
-                                },
-                                {
-                                    label: 'component2',
-                                    source: '/codeExample/test/index.js',
+                                    source: source.animation,
                                 },
                             ],
                             style: 'green',

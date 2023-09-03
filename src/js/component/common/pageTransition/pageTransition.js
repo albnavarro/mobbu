@@ -1,4 +1,4 @@
-import { timeline, tween } from '../../../mobbu';
+import { timeline, tween } from '../../../mobMotion';
 import { loadUrl } from '../../../mobjs';
 
 /**

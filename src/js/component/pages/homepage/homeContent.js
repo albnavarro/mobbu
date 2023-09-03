@@ -1,4 +1,4 @@
-import { tween } from '../../../mobbu';
+import { tween } from '../../../mobMotion';
 
 /**
  * @param {import('../../../mobjs/type').componentType}

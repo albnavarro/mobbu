@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobbu';
+import { core } from '../../mobMotion';
 import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,

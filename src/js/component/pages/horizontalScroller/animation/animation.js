@@ -1,6 +1,6 @@
-import { scroller } from '../../../../mobbu';
-import { HorizontalScroller } from '../../../../mobbu/plugin';
-import { outerWidth } from '../../../../mobbu/utils/vanillaFunction';
+import { scroller } from '../../../../mobMotion';
+import { HorizontalScroller } from '../../../../mobMotion/plugin';
+import { outerWidth } from '../../../../mobMotion/utils/vanillaFunction';
 
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -30,7 +30,7 @@ const createPins = ({ indicators, setState }) => {
                 setState('currentIdFromScroll', i);
             },
             onLeaveBack: () => {
-                setState('currentId', -1);
+                // setState('currentId', -1);
                 setState('currentIdFromScroll', i - 1);
             },
         });

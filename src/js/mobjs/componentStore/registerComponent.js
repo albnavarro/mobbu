@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobbu';
+import { core } from '../../mobMotion';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { getFreezePropStatus } from './action/freeze';
 import { componentStore } from './store';

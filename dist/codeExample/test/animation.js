@@ -1,3 +1,5 @@
+// TEST EXAMPLE ANIMATION.
+
 import { core, tween } from '../../../../../mobMotion';
 import { offset } from '../../../../../mobMotion/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';

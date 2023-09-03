@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobbu';
+import { core } from '../../mobMotion';
 
 export const mainStore = core.createStore({
     contentId: () => ({

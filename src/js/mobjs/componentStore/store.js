@@ -1,5 +1,5 @@
 // @ts-check
-import { core } from '../../mobbu';
+import { core } from '../../mobMotion';
 
 /**
  * @typedef {Object} componentStoreType

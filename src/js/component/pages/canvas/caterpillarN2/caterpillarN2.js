@@ -80,12 +80,16 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
                             source: source.description,
                         },
                         {
-                            label: 'animation',
-                            source: source.js,
+                            label: 'definition',
+                            source: source.definition,
                         },
                         {
                             label: 'component',
                             source: source.component,
+                        },
+                        {
+                            label: 'animation',
+                            source: source.animation,
                         },
                     ],
                     style: 'legend',

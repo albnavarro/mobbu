@@ -1,5 +1,5 @@
-import { core, scroller, tween } from '../../../../../mobbu';
-import { outerHeight } from '../../../../../mobbu/utils/vanillaFunction';
+import { core, scroller, tween } from '../../../../../mobMotion';
+import { outerHeight } from '../../../../../mobMotion/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
