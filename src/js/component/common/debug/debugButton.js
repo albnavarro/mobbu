@@ -14,6 +14,6 @@ export const DebugButton = ({ render, onMount }) => {
     });
 
     return render(/* HTML */ `
-        <button type="button" class="c-btn-debug">debug</button>
+        <button type="button" class="c-btn-debug">console debug</button>
     `);
 };

@@ -3,12 +3,12 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-btn-debug {
-    background: transparent;
+    background: rgba($white, 0.2);
     border: 0;
     margin: 0;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: rem(20);
+    top: 0;
+    bottom: 0;
+    padding: 0 rem(20);
 }
