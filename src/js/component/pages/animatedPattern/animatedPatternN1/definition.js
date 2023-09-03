@@ -1,8 +1,8 @@
-import { createComponentDefinition } from '../../../../mobjs';
+import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { AnimatedPatternN1 } from './animatedPatternN1';
 
-export const animatedPatternN1Def = createComponentDefinition({
+export const animatedPatternN1Def = createComponent({
     name: 'AnimatedPatternN1',
     component: AnimatedPatternN1,
     asyncLoading: true,

@@ -1,8 +1,8 @@
-import { createComponentDefinition } from '../../../../mobjs';
+import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { ScrollerN0 } from './scrollerN0';
 
-export const scrollerN0Def = createComponentDefinition({
+export const scrollerN0Def = createComponent({
     name: 'scrollerN0',
     component: ScrollerN0,
     asyncLoading: true,

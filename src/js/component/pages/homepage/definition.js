@@ -1,7 +1,7 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { HomeContent } from './homeContent';
 
-export const homePageComponentDef = createComponentDefinition({
+export const homePageComponentDef = createComponent({
     name: 'HomeContent',
     component: HomeContent,
 });

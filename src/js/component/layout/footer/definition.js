@@ -1,7 +1,7 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { Footer } from './footer';
 
-export const footerComponentDef = createComponentDefinition({
+export const footerComponentDef = createComponent({
     name: 'Footer',
     component: Footer,
 });

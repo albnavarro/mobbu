@@ -1,9 +1,9 @@
 // TEST EXAMPLE COMPONENT DEFINITION.
 
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { HorizontalScroller } from './horizontalScroller';
 
-export const horizontalScrollerDef = createComponentDefinition({
+export const horizontalScrollerDef = createComponent({
     name: 'HorizontalScroller',
     component: HorizontalScroller,
     asyncLoading: true,

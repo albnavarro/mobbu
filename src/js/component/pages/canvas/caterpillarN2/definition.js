@@ -1,4 +1,4 @@
-import { createComponentDefinition } from '../../../../mobjs';
+import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN2 } from './caterpillarN2';
 
@@ -47,7 +47,7 @@ const buttons = {
     },
 };
 
-export const caterpillarN2Def = createComponentDefinition({
+export const caterpillarN2Def = createComponent({
     name: 'Caterpillarn2',
     component: CaterpillarN2,
     asyncLoading: true,

@@ -1,7 +1,7 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { CodeButton } from './codeButton';
 
-export const codeButtonComponentDef = createComponentDefinition({
+export const codeButtonComponentDef = createComponent({
     name: 'CodeButton',
     component: CodeButton,
     exportState: ['drawers', 'style'],

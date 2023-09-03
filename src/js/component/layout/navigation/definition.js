@@ -1,16 +1,16 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
 import { NavigationButton } from './navigationButton';
 import { NavigationSubmenu } from './navigationSubmenu';
 
-export const navigationComponentDef = createComponentDefinition({
+export const navigationComponentDef = createComponent({
     name: 'NavigationContainer',
     component: NavigationContainer,
     asyncLoading: true,
 });
 
-export const navigationDef = createComponentDefinition({
+export const navigationDef = createComponent({
     name: 'Navigation',
     component: Navigation,
     state: {
@@ -21,7 +21,7 @@ export const navigationDef = createComponentDefinition({
     },
 });
 
-export const navigationSubmenuDef = createComponentDefinition({
+export const navigationSubmenuDef = createComponent({
     name: 'NavigationSubmenu',
     component: NavigationSubmenu,
     asyncLoading: true,
@@ -46,7 +46,7 @@ export const navigationSubmenuDef = createComponentDefinition({
     },
 });
 
-export const navigationButtonDef = createComponentDefinition({
+export const navigationButtonDef = createComponent({
     name: 'NavigationButton',
     component: NavigationButton,
     exportState: ['label', 'url', 'arrowClass', 'subMenuClass', 'fireRoute'],

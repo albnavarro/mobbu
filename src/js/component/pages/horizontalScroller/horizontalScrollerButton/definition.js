@@ -1,7 +1,7 @@
-import { createComponentDefinition } from '../../../../mobjs';
+import { createComponent } from '../../../../mobjs';
 import { HorizontalScrollerButton } from './horizontalScrollerButton';
 
-export const horizontalScrollerButtonDef = createComponentDefinition({
+export const horizontalScrollerButtonDef = createComponent({
     name: 'HorizontalScrollerButton',
     component: HorizontalScrollerButton,
     exportState: ['id', 'callback', 'active'],

@@ -31,7 +31,7 @@ export const getRouteModule = ({ url = '' }) => {
  * Format component definition in object key: value.
  * name, function, props, state
  */
-export const createComponentDefinition = ({
+export const createComponent = ({
     name = '',
     component = () => {},
     exportState = [],

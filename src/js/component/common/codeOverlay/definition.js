@@ -1,11 +1,11 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { CodeOverlay } from './codeOverlay';
 import { CodeOverlayButton } from './codeOverlayButton';
 
 /**
  * Overlay state
  */
-export const codeOverlayDef = createComponentDefinition({
+export const codeOverlayDef = createComponent({
     name: 'CodeOverlay',
     component: CodeOverlay,
     asyncLoading: true,
@@ -34,7 +34,7 @@ export const codeOverlayDef = createComponentDefinition({
 /**
  * Button state ( each for every drawer ).
  */
-export const codeOverlayButtonDef = createComponentDefinition({
+export const codeOverlayButtonDef = createComponent({
     name: 'CodeOverlayButton',
     component: CodeOverlayButton,
     exportState: ['key', 'callback', 'selected', 'disable'],

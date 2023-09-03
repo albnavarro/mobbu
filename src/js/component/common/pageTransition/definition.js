@@ -1,7 +1,7 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { PageTransition } from './pageTransition';
 
-export const pageTransitionComponentDef = createComponentDefinition({
+export const pageTransitionComponentDef = createComponent({
     name: 'PageTransition',
     component: PageTransition,
     asyncLoading: true,

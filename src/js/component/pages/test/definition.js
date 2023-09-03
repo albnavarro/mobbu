@@ -1,9 +1,9 @@
-import { createComponentDefinition } from '../../../mobjs';
+import { createComponent } from '../../../mobjs';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
 import { TestComponent3 } from './testComponent3';
 
-export const testComponentDef = createComponentDefinition({
+export const testComponentDef = createComponent({
     name: 'TestComponent',
     component: TestComponent,
     exportState: ['title'],
@@ -45,7 +45,7 @@ export const testComponentDef = createComponentDefinition({
     },
 });
 
-export const testComponent2Def = createComponentDefinition({
+export const testComponent2Def = createComponent({
     name: 'TestComponent2',
     component: TestComponent2,
     exportState: ['label', 'index', 'counter'],
@@ -69,7 +69,7 @@ export const testComponent2Def = createComponentDefinition({
     },
 });
 
-export const testComponent3Def = createComponentDefinition({
+export const testComponent3Def = createComponent({
     name: 'TestComponent3',
     component: TestComponent3,
     exportState: [
