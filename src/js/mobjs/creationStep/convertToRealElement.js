@@ -109,44 +109,76 @@ const addToSlot = ({ element }) => {
  * @param {Object} obj
  * @param {HTMLElement} obj.placeholderElement
  * @param {String} obj.content
- * @returns { Promise<{newElement:( HTMLElement|undefined )}> }
+ * @returns {HTMLElement|undefined}
+ *
+ *
+ */
+const executeConversion = ({ placeholderElement, content }) => {
+    /**
+     * @type {String}
+     *
+     * @description
+     * Add real content from render function
+     */
+    const prevContent = placeholderElement.innerHTML;
+    const newElement = getNewElement({ placeholderElement, content });
+
+    /**
+     * Get inner content and copy data from provvisory component
+     */
+    if (newElement) {
+        const id = placeholderElement.id;
+        newElement.insertAdjacentHTML('afterbegin', prevContent);
+        addToSlot({ element: newElement });
+        removeOrphanSlot({ element: newElement });
+        newElement.id = id;
+        newElement.setAttribute(ATTR_IS_COMPONENT, '');
+    }
+
+    /**
+     * Delete provvisory component and add real component.
+     */
+    placeholderElement.remove();
+
+    return newElement;
+};
+
+/**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.placeholderElement
+ * @param {String} obj.content
+ * @param {Boolean} obj.asyncCreation
+ * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
  * Add content to component
+ * Return new Element immediatly or after first usable animation Frame.
  *
  */
-export const convertToRealElement = ({ placeholderElement, content }) => {
-    return new Promise((resolve) => {
-        core.useFrame(() => {
-            /**
-             * @type {String}
-             *
-             * @description
-             * Add real content from render function
-             */
-            const prevContent = placeholderElement.innerHTML;
-            const newElement = getNewElement({ placeholderElement, content });
+export const convertToRealElement = ({
+    placeholderElement,
+    content,
+    asyncCreation,
+}) => {
+    return asyncCreation
+        ? new Promise((resolve) => {
+              core.useFrame(() => {
+                  const newElement = executeConversion({
+                      placeholderElement,
+                      content,
+                  });
 
-            /**
-             * Get inner content and copy data from provvisory component
-             */
-            if (newElement) {
-                const id = placeholderElement.id;
-                newElement.insertAdjacentHTML('afterbegin', prevContent);
-                addToSlot({ element: newElement });
-                removeOrphanSlot({ element: newElement });
-                newElement.id = id;
-                newElement.setAttribute(ATTR_IS_COMPONENT, '');
-            }
+                  core.useNextTick(() => {
+                      resolve({ newElement });
+                  });
+              });
+          })
+        : (() => {
+              const newElement = executeConversion({
+                  placeholderElement,
+                  content,
+              });
 
-            /**
-             * Delete provvisory component and add real component.
-             */
-            placeholderElement.remove();
-
-            core.useNextTick(() => {
-                resolve({ newElement });
-            });
-        });
-    });
+              return { newElement };
+          })();
 };

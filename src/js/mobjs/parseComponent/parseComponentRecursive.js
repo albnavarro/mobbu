@@ -145,7 +145,7 @@ export const parseComponentsRecursive = async ({
     const key = componentToParse?.dataset?.component ?? '';
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
-    const { asyncLoading } = componentParams;
+    const { asyncLoading, asyncCreation } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
@@ -187,6 +187,7 @@ export const parseComponentsRecursive = async ({
     const { newElement } = await convertToRealElement({
         content,
         placeholderElement,
+        asyncCreation,
     });
 
     /**

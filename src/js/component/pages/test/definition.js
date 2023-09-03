@@ -49,6 +49,7 @@ export const testComponentDef = createComponent({
 export const testComponent2Def = createComponent({
     name: 'TestComponent2',
     component: TestComponent2,
+    asyncCreation: false,
     exportState: ['label', 'index', 'counter'],
     state: {
         label: () => ({

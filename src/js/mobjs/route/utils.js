@@ -24,6 +24,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Function} obj.component - Component function.
  * @param {Array<String>} obj.exportState - State editable from outside.
  * @param {Boolean} obj.asyncLoading - Fire onMount callback in a separate animation Frame.
+ * @param {Boolean} obj.asyncCreation - Create element in a separate nextTick ( after a single animatioFrame ).
  * @param {import('../../mobMotion').MobbuStoreType} obj.state - Component state
  * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
@@ -35,6 +36,7 @@ export const createComponent = ({
     name = '',
     component = () => {},
     exportState = [],
+    asyncCreation = true,
     asyncLoading = false,
     state = {},
 }) => {
@@ -43,6 +45,7 @@ export const createComponent = ({
             componentFunction: component,
             componentParams: {
                 exportState,
+                asyncCreation,
                 asyncLoading,
                 state,
             },
