@@ -241,7 +241,7 @@ export const parseComponentsRecursive = async ({
      * Child is ignored.
      */
     if (scoped)
-        executeFireOnMountCallBack({
+        await executeFireOnMountCallBack({
             asyncLoading,
             id,
             element: newElement,
