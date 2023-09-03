@@ -2,6 +2,7 @@ import { createComponent } from '../../../mobjs';
 import { TestComponent } from './testComponent';
 import { TestComponent2 } from './testComponent2';
 import { TestComponent3 } from './testComponent3';
+import { TestComponent4 } from './testComponent4';
 
 export const testComponentDef = createComponent({
     name: 'TestComponent',
@@ -101,4 +102,9 @@ export const testComponent3Def = createComponent({
             type: 'any',
         }),
     },
+});
+
+export const testComponent4Def = createComponent({
+    name: 'TestComponent4',
+    component: TestComponent4,
 });

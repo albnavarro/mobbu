@@ -75,7 +75,7 @@ export const TestComponent2 = async ({
             <button class="c-test-comp__inner__btn" type="button">
                 toggle
             </button>
-            <Codebutton ${staticProps({ style: 'primary' })}> </Codebutton>
+            <TestComponent4></TestComponent4>
         </div>
     `);
 };
