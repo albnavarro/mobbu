@@ -23,7 +23,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {String} obj.name - Component tag name.
  * @param {Function} obj.component - Component function.
  * @param {Array<String>} obj.exportState - State editable from outside.
- * @param {Boolean} obj.asyncLoading - Fire onMount callback in a separate animation Frame.
+ * @param {Boolean} obj.asyncLoading - Fire onMount callback a separate nextTick ( after a single animatioFrame ).
  * @param {Boolean} obj.asyncCreation - Create element in a separate nextTick ( after a single animatioFrame ).
  * @param {Boolean} obj.scoped - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
    This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
