@@ -1,4 +1,4 @@
-// TEST EXAMPLE FILE.
+// Test example component (horizontalscroller).
 
 import { getLegendData } from '../../../data';
 import { bodyScroll } from '../../../mobMotion/plugin';

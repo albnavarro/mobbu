@@ -1,315 +1,145 @@
-// TEST EXAMPLE ANIMATION.
+// Test example animation (horizontalscroller).
 
-import { core, tween } from '../../../../../mobMotion';
-import { offset } from '../../../../../mobMotion/utils/vanillaFunction';
-import { mainStore } from '../../../../../mobjs';
-import {
-    copyCanvasBitmap,
-    getCanvasContext,
-    getOffsetCanvas,
-    roundRectCustom,
-} from '../../../../../utils/canvasUtils';
-import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { scroller } from '../../../../mobMotion';
+import { HorizontalScroller } from '../../../../mobMotion/plugin';
+import { outerWidth } from '../../../../mobMotion/utils/vanillaFunction';
 
-function getWithRounded({ width, relativeIndex, amountOfPath }) {
-    return (
-        Math.sqrt(
-            Math.pow(width * relativeIndex, 2) -
-                Math.pow(
-                    ((width * relativeIndex) / amountOfPath) * relativeIndex,
-                    2
-                )
-        ) * 2
-    );
-}
+const createPins = ({ indicators, setState }) => {
+    return [...indicators].map((button, i) => {
+        return scroller.createScrollTrigger({
+            item: button,
+            pin: true,
+            animateAtStart: false,
+            range: '0.1px', // Necessary to use onENter etc..
+            animatePin: true,
+            dynamicStart: {
+                position: 'right',
+                value: () => {
+                    return (
+                        window.innerWidth + 20 - outerWidth(button) * (i + 1)
+                    );
+                },
+            },
+            dynamicEnd: {
+                position: 'right',
+                value: () => {
+                    const relativeIndex = indicators.length - (i - 2);
+                    return (window.innerWidth / 10) * 9 * relativeIndex;
+                },
+            },
+            onEnter: () => {
+                setState('currentId', -1);
+                setState('currentIdFromScroll', i);
+            },
+            onLeaveBack: () => {
+                // setState('currentId', -1);
+                setState('currentIdFromScroll', i - 1);
+            },
+        });
+    });
+};
 
-function getHeightRounded({ height, relativeIndex, amountOfPath }) {
-    return (
-        Math.sqrt(
-            Math.pow(height * relativeIndex, 2) -
-                Math.pow(
-                    ((height * relativeIndex) / amountOfPath) * relativeIndex,
-                    2
-                )
-        ) * 2
-    );
-}
+/**
+ * Referesh pins position
+ */
+const refreshPins = ({ pins }) => {
+    pins.forEach((pin) => pin.refresh());
+};
 
-export const caterpillarN0Animation = ({
-    canvas,
-    amountOfPath,
-    width,
-    height,
-    radius,
-    fill,
-    stroke,
-    opacity,
-    spacerY,
-    intialRotation,
-    perpetualRatio,
-    mouseMoveRatio,
-    disableOffcanvas,
+/**
+ * Create parallax titles
+ */
+const createParallax = ({ titles }) => {
+    return [...titles].map((title) => {
+        return scroller.createParallax({
+            item: title,
+            propierties: 'x',
+            reverse: true,
+            range: '9',
+        });
+    });
+};
+
+/**
+ * Hide navigation on scroll unpin
+ */
+const showNav = ({ nav }) => {
+    nav.classList.add('active');
+
+    const indicators = document.querySelectorAll('.js-indicator');
+    [...indicators].forEach((indicator) => {
+        indicator.classList.add('active');
+    });
+};
+
+/**
+ * Shor navigation on scroll pin
+ */
+const hideNav = ({ nav }) => {
+    nav.classList.remove('active');
+
+    const indicators = document.querySelectorAll('.js-indicator');
+    [...indicators].forEach((indicator) => {
+        indicator.classList.remove('active');
+    });
+};
+
+/**
+ * Create main scroller.
+ */
+export const horizontalScrollerAnimation = ({
+    indicators,
+    titles,
+    nav,
+    animatePin,
+    setState,
 }) => {
-    /**
-     * Check if offscrennCanvas can be used.
-     */
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    const pins = createPins({ indicators, setState });
+    const titlesParallax = createParallax({ titles });
 
-    /**
-     * Mutable keyword is used for destroy reference.
-     */
-    let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
-    let stemData = [];
-    let steamDataReorded = [];
-    let mainTween = {};
-    let { left } = offset(canvas);
-    const { activeRoute } = mainStore.get();
-
-    /**
-     * If offscreen is supported use.
-     */
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-
-    /**
-     * Initial misure.
-     */
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-
-    /**
-     * Setup data.
-     */
-    stemData = [...Array(amountOfPath).keys()].map((_item, i) => {
-        const count = i;
-        const index = count < amountOfPath / 2 ? amountOfPath - count : count;
-        const relativeIndex = index - (amountOfPath - index);
-
-        return {
-            width: Math.floor(
-                getWithRounded({ width, relativeIndex, amountOfPath })
-            ),
-            height: Math.floor(
-                getHeightRounded({ height, relativeIndex, amountOfPath })
-            ),
-            fill,
-            stroke,
-            opacity: relativeIndex * opacity,
-            rotate: 0,
-            y: 0,
-            relativeIndex,
-            index: i,
-        };
-    });
-
-    /**
-     * Subdived oginal array in half and reverse the half section.
-     */
-    steamDataReorded = stemData
-        .splice(0, stemData.length / 2)
-        .concat(stemData.reverse());
-
-    /**
-     * Create tween.
-     */
-    mainTween = tween.createSpring({
-        data: { rotate: 0, y: 0 },
-        stagger: { each: 5, from: 'center' },
-    });
-
-    /**
-     * Subscribe rect to rotation tween.
-     */
-    [...steamDataReorded].forEach((item) => {
-        mainTween.subscribeCache(item, ({ rotate }) => {
-            item.rotate = rotate;
-        });
-    });
-
-    /**
-     * Main draw function.
-     */
-    const draw = ({ time = 0 }) => {
-        if (!ctx) return;
-
-        if (useOffscreen) {
-            offscreen.width = canvas.width;
-            offscreen.height = canvas.height;
-        }
-
-        const context = useOffscreen ? offScreenCtx : ctx;
-
-        /**
-         * Get center of canvas.
-         */
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-        /**
-         * Clear rpevious render.
-         */
-        context.fillStyle = '#1a1b26';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        steamDataReorded.forEach(
-            ({ width, height, opacity, rotate, relativeIndex, index: i }) => {
-                /**
-                 * Pertual movment based on timeframe.
-                 */
-                const offset =
-                    Math.sin(time / 1000) * perpetualRatio * relativeIndex;
-
-                /**
-                 * Invert perpetual movment by the two half of array and set multiplier.
-                 */
-                const offsetInverse =
-                    i < amountOfPath / 2
-                        ? offset + (15 * relativeIndex) / 2
-                        : -offset - (15 * relativeIndex) / 2;
-
-                /**
-                 * Space between tho half
-                 */
-                const centerDirection = i < amountOfPath / 2 ? -1 : 1;
-
-                /**
-                 * Center canvas in the screen
-                 */
-
-                const scale = 1;
-                const rotation = (Math.PI / 180) * (rotate - intialRotation);
-                const xx = Math.cos(rotation) * scale;
-                const xy = Math.sin(rotation) * scale;
-
-                /**
-                 * Apply scale/rotation/scale all toghether.
-                 */
-                context.setTransform(
-                    xx,
-                    xy,
-                    -xy,
-                    xx,
-                    centerX,
-                    centerY + height / 2
-                );
-
-                /**
-                 * Shape
-                 */
-                roundRectCustom(
-                    context,
-                    -(width * centerDirection) / 2,
-                    -height / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
-                    width,
-                    height,
-                    radius
-                );
-
-                /**
-                 * Color.
-                 */
-                context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-                context.fillStyle = `rgba(26, 27, 38, ${opacity})`;
-                context.stroke();
-                context.fill();
-
-                /**
-                 * Reset all transform instead save() restore().
-                 */
-                context.setTransform(1, 0, 0, 1, 0, 0);
-            }
-        );
-
-        copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-
-    /**
-     * Loop
-     */
-    const loop = ({ time = 0 }) => {
-        draw({ time });
-
-        if (!isActive) return;
-
-        core.useNextFrame(({ time }) => loop({ time }));
-    };
-
-    /**
-     * Start loop.
-     */
-    core.useFrame(({ time }) => {
-        loop({ time });
-    });
-
-    /**
-     * Resize canvas.
-     */
-    const unsubscribeResize = core.useResize(() => {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        left = offset(canvas).left;
-        core.useFrame(({ time }) => {
-            draw({ time });
-        });
-    });
-
-    const move = ({ x }) => {
-        const xCenter = x - canvas.width / 2 - left;
-        mainTween.goTo({
-            rotate: xCenter / mouseMoveRatio,
-        });
-    };
-
-    /**
-     * Mouse move.
-     */
-    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
-        const { x } = client;
-        move({ x });
-    });
-
-    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
-        const { x } = client;
-        move({ x });
-    });
-
-    /**
-     * Pause/Resume animation on nav open.
-     */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        isActive = false;
-    });
-
-    const unWatchResume = navigationStore.watch('closeNavigation', () => {
-        setTimeout(() => {
-            isActive = true;
-
+    const horizontalCustom = new HorizontalScroller({
+        root: '.js-root',
+        container: '.js-container',
+        row: '.js-row',
+        column: '.js-column',
+        trigger: '.js-trigger',
+        shadowClass: '.shadowClass',
+        useWillChange: true,
+        useDrag: true,
+        useSticky: !animatePin,
+        animateAtStart: false,
+        ease: true,
+        addCss: true,
+        columnHeight: 70,
+        columnWidth: 100,
+        columnAlign: 'center',
+        pin: animatePin,
+        animatePin,
+        breackpoint: 'tablet',
+        children: [...pins, ...titlesParallax],
+        onEnter: () => {
+            showNav({ nav, indicators });
+        },
+        onEnterBack: () => {
             /**
-             * If close nav but change route skip.
+             * With fast scroll forward bottom of the page pin can lost position.
+             * So upodate when scroller back active.
              */
-            const { activeRoute: currentRoute } = mainStore.get();
-            if (currentRoute !== activeRoute) return;
-
-            /**
-             * Restart loop
-             */
-            core.useFrame(({ time }) => loop({ time }));
-        }, 500);
+            refreshPins({ pins });
+            showNav({ nav, indicators });
+        },
+        onLeave: () => {
+            hideNav({ nav, indicators });
+        },
+        onLeaveBack: () => {
+            hideNav({ nav, indicators });
+        },
     });
 
-    return () => {
-        mainTween.destroy();
-        unsubscribeResize();
-        unsubscribeMouseMove();
-        unsubscribeTouchMove();
-        unWatchResume();
-        unWatchPause();
-        ctx = null;
-        offscreen = null;
-        offScreenCtx = null;
-        mainTween = null;
-        steamDataReorded = [];
-        stemData = [];
-        isActive = false;
+    horizontalCustom.init();
+
+    return {
+        destroy: () => horizontalCustom.destroy(),
+        refresh: () => horizontalCustom.refresh(),
     };
 };

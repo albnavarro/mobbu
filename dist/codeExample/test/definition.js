@@ -1,4 +1,4 @@
-// TEST EXAMPLE COMPONENT DEFINITION.
+// Test example createComponent (horizontalscroller).
 
 import { createComponent } from '../../../mobjs';
 import { HorizontalScroller } from './horizontalScroller';
