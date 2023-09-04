@@ -14,6 +14,7 @@
     background: transparent;
     opacity: 0;
     transition: opacity 1.55s;
+    color: rgba($white, 0.3);
 
     &.active {
         opacity: 1;
@@ -24,7 +25,7 @@
     }
 
     &__container {
-        background: $medium-green;
+        background: rgba($black, 0.3);
         border-radius: rem(30);
         padding: rem(20);
         transition: background 0.55s, color 0.55s;

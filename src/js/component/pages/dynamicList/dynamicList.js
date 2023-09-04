@@ -70,35 +70,16 @@ export const DynamicList = async ({
     return render(/* HTML */ `
         <div class="dynamic-list">
             <div class="dynamic-list__header">
-                <div class="dynamic-list__label">
-                    <span>${title}:</span>
-                </div>
                 <div class="dynamic-list__top">
-                    <button class="dynamic-list__btn state1">state1</button>
-                    <button class="dynamic-list__btn state2">state2</button>
-                    <button class="dynamic-list__btn state3">state3</button>
-                    <button class="dynamic-list__btn reset">reset</button>
+                    <button class="dynamic-list__btn state1">list1</button>
+                    <button class="dynamic-list__btn state2">list2</button>
+                    <button class="dynamic-list__btn state3">list3</button>
+                    <button class="dynamic-list__btn reset">list4</button>
                     <button class="dynamic-list__btn counter">+</button>
                     <button class="dynamic-list__btn children">Children</button>
                 </div>
             </div>
             <div class="dynamic-list__content">
-                <div class="dynamic-list__content__top">
-                    <h4 class="dynamic-list__title">Card outer scope</h4>
-                    <DynamicListCard
-                        ${staticProps({ isFull: true })}
-                        ${bindProps({
-                            bind: ['counter', 'data'],
-                            props: ({ counter, data }) => {
-                                return {
-                                    label: data[0]?.key ?? '',
-                                    index: 0,
-                                    counter,
-                                };
-                            },
-                        })}
-                    ></DynamicListCard>
-                </div>
                 <div class="dynamic-list__content__key">
                     <h4 class="dynamic-list__title">List with key</h4>
                     <div class="dynamic-list__list">

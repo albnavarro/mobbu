@@ -9,10 +9,6 @@ export const dynamicListDef = createComponent({
     component: DynamicList,
     exportState: ['title'],
     state: {
-        title: () => ({
-            value: '',
-            type: String,
-        }),
         counter: () => ({
             value: 0,
             type: Number,
