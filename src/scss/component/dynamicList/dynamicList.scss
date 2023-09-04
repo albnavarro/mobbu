@@ -4,18 +4,55 @@
 
 .dynamic-list {
     border: 0;
-    color: $dark-green;
-    margin-top: rem(30);
-    padding: rem(20);
     padding-bottom: rem(50);
-    display: flex;
-    flex-wrap: wrap;
-    width: rem(800);
-    background: #ccc;
 
-    &__top,
+    &__header {
+        position: sticky;
+        top: var(--header-height);
+        background: $black;
+        padding: rem(20);
+        z-index: 10;
+    }
+
+    &__content {
+        padding: rem(20);
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr rem(50) 1fr;
+        grid-template-areas:
+            'top top top'
+            'key . no-key'
+            'bottom bottom bottom';
+
+        &__top {
+            grid-area: top;
+        }
+
+        &__bottom {
+            grid-area: bottom;
+        }
+
+        &__key {
+            grid-area: key;
+        }
+
+        &__no-key {
+            grid-area: no-key;
+        }
+    }
+
+    &__title {
+        color: $white;
+        padding: rem(20);
+    }
+
     &__label {
-        flex: 100%;
+        color: $white;
+        padding: rem(20);
+    }
+
+    &__top {
+        gap: rem(10);
     }
 
     &__top,
@@ -23,18 +60,12 @@
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        margin-bottom: 2px;
-    }
-
-    &__list {
-        border-top: 5px $black solid;
-        border-bottom: 5px $black solid;
-        margin-bottom: rem(30);
     }
 
     &__btn {
         flex: 1;
-        background: transparent;
-        border: 1px $grey solid;
+        background: $white;
+        border: 0;
+        border-radius: rem(30);
     }
 }

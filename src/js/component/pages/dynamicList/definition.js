@@ -50,6 +50,7 @@ export const dynamicListCardDef = createComponent({
     name: 'DynamicListCard',
     component: DynamicListCard,
     asyncCreation: false,
+    scoped: true,
     exportState: ['isFull', 'label', 'index', 'counter'],
     state: {
         isFull: () => ({
@@ -57,7 +58,7 @@ export const dynamicListCardDef = createComponent({
             type: Boolean,
         }),
         label: () => ({
-            value: '',
+            value: '-',
             type: String,
         }),
         index: () => ({
@@ -69,7 +70,7 @@ export const dynamicListCardDef = createComponent({
             type: Number,
         }),
         computedLabel: () => ({
-            value: () => {},
+            value: () => '-',
             type: Function,
         }),
     },

@@ -1,3 +1,5 @@
+import { core } from '../../../mobMotion';
+
 function asyncTest() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -24,9 +26,8 @@ export const DynamicListCard = async ({
     onMount(({ element }) => {
         const labelEl = element.querySelector('.label');
         const counterEl = element.querySelector('.counter');
-        const button = element.querySelector('button');
 
-        button.addEventListener('click', () => {
+        element.addEventListener('click', () => {
             element.classList.toggle('is-selected');
         });
 
@@ -41,41 +42,47 @@ export const DynamicListCard = async ({
             }
         );
 
+        core.useFrame(() => {
+            element.classList.add('active');
+        });
+
         return () => {
             element.remove();
         };
     });
 
-    await asyncTest();
+    // await asyncTest();
 
     const isFullClass = isFull ? 'is-full' : '';
+    const tag = isFull ? 'div' : 'button';
+    const typeButton = isFull ? '' : "type='button'";
 
     return render(/* HTML */ `
-        <div class="dynamic-card ${isFullClass}">
-            <h4>t2</h4>
-            <div class="label">${label}-${index}</div>
-            <div class="counter">${counter}</div>
-            <slot ${slotName('slot1')}></slot>
-            <div class="key">key: ${key ?? ''}</div>
-            <slot
-                ${slotName('slot2')}
-                ${staticProps({
-                    staticFromSlot: `static prop from slot`,
-                })}
-                ${bindProps({
-                    bind: ['counter', 'label', 'index'],
-                    props: ({ counter }) => {
-                        return {
-                            counter: `t2 counter from slot (reactive): ${counter}`,
-                            parentState: `t2 state from slot (reactive): ${JSON.stringify(
-                                getState()
-                            )}`,
-                        };
-                    },
-                })}
-            ></slot>
-            <button class="dynamic-card__btn" type="button">toggle</button>
-            <dynamicListChildTest></dynamicListChildTest>
-        </div>
+        <${tag} ${typeButton} class="dynamic-card ${isFullClass}">
+            <div class="dynamic-card__container">
+                <div class="label">${label}-${index}</div>
+                <div class="counter">${counter}</div>
+                <slot ${slotName('slot1')}></slot>
+                <div class="key">key: ${key ?? ''}</div>
+                <slot
+                    ${slotName('slot2')}
+                    ${staticProps({
+                        staticFromSlot: `static prop from slot`,
+                    })}
+                    ${bindProps({
+                        bind: ['counter', 'label', 'index'],
+                        props: ({ counter }) => {
+                            return {
+                                counter: `t2 counter from slot (reactive): ${counter}`,
+                                parentState: `t2 state from slot (reactive): ${JSON.stringify(
+                                    getState()
+                                )}`,
+                            };
+                        },
+                    })}
+                ></slot>
+                <dynamicListChildTest></dynamicListChildTest>
+            </div>
+        </${tag}>
     `);
 };

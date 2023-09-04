@@ -8,7 +8,7 @@ function asyncTest() {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
-        }, 500);
+        }, 1000);
     });
 }
 
@@ -69,107 +69,129 @@ export const DynamicList = async ({
 
     return render(/* HTML */ `
         <div class="dynamic-list">
-            <h4 class="dynamic-list__title">t</h4>
-            <div class="dynamic-list__label">
-                <span>${title}:</span>
-            </div>
-            <div class="dynamic-list__top">
-                <button class="dynamic-list__btn state1">state1</button>
-                <button class="dynamic-list__btn state2">state2</button>
-                <button class="dynamic-list__btn state3">state3</button>
-                <button class="dynamic-list__btn reset">reset</button>
-                <button class="dynamic-list__btn counter">+</button>
-            </div>
-            <div class="dynamic-list__top">
-                <button class="dynamic-list__btn children">Children</button>
-            </div>
-            <DynamicListCard
-                ${staticProps({ isFull: true })}
-                ${bindProps({
-                    bind: ['counter', 'data'],
-                    props: ({ counter, data }) => {
-                        return { label: data[0]?.key ?? '', index: 0, counter };
-                    },
-                })}
-            ></DynamicListCard>
-            <div class="dynamic-list__list">
-                ${repeat({
-                    watch: 'data',
-                    key: 'key',
-                    component: 'DynamicListCard',
-                    props: ({ current, index }) => {
-                        const { label } = current;
-                        return { label, index };
-                    },
-                    bindProps: {
-                        bind: ['counter'],
-                        // eslint-disable-next-line no-unused-vars
-                        props: ({ counter }, { current, index }) => {
-                            return {
-                                counter,
-                            };
-                        },
-                    },
-                    // eslint-disable-next-line no-unused-vars
-                    beforeUpdate: ({ container, childrenId }) => {},
-                    // eslint-disable-next-line no-unused-vars
-                    afterUpdate: ({ container, childrenId }) => {},
-                })}
-            </div>
-            <div class="dynamic-list__list">
-                ${repeat({
-                    watch: 'data2',
-                    component: 'DynamicListCard',
-                    props: ({ current, index }) => {
-                        const { label } = current;
-                        return { label, index };
-                    },
-                    bindProps: {
-                        bind: ['counter'],
-                        // eslint-disable-next-line no-unused-vars
-                        props: ({ counter }, { current, index }) => {
-                            // console.log(current, index);
-                            return {
-                                counter,
-                            };
-                        },
-                    },
-                    // eslint-disable-next-line no-unused-vars
-                    beforeUpdate: ({ container, childrenId }) => {},
-                    // eslint-disable-next-line no-unused-vars
-                    afterUpdate: ({ container, childrenId }) => {},
-                })}
-            </div>
-            <DynamicListCard
-                ${staticProps({ isFull: true })}
-                ${bindProps({
-                    bind: ['counter', 'data'],
-                    props: ({ counter, data }) => {
-                        return { label: data[1]?.key ?? '', index: 1, counter };
-                    },
-                })}
-            >
-                <div ${useSlot('slot1')}>
-                    <div class="c-test3-comp">slot1</div>
+            <div class="dynamic-list__header">
+                <div class="dynamic-list__label">
+                    <span>${title}:</span>
                 </div>
-                <DynamicListSlot
-                    ${useSlot('slot2')}
-                    ${staticProps({
-                        staticFromComponent: `static prop from component`,
-                    })}
-                    ${bindProps({
-                        bind: ['data', 'data2', 'counter'],
-                        props: () => {
-                            return {
-                                parentParentState: `t state (reactive): ${JSON.stringify(
-                                    getState()
-                                )}`,
-                            };
-                        },
-                    })}
-                >
-                </DynamicListSlot>
-            </DynamicListCard>
+                <div class="dynamic-list__top">
+                    <button class="dynamic-list__btn state1">state1</button>
+                    <button class="dynamic-list__btn state2">state2</button>
+                    <button class="dynamic-list__btn state3">state3</button>
+                    <button class="dynamic-list__btn reset">reset</button>
+                    <button class="dynamic-list__btn counter">+</button>
+                    <button class="dynamic-list__btn children">Children</button>
+                </div>
+            </div>
+            <div class="dynamic-list__content">
+                <div class="dynamic-list__content__top">
+                    <h4 class="dynamic-list__title">Card outer scope</h4>
+                    <DynamicListCard
+                        ${staticProps({ isFull: true })}
+                        ${bindProps({
+                            bind: ['counter', 'data'],
+                            props: ({ counter, data }) => {
+                                return {
+                                    label: data[0]?.key ?? '',
+                                    index: 0,
+                                    counter,
+                                };
+                            },
+                        })}
+                    ></DynamicListCard>
+                </div>
+                <div class="dynamic-list__content__key">
+                    <h4 class="dynamic-list__title">List with key</h4>
+                    <div class="dynamic-list__list">
+                        ${repeat({
+                            watch: 'data',
+                            key: 'key',
+                            component: 'DynamicListCard',
+                            props: ({ current, index }) => {
+                                const { label } = current;
+                                return { label, index };
+                            },
+                            bindProps: {
+                                bind: ['counter'],
+                                // eslint-disable-next-line no-unused-vars
+                                props: ({ counter }, { current, index }) => {
+                                    return {
+                                        counter,
+                                    };
+                                },
+                            },
+                            // eslint-disable-next-line no-unused-vars
+                            beforeUpdate: ({ container, childrenId }) => {},
+                            // eslint-disable-next-line no-unused-vars
+                            afterUpdate: ({ container, childrenId }) => {},
+                        })}
+                    </div>
+                </div>
+                <div class="dynamic-list__content__no-key">
+                    <h4 class="dynamic-list__title">List without key</h4>
+                    <div class="dynamic-list__list">
+                        ${repeat({
+                            watch: 'data2',
+                            component: 'DynamicListCard',
+                            props: ({ current, index }) => {
+                                const { label } = current;
+                                return { label, index };
+                            },
+                            bindProps: {
+                                bind: ['counter'],
+                                // eslint-disable-next-line no-unused-vars
+                                props: ({ counter }, { current, index }) => {
+                                    // console.log(current, index);
+                                    return {
+                                        counter,
+                                    };
+                                },
+                            },
+                            // eslint-disable-next-line no-unused-vars
+                            beforeUpdate: ({ container, childrenId }) => {},
+                            // eslint-disable-next-line no-unused-vars
+                            afterUpdate: ({ container, childrenId }) => {},
+                        })}
+                    </div>
+                </div>
+
+                <div class="dynamic-list__content__bottom">
+                    <h4 class="dynamic-list__title">Card outer scope</h4>
+                    <DynamicListCard
+                        ${staticProps({ isFull: true })}
+                        ${bindProps({
+                            bind: ['counter', 'data'],
+                            props: ({ counter, data }) => {
+                                return {
+                                    label: data[1]?.key ?? '',
+                                    index: 1,
+                                    counter,
+                                };
+                            },
+                        })}
+                    >
+                        <div ${useSlot('slot1')}>
+                            <div class="c-test3-comp">slot1</div>
+                        </div>
+                        <DynamicListSlot
+                            ${useSlot('slot2')}
+                            ${staticProps({
+                                staticFromComponent: `static prop from component`,
+                            })}
+                            ${bindProps({
+                                bind: ['data', 'data2', 'counter'],
+                                props: () => {
+                                    return {
+                                        parentParentState: `t state (reactive): ${JSON.stringify(
+                                            getState()
+                                        )}`,
+                                    };
+                                },
+                            })}
+                        >
+                        </DynamicListSlot>
+                    </DynamicListCard>
+                </div>
+            </div>
         </div>
     `);
 };

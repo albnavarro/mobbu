@@ -3,23 +3,40 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .dynamic-card {
+    $self: &;
+
     flex: 0 1 25%;
     padding: rem(10);
     text-align: left;
     font-size: rem(14);
     line-height: 1.4;
-    border: 1px $grey solid;
-    background: #ccc;
+    border: 0;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 1.55s;
 
-    &.is-selected {
-        background: $grey;
+    &.active {
+        opacity: 1;
     }
 
     &.is-full {
-        flex: 1;
+        width: 100%;
     }
 
-    &__btn {
-        margin-top: rem(10);
+    &__container {
+        background: $medium-green;
+        border-radius: rem(30);
+        padding: rem(20);
+        transition: background 0.55s, color 0.55s;
+    }
+
+    &.is-selected,
+    &:hover {
+        &:not(.is-full) {
+            #{$self}__container {
+                background: $black;
+                color: $white;
+            }
+        }
     }
 }
