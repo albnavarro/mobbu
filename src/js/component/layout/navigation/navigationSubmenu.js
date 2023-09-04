@@ -30,6 +30,7 @@ export const NavigationSubmenu = ({
     getState,
     setState,
     staticProps,
+    bindProps,
     watch,
 }) => {
     const { children, headerButton, callback } = getState();
@@ -39,22 +40,13 @@ export const NavigationSubmenu = ({
         /**
          * Accordion
          */
-        const button = element.querySelector('.l-navigation__link--arrow');
         const content = element.querySelector('.l-navigation__submenu');
         slide.subscribe(content);
         slide.reset(content);
 
-        button.addEventListener('click', () => {
-            setState('isOpen', (prev) => !prev);
-
-            const isOpen = getState('isOpen');
-            if (isOpen) callback();
-        });
-
         watch('isOpen', (isOpen) => {
             const action = isOpen ? 'down' : 'up';
             slide[action](content);
-            button.classList.toggle('active', isOpen);
         });
 
         navigationStore.watch('closeAllAccordion', () => {
@@ -72,6 +64,17 @@ export const NavigationSubmenu = ({
                     url,
                     arrowClass: 'l-navigation__link--arrow',
                     fireRoute: false,
+                    callback: () => {
+                        setState('isOpen', (prev) => !prev);
+                        const { isOpen } = getState('isOpen');
+                        if (isOpen) callback();
+                    },
+                })}
+                ${bindProps({
+                    bind: ['isOpen'],
+                    props: ({ isOpen }) => {
+                        return { isOpen };
+                    },
                 })}
             ></NavigationButton>
             <ul class="l-navigation__submenu">

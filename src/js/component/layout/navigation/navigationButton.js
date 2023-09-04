@@ -4,11 +4,14 @@ import { navigationStore } from './store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({ getState, render, onMount }) => {
-    const { label, url, arrowClass, subMenuClass, fireRoute } = getState();
+export const NavigationButton = ({ getState, render, onMount, watch }) => {
+    const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
+        getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {
+            callback();
+
             if (!fireRoute) return;
 
             const pageTransitionId = getIdByInstanceName('page-transition');
@@ -16,6 +19,10 @@ export const NavigationButton = ({ getState, render, onMount }) => {
 
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
+        });
+
+        watch('isOpen', (isOpen) => {
+            element.classList.toggle('active', isOpen);
         });
 
         return () => {};

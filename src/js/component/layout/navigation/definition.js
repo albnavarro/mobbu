@@ -49,7 +49,15 @@ export const navigationSubmenuDef = createComponent({
 export const navigationButtonDef = createComponent({
     name: 'NavigationButton',
     component: NavigationButton,
-    exportState: ['label', 'url', 'arrowClass', 'subMenuClass', 'fireRoute'],
+    exportState: [
+        'label',
+        'url',
+        'arrowClass',
+        'subMenuClass',
+        'fireRoute',
+        'callback',
+        'isOpen',
+    ],
     state: {
         label: () => ({
             value: '',
@@ -69,6 +77,14 @@ export const navigationButtonDef = createComponent({
         }),
         fireRoute: () => ({
             value: true,
+            type: Boolean,
+        }),
+        callback: () => ({
+            value: () => {},
+            type: Function,
+        }),
+        isOpen: () => ({
+            value: false,
             type: Boolean,
         }),
     },
