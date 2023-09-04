@@ -9,7 +9,7 @@ function asyncTest() {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const TestComponent2 = async ({
+export const DynamicListCard = async ({
     getState,
     render,
     onMount,
@@ -51,7 +51,7 @@ export const TestComponent2 = async ({
     const isFullClass = isFull ? 'is-full' : '';
 
     return render(/* HTML */ `
-        <div class="c-test-comp__inner ${isFullClass}">
+        <div class="dynamic-card ${isFullClass}">
             <h4>t2</h4>
             <div class="label">${label}-${index}</div>
             <div class="counter">${counter}</div>
@@ -74,10 +74,8 @@ export const TestComponent2 = async ({
                     },
                 })}
             ></slot>
-            <button class="c-test-comp__inner__btn" type="button">
-                toggle
-            </button>
-            <TestComponent4></TestComponent4>
+            <button class="dynamic-card__btn" type="button">toggle</button>
+            <dynamicListChildTest></dynamicListChildTest>
         </div>
     `);
 };

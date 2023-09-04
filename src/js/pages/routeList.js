@@ -11,4 +11,4 @@ export * from './horizontalScroller/horizontalScrollerv1';
 export * from './horizontalScroller/horizontalScrollerv2';
 export * from './scroller/scrollerN0v1';
 export * from './scroller/scrollerN0v2';
-export * from './test';
+export * from './dynamicList';

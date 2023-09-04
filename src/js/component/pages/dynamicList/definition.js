@@ -1,12 +1,12 @@
 import { createComponent } from '../../../mobjs';
-import { TestComponent } from './testComponent';
-import { TestComponent2 } from './testComponent2';
-import { TestComponent3 } from './testComponent3';
-import { TestComponent4 } from './testComponent4';
+import { DynamicList } from './dynamicList';
+import { DynamicListCard } from './dynamicListCard';
+import { DynamicListChildTest } from './dynamicListChildTest';
+import { DynamicListSlot } from './dynamicListSlot';
 
-export const testComponentDef = createComponent({
-    name: 'TestComponent',
-    component: TestComponent,
+export const dynamicListDef = createComponent({
+    name: 'DynamicList',
+    component: DynamicList,
     exportState: ['title'],
     state: {
         title: () => ({
@@ -46,9 +46,9 @@ export const testComponentDef = createComponent({
     },
 });
 
-export const testComponent2Def = createComponent({
-    name: 'TestComponent2',
-    component: TestComponent2,
+export const dynamicListCardDef = createComponent({
+    name: 'DynamicListCard',
+    component: DynamicListCard,
     asyncCreation: false,
     exportState: ['isFull', 'label', 'index', 'counter'],
     state: {
@@ -76,8 +76,8 @@ export const testComponent2Def = createComponent({
 });
 
 export const testComponent3Def = createComponent({
-    name: 'TestComponent3',
-    component: TestComponent3,
+    name: 'DynamicListSlot',
+    component: DynamicListSlot,
     exportState: [
         'staticFromSlot',
         'staticFromComponent',
@@ -110,6 +110,6 @@ export const testComponent3Def = createComponent({
 });
 
 export const testComponent4Def = createComponent({
-    name: 'TestComponent4',
-    component: TestComponent4,
+    name: 'DynamicListChildTest',
+    component: DynamicListChildTest,
 });

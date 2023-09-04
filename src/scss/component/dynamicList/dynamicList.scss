@@ -2,7 +2,7 @@
 @use '../../abstract' as *;
 @use '../../../../node_modules/sass-mq/mq';
 
-.c-test-comp {
+.dynamic-list {
     border: 0;
     color: $dark-green;
     margin-top: rem(30);
@@ -37,31 +37,4 @@
         background: transparent;
         border: 1px $grey solid;
     }
-
-    &__inner {
-        flex: 0 1 25%;
-        padding: rem(10);
-        text-align: left;
-        font-size: rem(14);
-        line-height: 1.4;
-        border: 1px $grey solid;
-        background: #ccc;
-
-        &.is-selected {
-            background: $grey;
-        }
-
-        &.is-full {
-            flex: 1;
-        }
-
-        &__btn {
-            margin-top: rem(10);
-        }
-    }
-}
-
-.c-test3-comp {
-    background: rgba($black, 0.1);
-    padding: rem(10);
 }

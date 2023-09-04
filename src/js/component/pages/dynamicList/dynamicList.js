@@ -1,7 +1,7 @@
 import { startData, state1, state2, state3 } from './data';
 
 function logChildren(getChildren) {
-    console.log(getChildren('TestComponent2'));
+    console.log(getChildren('DynamicListCard'));
 }
 
 function asyncTest() {
@@ -15,7 +15,7 @@ function asyncTest() {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const TestComponent = async ({
+export const DynamicList = async ({
     getState,
     setState,
     getChildren,
@@ -68,22 +68,22 @@ export const TestComponent = async ({
     await asyncTest();
 
     return render(/* HTML */ `
-        <div class="c-test-comp">
-            <h4>t</h4>
-            <div class="c-test-comp__label">
+        <div class="dynamic-list">
+            <h4 class="dynamic-list__title">t</h4>
+            <div class="dynamic-list__label">
                 <span>${title}:</span>
             </div>
-            <div class="c-test-comp__top">
-                <button class="c-test-comp__btn state1">state1</button>
-                <button class="c-test-comp__btn state2">state2</button>
-                <button class="c-test-comp__btn state3">state3</button>
-                <button class="c-test-comp__btn reset">reset</button>
-                <button class="c-test-comp__btn counter">+</button>
+            <div class="dynamic-list__top">
+                <button class="dynamic-list__btn state1">state1</button>
+                <button class="dynamic-list__btn state2">state2</button>
+                <button class="dynamic-list__btn state3">state3</button>
+                <button class="dynamic-list__btn reset">reset</button>
+                <button class="dynamic-list__btn counter">+</button>
             </div>
-            <div class="c-test-comp__top">
-                <button class="c-test-comp__btn children">Children</button>
+            <div class="dynamic-list__top">
+                <button class="dynamic-list__btn children">Children</button>
             </div>
-            <TestComponent2
+            <DynamicListCard
                 ${staticProps({ isFull: true })}
                 ${bindProps({
                     bind: ['counter', 'data'],
@@ -91,12 +91,12 @@ export const TestComponent = async ({
                         return { label: data[0]?.key ?? '', index: 0, counter };
                     },
                 })}
-            ></TestComponent2>
-            <div class="c-test-comp__list">
+            ></DynamicListCard>
+            <div class="dynamic-list__list">
                 ${repeat({
                     watch: 'data',
                     key: 'key',
-                    component: 'TestComponent2',
+                    component: 'DynamicListCard',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
@@ -116,10 +116,10 @@ export const TestComponent = async ({
                     afterUpdate: ({ container, childrenId }) => {},
                 })}
             </div>
-            <div class="c-test-comp__list">
+            <div class="dynamic-list__list">
                 ${repeat({
                     watch: 'data2',
-                    component: 'TestComponent2',
+                    component: 'DynamicListCard',
                     props: ({ current, index }) => {
                         const { label } = current;
                         return { label, index };
@@ -140,7 +140,7 @@ export const TestComponent = async ({
                     afterUpdate: ({ container, childrenId }) => {},
                 })}
             </div>
-            <TestComponent2
+            <DynamicListCard
                 ${staticProps({ isFull: true })}
                 ${bindProps({
                     bind: ['counter', 'data'],
@@ -152,7 +152,7 @@ export const TestComponent = async ({
                 <div ${useSlot('slot1')}>
                     <div class="c-test3-comp">slot1</div>
                 </div>
-                <TestComponent3
+                <DynamicListSlot
                     ${useSlot('slot2')}
                     ${staticProps({
                         staticFromComponent: `static prop from component`,
@@ -168,8 +168,8 @@ export const TestComponent = async ({
                         },
                     })}
                 >
-                </TestComponent3>
-            </TestComponent2>
+                </DynamicListSlot>
+            </DynamicListCard>
         </div>
     `);
 };

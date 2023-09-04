@@ -1,0 +1,25 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.dynamic-card {
+    flex: 0 1 25%;
+    padding: rem(10);
+    text-align: left;
+    font-size: rem(14);
+    line-height: 1.4;
+    border: 1px $grey solid;
+    background: #ccc;
+
+    &.is-selected {
+        background: $grey;
+    }
+
+    &.is-full {
+        flex: 1;
+    }
+
+    &__btn {
+        margin-top: rem(10);
+    }
+}

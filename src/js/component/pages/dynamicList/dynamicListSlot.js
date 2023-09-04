@@ -1,7 +1,7 @@
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const TestComponent3 = async ({ getState, render, onMount, watch }) => {
+export const DynamicListSlot = async ({ getState, render, onMount, watch }) => {
     const {
         staticFromSlot,
         staticFromComponent,
@@ -31,7 +31,7 @@ export const TestComponent3 = async ({ getState, render, onMount, watch }) => {
     });
 
     return render(/* HTML */ `
-        <div class="c-test3-comp">
+        <div class="dynamic-slot">
             <h4>t3</h4>
             <div>slot2</div>
             <div>${staticFromSlot}</div>
