@@ -6,7 +6,7 @@ function getPreValue(value) {
     return `<pre>${value}</pre>`;
 }
 
-export const DynamicListSlot = async ({ getState, render, onMount, watch }) => {
+export const DynamicListSlot = ({ getState, render, onMount, watch }) => {
     const {
         staticFromSlot,
         staticFromComponent,
