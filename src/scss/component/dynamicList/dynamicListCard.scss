@@ -13,7 +13,7 @@
     border: 0;
     background: transparent;
     opacity: 0;
-    transition: opacity 1.55s;
+    transition: opacity 1.55s, transform 0.35s;
     color: rgba($white, 0.3);
 
     @include mq.mq(xlarge) {
@@ -35,8 +35,13 @@
         transition: background 0.55s, color 0.55s;
     }
 
-    &.is-selected,
     &:hover {
+        &:not(.is-full) {
+            transform: scale(0.95);
+        }
+    }
+
+    &.is-selected {
         &:not(.is-full) {
             #{$self}__container {
                 background: $medium-green;
