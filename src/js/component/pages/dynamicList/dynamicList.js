@@ -1,11 +1,17 @@
 import { startData, state1, state2, state3 } from './data';
 
-function asyncTest() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, 1000);
-    });
+// function asyncTest() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve();
+//         }, 1000);
+//     });
+// }
+
+function updateNewElement(id) {
+    return `<strong>Current cards id:</strong> ${id
+        .join(',')
+        .replaceAll(',', ' | ')}`;
 }
 
 /**
@@ -61,7 +67,7 @@ export const DynamicList = async ({
     /**
      * Async test
      */
-    await asyncTest();
+    // await asyncTest();
 
     return render(/* HTML */ `
         <div class="dynamic-list">
@@ -87,6 +93,7 @@ export const DynamicList = async ({
             <div class="dynamic-list__content">
                 <div class="dynamic-list__content__key">
                     <h4 class="dynamic-list__title">Dynamic list with key:</h4>
+                    <p class="dynamic-list__newelements js-newelement-key"></p>
                     <div class="dynamic-list__list">
                         ${repeat({
                             watch: 'data',
@@ -109,6 +116,19 @@ export const DynamicList = async ({
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
                             afterUpdate: ({ container, childrenId }) => {
+                                const newElement =
+                                    document.querySelector(
+                                        '.js-newelement-key'
+                                    );
+                                newElement.textContent = '';
+                                newElement.insertAdjacentHTML(
+                                    'afterbegin',
+                                    updateNewElement(childrenId)
+                                );
+
+                                /*
+                                 * Update all Card list in UI.
+                                 */
                                 const childrenEl =
                                     document.querySelector('.dynamic-children');
                                 childrenEl.textContent = getChildren(
@@ -124,6 +144,9 @@ export const DynamicList = async ({
                     <h4 class="dynamic-list__title">
                         Dynamic list without key:
                     </h4>
+                    <p
+                        class="dynamic-list__newelements js-newelement-nokey"
+                    ></p>
                     <div class="dynamic-list__list">
                         ${repeat({
                             watch: 'data2',
@@ -145,7 +168,16 @@ export const DynamicList = async ({
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
-                            afterUpdate: ({ container, childrenId }) => {},
+                            afterUpdate: ({ container, childrenId }) => {
+                                const newElement = document.querySelector(
+                                    '.js-newelement-nokey'
+                                );
+                                newElement.textContent = '';
+                                newElement.insertAdjacentHTML(
+                                    'afterbegin',
+                                    updateNewElement(childrenId)
+                                );
+                            },
                         })}
                     </div>
                 </div>

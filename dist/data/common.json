@@ -29,8 +29,8 @@
             "url": "#",
             "children": [
                 {
-                    "label": "test button (#)",
-                    "url": "#"
+                    "label": "Dynamic list",
+                    "url": "dynamic_list"
                 },
                 {
                     "label": "test button (#)",
@@ -124,11 +124,6 @@
                     "url": "horizontalScrollerV2"
                 }
             ]
-        },
-        {
-            "label": "repeater",
-            "url": "test",
-            "children": null
         },
         {
             "label": "test button (#)",

@@ -1,5 +1,3 @@
-import { staticProps } from '../../mobjs';
-
-export const test = () => {
+export const dynamic_list = () => {
     return /* HTML */ ` <DynamicList> </DynamicList> `;
 };
