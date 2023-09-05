@@ -1,11 +1,15 @@
 import { core } from '../../../mobMotion';
 
-function asyncTest() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, 100);
-    });
+// function asyncTest() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve();
+//         }, 100);
+//     });
+// }
+
+function updateContent(label, val) {
+    return `${label}: ${val}`;
 }
 
 /**
@@ -16,14 +20,15 @@ export const DynamicListCard = async ({
     render,
     onMount,
     key,
-    computed,
     staticProps,
     bindProps,
     slotName,
+    watch,
 }) => {
     const { isFull, label, index, counter } = getState();
 
     onMount(({ element }) => {
+        const indexEl = element.querySelector('.index');
         const labelEl = element.querySelector('.label');
         const counterEl = element.querySelector('.counter');
 
@@ -31,16 +36,17 @@ export const DynamicListCard = async ({
             element.classList.toggle('is-selected');
         });
 
-        computed(
-            'computedLabel',
-            ['index', 'label', 'counter'],
-            (index, label, counter) => {
-                labelEl.textContent = `${label}-${index}`;
-                counterEl.textContent = `${counter}`;
+        watch('index', (val) => {
+            indexEl.textContent = updateContent('index', val);
+        });
 
-                return () => {};
-            }
-        );
+        watch('label', (val) => {
+            labelEl.textContent = updateContent('label', val);
+        });
+
+        watch('counter', (val) => {
+            counterEl.textContent = updateContent('counter', val);
+        });
 
         core.useFrame(() => {
             element.classList.add('active');
@@ -60,8 +66,9 @@ export const DynamicListCard = async ({
     return render(/* HTML */ `
         <${tag} ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
-                <div class="label">${label}-${index}</div>
-                <div class="counter">${counter}</div>
+                <div class="index">${updateContent('index', index)}</div>
+                <div class="label">${updateContent('label', label)}</div>
+                <div class="counter">${updateContent('counter', counter)}</div>
                 <slot ${slotName('slot1')}></slot>
                 <div class="key">key: ${key ?? ''}</div>
                 <slot

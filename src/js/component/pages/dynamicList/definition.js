@@ -65,10 +65,6 @@ export const dynamicListCardDef = createComponent({
             value: 0,
             type: Number,
         }),
-        computedLabel: () => ({
-            value: () => '-',
-            type: Function,
-        }),
     },
 });
 

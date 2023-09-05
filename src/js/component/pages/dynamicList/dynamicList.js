@@ -1,9 +1,5 @@
 import { startData, state1, state2, state3 } from './data';
 
-function logChildren(getChildren) {
-    console.log(getChildren('DynamicListCard'));
-}
-
 function asyncTest() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -26,33 +22,33 @@ export const DynamicList = async ({
     bindProps,
     useSlot,
 }) => {
-    const { title } = getState();
-
     onMount(({ element }) => {
-        const childrenBtn = element.querySelector('.children');
         const state1El = element.querySelector('.state1');
         const state2El = element.querySelector('.state2');
         const state3El = element.querySelector('.state3');
-        const resetEl = element.querySelector('.reset');
+        const state4El = element.querySelector('.state4');
         const increaseCounterEl = element.querySelector('.counter');
 
-        childrenBtn.addEventListener('click', () => logChildren(getChildren));
         state1El.addEventListener('click', () => {
             setState('data', state1);
             setState('data2', state1);
         });
+
         state2El.addEventListener('click', () => {
             setState('data', state2);
             setState('data2', state2);
         });
+
         state3El.addEventListener('click', () => {
             setState('data', state3);
             setState('data2', state3);
         });
-        resetEl.addEventListener('click', () => {
+
+        state4El.addEventListener('click', () => {
             setState('data', startData);
             setState('data2', startData);
         });
+
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
         });
@@ -71,17 +67,26 @@ export const DynamicList = async ({
         <div class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
-                    <button class="dynamic-list__btn state1">list1</button>
-                    <button class="dynamic-list__btn state2">list2</button>
-                    <button class="dynamic-list__btn state3">list3</button>
-                    <button class="dynamic-list__btn reset">list4</button>
-                    <button class="dynamic-list__btn counter">+</button>
-                    <button class="dynamic-list__btn children">Children</button>
+                    <button class="dynamic-list__btn state1">
+                        data list 1
+                    </button>
+                    <button class="dynamic-list__btn state2">
+                        data list 2
+                    </button>
+                    <button class="dynamic-list__btn state3">
+                        data list 3
+                    </button>
+                    <button class="dynamic-list__btn state4">
+                        data list 4
+                    </button>
+                    <button class="dynamic-list__btn counter">
+                        Increase counter
+                    </button>
                 </div>
             </div>
             <div class="dynamic-list__content">
                 <div class="dynamic-list__content__key">
-                    <h4 class="dynamic-list__title">List with key</h4>
+                    <h4 class="dynamic-list__title">Dynamic list with key:</h4>
                     <div class="dynamic-list__list">
                         ${repeat({
                             watch: 'data',
@@ -103,12 +108,22 @@ export const DynamicList = async ({
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
-                            afterUpdate: ({ container, childrenId }) => {},
+                            afterUpdate: ({ container, childrenId }) => {
+                                const childrenEl =
+                                    document.querySelector('.dynamic-children');
+                                childrenEl.textContent = getChildren(
+                                    'DynamicListCard'
+                                )
+                                    .join(',')
+                                    .replaceAll(',', ' | ');
+                            },
                         })}
                     </div>
                 </div>
                 <div class="dynamic-list__content__no-key">
-                    <h4 class="dynamic-list__title">List without key</h4>
+                    <h4 class="dynamic-list__title">
+                        Dynamic list without key:
+                    </h4>
                     <div class="dynamic-list__list">
                         ${repeat({
                             watch: 'data2',
@@ -136,7 +151,7 @@ export const DynamicList = async ({
                 </div>
 
                 <div class="dynamic-list__content__bottom">
-                    <h4 class="dynamic-list__title">Card outer scope</h4>
+                    <h4 class="dynamic-list__title">Card outer list scope:</h4>
                     <DynamicListCard
                         ${staticProps({ isFull: true })}
                         ${bindProps({
@@ -172,6 +187,12 @@ export const DynamicList = async ({
                         </DynamicListSlot>
                     </DynamicListCard>
                 </div>
+            </div>
+            <div>
+                <h4 class="dynamic-list__title">
+                    All child Card ineer/outer scope:
+                </h4>
+                <p class="dynamic-list__children dynamic-children"></p>
             </div>
         </div>
     `);

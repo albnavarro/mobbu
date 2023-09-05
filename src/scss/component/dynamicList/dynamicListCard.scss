@@ -39,7 +39,7 @@
     &:hover {
         &:not(.is-full) {
             #{$self}__container {
-                background: $black;
+                background: $medium-green;
                 color: $white;
             }
         }

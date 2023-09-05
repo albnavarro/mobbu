@@ -57,10 +57,22 @@
         width: 100%;
     }
 
+    &__children {
+        color: rgba($white, 0.3);
+        font-size: rem(14);
+        padding: 0 rem(30);
+    }
+
     &__btn {
         flex: 1;
         background: $green;
         border: 0;
         border-radius: rem(30);
+        transition: opacity 0.55s;
+        max-width: rem(200);
+
+        &:hover {
+            opacity: 0.5;
+        }
     }
 }
