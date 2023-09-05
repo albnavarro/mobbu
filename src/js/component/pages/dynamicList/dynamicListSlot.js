@@ -1,30 +1,31 @@
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
+
+function getPreValue(value) {
+    return `<pre>${value}</pre>`;
+}
+
 export const DynamicListSlot = async ({ getState, render, onMount, watch }) => {
     const {
         staticFromSlot,
         staticFromComponent,
         parentParentState,
         parentState,
-        counter,
     } = getState();
 
     onMount(({ element }) => {
-        const counter1El = element.querySelector('.js-counter');
         const tEl = element.querySelector('.js-t-state');
         const t2El = element.querySelector('.js-t2-state');
 
         watch('parentParentState', (val) => {
-            tEl.textContent = val;
+            tEl.textContent = '';
+            tEl.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
 
         watch('parentState', (val) => {
-            t2El.textContent = val;
-        });
-
-        watch('counter', (val) => {
-            counter1El.textContent = val;
+            t2El.textContent = '';
+            t2El.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
 
         return () => {};
@@ -32,13 +33,17 @@ export const DynamicListSlot = async ({ getState, render, onMount, watch }) => {
 
     return render(/* HTML */ `
         <div class="dynamic-slot">
-            <h4>t3</h4>
-            <div>slot2</div>
+            <h3 class="dynamic-slot__label">Component inside slot</h3>
             <div>${staticFromSlot}</div>
             <div>${staticFromComponent}</div>
-            <div class="js-t-state">${parentParentState}</div>
-            <div class="js-t2-state">${parentState}</div>
-            <div class="js-counter">${counter}</div>
+            <h3 class="dynamic-slot__label">
+                Reactive state from parent component scope (dynamicList):
+            </h3>
+            <div class="js-t-state">${getPreValue(parentParentState)}</div>
+            <h3 class="dynamic-slot__label">
+                Reactive state from parent slot scope (dynamicCard):
+            </h3>
+            <div class="js-t2-state">${getPreValue(parentState)}</div>
         </div>
     `);
 };

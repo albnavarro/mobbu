@@ -78,11 +78,13 @@ export const DynamicListCard = async ({
                     })}
                     ${bindProps({
                         bind: ['counter', 'label', 'index'],
-                        props: ({ counter }) => {
+                        props: () => {
                             return {
-                                counter: `t2 counter from slot (reactive): ${counter}`,
-                                parentState: `t2 state from slot (reactive): ${JSON.stringify(
-                                    getState()
+                                /* HTML */
+                                parentState: `${JSON.stringify(
+                                    getState(),
+                                    null,
+                                    4
                                 )}`,
                             };
                         },

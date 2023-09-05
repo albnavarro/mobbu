@@ -76,7 +76,6 @@ export const testComponent3Def = createComponent({
         'staticFromComponent',
         'parentParentState',
         'parentState',
-        'counter',
     ],
     state: {
         staticFromSlot: () => ({
@@ -93,10 +92,6 @@ export const testComponent3Def = createComponent({
         }),
         parentState: () => ({
             value: '',
-            type: 'any',
-        }),
-        counter: () => ({
-            value: 0,
             type: 'any',
         }),
     },

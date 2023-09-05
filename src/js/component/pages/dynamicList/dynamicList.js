@@ -209,8 +209,11 @@ export const DynamicList = async ({
                                 bind: ['data', 'data2', 'counter'],
                                 props: () => {
                                     return {
-                                        parentParentState: `t state (reactive): ${JSON.stringify(
-                                            getState()
+                                        /* HTML */
+                                        parentParentState: `${JSON.stringify(
+                                            getState(),
+                                            null,
+                                            4
                                         )}`,
                                     };
                                 },

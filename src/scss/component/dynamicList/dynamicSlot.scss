@@ -3,6 +3,14 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .dynamic-slot {
-    background: rgba($black, 0.1);
-    padding: rem(10);
+    background: $black;
+    padding: rem(30);
+    border-radius: rem(20);
+    margin: rem(20) 0;
+
+    &__label {
+        color: $white;
+        font-size: rem(14);
+        margin: rem(20) 0;
+    }
 }
