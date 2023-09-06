@@ -23,9 +23,9 @@ export const DynamicListCard = async ({
     staticProps,
     bindProps,
     slotName,
-    watch,
+    watchImmediate,
 }) => {
-    const { isFull, label, index, counter } = getState();
+    const { isFull } = getState();
 
     onMount(({ element }) => {
         const indexEl = element.querySelector('.index');
@@ -36,15 +36,15 @@ export const DynamicListCard = async ({
             element.classList.toggle('is-selected');
         });
 
-        watch('index', (val) => {
+        watchImmediate('index', (val) => {
             indexEl.textContent = updateContent('index', val);
         });
 
-        watch('label', (val) => {
+        watchImmediate('label', (val) => {
             labelEl.textContent = updateContent('label', val);
         });
 
-        watch('counter', (val) => {
+        watchImmediate('counter', (val) => {
             counterEl.textContent = updateContent('counter', val);
         });
 
@@ -52,9 +52,7 @@ export const DynamicListCard = async ({
             element.classList.add('active');
         });
 
-        return () => {
-            element.remove();
-        };
+        return () => {};
     });
 
     // await asyncTest();
@@ -66,9 +64,9 @@ export const DynamicListCard = async ({
     return render(/* HTML */ `
         <${tag} ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
-                <div class="index">${updateContent('index', index)}</div>
-                <div class="label">${updateContent('label', label)}</div>
-                <div class="counter">${updateContent('counter', counter)}</div>
+                <div class="index"></div>
+                <div class="label"></div>
+                <div class="counter"></div>
                 <slot ${slotName('slot1')}></slot>
                 <div class="key">key: ${key ?? ''}</div>
                 <slot

@@ -6,24 +6,24 @@ function getPreValue(value) {
     return `<pre>${value}</pre>`;
 }
 
-export const DynamicListSlot = ({ getState, render, onMount, watch }) => {
-    const {
-        staticFromSlot,
-        staticFromComponent,
-        parentParentState,
-        parentState,
-    } = getState();
+export const DynamicListSlot = ({
+    getState,
+    render,
+    onMount,
+    watchImmediate,
+}) => {
+    const { staticFromSlot, staticFromComponent } = getState();
 
     onMount(({ element }) => {
         const tEl = element.querySelector('.js-t-state');
         const t2El = element.querySelector('.js-t2-state');
 
-        watch('parentParentState', (val) => {
+        watchImmediate('parentParentState', (val) => {
             tEl.textContent = '';
             tEl.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
 
-        watch('parentState', (val) => {
+        watchImmediate('parentState', (val) => {
             t2El.textContent = '';
             t2El.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
@@ -39,11 +39,11 @@ export const DynamicListSlot = ({ getState, render, onMount, watch }) => {
             <h3 class="dynamic-slot__label">
                 Reactive state from parent component scope (dynamicList):
             </h3>
-            <div class="js-t-state">${getPreValue(parentParentState)}</div>
+            <div class="js-t-state"></div>
             <h3 class="dynamic-slot__label">
                 Reactive state from parent slot scope (dynamicCard):
             </h3>
-            <div class="js-t2-state">${getPreValue(parentState)}</div>
+            <div class="js-t2-state"></div>
         </div>
     `);
 };

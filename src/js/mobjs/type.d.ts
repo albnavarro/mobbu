@@ -112,6 +112,9 @@ export interface componentType {
     computed(prop: String, keys: [String], callback: Function): void;
 
     /**
+     * @description
+     * Watch state change.
+     *
      * @example
      * ```javascript
      *
@@ -124,6 +127,23 @@ export interface componentType {
      *
      */
     watch(prop: String, callback: Function): void;
+
+    /**
+     * @description
+     * Watch state change and fire one callback after inizialization.
+     *
+     * @example
+     * ```javascript
+     *
+     * const unsubscribe =  watchImmediate('myprop', (newval, oldval, validate) => {
+     *      // code
+     * })
+     * unsubscribe();
+     *
+     * ```
+     *
+     */
+    watchImmediate(prop: String, callback: Function): void;
 
     /**
      * @description

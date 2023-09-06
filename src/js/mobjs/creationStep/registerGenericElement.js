@@ -126,6 +126,14 @@ export const registerGenericElement = ({ component, state = {} }) => {
         watch,
         repeatId,
         getChildren,
+        watchImmediate: (
+            /** @type{String} */ state,
+            /** @type{any} */ callback
+        ) => {
+            const unsubscribe = watch(state, callback);
+            emit(state);
+            return unsubscribe;
+        },
         instanceName: (name = '') => setInstanceName(name),
         slotName: (/** @type{String} */ slotName) => setSlotName(slotName),
         useSlot: (/** @type{String} */ slotName) => useSlot(slotName),
