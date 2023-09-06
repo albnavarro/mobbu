@@ -7,7 +7,6 @@ import { DynamicListSlot } from './dynamicListSlot';
 export const dynamicListDef = createComponent({
     name: 'DynamicList',
     component: DynamicList,
-    exportState: ['title'],
     state: {
         counter: () => ({
             value: 0,
