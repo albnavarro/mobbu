@@ -7,17 +7,23 @@ import { parseComponentsRecursive } from './parseComponentRecursive';
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.element
+ * @param {Boolean} [ obj.isCancellable ]
  * @param {string|null} [ obj.runtimeId ]
  * @return {Promise<void>} A promise to the token.
  *
  * @description
  */
-export const parseComponents = async ({ element, runtimeId = null }) => {
+export const parseComponents = async ({
+    element,
+    runtimeId = null,
+    isCancellable = true,
+}) => {
     incrementParserCounter();
 
     await parseComponentsRecursive({
         element,
         runtimeId,
+        isCancellable,
     });
 };
 

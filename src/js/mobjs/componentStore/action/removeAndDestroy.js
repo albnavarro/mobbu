@@ -114,7 +114,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
                     removeCurrentIdToDynamicProps({ componentId: currentId });
                 }
 
-                // Assign is if existe a parent component and current parentId is null
+                // Assign is if exist a parent component and current parentId is null
                 return id !== currentId;
             });
         }
@@ -130,7 +130,28 @@ export const removeAndDestroyById = ({ id = '' }) => {
  * @returns void
  *
  * @description
+ * Remove non persistent component from store.
+ * ( all component without element defined in wrapper ).
+ */
+export const removeCancellableComponent = () => {
+    const { instances } = componentStore.get();
+
+    /**
+     * @type {Array<import('../store.js').componentStoreType>}
+     */
+    const cancellableComponent = instances.filter(
+        ({ isCancellable }) => isCancellable
+    );
+
+    cancellableComponent.forEach(({ id }) => removeAndDestroyById({ id }));
+};
+
+/**
+ * @returns void
+ *
+ * @description
  * Remove orphan omponent from store.
+ * Secure check.
  */
 export const removeOrphanComponent = () => {
     const { instances } = componentStore.get();

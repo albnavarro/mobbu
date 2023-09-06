@@ -38,14 +38,18 @@ import { removeWatchFromDynamicProps } from './utils';
  * @param {Object} obj
  * @param {HTMLElement} obj.component
  * @param {Object} obj.state
- * @param {Object} obj.props
+ * @param {Boolean} obj.isCancellable
  * @returns Object
  *
  * @description
  * Create component
  * Reuturn all prosps/method for user function.
  */
-export const registerGenericElement = ({ component, state = {} }) => {
+export const registerGenericElement = ({
+    component,
+    state = {},
+    isCancellable = true,
+}) => {
     /**
      * Create basic DOM element
      */
@@ -77,6 +81,7 @@ export const registerGenericElement = ({ component, state = {} }) => {
             componentName,
             instanceName,
             key,
+            isCancellable,
         });
 
     /**

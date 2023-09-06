@@ -90,8 +90,9 @@ export const inizializeApp = async ({
     /**
      * Render common layout component.
      * Inizialize js on common layout component.
+     * All component here is persistent, so isCancellable is set to false.
      */
-    await parseComponents({ element: rootEl });
+    await parseComponents({ element: rootEl, isCancellable: false });
 
     /**
      * First callback after parse index.html first time.

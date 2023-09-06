@@ -29,6 +29,7 @@ import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy
  * @param {Object} obj
  * @param {HTMLElement} obj.element
  * @param {string|null} obj.runtimeId
+ * @param {Boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
  * @return {Promise<void>}
  *
@@ -39,6 +40,7 @@ export const parseComponentsRecursive = async ({
     element,
     runtimeId,
     functionToFireAtTheEnd = [],
+    isCancellable = true,
 }) => {
     if (!element) return Promise.resolve();
 
@@ -157,6 +159,7 @@ export const parseComponentsRecursive = async ({
             element,
             runtimeId,
             functionToFireAtTheEnd,
+            isCancellable,
         });
 
         return;
@@ -170,6 +173,7 @@ export const parseComponentsRecursive = async ({
     const componentData = registerGenericElement({
         component: componentToParse,
         ...componentParams,
+        isCancellable,
     });
 
     /**
@@ -284,5 +288,6 @@ export const parseComponentsRecursive = async ({
         element,
         runtimeId,
         functionToFireAtTheEnd,
+        isCancellable,
     });
 };

@@ -15,6 +15,7 @@ import { core } from '../../mobMotion';
  * @prop { String } key
  * @prop { Object } currentRepeaterState
  * @prop { Boolean } isRepeater
+ * @prop { Boolean } isCancellable
  * @prop { String } id
  */
 
@@ -38,6 +39,7 @@ export const componentStore = core.createStore({
                     item?.freezedPros &&
                     'currentRepeaterState' in item &&
                     'isRepeater' in item &&
+                    'isCancellable' in item &&
                     'instanceName' in item &&
                     'parentId' in item &&
                     'key' in item &&

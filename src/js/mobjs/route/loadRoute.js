@@ -1,4 +1,4 @@
-import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
+import { removeCancellableComponent } from '../componentStore/action/removeAndDestroy';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getContent } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
@@ -53,7 +53,7 @@ export const loadRoute = async ({ route = '' }) => {
     mainStore.set('activeRoute', route);
     const content = getRouteList()?.[route]?.();
     contentEl.innerHTML = '';
-    removeOrphanComponent();
+    removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
 
     /**jj
