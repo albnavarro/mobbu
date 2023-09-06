@@ -14,13 +14,18 @@ function updateNewElement(id) {
         .replaceAll(',', ' | ')}`;
 }
 
+function afterUpdateList({ className, childrenId }) {
+    const newElement = document.querySelector(className);
+    newElement.textContent = '';
+    newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
+}
+
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const DynamicList = async ({
     getState,
     setState,
-    getChildren,
     render,
     onMount,
     repeat,
@@ -120,26 +125,10 @@ export const DynamicList = async ({
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
                             afterUpdate: ({ container, childrenId }) => {
-                                const newElement =
-                                    document.querySelector(
-                                        '.js-newelement-key'
-                                    );
-                                newElement.textContent = '';
-                                newElement.insertAdjacentHTML(
-                                    'afterbegin',
-                                    updateNewElement(childrenId)
-                                );
-
-                                /*
-                                 * Update all Card list in UI.
-                                 */
-                                const childrenEl =
-                                    document.querySelector('.dynamic-children');
-                                childrenEl.textContent = getChildren(
-                                    'DynamicListCard'
-                                )
-                                    .join(',')
-                                    .replaceAll(',', ' | ');
+                                afterUpdateList({
+                                    className: '.js-newelement-key',
+                                    childrenId,
+                                });
                             },
                         })}
                     </div>
@@ -174,14 +163,10 @@ export const DynamicList = async ({
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
                             afterUpdate: ({ container, childrenId }) => {
-                                const newElement = document.querySelector(
-                                    '.js-newelement-nokey'
-                                );
-                                newElement.textContent = '';
-                                newElement.insertAdjacentHTML(
-                                    'afterbegin',
-                                    updateNewElement(childrenId)
-                                );
+                                afterUpdateList({
+                                    className: '.js-newelement-nokey',
+                                    childrenId,
+                                });
                             },
                         })}
                     </div>
@@ -215,14 +200,10 @@ export const DynamicList = async ({
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
                             afterUpdate: ({ container, childrenId }) => {
-                                const newElement = document.querySelector(
-                                    '.js-newelement-clear'
-                                );
-                                newElement.textContent = '';
-                                newElement.insertAdjacentHTML(
-                                    'afterbegin',
-                                    updateNewElement(childrenId)
-                                );
+                                afterUpdateList({
+                                    className: '.js-newelement-clear',
+                                    childrenId,
+                                });
                             },
                         })}
                     </div>
@@ -268,12 +249,6 @@ export const DynamicList = async ({
                         </DynamicListSlot>
                     </DynamicListCard>
                 </div>
-            </div>
-            <div>
-                <h4 class="dynamic-list__title">
-                    All child Card ineer/outer scope:
-                </h4>
-                <p class="dynamic-list__children dynamic-children"></p>
             </div>
         </div>
     `);
