@@ -105,6 +105,8 @@ const setDynamicProp = ({
      * Check id all bind props exist in parent state.
      */
     const parentState = getStateById(currentParentId);
+    if (!parentState) return;
+
     const parentStateKeys = Object.keys(parentState);
     const bindArrayIsValid = bind.every((state) =>
         parentStateKeys.includes(state)
