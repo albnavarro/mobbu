@@ -18,10 +18,10 @@
         padding: rem(20);
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr rem(50) 1fr;
+        grid-template-columns: 1fr rem(50) 1fr rem(50) 1fr;
         grid-template-areas:
-            'key . no-key'
-            'bottom bottom bottom';
+            'key . no-key . clean'
+            'bottom bottom bottom bottom bottom';
 
         &__bottom {
             grid-area: bottom;
@@ -33,6 +33,10 @@
 
         &__no-key {
             grid-area: no-key;
+        }
+
+        &__clean {
+            grid-area: clean;
         }
     }
 

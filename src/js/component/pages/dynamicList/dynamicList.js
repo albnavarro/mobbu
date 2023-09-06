@@ -38,21 +38,25 @@ export const DynamicList = async ({
         state1El.addEventListener('click', () => {
             setState('data', state1);
             setState('data2', state1);
+            setState('data3', state1);
         });
 
         state2El.addEventListener('click', () => {
             setState('data', state2);
             setState('data2', state2);
+            setState('data3', state2);
         });
 
         state3El.addEventListener('click', () => {
             setState('data', state3);
             setState('data2', state3);
+            setState('data3', state3);
         });
 
         state4El.addEventListener('click', () => {
             setState('data', startData);
             setState('data2', startData);
+            setState('data3', startData);
         });
 
         increaseCounterEl.addEventListener('click', () => {
@@ -140,6 +144,7 @@ export const DynamicList = async ({
                         })}
                     </div>
                 </div>
+
                 <div class="dynamic-list__content__no-key">
                     <h4 class="dynamic-list__title">
                         Dynamic list without key:
@@ -171,6 +176,47 @@ export const DynamicList = async ({
                             afterUpdate: ({ container, childrenId }) => {
                                 const newElement = document.querySelector(
                                     '.js-newelement-nokey'
+                                );
+                                newElement.textContent = '';
+                                newElement.insertAdjacentHTML(
+                                    'afterbegin',
+                                    updateNewElement(childrenId)
+                                );
+                            },
+                        })}
+                    </div>
+                </div>
+
+                <div class="dynamic-list__content__clean">
+                    <h4 class="dynamic-list__title">Dynamic list clear:</h4>
+                    <p
+                        class="dynamic-list__newelements js-newelement-clear"
+                    ></p>
+                    <div class="dynamic-list__list">
+                        ${repeat({
+                            watch: 'data3',
+                            clean: true,
+                            component: 'DynamicListCard',
+                            props: ({ current, index }) => {
+                                const { label } = current;
+                                return { label, index };
+                            },
+                            bindProps: {
+                                bind: ['counter'],
+                                // eslint-disable-next-line no-unused-vars
+                                props: ({ counter }, { current, index }) => {
+                                    // console.log(current, index);
+                                    return {
+                                        counter,
+                                    };
+                                },
+                            },
+                            // eslint-disable-next-line no-unused-vars
+                            beforeUpdate: ({ container, childrenId }) => {},
+                            // eslint-disable-next-line no-unused-vars
+                            afterUpdate: ({ container, childrenId }) => {
+                                const newElement = document.querySelector(
+                                    '.js-newelement-clear'
                                 );
                                 newElement.textContent = '';
                                 newElement.insertAdjacentHTML(
