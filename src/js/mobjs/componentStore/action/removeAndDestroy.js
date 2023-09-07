@@ -160,7 +160,8 @@ export const removeOrphanComponent = () => {
      * @type {Array<import('../store.js').componentStoreType>}
      */
     const orphans = instances.filter(
-        ({ element }) => !document.body.contains(element)
+        ({ element, isCancellable }) =>
+            isCancellable && !document.body.contains(element)
     );
 
     orphans.forEach(({ id }) => removeAndDestroyById({ id }));
