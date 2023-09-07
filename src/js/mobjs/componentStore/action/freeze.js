@@ -13,7 +13,7 @@ import { componentStore } from '../store.js';
  * Update element root from generic to real after conversion.
  */
 export const freezePropById = ({ id = '', prop }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     componentStore.set(
         'instances',
@@ -21,12 +21,12 @@ export const freezePropById = ({ id = '', prop }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, freezedPros } = item;
 
                 return id === currentId
                     ? {
                           ...item,
-                          ...{ freezedPros: [...item.freezedPros, prop] },
+                          freezedPros: [...freezedPros, prop],
                       }
                     : item;
             });
@@ -45,7 +45,7 @@ export const freezePropById = ({ id = '', prop }) => {
  * Update element root from generic to real after conversion.
  */
 export const unFreezePropById = ({ id = '', prop }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     componentStore.set(
         'instances',
@@ -53,16 +53,15 @@ export const unFreezePropById = ({ id = '', prop }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, freezedPros } = item;
 
                 return id === currentId
                     ? {
                           ...item,
-                          ...{
-                              freezedPros: item.freezedPros.filter(
-                                  (currentProp) => currentProp !== prop
-                              ),
-                          },
+
+                          freezedPros: freezedPros.filter(
+                              (currentProp) => currentProp !== prop
+                          ),
                       }
                     : item;
             });

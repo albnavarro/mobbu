@@ -6,7 +6,7 @@ import { horizontalScrollerAnimation } from './animation/animation';
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     const pinClass = pinIsVisible ? '' : 'hidden';
 
-    return [...Array(numOfCol).keys()]
+    return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerSection
@@ -21,7 +21,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 };
 
 const getNav = ({ numOfCol, setState, bindProps, staticProps }) => {
-    return [...Array(numOfCol).keys()]
+    return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
@@ -102,7 +102,7 @@ export const HorizontalScroller = ({
                  *                              active: currentId || currentIdFromScroll
                  * ( onLeaveBack issue )
                  */
-                parseInt(id) === 0
+                Number.parseInt(id) === 0
                     ? window.innerHeight + 1
                     : top + height - window.innerHeight;
 

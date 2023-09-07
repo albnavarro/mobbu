@@ -12,7 +12,7 @@ import { updateChildrenArray } from '../utils';
  * Get parent id By id
  */
 export const getParentIdById = (id = '') => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     const { instances } = componentStore.get();
 
@@ -28,7 +28,7 @@ export const getParentIdById = (id = '') => {
     const parentId = instance?.parentId;
     if (!parentId) {
         // console.warn(`getParentIdById failed no id found`);
-        return undefined;
+        return;
     }
 
     return parentId;
@@ -43,7 +43,7 @@ export const getParentIdById = (id = '') => {
  * From current component id get parentID and then add to parent child id
  */
 export const addSelfToParentComponent = ({ id = '' }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     const { instances } = componentStore.get();
 
@@ -66,20 +66,19 @@ export const addSelfToParentComponent = ({ id = '' }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, child } = item;
 
                 return currentId === parentId
                     ? {
                           ...item,
-                          ...{
-                              child: {
-                                  ...item.child,
-                                  ...updateChildrenArray({
-                                      currentChild: item.child,
-                                      id,
-                                      componentName,
-                                  }),
-                              },
+
+                          child: {
+                              ...child,
+                              ...updateChildrenArray({
+                                  currentChild: child,
+                                  id,
+                                  componentName,
+                              }),
                           },
                       }
                     : item;
@@ -117,7 +116,7 @@ export const setParentsComponent = ({ componentId }) => {
                 // Secure check.
                 // Assign is if existe a parent component and current parentId is null/undefined
                 return parent && (!parentId || parentId === undefined)
-                    ? { ...item, ...{ parentId: parent.id } }
+                    ? { ...item, parentId: parent.id }
                     : item;
             });
         }

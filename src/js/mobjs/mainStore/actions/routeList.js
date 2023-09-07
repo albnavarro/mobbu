@@ -12,7 +12,7 @@ import { mainStore } from '../mainStore';
 export const setRouteList = (list) => {
     const listParsed = Object.entries(list).reduce((previous, current) => {
         const [key, value] = current;
-        return { ...previous, ...{ [key]: value } };
+        return { ...previous, [key]: value };
     }, {});
 
     mainStore.set('routeList', listParsed);

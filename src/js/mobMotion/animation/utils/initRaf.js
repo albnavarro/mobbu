@@ -24,7 +24,7 @@ export const initRaf = (
         handleNextTick.add(({ time, fps }) => {
             const prevent = callbackPauseArray
                 .map(({ cb }) => cb())
-                .some((item) => item === true);
+                .includes(true);
             rafFunction(time, fps, resolve);
             if (prevent) pauseFunction();
         });

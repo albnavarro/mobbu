@@ -60,7 +60,7 @@ export default class HandleMasterSequencer {
     }
 
     getLabels() {
-        return this.children.map((item) => item.getLabels()).flat();
+        return this.children.flatMap((item) => item.getLabels());
     }
 
     resetLastValue() {

@@ -47,7 +47,7 @@ let val = window.pageYOffset;
 let direction = DOWN;
 
 /**
- * @type {{scrollY: Number, direction:String}>}
+ * @type {{scrollY: Number, direction:String}}
  */
 let scrollData = {
     scrollY: val,

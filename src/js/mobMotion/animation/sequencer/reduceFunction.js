@@ -27,10 +27,6 @@ export const checkIsLastUsableProp = (arr, i, prop, partial) => {
         const nextActiveItem = values.find((nextItem) => {
             return nextItem.prop === prop && nextItem.active;
         });
-        if (nextActiveItem && start <= partial) {
-            return false;
-        } else {
-            return p;
-        }
+        return nextActiveItem && start <= partial ? false : p;
     }, true);
 };

@@ -13,7 +13,7 @@ import { componentStore } from '../store.js';
  * Update element root from generic to real after conversion.
  */
 export const setCurrentListValueById = ({ id = '', value }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     componentStore.set(
         'instances',
@@ -26,7 +26,8 @@ export const setCurrentListValueById = ({ id = '', value }) => {
                 return id === currentId
                     ? {
                           ...item,
-                          ...{ currentRepeaterState: value, isRepeater: true },
+                          currentRepeaterState: value,
+                          isRepeater: true,
                       }
                     : item;
             });

@@ -74,7 +74,7 @@ export const setRelative = (arr, relative) => {
  * Used by classic tween
  *
  **/
-const tweenSmallNumber = 0.00001;
+const tweenSmallNumber = 0.000_01;
 export const setRelativeTween = (arr, relative) => {
     return arr.map((item) => {
         if (item.shouldUpdate) {

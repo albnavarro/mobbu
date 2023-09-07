@@ -260,11 +260,11 @@ export default class HandleSpring {
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
-            item.velocity = parseFloat(this.config.velocity);
-            item.currentValue = parseFloat(item.fromValue);
+            item.velocity = Number.parseFloat(this.config.velocity);
+            item.currentValue = Number.parseFloat(item.fromValue);
 
             // Normalize toValue in case is a string
-            item.toValue = parseFloat(item.toValue);
+            item.toValue = Number.parseFloat(item.toValue);
         });
 
         // Normalize spring config props
@@ -274,10 +274,10 @@ export default class HandleSpring {
          */
         let o = {};
 
-        o.tension = parseFloat(this.config.tension);
-        o.friction = parseFloat(this.config.friction);
-        o.mass = parseFloat(this.config.mass);
-        o.precision = parseFloat(this.config.precision);
+        o.tension = Number.parseFloat(this.config.tension);
+        o.friction = Number.parseFloat(this.config.friction);
+        o.mass = Number.parseFloat(this.config.mass);
+        o.precision = Number.parseFloat(this.config.precision);
 
         const draw = (_time, fps) => {
             this.isActive = true;
@@ -297,11 +297,11 @@ export default class HandleSpring {
                 o.isVelocity = Math.abs(item.velocity) <= 0.1;
 
                 o.isDisplacement =
-                    o.tension !== 0
-                        ? Math.abs(
+                    o.tension === 0
+                        ? true
+                        : Math.abs(
                               item.toValue - item.currentValue.toFixed(4)
-                          ) <= o.precision
-                        : true;
+                          ) <= o.precision;
 
                 item.settled = o.isVelocity && o.isDisplacement;
             });
@@ -320,13 +320,7 @@ export default class HandleSpring {
             // Check if all values is completed
             o.allSettled = this.values.every((item) => item.settled === true);
 
-            if (!o.allSettled) {
-                handleFrame.add(() => {
-                    handleNextTick.add(({ time, fps }) => {
-                        if (this.isActive) draw(time, fps);
-                    });
-                });
-            } else {
+            if (o.allSettled) {
                 const onComplete = () => {
                     this.isActive = false;
 
@@ -365,6 +359,12 @@ export default class HandleSpring {
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,
                     useStagger: this.useStagger,
+                });
+            } else {
+                handleFrame.add(() => {
+                    handleNextTick.add(({ time, fps }) => {
+                        if (this.isActive) draw(time, fps);
+                    });
                 });
             }
         };
@@ -587,7 +587,7 @@ export default class HandleSpring {
         const newProps = {
             ...this.defaultProps,
             ...props,
-            ...{ config: newConfig },
+            config: newConfig,
         };
         const { config, relative } = newProps;
         this.config = config;

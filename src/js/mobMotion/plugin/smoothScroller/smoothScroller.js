@@ -473,13 +473,15 @@ export default class SmoothScroller {
         if (!this.propsIsValid) return;
 
         switch (this.easeType) {
-            case parallaxConstant.EASE_SPRING:
+            case parallaxConstant.EASE_SPRING: {
                 this.motion = new HandleSpring();
                 break;
+            }
 
-            default:
+            default: {
                 this.motion = new HandleLerp();
                 break;
+            }
         }
 
         /**
@@ -585,11 +587,10 @@ export default class SmoothScroller {
         this.motion.setData({ val: 0 });
 
         this.unsubscribeMotion = this.motion.subscribe(({ val }) => {
-            if (this.direction == parallaxConstant.DIRECTION_VERTICAL) {
-                this.scroller.style.transform = `translate3d(0px, 0px, 0px) translateY(${-val}px)`;
-            } else {
-                this.scroller.style.transform = `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
-            }
+            this.scroller.style.transform =
+                this.direction == parallaxConstant.DIRECTION_VERTICAL
+                    ? `translate3d(0px, 0px, 0px) translateY(${-val}px)`
+                    : `translate3d(0px, 0px, 0px) translateX(${-val}px)`;
 
             /**
              * TODO Move to scroll Start (scopedEvent or not , wheel touch etc...)
@@ -617,11 +618,10 @@ export default class SmoothScroller {
         });
 
         this.unsubscribeOnComplete = this.motion.onComplete(({ val }) => {
-            if (this.direction == parallaxConstant.DIRECTION_VERTICAL) {
-                this.scroller.style.transform = `translateY(${-val}px)`;
-            } else {
-                this.scroller.style.transform = `translateX(${-val}px)`;
-            }
+            this.scroller.style.transform =
+                this.direction == parallaxConstant.DIRECTION_VERTICAL
+                    ? `translateY(${-val}px)`
+                    : `translateX(${-val}px)`;
 
             handleNextTick.add(() => {
                 if (this.onTickCallback)
@@ -672,7 +672,7 @@ export default class SmoothScroller {
 
         this.prevTouchVal = this.touchVal;
         this.touchVal = this.getMousePos(client);
-        this.endValue += parseInt(this.prevTouchVal - this.touchVal);
+        this.endValue += Number.parseInt(this.prevTouchVal - this.touchVal);
         this.calculateValue();
         this.scrollbarIsRunning = false;
     }
@@ -731,7 +731,7 @@ export default class SmoothScroller {
             this.prevTouchVal = this.touchVal;
             this.touchVal = this.getMousePos(client);
 
-            const result = parseInt(this.prevTouchVal - this.touchVal);
+            const result = Number.parseInt(this.prevTouchVal - this.touchVal);
             this.endValue += result;
 
             this.calculateValue();

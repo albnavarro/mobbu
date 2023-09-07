@@ -9,7 +9,7 @@ import { storeType } from '../../store/storeType.js';
  * Generate univoque id
  */
 export const getUnivoqueId = () => {
-    return `_${Math.random().toString(36).substring(2, 9)}`;
+    return `_${Math.random().toString(36).slice(2, 9)}`;
 };
 
 /**
@@ -23,7 +23,7 @@ export const getUnivoqueId = () => {
  */
 export const getValueObj = (arr, key) => {
     return arr
-        .map((item) => ({ [item.prop]: parseFloat(item[key]) }))
+        .map((item) => ({ [item.prop]: Number.parseFloat(item[key]) }))
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
 
@@ -37,8 +37,9 @@ export const getValueObj = (arr, key) => {
 export const getValueObjToNative = (arr) => {
     return arr
         .map((item) => {
-            if (item.toIsFn) return { [item.prop]: item.toFn };
-            else return { [item.prop]: parseFloat(item.toValue) };
+            return item.toIsFn
+                ? { [item.prop]: item.toFn }
+                : { [item.prop]: Number.parseFloat(item.toValue) };
         })
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
@@ -53,8 +54,9 @@ export const getValueObjToNative = (arr) => {
 export const getValueObjFromNative = (arr) => {
     return arr
         .map((item) => {
-            if (item.fromIsFn) return { [item.prop]: item.fromFn };
-            else return { [item.prop]: parseFloat(item.fromValue) };
+            return item.fromIsFn
+                ? { [item.prop]: item.fromFn }
+                : { [item.prop]: Number.parseFloat(item.fromValue) };
         })
         .reduce((p, c) => ({ ...p, ...c }), {});
 };
@@ -68,16 +70,16 @@ export const getValueObjFromNative = (arr) => {
  */
 export const getRoundedValue = (x) => {
     if (storeType.isNumber(x)) {
-        return Math.round(x * 10000) / 10000 || 0;
+        return Math.round(x * 10_000) / 10_000 || 0;
     } else {
-        if (Math.abs(x) < 1.0) {
-            const e = parseInt(x.toString().split('e-')[1]);
+        if (Math.abs(x) < 1) {
+            const e = Number.parseInt(x.toString().split('e-')[1]);
             if (e) {
                 x *= Math.pow(10, e - 1);
-                x = '0.' + new Array(e).join('0') + x.toString().substring(2);
+                x = '0.' + new Array(e).join('0') + x.toString().slice(2);
             }
         } else {
-            let e = parseInt(x.toString().split('+')[1]);
+            let e = Number.parseInt(x.toString().split('+')[1]);
             if (e > 20) {
                 e -= 20;
                 x /= Math.pow(10, e);
@@ -85,7 +87,7 @@ export const getRoundedValue = (x) => {
             }
         }
 
-        return parseFloat(parseFloat(x).toFixed(4));
+        return Number.parseFloat(Number.parseFloat(x).toFixed(4));
     }
 };
 
@@ -124,8 +126,8 @@ export const mergeArrayTween = (newData, data) => {
 
         // If exist merge
         return itemToMerge
-            ? { ...item, ...itemToMerge, ...{ shouldUpdate: true } }
-            : { ...item, ...{ shouldUpdate: false } };
+            ? { ...item, ...itemToMerge, shouldUpdate: true }
+            : { ...item, shouldUpdate: false };
     });
 };
 

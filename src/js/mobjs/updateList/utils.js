@@ -16,7 +16,7 @@ import { getElementById } from '../componentStore/action/element';
 export const getNewElement = (current = [], previous = [], key = '') => {
     return current.filter((el) => {
         const value = el?.[key];
-        return !previous.find((a) => a?.[key] === value);
+        return !previous.some((a) => a?.[key] === value);
     });
 };
 
@@ -33,7 +33,7 @@ export const getNewElement = (current = [], previous = [], key = '') => {
 export const mixPreviousAndCurrentData = (current, previous, key) => {
     return current.map((el, index) => {
         const value = el?.[key];
-        const isNewElement = !previous.find((a) => a?.[key] === value);
+        const isNewElement = !previous.some((a) => a?.[key] === value);
         return isNewElement
             ? { isNewElement: true, key: el?.[key], index }
             : { isNewElement: false, key: el?.[key], index };

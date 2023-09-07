@@ -4,14 +4,17 @@ import { horizontalScrollerContstant } from './horizontalScrollerConstant.js';
 
 const getAlign = (columnAlign) => {
     switch (columnAlign) {
-        case horizontalScrollerContstant.END:
+        case horizontalScrollerContstant.END: {
             return 'align-items:flex-end;';
+        }
 
-        case horizontalScrollerContstant.CENTER:
+        case horizontalScrollerContstant.CENTER: {
             return 'align-items:center;';
+        }
 
-        default:
+        default: {
             return 'align-items:flex-start;';
+        }
     }
 };
 
@@ -50,7 +53,7 @@ export const horizontalScrollerCss = ({
     const styleDiv = document.createElement('div');
     styleDiv.classList.add('scroller-style');
     const style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    styleDiv.appendChild(style);
+    style.append(document.createTextNode(css));
+    styleDiv.append(style);
     mainContainer.prepend(styleDiv);
 };

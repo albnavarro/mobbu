@@ -410,7 +410,7 @@ export class SimpleStore {
      * the callback related to the computed will be fired only once.
      */
     addToComputedWaitLsit(prop) {
-        if (!this.callBackComputed.length) return;
+        if (this.callBackComputed.length === 0) return;
 
         this.computedWaitList.push(prop);
 
@@ -681,9 +681,11 @@ export class SimpleStore {
         /**
          * Get new Object with only validate and strick passed
          */
-        const newValParsedByStrict = strictObjectResult
-            .map(({ item }) => item)
-            .reduce((acc, [key, val]) => ({ ...acc, ...{ [key]: val } }), {});
+        const newValParsedByStrict = Object.fromEntries(
+            strictObjectResult
+                .map(({ item }) => item)
+                .map(([key, val]) => [key, val])
+        );
 
         /**
          * Validate value (value passed to setObj is a Object to merge with original) and store the result in validationStatusObject arr
@@ -1044,11 +1046,11 @@ export class SimpleStore {
         // Create a temp array with the future computed added to check
         const tempComputedArray = [
             ...this.callBackComputed,
-            ...[{ prop, keys, fn }],
+            { prop, keys, fn },
         ];
 
         // Get all prop stored in tempComputedArray
-        const propList = tempComputedArray.map((item) => item.prop).flat();
+        const propList = tempComputedArray.flatMap((item) => item.prop);
 
         //  Keys can't be a prop used in some computed
         const keysIsusedInSomeComputed = propList.some((item) =>

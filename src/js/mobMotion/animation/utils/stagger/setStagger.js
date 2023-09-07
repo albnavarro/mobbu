@@ -32,14 +32,14 @@ export const setStagger = ({
              * Check x value if is not setted use 0 as default
              */
             if (!checkType(Number, stagger?.from?.x)) {
-                stagger.from = { ...stagger.from, ...{ x: 0 } };
+                stagger.from = { ...stagger.from, x: 0 };
             }
 
             /**
              * Check y value if is not setted use 0 as default
              */
             if (!checkType(Number, stagger?.from?.y)) {
-                stagger.from = { ...stagger.from, ...{ y: 0 } };
+                stagger.from = { ...stagger.from, y: 0 };
             }
 
             const { cleanArray: cleanCb } = getRadialArray(arr, stagger);

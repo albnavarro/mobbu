@@ -11,6 +11,21 @@ import { handleNextTick } from '../rafutils/handleNextTick.js';
  */
 
 /**
+ * @type {function}
+ */
+let unsubscribeScrollStart = () => {};
+
+/**
+ * @type {function}
+ */
+let unsubscribeScrollEnd = () => {};
+
+/**
+ * @type {any}
+ */
+let debouceFunctionReference = () => {};
+
+/**
  * @param {('START'|'END')} type
  */
 function handleScrollUtils(type) {
@@ -33,21 +48,6 @@ function handleScrollUtils(type) {
      * @type {Boolean}
      */
     let isScrolling = false;
-
-    /**
-     * @type {function}
-     */
-    let unsubscribeScrollStart = () => {};
-
-    /**
-     * @type {function}
-     */
-    let unsubscribeScrollEnd = () => {};
-
-    /**
-     * @type {any}
-     */
-    let debouceFunctionReference = () => {};
 
     /**
      * @returns void

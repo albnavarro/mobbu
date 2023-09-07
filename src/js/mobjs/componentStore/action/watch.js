@@ -12,7 +12,7 @@ import { componentStore } from '../store';
  * Watch state
  */
 export const watchById = (id = '', prop = '', cb = () => {}) => {
-    if ((!id || id === '') && (!prop || prop === '')) return undefined;
+    if ((!id || id === '') && (!prop || prop === '')) return;
 
     const { instances } = componentStore.get();
 
@@ -24,7 +24,7 @@ export const watchById = (id = '', prop = '', cb = () => {}) => {
     const state = instance?.state;
     if (!state) {
         console.warn(`watchById failed no id found on prop: ${prop}`);
-        return undefined;
+        return;
     }
 
     return state.watch(prop, cb);

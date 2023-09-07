@@ -78,7 +78,7 @@ export const caterpillarN0Animation = ({
     /**
      * Setup data.
      */
-    stemData = [...Array(amountOfPath).keys()].map((_item, i) => {
+    stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
         const count = i;
         const index = count < amountOfPath / 2 ? amountOfPath - count : count;
         const relativeIndex = index - (amountOfPath - index);
@@ -105,6 +105,7 @@ export const caterpillarN0Animation = ({
      */
     steamDataReorded = stemData
         .splice(0, stemData.length / 2)
+        // eslint-disable-next-line unicorn/prefer-spread
         .concat(stemData.reverse());
 
     /**

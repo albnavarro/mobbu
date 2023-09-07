@@ -58,7 +58,9 @@ export const initNavigationScoller = ({ root }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;
 
-            percentEl.style.transform = `scaleX(${parseInt(percent) / 100})`;
+            percentEl.style.transform = `scaleX(${
+                Number.parseInt(percent) / 100
+            })`;
         },
     });
 

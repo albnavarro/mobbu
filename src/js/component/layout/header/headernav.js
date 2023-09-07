@@ -11,13 +11,8 @@ function additems() {
             const { label, url, internal } = link;
 
             return /* HTML */ ` <li class="l-header__sidenav__item">
-                ${!internal
+                ${internal
                     ? /* HTML */ `
-                          <a href="${url}" class="l-header__sidenav__link">
-                              ${label}
-                          </a>
-                      `
-                    : /* HTML */ `
                           <button
                               type="button"
                               data-url="${url}"
@@ -25,6 +20,11 @@ function additems() {
                           >
                               ${label}
                           </button>
+                      `
+                    : /* HTML */ `
+                          <a href="${url}" class="l-header__sidenav__link">
+                              ${label}
+                          </a>
                       `}
             </li>`;
         })

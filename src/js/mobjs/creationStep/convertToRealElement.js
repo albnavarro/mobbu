@@ -30,7 +30,7 @@ const getNewElement = ({ placeholderElement, content }) => {
         );
     }
 
-    return undefined;
+    return;
 };
 
 /**

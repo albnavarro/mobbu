@@ -45,7 +45,7 @@ export const watchList = ({
     containerList = document.createElement('div'),
     props = {},
     clean = false,
-    dynamicProps = undefined,
+    dynamicProps,
     beforeUpdate = () => {},
     afterUpdate = () => {},
     targetComponent = '',

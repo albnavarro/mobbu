@@ -361,13 +361,7 @@ export default class HandleTween {
 
             this.isRunning = true;
 
-            if (!o.isSettled) {
-                handleFrame.add(() => {
-                    handleNextTick.add(({ time }) => {
-                        if (this.isActive) draw(time);
-                    });
-                });
-            } else {
+            if (o.isSettled) {
                 const onComplete = () => {
                     this.isActive = false;
                     this.isRunning = false;
@@ -408,6 +402,12 @@ export default class HandleTween {
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,
                     useStagger: this.useStagger,
+                });
+            } else {
+                handleFrame.add(() => {
+                    handleNextTick.add(({ time }) => {
+                        if (this.isActive) draw(time);
+                    });
                 });
             }
         };

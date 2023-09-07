@@ -13,10 +13,9 @@ export const maxDepth = (object) => {
     if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
 
-    return (
-        (values.length && Math.max(...values.map((value) => maxDepth(value)))) +
-        1
-    );
+    if (values.length === 0) return 1;
+
+    return Math.max(...values.map((value) => maxDepth(value))) + 1;
 };
 
 /**
@@ -49,14 +48,13 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
         if (storeType.isObject(value) && shouldRecursive) {
             return {
                 ...p,
-                ...{
-                    [key]: getDataRecursive(
-                        /** @type {import('./simpleStore.js').SimpleStoreType} */ (
-                            value
-                        ),
-                        false
+
+                [key]: getDataRecursive(
+                    /** @type {import('./simpleStore.js').SimpleStoreType} */ (
+                        value
                     ),
-                },
+                    false
+                ),
             };
         }
 
@@ -71,13 +69,13 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
                 'type' in functionResult ||
                 'skipEqual' in functionResult)
         ) {
-            return { ...p, ...{ [key]: functionResult.value } };
+            return { ...p, [key]: functionResult.value };
         }
 
         /**
          * Simple value
          */
-        return { ...p, ...{ [key]: value } };
+        return { ...p, [key]: value };
     }, {});
 };
 
@@ -110,16 +108,15 @@ export const getPropRecursive = (
         if (storeType.isObject(value) && shouldRecursive) {
             return {
                 ...p,
-                ...{
-                    [key]: getPropRecursive(
-                        /** @type{import('./simpleStore.js').SimpleStoreType} */ (
-                            value
-                        ),
-                        prop,
-                        fallback,
-                        false
+
+                [key]: getPropRecursive(
+                    /** @type{import('./simpleStore.js').SimpleStoreType} */ (
+                        value
                     ),
-                },
+                    prop,
+                    fallback,
+                    false
+                ),
             };
         }
 
@@ -136,13 +133,13 @@ export const getPropRecursive = (
                 ? functionResult[prop].toUpperCase()
                 : functionResult[prop];
 
-            return { ...p, ...{ [key]: propParsed } };
+            return { ...p, [key]: propParsed };
         }
 
         /**
          * Simple value
          */
-        return { ...p, ...{ [key]: fallback } };
+        return { ...p, [key]: fallback };
     }, {});
 };
 

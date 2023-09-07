@@ -326,7 +326,7 @@ export const tweenConfig = {
         amountOfChange,
         duration
     ) => {
-        let s = 1.70158;
+        let s = 1.701_58;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -358,7 +358,7 @@ export const tweenConfig = {
         amountOfChange,
         duration
     ) => {
-        let s = 1.70158;
+        let s = 1.701_58;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -390,7 +390,7 @@ export const tweenConfig = {
         amountOfChange,
         duration
     ) => {
-        let s = 1.70158;
+        let s = 1.701_58;
         let p = 0;
         let a = amountOfChange;
         if (elapsed === 0) {
@@ -433,7 +433,7 @@ export const tweenConfig = {
         initialValue,
         amountOfChange,
         duration,
-        s = 1.70158
+        s = 1.701_58
     ) => {
         return (
             amountOfChange *
@@ -448,7 +448,7 @@ export const tweenConfig = {
         initialValue,
         amountOfChange,
         duration,
-        s = 1.70158
+        s = 1.701_58
     ) => {
         return (
             amountOfChange *
@@ -464,7 +464,7 @@ export const tweenConfig = {
         initialValue,
         amountOfChange,
         duration,
-        s = 1.70158
+        s = 1.701_58
     ) => {
         if ((elapsed /= duration / 2) < 1) {
             return (
@@ -520,7 +520,7 @@ export const tweenConfig = {
         } else {
             return (
                 amountOfChange *
-                    (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984375) +
+                    (7.5625 * (elapsed -= 2.625 / 2.75) * elapsed + 0.984_375) +
                 initialValue
             );
         }
@@ -563,10 +563,10 @@ export const printEaseKey = () => {
 };
 
 export const getTweenFn = (prop) => {
-    if (!(prop in tweenConfig)) {
+    if (prop in tweenConfig) {
+        return tweenConfig[prop];
+    } else {
         tweenEaseWarning(prop);
         return tweenConfig[handleSetUp.get('tween').ease];
-    } else {
-        return tweenConfig[prop];
     }
 };

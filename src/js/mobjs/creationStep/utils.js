@@ -45,5 +45,5 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
         (/** @type{String} */ state) => state !== stateToWatch
     );
 
-    return { ...dynamicProps, ...{ bind: newBind } };
+    return { ...dynamicProps, bind: newBind };
 };

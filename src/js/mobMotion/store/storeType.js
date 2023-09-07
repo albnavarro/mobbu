@@ -70,7 +70,7 @@ export const storeType = {
         Object.prototype.toString.call(value) === '[object String]',
     isNumber: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Number]' &&
-        isFinite(value),
+        Number.isFinite(value),
     isObject: (/** @type{any} */ value) =>
         Object.prototype.toString.call(value) === '[object Object]',
     isFunction: (/** @type{any} */ value) =>
@@ -94,54 +94,67 @@ export const storeType = {
 export const getTypeName = (type) => {
     switch (type) {
         case String:
-        case STRING:
+        case STRING: {
             return 'String';
+        }
 
         case Number:
-        case NUMBER:
+        case NUMBER: {
             return 'Number';
+        }
 
         case Object:
-        case OBJECT:
+        case OBJECT: {
             return 'Object';
+        }
 
         case Function:
-        case FUNCTION:
+        case FUNCTION: {
             return 'Function';
+        }
 
         case Array:
-        case ARRAY:
+        case ARRAY: {
             return 'Array';
+        }
 
         case Boolean:
-        case BOOLEAN:
+        case BOOLEAN: {
             return 'Boolean';
+        }
 
         case Element:
-        case ELEMENT:
+        case ELEMENT: {
             return 'Element';
+        }
 
         case HTMLElement:
-        case HTMLELEMENT:
+        case HTMLELEMENT: {
             return 'HTMLElement';
+        }
 
         case NodeList:
-        case NODELIST:
+        case NODELIST: {
             return 'NodeList';
+        }
 
         case Set:
-        case SET:
+        case SET: {
             return 'Set';
+        }
 
         case Map:
-        case MAP:
+        case MAP: {
             return 'Map';
+        }
 
-        case TYPE_IS_ANY:
+        case TYPE_IS_ANY: {
             return TYPE_IS_ANY;
+        }
 
-        default:
+        default: {
             return UNTYPED;
+        }
     }
 };
 
@@ -152,53 +165,66 @@ export const getTypeName = (type) => {
 export const checkType = (type, value) => {
     switch (type) {
         case String:
-        case STRING:
+        case STRING: {
             return storeType.isString(value);
+        }
 
         case Number:
-        case NUMBER:
+        case NUMBER: {
             return storeType.isNumber(value);
+        }
 
         case Object:
-        case OBJECT:
+        case OBJECT: {
             return storeType.isObject(value);
+        }
 
         case Function:
-        case FUNCTION:
+        case FUNCTION: {
             return storeType.isFunction(value);
+        }
 
         case Array:
-        case ARRAY:
+        case ARRAY: {
             return storeType.isArray(value);
+        }
 
         case Boolean:
-        case BOOLEAN:
+        case BOOLEAN: {
             return storeType.isBoolean(value);
+        }
 
         case Element:
-        case ELEMENT:
+        case ELEMENT: {
             return storeType.isElement(value);
+        }
 
         case HTMLElement:
-        case HTMLELEMENT:
+        case HTMLELEMENT: {
             return storeType.isHTMLElement(value);
+        }
 
         case NodeList:
-        case NODELIST:
+        case NODELIST: {
             return storeType.isNodeList(value);
+        }
 
         case Set:
-        case SET:
+        case SET: {
             return storeType.isSet(value);
+        }
 
         case Map:
-        case MAP:
+        case MAP: {
             return storeType.isMap(value);
+        }
 
-        case TYPE_IS_ANY:
+        case TYPE_IS_ANY: {
             return true;
+        }
 
-        default:
+        default: {
             return true;
+        }
     }
 };

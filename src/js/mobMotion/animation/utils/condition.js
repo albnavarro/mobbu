@@ -22,6 +22,6 @@ export const shouldInizializzeStagger = (
     return (
         each > 0 &&
         firstRun &&
-        (arrayToCompare1.length || arrayToCompare2.length)
+        (arrayToCompare1.length > 0 || arrayToCompare2.length > 0)
     );
 };

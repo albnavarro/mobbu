@@ -21,7 +21,8 @@ let amountOfFrameToFire = 0;
 const updateKeys = (currentFrameLimit) => {
     Object.keys(indexCallbackObject).forEach((key) => {
         delete Object.assign(indexCallbackObject, {
-            [`${parseInt(key) - currentFrameLimit}`]: indexCallbackObject[key],
+            [`${Number.parseInt(key) - currentFrameLimit}`]:
+                indexCallbackObject[key],
         })[key];
     });
 };

@@ -8,6 +8,16 @@ import {
 } from '../utils/regexValidation.js';
 import { parallaxConstant } from './parallaxConstant.js';
 
+// fail return with bad data
+const returnWhenFail = () => {
+    return {
+        numberVal: 0,
+        unitMisure: '',
+        additionalVal: '',
+        position: '',
+    };
+};
+
 export const parallaxUtils = {
     isInViewport({ offset, height, gap, wScrollTop, wHeight }) {
         return (
@@ -29,21 +39,11 @@ export const parallaxUtils = {
     getStartEndValue(values, direction) {
         // Get number value if exist, check values array to find a item wih almost 1 number ad get it
         const numberInString = values.find((item) => {
-            return [...item].some((c) => !Number.isNaN(parseFloat(c)));
+            return [...item].some((c) => !Number.isNaN(Number.parseFloat(c)));
         });
 
         // Get unit misure from nunmber case insensitive
         const unitMisure = getStartEndUnitMisure(numberInString);
-
-        // fail return with bad data
-        const returnWhenFail = () => {
-            return {
-                numberVal: 0,
-                unitMisure: '',
-                additionalVal: '',
-                position: '',
-            };
-        };
 
         // Number without unit misure is not allowed
         if (numberInString && !unitMisure) {
@@ -106,10 +106,8 @@ export const parallaxUtils = {
         return {
             numberVal: numberInString || 0,
             unitMisure,
-            additionalVal: getAdditionalVal ? getAdditionalVal : '',
-            position: getPosition
-                ? getPosition
-                : parallaxConstant.POSITION_BOTTOM,
+            additionalVal: getAdditionalVal ?? '',
+            position: getPosition ?? parallaxConstant.POSITION_BOTTOM,
         };
     },
 
@@ -138,25 +136,25 @@ export const parallaxUtils = {
         /**
          * Get number withot px or vw etc..
          */
-        const number = parseFloat(String(numberVal).replace(/^\D+/g, ''));
-        const startValInNumber = number ? number : 0;
+        const number = Number.parseFloat(
+            String(numberVal).replaceAll(/^\D+/g, '')
+        );
+        const startValInNumber = number ?? 0;
 
         /**
          * Get final value without height/halfHeight etc..
          */
-        if (unitMisure === parallaxConstant.PX) {
-            return {
-                value: startValInNumber * isNegative,
-                additionalVal,
-                position: getParallaxPositionFromContanst(position),
-            };
-        } else {
-            return {
-                value: screenUnit * startValInNumber * isNegative,
-                additionalVal,
-                position: getParallaxPositionFromContanst(position),
-            };
-        }
+        return unitMisure === parallaxConstant.PX
+            ? {
+                  value: startValInNumber * isNegative,
+                  additionalVal,
+                  position: getParallaxPositionFromContanst(position),
+              }
+            : {
+                  value: screenUnit * startValInNumber * isNegative,
+                  additionalVal,
+                  position: getParallaxPositionFromContanst(position),
+              };
     },
 
     // Get end point withuot addition value
@@ -189,8 +187,10 @@ export const parallaxUtils = {
         /**
          * Get number withot px or vw etc..
          */
-        const number = parseFloat(String(numberVal).replace(/^\D+/g, ''));
-        const endValInNumber = number ? number : 0;
+        const number = Number.parseFloat(
+            String(numberVal).replaceAll(/^\D+/g, '')
+        );
+        const endValInNumber = number ?? 0;
 
         /**
          * Get position constant from prallax constant
@@ -242,19 +242,17 @@ export const parallaxUtils = {
         /**
          * Get final value without height/halfHeight etc..
          */
-        if (unitMisure === parallaxConstant.PX) {
-            return {
-                value: invertSide ? getValueInPx(true) : getValueInPx(),
-                additionalVal,
-                position: positionFromConstant,
-            };
-        } else {
-            return {
-                value: invertSide ? getValueInVwVh(true) : getValueInVwVh(),
-                additionalVal,
-                position: positionFromConstant,
-            };
-        }
+        return unitMisure === parallaxConstant.PX
+            ? {
+                  value: invertSide ? getValueInPx(true) : getValueInPx(),
+                  additionalVal,
+                  position: positionFromConstant,
+              }
+            : {
+                  value: invertSide ? getValueInVwVh(true) : getValueInVwVh(),
+                  additionalVal,
+                  position: positionFromConstant,
+              };
     },
 
     processFixedLimit(value, stringValue, height, width) {
@@ -299,38 +297,45 @@ export const parallaxUtils = {
 
     getValueOnSwitch({ switchPropierties, isReverse, value }) {
         switch (switchPropierties) {
-            case parallaxConstant.IN_STOP:
+            case parallaxConstant.IN_STOP: {
                 return (!isReverse && value > 0) || (isReverse && value < 0)
                     ? 0
                     : value;
+            }
 
-            case parallaxConstant.IN_BACK:
+            case parallaxConstant.IN_BACK: {
                 return (!isReverse && value > 0) || (isReverse && value < 0)
                     ? -value
                     : value;
+            }
 
-            case parallaxConstant.OUT_STOP:
+            case parallaxConstant.OUT_STOP: {
                 return (!isReverse && value < 0) || (isReverse && value > 0)
                     ? 0
                     : value;
+            }
 
-            case parallaxConstant.OUT_BACK:
+            case parallaxConstant.OUT_BACK: {
                 return (!isReverse && value < 0) || (isReverse && value > 0)
                     ? -value
                     : value;
+            }
 
-            default:
+            default: {
                 return value;
+            }
         }
     },
 
     getRetReverseValue(propierties, val) {
         switch (propierties) {
-            case parallaxConstant.PROP_OPACITY:
+            case parallaxConstant.PROP_OPACITY: {
                 return 1 - val;
+            }
 
-            default:
+            default: {
                 return -val;
+            }
         }
     },
 };

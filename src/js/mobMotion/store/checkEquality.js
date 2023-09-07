@@ -9,7 +9,7 @@ import { ARRAY, MAP, SET, TYPE_IS_ANY } from './storeType';
  */
 const mapsAreEqual = (m1, m2) =>
     m1.size === m2.size &&
-    Array.from(m1.keys()).every((key) => m1.get(key) === m2.get(key));
+    [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
 
 /**
  * @param {Set} a
@@ -53,10 +53,10 @@ const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
     let _obj1 = obj1;
     let _obj2 = obj2;
     if (!checkDataOrder) {
-        if (obj1 instanceof Array) {
+        if (Array.isArray(obj1)) {
             _obj1 = [...obj1].sort();
         }
-        if (obj2 instanceof Array) {
+        if (Array.isArray(obj2)) {
             _obj2 = [...obj2].sort();
         }
     }
@@ -107,22 +107,27 @@ const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
  */
 export const checkEquality = (type, oldValue, newValue) => {
     switch (type) {
-        case TYPE_IS_ANY:
+        case TYPE_IS_ANY: {
             return objectAreEqual(oldValue, newValue);
+        }
 
         case ARRAY:
-        case Array:
+        case Array: {
             return arrayAreEquals(oldValue, newValue);
+        }
 
         case SET:
-        case Set:
+        case Set: {
             return setsAreEqual(oldValue, newValue);
+        }
 
         case MAP:
-        case Map:
+        case Map: {
             return mapsAreEqual(oldValue, newValue);
+        }
 
-        default:
+        default: {
             return oldValue === newValue;
+        }
     }
 };

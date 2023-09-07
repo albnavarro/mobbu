@@ -34,6 +34,7 @@ core.useLoad(() => {
 
     core.printDefault();
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {
         await loadData();
 

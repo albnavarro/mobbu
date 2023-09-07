@@ -26,7 +26,7 @@ export const filterExportableStateFromObject = ({
         })
         .reduce((previous, current) => {
             const [key, value] = current;
-            return { ...previous, ...{ [key]: value } };
+            return { ...previous, [key]: value };
         }, {});
 };
 

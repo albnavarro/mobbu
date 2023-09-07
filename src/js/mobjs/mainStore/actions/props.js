@@ -65,7 +65,7 @@ export const setBindProps = (propsObj = {}) => {
 
     if (!propsIsValid) {
         console.warn(`bindProps not valid`);
-        return undefined;
+        return;
     }
 
     /**

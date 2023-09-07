@@ -70,12 +70,11 @@ export const animatedPatternN1Animation = ({
         .map((item, i) => {
             return {
                 ...item,
-                ...{
-                    scale: 0,
-                    mouseX: 0,
-                    mouseY: 0,
-                    hasFill: fill.includes(i),
-                },
+
+                scale: 0,
+                mouseX: 0,
+                mouseY: 0,
+                hasFill: fill.includes(i),
             };
         })
         .sort((value) => (value.hasFill ? -1 : 1));

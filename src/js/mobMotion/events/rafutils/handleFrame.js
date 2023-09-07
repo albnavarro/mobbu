@@ -34,7 +34,7 @@ loadFps();
  * @description
  * 10000 is maximum stagger frame delay
  */
-const currentFrameLimit = 10000000;
+const currentFrameLimit = 10_000_000;
 
 /**
  * @type {Number}
@@ -216,7 +216,7 @@ const getRenderStatus = () => {
              * Compare and check if we are under fpsValue
              **/
             const deltaPercent = Math.round((delta * 100) / maxFps);
-            const isOutOfRange = deltaPercent > parseInt(fpsValue);
+            const isOutOfRange = deltaPercent > Number.parseInt(fpsValue);
             return isOutOfRange ? fpsModule : acc;
         },
         1
@@ -390,10 +390,10 @@ const render = (timestamp) => {
 const initFrame = () => {
     if (frameIsRuning) return;
 
-    if (typeof window !== 'undefined') {
-        requestAnimationFrame(render);
-    } else {
+    if (typeof window === 'undefined') {
         setTimeout(() => render(getTime()), defaultTimestep);
+    } else {
+        requestAnimationFrame(render);
     }
 
     frameIsRuning = true;

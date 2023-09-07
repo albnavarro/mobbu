@@ -70,7 +70,9 @@ export const animatedPatternN0Animation = ({
               .map((item, i) => {
                   return {
                       ...item,
-                      ...{ scale: 1, rotate: 0, hasFill: fill.includes(i) },
+                      scale: 1,
+                      rotate: 0,
+                      hasFill: fill.includes(i),
                   };
               })
               .sort((value) => (value.hasFill ? -1 : 1))
@@ -79,7 +81,9 @@ export const animatedPatternN0Animation = ({
               const hasFill = fill.includes(i);
               return {
                   ...item,
-                  ...{ scale: 1, rotate: 0, hasFill },
+                  scale: 1,
+                  rotate: 0,
+                  hasFill,
               };
           });
 

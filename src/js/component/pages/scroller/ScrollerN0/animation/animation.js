@@ -71,14 +71,18 @@ export const scrollerN0Animation = ({
               .map((item, i) => {
                   return {
                       ...item,
-                      ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
+                      scale: 0,
+                      rotate: 0,
+                      hasFill: fill.includes(i),
                   };
               })
               .sort((value) => (value.hasFill ? -1 : 1))
         : gridData.map((item, i) => {
               return {
                   ...item,
-                  ...{ scale: 0, rotate: 0, hasFill: fill.includes(i) },
+                  scale: 0,
+                  rotate: 0,
+                  hasFill: fill.includes(i),
               };
           });
 

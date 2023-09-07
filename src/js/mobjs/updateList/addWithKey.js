@@ -55,7 +55,9 @@ function getPartialsComponentList({
      * Get current value and save in component store item.
      */
     const currentValue = currentUnique?.[index];
-    const currentProps = setStaticProps(props({ current: currentValue, index }));
+    const currentProps = setStaticProps(
+        props({ current: currentValue, index })
+    );
 
     /**
      * Gat and save dynamicProps.
@@ -105,7 +107,7 @@ export const addWithKey = ({
     getChildren = () => {},
     key = '',
     props = {},
-    dynamicProps = undefined,
+    dynamicProps,
     id = '',
     runtimeId = '',
 }) => {
@@ -171,7 +173,7 @@ export const addWithKey = ({
      */
     if (parent) parent.innerHTML = '';
     newPersistentElementOrder.forEach((/** {HTMLElement} */ item) => {
-        if (parent && item) parent.appendChild(item);
+        if (parent && item) parent.append(item);
     });
 
     /**
@@ -214,12 +216,12 @@ export const addWithKey = ({
      */
     const chunkedElementToAdd = elementToAddObj.reduce(
         (/** @type {Array} */ previous, current) => {
-            return !current.isNewElement
-                ? [...previous, [current]]
-                : (() => {
-                      previous[previous.length - 1].push(current);
+            return current.isNewElement
+                ? (() => {
+                      previous.at(-1).push(current);
                       return previous;
-                  })();
+                  })()
+                : [...previous, [current]];
         },
         [[]]
     );

@@ -183,7 +183,7 @@ const updateFrameId = (maxFramecounter) => {
     Object.values(subscriber).forEach(({ data }) => {
         Object.keys(data).forEach((key) => {
             delete Object.assign(data, {
-                [`${parseInt(key) - maxFramecounter}`]: data[key],
+                [`${Number.parseInt(key) - maxFramecounter}`]: data[key],
             })[key];
         });
     });
@@ -193,14 +193,16 @@ const updateFrameId = (maxFramecounter) => {
  * @description
  * @module handleCache
  */
-export const handleCache = (() => ({
-    add,
-    get,
-    update,
-    remove,
-    clean,
-    fire,
-    fireObject,
-    getCacheCounter,
-    updateFrameId,
-}))();
+export const handleCache = (() => {
+    return {
+        add,
+        get,
+        update,
+        remove,
+        clean,
+        fire,
+        fireObject,
+        getCacheCounter,
+        updateFrameId,
+    };
+})();

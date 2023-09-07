@@ -224,13 +224,13 @@ export default class HandleSyncTimeline {
                 this.timeAtReverseBack;
         }
 
-        this.timeElapsed = parseInt(
+        this.timeElapsed = Number.parseInt(
             time - this.startTime - this.pauseTime - this.timeAtReverseBack
         );
 
-        const partial = !this.isReverse
-            ? this.timeElapsed
-            : this.timeAtReverse - (this.timeElapsed - this.timeAtReverse);
+        const partial = this.isReverse
+            ? this.timeAtReverse - (this.timeElapsed - this.timeAtReverse)
+            : this.timeElapsed;
 
         if (!this.isInPause) {
             this.currentTime = clamp(partial, 0, this.duration);

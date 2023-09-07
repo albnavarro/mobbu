@@ -216,7 +216,7 @@ export default class HandleSequencer {
 
         if (
             this.stagger.each > 0 &&
-            (this.callbackCache.length || this.callback.length)
+            (this.callbackCache.length > 0 || this.callback.length > 0)
         ) {
             const cb = getStaggerArray(this.callbackCache, this.callback);
 
@@ -567,7 +567,7 @@ export default class HandleSequencer {
 
             // If exist merge
             return itemToMerge
-                ? { ...item, ...itemToMerge, ...{ active: true } }
+                ? { ...item, ...itemToMerge, active: true }
                 : inactiveItem;
         });
     }

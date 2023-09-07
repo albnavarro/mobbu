@@ -799,14 +799,17 @@ export const core = {
      **/
     mq(action, breackpoint) {
         switch (action) {
-            case 'min':
+            case 'min': {
                 return mq.min(breackpoint);
+            }
 
-            case 'max':
+            case 'max': {
                 return mq.max(breackpoint);
+            }
 
-            case 'get':
+            case 'get': {
                 return mq.getBreackpoint(breackpoint);
+            }
         }
     },
 };

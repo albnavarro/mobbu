@@ -9,18 +9,17 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, parentPropsWatcher } = item;
 
                 // Assign is if existe a parent component and current parentId is null/undefined
                 return id === currentId
                     ? {
                           ...item,
-                          ...{
-                              parentPropsWatcher: [
-                                  ...item.parentPropsWatcher,
-                                  ...unWatchArray,
-                              ],
-                          },
+
+                          parentPropsWatcher: [
+                              ...parentPropsWatcher,
+                              ...unWatchArray,
+                          ],
                       }
                     : item;
             });

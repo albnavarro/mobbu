@@ -151,7 +151,7 @@ export const registerGenericElement = ({
         ) =>
             ` ${ATTR_DYNAMIC}="${setBindProps({
                 ...obj,
-                ...{ parentId: id },
+                parentId: id,
             })}" `,
         staticProps: (/** @type{{String: any}} */ obj) =>
             ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
@@ -168,14 +168,14 @@ export const registerGenericElement = ({
         },
         onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
         repeat: ({
-            watch: stateToWatch = undefined, // use alias to maintain ured naming convention.
+            watch: stateToWatch, // use alias to maintain ured naming convention.
             component: targetComponent = '', // use alias to maintain ured naming convention.
             props = () => {},
             clean = false,
-            bindProps: dynamicProps = undefined, // use alias to maintain ured naming convention.
+            bindProps: dynamicProps, // use alias to maintain ured naming convention.
             beforeUpdate = () => {},
             afterUpdate = () => {},
-            key = undefined,
+            key,
         }) => {
             const currentRepeatId = getUnivoqueId();
             repeatId.push(currentRepeatId);

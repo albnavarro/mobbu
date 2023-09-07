@@ -17,7 +17,7 @@ export const setElementById = ({
     id = '',
     newElement = document.createElement('div'),
 }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     componentStore.set(
         'instances',
@@ -28,7 +28,7 @@ export const setElementById = ({
                 const { id: currentId } = item;
 
                 return id === currentId
-                    ? { ...item, ...{ element: newElement } }
+                    ? { ...item, element: newElement }
                     : item;
             });
         }
@@ -45,7 +45,7 @@ export const setElementById = ({
  * Get element by id
  */
 export const getElementById = ({ id = '' }) => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     const { instances } = componentStore.get();
 
@@ -57,7 +57,7 @@ export const getElementById = ({ id = '' }) => {
     const element = instance?.element;
     if (!element) {
         console.warn(`getElementById failed no id found`);
-        return undefined;
+        return;
     }
 
     return element;
@@ -80,7 +80,7 @@ export const getElementByKeyInContainer = ({
     parentId = '',
     container = document.createElement('div'),
 }) => {
-    if (!key || key === '') return undefined;
+    if (!key || key === '') return;
 
     const { instances } = componentStore.get();
 
@@ -97,7 +97,7 @@ export const getElementByKeyInContainer = ({
     const element = instance?.element;
     if (!element) {
         console.warn(`getElementByKey failed no element found`);
-        return undefined;
+        return;
     }
 
     return element;

@@ -68,4 +68,6 @@ const fire = ({ time, fps, shouldRender }) => {
  * @description
  * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
  */
-export const handleNextTick = (() => ({ add, fire }))();
+export const handleNextTick = (() => {
+    return { add, fire };
+})();

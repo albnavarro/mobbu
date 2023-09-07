@@ -54,11 +54,11 @@ export const caterpillarN1Animation = ({
     /**
      *
      */
-    squareData = [...Array(numItems).keys()].map((_item, i) => {
+    squareData = [...new Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
-        const opacityVal = !fill.includes(i) ? relativeIndex * opacity : 1;
+        const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
 
         return {
             width: relativeIndex * width,
@@ -157,8 +157,8 @@ export const caterpillarN1Animation = ({
                  */
                 roundRectCustom(
                     context,
-                    parseInt(-width / 2),
-                    parseInt(-height / 2),
+                    Number.parseInt(-width / 2),
+                    Number.parseInt(-height / 2),
                     width,
                     height,
                     radius

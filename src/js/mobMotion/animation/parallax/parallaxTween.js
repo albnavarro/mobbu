@@ -128,7 +128,7 @@ export default class ParallaxTween {
     inzializeStagger() {
         if (
             this.stagger.each > 0 &&
-            (this.callbackCache.length || this.callback.length)
+            (this.callbackCache.length > 0 || this.callback.length > 0)
         ) {
             const cb = getStaggerArray(this.callbackCache, this.callback);
 

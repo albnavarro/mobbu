@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-this-assignment */
 // @ts-check
 
 import { getTime } from '../utils/time.js';
@@ -17,10 +18,7 @@ export const throttle = (func, limit) => {
         const context = this;
         const args = arguments;
 
-        if (!lastRan) {
-            func.apply(context, args);
-            lastRan = getTime();
-        } else {
+        if (lastRan) {
             clearTimeout(lastFunc);
             lastFunc = setTimeout(function () {
                 if (getTime() - lastRan >= limit) {
@@ -28,6 +26,9 @@ export const throttle = (func, limit) => {
                     lastRan = getTime();
                 }
             }, limit - (getTime() - lastRan));
+        } else {
+            func.apply(context, args);
+            lastRan = getTime();
         }
     };
 };

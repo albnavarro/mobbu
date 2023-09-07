@@ -268,7 +268,7 @@ export default class HandleLerp {
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
-            item.currentValue = parseFloat(item.fromValue);
+            item.currentValue = Number.parseFloat(item.fromValue);
         });
 
         /**
@@ -316,13 +316,7 @@ export default class HandleLerp {
             // Check if all values is completed
             o.allSettled = this.values.every((item) => item.settled === true);
 
-            if (!o.allSettled) {
-                handleFrame.add(() => {
-                    handleNextTick.add(({ time, fps }) => {
-                        if (this.isActive) draw(time, fps);
-                    });
-                });
-            } else {
+            if (o.allSettled) {
                 const onComplete = () => {
                     this.isActive = false;
 
@@ -361,6 +355,12 @@ export default class HandleLerp {
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,
                     useStagger: this.useStagger,
+                });
+            } else {
+                handleFrame.add(() => {
+                    handleNextTick.add(({ time, fps }) => {
+                        if (this.isActive) draw(time, fps);
+                    });
                 });
             }
         };

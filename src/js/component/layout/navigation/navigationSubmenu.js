@@ -12,7 +12,7 @@ function getSubmenu(children, staticProps) {
                         ${staticProps({
                             label,
                             url,
-                            ...{ subMenuClass: 'l-navigation__link--submenu' },
+                            subMenuClass: 'l-navigation__link--submenu',
                         })}
                     ></NavigationButton>
                 </li>

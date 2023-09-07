@@ -7,7 +7,7 @@ import { getRouteModule } from './utils';
  * Get hash from url and load new route.
  */
 const getHash = () => {
-    const locationHash = window.location.hash.substring(1);
+    const locationHash = window.location.hash.slice(1);
     loadRoute({ route: getRouteModule({ url: locationHash }) });
 };
 

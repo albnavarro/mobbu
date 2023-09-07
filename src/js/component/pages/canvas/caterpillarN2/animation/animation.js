@@ -8,6 +8,11 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 
+const logAddMethods = ({ value, direction, isForced }) => {
+    if (isForced) return;
+    console.log(`current: ${value}, direction: ${direction}`);
+};
+
 export const caterpillarN2Animation = ({
     canvas,
     numItems,
@@ -45,13 +50,13 @@ export const caterpillarN2Animation = ({
     /**
      *
      */
-    squareData = [...Array(numItems).keys()].map((_item, i) => {
+    squareData = [...new Array(numItems).keys()].map((_item, i) => {
         const relativeIndex =
             i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
 
         const itemWidth = width + (width / 3) * relativeIndex;
         const itemHeight = height + (height / 3) * relativeIndex;
-        const opacityVal = !fill.includes(i) ? (numItems - i) * opacity : 1;
+        const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
 
         return {
             width: itemWidth,
@@ -70,11 +75,6 @@ export const caterpillarN2Animation = ({
      */
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-
-    const logAddMethods = ({ value, direction, isForced }) => {
-        if (isForced) return;
-        console.log(`current: ${value}, direction: ${direction}`);
-    };
 
     /**
      * Create sequencer.
@@ -175,8 +175,8 @@ export const caterpillarN2Animation = ({
                  */
                 roundRectCustom(
                     context,
-                    parseInt(-width / 2),
-                    parseInt(-height / 2),
+                    Number.parseInt(-width / 2),
+                    Number.parseInt(-height / 2),
                     width,
                     height,
                     radius

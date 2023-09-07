@@ -31,7 +31,7 @@ export const updateChildren = async ({
     previous = [],
     getChildren = () => {},
     props = {},
-    dynamicProps = undefined,
+    dynamicProps,
     key = '',
     id,
 }) => {

@@ -62,20 +62,19 @@ export const removeAndDestroyById = ({ id = '' }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, child } = item;
 
                 return currentId === parentId
                     ? {
                           ...item,
-                          ...{
-                              child: {
-                                  ...item.child,
-                                  ...removeChildFromChildrenArray({
-                                      currentChild: item.child,
-                                      id,
-                                      componentName,
-                                  }),
-                              },
+
+                          child: {
+                              ...child,
+                              ...removeChildFromChildrenArray({
+                                  currentChild: child,
+                                  id,
+                                  componentName,
+                              }),
                           },
                       }
                     : item;
@@ -186,9 +185,7 @@ export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
             return prevInstances.map((item) => {
                 const { id: currentId } = item;
 
-                return id === currentId
-                    ? { ...item, ...{ destroy: cb } }
-                    : item;
+                return id === currentId ? { ...item, destroy: cb } : item;
             });
         }
     );

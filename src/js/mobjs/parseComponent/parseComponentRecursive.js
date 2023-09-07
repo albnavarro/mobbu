@@ -42,7 +42,7 @@ export const parseComponentsRecursive = async ({
     functionToFireAtTheEnd = [],
     isCancellable = true,
 }) => {
-    if (!element) return Promise.resolve();
+    if (!element) return;
 
     const componentsReference = getComponentsReference();
     const selectorDefaultTag = getSelectorDefaultTag();
@@ -80,15 +80,15 @@ export const parseComponentsRecursive = async ({
      * @type {Array.<HTMLElement>} componentToParseArray
      */
     const componentToParseArray = /** @type {Array.<HTMLElement>} */ (
-        !runtimeId
+        runtimeId
             ? [
                   ...element.querySelectorAll(
-                      `${selectorDefault}, ${selectorDefaultTag}`
+                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
                   ),
               ]
             : [
                   ...element.querySelectorAll(
-                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
+                      `${selectorDefault}, ${selectorDefaultTag}`
                   ),
               ]
     );
@@ -129,7 +129,7 @@ export const parseComponentsRecursive = async ({
             fireFirstRepeat();
         }
 
-        return Promise.resolve();
+        return;
     }
 
     /**
@@ -206,7 +206,7 @@ export const parseComponentsRecursive = async ({
             clearOrphansDynamicPropsFromSlot();
         }
 
-        return Promise.resolve();
+        return;
     }
 
     /**
@@ -274,13 +274,14 @@ export const parseComponentsRecursive = async ({
         fireDynamic: () => {
             applyDynamicProps({ componentId: id, inizilizeWatcher: true });
         },
-        fireFirstRepeat: firstRepeatEmitArray.length
-            ? () => {
-                  firstRepeatEmitArray.forEach((fn) => {
-                      fn?.();
-                  });
-              }
-            : () => {},
+        fireFirstRepeat:
+            firstRepeatEmitArray.length > 0
+                ? () => {
+                      firstRepeatEmitArray.forEach((fn) => {
+                          fn?.();
+                      });
+                  }
+                : () => {},
     });
 
     // Check for another component

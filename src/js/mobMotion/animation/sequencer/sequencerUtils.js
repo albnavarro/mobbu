@@ -148,7 +148,7 @@ export const createStaggers = (data = {}) => {
      * Final Array
      */
     const staggers = staggerArrayFiltered.map(({ item, frame }) => {
-        const index = frameSet.findIndex((item) => item === frame);
+        const index = frameSet.indexOf(frame);
         const eachByNumItem = (each * numItem) / eachProportion;
 
         const { start, end } = (() => {

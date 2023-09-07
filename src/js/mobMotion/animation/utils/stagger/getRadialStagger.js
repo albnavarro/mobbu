@@ -1,6 +1,23 @@
 import { sliceIntoChunks } from '../animationUtils.js';
 import { MERGE_FROM_UP, MERGE_FROM_DOWN } from './staggerCostant';
 
+// Get radial in y direction
+const getRadialY = (arr, x, y) => {
+    return arr.reduce((total, row, i) => {
+        const offset = Math.abs(i - y);
+
+        const newRow = row.reduce((p, c, i) => {
+            return i < x - offset || i > x + offset ? p : [...p, c];
+        }, []);
+
+        return [...total, newRow];
+    }, []);
+};
+
+const isAvailableIntoChunk = (arr, i, i2) => {
+    return arr[i] !== undefined && arr[i][i2] !== undefined;
+};
+
 export const getRadialArray = (arr, stagger) => {
     const { col } = stagger.grid;
     const { x, y } = stagger.from;
@@ -8,28 +25,11 @@ export const getRadialArray = (arr, stagger) => {
     const chunk = sliceIntoChunks(arr, col);
 
     // Add empy row (one row for each column) at the end to prevent missing cell form matrix calc
-    [...Array(col).keys()].forEach(() => {
+    [...new Array(col).keys()].forEach(() => {
         chunk.push([]);
     });
 
-    // Get radial in y direction
-    const getRadialY = (arr, x, y) => {
-        return arr.reduce((total, row, i) => {
-            const offset = Math.abs(i - y);
-
-            const newRow = row.reduce((p, c, i) => {
-                return i < x - offset || i > x + offset ? p : [...p, ...[c]];
-            }, []);
-
-            return [...total, ...[newRow]];
-        }, []);
-    };
-
     const radialArrY = getRadialY(chunk, x, y);
-
-    const isAvailableIntoChunk = (arr, i, i2) => {
-        return arr[i] !== undefined && arr[i][i2] !== undefined;
-    };
 
     // Get radial in x direction
     const getRadialX = (arr, x, y) => {
@@ -39,7 +39,7 @@ export const getRadialArray = (arr, stagger) => {
 
             // Avoid duplicate form before and after y
             if (i >= y && i <= y * 2) {
-                return [...total, ...[newRow]];
+                return [...total, newRow];
             }
 
             // Estremi di ogni chunk
@@ -69,7 +69,7 @@ export const getRadialArray = (arr, stagger) => {
 
             const newRowFiltered = newRow.filter((item) => item != undefined);
 
-            return [...total, ...[newRowFiltered]];
+            return [...total, newRowFiltered];
         }, []);
     };
 
@@ -88,48 +88,42 @@ export const getRadialArray = (arr, stagger) => {
         y >= arrayLength / 2 ? MERGE_FROM_UP : MERGE_FROM_DOWN;
 
     const finalArray = (() => {
-        if (mergeDirection === MERGE_FROM_DOWN) {
-            return radialXY.reduce((p, _c, i) => {
-                if (i < y) {
-                    return p;
-                } else if (i === y) {
-                    const merged = [...radialXY[i]];
-                    p.push(merged);
-                    return p;
-                } else {
-                    const downRow = radialXY[y - (i - y)]
-                        ? radialXY[y - (i - y)]
-                        : [];
-                    const merged = [...radialXY[i], ...downRow];
-                    p.push(merged);
-                    return p;
-                }
-            }, []);
-        } else {
-            return radialXY
-                .reduce((p, _c, i) => {
-                    if (i > y) {
-                        return p;
-                    } else if (i === y) {
-                        const merged = [...radialXY[i]];
-                        p.push(merged);
-                        return p;
-                    } else {
-                        const upRow = radialXY[y + (y - i)]
-                            ? radialXY[y + (y - i)]
-                            : [];
-                        const merged = [...radialXY[i], ...upRow];
-                        p.push(merged);
-                        return p;
-                    }
-                }, [])
-                .reverse();
-        }
+        return mergeDirection === MERGE_FROM_DOWN
+            ? radialXY.reduce((p, _c, i) => {
+                  if (i < y) {
+                      return p;
+                  } else if (i === y) {
+                      const merged = [...radialXY[i]];
+                      p.push(merged);
+                      return p;
+                  } else {
+                      const downRow = radialXY[y - (i - y)] ?? [];
+                      const merged = [...radialXY[i], ...downRow];
+                      p.push(merged);
+                      return p;
+                  }
+              }, [])
+            : radialXY
+                  .reduce((p, _c, i) => {
+                      if (i > y) {
+                          return p;
+                      } else if (i === y) {
+                          const merged = [...radialXY[i]];
+                          p.push(merged);
+                          return p;
+                      } else {
+                          const upRow = radialXY[y + (y - i)] ?? [];
+                          const merged = [...radialXY[i], ...upRow];
+                          p.push(merged);
+                          return p;
+                      }
+                  }, [])
+                  .reverse();
     })();
 
     // Remove empty row added at start
     const cleanArray = finalArray.reduce((p, c) => {
-        return c.length === 0 ? p : [...p, ...[c]];
+        return c.length === 0 ? p : [...p, c];
     }, []);
 
     return {

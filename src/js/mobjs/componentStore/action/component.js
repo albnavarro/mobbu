@@ -9,7 +9,7 @@ import { componentStore } from '../store';
  * get component name By id
  */
 export const getComponentNameById = (id = '') => {
-    if (!id || id === '') return undefined;
+    if (!id || id === '') return;
 
     const { instances } = componentStore.get();
 
@@ -37,7 +37,7 @@ export const getComponentNameById = (id = '') => {
  * Get id by user definition name.
  */
 export const getIdByInstanceName = (name = '') => {
-    if (!name) return undefined;
+    if (!name) return;
 
     const { instances } = componentStore.get();
 
@@ -51,7 +51,7 @@ export const getIdByInstanceName = (name = '') => {
     const id = instance?.id;
     if (!id) {
         console.warn(`getIdByName failed no name`);
-        return undefined;
+        return;
     }
 
     return id;

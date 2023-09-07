@@ -1,9 +1,11 @@
+/* eslint-disable unicorn/prefer-spread */
+/* eslint-disable unicorn/consistent-function-scoping */
 export const mergeDeep = (target, source, isMergingArrays = true) => {
     target = ((obj) => {
         let cloneObj;
         try {
             cloneObj = JSON.parse(JSON.stringify(obj));
-        } catch (err) {
+        } catch {
             // If the stringify fails due to circular reference, the merge defaults
             //   to a less-safe assignment that may still mutate elements in the target.
             // You can change this part to throw an error for a truly safe deep merge.

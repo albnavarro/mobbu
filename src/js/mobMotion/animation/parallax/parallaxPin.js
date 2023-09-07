@@ -222,9 +222,9 @@ export class ParallaxPin {
         // pin wrap that go to fixed pos
         const pin = document.createElement('div');
         pin.classList.add('pin');
-        wrapper.appendChild(pin);
+        wrapper.append(pin);
         this.item.parentNode.insertBefore(wrapper, this.item);
-        pin.appendChild(this.item);
+        pin.append(this.item);
         this.wrapper = this.item.closest('.pin-wrapper');
         this.pin = this.item.closest('.pin');
 
@@ -293,7 +293,7 @@ export class ParallaxPin {
     addStyleFromPinToWrapper() {
         const compStyles = window.getComputedStyle(this.item);
         const style = this.itemRequireStyleToWrapper.reduce((p, c) => {
-            return { ...p, ...{ [c]: compStyles.getPropertyValue(c) } };
+            return { ...p, [c]: compStyles.getPropertyValue(c) };
         }, {});
 
         handleFrame.add(() => {
@@ -348,7 +348,7 @@ export class ParallaxPin {
                     return true;
                 }
             })
-            .some((item) => item === true);
+            .includes(true);
     }
 
     refreshCollisionPoint() {
@@ -356,14 +356,11 @@ export class ParallaxPin {
 
         // Update start position when use custom screen ad scroll outside on window
         if (this.screen !== window) {
-            if (
+            this.start -=
                 this.parallaxInstance.direction ===
                 parallaxConstant.DIRECTION_VERTICAL
-            ) {
-                this.start -= position(this.screen).top;
-            } else {
-                this.start -= position(this.screen).left;
-            }
+                    ? position(this.screen).top
+                    : position(this.screen).left;
         }
 
         this.startFromTop = this.invertSide
@@ -371,8 +368,8 @@ export class ParallaxPin {
             : this.scrollerHeight - this.start;
         this.end = this.parallaxInstance.endPoint;
         this.compesateValue = this.invertSide
-            ? -parseInt(this.end)
-            : parseInt(this.end);
+            ? -Number.parseInt(this.end)
+            : Number.parseInt(this.end);
     }
 
     destroy() {
@@ -523,20 +520,20 @@ export class ParallaxPin {
     addPinStyleFromItem() {
         const compStyles = window.getComputedStyle(this.item);
         return this.itemRequireStyleToPin.reduce((p, c) => {
-            return { ...p, ...{ [c]: compStyles.getPropertyValue(c) } };
+            return { ...p, [c]: compStyles.getPropertyValue(c) };
         }, {});
     }
 
     addStyleToItem() {
         const compStyles = window.getComputedStyle(this.item);
         return this.itemRequireStyleWhenTraspond.reduce((p, c) => {
-            return { ...p, ...{ [c]: compStyles.getPropertyValue(c) } };
+            return { ...p, [c]: compStyles.getPropertyValue(c) };
         }, {});
     }
 
     removeStyleToItem() {
         return this.itemRequireStyleWhenTraspond.reduce((p, c) => {
-            return { ...p, ...{ [c]: '' } };
+            return { ...p, [c]: '' };
         }, {});
     }
 
@@ -555,7 +552,7 @@ export class ParallaxPin {
                     ...requiredStyleToAdd,
                 });
                 Object.assign(this.item.style, styleToAdd);
-                document.body.appendChild(this.pin);
+                document.body.append(this.pin);
             };
 
             handleFrame.add(() => {
@@ -572,7 +569,7 @@ export class ParallaxPin {
                 if (!this.pin) return;
 
                 Object.assign(this.item.style, this.removeStyleToItem());
-                this.wrapper.appendChild(this.pin);
+                this.wrapper.append(this.pin);
             };
 
             handleFrame.add(() => {
@@ -699,26 +696,26 @@ export class ParallaxPin {
                 : position(this.wrapper).left;
 
         // Get anticipate value
-        const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } =
-            !this.invertSide
-                ? this.getAnticipateValue(scrollTop, this.GC.scrollDirection)
-                : this.getAnticipateValueInverted(
-                      scrollTop,
-                      this.GC.scrollDirection
-                  );
+        const { anticipateBottom, anticipateInnerIn, anticipateInnerOut } = this
+            .invertSide
+            ? this.getAnticipateValueInverted(
+                  scrollTop,
+                  this.GC.scrollDirection
+              )
+            : this.getAnticipateValue(scrollTop, this.GC.scrollDirection);
 
-        this.GC.bottomCondition = !this.invertSide
-            ? this.GC.offsetTop >
-              this.scrollerHeight - this.start + anticipateBottom
-            : this.GC.offsetTop < this.start - anticipateBottom;
+        this.GC.bottomCondition = this.invertSide
+            ? this.GC.offsetTop < this.start - anticipateBottom
+            : this.GC.offsetTop >
+              this.scrollerHeight - this.start + anticipateBottom;
 
-        this.GC.innerCondition = !this.invertSide
-            ? this.GC.offsetTop <=
+        this.GC.innerCondition = this.invertSide
+            ? this.GC.offsetTop >= this.start - anticipateInnerIn &&
+              this.GC.offsetTop <= this.start + anticipateInnerOut + this.end
+            : this.GC.offsetTop <=
                   this.scrollerHeight - this.start + anticipateInnerIn &&
               this.scrollerHeight - this.GC.offsetTop <=
-                  this.end + anticipateInnerOut + this.start
-            : this.GC.offsetTop >= this.start - anticipateInnerIn &&
-              this.GC.offsetTop <= this.start + anticipateInnerOut + this.end;
+                  this.end + anticipateInnerOut + this.start;
 
         if (this.GC.bottomCondition) {
             if (!this.isUnder) {

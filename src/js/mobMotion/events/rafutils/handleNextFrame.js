@@ -48,4 +48,6 @@ const get = () => {
  * @description
  * Execute a callback to the next available frame allowing the creation of a request animation frame loop
  */
-export const handleNextFrame = (() => ({ add, get }))();
+export const handleNextFrame = (() => {
+    return { add, get };
+})();

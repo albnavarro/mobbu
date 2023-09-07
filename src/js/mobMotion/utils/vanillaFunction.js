@@ -11,7 +11,8 @@ export function outerHeight(element) {
     let height = element.offsetHeight;
     const style = getComputedStyle(element);
 
-    height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+    height +=
+        Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
     return height;
 }
 
@@ -26,7 +27,8 @@ export function outerWidth(element) {
     let width = element.offsetWidth;
     const style = getComputedStyle(element);
 
-    width += parseInt(style.marginLeft) + parseInt(style.marginRight);
+    width +=
+        Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
     return width;
 }
 
@@ -75,11 +77,12 @@ export function getSiblings(element, selector) {
 
     // Loop through each sibling and push to the array
     while (sibling) {
-        if (sibling.nodeType === 1 && sibling !== element) {
-            // @ts-ignore
-            if (sibling.classList.contains(selector)) {
-                siblings.push(sibling);
-            }
+        if (
+            sibling.nodeType === 1 &&
+            sibling !== element && // @ts-ignore
+            sibling.classList.contains(selector)
+        ) {
+            siblings.push(sibling);
         }
         sibling = sibling.nextSibling;
     }
@@ -146,7 +149,7 @@ export function getTranslateValues(element) {
         style['transform'] || style.mozTransform;
 
     // No transform property. Simply return 0 values.
-    if (matrix === 'none' || typeof matrix === 'undefined') {
+    if (matrix === 'none' || matrix === undefined) {
         return {
             x: 0,
             y: 0,

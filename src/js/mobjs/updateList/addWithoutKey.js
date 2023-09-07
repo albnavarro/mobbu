@@ -36,7 +36,7 @@ export const addWithoutKey = ({
     getChildren = () => {},
     runtimeId = '',
     props = {},
-    dynamicProps = undefined,
+    dynamicProps,
 }) => {
     /**
      * @type {number}
@@ -60,7 +60,7 @@ export const addWithoutKey = ({
         /**
          * Create palcehodler component
          */
-        const elementToAdd = [...Array(diff).keys()]
+        const elementToAdd = [...new Array(diff).keys()]
             .map((_item, index) => {
                 const currentValue = current?.[index + previousLenght];
                 const currentIndex = index + previousLenght;
@@ -101,8 +101,7 @@ export const addWithoutKey = ({
             element: containerList,
         });
 
-        const lastChildren =
-            childrenFilteredToAdd[childrenFilteredToAdd.length - 1];
+        const lastChildren = childrenFilteredToAdd.at(-1);
 
         /**
          * Query last child and append new children.

@@ -74,16 +74,14 @@ export const updateChildrenOrder = ({ id, component }) => {
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
         ) => {
             return prevInstances.map((item) => {
-                const { id: currentId } = item;
+                const { id: currentId, child } = item;
 
                 return currentId === id
                     ? {
                           ...item,
-                          ...{
-                              child: {
-                                  ...item.child,
-                                  ...{ [component]: componentsIdFiltered },
-                              },
+                          child: {
+                              ...child,
+                              [component]: componentsIdFiltered,
                           },
                       }
                     : item;

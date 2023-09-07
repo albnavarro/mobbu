@@ -553,7 +553,7 @@ export class HorizontalScroller {
          * @private
          */
         this.column = this.mainContainer.querySelectorAll(data.column);
-        if (!this.column.length) {
+        if (this.column.length === 0) {
             this.propsisValid = false;
             console.warn('horizontal custom: column nodeList not found');
             return;
@@ -977,15 +977,17 @@ export class HorizontalScroller {
 
                     const start = (() => {
                         switch (offset) {
-                            case 0:
+                            case 0: {
                                 return 0;
+                            }
 
-                            default:
+                            default: {
                                 return (
                                     widthAmount +
                                     diffAmount / percentrange -
                                     windowDifference / percentrange
                                 );
+                            }
                         }
                     })();
 
@@ -997,11 +999,13 @@ export class HorizontalScroller {
                                   window.innerWidth / screenRatio;
 
                         switch (offset) {
-                            case 0:
+                            case 0: {
                                 return 0;
+                            }
 
-                            default:
+                            default: {
                                 return val;
+                            }
                         }
                     })();
 
@@ -1073,7 +1077,7 @@ export class HorizontalScroller {
             },
             onTick: ({ value, parentIsMoving }) => {
                 const percent = Math.abs(
-                    -parseInt(
+                    -Number.parseInt(
                         (value * 100) /
                             (this.horizontalWidth - window.innerWidth)
                     )

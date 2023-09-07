@@ -9,18 +9,29 @@ import {
 } from './staggerCostant';
 import { getEachByFps } from './staggerUtils.js';
 
+const isOdd = (num) => num % 2;
+const getRandomInt = (max) => Math.floor(Math.random() * max);
+
+// STAGGER_INDEX
+const isNumer = (value) => {
+    return (
+        Object.prototype.toString.call(value) === '[object Number]' &&
+        Number.isFinite(value)
+    );
+};
+
 // Get random frame without duplicate
 export const getRandomChoice = (arr, each, index) => {
     // Get previous result
-    const previousFrame = arr.slice(0, index).map((item) => item.frame);
+    const previousFrame = new Set(
+        arr.slice(0, index).map((item) => item.frame)
+    );
 
     // Get possibile result
     const posibileFrame = arr.map((_item, i) => i * each);
 
     // Get array of possibile result without previous
-    const randomChoice = posibileFrame.filter(
-        (x) => !previousFrame.includes(x)
-    );
+    const randomChoice = posibileFrame.filter((x) => !previousFrame.has(x));
 
     return randomChoice;
 };
@@ -32,16 +43,6 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     Get stagger each by fps
     */
     const eachByFps = getEachByFps(each);
-    const isOdd = (num) => num % 2;
-    const getRandomInt = (max) => Math.floor(Math.random() * max);
-
-    // STAGGER_INDEX
-    const isNumer = (value) => {
-        return (
-            Object.prototype.toString.call(value) === '[object Number]' &&
-            isFinite(value)
-        );
-    };
 
     if (from === STAGGER_RANDOM) {
         return {
@@ -65,7 +66,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     }
 
     if (from === STAGGER_CENTER) {
-        const half = parseInt(arraylenght / 2);
+        const half = Number.parseInt(arraylenght / 2);
 
         return (() => {
             if (index > half) {
@@ -102,7 +103,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     }
 
     if (from === STAGGER_EDGES) {
-        const half = parseInt(arraylenght / 2);
+        const half = Number.parseInt(arraylenght / 2);
 
         return (() => {
             if (index > half) {
@@ -151,10 +152,12 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
         })();
     }
 
-    if (isNumer(parseInt(from))) {
+    if (isNumer(Number.parseInt(from))) {
         // Secure check from must be a value in array length
         const half =
-            parseInt(from) >= arraylenght ? arraylenght - 1 : parseInt(from);
+            Number.parseInt(from) >= arraylenght
+                ? arraylenght - 1
+                : Number.parseInt(from);
 
         return (() => {
             if (index > half) {
@@ -204,12 +207,11 @@ export const getDefaultStagger = ({
         if (stagger.grid.direction === DIRECTION_ROW) {
             const chunkByCol = sliceIntoChunks(arr, chunckSizeCol);
 
-            const colToRowArray = [...Array(stagger.grid.col).keys()].reduce(
-                (p, _c, i) => {
-                    return [...p, ...arrayColumn(chunkByCol, i)];
-                },
-                []
-            );
+            const colToRowArray = [
+                ...new Array(stagger.grid.col).keys(),
+            ].reduce((p, _c, i) => {
+                return [...p, ...arrayColumn(chunkByCol, i)];
+            }, []);
 
             return [...colToRowArray].flat();
         } else {

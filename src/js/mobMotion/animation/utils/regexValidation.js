@@ -1,9 +1,9 @@
 const escapeRegExp = (text) => {
-    return text ? text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') : '';
+    return text ? text.replaceAll(/[\s#$()*+,.?[\\\]^{|}-]/g, '\\$&') : '';
 };
 
 export const checkIfIsOnlyNumberPositiveNegative = (pattern) => {
-    return /^[-+]?[0-9]\d*(\.\d+)?$/.test(pattern);
+    return /^[+-]?\d+(\.\d+)?$/.test(pattern);
 };
 
 export const checkIfIsOnlyNumber = (pattern) => {
