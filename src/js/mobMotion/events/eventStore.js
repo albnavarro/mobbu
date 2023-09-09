@@ -12,7 +12,10 @@ export const eventStore = mobCore.createStore({
     currentFrame: 0,
     instantFps: 60,
     requestFrame: () => {},
-    fpsScalePercent: { 0: 1, 30: 2, 50: 3 },
+    fpsScalePercent: () => ({
+        value: { 0: 1, 30: 2, 50: 3 },
+        type: 'Any',
+    }),
     useScaleFps: true,
     deferredNextTick: false,
 
