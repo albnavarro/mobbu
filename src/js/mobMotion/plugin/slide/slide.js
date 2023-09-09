@@ -1,5 +1,5 @@
+import { mobCore } from '../../../mobCore/index.js';
 import HandleTween from '../../animation/tween/handleTween.js';
-import { checkType } from '../../store/storeType.js';
 import { outerHeight } from '../../utils/vanillaFunction.js';
 
 /**
@@ -32,7 +32,7 @@ export const slide = (() => {
      * @private
      */
     function isNode(target) {
-        const isValid = checkType(Element, target);
+        const isValid = mobCore.checkType(Element, target);
 
         if (!isValid)
             console.warn(`slide utils ${target} is not a valid Dom element`);

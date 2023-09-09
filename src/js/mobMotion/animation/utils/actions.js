@@ -1,6 +1,6 @@
 // @ts-check
 
-import { storeType } from '../../store/storeType.js';
+import { mobCore } from '../../../mobCore/index.js';
 import { dataTweenValueIsValid } from './tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from './warning.js';
 
@@ -25,13 +25,15 @@ export const goToUtils = (obj) => {
             };
         }
 
-        const toValue = storeType.isNumber(obj[item]) ? obj[item] : obj[item]();
+        const toValue = mobCore.checkType(Number, obj[item])
+            ? obj[item]
+            : obj[item]();
 
         return {
             prop: item,
             toValue,
             toFn: obj[item],
-            toIsFn: storeType.isFunction(obj[item]),
+            toIsFn: mobCore.checkType(Function, obj[item]),
             settled: false,
         };
     });
@@ -58,14 +60,16 @@ export const goFromUtils = (obj) => {
                 settled: false,
             };
         }
-        const value = storeType.isNumber(obj[item]) ? obj[item] : obj[item]();
+        const value = mobCore.checkType(Number, obj[item])
+            ? obj[item]
+            : obj[item]();
 
         return {
             prop: item,
             fromValue: value,
             currentValue: value,
             fromFn: obj[item],
-            fromIsFn: storeType.isFunction(obj[item]),
+            fromIsFn: mobCore.checkType(Function, obj[item]),
             settled: false,
         };
     });
@@ -102,11 +106,11 @@ export const goFromToUtils = (fromObj, toObj) => {
             };
         }
 
-        const fromValue = storeType.isNumber(fromObj[item])
+        const fromValue = mobCore.checkType(Number, fromObj[item])
             ? fromObj[item]
             : fromObj[item]();
 
-        const toValue = storeType.isNumber(toObj[item])
+        const toValue = mobCore.checkType(Number, toObj[item])
             ? toObj[item]
             : toObj[item]();
 
@@ -114,11 +118,11 @@ export const goFromToUtils = (fromObj, toObj) => {
             prop: item,
             fromValue,
             fromFn: fromObj[item],
-            fromIsFn: storeType.isFunction(fromObj[item]),
+            fromIsFn: mobCore.checkType(Function, fromObj[item]),
             currentValue: fromValue,
             toValue,
             toFn: toObj[item],
-            toIsFn: storeType.isFunction(toObj[item]),
+            toIsFn: mobCore.checkType(Function, toObj[item]),
             settled: false,
         };
     });
@@ -148,17 +152,19 @@ export const setUtils = (obj) => {
                 settled: false,
             };
         }
-        const value = storeType.isNumber(obj[item]) ? obj[item] : obj[item]();
+        const value = mobCore.checkType(Number, obj[item])
+            ? obj[item]
+            : obj[item]();
 
         return {
             prop: item,
             fromValue: value,
             fromFn: obj[item],
-            fromIsFn: storeType.isFunction(obj[item]),
+            fromIsFn: mobCore.checkType(Function, obj[item]),
             currentValue: value,
             toValue: value,
             toFn: obj[item],
-            toIsFn: storeType.isFunction(obj[item]),
+            toIsFn: mobCore.checkType(Function, obj[item]),
             settled: false,
         };
     });

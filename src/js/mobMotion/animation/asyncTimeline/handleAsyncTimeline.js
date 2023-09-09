@@ -1,7 +1,7 @@
+import { mobCore } from '../../../mobCore/index.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
 import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
 import { loadFps } from '../../events/rafutils/loadFps.js';
-import { checkType } from '../../store/storeType.js';
 import { NOOP } from '../../utils/functionsUtils.js';
 import { getTime } from '../../utils/time.js';
 import { directionConstant } from '../utils/constant.js';
@@ -533,7 +533,7 @@ export default class HandleAsyncTimeline {
                     /*
                      * Check callback that return a bollean to fire supend
                      */
-                    const valueIsValid = checkType(Boolean, tween());
+                    const valueIsValid = mobCore.checkType(Boolean, tween());
                     if (!valueIsValid) timelineSuspendWarning(tween);
                     const sholudSuspend = valueIsValid ? tween() : true;
                     return new Promise((res) => {
@@ -1783,7 +1783,7 @@ export default class HandleAsyncTimeline {
         this.currentIndex = 0;
         this.labelState.isReverse = isReverse;
         this.labelState.active = true;
-        this.labelState.index = checkType(String, label)
+        this.labelState.index = mobCore.checkType(String, label)
             ? this.tweenList.findIndex((item) => {
                   const [firstItem] = item;
                   const labelCheck = firstItem.data.labelProps?.name;
@@ -1791,7 +1791,7 @@ export default class HandleAsyncTimeline {
               })
             : label;
 
-        if (checkType(String, label))
+        if (mobCore.checkType(String, label))
             playLabelIsValid(this.labelState.index, label);
 
         this.run();

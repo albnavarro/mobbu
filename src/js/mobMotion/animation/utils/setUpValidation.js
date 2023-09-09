@@ -1,4 +1,4 @@
-import { checkType, getTypeName } from '../../store/storeType';
+import { mobCore } from '../../../mobCore/index.js';
 import { springPresetConfig } from '../spring/springConfig.js';
 
 /**
@@ -405,10 +405,10 @@ export const setupValidation = (obj) => {
  * Check if prop valid
  */
 const checkSetUpType = ({ prop, value, defaultValue, type }) => {
-    const isValid = checkType(type, value);
+    const isValid = mobCore.checkType(type, value);
     if (!isValid)
         console.warn(
-            `handleSetUp error: ${prop}: ${value}, is not valid must be a ${getTypeName(
+            `handleSetUp error: ${prop}: ${value}, is not valid must be a ${mobCore.getTypeName(
                 type
             )}`
         );
@@ -418,9 +418,9 @@ const checkSetUpType = ({ prop, value, defaultValue, type }) => {
 
 const checkSetUpMq = (obj) => {
     const isValid =
-        checkType(Object, obj) &&
+        mobCore.checkType(Object, obj) &&
         Object.values(obj).every((value) => {
-            return checkType(Number, value);
+            return mobCore.checkType(Number, value);
         });
 
     if (!isValid)

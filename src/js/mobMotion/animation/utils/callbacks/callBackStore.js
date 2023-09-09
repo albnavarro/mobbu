@@ -1,3 +1,3 @@
-import { SimpleStore } from '../../../store/simpleStore.js';
+import { mobCore } from '../../../../mobCore';
 
-export const callBackStore = new SimpleStore({ id: 0 });
+export const callBackStore = mobCore.createStore({ id: 0 });

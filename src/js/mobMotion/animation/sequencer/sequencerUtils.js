@@ -6,7 +6,6 @@ import {
     STAGGER_TYPE_CENTER,
     STAGGER_TYPE_EQUAL,
 } from '../utils/stagger/staggerCostant.js';
-import { checkType } from '../../store/storeType.js';
 import {
     createStaggerEachWarning,
     createStaggerItemsTypeWarning,
@@ -18,6 +17,7 @@ import {
     validateStaggerItems,
 } from '../utils/tweenValidation.js';
 import { getStaggerFromProps } from '../utils/stagger/staggerUtils.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} createSequencerTypes
@@ -104,7 +104,10 @@ export const createStaggers = (data = {}) => {
     /**
      * In classic mode each must be between 1 and eachProportion
      */
-    if (checkType(Number, each) && (each > eachProportion || each < 1)) {
+    if (
+        mobCore.checkType(Number, each) &&
+        (each > eachProportion || each < 1)
+    ) {
         createStaggerEachWarning(eachProportion);
         each = 1;
     }
@@ -126,7 +129,8 @@ export const createStaggers = (data = {}) => {
      * Accpt only dom element and object
      * */
     const staggerArrayFiltered = staggerArray.filter(
-        ({ item }) => checkType(Element, item) || checkType(Object, item)
+        ({ item }) =>
+            mobCore.checkType(Element, item) || mobCore.checkType(Object, item)
     );
 
     if (staggerArrayFiltered.length === 0) {

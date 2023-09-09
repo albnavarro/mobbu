@@ -31,7 +31,7 @@ export const getRouteModule = ({ url = '' }) => {
  * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
    This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
    `default = false`.
- * @param {import('../../mobMotion').MobbuStoreType} [ obj.state ] - Component state
+ * @param {import('../../mobCore').MobbuStoreType} [ obj.state ] - Component state
  * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description

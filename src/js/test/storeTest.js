@@ -1,10 +1,10 @@
 // @ts-check
 
-import { core } from '../mobMotion';
+import { mobCore } from '../mobCore';
 
 export const storeTest = () => {
     setTimeout(() => {
-        const storeTest = core.createStore({
+        const storeTest = mobCore.createStore({
             mySecondProp: 0,
             myObj: {
                 test: () => ({

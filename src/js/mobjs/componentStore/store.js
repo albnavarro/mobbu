@@ -1,5 +1,6 @@
 // @ts-check
-import { core } from '../../mobMotion';
+
+import { mobCore } from '../../mobCore';
 
 /**
  * @typedef {Object} componentStoreType
@@ -22,7 +23,7 @@ import { core } from '../../mobMotion';
 /**
  * Inizializa component store
  */
-export const componentStore = core.createStore({
+export const componentStore = mobCore.createStore({
     instances: () => ({
         value: [],
         type: Array,

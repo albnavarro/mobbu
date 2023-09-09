@@ -1,3 +1,4 @@
+import { mobCore } from '../../../mobCore/index.js';
 import HandleTween from '../../animation/tween/handleTween.js';
 import {
     easeTweenIsValid,
@@ -10,7 +11,6 @@ import {
     handleMouseWheel,
     handleTouchStart,
 } from '../../events/mouseUtils/handleMouse.js';
-import { checkType } from '../../store/storeType.js';
 import { offset, isNode } from '../../utils/vanillaFunction.js';
 
 /**
@@ -101,7 +101,8 @@ export const bodyScroll = (() => {
             const targetParsed = (() => {
                 if (!target) return 0;
 
-                const isValid = isNode(target) || checkType(Number, target);
+                const isValid =
+                    isNode(target) || mobCore.checkType(Number, target);
 
                 if (!isValid) {
                     console.warn(

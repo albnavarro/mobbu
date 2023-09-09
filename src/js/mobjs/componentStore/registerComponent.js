@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobMotion';
+import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
 import { getFreezePropStatus } from './action/freeze';
 import { componentStore } from './store';
@@ -51,7 +51,7 @@ export const addComponentToStore = ({
     id = '',
     componentName = '',
 }) => {
-    const store = core.createStore(state);
+    const store = mobCore.createStore(state);
     addPropsToState({ props, store });
 
     componentStore.set('instances', (/** @type {Array} */ prev) => {

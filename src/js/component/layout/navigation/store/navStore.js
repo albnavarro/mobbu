@@ -1,9 +1,9 @@
-import { core } from '../../../../mobMotion';
+import { mobCore } from '../../../../mobCore';
 
 /**
  * Navigation store utils.
  */
-export const navigationStore = core.createStore({
+export const navigationStore = mobCore.createStore({
     closeAllAccordion: () => {},
     refreshScroller: () => {},
     openNavigation: () => {},

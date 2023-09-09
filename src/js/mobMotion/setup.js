@@ -1,5 +1,6 @@
 // @ts-check
 
+import { mobCore } from '../mobCore/index.js';
 import { springPresetConfig } from './animation/spring/springConfig.js';
 import {
     defaultMqValueDefault,
@@ -23,10 +24,9 @@ import {
     usePassiveDefault,
     useScaleFpsDefault,
 } from './animation/utils/setUpValidation.js';
-import { SimpleStore } from './store/simpleStore.js';
 import { mergeDeep } from './utils/mergeDeep.js';
 
-export const setUpStore = new SimpleStore({
+export const setUpStore = mobCore.createStore({
     usePassive: usePassiveDefault,
 });
 

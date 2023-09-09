@@ -9,8 +9,8 @@ import {
     STAGGER_RANDOM,
 } from './staggerCostant.js';
 import { getEachByFps } from './staggerUtils.js';
-import { checkType } from '../../../store/storeType.js';
 import { staggerColRowWarning } from '../warning.js';
+import { mobCore } from '../../../../mobCore/index.js';
 
 export const setStagger = ({
     arr,
@@ -24,21 +24,21 @@ export const setStagger = ({
             /**
              * Check if from is an Object
              **/
-            if (!checkType(Object, stagger?.from)) {
+            if (!mobCore.checkType(Object, stagger?.from)) {
                 stagger.from = {};
             }
 
             /**
              * Check x value if is not setted use 0 as default
              */
-            if (!checkType(Number, stagger?.from?.x)) {
+            if (!mobCore.checkType(Number, stagger?.from?.x)) {
                 stagger.from = { ...stagger.from, x: 0 };
             }
 
             /**
              * Check y value if is not setted use 0 as default
              */
-            if (!checkType(Number, stagger?.from?.y)) {
+            if (!mobCore.checkType(Number, stagger?.from?.y)) {
                 stagger.from = { ...stagger.from, y: 0 };
             }
 
@@ -114,9 +114,9 @@ export const setStagger = ({
             ];
 
             if (
-                (!checkType(String, stagger?.from) &&
-                    !checkType(Number, stagger?.from)) ||
-                (checkType(String, stagger?.from) &&
+                (!mobCore.checkType(String, stagger?.from) &&
+                    !mobCore.checkType(Number, stagger?.from)) ||
+                (mobCore.checkType(String, stagger?.from) &&
                     !fromList.includes(stagger?.from))
             ) {
                 staggerColRowWarning();

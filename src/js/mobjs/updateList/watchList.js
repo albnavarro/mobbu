@@ -1,6 +1,6 @@
 // @ts-checc
 
-import { checkType } from '../../mobMotion/store/storeType';
+import { mobCore } from '../../mobCore';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
     freezePropById,
@@ -75,7 +75,7 @@ export const watchList = ({
     watch(
         state,
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
-            if (!checkType(Array, current)) return;
+            if (!mobCore.checkType(Array, current)) return;
 
             /**
              * If clean is active remove previous children.

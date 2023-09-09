@@ -1,6 +1,6 @@
 //@ts-check
 
-import { storeType } from '../../store/storeType.js';
+import { mobCore } from '../../../mobCore';
 
 /**
  * @returns {String}
@@ -69,7 +69,7 @@ export const getValueObjFromNative = (arr) => {
  * Sanitize Number in case is in calculator enutation.
  */
 export const getRoundedValue = (x) => {
-    if (storeType.isNumber(x)) {
+    if (mobCore.checkType(Number, x)) {
         return Math.round(x * 10_000) / 10_000 || 0;
     } else {
         if (Math.abs(x) < 1) {

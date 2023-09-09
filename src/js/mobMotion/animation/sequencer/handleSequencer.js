@@ -21,7 +21,6 @@ import {
     syncTimelineAddFnWarning,
     syncTimelineAddTimeWarning,
 } from '../utils/warning.js';
-import { storeType } from '../../store/storeType.js';
 import {
     goToSyncUtils,
     goFromSyncUtils,
@@ -41,6 +40,7 @@ import {
     sequencerRangeValidate,
 } from '../utils/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} sequencerTypes
@@ -346,11 +346,11 @@ export default class HandleSequencer {
                     // If in the next step the same props is active and start before partial skip
                     if (!GC.isLastUsableProp) return;
 
-                    GC.toValue = storeType.isNumber(item.toValue)
+                    GC.toValue = mobCore.checkType(Number, item.toValue)
                         ? item.toValue
                         : item.toValue();
 
-                    GC.fromValue = storeType.isNumber(item.fromValue)
+                    GC.fromValue = mobCore.checkType(Number, item.fromValue)
                         ? item.fromValue
                         : item.fromValue();
 
@@ -807,8 +807,8 @@ export default class HandleSequencer {
      * ```
      */
     add(fn = () => {}, time = 0) {
-        const fnIsValid = storeType.isFunction(fn);
-        const timeIsValid = storeType.isNumber(time);
+        const fnIsValid = mobCore.checkType(Function, fn);
+        const timeIsValid = mobCore.checkType(Number, time);
         const addIsValid = fnIsValid && timeIsValid;
 
         if (!fnIsValid) syncTimelineAddFnWarning(fn);

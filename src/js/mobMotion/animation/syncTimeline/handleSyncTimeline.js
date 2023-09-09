@@ -4,7 +4,6 @@ import { handleNextFrame } from '../../events/rafutils/handleNextFrame.js';
 import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { clamp } from '../utils/animationUtils.js';
 import { fpsLoadedLog } from '../utils/log.js';
-import { storeType } from '../../store/storeType.js';
 import { directionConstant } from '../utils/constant.js';
 import { syncTimelineLabelWarning } from '../utils/warning.js';
 import {
@@ -13,6 +12,7 @@ import {
     valueIsBooleanAndReturnDefault,
 } from '../utils/tweenValidation.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} syncTimelineTypes
@@ -505,7 +505,7 @@ export default class HandleSyncTimeline {
         return new Promise((resolve, reject) => {
             if (this.fpsIsInLoading) return;
 
-            const isNumber = storeType.isNumber(value);
+            const isNumber = mobCore.checkType(Number, value);
             const labelTime = isNumber ? value : this.getTimeFromLabel(value);
 
             this.rejectPromise();
@@ -567,7 +567,7 @@ export default class HandleSyncTimeline {
         return new Promise((resolve, reject) => {
             if (this.fpsIsInLoading) return;
 
-            const isNumber = storeType.isNumber(value);
+            const isNumber = mobCore.checkType(Number, value);
             const labelTime = isNumber ? value : this.getTimeFromLabel(value);
 
             this.rejectPromise();

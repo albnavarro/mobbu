@@ -22,7 +22,6 @@ import HandleLerp from '../../animation/lerp/handleLerp.js';
 import HandleSpring from '../../animation/spring/handleSpring.js';
 import { clamp } from '../../animation/utils/animationUtils.js';
 import { normalizeWheel } from '../../events/mouseUtils/normalizeWhell.js';
-import { checkType } from '../../store/storeType.js';
 import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
 import { mq } from '../../utils/mediaManager.js';
@@ -38,6 +37,7 @@ import {
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
 } from '../../animation/utils/tweenValidation.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} smoothScrollerType
@@ -333,7 +333,7 @@ export default class SmoothScroller {
         /**
          * @private
          */
-        this.scroller = checkType(String, data?.scroller)
+        this.scroller = mobCore.checkType(String, data?.scroller)
             ? document.querySelector(data.scroller)
             : data.scroller;
 
@@ -348,7 +348,7 @@ export default class SmoothScroller {
          */
         this.screen = data?.screen
             ? (() => {
-                  return checkType(String, data.screen)
+                  return mobCore.checkType(String, data.screen)
                       ? document.querySelector(data.screen)
                       : data.screen;
               })()
