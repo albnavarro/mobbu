@@ -344,14 +344,14 @@ const render = (timestamp) => {
      */
     shouldMakeSomethingStart();
 
-    /*
-        Fire callbnack
-        */
+    /**
+     *Fire callbnack
+     */
     callback.forEach((item) => item({ time, fps, shouldRender }));
 
     /*
-        Fire callback related to specific index frame
-        */
+     * Fire callback related to specific index frame
+     */
     handleFrameIndex.fire({ currentFrame, time, fps, shouldRender });
 
     /**
