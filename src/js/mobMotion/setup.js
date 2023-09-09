@@ -21,7 +21,7 @@ import { eventStore } from './events/eventStore.js';
 import { mergeDeep } from './utils/mergeDeep.js';
 
 /**
- * @typedef {('startFps'|'fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
+ * @typedef {('fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
  */
 
 export const handleSetUp = (() => {
@@ -89,7 +89,6 @@ export const handleSetUp = (() => {
      * Default value schema:
      *
      * handleSetUp.set({
-     *     startFps: 60,
      *     fpsScalePercent: {
      *         0: 1,
      *         15: 2,
