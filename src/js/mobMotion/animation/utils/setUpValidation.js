@@ -138,7 +138,6 @@ export const MQ_MAX = 'max';
 export const defaultMqValueDefault = 'desktop';
 export const easeDefault = 'easeLinear';
 export const springConfigDefault = 'default';
-export const throttleDefault = 60;
 export const mqDefault = {
     xSmall: 320,
     small: 360,
@@ -196,7 +195,7 @@ export const setupValidation = (obj) => {
     const throttle = checkSetUpType({
         prop: 'throttle',
         value: obj?.throttle,
-        defaultValue: throttleDefault,
+        defaultValue: eventStore.getProp('throttle'),
         type: Number,
     });
 

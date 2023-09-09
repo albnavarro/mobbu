@@ -14,7 +14,6 @@ import {
     sequencerDurationDefault,
     setupValidation,
     springConfigDefault,
-    throttleDefault,
     tweenDurationDefault,
     tweenRealtiveDefault,
 } from './animation/utils/setUpValidation.js';
@@ -34,7 +33,7 @@ export const handleSetUp = (() => {
         fpsScalePercent: eventStore.getProp('fpsScalePercent'),
         useScaleFps: eventStore.getProp('useScaleFps'),
         deferredNextTick: eventStore.getProp('deferredNextTick'),
-        throttle: throttleDefault,
+        throttle: eventStore.getProp('throttle'),
         usePassive: eventStore.getProp('usePassive'),
         mq: mqDefault,
         defaultMq: {
@@ -196,16 +195,18 @@ export const handleSetUp = (() => {
         /**
          * Update event default.
          */
-        if ('usePassive' in obj) eventStore.set('usePassive', data?.usePassive);
+        if ('usePassive' in obj) eventStore.set('usePassive', data.usePassive);
 
         if ('fpsScalePercent' in obj)
-            eventStore.set('fpsScalePercent', data?.fpsScalePercent);
+            eventStore.set('fpsScalePercent', data.fpsScalePercent);
 
         if ('useScaleFps' in obj)
-            eventStore.set('useScaleFps', data?.useScaleFps);
+            eventStore.set('useScaleFps', data.useScaleFps);
 
         if ('deferredNextTick' in obj)
-            eventStore.set('deferredNextTick', data?.deferredNextTick);
+            eventStore.set('deferredNextTick', data.deferredNextTick);
+
+        if ('throttle' in obj) eventStore.set('throttle', data.throttle);
     };
 
     /**

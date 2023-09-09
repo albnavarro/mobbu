@@ -15,4 +15,9 @@ export const eventStore = mobCore.createStore({
     fpsScalePercent: { 0: 1, 30: 2, 50: 3 },
     useScaleFps: true,
     deferredNextTick: false,
+
+    /**
+     * Scroll
+     */
+    throttle: 60,
 });
