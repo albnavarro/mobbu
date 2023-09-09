@@ -13,11 +13,6 @@ import {
     handleMouseWheel,
     handleMouseClick,
 } from '../../events/mouseUtils/handleMouse.js';
-import {
-    isDescendant,
-    outerHeight,
-    outerWidth,
-} from '../../utils/vanillaFunction.js';
 import HandleLerp from '../../animation/lerp/handleLerp.js';
 import HandleSpring from '../../animation/spring/handleSpring.js';
 import { clamp } from '../../animation/utils/animationUtils.js';
@@ -38,6 +33,11 @@ import {
     valueIsNumberAndReturnDefault,
 } from '../../animation/utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
+import {
+    isDescendant,
+    outerHeight,
+    outerWidth,
+} from '../../../mobCore/utils/index.js';
 
 /**
  * @typedef {Object} smoothScrollerType

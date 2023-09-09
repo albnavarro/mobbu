@@ -1,7 +1,7 @@
 import HandleSpring from '../../animation/spring/handleSpring.js';
 import { handleFrame } from '../../events/rafutils/handleFrame.js';
 import { parallaxConstant } from './parallaxConstant.js';
-import { position } from '../../utils/vanillaFunction.js';
+import { position } from '../../../mobCore/utils/index.js';
 import { handleScroll } from '../../events/scrollUtils/handleScroll.js';
 import { handleScrollStart } from '../../events/scrollUtils/handleScrollUtils.js';
 import { clamp } from '../../animation/utils/animationUtils.js';

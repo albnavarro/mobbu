@@ -1,6 +1,6 @@
 // @ts-check
 
-import { isDescendant } from '../../../mobMotion/utils/vanillaFunction';
+import { isDescendant } from '../../../mobCore/utils';
 import { componentStore } from '../store';
 
 /**

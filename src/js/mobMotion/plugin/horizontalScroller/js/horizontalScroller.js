@@ -7,7 +7,7 @@ import {
     offset,
     outerHeight,
     outerWidth,
-} from '../../../utils/vanillaFunction';
+} from '../../../../mobCore/utils/index.js';
 import { horizontalScrollerCss } from './horizontalScrollerCss.js';
 import { mq } from '../../../utils/mediaManager.js';
 import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex';

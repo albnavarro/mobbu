@@ -1,5 +1,4 @@
 import { core, scroller, tween } from '../../../../../mobMotion';
-import { outerHeight } from '../../../../../mobMotion/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -11,6 +10,7 @@ import {
     roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { outerHeight } from '../../../../../mobCore/utils';
 
 export const scrollerN0Animation = ({
     canvas,

@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore/index.js';
+import { outerHeight } from '../../../mobCore/utils/index.js';
 import HandleTween from '../../animation/tween/handleTween.js';
-import { outerHeight } from '../../utils/vanillaFunction.js';
 
 /**
  * @description

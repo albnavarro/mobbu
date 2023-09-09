@@ -1,6 +1,6 @@
+import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
 import { HorizontalScroller } from '../../../../mobMotion/plugin';
-import { outerWidth } from '../../../../mobMotion/utils/vanillaFunction';
 
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {

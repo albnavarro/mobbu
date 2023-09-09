@@ -1,6 +1,6 @@
 import { getLegendData } from '../../../data';
+import { offset, outerHeight } from '../../../mobCore/utils';
 import { bodyScroll } from '../../../mobMotion/plugin';
-import { offset, outerHeight } from '../../../mobMotion/utils/vanillaFunction';
 import { horizontalScrollerAnimation } from './animation/animation';
 
 const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {

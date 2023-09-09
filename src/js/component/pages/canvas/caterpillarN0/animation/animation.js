@@ -1,5 +1,4 @@
 import { core, tween } from '../../../../../mobMotion';
-import { offset } from '../../../../../mobMotion/utils/vanillaFunction';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -8,6 +7,7 @@ import {
     roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { offset } from '../../../../../mobCore/utils';
 
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
     return (

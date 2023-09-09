@@ -1,6 +1,6 @@
+import { outerHeight } from '../../../../mobCore/utils';
 import { scroller, tween } from '../../../../mobMotion';
 import { SmoothScroller } from '../../../../mobMotion/plugin';
-import { outerHeight } from '../../../../mobMotion/utils/vanillaFunction';
 import { navigationStore } from '../store/navStore';
 
 export const initNavigationScoller = ({ root }) => {

@@ -11,7 +11,7 @@ import {
     handleMouseWheel,
     handleTouchStart,
 } from '../../events/mouseUtils/handleMouse.js';
-import { offset, isNode } from '../../utils/vanillaFunction.js';
+import { offset, isNode } from '../../../mobCore/utils/index.js';
 
 /**
  * @typedef {Object} bodyScrollDataType

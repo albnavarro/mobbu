@@ -14,7 +14,7 @@ import {
     getTranslateValues,
     offset,
     position,
-} from '../../utils/vanillaFunction.js';
+} from '../../../mobCore/utils/index.js';
 import HandleLerp from '../lerp/handleLerp.js';
 import HandleSpring from '../spring/handleSpring.js';
 import { clamp, getRoundedValue } from '../utils/animationUtils.js';
