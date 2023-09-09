@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../mobMotion/animation/utils/animationUtils';
+import { mobCore } from '../../mobCore';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { mainStore } from '../mainStore/mainStore';
 import { addWithKey } from './addWithKey';
@@ -54,7 +54,7 @@ export const updateChildren = async ({
     /**
      * Generate unique id to parse only component with this id.
      */
-    const runtimeId = getUnivoqueId();
+    const runtimeId = mobCore.getUnivoqueId();
 
     /**
      * Execue function.

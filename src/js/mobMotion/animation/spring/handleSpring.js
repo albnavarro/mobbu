@@ -1,5 +1,4 @@
 import {
-    getUnivoqueId,
     getValueObj,
     getValueObjToNative,
     getValueObjFromNative,
@@ -56,6 +55,7 @@ import {
 } from '../utils/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} springTypes
@@ -142,7 +142,7 @@ export default class HandleSpring {
         /**
          * @private
          */
-        this.uniqueId = getUnivoqueId();
+        this.uniqueId = mobCore.getUnivoqueId();
 
         /**
          * @private

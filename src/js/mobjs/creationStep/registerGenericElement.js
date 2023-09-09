@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../mobMotion/animation/utils/animationUtils';
+import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
@@ -177,7 +177,7 @@ export const registerGenericElement = ({
             afterUpdate = () => {},
             key,
         }) => {
-            const currentRepeatId = getUnivoqueId();
+            const currentRepeatId = mobCore.getUnivoqueId();
             repeatId.push(currentRepeatId);
 
             /**

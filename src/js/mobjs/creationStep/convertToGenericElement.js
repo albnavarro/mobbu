@@ -1,6 +1,5 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../mobMotion/animation/utils/animationUtils';
 import { getPropsFromParent } from '../mainStore/actions/props';
 import {
     ATTR_DYNAMIC_PARTIAL,
@@ -14,6 +13,7 @@ import {
 import { propsKeyToExclude } from './utils';
 import { getCurrentValueList } from '../mainStore/actions/currentListValue';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
+import { mobCore } from '../../mobCore';
 
 /**
  * @param {Object} obj
@@ -46,7 +46,7 @@ export const convertToGenericElement = ({ component }) => {
      * @description
      * Create Univoque id
      */
-    const id = getUnivoqueId();
+    const id = mobCore.getUnivoqueId();
     newComponent.id = id;
 
     /**

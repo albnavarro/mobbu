@@ -3,16 +3,6 @@
 import { mobCore } from '../../../mobCore';
 
 /**
- * @returns {String}
- *
- * @description
- * Generate univoque id
- */
-export const getUnivoqueId = () => {
-    return `_${Math.random().toString(36).slice(2, 9)}`;
-};
-
-/**
  * @param {Array} arr
  * @param {String} key
  * @returns {Object}

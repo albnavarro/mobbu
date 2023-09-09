@@ -1,5 +1,4 @@
 import {
-    getUnivoqueId,
     getValueObj,
     getValueObjToNative,
     getValueObjFromNative,
@@ -55,6 +54,7 @@ import {
     valueIsBooleanAndTrue,
 } from '../utils/tweenValidation.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} lerpTypes
@@ -148,7 +148,7 @@ export default class HandleLerp {
         /**
          * @private
          */
-        this.uniqueId = getUnivoqueId();
+        this.uniqueId = mobCore.getUnivoqueId();
 
         /**
          * @private

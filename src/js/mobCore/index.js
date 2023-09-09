@@ -108,4 +108,14 @@ export const mobCore = {
     getTypeName(type) {
         return getTypeName(type);
     },
+
+    /**
+     * @returns {String}
+     *
+     * @description
+     * Generate univoque id
+     */
+    getUnivoqueId() {
+        return `_${Math.random().toString(36).slice(2, 9)}`;
+    },
 };

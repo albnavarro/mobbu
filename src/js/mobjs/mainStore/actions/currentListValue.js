@@ -1,4 +1,4 @@
-import { getUnivoqueId } from '../../../mobMotion/animation/utils/animationUtils';
+import { mobCore } from '../../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
 import { mainStore } from '../mainStore';
 
@@ -10,7 +10,7 @@ export const setCurrentValueList = (current = {}) => {
     /**
      * @type {String}
      */
-    const id = getUnivoqueId();
+    const id = mobCore.getUnivoqueId();
     mainStore.set('currentListValue', (/** @type {Array} */ prev) => {
         return [...prev, { [id]: current }];
     });

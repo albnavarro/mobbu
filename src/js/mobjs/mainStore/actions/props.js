@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../../mobMotion/animation/utils/animationUtils';
+import { mobCore } from '../../../mobCore';
 import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
 import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
@@ -30,7 +30,7 @@ export const setStaticProps = (props = {}) => {
     /**
      * @type {String}
      */
-    const id = getUnivoqueId();
+    const id = mobCore.getUnivoqueId();
     mainStore.set('propsToChildren', (/** @type {Array} */ prev) => {
         return [...prev, { [id]: props }];
     });
@@ -71,7 +71,7 @@ export const setBindProps = (propsObj = {}) => {
     /**
      * @type {String}
      */
-    const id = getUnivoqueId();
+    const id = mobCore.getUnivoqueId();
     mainStore.set('dynamicPropsToChildren', (/** @type {Array} */ prev) => {
         return [...prev, { propsId: id, propsObj }];
     });

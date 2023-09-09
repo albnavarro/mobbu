@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../mobMotion/animation/utils/animationUtils';
+import { mobCore } from '../mobCore';
 import {
     ATTR_INSTANCENAME,
     ATTR_IS_COMPONENT,
@@ -32,7 +32,7 @@ export const createRunTimeComponent = ({ container }) => {
     /**
      * @type {String}
      */
-    const uniqueId = getUnivoqueId();
+    const uniqueId = mobCore.getUnivoqueId();
 
     /**
      * @type {NodeListOf.<HTMLElement>} innerComponents
