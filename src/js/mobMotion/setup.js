@@ -1,6 +1,5 @@
 // @ts-check
 
-import { mobCore } from '../mobCore/index.js';
 import { springPresetConfig } from './animation/spring/springConfig.js';
 import {
     defaultMqValueDefault,
@@ -21,14 +20,10 @@ import {
     throttleDefault,
     tweenDurationDefault,
     tweenRealtiveDefault,
-    usePassiveDefault,
     useScaleFpsDefault,
 } from './animation/utils/setUpValidation.js';
+import { setUpMouseEvent } from './events/mouseUtils/mouseStore.js';
 import { mergeDeep } from './utils/mergeDeep.js';
-
-export const setUpStore = mobCore.createStore({
-    usePassive: usePassiveDefault,
-});
 
 /**
  * @typedef {('startFps'|'fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
@@ -45,7 +40,7 @@ export const handleSetUp = (() => {
         useScaleFps: useScaleFpsDefault,
         deferredNextTick: deferredNextTickDefault,
         throttle: throttleDefault,
-        usePassive: usePassiveDefault,
+        usePassive: setUpMouseEvent.getProp('usePassive'),
         mq: mqDefault,
         defaultMq: {
             value: defaultMqValueDefault,
@@ -203,7 +198,8 @@ export const handleSetUp = (() => {
     const set = (obj) => {
         data = setupValidation(mergeDeep(data, obj));
 
-        if ('usePassive' in obj) setUpStore.set('usePassive', data?.usePassive);
+        if ('usePassive' in obj)
+            setUpMouseEvent.set('usePassive', data?.usePassive);
     };
 
     /**

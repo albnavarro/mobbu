@@ -1,4 +1,5 @@
 import { mobCore } from '../../../mobCore/index.js';
+import { setUpMouseEvent } from '../../events/mouseUtils/mouseStore.js';
 import { springPresetConfig } from '../spring/springConfig.js';
 
 /**
@@ -144,7 +145,6 @@ export const fpsScalePercentDefault = { 0: 1, 30: 2, 50: 3 };
 export const useScaleFpsDefault = true;
 export const deferredNextTickDefault = false;
 export const throttleDefault = 60;
-export const usePassiveDefault = true;
 export const mqDefault = {
     xSmall: 320,
     small: 360,
@@ -202,7 +202,7 @@ export const setupValidation = (obj) => {
     const usePassive = checkSetUpType({
         prop: 'usePassive',
         value: obj?.usePassive,
-        defaultValue: usePassiveDefault,
+        defaultValue: setUpMouseEvent.getProp('usePassive'),
         type: Boolean,
     });
 
