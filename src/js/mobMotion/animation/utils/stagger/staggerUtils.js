@@ -1,4 +1,4 @@
-import { frameStore } from '../../../events/rafutils/frameStore.js';
+import { eventStore } from '../../../events/eventStore.js';
 import {
     validateStaggerColRow,
     validateStaggerDirection,
@@ -14,7 +14,7 @@ import {
 } from './staggerCostant.js';
 
 export const getEachByFps = (each) => {
-    const { instantFps } = frameStore.get();
+    const { instantFps } = eventStore.get();
     const eachByFps = Math.round(each * (instantFps / 60));
 
     /*

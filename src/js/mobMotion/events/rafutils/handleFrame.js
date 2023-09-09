@@ -1,15 +1,14 @@
 // @ts-check
 
 import { getTime, defaultTimestep } from '../../utils/time.js';
-import { handleSetUp } from '../../setup.js';
 import { handleVisibilityChange } from '../visibilityChange/handleVisibilityChange.js';
 import { handleCache } from './handleCache.js';
 import { handleNextTick } from './handleNextTick.js';
 import { handleNextFrame } from './handleNextFrame.js';
 import { handleFrameIndex } from './handleFrameIndex';
-import { frameStore } from './frameStore.js';
 import { catchAnimationReject } from '../errorHandler/catchAnimationReject.js';
 import { loadFps } from './loadFps.js';
+import { eventStore } from '../eventStore.js';
 
 /**
  * @typedef {Object} handleFrameTypes
@@ -82,7 +81,7 @@ let isStopped = false;
  * @description
  * Stable fps
  */
-let fps = handleSetUp.get('startFps');
+let fps = 60;
 
 /**
  * @type {Number}
@@ -118,12 +117,12 @@ let shouldRender = true;
 /**
  * @type {Object.<number, number>}
  */
-let fpsScalePercent = handleSetUp.get('fpsScalePercent');
+let fpsScalePercent = eventStore.getProp('fpsScalePercent');
 
 /**
  * @type {Boolean}
  */
-let useScaleFpsf = handleSetUp.get('useScaleFps');
+let useScaleFpsf = eventStore.getProp('useScaleFps');
 
 /**
  * @type {Boolean}
@@ -192,7 +191,7 @@ handleVisibilityChange(({ visibilityState }) => {
 catchAnimationReject();
 
 // Call new requestAnimationFrame on event emit
-frameStore.watch('requestFrame', () => {
+eventStore.watch('requestFrame', () => {
     initFrame();
 });
 
@@ -238,7 +237,7 @@ const nextTickFn = () => {
      */
     if (currentFrame === currentFrameLimit) {
         currentFrame = 0;
-        frameStore.quickSetProp('currentFrame', currentFrame);
+        eventStore.quickSetProp('currentFrame', currentFrame);
         handleFrameIndex.updateKeys(currentFrameLimit);
         handleCache.updateFrameId(currentFrameLimit);
     }
@@ -275,7 +274,7 @@ const nextTickFn = () => {
     } else {
         isStopped = true;
         currentFrame = 0;
-        frameStore.quickSetProp('currentFrame', currentFrame);
+        eventStore.quickSetProp('currentFrame', currentFrame);
     }
 };
 
@@ -309,20 +308,20 @@ const render = (timestamp) => {
         fps =
             time > firstRunDuration
                 ? Math.round((frames * 1000) / (time - fpsPrevTime))
-                : frameStore.getProp('instantFps');
+                : eventStore.getProp('instantFps');
         fpsPrevTime = time;
         frames = 0;
 
         /**
          * Prevent fps error;
          */
-        if (fps === 0) fps = frameStore.getProp('instantFps');
+        if (fps === 0) fps = eventStore.getProp('instantFps');
 
         /**
          * Update value every seconds
          **/
-        fpsScalePercent = handleSetUp.get('fpsScalePercent');
-        useScaleFpsf = handleSetUp.get('useScaleFps');
+        fpsScalePercent = eventStore.getProp('fpsScalePercent');
+        useScaleFpsf = eventStore.getProp('useScaleFps');
     }
 
     /**
@@ -364,7 +363,7 @@ const render = (timestamp) => {
      *  Update currentFrame
      */
     currentFrame++;
-    frameStore.quickSetProp('currentFrame', currentFrame);
+    eventStore.quickSetProp('currentFrame', currentFrame);
 
     /**
      *Reset props
@@ -372,7 +371,7 @@ const render = (timestamp) => {
     callback.length = 0;
     isStopped = false;
 
-    const deferredNextTick = handleSetUp.get('deferredNextTick');
+    const deferredNextTick = eventStore.getProp('deferredNextTick');
 
     if (deferredNextTick) {
         setTimeout(() => nextTickFn());

@@ -1,5 +1,6 @@
 // @ts-check
 
+import { eventStore } from './events/eventStore.js';
 import { handleLoad } from './events/loadutils/handleLoad.js';
 import {
     handleMouseClick,
@@ -11,7 +12,6 @@ import {
     handleTouchMove,
     handleTouchStart,
 } from './events/mouseUtils/handleMouse.js';
-import { frameStore } from './events/rafutils/frameStore';
 import { handleFrame } from './events/rafutils/handleFrame.js';
 import { handleFrameIndex } from './events/rafutils/handleFrameIndex';
 import { handleNextFrame } from './events/rafutils/handleNextFrame.js';
@@ -180,7 +180,7 @@ export const core = {
     },
 
     getInstantFps() {
-        return frameStore.getProp('instantFps');
+        return eventStore.getProp('instantFps');
     },
 
     /**

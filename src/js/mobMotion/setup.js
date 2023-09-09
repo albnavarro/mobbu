@@ -3,9 +3,7 @@
 import { springPresetConfig } from './animation/spring/springConfig.js';
 import {
     defaultMqValueDefault,
-    deferredNextTickDefault,
     easeDefault,
-    fpsScalePercentDefault,
     lerpConfigDefault,
     markerItemDefault,
     markerStartDefault,
@@ -16,13 +14,11 @@ import {
     sequencerDurationDefault,
     setupValidation,
     springConfigDefault,
-    startFpsDefault,
     throttleDefault,
     tweenDurationDefault,
     tweenRealtiveDefault,
-    useScaleFpsDefault,
 } from './animation/utils/setUpValidation.js';
-import { setUpMouseEvent } from './events/mouseUtils/mouseStore.js';
+import { eventStore } from './events/eventStore.js';
 import { mergeDeep } from './utils/mergeDeep.js';
 
 /**
@@ -35,12 +31,11 @@ export const handleSetUp = (() => {
      * @type {import('./animation/utils/setUpValidation.js').handleSetUpSetType}
      */
     let data = {
-        startFps: startFpsDefault,
-        fpsScalePercent: fpsScalePercentDefault,
-        useScaleFps: useScaleFpsDefault,
-        deferredNextTick: deferredNextTickDefault,
+        fpsScalePercent: eventStore.getProp('fpsScalePercent'),
+        useScaleFps: eventStore.getProp('useScaleFps'),
+        deferredNextTick: eventStore.getProp('deferredNextTick'),
         throttle: throttleDefault,
-        usePassive: setUpMouseEvent.getProp('usePassive'),
+        usePassive: eventStore.getProp('usePassive'),
         mq: mqDefault,
         defaultMq: {
             value: defaultMqValueDefault,
@@ -198,8 +193,19 @@ export const handleSetUp = (() => {
     const set = (obj) => {
         data = setupValidation(mergeDeep(data, obj));
 
-        if ('usePassive' in obj)
-            setUpMouseEvent.set('usePassive', data?.usePassive);
+        /**
+         * Update event default.
+         */
+        if ('usePassive' in obj) eventStore.set('usePassive', data?.usePassive);
+
+        if ('fpsScalePercent' in obj)
+            eventStore.set('fpsScalePercent', data?.fpsScalePercent);
+
+        if ('useScaleFps' in obj)
+            eventStore.set('useScaleFps', data?.useScaleFps);
+
+        if ('deferredNextTick' in obj)
+            eventStore.set('deferredNextTick', data?.deferredNextTick);
     };
 
     /**

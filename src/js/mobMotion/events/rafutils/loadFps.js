@@ -1,6 +1,6 @@
 // @ts-check
 
-import { frameStore } from './frameStore.js';
+import { eventStore } from '../eventStore';
 
 /**
  * @type {Boolean}
@@ -32,7 +32,7 @@ let loadFpsIsReady = false;
  */
 export const loadFps = (duration = 30) => {
     if (loadFpsIsReady) {
-        const { instantFps } = frameStore.get();
+        const { instantFps } = eventStore.get();
         return new Promise((resolve) => {
             resolve({ averageFPS: instantFps });
         });
@@ -107,7 +107,7 @@ export const loadFps = (duration = 30) => {
             frameCounter++;
 
             if (frameCounter >= duration) {
-                frameStore.quickSetProp('instantFps', averageFPS);
+                eventStore.quickSetProp('instantFps', averageFPS);
                 loadFpsIsReady = true;
                 resolve({
                     averageFPS: averageFPS,

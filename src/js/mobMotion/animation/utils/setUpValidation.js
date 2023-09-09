@@ -1,11 +1,9 @@
 import { mobCore } from '../../../mobCore/index.js';
-import { setUpMouseEvent } from '../../events/mouseUtils/mouseStore.js';
+import { eventStore } from '../../events/eventStore.js';
 import { springPresetConfig } from '../spring/springConfig.js';
 
 /**
  * @typedef {Object} handleSetUpSetType
- * @prop {Number} [ startFps ] -  The fallback FPS value before it is detected.
- * Default: `startFps: 60`.
  *
  * @prop {Boolean} [ usePassive ]
    Use passive event on mouse/touch event.
@@ -140,10 +138,6 @@ export const MQ_MAX = 'max';
 export const defaultMqValueDefault = 'desktop';
 export const easeDefault = 'easeLinear';
 export const springConfigDefault = 'default';
-export const startFpsDefault = 60;
-export const fpsScalePercentDefault = { 0: 1, 30: 2, 50: 3 };
-export const useScaleFpsDefault = true;
-export const deferredNextTickDefault = false;
 export const throttleDefault = 60;
 export const mqDefault = {
     xSmall: 320,
@@ -171,38 +165,31 @@ export const lerpVelocityDefault = 0.06;
  * @param {handleSetUpSetType} obj
  */
 export const setupValidation = (obj) => {
-    const startFps = checkSetUpType({
-        prop: 'startFps',
-        value: obj?.startFps,
-        defaultValue: startFpsDefault,
-        type: Number,
-    });
-
     const fpsScalePercent = checkSetUpType({
         prop: 'fpsScalePercent',
         value: obj?.fpsScalePercent,
-        defaultValue: fpsScalePercentDefault,
+        defaultValue: eventStore.getProp('fpsScalePercent'),
         type: Object,
     });
 
     const useScaleFps = checkSetUpType({
         prop: 'useScaleFps',
         value: obj?.useScaleFps,
-        defaultValue: useScaleFpsDefault,
+        defaultValue: eventStore.getProp('useScaleFps'),
         type: Boolean,
     });
 
     const deferredNextTick = checkSetUpType({
         prop: 'deferredNextTick',
         value: obj?.deferredNextTick,
-        defaultValue: deferredNextTickDefault,
+        defaultValue: eventStore.getProp('deferredNextTick'),
         type: Boolean,
     });
 
     const usePassive = checkSetUpType({
         prop: 'usePassive',
         value: obj?.usePassive,
-        defaultValue: setUpMouseEvent.getProp('usePassive'),
+        defaultValue: eventStore.getProp('usePassive'),
         type: Boolean,
     });
 
@@ -348,7 +335,6 @@ export const setupValidation = (obj) => {
      * @type {handleSetUpSetType}
      */
     const result = {
-        startFps,
         fpsScalePercent,
         useScaleFps,
         deferredNextTick,

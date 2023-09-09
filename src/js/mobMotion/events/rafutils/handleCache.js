@@ -1,6 +1,6 @@
 // @ts-check
 
-import { frameStore } from './frameStore.js';
+import { eventStore } from '../eventStore';
 
 /**
  * @type {Number}
@@ -74,7 +74,7 @@ const add = (el = {}, fn = () => {}) => {
 const update = ({ id, callBackObject, frame }) => {
     if (!subscriber[id]) return;
 
-    const { currentFrame } = frameStore.get();
+    const { currentFrame } = eventStore.get();
     const { data } = subscriber[id];
     if (data[frame + currentFrame]) return;
     data[frame + currentFrame] = callBackObject;

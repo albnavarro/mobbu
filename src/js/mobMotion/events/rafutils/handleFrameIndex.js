@@ -1,6 +1,6 @@
 // @ts-check
 
-import { frameStore } from './frameStore.js';
+import { eventStore } from '../eventStore.js';
 
 /**
  * @type {Object}
@@ -85,7 +85,7 @@ const add = (callback, index) => {
     /**
      * @type {Number}
      */
-    const frameIndex = index + frameStore.getProp('currentFrame');
+    const frameIndex = index + eventStore.getProp('currentFrame');
 
     /**
      *  Add callback to array related to specific index idf exxist or create
@@ -99,7 +99,7 @@ const add = (callback, index) => {
         amountOfFrameToFire++;
     }
 
-    frameStore.emit('requestFrame');
+    eventStore.emit('requestFrame');
 };
 
 /**

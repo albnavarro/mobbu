@@ -1,6 +1,6 @@
 // @ts-check
 
-import { setUpMouseEvent } from './mouseStore.js';
+import { eventStore } from '../eventStore.js';
 import { normalizeWheel } from './normalizeWhell.js';
 
 /**
@@ -73,12 +73,12 @@ function handleMouse(event) {
      * @type {{usePassive:( Boolean )}}
      */
     // @ts-ignore
-    let { usePassive } = setUpMouseEvent.get();
+    let { usePassive } = eventStore.get();
 
     /**
      * Switch passive event on setUp change.
      */
-    setUpMouseEvent.watch('usePassive', () => {
+    eventStore.watch('usePassive', () => {
         window.removeEventListener(event, handler);
         inizialized = false;
 
@@ -154,7 +154,7 @@ function handleMouse(event) {
     function init() {
         if (inizialized) return;
         inizialized = true;
-        usePassive = setUpMouseEvent.getProp('usePassive');
+        usePassive = eventStore.getProp('usePassive');
 
         window.addEventListener(event, handler, {
             passive: usePassive,
