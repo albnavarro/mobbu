@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-this-assignment */
 // @ts-check
 
-import { getTime } from '../utils/time.js';
+import { getTime } from './rafutils/time';
 
 /**
  * @param {Function} func

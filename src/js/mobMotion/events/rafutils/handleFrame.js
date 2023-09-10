@@ -1,6 +1,5 @@
 // @ts-check
 
-import { getTime, defaultTimestep } from '../../utils/time.js';
 import { handleVisibilityChange } from '../visibilityChange/handleVisibilityChange.js';
 import { handleCache } from './handleCache.js';
 import { handleNextTick } from './handleNextTick.js';
@@ -9,6 +8,7 @@ import { handleFrameIndex } from './handleFrameIndex';
 import { catchAnimationReject } from '../errorHandler/catchAnimationReject.js';
 import { loadFps } from './loadFps.js';
 import { eventStore } from '../eventStore.js';
+import { defaultTimestep, getTime } from './time.js';
 
 /**
  * @typedef {Object} handleFrameTypes

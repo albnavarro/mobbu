@@ -2,8 +2,8 @@ import { mobCore } from '../../../mobCore/index.js';
 import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
 import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
 import { loadFps } from '../../events/rafutils/loadFps.js';
+import { getTime } from '../../events/rafutils/time.js';
 import { NOOP } from '../../utils/functionsUtils.js';
-import { getTime } from '../../utils/time.js';
 import { directionConstant } from '../utils/constant.js';
 import {
     addAsyncFunctionIsValid,
