@@ -358,10 +358,48 @@ export default class HandleAsyncTimeline {
         /**
          * Store previous caction to prevent tiw add/addAsync consegutive
          */
+        const currentTweelist = this.tweenList[this.currentIndex];
         const lastAction = this.currentAction;
         this.currentAction = [];
 
-        const tweenPromises = this.tweenList[this.currentIndex].map((item) => {
+        /**
+         * Update previous values for revert.
+         */
+        this.tweenList[this.currentIndex] = currentTweelist.map((item) => {
+            const { data } = item;
+            const { tween, valuesTo, prevValueSettled } = data;
+
+            /*
+             * Get current valueTo for to use in reverse methods
+             * Get the value only first immediate loop
+             */
+            if (tween && tween?.getToNativeType && !prevValueSettled) {
+                const values = tween.getToNativeType();
+
+                /*
+                 * Get only the active prop
+                 * maybe unnecessary, if all prop ius used work fine
+                 * Only for a cliean code
+                 */
+                const propsInUse = asyncReduceData(values, valuesTo);
+
+                return {
+                    ...item,
+                    data: {
+                        ...data,
+                        prevValueTo: propsInUse,
+                        prevValueSettled: true,
+                    },
+                };
+            }
+
+            return item;
+        });
+
+        /**
+         * Create tween promises.
+         */
+        const tweenPromises = currentTweelist.map((item) => {
             const { data } = item;
 
             const {
@@ -394,27 +432,6 @@ export default class HandleAsyncTimeline {
             if ('relative' in tweenProps && tweenProps.relative) {
                 tweenProps.relative = false;
                 relativePropInsideTimelineWarning();
-            }
-
-            /*
-             * Get current valueTo for to use in reverse methods
-             * Get the value only first immediate loop
-             */
-            if (
-                tween &&
-                tween?.getToNativeType &&
-                !item.data?.prevValueSettled
-            ) {
-                const values = tween.getToNativeType();
-
-                /*
-                 * Get only the active prop
-                 * maybe unnecessary, if all prop ius used work fine
-                 * Only for a cliean code
-                 */
-                const propsInUse = asyncReduceData(values, valuesTo);
-                item.data.prevValueTo = propsInUse;
-                item.data.prevValueSettled = true;
             }
 
             /*
@@ -852,31 +869,51 @@ export default class HandleAsyncTimeline {
      */
     revertTween() {
         this.isReverse = !this.isReverse;
-        this.tweenList.reverse().forEach((group) => {
-            group.reverse().forEach((item) => {
+
+        this.tweenList = this.tweenList.reverse().map((group) => {
+            return group.reverse().map((item) => {
                 const { data } = item;
-                const { action, valuesFrom, valuesTo, syncProp } = data;
-                const prevValueTo = item.data.prevValueTo;
-                const currentValueTo = item.data.valuesTo;
+                const { action, valuesFrom, syncProp, prevValueTo, valuesTo } =
+                    data;
+
+                const currentValueTo = valuesTo;
                 const { from, to } = syncProp;
 
                 switch (action) {
                     case 'goTo': {
-                        item.data.valuesTo = prevValueTo;
-                        item.data.prevValueTo = currentValueTo;
-                        break;
+                        return {
+                            ...item,
+                            data: {
+                                ...data,
+                                valuesTo: prevValueTo,
+                                prevValueTo: currentValueTo,
+                            },
+                        };
                     }
 
                     case 'goFromTo': {
-                        item.data.valuesFrom = valuesTo;
-                        item.data.valuesTo = valuesFrom;
-                        break;
+                        return {
+                            ...item,
+                            data: {
+                                ...data,
+                                valuesFrom: valuesTo,
+                                valuesTo: valuesFrom,
+                            },
+                        };
                     }
 
                     case 'sync': {
-                        item.data.syncProp.from = to;
-                        item.data.syncProp.to = from;
-                        break;
+                        return {
+                            ...item,
+                            data: {
+                                ...data,
+                                syncProp: {
+                                    ...syncProp,
+                                    from: to,
+                                    to: from,
+                                },
+                            },
+                        };
                     }
 
                     case 'goFrom': {
@@ -884,6 +921,8 @@ export default class HandleAsyncTimeline {
                         this.stop();
                     }
                 }
+
+                return item;
             });
         });
     }
@@ -1385,9 +1424,7 @@ export default class HandleAsyncTimeline {
 
         const mergedObj = { ...this.defaultObj, ...obj };
         this.addToMainArray(mergedObj);
-        this.waitComplete = groupProps?.waitComplete
-            ? groupProps.waitComplete
-            : false;
+        this.waitComplete = groupProps?.waitComplete ?? false;
         this.groupId = this.groupCounter++;
         return this;
     }
