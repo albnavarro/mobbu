@@ -1,7 +1,3 @@
-import { loadFps } from '../../events/rafutils/loadFps.js';
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
-import { handleNextFrame } from '../../events/rafutils/handleNextFrame.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { clamp } from '../utils/animationUtils.js';
 import { fpsLoadedLog } from '../utils/log.js';
 import { directionConstant } from '../utils/constant.js';
@@ -11,7 +7,6 @@ import {
     repeatIsValid,
     valueIsBooleanAndReturnDefault,
 } from '../utils/tweenValidation.js';
-import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
 import { mobCore } from '../../../mobCore/index.js';
 
 /**
@@ -295,7 +290,7 @@ export default class HandleSyncTimeline {
          * Store direction value before chengee during nextFrame
          **/
         const direction = this.getDirection();
-        handleNextFrame.add(() => {
+        mobCore.useNextFrame(() => {
             /*
              *
              * Prevent multiple fire of complete event
@@ -391,8 +386,8 @@ export default class HandleSyncTimeline {
      * @private
      */
     goToNextFrame() {
-        handleFrame.add(() => {
-            handleNextTick.add(({ time, fps }) => {
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(({ time, fps }) => {
                 // Prevent fire too many raf
                 if (!this.fpsIsInLoading) this.updateTime(time, fps);
             });
@@ -432,7 +427,7 @@ export default class HandleSyncTimeline {
      */
     rejectPromise() {
         if (this.currentReject) {
-            this.currentReject(ANIMATION_STOP_REJECT);
+            this.currentReject(mobCore.ANIMATION_STOP_REJECT);
             this.currentReject = null;
         }
     }
@@ -658,7 +653,7 @@ export default class HandleSyncTimeline {
     async startAnimation(partial) {
         if (this.repeat === 0) return;
 
-        const { averageFPS } = await loadFps();
+        const { averageFPS } = await mobCore.useFps();
 
         fpsLoadedLog('sequencer', averageFPS);
         this.isReverse = false;
@@ -674,8 +669,8 @@ export default class HandleSyncTimeline {
             });
         });
 
-        handleFrame.add(() => {
-            handleNextTick.add(({ time, fps }) => {
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(({ time, fps }) => {
                 this.startTime = time;
                 this.fpsIsInLoading = false;
                 this.isStopped = false;

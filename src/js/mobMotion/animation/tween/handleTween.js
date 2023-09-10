@@ -12,9 +12,6 @@ import {
     setReverseValues,
     setRelativeTween,
 } from '../utils/setValues.js';
-import { loadFps } from '../../events/rafutils/loadFps.js';
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { mergeDeep } from '../../utils/mergeDeep.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
@@ -43,7 +40,6 @@ import {
 } from '../utils/warning.js';
 import { fpsLoadedLog } from '../utils/log.js';
 import { shouldInizializzeStagger } from '../utils/condition.js';
-import { handleCache } from '../../events/rafutils/handleCache.js';
 import {
     durationIsNumberOrFunctionIsValid,
     easeTweenIsValid,
@@ -51,7 +47,6 @@ import {
     relativeIsValid,
     valueIsBooleanAndTrue,
 } from '../utils/tweenValidation.js';
-import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
 import { mobCore } from '../../../mobCore/index.js';
 
 /**
@@ -404,8 +399,8 @@ export default class HandleTween {
                     useStagger: this.useStagger,
                 });
             } else {
-                handleFrame.add(() => {
-                    handleNextTick.add(({ time }) => {
+                mobCore.useFrame(() => {
+                    mobCore.useNextTick(({ time }) => {
                         if (this.isActive) draw(time);
                     });
                 });
@@ -433,7 +428,7 @@ export default class HandleTween {
                 this.callback
             )
         ) {
-            const { averageFPS } = await loadFps();
+            const { averageFPS } = await mobCore.useFps();
 
             fpsLoadedLog('tween', averageFPS);
             const cb = getStaggerArray(this.callbackCache, this.callback);
@@ -511,11 +506,11 @@ export default class HandleTween {
          * If tween is ended and the lst stagger is running, let it reach end position.
          */
         if (this.isActive && clearCache)
-            this.callbackCache.forEach(({ cb }) => handleCache.clean(cb));
+            this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
 
         // Abort promise
         if (this.currentReject) {
-            this.currentReject(ANIMATION_STOP_REJECT);
+            this.currentReject(mobCore.ANIMATION_STOP_REJECT);
             this.promise = null;
             this.currentReject = null;
             this.currentResolve = null;
@@ -614,7 +609,7 @@ export default class HandleTween {
 
         // Reject promise
         if (this.currentReject) {
-            this.currentReject(ANIMATION_STOP_REJECT);
+            this.currentReject(mobCore.ANIMATION_STOP_REJECT);
             this.promise = null;
         }
 

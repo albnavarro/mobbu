@@ -1,7 +1,4 @@
 import ParallaxClass from '../../../animation/parallax/parallax';
-import { handleFrame } from '../../../events/rafutils/handleFrame';
-import { handleNextTick } from '../../../events/rafutils/handleNextTick';
-import { handleResize } from '../../../events/resizeUtils/handleResize';
 import {
     getTranslateValues,
     offset,
@@ -10,10 +7,8 @@ import {
 } from '../../../../mobCore/utils/index.js';
 import { horizontalScrollerCss } from './horizontalScrollerCss.js';
 import { mq } from '../../../utils/mediaManager.js';
-import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex';
 import { horizontalScrollerContstant } from './horizontalScrollerConstant';
 import { NOOP, pipe } from '../../../utils/functionsUtils';
-import { handleScroll } from '../../../events/scrollUtils/handleScroll';
 import {
     breakpointIsValid,
     breakpointTypeIsValid,
@@ -22,6 +17,7 @@ import {
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
 } from '../../../animation/utils/tweenValidation';
+import { mobCore } from '../../../../mobCore';
 
 /**
  * @typedef {Object} horizontalScrollerType
@@ -647,12 +643,12 @@ export class HorizontalScroller {
 
         this.onMouseUp = () => {
             this.touchActive = false;
-            handleFrame.add(() => (this.row.style.cursor = ''));
+            mobCore.useFrame(() => (this.row.style.cursor = ''));
         };
 
         this.onMouseLeave = () => {
             this.touchActive = false;
-            handleFrame.add(() => (this.row.style.cursor = ''));
+            mobCore.useFrame(() => (this.row.style.cursor = ''));
         };
 
         this.onTouchStart = (e) => {
@@ -707,12 +703,12 @@ export class HorizontalScroller {
             this.initScroller();
             if (this.useDrag) this.addDragListener();
 
-            handleResize(({ horizontalResize }) =>
+            mobCore.useResize(({ horizontalResize }) =>
                 this.onResize(horizontalResize)
             );
 
-            handleFrameIndex.add(() => {
-                handleNextTick.add(() => {
+            mobCore.useFrameIndex(() => {
+                mobCore.useNextTick(() => {
                     this.afterInit?.();
                     this.children.forEach((element) => {
                         element.refresh();
@@ -743,7 +739,7 @@ export class HorizontalScroller {
      */
     onDrag(value) {
         if (!this.shouldDragValue) return;
-        handleFrame.add(() =>
+        mobCore.useFrame(() =>
             window.scrollBy({ top: value, left: 0, behavior: 'instant' })
         );
     }
@@ -761,7 +757,7 @@ export class HorizontalScroller {
     }
 
     addDragListener() {
-        this.unsubscribeScroll = handleScroll(() => this.shouldDrag());
+        this.unsubscribeScroll = mobCore.useScroll(() => this.shouldDrag());
         this.shouldDrag();
 
         this.row.addEventListener('click', this.preventFireClick, {
@@ -818,7 +814,7 @@ export class HorizontalScroller {
         }
 
         return new Promise((resolve) => {
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 const width = this.horizontalWidth;
                 this.percentRange = (100 * (width - window.innerWidth)) / width;
 
@@ -838,7 +834,7 @@ export class HorizontalScroller {
      */
     getWidth() {
         return new Promise((resolve) => {
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 if (!mq[this.queryType](this.breackpoint)) {
                     resolve();
                     return;
@@ -866,7 +862,7 @@ export class HorizontalScroller {
         }
 
         return new Promise((resolve) => {
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 if (!mq[this.queryType](this.breackpoint)) {
                     resolve();
                     return;
@@ -930,7 +926,7 @@ export class HorizontalScroller {
                 return;
             }
 
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 [...this.shadow].forEach((item) => {
                     const percentrange = this.percentRange / 100;
                     const shadowData = item.dataset.shadow;
@@ -1130,8 +1126,8 @@ export class HorizontalScroller {
      * @private
      */
     refreshChildren() {
-        handleFrameIndex.add(() => {
-            handleNextTick.add(() => {
+        mobCore.useFrameIndex(() => {
+            mobCore.useNextTick(() => {
                 this.afterRefresh?.();
                 this.children.forEach((element) => {
                     element?.refresh?.();
@@ -1184,7 +1180,7 @@ export class HorizontalScroller {
             this.moduleisActive = false;
 
             // Make sure that if component is running with ease the style is removed.
-            handleFrameIndex.add(() => {
+            mobCore.useFrameIndex(() => {
                 this.row.style = '';
 
                 if (destroyAll && this.mainContainer) {
@@ -1210,7 +1206,7 @@ export class HorizontalScroller {
                     this.moduleisActive = false;
                     this.button = [];
 
-                    handleNextTick.add(() => {
+                    mobCore.useNextTick(() => {
                         this.afterDestroy?.();
                         this.afterDestroy = null;
                         this.children.forEach((element) => {

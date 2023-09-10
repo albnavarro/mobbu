@@ -1,4 +1,4 @@
-import { core, tween } from '../../../../../mobMotion';
+import { tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -8,6 +8,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
+import { mobCore } from '../../../../../mobCore';
 
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
     return (
@@ -230,24 +231,24 @@ export const caterpillarN0Animation = ({
 
         if (!isActive) return;
 
-        core.useNextFrame(({ time }) => loop({ time }));
+        mobCore.useNextFrame(({ time }) => loop({ time }));
     };
 
     /**
      * Start loop.
      */
-    core.useFrame(({ time }) => {
+    mobCore.useFrame(({ time }) => {
         loop({ time });
     });
 
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         left = offset(canvas).left;
-        core.useFrame(({ time }) => {
+        mobCore.useFrame(({ time }) => {
             draw({ time });
         });
     });
@@ -262,12 +263,12 @@ export const caterpillarN0Animation = ({
     /**
      * Mouse move.
      */
-    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
         const { x } = client;
         move({ x });
     });
 
-    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
         const { x } = client;
         move({ x });
     });
@@ -292,7 +293,7 @@ export const caterpillarN0Animation = ({
             /**
              * Restart loop
              */
-            core.useFrame(({ time }) => loop({ time }));
+            mobCore.useFrame(({ time }) => loop({ time }));
         }, 500);
     });
 

@@ -4,7 +4,6 @@ import {
     compareKeys,
     getRoundedValue,
 } from '../utils/animationUtils.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
     getStaggerFromProps,
@@ -31,7 +30,6 @@ import {
     getFirstValidValueBack,
     checkIsLastUsableProp,
 } from './reduceFunction.js';
-import { handleCache } from '../../events/rafutils/handleCache.js';
 import { directionConstant } from '../utils/constant.js';
 import {
     durationIsValid,
@@ -400,7 +398,7 @@ export default class HandleSequencer {
         if (useFrame) {
             mainFn();
         } else {
-            handleNextTick.add(() => mainFn());
+            mobCore.useNextTick(() => mainFn());
         }
     }
 
@@ -971,7 +969,7 @@ export default class HandleSequencer {
      * Removes all references of staggers not yet started by the handleCache function, method used by HandleSyncTimeline when it is stopped
      */
     cleanCachedId() {
-        this.callbackCache.forEach(({ cb }) => handleCache.clean(cb));
+        this.callbackCache.forEach(({ cb }) => mobCore.useCache.clean(cb));
     }
 
     /**

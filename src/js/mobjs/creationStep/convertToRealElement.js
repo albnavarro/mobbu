@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobMotion';
+import { mobCore } from '../../mobCore';
 import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
@@ -162,13 +162,13 @@ export const convertToRealElement = ({
 }) => {
     return asyncCreation
         ? new Promise((resolve) => {
-              core.useFrame(() => {
+              mobCore.useFrame(() => {
                   const newElement = executeConversion({
                       placeholderElement,
                       content,
                   });
 
-                  core.useNextTick(() => {
+                  mobCore.useNextTick(() => {
                       resolve({ newElement });
                   });
               });

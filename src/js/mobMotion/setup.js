@@ -1,5 +1,6 @@
 // @ts-check
 
+import { mobCore } from '../mobCore/index.js';
 import { springPresetConfig } from './animation/spring/springConfig.js';
 import {
     defaultMqValueDefault,
@@ -17,7 +18,6 @@ import {
     tweenDurationDefault,
     tweenRealtiveDefault,
 } from './animation/utils/setUpValidation.js';
-import { eventStore } from './events/eventStore.js';
 import { mergeDeep } from './utils/mergeDeep.js';
 
 /**
@@ -30,11 +30,11 @@ export const handleSetUp = (() => {
      * @type {import('./animation/utils/setUpValidation.js').handleSetUpSetType}
      */
     let data = {
-        fpsScalePercent: eventStore.getProp('fpsScalePercent'),
-        useScaleFps: eventStore.getProp('useScaleFps'),
-        deferredNextTick: eventStore.getProp('deferredNextTick'),
-        throttle: eventStore.getProp('throttle'),
-        usePassive: eventStore.getProp('usePassive'),
+        fpsScalePercent: mobCore.store.getProp('fpsScalePercent'),
+        useScaleFps: mobCore.store.getProp('useScaleFps'),
+        deferredNextTick: mobCore.store.getProp('deferredNextTick'),
+        throttle: mobCore.store.getProp('throttle'),
+        usePassive: mobCore.store.getProp('usePassive'),
         mq: mqDefault,
         defaultMq: {
             value: defaultMqValueDefault,
@@ -194,18 +194,19 @@ export const handleSetUp = (() => {
         /**
          * Update event default.
          */
-        if ('usePassive' in obj) eventStore.set('usePassive', data.usePassive);
+        if ('usePassive' in obj)
+            mobCore.store.set('usePassive', data.usePassive);
 
         if ('fpsScalePercent' in obj)
-            eventStore.set('fpsScalePercent', data.fpsScalePercent);
+            mobCore.store.set('fpsScalePercent', data.fpsScalePercent);
 
         if ('useScaleFps' in obj)
-            eventStore.set('useScaleFps', data.useScaleFps);
+            mobCore.store.set('useScaleFps', data.useScaleFps);
 
         if ('deferredNextTick' in obj)
-            eventStore.set('deferredNextTick', data.deferredNextTick);
+            mobCore.store.set('deferredNextTick', data.deferredNextTick);
 
-        if ('throttle' in obj) eventStore.set('throttle', data.throttle);
+        if ('throttle' in obj) mobCore.store.set('throttle', data.throttle);
     };
 
     /**

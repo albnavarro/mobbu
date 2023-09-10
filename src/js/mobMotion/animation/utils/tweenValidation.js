@@ -559,7 +559,7 @@ export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
  * Check if value is Number and return defualt
  **/
 export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
-    const isValid = mobCore.checkType(Number, parseFloat(value));
+    const isValid = mobCore.checkType(Number, Number.parseFloat(value));
     if (!isValid && value !== undefined && value !== null)
         naumberWarning(value, label);
 
@@ -904,7 +904,8 @@ export const parallaxAlignIsValid = (value) => {
     ];
 
     const isValid =
-        choice.includes(value) || mobCore.checkType(Number, parseFloat(value));
+        choice.includes(value) ||
+        mobCore.checkType(Number, Number.parseFloat(value));
 
     if (!isValid && value !== undefined && value !== null)
         parallaxAlignWarining(value, choice);
@@ -945,7 +946,7 @@ export const parallaxOnSwitchIsValid = (value) => {
  * Check if value is Number and return defualt
  **/
 export const parallaxOpacityIsValid = (value, label, defaultValue) => {
-    const isValid = mobCore.checkType(Number, parseFloat(value));
+    const isValid = mobCore.checkType(Number, Number.parseFloat(value));
     if (!isValid && value !== undefined && value !== null)
         parallaxOpacityWarning(value, label);
 
@@ -989,7 +990,7 @@ export const parallaxRangeIsValid = (value, type) => {
         if (type === parallaxConstant.TYPE_PARALLAX) {
             const isOnlyNumber = checkIfIsOnlyNumber(value);
             const isValid =
-                mobCore.checkType(Number, parseFloat(value)) &&
+                mobCore.checkType(Number, Number.parseFloat(value)) &&
                 isOnlyNumber &&
                 value >= 0 &&
                 value < 10;
@@ -1207,7 +1208,9 @@ export const parallaxSpringConfigIsValid = (config, type) => {
  **/
 export const parallaxLerpConfigIsValid = (value, type) => {
     const isValid =
-        mobCore.checkType(Number, parseFloat(value)) && value > 0 && value <= 1;
+        mobCore.checkType(Number, Number.parseFloat(value)) &&
+        value > 0 &&
+        value <= 1;
     if (!isValid && value !== undefined && value !== null)
         parallaxLerpConfigWarning();
 
@@ -1216,7 +1219,7 @@ export const parallaxLerpConfigIsValid = (value, type) => {
             ? handleSetUp.get('parallax').lerpConfig
             : handleSetUp.get('scrollTrigger').lerpConfig;
 
-    return isValid ? parseFloat(value) : defaultConfig;
+    return isValid ? Number.parseFloat(value) : defaultConfig;
 };
 
 export const checkStringRangeOnPropierties = (string, properties) => {

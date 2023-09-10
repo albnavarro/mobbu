@@ -1,7 +1,7 @@
 // @ts-check
 
+import { mobCore } from '../../../../mobCore';
 import { callBackStore } from './callBackStore';
-import { handleCache } from '../../../events/rafutils/handleCache.js';
 
 /**
  * @callback subscribeCallbackType
@@ -65,7 +65,10 @@ export const setCallBackCache = (
     const { id } = callBackStore.get();
 
     // add item and function related to handleCache.
-    const { id: cacheId, unsubscribe } = handleCache.add(item, currentCallback);
+    const { id: cacheId, unsubscribe } = mobCore.useCache.add(
+        item,
+        currentCallback
+    );
 
     // Update main callback array.
     // index and frame is settled on first run of tween

@@ -1,14 +1,3 @@
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
-import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
-import { handleResize } from '../../events/resizeUtils/handleResize.js';
-import { handleScroll } from '../../events/scrollUtils/handleScroll.js';
-import { handleScrollImmediate } from '../../events/scrollUtils/handleScrollImmediate.js';
-import { handleScrollThrottle } from '../../events/scrollUtils/handleScrollThrottle.js';
-import {
-    handleScrollEnd,
-    handleScrollStart,
-} from '../../events/scrollUtils/handleScrollUtils.js';
 import { mq } from '../../utils/mediaManager.js';
 import {
     getTranslateValues,
@@ -48,6 +37,7 @@ import { parallaxEmitter } from './parallaxEmitter.js';
 import { parallaxMarker } from './parallaxMarker.js';
 import { ParallaxPin } from './parallaxPin.js';
 import { parallaxUtils } from './parallaxUtils.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {object} parallaxDefaultTypes
@@ -862,16 +852,16 @@ export default class ParallaxClass {
         // Otherwise we can optimize and fire scoll callback after requerst animationFrame
         const getScrollfucuntion = (cb) => {
             if (this.pin) {
-                this.unsubscribeScroll = handleScrollImmediate(cb);
-                return handleScrollImmediate;
+                this.unsubscribeScroll = mobCore.useScrollImmediate(cb);
+                return mobCore.useScrollImmediate;
             } else {
                 (() => {
                     if (this.ease && this.useThrottle) {
-                        this.unsubscribeScroll = handleScrollThrottle(cb);
-                        return handleScrollThrottle;
+                        this.unsubscribeScroll = mobCore.useScrollThrottle(cb);
+                        return mobCore.useScrollThrottle;
                     } else {
-                        this.unsubscribeScroll = handleScroll(cb);
-                        return handleScroll;
+                        this.unsubscribeScroll = mobCore.useScroll(cb);
+                        return mobCore.useScroll;
                     }
                 })();
             }
@@ -885,7 +875,7 @@ export default class ParallaxClass {
             /**
              *  Force transform3D onscroll start
              */
-            this.unsubscribeScrollStart = handleScrollStart(() => {
+            this.unsubscribeScrollStart = mobCore.useScrollStart(() => {
                 this.firstScroll = true;
                 if (!this.disableForce3D) this.force3D = true;
             });
@@ -894,9 +884,9 @@ export default class ParallaxClass {
              * Avoid error with scroll module operation
              * Clean render at the end of the scroll
              */
-            this.unsubscribeScrollEnd = handleScrollEnd(() => {
-                handleFrame.add(() => {
-                    handleNextTick.add(() => {
+            this.unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
+                mobCore.useFrame(() => {
+                    mobCore.useNextTick(() => {
                         this.smoothParallaxJs();
                     });
                 });
@@ -909,7 +899,7 @@ export default class ParallaxClass {
                      * when performance drop down.
                      * FIrst render is always done
                      */
-                    if (!handleFrame.getShouldRender() && !this.firstScroll) {
+                    if (!mobCore.getShouldRender() && !this.firstScroll) {
                         return;
                     }
 
@@ -939,7 +929,7 @@ export default class ParallaxClass {
             /**
              * Execture render on scrollEnd to remove 3Dtransform
              */
-            this.unsubscribeScrollEnd = handleScrollEnd(() => {
+            this.unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
                 /**
                  * Force draw no 3d on scroll end with no ease.
                  */
@@ -951,7 +941,7 @@ export default class ParallaxClass {
          * Inizialize marker
          */
         if (this.scroller !== window) {
-            this.unsubscribeMarker = handleScroll(() => {
+            this.unsubscribeMarker = mobCore.useScroll(() => {
                 // Refresh marker
                 if (this.marker) this.calcFixedLimit();
             });
@@ -960,7 +950,7 @@ export default class ParallaxClass {
         /**
          * Inizialize refresh
          */
-        this.unsubscribeResize = handleResize(({ horizontalResize }) => {
+        this.unsubscribeResize = mobCore.useResize(({ horizontalResize }) => {
             if (horizontalResize) this.refresh();
         });
 
@@ -971,7 +961,7 @@ export default class ParallaxClass {
             this.pinInstance = new ParallaxPin();
 
             if (mq[this.queryType](this.breackpoint)) {
-                handleNextTick.add(() => {
+                mobCore.useNextTick(() => {
                     this.getScrollerOffset();
                     this.pinInstance.init({ instance: this });
                     this.pinInstance.onScroll(this.scrollerScroll);
@@ -1065,7 +1055,7 @@ export default class ParallaxClass {
                 this.updateStyle(val);
             }
 
-            handleNextTick.add(() => {
+            mobCore.useNextTick(() => {
                 if (this.onTickCallback)
                     this.onTickCallback({ value: val, parentIsMoving: true });
             });
@@ -1087,7 +1077,7 @@ export default class ParallaxClass {
                 this.updateStyle(val);
             }
 
-            handleNextTick.add(() => {
+            mobCore.useNextTick(() => {
                 if (this.onTickCallback)
                     this.onTickCallback({ value: val, parentIsMoving: false });
             });
@@ -1474,7 +1464,7 @@ export default class ParallaxClass {
 
             // Reset Style
             // For tween is necessary reset inside tween callback
-            handleFrameIndex.add(() => {
+            mobCore.useFrameIndex(() => {
                 if (this.applyTo) {
                     this.resetTweenStyle(this.applyTo);
                     Object.assign(this.applyTo.style, this.getResetStyle());
@@ -1698,7 +1688,7 @@ export default class ParallaxClass {
     noEasingRender({ forceRender = false, parentIsMoving = false } = {}) {
         if (!mq[this.queryType](this.breackpoint)) return;
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             this.cleanRender({ forceRender, parentIsMoving });
         });
     }
@@ -1746,7 +1736,7 @@ export default class ParallaxClass {
         /**
          * Children
          */
-        handleNextTick.add(() => {
+        mobCore.useNextTick(() => {
             if (this.onTickCallback)
                 this.onTickCallback({
                     value: this.endValue,
@@ -1992,7 +1982,7 @@ export default class ParallaxClass {
          * If frame drop ia lot (2/5) activate 'will-change: transform;'
          */
         this.willChangeIsActive = this.useWillChange
-            ? handleFrame.mustMakeSomething()
+            ? mobCore.mustMakeSomething()
             : false;
         const shouldWill =
             this.willChangeIsActive && this.force3D ? 'transform' : '';
@@ -2001,7 +1991,7 @@ export default class ParallaxClass {
          * If frame drop a little (1/5) remove decimal.
          * Used by transform ( not scale ).
          */
-        const valueParsed = handleFrame.shouldMakeSomething()
+        const valueParsed = mobCore.shouldMakeSomething()
             ? Math.round(val)
             : val;
 

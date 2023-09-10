@@ -1,4 +1,4 @@
-import { core, timeline, tween } from '../../../../../mobMotion';
+import { timeline, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -10,6 +10,7 @@ import {
     roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { mobCore } from '../../../../../mobCore';
 
 export const animatedPatternN0Animation = ({
     canvas,
@@ -207,17 +208,17 @@ export const animatedPatternN0Animation = ({
         draw();
 
         if (!isActive) return;
-        core.useNextFrame(() => loop());
+        mobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    core.useFrame(({ time }) => {
+    mobCore.useFrame(({ time }) => {
         loop({ time });
     });
 
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
@@ -245,7 +246,7 @@ export const animatedPatternN0Animation = ({
         /**
          * Render.
          */
-        core.useFrame(() => draw());
+        mobCore.useFrame(() => draw());
     });
 
     /**
@@ -270,7 +271,7 @@ export const animatedPatternN0Animation = ({
              * Restart loop
              */
             gridTimeline?.play();
-            core.useFrame(() => loop());
+            mobCore.useFrame(() => loop());
         }, 500)
     );
 

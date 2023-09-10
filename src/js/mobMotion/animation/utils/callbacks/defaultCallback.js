@@ -1,9 +1,6 @@
 // @ts-check
 
-import { handleFrame } from '../../../events/rafutils/handleFrame.js';
-import { handleNextFrame } from '../../../events/rafutils/handleNextFrame.js';
-import { handleCache } from '../../../events/rafutils/handleCache.js';
-import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex.js';
+import { mobCore } from '../../../../mobCore/index.js';
 
 /**
  * @param {Object} obj
@@ -27,7 +24,7 @@ export const defaultCallback = ({
      * Fire callback without stagger.
      */
     if (stagger.each === 0 || !useStagger) {
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             callback.forEach(({ cb }) => {
                 cb(callBackObject);
             });
@@ -36,9 +33,9 @@ export const defaultCallback = ({
         /**
          * Fire callback cache immediately.
          */
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: callBackObject });
+                mobCore.useCache.fireObject({ id: cb, obj: callBackObject });
             });
         });
 
@@ -49,7 +46,7 @@ export const defaultCallback = ({
      * Fire callback with default stagger.
      */
     callback.forEach(({ cb, frame }) => {
-        handleFrameIndex.add(() => {
+        mobCore.useFrameIndex(() => {
             cb(callBackObject);
         }, frame);
     });
@@ -59,7 +56,7 @@ export const defaultCallback = ({
      * Update handleCache store.
      */
     callbackCache.forEach(({ cb, frame }) => {
-        handleCache.update({ id: cb, callBackObject, frame });
+        mobCore.useCache.update({ id: cb, callBackObject, frame });
     });
 };
 
@@ -95,7 +92,7 @@ export const defaultCallbackOnComplete = ({
     if (stagger.each === 0 || !useStagger) {
         onComplete();
 
-        handleNextFrame.add(() => {
+        mobCore.useNextFrame(() => {
             // Fire callback with exact end value
             callback.forEach(({ cb }) => {
                 cb(callBackObject);
@@ -105,7 +102,7 @@ export const defaultCallbackOnComplete = ({
              * Fire callback cache immediately.
              */
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: callBackObject });
+                mobCore.useCache.fireObject({ id: cb, obj: callBackObject });
             });
 
             callbackOnComplete.forEach(({ cb }) => {
@@ -120,7 +117,7 @@ export const defaultCallbackOnComplete = ({
      * Fire callback with default stagger.
      */
     callback.forEach(({ cb, frame }, /** @type {number} */ index) => {
-        handleFrameIndex.add(() => {
+        mobCore.useFrameIndex(() => {
             if (stagger.waitComplete) {
                 if (index === slowlestStagger.index) {
                     cb(callBackObject);
@@ -140,10 +137,13 @@ export const defaultCallbackOnComplete = ({
      * Fire callback with cache stagger.
      */
     callbackCache.forEach(({ cb, frame }, /** @type {number} */ index) => {
-        handleFrameIndex.add(() => {
+        mobCore.useFrameIndex(() => {
             if (stagger.waitComplete) {
                 if (index === slowlestStagger.index) {
-                    handleCache.fireObject({ id: cb, obj: callBackObject });
+                    mobCore.useCache.fireObject({
+                        id: cb,
+                        obj: callBackObject,
+                    });
                     onComplete();
                 }
                 return;
@@ -153,7 +153,7 @@ export const defaultCallbackOnComplete = ({
              * Fire callback cache immediately.
              */
             if (index === fastestStagger.index) {
-                handleCache.fireObject({ id: cb, obj: callBackObject });
+                mobCore.useCache.fireObject({ id: cb, obj: callBackObject });
                 onComplete();
             }
         }, frame);
@@ -163,7 +163,7 @@ export const defaultCallbackOnComplete = ({
      * Fire on complete callbacon complete callback
      */
     callbackOnComplete.forEach(({ cb, frame }) => {
-        handleFrameIndex.add(() => {
+        mobCore.useFrameIndex(() => {
             cb(callBackObject);
         }, frame + 1);
     });

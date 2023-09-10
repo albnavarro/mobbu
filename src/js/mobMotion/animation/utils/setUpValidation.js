@@ -1,5 +1,4 @@
 import { mobCore } from '../../../mobCore/index.js';
-import { eventStore } from '../../events/eventStore.js';
 import { springPresetConfig } from '../spring/springConfig.js';
 
 /**
@@ -167,35 +166,35 @@ export const setupValidation = (obj) => {
     const fpsScalePercent = checkSetUpType({
         prop: 'fpsScalePercent',
         value: obj?.fpsScalePercent,
-        defaultValue: eventStore.getProp('fpsScalePercent'),
+        defaultValue: mobCore.store.getProp('fpsScalePercent'),
         type: Object,
     });
 
     const useScaleFps = checkSetUpType({
         prop: 'useScaleFps',
         value: obj?.useScaleFps,
-        defaultValue: eventStore.getProp('useScaleFps'),
+        defaultValue: mobCore.store.getProp('useScaleFps'),
         type: Boolean,
     });
 
     const deferredNextTick = checkSetUpType({
         prop: 'deferredNextTick',
         value: obj?.deferredNextTick,
-        defaultValue: eventStore.getProp('deferredNextTick'),
+        defaultValue: mobCore.store.getProp('deferredNextTick'),
         type: Boolean,
     });
 
     const usePassive = checkSetUpType({
         prop: 'usePassive',
         value: obj?.usePassive,
-        defaultValue: eventStore.getProp('usePassive'),
+        defaultValue: mobCore.store.getProp('usePassive'),
         type: Boolean,
     });
 
     const throttle = checkSetUpType({
         prop: 'throttle',
         value: obj?.throttle,
-        defaultValue: eventStore.getProp('throttle'),
+        defaultValue: mobCore.store.getProp('throttle'),
         type: Number,
     });
 

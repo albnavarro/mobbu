@@ -1,4 +1,4 @@
-import { core } from '../../../mobMotion';
+import { mobCore } from '../../../mobCore';
 
 // function asyncTest() {
 //     return new Promise((resolve) => {
@@ -48,7 +48,7 @@ export const DynamicListCard = async ({
             counterEl.textContent = updateContent('counter', val);
         });
 
-        core.useFrame(() => {
+        mobCore.useFrame(() => {
             element.classList.add('active');
         });
 

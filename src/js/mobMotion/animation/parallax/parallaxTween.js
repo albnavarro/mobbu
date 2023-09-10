@@ -2,7 +2,6 @@ import {
     getValueObj,
     getRoundedValue,
 } from '../../animation/utils/animationUtils.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
     getStaggerFromProps,
@@ -19,6 +18,7 @@ import {
     durationIsValid,
     easeParallaxTweenIsValid,
 } from '../utils/tweenValidation.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 /**
  * @typedef {Object} parallaxTweenTypes
@@ -207,7 +207,7 @@ export default class ParallaxTween {
             });
         };
 
-        handleNextTick.add(() => mainFn());
+        mobCore.useNextTick(() => mainFn());
     }
 
     /**

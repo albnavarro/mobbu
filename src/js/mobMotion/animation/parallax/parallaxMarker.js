@@ -1,6 +1,6 @@
 import { parallaxConstant } from './parallaxConstant.js';
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
 import { handleSetUp } from '../../setup.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 export const parallaxMarker = ({
     startMarker,
@@ -163,7 +163,7 @@ export const parallaxMarker = ({
         }
     })();
 
-    handleFrame.add(() => {
+    mobCore.useFrame(() => {
         Object.assign(lastStartMarker.style, { ...style, ...startStyle });
         Object.assign(lastEndMarkerEl.style, { ...style, ...endStyle });
     });

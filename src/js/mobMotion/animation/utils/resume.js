@@ -1,9 +1,8 @@
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
+import { mobCore } from '../../../mobCore';
 
 export const resume = (rafFn, resolve) => {
-    handleFrame.add(() => {
-        handleNextTick.add(({ time, fps }) => {
+    mobCore.useFrame(() => {
+        mobCore.useNextTick(({ time, fps }) => {
             rafFn(time, fps, resolve);
         });
     });

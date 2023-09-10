@@ -1,4 +1,4 @@
-import { eventStore } from '../../../events/eventStore.js';
+import { mobCore } from '../../../../mobCore/index.js';
 import {
     validateStaggerColRow,
     validateStaggerDirection,
@@ -14,7 +14,7 @@ import {
 } from './staggerCostant.js';
 
 export const getEachByFps = (each) => {
-    const { instantFps } = eventStore.get();
+    const { instantFps } = mobCore.store.get();
     const eachByFps = Math.round(each * (instantFps / 60));
 
     /*

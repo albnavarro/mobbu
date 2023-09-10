@@ -1,8 +1,6 @@
 // @ts-check
 
-import { handleFrame } from '../../../events/rafutils/handleFrame.js';
-import { handleCache } from '../../../events/rafutils/handleCache.js';
-import { handleFrameIndex } from '../../../events/rafutils/handleFrameIndex.js';
+import { mobCore } from '../../../../mobCore';
 
 /**
  * @param {Object} obj
@@ -28,36 +26,36 @@ export const syncCallback = ({
     callbackOnStop,
 }) => {
     if (each === 0 || useStagger === false) {
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             callback.forEach(({ cb }) => cb(callBackObject));
         });
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             callbackCache.forEach(({ cb }) => {
-                handleCache.fireObject({ id: cb, obj: callBackObject });
+                mobCore.useCache.fireObject({ id: cb, obj: callBackObject });
             });
         });
     } else {
         // Stagger
         callback.forEach(({ cb, frame }) => {
-            handleFrameIndex.add(() => cb(callBackObject), frame);
+            mobCore.useFrameIndex(() => cb(callBackObject), frame);
         });
 
         callbackCache.forEach(({ cb, frame }) => {
-            handleCache.update({ id: cb, callBackObject, frame });
+            mobCore.useCache.update({ id: cb, callBackObject, frame });
         });
     }
 
     if (isLastDraw) {
         if (each === 0 || useStagger === false) {
             // No stagger, run immediatly
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 callbackOnStop.forEach(({ cb }) => cb(callBackObject));
             });
         } else {
             // Stagger
             callbackOnStop.forEach(({ cb, frame }) => {
-                handleFrameIndex.add(() => cb(callBackObject), frame + 1);
+                mobCore.useFrameIndex(() => cb(callBackObject), frame + 1);
             });
         }
     }

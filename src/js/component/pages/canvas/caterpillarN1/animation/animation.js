@@ -1,4 +1,4 @@
-import { core, timeline, tween } from '../../../../../mobMotion';
+import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import { mainStore } from '../../../../../mobjs';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
+import { mobCore } from '../../../../../mobCore';
 
 export const caterpillarN1Animation = ({
     canvas,
@@ -212,15 +213,15 @@ export const caterpillarN1Animation = ({
         draw();
 
         if (!isActive) return;
-        core.useNextFrame(() => loop());
+        mobCore.useNextFrame(() => loop());
     };
 
-    core.useFrame(() => loop());
+    mobCore.useFrame(() => loop());
 
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         top = offset(canvas).top;
@@ -247,12 +248,12 @@ export const caterpillarN1Animation = ({
         });
     };
 
-    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
 
-    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
@@ -279,7 +280,7 @@ export const caterpillarN1Animation = ({
              * Restart loop
              */
             rectTimeline?.resume();
-            core.useFrame(() => loop());
+            mobCore.useFrame(() => loop());
         }, 500)
     );
 

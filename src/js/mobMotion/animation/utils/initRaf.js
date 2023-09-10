@@ -1,7 +1,6 @@
 // @ts-check
 
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
+import { mobCore } from '../../../mobCore';
 
 /**
  * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} callbackPauseArray
@@ -20,8 +19,8 @@ export const initRaf = (
     pauseFunction,
     resolve
 ) => {
-    handleFrame.add(() => {
-        handleNextTick.add(({ time, fps }) => {
+    mobCore.useFrame(() => {
+        mobCore.useNextTick(({ time, fps }) => {
             const prevent = callbackPauseArray
                 .map(({ cb }) => cb())
                 .includes(true);

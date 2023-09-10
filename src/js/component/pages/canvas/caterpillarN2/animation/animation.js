@@ -1,4 +1,4 @@
-import { core, timeline, tween } from '../../../../../mobMotion';
+import { timeline, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -7,6 +7,7 @@ import {
     roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
+import { mobCore } from '../../../../../mobCore';
 
 const logAddMethods = ({ value, direction, isForced }) => {
     if (isForced) return;
@@ -208,10 +209,10 @@ export const caterpillarN2Animation = ({
         draw();
 
         if (!isActive) return;
-        core.useNextFrame(() => loop());
+        mobCore.useNextFrame(() => loop());
     };
 
-    core.useFrame(() => loop());
+    mobCore.useFrame(() => loop());
 
     /**
      * Play timeline.
@@ -221,7 +222,7 @@ export const caterpillarN2Animation = ({
     /**
      * Resize canvas.
      */
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         draw();
@@ -248,7 +249,7 @@ export const caterpillarN2Animation = ({
              * Restart loop
              */
             syncTimeline?.resume();
-            core.useFrame(() => loop());
+            mobCore.useFrame(() => loop());
         }, 500)
     );
 

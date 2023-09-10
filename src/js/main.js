@@ -6,12 +6,13 @@ import { loadData } from './data';
 import { core } from './mobMotion';
 import { inizializeApp } from './mobjs';
 import { wrapper } from './wrapper';
+import { mobCore } from './mobCore';
 // import { storeTest } from './test/storeTest';
 
 /**
  * Set default
  */
-core.useLoad(() => {
+mobCore.useLoad(() => {
     core.setDefault({
         deferredNextTick: true,
         useScaleFps: true,

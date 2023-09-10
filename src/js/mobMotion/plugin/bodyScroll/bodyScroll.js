@@ -5,12 +5,6 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsNumberAndReturnDefault,
 } from '../../animation/utils/tweenValidation.js';
-import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
-import {
-    handleMouseDown,
-    handleMouseWheel,
-    handleTouchStart,
-} from '../../events/mouseUtils/handleMouse.js';
 import { offset, isNode } from '../../../mobCore/utils/index.js';
 
 /**
@@ -53,21 +47,21 @@ export const bodyScroll = (() => {
     /**
      * Stop scrolling on mouseWheel, MouseDown, TouchStart.
      */
-    handleMouseWheel(() => {
+    mobCore.useMouseWheel(() => {
         if (!isRunning) return;
 
         tween.stop();
         onComplete();
     });
 
-    handleMouseDown(() => {
+    mobCore.useMouseDown(() => {
         if (!isRunning) return;
 
         tween.stop();
         onComplete();
     });
 
-    handleTouchStart(() => {
+    mobCore.useTouchStart(() => {
         if (!isRunning) return;
 
         tween.stop();
@@ -157,7 +151,7 @@ export const bodyScroll = (() => {
                     })
                     .catch(() => {
                         isRunning = false;
-                        reject(ANIMATION_STOP_REJECT);
+                        reject(mobCore.ANIMATION_STOP_REJECT);
                     });
             });
         }

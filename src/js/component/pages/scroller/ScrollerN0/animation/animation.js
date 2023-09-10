@@ -1,4 +1,4 @@
-import { core, scroller, tween } from '../../../../../mobMotion';
+import { scroller, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
     copyCanvasBitmap,
@@ -11,6 +11,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
+import { mobCore } from '../../../../../mobCore';
 
 export const scrollerN0Animation = ({
     canvas,
@@ -223,17 +224,17 @@ export const scrollerN0Animation = ({
         draw();
 
         if (!isActive) return;
-        core.useNextFrame(() => loop());
+        mobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    core.useFrame(({ time }) => {
+    mobCore.useFrame(({ time }) => {
         loop({ time });
     });
 
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
 
@@ -261,7 +262,7 @@ export const scrollerN0Animation = ({
         /**
          * Render.
          */
-        core.useFrame(() => draw());
+        mobCore.useFrame(() => draw());
     });
 
     /**
@@ -284,7 +285,7 @@ export const scrollerN0Animation = ({
             /**
              * Restart loop
              */
-            core.useFrame(() => loop());
+            mobCore.useFrame(() => loop());
         }, 500)
     );
 

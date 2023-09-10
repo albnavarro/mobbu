@@ -1,26 +1,7 @@
-import { handleResize } from '../../events/resizeUtils/handleResize.js';
-import {
-    handleScrollStart,
-    handleScrollEnd,
-} from '../../events/scrollUtils/handleScrollUtils.js';
-import {
-    handleTouchStart,
-    handleTouchEnd,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseMove,
-    handleTouchMove,
-    handleMouseWheel,
-    handleMouseClick,
-} from '../../events/mouseUtils/handleMouse.js';
 import HandleLerp from '../../animation/lerp/handleLerp.js';
 import HandleSpring from '../../animation/spring/handleSpring.js';
 import { clamp } from '../../animation/utils/animationUtils.js';
-import { normalizeWheel } from '../../events/mouseUtils/normalizeWhell.js';
-import { handleNextTick } from '../../events/rafutils/handleNextTick.js';
-import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
 import { mq } from '../../utils/mediaManager.js';
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
 import { NOOP } from '../../utils/functionsUtils.js';
 import { parallaxConstant } from '../../animation/parallax/parallaxConstant.js';
 import {
@@ -440,7 +421,7 @@ export default class SmoothScroller {
          * Scoped event
          */
         this.scopedWhell = (e) => {
-            const { spinY } = normalizeWheel(e);
+            const { spinY } = mobCore.normalizeWheel(e);
             this.onScopedWhell({
                 target: e.target,
                 spinY,
@@ -500,14 +481,14 @@ export default class SmoothScroller {
                 passive: true,
             });
         } else {
-            this.subscribeMouseWheel = handleMouseWheel((data) =>
+            this.subscribeMouseWheel = mobCore.useMouseWheel((data) =>
                 this.onWhell(data)
             );
 
-            this.subscribeMouseMove = handleMouseMove((data) =>
+            this.subscribeMouseMove = mobCore.useMouseMove((data) =>
                 this.onTouchMove(data)
             );
-            this.subscribeTouchMove = handleTouchMove((data) =>
+            this.subscribeTouchMove = mobCore.useTouchMove((data) =>
                 this.onTouchMove(data)
             );
         }
@@ -515,22 +496,28 @@ export default class SmoothScroller {
         /**
          * Common event
          */
-        this.subscribeResize = handleResize(() => this.refresh());
-        this.subscribeScrollStart = handleScrollStart(() =>
+        this.subscribeResize = mobCore.useResize(() => this.refresh());
+        this.subscribeScrollStart = mobCore.useScrollStart(() =>
             this.refreshScroller()
         );
-        this.subscribeScrollEnd = handleScrollEnd(() => this.refreshScroller());
-        this.subscribeTouchStart = handleTouchStart((data) =>
+        this.subscribeScrollEnd = mobCore.useScrollEnd(() =>
+            this.refreshScroller()
+        );
+        this.subscribeTouchStart = mobCore.useTouchStart((data) =>
             this.onMouseDown(data)
         );
-        this.subscribeTouchEnd = handleTouchEnd((data) => this.onMouseUp(data));
-        this.subscribeMouseDown = handleMouseDown((data) =>
+        this.subscribeTouchEnd = mobCore.useTouchEnd((data) =>
+            this.onMouseUp(data)
+        );
+        this.subscribeMouseDown = mobCore.useMouseDown((data) =>
             this.onMouseDown(data)
         );
-        this.subscribeMouseUp = handleMouseUp((data) => this.onMouseUp(data));
+        this.subscribeMouseUp = mobCore.useMouseUp((data) =>
+            this.onMouseUp(data)
+        );
 
         if (this.drag) {
-            this.subscribeMouseClick = handleMouseClick(
+            this.subscribeMouseClick = mobCore.useMouseClick(
                 ({ target, preventDefault }) => {
                     this.preventChecker({ target, preventDefault });
                 }
@@ -544,8 +531,8 @@ export default class SmoothScroller {
             this.refreshScroller();
         }
 
-        handleFrameIndex.add(() => {
-            handleNextTick.add(() => {
+        mobCore.useFrameIndex(() => {
+            mobCore.useNextTick(() => {
                 this.afterInit?.();
                 this.children.forEach((element) => {
                     element.refresh();
@@ -600,7 +587,7 @@ export default class SmoothScroller {
                 element.triggerScrollStart();
             });
 
-            handleNextTick.add(() => {
+            mobCore.useNextTick(() => {
                 if (this.onTickCallback)
                     this.onTickCallback({
                         value: -val,
@@ -623,7 +610,7 @@ export default class SmoothScroller {
                     ? `translateY(${-val}px)`
                     : `translateX(${-val}px)`;
 
-            handleNextTick.add(() => {
+            mobCore.useNextTick(() => {
                 if (this.onTickCallback)
                     this.onTickCallback({
                         value: -val,
@@ -841,8 +828,8 @@ export default class SmoothScroller {
         if (!mq[this.queryType](this.breackpoint)) {
             this.removeScrolerStyle();
             this.motion?.stop?.();
-            handleFrame.add(() => {
-                handleNextTick.add(() => {
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(() => {
                     this.scroller.style.transform = '';
                 });
             });
@@ -852,8 +839,8 @@ export default class SmoothScroller {
         this.refreshScroller();
         this.setScrolerStyle();
 
-        handleFrameIndex.add(() => {
-            handleNextTick.add(() => {
+        mobCore.useFrameIndex(() => {
+            mobCore.useNextTick(() => {
                 if (this.onAfterRefresh) this.onAfterRefresh();
 
                 this.children.forEach((element) => {
@@ -910,8 +897,8 @@ export default class SmoothScroller {
             );
         }
 
-        handleFrameIndex.add(() => {
-            handleNextTick.add(() => {
+        mobCore.useFrameIndex(() => {
+            mobCore.useNextTick(() => {
                 this.afterDestroy?.();
                 this.afterDestroy = [];
             });

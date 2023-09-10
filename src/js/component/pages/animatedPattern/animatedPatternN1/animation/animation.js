@@ -1,4 +1,4 @@
-import { core, timeline, tween } from '../../../../../mobMotion';
+import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import { mainStore } from '../../../../../mobjs';
 import {
@@ -12,6 +12,7 @@ import {
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
+import { mobCore } from '../../../../../mobCore';
 
 export const animatedPatternN1Animation = ({
     canvas,
@@ -245,12 +246,12 @@ export const animatedPatternN1Animation = ({
         centerTween.goTo({ mouseX: x - left, mouseY: y - top });
     };
 
-    const unsubscribeMouseMove = core.useMouseMove(({ client }) => {
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
 
-    const unsubscribeTouchMove = core.useTouchMove(({ client }) => {
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
         const { x, y } = client;
         move({ x, y });
     });
@@ -262,20 +263,20 @@ export const animatedPatternN1Animation = ({
         draw();
 
         if (!isActive) return;
-        core.useNextFrame(() => loop());
+        mobCore.useNextFrame(() => loop());
     };
 
     /**
      * Start loop.
      */
-    core.useFrame(({ time }) => {
+    mobCore.useFrame(({ time }) => {
         loop({ time });
     });
 
     /**
      * On resize.
      */
-    const unsubscribeResize = core.useResize(() => {
+    const unsubscribeResize = mobCore.useResize(() => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
         top = offset(canvas).top;
@@ -305,7 +306,7 @@ export const animatedPatternN1Animation = ({
         /**
          * Render.
          */
-        core.useFrame(() => draw());
+        mobCore.useFrame(() => draw());
     });
 
     /**
@@ -330,7 +331,7 @@ export const animatedPatternN1Animation = ({
              * Restart loop
              */
             gridTimeline?.play();
-            core.useFrame(() => loop());
+            mobCore.useFrame(() => loop());
         }, 500)
     );
 

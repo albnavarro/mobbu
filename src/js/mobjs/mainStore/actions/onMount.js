@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../../mobMotion';
+import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { mainStore } from '../mainStore';
 
@@ -92,8 +92,8 @@ export const executeFireOnMountCallBack = ({ asyncLoading, id, element }) => {
                * With heavy onMount function fire next one frame after.
                */
               return new Promise((resolve) => {
-                  core.useFrame(() => {
-                      core.useNextTick(() => {
+                  mobCore.useFrame(() => {
+                      mobCore.useNextTick(() => {
                           resolve({ success: true });
                       });
                   });

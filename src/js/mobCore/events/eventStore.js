@@ -1,6 +1,6 @@
-import { mobCore } from '../../mobCore';
+import { SimpleStore } from '../store/simpleStore';
 
-export const eventStore = mobCore.createStore({
+export const eventStore = new SimpleStore({
     /**
      * Mouse event
      */

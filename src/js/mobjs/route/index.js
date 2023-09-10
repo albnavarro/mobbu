@@ -1,6 +1,6 @@
 // @ts-check
 
-import { core } from '../../mobMotion';
+import { mobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
 import { setContent } from '../mainStore/actions/root';
@@ -98,8 +98,8 @@ export const inizializeApp = async ({
      * First callback after parse index.html first time.
      * Wait 5 frames, so browser can clear gargbage collector created in parse step.
      */
-    core.useFrameIndex(() => {
-        core.useNextTick(() => {
+    mobCore.useFrameIndex(() => {
+        mobCore.useNextTick(() => {
             afterInit();
         });
     }, frameDelayAfterParse);

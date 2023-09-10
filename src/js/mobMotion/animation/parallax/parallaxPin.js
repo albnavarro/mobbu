@@ -1,11 +1,9 @@
 import HandleSpring from '../../animation/spring/handleSpring.js';
-import { handleFrame } from '../../events/rafutils/handleFrame.js';
 import { parallaxConstant } from './parallaxConstant.js';
 import { position } from '../../../mobCore/utils/index.js';
-import { handleScroll } from '../../events/scrollUtils/handleScroll.js';
-import { handleScrollStart } from '../../events/scrollUtils/handleScrollUtils.js';
 import { clamp } from '../../animation/utils/animationUtils.js';
 import { handleSetUp } from '../../setup.js';
+import { mobCore } from '../../../mobCore/index.js';
 
 export class ParallaxPin {
     constructor() {
@@ -145,7 +143,7 @@ export class ParallaxPin {
         this.setUpMotion();
 
         // Update pix top position when use custom screen ad scroll outside on window
-        this.unsubscribeScrollStart = handleScrollStart(() => {
+        this.unsubscribeScrollStart = mobCore.useScrollStart(() => {
             if (!this.isInizialized) return;
 
             if (this.screen !== window && this.isInner && this.pin) {
@@ -153,13 +151,13 @@ export class ParallaxPin {
                     this.pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
                 };
 
-                handleFrame.add(() => {
+                mobCore.useFrame(() => {
                     cb();
                 });
             }
         });
 
-        this.unsubscribeScroll = handleScroll(({ scrollY }) => {
+        this.unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
             if (!this.isInizialized) return;
 
             if (this.screen !== window) {
@@ -180,7 +178,7 @@ export class ParallaxPin {
                         verticalGap: translateValue,
                     });
 
-                    handleFrame.add(() => {
+                    mobCore.useFrame(() => {
                         this.pin.style.transform = `translate(0px,${translateValue}px)`;
                     });
                 }
@@ -256,7 +254,7 @@ export class ParallaxPin {
         // Add disply table to avoid margin problem inside
         const display = { display: 'table' };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             if (!this.pin || !this.wrapper) return;
 
             Object.assign(this.wrapper.style, { ...wrapperStyle });
@@ -296,7 +294,7 @@ export class ParallaxPin {
             return { ...p, [c]: compStyles.getPropertyValue(c) };
         }, {});
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             if (!this.wrapper) return;
             Object.assign(this.wrapper.style, style);
         });
@@ -423,7 +421,7 @@ export class ParallaxPin {
             this.pin.style[this.collisionStyleProp] = `${this.startFromTop}px`;
         };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             cb();
         });
 
@@ -444,7 +442,7 @@ export class ParallaxPin {
             this.pin.style.transform = `translate(0px, 0px)`;
         };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             cb();
         });
     }
@@ -460,7 +458,7 @@ export class ParallaxPin {
             this.pin.style.left = ``;
         };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             cb();
         });
     }
@@ -483,7 +481,7 @@ export class ParallaxPin {
             }
         };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             cb();
         });
     }
@@ -512,7 +510,7 @@ export class ParallaxPin {
             this.afterJustPinned = true;
         };
 
-        handleFrame.add(() => {
+        mobCore.useFrame(() => {
             cb();
         });
     }
@@ -555,7 +553,7 @@ export class ParallaxPin {
                 document.body.append(this.pin);
             };
 
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 cb();
             });
 
@@ -572,7 +570,7 @@ export class ParallaxPin {
                 this.wrapper.append(this.pin);
             };
 
-            handleFrame.add(() => {
+            mobCore.useFrame(() => {
                 cb();
             });
 

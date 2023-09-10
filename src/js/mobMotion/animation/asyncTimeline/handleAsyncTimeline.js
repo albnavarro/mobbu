@@ -1,8 +1,4 @@
 import { mobCore } from '../../../mobCore/index.js';
-import { ANIMATION_STOP_REJECT } from '../../events/errorHandler/catchAnimationReject.js';
-import { handleFrameIndex } from '../../events/rafutils/handleFrameIndex.js';
-import { loadFps } from '../../events/rafutils/loadFps.js';
-import { getTime } from '../../events/rafutils/time.js';
 import { NOOP } from '../../utils/functionsUtils.js';
 import { directionConstant } from '../utils/constant.js';
 import {
@@ -466,15 +462,15 @@ export default class HandleAsyncTimeline {
                     }
 
                     return new Promise((res) => {
-                        if (!isImmediate) {
+                        if (isImmediate) {
+                            res();
+                        } else {
                             // Custom function
                             const direction = this.getDirection();
                             tween({
                                 direction,
                                 loop: this.loopCounter,
                             });
-                            res();
-                        } else {
                             res();
                         }
                     });
@@ -493,7 +489,9 @@ export default class HandleAsyncTimeline {
                     }
 
                     return new Promise((res, reject) => {
-                        if (!isImmediate) {
+                        if (isImmediate) {
+                            res();
+                        } else {
                             const direction = this.getDirection();
 
                             tween({
@@ -507,8 +505,6 @@ export default class HandleAsyncTimeline {
                                     }
                                 },
                             });
-                        } else {
-                            res();
                         }
                     });
                 },
@@ -601,7 +597,7 @@ export default class HandleAsyncTimeline {
                 };
 
                 if (delay) {
-                    const start = getTime();
+                    const start = mobCore.getTime();
                     this.delayIsRunning = true;
                     let deltaTimeOnpause = 0;
 
@@ -609,7 +605,7 @@ export default class HandleAsyncTimeline {
                      * Delay loop
                      */
                     const loop = () => {
-                        const current = getTime();
+                        const current = mobCore.getTime();
                         let delta = current - start;
 
                         /*
@@ -865,24 +861,28 @@ export default class HandleAsyncTimeline {
                 const { from, to } = syncProp;
 
                 switch (action) {
-                    case 'goTo':
+                    case 'goTo': {
                         item.data.valuesTo = prevValueTo;
                         item.data.prevValueTo = currentValueTo;
                         break;
+                    }
 
-                    case 'goFromTo':
+                    case 'goFromTo': {
                         item.data.valuesFrom = valuesTo;
                         item.data.valuesTo = valuesFrom;
                         break;
+                    }
 
-                    case 'sync':
+                    case 'sync': {
                         item.data.syncProp.from = to;
                         item.data.syncProp.to = from;
                         break;
+                    }
 
-                    case 'goFrom':
+                    case 'goFrom': {
                         timelineReverseGoFromWarning();
                         this.stop();
+                    }
                 }
             });
         });
@@ -1610,9 +1610,9 @@ export default class HandleAsyncTimeline {
         /*
          * Filter user tween from frameStore
          */
-        const itemsId = items.map((item) => item?.getId?.());
+        const itemsId = new Set(items.map((item) => item?.getId?.()));
         const tweens = this.tweenStore.filter(({ id }) => {
-            return itemsId.includes(id);
+            return itemsId.has(id);
         });
 
         /*
@@ -1660,7 +1660,7 @@ export default class HandleAsyncTimeline {
      */
     rejectPromise() {
         if (this.currentReject) {
-            this.currentReject(ANIMATION_STOP_REJECT);
+            this.currentReject(mobCore.ANIMATION_STOP_REJECT);
             this.currentReject = null;
         }
     }
@@ -1685,7 +1685,7 @@ export default class HandleAsyncTimeline {
             if (this.fpsIsInLoading) return;
             this.fpsIsInLoading = true;
 
-            loadFps().then(() => {
+            mobCore.useFps(() => {
                 this.fpsIsInLoading = false;
 
                 if (this.autoSet) this.addSetBlocks();
@@ -1715,7 +1715,7 @@ export default class HandleAsyncTimeline {
                      */
 
                     this.sessionId++;
-                    handleFrameIndex.add(() => {
+                    mobCore.useFrameIndex(() => {
                         // Set current promise action after stop so is not fired in stop method
                         this.currentReject = reject;
                         this.currentResolve = resolve;
@@ -1818,7 +1818,7 @@ export default class HandleAsyncTimeline {
             if (this.fpsIsInLoading) return;
             this.fpsIsInLoading = true;
 
-            loadFps().then(() => {
+            mobCore.useFps(() => {
                 this.fpsIsInLoading = false;
 
                 this.starterFunction.fn = () =>
@@ -1859,7 +1859,7 @@ export default class HandleAsyncTimeline {
             if (this.fpsIsInLoading) return;
             this.fpsIsInLoading = true;
 
-            loadFps().then(() => {
+            mobCore.useFps(() => {
                 this.fpsIsInLoading = false;
 
                 this.starterFunction.fn = () =>
@@ -1902,7 +1902,7 @@ export default class HandleAsyncTimeline {
             if (this.fpsIsInLoading) return;
             this.fpsIsInLoading = true;
 
-            loadFps().then(() => {
+            mobCore.useFps(() => {
                 this.fpsIsInLoading = false;
 
                 if (this.autoSet) this.addSetBlocks();
@@ -1953,7 +1953,7 @@ export default class HandleAsyncTimeline {
                 /*
                  * Run one frame after stop to avoid overlap with promise resolve/reject
                  */
-                handleFrameIndex.add(() => {
+                mobCore.useFrameIndex(() => {
                     // Set current promise action after stop so is not fired in stop method
                     this.currentResolve = resolveInUse;
                     this.currentReject = rejectInUse;
@@ -2189,7 +2189,7 @@ export default class HandleAsyncTimeline {
      */
     pause() {
         this.isInPause = true;
-        this.timeOnPause = getTime();
+        this.timeOnPause = mobCore.getTime();
         this.currentTween.forEach(({ tween }) => {
             tween?.pause?.();
         });
@@ -2325,9 +2325,9 @@ export default class HandleAsyncTimeline {
          * If reverse immediate is running
          */
         if (this.immediate.counter > 0)
-            return !this.immediate.currentReverseStatus
-                ? directionConstant.BACKWARD
-                : directionConstant.FORWARD;
+            return this.immediate.currentReverseStatus
+                ? directionConstant.FORWARD
+                : directionConstant.BACKWARD;
 
         /**
          * Default
