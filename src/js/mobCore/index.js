@@ -172,7 +172,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * core.useframe(({ fps, shouldrender, time }) => {
+     * mobCore.useframe(({ fps, shouldrender, time }) => {
      *     // code ...
      * });
      *
@@ -190,8 +190,8 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * core.useFrame(() => {
-     *     core.useNextTick(({ fps, shouldRender, time }) => {
+     * mobCore.useFrame(() => {
+     *     mobCore.useNextTick(({ fps, shouldRender, time }) => {
      *         // code
      *     });
      * });
@@ -199,20 +199,20 @@ export const mobCore = {
      * Loop request animation frame using handleNextTick:
      *
      * const loop = () => {
-     *     core.useNextTick(() => {
+     *     mobCore.useNextTick(() => {
      *         // read from DOM
      *
-     *         core.useFrame(() => {
+     *         mobCore.useFrame(() => {
      *             // write to the DOM
      *             loop();
      *         });
      *     });
      * };
      *
-     * core.useFrame(() => loop());
+     * mobCore.useFrame(() => loop());
      *
      * To tick exactly after the request animation frame:
-     * core.default('set', { deferredNextTick: true });
+     * mobCore.default('set', { deferredNextTick: true });
      *
      * ```
      */
@@ -229,13 +229,13 @@ export const mobCore = {
      * @example
      * ```javascript
      * const loop = () => {
-     *     core.useNextFrame(({ fps, shouldRender, time }) => {
+     *     mobCore.useNextFrame(({ fps, shouldRender, time }) => {
      *         // code
      *         loop();
      *     });
      * };
      *
-     * core.useFrame(() => loop());
+     * mobCore.useFrame(() => loop());
      *
      * ```
      */
@@ -252,7 +252,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * core.useFrameIndex(({ fps, shouldRender, time }) => {
+     * mobCore.useFrameIndex(({ fps, shouldRender, time }) => {
      *     // code ...
      * }, 5);
      *
@@ -287,7 +287,7 @@ export const mobCore = {
      * @example
      * ```javascript
      *
-     * core.useLoad(() => {
+     * mobCore.useLoad(() => {
      *     // code
      * });
      *
@@ -307,7 +307,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * core.useResize(
+     * mobCore.useResize(
      *     ({
      *         documentHeight,
      *         horizontalResize,
@@ -334,7 +334,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     *  const unsubscribe = core.useVisibilityChange(({ visibilityState }) => {
+     *  const unsubscribe = mobCore.useVisibilityChange(({ visibilityState }) => {
      *      // code
      *  });
      *
@@ -354,7 +354,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useMouseClick(
+     * const unsubscribe = mobCore.useMouseClick(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -376,7 +376,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useMouseDown(
+     * const unsubscribe = mobCore.useMouseDown(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -398,7 +398,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useTouchStart(
+     * const unsubscribe = mobCore.useTouchStart(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -420,7 +420,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useMouseMove(
+     * const unsubscribe = mobCore.useMouseMove(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -442,7 +442,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useTouchMove(
+     * const unsubscribe = mobCore.useTouchMove(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -464,7 +464,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useMouseUp(
+     * const unsubscribe = mobCore.useMouseUp(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -486,7 +486,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useTouchEnd(
+     * const unsubscribe = mobCore.useTouchEnd(
      *     ({ client, page, preventDefault, target, type }) => {
      *         // code
      *     }
@@ -508,7 +508,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useMouseWheel(
+     * const unsubscribe = mobCore.useMouseWheel(
      *     ({
      *         client,
      *         page,
@@ -541,7 +541,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useScroll(({ direction, scrollY }) => {
+     * const unsubscribe = mobCore.useScroll(({ direction, scrollY }) => {
      *     // code
      * });
      *
@@ -562,7 +562,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useScrollImmediate(({ direction, scrollY }) => {
+     * const unsubscribe = mobCore.useScrollImmediate(({ direction, scrollY }) => {
      *     // code
      * });
      *
@@ -583,16 +583,17 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useScrollThrottle(({ direction, scrollY }) => {
+     * const unsubscribe = mobCore.useScrollThrottle(({ direction, scrollY }) => {
      *    // code
      * });
      *
      * unsubscribe();
      *
      * To change the duration of the throttle, change the value of the throttle property to the defaults:
+     * TODO
+     * Use store.
      *
      *
-     * core.setDefault({throttle: 500});
      *
      * ```
      */
@@ -609,7 +610,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useScrollStart(({ scrollY }) => {
+     * const unsubscribe = mobCore.useScrollStart(({ scrollY }) => {
      *     // code
      * });
      *
@@ -630,7 +631,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * const unsubscribe = core.useScrollEnd(({ scrollY }) => {
+     * const unsubscribe = mobCore.useScrollEnd(({ scrollY }) => {
      *     // code
      * });
      *
