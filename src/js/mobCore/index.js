@@ -131,23 +131,47 @@ export const mobCore = {
         return new SimpleStore(data);
     },
 
+    /**
+     * @returns {Number}
+     *
+     * @description
+     * Get fps detect on page load.
+     * Start from 60fps.
+     * The real value is calculated after 30 Request animation frame.
+     */
     getInstantFps() {
         return eventStore.getProp('instantFps');
     },
 
+    /**
+     * @returns {Number}
+     *
+     * @description
+     * Get current fps value.
+     */
     getFps() {
         return handleFrame.getFps();
     },
 
+    /**
+     * @returns {Boolean}
+     *
+     * @description
+     * When useScaleFps is on, get the frame status related to fpsScalePercent object:
+     * This methods get the standalone value.
+     *
+     * Note: creted for mobMotion internal use.
+     */
     getShouldRender() {
         return handleFrame.getShouldRender();
     },
 
     /**
      * @description
-      If the current FPS drops below `2/5` of its maximum value the methods return true.
-      The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
+     * If the current FPS drops below `2/5` of its maximum value the methods return true.
+     * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
      *
+     * Note: creted for mobMotion internal use.
      */
     mustMakeSomething() {
         return handleFrame.mustMakeSomething();
@@ -155,8 +179,10 @@ export const mobCore = {
 
     /**
      * @description
-      If the current FPS drops below `1/5` of its maximum value the methods return true.
-      The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
+     * If the current FPS drops below `1/5` of its maximum value the methods return true.
+     * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
+     *
+     * Note: creted for mobMotion internal use.
      *
      */
     shouldMakeSomething() {
@@ -165,8 +191,8 @@ export const mobCore = {
 
     /**
      * @description
-    Execute a callBack within the first available request animation frame.
-    Use this method to modify elements of the DOM
+     * Execute a callBack within the first available request animation frame.
+     * Use this method to modify elements of the DOM
      *
      * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
      *
@@ -297,6 +323,12 @@ export const mobCore = {
         return handleLoad(callback);
     },
 
+    /**
+     * @description
+     * Get handleCache function.
+     *
+     * Note: creted for mobMotion internal use.
+     */
     useCache: handleCache,
 
     /**
@@ -643,10 +675,25 @@ export const mobCore = {
         return handleScrollEnd(callback);
     },
 
+    /**
+     * @param {any} type
+     * @param {any} value
+     * @returns {Boolean}
+     *
+     * @description
+     * Check type of variable.
+     */
     checkType(type, value) {
         return checkType(type, value);
     },
 
+    /**
+     * @param {any} type
+     * @returns {String}
+     *
+     * @description
+     * Get type in String format.
+     */
     getTypeName(type) {
         return getTypeName(type);
     },
@@ -655,19 +702,49 @@ export const mobCore = {
      * @returns {String}
      *
      * @description
-     * Generate univoque id
+     * Generate univoque string id
      */
     getUnivoqueId() {
         return `_${Math.random().toString(36).slice(2, 9)}`;
     },
 
+    /**
+     * @returns {Number}
+     *
+     * @description
+     * Get current time.
+     */
     getTime() {
         return getTime();
     },
 
+    /**
+     * @returns {Object}
+     *
+     * @description
+     * Get event store ( es modify defaults or get current value )
+     */
     store: eventStore,
 
+    /**
+     * @returns {Object}
+     *
+     * @description
+     * Parse wheel event.
+     */
     normalizeWheel: normalizeWheel,
 
+    /**
+     *
+     * @description
+     * Avoid console error when promise is rejected.
+     *
+     * Note: creted for mobMotion internal use.
+     *
+     * @example
+     * ``` javascript
+     * reject(mobCore.ANIMATION_STOP_REJECT);
+     * ```
+     */
     ANIMATION_STOP_REJECT: ANIMATION_STOP_REJECT,
 };
