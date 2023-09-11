@@ -23,7 +23,7 @@ import { springPresetConfig } from '../spring/springConfig.js';
  * @prop {Number} [ throttle ] - Throttle value in milliseconds.
  * Default: `throttle: 100`.
  *
- * @prop {import('../../utils/mediaManager.js').breackPointTypeObjKeyValue} [ mq ] - Object representing key and value of the default breakpoints.
+ * @prop {Object.<string, number>} [ mq ] - Object representing key and value of the default breakpoints.
  * deafult keys: `xSmall, small, medium, tablet, desktop, large, xLarge`.
  * es: `desktop: 992`.
  *

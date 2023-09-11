@@ -723,6 +723,22 @@ export const mobCore = {
      *
      * @description
      * Get event store ( es modify defaults or get current value )
+     * Props:
+     * - usePassive: true
+     * - instantFps: 60
+     * - fpsScalePercent: { 0: 1, 30: 2, 50: 3 }
+     * - useScaleFps:true
+     * - deferredNextTick: true
+     * - throttle: 60
+     *
+     *
+     * @example
+     * ``` javascript
+     * mobCore.store.set('fpsScalePercent', { 1: 10 });
+     * const { useScaleFps } = mobCore.store.get();
+     * ....
+     *
+     * ```
      */
     store: eventStore,
 

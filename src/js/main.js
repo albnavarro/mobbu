@@ -13,6 +13,8 @@ import { mobCore } from './mobCore';
  * Set default
  */
 mobCore.useLoad(() => {
+    mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
+
     core.setDefault({
         deferredNextTick: true,
         useScaleFps: true,

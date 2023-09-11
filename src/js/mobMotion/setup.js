@@ -21,15 +21,10 @@ import {
 import { mergeDeep } from './utils/mergeDeep.js';
 
 /**
- * @typedef {('fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
+ * @returns {import('./animation/utils/setUpValidation.js').handleSetUpSetType}
  */
-
-export const handleSetUp = (() => {
-    /**
-     * @constant
-     * @type {import('./animation/utils/setUpValidation.js').handleSetUpSetType}
-     */
-    let data = {
+function getData() {
+    return {
         fpsScalePercent: mobCore.store.getProp('fpsScalePercent'),
         useScaleFps: mobCore.store.getProp('useScaleFps'),
         deferredNextTick: mobCore.store.getProp('deferredNextTick'),
@@ -76,6 +71,14 @@ export const handleSetUp = (() => {
             velocity: 0.06,
         },
     };
+}
+
+/**
+ * @typedef {('fpsScalePercent'|'useScaleFps'|'deferredNextTick'|'throttle'|'usePassive'|'mq'|'defaultMq'|'sequencer'|'scrollTrigger'|'parallax'|'parallaxTween'|'tween'|'spring'|'lerp')} handleSetUpGetType
+ */
+
+export const handleSetUp = (() => {
+    let data = getData();
 
     /**
      * @description
@@ -189,7 +192,7 @@ export const handleSetUp = (() => {
      * ```
      */
     const set = (obj) => {
-        data = setupValidation(mergeDeep(data, obj));
+        data = setupValidation(mergeDeep(getData(), obj));
 
         /**
          * Update event default.
