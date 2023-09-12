@@ -181,10 +181,13 @@ export const CodeOverlay = ({
                             return {
                                 key: label,
                                 disable: source.length === 0,
-                                callback: () => {
-                                    setState('activeContent', label);
-                                },
                             };
+                        },
+                        bindEvents: {
+                            click: (_e, { current }) => {
+                                const { label } = current;
+                                setState('activeContent', label);
+                            },
                         },
                         bindProps: {
                             bind: ['activeContent'],

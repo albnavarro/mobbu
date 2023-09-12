@@ -248,7 +248,11 @@ export const parseComponentsRecursive = async ({
 
     const bindEventsId = componentData?.bindEventsId;
     if (bindEventsId) {
-        applyBindEvents({ element: newElement, id: bindEventsId });
+        applyBindEvents({
+            element: newElement,
+            componentId: id,
+            bindEventsId,
+        });
     }
 
     /**

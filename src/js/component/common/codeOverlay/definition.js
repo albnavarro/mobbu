@@ -37,10 +37,9 @@ export const codeOverlayDef = createComponent({
 export const codeOverlayButtonDef = createComponent({
     name: 'CodeOverlayButton',
     component: CodeOverlayButton,
-    exportState: ['key', 'callback', 'selected', 'disable'],
+    exportState: ['key', 'selected', 'disable'],
     state: {
         key: '',
-        callback: () => {},
         selected: () => ({
             value: false,
             type: Boolean,

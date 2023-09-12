@@ -2,6 +2,7 @@
 
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
+import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
 import { mainStore } from '../mainStore';
 
 /**
@@ -31,14 +32,15 @@ export const setBindEvents = (eventsData = []) => {
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {String} obj.id
+ * @param {String} obj.componentId
+ * @param {String} obj.bindEventsId
  * @return {void}
  *
  * @description
  * Store props and return a unique indentifier
  *
  */
-export const applyBindEvents = ({ element, id }) => {
+export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
     const { bindEvents } = mainStore.get();
 
     /**
@@ -46,24 +48,35 @@ export const applyBindEvents = ({ element, id }) => {
      * Get props.
      */
     const eventsArray = bindEvents.find((/** @type {Object} */ item) => {
-        return item?.[id];
+        return item?.[bindEventsId];
     });
 
-    eventsArray[id].forEach((/** @type{{string:function }} */ event) => {
-        const eventName = Object.keys(event)[0];
-        const callback = Object.values(event)[0];
+    eventsArray[bindEventsId].forEach(
+        (/** @type{{string:function }} */ event) => {
+            const eventName = Object.keys(event)[0];
+            const callback = Object.values(event)[0];
 
-        if (!eventName || !callback) return;
+            if (!eventName || !callback) return;
 
-        element.addEventListener(eventName, (e) => callback(e));
-    });
+            element.addEventListener(eventName, (e) => {
+                /**
+                 * Add current repeate rid for dynamic lsit.
+                 */
+                const currentRepeaterState = getCurrentListValueById({
+                    id: componentId,
+                });
+
+                callback(e, currentRepeaterState);
+            });
+        }
+    );
 
     /**
      * Remove props
      */
     mainStore.set('bindEvents', (/** @type {Array} */ prev) => {
         return prev.filter((/** @type {Object} */ item) => {
-            return !(id in item);
+            return !(bindEventsId in item);
         });
     });
 };

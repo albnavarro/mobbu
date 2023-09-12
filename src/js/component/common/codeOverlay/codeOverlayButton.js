@@ -2,13 +2,9 @@
  * @param {import("../../../mobjs/type").componentType}
  */
 export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
-    const { key, callback, disable } = getState();
+    const { key, disable } = getState();
 
     onMount(({ element }) => {
-        element.addEventListener('click', () => {
-            callback();
-        });
-
         /**
          * Set selected class.
          */

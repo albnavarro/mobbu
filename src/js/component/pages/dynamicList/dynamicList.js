@@ -123,8 +123,8 @@ export const DynamicList = async ({
                                 },
                             },
                             bindEvents: {
-                                mousedown: (e) =>
-                                    console.log(getState(), e.currentTarget),
+                                mousedown: (e, { current, index }) =>
+                                    console.log(current, index),
                             },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
@@ -165,8 +165,8 @@ export const DynamicList = async ({
                                 },
                             },
                             bindEvents: {
-                                mousedown: (e) =>
-                                    console.log(getState(), e.currentTarget),
+                                mousedown: (e, { current, index }) =>
+                                    console.log(current, index),
                             },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
@@ -206,8 +206,8 @@ export const DynamicList = async ({
                                 },
                             },
                             bindEvents: {
-                                mousedown: (e) =>
-                                    console.log(getState(), e.currentTarget),
+                                mousedown: (e, { current, index }) =>
+                                    console.log(current, index),
                             },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
