@@ -378,12 +378,12 @@ export interface componentType {
                  bind: ['state1','state2'],
                  props: ({ state1, state2 }, { current, index }) => {
                      return {
-                         childrenStet: state
+                         childrenState: myParsedState.
                      };
                  },
              },
              bindEvents: {
-                 eventName: (e) => myFunction(e)
+                 eventName: (e, { current, index }) => myFunction(e)
              },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
@@ -466,7 +466,8 @@ export interface componentType {
              * Arg1: The value corresponding to current item in watch array
              */
             props: (
-                arg0: {
+                arg0: { String: Any },
+                arg1: {
                     /**
                      * @description
                      * Arg1: The value corresponding to current item in watch array
@@ -493,8 +494,52 @@ export interface componentType {
          * Bind events.
          */
         bindEvents:
-            | { [key: string]: (arg0: Object) => {} }
-            | [{ [key: string]: (arg0: Object) => {} }];
+            | {
+                  [key: string]: (
+                      /**
+                       * @description
+                       * Event native object
+                       */
+                      arg0: Object,
+                      arg1: {
+                          /**
+                           * @description
+                           * Arg1: The value corresponding to current item in watch array
+                           */
+                          current: any;
+
+                          /**
+                           * @description
+                           * New position in original data.
+                           */
+                          index: Number;
+                      }
+                  ) => {};
+              }
+            | [
+                  {
+                      [key: string]: (
+                          /**
+                           * @description
+                           * Event native object
+                           */
+                          arg0: Object,
+                          arg1: {
+                              /**
+                               * @description
+                               * Arg1: The value corresponding to current item in watch array
+                               */
+                              current: any;
+
+                              /**
+                               * @description
+                               * New position in original data.
+                               */
+                              index: Number;
+                          }
+                      ) => {};
+                  }
+              ];
 
         /**
          * @description
