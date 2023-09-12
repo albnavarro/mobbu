@@ -368,7 +368,7 @@ export interface componentType {
              component: 'MyComponent',
              key: 'my_object_unique_key',
              props: ({ current, index }) => {
-                 const initialStateValue = current;
+                 const { initialStateValue } = current;
                  return {
                      childState: initialStateValue
                      index,
@@ -428,6 +428,19 @@ export interface componentType {
          * 1 - Excute prop function on before component creation, without fire setState.
          *     Only get current, index to use in bindProps.
          * 2 - Execute porp function when component is created and set internal state.
+         *
+         * @example
+         * ``` javascript
+         * ${repeat({
+         *     props: ({ current, index }) => {
+         *         const { initialStateValue } = current;
+         *         return {
+         *             childState: initialStateValue
+         *             index,
+         *         };
+         *     },
+         * })}
+         * ```
          */
         props: (arg0: {
             /**
@@ -447,6 +460,21 @@ export interface componentType {
          *
          * @description
          * Dynamic props passed to new component
+         *
+         * @example
+         *
+         * ``` javascript
+         * ${repeat({
+         *     bindProps: {
+         *         bind: ['state1','state2'],
+         *         props: ({ state1, state2 }, { current, index }) => {
+         *             return {
+         *                 childrenState: myParsedState.
+         *             };
+         *         },
+         *     },
+         * })}
+         * ```
          */
         bindProps: {
             /**
@@ -492,6 +520,15 @@ export interface componentType {
          * @description
          *
          * Bind events.
+         *
+         * @example
+         * ``` javascript
+         * ${repeat({
+         *     bindEvents: {
+         *         eventName: (e, { current, index }) => myFunction(e)
+         *     },
+         * })}
+         * ```
          */
         bindEvents:
             | {
@@ -544,6 +581,14 @@ export interface componentType {
         /**
          * @description
          * Function fired before update
+         *
+         * @example
+         *
+         * ${repeat({
+         *     beforeUpdate: ({ container, childrenId }) => {
+         *         ....
+         *     },
+         * })}
          */
         beforeUpdate(arg0: {
             /**
@@ -562,6 +607,14 @@ export interface componentType {
         /**
          * @description
          * Function fired after update
+         *
+         * @example
+         *
+         * ${repeat({
+         *     afterUpdate: ({ container, childrenId }) => {
+         *         ....
+         *     },
+         * })}
          */
         afterUpdate(arg0: {
             /**
