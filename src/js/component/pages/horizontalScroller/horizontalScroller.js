@@ -20,14 +20,16 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .join('');
 };
 
-const getNav = ({ numOfCol, setState, bindProps, staticProps }) => {
+const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
                 <HorizontalScrollerButton
                     ${staticProps({
                         id: i,
-                        callback: () => setState('currentId', i),
+                    })}
+                    ${bindEvents({
+                        click: () => setState('currentId', i),
                     })}
                     ${bindProps({
                         bind: ['currentId', 'currentIdFromScroll'],
@@ -56,6 +58,7 @@ export const HorizontalScroller = ({
     watch,
     staticProps,
     bindProps,
+    bindEvents,
 }) => {
     const { animatePin } = getState();
 
@@ -147,7 +150,13 @@ export const HorizontalScroller = ({
         >
         </CodeButton>
         <ul class="l-h-scroller__nav js-nav">
-            ${getNav({ numOfCol: 10, setState, bindProps, staticProps })}
+            ${getNav({
+                numOfCol: 10,
+                setState,
+                bindProps,
+                staticProps,
+                bindEvents,
+            })}
         </ul>
         <div class="l-h-scroller__root js-root">
             <div class="l-h-scroller__container js-container">

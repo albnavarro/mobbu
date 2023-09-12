@@ -7,11 +7,10 @@ export const HorizontalScrollerButton = ({
     render,
     onMount,
 }) => {
-    const { id, callback } = getState();
+    const { id } = getState();
 
     onMount(({ element }) => {
         const btn = element.querySelector('.js-nav-button');
-        btn.addEventListener('click', () => callback());
 
         watch('active', (active) => {
             btn.classList.toggle('active', active);
