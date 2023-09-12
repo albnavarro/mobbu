@@ -101,6 +101,16 @@ export const ATTR_CURRENT_LIST_VALUE_PARTIAL = 'currentlistvalue';
 export const ATTR_CURRENT_LIST_VALUE = 'data-currentlistvalue';
 
 /**
+ * @type {string};
+ */
+export const ATTR_BIND_EVENTS_PARTIAL = 'bindevents';
+
+/**
+ * @type {string};
+ */
+export const ATTR_BIND_EVENTS = 'data-bindevents';
+
+/**
  * @type {Number};
  */
 export const frameDelayAfterParse = 5;

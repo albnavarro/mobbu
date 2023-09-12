@@ -9,6 +9,7 @@ import {
     ATTR_PROPS_PARTIAL,
     ATTR_PROPS_FROM_SLOT_PARTIAL,
     ATTR_CURRENT_LIST_VALUE_PARTIAL,
+    ATTR_BIND_EVENTS_PARTIAL,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { getCurrentValueList } from '../mainStore/actions/currentListValue';
@@ -18,7 +19,7 @@ import { mobCore } from '../../mobCore';
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ), currentListValueReal: any}}
+ * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ), currentListValueReal: any}}
  *
  * @description
  * Create base DOM component from component tag.
@@ -63,6 +64,11 @@ export const convertToGenericElement = ({ component }) => {
      * @type {String|undefined}
      */
     const dynamicPropsId = component.dataset?.[ATTR_DYNAMIC_PARTIAL];
+
+    /**
+     * @type {String|undefined}
+     */
+    const bindEventsId = component.dataset?.[ATTR_BIND_EVENTS_PARTIAL];
 
     /**
      * @type {String|undefined}
@@ -172,6 +178,7 @@ export const convertToGenericElement = ({ component }) => {
         key,
         dynamicPropsId,
         dynamicPropsIdFromSlot,
+        bindEventsId,
         currentListValueReal,
     };
 };

@@ -32,6 +32,7 @@ export const DynamicList = async ({
     staticProps,
     bindProps,
     useSlot,
+    bindEvents,
 }) => {
     onMount(({ element }) => {
         const state1El = element.querySelector('.state1');
@@ -212,6 +213,14 @@ export const DynamicList = async ({
                 <div class="dynamic-list__content__bottom">
                     <h4 class="dynamic-list__title">Card outer list scope:</h4>
                     <DynamicListCard
+                        ${bindEvents([
+                            {
+                                click: (e) => console.log(e, 'click'),
+                            },
+                            {
+                                mousedown: (e) => console.log(e, 'mousedown'),
+                            },
+                        ])}
                         ${staticProps({ isFull: true })}
                         ${bindProps({
                             bind: ['counter', 'data'],

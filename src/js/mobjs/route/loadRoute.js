@@ -1,4 +1,5 @@
 import { removeCancellableComponent } from '../componentStore/action/removeAndDestroy';
+import { removeOrphansBindEvent } from '../mainStore/actions/bindEvents';
 import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getContent } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
@@ -46,6 +47,7 @@ export const loadRoute = async ({ route = '' }) => {
      * Async loading and iterrupt can leave rubbish.
      */
     removeOrphansPropsFromParent();
+    removeOrphansBindEvent();
 
     /**
      * Set new active route.

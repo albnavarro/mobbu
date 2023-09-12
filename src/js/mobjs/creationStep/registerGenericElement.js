@@ -16,8 +16,14 @@ import { unBind } from '../componentStore/action/props';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
-import { ATTR_DYNAMIC, ATTR_PROPS, ATTR_REPEATID } from '../constant';
+import {
+    ATTR_BIND_EVENTS,
+    ATTR_DYNAMIC,
+    ATTR_PROPS,
+    ATTR_REPEATID,
+} from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
+import { setBindEvents } from '../mainStore/actions/bindEvents';
 import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import {
     addCurrentIdToDynamicProps,
@@ -63,6 +69,7 @@ export const registerGenericElement = ({
         dynamicPropsId,
         dynamicPropsIdFromSlot,
         currentListValueReal,
+        bindEventsId,
     } = convertToGenericElement({
         component,
     });
@@ -120,6 +127,7 @@ export const registerGenericElement = ({
     });
 
     return {
+        bindEventsId,
         key,
         id,
         placeholderElement,
@@ -167,6 +175,9 @@ export const registerGenericElement = ({
             };
         },
         onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
+        bindEvents: (/** @type{Array} */ eventsArray) => {
+            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsArray)}"`;
+        },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             component: targetComponent = '', // use alias to maintain ured naming convention.

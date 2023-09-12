@@ -24,6 +24,10 @@ import {
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
+import {
+    applyBindEvents,
+    removeOrphansBindEvent,
+} from '../mainStore/actions/bindEvents';
 
 /**
  * @param {Object} obj
@@ -114,6 +118,7 @@ export const parseComponentsRecursive = async ({
         const activeParser = decrementParserCounter();
         if (!activeParser) {
             removeOrphansPropsFromParent();
+            removeOrphansBindEvent();
             removeOrphanComponent();
             clearOrphansDynamicPropsFromSlot();
         }
@@ -202,6 +207,7 @@ export const parseComponentsRecursive = async ({
         const activeParser = decrementParserCounter();
         if (!activeParser) {
             removeOrphansPropsFromParent();
+            removeOrphansBindEvent();
             removeOrphanComponent();
             clearOrphansDynamicPropsFromSlot();
         }
@@ -239,6 +245,11 @@ export const parseComponentsRecursive = async ({
             placeholderListObj,
         });
     });
+
+    const bindEventsId = componentData?.bindEventsId;
+    if (bindEventsId) {
+        applyBindEvents({ element: newElement, id: bindEventsId });
+    }
 
     /**
      * Fire immediatly onMount callback, scoped to current component DOM.

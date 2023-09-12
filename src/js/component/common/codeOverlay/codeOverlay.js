@@ -180,7 +180,7 @@ export const CodeOverlay = ({
 
                             return {
                                 key: label,
-                                disable: !source.length,
+                                disable: source.length === 0,
                                 callback: () => {
                                     setState('activeContent', label);
                                 },
