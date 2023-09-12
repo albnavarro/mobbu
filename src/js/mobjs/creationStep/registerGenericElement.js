@@ -1,6 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
+import { checkType } from '../../mobCore/store/storeType';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
@@ -175,8 +176,12 @@ export const registerGenericElement = ({
             };
         },
         onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
-        bindEvents: (/** @type{Array} */ eventsArray) => {
-            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsArray)}"`;
+        bindEvents: (/** @type{Array|Object} */ eventsData) => {
+            const eventsArrayParsed = checkType(Object, eventsData)
+                ? [eventsData]
+                : eventsData;
+
+            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsArrayParsed)}"`;
         },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.

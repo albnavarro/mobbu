@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { mainStore } from '../mainStore';
 
 /**
- * @param {Array<String,function>} [ eventsArray ]
+ * @param {Array<String,function>|Object<String,function>} [ eventsArray ]
  * @return {String} props id in store.
  *
  * @description
