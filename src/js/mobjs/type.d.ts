@@ -290,8 +290,29 @@ export interface componentType {
     /**
      * @example
      * ```javascript
+     * <MyComponent
+     *       ${bindEvents([
+     *           {
+     *               click: (e) => myFunction(e)
+     *           },
+     *           {
+     *               mousedown: (e) => myFunction(e)
+     *           },
+     *       ])}
+     * ></MyComponent>
+     * ```
+     */
+    bindEvents(arg0: [{ [key: string]: (arg0: Object) => {} }]): void;
+
+    /**
      *
-     * export const MyComponent = ({ render }) => {
+     * @description
+     * DOM
+     *
+     * @example
+     * ```javascript
+     *
+     * export const MyComponent = ({  render }) => {
      *     return render(`<div></div>`);
      * };
      *
