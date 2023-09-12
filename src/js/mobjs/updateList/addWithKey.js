@@ -7,6 +7,7 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import {
+    ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_RUNTIME,
@@ -22,6 +23,7 @@ import {
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setCurrentValueList } from '../mainStore/actions/currentListValue';
+import { setBindEvents } from '../mainStore/actions/bindEvents';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -33,6 +35,7 @@ const AFTER = 'afterend';
  * @param {string} obj.runtimeId
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
+ * @param {object} obj.bindEvents
  * @param {Array} obj.currentUnique
  * @param {number} obj.index
  *
@@ -47,6 +50,7 @@ function getPartialsComponentList({
     runtimeId,
     props,
     dynamicProps,
+    bindEvents,
     currentUnique,
     index,
 }) {
@@ -66,10 +70,18 @@ function getPartialsComponentList({
         ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
         : '';
 
+    /**
+     * Gat and save bindEvents.
+     */
+    const currentBindEvents = dynamicProps
+        ? `${ATTR_BIND_EVENTS}=${setBindEvents(bindEvents)}`
+        : '';
+
     return /* HTML */ `
         <component
             ${ATTR_PROPS}=${currentProps}
             ${currentDynamicProps}
+            ${currentBindEvents}
             ${ATTR_IS_RUNTIME}="${runtimeId}"
             ${ATTR_WILL_COMPONENT}="${targetComponent}"
             ${ATTR_KEY}="${key}"
@@ -91,6 +103,7 @@ function getPartialsComponentList({
  * @param {function} obj.getChildren
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
+ * @param {Array|object} obj.bindEvents
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.runtimeId
@@ -108,6 +121,7 @@ export const addWithKey = ({
     key = '',
     props = {},
     dynamicProps,
+    bindEvents,
     id = '',
     runtimeId = '',
 }) => {
@@ -265,6 +279,7 @@ export const addWithKey = ({
                     runtimeId,
                     props,
                     dynamicProps,
+                    bindEvents,
                     currentUnique,
                     index: element.index,
                 })

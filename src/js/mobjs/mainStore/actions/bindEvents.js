@@ -1,23 +1,28 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
+import { checkType } from '../../../mobCore/store/storeType';
 import { mainStore } from '../mainStore';
 
 /**
- * @param {Array<String,function>|Object<String,function>} [ eventsArray ]
+ * @param {Array<String,function>|Object<String,function>} [ eventsData ]
  * @return {String} props id in store.
  *
  * @description
  * Store props and return a unique indentifier
  *
  */
-export const setBindEvents = (eventsArray = []) => {
+export const setBindEvents = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData)
+        ? [eventsData]
+        : eventsData;
+
     /**
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
     mainStore.set('bindEvents', (/** @type {Array} */ prev) => {
-        return [...prev, { [id]: eventsArray }];
+        return [...prev, { [id]: eventsDataParsed }];
     });
 
     return id;

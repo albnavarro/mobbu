@@ -1,7 +1,6 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { checkType } from '../../mobCore/store/storeType';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
 import {
@@ -177,18 +176,15 @@ export const registerGenericElement = ({
         },
         onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
         bindEvents: (/** @type{Array|Object} */ eventsData) => {
-            const eventsArrayParsed = checkType(Object, eventsData)
-                ? [eventsData]
-                : eventsData;
-
-            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsArrayParsed)}"`;
+            return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
         },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             component: targetComponent = '', // use alias to maintain ured naming convention.
             props = () => {},
             clean = false,
-            bindProps: dynamicProps, // use alias to maintain ured naming convention.
+            bindProps: bindPropsFromRepeater, // use alias to maintain ured naming convention.
+            bindEvents: bindEventsFromRepeater,
             beforeUpdate = () => {},
             afterUpdate = () => {},
             key,
@@ -200,7 +196,7 @@ export const registerGenericElement = ({
              * Remove watch state from bind.
              */
             const dynamicPropsSanitized = removeWatchFromDynamicProps({
-                dynamicProps,
+                dynamicProps: bindPropsFromRepeater,
                 stateToWatch,
             });
 
@@ -215,6 +211,7 @@ export const registerGenericElement = ({
                     props,
                     clean,
                     dynamicProps: dynamicPropsSanitized,
+                    bindEvents: bindEventsFromRepeater,
                     beforeUpdate,
                     afterUpdate,
                     getChildren,

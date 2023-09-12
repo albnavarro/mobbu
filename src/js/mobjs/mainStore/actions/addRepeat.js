@@ -19,6 +19,7 @@ import { mainStore } from '../mainStore';
  * @param { Function } mainObject.obj.watch
  * @param { Function } mainObject.obj.emit
  * @param { Object } mainObject.obj.dynamicProps
+ * @param { Object|Array } mainObject.obj.bindEvents
  *
  * @description
  * Add new repeater id and props.

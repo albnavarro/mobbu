@@ -3,6 +3,7 @@
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setBindProps, setStaticProps } from '../mainStore/actions/props';
 import {
+    ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_RUNTIME,
@@ -11,6 +12,7 @@ import {
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { setCurrentValueList } from '../mainStore/actions/currentListValue';
+import { setBindEvents } from '../mainStore/actions/bindEvents';
 
 /**
  * @param {Object} obj
@@ -21,6 +23,7 @@ import { setCurrentValueList } from '../mainStore/actions/currentListValue';
  * @param {function} obj.getChildren
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
+ * @param {Array|object} obj.bindEvents
  * @param {string} obj.runtimeId
  * @return {Array}
  *
@@ -37,6 +40,7 @@ export const addWithoutKey = ({
     runtimeId = '',
     props = {},
     dynamicProps,
+    bindEvents,
 }) => {
     /**
      * @type {number}
@@ -76,10 +80,18 @@ export const addWithoutKey = ({
                     ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
                     : '';
 
+                /**
+                 * Gat and save bindEvents.
+                 */
+                const currentBindEvents = dynamicProps
+                    ? `${ATTR_BIND_EVENTS}=${setBindEvents(bindEvents)}`
+                    : '';
+
                 return /* HTML */ `
                     <component
                         ${ATTR_PROPS}=${currentProps}
                         ${currentDynamicProps}
+                        ${currentBindEvents}
                         ${ATTR_IS_RUNTIME}="${runtimeId}"
                         ${ATTR_WILL_COMPONENT}="${targetComponent}"
                         ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({

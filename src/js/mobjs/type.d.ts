@@ -302,7 +302,11 @@ export interface componentType {
      * ></MyComponent>
      * ```
      */
-    bindEvents(arg0: [{ [key: string]: (arg0: Object) => {} }]): void;
+    bindEvents(
+        arg0:
+            | { [key: string]: (arg0: Object) => {} }
+            | [{ [key: string]: (arg0: Object) => {} }]
+    ): void;
 
     /**
      *
@@ -377,6 +381,9 @@ export interface componentType {
                          childrenStet: state
                      };
                  },
+             },
+             bindEvents: {
+                 eventName: (e) => myFunction(e)
              },
              beforeUpdate: ({ container, childrenId }) => {
                  ....
@@ -479,6 +486,15 @@ export interface componentType {
                 current: any
             ) => Object;
         };
+
+        /**
+         * @description
+         *
+         * Bind events.
+         */
+        bindEvents:
+            | { [key: string]: (arg0: Object) => {} }
+            | [{ [key: string]: (arg0: Object) => {} }];
 
         /**
          * @description

@@ -17,6 +17,7 @@ import { listKeyExist } from './utils';
  * @param {function} obj.getChildren
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
+ * @param {Array|Object} obj.bindEvents
  * @param {string} obj.key
  * @param {string} obj.id
  * @return {Promise.<Array.<Object>>}
@@ -32,6 +33,7 @@ export const updateChildren = async ({
     getChildren = () => {},
     props = {},
     dynamicProps,
+    bindEvents,
     key = '',
     id,
 }) => {
@@ -69,6 +71,7 @@ export const updateChildren = async ({
         getChildren,
         props,
         dynamicProps,
+        bindEvents,
         key,
         id,
     });
