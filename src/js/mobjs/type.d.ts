@@ -528,6 +528,21 @@ export interface componentType {
          *         eventName: (e, { current, index }) => myFunction(e)
          *     },
          * })}
+         *
+         *
+         * ${repeat([
+         *     {
+         *         bindEvents: {
+         *             eventName: (e, { current, index }) => myFunction(e)
+         *         },
+         *     },
+         *     {
+         *         bindEvents: {
+         *             eventName: (e, { current, index }) => myFunction(e)
+         *         },
+         *     },
+         * ])}
+         *
          * ```
          */
         bindEvents:
