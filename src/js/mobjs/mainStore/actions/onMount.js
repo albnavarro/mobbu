@@ -74,7 +74,7 @@ export const fireOnMountCallBack = async ({ id, element }) => {
 
 /**
  * @param {Object} obj
- * @param {Boolean|'UNSET'} obj.asyncLoading
+ * @param {Boolean|'UNSET'} obj.isolateOnMount
  * @param {String} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @returns Function
@@ -82,29 +82,29 @@ export const fireOnMountCallBack = async ({ id, element }) => {
  * @description
  * Fire onMount callback.
  */
-export const executeFireOnMountCallBack = ({ asyncLoading, id, element }) => {
-    const asyncLoadingParsed =
-        asyncLoading === UNSET
-            ? getDefaultComponent().asyncLoading
-            : asyncLoading;
+export const executeFireOnMountCallBack = ({ isolateOnMount, id, element }) => {
+    const isolateOnMountParsed =
+        isolateOnMount === UNSET
+            ? getDefaultComponent().isolateOnMount
+            : isolateOnMount;
 
-    return asyncLoadingParsed
-        ? (async () => {
-              await fireOnMountCallBack({
+    return isolateOnMountParsed
+        ? /**
+           * With heavy onMount function fire next one frame after.
+           */
+          new Promise((resolve) => {
+              fireOnMountCallBack({
                   id,
                   element,
               });
 
-              /**
-               * With heavy onMount function fire next one frame after.
-               */
-              return new Promise((resolve) => {
+              setTimeout(() => {
                   mobCore.useFrame(() => {
                       mobCore.useNextTick(() => {
                           resolve({ success: true });
                       });
                   });
               });
-          })()
+          })
         : fireOnMountCallBack({ id, element });
 };

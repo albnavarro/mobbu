@@ -4,7 +4,8 @@ import { PageTransition } from './pageTransition';
 export const pageTransitionComponentDef = createComponent({
     name: 'PageTransition',
     component: PageTransition,
-    asyncLoading: true,
+    isolateOnMount: true,
+    isolateCreation: true,
     exportState: ['url'],
     state: {
         url: () => ({

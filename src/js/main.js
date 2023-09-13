@@ -42,8 +42,8 @@ mobCore.useLoad(() => {
         await loadData();
 
         setDefaultComponent({
-            asyncCreation: false,
-            asyncLoading: false,
+            isolateCreation: false,
+            isolateOnMount: false,
             scoped: false,
         });
 

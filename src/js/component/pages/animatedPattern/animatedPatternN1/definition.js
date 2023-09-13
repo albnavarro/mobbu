@@ -5,7 +5,8 @@ import { AnimatedPatternN1 } from './animatedPatternN1';
 export const animatedPatternN1Def = createComponent({
     name: 'AnimatedPatternN1',
     component: AnimatedPatternN1,
-    asyncLoading: true,
+    isolateCreation: true,
+    isolateOnMount: true,
     exportState: [
         'numberOfRow',
         'numberOfColumn',

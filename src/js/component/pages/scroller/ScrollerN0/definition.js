@@ -5,7 +5,8 @@ import { ScrollerN0 } from './scrollerN0';
 export const scrollerN0Def = createComponent({
     name: 'scrollerN0',
     component: ScrollerN0,
-    asyncLoading: true,
+    isolateOnMount: true,
+    isolateCreation: true,
     exportState: [
         'numberOfRow',
         'numberOfColumn',

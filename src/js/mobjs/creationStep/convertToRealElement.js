@@ -149,7 +149,7 @@ const executeConversion = ({ placeholderElement, content }) => {
  * @param {Object} obj
  * @param {HTMLElement} obj.placeholderElement
  * @param {String} obj.content
- * @param {Boolean|'UNSET'} obj.asyncCreation
+ * @param {Boolean|'UNSET'} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
@@ -160,14 +160,14 @@ const executeConversion = ({ placeholderElement, content }) => {
 export const convertToRealElement = ({
     placeholderElement,
     content,
-    asyncCreation,
+    isolateCreation,
 }) => {
-    const asyncCreationParsed =
-        asyncCreation === UNSET
-            ? getDefaultComponent().asyncCreation
-            : asyncCreation;
+    const isolateCreationParsed =
+        isolateCreation === UNSET
+            ? getDefaultComponent().isolateCreation
+            : isolateCreation;
 
-    return asyncCreationParsed
+    return isolateCreationParsed
         ? new Promise((resolve) => {
               mobCore.useFrame(() => {
                   const newElement = executeConversion({

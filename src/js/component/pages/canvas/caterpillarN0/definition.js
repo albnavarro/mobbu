@@ -5,7 +5,8 @@ import { CaterpillarN0 } from './caterpillarN0';
 export const caterpillarN0Def = createComponent({
     name: 'CaterpillarN0',
     component: CaterpillarN0,
-    asyncLoading: true,
+    isolateOnMount: true,
+    isolateCreation: true,
     exportState: [
         'amountOfPath',
         'width',

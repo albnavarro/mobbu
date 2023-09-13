@@ -153,7 +153,7 @@ export const parseComponentsRecursive = async ({
     const key = componentToParse?.dataset?.component ?? '';
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
-    const { asyncLoading, asyncCreation, scoped } = componentParams;
+    const { isolateOnMount, isolateCreation, scoped } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
@@ -197,7 +197,7 @@ export const parseComponentsRecursive = async ({
     const { newElement } = await convertToRealElement({
         content,
         placeholderElement,
-        asyncCreation,
+        isolateCreation,
     });
 
     /**
@@ -267,7 +267,7 @@ export const parseComponentsRecursive = async ({
 
     if (scopedParsed)
         await executeFireOnMountCallBack({
-            asyncLoading,
+            isolateOnMount,
             id,
             element: newElement,
         });
@@ -280,14 +280,14 @@ export const parseComponentsRecursive = async ({
      * 3 - First repat from current state.
      */
     functionToFireAtTheEnd.push({
-        onMount: () => {
+        onMount: async () => {
             if (scopedParsed) return;
 
             /**
              * Fire onMount callback at the end of current parse.
              */
-            executeFireOnMountCallBack({
-                asyncLoading,
+            await executeFireOnMountCallBack({
+                isolateOnMount,
                 id,
                 element: newElement,
             });
