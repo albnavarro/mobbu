@@ -180,12 +180,12 @@ export const convertToRealElement = ({
                   });
               });
           })
-        : (() => {
+        : new Promise((resolve) => {
               const newElement = executeConversion({
                   placeholderElement,
                   content,
               });
 
-              return { newElement };
-          })();
+              resolve({ newElement });
+          });
 };
