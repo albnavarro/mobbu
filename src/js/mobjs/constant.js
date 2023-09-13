@@ -119,3 +119,5 @@ export const frameDelayAfterParse = 5;
  * @type {{current:Object, index: Number}};
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
+
+export const UNSET = 'UNSET';

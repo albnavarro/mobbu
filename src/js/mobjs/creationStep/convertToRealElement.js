@@ -9,7 +9,9 @@ import {
     ATTR_PROPS_FROM_SLOT_PARTIAL,
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
+    UNSET,
 } from '../constant';
+import { getDefaultComponent } from '../createComponent';
 
 /**
  * @param {Object} obj
@@ -147,12 +149,12 @@ const executeConversion = ({ placeholderElement, content }) => {
  * @param {Object} obj
  * @param {HTMLElement} obj.placeholderElement
  * @param {String} obj.content
- * @param {Boolean} obj.asyncCreation
+ * @param {Boolean|'UNSET'} obj.asyncCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
  * Add content to component
- * Return new Element immediatly or after first usable animation Frame.
+
  *
  */
 export const convertToRealElement = ({
@@ -160,7 +162,12 @@ export const convertToRealElement = ({
     content,
     asyncCreation,
 }) => {
-    return asyncCreation
+    const asyncCreationParsed =
+        asyncCreation === UNSET
+            ? getDefaultComponent().asyncCreation
+            : asyncCreation;
+
+    return asyncCreationParsed
         ? new Promise((resolve) => {
               mobCore.useFrame(() => {
                   const newElement = executeConversion({

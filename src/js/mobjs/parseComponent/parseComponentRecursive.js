@@ -16,6 +16,7 @@ import {
     ATTR_IS_RUNTIME,
     ATTR_REPEATID,
     ATTR_WILL_COMPONENT,
+    UNSET,
 } from '../constant';
 import {
     getComponentsReference,
@@ -28,6 +29,7 @@ import {
     applyBindEvents,
     removeOrphansBindEvent,
 } from '../mainStore/actions/bindEvents';
+import { getDefaultComponent } from '../createComponent';
 
 /**
  * @param {Object} obj
@@ -259,7 +261,11 @@ export const parseComponentsRecursive = async ({
      * Fire immediatly onMount callback, scoped to current component DOM.
      * Child is ignored.
      */
-    if (scoped)
+
+    const scopedParsed =
+        scoped === UNSET ? getDefaultComponent().scoped : scoped;
+
+    if (scopedParsed)
         await executeFireOnMountCallBack({
             asyncLoading,
             id,
@@ -275,7 +281,7 @@ export const parseComponentsRecursive = async ({
      */
     functionToFireAtTheEnd.push({
         onMount: () => {
-            if (scoped) return;
+            if (scopedParsed) return;
 
             /**
              * Fire onMount callback at the end of current parse.

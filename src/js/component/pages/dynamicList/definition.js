@@ -57,7 +57,6 @@ export const dynamicListDef = createComponent({
 export const dynamicListCardDef = createComponent({
     name: 'DynamicListCard',
     component: DynamicListCard,
-    asyncCreation: false,
     scoped: true,
     exportState: ['isFull', 'label', 'index', 'counter'],
     state: {

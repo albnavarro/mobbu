@@ -1,11 +1,12 @@
 // @ts-check
 
+export { createComponent } from './createComponent';
+export { setDefaultComponent } from './createComponent';
 export { removeAndDestroyById } from './componentStore/action/removeAndDestroy';
 export { parseDom } from './parseComponent/componentParse';
 export { componentStore } from './componentStore/store';
 export { mainStore } from './mainStore/mainStore';
 export { loadUrl } from './route/router';
-export { createComponent } from './route/utils';
 export { inizializeApp } from './route';
 export { getIdByInstanceName } from './componentStore/action/component';
 export { watchById } from './componentStore/action/watch';

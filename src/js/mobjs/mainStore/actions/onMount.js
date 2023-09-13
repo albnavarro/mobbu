@@ -2,6 +2,8 @@
 
 import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
+import { UNSET } from '../../constant';
+import { getDefaultComponent } from '../../createComponent';
 import { mainStore } from '../mainStore';
 
 /**
@@ -72,7 +74,7 @@ export const fireOnMountCallBack = async ({ id, element }) => {
 
 /**
  * @param {Object} obj
- * @param {Boolean} obj.asyncLoading
+ * @param {Boolean|'UNSET'} obj.asyncLoading
  * @param {String} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @returns Function
@@ -81,7 +83,12 @@ export const fireOnMountCallBack = async ({ id, element }) => {
  * Fire onMount callback.
  */
 export const executeFireOnMountCallBack = ({ asyncLoading, id, element }) => {
-    return asyncLoading
+    const asyncLoadingParsed =
+        asyncLoading === UNSET
+            ? getDefaultComponent().asyncLoading
+            : asyncLoading;
+
+    return asyncLoadingParsed
         ? (async () => {
               await fireOnMountCallBack({
                   id,

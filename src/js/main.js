@@ -4,7 +4,7 @@ import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
 import { core } from './mobMotion';
-import { inizializeApp } from './mobjs';
+import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
 // import { storeTest } from './test/storeTest';
@@ -40,6 +40,12 @@ mobCore.useLoad(() => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {
         await loadData();
+
+        setDefaultComponent({
+            asyncCreation: false,
+            asyncLoading: false,
+            scoped: false,
+        });
 
         inizializeApp({
             rootId: '#root',
