@@ -19,6 +19,7 @@ import {
     UNSET,
 } from '../constant';
 import {
+    findComponentToParse,
     getComponentsReference,
     getSelectorDefaultTag,
     selectorDefault,
@@ -70,42 +71,34 @@ export const parseComponentsRecursive = async ({
      * Runtime deafult
      * Select [data-component][is-runtime='<hash>']:not[data-mobjs]
      */
-    const selectoreRuntime = `[${ATTR_WILL_COMPONENT}][${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
+    const selectoreRuntime = [
+        `[${ATTR_WILL_COMPONENT}][${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`,
+    ];
 
     /**
      * Select runtiem component by tagname.
      * Select <component name>[is-runtime='<hash>']:not[data-mobjs]
      */
-    const selectoreRuntimeTag = Object.values(componentsReference)
-        .map((value) => {
+    const selectoreRuntimeTag = Object.values(componentsReference).map(
+        (value) => {
             return `${value}[${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
-        })
-        .join(', ');
-
-    /**
-     * @type {Array.<HTMLElement>} componentToParseArray
-     */
-    const componentToParseArray = /** @type {Array.<HTMLElement>} */ (
-        runtimeId
-            ? [
-                  ...element.querySelectorAll(
-                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
-                  ),
-              ]
-            : [
-                  ...element.querySelectorAll(
-                      `${selectorDefault}, ${selectorDefaultTag}`
-                  ),
-              ]
+        }
     );
 
     /**
-     * @type {HTMLElement} componentToParse
-     *
-     * Get first item.
+     * @type {Array<String>}
      */
-    const componentToParse = componentToParseArray?.[0];
+    const componentToParseArray = runtimeId
+        ? [...selectoreRuntime, ...selectoreRuntimeTag]
+        : [...selectorDefault, ...selectorDefaultTag];
 
+    /**
+     * @type {HTMLElement|null}
+     */
+    const componentToParse = findComponentToParse(
+        componentToParseArray,
+        element
+    );
     /**
      * If there is no component end.
      */
