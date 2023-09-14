@@ -102,13 +102,18 @@ export const parseComponentsRecursive = async ({
         element
     );
 
+    const parseLimitReached =
+        currentIterationCounter === getDefaultComponent().maxParseIteration;
+
+    if (parseLimitReached)
+        console.warn(
+            `dom parse reached max parse limit: ${currentIterationCounter}`
+        );
+
     /**
      * If there is no component end.
      */
-    if (
-        !componentToParse ||
-        currentIterationCounter === getDefaultComponent().maxParseIteration
-    ) {
+    if (!componentToParse || parseLimitReached) {
         /**
          * If all the parser is ended.
          * ( remove active parser and return how many parser is active)
