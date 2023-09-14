@@ -4,6 +4,7 @@ let defaultComponent = {
     isolateCreation: false,
     isolateOnMount: false,
     scoped: false,
+    maxParseIteration: 5000,
 };
 
 /**
@@ -17,6 +18,8 @@ let defaultComponent = {
  * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
  *  This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
  *  `default = false`.
+ * @param {Number} [ obj.maxParseIteration ] - DOM creation use a recursive function, this value mimit the number of iteration.
+ * - Prevent infinite loop, in case of error or wrong component incapsulation
  *
  * @returns Object
  *

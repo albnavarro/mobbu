@@ -38,6 +38,7 @@ import { getDefaultComponent } from '../createComponent';
  * @param {string|null} obj.runtimeId
  * @param {Boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Number} [ obj.currentIterationCounter ]
  * @return {Promise<void>}
  *
  * @description
@@ -48,6 +49,7 @@ export const parseComponentsRecursive = async ({
     runtimeId,
     functionToFireAtTheEnd = [],
     isCancellable = true,
+    currentIterationCounter = 0,
 }) => {
     if (!element) return;
 
@@ -99,10 +101,14 @@ export const parseComponentsRecursive = async ({
         componentToParseArray,
         element
     );
+
     /**
      * If there is no component end.
      */
-    if (!componentToParse) {
+    if (
+        !componentToParse ||
+        currentIterationCounter === getDefaultComponent().maxParseIteration
+    ) {
         /**
          * If all the parser is ended.
          * ( remove active parser and return how many parser is active)
@@ -160,6 +166,7 @@ export const parseComponentsRecursive = async ({
             runtimeId,
             functionToFireAtTheEnd,
             isCancellable,
+            currentIterationCounter: (currentIterationCounter += 1),
         });
 
         return;
@@ -304,5 +311,6 @@ export const parseComponentsRecursive = async ({
         runtimeId,
         functionToFireAtTheEnd,
         isCancellable,
+        currentIterationCounter: (currentIterationCounter += 1),
     });
 };

@@ -24,6 +24,7 @@ export const parseComponents = async ({
         element,
         runtimeId,
         isCancellable,
+        currentIterationCounter: 0,
     });
 };
 
