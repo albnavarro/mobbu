@@ -20,7 +20,7 @@ export const HorizontalScrollerButton = ({
     });
 
     return render(/* HTML */ `
-        <horizontal-scroller-button>
+        <li>
             <button
                 type="button"
                 data-id="${id}"
@@ -28,6 +28,6 @@ export const HorizontalScrollerButton = ({
             >
                 ${id}
             </button>
-        </horizontal-scroller-button>
+        </li>
     `);
 };

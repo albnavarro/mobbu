@@ -52,10 +52,10 @@ export const Navigation = ({ render, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
 
     return render(/* HTML */ `
-        <mob-navigation class="l-navigation">
+        <nav class="l-navigation">
             <ul class="l-navigation__list">
                 ${getItems({ data, staticProps, setState, bindProps })}
             </ul>
-        </mob-navigation>
+        </nav>
     `);
 };

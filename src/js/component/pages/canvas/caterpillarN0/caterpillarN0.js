@@ -18,10 +18,10 @@ export const CaterpillarN0 = ({ onMount, render, getState }) => {
     });
 
     return render(/* HTML */ `
-        <caterpillar-n0 class="c-canvas">
+        <div class="c-canvas">
             <div class="c-canvas__wrap c-canvas__wrap--border">
                 <canvas></canvas>
             </div>
-        </caterpillar-n0>
+        </div>
     `);
 };

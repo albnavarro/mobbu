@@ -15,48 +15,6 @@ import { getComponentList } from './mainStore/actions/componentList';
 import { setStaticProps } from './mainStore/actions/props';
 
 /**
- * @param {Array<String>} selectorArray
- * @param {HTMLElement} rootElement
- * @returns {HTMLElement|null}
- *
- * @description
- * Find first component to parse in DOM.
- * Prefer querySelector vs querySelectorAll and get [0] index.
- */
-export const findComponentToParse = (selectorArray, rootElement) => {
-    // TODO how can tsCheck can work here ?
-    // return selectorArray.reduce((previous, current) => {
-    //     if (previous) return previous;
-    //     return rootElement.querySelector(current) ?? previous;
-    // }, null);
-
-    /**
-     * @type {String|undefined}
-     */
-    const shouldBeComponent = selectorArray.find((current) =>
-        rootElement.querySelector(current)
-    );
-
-    return shouldBeComponent
-        ? rootElement.querySelector(shouldBeComponent)
-        : null;
-};
-
-/**
- * @param {Array<String>} selectorArray
- * @param {HTMLElement} rootElement
- * @returns {Array|[]}
- *
- * @description
- * Check if inside a repater item there is a component to parse.
- */
-export const findComponentToParseRuntime = (selectorArray, rootElement) => {
-    return selectorArray
-        .map((current) => rootElement.querySelector(current))
-        .filter(Boolean);
-};
-
-/**
  * @param {Object} obj
  * @param {HTMLElement} obj.container
  * @returns {{uniqueId:String, hasComponentInside: Number}}
@@ -67,7 +25,7 @@ export const findComponentToParseRuntime = (selectorArray, rootElement) => {
  */
 export const createRunTimeComponent = ({ container }) => {
     /**
-     * @type {Array<String>}
+     * @type {String}
      */
     const selectorDefaultTag = getSelectorDefaultTag();
 
@@ -77,18 +35,17 @@ export const createRunTimeComponent = ({ container }) => {
     const uniqueId = mobCore.getUnivoqueId();
 
     /**
-     * @type {Array.<HTMLElement>} innerComponents
+     * @type {NodeListOf.<HTMLElement>} innerComponents
      */
-    const innerComponents = findComponentToParseRuntime(
-        [...selectorDefault, ...selectorDefaultTag],
-        container
+    const innerComponents = container.querySelectorAll(
+        `${selectorDefault}, ${selectorDefaultTag}`
     );
 
     [...innerComponents].forEach(
         (component) => (component.dataset[ATTR_IS_RUNTIME_PARTIAL] = uniqueId)
     );
 
-    return { uniqueId, hasComponentInside: innerComponents.length };
+    return { uniqueId, hasComponentInside: [...innerComponents].length };
 };
 
 /**
@@ -123,20 +80,20 @@ export const getComponentsReference = () => {
 export const getSelectorDefaultTag = () => {
     const componentsReference = getComponentsReference();
 
-    return Object.values(componentsReference).map((value) => {
-        return `${value}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
-    });
+    return Object.values(componentsReference)
+        .map((value) => {
+            return `${value}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
+        })
+        .join(', ');
 };
 
 /**
- * @type {Array<String>}
+ * @type {String}
  *
  * Non runtime default
  * Select [data-component]:not[is-runtime]:not[data-mobjs]
  */
-export const selectorDefault = [
-    `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}]:not([${ATTR_IS_COMPONENT}]))`,
-];
+export const selectorDefault = `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}]:not([${ATTR_IS_COMPONENT}]))`;
 
 /**
  * @param {String} name

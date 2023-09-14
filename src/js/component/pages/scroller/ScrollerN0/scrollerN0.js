@@ -29,7 +29,7 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <scroller-n0>
+        <div>
             <div class="c-canvas c-canvas--fixed ">
                 <code-button
                 ${staticProps({
@@ -63,6 +63,6 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h2>
             </div>
-        </scroller-n0>
+        </div>
     `);
 };

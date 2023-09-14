@@ -79,7 +79,5 @@ export const PageTransition = ({ render, onMount, watch }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `<page-transition
-        class="c-page-transiotion"
-    ></page-transition>`);
+    return render(/* HTML */ `<div class="c-page-transiotion"></div>`);
 };

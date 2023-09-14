@@ -15,20 +15,17 @@ export const setComponentList = (list = {}) => {
 
     mainStore.set('componentList', listParsed);
 
-    Object.entries(listParsed).forEach(([key, value]) => {
-        const {
-            componentParams: { type, DOMprimitive },
-        } = value;
-
+    /**
+     * Register custom HTML tag component.
+     * Thios custom TAG will be converted in native DOM element during parse.
+     */
+    Object.entries(listParsed).forEach(([key]) => {
         customElements.define(
             key,
-            class extends DOMprimitive {
+            class extends HTMLElement {
                 constructor() {
-                    super(); /* ... */
+                    super();
                 }
-            },
-            {
-                extends: type,
             }
         );
     });

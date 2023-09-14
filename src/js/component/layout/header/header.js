@@ -32,7 +32,7 @@ export const Header = ({ render, onMount, staticProps }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <mob-header class="l-header">
+        <header class="l-header">
             <div class="l-header__container">
                 <div class="l-header__grid">
                     <mob-header-toggle></mob-header-toggle>
@@ -69,6 +69,6 @@ export const Header = ({ render, onMount, staticProps }) => {
                     </code-button>
                 </div>
             </div>
-        </mob-header>
+        </header>
     `);
 };

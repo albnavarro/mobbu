@@ -57,8 +57,8 @@ export const Headernav = ({ render, onMount }) => {
     });
 
     return render(/* HTML */ `
-        <mob-header-nav class="l-header__sidenav">
+        <ul class="l-header__sidenav">
             ${additems()}
-        </mob-header-nav>
+        </ul>
     `);
 };

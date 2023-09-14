@@ -80,7 +80,7 @@ export const DynamicList = async ({
     // await asyncTest();
 
     return render(/* HTML */ `
-        <dynamic-list class="dynamic-list">
+        <div class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
                     <button class="dynamic-list__btn state1">
@@ -271,6 +271,6 @@ export const DynamicList = async ({
                     </dynamic-list-card>
                 </div>
             </div>
-        </dynamic-list>
+        </div>
     `);
 };

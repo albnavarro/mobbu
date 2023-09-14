@@ -32,7 +32,7 @@ export const DynamicListSlot = ({
     });
 
     return render(/* HTML */ `
-        <dynamic-list-slot class="dynamic-slot">
+        <div class="dynamic-slot">
             <h3 class="dynamic-slot__label">Component inside slot</h3>
             <div>${staticFromSlot}</div>
             <div>${staticFromComponent}</div>
@@ -44,6 +44,6 @@ export const DynamicListSlot = ({
                 Reactive state from parent slot scope (dynamicCard):
             </h3>
             <div class="js-t2-state"></div>
-        </dynamic-list-slot>
+        </div>
     `);
 };

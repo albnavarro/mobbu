@@ -22,7 +22,7 @@ export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <caterpillar-n1>
+        <div>
             <code-button
                 ${staticProps({
                     drawers: [
@@ -52,6 +52,6 @@ export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
                     <canvas></canvas>
                 </div>
             </div>
-        </caterpillar-n1>
+        </div>
     `);
 };

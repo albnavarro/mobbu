@@ -30,7 +30,6 @@ export const NavigationButton = ({ getState, render, onMount, watch }) => {
 
     return render(/* HTML */ `
         <button
-            is="mob-navigation-button"
             type="button"
             class="l-navigation__link ${arrowClass} ${subMenuClass}"
         >

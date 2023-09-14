@@ -157,7 +157,7 @@ export const CodeOverlay = ({
     });
 
     return render(/* HTML */ `
-        <code-overlay class="code-overlay js-overlay">
+        <div class="code-overlay js-overlay">
             <span class="code-overlay__background js-overlay-background"></span>
             <div class="code-overlay__wrap js-overlay-wrap">
                 <button
@@ -214,6 +214,6 @@ export const CodeOverlay = ({
                     </div>
                 </div>
             </div>
-        </code-overlay>
+        </div>
     `);
 };

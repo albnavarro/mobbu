@@ -30,12 +30,12 @@ export const HeaderToggle = ({ onMount, render }) => {
     });
 
     return render(/* HTML */ `
-        <mob-header-toggle type="button" class="l-header__toggle">
+        <button type="button" class="l-header__toggle">
             <div class="hamburger hamburger--squeeze">
                 <div class="hamburger-box">
                     <div class="hamburger-inner"></div>
                 </div>
             </div>
-        </mob-header-toggle>
+        </button>
     `);
 };

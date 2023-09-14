@@ -57,7 +57,7 @@ export const NavigationSubmenu = ({
     });
 
     return render(/* HTML */ `
-        <mob-navigation-submenu class="l-navigation__item has-child">
+        <li class="l-navigation__item has-child">
             <mob-navigation-button
                 ${staticProps({
                     label,
@@ -80,6 +80,6 @@ export const NavigationSubmenu = ({
             <ul class="l-navigation__submenu">
                 ${getSubmenu(children, staticProps)}
             </ul>
-        </mob-navigation-submenu>
+        </li>
     `);
 };

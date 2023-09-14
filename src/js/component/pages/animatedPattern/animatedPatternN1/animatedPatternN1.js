@@ -27,7 +27,7 @@ export const AnimatedPatternN1 = ({
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <animatedPattern-n1>
+        <div>
             <code-button
                 ${staticProps({
                     drawers: [
@@ -57,6 +57,6 @@ export const AnimatedPatternN1 = ({
                     <canvas></canvas>
                 </div>
             </div>
-        </animatedPattern-n1>
+        </div>
     `);
 };

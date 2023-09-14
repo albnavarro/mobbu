@@ -19,7 +19,6 @@ import {
     UNSET,
 } from '../constant';
 import {
-    findComponentToParse,
     getComponentsReference,
     getSelectorDefaultTag,
     selectorDefault,
@@ -88,19 +87,28 @@ export const parseComponentsRecursive = async ({
     );
 
     /**
-     * @type {Array<String>}
+     * @type {Array.<HTMLElement>} componentToParseArray
      */
-    const componentToParseArray = runtimeId
-        ? [...selectoreRuntime, ...selectoreRuntimeTag]
-        : [...selectorDefault, ...selectorDefaultTag];
+    const componentToParseArray = /** @type {Array.<HTMLElement>} */ (
+        runtimeId
+            ? [
+                  ...element.querySelectorAll(
+                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
+                  ),
+              ]
+            : [
+                  ...element.querySelectorAll(
+                      `${selectorDefault}, ${selectorDefaultTag}`
+                  ),
+              ]
+    );
 
     /**
-     * @type {HTMLElement|null}
+     * @type {HTMLElement} componentToParse
+     *
+     * Get first item.
      */
-    const componentToParse = findComponentToParse(
-        componentToParseArray,
-        element
-    );
+    const componentToParse = componentToParseArray?.[0];
 
     const parseLimitReached =
         currentIterationCounter === getDefaultComponent().maxParseIteration;

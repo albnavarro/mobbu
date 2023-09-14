@@ -31,8 +31,8 @@ export const CodeButton = ({ getState, render, onMount }) => {
     });
 
     return render(/* HTML */ `
-        <code-button class="c-code-btn c-code-btn--${style}">
+        <button class="c-code-btn c-code-btn--${style}">
             <span class="c-code-btn__icon">${codeIcon}</span>
-        </code-button>
+        </button>
     `);
 };
