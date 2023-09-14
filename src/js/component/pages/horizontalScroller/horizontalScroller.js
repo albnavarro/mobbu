@@ -9,12 +9,12 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
-                <HorizontalScrollerSection
+                <horizontal-scroller-section
                     ${staticProps({
                         id: i,
                         pinClass,
                     })}
-                ></HorizontalScrollerSection>
+                ></horizontal-scroller-section>
             `;
         })
         .join('');
@@ -24,7 +24,7 @@ const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return /* HTML */ `
-                <HorizontalScrollerButton
+                <horizontal-scroller-button
                     ${staticProps({
                         id: i,
                     })}
@@ -41,7 +41,7 @@ const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
                             };
                         },
                     })}
-                ></HorizontalScrollerButton>
+                ></horizontal-scroller-button>
             `;
         })
         .join('');
@@ -123,9 +123,9 @@ export const HorizontalScroller = ({
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `<div class="l-h-scroller">
+    return render(/* HTML */ `<horizontal-scroller class="l-h-scroller">
         <div class="l-h-scroller__top">scroll down</div>
-        <CodeButton
+        <code-button
             ${staticProps({
                 drawers: [
                     {
@@ -148,7 +148,7 @@ export const HorizontalScroller = ({
                 style: 'legend',
             })}
         >
-        </CodeButton>
+        </code-button>
         <ul class="l-h-scroller__nav js-nav">
             ${getNav({
                 numOfCol: 10,
@@ -171,5 +171,5 @@ export const HorizontalScroller = ({
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>
-    </div>`);
+    </horizontal-scroller>`);
 };

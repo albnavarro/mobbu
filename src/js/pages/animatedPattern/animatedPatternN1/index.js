@@ -1,5 +1,5 @@
 export const animatedPatternN1 = () => {
     return /* HTML */ `<div class="l-padding">
-        <AnimatedPatternN1></AnimatedPatternN1>
+        <animatedpattern-n1></animatedpattern-n1>
     </div>`;
 };

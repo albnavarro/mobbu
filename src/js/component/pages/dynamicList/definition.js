@@ -5,7 +5,7 @@ import { DynamicListChildTest } from './dynamicListChildTest';
 import { DynamicListSlot } from './dynamicListSlot';
 
 export const dynamicListDef = createComponent({
-    name: 'DynamicList',
+    name: 'dynamic-list',
     component: DynamicList,
     state: {
         counter: () => ({
@@ -55,7 +55,7 @@ export const dynamicListDef = createComponent({
 });
 
 export const dynamicListCardDef = createComponent({
-    name: 'DynamicListCard',
+    name: 'dynamic-list-card',
     component: DynamicListCard,
     scoped: true,
     exportState: ['isFull', 'label', 'index', 'counter'],
@@ -80,7 +80,7 @@ export const dynamicListCardDef = createComponent({
 });
 
 export const testComponent3Def = createComponent({
-    name: 'DynamicListSlot',
+    name: 'dynamic-list-slot',
     component: DynamicListSlot,
     exportState: [
         'staticFromSlot',
@@ -109,6 +109,6 @@ export const testComponent3Def = createComponent({
 });
 
 export const testComponent4Def = createComponent({
-    name: 'DynamicListChildTest',
+    name: 'dynamic-list-child-test',
     component: DynamicListChildTest,
 });

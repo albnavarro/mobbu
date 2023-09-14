@@ -157,7 +157,7 @@ export const CodeOverlay = ({
     });
 
     return render(/* HTML */ `
-        <div class="code-overlay js-overlay">
+        <code-overlay class="code-overlay js-overlay">
             <span class="code-overlay__background js-overlay-background"></span>
             <div class="code-overlay__wrap js-overlay-wrap">
                 <button
@@ -174,7 +174,7 @@ export const CodeOverlay = ({
                     ${repeat({
                         clean: true,
                         watch: 'urls',
-                        component: 'CodeOverlayButton',
+                        component: 'code-overlay-button',
                         props: ({ current }) => {
                             const { label, source } = current;
 
@@ -214,6 +214,6 @@ export const CodeOverlay = ({
                     </div>
                 </div>
             </div>
-        </div>
+        </code-overlay>
     `);
 };

@@ -80,7 +80,7 @@ export const DynamicList = async ({
     // await asyncTest();
 
     return render(/* HTML */ `
-        <div class="dynamic-list">
+        <dynamic-list class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
                     <button class="dynamic-list__btn state1">
@@ -108,7 +108,7 @@ export const DynamicList = async ({
                         ${repeat({
                             watch: 'data',
                             key: 'key',
-                            component: 'DynamicListCard',
+                            component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
                                 return { label, index };
@@ -149,7 +149,7 @@ export const DynamicList = async ({
                     <div class="dynamic-list__list">
                         ${repeat({
                             watch: 'data2',
-                            component: 'DynamicListCard',
+                            component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
                                 return { label, index };
@@ -190,7 +190,7 @@ export const DynamicList = async ({
                         ${repeat({
                             watch: 'data3',
                             clean: true,
-                            component: 'DynamicListCard',
+                            component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
                                 return { label, index };
@@ -224,7 +224,7 @@ export const DynamicList = async ({
 
                 <div class="dynamic-list__content__bottom">
                     <h4 class="dynamic-list__title">Card outer list scope:</h4>
-                    <DynamicListCard
+                    <dynamic-list-card
                         ${bindEvents([
                             {
                                 click: (e) => console.log(e, 'click'),
@@ -248,7 +248,7 @@ export const DynamicList = async ({
                         <div ${useSlot('slot1')}>
                             <div class="c-test3-comp">slot1</div>
                         </div>
-                        <DynamicListSlot
+                        <dynamic-list-slot
                             ${useSlot('slot2')}
                             ${staticProps({
                                 staticFromComponent: `static prop from component`,
@@ -267,10 +267,10 @@ export const DynamicList = async ({
                                 },
                             })}
                         >
-                        </DynamicListSlot>
-                    </DynamicListCard>
+                        </dynamic-list-slot>
+                    </dynamic-list-card>
                 </div>
             </div>
-        </div>
+        </dynamic-list>
     `);
 };

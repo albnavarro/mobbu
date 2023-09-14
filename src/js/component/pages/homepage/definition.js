@@ -2,6 +2,6 @@ import { createComponent } from '../../../mobjs';
 import { HomeContent } from './homeContent';
 
 export const homePageComponentDef = createComponent({
-    name: 'HomeContent',
+    name: 'home-content',
     component: HomeContent,
 });

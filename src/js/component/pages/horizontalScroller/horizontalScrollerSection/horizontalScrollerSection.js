@@ -5,7 +5,7 @@ export const horizontalScrollerSection = ({ render, getState }) => {
     const { id, pinClass } = getState();
 
     return render(/* HTML */ `
-        <section
+        <horizontal-scroller-section
             class="l-h-scroller__column js-column"
             data-shadow="section-${id}"
         >
@@ -17,6 +17,6 @@ export const horizontalScrollerSection = ({ render, getState }) => {
                     <h1>${id}</h1>
                 </div>
             </div>
-        </section>
+        </horizontal-scroller-section>
     `);
 };

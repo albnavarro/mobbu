@@ -1,3 +1,3 @@
 export const dynamic_list = () => {
-    return /* HTML */ ` <DynamicList> </DynamicList> `;
+    return /* HTML */ ` <dynamic-list> </dynamic-list> `;
 };

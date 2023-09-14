@@ -2,7 +2,7 @@ import { createComponent } from '../../../../mobjs';
 import { horizontalScrollerSection } from './horizontalScrollerSection';
 
 export const horizontalScrollerSectionDef = createComponent({
-    name: 'horizontalScrollerSection',
+    name: 'horizontal-scroller-section',
     component: horizontalScrollerSection,
     exportState: ['id', 'pinClass'],
     state: {

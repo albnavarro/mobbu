@@ -3,7 +3,7 @@ import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN0 } from './caterpillarN0';
 
 export const caterpillarN0Def = createComponent({
-    name: 'CaterpillarN0',
+    name: 'caterpillar-n0',
     component: CaterpillarN0,
     isolateOnMount: true,
     isolateCreation: true,

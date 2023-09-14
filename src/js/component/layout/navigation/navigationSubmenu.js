@@ -8,13 +8,13 @@ function getSubmenu(children, staticProps) {
 
             return /* HTML */ `
                 <li class="l-navigation__submenu__item">
-                    <NavigationButton
+                    <mob-navigation-button
                         ${staticProps({
                             label,
                             url,
                             subMenuClass: 'l-navigation__link--submenu',
                         })}
-                    ></NavigationButton>
+                    ></mob-navigation-button>
                 </li>
             `;
         })
@@ -57,8 +57,8 @@ export const NavigationSubmenu = ({
     });
 
     return render(/* HTML */ `
-        <li class="l-navigation__item has-child">
-            <NavigationButton
+        <mob-navigation-submenu class="l-navigation__item has-child">
+            <mob-navigation-button
                 ${staticProps({
                     label,
                     url,
@@ -76,10 +76,10 @@ export const NavigationSubmenu = ({
                         return { isOpen };
                     },
                 })}
-            ></NavigationButton>
+            ></mob-navigation-button>
             <ul class="l-navigation__submenu">
                 ${getSubmenu(children, staticProps)}
             </ul>
-        </li>
+        </mob-navigation-submenu>
     `);
 };

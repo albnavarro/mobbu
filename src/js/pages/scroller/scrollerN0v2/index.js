@@ -2,7 +2,7 @@ import { staticProps } from '../../../mobjs';
 
 export const scrollerN0v2 = () => {
     return /* HTML */ `<div>
-        <ScrollerN0
+        <scroller-n0
             ${staticProps({
                 stagger: {
                     type: 'end',
@@ -12,6 +12,6 @@ export const scrollerN0v2 = () => {
                 },
                 reorder: false,
             })}
-        ></ScrollerN0>
+        ></scroller-n0>
     </div>`;
 };

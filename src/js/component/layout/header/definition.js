@@ -4,16 +4,16 @@ import { Headernav } from './headernav';
 import { HeaderToggle } from './headerToggle';
 
 export const headerComponentDef = createComponent({
-    name: 'Header',
+    name: 'mob-header',
     component: Header,
 });
 
 export const headerNavComponentDef = createComponent({
-    name: 'Headernav',
+    name: 'mob-header-nav',
     component: Headernav,
 });
 
 export const headerToggleComponentDef = createComponent({
-    name: 'HeaderToggle',
+    name: 'mob-header-toggle',
     component: HeaderToggle,
 });

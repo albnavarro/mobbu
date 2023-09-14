@@ -62,7 +62,7 @@ export const DynamicListCard = async ({
     const typeButton = isFull ? '' : "type='button'";
 
     return render(/* HTML */ `
-        <${tag} ${typeButton} class="dynamic-card ${isFullClass}">
+        <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
                 <div class="index"></div>
                 <div class="label"></div>
@@ -88,8 +88,8 @@ export const DynamicListCard = async ({
                         },
                     })}
                 ></slot>
-                <dynamicListChildTest></dynamicListChildTest>
+                <dynamic-list-child-test></dynamic-list-child-test>
             </div>
-        </${tag}>
+        </dynamic-list-card>
     `);
 };

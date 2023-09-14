@@ -2,7 +2,7 @@ import { createComponent } from '../../../mobjs';
 import { PageTransition } from './pageTransition';
 
 export const pageTransitionComponentDef = createComponent({
-    name: 'PageTransition',
+    name: 'page-transition',
     component: PageTransition,
     isolateOnMount: true,
     isolateCreation: true,

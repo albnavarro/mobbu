@@ -2,9 +2,9 @@ import { instanceName, useSlot } from '../mobjs';
 
 export const wrapper = () => {
     return /* HTML */ `
-        <CodeOverlay ${instanceName('codeOverlay')}></CodeOverlay>
-        <div data-component="Header"></div>
-        <NavigationContainer></NavigationContainer>
+        <code-overlay ${instanceName('codeOverlay')}></code-overlay>
+        <mob-header></mob-header>
+        <mob-navigation-container></mob-navigation-container>
         <main class="main">
             <div class="container">
                 <div class="inner-wrap">
@@ -12,9 +12,9 @@ export const wrapper = () => {
                 </div>
             </div>
         </main>
-        <div data-component="Footer">
-            <DebugButton ${useSlot('debug')}></DebugButton>
-        </div>
-        <PageTransition ${instanceName('page-transition')}></PageTransition>
+        <mob-footer>
+            <debug-button ${useSlot('debug')}></debug-button>
+        </mob-footer>
+        <page-transition ${instanceName('page-transition')}></page-transition>
     `;
 };

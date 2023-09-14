@@ -3,10 +3,10 @@
  */
 export const Footer = ({ render, slotName }) => {
     return render(/* HTML */ `
-        <footer class="l-footer">
+        <mob-footer class="l-footer">
             <div class="l-footer__container">
                 <slot ${slotName('debug')}></slot>
             </div>
-        </footer>
+        </mob-footer>
     `);
 };

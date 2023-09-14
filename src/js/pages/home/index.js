@@ -1,6 +1,6 @@
 export const home = () => {
     return /* HTML */ `<div class="l-index">
-        <HomeContent></HomeContent>
-        <CaterpillarN0></CaterpillarN0>
+        <home-content></home-content>
+        <caterpillar-n0></caterpillar-n0>
     </div>`;
 };

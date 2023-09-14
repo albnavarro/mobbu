@@ -60,6 +60,8 @@ export const createComponent = ({
     isolateCreation = UNSET,
     isolateOnMount = UNSET,
     scoped = UNSET,
+    type = 'div',
+    DOMprimitive = HTMLElement,
 }) => {
     return {
         [name]: {
@@ -70,6 +72,8 @@ export const createComponent = ({
                 isolateOnMount,
                 scoped,
                 state,
+                type,
+                DOMprimitive,
             },
         },
     };

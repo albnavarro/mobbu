@@ -6,7 +6,7 @@ import { CodeOverlayButton } from './codeOverlayButton';
  * Overlay state
  */
 export const codeOverlayDef = createComponent({
-    name: 'CodeOverlay',
+    name: 'code-overlay',
     component: CodeOverlay,
     isolateOnMount: true,
     isolateCreation: true,
@@ -36,7 +36,7 @@ export const codeOverlayDef = createComponent({
  * Button state ( each for every drawer ).
  */
 export const codeOverlayButtonDef = createComponent({
-    name: 'CodeOverlayButton',
+    name: 'code-overlay-button',
     component: CodeOverlayButton,
     exportState: ['key', 'selected', 'disable'],
     state: {

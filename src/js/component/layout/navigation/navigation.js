@@ -10,7 +10,7 @@ function getItems({ data, staticProps, setState, bindProps }) {
 
             return children
                 ? /* HTML */ `
-                      <NavigationSubmenu
+                      <mob-navigation-submenu
                           ${staticProps({
                               headerButton: {
                                   label,
@@ -29,16 +29,16 @@ function getItems({ data, staticProps, setState, bindProps }) {
                               },
                           })}
                       >
-                      </NavigationSubmenu>
+                      </mob-navigation-submenu>
                   `
                 : /* HTML */ `
                       <li class="l-navigation__item">
-                          <NavigationButton
+                          <mob-navigation-button
                               ${staticProps({
                                   label,
                                   url,
                               })}
-                          ></NavigationButton>
+                          ></mob-navigation-button>
                       </li>
                   `;
         })
@@ -52,10 +52,10 @@ export const Navigation = ({ render, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
 
     return render(/* HTML */ `
-        <nav class="l-navigation">
+        <mob-navigation class="l-navigation">
             <ul class="l-navigation__list">
                 ${getItems({ data, staticProps, setState, bindProps })}
             </ul>
-        </nav>
+        </mob-navigation>
     `);
 };

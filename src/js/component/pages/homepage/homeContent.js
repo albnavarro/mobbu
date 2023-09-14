@@ -30,8 +30,8 @@ export const HomeContent = ({ onMount, render }) => {
     });
 
     return render(/* HTML */ `
-        <div class="l-index__content">
+        <home-content class="l-index__content">
             <h1 class="l-index__title js-title">Lorem ipsum</h1>
-        </div>
+        </home-content>
     `);
 };

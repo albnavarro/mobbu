@@ -124,7 +124,7 @@ export const HorizontalScroller = ({
 
     return render(/* HTML */ `<div class="l-h-scroller">
         <div class="l-h-scroller__top">scroll down</div>
-        <CodeButton
+        <code-button
             ${staticProps({
                 drawers: [
                     {
@@ -143,7 +143,7 @@ export const HorizontalScroller = ({
                 style: 'legend',
             })}
         >
-        </CodeButton>
+        </code-button>
         <ul class="l-h-scroller__nav js-nav">
             ${getNav({ numOfCol: 10, setState, bindProps, staticProps })}
         </ul>

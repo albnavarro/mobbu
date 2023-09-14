@@ -1,5 +1,5 @@
 export const caterpillarN2 = () => {
     return /* HTML */ `<div class="l-padding">
-        <CaterpillarN2></CaterpillarN2>
+        <caterpillar-n2></caterpillar-n2>
     </div>`;
 };

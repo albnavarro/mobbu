@@ -29,9 +29,9 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <div>
+        <scroller-n0>
             <div class="c-canvas c-canvas--fixed ">
-                <CodeButton
+                <code-button
                 ${staticProps({
                     drawers: [
                         {
@@ -54,7 +54,7 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
                     style: 'legend',
                 })}
                 >
-                </CodeButton>
+                </code-button>
                 <div class="c-canvas__wrap c-canvas__wrap--border">
                     <canvas></canvas>
                 </div>
@@ -63,6 +63,6 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h2>
             </div>
-        </div>
+        </scroller-n0>
     `);
 };

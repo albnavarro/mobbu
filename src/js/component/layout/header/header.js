@@ -32,18 +32,18 @@ export const Header = ({ render, onMount, staticProps }) => {
     const { source } = caterpillarN1;
 
     return render(/* HTML */ `
-        <header class="l-header">
+        <mob-header class="l-header">
             <div class="l-header__container">
                 <div class="l-header__grid">
-                    <HeaderToggle></HeaderToggle>
+                    <mob-header-toggle></mob-header-toggle>
                     <button type="button" class="l-header__title">title</button>
                     <div class="l-header__utils">
-                        <Headernav></Headernav>
+                        <mob-header-nav></mob-header-nav>
                     </div>
                 </div>
                 <div class="l-header__navinfo">
                     <p class="p--small"></p>
-                    <CodeButton
+                    <code-button
                         ${staticProps({
                             drawers: [
                                 {
@@ -66,9 +66,9 @@ export const Header = ({ render, onMount, staticProps }) => {
                             style: 'green',
                         })}
                     >
-                    </CodeButton>
+                    </code-button>
                 </div>
             </div>
-        </header>
+        </mob-header>
     `);
 };

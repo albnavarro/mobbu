@@ -3,7 +3,7 @@ import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { AnimatedPatternN0 } from './animatedPatternN0';
 
 export const animatedPatternN0Def = createComponent({
-    name: 'AnimatedPatternN0',
+    name: 'animatedpattern-n0',
     component: AnimatedPatternN0,
     exportState: [
         'numberOfRow',

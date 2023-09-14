@@ -2,7 +2,7 @@ import { createComponent } from '../../../mobjs';
 import { HorizontalScroller } from './horizontalScroller';
 
 export const horizontalScrollerDef = createComponent({
-    name: 'HorizontalScroller',
+    name: 'horizontal-scroller',
     component: HorizontalScroller,
     isolateOnMount: true,
     isolateCreation: true,

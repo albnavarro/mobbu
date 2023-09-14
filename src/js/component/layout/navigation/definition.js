@@ -5,14 +5,14 @@ import { NavigationButton } from './navigationButton';
 import { NavigationSubmenu } from './navigationSubmenu';
 
 export const navigationComponentDef = createComponent({
-    name: 'NavigationContainer',
+    name: 'mob-navigation-container',
     component: NavigationContainer,
     isolateOnMount: true,
     isolateCreation: true,
 });
 
 export const navigationDef = createComponent({
-    name: 'Navigation',
+    name: 'mob-navigation',
     component: Navigation,
     state: {
         currentAccordionId: () => ({
@@ -23,7 +23,7 @@ export const navigationDef = createComponent({
 });
 
 export const navigationSubmenuDef = createComponent({
-    name: 'NavigationSubmenu',
+    name: 'mob-navigation-submenu',
     component: NavigationSubmenu,
     isolateOnMount: true,
     isolateCreation: true,
@@ -49,7 +49,9 @@ export const navigationSubmenuDef = createComponent({
 });
 
 export const navigationButtonDef = createComponent({
-    name: 'NavigationButton',
+    name: 'mob-navigation-button',
+    type: 'button',
+    DOMprimitive: HTMLButtonElement,
     component: NavigationButton,
     exportState: [
         'label',

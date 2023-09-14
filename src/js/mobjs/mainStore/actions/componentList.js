@@ -14,6 +14,24 @@ export const setComponentList = (list = {}) => {
     );
 
     mainStore.set('componentList', listParsed);
+
+    Object.entries(listParsed).forEach(([key, value]) => {
+        const {
+            componentParams: { type, DOMprimitive },
+        } = value;
+
+        customElements.define(
+            key,
+            class extends DOMprimitive {
+                constructor() {
+                    super(); /* ... */
+                }
+            },
+            {
+                extends: type,
+            }
+        );
+    });
 };
 
 /**

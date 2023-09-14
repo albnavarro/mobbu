@@ -29,7 +29,11 @@ export const NavigationButton = ({ getState, render, onMount, watch }) => {
     });
 
     return render(/* HTML */ `
-        <button class="l-navigation__link ${arrowClass} ${subMenuClass}">
+        <button
+            is="mob-navigation-button"
+            type="button"
+            class="l-navigation__link ${arrowClass} ${subMenuClass}"
+        >
             ${label}
         </button>
     `);
