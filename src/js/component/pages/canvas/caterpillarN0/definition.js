@@ -36,23 +36,23 @@ export const caterpillarN0Def = createComponent({
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
     attributeToObserve: ['data-test'],
-    connectedCallback: ({ context, id }) => {
-        console.log('connectedCallback', context, id);
+    connectedCallback: ({ context, data }) => {
+        console.log('connectedCallback', context, data);
     },
-    disconnectedCallback: ({ context, id }) => {
-        console.log('disconnectedCallback', context, id);
+    disconnectedCallback: ({ context, data }) => {
+        console.log('disconnectedCallback', context, data);
     },
-    adoptedCallback: ({ context, id }) => {
-        console.log('adoptedCallback', context, id);
+    adoptedCallback: ({ context, data }) => {
+        console.log('adoptedCallback', context, data);
     },
-    attributeChangedCallback: ({ name, oldValue, newValue, context, id }) => {
+    attributeChangedCallback: ({ name, oldValue, newValue, context, data }) => {
         console.log(
             'attributeChangedCallback',
             name,
             oldValue,
             newValue,
             context,
-            id
+            data
         );
     },
 });

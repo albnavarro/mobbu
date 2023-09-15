@@ -1,14 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { mainStore } from '../mainStore';
-
-/**
- * @param {Object} context
- */
-const isPlaceholder = (context) => {
-    return !context.shadowRoot.host.dataset[ATTR_IS_COMPONENT_VALUE];
-};
 
 /**
  * @description
@@ -50,12 +42,28 @@ export const setComponentList = (list = {}) => {
             key,
             class extends HTMLElement {
                 static get observedAttributes() {
-                    return [...attributeToObserve, ATTR_IS_COMPONENT];
+                    return attributeToObserve;
                 }
 
                 constructor() {
                     super();
                     this.attachShadow({ mode: 'open' });
+                    this.active = false;
+                    this.componentId = undefined;
+                    this.emit = () => {};
+                    this.emitAsync = () => {};
+                    this.freezeProp = () => {};
+                    this.freezeProp = () => {};
+                    this.getChildren = () => {};
+                    this.getParentId = () => {};
+                    this.getState = () => {};
+                    this.remove = () => {};
+                    this.setState = () => {};
+                    this.unBind = () => {};
+                    this.unFreezeProp = () => {};
+                    this.watch = () => {};
+                    this.watchImmediate = () => {};
+                    this.watchParent = () => {};
 
                     if (this.shadowRoot)
                         this.shadowRoot.innerHTML = /* HTML */ `
@@ -63,25 +71,67 @@ export const setComponentList = (list = {}) => {
                         `;
                 }
 
-                disconnectedCallback() {
-                    if (!this.shadowRoot) return;
+                getData() {
+                    return {
+                        componentId: this.componentId,
+                        emit: this.emit,
+                        emitAsync: this.emitAsync,
+                        freezeProp: this.freezeProp,
+                        getChildren: this.getChildren,
+                        getParentId: this.getParentId,
+                        getState: this.getState,
+                        remove: this.remove,
+                        setState: this.setState,
+                        unBind: this.unBind,
+                        unFreezeProp: this.unFreezeProp,
+                        watch: this.watch,
+                        watchImmediate: this.watchImmediate,
+                        watchParent: this.watchParent,
+                    };
+                }
 
-                    if (isPlaceholder(this)) return;
+                /**
+                 * @param {Object} data
+                 */
+                inizializeCustomComponent(data) {
+                    this.active = true;
+                    this.componentId = data.id;
+                    this.emit = data.emit;
+                    this.emitAsync = data.emitAsync;
+                    this.freezeProp = data.freezeProp;
+                    this.getChildren = data.getChildren;
+                    this.getParentId = data.getParentId;
+                    this.getState = data.getState;
+                    this.remove = data.remove;
+                    this.setState = data.setState;
+                    this.unBind = data.unBind;
+                    this.unFreezeProp = data.unFreezeProp;
+                    this.watch = data.watch;
+                    this.watchImmediate = data.watchImmediate;
+                    this.watchParent = data.watchParent;
+
+                    _connectedCallBack({
+                        context: this,
+                        id: this.componentId,
+                        data: this.getData(),
+                    });
+                }
+
+                disconnectedCallback() {
+                    if (!this.shadowRoot || !this.active) return;
 
                     _disconnectedCallback({
                         context: this,
-                        id: this.shadowRoot.host.id,
+                        data: this.getData(),
                     });
                 }
 
                 adoptedCallback() {
-                    if (!this.shadowRoot) return;
-
-                    if (isPlaceholder(this)) return;
+                    if (!this.shadowRoot || !this.active) return;
 
                     _adoptedCallback({
                         context: this,
-                        id: this.shadowRoot.host.id,
+                        data: this.getData(),
                     });
                 }
 
@@ -91,35 +141,18 @@ export const setComponentList = (list = {}) => {
                  * @param {any} newValue
                  */
                 attributeChangedCallback(name, oldValue, newValue) {
-                    let isConnected = false;
-
-                    if (!this.shadowRoot) return;
+                    if (!this.shadowRoot || !this.active) return;
 
                     /**
                      * Fire custom attribute change ( not id )
                      */
-                    if (name !== ATTR_IS_COMPONENT) {
-                        _attributeChangedCallback({
-                            name,
-                            oldValue,
-                            newValue,
-                            context: this,
-                            id: this.shadowRoot.host.id,
-                        });
-                    }
-
-                    /**
-                     * Fire connetct when id change.
-                     * So component is mounted.
-                     */
-                    if (name === ATTR_IS_COMPONENT && !isConnected) {
-                        isConnected = true;
-
-                        _connectedCallBack({
-                            context: this,
-                            id: this.shadowRoot.host.id,
-                        });
-                    }
+                    _attributeChangedCallback({
+                        name,
+                        oldValue,
+                        newValue,
+                        context: this,
+                        data: this.getData(),
+                    });
                 }
             }
         );

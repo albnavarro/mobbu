@@ -286,6 +286,12 @@ export const parseComponentsRecursive = async ({
         });
 
     /**
+     * Inizialize custom component.
+     */
+    // @ts-ignore
+    newElement?.inizializeCustomComponent?.(componentData);
+
+    /**
      * Store onMount callback.
      * Fire :
      * 1 - onMount callback.
