@@ -45,9 +45,9 @@ export const getDefaultComponent = () => defaultComponent;
  * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
  *  This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
  *  `default = false`.
- * @param {function(object):void} [ obj.connectedCallback ] -
- * @param {function(object):void} [ obj.disconnectedCallback ] -
- * @param {function(object):void} [ obj.adoptedCallback ] -
+ * @param {function({'context':Object,'data':Object}):void} [ obj.connectedCallback ] -
+ * @param {function({'context':Object,'data':Object}):void} [ obj.disconnectedCallback ] -
+ * @param {function({'context':Object,'data':Object}):void} [ obj.adoptedCallback ] -
  * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object }):void} [ obj.attributeChangedCallback ] -
  * @param {Array<String>} [ obj.attributeToObserve ] -
  * @param {import('../../mobCore').MobbuStoreType} [ obj.state ]
