@@ -120,6 +120,8 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Remove component from dom
      */
+    // @ts-ignore
+    element?.removeCustomComponent?.();
     element?.remove();
 };
 

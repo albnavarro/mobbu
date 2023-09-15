@@ -146,6 +146,13 @@ export const setComponentList = (list = {}) => {
                     this.resetData();
                 }
 
+                removeCustomComponent() {
+                    if (!this.shadowRoot || !this.active) return;
+
+                    // eslint-disable-next-line unicorn/prefer-dom-node-remove
+                    this.parentElement?.removeChild(this);
+                }
+
                 adoptedCallback() {
                     if (!this.shadowRoot || !this.active) return;
 
