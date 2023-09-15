@@ -35,4 +35,24 @@ export const caterpillarN0Def = createComponent({
         mouseMoveRatio: 10,
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
+    attributeToObserve: ['data-test'],
+    connectedCallback: ({ context, id }) => {
+        console.log('connectedCallback', context, id);
+    },
+    disconnectedCallback: ({ context, id }) => {
+        console.log('disconnectedCallback', context, id);
+    },
+    adoptedCallback: ({ context, id }) => {
+        console.log('adoptedCallback', context, id);
+    },
+    attributeChangedCallback: ({ name, oldValue, newValue, context, id }) => {
+        console.log(
+            'attributeChangedCallback',
+            name,
+            oldValue,
+            newValue,
+            context,
+            id
+        );
+    },
 });

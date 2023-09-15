@@ -78,7 +78,7 @@ function getPartialsComponentList({
         : '';
 
     return /* HTML */ `
-        <component
+        <c-mobjs
             ${ATTR_PROPS}=${currentProps}
             ${currentDynamicProps}
             ${currentBindEvents}
@@ -90,7 +90,7 @@ function getPartialsComponentList({
                 index,
             })}"
         >
-        </component>
+        </c-mobjs>
     `;
 }
 

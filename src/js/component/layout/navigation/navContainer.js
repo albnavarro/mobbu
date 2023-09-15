@@ -53,7 +53,7 @@ export const NavigationContainer = ({ render, onMount }) => {
     });
 
     return render(/* HTML */ `
-        <mob-navigation-container class="l-navcontainer">
+        <div class="l-navcontainer">
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
                 <button class="l-navcontainer__totop"></button>
@@ -69,6 +69,6 @@ export const NavigationContainer = ({ render, onMount }) => {
                     <mob-navigation></mob-navigation>
                 </div>
             </div>
-        </mob-navigation-container>
+        </div>
     `);
 };

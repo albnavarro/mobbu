@@ -88,7 +88,7 @@ export const addWithoutKey = ({
                     : '';
 
                 return /* HTML */ `
-                    <component
+                    <c-mobjs
                         ${ATTR_PROPS}=${currentProps}
                         ${currentDynamicProps}
                         ${currentBindEvents}
@@ -99,7 +99,7 @@ export const addWithoutKey = ({
                             index: currentIndex,
                         })}"
                     >
-                    </component>
+                    </c-mobjs>
                 `;
             })
             .reverse();
