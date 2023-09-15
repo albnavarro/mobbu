@@ -1,12 +1,13 @@
 // @ts-check
 
+import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
  * @param {Object} context
  */
 const isPlaceholder = (context) => {
-    return !context.shadowRoot.host.id;
+    return !context.shadowRoot.host.dataset[ATTR_IS_COMPONENT_VALUE];
 };
 
 /**
@@ -49,7 +50,7 @@ export const setComponentList = (list = {}) => {
             key,
             class extends HTMLElement {
                 static get observedAttributes() {
-                    return [...attributeToObserve, 'id'];
+                    return [...attributeToObserve, ATTR_IS_COMPONENT];
                 }
 
                 constructor() {
@@ -97,7 +98,7 @@ export const setComponentList = (list = {}) => {
                     /**
                      * Fire custom attribute change ( not id )
                      */
-                    if (name !== 'id') {
+                    if (name !== ATTR_IS_COMPONENT) {
                         _attributeChangedCallback({
                             name,
                             oldValue,
@@ -111,7 +112,7 @@ export const setComponentList = (list = {}) => {
                      * Fire connetct when id change.
                      * So component is mounted.
                      */
-                    if (name === 'id' && !isConnected) {
+                    if (name === ATTR_IS_COMPONENT && !isConnected) {
                         isConnected = true;
 
                         _connectedCallBack({

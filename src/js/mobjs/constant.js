@@ -18,6 +18,11 @@ export const ATTR_IS_COMPONENT = 'data-mobjs';
 /**
  * @type {string};
  */
+export const ATTR_IS_COMPONENT_VALUE = 'mobjs';
+
+/**
+ * @type {string};
+ */
 export const ATTR_IS_RUNTIME = 'data-runtime';
 
 /**
