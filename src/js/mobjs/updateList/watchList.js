@@ -92,6 +92,12 @@ export const watchList = ({
                 currentChildern.forEach((id) => {
                     removeAndDestroyById({ id });
                 });
+
+                /**
+                 * Web component trick.
+                 * Sure to delete host element.
+                 */
+                containerList.textContent = '';
             }
 
             /**
