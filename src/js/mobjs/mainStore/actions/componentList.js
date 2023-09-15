@@ -90,6 +90,24 @@ export const setComponentList = (list = {}) => {
                     };
                 }
 
+                resetData() {
+                    this.active = false;
+                    this.componentId = null;
+                    this.emit = () => {};
+                    this.emitAsync = () => {};
+                    this.freezeProp = () => {};
+                    this.getChildren = () => {};
+                    this.getParentId = () => {};
+                    this.getState = () => {};
+                    this.remove = () => {};
+                    this.setState = () => {};
+                    this.unBind = () => {};
+                    this.unFreezeProp = () => {};
+                    this.watch = () => {};
+                    this.watchImmediate = () => {};
+                    this.watchParent = () => {};
+                }
+
                 /**
                  * @param {Object} data
                  */
@@ -124,6 +142,8 @@ export const setComponentList = (list = {}) => {
                         context: this,
                         data: this.getData(),
                     });
+
+                    this.resetData();
                 }
 
                 adoptedCallback() {
