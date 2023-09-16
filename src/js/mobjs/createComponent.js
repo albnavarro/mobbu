@@ -45,6 +45,7 @@ export const getDefaultComponent = () => defaultComponent;
  * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
  *  This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
  *  `default = false`.
+ * @param {function({'context':Object}):void} [ obj.constructorCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.connectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.disconnectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.adoptedCallback ] -
@@ -66,6 +67,7 @@ export const createComponent = ({
     isolateCreation = UNSET,
     isolateOnMount = UNSET,
     scoped = UNSET,
+    constructorCallback = () => {},
     connectedCallback = () => {},
     disconnectedCallback = () => {},
     adoptedCallback = () => {},
@@ -82,6 +84,7 @@ export const createComponent = ({
                 isolateOnMount,
                 scoped,
                 state,
+                constructorCallback,
                 connectedCallback,
                 disconnectedCallback,
                 adoptedCallback,

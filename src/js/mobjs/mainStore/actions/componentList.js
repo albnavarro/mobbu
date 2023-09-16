@@ -16,6 +16,7 @@ export const setComponentList = (list = {}) => {
     mainStore.set('componentList', listParsed);
 
     const componentParams = {
+        constructorCallback: () => {},
         connectedCallback: () => {},
         disconnectedCallback: () => {},
         adoptedCallback: () => {},
@@ -31,6 +32,7 @@ export const setComponentList = (list = {}) => {
      */
     Object.entries(listParsed2).forEach(([key, value]) => {
         const {
+            constructorCallback: _constructorCallback,
             connectedCallback: _connectedCallBack,
             disconnectedCallback: _disconnectedCallback,
             adoptedCallback: _adoptedCallback,
@@ -71,8 +73,16 @@ export const setComponentList = (list = {}) => {
                         style.textContent = styleSlot;
                         this.shadowRoot.append(style);
 
+                        /**
+                         * Slot content is accessible by external javascript.
+                         */
                         const slot = document.createElement('slot');
                         this.shadowRoot.append(slot);
+
+                        _constructorCallback({
+                            context: this,
+                            id: this.componentId,
+                        });
                     }
                 }
 
@@ -135,7 +145,6 @@ export const setComponentList = (list = {}) => {
 
                     _connectedCallBack({
                         context: this,
-                        id: this.componentId,
                         data: this.getData(),
                     });
                 }

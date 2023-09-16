@@ -37,6 +37,9 @@ export const caterpillarN0Def = createComponent({
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
     attributeToObserve: ['class', 'data-test'],
+    constructorCallback: ({ context }) => {
+        console.log('constructorCallback', context);
+    },
     connectedCallback: ({ context, data }) => {
         console.log('connectedCallback', context, data);
     },
