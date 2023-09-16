@@ -17,7 +17,7 @@ function updateContent(label, val) {
  */
 export const DynamicListCard = async ({
     getState,
-    render,
+    html,
     onMount,
     key,
     staticProps,
@@ -58,10 +58,10 @@ export const DynamicListCard = async ({
     // await asyncTest();
 
     const isFullClass = isFull ? 'is-full' : '';
-    const tag = isFull ? 'div' : 'button';
+    // const tag = isFull ? 'div' : 'button';
     const typeButton = isFull ? '' : "type='button'";
 
-    return render(/* HTML */ `
+    return html`
         <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
                 <div class="index"></div>
@@ -91,5 +91,5 @@ export const DynamicListCard = async ({
                 <dynamic-list-child-test></dynamic-list-child-test>
             </div>
         </dynamic-list-card>
-    `);
+    `;
 };

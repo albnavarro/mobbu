@@ -4,7 +4,7 @@
 export const HorizontalScrollerButton = ({
     getState,
     watch,
-    render,
+    html,
     onMount,
 }) => {
     const { id } = getState();
@@ -19,7 +19,7 @@ export const HorizontalScrollerButton = ({
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <li>
             <button
                 type="button"
@@ -29,5 +29,5 @@ export const HorizontalScrollerButton = ({
                 ${id}
             </button>
         </li>
-    `);
+    `;
 };

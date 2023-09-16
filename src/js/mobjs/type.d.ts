@@ -316,13 +316,13 @@ export interface componentType {
      * @example
      * ```javascript
      *
-     * export const MyComponent = ({  render }) => {
-     *     return render(`<div></div>`);
+     * export const MyComponent = ({  html }) => {
+     *     return html`<div></div>`;
      * };
      *
      * ```
      */
-    render(DOMContent: String): {
+    html(DOMContent: String): {
         id: string;
         content: string;
         placeholderElement: HTMLElement;
@@ -337,12 +337,12 @@ export interface componentType {
      * @example
      * ```javascript
      *
-     * export const MyComponent = ({ onMount, render }) => {
+     * export const MyComponent = ({ onMount, html }) => {
      *     onMount(({ element }) => {
      *         return () => {}
      *     });
      *
-     *     return render(`<div></div>`);
+     *     return html`<div></div>`;
      * };
      *
      * ```

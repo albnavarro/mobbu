@@ -1,7 +1,7 @@
-import { staticProps } from '../../../mobjs';
+import { html, staticProps } from '../../../mobjs';
 
 export const horizontalScrollerV2 = () => {
-    return /* HTML */ `<div>
+    return html`<div>
         <horizontal-scroller
             ${staticProps({ animatePin: true })}
         ></horizontal-scroller>

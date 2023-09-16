@@ -3,7 +3,7 @@ import { tween } from '../../../mobMotion';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeContent = ({ onMount, render }) => {
+export const HomeContent = ({ onMount, html }) => {
     onMount(({ element }) => {
         const title = element.querySelector('.js-title');
 
@@ -29,9 +29,9 @@ export const HomeContent = ({ onMount, render }) => {
         };
     });
 
-    return render(/* HTML */ `
+    return html`
         <div class="l-index__content">
             <h1 class="l-index__title js-title">Lorem ipsum</h1>
         </div>
-    `);
+    `;
 };

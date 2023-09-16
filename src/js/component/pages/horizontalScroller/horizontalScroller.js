@@ -1,5 +1,6 @@
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
+import { html } from '../../../mobjs';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
@@ -8,7 +9,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
-            return /* HTML */ `
+            return html`
                 <horizontal-scroller-section
                     ${staticProps({
                         id: i,
@@ -23,7 +24,7 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
-            return /* HTML */ `
+            return html`
                 <horizontal-scroller-button
                     ${staticProps({
                         id: i,
@@ -52,7 +53,7 @@ const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
  */
 export const HorizontalScroller = ({
     onMount,
-    render,
+    html,
     getState,
     setState,
     watch,
@@ -123,7 +124,7 @@ export const HorizontalScroller = ({
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `<div class="l-h-scroller">
+    return html`<div class="l-h-scroller">
         <div class="l-h-scroller__top">scroll down</div>
         <code-button
             ${staticProps({
@@ -171,5 +172,5 @@ export const HorizontalScroller = ({
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>
-    </div>`);
+    </div>`;
 };

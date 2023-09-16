@@ -84,12 +84,12 @@ const printContent = async ({
  * @param {import('../../../mobjs/type').componentType}
  */
 export const CodeOverlay = ({
-    render,
     onMount,
     setState,
     getState,
     watch,
     repeat,
+    html,
 }) => {
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');
@@ -156,7 +156,7 @@ export const CodeOverlay = ({
         };
     });
 
-    return render(/* HTML */ `
+    return html`
         <div class="code-overlay js-overlay">
             <span class="code-overlay__background js-overlay-background"></span>
             <div class="code-overlay__wrap js-overlay-wrap">
@@ -215,5 +215,5 @@ export const CodeOverlay = ({
                 </div>
             </div>
         </div>
-    `);
+    `;
 };

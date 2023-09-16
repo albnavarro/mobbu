@@ -4,7 +4,7 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const CodeButton = ({ getState, render, onMount }) => {
+export const CodeButton = ({ getState, onMount, html }) => {
     const { style, drawers } = getState();
 
     onMount(({ element }) => {
@@ -30,9 +30,9 @@ export const CodeButton = ({ getState, render, onMount }) => {
         };
     });
 
-    return render(/* HTML */ `
+    return html`
         <button class="c-code-btn c-code-btn--${style}">
             <span class="c-code-btn__icon">${codeIcon}</span>
         </button>
-    `);
+    `;
 };

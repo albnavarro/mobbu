@@ -1,10 +1,10 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const horizontalScrollerSection = ({ render, getState }) => {
+export const horizontalScrollerSection = ({ html, getState }) => {
     const { id, pinClass } = getState();
 
-    return render(/* HTML */ `
+    return html`
         <section
             class="l-h-scroller__column js-column"
             data-shadow="section-${id}"
@@ -18,5 +18,5 @@ export const horizontalScrollerSection = ({ render, getState }) => {
                 </div>
             </div>
         </section>
-    `);
+    `;
 };

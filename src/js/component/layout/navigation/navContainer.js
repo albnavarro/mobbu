@@ -36,7 +36,7 @@ function addHandler({ main, toTopBtn }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationContainer = ({ render, onMount }) => {
+export const NavigationContainer = ({ html, onMount }) => {
     onMount(({ element }) => {
         const main = document.querySelector('main.main');
         const toTopBtn = element.querySelector('.l-navcontainer__totop');
@@ -52,7 +52,7 @@ export const NavigationContainer = ({ render, onMount }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <div class="l-navcontainer">
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
@@ -70,5 +70,5 @@ export const NavigationContainer = ({ render, onMount }) => {
                 </div>
             </div>
         </div>
-    `);
+    `;
 };

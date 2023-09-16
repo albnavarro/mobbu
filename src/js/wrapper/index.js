@@ -1,7 +1,7 @@
-import { instanceName, useSlot } from '../mobjs';
+import { html, instanceName, useSlot } from '../mobjs';
 
 export const wrapper = () => {
-    return /* HTML */ `
+    return html`
         <code-overlay ${instanceName('codeOverlay')}></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container></mob-navigation-container>

@@ -3,7 +3,7 @@ import { componentStore, mainStore } from '../../../mobjs';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const DebugButton = ({ render, onMount }) => {
+export const DebugButton = ({ onMount, html }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => {
             mainStore.debugStore();
@@ -13,7 +13,7 @@ export const DebugButton = ({ render, onMount }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <button type="button" class="c-btn-debug">console debug</button>
-    `);
+    `;
 };

@@ -1,5 +1,7 @@
+import { html } from '../../../mobjs';
+
 export const animatedPatternN1 = () => {
-    return /* HTML */ `<div class="l-padding">
+    return html`<div class="l-padding">
         <animatedpattern-n1></animatedpattern-n1>
     </div>`;
 };

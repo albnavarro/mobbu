@@ -3,7 +3,7 @@ import { navigationStore } from '../navigation/store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HeaderToggle = ({ onMount, render }) => {
+export const HeaderToggle = ({ onMount, html }) => {
     onMount(({ element }) => {
         const hamburger = element.querySelector('.hamburger');
 
@@ -29,7 +29,7 @@ export const HeaderToggle = ({ onMount, render }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <button type="button" class="l-header__toggle">
             <div class="hamburger hamburger--squeeze">
                 <div class="hamburger-box">
@@ -37,5 +37,5 @@ export const HeaderToggle = ({ onMount, render }) => {
                 </div>
             </div>
         </button>
-    `);
+    `;
 };

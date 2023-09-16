@@ -4,7 +4,7 @@ import { navigationStore } from './store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({ getState, render, onMount, watch }) => {
+export const NavigationButton = ({ getState, html, onMount, watch }) => {
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
 
@@ -28,12 +28,12 @@ export const NavigationButton = ({ getState, render, onMount, watch }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <button
             type="button"
             class="l-navigation__link ${arrowClass} ${subMenuClass}"
         >
             ${label}
         </button>
-    `);
+    `;
 };

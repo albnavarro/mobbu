@@ -2,13 +2,15 @@
  * @param {import('../../../mobjs/type').componentType}
  */
 
+import { html } from '../../../mobjs';
+
 function getPreValue(value) {
-    return `<pre>${value}</pre>`;
+    return html`<pre>${value}</pre>`;
 }
 
 export const DynamicListSlot = ({
     getState,
-    render,
+    html,
     onMount,
     watchImmediate,
 }) => {
@@ -31,7 +33,7 @@ export const DynamicListSlot = ({
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <div class="dynamic-slot">
             <h3 class="dynamic-slot__label">Component inside slot</h3>
             <div>${staticFromSlot}</div>
@@ -45,5 +47,5 @@ export const DynamicListSlot = ({
             </h3>
             <div class="js-t2-state"></div>
         </div>
-    `);
+    `;
 };

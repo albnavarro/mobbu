@@ -36,7 +36,7 @@ import {
     useSlot,
 } from '../utils';
 import { convertToGenericElement } from './convertToGenericElement';
-import { removeWatchFromDynamicProps } from './utils';
+import { removeWatchFromDynamicProps, renderHtml } from './utils';
 
 // JSDOC usare infered type quando possibile.
 
@@ -167,13 +167,17 @@ export const registerGenericElement = ({
         getParentId: () => getParentIdById(id),
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
             watchById(getParentIdById(id), prop, cb),
-        render: (/** @type{String} */ content) => {
+        html: (
+            /** @type{Array<String>} */ strings,
+            /** @type{any} */ ...values
+        ) => {
             return {
                 id,
-                content,
+                content: renderHtml(strings, ...values),
                 placeholderElement,
             };
         },
+
         onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
         bindEvents: (/** @type{Array|Object} */ eventsData) => {
             return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;

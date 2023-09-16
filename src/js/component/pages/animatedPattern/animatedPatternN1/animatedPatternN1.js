@@ -4,12 +4,7 @@ import { animatedPatternN1Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const AnimatedPatternN1 = ({
-    onMount,
-    render,
-    getState,
-    staticProps,
-}) => {
+export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
@@ -26,7 +21,7 @@ export const AnimatedPatternN1 = ({
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `
+    return html`
         <div>
             <code-button
                 ${staticProps({
@@ -58,5 +53,5 @@ export const AnimatedPatternN1 = ({
                 </div>
             </div>
         </div>
-    `);
+    `;
 };

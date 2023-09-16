@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
+export const CodeOverlayButton = ({ onMount, watch, getState, html }) => {
     const { key, disable } = getState();
 
     onMount(({ element }) => {
@@ -22,7 +22,7 @@ export const CodeOverlayButton = ({ render, onMount, watch, getState }) => {
     /**
      * First render button is disabled.
      */
-    return render(/* HTML */ `
+    return html`
         <button class="code-overlay__button ${isDisable}">${key}</button>
-    `);
+    `;
 };

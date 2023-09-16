@@ -26,7 +26,7 @@ function afterUpdateList({ className, childrenId }) {
 export const DynamicList = async ({
     getState,
     setState,
-    render,
+    html,
     onMount,
     repeat,
     staticProps,
@@ -79,7 +79,7 @@ export const DynamicList = async ({
      */
     // await asyncTest();
 
-    return render(/* HTML */ `
+    return html`
         <dynamic-list class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
@@ -272,5 +272,5 @@ export const DynamicList = async ({
                 </div>
             </div>
         </dynamic-list>
-    `);
+    `;
 };

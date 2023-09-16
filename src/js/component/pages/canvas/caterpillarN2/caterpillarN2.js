@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { html } from '../../../../mobjs';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -6,7 +7,7 @@ function getControls({ buttons }) {
         .map(([className, value]) => {
             const { label } = value;
 
-            return /* HTML */ ` <li class="c-canvas__controls__item">
+            return html` <li class="c-canvas__controls__item">
                 <button
                     type="button"
                     class="c-canvas__controls__btn ${className}"
@@ -21,7 +22,7 @@ function getControls({ buttons }) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
+export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
     const { buttons, rotationDefault } = getState();
 
     onMount(({ element }) => {
@@ -70,7 +71,7 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `
+    return html`
         <div>
             <code-button
                 ${staticProps({
@@ -122,5 +123,5 @@ export const CaterpillarN2 = ({ onMount, render, getState, staticProps }) => {
                 </div>
             </div>
         </div>
-    `);
+    `;
 };

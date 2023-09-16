@@ -49,3 +49,8 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 
     return { ...dynamicProps, bind: newBind };
 };
+
+export const renderHtml = (
+    /** @type{Array<String>} */ strings,
+    /** @type{any} */ ...values
+) => String.raw({ raw: strings }, ...values);

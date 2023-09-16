@@ -1,5 +1,5 @@
 import { getCommonData } from '../../../data';
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function additems() {
@@ -10,9 +10,9 @@ function additems() {
         .map((link) => {
             const { label, url, internal } = link;
 
-            return /* HTML */ ` <li class="l-header__sidenav__item">
+            return html`<li class="l-header__sidenav__item">
                 ${internal
-                    ? /* HTML */ `
+                    ? html`
                           <button
                               type="button"
                               data-url="${url}"
@@ -21,7 +21,7 @@ function additems() {
                               ${label}
                           </button>
                       `
-                    : /* HTML */ `
+                    : html`
                           <a href="${url}" class="l-header__sidenav__link">
                               ${label}
                           </a>
@@ -34,7 +34,7 @@ function additems() {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Headernav = ({ render, onMount }) => {
+export const Headernav = ({ html, onMount }) => {
     onMount(({ element }) => {
         const buttons = element.querySelectorAll('button');
 
@@ -56,9 +56,9 @@ export const Headernav = ({ render, onMount }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <ul class="l-header__sidenav">
             ${additems()}
         </ul>
-    `);
+    `;
 };

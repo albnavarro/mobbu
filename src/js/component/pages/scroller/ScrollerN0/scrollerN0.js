@@ -4,7 +4,7 @@ import { scrollerN0Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
+export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
         const canvasScroller = element.querySelector('.canvas-scroller');
@@ -28,7 +28,7 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `
+    return html`
         <div>
             <div class="c-canvas c-canvas--fixed ">
                 <code-button
@@ -64,5 +64,5 @@ export const ScrollerN0 = ({ onMount, render, getState, staticProps }) => {
                 <h1>Scroll down</h2>
             </div>
         </div>
-    `);
+    `;
 };

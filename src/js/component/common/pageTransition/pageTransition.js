@@ -4,7 +4,7 @@ import { loadUrl } from '../../../mobjs';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const PageTransition = ({ render, onMount, watch }) => {
+export const PageTransition = ({ onMount, watch, html }) => {
     onMount(({ element }) => {
         let currentUrl = '';
 
@@ -79,5 +79,5 @@ export const PageTransition = ({ render, onMount, watch }) => {
         return () => {};
     });
 
-    return render(/* HTML */ `<div class="c-page-transiotion"></div>`);
+    return html`<div class="c-page-transiotion"></div>`;
 };

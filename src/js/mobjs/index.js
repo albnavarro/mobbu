@@ -1,5 +1,6 @@
 // @ts-check
 
+export { renderHtml as html } from './creationStep/utils';
 export { createComponent } from './createComponent';
 export { setDefaultComponent } from './createComponent';
 export { removeAndDestroyById } from './componentStore/action/removeAndDestroy';

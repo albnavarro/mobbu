@@ -1,7 +1,7 @@
-import { staticProps } from '../../../mobjs';
+import { html, staticProps } from '../../../mobjs';
 
 export const animatedPatternN0v4 = () => {
-    return /* HTML */ `<div class="l-padding">
+    return html`<div class="l-padding">
         <animatedpattern-n0
             ${staticProps({
                 fill: [

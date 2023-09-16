@@ -4,7 +4,7 @@ import { caterpillarN1Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
+export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
 
@@ -21,7 +21,7 @@ export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `
+    return html`
         <div>
             <code-button
                 ${staticProps({
@@ -53,5 +53,5 @@ export const CaterpillarN1 = ({ onMount, render, getState, staticProps }) => {
                 </div>
             </div>
         </div>
-    `);
+    `;
 };

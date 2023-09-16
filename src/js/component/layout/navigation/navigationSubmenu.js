@@ -1,3 +1,4 @@
+import { html } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
 
@@ -6,7 +7,7 @@ function getSubmenu(children, staticProps) {
         .map((child) => {
             const { label, url } = child;
 
-            return /* HTML */ `
+            return html`
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
                         ${staticProps({
@@ -26,7 +27,7 @@ function getSubmenu(children, staticProps) {
  */
 export const NavigationSubmenu = ({
     onMount,
-    render,
+    html,
     getState,
     setState,
     staticProps,
@@ -56,7 +57,7 @@ export const NavigationSubmenu = ({
         return () => {};
     });
 
-    return render(/* HTML */ `
+    return html`
         <li class="l-navigation__item has-child">
             <mob-navigation-button
                 ${staticProps({
@@ -81,5 +82,5 @@ export const NavigationSubmenu = ({
                 ${getSubmenu(children, staticProps)}
             </ul>
         </li>
-    `);
+    `;
 };

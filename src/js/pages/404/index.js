@@ -1,3 +1,5 @@
+import { html } from '../../mobjs';
+
 export const pageNotFound = () => {
-    return /* HTML */ ` <div>page not found</div> `;
+    return html` <div>page not found</div> `;
 };

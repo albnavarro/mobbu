@@ -13,7 +13,7 @@ function closeInfo({ navInfo }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Header = ({ render, onMount, staticProps }) => {
+export const Header = ({ html, onMount, staticProps }) => {
     onMount(({ element }) => {
         const navInfo = element.querySelector('.l-header__navinfo');
         const titleLink = element.querySelector('.l-header__title');
@@ -31,7 +31,7 @@ export const Header = ({ render, onMount, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
-    return render(/* HTML */ `
+    return html`
         <header class="l-header">
             <div class="l-header__container">
                 <div class="l-header__grid">
@@ -70,5 +70,5 @@ export const Header = ({ render, onMount, staticProps }) => {
                 </div>
             </div>
         </header>
-    `);
+    `;
 };

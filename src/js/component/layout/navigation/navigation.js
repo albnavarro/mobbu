@@ -1,4 +1,5 @@
 import { getCommonData } from '../../../data';
+import { html } from '../../../mobjs';
 
 /**
  * Create first level items.
@@ -9,7 +10,7 @@ function getItems({ data, staticProps, setState, bindProps }) {
             const { label, url, children } = item;
 
             return children
-                ? /* HTML */ `
+                ? html`
                       <mob-navigation-submenu
                           ${staticProps({
                               headerButton: {
@@ -31,7 +32,7 @@ function getItems({ data, staticProps, setState, bindProps }) {
                       >
                       </mob-navigation-submenu>
                   `
-                : /* HTML */ `
+                : html`
                       <li class="l-navigation__item">
                           <mob-navigation-button
                               ${staticProps({
@@ -48,14 +49,14 @@ function getItems({ data, staticProps, setState, bindProps }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Navigation = ({ render, staticProps, setState, bindProps }) => {
+export const Navigation = ({ html, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
 
-    return render(/* HTML */ `
+    return html`
         <nav class="l-navigation">
             <ul class="l-navigation__list">
                 ${getItems({ data, staticProps, setState, bindProps })}
             </ul>
         </nav>
-    `);
+    `;
 };

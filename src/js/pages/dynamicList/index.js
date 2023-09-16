@@ -1,3 +1,5 @@
+import { html } from '../../mobjs';
+
 export const dynamic_list = () => {
-    return /* HTML */ ` <dynamic-list> </dynamic-list> `;
+    return html` <dynamic-list> </dynamic-list> `;
 };
