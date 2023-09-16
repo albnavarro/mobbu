@@ -81,7 +81,6 @@ export const setComponentList = (list = {}) => {
 
                         _constructorCallback({
                             context: this,
-                            id: this.componentId,
                         });
                     }
                 }
