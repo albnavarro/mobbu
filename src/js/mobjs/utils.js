@@ -9,7 +9,6 @@ import {
     ATTR_PROPS,
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
-    ATTR_WILL_COMPONENT,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
 import { setStaticProps } from './mainStore/actions/props';
@@ -37,9 +36,7 @@ export const createRunTimeComponent = ({ container }) => {
     /**
      * @type {NodeListOf.<HTMLElement>} innerComponents
      */
-    const innerComponents = container.querySelectorAll(
-        `${selectorDefault}, ${selectorDefaultTag}`
-    );
+    const innerComponents = container.querySelectorAll(selectorDefaultTag);
 
     [...innerComponents].forEach(
         (component) => (component.dataset[ATTR_IS_RUNTIME_PARTIAL] = uniqueId)
@@ -70,30 +67,40 @@ export const getComponentsReference = () => {
 };
 
 /**
- * @reurn { String }
+ * @return { String }
  *
  * @description
  * For each component registered:
- * Return <component name>:not[is-runtime]:not[data-mobjs], ...
+ * Return <component name>:not[data-runtime]:not[data-mobjs], ...
  *
  */
 export const getSelectorDefaultTag = () => {
     const componentsReference = getComponentsReference();
 
     return Object.values(componentsReference)
-        .map((value) => {
-            return `${value}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
+        .map((tag) => {
+            return `${tag}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
         })
         .join(', ');
 };
 
 /**
- * @type {String}
+ * @param {String} runtimeId
+ * @return { String }
  *
- * Non runtime default
- * Select [data-component]:not[is-runtime]:not[data-mobjs]
+ * @description
+ * Select runtiem component by tagname.
+ * Select <component name>[data-runtime='<hash>']:not[data-mobjs]
  */
-export const selectorDefault = `[${ATTR_WILL_COMPONENT}]:not([${ATTR_IS_RUNTIME}]:not([${ATTR_IS_COMPONENT}]))`;
+export const getSelectorRuntimeTag = (runtimeId) => {
+    const componentsReference = getComponentsReference();
+
+    return Object.values(componentsReference)
+        .map((tag) => {
+            return `${tag}[${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
+        })
+        .join(',');
+};
 
 /**
  * @param {String} name

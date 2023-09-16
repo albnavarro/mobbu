@@ -11,17 +11,11 @@ import {
     removeOrphansPropsFromParent,
 } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
-import {
-    ATTR_IS_COMPONENT,
-    ATTR_IS_RUNTIME,
-    ATTR_REPEATID,
-    ATTR_WILL_COMPONENT,
-    UNSET,
-} from '../constant';
+import { ATTR_REPEATID, UNSET } from '../constant';
 import {
     getComponentsReference,
     getSelectorDefaultTag,
-    selectorDefault,
+    getSelectorRuntimeTag,
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
@@ -53,55 +47,25 @@ export const parseComponentsRecursive = async ({
     if (!element) return;
 
     const componentsReference = getComponentsReference();
-    const selectorDefaultTag = getSelectorDefaultTag();
     const componentList = getComponentList();
+    const selector = runtimeId
+        ? getSelectorRuntimeTag(runtimeId)
+        : getSelectorDefaultTag();
 
     /**
-     * Get the first data-component element.
-     * So after we cna render the child component.
-     * render components form top to botton so we are shure that child component
+     * @description
+     * Get the first component.
+     * Render components form top to botton so we are shure that child component
      * can watch parent
      *
      * - ExcludeRuntime is true when load entire route.
      *
      * - For specific situoation es: updatelist, render only the component generated
      *   in current action filtered by a unique id
+     *
+     * @type {NodeListOf<HTMLElement>} componentToParseArray
      */
-
-    /**
-     * Runtime deafult
-     * Select [data-component][is-runtime='<hash>']:not[data-mobjs]
-     */
-    const selectoreRuntime = [
-        `[${ATTR_WILL_COMPONENT}][${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`,
-    ];
-
-    /**
-     * Select runtiem component by tagname.
-     * Select <component name>[is-runtime='<hash>']:not[data-mobjs]
-     */
-    const selectoreRuntimeTag = Object.values(componentsReference).map(
-        (value) => {
-            return `${value}[${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
-        }
-    );
-
-    /**
-     * @type {Array.<HTMLElement>} componentToParseArray
-     */
-    const componentToParseArray = /** @type {Array.<HTMLElement>} */ (
-        runtimeId
-            ? [
-                  ...element.querySelectorAll(
-                      `${selectoreRuntime}, ${selectoreRuntimeTag}`
-                  ),
-              ]
-            : [
-                  ...element.querySelectorAll(
-                      `${selectorDefault}, ${selectorDefaultTag}`
-                  ),
-              ]
-    );
+    const componentToParseArray = element.querySelectorAll(selector);
 
     /**
      * @type {HTMLElement} componentToParse
@@ -110,6 +74,9 @@ export const parseComponentsRecursive = async ({
      */
     const componentToParse = componentToParseArray?.[0];
 
+    /**
+     * Check if max parse number is reached.
+     */
     const parseLimitReached =
         currentIterationCounter === getDefaultComponent().maxParseIteration;
 
@@ -119,7 +86,7 @@ export const parseComponentsRecursive = async ({
         );
 
     /**
-     * If there is no component end.
+     * If there is no component or parse limit is reached.
      */
     if (!componentToParse || parseLimitReached) {
         /**

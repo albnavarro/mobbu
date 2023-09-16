@@ -14,7 +14,6 @@ import {
     ATTR_IS_RUNTIME,
     ATTR_KEY,
     ATTR_PROPS,
-    ATTR_WILL_COMPONENT,
 } from '../constant';
 import { setBindProps, setStaticProps } from '../mainStore/actions/props';
 import {
@@ -79,19 +78,18 @@ function getPartialsComponentList({
         : '';
 
     return /* HTML */ `
-        <c-mobjs
+        <${targetComponent}
             ${ATTR_PROPS}=${currentProps}
             ${currentDynamicProps}
             ${currentBindEvents}
             ${ATTR_IS_RUNTIME}="${runtimeId}"
-            ${ATTR_WILL_COMPONENT}="${targetComponent}"
             ${ATTR_KEY}="${key}"
             ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
-                current: currentValue,
-                index,
-            })}"
+        current: currentValue,
+        index,
+    })}"
         >
-        </c-mobjs>
+        </${targetComponent}>
     `;
 }
 

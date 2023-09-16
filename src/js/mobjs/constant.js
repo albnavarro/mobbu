@@ -3,16 +3,6 @@
 /**
  * @type {string};
  */
-export const ATTR_WILL_COMPONENT = 'data-component';
-
-/**
- * @type {string};
- */
-export const ATTR_WILL_COMPONENT_PARTIAL = 'component';
-
-/**
- * @type {string};
- */
 export const ATTR_PLACEHOLDER = 'data-placeholder';
 
 /**

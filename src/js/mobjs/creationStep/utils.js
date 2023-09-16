@@ -10,7 +10,6 @@ import {
     ATTR_KEY_PARTIAL,
     ATTR_PROPS_FROM_SLOT_PARTIAL,
     ATTR_PROPS_PARTIAL,
-    ATTR_WILL_COMPONENT_PARTIAL,
 } from '../constant';
 
 /**
@@ -18,7 +17,6 @@ import {
  */
 export const propsKeyToExclude = [
     `${ATTR_PROPS_PARTIAL}`,
-    `${ATTR_WILL_COMPONENT_PARTIAL}`,
     `${ATTR_KEY_PARTIAL}`,
     `${ATTR_DYNAMIC_PARTIAL}`,
     `${ATTR_INSTANCENAME_PARTIAL}`,

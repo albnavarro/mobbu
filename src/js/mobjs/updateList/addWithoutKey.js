@@ -9,7 +9,6 @@ import {
     ATTR_IS_COMPONENT,
     ATTR_IS_RUNTIME,
     ATTR_PROPS,
-    ATTR_WILL_COMPONENT,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { setCurrentValueList } from '../mainStore/actions/currentListValue';
@@ -90,18 +89,17 @@ export const addWithoutKey = ({
                     : '';
 
                 return /* HTML */ `
-                    <c-mobjs
+                    <${targetComponent}
                         ${ATTR_PROPS}=${currentProps}
                         ${currentDynamicProps}
                         ${currentBindEvents}
                         ${ATTR_IS_RUNTIME}="${runtimeId}"
-                        ${ATTR_WILL_COMPONENT}="${targetComponent}"
                         ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
-                            current: currentValue,
-                            index: currentIndex,
-                        })}"
+                    current: currentValue,
+                    index: currentIndex,
+                })}"
                     >
-                    </c-mobjs>
+                    </${targetComponent}>
                 `;
             })
             .reverse();

@@ -15,6 +15,7 @@ export const codeOverlayDef = createComponent({
         urls: () => ({
             value: [],
             type: Array,
+            skipEqual: false,
         }),
         activeContent: () => ({
             value: '',
