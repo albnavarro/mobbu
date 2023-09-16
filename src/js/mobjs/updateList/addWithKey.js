@@ -10,6 +10,7 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
+    ATTR_IS_COMPONENT_VALUE,
     ATTR_IS_RUNTIME,
     ATTR_KEY,
     ATTR_PROPS,
@@ -311,7 +312,7 @@ export const addWithKey = ({
      * --------------------------
      */
     elementToRemoveByKey.forEach((component) => {
-        const id = component?.id;
+        const id = component?.dataset[ATTR_IS_COMPONENT_VALUE];
         if (!id) return;
 
         removeAndDestroyById({ id });

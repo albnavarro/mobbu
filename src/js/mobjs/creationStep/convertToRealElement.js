@@ -10,6 +10,7 @@ import {
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
     UNSET,
+    ATTR_PLACEHOLDER_PARTIAL,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 
@@ -129,12 +130,11 @@ const executeConversion = ({ placeholderElement, content }) => {
      * Get inner content and copy data from provvisory component
      */
     if (newElement) {
-        const id = placeholderElement.id;
+        const id = placeholderElement.dataset[ATTR_PLACEHOLDER_PARTIAL];
         newElement.insertAdjacentHTML('afterbegin', prevContent);
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
-        newElement.id = id;
-        newElement.setAttribute(ATTR_IS_COMPONENT, '');
+        newElement.setAttribute(ATTR_IS_COMPONENT, id ?? '');
     }
 
     /**

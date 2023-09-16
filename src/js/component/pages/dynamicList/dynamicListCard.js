@@ -24,6 +24,7 @@ export const DynamicListCard = async ({
     bindProps,
     slotName,
     watchImmediate,
+    id,
 }) => {
     const { isFull } = getState();
 
@@ -64,6 +65,7 @@ export const DynamicListCard = async ({
     return html`
         <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
+                <div class="id">id: ${id}</div>
                 <div class="index"></div>
                 <div class="label"></div>
                 <div class="counter"></div>

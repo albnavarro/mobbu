@@ -6,6 +6,7 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
+    ATTR_IS_COMPONENT,
     ATTR_IS_RUNTIME,
     ATTR_PROPS,
     ATTR_WILL_COMPONENT,
@@ -121,7 +122,9 @@ export const addWithoutKey = ({
          * TODO Usare un metodo dello sotre per prender il DOM element dall' id ?
          */
         elementToAdd.forEach((element) => {
-            const lastNode = containerList.querySelector(`#${lastChildren}`);
+            const lastNode = containerList.querySelector(
+                `[${ATTR_IS_COMPONENT}='${lastChildren}']`
+            );
 
             if (lastNode) {
                 lastNode.insertAdjacentHTML('afterend', element);

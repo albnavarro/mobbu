@@ -13,6 +13,16 @@ export const ATTR_WILL_COMPONENT_PARTIAL = 'component';
 /**
  * @type {string};
  */
+export const ATTR_PLACEHOLDER = 'data-placeholder';
+
+/**
+ * @type {string};
+ */
+export const ATTR_PLACEHOLDER_PARTIAL = 'placeholder';
+
+/**
+ * @type {string};
+ */
 export const ATTR_IS_COMPONENT = 'data-mobjs';
 
 /**

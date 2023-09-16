@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT } from '../../constant';
+import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { removeOnMountCallbackReference } from '../../mainStore/actions/onMountReference';
 import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
 import { componentStore } from '../store';
@@ -35,7 +35,9 @@ export const removeAndDestroyById = ({ id = '' }) => {
      */
     const componentNested = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
     [...componentNested].forEach((component) =>
-        removeAndDestroyById({ id: component.id })
+        removeAndDestroyById({
+            id: component?.dataset[ATTR_IS_COMPONENT_VALUE],
+        })
     );
 
     /**

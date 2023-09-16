@@ -10,6 +10,7 @@ import {
     ATTR_PROPS_FROM_SLOT_PARTIAL,
     ATTR_CURRENT_LIST_VALUE_PARTIAL,
     ATTR_BIND_EVENTS_PARTIAL,
+    ATTR_PLACEHOLDER,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { getCurrentValueList } from '../mainStore/actions/currentListValue';
@@ -38,8 +39,8 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * @type {HTMLElement}
      */
-    const newComponent = document.createElement('div');
-    newComponent.setAttribute(ATTR_IS_COMPONENT, '');
+    const temporaryElement = document.createElement('div');
+    temporaryElement.setAttribute(ATTR_IS_COMPONENT, '');
 
     /**
      * @type {String}
@@ -48,7 +49,7 @@ export const convertToGenericElement = ({ component }) => {
      * Create Univoque id
      */
     const id = mobCore.getUnivoqueId();
-    newComponent.id = id;
+    temporaryElement.setAttribute(ATTR_PLACEHOLDER, id);
 
     /**
      * @type {String}
@@ -111,7 +112,7 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * Add element to DOM
      */
-    component.replaceWith(newComponent);
+    component.replaceWith(temporaryElement);
 
     /**
      * @type {HTMLElement}
@@ -120,7 +121,7 @@ export const convertToGenericElement = ({ component }) => {
      * Get new component
      */
     const placeholderElement = /** @type{HTMLElement} */ (
-        parentNode.querySelector(`#${id}`)
+        parentNode.querySelector(`[${ATTR_PLACEHOLDER}=${id}]`)
     );
 
     /**

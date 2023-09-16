@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT } from '../../constant';
+import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { componentStore } from '../store';
 import { getComponentNameById } from './component';
 import { getElementById } from './element';
@@ -56,7 +56,9 @@ export const updateChildrenOrder = ({ id, component }) => {
      * Get id af all component inside
      */
     const components = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
-    const componentsIdNow = [...components].map((item) => item.id);
+    const componentsIdNow = [...components].map(
+        (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
+    );
 
     /**
      * Filter for the component we are looking for

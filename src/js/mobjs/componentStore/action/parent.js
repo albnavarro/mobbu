@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT } from '../../constant';
+import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { componentStore } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -116,7 +116,10 @@ export const setParentsComponent = ({ componentId }) => {
                 // Secure check.
                 // Assign is if existe a parent component and current parentId is null/undefined
                 return parent && (!parentId || parentId === undefined)
-                    ? { ...item, parentId: parent.id }
+                    ? {
+                          ...item,
+                          parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE],
+                      }
                     : item;
             });
         }
