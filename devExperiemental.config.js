@@ -16,7 +16,11 @@ const ctx = await esbuild.context({
         js: reload,
     },
     loader: { '.svg': 'text' },
-    plugins: [sassPlugin()],
+    plugins: [
+        sassPlugin({
+            type: 'css-text',
+        }),
+    ],
     logLevel: 'info',
 });
 

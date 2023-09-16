@@ -10,7 +10,11 @@ esbuild.build({
     sourcemap: true,
     outdir: 'dist',
     loader: { '.svg': 'text' },
-    plugins: [sassPlugin()],
+    plugins: [
+        sassPlugin({
+            type: 'css-text',
+        }),
+    ],
 });
 
 const ctx = await esbuild.context({
@@ -19,7 +23,11 @@ const ctx = await esbuild.context({
     sourcemap: true,
     outdir: 'dist',
     loader: { '.svg': 'text' },
-    plugins: [sassPlugin()],
+    plugins: [
+        sassPlugin({
+            type: 'css-text',
+        }),
+    ],
 });
 
 bs.watch(['./dist/**/*.html', './dist/**/*.json']).on('change', bs.reload);
