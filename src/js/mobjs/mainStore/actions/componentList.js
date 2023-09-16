@@ -35,6 +35,7 @@ export const setComponentList = (list = {}) => {
             disconnectedCallback: _disconnectedCallback,
             adoptedCallback: _adoptedCallback,
             attributeChangedCallback: _attributeChangedCallback,
+            styleSlot,
             attributeToObserve,
         } = value.componentParams;
 
@@ -65,10 +66,14 @@ export const setComponentList = (list = {}) => {
                     this.watchImmediate = () => {};
                     this.watchParent = () => {};
 
-                    if (this.shadowRoot)
-                        this.shadowRoot.innerHTML = /* HTML */ `
-                            <slot></slot>
-                        `;
+                    if (this.shadowRoot) {
+                        const style = document.createElement('style');
+                        style.textContent = styleSlot;
+                        this.shadowRoot.append(style);
+
+                        const slot = document.createElement('slot');
+                        this.shadowRoot.append(slot);
+                    }
                 }
 
                 getData() {

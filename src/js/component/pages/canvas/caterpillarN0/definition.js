@@ -55,4 +55,5 @@ export const caterpillarN0Def = createComponent({
             data
         );
     },
+    style: '::slotted(div) { width: 100%; }',
 });
