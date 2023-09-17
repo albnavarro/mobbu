@@ -24,7 +24,7 @@ import {
     removeOrphansBindEvent,
 } from '../mainStore/actions/bindEvents';
 import { getDefaultComponent } from '../createComponent';
-import { customSelctorAll } from './utils';
+import { customSelctorAll } from './customSelector.js';
 
 /**
  * @param {Object} obj
