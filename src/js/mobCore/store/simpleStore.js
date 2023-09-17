@@ -733,33 +733,33 @@ export class SimpleStore {
         /**
          * Check if all old props value is equal new props value.
          */
-        const prevValueIsEqualNew = Object.entries(newObjectValues).every(
-            ([key, value]) => {
-                const isCustomObject = this.type[prop][key] === TYPE_IS_ANY;
+        const prevValueIsEqualNew = shouldSkipEqual
+            ? Object.entries(newObjectValues).every(([key, value]) => {
+                  const isCustomObject = this.type[prop][key] === TYPE_IS_ANY;
 
-                /**
-                 * Check val have nested Object ( not 'Any' )
-                 */
-                const dataDepth = maxDepth(value);
-                if (dataDepth > 1 && !isCustomObject) {
-                    storeSetObjDepthWarning(prop, val, this.logStyle);
-                    return;
-                }
+                  /**
+                   * Check val have nested Object ( not 'Any' )
+                   */
+                  const dataDepth = maxDepth(value);
+                  if (dataDepth > 1 && !isCustomObject) {
+                      storeSetObjDepthWarning(prop, val, this.logStyle);
+                      return;
+                  }
 
-                return checkEquality(
-                    this.type[prop][key],
-                    oldObjectValues[key],
-                    value
-                );
-            }
-        );
+                  return checkEquality(
+                      this.type[prop][key],
+                      oldObjectValues[key],
+                      value
+                  );
+              })
+            : false;
 
         /**
          * If shouldSkipEqual = true and previous object is equal new object return.
          * If at least one modified property of the object has skipEqual set to false
          * then the entire object is considered mutated even if all values are equal
          */
-        if (shouldSkipEqual && prevValueIsEqualNew) return;
+        if (prevValueIsEqualNew) return;
 
         /**
          * Finally update Object.
