@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
+import { storeAction } from '../../createComponent';
 import { componentStore } from '../store';
 import { getComponentNameById } from './component';
 import { getElementById } from './element';
@@ -70,7 +71,7 @@ export const updateChildrenOrder = ({ id, component }) => {
     /**
      * Update children store od element with the DOM actual order.
      */
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

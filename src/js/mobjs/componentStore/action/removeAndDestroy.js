@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
+import { storeAction } from '../../createComponent';
 import { removeOnMountCallbackReference } from '../../mainStore/actions/onMountReference';
 import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
 import { componentStore } from '../store';
@@ -58,7 +59,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * get parentId, and remove id from parent
      */
     const parentId = parentInstance?.id;
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
@@ -87,7 +88,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Remove item From store.
      */
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
@@ -179,7 +180,7 @@ export const removeOrphanComponent = () => {
 export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
     if (!id) return;
 
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

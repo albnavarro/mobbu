@@ -1,5 +1,6 @@
 // @ts-check
 
+import { storeAction } from '../../createComponent.js';
 import { componentStore } from '../store.js';
 
 /**
@@ -15,7 +16,7 @@ import { componentStore } from '../store.js';
 export const freezePropById = ({ id = '', prop }) => {
     if (!id || id === '') return;
 
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
@@ -47,7 +48,7 @@ export const freezePropById = ({ id = '', prop }) => {
 export const unFreezePropById = ({ id = '', prop }) => {
     if (!id || id === '') return;
 
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

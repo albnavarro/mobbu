@@ -1,5 +1,10 @@
 import { UNSET } from './constant';
 
+export const isProduction = true;
+export const storeAction = isProduction
+    ? 'setPropByFunctionWithoutFire'
+    : 'set';
+
 let defaultComponent = {
     isolateCreation: false,
     isolateOnMount: false,

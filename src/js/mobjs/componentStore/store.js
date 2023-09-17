@@ -1,6 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
+import { isProduction } from '../createComponent';
 
 /**
  * @typedef {Object} componentStoreType
@@ -27,8 +28,10 @@ export const componentStore = mobCore.createStore({
     instances: () => ({
         value: [],
         type: Array,
-        strict: true,
+        strict: isProduction ? false : true,
         validate: (/** @type {Array} */ val) => {
+            if (isProduction) return;
+
             const isValid = val.every(
                 (item) =>
                     item?.element &&

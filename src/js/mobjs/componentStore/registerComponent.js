@@ -2,6 +2,7 @@
 
 import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
+import { storeAction } from '../createComponent';
 import { getFreezePropStatus } from './action/freeze';
 import { componentStore } from './store';
 import { addPropsToState } from './utils';
@@ -54,7 +55,7 @@ export const addComponentToStore = ({
     const store = mobCore.createStore(state);
     addPropsToState({ props, store });
 
-    componentStore.set('instances', (/** @type {Array} */ prev) => {
+    componentStore[storeAction]('instances', (/** @type {Array} */ prev) => {
         return [
             ...prev,
             {

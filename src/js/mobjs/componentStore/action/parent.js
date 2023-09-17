@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
+import { storeAction } from '../../createComponent';
 import { componentStore } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -60,7 +61,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
     if (!parentId) return;
 
     // Add component Id to parent element.
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
@@ -94,7 +95,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
  * Set a reference to parent component id for each component.
  */
 export const setParentsComponent = ({ componentId }) => {
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

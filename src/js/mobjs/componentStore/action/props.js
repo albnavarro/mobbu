@@ -1,9 +1,10 @@
 // @ts-check
 
+import { storeAction } from '../../createComponent';
 import { componentStore } from '../store';
 
 export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

@@ -1,5 +1,6 @@
 // @ts-check
 
+import { storeAction } from '../../createComponent.js';
 import { componentStore } from '../store.js';
 
 /**
@@ -15,7 +16,7 @@ import { componentStore } from '../store.js';
 export const setCurrentListValueById = ({ id = '', value }) => {
     if (!id || id === '') return;
 
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances

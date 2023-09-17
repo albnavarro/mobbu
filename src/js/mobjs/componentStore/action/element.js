@@ -1,6 +1,7 @@
 // @ts-check
 
 import { isDescendant } from '../../../mobCore/utils';
+import { storeAction } from '../../createComponent';
 import { componentStore } from '../store';
 
 /**
@@ -19,7 +20,7 @@ export const setElementById = ({
 }) => {
     if (!id || id === '') return;
 
-    componentStore.set(
+    componentStore[storeAction](
         'instances',
         (
             /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
