@@ -11,9 +11,10 @@ esbuild.build({
     outdir: 'dist',
     loader: { '.svg': 'text' },
     plugins: [
-        sassPlugin({
-            type: 'css-text',
-        }),
+        sassPlugin(),
+        // sassPlugin({
+        //     type: 'css-text',
+        // }),
     ],
 });
 
@@ -24,9 +25,10 @@ const ctx = await esbuild.context({
     outdir: 'dist',
     loader: { '.svg': 'text' },
     plugins: [
-        sassPlugin({
-            type: 'css-text',
-        }),
+        sassPlugin(),
+        // sassPlugin({
+        //     type: 'css-text',
+        // }),
     ],
 });
 

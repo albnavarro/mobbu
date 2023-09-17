@@ -17,9 +17,10 @@ const ctx = await esbuild.context({
     },
     loader: { '.svg': 'text' },
     plugins: [
-        sassPlugin({
-            type: 'css-text',
-        }),
+        sassPlugin(),
+        // sassPlugin({
+        //     type: 'css-text',
+        // }),
     ],
     logLevel: 'info',
 });

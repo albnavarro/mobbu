@@ -24,6 +24,7 @@ import {
     removeOrphansBindEvent,
 } from '../mainStore/actions/bindEvents';
 import { getDefaultComponent } from '../createComponent';
+import { customSelctorAll } from './utils';
 
 /**
  * @param {Object} obj
@@ -46,6 +47,7 @@ export const parseComponentsRecursive = async ({
 }) => {
     if (!element) return;
 
+    const useCustomTraversal = getDefaultComponent().customTraversal;
     const componentsReference = getComponentsReference();
     const componentList = getComponentList();
     const selector = runtimeId
@@ -63,9 +65,11 @@ export const parseComponentsRecursive = async ({
      * - For specific situoation es: updatelist, render only the component generated
      *   in current action filtered by a unique id
      *
-     * @type {NodeListOf<HTMLElement>} componentToParseArray
+     * @type {NodeListOf<HTMLElement>|Array<HTMLElement>} componentToParseArray
      */
-    const componentToParseArray = element.querySelectorAll(selector);
+    const componentToParseArray = useCustomTraversal
+        ? customSelctorAll(selector.split(','), element)
+        : element.querySelectorAll(selector);
 
     /**
      * @type {HTMLElement} componentToParse
