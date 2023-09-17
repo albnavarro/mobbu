@@ -5,7 +5,7 @@ let defaultComponent = {
     isolateOnMount: false,
     scoped: false,
     maxParseIteration: 5000,
-    customTraversal: false,
+    customTraversal: true,
 };
 
 /**
