@@ -51,10 +51,10 @@ export const getDefaultComponent = () => defaultComponent;
  * @param {function({'context':Object,'data':Object}):void} [ obj.connectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.disconnectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.adoptedCallback ] -
- * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object, 'data':Object }):void} [ obj.attributeChangedCallback ] -
+ * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object, 'data':{'componentId':String,'emit':Function,'emitAsync':Function,'freezeProp':Function,'getChildren':Function,'getParentId':Function,'getState':Function,'remove':Function,'setState':Function,'unBind':Function,'unFreezeProp':Function,'watch':Function,'watchImmediate':Function,'watchParent':Function} }):void} [ obj.attributeChangedCallback ] -
  * @param {Array<String>} [ obj.attributeToObserve ] -
  * @param {Style} [ obj.style ] -
- * @param {import('../../mobCore').MobbuStoreType} [ obj.state ]
+ * @param {import('../mobCore').MobbuStoreType} [ obj.state ]
  * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description
