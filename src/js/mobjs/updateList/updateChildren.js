@@ -38,12 +38,6 @@ export const updateChildren = async ({
     id,
 }) => {
     /**
-     * If there isn't new children return;
-     * Compare previous and current array.
-     */
-    if (JSON.stringify(current) === JSON.stringify(previous)) return [];
-
-    /**
      * Check if thereis a key
      */
     const hasKey = listKeyExist({ current, previous, key });

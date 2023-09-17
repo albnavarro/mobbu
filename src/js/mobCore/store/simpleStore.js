@@ -295,7 +295,7 @@ export class SimpleStore {
             prop: 'skipEqual',
             depth: this.dataDepth,
             logStyle: this.logStyle,
-            fallback: true,
+            fallback: false,
         });
 
         this.inizializeValidation();
@@ -561,8 +561,10 @@ export class SimpleStore {
          * Check if last value is equal new value.
          * if true and skipEqual is true for this prop return.
          */
-        const isEqual = checkEquality(this.type[prop], oldVal, val);
-        if (isEqual && this.skipEqual[prop]) return;
+        const isEqual = this.skipEqual[prop]
+            ? checkEquality(this.type[prop], oldVal, val)
+            : false;
+        if (isEqual) return;
 
         /**
          * Finally set new value
