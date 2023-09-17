@@ -51,7 +51,7 @@ export const getDefaultComponent = () => defaultComponent;
  * @param {function({'context':Object,'data':Object}):void} [ obj.connectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.disconnectedCallback ] -
  * @param {function({'context':Object,'data':Object}):void} [ obj.adoptedCallback ] -
- * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object }):void} [ obj.attributeChangedCallback ] -
+ * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object, 'data':Object }):void} [ obj.attributeChangedCallback ] -
  * @param {Array<String>} [ obj.attributeToObserve ] -
  * @param {Style} [ obj.style ] -
  * @param {import('../../mobCore').MobbuStoreType} [ obj.state ]

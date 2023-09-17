@@ -44,6 +44,76 @@ export const setComponentList = (list = {}) => {
         customElements.define(
             key,
             class extends HTMLElement {
+                /**
+                 * @type {String}
+                 */
+                #componentId;
+
+                /**
+                 * @type {Function}
+                 */
+                #emit;
+
+                /**
+                 * @type {Function}
+                 */
+                #emitAsync;
+
+                /**
+                 * @type {Function}
+                 */
+                #freezeProp;
+
+                /**
+                 * @type {Function}
+                 */
+                #getChildren;
+
+                /**
+                 * @type {Function}
+                 */
+                #getParentId;
+
+                /**
+                 * @type {Function}
+                 */
+                #getState;
+
+                /**
+                 * @type {Function}
+                 */
+                #remove;
+
+                /**
+                 * @type {Function}
+                 */
+                #setState;
+
+                /**
+                 * @type {Function}
+                 */
+                #unBind;
+
+                /**
+                 * @type {Function}
+                 */
+                #unFreezeProp;
+
+                /**
+                 * @type {Function}
+                 */
+                #watch;
+
+                /**
+                 * @type {Function}
+                 */
+                #watchImmediate;
+
+                /**
+                 * @type {Function}
+                 */
+                #watchParent;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -52,21 +122,21 @@ export const setComponentList = (list = {}) => {
                     super();
                     this.attachShadow({ mode: 'open' });
                     this.active = false;
-                    this.componentId = undefined;
-                    this.emit = () => {};
-                    this.emitAsync = () => {};
-                    this.freezeProp = () => {};
-                    this.freezeProp = () => {};
-                    this.getChildren = () => {};
-                    this.getParentId = () => {};
-                    this.getState = () => {};
-                    this.remove = () => {};
-                    this.setState = () => {};
-                    this.unBind = () => {};
-                    this.unFreezeProp = () => {};
-                    this.watch = () => {};
-                    this.watchImmediate = () => {};
-                    this.watchParent = () => {};
+                    this.#componentId = '';
+                    this.#emit = () => {};
+                    this.#emitAsync = () => {};
+                    this.#freezeProp = () => {};
+                    this.#freezeProp = () => {};
+                    this.#getChildren = () => {};
+                    this.#getParentId = () => {};
+                    this.#getState = () => {};
+                    this.#remove = () => {};
+                    this.#setState = () => {};
+                    this.#unBind = () => {};
+                    this.#unFreezeProp = () => {};
+                    this.#watch = () => {};
+                    this.#watchImmediate = () => {};
+                    this.#watchParent = () => {};
 
                     if (this.shadowRoot) {
                         const style = document.createElement('style');
@@ -85,66 +155,68 @@ export const setComponentList = (list = {}) => {
                     }
                 }
 
-                getData() {
+                #getData() {
                     return {
-                        componentId: this.componentId,
-                        emit: this.emit,
-                        emitAsync: this.emitAsync,
-                        freezeProp: this.freezeProp,
-                        getChildren: this.getChildren,
-                        getParentId: this.getParentId,
-                        getState: this.getState,
-                        remove: this.remove,
-                        setState: this.setState,
-                        unBind: this.unBind,
-                        unFreezeProp: this.unFreezeProp,
-                        watch: this.watch,
-                        watchImmediate: this.watchImmediate,
-                        watchParent: this.watchParent,
+                        componentId: this.#componentId,
+                        emit: this.#emit,
+                        emitAsync: this.#emitAsync,
+                        freezeProp: this.#freezeProp,
+                        getChildren: this.#getChildren,
+                        getParentId: this.#getParentId,
+                        getState: this.#getState,
+                        remove: this.#remove,
+                        setState: this.#setState,
+                        unBind: this.#unBind,
+                        unFreezeProp: this.#unFreezeProp,
+                        watch: this.#watch,
+                        watchImmediate: this.#watchImmediate,
+                        watchParent: this.#watchParent,
                     };
                 }
 
                 resetData() {
                     this.active = false;
-                    this.componentId = null;
-                    this.emit = () => {};
-                    this.emitAsync = () => {};
-                    this.freezeProp = () => {};
-                    this.getChildren = () => {};
-                    this.getParentId = () => {};
-                    this.getState = () => {};
-                    this.remove = () => {};
-                    this.setState = () => {};
-                    this.unBind = () => {};
-                    this.unFreezeProp = () => {};
-                    this.watch = () => {};
-                    this.watchImmediate = () => {};
-                    this.watchParent = () => {};
+                    this.#componentId = '';
+                    this.#emit = () => {};
+                    this.#emitAsync = () => {};
+                    this.#freezeProp = () => {};
+                    this.#getChildren = () => {};
+                    this.#getParentId = () => {};
+                    this.#getState = () => {};
+                    this.#remove = () => {};
+                    this.#setState = () => {};
+                    this.#unBind = () => {};
+                    this.#unFreezeProp = () => {};
+                    this.#watch = () => {};
+                    this.#watchImmediate = () => {};
+                    this.#watchParent = () => {};
                 }
 
                 /**
                  * @param {Object} data
                  */
                 inizializeCustomComponent(data) {
+                    if (this.active) return;
+
                     this.active = true;
-                    this.componentId = data.id;
-                    this.emit = data.emit;
-                    this.emitAsync = data.emitAsync;
-                    this.freezeProp = data.freezeProp;
-                    this.getChildren = data.getChildren;
-                    this.getParentId = data.getParentId;
-                    this.getState = data.getState;
-                    this.remove = data.remove;
-                    this.setState = data.setState;
-                    this.unBind = data.unBind;
-                    this.unFreezeProp = data.unFreezeProp;
-                    this.watch = data.watch;
-                    this.watchImmediate = data.watchImmediate;
-                    this.watchParent = data.watchParent;
+                    this.#componentId = data.id;
+                    this.#emit = data.emit;
+                    this.#emitAsync = data.emitAsync;
+                    this.#freezeProp = data.freezeProp;
+                    this.#getChildren = data.getChildren;
+                    this.#getParentId = data.getParentId;
+                    this.#getState = data.getState;
+                    this.#remove = data.remove;
+                    this.#setState = data.setState;
+                    this.#unBind = data.unBind;
+                    this.#unFreezeProp = data.unFreezeProp;
+                    this.#watch = data.watch;
+                    this.#watchImmediate = data.watchImmediate;
+                    this.#watchParent = data.watchParent;
 
                     _connectedCallBack({
                         context: this,
-                        data: this.getData(),
+                        data: this.#getData(),
                     });
                 }
 
@@ -153,7 +225,7 @@ export const setComponentList = (list = {}) => {
 
                     _disconnectedCallback({
                         context: this,
-                        data: this.getData(),
+                        data: this.#getData(),
                     });
 
                     this.resetData();
@@ -171,7 +243,7 @@ export const setComponentList = (list = {}) => {
 
                     _adoptedCallback({
                         context: this,
-                        data: this.getData(),
+                        data: this.#getData(),
                     });
                 }
 
@@ -191,7 +263,7 @@ export const setComponentList = (list = {}) => {
                         oldValue,
                         newValue,
                         context: this,
-                        data: this.getData(),
+                        data: this.#getData(),
                     });
                 }
             }

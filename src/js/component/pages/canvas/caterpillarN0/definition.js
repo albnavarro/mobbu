@@ -1,7 +1,6 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { CaterpillarN0 } from './caterpillarN0';
-import style from './style.scss';
 
 export const caterpillarN0Def = createComponent({
     name: 'caterpillar-n0',
@@ -59,5 +58,5 @@ export const caterpillarN0Def = createComponent({
             data
         );
     },
-    style,
+    style: /* HTML */ ` ::slotted(div) { width: 100%; } `,
 });

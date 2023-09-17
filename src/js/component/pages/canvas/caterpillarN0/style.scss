@@ -1,9 +1,0 @@
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
-}
-
-::slotted(div) {
-    width: 100%;
-}
