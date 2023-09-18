@@ -180,7 +180,26 @@ export const removeAndDestroyById = ({ id = '' }) => {
                 },
             });
         }
+
+        if (key === id) {
+            const { state, destroy, parentPropsWatcher } = value;
+
+            destroy();
+            state.destroy();
+            parentPropsWatcher.forEach((unwatch) => {
+                unwatch();
+            });
+
+            /**
+             * Secure check: remove orphas reference from mainStore
+             */
+            removeOnMountCallbackReference({ id: key });
+            removeCurrentIdToDynamicProps({ componentId: key });
+        }
     }
+
+    componentMap.delete(id);
+    // - new
 
     /**
      * Remove component from dom
