@@ -52,22 +52,7 @@ export const setElementById = ({
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => currentId === id);
-    //
-    // const element = instance?.element;
-    // if (!element) {
-    //     console.warn(`getElementById failed no id found`);
-    //     return;
-    // }
-
-    //
     const { element } = componentMap.get(id);
-
     return element;
 };
 
@@ -90,24 +75,12 @@ export const getElementByKeyInContainer = ({
 }) => {
     if (!key || key === '') return;
 
-    const { instances } = componentStore.get();
-
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(
+    const instance = [...componentMap.values()].find(
         ({ key: currentKey, parentId: currentParentId, element }) =>
             currentKey === key &&
             currentParentId === parentId &&
             isDescendant(container, element)
     );
-
-    // const instance = [...componentMap.values()].find(
-    //     ({ key: currentKey, parentId: currentParentId, element }) =>
-    //         currentKey === key &&
-    //         currentParentId === parentId &&
-    //         isDescendant(container, element)
-    // );
 
     const element = instance?.element;
     if (!element) {

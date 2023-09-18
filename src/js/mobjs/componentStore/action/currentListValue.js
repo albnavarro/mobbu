@@ -1,7 +1,6 @@
 // @ts-check
 
-import { storeAction } from '../../createComponent.js';
-import { componentMap, componentStore } from '../store.js';
+import { componentMap } from '../store.js';
 
 /**
  *
@@ -15,25 +14,6 @@ import { componentMap, componentStore } from '../store.js';
  */
 export const setCurrentListValueById = ({ id = '', value }) => {
     if (!id || id === '') return;
-
-    componentStore[storeAction](
-        'instances',
-        (
-            /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
-        ) => {
-            return prevInstances.map((item) => {
-                const { id: currentId } = item;
-
-                return id === currentId
-                    ? {
-                          ...item,
-                          currentRepeaterState: value,
-                          isRepeater: true,
-                      }
-                    : item;
-            });
-        }
-    );
 
     // - new
     const item = componentMap.get(id);
@@ -55,19 +35,6 @@ export const setCurrentListValueById = ({ id = '', value }) => {
  */
 export const getCurrentListValueById = ({ id = '' }) => {
     if (!id || id === '') return false;
-
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => {
-    //     return currentId === id;
-    // });
-    //
-    // /**
-    //  */
-    // return instance?.currentRepeaterState;
 
     const { currentRepeaterState } = componentMap.get(id);
     return currentRepeaterState;

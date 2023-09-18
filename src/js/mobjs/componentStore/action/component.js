@@ -1,6 +1,6 @@
 // @ts-check
 
-import { componentMap, componentStore } from '../store';
+import { componentMap } from '../store';
 
 /**
  * @param {String} id
@@ -10,22 +10,6 @@ import { componentMap, componentStore } from '../store';
  */
 export const getComponentNameById = (id = '') => {
     if (!id || id === '') return;
-    //
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => {
-    //     return currentId === id;
-    // });
-    //
-    // const componentName = instance?.component;
-    //
-    // if (!componentName) {
-    //     console.warn(`getComponentNameById failed no id found`);
-    //     return null;
-    // }
 
     const { component } = componentMap.get(id);
     if (!component) {
@@ -45,15 +29,6 @@ export const getComponentNameById = (id = '') => {
  */
 export const getIdByInstanceName = (name = '') => {
     if (!name) return;
-
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ instanceName }) => {
-    //     return instanceName === name;
-    // });
 
     const instance = [...componentMap.values()].find(({ instanceName }) => {
         return instanceName === name;
