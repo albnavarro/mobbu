@@ -120,6 +120,68 @@ export const removeAndDestroyById = ({ id = '' }) => {
         }
     );
 
+    //-new
+
+    const instances2 = [...componentMap.values()];
+
+    /**
+     * @type {import('../store.js').componentStoreType}
+     */
+    const { component: componentName2, element: element2 } =
+        instances2.find(({ id: currentId }) => {
+            return currentId === id;
+        }) || {};
+
+    if (!element2 || !componentName2) return;
+
+    /**
+     * Destroy all component nested.
+     */
+    const componentNested2 = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
+    [...componentNested2].forEach((component) =>
+        removeAndDestroyById({
+            id: component?.dataset[ATTR_IS_COMPONENT_VALUE],
+        })
+    );
+
+    /**
+     * -------------
+     * Remove id from parent child array.
+     * -------------
+     */
+
+    /**
+     * get parent instance filtered by componentName
+     */
+    const parentInstance2 = instances2.find(({ child }) => {
+        const parentComponentArray = child?.[componentName] ?? [];
+        return parentComponentArray.includes(id);
+    });
+
+    /**
+     * get parentId, and remove id from parent
+     */
+    const parentId2 = parentInstance2?.id;
+
+    for (const [key, value] of componentMap) {
+        const { child } = value;
+
+        if (key === parentId2) {
+            componentMap.set(key, {
+                ...value,
+
+                child: {
+                    ...child,
+                    ...removeChildFromChildrenArray({
+                        currentChild: child,
+                        id,
+                        componentName: componentName2,
+                    }),
+                },
+            });
+        }
+    }
+
     /**
      * Remove component from dom
      */
