@@ -7,7 +7,7 @@ export { createComponent } from './createComponent';
 export { setDefaultComponent } from './createComponent';
 export { removeAndDestroyById } from './componentStore/action/removeAndDestroy';
 export { parseDom } from './parseComponent/componentParse';
-export { componentStore } from './componentStore/store';
+// export { componentStore } from './componentStore/store';
 export { mainStore } from './mainStore/mainStore';
 export { loadUrl } from './route/router';
 export { inizializeApp } from './route';
