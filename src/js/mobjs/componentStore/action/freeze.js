@@ -99,16 +99,20 @@ export const unFreezePropById = ({ id = '', prop }) => {
 export const getFreezePropStatus = ({ id = '', prop }) => {
     if (!id || id === '') return false;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => {
+    //     return currentId === id;
+    // });
 
     /**
-     * @type {import('../store.js').componentStoreType}
      */
-    const instance = instances.find(({ id: currentId }) => {
-        return currentId === id;
-    });
+    // return instance.freezedPros.includes(prop);
 
-    /**
-     */
-    return instance.freezedPros.includes(prop);
+    //-new
+    const { freezedPros } = componentMap.get(id);
+    return freezedPros.includes(prop);
 };
