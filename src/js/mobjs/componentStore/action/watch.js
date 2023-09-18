@@ -1,6 +1,6 @@
 // @ts-check
 
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 
 /**
  * @param {string} id
@@ -14,18 +14,20 @@ import { componentStore } from '../store';
 export const watchById = (id = '', prop = '', cb = () => {}) => {
     if ((!id || id === '') && (!prop || prop === '')) return;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => currentId === id);
+    //
+    // const state = instance?.state;
+    // if (!state) {
+    //     console.warn(`watchById failed no id found on prop: ${prop}`);
+    //     return;
+    // }
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => currentId === id);
-
-    const state = instance?.state;
-    if (!state) {
-        console.warn(`watchById failed no id found on prop: ${prop}`);
-        return;
-    }
+    const { state } = componentMap.get(id);
 
     return state.watch(prop, cb);
 };
