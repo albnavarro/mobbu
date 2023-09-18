@@ -1,5 +1,7 @@
 // @ts-check
 
+export { componentMap } from './componentStore/store';
+
 export { renderHtml as html } from './creationStep/utils';
 export { createComponent } from './createComponent';
 export { setDefaultComponent } from './createComponent';

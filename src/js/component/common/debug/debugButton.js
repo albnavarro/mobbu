@@ -1,4 +1,4 @@
-import { componentStore, mainStore } from '../../../mobjs';
+import { componentMap, componentStore, mainStore } from '../../../mobjs';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
@@ -8,6 +8,7 @@ export const DebugButton = ({ onMount, html }) => {
         element.addEventListener('click', () => {
             mainStore.debugStore();
             componentStore.debugStore();
+            console.log(componentMap);
         });
 
         return () => {};

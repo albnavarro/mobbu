@@ -2,7 +2,7 @@
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { storeAction } from '../../createComponent';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 import { updateChildrenArray } from '../utils';
 
 /**
@@ -15,18 +15,24 @@ import { updateChildrenArray } from '../utils';
 export const getParentIdById = (id = '') => {
     if (!id || id === '') return;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => {
+    //     return currentId === id;
+    // });
+    //
+    // /**
+    //  */
+    // const parentId = instance?.parentId;
+    // if (!parentId) {
+    //     // console.warn(`getParentIdById failed no id found`);
+    //     return;
+    // }
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => {
-        return currentId === id;
-    });
-
-    /**
-     */
-    const parentId = instance?.parentId;
+    const { parentId } = componentMap.get(id);
     if (!parentId) {
         // console.warn(`getParentIdById failed no id found`);
         return;
@@ -86,6 +92,30 @@ export const addSelfToParentComponent = ({ id = '' }) => {
             });
         }
     );
+
+    const item = componentMap.get(id);
+    const parentId2 = item?.parentId;
+    const componentName2 = item?.component;
+    if (!parentId2) return;
+
+    for (const [key, value] of componentMap) {
+        const { child } = value;
+
+        if (key === parentId2) {
+            componentMap.set(key, {
+                ...value,
+
+                child: {
+                    ...child,
+                    ...updateChildrenArray({
+                        currentChild: child,
+                        id,
+                        componentName: componentName2,
+                    }),
+                },
+            });
+        }
+    }
 };
 
 /**
@@ -125,4 +155,27 @@ export const setParentsComponent = ({ componentId }) => {
             });
         }
     );
+
+    const item = componentMap.get(componentId);
+    if (!item) return;
+
+    const { element, parentId } = item;
+
+    const parentNode = /** @type {HTMLElement|undefined} */ (
+        element?.parentNode
+    );
+
+    const parent = /** @type {HTMLElement|undefined} */ (
+        parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
+    );
+
+    const newItem =
+        parent && (!parentId || parentId === undefined)
+            ? {
+                  ...item,
+                  parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE],
+              }
+            : item;
+
+    componentMap.set(componentId, newItem);
 };

@@ -2,7 +2,7 @@
 
 import { isDescendant } from '../../../mobCore/utils';
 import { storeAction } from '../../createComponent';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 
 /**
  *
@@ -34,6 +34,10 @@ export const setElementById = ({
             });
         }
     );
+
+    //
+    const item = componentMap.get(id);
+    componentMap.set(id, { ...item, element: newElement });
 };
 
 /**
@@ -48,18 +52,21 @@ export const setElementById = ({
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => currentId === id);
+    //
+    // const element = instance?.element;
+    // if (!element) {
+    //     console.warn(`getElementById failed no id found`);
+    //     return;
+    // }
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => currentId === id);
-
-    const element = instance?.element;
-    if (!element) {
-        console.warn(`getElementById failed no id found`);
-        return;
-    }
+    //
+    const { element } = componentMap.get(id);
 
     return element;
 };
@@ -94,6 +101,13 @@ export const getElementByKeyInContainer = ({
             currentParentId === parentId &&
             isDescendant(container, element)
     );
+
+    // const instance = [...componentMap.values()].find(
+    //     ({ key: currentKey, parentId: currentParentId, element }) =>
+    //         currentKey === key &&
+    //         currentParentId === parentId &&
+    //         isDescendant(container, element)
+    // );
 
     const element = instance?.element;
     if (!element) {

@@ -55,3 +55,5 @@ export const componentStore = mobCore.createStore({
         },
     }),
 });
+
+export const componentMap = new Map();
