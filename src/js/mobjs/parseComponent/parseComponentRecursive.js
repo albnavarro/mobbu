@@ -44,6 +44,7 @@ export const parseComponentsRecursive = async ({
     functionToFireAtTheEnd = [],
     isCancellable = true,
     currentIterationCounter = 0,
+    currentSelectiors = [],
 }) => {
     if (!element) return;
 
@@ -67,16 +68,21 @@ export const parseComponentsRecursive = async ({
      *
      * @type {NodeListOf<HTMLElement>|Array<HTMLElement>} componentToParseArray
      */
-    const componentToParseArray = useCustomTraversal
-        ? customSelctorAll(selector.split(','), element)
-        : element.querySelectorAll(selector);
+    // const componentToParseArray = useCustomTraversal
+    //     ? customSelctorAll(selector.split(','), element)
+    //     : element.querySelectorAll(selector);
 
-    /**
-     * @type {HTMLElement} componentToParse
-     *
-     * Get first item.
-     */
-    const componentToParse = componentToParseArray?.[0];
+    let parseSourceArray = [];
+    let componentToParse = undefined;
+
+    if (currentSelectiors.length > 0) {
+        componentToParse = currentSelectiors[0];
+        parseSourceArray = currentSelectiors.slice(1);
+    } else {
+        const query = [...element.querySelectorAll(selector)];
+        componentToParse = query?.[0];
+        parseSourceArray = query.slice(1);
+    }
 
     /**
      * Check if max parse number is reached.
@@ -151,6 +157,7 @@ export const parseComponentsRecursive = async ({
             functionToFireAtTheEnd,
             isCancellable,
             currentIterationCounter: (currentIterationCounter += 1),
+            currentSelectiors: parseSourceArray,
         });
 
         return;
@@ -302,5 +309,6 @@ export const parseComponentsRecursive = async ({
         functionToFireAtTheEnd,
         isCancellable,
         currentIterationCounter: (currentIterationCounter += 1),
+        currentSelectiors: parseSourceArray,
     });
 };
