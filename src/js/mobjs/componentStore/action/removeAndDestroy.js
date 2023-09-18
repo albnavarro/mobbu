@@ -4,7 +4,7 @@ import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { storeAction } from '../../createComponent';
 import { removeOnMountCallbackReference } from '../../mainStore/actions/onMountReference';
 import { removeCurrentIdToDynamicProps } from '../../mainStore/actions/props';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
 /**
@@ -146,6 +146,13 @@ export const removeCancellableComponent = () => {
     );
 
     cancellableComponent.forEach(({ id }) => removeAndDestroyById({ id }));
+
+    // - new
+    const cancellableComponents2 = [...componentMap.values()].filter(
+        ({ isCancellable }) => isCancellable
+    );
+
+    cancellableComponents2.forEach(({ id }) => removeAndDestroyById({ id }));
 };
 
 /**
@@ -167,6 +174,14 @@ export const removeOrphanComponent = () => {
     );
 
     orphans.forEach(({ id }) => removeAndDestroyById({ id }));
+
+    // - new
+    const orphans2 = [...componentMap.values()].filter(
+        ({ element, isCancellable }) =>
+            isCancellable && !document.body.contains(element)
+    );
+
+    orphans2.forEach(({ id }) => removeAndDestroyById({ id }));
 };
 
 /**
@@ -192,4 +207,8 @@ export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
             });
         }
     );
+
+    //
+    const item = componentMap.get(id);
+    componentMap.set(id, { ...item, destroy: cb });
 };

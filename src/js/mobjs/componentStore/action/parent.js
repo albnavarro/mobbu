@@ -156,6 +156,7 @@ export const setParentsComponent = ({ componentId }) => {
         }
     );
 
+    //
     const item = componentMap.get(componentId);
     if (!item) return;
 
