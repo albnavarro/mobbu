@@ -1,7 +1,7 @@
 // @ts-check
 
 import { storeAction } from '../../createComponent.js';
-import { componentStore } from '../store.js';
+import { componentMap, componentStore } from '../store.js';
 
 /**
  *
@@ -33,6 +33,14 @@ export const freezePropById = ({ id = '', prop }) => {
             });
         }
     );
+
+    // - new
+    const item = componentMap.get(id);
+    const { freezedPros } = item;
+    componentMap.set(id, {
+        ...item,
+        freezedPros: [...freezedPros, prop],
+    });
 };
 
 /**
