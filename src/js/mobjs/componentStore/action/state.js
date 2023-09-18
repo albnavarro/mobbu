@@ -1,7 +1,7 @@
 // @ts-check
 
 import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
-import { componentMap, componentStore } from '../store';
+import { componentMap } from '../store';
 
 /**
  * @param {string} id
@@ -12,19 +12,6 @@ import { componentMap, componentStore } from '../store';
  */
 export const getStateById = (id = '') => {
     if (!id || id === '') return;
-
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => currentId === id);
-    //
-    // const state = instance?.state;
-    // if (!state) {
-    //     console.warn(`getStateById failed no id found`);
-    //     return null;
-    // }
 
     const { state } = componentMap.get(id);
 
@@ -43,16 +30,6 @@ export const getStateById = (id = '') => {
  */
 export const setStateById = (id = '', prop = '', value, fire = true) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
-
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => currentId === id);
-    //
-    // const state = instance?.state;
-    // const componentName = instance?.component;
 
     const item = componentMap.get(id);
     const state = item?.state;
