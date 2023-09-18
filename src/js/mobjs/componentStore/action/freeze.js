@@ -76,6 +76,14 @@ export const unFreezePropById = ({ id = '', prop }) => {
             });
         }
     );
+
+    // - new
+    const item = componentMap.get(id);
+    const { freezedPros } = item;
+    componentMap.set(id, {
+        ...item,
+        freezedPros: freezedPros.filter((currentProp) => currentProp !== prop),
+    });
 };
 
 /**
