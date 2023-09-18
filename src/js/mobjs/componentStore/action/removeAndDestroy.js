@@ -186,9 +186,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
 
             destroy();
             state.destroy();
-            parentPropsWatcher.forEach((unwatch) => {
-                unwatch();
-            });
+            parentPropsWatcher.forEach((unwatch) => unwatch());
 
             /**
              * Secure check: remove orphas reference from mainStore
