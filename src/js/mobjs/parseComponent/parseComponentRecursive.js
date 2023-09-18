@@ -68,9 +68,6 @@ export const parseComponentsRecursive = async ({
      *
      * @type {NodeListOf<HTMLElement>|Array<HTMLElement>} componentToParseArray
      */
-    // const componentToParseArray = useCustomTraversal
-    //     ? customSelctorAll(selector.split(','), element)
-    //     : element.querySelectorAll(selector);
 
     let parseSourceArray = [];
     let componentToParse = undefined;
