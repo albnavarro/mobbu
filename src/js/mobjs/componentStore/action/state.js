@@ -44,15 +44,19 @@ export const getStateById = (id = '') => {
 export const setStateById = (id = '', prop = '', value, fire = true) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => currentId === id);
+    //
+    // const state = instance?.state;
+    // const componentName = instance?.component;
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => currentId === id);
-
-    const state = instance?.state;
-    const componentName = instance?.component;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.component;
 
     const stateIsExportable = checkIfStateIsExportable({
         componentName,
