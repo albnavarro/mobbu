@@ -378,6 +378,26 @@ export const getPropsFromParent = (id = '') => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {String} obj.propsId
+ * @return void
+ *
+ * @description
+ * If slot is not used remove id reference orphans from store.
+ *
+ */
+export const removeCurrentToPropsByPropsId = ({ propsId }) => {
+    if (!propsId) return;
+
+    mainStore.set('propsToChildren', (/** @type {Array<Object>} */ prev) => {
+        return prev.filter((item) => {
+            const [currentPropsId] = Object.keys(item);
+            return currentPropsId !== propsId;
+        });
+    });
+};
+
+/**
  * @return void
  *
  * @description

@@ -13,7 +13,11 @@ import {
     ATTR_PLACEHOLDER_PARTIAL,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
-import { removeCurrentToDynamicPropsByPropsId } from '../mainStore/actions/props';
+import {
+    removeCurrentIdToDynamicProps,
+    removeCurrentToDynamicPropsByPropsId,
+    removeCurrentToPropsByPropsId,
+} from '../mainStore/actions/props';
 
 /**
  * @param {Object} obj
@@ -49,12 +53,22 @@ const getNewElement = ({ placeholderElement, content }) => {
 const removeOrphanSlot = ({ element }) => {
     const slots = element.querySelectorAll('slot');
     slots.forEach((slot) => {
-        const propsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
+        /**
+         * If slot is not used remove id reference orphans from store.
+         */
+        const dynamicPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
+        if (dynamicPropsIdFromSlot) {
+            removeCurrentToDynamicPropsByPropsId({
+                propsId: dynamicPropsIdFromSlot,
+            });
+        }
+
+        /**
+         * If slot is not used remove id reference orphans from store.
+         */
+        const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
         if (propsIdFromSlot) {
-            /**
-             * If slot is not used remove id reference orphans from store.
-             */
-            removeCurrentToDynamicPropsByPropsId({ propsId: propsIdFromSlot });
+            removeCurrentToPropsByPropsId({ propsId: propsIdFromSlot });
         }
 
         slot.remove();
