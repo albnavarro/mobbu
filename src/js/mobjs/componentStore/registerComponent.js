@@ -2,9 +2,8 @@
 
 import { mobCore } from '../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../constant';
-import { storeAction } from '../createComponent';
 import { getFreezePropStatus } from './action/freeze';
-import { componentMap, componentStore } from './store';
+import { componentMap } from './store';
 import { addPropsToState } from './utils';
 
 /**
@@ -54,28 +53,6 @@ export const addComponentToStore = ({
 }) => {
     const store = mobCore.createStore(state);
     addPropsToState({ props, store });
-
-    componentStore[storeAction]('instances', (/** @type {Array} */ prev) => {
-        return [
-            ...prev,
-            {
-                element: placeholderElement,
-                component: componentName,
-                instanceName,
-                destroy,
-                parentPropsWatcher,
-                key,
-                currentRepeaterState,
-                isRepeater,
-                isCancellable,
-                id,
-                parentId: null,
-                freezedPros,
-                child: {},
-                state: store,
-            },
-        ];
-    });
 
     componentMap.set(id, {
         element: placeholderElement,

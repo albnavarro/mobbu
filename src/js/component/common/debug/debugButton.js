@@ -7,7 +7,6 @@ export const DebugButton = ({ onMount, html }) => {
     onMount(({ element }) => {
         element.addEventListener('click', () => {
             mainStore.debugStore();
-            // componentStore.debugStore();
             console.log(componentMap);
         });
 
