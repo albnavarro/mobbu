@@ -1,7 +1,7 @@
 // @ts-check
 
 import { storeAction } from '../../createComponent.js';
-import { componentStore } from '../store.js';
+import { componentMap, componentStore } from '../store.js';
 
 /**
  *
@@ -34,6 +34,14 @@ export const setCurrentListValueById = ({ id = '', value }) => {
             });
         }
     );
+
+    // - new
+    const item = componentMap.get(id);
+    componentMap.set(id, {
+        ...item,
+        currentRepeaterState: value,
+        isRepeater: true,
+    });
 };
 
 /**
