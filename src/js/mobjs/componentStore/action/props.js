@@ -1,7 +1,7 @@
 // @ts-check
 
 import { storeAction } from '../../createComponent';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 
 export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
     componentStore[storeAction](
@@ -26,6 +26,14 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
             });
         }
     );
+
+    // - new
+    const item = componentMap.get(id);
+    const { parentPropsWatcher } = item;
+    componentMap.set(id, {
+        ...item,
+        parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray],
+    });
 };
 
 /**
@@ -51,6 +59,12 @@ export const unBind = ({ id = '' }) => {
         }) || {};
 
     parentPropsWatcher.forEach((unwatch) => {
+        unwatch();
+    });
+
+    // - new
+    const { parentPropsWatcher: parentPropsWatcher2 } = componentMap.get(id);
+    parentPropsWatcher2.forEach((unwatch) => {
         unwatch();
     });
 };
