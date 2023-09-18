@@ -147,5 +147,7 @@ export const setDestroyCallback = ({ cb = () => {}, id = null }) => {
     if (!id) return;
 
     const item = componentMap.get(id);
+    if (!item) return;
+
     componentMap.set(id, { ...item, destroy: cb });
 };
