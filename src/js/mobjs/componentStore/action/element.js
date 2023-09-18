@@ -20,23 +20,9 @@ export const setElementById = ({
 }) => {
     if (!id || id === '') return;
 
-    // componentStore[storeAction](
-    //     'instances',
-    //     (
-    //         /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
-    //     ) => {
-    //         return prevInstances.map((item) => {
-    //             const { id: currentId } = item;
-    //
-    //             return id === currentId
-    //                 ? { ...item, element: newElement }
-    //                 : item;
-    //         });
-    //     }
-    // );
-
-    //
     const item = componentMap.get(id);
+    if (!item) return;
+
     componentMap.set(id, { ...item, element: newElement });
 };
 

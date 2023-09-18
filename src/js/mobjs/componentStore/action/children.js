@@ -59,6 +59,8 @@ export const updateChildrenOrder = ({ id, component }) => {
     });
 
     const item = componentMap.get(id);
+    if (!item) return;
+
     const { child } = item;
     componentMap.set(id, {
         ...item,

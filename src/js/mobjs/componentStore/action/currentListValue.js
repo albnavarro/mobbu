@@ -15,8 +15,9 @@ import { componentMap } from '../store.js';
 export const setCurrentListValueById = ({ id = '', value }) => {
     if (!id || id === '') return;
 
-    // - new
     const item = componentMap.get(id);
+    if (!item) return;
+
     componentMap.set(id, {
         ...item,
         currentRepeaterState: value,

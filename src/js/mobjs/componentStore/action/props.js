@@ -4,6 +4,8 @@ import { componentMap } from '../store';
 
 export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
     const item = componentMap.get(id);
+    if (!item) return;
+
     const { parentPropsWatcher } = item;
     componentMap.set(id, {
         ...item,

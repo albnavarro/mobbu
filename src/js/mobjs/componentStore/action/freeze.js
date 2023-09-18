@@ -17,6 +17,8 @@ export const freezePropById = ({ id = '', prop }) => {
 
     // - new
     const item = componentMap.get(id);
+    if (!item) return;
+
     const { freezedPros } = item;
     componentMap.set(id, {
         ...item,
@@ -37,9 +39,9 @@ export const freezePropById = ({ id = '', prop }) => {
 export const unFreezePropById = ({ id = '', prop }) => {
     if (!id || id === '') return;
 
-    //
-    // - new
     const item = componentMap.get(id);
+    if (!item) return;
+
     const { freezedPros } = item;
     componentMap.set(id, {
         ...item,
