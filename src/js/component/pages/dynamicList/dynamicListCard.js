@@ -1,3 +1,4 @@
+import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 
 // function asyncTest() {
@@ -26,7 +27,7 @@ export const DynamicListCard = async ({
     watchImmediate,
     id,
 }) => {
-    const { isFull } = getState();
+    const { isFull, label } = getState();
 
     onMount(({ element }) => {
         const indexEl = element.querySelector('.index');
@@ -62,6 +63,9 @@ export const DynamicListCard = async ({
     // const tag = isFull ? 'div' : 'button';
     const typeButton = isFull ? '' : "type='button'";
 
+    const { caterpillarN1 } = getLegendData();
+    const { source } = caterpillarN1;
+
     return html`
         <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
@@ -90,8 +94,33 @@ export const DynamicListCard = async ({
                         },
                     })}
                 ></slot>
-                <dynamic-list-child-test></dynamic-list-child-test>
+                <dynamic-list-child-test> </dynamic-list-child-test>
             </div>
+            <code-button
+                ${staticProps({
+                    drawers: [
+                        {
+                            label: 'description',
+                            source: label,
+                        },
+                        {
+                            label: 'definition',
+                            source: label,
+                        },
+                        {
+                            label: 'component',
+                            source: label,
+                        },
+                        {
+                            label: 'animation',
+                            source: label,
+                        },
+                    ],
+                    style: 'green',
+                })}
+            >
+                pippo
+            </code-button>
         </dynamic-list-card>
     `;
 };

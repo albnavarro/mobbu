@@ -105,10 +105,10 @@ export const parseComponentsRecursive = async ({
          */
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            removeOrphansPropsFromParent();
-            removeOrphansBindEvent();
+            // removeOrphansPropsFromParent();
+            // removeOrphansBindEvent();
             removeOrphanComponent();
-            clearOrphansDynamicPropsFromSlot();
+            // clearOrphansDynamicPropsFromSlot();
         }
 
         /**
@@ -196,10 +196,10 @@ export const parseComponentsRecursive = async ({
     if (!newElement) {
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            removeOrphansPropsFromParent();
-            removeOrphansBindEvent();
+            // removeOrphansPropsFromParent();
+            // removeOrphansBindEvent();
             removeOrphanComponent();
-            clearOrphansDynamicPropsFromSlot();
+            // clearOrphansDynamicPropsFromSlot();
         }
 
         return;
