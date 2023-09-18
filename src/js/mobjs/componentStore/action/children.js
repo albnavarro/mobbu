@@ -2,7 +2,7 @@
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { storeAction } from '../../createComponent';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 import { getComponentNameById } from './component';
 import { getElementById } from './element';
 
@@ -18,16 +18,22 @@ import { getElementById } from './element';
 export const getChildrenIdByName = ({ id = '', component = '' }) => {
     if (!id || id === '') return [];
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => {
+    //     return currentId === id;
+    // });
+    //
+    // const child = instance?.child;
+    // if (!child) {
+    //     console.warn(`getChildIdById failed no id found`);
+    //     return [];
+    // }
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => {
-        return currentId === id;
-    });
-
-    const child = instance?.child;
+    const { child } = componentMap.get(id);
     if (!child) {
         console.warn(`getChildIdById failed no id found`);
         return [];
@@ -91,4 +97,6 @@ export const updateChildrenOrder = ({ id, component }) => {
             });
         }
     );
+
+    // - new
 };
