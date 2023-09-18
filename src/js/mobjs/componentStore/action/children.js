@@ -99,4 +99,34 @@ export const updateChildrenOrder = ({ id, component }) => {
     );
 
     // - new
+    /*
+     * Get element
+     */
+    const element2 = getElementById({ id });
+    if (!element2) return;
+
+    /**
+     * Get id af all component inside
+     */
+    const components2 = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
+    const componentsIdNow2 = [...components2].map(
+        (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
+    );
+
+    /**
+     * Filter for the component we are looking for
+     */
+    const componentsIdFiltered2 = componentsIdNow2.filter((currentId) => {
+        return getComponentNameById(currentId) === component;
+    });
+
+    const item = componentMap.get(id);
+    const { child } = item;
+    componentMap.set(id, {
+        ...item,
+        child: {
+            ...child,
+            [component]: componentsIdFiltered2,
+        },
+    });
 };
