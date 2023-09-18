@@ -56,16 +56,19 @@ export const setCurrentListValueById = ({ id = '', value }) => {
 export const getCurrentListValueById = ({ id = '' }) => {
     if (!id || id === '') return false;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => {
+    //     return currentId === id;
+    // });
+    //
+    // /**
+    //  */
+    // return instance?.currentRepeaterState;
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => {
-        return currentId === id;
-    });
-
-    /**
-     */
-    return instance?.currentRepeaterState;
+    const { currentRepeaterState } = componentMap.get(id);
+    return currentRepeaterState;
 };
