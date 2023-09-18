@@ -1,7 +1,6 @@
 // @ts-check
 
-import { storeAction } from '../../createComponent.js';
-import { componentMap, componentStore } from '../store.js';
+import { componentMap } from '../store.js';
 
 /**
  *
@@ -15,24 +14,6 @@ import { componentMap, componentStore } from '../store.js';
  */
 export const freezePropById = ({ id = '', prop }) => {
     if (!id || id === '') return;
-
-    // componentStore[storeAction](
-    //     'instances',
-    //     (
-    //         /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
-    //     ) => {
-    //         return prevInstances.map((item) => {
-    //             const { id: currentId, freezedPros } = item;
-    //
-    //             return id === currentId
-    //                 ? {
-    //                       ...item,
-    //                       freezedPros: [...freezedPros, prop],
-    //                   }
-    //                 : item;
-    //         });
-    //     }
-    // );
 
     // - new
     const item = componentMap.get(id);
@@ -56,26 +37,6 @@ export const freezePropById = ({ id = '', prop }) => {
 export const unFreezePropById = ({ id = '', prop }) => {
     if (!id || id === '') return;
 
-    // componentStore[storeAction](
-    //     'instances',
-    //     (
-    //         /** @type {Array.<import('../store.js').componentStoreType >} */ prevInstances
-    //     ) => {
-    //         return prevInstances.map((item) => {
-    //             const { id: currentId, freezedPros } = item;
-    //
-    //             return id === currentId
-    //                 ? {
-    //                       ...item,
-    //
-    //                       freezedPros: freezedPros.filter(
-    //                           (currentProp) => currentProp !== prop
-    //                       ),
-    //                   }
-    //                 : item;
-    //         });
-    //     }
-    // );
     //
     // - new
     const item = componentMap.get(id);
@@ -99,20 +60,6 @@ export const unFreezePropById = ({ id = '', prop }) => {
 export const getFreezePropStatus = ({ id = '', prop }) => {
     if (!id || id === '') return false;
 
-    // const { instances } = componentStore.get();
-    //
-    // /**
-    //  * @type {import('../store.js').componentStoreType}
-    //  */
-    // const instance = instances.find(({ id: currentId }) => {
-    //     return currentId === id;
-    // });
-
-    /**
-     */
-    // return instance.freezedPros.includes(prop);
-
-    //-new
     const { freezedPros } = componentMap.get(id);
     return freezedPros.includes(prop);
 };
