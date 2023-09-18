@@ -1,7 +1,7 @@
 // @ts-check
 
 import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
-import { componentStore } from '../store';
+import { componentMap, componentStore } from '../store';
 
 /**
  * @param {string} id
@@ -13,18 +13,20 @@ import { componentStore } from '../store';
 export const getStateById = (id = '') => {
     if (!id || id === '') return;
 
-    const { instances } = componentStore.get();
+    // const { instances } = componentStore.get();
+    //
+    // /**
+    //  * @type {import('../store.js').componentStoreType}
+    //  */
+    // const instance = instances.find(({ id: currentId }) => currentId === id);
+    //
+    // const state = instance?.state;
+    // if (!state) {
+    //     console.warn(`getStateById failed no id found`);
+    //     return null;
+    // }
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const instance = instances.find(({ id: currentId }) => currentId === id);
-
-    const state = instance?.state;
-    if (!state) {
-        console.warn(`getStateById failed no id found`);
-        return null;
-    }
+    const { state } = componentMap.get(id);
 
     return state.get();
 };
