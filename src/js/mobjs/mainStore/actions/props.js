@@ -196,6 +196,28 @@ export const removeCurrentIdToDynamicProps = ({ componentId }) => {
 
 /**
  * @param {Object} obj
+ * @param {String} obj.propsId
+ * @return void
+ *
+ * @description
+ * If slot is not used remove id reference orphans from store.
+ *
+ */
+export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
+    if (!propsId) return;
+
+    mainStore.set(
+        'dynamicPropsToChildren',
+        (/** @type {Array<Object>} */ prev) => {
+            return prev.filter(({ propsId: currentPropsId }) => {
+                return currentPropsId !== propsId;
+            });
+        }
+    );
+};
+
+/**
+ * @param {Object} obj
  * @param {String} obj.componentId
  * @param {Boolean} obj.inizilizeWatcher
  * @return void

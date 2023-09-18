@@ -13,6 +13,7 @@ import {
     ATTR_PLACEHOLDER_PARTIAL,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
+import { removeCurrentToDynamicPropsByPropsId } from '../mainStore/actions/props';
 
 /**
  * @param {Object} obj
@@ -47,7 +48,17 @@ const getNewElement = ({ placeholderElement, content }) => {
  */
 const removeOrphanSlot = ({ element }) => {
     const slots = element.querySelectorAll('slot');
-    slots.forEach((element) => element.remove());
+    slots.forEach((slot) => {
+        const propsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
+        if (propsIdFromSlot) {
+            /**
+             * If slot is not used remove id reference orphans from store.
+             */
+            removeCurrentToDynamicPropsByPropsId({ propsId: propsIdFromSlot });
+        }
+
+        slot.remove();
+    });
 };
 
 /**
