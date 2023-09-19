@@ -25,8 +25,10 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
 export const unBind = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    const { parentPropsWatcher: parentPropsWatcher2 } = componentMap.get(id);
-    parentPropsWatcher2.forEach((unwatch) => {
+    const item = componentMap.get(id);
+    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
+
+    parentPropsWatcher.forEach((unwatch) => {
         unwatch();
     });
 };

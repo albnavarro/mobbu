@@ -37,7 +37,8 @@ export const setElementById = ({
 export const getElementById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    const { element } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const element = item?.element;
     return element;
 };
 

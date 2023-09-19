@@ -11,7 +11,9 @@ import { componentMap } from '../store';
 export const getComponentNameById = (id = '') => {
     if (!id || id === '') return;
 
-    const { component } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const component = item?.component;
+
     if (!component) {
         console.warn(`getComponentNameById failed no id found`);
         return null;

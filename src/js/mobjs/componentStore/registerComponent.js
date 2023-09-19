@@ -34,6 +34,8 @@ export const addComponentToStore = ({
     destroy = () => {},
     freezedPros = [],
     isCancellable = true,
+    child = [],
+    parentId = '',
     id = '',
     componentName = '',
 }) => {
@@ -51,9 +53,9 @@ export const addComponentToStore = ({
         isRepeater,
         isCancellable,
         id,
-        parentId: null,
+        parentId,
         freezedPros,
-        child: {},
+        child,
         state: store,
     });
 

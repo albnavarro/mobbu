@@ -37,6 +37,7 @@ export const setCurrentListValueById = ({ id = '', value }) => {
 export const getCurrentListValueById = ({ id = '' }) => {
     if (!id || id === '') return false;
 
-    const { currentRepeaterState } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const currentRepeaterState = item?.currentRepeaterState;
     return currentRepeaterState;
 };

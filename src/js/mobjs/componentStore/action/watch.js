@@ -13,7 +13,8 @@ import { componentMap } from '../store';
  */
 export const watchById = (id = '', prop = '', cb = () => {}) => {
     if ((!id || id === '') && (!prop || prop === '')) return;
-    const { state } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const state = item?.state;
 
     return state.watch(prop, cb);
 };

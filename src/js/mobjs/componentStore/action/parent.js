@@ -14,7 +14,9 @@ import { updateChildrenArray } from '../utils';
 export const getParentIdById = (id = '') => {
     if (!id || id === '') return;
 
-    const { parentId } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+
     if (!parentId) {
         // console.warn(`getParentIdById failed no id found`);
         return;
@@ -35,14 +37,14 @@ export const addSelfToParentComponent = ({ id = '' }) => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
-    const parentId2 = item?.parentId;
-    const componentName2 = item?.component;
-    if (!parentId2) return;
+    const parentId = item?.parentId;
+    const componentName = item?.component ?? '';
+    if (!parentId) return;
 
     for (const [key, value] of componentMap) {
         const { child } = value;
 
-        if (key === parentId2) {
+        if (key === parentId) {
             componentMap.set(key, {
                 ...value,
 
@@ -51,7 +53,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
                     ...updateChildrenArray({
                         currentChild: child,
                         id,
-                        componentName: componentName2,
+                        componentName,
                     }),
                 },
             });
@@ -83,7 +85,7 @@ export const setParentsComponent = ({ componentId }) => {
         parent && (!parentId || parentId === undefined)
             ? {
                   ...item,
-                  parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE],
+                  parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? '',
               }
             : item;
 

@@ -18,25 +18,20 @@ import { removeChildFromChildrenArray } from '../utils';
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    const instances2 = [...componentMap.values()];
+    const instances = [...componentMap.values()];
 
-    /**
-     * @type {import('../store.js').componentStoreType}
-     */
-    const { component: componentName2, element: element2 } =
-        instances2.find(({ id: currentId }) => {
+    const { component: componentName, element } =
+        instances.find(({ id: currentId }) => {
             return currentId === id;
         }) || {};
 
-    if (!element2 || !componentName2) return;
+    if (!element || !componentName) return;
 
     /**
      * Destroy all component nested.
      */
-    const componentNested2 = element2.querySelectorAll(
-        `[${ATTR_IS_COMPONENT}]`
-    );
-    [...componentNested2].forEach((component) =>
+    const componentNested = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
+    [...componentNested].forEach((component) =>
         removeAndDestroyById({
             id: component?.dataset[ATTR_IS_COMPONENT_VALUE],
         })
@@ -51,20 +46,20 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * get parent instance filtered by componentName
      */
-    const parentInstance2 = instances2.find(({ child }) => {
-        const parentComponentArray = child?.[componentName2] ?? [];
+    const parentInstance = instances.find(({ child }) => {
+        const parentComponentArray = child?.[componentName] ?? [];
         return parentComponentArray.includes(id);
     });
 
     /**
      * get parentId, and remove id from parent
      */
-    const parentId2 = parentInstance2?.id;
+    const parentId = parentInstance?.id;
 
     for (const [key, value] of componentMap) {
         const { child } = value;
 
-        if (key === parentId2) {
+        if (key === parentId) {
             componentMap.set(key, {
                 ...value,
 
@@ -73,7 +68,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
                     ...removeChildFromChildrenArray({
                         currentChild: child,
                         id,
-                        componentName: componentName2,
+                        componentName,
                     }),
                 },
             });
@@ -100,8 +95,8 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * Remove component from dom
      */
     // @ts-ignore
-    element2?.removeCustomComponent?.();
-    element2?.remove();
+    element?.removeCustomComponent?.();
+    element?.remove();
 };
 
 /**
@@ -127,12 +122,12 @@ export const removeCancellableComponent = () => {
  * Secure check.
  */
 export const removeOrphanComponent = () => {
-    const orphans2 = [...componentMap.values()].filter(
+    const orphans = [...componentMap.values()].filter(
         ({ element, isCancellable }) =>
             isCancellable && !document.body.contains(element)
     );
 
-    orphans2.forEach(({ id }) => removeAndDestroyById({ id }));
+    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
 };
 
 /**

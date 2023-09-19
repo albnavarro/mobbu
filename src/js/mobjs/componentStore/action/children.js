@@ -17,7 +17,9 @@ import { getElementById } from './element';
 export const getChildrenIdByName = ({ id = '', component = '' }) => {
     if (!id || id === '') return [];
 
-    const { child } = componentMap.get(id);
+    const item = componentMap.get(id);
+    const child = item?.child;
+
     if (!child) {
         console.warn(`getChildIdById failed no id found`);
         return [];

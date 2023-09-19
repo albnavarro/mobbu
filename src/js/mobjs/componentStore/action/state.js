@@ -13,8 +13,8 @@ import { componentMap } from '../store';
 export const getStateById = (id = '') => {
     if (!id || id === '') return;
 
-    const { state } = componentMap.get(id);
-
+    const item = componentMap.get(id);
+    const state = item?.state;
     return state.get();
 };
 
@@ -33,7 +33,7 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
 
     const item = componentMap.get(id);
     const state = item?.state;
-    const componentName = item?.component;
+    const componentName = item?.component ?? '';
 
     const stateIsExportable = checkIfStateIsExportable({
         componentName,
