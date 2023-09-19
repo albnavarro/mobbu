@@ -17,6 +17,7 @@ import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { applyBindEvents } from '../mainStore/actions/bindEvents';
 import { getDefaultComponent } from '../createComponent';
+import { getParseSourceArray } from './utils';
 
 /**
  * @param {Object} obj
@@ -25,7 +26,7 @@ import { getDefaultComponent } from '../createComponent';
  * @param {Boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Number} [ obj.currentIterationCounter ]
- * @param {Array<Element>} [ obj.currentSelectiors ]
+ * @param {Array<Element>} [ obj.currentSelectors ]
  * @return {Promise<void>}
  *
  * @description
@@ -37,7 +38,7 @@ export const parseComponentsRecursive = async ({
     functionToFireAtTheEnd = [],
     isCancellable = true,
     currentIterationCounter = 0,
-    currentSelectiors = [],
+    currentSelectors = [],
 }) => {
     if (!element) return;
 
@@ -47,20 +48,11 @@ export const parseComponentsRecursive = async ({
         ? getSelectorRuntimeTag(runtimeId)
         : getSelectorDefaultTag();
 
-    /**
-     * @type {Array<Element>} [ obj.currentSelectiors ]
-     */
-    let parseSourceArray = [];
-    let componentToParse;
-
-    if (currentSelectiors.length > 0) {
-        componentToParse = currentSelectiors[0];
-        parseSourceArray = currentSelectiors.slice(1);
-    } else {
-        const query = [...element.querySelectorAll(selector)];
-        componentToParse = query?.[0];
-        parseSourceArray = query.slice(1);
-    }
+    const { componentToParse, parseSourceArray } = getParseSourceArray({
+        element,
+        selector,
+        currentSelectors,
+    });
 
     /**
      * Check if max parse number is reached.
@@ -135,7 +127,7 @@ export const parseComponentsRecursive = async ({
             functionToFireAtTheEnd,
             isCancellable,
             currentIterationCounter: (currentIterationCounter += 1),
-            currentSelectiors: parseSourceArray,
+            currentSelectors: parseSourceArray,
         });
 
         return;
@@ -284,6 +276,6 @@ export const parseComponentsRecursive = async ({
         functionToFireAtTheEnd,
         isCancellable,
         currentIterationCounter: (currentIterationCounter += 1),
-        currentSelectiors: parseSourceArray,
+        currentSelectors: parseSourceArray,
     });
 };

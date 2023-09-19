@@ -116,10 +116,8 @@ export const DynamicListCard = async ({
                             source: label,
                         },
                     ],
-                    style: 'green',
                 })}
             >
-                pippo
             </code-button>
         </dynamic-list-card>
     `;

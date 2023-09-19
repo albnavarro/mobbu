@@ -14,7 +14,6 @@ import {
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import {
-    removeCurrentIdToDynamicProps,
     removeCurrentToDynamicPropsByPropsId,
     removeCurrentToPropsByPropsId,
 } from '../mainStore/actions/props';
