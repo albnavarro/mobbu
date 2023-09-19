@@ -1,7 +1,7 @@
 // @ts-check
 
+export { getPropsFromParent } from './temporaryData/staticProps';
 export { componentMap } from './componentStore/store';
-
 export { renderHtml as html } from './creationStep/utils';
 export { createComponent } from './createComponent';
 export { setDefaultComponent } from './createComponent';
@@ -18,5 +18,4 @@ export { getStateById } from './componentStore/action/state';
 export { getChildrenIdByName } from './componentStore/action/children';
 export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
-export { getPropsFromParent } from './mainStore/actions/props';
 export { slotName, useSlot, instanceName, staticProps } from './utils';

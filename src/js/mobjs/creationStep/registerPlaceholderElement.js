@@ -23,13 +23,13 @@ import {
     ATTR_REPEATID,
 } from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
-import { setBindEvents } from '../mainStore/actions/bindEvents';
-import { addOnMoutCallback } from '../mainStore/actions/onMount';
 import {
     addCurrentIdToDynamicProps,
     setBindProps,
-    setStaticProps,
 } from '../mainStore/actions/props';
+import { setBindEvents } from '../temporaryData/bindEvents';
+import { addOnMoutCallback } from '../temporaryData/onMount';
+import { setStaticProps } from '../temporaryData/staticProps';
 import {
     instanceName as setInstanceName,
     slotName as setSlotName,

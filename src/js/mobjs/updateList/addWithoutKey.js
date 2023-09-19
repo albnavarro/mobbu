@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { setBindProps, setStaticProps } from '../mainStore/actions/props';
+import { setBindProps } from '../mainStore/actions/props';
 import {
     ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
@@ -11,9 +11,10 @@ import {
     ATTR_PROPS,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
-import { setCurrentValueList } from '../mainStore/actions/currentListValue';
-import { setBindEvents } from '../mainStore/actions/bindEvents';
 import { getElementById } from '../componentStore/action/element';
+import { setBindEvents } from '../temporaryData/bindEvents';
+import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { setStaticProps } from '../temporaryData/staticProps';
 
 /**
  * @param {Object} obj

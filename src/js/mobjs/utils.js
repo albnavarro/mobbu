@@ -11,7 +11,7 @@ import {
     ATTR_SLOT_POSITION,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
-import { setStaticProps } from './mainStore/actions/props';
+import { setStaticProps } from './temporaryData/staticProps';
 
 /**
  * @param {Object} obj

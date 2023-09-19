@@ -2,7 +2,6 @@
 
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
-import { executeFireOnMountCallBack } from '../mainStore/actions/onMount';
 import { decrementParserCounter } from '../mainStore/actions/parser';
 import { applyDynamicProps } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
@@ -14,10 +13,11 @@ import {
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
-import { applyBindEvents } from '../mainStore/actions/bindEvents';
 import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';
 import { registerPlaceholderElement } from '../creationStep/registerPlaceholderElement';
+import { executeFireOnMountCallBack } from '../temporaryData/onMount';
+import { applyBindEvents } from '../temporaryData/bindEvents';
 
 /**
  * @param {Object} obj

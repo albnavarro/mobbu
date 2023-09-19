@@ -1,10 +1,10 @@
 import { removeCancellableComponent } from '../componentStore/action/removeAndDestroy';
-import { removeOrphansBindEvent } from '../mainStore/actions/bindEvents';
-import { removeOrphansPropsFromParent } from '../mainStore/actions/props';
 import { getContent } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
+import { removeOrphansBindEvent } from '../temporaryData/bindEvents';
+import { removeOrphansPropsFromParent } from '../temporaryData/staticProps';
 
 /**
  * @param {Object} obj

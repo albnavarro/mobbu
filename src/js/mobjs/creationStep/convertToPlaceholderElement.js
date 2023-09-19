@@ -1,6 +1,5 @@
 // @ts-check
 
-import { getPropsFromParent } from '../mainStore/actions/props';
 import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
@@ -13,9 +12,10 @@ import {
     ATTR_PLACEHOLDER,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
-import { getCurrentValueList } from '../mainStore/actions/currentListValue';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 import { mobCore } from '../../mobCore';
+import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { getPropsFromParent } from '../temporaryData/staticProps';
 
 /**
  * @param {Object} obj

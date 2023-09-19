@@ -15,15 +15,16 @@ import {
     ATTR_KEY,
     ATTR_PROPS,
 } from '../constant';
-import { setBindProps, setStaticProps } from '../mainStore/actions/props';
+import { setBindProps } from '../mainStore/actions/props';
 import {
     getElementById,
     getElementByKeyInContainer,
 } from '../componentStore/action/element';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { setCurrentValueList } from '../mainStore/actions/currentListValue';
-import { setBindEvents } from '../mainStore/actions/bindEvents';
+import { setBindEvents } from '../temporaryData/bindEvents';
+import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { setStaticProps } from '../temporaryData/staticProps';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';

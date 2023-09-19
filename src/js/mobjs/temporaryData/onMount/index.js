@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { UNSET } from '../../constant';
 import { getDefaultComponent } from '../../createComponent';
-import { mainStore } from '../mainStore';
+import { mainStore } from '../../mainStore/mainStore';
 
 /**
  * @param {Object} obj

@@ -3,7 +3,7 @@
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
-import { mainStore } from '../mainStore';
+import { mainStore } from '../../mainStore/mainStore';
 
 /**
  * @param {Array<String,function>|Object<String,function>} [ eventsData ]

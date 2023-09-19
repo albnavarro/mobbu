@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
-import { mainStore } from '../mainStore';
+import { mainStore } from '../../mainStore/mainStore';
 
 /**
  * @params {{ current:Object, index:Number}}
