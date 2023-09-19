@@ -27,11 +27,6 @@ import { mobCore } from '../../mobCore';
  */
 export const convertToGenericElement = ({ component }) => {
     /**
-     * @type {HTMLElement}
-     */
-    const parentNode = /** @type {HTMLElement} */ (component.parentNode);
-
-    /**
      * @type {String}
      */
     const prevContent = component.innerHTML;
@@ -39,8 +34,8 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * @type {HTMLElement}
      */
-    const temporaryElement = document.createElement('div');
-    temporaryElement.setAttribute(ATTR_IS_COMPONENT, '');
+    const placeholderElement = document.createElement('div');
+    placeholderElement.setAttribute(ATTR_IS_COMPONENT, '');
 
     /**
      * @type {String}
@@ -49,7 +44,7 @@ export const convertToGenericElement = ({ component }) => {
      * Create Univoque id
      */
     const id = mobCore.getUnivoqueId();
-    temporaryElement.setAttribute(ATTR_PLACEHOLDER, id);
+    placeholderElement.setAttribute(ATTR_PLACEHOLDER, id);
 
     /**
      * @type {String}
@@ -112,17 +107,7 @@ export const convertToGenericElement = ({ component }) => {
     /**
      * Add element to DOM
      */
-    component.replaceWith(temporaryElement);
-
-    /**
-     * @type {HTMLElement}
-     *
-     * @description
-     * Get new component
-     */
-    const placeholderElement = /** @type{HTMLElement} */ (
-        parentNode.querySelector(`[${ATTR_PLACEHOLDER}=${id}]`)
-    );
+    component.replaceWith(placeholderElement);
 
     /**
      * Add previous and new content.
