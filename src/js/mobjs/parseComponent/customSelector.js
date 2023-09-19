@@ -42,10 +42,10 @@ function selectAll(selector, root) {
 
 /**
  * @param {Array<String>|String} path
- * @param {HTMLElement} node
- * @returns {Array<HTMLElement>}
+ * @param {Element} node
+ * @returns {Array<Element>}
  */
-export const customSelctorAll = (path, node) => {
+export const selectAllFirstDepth = (path, node) => {
     let result = [];
     if (path.length === 0) return result;
 
@@ -56,12 +56,6 @@ export const customSelctorAll = (path, node) => {
 
     const newPath = root.matches(selector) ? path.slice(1) : path;
     for (const child of root.children) {
-        /**
-         * Skip after first result.
-         * We are looking the first occurrence.
-         */
-        if (result.length > 0) break;
-
         result = [...result, ...selectAll(newPath, child)];
     }
 

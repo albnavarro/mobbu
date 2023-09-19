@@ -94,31 +94,32 @@ export const DynamicListCard = async ({
                         },
                     })}
                 ></slot>
-                <dynamic-list-child-test> </dynamic-list-child-test>
+                <dynamic-list-child-test>
+                    <code-button
+                        ${staticProps({
+                            drawers: [
+                                {
+                                    label: 'description',
+                                    source: label,
+                                },
+                                {
+                                    label: 'definition',
+                                    source: label,
+                                },
+                                {
+                                    label: 'component',
+                                    source: label,
+                                },
+                                {
+                                    label: 'animation',
+                                    source: label,
+                                },
+                            ],
+                        })}
+                    >
+                    </code-button>
+                </dynamic-list-child-test>
             </div>
-            <code-button
-                ${staticProps({
-                    drawers: [
-                        {
-                            label: 'description',
-                            source: label,
-                        },
-                        {
-                            label: 'definition',
-                            source: label,
-                        },
-                        {
-                            label: 'component',
-                            source: label,
-                        },
-                        {
-                            label: 'animation',
-                            source: label,
-                        },
-                    ],
-                })}
-            >
-            </code-button>
         </dynamic-list-card>
     `;
 };
