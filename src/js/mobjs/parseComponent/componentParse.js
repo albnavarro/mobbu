@@ -1,7 +1,7 @@
 // @ts-check
 
-import { incrementParserCounter } from '../mainStore/actions/parser';
 import { mainStore } from '../mainStore/mainStore';
+import { incrementParserCounter } from '../temporaryData/parser/parser';
 import { parseComponentsRecursive } from './parseComponentRecursive';
 
 /**
