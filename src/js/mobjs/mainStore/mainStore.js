@@ -31,10 +31,6 @@ export const mainStore = mobCore.createStore({
         value: [],
         type: Array,
     }),
-    bindEvents: () => ({
-        value: [],
-        type: Array,
-    }),
     onMountCallback: () => ({
         value: [],
         type: Array,

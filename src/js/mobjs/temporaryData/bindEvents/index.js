@@ -3,7 +3,12 @@
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
-import { mainStore } from '../../mainStore/mainStore';
+
+/**
+ * Description
+ * @type {Map<String,Array<Object<string,Function>>>}
+ */
+const bindEventMap = new Map();
 
 /**
  * @param {Array<String,function>|Object<String,function>} [ eventsData ]
@@ -22,9 +27,7 @@ export const setBindEvents = (eventsData = []) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    mainStore.set('bindEvents', (/** @type {Array} */ prev) => {
-        return [...prev, { [id]: eventsDataParsed }];
-    });
+    bindEventMap.set(id, eventsDataParsed);
 
     return id;
 };
@@ -41,44 +44,31 @@ export const setBindEvents = (eventsData = []) => {
  *
  */
 export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
-    const { bindEvents } = mainStore.get();
+    const eventArray = bindEventMap.get(bindEventsId);
+    if (!eventArray) return;
 
-    /**
-     * @type {Object|undefined}
-     * Get props.
-     */
-    const eventsArray = bindEvents.find((/** @type {Object} */ item) => {
-        return item?.[bindEventsId];
-    });
+    eventArray.forEach((event) => {
+        const [eventName] = Object.keys(event);
+        const [callback] = Object.values(event);
 
-    eventsArray[bindEventsId].forEach(
-        (/** @type{{string:function }} */ event) => {
-            const eventName = Object.keys(event)[0];
-            const callback = Object.values(event)[0];
+        if (!eventName || !callback) return;
 
-            if (!eventName || !callback) return;
-
-            element.addEventListener(eventName, (e) => {
-                /**
-                 * Add current repeate rid for dynamic lsit.
-                 */
-                const currentRepeaterState = getCurrentListValueById({
-                    id: componentId,
-                });
-
-                callback(e, currentRepeaterState);
+        element.addEventListener(eventName, (e) => {
+            /**
+             * Add current repeate rid for dynamic lsit.
+             */
+            const currentRepeaterState = getCurrentListValueById({
+                id: componentId,
             });
-        }
-    );
+
+            callback(e, currentRepeaterState);
+        });
+    });
 
     /**
      * Remove props
      */
-    mainStore.set('bindEvents', (/** @type {Array} */ prev) => {
-        return prev.filter((/** @type {Object} */ item) => {
-            return !(bindEventsId in item);
-        });
-    });
+    bindEventMap.delete(bindEventsId);
 };
 
 /**
@@ -91,5 +81,5 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
  * remove all reference
  */
 export const removeOrphansBindEvent = () => {
-    mainStore.set('bindEvents', []);
+    bindEventMap.clear();
 };
