@@ -5,11 +5,7 @@ import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { registerGenericElement } from '../creationStep/registerGenericElement';
 import { executeFireOnMountCallBack } from '../mainStore/actions/onMount';
 import { decrementParserCounter } from '../mainStore/actions/parser';
-import {
-    applyDynamicProps,
-    clearOrphansDynamicPropsFromSlot,
-    removeOrphansPropsFromParent,
-} from '../mainStore/actions/props';
+import { applyDynamicProps } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
 import { ATTR_REPEATID, UNSET } from '../constant';
 import {
@@ -19,12 +15,8 @@ import {
 } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
-import {
-    applyBindEvents,
-    removeOrphansBindEvent,
-} from '../mainStore/actions/bindEvents';
+import { applyBindEvents } from '../mainStore/actions/bindEvents';
 import { getDefaultComponent } from '../createComponent';
-import { customSelctorAll } from './customSelector.js';
 
 /**
  * @param {Object} obj
@@ -33,6 +25,7 @@ import { customSelctorAll } from './customSelector.js';
  * @param {Boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Number} [ obj.currentIterationCounter ]
+ * @param {Array<Element>} [ obj.currentSelectiors ]
  * @return {Promise<void>}
  *
  * @description
@@ -48,7 +41,6 @@ export const parseComponentsRecursive = async ({
 }) => {
     if (!element) return;
 
-    const useCustomTraversal = getDefaultComponent().customTraversal;
     const componentsReference = getComponentsReference();
     const componentList = getComponentList();
     const selector = runtimeId
@@ -56,21 +48,10 @@ export const parseComponentsRecursive = async ({
         : getSelectorDefaultTag();
 
     /**
-     * @description
-     * Get the first component.
-     * Render components form top to botton so we are shure that child component
-     * can watch parent
-     *
-     * - ExcludeRuntime is true when load entire route.
-     *
-     * - For specific situoation es: updatelist, render only the component generated
-     *   in current action filtered by a unique id
-     *
-     * @type {NodeListOf<HTMLElement>|Array<HTMLElement>} componentToParseArray
+     * @type {Array<Element>} [ obj.currentSelectiors ]
      */
-
     let parseSourceArray = [];
-    let componentToParse = undefined;
+    let componentToParse;
 
     if (currentSelectiors.length > 0) {
         componentToParse = currentSelectiors[0];
@@ -105,10 +86,7 @@ export const parseComponentsRecursive = async ({
          */
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            // removeOrphansPropsFromParent();
-            // removeOrphansBindEvent();
             removeOrphanComponent();
-            // clearOrphansDynamicPropsFromSlot();
         }
 
         /**
@@ -128,14 +106,17 @@ export const parseComponentsRecursive = async ({
     /**
      * If component is selected by tagname add data-component="<component name>"
      */
+    // @ts-ignore
     const hasDataComponent = componentToParse?.dataset?.component;
     if (!hasDataComponent)
+        // @ts-ignore
         componentToParse.dataset.component =
             componentsReference[componentToParse.tagName];
 
     /**
      * Get component params from list definition.
      */
+    // @ts-ignore
     const key = componentToParse?.dataset?.component ?? '';
     const userFunctionComponent = componentList?.[key]?.componentFunction;
     const componentParams = componentList?.[key]?.componentParams;
@@ -196,10 +177,7 @@ export const parseComponentsRecursive = async ({
     if (!newElement) {
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            // removeOrphansPropsFromParent();
-            // removeOrphansBindEvent();
             removeOrphanComponent();
-            // clearOrphansDynamicPropsFromSlot();
         }
 
         return;
