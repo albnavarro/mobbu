@@ -1,7 +1,7 @@
 // @ts-check
 
+import { mainStore } from '../../mainStore/mainStore';
 import { watchList } from '../../updateList/watchList';
-import { mainStore } from '../mainStore';
 
 /**
  * @typedef {object} RepeatItemDef

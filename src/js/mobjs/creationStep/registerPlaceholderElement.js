@@ -22,13 +22,13 @@ import {
     ATTR_PROPS,
     ATTR_REPEATID,
 } from '../constant';
-import { addRepeat } from '../mainStore/actions/addRepeat';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import {
     addCurrentIdToDynamicProps,
     setBindProps,
 } from '../temporaryData/dynamicProps';
 import { addOnMoutCallback } from '../temporaryData/onMount';
+import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import {
     instanceName as setInstanceName,

@@ -2,7 +2,6 @@
 
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
-import { inizializeRepeat } from '../mainStore/actions/repeat';
 import { ATTR_REPEATID, UNSET } from '../constant';
 import {
     getComponentsReference,
@@ -18,6 +17,7 @@ import { executeFireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
 import { applyDynamicProps } from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
+import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 
 /**
  * @param {Object} obj

@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mainStore } from '../mainStore';
+import { mainStore } from '../../mainStore/mainStore';
 
 /**
  * @param { Object } mainObject
