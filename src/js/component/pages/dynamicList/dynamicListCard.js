@@ -1,4 +1,3 @@
-import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 
 // function asyncTest() {
@@ -62,9 +61,6 @@ export const DynamicListCard = async ({
     const isFullClass = isFull ? 'is-full' : '';
     // const tag = isFull ? 'div' : 'button';
     const typeButton = isFull ? '' : "type='button'";
-
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
 
     return html`
         <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
