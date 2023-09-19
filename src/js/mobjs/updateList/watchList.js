@@ -9,12 +9,12 @@ import {
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setStateById } from '../componentStore/action/state';
 import { ATTR_REPEATID } from '../constant';
+import { parseRuntime } from '../parseComponent/parseRuntime';
 import {
     addActiveRepeat,
     getActiveRepeater,
     removeActiveRepeat,
-} from '../mainStore/actions/repeatActions';
-import { parseRuntime } from '../parseComponent/parseRuntime';
+} from '../temporaryData/repeaterActions';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
