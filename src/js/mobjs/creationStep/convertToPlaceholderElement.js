@@ -25,7 +25,7 @@ import { mobCore } from '../../mobCore';
  * @description
  * Create base DOM component from component tag.
  */
-export const convertToGenericElement = ({ component }) => {
+export const convertToPlaceHolderElement = ({ component }) => {
     /**
      * @type {String}
      */

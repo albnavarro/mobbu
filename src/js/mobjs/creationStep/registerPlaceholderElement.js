@@ -35,7 +35,7 @@ import {
     slotName as setSlotName,
     useSlot,
 } from '../utils';
-import { convertToGenericElement } from './convertToGenericElement';
+import { convertToPlaceHolderElement } from './convertToPlaceholderElement';
 import { removeWatchFromDynamicProps, renderHtml } from './utils';
 
 // JSDOC usare infered type quando possibile.
@@ -51,7 +51,7 @@ import { removeWatchFromDynamicProps, renderHtml } from './utils';
  * Create component
  * Reuturn all prosps/method for user function.
  */
-export const registerGenericElement = ({
+export const registerPlaceholderElement = ({
     component,
     state = {},
     isCancellable = true,
@@ -70,7 +70,7 @@ export const registerGenericElement = ({
         dynamicPropsIdFromSlot,
         currentListValueReal,
         bindEventsId,
-    } = convertToGenericElement({
+    } = convertToPlaceHolderElement({
         component,
     });
 
