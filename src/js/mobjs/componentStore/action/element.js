@@ -1,8 +1,7 @@
 // @ts-check
 
 import { isDescendant } from '../../../mobCore/utils';
-import { storeAction } from '../../createComponent';
-import { componentMap, componentStore } from '../store';
+import { componentMap } from '../store';
 
 /**
  *

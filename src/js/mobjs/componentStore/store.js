@@ -21,39 +21,4 @@ import { isProduction } from '../createComponent';
  * @prop { String } id
  */
 
-/**
- * Inizializa component store
- */
-export const componentStore = mobCore.createStore({
-    instances: () => ({
-        value: [],
-        type: Array,
-        strict: isProduction ? false : true,
-        validate: (/** @type {Array} */ val) => {
-            if (isProduction) return;
-
-            const isValid = val.every(
-                (item) =>
-                    item?.element &&
-                    item?.component &&
-                    item?.destroy &&
-                    item?.parentPropsWatcher &&
-                    item?.state &&
-                    item?.child &&
-                    item?.freezedPros &&
-                    'currentRepeaterState' in item &&
-                    'isRepeater' in item &&
-                    'isCancellable' in item &&
-                    'instanceName' in item &&
-                    'parentId' in item &&
-                    'key' in item &&
-                    'id' in item
-            );
-
-            if (!isValid) console.warn(`componentStore error on instances add`);
-            return isValid;
-        },
-    }),
-});
-
 export const componentMap = new Map();
