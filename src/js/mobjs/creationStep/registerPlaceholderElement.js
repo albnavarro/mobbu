@@ -23,11 +23,11 @@ import {
     ATTR_REPEATID,
 } from '../constant';
 import { addRepeat } from '../mainStore/actions/addRepeat';
+import { setBindEvents } from '../temporaryData/bindEvents';
 import {
     addCurrentIdToDynamicProps,
     setBindProps,
-} from '../mainStore/actions/props';
-import { setBindEvents } from '../temporaryData/bindEvents';
+} from '../temporaryData/dynamicProps';
 import { addOnMoutCallback } from '../temporaryData/onMount';
 import { setStaticProps } from '../temporaryData/staticProps';
 import {

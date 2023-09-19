@@ -3,7 +3,6 @@
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { decrementParserCounter } from '../mainStore/actions/parser';
-import { applyDynamicProps } from '../mainStore/actions/props';
 import { inizializeRepeat } from '../mainStore/actions/repeat';
 import { ATTR_REPEATID, UNSET } from '../constant';
 import {
@@ -18,6 +17,7 @@ import { getParseSourceArray } from './utils';
 import { registerPlaceholderElement } from '../creationStep/registerPlaceholderElement';
 import { executeFireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
+import { applyDynamicProps } from '../temporaryData/dynamicProps';
 
 /**
  * @param {Object} obj

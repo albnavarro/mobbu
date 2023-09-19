@@ -13,7 +13,7 @@ import {
     ATTR_PLACEHOLDER_PARTIAL,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
-import { removeCurrentToDynamicPropsByPropsId } from '../mainStore/actions/props';
+import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**

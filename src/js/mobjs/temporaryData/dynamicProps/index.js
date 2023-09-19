@@ -7,7 +7,7 @@ import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
 import { componentMap } from '../../componentStore/store';
-import { mainStore } from '../mainStore';
+import { mainStore } from '../../mainStore/mainStore';
 
 /**
  * @param {Object} [ propsObj ]

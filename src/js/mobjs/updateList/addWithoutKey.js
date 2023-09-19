@@ -1,7 +1,6 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { setBindProps } from '../mainStore/actions/props';
 import {
     ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
@@ -15,6 +14,7 @@ import { getElementById } from '../componentStore/action/element';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { setStaticProps } from '../temporaryData/staticProps';
+import { setBindProps } from '../temporaryData/dynamicProps';
 
 /**
  * @param {Object} obj

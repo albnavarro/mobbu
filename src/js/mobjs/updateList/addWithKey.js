@@ -15,7 +15,6 @@ import {
     ATTR_KEY,
     ATTR_PROPS,
 } from '../constant';
-import { setBindProps } from '../mainStore/actions/props';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -25,6 +24,7 @@ import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy'
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { setStaticProps } from '../temporaryData/staticProps';
+import { setBindProps } from '../temporaryData/dynamicProps';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
