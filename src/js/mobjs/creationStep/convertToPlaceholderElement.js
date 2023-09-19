@@ -12,10 +12,10 @@ import {
     ATTR_PLACEHOLDER,
 } from '../constant';
 import { propsKeyToExclude } from './utils';
-import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
+import { filterExportableStateFromObject } from '../temporaryData/exportState';
 
 /**
  * @param {Object} obj
