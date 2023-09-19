@@ -8,20 +8,6 @@ import { addPropsToState } from './utils';
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.placeholderElement
- * @param {HTMLElement} obj.component
- * @param {string} obj.instanceName
- * @param {Object} obj.props
- * @param {Object} obj.state
- * @param {string} obj.key
- * @param {{current:Object, index: Number}} [ obj.currentRepeaterState ]
- * @param {Boolean} [ obj.isRepeater ]
- * @param {Boolean} [ obj.isCancellable ]
- * @param {Array} [ obj.parentPropsWatcher ]
- * @param {Array} [ obj.freezedPros ]
- * @param {function} obj.destroy
- * @param {string} obj.id
- * @param {string} obj.componentName
  *
  * @return {{
     getState: function():object,

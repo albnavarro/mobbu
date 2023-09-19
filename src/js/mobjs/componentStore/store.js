@@ -2,8 +2,8 @@
 
 /**
  * @typedef {Object} componentStoreType
- * @prop { HTMLElement } element - test
- * @prop { String } component
+ * @prop { HTMLElement } element
+ * @prop { String } component - pippo
  * @prop { Function } destroy
  * @prop { Array<Function> } parentPropsWatcher
  * @prop { Array<String> } freezedPros
@@ -16,5 +16,10 @@
  * @prop { Boolean } isRepeater
  * @prop { Boolean } isCancellable
  * @prop { String } id
+ */
+
+/**
+ * Description
+ * @type {Map<String,componentStoreType>}
  */
 export const componentMap = new Map();
