@@ -1,5 +1,6 @@
 // @ts-check
 
+import { getUnivoqueId } from '../utils/index.js';
 import { checkEquality } from './checkEquality.js';
 import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
 import {
@@ -140,32 +141,41 @@ export class SimpleStore {
         /**
          * @private
          *
-         * @type {Number}
-         *
-         * @description
-         * Subscriber id counter
-         */
-        this.counterId = 0;
-
-        /**
-         * @private
-         *
-         * @type {Array.<{prop:String,fn:Function,id:Number}>}
+         * @type {Map<String,{prop:String,fn:Function}>}
          *
          * @description
          * Callback store
          */
-        this.callBackWatcher = [];
+        this.callBackWatcher = new Map();
 
         /**
          * @private
          *
-         * @type {Array.<{prop:String,fn:Function,keys:Array.<string>}>}
+         * @type {Set.<{prop:String,fn:Function,keys:Array.<string>}>}
          *
          * @description
          * Callback store
          */
-        this.callBackComputed = [];
+        this.callBackComputed = new Set();
+
+        /**
+         * @private
+         *
+         * @type {Set.<String>}
+         * @description
+         * Computed propierties update in tick.
+         */
+        this.computedPropFired = new Set();
+
+        /**
+         * @private
+         *
+         * @type {Set.<String>}
+         *
+         * Queque of props changed.
+         * Compued use this queque for checking mutation
+         */
+        this.computedWaitList = new Set();
 
         /**
          * @private
@@ -186,25 +196,6 @@ export class SimpleStore {
          * Depth of initial data object
          */
         this.dataDepth = maxDepth(data);
-
-        /**
-         * @private
-         *
-         * @type {Array.<String>}
-         * @description
-         * Computed propierties update in tick.
-         */
-        this.computedPropFired = [];
-
-        /**
-         * @private
-         *
-         * @type {Array.<String>}
-         *
-         * Queque of props changed.
-         * Compued use this queque for checking mutation
-         */
-        this.computedWaitList = [];
 
         /**
          * @private
@@ -384,19 +375,18 @@ export class SimpleStore {
                  * setters to update the prop
                  */
 
-                const shouldFire =
-                    !this.computedPropFired.includes(propToUpdate);
+                const shouldFire = !this.computedPropFired.has(propToUpdate);
 
                 if (shouldFire) {
                     const computedValue = computedFn(...propValues);
                     this.set(propToUpdate, computedValue);
-                    this.computedPropFired.push(propToUpdate);
+                    this.computedPropFired.add(propToUpdate);
                 }
             });
         });
 
-        this.computedPropFired = [];
-        this.computedWaitList = [];
+        this.computedPropFired.clear();
+        this.computedWaitList.clear();
         this.computedRunning = false;
     }
 
@@ -410,9 +400,9 @@ export class SimpleStore {
      * the callback related to the computed will be fired only once.
      */
     addToComputedWaitLsit(prop) {
-        if (this.callBackComputed.length === 0) return;
+        if (this.callBackComputed.size === 0) return;
 
-        this.computedWaitList.push(prop);
+        this.computedWaitList.add(prop);
 
         if (!this.computedRunning) {
             this.computedRunning = true;
@@ -572,12 +562,13 @@ export class SimpleStore {
         this.store[prop] = val;
 
         if (fireCallback) {
-            const fnByProp = this.callBackWatcher.filter(
-                (item) => item.prop === prop
-            );
-            fnByProp.forEach((item) => {
-                item.fn(val, oldVal, this.validationStatusObject[prop]);
-            });
+            for (const {
+                prop: currentProp,
+                fn,
+            } of this.callBackWatcher.values()) {
+                if (currentProp === prop)
+                    fn(val, oldVal, this.validationStatusObject[prop]);
+            }
         }
 
         this.addToComputedWaitLsit(prop);
@@ -767,16 +758,17 @@ export class SimpleStore {
         this.store[prop] = newObjectValues;
 
         if (fireCallback) {
-            const fnByProp = this.callBackWatcher.filter(
-                (item) => item.prop === prop
-            );
-            fnByProp.forEach((item) => {
-                item.fn(
-                    this.store[prop],
-                    oldObjectValues,
-                    this.validationStatusObject[prop]
-                );
-            });
+            for (const {
+                prop: currentProp,
+                fn,
+            } of this.callBackWatcher.values()) {
+                if (currentProp === prop)
+                    fn(
+                        this.store[prop],
+                        oldObjectValues,
+                        this.validationStatusObject[prop]
+                    );
+            }
         }
 
         this.addToComputedWaitLsit(prop);
@@ -800,13 +792,9 @@ export class SimpleStore {
          */
         this.store[prop] = val;
 
-        const fnByProp = this.callBackWatcher.filter(
-            (item) => item.prop === prop
-        );
-
-        fnByProp.forEach((item) => {
-            item.fn(val, oldVal, null);
-        });
+        for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
+            if (currentProp === prop) fn(val, oldVal, null);
+        }
     }
 
     /**
@@ -889,20 +877,10 @@ export class SimpleStore {
             return () => {};
         }
 
-        this.callBackWatcher.push({
-            prop,
-            fn: callback,
-            id: this.counterId,
-        });
+        const id = getUnivoqueId();
+        this.callBackWatcher.set(id, { fn: callback, prop });
 
-        const cbId = this.counterId;
-        this.counterId++;
-
-        return () => {
-            this.callBackWatcher = this.callBackWatcher.filter(
-                (item) => item.id !== cbId
-            );
-        };
+        return () => this.callBackWatcher.delete(id);
     }
 
     /**
@@ -918,17 +896,17 @@ export class SimpleStore {
      */
     emit(prop) {
         if (prop in this.store) {
-            const fnByProp = this.callBackWatcher.filter(
-                (item) => item.prop === prop
-            );
-            fnByProp.forEach((item) => {
-                // Val , OldVal, Validate
-                item.fn(
-                    this.store[prop],
-                    this.store[prop],
-                    this.validationStatusObject[prop]
-                );
-            });
+            for (const {
+                prop: currentProp,
+                fn,
+            } of this.callBackWatcher.values()) {
+                if (currentProp === prop)
+                    fn(
+                        this.store[prop],
+                        this.store[prop],
+                        this.validationStatusObject[prop]
+                    );
+            }
         } else {
             storeEmitWarning(prop, this.logStyle);
         }
@@ -959,17 +937,18 @@ export class SimpleStore {
      */
     async emitAsync(prop) {
         if (prop in this.store) {
-            const fnByProp = this.callBackWatcher.filter(
-                (item) => item.prop === prop
-            );
-
-            for (const item of fnByProp) {
-                await item.fn(
-                    this.store[prop], // Val
-                    this.store[prop], // OldVal
-                    this.validationStatusObject[prop] // Validate
-                );
+            for (const {
+                prop: currentProp,
+                fn,
+            } of this.callBackWatcher.values()) {
+                if (currentProp === prop)
+                    await fn(
+                        this.store[prop], // Val
+                        this.store[prop], // OldVal
+                        this.validationStatusObject[prop] // Validate
+                    );
             }
+
             return { success: true };
         } else {
             storeEmitWarning(prop, this.logStyle);
@@ -1070,7 +1049,7 @@ export class SimpleStore {
             return;
         }
 
-        this.callBackComputed.push({
+        this.callBackComputed.add({
             prop,
             keys,
             fn,
@@ -1082,11 +1061,10 @@ export class SimpleStore {
      * Delete all data inside store.
      */
     destroy() {
-        this.counterId = 0;
-        this.callBackWatcher = [];
-        this.callBackComputed = [];
-        this.computedPropFired = [];
-        this.computedWaitList = [];
+        this.callBackWatcher.clear();
+        this.callBackComputed.clear();
+        this.computedPropFired.clear();
+        this.computedWaitList.clear();
         this.validationStatusObject = {};
         this.store = {};
         this.type = {};
