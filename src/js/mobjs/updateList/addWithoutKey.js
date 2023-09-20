@@ -10,6 +10,7 @@ import {
     ATTR_PROPS,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
+import { getElementById } from '../componentStore/action/element';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { setStaticProps } from '../temporaryData/staticProps';
@@ -137,24 +138,57 @@ export const addWithoutKey = ({
      * Remove
      */
 
-    /**
-     * Filter children inside containerList
-     */
-    const childrenFilteredToRemove = getChildrenInsideElement({
-        component: targetComponent,
-        getChildren,
-        element: containerList,
-    });
+    if (diff < 0) {
+        /**
+         * Filter children inside containerList
+         */
+        const childrenFilteredToRemove = getChildrenInsideElement({
+            component: targetComponent,
+            getChildren,
+            element: containerList,
+        });
 
-    const childrenToRemoveByKey = childrenFilteredToRemove.filter(
-        (_child, i) => {
-            return i >= current.length;
-        }
-    );
+        /**
+         * element to remove
+         */
+        const childrenToRemoveByKey = childrenFilteredToRemove.filter(
+            (_child, i) => {
+                return i >= current.length;
+            }
+        );
 
-    childrenToRemoveByKey.forEach((childId) => {
-        removeAndDestroyById({ id: childId });
-    });
+        /**
+         * Persistent element
+         */
+        const childrenPersistent = childrenFilteredToRemove.filter(
+            (_child, i) => {
+                return i < current.length;
+            }
+        );
+
+        /**
+         * Remove all dom component
+         * Web Component trick p1.
+         * Sure to remove host element.
+         */
+        containerList.textContent = '';
+
+        /**
+         * Destroy
+         */
+        childrenToRemoveByKey.forEach((childId) => {
+            removeAndDestroyById({ id: childId });
+        });
+
+        /**
+         * Re-add persistent element
+         * Web component trick p2.
+         */
+        childrenPersistent.forEach((childId) => {
+            const element = getElementById({ id: childId });
+            if (element) containerList.append(element);
+        });
+    }
 
     return current;
 };
