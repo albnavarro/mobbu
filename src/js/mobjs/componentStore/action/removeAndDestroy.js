@@ -2,7 +2,6 @@
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { removeCurrentIdToDynamicProps } from '../../temporaryData/dynamicProps';
-import { removeOnMountCallbackReference } from '../../temporaryData/onMount/removeReference';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
@@ -33,6 +32,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     const componentNested = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
     [...componentNested].forEach((component) =>
         removeAndDestroyById({
+            // @ts-ignore
             id: component?.dataset[ATTR_IS_COMPONENT_VALUE],
         })
     );
@@ -84,7 +84,6 @@ export const removeAndDestroyById = ({ id = '' }) => {
             /**
              * Secure check: remove orphas reference from mainStore
              */
-            removeOnMountCallbackReference({ id: key });
             removeCurrentIdToDynamicProps({ componentId: key });
         }
     }

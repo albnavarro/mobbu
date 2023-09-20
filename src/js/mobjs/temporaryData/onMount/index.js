@@ -4,7 +4,8 @@ import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { UNSET } from '../../constant';
 import { getDefaultComponent } from '../../createComponent';
-import { mainStore } from '../../mainStore/mainStore';
+
+export const onMountCallbackMap = new Map();
 
 /**
  * @param {Object} obj
@@ -16,9 +17,7 @@ import { mainStore } from '../../mainStore/mainStore';
  * Add ouMount callback to store.
  */
 export const addOnMoutCallback = ({ id, cb = () => {} }) => {
-    mainStore.set('onMountCallback', (/** @type {Array} */ prev) => {
-        return [...prev, { [id]: cb }];
-    });
+    onMountCallbackMap.set(id, cb);
 };
 
 /**
@@ -30,23 +29,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
  * Fire onMount callback.
  */
 export const fireOnMountCallBack = async ({ id, element }) => {
-    const { onMountCallback } = mainStore.get();
-
-    /**
-     * @type {Object}
-     */
-    const currentItem = onMountCallback.find((/** @type {Object} */ item) => {
-        return item?.[id];
-    });
-
-    /**
-     * @type {Function|undefined}
-     *
-     * @description
-     * If callback is not used addOnMoutCallback is not fired.
-     * So there is no callback ( undefined )
-     */
-    const callback = currentItem?.[id];
+    const callback = onMountCallbackMap.get(id);
 
     /**
      * @type {Function} destroy callback
@@ -65,11 +48,19 @@ export const fireOnMountCallBack = async ({ id, element }) => {
     /**
      * Remove callback
      */
-    mainStore.set('onMountCallback', (/** @type {Array} */ prev) => {
-        return prev.filter((item) => {
-            return !(id in item);
-        });
-    });
+    onMountCallbackMap.delete(id);
+};
+
+/**
+ * @param {Object} obj
+ * @param {String} obj.id - random Id
+ * @reurn void
+ *
+ * @description
+ * Remove OnMount reference from main store.
+ */
+export const removeOnMountCallbackReference = ({ id }) => {
+    onMountCallbackMap.delete(id);
 };
 
 /**
