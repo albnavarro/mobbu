@@ -43,10 +43,6 @@ export const mainStore = mobCore.createStore({
         value: [],
         type: Array,
     }),
-    activeParser: () => ({
-        value: 0,
-        type: Number,
-    }),
     activeRoute: () => ({
         value: '',
         type: String,
