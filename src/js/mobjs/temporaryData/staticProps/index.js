@@ -1,7 +1,8 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
-import { mainStore } from '../../mainStore/mainStore';
+
+export const staticPropsMap = new Map();
 
 /**
  *
@@ -26,9 +27,7 @@ export const setStaticProps = (props = {}) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    mainStore.set('propsToChildren', (/** @type {Array} */ prev) => {
-        return [...prev, { [id]: props }];
-    });
+    staticPropsMap.set(id, props);
 
     return id;
 };
@@ -42,26 +41,10 @@ export const setStaticProps = (props = {}) => {
  * Return props by id
  */
 export const getPropsFromParent = (id = '') => {
-    const { propsToChildren } = mainStore.get();
+    const props = staticPropsMap.get(id);
+    staticPropsMap.delete(id);
 
-    /**
-     * @type {Object|undefined}
-     * Get props.
-     */
-    const props = propsToChildren.find((/** @type {Object} */ item) => {
-        return item?.[id];
-    });
-
-    /**
-     * Remove props
-     */
-    mainStore.set('propsToChildren', (/** @type {Array} */ prev) => {
-        return prev.filter((/** @type {Object} */ item) => {
-            return !(id in item);
-        });
-    });
-
-    return props ? props[id] : {};
+    return props ?? {};
 };
 
 /**
@@ -75,13 +58,7 @@ export const getPropsFromParent = (id = '') => {
  */
 export const removeCurrentToPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
-
-    mainStore.set('propsToChildren', (/** @type {Array<Object>} */ prev) => {
-        return prev.filter((item) => {
-            const [currentPropsId] = Object.keys(item);
-            return currentPropsId !== propsId;
-        });
-    });
+    staticPropsMap.delete(propsId);
 };
 
 /**
@@ -94,5 +71,5 @@ export const removeCurrentToPropsByPropsId = ({ propsId }) => {
  * remove all reference
  */
 export const removeOrphansPropsFromParent = () => {
-    mainStore.set('propsToChildren', []);
+    staticPropsMap.clear();
 };
