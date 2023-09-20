@@ -23,10 +23,6 @@ export const mainStore = mobCore.createStore({
         value: {},
         type: 'any',
     }),
-    propsToChildren: () => ({
-        value: [],
-        type: Array,
-    }),
     dynamicPropsToChildren: () => ({
         value: [],
         type: Array,
