@@ -67,10 +67,12 @@ export const dynamicListCardDef = createComponent({
         label: () => ({
             value: '-',
             type: String,
+            skipEqual: true,
         }),
         index: () => ({
             value: -1,
             type: Number,
+            skipEqual: true,
         }),
         counter: () => ({
             value: 0,
