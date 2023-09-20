@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mainStore } from '../../mainStore/mainStore';
+export const activeRepeatMap = new Set();
 
 /**
  * @param {Object} obj
@@ -13,9 +13,7 @@ import { mainStore } from '../../mainStore/mainStore';
  * Set active repeat
  */
 export const addActiveRepeat = ({ id, state, container }) => {
-    mainStore.set('activeRepeat', (/** @type {Array} */ prev) => {
-        return [...prev, { id, state, container }];
-    });
+    activeRepeatMap.add({ id, state, container });
 };
 
 /**
@@ -29,17 +27,14 @@ export const addActiveRepeat = ({ id, state, container }) => {
  * Remove active repeat
  */
 export const removeActiveRepeat = ({ id, state, container }) => {
-    mainStore.set('activeRepeat', (/** @type {Array} */ prev) => {
-        return prev.filter(
-            ({
-                id: currentId,
-                state: currentState,
-                container: currentContainer,
-            }) =>
-                id !== currentId &&
-                state !== currentState &&
-                container !== currentContainer
-        );
+    activeRepeatMap.forEach((repeat) => {
+        if (
+            id === repeat.id &&
+            state === repeat.state &&
+            container === repeat.container
+        ) {
+            activeRepeatMap.delete(repeat);
+        }
     });
 };
 
@@ -48,18 +43,19 @@ export const removeActiveRepeat = ({ id, state, container }) => {
  * @param {String} obj.id
  * @param {String} obj.state
  * @param {HTMLElement} obj.container
- * @return {{id:String, state:String, container:HTMLElement}}
+ * @return {Boolean}
  *
  * @description
  * Get active repeat
  */
 export const getActiveRepeater = ({ id = '', state = '', container }) => {
-    const { activeRepeat } = mainStore.get();
-    return activeRepeat.find((/** @type {Object} */ item) => {
+    const repeatIsActive = [...activeRepeatMap].some((repeat) => {
         return (
-            item.id === id &&
-            item.state === state &&
-            item.container === container
+            id === repeat.id &&
+            state === repeat.state &&
+            container === repeat.container
         );
     });
+
+    return repeatIsActive;
 };
