@@ -30,6 +30,7 @@ import {
 import { handleVisibilityChange } from './events/visibilityChange/handleVisibilityChange.js';
 import { SimpleStore } from './store/simpleStore.js';
 import { checkType, getTypeName } from './store/storeType.js';
+import { getUnivoqueId } from './utils/index.js';
 
 /**
  * @typedef {import('./store/simpleStore').SimpleStoreType} MobbuStoreType
@@ -705,7 +706,7 @@ export const mobCore = {
      * Generate univoque string id
      */
     getUnivoqueId() {
-        return `_${Math.random().toString(36).slice(2, 9)}`;
+        return getUnivoqueId();
     },
 
     /**
