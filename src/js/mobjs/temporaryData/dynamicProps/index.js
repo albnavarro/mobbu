@@ -7,7 +7,8 @@ import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
 import { componentMap } from '../../componentStore/store';
-import { mainStore } from '../../mainStore/mainStore';
+
+export const dynamicPropsMap = new Map();
 
 /**
  * @param {Object} [ propsObj ]
@@ -43,9 +44,7 @@ export const setBindProps = (propsObj = {}) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    mainStore.set('dynamicPropsToChildren', (/** @type {Array} */ prev) => {
-        return [...prev, { propsId: id, propsObj }];
-    });
+    dynamicPropsMap.set(id, { ...propsObj, propsId: id });
 
     return id;
 };
@@ -130,15 +129,11 @@ const setDynamicProp = ({
 export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
     if (!propsId) return;
 
-    mainStore.set(
-        'dynamicPropsToChildren',
-        (/** @type {Array<Object>} */ prev) => {
-            return prev.map((item) => {
-                const { propsId: id } = item;
-                return id === propsId ? { ...item, componentId } : item;
-            });
+    for (const [key, value] of dynamicPropsMap) {
+        if (key === propsId) {
+            dynamicPropsMap.set(key, { ...value, componentId });
         }
-    );
+    }
 
     applyDynamicProps({ componentId, inizilizeWatcher: false });
 };
@@ -155,14 +150,12 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
 export const removeCurrentIdToDynamicProps = ({ componentId }) => {
     if (!componentId) return;
 
-    mainStore.set(
-        'dynamicPropsToChildren',
-        (/** @type {Array<Object>} */ prev) => {
-            return prev.filter(({ componentId: currentComponentId }) => {
-                return currentComponentId !== componentId;
-            });
+    for (const [key, value] of dynamicPropsMap) {
+        const { componentId: currentComponentId } = value;
+        if (currentComponentId === componentId) {
+            dynamicPropsMap.delete(key);
         }
-    );
+    }
 };
 
 /**
@@ -177,14 +170,7 @@ export const removeCurrentIdToDynamicProps = ({ componentId }) => {
 export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
     if (!propsId) return;
 
-    mainStore.set(
-        'dynamicPropsToChildren',
-        (/** @type {Array<Object>} */ prev) => {
-            return prev.filter(({ propsId: currentPropsId }) => {
-                return currentPropsId !== propsId;
-            });
-        }
-    );
+    dynamicPropsMap.delete(propsId);
 };
 
 /**
@@ -199,18 +185,18 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  *
  */
 export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
-    const { dynamicPropsToChildren } = mainStore.get();
-
     /**
-     * @type {Array<{ propsId: String, componentId: String, propsObj: {parentId: String, bind:Array, props:(args0: Object) => Object} }>}
+     * @type {Array<{ propsId: String, componentId: String, parentId: String, bind:Array, props:(args0: Object) => Object }>}
      *
      * @description
      * Get dynamic prop by component.
      * Dynamic props can arrive from component || slot.
      */
-    const dynamicPropsFilteredArray = dynamicPropsToChildren.filter(
-        ({ componentId: currentComponentId }) =>
-            currentComponentId === componentId
+    const dynamicPropsFilteredArray = [...dynamicPropsMap.values()].filter(
+        (item) => {
+            const currentComponentId = item?.componentId;
+            return currentComponentId === componentId;
+        }
     );
 
     /**
@@ -222,9 +208,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
      * Cicle dynamicProps from component or from slot.
      */
     dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
-        const {
-            propsObj: { bind, props, parentId },
-        } = dynamicpropsfiltered;
+        const { bind, props, parentId } = dynamicpropsfiltered;
 
         /**
          * Force parent id or get the natually parent id.
@@ -289,30 +273,10 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
      */
     if (!inizilizeWatcher) return;
 
-    mainStore.set(
-        'dynamicPropsToChildren',
-        (/** @type{Array<Object>} */ prev) => {
-            return prev.filter(({ componentId: currentComponentId }) => {
-                return componentId !== currentComponentId;
-            });
+    for (const [key, value] of dynamicPropsMap) {
+        const { componentId: currentComponentId } = value;
+        if (currentComponentId === componentId) {
+            dynamicPropsMap.delete(key);
         }
-    );
-};
-
-/**
- * @return void
- *
- * @description
- * Clear all dynamicPropsToChildren Remainmed
- * Props from slot remaind orphans ( has no component id ).
- */
-export const clearOrphansDynamicPropsFromSlot = () => {
-    mainStore.set(
-        'dynamicPropsToChildren',
-        (/** @type{Array<Object>} */ prev) => {
-            return prev.filter(({ componentId }) => {
-                return componentId !== undefined;
-            });
-        }
-    );
+    }
 };

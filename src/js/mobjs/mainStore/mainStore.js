@@ -23,10 +23,6 @@ export const mainStore = mobCore.createStore({
         value: {},
         type: 'any',
     }),
-    dynamicPropsToChildren: () => ({
-        value: [],
-        type: Array,
-    }),
     activeRoute: () => ({
         value: '',
         type: String,
