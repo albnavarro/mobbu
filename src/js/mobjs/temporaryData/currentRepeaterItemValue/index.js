@@ -1,6 +1,7 @@
 import { mobCore } from '../../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
-import { mainStore } from '../../mainStore/mainStore';
+
+export const currentListValueMap = new Map();
 
 /**
  * @params {{ current:Object, index:Number}}
@@ -11,9 +12,7 @@ export const setCurrentValueList = (current = {}) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    mainStore.set('currentListValue', (/** @type {Array} */ prev) => {
-        return [...prev, { [id]: current }];
-    });
+    currentListValueMap.set(id, current);
 
     return id;
 };
@@ -23,24 +22,8 @@ export const setCurrentValueList = (current = {}) => {
  * @return {{ current:Object, index:Number}}
  */
 export const getCurrentValueList = (id = '') => {
-    const { currentListValue } = mainStore.get();
+    const value = currentListValueMap.get(id);
+    currentListValueMap.delete(id);
 
-    /**
-     * @type {Object|undefined}
-     * Get props.
-     */
-    const value = currentListValue.find((/** @type {Object} */ item) => {
-        return item?.[id];
-    });
-
-    /**
-     * Remove value
-     */
-    mainStore.set('currentListValue', (/** @type {Array} */ prev) => {
-        return prev.filter((/** @type {Object} */ item) => {
-            return !(id in item);
-        });
-    });
-
-    return value ? value[id] : DEFAULT_CURRENT_REPEATER_STATE;
+    return value ?? DEFAULT_CURRENT_REPEATER_STATE;
 };

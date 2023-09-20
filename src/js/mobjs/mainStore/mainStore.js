@@ -72,8 +72,4 @@ export const mainStore = mobCore.createStore({
             type: String,
         }),
     },
-    currentListValue: () => ({
-        value: [],
-        type: Array,
-    }),
 });

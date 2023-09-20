@@ -8,7 +8,7 @@ import { getCurrentListValueById } from '../../componentStore/action/currentList
  * Description
  * @type {Map<String,Array<Object<string,Function>>>}
  */
-const bindEventMap = new Map();
+export const bindEventMap = new Map();
 
 /**
  * @param {Array<String,function>|Object<String,function>} [ eventsData ]
