@@ -2,6 +2,7 @@
 
 import { mainStore } from '../../mainStore/mainStore';
 import { watchList } from '../../updateList/watchList';
+import { repeatMap } from './add';
 
 /**
  * @typedef {object} RepeatItemDef
@@ -29,19 +30,8 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
     if (!repeatId || !placeholderListObj || placeholderListObj.length === 0)
         return;
 
-    const { repeat } = mainStore.get();
-    const currentItem = repeat.find((/** @type{RepeatItemDef} */ item) => {
-        return item?.[repeatId];
-    }) ?? { id: undefined };
-
-    /**
-     * @type { typeof currentItem.id }
-     *
-     * @description
-     * Check if there is a valid item.
-     */
-    const obj = currentItem?.[repeatId];
-    if (!obj) return;
+    //-new
+    const obj = repeatMap.get(repeatId);
 
     /**
      * @description
@@ -60,14 +50,7 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
         containerList: containerList?.parent ?? document.createElement('div'),
     });
 
-    /**
-     * Remove callback
-     */
-    mainStore.set('repeat', (/** @type {Array} */ prev) => {
-        return prev.filter((item) => {
-            return !(repeatId in item);
-        });
-    });
+    repeatMap.delete(repeatId);
 
     return fireFirstRepeat;
 };

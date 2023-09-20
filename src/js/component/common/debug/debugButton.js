@@ -1,6 +1,7 @@
 import { componentMap, mainStore } from '../../../mobjs';
 import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
 import { currentListValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
+import { repeatMap } from '../../../mobjs/temporaryData/repeater/add';
 import { activeRepeatMap } from '../../../mobjs/temporaryData/repeaterActions';
 
 /**
@@ -14,6 +15,7 @@ export const DebugButton = ({ onMount, html }) => {
             console.log('bindEventMap', bindEventMap);
             console.log('currentListValueMap', currentListValueMap);
             console.log('activeRepeatMap', activeRepeatMap);
+            console.log('repeatMap', repeatMap);
         });
 
         return () => {};

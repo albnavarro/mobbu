@@ -1,6 +1,6 @@
 // @ts-check
 
-import { mainStore } from '../../mainStore/mainStore';
+export const repeatMap = new Map();
 
 /**
  * @param { Object } mainObject
@@ -26,7 +26,5 @@ import { mainStore } from '../../mainStore/mainStore';
  * Tehe repeater will execute after component render.
  */
 export const addRepeat = ({ repeatId, obj }) => {
-    mainStore.set('repeat', (/** @type {Array} */ prev) => {
-        return [...prev, { [repeatId]: obj }];
-    });
+    repeatMap.set(repeatId, obj);
 };

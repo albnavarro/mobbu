@@ -35,10 +35,6 @@ export const mainStore = mobCore.createStore({
         value: [],
         type: Array,
     }),
-    repeat: () => ({
-        value: [],
-        type: Array,
-    }),
     activeRoute: () => ({
         value: '',
         type: String,
