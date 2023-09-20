@@ -810,23 +810,6 @@ export class SimpleStore {
     }
 
     /**
-     * @param {String} prop - propierties to update
-     * @param {Function} callback - new value
-     *
-     * @description
-     * Update prop by function, without fire annythig.
-     * Use by mobjs in production mode.
-     * No need callback here.
-     */
-    setPropByFunctionWithoutFire(prop, callback) {
-        /**
-         * Update value and fire callback associated
-         */
-        const oldValue = this.store[prop];
-        this.store[prop] = callback(oldValue);
-    }
-
-    /**
      * @description
      * Get store object
      *
