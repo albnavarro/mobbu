@@ -1,6 +1,6 @@
 // @ts-check
 
-import { checkIfStateIsExportable } from '../../temporaryData/exportState';
+import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
 import { componentMap } from '../store';
 
 /**

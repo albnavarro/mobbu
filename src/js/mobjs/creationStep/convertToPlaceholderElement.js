@@ -15,7 +15,7 @@ import { propsKeyToExclude } from './utils';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
-import { filterExportableStateFromObject } from '../temporaryData/exportState';
+import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 
 /**
  * @param {Object} obj
