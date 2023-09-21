@@ -286,7 +286,7 @@ export class SimpleStore {
             prop: 'skipEqual',
             depth: this.dataDepth,
             logStyle: this.logStyle,
-            fallback: false,
+            fallback: true,
         });
 
         this.inizializeValidation();
