@@ -1,8 +1,6 @@
 // @ts-check
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
-import { ATTR_IS_COMPONENT } from '../constant';
-
 /**
  * Generate numbers in the Fibonacci sequence.
  *
