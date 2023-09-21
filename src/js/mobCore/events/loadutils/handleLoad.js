@@ -1,19 +1,16 @@
 // @ts-check
 
+import { getUnivoqueId } from '../../utils';
+
 /**
  * @type{Boolean}
  */
 let inizialized = false;
 
 /**
- * @type{Array}
+ * @type {Map<String,Function>}
  */
-let callback = [];
-
-/**
- * @type{Number}
- */
-let id = 0;
+const callbacks = new Map();
 
 /**
  * @return void
@@ -22,7 +19,7 @@ function handler() {
     /**
      * if - if there is no subscritor remove handler
      */
-    if (callback.length === 0) {
+    if (callbacks.size === 0) {
         window.removeEventListener('DOMContentLoaded', handler);
 
         inizialized = false;
@@ -30,8 +27,10 @@ function handler() {
     }
 
     // Fire end of resize
-    callback.forEach(({ cb }) => cb());
-    callback = [];
+    for (const value of callbacks.values()) {
+        value();
+    }
+    callbacks.clear();
 }
 
 /**
@@ -67,13 +66,14 @@ function init() {
  * ```
  */
 const addCallback = (cb) => {
-    callback.push({ cb, id });
-    const callbackId = id;
-    id++;
+    const id = getUnivoqueId();
+    callbacks.set(id, cb);
 
-    if (typeof window !== 'undefined') init();
+    if (typeof window !== 'undefined') {
+        init();
+    }
 
-    return () => (callback = callback.filter((item) => item.id !== callbackId));
+    return () => callbacks.delete(id);
 };
 
 /**
