@@ -317,6 +317,33 @@ export class SimpleStore {
     }
 
     /**
+     * @param {Object} obj
+     * @param {String} obj.prop
+     * @param {any} obj.newValue
+     * @param {any} obj.oldValue
+     * @param {Boolean|Object<String,Boolean>} obj.validationValue
+     */
+    runCallbackQueqe({ prop, newValue, oldValue, validationValue }) {
+        for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
+            if (currentProp === prop) fn(newValue, oldValue, validationValue);
+        }
+    }
+
+    /**
+     * @param {Object} obj
+     * @param {String} obj.prop
+     * @param {any} obj.newValue
+     * @param {any} obj.oldValue
+     * @param {Boolean|Object<String,Boolean>} obj.validationValue
+     */
+    async runCallbackQueqeAsync({ prop, newValue, oldValue, validationValue }) {
+        for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
+            if (currentProp === prop)
+                await fn(newValue, oldValue, validationValue);
+        }
+    }
+
+    /**
      * @private
      * @description
      * Update prop target of computed.
@@ -562,13 +589,12 @@ export class SimpleStore {
         this.store[prop] = val;
 
         if (fireCallback) {
-            for (const {
-                prop: currentProp,
-                fn,
-            } of this.callBackWatcher.values()) {
-                if (currentProp === prop)
-                    fn(val, oldVal, this.validationStatusObject[prop]);
-            }
+            this.runCallbackQueqe({
+                prop,
+                newValue: val,
+                oldValue: oldVal,
+                validationValue: this.validationStatusObject[prop],
+            });
         }
 
         this.addToComputedWaitLsit(prop);
@@ -758,17 +784,12 @@ export class SimpleStore {
         this.store[prop] = newObjectValues;
 
         if (fireCallback) {
-            for (const {
-                prop: currentProp,
-                fn,
-            } of this.callBackWatcher.values()) {
-                if (currentProp === prop)
-                    fn(
-                        this.store[prop],
-                        oldObjectValues,
-                        this.validationStatusObject[prop]
-                    );
-            }
+            this.runCallbackQueqe({
+                prop,
+                newValue: this.store[prop],
+                oldValue: oldObjectValues,
+                validationValue: this.validationStatusObject[prop],
+            });
         }
 
         this.addToComputedWaitLsit(prop);
@@ -792,9 +813,12 @@ export class SimpleStore {
          */
         this.store[prop] = val;
 
-        for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
-            if (currentProp === prop) fn(val, oldVal, null);
-        }
+        this.runCallbackQueqe({
+            prop,
+            newValue: val,
+            oldValue: oldVal,
+            validationValue: true,
+        });
     }
 
     /**
@@ -896,17 +920,12 @@ export class SimpleStore {
      */
     emit(prop) {
         if (prop in this.store) {
-            for (const {
-                prop: currentProp,
-                fn,
-            } of this.callBackWatcher.values()) {
-                if (currentProp === prop)
-                    fn(
-                        this.store[prop],
-                        this.store[prop],
-                        this.validationStatusObject[prop]
-                    );
-            }
+            this.runCallbackQueqe({
+                prop,
+                newValue: this.store[prop],
+                oldValue: this.store[prop],
+                validationValue: this.validationStatusObject[prop],
+            });
         } else {
             storeEmitWarning(prop, this.logStyle);
         }
@@ -937,17 +956,12 @@ export class SimpleStore {
      */
     async emitAsync(prop) {
         if (prop in this.store) {
-            for (const {
-                prop: currentProp,
-                fn,
-            } of this.callBackWatcher.values()) {
-                if (currentProp === prop)
-                    await fn(
-                        this.store[prop], // Val
-                        this.store[prop], // OldVal
-                        this.validationStatusObject[prop] // Validate
-                    );
-            }
+            await this.runCallbackQueqeAsync({
+                prop,
+                newValue: this.store[prop],
+                oldValue: this.store[prop],
+                validationValue: this.validationStatusObject[prop],
+            });
 
             return { success: true };
         } else {
