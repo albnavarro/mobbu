@@ -4,6 +4,7 @@ import { handleScrollImmediate } from './handleScrollImmediate.js';
 import { debounceFuncion } from '../debounce.js';
 import { handleFrame } from '../rafutils/handleFrame.js';
 import { handleNextTick } from '../rafutils/handleNextTick.js';
+import { getUnivoqueId } from '../../utils/index.js';
 
 /**
  * @typedef {Object} handleScrollUtilsType
@@ -35,14 +36,9 @@ function handleScrollUtils(type) {
     let inizialized = false;
 
     /**
-     * @type {Array.<{id:number, cb:Function }>}
+     * @type {Map<String,Function>}
      */
-    let callback = [];
-
-    /**
-     * @type {Number}
-     */
-    let id = 0;
+    const callbacks = new Map();
 
     /**
      * @type {Boolean}
@@ -58,7 +54,7 @@ function handleScrollUtils(type) {
         /**
          * if - if there is no subscritor remove handler
          */
-        if (callback.length === 0) {
+        if (callbacks.size === 0) {
             unsubscribeScrollEnd();
 
             // Unsubscribe from scroll callback
@@ -79,9 +75,9 @@ function handleScrollUtils(type) {
 
                 // Fire end fo scroll
                 if (type === 'END') {
-                    callback.forEach(({ cb }) => {
-                        cb(scrollData);
-                    });
+                    for (const value of callbacks.values()) {
+                        value(scrollData);
+                    }
                 }
             }, 0);
         });
@@ -113,9 +109,9 @@ function handleScrollUtils(type) {
                 if (!isScrolling) {
                     isScrolling = true;
 
-                    callback.forEach(({ cb }) => {
-                        cb(scrollData);
-                    });
+                    for (const value of callbacks.values()) {
+                        value(scrollData);
+                    }
                 }
             });
         }
@@ -126,17 +122,14 @@ function handleScrollUtils(type) {
      * @return {Function} unsubscribe callback
      */
     const addCb = (cb) => {
-        callback.push({ cb, id: id });
-        const cbId = id;
-        id++;
+        const id = getUnivoqueId();
+        callbacks.set(id, cb);
 
         if (typeof window !== 'undefined') {
             init();
         }
 
-        return () => {
-            callback = callback.filter((item) => item.id !== cbId);
-        };
+        return () => callbacks.delete(id);
     };
 
     return addCb;
