@@ -1,5 +1,6 @@
 // @ts-check
 
+import { getUnivoqueId } from '../../utils/index.js';
 import { debounceFuncion } from '../debounce.js';
 
 /**
@@ -8,14 +9,9 @@ import { debounceFuncion } from '../debounce.js';
 let inizialized = false;
 
 /**
- * @type {Array.<{id:number, cb:Function }>}
+ * @type {Map<String,Function>}
  */
-let callback = [];
-
-/**
- * @type {Number}
- */
-let id = 0;
+const callbacks = new Map();
 
 /**
  * @type {Function}
@@ -39,7 +35,7 @@ function handler() {
     /**
      * If there is no subscritor remove handler.
      */
-    if (callback.length === 0) {
+    if (callbacks.size === 0) {
         // @ts-ignore
         window.removeEventListener('resize', debouceFunctionReference);
 
@@ -90,7 +86,9 @@ function handler() {
     };
 
     // Fire end of resize
-    callback.forEach(({ cb }) => cb(resizeData));
+    for (const value of callbacks.values()) {
+        value(resizeData);
+    }
 }
 
 /**
@@ -134,17 +132,14 @@ function init() {
  * ```
  */
 const addCb = (cb) => {
-    callback.push({ cb, id: id });
-    const cbId = id;
-    id++;
+    const id = getUnivoqueId();
+    callbacks.set(id, cb);
 
     if (typeof window !== 'undefined') {
         init();
     }
 
-    return () => {
-        callback = callback.filter((item) => item.id !== cbId);
-    };
+    return () => callbacks.delete(id);
 };
 
 /**
