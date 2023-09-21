@@ -19,23 +19,13 @@ import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
 /**
- * @param {Object} obj
- * @param { function({container:HTMLElement, childrenId:Array.<String>}):void } obj.afterUpdate
- * @param { function({container:HTMLElement, childrenId:Array.<String>}):void } obj.beforeUpdate
- * @param { function } obj.getChildren
- * @param { string } obj.id
- * @param { string } obj.key
- * @param { object } obj.props
- * @param { Boolean } obj.clean
- * @param { object } obj.dynamicProps
- * @param { object } obj.bindEvents
- * @param { string } obj.state
- * @param { Function } obj.setState
- * @param { string } obj.targetComponent
- * @param { function } obj.watch
- * @param { HTMLElement } obj.containerList
- * @param { String } obj.repeatId
- *
+ * @typedef {Object} watchListType
+ * @property { HTMLElement } containerList
+ * @property { String } repeatId
+ */
+
+/**
+ * @param {import('../temporaryData/repeater/add').repeaterType & watchListType}
  * @return {() => Function}
  */
 export const watchList = ({
@@ -43,7 +33,6 @@ export const watchList = ({
     setState = () => {},
     emit = () => {},
     watch = () => {},
-    containerList = document.createElement('div'),
     props = {},
     bindEvents = [],
     clean = false,
@@ -54,6 +43,7 @@ export const watchList = ({
     getChildren = () => {},
     key = '',
     id = '',
+    containerList,
     repeatId = '',
 }) => {
     /**

@@ -5,6 +5,9 @@ import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy
 import { UNSET } from '../../constant';
 import { getDefaultComponent } from '../../createComponent';
 
+/**
+ * @type {Map<String,Function>}
+ */
 export const onMountCallbackMap = new Map();
 
 /**

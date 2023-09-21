@@ -1,13 +1,18 @@
+// @ts-check
+
 import { mobCore } from '../../../mobCore';
 import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant';
 
+/**
+ * @type {Map<String,{'current':Object, 'index':Number}>}
+ */
 export const currentListValueMap = new Map();
 
 /**
- * @params {{ current:Object, index:Number}}
+ * @param {{ current:Object, index:Number}} current
  * @returns String
  */
-export const setCurrentValueList = (current = {}) => {
+export const setCurrentValueList = (current) => {
     /**
      * @type {String}
      */

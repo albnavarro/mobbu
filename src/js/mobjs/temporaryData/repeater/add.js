@@ -1,25 +1,36 @@
 // @ts-check
 
+/**
+ * @typedef { Object } repeaterType
+ * @property { function({container:HTMLElement, childrenId:Array.<String>}):void } afterUpdate
+ * @property { function({container:HTMLElement, childrenId:Array.<String>}):void } beforeUpdate
+ * @property { Function } getChildren
+ * @property { String } id
+ * @property { Boolean } clean
+ * @property { String|undefined } key
+ * @property { Object } props
+ * @property { String|undefined } state
+ * @property { Function } setState
+ * @property { String } targetComponent
+ * @property { Function } watch
+ * @property { Function } emit
+ * @property { Object } dynamicProps
+ * @property { Object|Array } bindEvents
+ *
+ * @description
+ * Add new repeater id and props.
+ * Tehe repeater will execute after component render.
+ */
+
+/**
+ * @type {Map<String,repeaterType>}
+ */
 export const repeatMap = new Map();
 
 /**
  * @param { Object } mainObject
  * @param { String } mainObject.repeatId
- * @param { Object } mainObject.obj
- * @param { Function } mainObject.obj.afterUpdate
- * @param { Function } mainObject.obj.beforeUpdate
- * @param { Function } mainObject.obj.getChildren
- * @param { String } mainObject.obj.id
- * @param { Boolean } mainObject.obj.clean
- * @param { String|undefined } mainObject.obj.key
- * @param { Object } mainObject.obj.props
- * @param { String|undefined } mainObject.obj.state
- * @param { Function } mainObject.obj.setState
- * @param { String } mainObject.obj.targetComponent
- * @param { Function } mainObject.obj.watch
- * @param { Function } mainObject.obj.emit
- * @param { Object } mainObject.obj.dynamicProps
- * @param { Object|Array } mainObject.obj.bindEvents
+ * @param { repeaterType } mainObject.obj
  *
  * @description
  * Add new repeater id and props.

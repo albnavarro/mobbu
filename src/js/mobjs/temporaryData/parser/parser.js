@@ -1,5 +1,8 @@
 // @ts-check
 
+/**
+ * @type {Number}
+ */
 let parserCounter = 0;
 
 /**

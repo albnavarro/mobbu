@@ -8,10 +8,13 @@ import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
 import { componentMap } from '../../componentStore/store';
 
+/**
+ * @type {Map<String,{'bind':Array<String>,'parentId':String|undefined,'componentId':String,'propsId':String,'props':Object}>}
+ */
 export const dynamicPropsMap = new Map();
 
 /**
- * @param {Object} [ propsObj ]
+ * @param {{'bind':Array<String>,'parentId':String|undefined,'props':Object}} propsObj
  * @return {String|undefined} props id in store.
  *
  * @description
@@ -32,7 +35,7 @@ export const dynamicPropsMap = new Map();
  *   ></MyComponent>
  * ```
  */
-export const setBindProps = (propsObj = {}) => {
+export const setBindProps = (propsObj) => {
     const propsIsValid = 'bind' in propsObj && 'props' in propsObj;
 
     if (!propsIsValid) {
@@ -44,7 +47,7 @@ export const setBindProps = (propsObj = {}) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    dynamicPropsMap.set(id, { ...propsObj, propsId: id });
+    dynamicPropsMap.set(id, { ...propsObj, componentId: '', propsId: id });
 
     return id;
 };
@@ -186,7 +189,6 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  */
 export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     /**
-     * @type {Array<{ propsId: String, componentId: String, parentId: String, bind:Array, props:(args0: Object) => Object }>}
      *
      * @description
      * Get dynamic prop by component.
@@ -223,7 +225,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                 componentId,
                 bind,
                 props,
-                currentParentId,
+                currentParentId: currentParentId ?? '',
                 fireCallback: true,
             });
 
@@ -249,7 +251,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                         componentId,
                         bind,
                         props,
-                        currentParentId,
+                        currentParentId: currentParentId ?? '',
                         fireCallback: true,
                     });
                     watchIsRunning = false;

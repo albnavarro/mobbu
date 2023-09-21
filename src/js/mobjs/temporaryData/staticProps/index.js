@@ -2,6 +2,9 @@
 
 import { mobCore } from '../../../mobCore';
 
+/**
+ * @type {Map<String,Object>}
+ */
 export const staticPropsMap = new Map();
 
 /**

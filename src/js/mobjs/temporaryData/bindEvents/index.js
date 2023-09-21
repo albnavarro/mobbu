@@ -5,7 +5,6 @@ import { checkType } from '../../../mobCore/store/storeType';
 import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
 
 /**
- * Description
  * @type {Map<String,Array<Object<string,Function>>>}
  */
 export const bindEventMap = new Map();

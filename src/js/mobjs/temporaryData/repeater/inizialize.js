@@ -1,21 +1,7 @@
 // @ts-check
 
-import { mainStore } from '../../mainStore/mainStore';
 import { watchList } from '../../updateList/watchList';
 import { repeatMap } from './add';
-
-/**
- * @typedef {object} RepeatItemDef
- * @property { function({container:HTMLElement, childrenId:Array.<String>}):void  } afterUpdate
- * @property { function({container:HTMLElement, childrenId:Array.<String>}):void  } beforeUpdate
- * @property { Function } getChildren
- * @property { String } id
- * @property { String } key
- * @property { Object } props
- * @property { String } state
- * @property { String } targetComponent
- * @property { Function } watch
- */
 
 /**
  * @param {Object} obj
@@ -32,6 +18,7 @@ export const inizializeRepeat = ({ repeatId, placeholderListObj }) => {
 
     //-new
     const obj = repeatMap.get(repeatId);
+    if (!obj) return;
 
     /**
      * @description
