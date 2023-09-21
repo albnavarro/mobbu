@@ -50,6 +50,7 @@ export const updateChildrenOrder = ({ id, component }) => {
      */
     const components2 = element2.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
     const componentsIdNow2 = [...components2].map(
+        // @ts-ignore
         (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
     );
 
