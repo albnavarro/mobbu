@@ -1,5 +1,6 @@
 // @ts-check
 
+import { ATTR_IS_RUNTIME } from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -144,8 +145,9 @@ export const setComponentList = (list = {}) => {
                     //
 
                     if (this.shadowRoot) {
-                        // @ts-ignore
-                        this.runtime = this.shadowRoot.host?.dataset?.runtime;
+                        this.runtime =
+                            // @ts-ignore
+                            this.shadowRoot.host?.dataset?.[ATTR_IS_RUNTIME];
 
                         const style = document.createElement('style');
                         style.textContent = styleSlot;
