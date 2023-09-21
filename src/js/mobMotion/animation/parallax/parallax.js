@@ -940,10 +940,10 @@ export default class ParallaxClass {
         /**
          * Inizialize marker
          */
-        if (this.scroller !== window) {
+        if (this.scroller !== window && this.marker) {
             this.unsubscribeMarker = mobCore.useScroll(() => {
                 // Refresh marker
-                if (this.marker) this.calcFixedLimit();
+                this.calcFixedLimit();
             });
         }
 
