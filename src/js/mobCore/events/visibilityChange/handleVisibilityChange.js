@@ -1,5 +1,7 @@
 // @ts-check
 
+import { getUnivoqueId } from '../../utils';
+
 /**
  * @typedef {Object} visibilityChangeTYpe
  * @prop {('hidden'|'visible')} visibilityState - Boolean value indicating the visibility status of the current tab-
@@ -11,14 +13,9 @@
 let inizialized = false;
 
 /**
- * @type {Array.<{id:number, cb:Function }>}
+ * @type {Map<String,Function>}
  */
-let callback = [];
-
-/**
- * @type {Number}
- */
-let id = 0;
+const callbacks = new Map();
 
 /**
  *
@@ -27,7 +24,7 @@ function handler() {
     /**
      * if - if there is no subscritor remove handler
      */
-    if (callback.length === 0) {
+    if (callbacks.size === 0) {
         window.removeEventListener('visibilitychange', handler);
 
         inizialized = false;
@@ -39,7 +36,9 @@ function handler() {
         visibilityState: document.visibilityState,
     };
 
-    callback.forEach(({ cb }) => cb(visibilityData));
+    for (const value of callbacks.values()) {
+        value(visibilityData);
+    }
 }
 
 /**
@@ -74,17 +73,14 @@ function init() {
  * ```
  */
 const addCb = (cb) => {
-    callback.push({ cb, id: id });
-    const cbId = id;
-    id++;
+    const id = getUnivoqueId();
+    callbacks.set(id, cb);
 
     if (typeof window !== 'undefined') {
         init();
     }
 
-    return () => {
-        callback = callback.filter((item) => item.id !== cbId);
-    };
+    return () => callbacks.delete(id);
 };
 
 export const handleVisibilityChange = (() => addCb)();
