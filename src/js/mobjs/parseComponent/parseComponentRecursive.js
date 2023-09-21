@@ -5,6 +5,7 @@ import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { ATTR_REPEATID, UNSET } from '../constant';
 import {
     getComponentsReference,
+    getSelector,
     getSelectorDefaultTag,
     getSelectorRuntimeTag,
 } from '../utils';
@@ -44,14 +45,18 @@ export const parseComponentsRecursive = async ({
 
     const componentsReference = getComponentsReference();
     const componentList = getComponentList();
-    const selector = runtimeId
-        ? getSelectorRuntimeTag(runtimeId)
-        : getSelectorDefaultTag();
+
+    // const selector = runtimeId
+    //     ? getSelectorRuntimeTag(runtimeId)
+    //     : getSelectorDefaultTag();
+
+    const selector = getSelector();
 
     const { componentToParse, parseSourceArray } = getParseSourceArray({
         element,
         selector,
         currentSelectors,
+        runtimeId,
     });
 
     /**

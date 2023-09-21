@@ -102,6 +102,11 @@ export const getSelectorRuntimeTag = (runtimeId) => {
         .join(',');
 };
 
+export const getSelector = () => {
+    const componentsReference = getComponentsReference();
+    return Object.values(componentsReference).join(',');
+};
+
 /**
  * @param {String} name
  * @returns {String}

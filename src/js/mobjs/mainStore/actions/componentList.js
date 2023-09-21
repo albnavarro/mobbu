@@ -115,7 +115,7 @@ export const setComponentList = (list = {}) => {
                 #watchParent;
 
                 static get observedAttributes() {
-                    return attributeToObserve;
+                    return [...attributeToObserve, 'data-runtime'];
                 }
 
                 constructor() {
@@ -138,7 +138,15 @@ export const setComponentList = (list = {}) => {
                     this.#watchImmediate = () => {};
                     this.#watchParent = () => {};
 
+                    //
+                    this.isPlaceholder = true;
+                    this.runtime = '';
+                    //
+
                     if (this.shadowRoot) {
+                        // @ts-ignore
+                        this.runtime = this.shadowRoot.host?.dataset?.runtime;
+
                         const style = document.createElement('style');
                         style.textContent = styleSlot;
                         this.shadowRoot.append(style);
@@ -218,6 +226,9 @@ export const setComponentList = (list = {}) => {
                         context: this,
                         data: this.#getData(),
                     });
+
+                    this.isPlaceholder = false;
+                    this.runtime = '';
                 }
 
                 disconnectedCallback() {

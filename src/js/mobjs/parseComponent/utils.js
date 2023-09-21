@@ -7,12 +7,14 @@ import { selectAllFirstDepth } from './customSelector';
  * @param {Element} obj.element
  * @param {String} obj.selector
  * @param {Array<Element>} obj.currentSelectors
+ * @param {String|null} obj.runtimeId
  * @return {{componentToParse:Element, parseSourceArray:Array<Element> }}
  */
 export const getParseSourceArray = ({
     element,
     selector,
     currentSelectors,
+    runtimeId,
 }) => {
     if (currentSelectors.length > 0) {
         const componentToParse = currentSelectors[0];
@@ -20,7 +22,7 @@ export const getParseSourceArray = ({
 
         return { componentToParse, parseSourceArray };
     } else {
-        const query = [...selectAllFirstDepth(selector, element)];
+        const query = [...selectAllFirstDepth(selector, element, runtimeId)];
         const componentToParse = query?.[0];
         const parseSourceArray = query.slice(1);
 

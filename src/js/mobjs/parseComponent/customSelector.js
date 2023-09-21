@@ -1,6 +1,8 @@
 // @ts-check
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
+import { ATTR_IS_COMPONENT } from '../constant';
+
 /**
  * Generate numbers in the Fibonacci sequence.
  *
@@ -22,9 +24,10 @@ function* walkPreOrder(node) {
 /**
  * @param {Array<String>|String} selector
  * @param {Element} root
+ * @param {String|null} runtimeId
  * @returns {Array<HTMLElement>}
  */
-function selectAll(selector, root) {
+function selectAll(selector, root, runtimeId) {
     const result = [];
     for (const node of walkPreOrder(root)) {
         /**
@@ -33,7 +36,12 @@ function selectAll(selector, root) {
          */
         if (result.length > 0) break;
 
-        if (node.matches(selector)) {
+        if (node.matches(selector) && node?.isPlaceholder) {
+            if (runtimeId && node?.runtime === runtimeId) {
+                result.push(node);
+                break;
+            }
+
             result.push(node);
         }
     }
@@ -43,20 +51,21 @@ function selectAll(selector, root) {
 /**
  * @param {Array<String>|String} path
  * @param {Element} node
+ * @param {String|null} runtimeId
  * @returns {Array<Element>}
  */
-export const selectAllFirstDepth = (path, node) => {
+export const selectAllFirstDepth = (path, node, runtimeId) => {
     let result = [];
     if (path.length === 0) return result;
 
     const root = node || document.body;
     const selector = path[0];
 
-    if (path.length === 1) return selectAll(selector, root);
+    if (path.length === 1) return selectAll(selector, root, runtimeId);
 
     const newPath = root.matches(selector) ? path.slice(1) : path;
     for (const child of root.children) {
-        result = [...result, ...selectAll(newPath, child)];
+        result = [...result, ...selectAll(newPath, child, runtimeId)];
     }
 
     return result;
