@@ -22,12 +22,11 @@ function* walkPreOrder(node) {
 }
 
 /**
- * @param {Array<String>|String} selector
  * @param {Element} root
  * @param {String|null} runtimeId
  * @returns {Array<HTMLElement>}
  */
-function selectAll(selector, root, runtimeId) {
+function selectAll(root, runtimeId) {
     const result = [];
     for (const node of walkPreOrder(root)) {
         /**
@@ -36,7 +35,7 @@ function selectAll(selector, root, runtimeId) {
          */
         if (result.length > 0) break;
 
-        if (node.matches(selector) && node?.isPlaceholder) {
+        if (node?.isPlaceholder) {
             if (runtimeId && node?.runtime === runtimeId) {
                 result.push(node);
                 break;
@@ -49,23 +48,16 @@ function selectAll(selector, root, runtimeId) {
 }
 
 /**
- * @param {Array<String>|String} path
  * @param {Element} node
  * @param {String|null} runtimeId
  * @returns {Array<Element>}
  */
-export const selectAllFirstDepth = (path, node, runtimeId) => {
+export const selectAllFirstDepth = (node, runtimeId) => {
     let result = [];
-    if (path.length === 0) return result;
-
     const root = node || document.body;
-    const selector = path[0];
 
-    if (path.length === 1) return selectAll(selector, root, runtimeId);
-
-    const newPath = root.matches(selector) ? path.slice(1) : path;
     for (const child of root.children) {
-        result = [...result, ...selectAll(newPath, child, runtimeId)];
+        result = [...result, ...selectAll(child, runtimeId)];
     }
 
     return result;
