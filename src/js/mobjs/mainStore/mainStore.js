@@ -42,10 +42,8 @@ export const mainStore = mobCore.createStore({
         type: String,
         skipEqual: false,
     }),
-    parseComponentEvent: {
-        element: () => ({
-            value: document.createElement('div'),
-            type: HTMLElement,
-        }),
-    },
+    repeaterParserRoot: () => ({
+        value: document.createElement('div'),
+        type: HTMLElement,
+    }),
 });

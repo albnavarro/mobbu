@@ -228,6 +228,9 @@ export const setComponentList = (list = {}) => {
                     }
                 }
 
+                /**
+                 * @param { String } value
+                 */
                 setId(value) {
                     this.#componentId = value;
                 }

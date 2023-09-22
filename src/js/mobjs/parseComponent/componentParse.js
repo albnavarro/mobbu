@@ -30,7 +30,7 @@ export const parseComponents = async ({ element, isCancellable = true }) => {
  * @returns {void}
  */
 export const initParseWatcher = () => {
-    mainStore.watch('parseComponentEvent', async ({ element }) => {
+    mainStore.watch('repeaterParserRoot', async (element) => {
         await parseComponents({
             element,
         });

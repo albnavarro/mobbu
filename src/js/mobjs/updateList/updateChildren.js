@@ -69,8 +69,8 @@ export const updateChildren = async ({
      * Parse current HTMLDom to create inner component.
      * Scan and await the end of possible noew component creation.
      */
-    mainStore.set('parseComponentEvent', { element: containerList }, false);
-    await mainStore.emitAsync('parseComponentEvent');
+    mainStore.set('repeaterParserRoot', containerList, false);
+    await mainStore.emitAsync('repeaterParserRoot');
 
     updateChildrenOrder({
         id,
