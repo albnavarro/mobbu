@@ -111,7 +111,6 @@ const addToSlot = ({ element }) => {
 
     slots.forEach(({ slot, elementMoved }) => {
         if (!slot) return;
-        console.log(slot);
 
         /**
          * @type {String|undefined}
