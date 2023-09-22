@@ -8,12 +8,12 @@ import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';
-import { registerPlaceholderElement } from '../creationStep/registerPlaceholderElement';
 import { executeFireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
 import { applyDynamicProps } from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
 import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
+import { registerComponent } from '../creationStep/registerComponent';
 
 /**
  * @param {Object} obj
@@ -131,7 +131,7 @@ export const parseComponentsRecursive = async ({
      * 2 - Register component to store
      * 3 - Return methods and props for userFunctionComponent (componentData)
      */
-    const componentData = registerPlaceholderElement({
+    const componentData = registerComponent({
         component: componentToParse,
         ...componentParams,
         isCancellable,

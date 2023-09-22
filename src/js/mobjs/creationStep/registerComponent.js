@@ -51,7 +51,7 @@ import { removeWatchFromDynamicProps, renderHtml } from './utils';
  * Create component
  * Reuturn all prosps/method for user function.
  */
-export const registerPlaceholderElement = ({
+export const registerComponent = ({
     component,
     state = {},
     isCancellable = true,
