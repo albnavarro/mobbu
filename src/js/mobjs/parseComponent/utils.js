@@ -1,6 +1,6 @@
 // @ts-check
 
-import { queryAllFutureComponent } from './customSelector';
+import { queryAllFutureComponent } from './queryAllFutureComponent';
 
 /**
  * @param {Object} obj

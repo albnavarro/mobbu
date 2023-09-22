@@ -93,6 +93,11 @@ export const ATTR_REPEATID = 'data-repeatid';
 /**
  * @type {string};
  */
+export const ATTR_REPEATID_PARTIAL = 'repeatid';
+
+/**
+ * @type {string};
+ */
 export const ATTR_KEY_PARTIAL = 'key';
 
 /**

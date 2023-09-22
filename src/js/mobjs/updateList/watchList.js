@@ -8,7 +8,7 @@ import {
 } from '../componentStore/action/freeze';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setStateById } from '../componentStore/action/state';
-import { ATTR_REPEATID } from '../constant';
+import { querySecificRepeater } from '../parseComponent/querySecificRepeater';
 import {
     addActiveRepeat,
     getActiveRepeater,
@@ -48,10 +48,9 @@ export const watchList = ({
     /**
      * Remove repeater placeholder
      */
-    const repeaterEl = containerList.querySelector(
-        `[${ATTR_REPEATID}='${repeatId}']`
-    );
+    const repeaterEl = querySecificRepeater(containerList, repeatId);
     repeaterEl?.remove();
+    repeaterEl?.removeCustomComponent();
 
     /**
      * First run use an empty previus array

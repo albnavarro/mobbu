@@ -224,7 +224,7 @@ export const registerComponent = ({
                 },
             });
 
-            return `<span ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"/>`;
+            return `<mobjs-repeater ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"/>`;
         },
     };
 };

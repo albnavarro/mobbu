@@ -9,7 +9,7 @@
  * @param {Element} node
  * @yields {HTMLElement}
  */
-function* walkPreOrder(node) {
+export function* walkPreOrder(node) {
     if (!node) return;
 
     // do something here

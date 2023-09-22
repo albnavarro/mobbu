@@ -7,6 +7,7 @@ import {
     ATTR_INSTANCENAME_PARTIAL,
     ATTR_PROPS_PARTIAL,
 } from '../../constant';
+import { repeaterComponentDefine } from '../../webComponent/repeater';
 import { mainStore } from '../mainStore';
 
 /**
@@ -22,22 +23,11 @@ export const setComponentList = (list = {}) => {
 
     mainStore.set('componentList', listParsed);
 
-    const componentParams = {
-        constructorCallback: () => {},
-        connectedCallback: () => {},
-        disconnectedCallback: () => {},
-        adoptedCallback: () => {},
-        attributeChangedCallback: () => {},
-        attributeToObserve: [],
-    };
-
-    const listParsed2 = { ...listParsed, 'c-mobjs': { componentParams } };
-
     /**
      * Register custom HTML tag component.
      * Thios custom TAG will be converted in native DOM element during parse.
      */
-    Object.entries(listParsed2).forEach(([key, value]) => {
+    Object.entries(listParsed).forEach(([key, value]) => {
         const {
             constructorCallback: _constructorCallback,
             connectedCallback: _connectedCallBack,
@@ -401,6 +391,8 @@ export const setComponentList = (list = {}) => {
             }
         );
     });
+
+    repeaterComponentDefine();
 };
 
 /**
