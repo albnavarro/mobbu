@@ -20,6 +20,10 @@ function* walkPreOrder(node) {
 }
 
 /**
+ * FUTURE COMPONENT
+ */
+
+/**
  * @param {Element} root
  * @param {String|null} runtimeId
  * @returns {Array<HTMLElement>}
@@ -50,7 +54,7 @@ function selectAll(root, runtimeId) {
  * @param {String|null} runtimeId
  * @returns {Array<Element>}
  */
-export const selectAllFirstDepth = (node, runtimeId) => {
+export const queryAllFutureComponent = (node, runtimeId) => {
     let result = [];
     const root = node || document.body;
 

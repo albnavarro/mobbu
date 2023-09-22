@@ -9,7 +9,6 @@ import {
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setStateById } from '../componentStore/action/state';
 import { ATTR_REPEATID } from '../constant';
-import { parseRuntime } from '../parseComponent/parseRuntime';
 import {
     addActiveRepeat,
     getActiveRepeater,
@@ -199,11 +198,6 @@ export const watchList = ({
              * Fire onComplete next tick;
              */
             setTimeout(async () => {
-                /**
-                 * Check inner component until there is (recursive).
-                 */
-                await parseRuntime({ container: containerList });
-
                 /**
                  * Execute afterUpdate function
                  */

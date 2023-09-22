@@ -1,49 +1,13 @@
 // @ts-check
 
-import { mobCore } from '../mobCore';
 import {
     ATTR_INSTANCENAME,
-    ATTR_IS_COMPONENT,
-    ATTR_IS_RUNTIME,
-    ATTR_IS_RUNTIME_PARTIAL,
     ATTR_PROPS,
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
 } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
-
-/**
- * @param {Object} obj
- * @param {HTMLElement} obj.container
- * @returns {{uniqueId:String, hasComponentInside: Number}}
- *
- * @description
- * Add a runtime id to all component inside a div
- * Return the runtime id and the number of components inside container with.
- */
-export const createRunTimeComponent = ({ container }) => {
-    /**
-     * @type {String}
-     */
-    const selectorDefaultTag = getSelectorDefaultTag();
-
-    /**
-     * @type {String}
-     */
-    const uniqueId = mobCore.getUnivoqueId();
-
-    /**
-     * @type {NodeListOf.<HTMLElement>} innerComponents
-     */
-    const innerComponents = container.querySelectorAll(selectorDefaultTag);
-
-    [...innerComponents].forEach(
-        (component) => (component.dataset[ATTR_IS_RUNTIME_PARTIAL] = uniqueId)
-    );
-
-    return { uniqueId, hasComponentInside: [...innerComponents].length };
-};
 
 /**
  * @return {Object} Return Object with
@@ -64,24 +28,6 @@ export const getComponentsReference = () => {
         .reduce((previous, current) => {
             return { ...previous, ...current };
         }, {});
-};
-
-/**
- * @return { String }
- *
- * @description
- * For each component registered:
- * Return <component name>:not[data-runtime]:not[data-mobjs], ...
- *
- */
-export const getSelectorDefaultTag = () => {
-    const componentsReference = getComponentsReference();
-
-    return Object.values(componentsReference)
-        .map((tag) => {
-            return `${tag}:not([${ATTR_IS_RUNTIME}]):not([${ATTR_IS_COMPONENT}])`;
-        })
-        .join(', ');
 };
 
 /**

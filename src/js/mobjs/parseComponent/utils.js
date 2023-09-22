@@ -1,6 +1,6 @@
 // @ts-check
 
-import { selectAllFirstDepth } from './customSelector';
+import { queryAllFutureComponent } from './customSelector';
 
 /**
  * @param {Object} obj
@@ -20,7 +20,7 @@ export const getParseSourceArray = ({
 
         return { componentToParse, parseSourceArray };
     } else {
-        const query = [...selectAllFirstDepth(element, runtimeId)];
+        const query = [...queryAllFutureComponent(element, runtimeId)];
         const componentToParse = query?.[0];
         const parseSourceArray = query.slice(1);
 
