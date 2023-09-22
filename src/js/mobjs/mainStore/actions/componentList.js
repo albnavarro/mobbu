@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_RUNTIME } from '../../constant';
+import { ATTR_IS_RUNTIME, ATTR_IS_RUNTIME_PARTIAL } from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -116,7 +116,7 @@ export const setComponentList = (list = {}) => {
                 #watchParent;
 
                 static get observedAttributes() {
-                    return [...attributeToObserve, 'data-runtime'];
+                    return attributeToObserve;
                 }
 
                 constructor() {
@@ -142,13 +142,15 @@ export const setComponentList = (list = {}) => {
                     //
                     this.isPlaceholder = true;
                     this.runtime = '';
-                    //
+
+                    // @ts-ignore
+                    const { dataset } = this.shadowRoot?.host ?? {};
+
+                    if (dataset) {
+                        this.runtime = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
+                    }
 
                     if (this.shadowRoot) {
-                        this.runtime =
-                            // @ts-ignore
-                            this.shadowRoot.host?.dataset?.[ATTR_IS_RUNTIME];
-
                         const style = document.createElement('style');
                         style.textContent = styleSlot;
                         this.shadowRoot.append(style);
