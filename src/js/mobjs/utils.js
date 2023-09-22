@@ -85,29 +85,6 @@ export const getSelectorDefaultTag = () => {
 };
 
 /**
- * @param {String} runtimeId
- * @return { String }
- *
- * @description
- * Select runtiem component by tagname.
- * Select <component name>[data-runtime='<hash>']:not[data-mobjs]
- */
-export const getSelectorRuntimeTag = (runtimeId) => {
-    const componentsReference = getComponentsReference();
-
-    return Object.values(componentsReference)
-        .map((tag) => {
-            return `${tag}[${ATTR_IS_RUNTIME}="${runtimeId}"]:not([${ATTR_IS_COMPONENT}])`;
-        })
-        .join(',');
-};
-
-export const getSelector = () => {
-    const componentsReference = getComponentsReference();
-    return Object.values(componentsReference).join(',');
-};
-
-/**
  * @param {String} name
  * @returns {String}
  *

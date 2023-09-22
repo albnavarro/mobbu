@@ -1,6 +1,5 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
@@ -16,8 +15,6 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
  * Create base DOM component from component tag.
  */
 export const getComponentData = ({ component }) => {
-    component.setAttribute(ATTR_IS_COMPONENT, '');
-
     /**
      * @type {String}
      *
