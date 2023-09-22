@@ -35,7 +35,7 @@ import {
     slotName as setSlotName,
     useSlot,
 } from '../utils';
-import { convertToPlaceHolderElement } from './convertToPlaceholderElement';
+import { getComponentData } from './getComponentData';
 import { removeWatchFromDynamicProps, renderHtml } from './utils';
 
 // JSDOC usare infered type quando possibile.
@@ -70,7 +70,7 @@ export const registerPlaceholderElement = ({
         dynamicPropsIdFromSlot,
         currentListValueReal,
         bindEventsId,
-    } = convertToPlaceHolderElement({
+    } = getComponentData({
         component,
     });
 

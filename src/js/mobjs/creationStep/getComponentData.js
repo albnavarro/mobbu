@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_PLACEHOLDER } from '../constant';
+import { ATTR_IS_COMPONENT } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
@@ -15,7 +15,7 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
  * @description
  * Create base DOM component from component tag.
  */
-export const convertToPlaceHolderElement = ({ component }) => {
+export const getComponentData = ({ component }) => {
     component.setAttribute(ATTR_IS_COMPONENT, '');
 
     /**
@@ -25,7 +25,8 @@ export const convertToPlaceHolderElement = ({ component }) => {
      * Create Univoque id
      */
     const id = mobCore.getUnivoqueId();
-    component.setAttribute(ATTR_PLACEHOLDER, id);
+    // @ts-ignore
+    component.setId(id);
 
     /**
      * @type {String}

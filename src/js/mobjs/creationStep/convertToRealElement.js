@@ -8,7 +8,6 @@ import {
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
     UNSET,
-    ATTR_PLACEHOLDER_PARTIAL,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
@@ -148,7 +147,8 @@ const executeConversion = ({ componentParsed, content }) => {
      * Get inner content and copy data from provvisory component
      */
     if (newElement) {
-        const id = componentParsed.dataset[ATTR_PLACEHOLDER_PARTIAL];
+        // @ts-ignore
+        const id = componentParsed.getId();
         newElement.insertAdjacentHTML('afterbegin', prevContent);
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
