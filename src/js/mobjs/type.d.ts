@@ -325,7 +325,7 @@ export interface componentType {
     html(DOMContent: String): {
         id: string;
         content: string;
-        placeholderElement: HTMLElement;
+        componentParsed: HTMLElement;
     };
 
     /**

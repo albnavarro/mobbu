@@ -236,6 +236,14 @@ export const setComponentList = (list = {}) => {
                     }
                 }
 
+                setId(value) {
+                    this.#componentId = value;
+                }
+
+                getId() {
+                    return this.#componentId;
+                }
+
                 getIsPlaceholder() {
                     return this.#isPlaceholder;
                 }

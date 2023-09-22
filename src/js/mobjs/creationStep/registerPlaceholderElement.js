@@ -60,7 +60,7 @@ export const registerPlaceholderElement = ({
      * Create basic DOM element
      */
     const {
-        placeholderElement,
+        component: componentParsed,
         props: propsUpdated,
         id,
         componentName,
@@ -80,7 +80,7 @@ export const registerPlaceholderElement = ({
     const { getState, setState, emit, emitAsync, computed, watch } =
         addComponentToStore({
             component,
-            placeholderElement,
+            componentParsed,
             props: propsUpdated,
             state,
             destroy: () => {},
@@ -130,7 +130,7 @@ export const registerPlaceholderElement = ({
         bindEventsId,
         key,
         id,
-        placeholderElement,
+        componentParsed,
         getState,
         setState,
         emit,
@@ -174,7 +174,7 @@ export const registerPlaceholderElement = ({
             return {
                 id,
                 content: renderHtml(strings, ...values),
-                placeholderElement,
+                componentParsed,
             };
         },
 

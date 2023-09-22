@@ -5,7 +5,6 @@ import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_IS_COMPONENT,
     ATTR_PROPS_PARTIAL,
-    ATTR_PROPS_FROM_SLOT_PARTIAL,
     ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
     UNSET,
@@ -17,21 +16,19 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.placeholderElement
+ * @param {HTMLElement} obj.componentParsed
  * @param {String} obj.content
  * @returns {HTMLElement|undefined}
  *
  * @description
  * Get new element from content ( render ).
- * Prevent accidentally return of element or placeholderElement deleted runtime.
+ * Prevent accidentally return of element or componentParsed deleted runtime.
  * Check parentNode to insertAdjacentHTML possible error.
  */
-const getNewElement = ({ placeholderElement, content }) => {
-    if (placeholderElement.parentNode) {
-        placeholderElement.insertAdjacentHTML('afterend', content);
-        return /** @type {HTMLElement} */ (
-            placeholderElement.nextElementSibling
-        );
+const getNewElement = ({ componentParsed, content }) => {
+    if (componentParsed.parentNode) {
+        componentParsed.insertAdjacentHTML('afterend', content);
+        return /** @type {HTMLElement} */ (componentParsed.nextElementSibling);
     }
 
     return;
@@ -131,27 +128,27 @@ const addToSlot = ({ element }) => {
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.placeholderElement
+ * @param {HTMLElement} obj.componentParsed
  * @param {String} obj.content
  * @returns {HTMLElement|undefined}
  *
  *
  */
-const executeConversion = ({ placeholderElement, content }) => {
+const executeConversion = ({ componentParsed, content }) => {
     /**
      * @type {String}
      *
      * @description
      * Add real content from render function
      */
-    const prevContent = placeholderElement.innerHTML;
-    const newElement = getNewElement({ placeholderElement, content });
+    const prevContent = componentParsed.innerHTML;
+    const newElement = getNewElement({ componentParsed, content });
 
     /**
      * Get inner content and copy data from provvisory component
      */
     if (newElement) {
-        const id = placeholderElement.dataset[ATTR_PLACEHOLDER_PARTIAL];
+        const id = componentParsed.dataset[ATTR_PLACEHOLDER_PARTIAL];
         newElement.insertAdjacentHTML('afterbegin', prevContent);
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
@@ -161,14 +158,14 @@ const executeConversion = ({ placeholderElement, content }) => {
     /**
      * Delete provvisory component and add real component.
      */
-    placeholderElement.remove();
+    componentParsed.remove();
 
     return newElement;
 };
 
 /**
  * @param {Object} obj
- * @param {HTMLElement} obj.placeholderElement
+ * @param {HTMLElement} obj.componentParsed
  * @param {String} obj.content
  * @param {Boolean|'UNSET'} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
@@ -179,7 +176,7 @@ const executeConversion = ({ placeholderElement, content }) => {
  *
  */
 export const convertToRealElement = ({
-    placeholderElement,
+    componentParsed,
     content,
     isolateCreation,
 }) => {
@@ -192,7 +189,7 @@ export const convertToRealElement = ({
         ? new Promise((resolve) => {
               mobCore.useFrame(() => {
                   const newElement = executeConversion({
-                      placeholderElement,
+                      componentParsed,
                       content,
                   });
 
@@ -203,7 +200,7 @@ export const convertToRealElement = ({
           })
         : new Promise((resolve) => {
               const newElement = executeConversion({
-                  placeholderElement,
+                  componentParsed,
                   content,
               });
 

@@ -23,7 +23,7 @@ import { addPropsToState } from './utils';
  * Add component to store.
  */
 export const addComponentToStore = ({
-    placeholderElement = document.createElement('div'),
+    componentParsed,
     instanceName = '',
     props = {},
     state = {},
@@ -43,7 +43,7 @@ export const addComponentToStore = ({
     addPropsToState({ props, store });
 
     componentMap.set(id, {
-        element: placeholderElement,
+        element: componentParsed,
         component: componentName,
         instanceName,
         destroy,

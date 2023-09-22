@@ -1,15 +1,6 @@
 // @ts-check
 
-import {
-    ATTR_DYNAMIC_PARTIAL,
-    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
-    ATTR_IS_COMPONENT,
-    ATTR_PROPS_PARTIAL,
-    ATTR_PROPS_FROM_SLOT_PARTIAL,
-    ATTR_CURRENT_LIST_VALUE_PARTIAL,
-    ATTR_BIND_EVENTS_PARTIAL,
-    ATTR_PLACEHOLDER,
-} from '../constant';
+import { ATTR_IS_COMPONENT, ATTR_PLACEHOLDER } from '../constant';
 import { propsKeyToExclude } from './utils';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
@@ -19,22 +10,13 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{placeholderElement:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ), currentListValueReal: any}}
+ * @returns {{component:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ), currentListValueReal: any}}
  *
  * @description
  * Create base DOM component from component tag.
  */
 export const convertToPlaceHolderElement = ({ component }) => {
-    /**
-     * @type {String}
-     */
-    const prevContent = component.innerHTML;
-
-    /**
-     * @type {HTMLElement}
-     */
-    const placeholderElement = document.createElement('div');
-    placeholderElement.setAttribute(ATTR_IS_COMPONENT, '');
+    component.setAttribute(ATTR_IS_COMPONENT, '');
 
     /**
      * @type {String}
@@ -43,7 +25,7 @@ export const convertToPlaceHolderElement = ({ component }) => {
      * Create Univoque id
      */
     const id = mobCore.getUnivoqueId();
-    placeholderElement.setAttribute(ATTR_PLACEHOLDER, id);
+    component.setAttribute(ATTR_PLACEHOLDER, id);
 
     /**
      * @type {String}
@@ -109,17 +91,6 @@ export const convertToPlaceHolderElement = ({ component }) => {
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
 
     /**
-     * Add element to DOM
-     */
-    component.replaceWith(placeholderElement);
-
-    /**
-     * Add previous and new content.
-     */
-    // @ts-ignore
-    placeholderElement.insertAdjacentHTML('beforeEnd', prevContent);
-
-    /**
      * @type {Object}
      *
      * @description
@@ -147,7 +118,7 @@ export const convertToPlaceHolderElement = ({ component }) => {
     propsKeyToExclude.forEach((key) => delete baseProps[key]);
 
     return {
-        placeholderElement,
+        component,
         props: {
             ...filterExportableStateFromObject({
                 componentName,
