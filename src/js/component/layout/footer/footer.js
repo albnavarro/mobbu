@@ -5,7 +5,7 @@ export const Footer = ({ html, slotName }) => {
     return html`
         <footer class="l-footer">
             <div class="l-footer__container">
-                <slot ${slotName('debug')}></slot>
+                <mobjs-slot ${slotName('debug')}></mobjs-slot>
             </div>
         </footer>
     `;

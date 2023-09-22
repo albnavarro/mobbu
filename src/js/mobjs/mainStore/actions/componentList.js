@@ -1,6 +1,7 @@
 // @ts-check
 
 import { defineRepeaterComponent } from '../../webComponent/repeater';
+import { defineSlotComponent } from '../../webComponent/slot';
 import { defineUserComponent } from '../../webComponent/userComponent';
 import { mainStore } from '../mainStore';
 
@@ -24,6 +25,7 @@ export const setComponentList = (list = {}) => {
 
     defineUserComponent(componentList);
     defineRepeaterComponent();
+    defineSlotComponent();
 };
 
 /**

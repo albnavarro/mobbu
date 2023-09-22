@@ -43,7 +43,7 @@ const getNewElement = ({ componentParsed, content }) => {
  * ( no element have sustitute slot )
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots = element.querySelectorAll('slot');
+    const slots = element.querySelectorAll('mobjs-slot');
     slots.forEach((slot) => {
         /**
          * If slot is not used remove id reference orphans from store.
@@ -81,16 +81,16 @@ const addToSlot = ({ element }) => {
         element.querySelectorAll(`[${ATTR_SLOT_POSITION}]`)
     );
 
-    [...componentWithSlot].forEach((component) => {
+    const slots = [...componentWithSlot].map((component) => {
         const slotTargetName = component.dataset?.slotposition;
 
         /**
          * @type {HTMLElement|null}
          */
         const slot = element.querySelector(
-            `slot[${ATTR_SLOT_NAME}="${slotTargetName}"]`
+            `mobjs-slot[${ATTR_SLOT_NAME}="${slotTargetName}"]`
         );
-        if (!slot) return;
+        if (!slot) return { slot: null, elementMoved: null };
 
         /**
          * Add component/element before slot.
@@ -102,6 +102,17 @@ const addToSlot = ({ element }) => {
             elementMoved.removeAttribute(ATTR_SLOT_POSITION);
         }
 
+        return { slot, elementMoved };
+
+        /**
+         * Delete slot.
+         */
+    });
+
+    slots.forEach(({ slot, elementMoved }) => {
+        if (!slot) return;
+        console.log(slot);
+
         /**
          * @type {String|undefined}
          *
@@ -111,17 +122,16 @@ const addToSlot = ({ element }) => {
         const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
         if (propsIdFromSlot)
             // @ts-ignore
-            elementMoved.setPropsFromSlotId(propsIdFromSlot);
+            elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
 
         const bindPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
         if (bindPropsIdFromSlot)
             // @ts-ignore
-            elementMoved.setDynamicPropsFromSlotId(bindPropsIdFromSlot);
+            elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
 
-        /**
-         * Delete slot.
-         */
-        slot.remove();
+        // @ts-ignore
+        slot?.removeCustomComponent();
+        slot?.remove();
     });
 };
 
