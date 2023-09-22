@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_RUNTIME, ATTR_IS_RUNTIME_PARTIAL } from '../../constant';
+import { ATTR_IS_RUNTIME_PARTIAL } from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
