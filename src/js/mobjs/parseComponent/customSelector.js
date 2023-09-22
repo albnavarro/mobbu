@@ -33,8 +33,8 @@ function selectAll(root, runtimeId) {
          */
         if (result.length > 0) break;
 
-        if (node?.isPlaceholder) {
-            if (runtimeId && node?.runtime === runtimeId) {
+        if (node?.getIsPlaceholder?.()) {
+            if (runtimeId && node?.getRuntimeId?.() === runtimeId) {
                 result.push(node);
                 break;
             }

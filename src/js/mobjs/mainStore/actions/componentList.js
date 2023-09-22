@@ -115,6 +115,16 @@ export const setComponentList = (list = {}) => {
                  */
                 #watchParent;
 
+                /**
+                 * @type {Boolean}
+                 */
+                #isPlaceholder;
+
+                /**
+                 * @type {String}
+                 */
+                #runtimeId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -140,14 +150,14 @@ export const setComponentList = (list = {}) => {
                     this.#watchParent = () => {};
 
                     //
-                    this.isPlaceholder = true;
-                    this.runtime = '';
+                    this.#isPlaceholder = true;
+                    this.#runtimeId = '';
 
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
 
                     if (dataset) {
-                        this.runtime = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
+                        this.#runtimeId = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
                     }
 
                     if (this.shadowRoot) {
@@ -165,6 +175,14 @@ export const setComponentList = (list = {}) => {
                             context: this,
                         });
                     }
+                }
+
+                getIsPlaceholder() {
+                    return this.#isPlaceholder;
+                }
+
+                getRuntimeId() {
+                    return this.#runtimeId;
                 }
 
                 #getData() {
@@ -231,8 +249,8 @@ export const setComponentList = (list = {}) => {
                         data: this.#getData(),
                     });
 
-                    this.isPlaceholder = false;
-                    this.runtime = '';
+                    this.#isPlaceholder = false;
+                    this.#runtimeId = '';
                 }
 
                 disconnectedCallback() {
