@@ -14,6 +14,7 @@ import { applyDynamicProps } from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
 import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { registerComponent } from '../creationStep/registerComponent';
+import { queryGenericRepeater } from '../query/queryGenericRepeater';
 
 /**
  * @param {Object} obj
@@ -172,15 +173,12 @@ export const parseComponentsRecursive = async ({
     /**
      * Get all repeat placholder to check the parent div for each list.
      */
-    const placeholdreList = /** @type{NodeListOf.<HTMLElement>} */ (
-        newElement.querySelectorAll(`[${ATTR_REPEATID}]`)
-    );
-
+    const placeholdreList = queryGenericRepeater(newElement);
     const placeholderListObj = [...placeholdreList].map((placeholder) => {
-        const { repeatid: id } = placeholder.dataset;
         return {
             parent: /** @type {HTMLElement} */ (placeholder.parentNode),
-            id,
+            // @ts-ignore
+            id: placeholder.getRepeatId(),
         };
     });
 
