@@ -120,8 +120,8 @@ const addToSlot = ({ element }) => {
 
         const bindPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
         if (bindPropsIdFromSlot)
-            elementMoved.dataset[ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL] =
-                bindPropsIdFromSlot;
+            // @ts-ignore
+            elementMoved.setDynamicPropsFromSlotId(bindPropsIdFromSlot);
 
         /**
          * Delete slot.

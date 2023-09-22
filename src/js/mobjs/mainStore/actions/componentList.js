@@ -159,10 +159,7 @@ export const setComponentList = (list = {}) => {
                 #dynamicPropsFromSlotId;
 
                 static get observedAttributes() {
-                    return [
-                        ...attributeToObserve,
-                        ATTR_DYNAMIC_PROPS_FROM_SLOT,
-                    ];
+                    return attributeToObserve;
                 }
 
                 constructor() {
@@ -248,6 +245,13 @@ export const setComponentList = (list = {}) => {
 
                 getBindEventsId() {
                     return this.#bindEventsId;
+                }
+
+                /**
+                 * @param {String} value
+                 */
+                setDynamicPropsFromSlotId(value) {
+                    this.#dynamicPropsFromSlotId = value;
                 }
 
                 getDynamicPropsFromSlotId() {
@@ -355,18 +359,6 @@ export const setComponentList = (list = {}) => {
                  * @param {any} newValue
                  */
                 attributeChangedCallback(name, oldValue, newValue) {
-                    /**
-                     * Detect props moves from slot to placehodler component.
-                     */
-                    if (name === ATTR_DYNAMIC_PROPS_FROM_SLOT) {
-                        // @ts-ignore
-                        const { dataset } = this.shadowRoot?.host ?? {};
-
-                        if (dataset) {
-                            this.#dynamicPropsFromSlotId = newValue;
-                        }
-                    }
-
                     if (!this.shadowRoot || !this.active) return;
 
                     /**
