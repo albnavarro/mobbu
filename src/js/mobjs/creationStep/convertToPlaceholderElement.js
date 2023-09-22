@@ -49,7 +49,8 @@ export const convertToPlaceHolderElement = ({ component }) => {
     /**
      * @type {String}
      */
-    const instanceName = component.dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
+    // @ts-ignore
+    const instanceName = component.getInstanceName();
 
     /**
      * @type {String|undefined}

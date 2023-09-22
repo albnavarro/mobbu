@@ -1,6 +1,9 @@
 // @ts-check
 
-import { ATTR_IS_RUNTIME_PARTIAL } from '../../constant';
+import {
+    ATTR_INSTANCENAME_PARTIAL,
+    ATTR_IS_RUNTIME_PARTIAL,
+} from '../../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -125,6 +128,11 @@ export const setComponentList = (list = {}) => {
                  */
                 #runtimeId;
 
+                /**
+                 * @type {String}
+                 */
+                #instanceName;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -152,12 +160,15 @@ export const setComponentList = (list = {}) => {
                     //
                     this.#isPlaceholder = true;
                     this.#runtimeId = '';
+                    this.#instanceName = '';
 
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
 
                     if (dataset) {
                         this.#runtimeId = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
+                        this.#instanceName =
+                            dataset?.[ATTR_INSTANCENAME_PARTIAL];
                     }
 
                     if (this.shadowRoot) {
@@ -183,6 +194,10 @@ export const setComponentList = (list = {}) => {
 
                 getRuntimeId() {
                     return this.#runtimeId;
+                }
+
+                getInstanceName() {
+                    return this.#instanceName;
                 }
 
                 #getData() {
