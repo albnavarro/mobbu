@@ -1,6 +1,6 @@
 import { ATTR_REPEATID_PARTIAL } from '../constant';
 
-export const repeaterComponentDefine = () => {
+export const defineRepeaterComponent = () => {
     customElements.define(
         'mobjs-repeater',
         class extends HTMLElement {
