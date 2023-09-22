@@ -9,9 +9,9 @@ import {
     UNSET,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
-import { queryComponentUseSlot } from '../parseComponent/queryComponentUseSlot';
-import { queryGenericSlot } from '../parseComponent/queryGenericSlot';
-import { querySecificSlot } from '../parseComponent/querySpecificSlot';
+import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
+import { queryGenericSlot } from '../query/queryGenericSlot';
+import { querySecificSlot } from '../query/querySpecificSlot';
 import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 

@@ -8,7 +8,7 @@ import {
 } from '../componentStore/action/freeze';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setStateById } from '../componentStore/action/state';
-import { querySecificRepeater } from '../parseComponent/querySecificRepeater';
+import { querySecificRepeater } from '../query/querySecificRepeater';
 import {
     addActiveRepeat,
     getActiveRepeater,

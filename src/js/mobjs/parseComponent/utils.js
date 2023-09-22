@@ -1,6 +1,6 @@
 // @ts-check
 
-import { queryAllFutureComponent } from './queryAllFutureComponent';
+import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
 
 /**
  * @param {Object} obj
