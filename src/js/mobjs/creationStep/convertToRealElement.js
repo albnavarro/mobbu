@@ -83,6 +83,7 @@ const removeOrphanSlot = ({ element }) => {
  */
 const addToSlot = ({ element }) => {
     const componentWithSlot = queryComponentUseSlot(element);
+    if (componentWithSlot.length === 0) return;
 
     const slots = [...componentWithSlot].map((component) => {
         // @ts-ignore
