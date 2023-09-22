@@ -3,7 +3,6 @@
 import { mobCore } from '../../mobCore';
 import {
     ATTR_DYNAMIC_PARTIAL,
-    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
     ATTR_IS_COMPONENT,
     ATTR_PROPS_PARTIAL,
     ATTR_PROPS_FROM_SLOT_PARTIAL,
@@ -115,8 +114,8 @@ const addToSlot = ({ element }) => {
          */
         const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
         if (propsIdFromSlot)
-            elementMoved.dataset[ATTR_PROPS_FROM_SLOT_PARTIAL] =
-                propsIdFromSlot;
+            // @ts-ignore
+            elementMoved.setPropsFromSlotId(propsIdFromSlot);
 
         const bindPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
         if (bindPropsIdFromSlot)

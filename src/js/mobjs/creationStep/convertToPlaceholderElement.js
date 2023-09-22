@@ -78,7 +78,8 @@ export const convertToPlaceHolderElement = ({ component }) => {
     /**
      * @type {String|undefined}
      */
-    const propsSlot = component.dataset?.[ATTR_PROPS_FROM_SLOT_PARTIAL];
+    // @ts-ignore
+    const propsSlot = component.getPropsFromSlotId();
 
     /**
      * @type {String|undefined}

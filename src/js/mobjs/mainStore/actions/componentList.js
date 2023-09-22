@@ -3,8 +3,6 @@
 import {
     ATTR_BIND_EVENTS_PARTIAL,
     ATTR_DYNAMIC_PARTIAL,
-    ATTR_DYNAMIC_PROPS_FROM_SLOT,
-    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
     ATTR_INSTANCENAME_PARTIAL,
     ATTR_IS_RUNTIME_PARTIAL,
     ATTR_PROPS_PARTIAL,
@@ -158,6 +156,11 @@ export const setComponentList = (list = {}) => {
                  */
                 #dynamicPropsFromSlotId;
 
+                /**
+                 * @type {String}
+                 */
+                #propsFromSlotId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -190,6 +193,7 @@ export const setComponentList = (list = {}) => {
                     this.#dynamicPropsId = '';
                     this.#bindEventsId = '';
                     this.#dynamicPropsFromSlotId = '';
+                    this.#propsFromSlotId = '';
 
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
@@ -256,6 +260,17 @@ export const setComponentList = (list = {}) => {
 
                 getDynamicPropsFromSlotId() {
                     return this.#dynamicPropsFromSlotId;
+                }
+
+                /**
+                 * @param {String} value
+                 */
+                setPropsFromSlotId(value) {
+                    this.#propsFromSlotId = value;
+                }
+
+                getPropsFromSlotId() {
+                    return this.#propsFromSlotId;
                 }
 
                 #getData() {
