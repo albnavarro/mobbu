@@ -8,21 +8,15 @@ import { parseComponentsRecursive } from './parseComponentRecursive';
  * @param {Object} obj
  * @param {HTMLElement} obj.element
  * @param {Boolean} [ obj.isCancellable ]
- * @param {string|null} [ obj.runtimeId ]
  * @return {Promise<void>} A promise to the token.
  *
  * @description
  */
-export const parseComponents = async ({
-    element,
-    runtimeId = null,
-    isCancellable = true,
-}) => {
+export const parseComponents = async ({ element, isCancellable = true }) => {
     incrementParserCounter();
 
     await parseComponentsRecursive({
         element,
-        runtimeId,
         isCancellable,
         currentIterationCounter: 0,
     });
@@ -36,10 +30,9 @@ export const parseComponents = async ({
  * @returns {void}
  */
 export const initParseWatcher = () => {
-    mainStore.watch('parseComponentEvent', async ({ element, runtimeId }) => {
+    mainStore.watch('parseComponentEvent', async ({ element }) => {
         await parseComponents({
             element,
-            runtimeId,
         });
     });
 };
@@ -53,6 +46,5 @@ export const initParseWatcher = () => {
 export const parseDom = async (element) => {
     await parseComponents({
         element,
-        runtimeId: null,
     });
 };

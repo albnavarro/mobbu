@@ -18,7 +18,6 @@ import { registerComponent } from '../creationStep/registerComponent';
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.element
- * @param {string|null} obj.runtimeId
  * @param {Boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Number} [ obj.currentIterationCounter ]
@@ -30,7 +29,6 @@ import { registerComponent } from '../creationStep/registerComponent';
  */
 export const parseComponentsRecursive = async ({
     element,
-    runtimeId,
     functionToFireAtTheEnd = [],
     isCancellable = true,
     currentIterationCounter = 0,
@@ -44,7 +42,6 @@ export const parseComponentsRecursive = async ({
     const { componentToParse, parseSourceArray } = getParseSourceArray({
         element,
         currentSelectors,
-        runtimeId,
     });
 
     /**
@@ -116,7 +113,6 @@ export const parseComponentsRecursive = async ({
         componentToParse.remove();
         await parseComponentsRecursive({
             element,
-            runtimeId,
             functionToFireAtTheEnd,
             isCancellable,
             currentIterationCounter: (currentIterationCounter += 1),
@@ -265,7 +261,6 @@ export const parseComponentsRecursive = async ({
     // Check for another component
     await parseComponentsRecursive({
         element,
-        runtimeId,
         functionToFireAtTheEnd,
         isCancellable,
         currentIterationCounter: (currentIterationCounter += 1),

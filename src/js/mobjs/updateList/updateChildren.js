@@ -1,6 +1,5 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { mainStore } from '../mainStore/mainStore';
 import { addWithKey } from './addWithKey';
@@ -48,16 +47,10 @@ export const updateChildren = async ({
     const fn = hasKey ? addWithKey : addWithoutKey;
 
     /**
-     * Generate unique id to parse only component with this id.
-     */
-    const runtimeId = mobCore.getUnivoqueId();
-
-    /**
      * Execue function.
      * Get unique array of data ( current compared with previous )
      */
     const currentUnivoque = fn({
-        runtimeId,
         current,
         previous,
         containerList,
@@ -76,11 +69,7 @@ export const updateChildren = async ({
      * Parse current HTMLDom to create inner component.
      * Scan and await the end of possible noew component creation.
      */
-    mainStore.set(
-        'parseComponentEvent',
-        { element: containerList, runtimeId },
-        false
-    );
+    mainStore.set('parseComponentEvent', { element: containerList }, false);
     await mainStore.emitAsync('parseComponentEvent');
 
     updateChildrenOrder({

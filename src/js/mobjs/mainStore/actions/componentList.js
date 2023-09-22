@@ -5,7 +5,6 @@ import {
     ATTR_CURRENT_LIST_VALUE_PARTIAL,
     ATTR_DYNAMIC_PARTIAL,
     ATTR_INSTANCENAME_PARTIAL,
-    ATTR_IS_RUNTIME_PARTIAL,
     ATTR_PROPS_PARTIAL,
 } from '../../constant';
 import { mainStore } from '../mainStore';
@@ -130,11 +129,6 @@ export const setComponentList = (list = {}) => {
                 /**
                  * @type {String}
                  */
-                #runtimeId;
-
-                /**
-                 * @type {String}
-                 */
                 #instanceName;
 
                 /**
@@ -193,7 +187,6 @@ export const setComponentList = (list = {}) => {
 
                     //
                     this.#isPlaceholder = true;
-                    this.#runtimeId = '';
                     this.#instanceName = '';
                     this.#staticPropsId = '';
                     this.#dynamicPropsId = '';
@@ -206,7 +199,6 @@ export const setComponentList = (list = {}) => {
                     const { dataset } = this.shadowRoot?.host ?? {};
 
                     if (dataset) {
-                        this.#runtimeId = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
                         this.#instanceName =
                             dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
                         this.#staticPropsId =
@@ -246,10 +238,6 @@ export const setComponentList = (list = {}) => {
 
                 getIsPlaceholder() {
                     return this.#isPlaceholder;
-                }
-
-                getRuntimeId() {
-                    return this.#runtimeId;
                 }
 
                 getInstanceName() {
@@ -359,7 +347,6 @@ export const setComponentList = (list = {}) => {
                     });
 
                     this.#isPlaceholder = false;
-                    this.#runtimeId = '';
                 }
 
                 disconnectedCallback() {

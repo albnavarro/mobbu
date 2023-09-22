@@ -6,7 +6,6 @@ import {
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_COMPONENT,
-    ATTR_IS_RUNTIME,
     ATTR_PROPS,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
@@ -26,7 +25,6 @@ import { setBindProps } from '../temporaryData/dynamicProps';
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
  * @param {Array|object} obj.bindEvents
- * @param {string} obj.runtimeId
  * @return {Array}
  *
  * @description
@@ -39,7 +37,6 @@ export const addWithoutKey = ({
     containerList = document.createElement('div'),
     targetComponent = '',
     getChildren = () => {},
-    runtimeId = '',
     props = {},
     dynamicProps,
     bindEvents,
@@ -94,7 +91,6 @@ export const addWithoutKey = ({
                         ${ATTR_PROPS}=${currentProps}
                         ${currentDynamicProps}
                         ${currentBindEvents}
-                        ${ATTR_IS_RUNTIME}="${runtimeId}"
                         ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
                     current: currentValue,
                     index: currentIndex,

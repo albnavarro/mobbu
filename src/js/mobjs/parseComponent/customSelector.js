@@ -25,10 +25,9 @@ function* walkPreOrder(node) {
 
 /**
  * @param {Element} root
- * @param {String|null} runtimeId
  * @returns {Array<HTMLElement>}
  */
-function selectAll(root, runtimeId) {
+function selectAll(root) {
     const result = [];
     for (const node of walkPreOrder(root)) {
         /**
@@ -38,11 +37,6 @@ function selectAll(root, runtimeId) {
         if (result.length > 0) break;
 
         if (node?.getIsPlaceholder?.()) {
-            if (runtimeId && node?.getRuntimeId?.() === runtimeId) {
-                result.push(node);
-                break;
-            }
-
             result.push(node);
         }
     }
@@ -51,15 +45,14 @@ function selectAll(root, runtimeId) {
 
 /**
  * @param {Element} node
- * @param {String|null} runtimeId
  * @returns {Array<Element>}
  */
-export const queryAllFutureComponent = (node, runtimeId) => {
+export const queryAllFutureComponent = (node) => {
     let result = [];
     const root = node || document.body;
 
     for (const child of root.children) {
-        result = [...result, ...selectAll(child, runtimeId)];
+        result = [...result, ...selectAll(child)];
     }
 
     return result;

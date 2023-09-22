@@ -11,7 +11,6 @@ import {
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_IS_COMPONENT_VALUE,
-    ATTR_IS_RUNTIME,
     ATTR_KEY,
     ATTR_PROPS,
 } from '../constant';
@@ -33,7 +32,6 @@ const AFTER = 'afterend';
  * @param {Object} obj
  * @param {string} obj.targetComponent
  * @param {string} obj.key
- * @param {string} obj.runtimeId
  * @param {object} obj.props
  * @param {object} obj.dynamicProps
  * @param {object} obj.bindEvents
@@ -48,7 +46,6 @@ const AFTER = 'afterend';
 function getPartialsComponentList({
     targetComponent,
     key,
-    runtimeId,
     props,
     dynamicProps,
     bindEvents,
@@ -83,7 +80,6 @@ function getPartialsComponentList({
             ${ATTR_PROPS}=${currentProps}
             ${currentDynamicProps}
             ${currentBindEvents}
-            ${ATTR_IS_RUNTIME}="${runtimeId}"
             ${ATTR_KEY}="${key}"
             ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
@@ -106,7 +102,6 @@ function getPartialsComponentList({
  * @param {Array|object} obj.bindEvents
  * @param {string} obj.key
  * @param {string} obj.id
- * @param {string} obj.runtimeId
  * @return {Array}
  *
  * @description
@@ -123,7 +118,6 @@ export const addWithKey = ({
     dynamicProps,
     bindEvents,
     id = '',
-    runtimeId = '',
 }) => {
     /**
      * @description
@@ -276,7 +270,6 @@ export const addWithKey = ({
                 getPartialsComponentList({
                     targetComponent,
                     key: element.key,
-                    runtimeId,
                     props,
                     dynamicProps,
                     bindEvents,

@@ -47,9 +47,5 @@ export const mainStore = mobCore.createStore({
             value: document.createElement('div'),
             type: HTMLElement,
         }),
-        runtimeId: () => ({
-            value: '',
-            type: String,
-        }),
     },
 });
