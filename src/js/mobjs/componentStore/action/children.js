@@ -42,14 +42,14 @@ export const updateChildrenOrder = ({ id, component }) => {
     /*
      * Get element
      */
-    const element2 = getElementById({ id });
-    if (!element2) return;
+    const element = getElementById({ id });
+    if (!element) return;
 
     /**
      * Get id af all component inside
      */
-    const components2 = element2.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
-    const componentsIdNow2 = [...components2].map(
+    const components = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
+    const componentsIdNow = [...components].map(
         // @ts-ignore
         (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
     );
@@ -57,7 +57,7 @@ export const updateChildrenOrder = ({ id, component }) => {
     /**
      * Filter for the component we are looking for
      */
-    const componentsIdFiltered2 = componentsIdNow2.filter((currentId) => {
+    const componentsIdFiltered = componentsIdNow.filter((currentId) => {
         return getComponentNameById(currentId) === component;
     });
 
@@ -69,7 +69,7 @@ export const updateChildrenOrder = ({ id, component }) => {
         ...item,
         child: {
             ...child,
-            [component]: componentsIdFiltered2,
+            [component]: componentsIdFiltered,
         },
     });
 };
