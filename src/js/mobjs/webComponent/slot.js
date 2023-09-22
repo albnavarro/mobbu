@@ -1,4 +1,8 @@
-import { ATTR_SLOT_NAME_PARTIAL } from '../constant';
+import {
+    ATTR_DYNAMIC_PARTIAL,
+    ATTR_PROPS_PARTIAL,
+    ATTR_SLOT_NAME_PARTIAL,
+} from '../constant';
 
 export const defineSlotComponent = () => {
     customElements.define(
@@ -8,6 +12,16 @@ export const defineSlotComponent = () => {
              * @type {String}
              */
             #slotName;
+
+            /**
+             * @type {String}
+             */
+            #staticProps;
+
+            /**
+             * @type {String}
+             */
+            #dynamicProps;
 
             constructor() {
                 super();
@@ -19,6 +33,8 @@ export const defineSlotComponent = () => {
 
                 if (dataset) {
                     this.#slotName = dataset?.[ATTR_SLOT_NAME_PARTIAL] ?? '';
+                    this.#staticProps = dataset?.[ATTR_PROPS_PARTIAL] ?? '';
+                    this.#dynamicProps = dataset?.[ATTR_DYNAMIC_PARTIAL] ?? '';
                 }
             }
 
@@ -31,6 +47,14 @@ export const defineSlotComponent = () => {
 
             getSlotName() {
                 return this.#slotName;
+            }
+
+            getStaticProps() {
+                return this.#staticProps;
+            }
+
+            getDynamicProps() {
+                return this.#dynamicProps;
             }
         }
     );

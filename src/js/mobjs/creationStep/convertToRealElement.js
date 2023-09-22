@@ -10,6 +10,7 @@ import {
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../parseComponent/queryComponentUseSlot';
+import { queryGenericSlot } from '../parseComponent/queryGenericSlot';
 import { querySecificSlot } from '../parseComponent/querySpecificSlot';
 import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
@@ -42,16 +43,15 @@ const getNewElement = ({ componentParsed, content }) => {
  * @description
  * Remove unused slot placehodler.
  * ( no element have sustitute slot )
+ * If slot is not used remove id reference orphans from store.
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots = element.querySelectorAll('mobjs-slot');
+    const slots = queryGenericSlot(element);
+
     slots.forEach((slot) => {
-        /**
-         * If slot is not used remove id reference orphans from store.
-         */
         // @ts-ignore
-        const dynamicPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
-        if (dynamicPropsIdFromSlot) {
+        const dynamicPropsIdFromSlot = slot.getDynamicProps();
+        if (dynamicPropsIdFromSlot !== '') {
             removeCurrentToDynamicPropsByPropsId({
                 propsId: dynamicPropsIdFromSlot,
             });
@@ -61,12 +61,14 @@ const removeOrphanSlot = ({ element }) => {
          * If slot is not used remove id reference orphans from store.
          */
         // @ts-ignore
-        const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
-        if (propsIdFromSlot) {
-            removeCurrentToPropsByPropsId({ propsId: propsIdFromSlot });
+        const staticPropsIdFromSlot = slot.getStaticProps();
+        if (staticPropsIdFromSlot !== '') {
+            removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
         }
 
-        slot.remove();
+        // @ts-ignore
+        slot?.removeCustomComponent();
+        slot?.remove();
     });
 };
 
