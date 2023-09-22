@@ -63,7 +63,17 @@ export const ATTR_DYNAMIC_PARTIAL = 'bindprops';
 /**
  * @type {string};
  */
+export const ATTR_PROPS_FROM_SLOT = 'data-propsfromslot';
+
+/**
+ * @type {string};
+ */
 export const ATTR_PROPS_FROM_SLOT_PARTIAL = 'propsfromslot';
+
+/**
+ * @type {string};
+ */
+export const ATTR_DYNAMIC_PROPS_FROM_SLOT = 'data-dynamicpropsfromslot';
 
 /**
  * @type {string};

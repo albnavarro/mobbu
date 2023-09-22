@@ -1,8 +1,13 @@
 // @ts-check
 
 import {
+    ATTR_BIND_EVENTS_PARTIAL,
+    ATTR_DYNAMIC_PARTIAL,
+    ATTR_DYNAMIC_PROPS_FROM_SLOT,
+    ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL,
     ATTR_INSTANCENAME_PARTIAL,
     ATTR_IS_RUNTIME_PARTIAL,
+    ATTR_PROPS_PARTIAL,
 } from '../../constant';
 import { mainStore } from '../mainStore';
 
@@ -133,8 +138,31 @@ export const setComponentList = (list = {}) => {
                  */
                 #instanceName;
 
+                /**
+                 * @type {String}
+                 */
+                #staticPropsId;
+
+                /**
+                 * @type {String}
+                 */
+                #dynamicPropsId;
+
+                /**
+                 * @type {String}
+                 */
+                #bindEventsId;
+
+                /**
+                 * @type {String}
+                 */
+                #dynamicPropsFromSlotId;
+
                 static get observedAttributes() {
-                    return attributeToObserve;
+                    return [
+                        ...attributeToObserve,
+                        ATTR_DYNAMIC_PROPS_FROM_SLOT,
+                    ];
                 }
 
                 constructor() {
@@ -161,6 +189,10 @@ export const setComponentList = (list = {}) => {
                     this.#isPlaceholder = true;
                     this.#runtimeId = '';
                     this.#instanceName = '';
+                    this.#staticPropsId = '';
+                    this.#dynamicPropsId = '';
+                    this.#bindEventsId = '';
+                    this.#dynamicPropsFromSlotId = '';
 
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
@@ -169,6 +201,12 @@ export const setComponentList = (list = {}) => {
                         this.#runtimeId = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
                         this.#instanceName =
                             dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
+                        this.#staticPropsId =
+                            dataset?.[ATTR_PROPS_PARTIAL] ?? '';
+                        this.#dynamicPropsId =
+                            dataset?.[ATTR_DYNAMIC_PARTIAL] ?? '';
+                        this.#bindEventsId =
+                            dataset?.[ATTR_BIND_EVENTS_PARTIAL] ?? '';
                     }
 
                     if (this.shadowRoot) {
@@ -198,6 +236,22 @@ export const setComponentList = (list = {}) => {
 
                 getInstanceName() {
                     return this.#instanceName;
+                }
+
+                getStaticPropsId() {
+                    return this.#staticPropsId;
+                }
+
+                getDynamicPropsid() {
+                    return this.#dynamicPropsId;
+                }
+
+                getBindEventsId() {
+                    return this.#bindEventsId;
+                }
+
+                getDynamicPropsFromSlotId() {
+                    return this.#dynamicPropsFromSlotId;
                 }
 
                 #getData() {
@@ -301,6 +355,18 @@ export const setComponentList = (list = {}) => {
                  * @param {any} newValue
                  */
                 attributeChangedCallback(name, oldValue, newValue) {
+                    /**
+                     * Detect props moves from slot to placehodler component.
+                     */
+                    if (name === ATTR_DYNAMIC_PROPS_FROM_SLOT) {
+                        // @ts-ignore
+                        const { dataset } = this.shadowRoot?.host ?? {};
+
+                        if (dataset) {
+                            this.#dynamicPropsFromSlotId = newValue;
+                        }
+                    }
+
                     if (!this.shadowRoot || !this.active) return;
 
                     /**

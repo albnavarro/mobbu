@@ -54,23 +54,26 @@ export const convertToPlaceHolderElement = ({ component }) => {
     /**
      * @type {String|undefined}
      */
-    const propsId = component.dataset?.[ATTR_PROPS_PARTIAL];
+    // @ts-ignore
+    const propsId = component.getStaticPropsId();
 
     /**
      * @type {String|undefined}
      */
-    const dynamicPropsId = component.dataset?.[ATTR_DYNAMIC_PARTIAL];
+    // @ts-ignore
+    const dynamicPropsId = component.getDynamicPropsid();
 
     /**
      * @type {String|undefined}
      */
-    const bindEventsId = component.dataset?.[ATTR_BIND_EVENTS_PARTIAL];
+    // @ts-ignore
+    const bindEventsId = component.getBindEventsId();
 
     /**
      * @type {String|undefined}
      */
-    const dynamicPropsIdFromSlot =
-        component.dataset?.[ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL];
+    // @ts-ignore
+    const dynamicPropsIdFromSlot = component.getDynamicPropsFromSlotId();
 
     /**
      * @type {String|undefined}
