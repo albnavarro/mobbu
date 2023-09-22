@@ -10,6 +10,8 @@ import {
     UNSET,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
+import { queryComponentUseSlot } from '../parseComponent/queryComponentUseSlot';
+import { querySecificSlot } from '../parseComponent/querySpecificSlot';
 import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
@@ -48,6 +50,7 @@ const removeOrphanSlot = ({ element }) => {
         /**
          * If slot is not used remove id reference orphans from store.
          */
+        // @ts-ignore
         const dynamicPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
         if (dynamicPropsIdFromSlot) {
             removeCurrentToDynamicPropsByPropsId({
@@ -58,6 +61,7 @@ const removeOrphanSlot = ({ element }) => {
         /**
          * If slot is not used remove id reference orphans from store.
          */
+        // @ts-ignore
         const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
         if (propsIdFromSlot) {
             removeCurrentToPropsByPropsId({ propsId: propsIdFromSlot });
@@ -77,19 +81,23 @@ const removeOrphanSlot = ({ element }) => {
  * And delete original slot placehodler
  */
 const addToSlot = ({ element }) => {
-    const componentWithSlot = /** @type {NodeListOf.<HTMLElement>} */ (
-        element.querySelectorAll(`[${ATTR_SLOT_POSITION}]`)
-    );
+    const componentWithSlot = queryComponentUseSlot(element);
 
     const slots = [...componentWithSlot].map((component) => {
-        const slotTargetName = component.dataset?.slotposition;
+        // @ts-ignore
+        const slotName = component?.getSlotPosition();
 
         /**
+         * @description
+         * Find slot used by component.
+         *
          * @type {HTMLElement|null}
          */
-        const slot = element.querySelector(
-            `mobjs-slot[${ATTR_SLOT_NAME}="${slotTargetName}"]`
-        );
+        const slot = querySecificSlot(element, slotName);
+
+        /**
+         * If no slot return;
+         */
         if (!slot) return { slot: null, elementMoved: null };
 
         /**

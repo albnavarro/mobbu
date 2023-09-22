@@ -28,7 +28,17 @@ export const ATTR_IS_RUNTIME_PARTIAL = 'runtime';
 /**
  * @type {string};
  */
+export const ATTR_SLOT_POSITION_PARTIAL = 'slotposition';
+
+/**
+ * @type {string};
+ */
 export const ATTR_SLOT_POSITION = 'data-slotposition';
+
+/**
+ * @type {string};
+ */
+export const ATTR_SLOT_NAME_PARTIAL = 'slotname';
 
 /**
  * @type {string};

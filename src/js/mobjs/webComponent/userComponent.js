@@ -4,6 +4,7 @@ import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_INSTANCENAME_PARTIAL,
     ATTR_PROPS_PARTIAL,
+    ATTR_SLOT_POSITION_PARTIAL,
 } from '../constant';
 
 export const defineUserComponent = (componentList) => {
@@ -131,6 +132,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #currentListValueId;
 
+                /**
+                 * @type {String}
+                 */
+                #slotPosition;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -164,6 +170,7 @@ export const defineUserComponent = (componentList) => {
                     this.#dynamicPropsFromSlotId = '';
                     this.#propsFromSlotId = '';
                     this.#currentListValueId = '';
+                    this.#slotPosition = '';
 
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
@@ -179,6 +186,8 @@ export const defineUserComponent = (componentList) => {
                             dataset?.[ATTR_BIND_EVENTS_PARTIAL] ?? '';
                         this.#currentListValueId =
                             dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL] ?? '';
+                        this.#slotPosition =
+                            dataset?.[ATTR_SLOT_POSITION_PARTIAL] ?? '';
                     }
 
                     if (this.shadowRoot) {
@@ -253,6 +262,10 @@ export const defineUserComponent = (componentList) => {
 
                 getCurrentListValueId() {
                     return this.#currentListValueId;
+                }
+
+                getSlotPosition() {
+                    return this.#slotPosition;
                 }
 
                 #getData() {

@@ -1,4 +1,4 @@
-import { ATTR_REPEATID_PARTIAL } from '../constant';
+import { ATTR_SLOT_NAME_PARTIAL } from '../constant';
 
 export const defineSlotComponent = () => {
     customElements.define(
@@ -7,18 +7,18 @@ export const defineSlotComponent = () => {
             /**
              * @type {String}
              */
-            #repeatId;
+            #slotName;
 
             constructor() {
                 super();
                 this.attachShadow({ mode: 'open' });
-                this.#repeatId = '';
+                this.#slotName = '';
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    this.#repeatId = dataset?.[ATTR_REPEATID_PARTIAL] ?? '';
+                    this.#slotName = dataset?.[ATTR_SLOT_NAME_PARTIAL] ?? '';
                 }
             }
 
@@ -29,8 +29,8 @@ export const defineSlotComponent = () => {
                 this.parentElement?.removeChild(this);
             }
 
-            getRepeatId() {
-                return this.#repeatId;
+            getSlotName() {
+                return this.#slotName;
             }
         }
     );
