@@ -168,7 +168,7 @@ export const setComponentList = (list = {}) => {
                     if (dataset) {
                         this.#runtimeId = dataset?.[ATTR_IS_RUNTIME_PARTIAL];
                         this.#instanceName =
-                            dataset?.[ATTR_INSTANCENAME_PARTIAL];
+                            dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
                     }
 
                     if (this.shadowRoot) {
