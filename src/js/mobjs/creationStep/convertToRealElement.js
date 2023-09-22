@@ -5,7 +5,6 @@ import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_IS_COMPONENT,
     ATTR_PROPS_PARTIAL,
-    ATTR_SLOT_NAME,
     ATTR_SLOT_POSITION,
     UNSET,
 } from '../constant';
