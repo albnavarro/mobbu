@@ -17,4 +17,4 @@ export { getStateById } from './componentStore/action/state';
 export { getChildrenIdByName } from './componentStore/action/children';
 export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
-export { slotName, useSlot, instanceName, staticProps } from './utils';
+export { useSlot, instanceName, staticProps } from './utils';

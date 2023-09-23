@@ -1,8 +1,4 @@
-import {
-    ATTR_DYNAMIC_PARTIAL,
-    ATTR_PROPS_PARTIAL,
-    ATTR_SLOT_NAME_PARTIAL,
-} from '../constant';
+import { ATTR_DYNAMIC_PARTIAL, ATTR_PROPS_PARTIAL } from '../constant';
 
 export const defineSlotComponent = () => {
     customElements.define(
@@ -33,7 +29,7 @@ export const defineSlotComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    this.#slotName = dataset?.[ATTR_SLOT_NAME_PARTIAL] ?? '';
+                    this.#slotName = this.shadowRoot?.host.getAttribute('name');
                     this.#staticProps = dataset?.[ATTR_PROPS_PARTIAL] ?? '';
                     this.#dynamicProps = dataset?.[ATTR_DYNAMIC_PARTIAL] ?? '';
                 }

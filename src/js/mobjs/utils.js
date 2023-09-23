@@ -57,24 +57,6 @@ export const instanceName = (name = '') => {
  *
  * @example
  * ```javascript
- * <slot ${slotName('slot2')}></slot>
- *
- * ```
- *
- */
-export const slotName = (name = '') => {
-    return `${ATTR_SLOT_NAME}="${name}"`;
-};
-
-/**
- * @param {String} name
- * @returns {String}
- *
- * @description
- * Set instance name.
- *
- * @example
- * ```javascript
  * <MyComponent ${useSlot('slot2')}></MyComponent>
  *
  * ```

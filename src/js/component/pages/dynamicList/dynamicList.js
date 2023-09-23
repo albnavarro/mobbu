@@ -258,7 +258,7 @@ export const DynamicList = async ({
                         })}
                     >
                         <dynamic-list-slot
-                            ${useSlot('slot2')}
+                            ${useSlot('card-slot')}
                             ${staticProps({
                                 staticFromComponent: `static prop from list`,
                             })}
