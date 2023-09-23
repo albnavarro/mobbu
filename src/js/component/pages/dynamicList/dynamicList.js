@@ -122,7 +122,7 @@ export const DynamicList = async ({
                             component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
-                                return { label, index };
+                                return { label, index, parentListId: 0 };
                             },
                             bindProps: {
                                 bind: ['counter'],
@@ -163,7 +163,7 @@ export const DynamicList = async ({
                             component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
-                                return { label, index };
+                                return { label, index, parentListId: 1 };
                             },
                             bindProps: {
                                 bind: ['counter'],
@@ -204,7 +204,7 @@ export const DynamicList = async ({
                             component: 'dynamic-list-card',
                             props: ({ current, index }) => {
                                 const { label } = current;
-                                return { label, index };
+                                return { label, index, parentListId: 2 };
                             },
                             bindProps: {
                                 bind: ['counter'],

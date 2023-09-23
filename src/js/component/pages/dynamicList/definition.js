@@ -59,8 +59,12 @@ export const dynamicListCardDef = createComponent({
     name: 'dynamic-list-card',
     component: DynamicListCard,
     scoped: true,
-    exportState: ['isFull', 'label', 'index', 'counter'],
+    exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
     state: {
+        parentListId: () => ({
+            value: -1,
+            type: Number,
+        }),
         isFull: () => ({
             value: false,
             type: Boolean,
@@ -117,8 +121,12 @@ export const dynamicListEmptyDef = createComponent({
 export const dynamicCounterDef = createComponent({
     name: 'dynamic-list-counter',
     component: DynamicListCounter,
-    exportState: ['counter'],
+    exportState: ['counter', 'parentListId'],
     state: {
+        parentListId: () => ({
+            value: -1,
+            type: Number,
+        }),
         counter: () => ({
             value: 0,
             type: Number,

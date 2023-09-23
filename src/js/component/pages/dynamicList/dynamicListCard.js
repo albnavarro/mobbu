@@ -25,7 +25,7 @@ export const DynamicListCard = async ({
     watchSync,
     id,
 }) => {
-    const { isFull } = getState();
+    const { isFull, parentListId } = getState();
 
     onMount(({ element }) => {
         const indexEl = element.querySelector('.index');
@@ -62,8 +62,9 @@ export const DynamicListCard = async ({
     return html`
         <dynamic-list-card class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
-                <p>card content</p>
+                <p class="dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
+                <div class="parentId">list index: ${parentListId}</div>
                 <div class="index"></div>
                 <div class="label"></div>
                 <div class="counter"></div>
@@ -90,6 +91,9 @@ export const DynamicListCard = async ({
                 <dynamic-list-empty>
                     <dynamic-list-counter
                         slot="empty-slot"
+                        ${staticProps({
+                            parentListId,
+                        })}
                         ${bindProps({
                             bind: ['counter'],
                             props: ({ counter }) => {
