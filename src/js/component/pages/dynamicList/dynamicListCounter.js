@@ -1,11 +1,11 @@
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const DynamicListCounter = async ({ watchImmediate, onMount, html }) => {
+export const DynamicListCounter = async ({ watchSync, onMount, html }) => {
     onMount(({ element }) => {
         const counterValueEl = element.querySelector('span');
 
-        watchImmediate('counter', (value) => {
+        watchSync('counter', (value) => {
             counterValueEl.textContent = value;
         });
 

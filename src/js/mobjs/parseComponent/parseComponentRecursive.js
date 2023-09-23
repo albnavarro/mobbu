@@ -2,7 +2,7 @@
 
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
-import { ATTR_REPEATID, UNSET } from '../constant';
+import { UNSET } from '../constant';
 import { getComponentsReference } from '../utils';
 import { getComponentList } from '../mainStore/actions/componentList';
 import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';

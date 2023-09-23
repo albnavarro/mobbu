@@ -85,7 +85,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {Function}
                  */
-                #watchImmediate;
+                #watchSync;
 
                 /**
                  * @type {Function}
@@ -158,7 +158,7 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = () => {};
                     this.#unFreezeProp = () => {};
                     this.#watch = () => {};
-                    this.#watchImmediate = () => {};
+                    this.#watchSync = () => {};
                     this.#watchParent = () => {};
 
                     //
@@ -285,7 +285,7 @@ export const defineUserComponent = (componentList) => {
                         unBind: this.#unBind,
                         unFreezeProp: this.#unFreezeProp,
                         watch: this.#watch,
-                        watchImmediate: this.#watchImmediate,
+                        watchSync: this.#watchSync,
                         watchParent: this.#watchParent,
                     };
                 }
@@ -304,7 +304,7 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = () => {};
                     this.#unFreezeProp = () => {};
                     this.#watch = () => {};
-                    this.#watchImmediate = () => {};
+                    this.#watchSync = () => {};
                     this.#watchParent = () => {};
                 }
 
@@ -327,7 +327,7 @@ export const defineUserComponent = (componentList) => {
                     this.#unBind = data.unBind;
                     this.#unFreezeProp = data.unFreezeProp;
                     this.#watch = data.watch;
-                    this.#watchImmediate = data.watchImmediate;
+                    this.#watchSync = data.watchSync;
                     this.#watchParent = data.watchParent;
 
                     _connectedCallBack({

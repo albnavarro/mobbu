@@ -139,10 +139,7 @@ export const registerComponent = ({
         watch,
         repeatId,
         getChildren,
-        watchImmediate: (
-            /** @type{String} */ state,
-            /** @type{any} */ callback
-        ) => {
+        watchSync: (/** @type{String} */ state, /** @type{any} */ callback) => {
             const unsubscribe = watch(state, callback);
             emit(state);
             return unsubscribe;

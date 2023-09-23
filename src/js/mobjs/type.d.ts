@@ -135,7 +135,7 @@ export interface componentType {
      * @example
      * ```javascript
      *
-     * const unsubscribe =  watchImmediate('myprop', (newval, oldval, validate) => {
+     * const unsubscribe =  watchSync('myprop', (newval, oldval, validate) => {
      *      // code
      * })
      * unsubscribe();
@@ -143,7 +143,7 @@ export interface componentType {
      * ```
      *
      */
-    watchImmediate(prop: String, callback: Function): void;
+    watchSync(prop: String, callback: Function): void;
 
     /**
      * @description

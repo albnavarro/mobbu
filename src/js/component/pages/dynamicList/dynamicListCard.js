@@ -24,7 +24,7 @@ export const DynamicListCard = async ({
     staticProps,
     bindProps,
     slotName,
-    watchImmediate,
+    watchSync,
     id,
 }) => {
     const { isFull } = getState();
@@ -38,15 +38,15 @@ export const DynamicListCard = async ({
             element.classList.toggle('is-selected');
         });
 
-        watchImmediate('index', (val) => {
+        watchSync('index', (val) => {
             indexEl.textContent = updateContent('index', val);
         });
 
-        watchImmediate('label', (val) => {
+        watchSync('label', (val) => {
             labelEl.textContent = updateContent('label', val);
         });
 
-        watchImmediate('counter', (val) => {
+        watchSync('counter', (val) => {
             counterEl.textContent = updateContent('counter', val);
         });
 

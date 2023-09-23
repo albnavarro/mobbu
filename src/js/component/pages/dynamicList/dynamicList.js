@@ -33,7 +33,7 @@ export const DynamicList = async ({
     bindProps,
     useSlot,
     bindEvents,
-    watchImmediate,
+    watchSync,
 }) => {
     onMount(({ element }) => {
         const state1El = element.querySelector('.state1');
@@ -71,7 +71,7 @@ export const DynamicList = async ({
             setState('counter', (prev) => (prev += 1));
         });
 
-        watchImmediate('counter', (value) => {
+        watchSync('counter', (value) => {
             counterEl.textContent = value;
         });
 

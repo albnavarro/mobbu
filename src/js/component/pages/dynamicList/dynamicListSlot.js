@@ -8,24 +8,19 @@ function getPreValue(value) {
     return html`<pre>${value}</pre>`;
 }
 
-export const DynamicListSlot = ({
-    getState,
-    html,
-    onMount,
-    watchImmediate,
-}) => {
+export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
     const { staticFromSlot, staticFromComponent } = getState();
 
     onMount(({ element }) => {
         const tEl = element.querySelector('.js-t-state');
         const t2El = element.querySelector('.js-t2-state');
 
-        watchImmediate('parentParentState', (val) => {
+        watchSync('parentParentState', (val) => {
             tEl.textContent = '';
             tEl.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
 
-        watchImmediate('parentState', (val) => {
+        watchSync('parentState', (val) => {
             t2El.textContent = '';
             t2El.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
