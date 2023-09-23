@@ -71,10 +71,9 @@ export const DynamicListRepeater = ({
                     clean,
                     key: keyParsed,
                     component: 'dynamic-list-card',
-                    // eslint-disable-next-line no-unused-vars
-                    beforeUpdate: ({ container, childrenId }) => {},
-                    // eslint-disable-next-line no-unused-vars
-                    afterUpdate: ({ container, childrenId }) => {
+                    //beforeUpdate: ({ container, childrenId }) => {
+                    //},
+                    afterUpdate: ({ childrenId }) => {
                         afterUpdateList({
                             className: `#repeater-legend-${listId}`,
                             childrenId,
