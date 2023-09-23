@@ -120,10 +120,6 @@ export const DynamicList = async ({
                             watch: 'data',
                             key: 'key',
                             component: 'dynamic-list-card',
-                            props: ({ current, index }) => {
-                                const { label } = current;
-                                return { label, index, parentListId: 0 };
-                            },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
@@ -133,22 +129,22 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ current, index, key }) => {
-                                const { label } = current;
-
+                            render: ({ key }) => {
                                 return `
                                     <dynamic-list-card
                                         ${staticProps({
-                                            label,
-                                            index,
-                                            parentListId: 0,
+                                            parentListId: 1,
                                         })}
                                         ${bindProps({
-                                            bind: ['counter'],
-                                            // eslint-disable-next-line no-unused-vars
-                                            props: ({ counter }) => {
+                                            bind: ['counter', 'data'],
+                                            props: (
+                                                { counter },
+                                                { current, index }
+                                            ) => {
                                                 return {
                                                     counter,
+                                                    label: current.label,
+                                                    index,
                                                 };
                                             },
                                         })}
@@ -178,10 +174,6 @@ export const DynamicList = async ({
                         ${repeat({
                             watch: 'data2',
                             component: 'dynamic-list-card',
-                            props: ({ current, index }) => {
-                                const { label } = current;
-                                return { label, index, parentListId: 1 };
-                            },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
@@ -191,22 +183,22 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ current, index, key }) => {
-                                const { label } = current;
-
+                            render: ({ key }) => {
                                 return `
                                     <dynamic-list-card
                                         ${staticProps({
-                                            label,
-                                            index,
                                             parentListId: 1,
                                         })}
                                         ${bindProps({
-                                            bind: ['counter'],
-                                            // eslint-disable-next-line no-unused-vars
-                                            props: ({ counter }) => {
+                                            bind: ['counter', 'data2'],
+                                            props: (
+                                                { counter },
+                                                { current, index }
+                                            ) => {
                                                 return {
                                                     counter,
+                                                    label: current.label,
+                                                    index,
                                                 };
                                             },
                                         })}
@@ -235,10 +227,6 @@ export const DynamicList = async ({
                             watch: 'data3',
                             clean: true,
                             component: 'dynamic-list-card',
-                            props: ({ current, index }) => {
-                                const { label } = current;
-                                return { label, index, parentListId: 2 };
-                            },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars
@@ -248,22 +236,22 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ current, index, key }) => {
-                                const { label } = current;
-
+                            render: ({ key }) => {
                                 return `
                                     <dynamic-list-card
                                         ${staticProps({
-                                            label,
-                                            index,
                                             parentListId: 2,
                                         })}
                                         ${bindProps({
-                                            bind: ['counter'],
-                                            // eslint-disable-next-line no-unused-vars
-                                            props: ({ counter }) => {
+                                            bind: ['counter', 'data3'],
+                                            props: (
+                                                { counter },
+                                                { current, index }
+                                            ) => {
                                                 return {
                                                     counter,
+                                                    label: current.label,
+                                                    index,
                                                 };
                                             },
                                         })}

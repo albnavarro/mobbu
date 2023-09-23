@@ -186,13 +186,6 @@ export const watchList = ({
                  * to use in dynamicrops
                  */
                 setCurrentListValueById({ id, value: { current, index } });
-
-                const newState = props({ current, index });
-
-                if (newState)
-                    Object.entries(newState).forEach(([key, value]) => {
-                        setStateById(id, key, value);
-                    });
             });
 
             /**

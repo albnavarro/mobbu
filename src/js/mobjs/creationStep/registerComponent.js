@@ -178,7 +178,7 @@ export const registerComponent = ({
             component: targetComponent = '', // use alias to maintain ured naming convention.
             props = () => {},
             clean = false,
-            bindProps: bindPropsFromRepeater, // use alias to maintain ured naming convention.
+            // bindProps: bindPropsFromRepeater, // use alias to maintain ured naming convention.
             bindEvents: bindEventsFromRepeater,
             beforeUpdate = () => {},
             afterUpdate = () => {},
@@ -191,10 +191,10 @@ export const registerComponent = ({
             /**
              * Remove watch state from bind.
              */
-            const dynamicPropsSanitized = removeWatchFromDynamicProps({
-                dynamicProps: bindPropsFromRepeater,
-                stateToWatch,
-            });
+            // const dynamicPropsSanitized = removeWatchFromDynamicProps({
+            //     dynamicProps: bindPropsFromRepeater,
+            //     stateToWatch,
+            // });
 
             addRepeat({
                 repeatId: currentRepeatId,
@@ -206,7 +206,7 @@ export const registerComponent = ({
                     targetComponent,
                     props,
                     clean,
-                    dynamicProps: dynamicPropsSanitized,
+                    // dynamicProps: dynamicPropsSanitized,
                     bindEvents: bindEventsFromRepeater,
                     beforeUpdate,
                     afterUpdate,
