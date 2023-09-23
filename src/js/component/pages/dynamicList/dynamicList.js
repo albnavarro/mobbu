@@ -1,3 +1,4 @@
+import { html } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 // function asyncTest() {
@@ -18,6 +19,38 @@ function afterUpdateList({ className, childrenId }) {
     const newElement = document.querySelector(className);
     newElement.textContent = '';
     newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
+}
+
+function getRepeaterCard({
+    required,
+    staticProps,
+    bindProps,
+    bindEvents,
+    listId,
+}) {
+    return html`
+        <dynamic-list-card
+            ${staticProps({
+                parentListId: listId,
+            })}
+            ${bindProps({
+                bind: ['counter', 'data3'],
+                props: ({ counter }, { current, index }) => {
+                    return {
+                        counter,
+                        label: current.label,
+                        index,
+                    };
+                },
+            })}
+            ${bindEvents({
+                mousedown: (_e, { current, index }) =>
+                    console.log(current, index),
+            })}
+            ${required}
+        >
+        </dynamic-list-card>
+    `;
 }
 
 /**
@@ -129,35 +162,14 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ required, html }) => {
-                                return html`
-                                    <dynamic-list-card
-                                        ${staticProps({
-                                            parentListId: 1,
-                                        })}
-                                        ${bindProps({
-                                            bind: ['counter', 'data'],
-                                            props: (
-                                                { counter },
-                                                { current, index }
-                                            ) => {
-                                                return {
-                                                    counter,
-                                                    label: current.label,
-                                                    index,
-                                                };
-                                            },
-                                        })}
-                                        ${bindEvents({
-                                            mousedown: (
-                                                e,
-                                                { current, index }
-                                            ) => console.log(current, index),
-                                        })}
-                                        ${required}
-                                    >
-                                    </dynamic-list-card>
-                                `;
+                            render: ({ required }) => {
+                                return getRepeaterCard({
+                                    required,
+                                    staticProps,
+                                    bindProps,
+                                    bindEvents,
+                                    listId: 0,
+                                });
                             },
                         })}
                     </div>
@@ -183,35 +195,14 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ required, html }) => {
-                                return html`
-                                    <dynamic-list-card
-                                        ${staticProps({
-                                            parentListId: 2,
-                                        })}
-                                        ${bindProps({
-                                            bind: ['counter', 'data2'],
-                                            props: (
-                                                { counter },
-                                                { current, index }
-                                            ) => {
-                                                return {
-                                                    counter,
-                                                    label: current.label,
-                                                    index,
-                                                };
-                                            },
-                                        })}
-                                        ${bindEvents({
-                                            mousedown: (
-                                                e,
-                                                { current, index }
-                                            ) => console.log(current, index),
-                                        })}
-                                        ${required}
-                                    >
-                                    </dynamic-list-card>
-                                `;
+                            render: ({ required }) => {
+                                return getRepeaterCard({
+                                    required,
+                                    staticProps,
+                                    bindProps,
+                                    bindEvents,
+                                    listId: 1,
+                                });
                             },
                         })}
                     </div>
@@ -236,35 +227,14 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ required, html }) => {
-                                return html`
-                                    <dynamic-list-card
-                                        ${staticProps({
-                                            parentListId: 3,
-                                        })}
-                                        ${bindProps({
-                                            bind: ['counter', 'data3'],
-                                            props: (
-                                                { counter },
-                                                { current, index }
-                                            ) => {
-                                                return {
-                                                    counter,
-                                                    label: current.label,
-                                                    index,
-                                                };
-                                            },
-                                        })}
-                                        ${bindEvents({
-                                            mousedown: (
-                                                e,
-                                                { current, index }
-                                            ) => console.log(current, index),
-                                        })}
-                                        ${required}
-                                    >
-                                    </dynamic-list-card>
-                                `;
+                            render: ({ required }) => {
+                                return getRepeaterCard({
+                                    required,
+                                    staticProps,
+                                    bindProps,
+                                    bindEvents,
+                                    listId: 2,
+                                });
                             },
                         })}
                     </div>

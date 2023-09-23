@@ -2,6 +2,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
+import { html } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -29,6 +30,32 @@ const loadContent = async ({ source }) => {
         data,
     };
 };
+
+function getRepeaterCard({ required, bindProps, bindEvents, setState }) {
+    return html`
+        <code-overlay-button
+            ${bindProps({
+                bind: ['activeContent'],
+                props: ({ activeContent }, { current }) => {
+                    const { label, source } = current;
+                    return {
+                        key: label,
+                        disable: source.length === 0,
+                        selected: label === activeContent,
+                    };
+                },
+            })}
+            ${bindEvents({
+                click: (_e, { current }) => {
+                    const { label } = current;
+                    setState('activeContent', label);
+                },
+            })}
+            ${required}
+        >
+        </code-overlay-button>
+    `;
+}
 
 const printContent = async ({
     setState,
@@ -177,34 +204,13 @@ export const CodeOverlay = ({
                         clean: true,
                         watch: 'urls',
                         component: 'code-overlay-button',
-                        render: ({ required, html }) => {
-                            return html`
-                                <code-overlay-button
-                                    ${bindProps({
-                                        bind: ['activeContent'],
-                                        props: (
-                                            { activeContent },
-                                            { current }
-                                        ) => {
-                                            const { label, source } = current;
-                                            return {
-                                                key: label,
-                                                disable: source.length === 0,
-                                                selected:
-                                                    label === activeContent,
-                                            };
-                                        },
-                                    })}
-                                    ${bindEvents({
-                                        click: (_e, { current }) => {
-                                            const { label } = current;
-                                            setState('activeContent', label);
-                                        },
-                                    })}
-                                    ${required}
-                                >
-                                </code-overlay-button>
-                            `;
+                        render: ({ required }) => {
+                            return getRepeaterCard({
+                                required,
+                                bindProps,
+                                bindEvents,
+                                setState,
+                            });
                         },
                     })}
                 </div>
