@@ -22,31 +22,5 @@ export const dynamicListDef = createComponent({
             ],
             type: Array,
         }),
-        data2: () => ({
-            value: [
-                {
-                    key: 'a',
-                    label: 'A',
-                },
-                {
-                    key: 'b',
-                    label: 'B',
-                },
-            ],
-            type: Array,
-        }),
-        data3: () => ({
-            value: [
-                {
-                    key: 'a',
-                    label: 'A',
-                },
-                {
-                    key: 'b',
-                    label: 'B',
-                },
-            ],
-            type: Array,
-        }),
     },
 });

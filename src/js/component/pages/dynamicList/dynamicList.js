@@ -9,48 +9,78 @@ import { startData, state1, state2, state3 } from './data';
 //     });
 // }
 
-function updateNewElement(id) {
-    return `<strong>Current cards id:</strong> ${id
-        .join(',')
-        .replaceAll(',', ' | ')}`;
+const buttons = [
+    {
+        buttonLabel: 'data1',
+        data: state1,
+    },
+    {
+        buttonLabel: 'data2',
+        data: state2,
+    },
+    {
+        buttonLabel: 'data3',
+        data: state3,
+    },
+    {
+        buttonLabel: 'data4',
+        data: startData,
+    },
+];
+
+const repeaters = [
+    {
+        label: 'dynamic list with key',
+        key: 'key',
+        clean: false,
+    },
+    {
+        label: 'dynamic list without key',
+        key: '',
+        clean: false,
+    },
+    {
+        label: 'dynamic list clear',
+        key: '',
+        clean: true,
+    },
+];
+
+function getButton({ setState, staticProps, bindEvents }) {
+    return buttons
+        .map((column) => {
+            const { data, buttonLabel } = column;
+
+            return html`
+                <dynamic-list-button
+                    ${staticProps({ label: buttonLabel })}
+                    ${bindEvents({
+                        click: () => setState('data', data),
+                    })}
+                ></dynamic-list-button>
+            `;
+        })
+        .join('');
 }
 
-function afterUpdateList({ className, childrenId }) {
-    const newElement = document.querySelector(className);
-    newElement.textContent = '';
-    newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
-}
+function getRepeaters({ bindProps, staticProps }) {
+    return repeaters
+        .map((item, index) => {
+            const { key, clean, label } = item;
 
-function getRepeaterCard({
-    required,
-    staticProps,
-    bindProps,
-    bindEvents,
-    listId,
-}) {
-    return html`
-        <dynamic-list-card
-            ${staticProps({
-                parentListId: listId,
-            })}
-            ${bindProps({
-                bind: ['counter', 'data3'],
-                props: ({ counter }, { current, index }) => {
-                    return {
-                        counter,
-                        label: current.label,
-                        index,
-                    };
-                },
-            })}
-            ${bindEvents({
-                mousedown: (_e, { current, index }) =>
-                    console.log(current, index),
-            })}
-            ${required}
-        >
-        </dynamic-list-card>
-    `;
+            return html`
+                <dynamic-list-repeater
+                    ${staticProps({ listId: index, key, clean, label })}
+                    ${bindProps({
+                        bind: ['data', 'counter'],
+                        props: ({ data, counter }) => {
+                            return { data, counter };
+                        },
+                    })}
+                ></dynamic-list-repeater>
+            `;
+        })
+        .join('');
 }
 
 /**
@@ -61,43 +91,14 @@ export const DynamicList = async ({
     setState,
     html,
     onMount,
-    repeat,
     staticProps,
     bindProps,
     bindEvents,
     watchSync,
 }) => {
     onMount(({ element }) => {
-        const state1El = element.querySelector('.state1');
-        const state2El = element.querySelector('.state2');
-        const state3El = element.querySelector('.state3');
-        const state4El = element.querySelector('.state4');
         const increaseCounterEl = element.querySelector('.counter');
         const counterEl = element.querySelector('.dynamic-list__counter span');
-
-        state1El.addEventListener('click', () => {
-            setState('data', state1);
-            setState('data2', state1);
-            setState('data3', state1);
-        });
-
-        state2El.addEventListener('click', () => {
-            setState('data', state2);
-            setState('data2', state2);
-            setState('data3', state2);
-        });
-
-        state3El.addEventListener('click', () => {
-            setState('data', state3);
-            setState('data2', state3);
-            setState('data3', state3);
-        });
-
-        state4El.addEventListener('click', () => {
-            setState('data', startData);
-            setState('data2', startData);
-            setState('data3', startData);
-        });
 
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
@@ -121,18 +122,7 @@ export const DynamicList = async ({
         <dynamic-list class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
-                    <button class="dynamic-list__btn state1">
-                        data list 1
-                    </button>
-                    <button class="dynamic-list__btn state2">
-                        data list 2
-                    </button>
-                    <button class="dynamic-list__btn state3">
-                        data list 3
-                    </button>
-                    <button class="dynamic-list__btn state4">
-                        data list 4
-                    </button>
+                    ${getButton({ setState, bindEvents, staticProps })}
                     <button class="dynamic-list__btn counter">
                         Increase counter
                     </button>
@@ -141,105 +131,16 @@ export const DynamicList = async ({
 
             <div class="dynamic-list__counter">
                 <h4>List counter</h4>
-                <span>counter</span>
+                <span></span>
             </div>
 
-            <div class="dynamic-list__content">
-                <div class="dynamic-list__content__key">
-                    <h4 class="dynamic-list__title">Dynamic list with key:</h4>
-                    <p class="dynamic-list__newelements js-newelement-key"></p>
-                    <div class="dynamic-list__list">
-                        ${repeat({
-                            watch: 'data',
-                            key: 'key',
-                            component: 'dynamic-list-card',
-                            // eslint-disable-next-line no-unused-vars
-                            beforeUpdate: ({ container, childrenId }) => {},
-                            // eslint-disable-next-line no-unused-vars
-                            afterUpdate: ({ container, childrenId }) => {
-                                afterUpdateList({
-                                    className: '.js-newelement-key',
-                                    childrenId,
-                                });
-                            },
-                            render: ({ required }) => {
-                                return getRepeaterCard({
-                                    required,
-                                    staticProps,
-                                    bindProps,
-                                    bindEvents,
-                                    listId: 0,
-                                });
-                            },
-                        })}
-                    </div>
+            <div class="dynamic-list__container">
+                <div class="dynamic-list__grid">
+                    ${getRepeaters({ bindProps, staticProps })}
                 </div>
+            </div>
 
-                <div class="dynamic-list__content__no-key">
-                    <h4 class="dynamic-list__title">
-                        Dynamic list without key:
-                    </h4>
-                    <p
-                        class="dynamic-list__newelements js-newelement-nokey"
-                    ></p>
-                    <div class="dynamic-list__list">
-                        ${repeat({
-                            watch: 'data2',
-                            component: 'dynamic-list-card',
-                            // eslint-disable-next-line no-unused-vars
-                            beforeUpdate: ({ container, childrenId }) => {},
-                            // eslint-disable-next-line no-unused-vars
-                            afterUpdate: ({ container, childrenId }) => {
-                                afterUpdateList({
-                                    className: '.js-newelement-nokey',
-                                    childrenId,
-                                });
-                            },
-                            render: ({ required }) => {
-                                return getRepeaterCard({
-                                    required,
-                                    staticProps,
-                                    bindProps,
-                                    bindEvents,
-                                    listId: 1,
-                                });
-                            },
-                        })}
-                    </div>
-                </div>
-
-                <div class="dynamic-list__content__clean">
-                    <h4 class="dynamic-list__title">Dynamic list clear:</h4>
-                    <p
-                        class="dynamic-list__newelements js-newelement-clear"
-                    ></p>
-                    <div class="dynamic-list__list">
-                        ${repeat({
-                            watch: 'data3',
-                            clean: true,
-                            component: 'dynamic-list-card',
-                            // eslint-disable-next-line no-unused-vars
-                            beforeUpdate: ({ container, childrenId }) => {},
-                            // eslint-disable-next-line no-unused-vars
-                            afterUpdate: ({ container, childrenId }) => {
-                                afterUpdateList({
-                                    className: '.js-newelement-clear',
-                                    childrenId,
-                                });
-                            },
-                            render: ({ required }) => {
-                                return getRepeaterCard({
-                                    required,
-                                    staticProps,
-                                    bindProps,
-                                    bindEvents,
-                                    listId: 2,
-                                });
-                            },
-                        })}
-                    </div>
-                </div>
-
+            <div class="dynamic-list__container">
                 <div class="dynamic-list__content__bottom">
                     <h4 class="dynamic-list__title">Card outer list scope:</h4>
                     <dynamic-list-card
@@ -269,7 +170,7 @@ export const DynamicList = async ({
                                 staticFromComponent: `static prop from list`,
                             })}
                             ${bindProps({
-                                bind: ['data', 'data2', 'counter'],
+                                bind: ['data', 'counter'],
                                 props: () => {
                                     return {
                                         /* HTML */

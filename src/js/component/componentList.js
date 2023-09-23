@@ -20,3 +20,5 @@ export * from './pages/dynamicList/card/definition';
 export * from './pages/dynamicList/slot/definition';
 export * from './pages/dynamicList/empty/definition';
 export * from './pages/dynamicList/counter/definition';
+export * from './pages/dynamicList/button/definition';
+export * from './pages/dynamicList/repeaters/definition';
