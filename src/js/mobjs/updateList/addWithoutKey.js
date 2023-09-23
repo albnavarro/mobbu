@@ -14,6 +14,7 @@ import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setBindProps } from '../temporaryData/dynamicProps';
+import { renderHtml } from '../creationStep/utils';
 
 /**
  * @param {Object} obj
@@ -67,14 +68,20 @@ export const addWithoutKey = ({
                 const currentValue = current?.[index + previousLenght];
                 const currentIndex = index + previousLenght;
 
-                const pippo = /* HTML */ ` ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+                const currentValueList = /* HTML */ ` ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
                     {
                         current: currentValue,
                         index: currentIndex,
                     }
                 )}"`;
 
-                return render({ key: pippo });
+                return render({
+                    key: currentValueList,
+                    html: (
+                        /** @type{Array<String>} */ strings,
+                        /** @type{any} */ ...values
+                    ) => renderHtml(strings, ...values),
+                });
             })
             .reverse();
 

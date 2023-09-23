@@ -129,8 +129,8 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key }) => {
-                                return `
+                            render: ({ key, html }) => {
+                                return html`
                                     <dynamic-list-card
                                         ${staticProps({
                                             parentListId: 1,
@@ -183,8 +183,8 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key }) => {
-                                return `
+                            render: ({ key, html }) => {
+                                return html`
                                     <dynamic-list-card
                                         ${staticProps({
                                             parentListId: 1,
@@ -236,8 +236,8 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key }) => {
-                                return `
+                            render: ({ key, html }) => {
+                                return html`
                                     <dynamic-list-card
                                         ${staticProps({
                                             parentListId: 2,

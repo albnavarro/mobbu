@@ -24,6 +24,7 @@ import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setBindProps } from '../temporaryData/dynamicProps';
+import { renderHtml } from '../creationStep/utils';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -50,13 +51,19 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
      */
     const currentValue = currentUnique?.[index];
 
-    const pippo = /* HTML */ `${ATTR_KEY}="${key}"
+    const currentValueList = /* HTML */ `${ATTR_KEY}="${key}"
     ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
         index,
     })}"`;
 
-    return render({ key: pippo });
+    return render({
+        key: currentValueList,
+        html: (
+            /** @type{Array<String>} */ strings,
+            /** @type{any} */ ...values
+        ) => renderHtml(strings, ...values),
+    });
 }
 
 /**
