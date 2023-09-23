@@ -43,51 +43,20 @@ const AFTER = 'afterend';
  * @description
  * Get partial list to add from chunked array of components.
  */
-function getPartialsComponentList({
-    targetComponent,
-    key,
-    props,
-    dynamicProps,
-    bindEvents,
-    currentUnique,
-    index,
-}) {
+function getPartialsComponentList({ key, currentUnique, index, render }) {
     /**
      * Execute prop function.
      * Get current value and save in component store item.
      */
     const currentValue = currentUnique?.[index];
-    const currentProps = setStaticProps(
-        props({ current: currentValue, index })
-    );
 
-    /**
-     * Gat and save dynamicProps.
-     */
-    const currentDynamicProps = dynamicProps
-        ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
-        : '';
-
-    /**
-     * Gat and save bindEvents.
-     */
-    const currentBindEvents = dynamicProps
-        ? `${ATTR_BIND_EVENTS}=${setBindEvents(bindEvents)}`
-        : '';
-
-    return /* HTML */ `
-        <${targetComponent}
-            ${ATTR_PROPS}=${currentProps}
-            ${currentDynamicProps}
-            ${currentBindEvents}
-            ${ATTR_KEY}="${key}"
-            ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+    const pippo = /* HTML */ `${ATTR_KEY}="${key}"
+    ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
         index,
-    })}"
-        >
-        </${targetComponent}>
-    `;
+    })}"`;
+
+    return render({ current: currentValue, index, key: pippo });
 }
 
 /**
@@ -118,6 +87,7 @@ export const addWithKey = ({
     dynamicProps,
     bindEvents,
     id = '',
+    render,
 }) => {
     /**
      * @description
@@ -275,6 +245,7 @@ export const addWithKey = ({
                     bindEvents,
                     currentUnique,
                     index: element.index,
+                    render,
                 })
             )
             .join('');

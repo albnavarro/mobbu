@@ -44,6 +44,7 @@ export const watchList = ({
     id = '',
     containerList,
     repeatId = '',
+    render,
 }) => {
     /**
      * Remove repeater placeholder
@@ -156,6 +157,7 @@ export const watchList = ({
                 dynamicProps,
                 bindEvents,
                 id,
+                render,
             });
 
             /**

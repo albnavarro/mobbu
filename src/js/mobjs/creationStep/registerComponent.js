@@ -183,6 +183,7 @@ export const registerComponent = ({
             beforeUpdate = () => {},
             afterUpdate = () => {},
             key,
+            render,
         }) => {
             const currentRepeatId = mobCore.getUnivoqueId();
             repeatId.push(currentRepeatId);
@@ -212,6 +213,7 @@ export const registerComponent = ({
                     getChildren,
                     key,
                     id,
+                    render,
                 },
             });
 

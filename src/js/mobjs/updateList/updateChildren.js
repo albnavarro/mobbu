@@ -35,6 +35,7 @@ export const updateChildren = async ({
     bindEvents,
     key = '',
     id,
+    render,
 }) => {
     /**
      * Check if thereis a key
@@ -61,6 +62,7 @@ export const updateChildren = async ({
         bindEvents,
         key,
         id,
+        render,
     });
 
     /**
