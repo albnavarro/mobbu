@@ -2,7 +2,6 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { staticProps } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -178,7 +177,7 @@ export const CodeOverlay = ({
                         clean: true,
                         watch: 'urls',
                         component: 'code-overlay-button',
-                        render: ({ key, html }) => {
+                        render: ({ required, html }) => {
                             return html`
                                 <code-overlay-button
                                     ${bindProps({
@@ -202,7 +201,7 @@ export const CodeOverlay = ({
                                             setState('activeContent', label);
                                         },
                                     })}
-                                    ${key}
+                                    ${required}
                                 >
                                 </code-overlay-button>
                             `;

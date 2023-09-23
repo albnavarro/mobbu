@@ -129,7 +129,7 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key, html }) => {
+                            render: ({ required, html }) => {
                                 return html`
                                     <dynamic-list-card
                                         ${staticProps({
@@ -154,7 +154,7 @@ export const DynamicList = async ({
                                                 { current, index }
                                             ) => console.log(current, index),
                                         })}
-                                        ${key}
+                                        ${required}
                                     >
                                     </dynamic-list-card>
                                 `;
@@ -183,7 +183,7 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key, html }) => {
+                            render: ({ required, html }) => {
                                 return html`
                                     <dynamic-list-card
                                         ${staticProps({
@@ -208,7 +208,7 @@ export const DynamicList = async ({
                                                 { current, index }
                                             ) => console.log(current, index),
                                         })}
-                                        ${key}
+                                        ${required}
                                     >
                                     </dynamic-list-card>
                                 `;
@@ -236,7 +236,7 @@ export const DynamicList = async ({
                                     childrenId,
                                 });
                             },
-                            render: ({ key, html }) => {
+                            render: ({ required, html }) => {
                                 return html`
                                     <dynamic-list-card
                                         ${staticProps({
@@ -261,7 +261,7 @@ export const DynamicList = async ({
                                                 { current, index }
                                             ) => console.log(current, index),
                                         })}
-                                        ${key}
+                                        ${required}
                                     >
                                     </dynamic-list-card>
                                 `;

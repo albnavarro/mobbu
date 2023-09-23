@@ -50,7 +50,7 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
     })}"`;
 
     return render({
-        key: currentValueList,
+        required: currentValueList,
         html: (
             /** @type{TemplateStringsArray} */ strings,
             /** @type{any} */ ...values

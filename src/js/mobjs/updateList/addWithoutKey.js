@@ -64,7 +64,7 @@ export const addWithoutKey = ({
                 )}"`;
 
                 return render({
-                    key: currentValueList,
+                    required: currentValueList,
                     html: (
                         /** @type{TemplateStringsArray} */ strings,
                         /** @type{any} */ ...values
