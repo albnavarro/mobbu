@@ -4,7 +4,6 @@ import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_INSTANCENAME_PARTIAL,
     ATTR_PROPS_PARTIAL,
-    ATTR_SLOT_POSITION_PARTIAL,
 } from '../constant';
 
 export const defineUserComponent = (componentList) => {
@@ -190,7 +189,7 @@ export const defineUserComponent = (componentList) => {
                         this.#currentListValueId =
                             dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL] ?? '';
                         this.#slotPosition =
-                            dataset?.[ATTR_SLOT_POSITION_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute('slot');
                     }
 
                     if (this.shadowRoot) {

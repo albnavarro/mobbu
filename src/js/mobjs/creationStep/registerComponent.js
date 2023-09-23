@@ -30,7 +30,7 @@ import {
 import { addOnMoutCallback } from '../temporaryData/onMount';
 import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
-import { instanceName as setInstanceName, useSlot } from '../utils';
+import { instanceName as setInstanceName } from '../utils';
 import { getComponentData } from './getComponentData';
 import { removeWatchFromDynamicProps, renderHtml } from './utils';
 
@@ -141,7 +141,6 @@ export const registerComponent = ({
             return unsubscribe;
         },
         instanceName: (name = '') => setInstanceName(name),
-        useSlot: (/** @type{String} */ slotName) => useSlot(slotName),
         freezeProp: (/** @type{String} */ prop) => freezePropById({ id, prop }),
         unFreezeProp: (/** @type{String} */ prop) =>
             unFreezePropById({ id, prop }),

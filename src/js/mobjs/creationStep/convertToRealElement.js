@@ -5,7 +5,6 @@ import {
     ATTR_DYNAMIC_PARTIAL,
     ATTR_IS_COMPONENT,
     ATTR_PROPS_PARTIAL,
-    ATTR_SLOT_POSITION,
     UNSET,
 } from '../constant';
 import { getDefaultComponent } from '../createComponent';
@@ -107,10 +106,6 @@ const addToSlot = ({ element }) => {
          */
         slot.parentNode?.insertBefore(component, slot);
         const elementMoved = /** @type {HTMLElement} */ (slot.previousSibling);
-
-        if (elementMoved) {
-            elementMoved.removeAttribute(ATTR_SLOT_POSITION);
-        }
 
         return { slot, elementMoved };
 

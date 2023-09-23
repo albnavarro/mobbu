@@ -1,4 +1,4 @@
-import { html, instanceName, useSlot } from '../mobjs';
+import { html, instanceName } from '../mobjs';
 
 export const wrapper = () => {
     return html`
@@ -13,7 +13,7 @@ export const wrapper = () => {
             </div>
         </main>
         <mob-footer>
-            <debug-button ${useSlot('debug')}></debug-button>
+            <debug-button slot="debug"></debug-button>
         </mob-footer>
         <page-transition ${instanceName('page-transition')}></page-transition>
     `;

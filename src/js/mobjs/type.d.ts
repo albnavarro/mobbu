@@ -180,24 +180,6 @@ export interface componentType {
     /**
      * @example
      * ```javascript
-     * <slot ${slotName('slot2')}></slot>
-     *
-     * ```
-     */
-    slotName(slotName: String): void;
-
-    /**
-     * @example
-     * ```javascript
-     * <MyComponent ${useSlot('slot2')}></MyComponent>
-     *
-     * ```
-     */
-    useSlot(slotName: String): void;
-
-    /**
-     * @example
-     * ```javascript
      *
      * freezeProp('myStateProp');
      *

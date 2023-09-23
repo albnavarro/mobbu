@@ -1,11 +1,6 @@
 // @ts-check
 
-import {
-    ATTR_INSTANCENAME,
-    ATTR_PROPS,
-    ATTR_SLOT_NAME,
-    ATTR_SLOT_POSITION,
-} from './constant';
+import { ATTR_INSTANCENAME, ATTR_PROPS } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
 
@@ -46,24 +41,6 @@ export const getComponentsReference = () => {
  */
 export const instanceName = (name = '') => {
     return `${ATTR_INSTANCENAME}="${name}"`;
-};
-
-/**
- * @param {String} name
- * @returns {String}
- *
- * @description
- * Set instance name.
- *
- * @example
- * ```javascript
- * <MyComponent ${useSlot('slot2')}></MyComponent>
- *
- * ```
- *
- */
-export const useSlot = (name = '') => {
-    return `${ATTR_SLOT_POSITION}="${name}"`;
 };
 
 /**
