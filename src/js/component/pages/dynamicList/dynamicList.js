@@ -33,6 +33,7 @@ export const DynamicList = async ({
     bindProps,
     useSlot,
     bindEvents,
+    watchImmediate,
 }) => {
     onMount(({ element }) => {
         const state1El = element.querySelector('.state1');
@@ -40,6 +41,7 @@ export const DynamicList = async ({
         const state3El = element.querySelector('.state3');
         const state4El = element.querySelector('.state4');
         const increaseCounterEl = element.querySelector('.counter');
+        const counterEl = element.querySelector('.dynamic-list__counter span');
 
         state1El.addEventListener('click', () => {
             setState('data', state1);
@@ -67,6 +69,10 @@ export const DynamicList = async ({
 
         increaseCounterEl.addEventListener('click', () => {
             setState('counter', (prev) => (prev += 1));
+        });
+
+        watchImmediate('counter', (value) => {
+            counterEl.textContent = value;
         });
 
         return () => {
@@ -100,6 +106,12 @@ export const DynamicList = async ({
                     </button>
                 </div>
             </div>
+
+            <div class="dynamic-list__counter">
+                <h4>List counter</h4>
+                <span>counter</span>
+            </div>
+
             <div class="dynamic-list__content">
                 <div class="dynamic-list__content__key">
                     <h4 class="dynamic-list__title">Dynamic list with key:</h4>
