@@ -1,9 +1,5 @@
 import { createComponent } from '../../../mobjs';
 import { DynamicList } from './dynamicList';
-import { DynamicListCard } from './dynamicListCard';
-import { DynamicListCounter } from './dynamicListCounter';
-import { DynamicListEmpty } from './dynamicListEmpty';
-import { DynamicListSlot } from './dynamicListSlot';
 
 export const dynamicListDef = createComponent({
     name: 'dynamic-list',
@@ -51,85 +47,6 @@ export const dynamicListDef = createComponent({
                 },
             ],
             type: Array,
-        }),
-    },
-});
-
-export const dynamicListCardDef = createComponent({
-    name: 'dynamic-list-card',
-    component: DynamicListCard,
-    scoped: true,
-    exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
-    state: {
-        parentListId: () => ({
-            value: -1,
-            type: Number,
-        }),
-        isFull: () => ({
-            value: false,
-            type: Boolean,
-        }),
-        label: () => ({
-            value: '-',
-            type: String,
-        }),
-        index: () => ({
-            value: -1,
-            type: Number,
-        }),
-        counter: () => ({
-            value: 0,
-            type: Number,
-        }),
-    },
-});
-
-export const dynamicListSlotDef = createComponent({
-    name: 'dynamic-list-slot',
-    component: DynamicListSlot,
-    exportState: [
-        'staticFromSlot',
-        'staticFromComponent',
-        'parentParentState',
-        'parentState',
-    ],
-    state: {
-        staticFromSlot: () => ({
-            value: '',
-            type: 'any',
-        }),
-        staticFromComponent: () => ({
-            value: '',
-            type: 'any',
-        }),
-        parentParentState: () => ({
-            value: '',
-            type: 'any',
-        }),
-        parentState: () => ({
-            value: '',
-            type: 'any',
-        }),
-    },
-});
-
-export const dynamicListEmptyDef = createComponent({
-    name: 'dynamic-list-empty',
-    component: DynamicListEmpty,
-});
-
-export const dynamicCounterDef = createComponent({
-    name: 'dynamic-list-counter',
-    component: DynamicListCounter,
-    exportState: ['counter', 'parentListId'],
-    state: {
-        parentListId: () => ({
-            value: -1,
-            type: Number,
-        }),
-        counter: () => ({
-            value: 0,
-            type: Number,
         }),
     },
 });

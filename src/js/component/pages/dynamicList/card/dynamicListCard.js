@@ -1,4 +1,4 @@
-import { mobCore } from '../../../mobCore';
+import { mobCore } from '../../../../mobCore';
 
 // function asyncTest() {
 //     return new Promise((resolve) => {

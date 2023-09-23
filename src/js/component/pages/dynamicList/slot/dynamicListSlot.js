@@ -1,13 +1,12 @@
-/**
- * @param {import('../../../mobjs/type').componentType}
- */
-
-import { html } from '../../../mobjs';
+import { html } from '../../../../mobjs';
 
 function getPreValue(value) {
     return html`<pre>${value}</pre>`;
 }
 
+/**
+ * @param {import('../../../mobjs/type').componentType}
+ */
 export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
     const { staticFromSlot, staticFromComponent } = getState();
 
