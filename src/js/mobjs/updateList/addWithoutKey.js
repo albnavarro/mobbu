@@ -1,19 +1,10 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import {
-    ATTR_BIND_EVENTS,
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_DYNAMIC,
-    ATTR_IS_COMPONENT,
-    ATTR_PROPS,
-} from '../constant';
+import { ATTR_CURRENT_LIST_VALUE, ATTR_IS_COMPONENT } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
-import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
-import { setStaticProps } from '../temporaryData/staticProps';
-import { setBindProps } from '../temporaryData/dynamicProps';
 import { renderHtml } from '../creationStep/utils';
 
 /**
@@ -23,9 +14,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {HTMLElement} obj.containerList
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
- * @param {object} obj.props
- * @param {object} obj.dynamicProps
- * @param {Array|object} obj.bindEvents
+ * @param {function} obj.render
  * @return {Array}
  *
  * @description
@@ -38,7 +27,6 @@ export const addWithoutKey = ({
     containerList = document.createElement('div'),
     targetComponent = '',
     getChildren = () => {},
-    props = {},
     render,
 }) => {
     /**
@@ -68,7 +56,7 @@ export const addWithoutKey = ({
                 const currentValue = current?.[index + previousLenght];
                 const currentIndex = index + previousLenght;
 
-                const currentValueList = /* HTML */ ` ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+                const currentValueList = renderHtml`${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
                     {
                         current: currentValue,
                         index: currentIndex,
@@ -78,7 +66,7 @@ export const addWithoutKey = ({
                 return render({
                     key: currentValueList,
                     html: (
-                        /** @type{Array<String>} */ strings,
+                        /** @type{TemplateStringsArray} */ strings,
                         /** @type{any} */ ...values
                     ) => renderHtml(strings, ...values),
                 });

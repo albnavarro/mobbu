@@ -8,14 +8,12 @@
  * @property { String } id
  * @property { Boolean } clean
  * @property { String|undefined } key
- * @property { Object } props
  * @property { String|undefined } state
  * @property { Function } setState
  * @property { String } targetComponent
  * @property { Function } watch
  * @property { Function } emit
- * @property { Object } dynamicProps
- * @property { Object|Array } bindEvents
+ * @property { Function } render
  *
  * @description
  * Add new repeater id and props.

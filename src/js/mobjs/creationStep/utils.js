@@ -47,6 +47,6 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 };
 
 export const renderHtml = (
-    /** @type{Array<String>} */ strings,
+    /** @type{TemplateStringsArray} */ strings,
     /** @type{any} */ ...values
 ) => String.raw({ raw: strings }, ...values);

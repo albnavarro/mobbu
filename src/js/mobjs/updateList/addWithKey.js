@@ -7,12 +7,9 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import {
-    ATTR_BIND_EVENTS,
     ATTR_CURRENT_LIST_VALUE,
-    ATTR_DYNAMIC,
     ATTR_IS_COMPONENT_VALUE,
     ATTR_KEY,
-    ATTR_PROPS,
 } from '../constant';
 import {
     getElementById,
@@ -20,10 +17,7 @@ import {
 } from '../componentStore/action/element';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { setBindEvents } from '../temporaryData/bindEvents';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
-import { setStaticProps } from '../temporaryData/staticProps';
-import { setBindProps } from '../temporaryData/dynamicProps';
 import { renderHtml } from '../creationStep/utils';
 
 const BEFORE = 'beforebegin';
@@ -33,11 +27,9 @@ const AFTER = 'afterend';
  * @param {Object} obj
  * @param {string} obj.targetComponent
  * @param {string} obj.key
- * @param {object} obj.props
- * @param {object} obj.dynamicProps
- * @param {object} obj.bindEvents
  * @param {Array} obj.currentUnique
  * @param {number} obj.index
+ * @param {Function} obj.render
  *
  * @return {String}
  *
@@ -51,7 +43,7 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
      */
     const currentValue = currentUnique?.[index];
 
-    const currentValueList = /* HTML */ `${ATTR_KEY}="${key}"
+    const currentValueList = renderHtml`${ATTR_KEY}="${key}"
     ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
         index,
@@ -60,7 +52,7 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
     return render({
         key: currentValueList,
         html: (
-            /** @type{Array<String>} */ strings,
+            /** @type{TemplateStringsArray} */ strings,
             /** @type{any} */ ...values
         ) => renderHtml(strings, ...values),
     });
@@ -73,11 +65,9 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
  * @param {HTMLElement} obj.containerList
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
- * @param {object} obj.props
- * @param {object} obj.dynamicProps
- * @param {Array|object} obj.bindEvents
  * @param {string} obj.key
  * @param {string} obj.id
+ * @param {Function} obj.render
  * @return {Array}
  *
  * @description
@@ -90,9 +80,6 @@ export const addWithKey = ({
     targetComponent = '',
     getChildren = () => {},
     key = '',
-    props = {},
-    dynamicProps,
-    bindEvents,
     id = '',
     render,
 }) => {
@@ -247,9 +234,6 @@ export const addWithKey = ({
                 getPartialsComponentList({
                     targetComponent,
                     key: element.key,
-                    props,
-                    dynamicProps,
-                    bindEvents,
                     currentUnique,
                     index: element.index,
                     render,

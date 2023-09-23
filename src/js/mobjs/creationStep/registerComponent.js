@@ -32,7 +32,7 @@ import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { instanceName as setInstanceName } from '../utils';
 import { getComponentData } from './getComponentData';
-import { removeWatchFromDynamicProps, renderHtml } from './utils';
+import { renderHtml } from './utils';
 
 // JSDOC usare infered type quando possibile.
 
@@ -159,7 +159,7 @@ export const registerComponent = ({
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
             watchById(getParentIdById(id), prop, cb),
         html: (
-            /** @type{Array<String>} */ strings,
+            /** @type{TemplateStringsArray} */ strings,
             /** @type{any} */ ...values
         ) => {
             return {
