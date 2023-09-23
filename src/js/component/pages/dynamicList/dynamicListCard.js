@@ -1,4 +1,5 @@
 import { mobCore } from '../../../mobCore';
+import { useSlot } from '../../../mobjs';
 
 // function asyncTest() {
 //     return new Promise((resolve) => {
@@ -91,6 +92,7 @@ export const DynamicListCard = async ({
                 ></mobjs-slot>
                 <dynamic-list-empty>
                     <dynamic-list-counter
+                        ${useSlot('empty-slot')}
                         ${bindProps({
                             bind: ['counter'],
                             props: ({ counter }) => {

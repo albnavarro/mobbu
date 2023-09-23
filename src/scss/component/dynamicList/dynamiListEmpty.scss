@@ -2,13 +2,8 @@
 @use '../../abstract' as *;
 @use '../../../../node_modules/sass-mq/mq';
 
-.dynamic-counter {
-    color: $white;
-    margin-top: rem(15);
+.dynamic-list-empty {
     border: 1px rgba($white, 0.1) solid;
     padding: rem(5);
-
-    span {
-        font-size: rem(20);
-    }
+    margin-top: rem(10);
 }
