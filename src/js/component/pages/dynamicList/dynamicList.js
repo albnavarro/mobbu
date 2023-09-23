@@ -187,7 +187,7 @@ export const DynamicList = async ({
                                 return html`
                                     <dynamic-list-card
                                         ${staticProps({
-                                            parentListId: 1,
+                                            parentListId: 2,
                                         })}
                                         ${bindProps({
                                             bind: ['counter', 'data2'],
@@ -240,7 +240,7 @@ export const DynamicList = async ({
                                 return html`
                                     <dynamic-list-card
                                         ${staticProps({
-                                            parentListId: 2,
+                                            parentListId: 3,
                                         })}
                                         ${bindProps({
                                             bind: ['counter', 'data3'],

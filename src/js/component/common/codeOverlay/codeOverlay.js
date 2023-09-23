@@ -2,6 +2,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
+import { staticProps } from '../../../mobjs';
 
 hljs.registerLanguage('javascript', javascript);
 
@@ -90,6 +91,8 @@ export const CodeOverlay = ({
     watch,
     repeat,
     html,
+    bindProps,
+    bindEvents,
 }) => {
     onMount(({ element }) => {
         const screenEl = element.querySelector('.js-overlay-screen');
@@ -175,29 +178,34 @@ export const CodeOverlay = ({
                         clean: true,
                         watch: 'urls',
                         component: 'code-overlay-button',
-                        props: ({ current }) => {
-                            const { label, source } = current;
-
-                            return {
-                                key: label,
-                                disable: source.length === 0,
-                            };
-                        },
-                        bindEvents: {
-                            click: (_e, { current }) => {
-                                const { label } = current;
-                                setState('activeContent', label);
-                            },
-                        },
-                        bindProps: {
-                            bind: ['activeContent'],
-                            props: ({ activeContent }, { current }) => {
-                                const { label } = current;
-
-                                return {
-                                    selected: label === activeContent,
-                                };
-                            },
+                        render: ({ key, html }) => {
+                            return html`
+                                <code-overlay-button
+                                    ${bindProps({
+                                        bind: ['activeContent'],
+                                        props: (
+                                            { activeContent },
+                                            { current }
+                                        ) => {
+                                            const { label, source } = current;
+                                            return {
+                                                key: label,
+                                                disable: source.length === 0,
+                                                selected:
+                                                    label === activeContent,
+                                            };
+                                        },
+                                    })}
+                                    ${bindEvents({
+                                        click: (_e, { current }) => {
+                                            const { label } = current;
+                                            setState('activeContent', label);
+                                        },
+                                    })}
+                                    ${key}
+                                >
+                                </code-overlay-button>
+                            `;
                         },
                     })}
                 </div>
