@@ -13,7 +13,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
  */
 function selectAll(root, slotName) {
     for (const node of walkPreOrder(root)) {
-        if (node?.getSlotName?.() === slotName) {
+        if (node?.isSlot && node?.getSlotName?.() === slotName) {
             return node;
         }
     }

@@ -172,6 +172,9 @@ export const defineUserComponent = (componentList) => {
                     this.#currentListValueId = '';
                     this.#slotPosition = '';
 
+                    //
+                    this.isUserComponent = true;
+
                     // @ts-ignore
                     const { dataset } = this.shadowRoot?.host ?? {};
 

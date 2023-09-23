@@ -27,6 +27,7 @@ export const defineSlotComponent = () => {
                 super();
                 this.attachShadow({ mode: 'open' });
                 this.#slotName = '';
+                this.isSlot = true;
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
