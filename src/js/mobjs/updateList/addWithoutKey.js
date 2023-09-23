@@ -74,11 +74,7 @@ export const addWithoutKey = ({
                     }
                 )}"`;
 
-                return render({
-                    current: currentValue,
-                    index,
-                    key: pippo,
-                });
+                return render({ key: pippo });
             })
             .reverse();
 

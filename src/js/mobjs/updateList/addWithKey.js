@@ -56,7 +56,7 @@ function getPartialsComponentList({ key, currentUnique, index, render }) {
         index,
     })}"`;
 
-    return render({ current: currentValue, index, key: pippo });
+    return render({ key: pippo });
 }
 
 /**

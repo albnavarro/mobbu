@@ -176,10 +176,7 @@ export const registerComponent = ({
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             component: targetComponent = '', // use alias to maintain ured naming convention.
-            props = () => {},
             clean = false,
-            // bindProps: bindPropsFromRepeater, // use alias to maintain ured naming convention.
-            bindEvents: bindEventsFromRepeater,
             beforeUpdate = () => {},
             afterUpdate = () => {},
             key,
@@ -187,14 +184,6 @@ export const registerComponent = ({
         }) => {
             const currentRepeatId = mobCore.getUnivoqueId();
             repeatId.push(currentRepeatId);
-
-            /**
-             * Remove watch state from bind.
-             */
-            // const dynamicPropsSanitized = removeWatchFromDynamicProps({
-            //     dynamicProps: bindPropsFromRepeater,
-            //     stateToWatch,
-            // });
 
             addRepeat({
                 repeatId: currentRepeatId,
@@ -204,10 +193,7 @@ export const registerComponent = ({
                     emit,
                     watch,
                     targetComponent,
-                    props,
                     clean,
-                    // dynamicProps: dynamicPropsSanitized,
-                    bindEvents: bindEventsFromRepeater,
                     beforeUpdate,
                     afterUpdate,
                     getChildren,
