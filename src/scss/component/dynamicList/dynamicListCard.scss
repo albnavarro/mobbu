@@ -5,7 +5,7 @@
 .dynamic-card {
     $self: &;
 
-    flex: 0 1 33.3333%;
+    flex: 0 0 50%;
     padding: rem(10);
     text-align: left;
     font-size: rem(14);
@@ -15,10 +15,8 @@
     opacity: 0;
     transition: opacity 1.55s, transform 0.35s;
     color: rgba($white, 0.3);
-
-    @include mq.mq(xlarge) {
-        flex: 0 1 33.3333%;
-    }
+    box-sizing: border-box;
+    cursor: pointer;
 
     &.active {
         opacity: 1;
@@ -26,6 +24,11 @@
 
     &.is-full {
         width: 100%;
+    }
+
+    p {
+        color: $white;
+        margin-bottom: rem(10);
     }
 
     &__container {

@@ -245,7 +245,6 @@ export const DynamicList = async ({
                             },
                         })}
                     >
-                        <code-button ${useSlot('slot1')} />
                         <dynamic-list-slot
                             ${useSlot('slot2')}
                             ${staticProps({

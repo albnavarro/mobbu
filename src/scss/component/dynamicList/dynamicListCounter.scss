@@ -1,0 +1,12 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.dynamic-counter {
+    color: $white;
+    margin-top: rem(15);
+
+    span {
+        font-size: rem(20);
+    }
+}

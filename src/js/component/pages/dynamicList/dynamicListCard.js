@@ -26,7 +26,7 @@ export const DynamicListCard = async ({
     watchImmediate,
     id,
 }) => {
-    const { isFull, label } = getState();
+    const { isFull } = getState();
 
     onMount(({ element }) => {
         const indexEl = element.querySelector('.index');
@@ -59,18 +59,17 @@ export const DynamicListCard = async ({
     // await asyncTest();
 
     const isFullClass = isFull ? 'is-full' : '';
-    // const tag = isFull ? 'div' : 'button';
-    const typeButton = isFull ? '' : "type='button'";
 
     return html`
-        <dynamic-list-card ${typeButton} class="dynamic-card ${isFullClass}">
+        <dynamic-list-card class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
+                <p>card content</p>
                 <div class="id">id: ${id}</div>
                 <div class="index"></div>
                 <div class="label"></div>
                 <div class="counter"></div>
                 <mobjs-slot ${slotName('slot1')}></mobjs-slot>
-                <div class="key">key: ${key ?? ''}</div>
+                <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
                 <mobjs-slot
                     ${slotName('slot2')}
                     ${staticProps({
@@ -90,31 +89,16 @@ export const DynamicListCard = async ({
                         },
                     })}
                 ></mobjs-slot>
-                <dynamic-list-child-test>
-                    <code-button
-                        ${staticProps({
-                            drawers: [
-                                {
-                                    label: 'description',
-                                    source: label,
-                                },
-                                {
-                                    label: 'definition',
-                                    source: label,
-                                },
-                                {
-                                    label: 'component',
-                                    source: label,
-                                },
-                                {
-                                    label: 'animation',
-                                    source: label,
-                                },
-                            ],
+                <dynamic-list-empty>
+                    <dynamic-list-counter
+                        ${bindProps({
+                            bind: ['counter'],
+                            props: ({ counter }) => {
+                                return { counter };
+                            },
                         })}
-                    >
-                    </code-button>
-                </dynamic-list-child-test>
+                    />
+                </dynamic-list-empty>
             </div>
         </dynamic-list-card>
     `;

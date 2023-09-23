@@ -1,7 +1,8 @@
 import { createComponent } from '../../../mobjs';
 import { DynamicList } from './dynamicList';
 import { DynamicListCard } from './dynamicListCard';
-import { DynamicListChildTest } from './dynamicListChildTest';
+import { DynamicListCounter } from './dynamicListCounter';
+import { DynamicListEmpty } from './dynamicListEmpty';
 import { DynamicListSlot } from './dynamicListSlot';
 
 export const dynamicListDef = createComponent({
@@ -79,7 +80,7 @@ export const dynamicListCardDef = createComponent({
     },
 });
 
-export const testComponent3Def = createComponent({
+export const dynamicListSlotDef = createComponent({
     name: 'dynamic-list-slot',
     component: DynamicListSlot,
     exportState: [
@@ -108,7 +109,19 @@ export const testComponent3Def = createComponent({
     },
 });
 
-export const testComponent4Def = createComponent({
-    name: 'dynamic-list-child-test',
-    component: DynamicListChildTest,
+export const dynamicListEmptyDef = createComponent({
+    name: 'dynamic-list-empty',
+    component: DynamicListEmpty,
+});
+
+export const dynamicCounterDef = createComponent({
+    name: 'dynamic-list-counter',
+    component: DynamicListCounter,
+    exportState: ['counter'],
+    state: {
+        counter: () => ({
+            value: 0,
+            type: Number,
+        }),
+    },
 });
