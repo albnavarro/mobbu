@@ -73,7 +73,7 @@ export const DynamicListCard = async ({
                 <mobjs-slot
                     ${slotName('slot2')}
                     ${staticProps({
-                        staticFromSlot: `static prop from slot`,
+                        staticFromSlot: `static prop from card`,
                     })}
                     ${bindProps({
                         bind: ['counter', 'label', 'index'],

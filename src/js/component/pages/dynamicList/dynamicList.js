@@ -260,7 +260,7 @@ export const DynamicList = async ({
                         <dynamic-list-slot
                             ${useSlot('slot2')}
                             ${staticProps({
-                                staticFromComponent: `static prop from component`,
+                                staticFromComponent: `static prop from list`,
                             })}
                             ${bindProps({
                                 bind: ['data', 'data2', 'counter'],
