@@ -120,6 +120,23 @@ export const DynamicList = async ({
                             watch: 'data',
                             key: 'key',
                             component: 'dynamic-list-card',
+                            props: ({ current, index }) => {
+                                const { label } = current;
+                                return { label, index, parentListId: 0 };
+                            },
+                            bindProps: {
+                                bind: ['counter'],
+                                // eslint-disable-next-line no-unused-vars
+                                props: ({ counter }, { current, index }) => {
+                                    return {
+                                        counter,
+                                    };
+                                },
+                            },
+                            bindEvents: {
+                                mousedown: (e, { current, index }) =>
+                                    console.log(current, index),
+                            },
                             // eslint-disable-next-line no-unused-vars
                             beforeUpdate: ({ container, childrenId }) => {},
                             // eslint-disable-next-line no-unused-vars

@@ -69,6 +69,25 @@ export const addWithoutKey = ({
                 const currentValue = current?.[index + previousLenght];
                 const currentIndex = index + previousLenght;
 
+                const currentProps = setStaticProps(
+                    props({
+                        current: currentValue,
+                        index: currentIndex,
+                    })
+                );
+
+                const currentDynamicProps = dynamicProps
+                    ? `${ATTR_DYNAMIC}=${setBindProps(dynamicProps)}`
+                    : '';
+
+                /**
+                 * Gat and save bindEvents.
+                 */
+                const currentBindEvents = dynamicProps
+                    ? `${ATTR_BIND_EVENTS}=${setBindEvents(bindEvents)}`
+                    : '';
+
+                //
                 const pippo = /* HTML */ ` ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
                     {
                         current: currentValue,
@@ -81,6 +100,20 @@ export const addWithoutKey = ({
                     index,
                     key: pippo,
                 });
+                //
+
+                return /* HTML */ `
+                    <${targetComponent}
+                        ${ATTR_PROPS}=${currentProps}
+                        ${currentDynamicProps}
+                        ${currentBindEvents}
+                        ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+                    current: currentValue,
+                    index: currentIndex,
+                })}"
+                    >
+                    </${targetComponent}>
+                `;
             })
             .reverse();
 
