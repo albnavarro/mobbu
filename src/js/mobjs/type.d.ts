@@ -249,15 +249,16 @@ export interface componentType {
      * Bind props from parent to Children.
      * The watch function must be used inside onMount() function.
      *
+     * * current, index return the current value inside a repeater
+     *
      * @example
      * ```javascript
      * <MyComponent
      *     ${bindProps({
-     *         bind: ['state1', 'state1'],
-     *         props: ({ state1, state2 }) => {
+     *         bind: ['state1','state2'],
+     *         props: ({ state1, state2 }, { current, index }) => {
      *             return {
-     *                 childState1: state1,
-     *                 childState2: state2
+     *                 childrenState: myParsedState.
      *             };
      *         },
      *     })}
@@ -270,15 +271,20 @@ export interface componentType {
     }): Object;
 
     /**
+     * @description
+     * Bind event to component.
+     *
+     * * current, index return the current value inside a repeater
+     *
      * @example
      * ```javascript
      * <MyComponent
      *       ${bindEvents([
      *           {
-     *               click: (e) => myFunction(e)
+     *               click: (e, {current, index}) => myFunction(e)
      *           },
      *           {
-     *               mousedown: (e) => myFunction(e)
+     *               mousedown: (e, {current, index}) => myFunction(e)
      *           },
      *       ])}
      * ></MyComponent>
@@ -343,38 +349,45 @@ export interface componentType {
      *
      * ```javascript
      *
-     <div>
-         ${repeat({
-             clean: false,
-             watch: 'my_state',
-             component: 'MyComponent',
-             key: 'my_object_unique_key',
-             props: ({ current, index }) => {
-                 const { initialStateValue } = current;
-                 return {
-                     childState: initialStateValue
-                     index,
-                 };
-             },
-             bindProps: {
-                 bind: ['state1','state2'],
-                 props: ({ state1, state2 }, { current, index }) => {
-                     return {
-                         childrenState: myParsedState.
-                     };
-                 },
-             },
-             bindEvents: {
-                 eventName: (e, { current, index }) => myFunction(e)
-             },
-             beforeUpdate: ({ container, childrenId }) => {
-                 ....
-             },
-             afterUpdate: ({ container, childrenId }) => {
-                 ....
-             },
-         })}
-     </div>
+     * <div>
+     *     ${repeat({
+     *         clean: false,
+     *         watch: 'my_array_state',
+     *         component: 'MyComponent',
+     *         key: 'my_object_unique_key',
+     *         beforeUpdate: ({ container, childrenId }) => {
+     *             ....
+     *         },
+     *         afterUpdate: ({ container, childrenId }) => {
+     *             ....
+     *         },
+     *         render: ({ required, html }) => {
+     *            return html`
+     *                <my-component
+     *                    ${required}
+     *                    ${staticProps({
+     *                        myState: value,
+     *                    })}
+     *                    ${bindProps({
+     *                        bind: ['my_array_state', 'myState2'],
+     *                        props: ({ myState2 }, { current, index }) => {
+     *                            return {
+     *                                myState2,
+     *                                label: current.myValue,
+     *                                index,
+     *                            };
+     *                        },
+     *                    })}
+     *                    ${bindEvents({
+     *                        mousedown: (_e, { current, index }) =>
+     *                            //
+     *                    })}
+     *                >
+     *                </my-component>
+     *            `
+     *         }
+     *     })}
+     * </div>
      *
      * ```
      */
@@ -402,178 +415,6 @@ export interface componentType {
          * Component used in the dynamic list.
          */
         component: String;
-
-        /**
-         * @description
-         * Props passed to new component.
-         * The function is Fired twice:
-         * 1 - Excute prop function on before component creation, without fire setState.
-         *     Only get current, index to use in bindProps.
-         * 2 - Execute porp function when component is created and set internal state.
-         *
-         * @example
-         * ``` javascript
-         * ${repeat({
-         *     props: ({ current, index }) => {
-         *         const { initialStateValue } = current;
-         *         return {
-         *             childState: initialStateValue
-         *             index,
-         *         };
-         *     },
-         * })}
-         * ```
-         */
-        props: (arg0: {
-            /**
-             * @description
-             * Arg1: The value corresponding to current item in watch array
-             */
-            current: any;
-
-            /**
-             * @description
-             * New position in original data.
-             */
-            index: Number;
-        }) => Object;
-
-        /**
-         *
-         * @description
-         * Dynamic props passed to new component
-         *
-         * @example
-         *
-         * ``` javascript
-         * ${repeat({
-         *     bindProps: {
-         *         bind: ['state1','state2'],
-         *         props: ({ state1, state2 }, { current, index }) => {
-         *             return {
-         *                 childrenState: myParsedState.
-         *             };
-         *         },
-         *     },
-         * })}
-         * ```
-         */
-        bindProps: {
-            /**
-             * @description
-             * Array of state to watch.
-             * Watch state is not allowed.
-             * If used will be removed automatically.
-             */
-            bind: Array<String>;
-
-            /**
-             * @description
-             *
-             * Arg0: The value corresponding to each value of
-             * sate defined in bind array
-             *
-             * Arg1: The value corresponding to current item in watch array
-             */
-            props: (
-                arg0: { String: Any },
-                arg1: {
-                    /**
-                     * @description
-                     * Arg1: The value corresponding to current item in watch array
-                     */
-                    current: any;
-
-                    /**
-                     * @description
-                     * New position in original data.
-                     */
-                    index: Number;
-                },
-                /**
-                 * @description
-                 * Arg1: The value corresponding to current item in watch array
-                 */
-                current: any
-            ) => Object;
-        };
-
-        /**
-         * @description
-         *
-         * Bind events.
-         *
-         * @example
-         * ``` javascript
-         * ${repeat({
-         *     bindEvents: {
-         *         eventName: (e, { current, index }) => myFunction(e)
-         *     },
-         * })}
-         *
-         *
-         * ${repeat([
-         *     {
-         *         bindEvents: {
-         *             eventName: (e, { current, index }) => myFunction(e)
-         *         },
-         *     },
-         *     {
-         *         bindEvents: {
-         *             eventName: (e, { current, index }) => myFunction(e)
-         *         },
-         *     },
-         * ])}
-         *
-         * ```
-         */
-        bindEvents:
-            | {
-                  [key: string]: (
-                      /**
-                       * @description
-                       * Event native object
-                       */
-                      arg0: Object,
-                      arg1: {
-                          /**
-                           * @description
-                           * Arg1: The value corresponding to current item in watch array
-                           */
-                          current: any;
-
-                          /**
-                           * @description
-                           * New position in original data.
-                           */
-                          index: Number;
-                      }
-                  ) => {};
-              }
-            | [
-                  {
-                      [key: string]: (
-                          /**
-                           * @description
-                           * Event native object
-                           */
-                          arg0: Object,
-                          arg1: {
-                              /**
-                               * @description
-                               * Arg1: The value corresponding to current item in watch array
-                               */
-                              current: any;
-
-                              /**
-                               * @description
-                               * New position in original data.
-                               */
-                              index: Number;
-                          }
-                      ) => {};
-                  }
-              ];
 
         /**
          * @description
@@ -626,5 +467,52 @@ export interface componentType {
              */
             childrenId: [string];
         }): void;
+
+        /**
+         * @description
+         * Render child component.
+         *
+         * * required field is necessary for traking key and store current and index value.
+         *
+         * @example
+         *
+         * ```javascript
+         *
+         * <div>
+         *     ${repeat({
+         *         render: ({ required, html }) => {
+         *            return html`
+         *                <my-component
+         *                    ${required}
+         *                    ${staticProps({
+         *                        myState: value,
+         *                    })}
+         *                    ${bindProps({
+         *                        bind: ['my_array_state', 'myState2'],
+         *                        props: ({ myState2 }, { current, index }) => {
+         *                            return {
+         *                                myState2,
+         *                                label: current.myValue,
+         *                                index,
+         *                            };
+         *                        },
+         *                    })}
+         *                    ${bindEvents({
+         *                        mousedown: (_e, { current, index }) =>
+         *                            //
+         *                    })}
+         *                >
+         *                </my-component>
+         *            `
+         *         }
+         *     })}
+         * </div>
+         *
+         * ```
+         */
+        render: (arg0: {
+            required: Object;
+            html: (arg0: String) => String;
+        }) => String;
     }): string;
 }
