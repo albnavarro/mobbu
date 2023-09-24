@@ -1,18 +1,18 @@
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @param {import('../../../../mobjs/type').componentType}
  */
 export const DynamicListCounter = async ({
-    watchSync,
+    watch,
     onMount,
     html,
     getState,
 }) => {
-    const { parentListId } = getState();
+    const { parentListId, counter } = getState();
 
     onMount(({ element }) => {
         const counterValueEl = element.querySelector('span');
 
-        watchSync('counter', (value) => {
+        watch('counter', (value) => {
             counterValueEl.textContent = value;
         });
 
@@ -21,6 +21,6 @@ export const DynamicListCounter = async ({
     return html`<div class="dynamic-counter">
         <p class="dynamic-counter__title">Nested:</p>
         <p class="dynamic-counter__list">list index: ${parentListId}</p>
-        <span></span>
+        <span>${counter}</span>
     </div>`;
 };

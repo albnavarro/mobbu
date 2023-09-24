@@ -13,7 +13,7 @@ function updateContent(label, val) {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @param {import('../../../../mobjs/type').componentType}
  */
 export const DynamicListCard = async ({
     getState,
@@ -22,10 +22,10 @@ export const DynamicListCard = async ({
     key,
     staticProps,
     bindProps,
-    watchSync,
+    watch,
     id,
 }) => {
-    const { isFull, parentListId } = getState();
+    const { isFull, parentListId, index, label, counter } = getState();
 
     onMount(({ element }) => {
         const indexEl = element.querySelector('.index');
@@ -36,15 +36,15 @@ export const DynamicListCard = async ({
             element.classList.toggle('is-selected');
         });
 
-        watchSync('index', (val) => {
+        watch('index', (val) => {
             indexEl.textContent = updateContent('index', val);
         });
 
-        watchSync('label', (val) => {
+        watch('label', (val) => {
             labelEl.textContent = updateContent('label', val);
         });
 
-        watchSync('counter', (val) => {
+        watch('counter', (val) => {
             counterEl.textContent = updateContent('counter', val);
         });
 
@@ -65,9 +65,9 @@ export const DynamicListCard = async ({
                 <p class="dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index"></div>
-                <div class="label"></div>
-                <div class="counter"></div>
+                <div class="index">${updateContent('counter', index)}</div>
+                <div class="label">${updateContent('counter', label)}</div>
+                <div class="counter">${updateContent('counter', counter)}</div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
                 <mobjs-slot
                     name="card-slot"
