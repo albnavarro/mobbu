@@ -4,11 +4,15 @@ import { DynamicListButton } from './dynamicListButton';
 export const dynamicListButtonDef = createComponent({
     name: 'dynamic-list-button',
     component: DynamicListButton,
-    exportState: ['label'],
+    exportState: ['active', 'label'],
     state: {
         label: () => ({
             value: '',
             type: String,
+        }),
+        active: () => ({
+            value: false,
+            type: Boolean,
         }),
     },
 });

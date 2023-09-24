@@ -46,16 +46,27 @@ const repeaters = [
     },
 ];
 
-function getButton({ setState, staticProps, bindEvents }) {
+function getButton({ setState, staticProps, bindEvents, bindProps }) {
     return buttons
-        .map((column) => {
+        .map((column, index) => {
             const { data, buttonLabel } = column;
 
             return html`
                 <dynamic-list-button
                     ${staticProps({ label: buttonLabel })}
                     ${bindEvents({
-                        click: () => setState('data', data),
+                        click: () => {
+                            setState('data', data);
+                            setState('activeSample', index);
+                        },
+                    })}
+                    ${bindProps({
+                        bind: ['activeSample'],
+                        props: ({ activeSample }) => {
+                            return {
+                                active: index === activeSample,
+                            };
+                        },
                     })}
                 ></dynamic-list-button>
             `;
@@ -118,7 +129,12 @@ export const DynamicList = async ({
         <dynamic-list class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
-                    ${getButton({ setState, bindEvents, staticProps })}
+                    ${getButton({
+                        setState,
+                        bindEvents,
+                        staticProps,
+                        bindProps,
+                    })}
                     <button class="dynamic-list__btn counter">
                         Increase counter
                     </button>

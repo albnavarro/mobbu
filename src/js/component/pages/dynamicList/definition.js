@@ -22,5 +22,9 @@ export const dynamicListDef = createComponent({
             ],
             type: Array,
         }),
+        activeSample: () => ({
+            value: -1,
+            type: Number,
+        }),
     },
 });

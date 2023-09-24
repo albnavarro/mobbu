@@ -58,11 +58,15 @@
         background: $green;
         border: 0;
         border-radius: rem(30);
-        transition: opacity 0.55s;
+        transition: opacity 0.55s, background 0.55s;
         max-width: rem(200);
 
         &:hover {
             opacity: 0.5;
+        }
+
+        &.active {
+            background: $white;
         }
     }
 
