@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { ATTR_CURRENT_LIST_VALUE, ATTR_IS_COMPONENT } from '../constant';
+import { ATTR_CURRENT_LIST_VALUE } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
