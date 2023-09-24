@@ -174,7 +174,11 @@ export const watchList = ({
             });
 
             /**
-             * Update children state.
+             * Update children current value ( for "immutable" children ).
+             * - repeater without key: item persistence.
+             * - repeater with key: item moved.
+             * Update storeComponent currentRepeaterState
+             * propierties so bindPros get last current/index value when watch.
              */
             [...childrenFiltered].forEach((id, index) => {
                 const current = currentUnivoque?.[index];
