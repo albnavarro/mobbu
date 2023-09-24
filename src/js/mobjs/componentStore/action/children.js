@@ -81,8 +81,6 @@ export const updateChildrenOrder = ({ id, component, filterBy = [] }) => {
             return -1;
         })
         .map(({ id }) => id);
-    //
-    // console.log();
 
     const item = componentMap.get(id);
     if (!item) return;
