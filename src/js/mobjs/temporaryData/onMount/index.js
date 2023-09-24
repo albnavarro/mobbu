@@ -86,19 +86,21 @@ export const executeFireOnMountCallBack = ({ isolateOnMount, id, element }) => {
         ? /**
            * With heavy onMount function fire next one frame after.
            */
-          new Promise((resolve) => {
-              fireOnMountCallBack({
+          (async () => {
+              await fireOnMountCallBack({
                   id,
                   element,
               });
 
-              setTimeout(() => {
-                  mobCore.useFrame(() => {
-                      mobCore.useNextTick(() => {
-                          resolve({ success: true });
+              return new Promise((resolve) => {
+                  setTimeout(() => {
+                      mobCore.useFrame(() => {
+                          mobCore.useNextTick(() => {
+                              resolve({ success: true });
+                          });
                       });
                   });
               });
-          })
+          })()
         : fireOnMountCallBack({ id, element });
 };
