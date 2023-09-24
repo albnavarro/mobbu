@@ -44,6 +44,24 @@ export const getElementById = ({ id = '' }) => {
 /**
  *
  * @param {Object} obj
+ * @param {HTMLElement|undefined} obj.element
+ * @return {String|undefined}
+ *
+ * @description
+ * Get element by id
+ */
+export const getIdByElement = ({ element }) => {
+    const item = [...componentMap.values()].find((item) => {
+        const currentElement = item?.element;
+        return currentElement === element;
+    });
+
+    return item?.id ?? '';
+};
+
+/**
+ *
+ * @param {Object} obj
  * @param {string} obj.key
  * @param {string} obj.parentId
  * @param {HTMLElement} obj.container

@@ -27,10 +27,6 @@ export const state1 = [
         label: 'B',
     },
     {
-        key: 'b',
-        label: 'B',
-    },
-    {
         key: 'e',
         label: 'E',
     },
@@ -53,6 +49,10 @@ export const state1 = [
     {
         key: 'd',
         label: 'D',
+    },
+    {
+        key: 'b',
+        label: 'B',
     },
 ];
 

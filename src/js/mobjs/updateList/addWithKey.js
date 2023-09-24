@@ -6,14 +6,11 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import {
-    ATTR_CURRENT_LIST_VALUE,
-    ATTR_IS_COMPONENT_VALUE,
-    ATTR_KEY,
-} from '../constant';
+import { ATTR_CURRENT_LIST_VALUE, ATTR_KEY } from '../constant';
 import {
     getElementById,
     getElementByKeyInContainer,
+    getIdByElement,
 } from '../componentStore/action/element';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
@@ -267,7 +264,7 @@ export const addWithKey = ({
      * --------------------------
      */
     elementToRemoveByKey.forEach((component) => {
-        const id = component?.dataset[ATTR_IS_COMPONENT_VALUE];
+        const id = getIdByElement({ element: component });
         if (!id) return;
 
         removeAndDestroyById({ id });
