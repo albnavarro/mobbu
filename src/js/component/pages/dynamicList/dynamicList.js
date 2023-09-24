@@ -1,3 +1,4 @@
+import { getLegendData } from '../../../data';
 import { html } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
@@ -120,6 +121,9 @@ export const DynamicList = async ({
         });
     });
 
+    const { caterpillarN1 } = getLegendData();
+    const { source } = caterpillarN1;
+
     /**
      * Async test
      */
@@ -199,6 +203,30 @@ export const DynamicList = async ({
                     </dynamic-list-card>
                 </div>
             </div>
+            <code-button
+                ${staticProps({
+                    drawers: [
+                        {
+                            label: 'description',
+                            source: source.description,
+                        },
+                        {
+                            label: 'definition',
+                            source: source.definition,
+                        },
+                        {
+                            label: 'component',
+                            source: source.component,
+                        },
+                        {
+                            label: 'animation',
+                            source: source.animation,
+                        },
+                    ],
+                    style: 'legend',
+                })}
+            >
+            </code-button>
         </dynamic-list>
     `;
 };
