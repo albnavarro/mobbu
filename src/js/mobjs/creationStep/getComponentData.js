@@ -8,7 +8,7 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{component:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ), currentListValueReal: any}}
+ * @returns {{component:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ),parentId:( string|undefined ), currentListValueReal: any}}
  *
  * @description
  * Create base DOM component from component tag.
@@ -29,6 +29,12 @@ export const getComponentData = ({ component }) => {
      */
     // @ts-ignore
     const instanceName = component.getInstanceName();
+
+    /**
+     * @type {String}
+     */
+    // @ts-ignore
+    const parentId = component.getParentId();
 
     /**
      * @type {String|undefined}
@@ -135,5 +141,6 @@ export const getComponentData = ({ component }) => {
         dynamicPropsIdFromSlot,
         bindEventsId,
         currentListValueReal,
+        parentId,
     };
 };

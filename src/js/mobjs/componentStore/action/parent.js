@@ -73,6 +73,11 @@ export const setParentsComponent = ({ componentId }) => {
 
     const { element, parentId } = item;
 
+    /**
+     * Repeater has parentid from placeholder creation.
+     */
+    if (parentId && parentId.length > 0) return;
+
     const parentNode = /** @type {HTMLElement|undefined} */ (
         element?.parentNode
     );
@@ -82,7 +87,7 @@ export const setParentsComponent = ({ componentId }) => {
     );
 
     const newItem =
-        parent && (!parentId || parentId === undefined)
+        parent && (!parentId || parentId === '')
             ? {
                   ...item,
                   parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? '',

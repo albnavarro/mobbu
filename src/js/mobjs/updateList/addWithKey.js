@@ -6,7 +6,7 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import { ATTR_CURRENT_LIST_VALUE, ATTR_KEY } from '../constant';
+import { ATTR_CURRENT_LIST_VALUE, ATTR_KEY, ATTR_PARENT_ID } from '../constant';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -27,24 +27,26 @@ const AFTER = 'afterend';
  * @param {Array} obj.currentUnique
  * @param {number} obj.index
  * @param {Function} obj.render
+ * @param {String} obj.id
  *
  * @return {String}
  *
  * @description
  * Get partial list to add from chunked array of components.
  */
-function getPartialsComponentList({ key, currentUnique, index, render }) {
+function getPartialsComponentList({ key, currentUnique, index, render, id }) {
     /**
      * Execute prop function.
      * Get current value and save in component store item.
      */
     const currentValue = currentUnique?.[index];
 
-    const currentValueList = renderHtml`${ATTR_KEY}="${key}"
+    const currentValueList = /* HTML */ ` ${ATTR_KEY}="${key}"
     ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
         index,
-    })}"`;
+    })}"
+    ${ATTR_PARENT_ID}="${id}"`;
 
     return render({
         required: currentValueList,
@@ -235,6 +237,7 @@ export const addWithKey = ({
                     currentUnique,
                     index: element.index,
                     render,
+                    id,
                 })
             )
             .join('');

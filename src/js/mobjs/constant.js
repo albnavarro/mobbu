@@ -46,6 +46,11 @@ export const ATTR_CURRENT_LIST_VALUE = 'currentlistvalue';
 export const ATTR_BIND_EVENTS = 'bindevents';
 
 /**
+ * @type {string};
+ */
+export const ATTR_PARENT_ID = 'parentid';
+
+/**
  * @type {Number};
  */
 export const frameDelayAfterParse = 5;

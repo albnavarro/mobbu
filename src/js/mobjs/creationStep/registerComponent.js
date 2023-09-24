@@ -66,6 +66,7 @@ export const registerComponent = ({
         dynamicPropsIdFromSlot,
         currentListValueReal,
         bindEventsId,
+        parentId,
     } = getComponentData({
         component,
     });
@@ -85,6 +86,7 @@ export const registerComponent = ({
             instanceName,
             key,
             isCancellable,
+            parentId,
         });
 
     /**

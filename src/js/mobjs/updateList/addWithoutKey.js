@@ -1,7 +1,7 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { ATTR_CURRENT_LIST_VALUE } from '../constant';
+import { ATTR_CURRENT_LIST_VALUE, ATTR_PARENT_ID } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
 import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
@@ -15,6 +15,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {function} obj.render
+ * @param {String} obj.id
  * @return {Array}
  *
  * @description
@@ -28,6 +29,7 @@ export const addWithoutKey = ({
     targetComponent = '',
     getChildren = () => {},
     render,
+    id,
 }) => {
     /**
      * @type {number}
@@ -55,12 +57,13 @@ export const addWithoutKey = ({
             const currentValue = current?.[index + previousLenght];
             const currentIndex = index + previousLenght;
 
-            const currentValueList = renderHtml`${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+            const currentValueList = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
                 {
                     current: currentValue,
                     index: currentIndex,
                 }
-            )}"`;
+            )}"
+            ${ATTR_PARENT_ID}="${id}"`;
 
             return render({
                 required: currentValueList,

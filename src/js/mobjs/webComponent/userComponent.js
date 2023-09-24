@@ -4,6 +4,7 @@ import {
     ATTR_DYNAMIC,
     ATTR_INSTANCENAME,
     ATTR_KEY,
+    ATTR_PARENT_ID,
     ATTR_PROPS,
 } from '../constant';
 
@@ -147,6 +148,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #currentKey;
 
+                /**
+                 * @type {String}
+                 */
+                #parentId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -183,6 +189,7 @@ export const defineUserComponent = (componentList) => {
                     this.#currentListValueId = '';
                     this.#slotPosition = '';
                     this.#currentKey = '';
+                    this.#parentId = '';
 
                     //
                     this.isUserComponent = true;
@@ -211,6 +218,8 @@ export const defineUserComponent = (componentList) => {
                             );
                         this.#slotPosition =
                             this.shadowRoot?.host.getAttribute('slot');
+                        this.#parentId =
+                            this.shadowRoot?.host.getAttribute(ATTR_PARENT_ID);
                     }
 
                     if (this.shadowRoot) {
@@ -243,6 +252,10 @@ export const defineUserComponent = (componentList) => {
 
                 getId() {
                     return this.#componentId;
+                }
+
+                getParentId() {
+                    return this.#parentId;
                 }
 
                 getIsPlaceholder() {
