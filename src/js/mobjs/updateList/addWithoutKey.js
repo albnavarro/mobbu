@@ -51,54 +51,33 @@ export const addWithoutKey = ({
         /**
          * Create palcehodler component
          */
-        const elementToAdd = [...new Array(diff).keys()]
-            .map((_item, index) => {
-                const currentValue = current?.[index + previousLenght];
-                const currentIndex = index + previousLenght;
+        const elementToAdd = [...new Array(diff).keys()].map((_item, index) => {
+            const currentValue = current?.[index + previousLenght];
+            const currentIndex = index + previousLenght;
 
-                const currentValueList = renderHtml`${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
-                    {
-                        current: currentValue,
-                        index: currentIndex,
-                    }
-                )}"`;
+            const currentValueList = renderHtml`${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+                {
+                    current: currentValue,
+                    index: currentIndex,
+                }
+            )}"`;
 
-                return render({
-                    required: currentValueList,
-                    html: (
-                        /** @type{TemplateStringsArray} */ strings,
-                        /** @type{any} */ ...values
-                    ) => renderHtml(strings, ...values),
-                });
-            })
-            .reverse();
-
-        /**
-         * Filter children inside containerList
-         */
-        const childrenFilteredToAdd = getChildrenInsideElement({
-            component: targetComponent,
-            getChildren,
-            element: containerList,
+            return render({
+                required: currentValueList,
+                html: (
+                    /** @type{TemplateStringsArray} */ strings,
+                    /** @type{any} */ ...values
+                ) => renderHtml(strings, ...values),
+            });
         });
 
-        const lastChildren = childrenFilteredToAdd.at(-1);
-
         /**
-         * Query last child and append new children.
-         * TODO Usare un metodo dello sotre per prender il DOM element dall' id ?
+         * Content of container list id deleted at start.
+         * Assume container is dedicated to children.
+         * So add simple, mix to simplest solution and efficence.
          */
         elementToAdd.forEach((element) => {
-            const lastNode = containerList.querySelector(
-                `[${ATTR_IS_COMPONENT}='${lastChildren}']`
-            );
-
-            if (lastNode) {
-                lastNode.insertAdjacentHTML('afterend', element);
-                return;
-            }
-
-            containerList.insertAdjacentHTML('afterbegin', element);
+            containerList.insertAdjacentHTML('beforeend', element);
         });
     }
 
