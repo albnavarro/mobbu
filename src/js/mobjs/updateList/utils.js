@@ -1,6 +1,5 @@
 // @ts-check
 
-import { isDescendant } from '../../mobCore/utils';
 import { getElementById } from '../componentStore/action/element';
 
 /**
@@ -107,6 +106,7 @@ export const getChildrenInsideElement = ({
     if (!children || !element) return [];
 
     return [...children].filter((id) => {
-        return isDescendant(element, getElementById({ id }));
+        const child = getElementById({ id }) ?? null;
+        return element.contains(child);
     });
 };

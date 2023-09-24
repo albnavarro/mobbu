@@ -1,6 +1,5 @@
 // @ts-check
 
-import { isDescendant } from '../../../mobCore/utils';
 import { componentMap } from '../store';
 
 /**
@@ -65,7 +64,7 @@ export const getElementByKeyInContainer = ({
         ({ key: currentKey, parentId: currentParentId, element }) =>
             currentKey === key &&
             currentParentId === parentId &&
-            isDescendant(container, element)
+            container.contains(element)
     );
 
     const element = instance?.element;
