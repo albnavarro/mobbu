@@ -160,6 +160,7 @@ export const addWithKey = ({
     updateChildrenOrder({
         id,
         component: targetComponent,
+        filterBy: newPersistentElementOrder,
     });
 
     /**

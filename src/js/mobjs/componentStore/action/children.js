@@ -1,6 +1,8 @@
 // @ts-check
 
+import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { componentMap } from '../store';
+import { getComponentNameById } from './component';
 import { getElementById } from './element';
 
 /**
@@ -30,13 +32,14 @@ export const getChildrenIdByName = ({ id = '', component = '' }) => {
  * @param {Object} obj
  * @param {string} obj.id
  * @param {string} obj.component
+ * @param {Array<HTMLElement|undefined>} [ obj.filterBy ]
  * @return void
  *
  *
  * @description
  * Update children order of a component
  */
-export const updateChildrenOrder = ({ id, component }) => {
+export const updateChildrenOrder = ({ id, component, filterBy = [] }) => {
     /*
      * Get element
      */
@@ -44,16 +47,28 @@ export const updateChildrenOrder = ({ id, component }) => {
     if (!element) return;
 
     /**
-     * Get children by tagName.
+     * Get id af all component inside
      */
-    const components = getChildrenIdByName({ id, component });
+    // const components = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
+    // const componentsIdNow = [...components].map(
+    //     // @ts-ignore
+    //     (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
+    // );
+    //
+    // /**
+    //  * Filter for the component we are looking for
+    //  */
+    // const componentsIdFiltered = componentsIdNow.filter((currentId) => {
+    //     return getComponentNameById(currentId) === component;
+    // });
 
-    /**
-     * Order by current dom position.
-     */
-    const componentsInCurrentOrder = components
+    const components = getChildrenIdByName({ id, component });
+    const componentsIdFiltered = components
         .map((id) => {
             return { id, element: getElementById({ id }) };
+        })
+        .filter(({ element }) => {
+            return filterBy.length > 0 ? filterBy.includes(element) : true;
         })
         .sort(function (a, b) {
             const { element: elementA } = a;
@@ -66,6 +81,8 @@ export const updateChildrenOrder = ({ id, component }) => {
             return -1;
         })
         .map(({ id }) => id);
+    //
+    // console.log();
 
     const item = componentMap.get(id);
     if (!item) return;
@@ -75,7 +92,7 @@ export const updateChildrenOrder = ({ id, component }) => {
         ...item,
         child: {
             ...child,
-            [component]: componentsInCurrentOrder,
+            [component]: componentsIdFiltered,
         },
     });
 };
