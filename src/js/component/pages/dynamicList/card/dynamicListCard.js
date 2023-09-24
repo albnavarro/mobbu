@@ -51,8 +51,6 @@ export const DynamicListCard = async ({
         mobCore.useFrame(() => {
             element.classList.add('active');
         });
-
-        return () => {};
     });
 
     // await asyncTest();

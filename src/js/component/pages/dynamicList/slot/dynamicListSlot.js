@@ -23,8 +23,6 @@ export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
             t2El.textContent = '';
             t2El.insertAdjacentHTML('afterbegin', getPreValue(val));
         });
-
-        return () => {};
     });
 
     return html`

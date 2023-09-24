@@ -107,10 +107,6 @@ export const DynamicList = async ({
         watchSync('counter', (value) => {
             counterEl.textContent = value;
         });
-
-        return () => {
-            element.remove();
-        };
     });
 
     /**

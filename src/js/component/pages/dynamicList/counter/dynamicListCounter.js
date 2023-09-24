@@ -15,8 +15,6 @@ export const DynamicListCounter = async ({
         watch('counter', (value) => {
             counterValueEl.textContent = value;
         });
-
-        return () => {};
     });
     return html`<div class="dynamic-counter">
         <p class="dynamic-counter__title">Nested:</p>
