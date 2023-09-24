@@ -1,8 +1,9 @@
 import {
-    ATTR_BIND_EVENTS_PARTIAL,
-    ATTR_CURRENT_LIST_VALUE_PARTIAL,
+    ATTR_BIND_EVENTS,
+    ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
-    ATTR_INSTANCENAME_PARTIAL,
+    ATTR_INSTANCENAME,
+    ATTR_KEY,
     ATTR_PROPS,
 } from '../constant';
 
@@ -21,6 +22,11 @@ export const defineUserComponent = (componentList) => {
         customElements.define(
             key,
             class extends HTMLElement {
+                /**
+                 * @type {String}
+                 */
+                #componentname;
+
                 /**
                  * @type {String}
                  */
@@ -136,6 +142,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #slotPosition;
 
+                /**
+                 * @type {String}
+                 */
+                #currentKey;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -159,6 +170,7 @@ export const defineUserComponent = (componentList) => {
                     this.#watch = () => {};
                     this.#watchSync = () => {};
                     this.#watchParent = () => {};
+                    this.#componentname = key;
 
                     //
                     this.#isPlaceholder = true;
@@ -170,6 +182,7 @@ export const defineUserComponent = (componentList) => {
                     this.#propsFromSlotId = '';
                     this.#currentListValueId = '';
                     this.#slotPosition = '';
+                    this.#currentKey = '';
 
                     //
                     this.isUserComponent = true;
@@ -179,15 +192,23 @@ export const defineUserComponent = (componentList) => {
 
                     if (dataset) {
                         this.#instanceName =
-                            dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute(
+                                ATTR_INSTANCENAME
+                            );
                         this.#staticPropsId =
                             this.shadowRoot?.host.getAttribute(ATTR_PROPS);
                         this.#dynamicPropsId =
                             this.shadowRoot?.host.getAttribute(ATTR_DYNAMIC);
+                        this.#currentKey =
+                            this.shadowRoot?.host.getAttribute(ATTR_KEY);
                         this.#bindEventsId =
-                            dataset?.[ATTR_BIND_EVENTS_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute(
+                                ATTR_BIND_EVENTS
+                            );
                         this.#currentListValueId =
-                            dataset?.[ATTR_CURRENT_LIST_VALUE_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute(
+                                ATTR_CURRENT_LIST_VALUE
+                            );
                         this.#slotPosition =
                             this.shadowRoot?.host.getAttribute('slot');
                     }
@@ -207,6 +228,10 @@ export const defineUserComponent = (componentList) => {
                             context: this,
                         });
                     }
+                }
+
+                getComponentName() {
+                    return this.#componentname;
                 }
 
                 /**
@@ -238,6 +263,10 @@ export const defineUserComponent = (componentList) => {
 
                 getBindEventsId() {
                     return this.#bindEventsId;
+                }
+
+                getCurrentKey() {
+                    return this.#currentKey;
                 }
 
                 /**

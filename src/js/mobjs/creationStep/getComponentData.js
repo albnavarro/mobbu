@@ -1,6 +1,5 @@
 // @ts-check
 
-import { propsKeyToExclude } from './utils';
 import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
@@ -69,6 +68,22 @@ export const getComponentData = ({ component }) => {
     const currentListValueReal = getCurrentValueList(currentListValue);
 
     /**
+     * @type {String}
+     *
+     */
+    // @ts-ignore
+    const key = component.getCurrentKey() ?? '';
+
+    /**
+     * @type {String}
+     *
+     * @description
+     * Set props.
+     */
+    // @ts-ignore
+    const componentName = component.getComponentName();
+
+    /**
      * @type {String|undefined}
      */
     const cleanProsId = propsId?.split(' ').join('');
@@ -95,25 +110,6 @@ export const getComponentData = ({ component }) => {
      * Set props.
      */
     const baseProps = { ...component.dataset };
-
-    /**
-     * @type {String}
-     *
-     * @description
-     * Set props.
-     */
-    const componentName = baseProps?.component ?? '';
-
-    /**
-     * @type {String}
-     *
-     */
-    const key = baseProps?.key ?? '';
-
-    /**
-     * Remove
-     */
-    propsKeyToExclude.forEach((key) => delete baseProps[key]);
 
     return {
         component,

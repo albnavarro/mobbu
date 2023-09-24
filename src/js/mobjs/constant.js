@@ -23,72 +23,27 @@ export const ATTR_DYNAMIC = 'bindprops';
 /**
  * @type {string};
  */
-export const ATTR_PROPS_FROM_SLOT = 'data-propsfromslot';
+export const ATTR_INSTANCENAME = 'instancename';
 
 /**
  * @type {string};
  */
-export const ATTR_PROPS_FROM_SLOT_PARTIAL = 'propsfromslot';
+export const ATTR_REPEATID = 'repeatid';
 
 /**
  * @type {string};
  */
-export const ATTR_DYNAMIC_PROPS_FROM_SLOT = 'data-dynamicpropsfromslot';
+export const ATTR_KEY = 'key';
 
 /**
  * @type {string};
  */
-export const ATTR_DYNAMIC_PROPS_FROM_SLOT_PARTIAL = 'dynamicpropsfromslot';
+export const ATTR_CURRENT_LIST_VALUE = 'currentlistvalue';
 
 /**
  * @type {string};
  */
-export const ATTR_INSTANCENAME = 'data-instancename';
-
-/**
- * @type {string};
- */
-export const ATTR_INSTANCENAME_PARTIAL = 'instancename';
-
-/**
- * @type {string};
- */
-export const ATTR_REPEATID = 'data-repeatid';
-
-/**
- * @type {string};
- */
-export const ATTR_REPEATID_PARTIAL = 'repeatid';
-
-/**
- * @type {string};
- */
-export const ATTR_KEY_PARTIAL = 'key';
-
-/**
- * @type {string};
- */
-export const ATTR_KEY = 'data-key';
-
-/**
- * @type {string};
- */
-export const ATTR_CURRENT_LIST_VALUE_PARTIAL = 'currentlistvalue';
-
-/**
- * @type {string};
- */
-export const ATTR_CURRENT_LIST_VALUE = 'data-currentlistvalue';
-
-/**
- * @type {string};
- */
-export const ATTR_BIND_EVENTS_PARTIAL = 'bindevents';
-
-/**
- * @type {string};
- */
-export const ATTR_BIND_EVENTS = 'data-bindevents';
+export const ATTR_BIND_EVENTS = 'bindevents';
 
 /**
  * @type {Number};

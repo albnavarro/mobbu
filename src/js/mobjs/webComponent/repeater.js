@@ -1,4 +1,4 @@
-import { ATTR_REPEATID_PARTIAL } from '../constant';
+import { ATTR_REPEATID } from '../constant';
 
 export const defineRepeaterComponent = () => {
     customElements.define(
@@ -19,7 +19,8 @@ export const defineRepeaterComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    this.#repeatId = dataset?.[ATTR_REPEATID_PARTIAL] ?? '';
+                    this.#repeatId =
+                        this.shadowRoot?.host.getAttribute(ATTR_REPEATID);
                 }
             }
 
