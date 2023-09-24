@@ -63,8 +63,8 @@ export const DynamicListCard = async ({
                 <p class="dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index">${updateContent('counter', index)}</div>
-                <div class="label">${updateContent('counter', label)}</div>
+                <div class="index">${updateContent('index', index)}</div>
+                <div class="label">${updateContent('label', label)}</div>
                 <div class="counter">${updateContent('counter', counter)}</div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
                 <mobjs-slot
