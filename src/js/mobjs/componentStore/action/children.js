@@ -1,8 +1,6 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { componentMap } from '../store';
-import { getComponentNameById } from './component';
 import { getElementById } from './element';
 
 /**
@@ -46,20 +44,28 @@ export const updateChildrenOrder = ({ id, component }) => {
     if (!element) return;
 
     /**
-     * Get id af all component inside
+     * Get children by tagName.
      */
-    const components = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
-    const componentsIdNow = [...components].map(
-        // @ts-ignore
-        (item) => item?.dataset[ATTR_IS_COMPONENT_VALUE]
-    );
+    const components = getChildrenIdByName({ id, component });
 
     /**
-     * Filter for the component we are looking for
+     * Order by current dom position.
      */
-    const componentsIdFiltered = componentsIdNow.filter((currentId) => {
-        return getComponentNameById(currentId) === component;
-    });
+    const componentsInCurrentOrder = components
+        .map((id) => {
+            return { id, element: getElementById({ id }) };
+        })
+        .sort(function (a, b) {
+            const { element: elementA } = a;
+            const { element: elementB } = b;
+            if (elementA === elementB || !elementA || !elementB) return 0;
+            if (elementA.compareDocumentPosition(elementB) & 2) {
+                // b comes before a
+                return 1;
+            }
+            return -1;
+        })
+        .map(({ id }) => id);
 
     const item = componentMap.get(id);
     if (!item) return;
@@ -69,7 +75,7 @@ export const updateChildrenOrder = ({ id, component }) => {
         ...item,
         child: {
             ...child,
-            [component]: componentsIdFiltered,
+            [component]: componentsInCurrentOrder,
         },
     });
 };
