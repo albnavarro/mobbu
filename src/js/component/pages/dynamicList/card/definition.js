@@ -4,7 +4,6 @@ import { DynamicListCard } from './dynamicListCard';
 export const dynamicListCardDef = createComponent({
     name: 'dynamic-list-card',
     component: DynamicListCard,
-    scoped: true,
     exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
     state: {
         parentListId: () => ({
