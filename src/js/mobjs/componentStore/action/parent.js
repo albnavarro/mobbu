@@ -1,6 +1,7 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
+import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -78,6 +79,10 @@ export const setParentsComponent = ({ componentId }) => {
      */
     if (parentId && parentId.length > 0) return;
 
+    /**
+     * TODO: alternative solution for component that is not parsed inside other component
+     * So the non have id added by parent.
+     */
     const parentNode = /** @type {HTMLElement|undefined} */ (
         element?.parentNode
     );
@@ -95,4 +100,19 @@ export const setParentsComponent = ({ componentId }) => {
             : item;
 
     componentMap.set(componentId, newItem);
+};
+
+/**
+ * @returns void
+ *
+ * @description
+ * Add self id to future component.
+ * If id is assigned to component nested in next cycle will be override.
+ */
+export const addSelfIdToFutureComponent = ({ element, id }) => {
+    const children = queryAllFutureComponent(element, false);
+    children.forEach((child) => {
+        // @ts-ignore
+        child.setParentId(id);
+    });
 };

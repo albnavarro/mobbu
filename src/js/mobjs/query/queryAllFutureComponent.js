@@ -25,16 +25,17 @@ export function* walkPreOrder(node) {
 
 /**
  * @param {Element} root
+ * @param {Boolean} oneDepth
  * @returns {Array<HTMLElement>}
  */
-function selectAll(root) {
+function selectAll(root, oneDepth) {
     const result = [];
     for (const node of walkPreOrder(root)) {
         /**
          * Skip after first result.
          * We are looking the first occurrence.
          */
-        if (result.length > 0) break;
+        if (result.length > 0 && oneDepth) break;
 
         if (node?.getIsPlaceholder?.()) {
             result.push(node);
@@ -45,14 +46,15 @@ function selectAll(root) {
 
 /**
  * @param {Element} node
+ * @param {Boolean} oneDepth
  * @returns {Array<Element>}
  */
-export const queryAllFutureComponent = (node) => {
+export const queryAllFutureComponent = (node, oneDepth = true) => {
     let result = [];
     const root = node || document.body;
 
     for (const child of root.children) {
-        result = [...result, ...selectAll(child)];
+        result = [...result, ...selectAll(child, oneDepth)];
     }
 
     return result;

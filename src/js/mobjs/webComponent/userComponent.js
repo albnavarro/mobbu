@@ -219,7 +219,9 @@ export const defineUserComponent = (componentList) => {
                         this.#slotPosition =
                             this.shadowRoot?.host.getAttribute('slot');
                         this.#parentId =
-                            this.shadowRoot?.host.getAttribute(ATTR_PARENT_ID);
+                            this.shadowRoot?.host.getAttribute(
+                                ATTR_PARENT_ID
+                            ) ?? '';
                     }
 
                     if (this.shadowRoot) {
@@ -256,6 +258,13 @@ export const defineUserComponent = (componentList) => {
 
                 getParentId() {
                     return this.#parentId;
+                }
+
+                /**
+                 * @param { String } value
+                 */
+                setParentId(id) {
+                    this.#parentId = id;
                 }
 
                 getIsPlaceholder() {

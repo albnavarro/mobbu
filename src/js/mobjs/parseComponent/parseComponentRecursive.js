@@ -14,6 +14,7 @@ import { decrementParserCounter } from '../temporaryData/parser/parser';
 import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { registerComponent } from '../creationStep/registerComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
+import { addSelfIdToFutureComponent } from '../componentStore/action/parent';
 
 /**
  * @param {Object} obj
@@ -138,6 +139,8 @@ export const parseComponentsRecursive = async ({
         componentParsed,
         isolateCreation,
     });
+
+    addSelfIdToFutureComponent({ element: newElement, id });
 
     /**
      * If element wad destroyed during parse
