@@ -1,12 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import {
-    ATTR_DYNAMIC_PARTIAL,
-    ATTR_IS_COMPONENT,
-    ATTR_PROPS_PARTIAL,
-    UNSET,
-} from '../constant';
+import { ATTR_IS_COMPONENT, UNSET } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
 import { queryGenericSlot } from '../query/queryGenericSlot';
@@ -123,12 +118,14 @@ const addToSlot = ({ element }) => {
          * @description
          * Set props id from slot to component.
          */
-        const propsIdFromSlot = slot.dataset?.[ATTR_PROPS_PARTIAL];
+        // @ts-ignore
+        const propsIdFromSlot = slot.getStaticProps();
         if (propsIdFromSlot)
             // @ts-ignore
             elementMoved?.setPropsFromSlotId?.(propsIdFromSlot);
 
-        const bindPropsIdFromSlot = slot.dataset?.[ATTR_DYNAMIC_PARTIAL];
+        // @ts-ignore
+        const bindPropsIdFromSlot = slot.getDynamicProps();
         if (bindPropsIdFromSlot)
             // @ts-ignore
             elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);

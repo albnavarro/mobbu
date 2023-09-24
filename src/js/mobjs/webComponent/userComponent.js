@@ -1,9 +1,9 @@
 import {
     ATTR_BIND_EVENTS_PARTIAL,
     ATTR_CURRENT_LIST_VALUE_PARTIAL,
-    ATTR_DYNAMIC_PARTIAL,
+    ATTR_DYNAMIC,
     ATTR_INSTANCENAME_PARTIAL,
-    ATTR_PROPS_PARTIAL,
+    ATTR_PROPS,
 } from '../constant';
 
 export const defineUserComponent = (componentList) => {
@@ -181,9 +181,9 @@ export const defineUserComponent = (componentList) => {
                         this.#instanceName =
                             dataset?.[ATTR_INSTANCENAME_PARTIAL] ?? '';
                         this.#staticPropsId =
-                            dataset?.[ATTR_PROPS_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute(ATTR_PROPS);
                         this.#dynamicPropsId =
-                            dataset?.[ATTR_DYNAMIC_PARTIAL] ?? '';
+                            this.shadowRoot?.host.getAttribute(ATTR_DYNAMIC);
                         this.#bindEventsId =
                             dataset?.[ATTR_BIND_EVENTS_PARTIAL] ?? '';
                         this.#currentListValueId =

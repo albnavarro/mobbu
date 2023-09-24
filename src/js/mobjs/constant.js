@@ -3,16 +3,6 @@
 /**
  * @type {string};
  */
-export const ATTR_PLACEHOLDER = 'data-placeholder';
-
-/**
- * @type {string};
- */
-export const ATTR_PLACEHOLDER_PARTIAL = 'placeholder';
-
-/**
- * @type {string};
- */
 export const ATTR_IS_COMPONENT = 'data-mobjs';
 
 /**
@@ -23,27 +13,12 @@ export const ATTR_IS_COMPONENT_VALUE = 'mobjs';
 /**
  * @type {string};
  */
-export const ATTR_IS_RUNTIME_PARTIAL = 'runtime';
+export const ATTR_PROPS = 'staticprops';
 
 /**
  * @type {string};
  */
-export const ATTR_PROPS = 'data-staticprops';
-
-/**
- * @type {string};
- */
-export const ATTR_PROPS_PARTIAL = 'staticprops';
-
-/**
- * @type {string};
- */
-export const ATTR_DYNAMIC = 'data-bindprops';
-
-/**
- * @type {string};
- */
-export const ATTR_DYNAMIC_PARTIAL = 'bindprops';
+export const ATTR_DYNAMIC = 'bindprops';
 
 /**
  * @type {string};
