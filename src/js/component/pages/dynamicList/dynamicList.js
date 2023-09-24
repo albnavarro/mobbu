@@ -11,19 +11,19 @@ import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
     {
-        buttonLabel: 'data1',
+        buttonLabel: 'sample1',
         data: state1,
     },
     {
-        buttonLabel: 'data2',
+        buttonLabel: 'salmple2',
         data: state2,
     },
     {
-        buttonLabel: 'data3',
+        buttonLabel: 'sample3',
         data: state3,
     },
     {
-        buttonLabel: 'data4',
+        buttonLabel: 'Initial',
         data: startData,
     },
 ];

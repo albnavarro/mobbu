@@ -1,4 +1,5 @@
 import { createComponent } from '../../../mobjs';
+import { startData } from './data';
 import { DynamicList } from './dynamicList';
 
 export const dynamicListDef = createComponent({
@@ -10,20 +11,11 @@ export const dynamicListDef = createComponent({
             type: Number,
         }),
         data: () => ({
-            value: [
-                {
-                    key: 'a',
-                    label: 'A',
-                },
-                {
-                    key: 'b',
-                    label: 'B',
-                },
-            ],
+            value: startData,
             type: Array,
         }),
         activeSample: () => ({
-            value: -1,
+            value: 3,
             type: Number,
         }),
     },
