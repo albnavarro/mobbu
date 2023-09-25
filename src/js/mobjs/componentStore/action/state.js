@@ -2,6 +2,7 @@
 
 import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
 import { componentMap } from '../store';
+import { getFreezePropStatus } from './freeze';
 
 /**
  * @param {string} id
@@ -15,7 +16,7 @@ export const getStateById = (id = '') => {
 
     const item = componentMap.get(id);
     const state = item?.state;
-    return state.get();
+    return state?.get();
 };
 
 /**
@@ -30,6 +31,11 @@ export const getStateById = (id = '') => {
  */
 export const setStateById = (id = '', prop = '', value, fire = true) => {
     if ((!id || id === '') && (!prop || prop === '') && !value) return;
+
+    const isFreezed = getFreezePropStatus({ id, prop });
+    if (isFreezed) {
+        return;
+    }
 
     const item = componentMap.get(id);
     const state = item?.state;

@@ -123,6 +123,7 @@ export const watchList = ({
                  * If repater is running:
                  * back to previous state without fire callback
                  */
+                unFreezePropById({ id, prop: state });
                 setState(state, previous, false);
                 return;
             }

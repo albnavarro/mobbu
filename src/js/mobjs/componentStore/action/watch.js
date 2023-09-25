@@ -16,5 +16,5 @@ export const watchById = (id = '', prop = '', cb = () => {}) => {
     const item = componentMap.get(id);
     const state = item?.state;
 
-    return state.watch(prop, cb);
+    return state?.watch(prop, cb);
 };
