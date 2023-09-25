@@ -4,9 +4,9 @@ import { DynamicListSlottedLabel } from './dynamicListSlottedLabel';
 export const dynamicListLabelDef = createComponent({
     name: 'dynamic-slotted-label',
     component: DynamicListSlottedLabel,
-    exportState: ['genericData'],
+    exportState: ['label'],
     state: {
-        genericData: () => ({
+        label: () => ({
             value: undefined,
             type: 'Any',
         }),

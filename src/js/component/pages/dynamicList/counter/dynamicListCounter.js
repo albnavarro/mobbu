@@ -18,6 +18,7 @@ export const DynamicListCounter = async ({
     });
     return html`<div class="dynamic-counter">
         <p class="dynamic-counter__title">Nested:</p>
+        <p class="dynamic-counter__subtitle">(slotted)</p>
         <p class="dynamic-counter__list">list index: ${parentListId}</p>
         <span>${counter}</span>
     </div>`;

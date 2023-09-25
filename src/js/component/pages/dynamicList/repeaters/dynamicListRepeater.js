@@ -7,6 +7,8 @@ function getRepeaterCard({
     bindEvents,
     listId,
 }) {
+    let currentLabel = '';
+
     return html`
         <dynamic-list-card
             ${staticProps({
@@ -15,9 +17,10 @@ function getRepeaterCard({
             ${bindProps({
                 bind: ['counter', 'data'],
                 props: ({ counter }, { current, index }) => {
+                    currentLabel = current.label;
                     return {
                         counter,
-                        label: current.label,
+                        label: currentLabel,
                         index,
                     };
                 },
@@ -28,7 +31,17 @@ function getRepeaterCard({
             })}
             ${required}
         >
-            <dynamic-slotted-label slot="card-label-slot">
+            <dynamic-slotted-label
+                slot="card-label-slot"
+                ${bindProps({
+                    bind: ['data'],
+                    props: () => {
+                        return {
+                            label: currentLabel,
+                        };
+                    },
+                })}
+            >
             </dynamic-slotted-label>
         </dynamic-list-card>
     `;

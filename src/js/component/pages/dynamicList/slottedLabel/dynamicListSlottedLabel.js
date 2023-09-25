@@ -5,7 +5,7 @@ export const DynamicListSlottedLabel = async ({ html, onMount, watchSync }) => {
     onMount(({ element }) => {
         const contentEl = element.querySelector('.content');
 
-        watchSync('genericData', (value) => {
+        watchSync('label', (value) => {
             contentEl.textContent = `slotted: ${value}`;
         });
     });
