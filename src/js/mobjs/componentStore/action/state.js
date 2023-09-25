@@ -42,7 +42,7 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
 
     if (!stateIsExportable) {
         console.warn(
-            `setStateById failed ${prop} in: ${componentName} is not exportable`
+            `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
         );
         return null;
     }

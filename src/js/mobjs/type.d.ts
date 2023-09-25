@@ -355,10 +355,10 @@ export interface componentType {
      *         watch: 'my_array_state',
      *         component: 'MyComponent',
      *         key: 'my_object_unique_key',
-     *         beforeUpdate: ({ container, childrenId }) => {
+     *         beforeUpdate: ({ element, container, childrenId }) => {
      *             ....
      *         },
-     *         afterUpdate: ({ container, childrenId }) => {
+     *         afterUpdate: ({ element, container, childrenId }) => {
      *             ....
      *         },
      *         render: ({ required, html }) => {
@@ -431,6 +431,12 @@ export interface componentType {
         beforeUpdate(arg0: {
             /**
              * @description
+             * Main component
+             */
+            element: HTMLElement;
+
+            /**
+             * @description
              * List container element.
              */
             container: HTMLElement;
@@ -455,6 +461,12 @@ export interface componentType {
          * })}
          */
         afterUpdate(arg0: {
+            /**
+             * @description
+             * Main component
+             */
+            element: HTMLElement;
+
             /**
              * @description
              * List container element.

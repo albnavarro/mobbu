@@ -2,6 +2,7 @@
 
 import { mobCore } from '../../mobCore';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
+import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
     unFreezePropById,
@@ -51,6 +52,8 @@ export const watchList = ({
     const repeaterEl = querySecificRepeater(containerList, repeatId);
     repeaterEl?.remove();
     repeaterEl?.removeCustomComponent();
+
+    const mainComponent = getElementById({ id });
 
     /**
      * First run use an empty previus array
@@ -133,6 +136,7 @@ export const watchList = ({
              * Execute beforeUpdate function
              */
             beforeUpdate({
+                element: mainComponent,
                 container: containerList,
                 childrenId: getChildrenInsideElement({
                     component: targetComponent,
@@ -199,6 +203,7 @@ export const watchList = ({
                  * Execute afterUpdate function
                  */
                 afterUpdate({
+                    element: mainComponent,
                     container: containerList,
                     childrenId: childrenFiltered,
                 });

@@ -1,0 +1,9 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.dynamic-list-slotted-label {
+    border: 1px rgba($white, 0.1) solid;
+    padding: rem(5);
+    margin-top: rem(10);
+}

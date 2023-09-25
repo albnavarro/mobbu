@@ -22,3 +22,4 @@ export * from './pages/dynamicList/empty/definition';
 export * from './pages/dynamicList/counter/definition';
 export * from './pages/dynamicList/button/definition';
 export * from './pages/dynamicList/repeaters/definition';
+export * from './pages/dynamicList/slottedLabel/definition';

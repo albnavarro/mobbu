@@ -67,6 +67,7 @@ export const DynamicListCard = async ({
                 <div class="label">${updateContent('label', label)}</div>
                 <div class="counter">${updateContent('counter', counter)}</div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
+                <mobjs-slot name="card-generic-slot"></mobjs-slot>
                 <mobjs-slot
                     name="card-slot"
                     ${staticProps({
