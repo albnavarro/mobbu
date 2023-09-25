@@ -148,12 +148,13 @@ export const registerComponent = ({
             unFreezePropById({ id, prop }),
         unBind: () => unBind({ id }),
         bindProps: (
-            /** @type{{bind:Array<String>,props:() => Object}} */ obj
-        ) =>
-            ` ${ATTR_DYNAMIC}="${setBindProps({
+            /** @type{{'bind':Array<String>,'props':() => Object,'forceParent':Boolean}} */ obj
+        ) => {
+            return `${ATTR_DYNAMIC}="${setBindProps({
                 ...obj,
-                parentId: id,
-            })}" `,
+                parentId: obj?.forceParent ? undefined : id,
+            })}" `;
+        },
         staticProps: (/** @type{{String: any}} */ obj) =>
             ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),

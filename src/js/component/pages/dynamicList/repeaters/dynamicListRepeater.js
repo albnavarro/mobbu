@@ -1,8 +1,6 @@
 import { html } from '../../../../mobjs';
 
 function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
-    let currentLabel = '';
-
     return html`
         <dynamic-list-card
             ${staticProps({
@@ -11,10 +9,9 @@ function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
             ${bindProps({
                 bind: ['counter', 'data'],
                 props: ({ counter }, { current, index }) => {
-                    currentLabel = current.label;
                     return {
                         counter,
-                        label: currentLabel,
+                        label: current.label,
                         index,
                     };
                 },
@@ -28,10 +25,11 @@ function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
             <dynamic-slotted-label
                 slot="card-label-slot"
                 ${bindProps({
-                    bind: ['data'],
-                    props: () => {
+                    bind: ['label'],
+                    forceParent: true,
+                    props: ({ label }) => {
                         return {
-                            label: currentLabel,
+                            label,
                         };
                     },
                 })}

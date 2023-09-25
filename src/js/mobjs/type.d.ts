@@ -221,6 +221,13 @@ export interface componentType {
     watchParent(prop: String, callback: Function): void;
 
     /**
+     *
+     * @description
+     * Non-reactive props.
+     *
+     * - `Slot`
+     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     *
      * @example
      * ```javascript
      * <MyComponent
@@ -229,6 +236,7 @@ export interface componentType {
      *         callBack: () => setState('parentState', key)
      *     })}
      * ></MyComponent>
+     * ```
      */
     staticProps(arg0: { [key: string]: any }): Object;
 
@@ -249,13 +257,22 @@ export interface componentType {
      * Bind props from parent to Children.
      * The watch function must be used inside onMount() function.
      *
-     * * current, index return the current value inside a repeater
+     * - `forceParent`:
+     *   Basically, the states of the current function are bound. With this option the state(s) of the nearest relative will be observed regardless of the component in which the component is defined, a frequent case with the use of slots.
+     *
+     * - `Extra props inside repeater:`
+     * Return the current value inside a repeater:
+     *
+     * - `Slot`
+     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     *
      *
      * @example
      * ```javascript
      * <MyComponent
      *     ${bindProps({
      *         bind: ['state1','state2'],
+     *         forceParent: false,
      *         props: ({ state1, state2 }, { current, index }) => {
      *             return {
      *                 childrenState: myParsedState.
@@ -267,6 +284,7 @@ export interface componentType {
      */
     bindProps(arg0: {
         bind: Array<String>;
+        forceParent: [Boolean];
         props(arg0: { [key: string]: any }): Object;
     }): Object;
 
