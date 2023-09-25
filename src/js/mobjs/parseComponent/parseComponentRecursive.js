@@ -4,7 +4,7 @@ import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { UNSET } from '../constant';
 import { getComponentList } from '../mainStore/actions/componentList';
-import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
+// import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';
 import { executeFireOnMountCallBack } from '../temporaryData/onMount';
@@ -68,7 +68,7 @@ export const parseComponentsRecursive = async ({
          */
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            removeOrphanComponent();
+            // removeOrphanComponent();
         }
 
         /**
@@ -150,7 +150,7 @@ export const parseComponentsRecursive = async ({
     if (!newElement) {
         const activeParser = decrementParserCounter();
         if (!activeParser) {
-            removeOrphanComponent();
+            // removeOrphanComponent();
         }
 
         return;

@@ -3,7 +3,7 @@
 /**
  * @typedef {Object} componentStoreType
  * @prop { HTMLElement } element
- * @prop { String } component - pippo
+ * @prop { String } component
  * @prop { Function } destroy
  * @prop { Array<Function> } parentPropsWatcher
  * @prop { Array<String> } freezedPros

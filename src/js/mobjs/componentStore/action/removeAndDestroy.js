@@ -1,6 +1,5 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { removeCurrentIdToDynamicProps } from '../../temporaryData/dynamicProps';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
@@ -27,15 +26,15 @@ export const removeAndDestroyById = ({ id = '' }) => {
     if (!element || !componentName) return;
 
     /**
-     * Destroy all component nested.
+     * Remove children.
      */
-    const componentNested = element.querySelectorAll(`[${ATTR_IS_COMPONENT}]`);
-    [...componentNested].forEach((component) =>
-        removeAndDestroyById({
-            // @ts-ignore
-            id: component?.dataset[ATTR_IS_COMPONENT_VALUE],
-        })
-    );
+    const item = componentMap.get(id);
+    const child = item?.child ?? {};
+    Object.values(child)
+        .flat()
+        .forEach((childId) => {
+            removeAndDestroyById({ id: childId });
+        });
 
     /**
      * -------------

@@ -1,4 +1,7 @@
-import { removeCancellableComponent } from '../componentStore/action/removeAndDestroy';
+import {
+    removeCancellableComponent,
+    removeOrphanComponent,
+} from '../componentStore/action/removeAndDestroy';
 import { getContent } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
@@ -72,6 +75,7 @@ export const loadRoute = async ({ route = '' }) => {
      * Set active route to body data-route
      */
     document.body.dataset.route = route;
+    removeOrphanComponent();
 
     /**
      * Remove watcher.
