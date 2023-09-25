@@ -71,34 +71,6 @@ export const watchList = ({
             if (!mobCore.checkType(Array, current)) return;
 
             /**
-             * If clean is active remove previous children.
-             */
-            if (clean || forceRepeater) {
-                const currentChildern = getChildrenInsideElement({
-                    component: targetComponent,
-                    getChildren,
-                    element: containerList,
-                });
-
-                currentChildern.forEach((id) => {
-                    removeAndDestroyById({ id });
-                });
-
-                /**
-                 * Web component trick.
-                 * Sure to delete host element.
-                 */
-                containerList.textContent = '';
-            } else {
-                /**
-                 * If there isn't new children return;
-                 * Compare previous and current array.
-                 */
-                if (JSON.stringify(current) === JSON.stringify(previous))
-                    return;
-            }
-
-            /**
              * Secure step 1.
              * Avoid state mutation during list contruction.
              * Useful when list component is async.
@@ -126,6 +98,34 @@ export const watchList = ({
                 unFreezePropById({ id, prop: state });
                 setState(state, previous, false);
                 return;
+            }
+
+            /**
+             * If clean is active remove previous children.
+             */
+            if (clean || forceRepeater) {
+                const currentChildern = getChildrenInsideElement({
+                    component: targetComponent,
+                    getChildren,
+                    element: containerList,
+                });
+
+                currentChildern.forEach((id) => {
+                    removeAndDestroyById({ id });
+                });
+
+                /**
+                 * Web component trick.
+                 * Sure to delete host element.
+                 */
+                containerList.textContent = '';
+            } else {
+                /**
+                 * If there isn't new children return;
+                 * Compare previous and current array.
+                 */
+                if (JSON.stringify(current) === JSON.stringify(previous))
+                    return;
             }
 
             /**
