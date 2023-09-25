@@ -1,16 +1,27 @@
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const DynamicListSlottedLabel = async ({ html, onMount, watchSync }) => {
+
+function setContent(value) {
+    return `slotted: ${value}`;
+}
+export const DynamicListSlottedLabel = async ({
+    html,
+    onMount,
+    watch,
+    getState,
+}) => {
+    const { label } = getState();
+
     onMount(({ element }) => {
         const contentEl = element.querySelector('.content');
 
-        watchSync('label', (value) => {
-            contentEl.textContent = `slotted: ${value}`;
+        watch('label', (value) => {
+            contentEl.textContent = setContent(value);
         });
     });
 
     return html`<div class="dynamic-list-slotted-label">
-        <p class="content"></p>
+        <p class="content">${setContent(label)}</p>
     </div>`;
 };
