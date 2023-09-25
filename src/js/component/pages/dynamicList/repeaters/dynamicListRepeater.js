@@ -7,11 +7,6 @@ function getRepeaterCard({
     bindEvents,
     listId,
 }) {
-    /**
-     * Update slotted label on card update.
-     */
-    let currentLabel = '';
-
     return html`
         <dynamic-list-card
             ${staticProps({
@@ -20,12 +15,9 @@ function getRepeaterCard({
             ${bindProps({
                 bind: ['counter', 'data'],
                 props: ({ counter }, { current, index }) => {
-                    // Update current for chidlren
-                    currentLabel = current.label;
-
                     return {
                         counter,
-                        label: currentLabel,
+                        label: current.label,
                         index,
                     };
                 },
@@ -36,17 +28,7 @@ function getRepeaterCard({
             })}
             ${required}
         >
-            <dynamic-slotted-label
-                slot="card-generic-slot"
-                ${bindProps({
-                    bind: ['data'],
-                    props: () => {
-                        return {
-                            genericData: currentLabel,
-                        };
-                    },
-                })}
-            >
+            <dynamic-slotted-label slot="card-label-slot">
             </dynamic-slotted-label>
         </dynamic-list-card>
     `;

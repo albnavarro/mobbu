@@ -60,6 +60,7 @@ export const loadRoute = async ({ route = '' }) => {
     contentEl.innerHTML = '';
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
+    removeOrphanComponent();
 
     /**jj
      * Wait for all render.
@@ -75,7 +76,6 @@ export const loadRoute = async ({ route = '' }) => {
      * Set active route to body data-route
      */
     document.body.dataset.route = route;
-    removeOrphanComponent();
 
     /**
      * Remove watcher.
