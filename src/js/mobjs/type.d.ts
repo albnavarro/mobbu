@@ -390,10 +390,10 @@ export interface componentType {
      *         afterUpdate: ({ element, container, childrenId }) => {
      *             ....
      *         },
-     *         render: ({ required, html }) => {
+     *         render: ({ sync, html }) => {
      *            return html`
      *                <my-component
-     *                    ${required}
+     *                    ${sync}
      *                    ${staticProps({
      *                        myState: value,
      *                    })}
@@ -513,7 +513,7 @@ export interface componentType {
          * @description
          * Render child component.
          *
-         * * required field is necessary for traking key and store current and index value.
+         * * sync props is necessary for traking key and store current and index value.
          *
          * @example
          *
@@ -521,10 +521,11 @@ export interface componentType {
          *
          * <div>
          *     ${repeat({
-         *         render: ({ required, html }) => {
+         *         ...
+         *         render: ({ sync, html }) => {
          *            return html`
          *                <my-component
-         *                    ${required}
+         *                    ${sync}
          *                    ${staticProps({
          *                        myState: value,
          *                    })}
