@@ -53,8 +53,8 @@ function updateNewElement(id) {
         .replaceAll(',', ' | ')}`;
 }
 
-function afterUpdateList({ className, childrenId }) {
-    const newElement = document.querySelector(className);
+function afterUpdateList({ element, className, childrenId }) {
+    const newElement = element.querySelector(className);
     newElement.textContent = '';
     newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
 }
@@ -76,10 +76,7 @@ export const DynamicListRepeater = ({
     return html`
         <div class="dynamic-list-repeater">
             <h4 class="dynamic-list-repeater__title">${label}</h4>
-            <p
-                class="dynamic-list-repeater__new"
-                id="repeater-legend-${listId}"
-            ></p>
+            <p class="dynamic-list-repeater__new js-list"></p>
             <div class="dynamic-list-repeater__list">
                 ${repeat({
                     watch: 'data',
@@ -88,10 +85,11 @@ export const DynamicListRepeater = ({
                     component: 'dynamic-list-card',
                     //beforeUpdate: ({ container, childrenId }) => {
                     //},
-                    afterUpdate: ({ childrenId }) => {
+                    afterUpdate: ({ childrenId, element }) => {
                         afterUpdateList({
-                            className: `#repeater-legend-${listId}`,
+                            className: `.js-list`,
                             childrenId,
+                            element,
                         });
                     },
                     render: ({ required }) => {
