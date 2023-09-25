@@ -46,7 +46,6 @@ mobCore.useLoad(() => {
             isolateOnMount: false,
             scoped: false,
             maxParseIteration: 1000,
-            customTraversal: false,
         });
 
         inizializeApp({
