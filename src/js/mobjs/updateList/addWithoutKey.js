@@ -57,7 +57,7 @@ export const addWithoutKey = ({
             const currentValue = current?.[index + previousLenght];
             const currentIndex = index + previousLenght;
 
-            const currentValueList = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
                 {
                     current: currentValue,
                     index: currentIndex,
@@ -66,7 +66,7 @@ export const addWithoutKey = ({
             ${ATTR_PARENT_ID}="${id}"`;
 
             return render({
-                required: currentValueList,
+                sync,
                 html: (
                     /** @type{TemplateStringsArray} */ strings,
                     /** @type{any} */ ...values

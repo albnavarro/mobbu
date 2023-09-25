@@ -41,7 +41,7 @@ function getPartialsComponentList({ key, currentUnique, index, render, id }) {
      */
     const currentValue = currentUnique?.[index];
 
-    const currentValueList = /* HTML */ ` ${ATTR_KEY}="${key}"
+    const sync = /* HTML */ ` ${ATTR_KEY}="${key}"
     ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
         current: currentValue,
         index,
@@ -49,7 +49,7 @@ function getPartialsComponentList({ key, currentUnique, index, render, id }) {
     ${ATTR_PARENT_ID}="${id}"`;
 
     return render({
-        required: currentValueList,
+        sync,
         html: (
             /** @type{TemplateStringsArray} */ strings,
             /** @type{any} */ ...values

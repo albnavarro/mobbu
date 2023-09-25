@@ -1,12 +1,6 @@
 import { html } from '../../../../mobjs';
 
-function getRepeaterCard({
-    required,
-    staticProps,
-    bindProps,
-    bindEvents,
-    listId,
-}) {
+function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
     let currentLabel = '';
 
     return html`
@@ -29,7 +23,7 @@ function getRepeaterCard({
                 mousedown: (_e, { current, index }) =>
                     console.log(current, index),
             })}
-            ${required}
+            ${sync}
         >
             <dynamic-slotted-label
                 slot="card-label-slot"
@@ -92,9 +86,9 @@ export const DynamicListRepeater = ({
                             element,
                         });
                     },
-                    render: ({ required }) => {
+                    render: ({ sync }) => {
                         return getRepeaterCard({
-                            required,
+                            sync,
                             staticProps,
                             bindProps,
                             bindEvents,

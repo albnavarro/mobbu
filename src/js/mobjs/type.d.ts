@@ -523,7 +523,7 @@ export interface componentType {
          * ```
          */
         render: (arg0: {
-            required: Object;
+            sync: Object;
             html: (arg0: String) => String;
         }) => String;
     }): string;
