@@ -291,11 +291,22 @@ export interface componentType {
     /**
      * @description
      * Bind event to component.
+     * It is possible use an array to bind multiple event.
      *
-     * * current, index return the current value inside a repeater
+     * - `Extra props inside repeater:`
+     * Return the current value inside a repeater:
+     *
+     * - `Slot`
+     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
      *
      * @example
      * ```javascript
+     * <MyComponent
+     *       ${bindEvents({
+     *            click: (e, {current, index}) => myFunction(e)
+     *       })}
+     * ></MyComponent>
+     *
      * <MyComponent
      *       ${bindEvents([
      *           {
