@@ -109,12 +109,7 @@ export const DynamicList = async ({
     watchSync,
 }) => {
     onMount(({ element }) => {
-        const increaseCounterEl = element.querySelector('.counter');
         const counterEl = element.querySelector('.dynamic-list__counter span');
-
-        increaseCounterEl.addEventListener('click', () => {
-            setState('counter', (prev) => (prev += 1));
-        });
 
         watchSync('counter', (value) => {
             counterEl.textContent = value;
@@ -139,9 +134,14 @@ export const DynamicList = async ({
                         staticProps,
                         bindProps,
                     })}
-                    <button class="dynamic-list__btn counter">
-                        Increase counter
-                    </button>
+                    <dynamic-list-button
+                        ${staticProps({ label: 'increase counter' })}
+                        ${bindEvents({
+                            click: () => {
+                                setState('counter', (prev) => (prev += 1));
+                            },
+                        })}
+                    ></dynamic-list-button>
                 </div>
             </div>
 

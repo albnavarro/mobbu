@@ -79,13 +79,13 @@ export const DynamicListRepeater = ({
     const keyParsed = key.length > 0 ? key : null;
 
     return html`
-        <div class="dynamic-list__repeater">
-            <h4 class="dynamic-list__title">${label}</h4>
+        <div class="dynamic-list-repeater">
+            <h4 class="dynamic-list-repeater__title">${label}</h4>
             <p
-                class="dynamic-list__newelements"
+                class="dynamic-list-repeater__new"
                 id="repeater-legend-${listId}"
             ></p>
-            <div class="dynamic-list__list">
+            <div class="dynamic-list-repeater__list">
                 ${repeat({
                     watch: 'data',
                     clean,

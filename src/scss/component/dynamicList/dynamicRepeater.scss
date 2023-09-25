@@ -1,0 +1,24 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.dynamic-list-repeater {
+    &__title {
+        color: $white;
+        padding: rem(20);
+    }
+
+    &__new {
+        color: rgba($white, 0.3);
+        font-size: rem(12);
+        padding: 0 rem(20);
+        line-height: 1.5;
+        margin-bottom: rem(20);
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
