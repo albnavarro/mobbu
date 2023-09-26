@@ -147,6 +147,20 @@ export interface componentType {
 
     /**
      * @description
+     * Remove and destroy specific DOM element ( not component ).
+     * Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map.
+     *
+     * @example
+     * ```javascript
+     *
+     * removeDOM(myHTMLElement)
+     *
+     * ```
+     */
+    removeDOM(element: HTMLElement): void;
+
+    /**
+     * @description
      * Remove and destroy component.
      *
      * @example

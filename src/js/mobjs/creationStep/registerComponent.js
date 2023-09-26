@@ -13,7 +13,10 @@ import {
     setParentsComponent,
 } from '../componentStore/action/parent';
 import { unBind } from '../componentStore/action/props';
-import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
+import {
+    removeAndDestroyById,
+    removeOrphanComponent,
+} from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import { addComponentToStore } from '../componentStore/registerComponent';
 import {
@@ -158,6 +161,10 @@ export const registerComponent = ({
         staticProps: (/** @type{{String: any}} */ obj) =>
             ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),
+        removeDOM: (/** @type{HTMLElement} */ element) => {
+            element.remove();
+            removeOrphanComponent();
+        },
         getParentId: () => getParentIdById(id),
         watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
             watchById(getParentIdById(id), prop, cb),
