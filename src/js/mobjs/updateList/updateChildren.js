@@ -16,6 +16,7 @@ import { listKeyExist } from './utils';
  * @param {function} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
+ * @param {string} obj.repeatId
  * @param {Function} obj.render
  * @return {Promise.<Array.<Object>>}
  *
@@ -31,6 +32,7 @@ export const updateChildren = async ({
     key = '',
     id,
     render,
+    repeatId,
 }) => {
     /**
      * Check if thereis a key
@@ -55,6 +57,7 @@ export const updateChildren = async ({
         key,
         id,
         render,
+        repeatId,
     });
 
     /**

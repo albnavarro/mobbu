@@ -185,7 +185,6 @@ export const registerComponent = ({
         },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
-            component: targetComponent = '', // use alias to maintain ured naming convention.
             clean = false,
             beforeUpdate = () => {},
             afterUpdate = () => {},
@@ -202,7 +201,6 @@ export const registerComponent = ({
                     setState,
                     emit,
                     watch,
-                    targetComponent,
                     clean,
                     beforeUpdate,
                     afterUpdate,

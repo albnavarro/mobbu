@@ -14,6 +14,7 @@ import {
     getActiveRepeater,
     removeActiveRepeat,
 } from '../temporaryData/repeaterActions';
+import { getRepeaterComponentTarget } from '../temporaryData/repeaterTargetComponent';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
@@ -38,7 +39,6 @@ export const watchList = ({
     dynamicProps,
     beforeUpdate = () => {},
     afterUpdate = () => {},
-    targetComponent = '',
     getChildren = () => {},
     key = '',
     id = '',
@@ -103,9 +103,13 @@ export const watchList = ({
             /**
              * If clean is active remove previous children.
              */
-            if (clean || forceRepeater) {
+            const targetComponentBeforeParse = getRepeaterComponentTarget({
+                id: repeatId,
+            });
+
+            if (targetComponentBeforeParse && (clean || forceRepeater)) {
                 const currentChildern = getChildrenInsideElement({
-                    component: targetComponent,
+                    component: targetComponentBeforeParse,
                     getChildren,
                     element: containerList,
                 });
@@ -119,16 +123,6 @@ export const watchList = ({
                  * Sure to delete host element.
                  */
                 containerList.textContent = '';
-            } else {
-                /**
-                 * If there isn't new children return;
-                 * Compare previous and current array.
-                 *
-                 * Not used now:
-                 * Unnecessary checl, data input equality is managed by state itself.
-                 */
-                // if (JSON.stringify(current) === JSON.stringify(previous))
-                //     return;
             }
 
             /**
@@ -143,7 +137,7 @@ export const watchList = ({
                 element: mainComponent,
                 container: containerList,
                 childrenId: getChildrenInsideElement({
-                    component: targetComponent,
+                    component: targetComponentBeforeParse,
                     getChildren,
                     element: containerList,
                 }),
@@ -155,7 +149,7 @@ export const watchList = ({
             const currentUnivoque = await updateChildren({
                 state,
                 containerList,
-                targetComponent,
+                targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
                 getChildren,
@@ -165,6 +159,7 @@ export const watchList = ({
                 bindEvents,
                 id,
                 render,
+                repeatId,
             });
 
             /**
@@ -172,11 +167,15 @@ export const watchList = ({
              */
             forceRepeater = false;
 
+            const targetComponentAfterParse = getRepeaterComponentTarget({
+                id: repeatId,
+            });
+
             /**
              * Filter children inside containerList
              */
             const childrenFiltered = getChildrenInsideElement({
-                component: targetComponent,
+                component: targetComponentAfterParse,
                 getChildren,
                 element: containerList,
             });

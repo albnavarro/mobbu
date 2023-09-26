@@ -10,7 +10,6 @@
  * @property { String|undefined } key
  * @property { String|undefined } state
  * @property { Function } setState
- * @property { String } targetComponent
  * @property { Function } watch
  * @property { Function } emit
  * @property { Function } render

@@ -402,9 +402,6 @@ export interface componentType {
      * - `clean`:
      *   Removes all previous instances each time the monitored state is updated.
      *
-     * - `component`:
-     *   The name of the top-level component that is the subject of the list.
-     *
      * - `beforeUpdate`:
      *   Event triggered before list update.
      *
@@ -423,7 +420,6 @@ export interface componentType {
      *     ${repeat({
      *         clean: false,
      *         watch: 'my_array_state',
-     *         component: 'MyComponent',
      *         key: 'my_object_unique_key',
      *         beforeUpdate: ({ element, container, childrenId }) => {
      *             ....
@@ -434,7 +430,7 @@ export interface componentType {
      *         render: ({ sync, html }) => {
      *            return html`
      *                <my-component
-     *                    ${sync}
+     *                    ${sync} !important
      *                    ${staticProps({
      *                        myState: value,
      *                    })}
@@ -479,12 +475,6 @@ export interface componentType {
          * Unique key used to track the mutation of each individual component.
          */
         key?: String | undefined;
-
-        /**
-         * @description
-         * Component used in the dynamic list.
-         */
-        component: String;
 
         /**
          * @description
@@ -554,7 +544,9 @@ export interface componentType {
          * @description
          * Render child component.
          *
-         * * sync props is necessary for traking key and store current and index value.
+         * - sync props is necessary (obbligatorie) for traking key and store current and index value.
+         *   this props can be used "ONCE".
+         *
          *
          * @example
          *
@@ -566,7 +558,7 @@ export interface componentType {
          *         render: ({ sync, html }) => {
          *            return html`
          *                <my-component
-         *                    ${sync}
+         *                    ${sync} // !important
          *                    ${staticProps({
          *                        myState: value,
          *                    })}

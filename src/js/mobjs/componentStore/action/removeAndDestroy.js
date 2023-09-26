@@ -1,6 +1,7 @@
 // @ts-check
 
 import { removeCurrentIdToDynamicProps } from '../../temporaryData/dynamicProps';
+import { removeRepeaterComponentTargetByParentId } from '../../temporaryData/repeaterTargetComponent';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
@@ -79,6 +80,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
             destroy();
             state.destroy();
             parentPropsWatcher.forEach((unwatch) => unwatch());
+            removeRepeaterComponentTargetByParentId({ id: key });
 
             /**
              * Secure check: remove orphas reference from mainStore

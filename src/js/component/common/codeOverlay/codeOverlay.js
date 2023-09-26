@@ -34,6 +34,7 @@ const loadContent = async ({ source }) => {
 function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
     return html`
         <code-overlay-button
+            ${sync}
             ${bindProps({
                 bind: ['activeContent'],
                 props: ({ activeContent, _current }) => {
@@ -51,7 +52,6 @@ function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
                     setState('activeContent', label);
                 },
             })}
-            ${sync}
         >
         </code-overlay-button>
     `;
@@ -203,7 +203,6 @@ export const CodeOverlay = ({
                     ${repeat({
                         clean: true,
                         watch: 'urls',
-                        component: 'code-overlay-button',
                         render: ({ sync }) => {
                             return getRepeaterCard({
                                 sync,

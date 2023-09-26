@@ -6,7 +6,12 @@ import {
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
 } from './utils';
-import { ATTR_CURRENT_LIST_VALUE, ATTR_KEY, ATTR_PARENT_ID } from '../constant';
+import {
+    ATTR_CURRENT_LIST_VALUE,
+    ATTR_KEY,
+    ATTR_PARENT_ID,
+    ATTR_REPEATID,
+} from '../constant';
 import {
     getElementById,
     getElementByKeyInContainer,
@@ -24,6 +29,7 @@ const AFTER = 'afterend';
  * @param {Object} obj
  * @param {string} obj.targetComponent
  * @param {string} obj.key
+ * @param {string} obj.repeatId
  * @param {Array} obj.currentUnique
  * @param {number} obj.index
  * @param {Function} obj.render
@@ -34,7 +40,14 @@ const AFTER = 'afterend';
  * @description
  * Get partial list to add from chunked array of components.
  */
-function getPartialsComponentList({ key, currentUnique, index, render, id }) {
+function getPartialsComponentList({
+    key,
+    currentUnique,
+    index,
+    render,
+    id,
+    repeatId,
+}) {
     /**
      * Execute prop function.
      * Get current value and save in component store item.
@@ -46,7 +59,7 @@ function getPartialsComponentList({ key, currentUnique, index, render, id }) {
         current: currentValue,
         index,
     })}"
-    ${ATTR_PARENT_ID}="${id}"`;
+    ${ATTR_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
 
     return render({
         sync,
@@ -67,6 +80,7 @@ function getPartialsComponentList({ key, currentUnique, index, render, id }) {
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {Function} obj.render
+ * @param {string} obj.repeatId
  * @return {Array}
  *
  * @description
@@ -81,6 +95,7 @@ export const addWithKey = ({
     key = '',
     id = '',
     render,
+    repeatId,
 }) => {
     /**
      * @description
@@ -238,6 +253,7 @@ export const addWithKey = ({
                     index: element.index,
                     render,
                     id,
+                    repeatId,
                 })
             )
             .join('');

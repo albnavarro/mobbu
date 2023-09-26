@@ -74,7 +74,6 @@ export const DynamicListRepeater = ({
                     watch: 'data',
                     clean,
                     key: keyParsed,
-                    component: 'dynamic-list-card',
                     //beforeUpdate: ({ container, childrenId }) => {
                     //},
                     afterUpdate: ({ childrenId, element }) => {

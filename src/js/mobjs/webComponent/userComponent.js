@@ -6,7 +6,9 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
+    ATTR_REPEATID,
 } from '../constant';
+import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
@@ -153,6 +155,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #parentId;
 
+                /**
+                 * @type {String}
+                 */
+                #repeatId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -190,6 +197,7 @@ export const defineUserComponent = (componentList) => {
                     this.#slotPosition = '';
                     this.#currentKey = '';
                     this.#parentId = '';
+                    this.#repeatId = '';
 
                     //
                     this.isUserComponent = true;
@@ -222,6 +230,16 @@ export const defineUserComponent = (componentList) => {
                             this.shadowRoot?.host.getAttribute(
                                 ATTR_PARENT_ID
                             ) ?? '';
+                        this.#repeatId =
+                            this.shadowRoot?.host.getAttribute(ATTR_REPEATID);
+
+                        if (this.#repeatId && this.#repeatId !== '') {
+                            addRepeatTargetComponent({
+                                repeatId: this.#repeatId,
+                                repepeateParentId: this.#parentId,
+                                targetComponent: this.#componentname,
+                            });
+                        }
                     }
 
                     if (this.shadowRoot) {
