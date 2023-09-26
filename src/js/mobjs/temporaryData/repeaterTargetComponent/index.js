@@ -11,11 +11,14 @@ export const repeaterTargetComponent = new Map();
  * @param { String } mainObject.targetComponent
  *
  * @description
- * Add new repeater id and props.
- * Add target component.
+ * Add repeater target component.
  * When placeholder is created if has a repeaterId send information here.
  * So watchRepeater when react get the right target component.
  * All information is detected in contructor of userWebcomponent.
+ *
+ * - Informationa arrive from sync prop in repeater.
+ * - Assume sync porp is used by the first depth compoenentr,
+ *   so we dectect the right component recative to repeater..
  *
  * !Important.
  * A palceholder will become a component of the same type
