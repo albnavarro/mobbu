@@ -123,9 +123,12 @@ export const watchList = ({
                 /**
                  * If there isn't new children return;
                  * Compare previous and current array.
+                 *
+                 * Not used now:
+                 * Unnecessary checl, data input equality is managed by state itself.
                  */
-                if (JSON.stringify(current) === JSON.stringify(previous))
-                    return;
+                // if (JSON.stringify(current) === JSON.stringify(previous))
+                //     return;
             }
 
             /**
