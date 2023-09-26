@@ -16,6 +16,12 @@ export const repeaterTargetComponent = new Map();
  * When placeholder is created if has a repeaterId send information here.
  * So watchRepeater when react get the right target component.
  * All information is detected in contructor of userWebcomponent.
+ *
+ * !Important.
+ * A palceholder will become a component of the same type
+ * ( eg. card-item will be a card-item )
+ * But the component is recreated so id instance is different.
+ * We can only get the type of component, not the specific instance id.
  */
 export const addRepeatTargetComponent = ({
     repeatId,
