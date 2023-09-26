@@ -273,9 +273,12 @@ export interface componentType {
      *
      * - `forceParent`:
      *   Basically, the states of the current function are bound. With this option the state(s) of the nearest relative will be observed regardless of the component in which the component is defined, a frequent case with the use of slots.
+     *   Default value is false.
      *
      * - `Extra props inside repeater:`
-     * Return the current value inside a repeater:
+     * `_current` and `_index` they return the updated value corresponding to the current element of the observed array.
+     * Correspond to `myArray.map((_current, _index) => { ... })`.
+     *
      *
      * - `Slot`
      *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
@@ -287,9 +290,10 @@ export interface componentType {
      *     ${bindProps({
      *         bind: ['state1','state2'],
      *         forceParent: false,
-     *         props: ({ state1, state2 }, { current, index }) => {
+     *         props: ({ state1, state2, _current, _index }) => {
      *             return {
-     *                 childrenState: myParsedState.
+     *                 <state>: ...
+     *                 <state>: ...
      *             };
      *         },
      *     })}
@@ -436,10 +440,10 @@ export interface componentType {
      *                    })}
      *                    ${bindProps({
      *                        bind: ['my_array_state', 'myState2'],
-     *                        props: ({ myState2 }, { current, index }) => {
+     *                        props: ({ myState2, _current, _index }) => {
      *                            return {
      *                                myState2,
-     *                                label: current.myValue,
+     *                                label: _current.myValue,
      *                                index,
      *                            };
      *                        },
@@ -568,10 +572,10 @@ export interface componentType {
          *                    })}
          *                    ${bindProps({
          *                        bind: ['my_array_state', 'myState2'],
-         *                        props: ({ myState2 }, { current, index }) => {
+         *                        props: ({ myState2, _current, _index }) => {
          *                            return {
          *                                myState2,
-         *                                label: current.myValue,
+         *                                label: _current.myValue,
          *                                index,
          *                            };
          *                        },

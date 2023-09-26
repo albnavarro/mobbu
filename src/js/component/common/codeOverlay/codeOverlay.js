@@ -36,8 +36,8 @@ function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
         <code-overlay-button
             ${bindProps({
                 bind: ['activeContent'],
-                props: ({ activeContent }, { current }) => {
-                    const { label, source } = current;
+                props: ({ activeContent, _current }) => {
+                    const { label, source } = _current;
                     return {
                         key: label,
                         disable: source.length === 0,

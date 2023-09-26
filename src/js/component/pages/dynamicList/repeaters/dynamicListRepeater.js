@@ -8,11 +8,11 @@ function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
             })}
             ${bindProps({
                 bind: ['counter', 'data'],
-                props: ({ counter }, { current, index }) => {
+                props: ({ counter, _current, _index }) => {
                     return {
                         counter,
-                        label: current.label,
-                        index,
+                        label: _current.label,
+                        index: _index,
                     };
                 },
             })}

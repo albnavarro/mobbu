@@ -56,7 +56,7 @@ export const setBindProps = (propsObj) => {
  * @param {Object} obj
  * @param {String} obj.componentId
  * @param {Array<String>} obj.bind
- * @param {(args0: Object, org0: any)=>Object} obj.props
+ * @param {(args0: Object)=>Object} obj.props
  * @param {String} obj.currentParentId
  * @param {Boolean} obj.fireCallback
  * @return void
@@ -110,7 +110,11 @@ const setDynamicProp = ({
      */
 
     const currentRepeaterState = getCurrentListValueById({ id: componentId });
-    const newProps = props?.(values, currentRepeaterState);
+    const newProps = props?.({
+        ...values,
+        _current: currentRepeaterState.current,
+        _index: currentRepeaterState.index,
+    });
 
     if (!newProps) return;
 
