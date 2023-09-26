@@ -7,7 +7,7 @@ export const repeaterTargetComponent = new Map();
 /**
  * @param { Object } mainObject
  * @param { String } mainObject.repeatId
- * @param { String } mainObject.repepeateParentId
+ * @param { String } mainObject.repeaterParentId
  * @param { String } mainObject.targetComponent
  *
  * @description
@@ -16,9 +16,10 @@ export const repeaterTargetComponent = new Map();
  * So watchRepeater when react get the right target component.
  * All information is detected in contructor of userWebcomponent.
  *
- * - Informationa arrive from sync prop in repeater.
+ * - Information arrive from sync prop in repeater.
  * - Assume sync porp is used by the first depth compoenentr,
  *   so we dectect the right component recative to repeater..
+ *-  repeaterParentIs is used to clean map when parent is destroyed
  *
  * !Important.
  * A palceholder will become a component of the same type
@@ -28,14 +29,14 @@ export const repeaterTargetComponent = new Map();
  */
 export const addRepeatTargetComponent = ({
     repeatId,
-    repepeateParentId,
+    repeaterParentId,
     targetComponent,
 }) => {
     if (repeaterTargetComponent.has(repeatId)) return;
 
     repeaterTargetComponent.set(repeatId, {
         repeatId,
-        repepeateParentId,
+        repeaterParentId,
         targetComponent,
     });
 };
@@ -67,9 +68,9 @@ export const getRepeaterComponentTarget = ({ id }) => {
  */
 export const removeRepeaterComponentTargetByParentId = ({ id }) => {
     for (const [key, value] of repeaterTargetComponent) {
-        const { repepeateParentId } = value;
+        const { repeaterParentId } = value;
 
-        if (repepeateParentId === id) {
+        if (repeaterParentId === id) {
             repeaterTargetComponent.delete(key);
         }
     }

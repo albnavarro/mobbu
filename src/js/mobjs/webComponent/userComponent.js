@@ -236,7 +236,7 @@ export const defineUserComponent = (componentList) => {
                         if (this.#repeatId && this.#repeatId !== '') {
                             addRepeatTargetComponent({
                                 repeatId: this.#repeatId,
-                                repepeateParentId: this.#parentId,
+                                repeaterParentId: this.#parentId,
                                 targetComponent: this.#componentname,
                             });
                         }
