@@ -368,10 +368,33 @@ export interface componentType {
 
     /**
      * @description
-     * Dynamic list repeater, with or without key.
+     * The repeater utility accepts a simple array or an array of objects. An object array is necessary to be able to use a unique key to track the location of persistent elements.
+     *
      *
      * Note:
      * If the same state with the data array is used in the same component several times but one with key and others not, use two different states, otherwise you may have unwanted effects (all repeaters act only in the same state but the same one risks being changed in different ways)
+     *
+     * Propierties:
+     * - `watch`:
+     *   Reactive data base from compo state.
+     *
+     * - `key`:
+     *   Optional key to use if you are using an array of objects.
+     *
+     * - `clean`:
+     *   Removes all previous instances each time the monitored state is updated.
+     *
+     * - `component`:
+     *   The name of the top-level component that is the subject of the list.
+     *
+     * - `beforeUpdate`:
+     *   Event triggered before list update.
+     *
+     * - `afterUpdate`:
+     *   Event triggered after list update.
+     *
+     * - `render`:
+     *   Function that returns the dom of each item. within the new retaken DOM it will be possible to use standard utilities such as staticProps/bindProps/bindEvent ...
      *
      *
      * @example
