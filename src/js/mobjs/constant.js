@@ -33,6 +33,11 @@ export const ATTR_REPEATID = 'repeatid';
 /**
  * @type {string};
  */
+export const ATTR_CHILD_REPEATID = 'repeaterchild';
+
+/**
+ * @type {string};
+ */
 export const ATTR_KEY = 'key';
 
 /**

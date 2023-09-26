@@ -2,9 +2,9 @@
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import {
+    ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_PARENT_ID,
-    ATTR_REPEATID,
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
@@ -69,7 +69,7 @@ export const addWithoutKey = ({
                     index: currentIndex,
                 }
             )}"
-            ${ATTR_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
+            ${ATTR_CHILD_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
 
             return render({
                 sync,

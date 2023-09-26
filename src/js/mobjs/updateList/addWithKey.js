@@ -7,10 +7,10 @@ import {
     mixPreviousAndCurrentData,
 } from './utils';
 import {
+    ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_KEY,
     ATTR_PARENT_ID,
-    ATTR_REPEATID,
 } from '../constant';
 import {
     getElementById,
@@ -59,7 +59,7 @@ function getPartialsComponentList({
         current: currentValue,
         index,
     })}"
-    ${ATTR_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
+    ${ATTR_CHILD_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
 
     return render({
         sync,

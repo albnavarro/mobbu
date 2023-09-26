@@ -1,12 +1,12 @@
 import {
     ATTR_BIND_EVENTS,
+    ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_INSTANCENAME,
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
-    ATTR_REPEATID,
 } from '../constant';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
@@ -158,7 +158,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {String}
                  */
-                #repeatId;
+                #isChildOfRepeatId;
 
                 static get observedAttributes() {
                     return attributeToObserve;
@@ -197,7 +197,7 @@ export const defineUserComponent = (componentList) => {
                     this.#slotPosition = '';
                     this.#currentKey = '';
                     this.#parentId = '';
-                    this.#repeatId = '';
+                    this.#isChildOfRepeatId = '';
 
                     //
                     this.isUserComponent = true;
@@ -230,12 +230,17 @@ export const defineUserComponent = (componentList) => {
                             this.shadowRoot?.host.getAttribute(
                                 ATTR_PARENT_ID
                             ) ?? '';
-                        this.#repeatId =
-                            this.shadowRoot?.host.getAttribute(ATTR_REPEATID);
+                        this.#isChildOfRepeatId =
+                            this.shadowRoot?.host.getAttribute(
+                                ATTR_CHILD_REPEATID
+                            );
 
-                        if (this.#repeatId && this.#repeatId !== '') {
+                        if (
+                            this.#isChildOfRepeatId &&
+                            this.#isChildOfRepeatId !== ''
+                        ) {
                             addRepeatTargetComponent({
-                                repeatId: this.#repeatId,
+                                repeatId: this.#isChildOfRepeatId,
                                 repeaterParentId: this.#parentId,
                                 targetComponent: this.#componentname,
                             });
