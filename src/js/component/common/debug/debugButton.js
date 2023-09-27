@@ -5,7 +5,7 @@ import { dynamicPropsMap } from '../../../mobjs/temporaryData/dynamicProps';
 import { onMountCallbackMap } from '../../../mobjs/temporaryData/onMount';
 import { repeatMap } from '../../../mobjs/temporaryData/repeater/add';
 import { activeRepeatMap } from '../../../mobjs/temporaryData/repeaterActions';
-import { repeaterTargetComponent } from '../../../mobjs/temporaryData/repeaterTargetComponent';
+import { repeaterTargetComponentMap } from '../../../mobjs/temporaryData/repeaterTargetComponent';
 import { staticPropsMap } from '../../../mobjs/temporaryData/staticProps';
 
 /**
@@ -23,7 +23,7 @@ export const DebugButton = ({ onMount, html }) => {
             console.log('onMountCallbackMap', onMountCallbackMap);
             console.log('staticPropsMap', staticPropsMap);
             console.log('dynamicPropsMap', dynamicPropsMap);
-            console.log('repeaterTargetComponent', repeaterTargetComponent);
+            console.log('repeaterTargetComponent', repeaterTargetComponentMap);
         });
 
         return () => {};

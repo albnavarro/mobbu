@@ -2,7 +2,7 @@
 
 /**
  */
-export const repeaterTargetComponent = new Map();
+export const repeaterTargetComponentMap = new Map();
 
 /**
  * @param { Object } mainObject
@@ -32,9 +32,9 @@ export const addRepeatTargetComponent = ({
     repeaterParentId,
     targetComponent,
 }) => {
-    if (repeaterTargetComponent.has(repeatId)) return;
+    if (repeaterTargetComponentMap.has(repeatId)) return;
 
-    repeaterTargetComponent.set(repeatId, {
+    repeaterTargetComponentMap.set(repeatId, {
         repeatId,
         repeaterParentId,
         targetComponent,
@@ -51,7 +51,7 @@ export const addRepeatTargetComponent = ({
  * Get targetComponent by repeaterId.
  */
 export const getRepeaterComponentTarget = ({ id }) => {
-    const item = repeaterTargetComponent.get(id);
+    const item = repeaterTargetComponentMap.get(id);
     if (!item) return;
 
     return item?.targetComponent;
@@ -67,11 +67,11 @@ export const getRepeaterComponentTarget = ({ id }) => {
  * Remove targetComponent reference from Map when parent is destroyed.
  */
 export const removeRepeaterComponentTargetByParentId = ({ id }) => {
-    for (const [key, value] of repeaterTargetComponent) {
+    for (const [key, value] of repeaterTargetComponentMap) {
         const { repeaterParentId } = value;
 
         if (repeaterParentId === id) {
-            repeaterTargetComponent.delete(key);
+            repeaterTargetComponentMap.delete(key);
         }
     }
 };

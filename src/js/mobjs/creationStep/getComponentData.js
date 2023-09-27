@@ -1,6 +1,5 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
 import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
@@ -17,12 +16,9 @@ export const getComponentData = ({ component }) => {
     /**
      * @type {String}
      *
-     * @description
-     * Create Univoque id
      */
-    const id = mobCore.getUnivoqueId();
     // @ts-ignore
-    component.setId(id);
+    const id = component.getId();
 
     /**
      * @type {String}

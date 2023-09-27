@@ -21,6 +21,7 @@ let defaultComponent = {
  *  `default = false`.
  * @param {Number} [ obj.maxParseIteration ] - DOM creation use a recursive function, this value mimit the number of iteration.
  * - Prevent infinite loop, in case of error or wrong component incapsulation
+ * @param {Boolean} [ obj.debug ] - Add data-mobjs="<id>" to each component
  *
  * @returns Object
  *

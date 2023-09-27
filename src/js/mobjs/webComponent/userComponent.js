@@ -1,3 +1,4 @@
+import { mobCore } from '../../mobCore';
 import {
     ATTR_BIND_EVENTS,
     ATTR_CHILD_REPEATID,
@@ -168,7 +169,7 @@ export const defineUserComponent = (componentList) => {
                     super();
                     this.attachShadow({ mode: 'open' });
                     this.active = false;
-                    this.#componentId = '';
+                    this.#componentId = mobCore.getUnivoqueId();
                     this.#emit = () => {};
                     this.#emitAsync = () => {};
                     this.#freezeProp = () => {};
@@ -202,49 +203,34 @@ export const defineUserComponent = (componentList) => {
                     //
                     this.isUserComponent = true;
 
-                    // @ts-ignore
-                    const { dataset } = this.shadowRoot?.host ?? {};
+                    const host = this.shadowRoot.host;
+                    this.#instanceName = host.getAttribute(ATTR_INSTANCENAME);
+                    this.#staticPropsId = host.getAttribute(ATTR_PROPS);
+                    this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
+                    this.#currentKey = host.getAttribute(ATTR_KEY);
+                    this.#bindEventsId = host.getAttribute(ATTR_BIND_EVENTS);
+                    this.#currentListValueId = host.getAttribute(
+                        ATTR_CURRENT_LIST_VALUE
+                    );
+                    this.#slotPosition = host.getAttribute('slot');
+                    this.#parentId = host.getAttribute(ATTR_PARENT_ID) ?? '';
+                    this.#isChildOfRepeatId =
+                        host.getAttribute(ATTR_CHILD_REPEATID);
 
-                    if (dataset) {
-                        this.#instanceName =
-                            this.shadowRoot?.host.getAttribute(
-                                ATTR_INSTANCENAME
-                            );
-                        this.#staticPropsId =
-                            this.shadowRoot?.host.getAttribute(ATTR_PROPS);
-                        this.#dynamicPropsId =
-                            this.shadowRoot?.host.getAttribute(ATTR_DYNAMIC);
-                        this.#currentKey =
-                            this.shadowRoot?.host.getAttribute(ATTR_KEY);
-                        this.#bindEventsId =
-                            this.shadowRoot?.host.getAttribute(
-                                ATTR_BIND_EVENTS
-                            );
-                        this.#currentListValueId =
-                            this.shadowRoot?.host.getAttribute(
-                                ATTR_CURRENT_LIST_VALUE
-                            );
-                        this.#slotPosition =
-                            this.shadowRoot?.host.getAttribute('slot');
-                        this.#parentId =
-                            this.shadowRoot?.host.getAttribute(
-                                ATTR_PARENT_ID
-                            ) ?? '';
-                        this.#isChildOfRepeatId =
-                            this.shadowRoot?.host.getAttribute(
-                                ATTR_CHILD_REPEATID
-                            );
-
-                        if (
-                            this.#isChildOfRepeatId &&
-                            this.#isChildOfRepeatId !== ''
-                        ) {
-                            addRepeatTargetComponent({
-                                repeatId: this.#isChildOfRepeatId,
-                                repeaterParentId: this.#parentId,
-                                targetComponent: this.#componentname,
-                            });
-                        }
+                    /**
+                     * Add component type to repeaterTargetComponentMap
+                     * So in watch callback of repeater will be filter the right child component.
+                     * Use the component name of the first repeater child.
+                     */
+                    if (
+                        this.#isChildOfRepeatId &&
+                        this.#isChildOfRepeatId !== ''
+                    ) {
+                        addRepeatTargetComponent({
+                            repeatId: this.#isChildOfRepeatId,
+                            repeaterParentId: this.#parentId,
+                            targetComponent: this.#componentname,
+                        });
                     }
 
                     if (this.shadowRoot) {
