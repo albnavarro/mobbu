@@ -5,6 +5,7 @@ let defaultComponent = {
     isolateOnMount: false,
     scoped: false,
     maxParseIteration: 5000,
+    debug: false,
 };
 
 /**

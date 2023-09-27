@@ -163,7 +163,12 @@ const executeConversion = ({ componentParsed, content }) => {
         newElement.insertAdjacentHTML('afterbegin', prevContent);
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
-        newElement.setAttribute(ATTR_IS_COMPONENT, id ?? '');
+
+        /**
+         * Add data-mobjs="id" in debug mode.
+         */
+        const { debug } = getDefaultComponent();
+        if (debug) newElement.setAttribute(ATTR_IS_COMPONENT, id ?? '');
     }
 
     /**
