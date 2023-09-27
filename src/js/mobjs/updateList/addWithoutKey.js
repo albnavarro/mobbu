@@ -74,7 +74,7 @@ export const addWithoutKey = ({
             return render({
                 sync,
                 html: (
-                    /** @type{TemplateStringsArray} */ strings,
+                    /** @type{string[]} */ strings,
                     /** @type{any} */ ...values
                 ) => renderHtml(strings, ...values),
             });

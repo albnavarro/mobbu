@@ -14,8 +14,8 @@ import { addPropsToState } from './utils';
     setState: function(string, any, boolean):void,
     emit: function(string):void,
     emitAsync: function(string):Promise,
-    computed: function(string, Array.<String>, function(any,any):any):void,
-    watch: function(string, function(any,any,(boolean|object))):Function
+    computed: function(string, Array.<String>, function()):void,
+    watch: function(string, function()):Function
  * }}
  *
  *

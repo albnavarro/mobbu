@@ -2,8 +2,8 @@
 
 /**
  * @typedef { Object } repeaterType
- * @property { function({container:HTMLElement, childrenId:Array.<String>}):void } afterUpdate
- * @property { function({container:HTMLElement, childrenId:Array.<String>}):void } beforeUpdate
+ * @property { function({element:HTMLElement,container:HTMLElement, childrenId:Array.<string>}):void } afterUpdate
+ * @property { function({element:HTMLElement,container:HTMLElement, childrenId:Array.<string>}):void } beforeUpdate
  * @property { Function } getChildren
  * @property { String } id
  * @property { Boolean } clean

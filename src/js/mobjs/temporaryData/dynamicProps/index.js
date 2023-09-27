@@ -14,7 +14,7 @@ import { componentMap } from '../../componentStore/store';
 export const dynamicPropsMap = new Map();
 
 /**
- * @param {{'bind':Array<String>,'parentId':String|undefined,'props':Object}} propsObj
+ * @param {{'bind':Array<string>,'parentId':string|undefined,'props':Object, forceParent:[Boolean]}} propsObj
  * @return {String|undefined} props id in store.
  *
  * @description

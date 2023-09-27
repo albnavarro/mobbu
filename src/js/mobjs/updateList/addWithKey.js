@@ -64,8 +64,8 @@ function getPartialsComponentList({
     return render({
         sync,
         html: (
-            /** @type{TemplateStringsArray} */ strings,
-            /** @type{any} */ ...values
+            /** @type{string[]} */ strings,
+            /** @type{string[]} */ ...values
         ) => renderHtml(strings, ...values),
     });
 }

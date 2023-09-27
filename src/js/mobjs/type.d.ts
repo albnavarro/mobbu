@@ -109,7 +109,7 @@ export interface componentType {
      *
      * ```
      */
-    computed(prop: String, keys: [String], callback: Function): void;
+    computed(prop: string, keys: string[], callback: Function): void;
 
     /**
      * @description
@@ -143,7 +143,7 @@ export interface componentType {
      * ```
      *
      */
-    watchSync(prop: String, callback: Function): void;
+    watchSync(prop: string, callback: function): void;
 
     /**
      * @description
@@ -189,7 +189,7 @@ export interface componentType {
      *
      * ```
      */
-    instanceName(name: String): void;
+    instanceName(name: string): void;
 
     /**
      * @example
@@ -199,7 +199,7 @@ export interface componentType {
      *
      * ```
      */
-    freezeProp(prop: String): void;
+    freezeProp(prop: string): void;
 
     /**
      * @example
@@ -209,7 +209,7 @@ export interface componentType {
      *
      * ```
      */
-    unFreezeProp(prop: String): void;
+    unFreezeProp(prop: string): void;
 
     /**
      * @example
@@ -219,7 +219,7 @@ export interface componentType {
      *
      * ```
      */
-    getParentId(): String | undefined;
+    getParentId(): string | undefined;
 
     /**
      * @example
@@ -232,7 +232,7 @@ export interface componentType {
      *
      * ```
      */
-    watchParent(prop: String, callback: Function): void;
+    watchParent(prop: string, callback: function): void;
 
     /**
      *
@@ -264,7 +264,7 @@ export interface componentType {
      * Detach binbProps.
      * Note: The function will be active as soon as the whole route is rendered.
      */
-    unBind(): (arg0: { id: String }) => void;
+    unBind: (arg0: { id: String }) => void;
 
     /**
      * @description
@@ -301,8 +301,8 @@ export interface componentType {
      * ```
      */
     bindProps(arg0: {
-        bind: Array<String>;
-        forceParent: [Boolean];
+        bind: Array<string>;
+        forceParent: [boolean];
         props(arg0: { [key: string]: any }): Object;
     }): Object;
 
@@ -357,7 +357,10 @@ export interface componentType {
      *
      * ```
      */
-    html(DOMContent: String): {
+    html(
+        strings: string[],
+        ...values: string[]
+    ): {
         id: string;
         content: string;
         componentParsed: HTMLElement;
@@ -382,7 +385,7 @@ export interface componentType {
      *
      * ```
      */
-    onMount(arg0: { element: HTMLElement }): Function;
+    onMount(arg0: ({ element: HTMLElement }) => function): void;
 
     /**
      * @description
@@ -462,19 +465,19 @@ export interface componentType {
          * @description
          * Clean previous item.
          */
-        clean: Boolean;
+        clean: boolean;
 
         /**
          * @description
          * Array of object used to create list
          */
-        watch: String;
+        watch: string;
 
         /**
          * @description
          * Unique key used to track the mutation of each individual component.
          */
-        key?: String | undefined;
+        key?: string | undefined;
 
         /**
          * @description
@@ -505,7 +508,7 @@ export interface componentType {
              * @description
              * Active Childern ids
              */
-            childrenId: [string];
+            childrenId: string[];
         }): void;
 
         /**
@@ -537,7 +540,7 @@ export interface componentType {
              * @description
              * New Childern ids
              */
-            childrenId: [string];
+            childrenId: string[];
         }): void;
 
         /**
@@ -590,4 +593,22 @@ export interface componentType {
             html: (arg0: String) => String;
         }) => String;
     }): string;
+
+    /**
+     * @description
+     * Internal use.
+     */
+    bindEventsId: string | undefined;
+
+    /**
+     * @description
+     * Internal use.
+     */
+    componentParsed: HTMLElement;
+
+    /**
+     * @description
+     * Internal use.
+     */
+    repeatId: string[];
 }

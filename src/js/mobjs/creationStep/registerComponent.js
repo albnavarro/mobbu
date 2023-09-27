@@ -44,7 +44,7 @@ import { renderHtml } from './utils';
  * @param {HTMLElement} obj.component
  * @param {Object} obj.state
  * @param {Boolean} obj.isCancellable
- * @returns Object
+ * @returns {import('../type').componentType}
  *
  * @description
  * Create component
@@ -140,38 +140,30 @@ export const registerComponent = ({
         watch,
         repeatId,
         getChildren,
-        watchSync: (/** @type{String} */ state, /** @type{any} */ callback) => {
+        watchSync: (state, callback) => {
             const unsubscribe = watch(state, callback);
             emit(state);
             return unsubscribe;
         },
         instanceName: (name = '') => setInstanceName(name),
-        freezeProp: (/** @type{String} */ prop) => freezePropById({ id, prop }),
-        unFreezeProp: (/** @type{String} */ prop) =>
-            unFreezePropById({ id, prop }),
+        freezeProp: (prop) => freezePropById({ id, prop }),
+        unFreezeProp: (prop) => unFreezePropById({ id, prop }),
         unBind: () => unBind({ id }),
-        bindProps: (
-            /** @type{{'bind':Array<String>,'props':() => Object,'forceParent':Boolean}} */ obj
-        ) => {
+        bindProps: (obj) => {
             return `${ATTR_DYNAMIC}="${setBindProps({
                 ...obj,
                 parentId: obj?.forceParent ? undefined : id,
             })}" `;
         },
-        staticProps: (/** @type{{String: any}} */ obj) =>
-            ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
+        staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => removeAndDestroyById({ id }),
-        removeDOM: (/** @type{HTMLElement} */ element) => {
+        removeDOM: (element) => {
             element.remove();
             removeOrphanComponent();
         },
         getParentId: () => getParentIdById(id),
-        watchParent: (/** @type{String} */ prop, /** @type{Function} */ cb) =>
-            watchById(getParentIdById(id), prop, cb),
-        html: (
-            /** @type{TemplateStringsArray} */ strings,
-            /** @type{any} */ ...values
-        ) => {
+        watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
+        html: (strings, ...values) => {
             return {
                 id,
                 content: renderHtml(strings, ...values),
@@ -179,8 +171,8 @@ export const registerComponent = ({
             };
         },
 
-        onMount: (/** @type{Function} */ cb) => addOnMoutCallback({ id, cb }),
-        bindEvents: (/** @type{Array|Object} */ eventsData) => {
+        onMount: (cb) => addOnMoutCallback({ id, cb }),
+        bindEvents: (eventsData) => {
             return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
         },
         repeat: ({
