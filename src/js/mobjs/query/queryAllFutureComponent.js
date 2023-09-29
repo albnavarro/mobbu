@@ -2,8 +2,6 @@
 // https://stackfull.dev/applying-tree-traversal-algorithms-to-dom
 
 /**
- * Generate numbers in the Fibonacci sequence.
- *
  * @generator
  * @function walkPreOrder
  * @param {Element} node
@@ -12,7 +10,6 @@
 export function* walkPreOrder(node) {
     if (!node) return;
 
-    // do something here
     yield node;
     for (const child of node.children) {
         yield* walkPreOrder(child);
