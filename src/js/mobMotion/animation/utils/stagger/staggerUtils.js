@@ -1,3 +1,5 @@
+// @ts-check
+
 import { mobCore } from '../../../../mobCore/index.js';
 import {
     validateStaggerColRow,
@@ -13,6 +15,9 @@ import {
     STAGGER_TYPE_START,
 } from './staggerCostant.js';
 
+/**
+ * @param {number} each
+ */
 export const getEachByFps = (each) => {
     const { instantFps } = mobCore.store.get();
     const eachByFps = Math.round(each * (instantFps / 60));
@@ -23,6 +28,9 @@ export const getEachByFps = (each) => {
     return each === 1 && eachByFps === 0 ? each : eachByFps;
 };
 
+/**
+ * @param {import('./type.js').staggerPropiertiesObject} props
+ */
 export const getStaggerFromProps = (props) => {
     return {
         type: validateStaggerType(props?.stagger?.type)
@@ -57,6 +65,10 @@ export const getStaggerFromProps = (props) => {
     };
 };
 
+/**
+ * @param {Array} arr1
+ * @param {Array} arr2
+ */
 export const getStaggerArray = (arr1, arr2) => {
     return arr1.length > arr2.length ? arr1 : arr2;
 };
