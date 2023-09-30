@@ -59,7 +59,7 @@ import { mobCore } from '../../../mobCore/index.js';
  **/
 export default class HandleSpring {
     /**
-     * @param { springTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} [ data = {} ]
+     * @param { springTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} [ data = {} ]
      *
      * @example
      * ```javascript
@@ -113,7 +113,7 @@ export default class HandleSpring {
     constructor(data = {}) {
         /**
          * @private
-         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
+         * @type {import('../utils/stagger/type.js').staggerObject}
          */
         this.stagger = getStaggerFromProps(data);
 

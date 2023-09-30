@@ -29,7 +29,7 @@ import { mobCore } from '../../../mobCore/index.js';
 
 export default class ParallaxTween {
     /**
-     * @param { parallaxTweenTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} data
+     * @param { parallaxTweenTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} data
      *
      * @example
      * ```js
@@ -75,7 +75,7 @@ export default class ParallaxTween {
 
         /**
          * @private
-         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
+         * @type {import('../utils/stagger/type.js').staggerObject}
          */
         this.stagger = getStaggerFromProps(data);
 

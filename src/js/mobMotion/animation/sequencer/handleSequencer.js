@@ -54,7 +54,7 @@ import { mobCore } from '../../../mobCore/index.js';
 
 export default class HandleSequencer {
     /**
-     * @param { sequencerTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} data
+     * @param { sequencerTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} data
      *
      * @example
      * ```javascript
@@ -183,7 +183,7 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
+         * @type {import('../utils/stagger/type.js').staggerObject}
          */
         this.stagger = getStaggerFromProps(data);
 

@@ -65,7 +65,7 @@ import { mobCore } from '../../../mobCore/index.js';
 
 export default class HandleLerp {
     /**
-     * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/staggerCostant.js').staggerTypes } [ data  = {}]
+     * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/type.js').staggerPropiertiesObject } [ data  = {}]
      *
      * @example
      * ```javascript
@@ -113,7 +113,7 @@ export default class HandleLerp {
     constructor(data = {}) {
         /**
          * @private
-         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
+         * @type {import('../utils/stagger/type.js').staggerObject}
          */
         this.stagger = getStaggerFromProps(data);
 

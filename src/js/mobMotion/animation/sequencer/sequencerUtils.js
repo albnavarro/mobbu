@@ -26,7 +26,7 @@ import { mobCore } from '../../../mobCore/index.js';
  **/
 
 /**
- * @param { createSequencerTypes & import('../utils/stagger/staggerCostant.js').staggerTypes } data
+ * @param { createSequencerTypes & import('../utils/stagger/type.js').staggerPropiertiesObject } data
  * @returns {Array<{ start: Number, end: Number,index: Number, item: (HTMLElement|Object) }>} Stagger array
  *
  * @example

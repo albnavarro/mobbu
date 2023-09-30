@@ -7,10 +7,10 @@ import { mobCore } from '../../../../mobCore';
  * @param {Number} obj.each
  * @param {Boolean} obj.useStagger
  * @param {Boolean} obj.isLastDraw
- * @param {Object.<string, number>} obj.callBackObject
- * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callback
- * @param {Array.<{cb:number,id:number,index:Number,frame:Number}>} obj.callbackCache
- * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} obj.callbackOnStop
+ * @param {import('../stagger/type').staggerDefaultIndex} obj.callBackObject
+ * @param {Array.<import('./type').callbackObject>} obj.callback
+ * @param {Array.<import('./type').callbackObject>} obj.callbackCache
+ * @param {Array.<import('./type').callbackObject>} obj.callbackOnStop
  * @returns void
  *
  * @description

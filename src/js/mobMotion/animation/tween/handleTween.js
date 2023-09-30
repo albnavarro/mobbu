@@ -76,7 +76,7 @@ import { mobCore } from '../../../mobCore/index.js';
  **/
 export default class HandleTween {
     /**
-     * @param { tweenTypes & import('../utils/stagger/staggerCostant.js').staggerTypes & import('../tween/tweenConfig.js').easeTypes} [ data ]
+     * @param { tweenTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} [ data ]
      *
      * @example
      * ```javascript
@@ -146,7 +146,7 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type {import('../utils/stagger/staggerCostant.js').staggerTypesObject}
+         * @type {import('../utils/stagger/type.js').staggerObject}
          */
         this.stagger = getStaggerFromProps(data);
 
