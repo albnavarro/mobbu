@@ -215,6 +215,36 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 };
 
 /**
+ * @param {Array} arr
+ * @param {import('./type.js').staggerObject} stagger
+ * @param {number} chunckSizeCol
+ *
+ * @returns {Array} arr
+ *
+ * @description
+ * Default grid direction is COL
+ * In case of ROW grid covert col to row, something like rotate the matrix
+ */
+const getItemsByRow = (arr, stagger, chunckSizeCol) => {
+    // Reorder main array if direction === row
+    if (stagger.grid.direction === DIRECTION_ROW) {
+        const chunkByCol = sliceIntoChunks(arr, chunckSizeCol);
+
+        const colToRowArray = [
+            ...new Array(stagger.grid.col).keys(),
+            // @ts-ignore
+        ].reduce((p, _c, i) => {
+            return [...p, ...arrayColumn(chunkByCol, i)];
+        }, []);
+
+        // @ts-ignore
+        return [...colToRowArray].flat();
+    } else {
+        return arr;
+    }
+};
+
+/**
  * @param {object} obj
  * @param {Array} obj.arr
  * @param {Array} obj.endArr
@@ -238,55 +268,25 @@ export const getDefaultStagger = ({
     const chunckSizeRow =
         stagger?.grid?.row <= 1 ? arr.length : stagger.grid.row;
 
-    /**
-     * @param {Array} arr
-     * @returns {Array} arr
-     *
-     * @description
-     * Default grid direction is COL
-     * In case of ROW grid covert col to row, something like rotate the matrix
-     */
-    const getItemsByRow = (arr) => {
-        // Reorder main array if direction === row
-        if (stagger.grid.direction === DIRECTION_ROW) {
-            const chunkByCol = sliceIntoChunks(arr, chunckSizeCol);
-
-            const colToRowArray = [
-                ...new Array(stagger.grid.col).keys(),
-                // @ts-ignore
-            ].reduce((p, _c, i) => {
-                return [...p, ...arrayColumn(chunkByCol, i)];
-            }, []);
-
-            // @ts-ignore
-            return [...colToRowArray].flat();
-        } else {
-            return arr;
-        }
-    };
-
     // main callBack
-    const itemByRow = getItemsByRow(arr);
+    const itemByRow = getItemsByRow(arr, stagger, chunckSizeCol);
     const staggerArray = itemByRow.map((item) => {
         return item && item !== undefined ? item : { index: 0, frame: 0 };
     });
 
     // onComplete callBack
-    const itemCompleteByRow = getItemsByRow(endArr);
+    const itemCompleteByRow = getItemsByRow(endArr, stagger, chunckSizeCol);
     const staggerArrayOnComplete = itemCompleteByRow.map((item) => {
         return item && item !== undefined ? item : { index: 0, frame: 0 };
     });
 
+    const chunckSize =
+        stagger.grid.direction === DIRECTION_ROW
+            ? chunckSizeRow
+            : chunckSizeCol;
+
     // get chunkes array
-    const chuncked = (() => {
-        const chunckSize =
-            stagger.grid.direction === DIRECTION_ROW
-                ? chunckSizeRow
-                : chunckSizeCol;
-
-        return sliceIntoChunks(staggerArray, chunckSize);
-    })();
-
+    const chuncked = sliceIntoChunks(staggerArray, chunckSize);
     const firstChunk = chuncked[0];
 
     // Get First row stagger
