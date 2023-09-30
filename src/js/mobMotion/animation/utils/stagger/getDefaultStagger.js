@@ -216,7 +216,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
 
 /**
  * @param {object} obj
- * @param {Array<import('../callbacks/type.js').callbackObject>} obj.arr
+ * @param {Array} obj.arr
  * @param {Array} obj.endArr
  * @param {import('./type.js').staggerObject} obj.stagger
  * @param {import('./type.js').staggerDefaultIndex} obj.slowlestStagger
@@ -239,8 +239,8 @@ export const getDefaultStagger = ({
         stagger?.grid?.row <= 1 ? arr.length : stagger.grid.row;
 
     /**
-     * @param {Array<import('../callbacks/type.js').callbackObject>} arr
-     * @returns {Array<import('../callbacks/type.js').callbackObject>} arr
+     * @param {Array} arr
+     * @returns {Array} arr
      *
      * @description
      * Default grid direction is COL
