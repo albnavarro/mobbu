@@ -3,6 +3,8 @@ export * from './animatedPattern/animatedPatternN0v1';
 export * from './animatedPattern/animatedPatternN0v2';
 export * from './animatedPattern/animatedPatternN0v3';
 export * from './animatedPattern/animatedPatternN0v4';
+export * from './animatedPattern/animatedPatternN0v5';
+export * from './animatedPattern/animatedPatternN0v6';
 export * from './animatedPattern/animatedPatternN1';
 export * from './canvas/caterpillarN1';
 export * from './canvas/caterpillarN2';
