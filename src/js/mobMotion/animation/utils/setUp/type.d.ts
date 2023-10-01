@@ -76,7 +76,7 @@ export interface setUpType {
          * Default essing function used by the sequencer.
          * Default: `{ ease: easeLinear }`
          */
-        ease?: import('../../tween/tweenConfig.js').easeStringTypes;
+        ease?: import('../../tween/type').easeTypes;
     };
 
     scrollTrigger?: {
@@ -147,7 +147,7 @@ export interface setUpType {
          * Default essing function used by the parallaxTween,
          * Default: `{ ease: 'easeLinear' }`.
          */
-        ease?: import('../../tween/tweenConfig.js').easeStringTypes;
+        ease?: import('../../tween/type').easeTypes;
     };
 
     tween?: {
@@ -163,7 +163,7 @@ export interface setUpType {
          * Default essing function used by the tween,
          * Default: `{ ease: 'easeLinear' }`.
          */
-        ease?: import('../../tween/tweenConfig.js').easeStringTypes;
+        ease?: import('../../tween/type').easeTypes;
 
         /**
          * @description
