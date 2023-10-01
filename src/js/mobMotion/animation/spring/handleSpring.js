@@ -41,7 +41,6 @@ import {
     staggerIsOutOfRangeWarning,
 } from '../utils/warning.js';
 import { fpsLoadedLog } from '../utils/log.js';
-import { shouldInizializzeStagger } from '../utils/condition.js';
 import {
     relativeIsValid,
     springConfigIsValid,
@@ -51,6 +50,7 @@ import {
 } from '../utils/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
+import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
 
 /**
  * @typedef {Object} springTypes

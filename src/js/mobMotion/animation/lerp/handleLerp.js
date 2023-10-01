@@ -42,7 +42,6 @@ import {
     staggerIsOutOfRangeWarning,
 } from '../utils/warning.js';
 import { fpsLoadedLog } from '../utils/log.js';
-import { shouldInizializzeStagger } from '../utils/condition.js';
 import {
     lerpPrecisionIsValid,
     lerpVelocityIsValid,
@@ -50,6 +49,7 @@ import {
     valueIsBooleanAndTrue,
 } from '../utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
+import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
 
 /**
  * @typedef {Object} lerpTypes
