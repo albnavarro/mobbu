@@ -51,14 +51,9 @@ import {
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 
-/**
- * @typedef {Object} springTypes
- * @prop {Object.<string, number>} [ data ] Initial data Object.
- * @prop {Boolean} [ relative=false ] It defines the initial value of the relative properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, the default value is false. If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
- **/
 export default class HandleSpring {
     /**
-     * @param { springTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} [ data = {} ]
+     * @param {import('./type.js').springTweenProps} [ data = {} ]
      *
      * @example
      * ```javascript
@@ -445,7 +440,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param { import('../tween/handleTween.js').tweenCommonStopProps } Stop props
+     * @param {import('../tween/type.js').tweenStopProps} Stop props
      * @description
      *
      * Stop tween and fire reject of current promise.
@@ -591,8 +586,8 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('./type.js').springActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -638,8 +633,8 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj from Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('./type.js').springActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -685,9 +680,9 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object.<string, number|function>} fromObj from Values
-     * @param {Object.<string, number|function>} toObj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('./type.js').springActions } props special props
      * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -738,8 +733,8 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps } props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -772,9 +767,9 @@ export default class HandleSpring {
     /**
      * @private
      *
-     * @param {Object.<string, number|function>} data Updated data
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & import('../spring/springConfig.js').springConfigTypes & import('../spring/springConfig.js').springConfigPropsTypes} props special props
-     * @param {Object.<string, number|function>} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('./type.js').springActions} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description

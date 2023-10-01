@@ -50,12 +50,6 @@ import {
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 
 /**
- * @typedef {Object} lerpTypes
- * @prop {Object.<string, number>} [ data ] Initial data Object.
- * @prop {Boolean} [ relative=false ] It defines the initial value of the relative properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, the default value is false. If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
- **/
-
-/**
  * @typedef {Object} lerpPropTypes
  * @prop {Number} [ velocity ] It defines the initial value of the velocity properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
  * @prop {Number} [ precision ] It defines the initial value of the precision properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, when the calculated value is less than this number, the transition will be considered completed, the smaller the value, the greater the precision of the calculation, the `default value is 0.01`.
@@ -63,7 +57,7 @@ import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 
 export default class HandleLerp {
     /**
-     * @param { lerpTypes & lerpPropTypes & import('../utils/stagger/type.js').staggerPropiertiesObject } [ data  = {}]
+     * @param {import('./type.js').lerpTweenProps} [ data  = {}]
      *
      * @example
      * ```javascript
@@ -440,7 +434,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param { import('../tween/handleTween.js').tweenCommonStopProps } Stop props
+     * @param {import('../tween/type.js').tweenStopProps} Stop props
      * @description
      *
      * Stop tween and fire reject of current promise.
@@ -495,7 +489,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
@@ -563,8 +557,8 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -605,8 +599,8 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj from Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes } props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -646,9 +640,9 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Object.<string, number|function>} fromObj from Values
-     * @param {Object.<string, number|function>} toObj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes } props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('./type.js').lerpActions } props special props
      * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -697,7 +691,7 @@ export default class HandleLerp {
 
     /**
      * @param {Object.<string, number|function>} obj to Values
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps } props special props
+     * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -730,9 +724,9 @@ export default class HandleLerp {
     /**
      * @private
      *
-     * @param {Object.<string, number|function>} data Updated data
-     * @param { import('../tween/handleTween.js').tweenCommonSpecialProps & lerpPropTypes} props special props
-     * @param {Object.<string, number|function>} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('./type.js').lerpActions} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description

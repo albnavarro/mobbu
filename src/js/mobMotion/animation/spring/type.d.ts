@@ -1,9 +1,20 @@
+import { staggerObjectOptional } from '../utils/stagger/type';
+import { valueToparseType } from '../utils/tweenAction/type';
+
 export interface springProps {
     friction: number;
     mass: number;
     precision: number;
     tension: number;
     velocity: number;
+}
+
+export interface springPropsOptional {
+    friction?: number;
+    mass?: number;
+    precision?: number;
+    tension?: number;
+    velocity?: number;
 }
 
 export interface springPresentConfigType {
@@ -22,3 +33,20 @@ export type springChoiceConfig =
     | 'wobbly'
     | 'bounce'
     | 'scroller';
+
+export interface springTweenProps {
+    data: valueToparseType;
+    relative?: boolean;
+    stagger?: staggerObjectOptional;
+    config?: springChoiceConfig;
+    configProp?: springPropsOptional;
+}
+
+export interface springActions {
+    reverse?: boolean;
+    relative?: boolean;
+    immediate?: boolean;
+    immediateNoPromise?: boolean;
+    config?: springChoiceConfig;
+    configProp?: springPropsOptional;
+}

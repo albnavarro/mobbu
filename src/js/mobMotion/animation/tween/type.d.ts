@@ -1,3 +1,6 @@
+import { staggerObject, staggerObjectOptional } from '../utils/stagger/type';
+import { valueToparseType } from '../utils/tweenAction/type';
+
 export type easeTypes =
     | 'easeLinear'
     | 'easeInQuad'
@@ -30,3 +33,31 @@ export type easeTypes =
     | 'easeInBounce'
     | 'easeOutBounce'
     | 'easeInOutBounce';
+
+export interface tweenProps {
+    data: valueToparseType;
+    duration?: number;
+    relative?: boolean;
+    stagger?: staggerObjectOptional;
+    ease?: easeTypes;
+}
+
+export interface tweenCommonProps {
+    reverse?: boolean;
+    relative?: boolean;
+    immediate?: boolean;
+    immediateNoPromise?: boolean;
+}
+
+export interface tweenAction {
+    duration?: number;
+    reverse?: boolean;
+    relative?: boolean;
+    immediate?: boolean;
+    immediateNoPromise?: boolean;
+    ease?: easeTypes;
+}
+
+export interface tweenStopProps {
+    clearCache?: boolean;
+}

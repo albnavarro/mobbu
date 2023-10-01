@@ -164,7 +164,7 @@ export const tween = {
     },
 
     /**
-     * @param { import('./animation/tween/handleTween.js').tweenTypes & import('./animation/utils/stagger/type.js').staggerPropiertiesObject & import('./animation/tween/tweenConfig.js').easeTypes} data
+     * @param {import('./animation/tween/type.js').tweenProps} data
      *
      * @example
      * ```javascript
@@ -216,7 +216,7 @@ export const tween = {
     },
 
     /**
-     * @param { import('./animation/spring/handleSpring.js').springTypes & import('./animation/utils/stagger/type.js').staggerPropiertiesObject & import('./animation/spring/springConfig.js').springConfigTypes & import('./animation/spring/springConfig.js').springConfigPropsTypes} data
+     * @param {import('./animation/spring/type.js').springTweenProps} data
      *
      *
      * @example
@@ -276,7 +276,7 @@ export const tween = {
     },
 
     /**
-     * @param { import('./animation/lerp/handleLerp.js').lerpTypes & import('./animation/lerp/handleLerp.js').lerpPropTypes & import('./animation/utils/stagger/type.js').staggerPropiertiesObject } data
+     * @param {import('./animation/lerp/type.js').lerpTweenProps} data
      *
      * @example
      * ```javascript

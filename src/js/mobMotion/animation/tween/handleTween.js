@@ -57,25 +57,12 @@ import {
  **/
 
 /**
- * @typedef {Object} tweenCommonStopProps
- * @prop {Boolean} [ clearCache = true ]
-    Stop all stagger implemented with subscribeCache methods.
- */
-
-/**
  * @typedef {Object} tweenSpecialProps
  * @prop {(Number|Function)} [ duration=false ] Defines the default duration of the tween, If a function is used, the value is recalculated every time the method is called, especially useful within a timeline, every time a specific step is performed, the duration of the step is recalculated.
  **/
-
-/**
- * @typedef {Object} tweenTypes
- * @prop {Object.<string, number>} [ data ] Initial data Object.
- * @prop {Number} [ duration=1000 ] defines the default duration of the tween, the value can be momentarily changed if necessary every time the goTo, goFrom, goFromTo methods are invoked.
- * @prop {Boolean} [ relative=false ] It defines the initial value of the relative properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, the default value is false. If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
- **/
 export default class HandleTween {
     /**
-     * @param { tweenTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} [ data ]
+     * @param {import('./type.js').tweenProps} [ data ]
      *
      * @example
      * ```javascript
@@ -119,7 +106,7 @@ export default class HandleTween {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          *  This value lives from user call ( goTo etc..) until next call
          **/
@@ -488,7 +475,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {tweenCommonStopProps} Stop props
+     * @param {import('./type.js').tweenStopProps} Stop props
      *
      * @description
      *
@@ -639,8 +626,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
-     * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
@@ -680,8 +667,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj from Values
-     * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
@@ -721,9 +708,9 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Object.<string, number|function>} fromObj from Values
-     * @param {Object.<string, number|function>} toObj to Values
-     * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|null} Return a promise which is resolved when tween is over
      *
      * @example
@@ -770,8 +757,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
-     * @param {tweenCommonSpecialProps } props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('./type.js').tweenCommonProps } props special props
      * @returns {Promise} Return a promise which is resolved when tween is over
      *
      * @example
@@ -807,9 +794,9 @@ export default class HandleTween {
     /**
      * @private
      *
-     * @param {Object.<string, number|function>} data Updated data
-     * @param {tweenSpecialProps & tweenCommonSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special props
-     * @param {Object.<string, number|function>} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('./type.js').tweenAction} props special props
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description

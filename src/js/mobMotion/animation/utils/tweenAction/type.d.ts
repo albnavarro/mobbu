@@ -1,5 +1,5 @@
 export interface valueToparseType {
-    string: number | (() => number);
+    [key: string]: number | (() => number);
 }
 
 export interface goToParamsType {
