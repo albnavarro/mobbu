@@ -1,5 +1,5 @@
-import { mobCore } from '../../../mobCore/index.js';
-import { springPresetConfig } from '../spring/springConfig.js';
+import { mobCore } from '../../../../mobCore/index.js';
+import { springPresetConfig } from '../../spring/springConfig.js';
 
 /**
  * @typedef {Object} handleSetUpSetType

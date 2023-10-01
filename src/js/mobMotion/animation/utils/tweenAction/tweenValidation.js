@@ -1,5 +1,5 @@
 import { handleSetUp } from '../../../setup';
-import { MQ_MAX, MQ_MIN } from '../setUpValidation.js';
+import { MQ_MAX, MQ_MIN } from '../setUp/setUpValidation.js';
 import { parallaxConstant } from '../../parallax/parallaxConstant.js';
 import { getTweenFn, tweenConfig } from '../../tween/tweenConfig';
 import {

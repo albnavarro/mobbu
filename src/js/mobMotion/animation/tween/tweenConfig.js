@@ -1,6 +1,6 @@
 // https://github.com/bameyrick/js-easing-s/blob/master/src/index.ts
 import { handleSetUp } from '../../setup.js';
-import { easeReference } from '../utils/setUpValidation.js';
+import { easeReference } from '../utils/setUp/setUpValidation.js';
 import { tweenEaseWarning } from '../utils/warning.js';
 
 /**
