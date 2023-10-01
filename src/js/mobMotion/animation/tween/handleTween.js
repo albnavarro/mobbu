@@ -11,7 +11,7 @@ import {
     setFromToByCurrent,
     setReverseValues,
     setRelativeTween,
-} from '../utils/setValues.js';
+} from '../utils/tweenAction/setValues.js';
 import { mergeDeep } from '../../utils/mergeDeep.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
@@ -32,7 +32,7 @@ import {
     goFromUtils,
     goFromToUtils,
     setUtils,
-} from '../utils/actions.js';
+} from '../utils/tweenAction/actions.js';
 import { initRaf } from '../utils/initRaf.js';
 import {
     compareKeysWarning,

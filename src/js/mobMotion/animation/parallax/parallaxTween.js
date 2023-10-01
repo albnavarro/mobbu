@@ -12,7 +12,7 @@ import {
     setCallBackCache,
 } from '../utils/callbacks/setCallback.js';
 import { syncCallback } from '../utils/callbacks/syncCallback.js';
-import { goToUtils } from '../utils/actions.js';
+import { goToUtils } from '../utils/tweenAction/actions.js';
 import { staggerIsOutOfRangeWarning } from '../utils/warning.js';
 import {
     durationIsValid,
