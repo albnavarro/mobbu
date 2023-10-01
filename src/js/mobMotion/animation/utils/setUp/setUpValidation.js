@@ -1,3 +1,5 @@
+// @ts-check
+
 import { mobCore } from '../../../../mobCore/index.js';
 import { springPresetConfig } from '../../spring/springConfig.js';
 
@@ -247,6 +249,7 @@ export const setupValidation = (obj) => {
         },
         sequencer: {
             duration: sequencerDuration,
+            // @ts-ignore
             ease: sequencerEase,
         },
         scrollTrigger: {
@@ -264,10 +267,12 @@ export const setupValidation = (obj) => {
         },
         parallaxTween: {
             duration: parallaxTweenDuration,
+            // @ts-ignore
             ease: parallaxTweenEase,
         },
         tween: {
             duration: tweenDuration,
+            // @ts-ignore
             ease: tweenEase,
             relative: tweenRelative,
         },
@@ -288,6 +293,15 @@ export const setupValidation = (obj) => {
 };
 
 /**
+ * @param {Object} obj
+ * @param {any} obj.prop
+ * @param {any} obj.value
+ * @param {any} obj.defaultValue
+ * @param {any} obj.type
+ *
+ * @returns any
+ *
+ * @description
  * Check if prop valid
  */
 const checkSetUpType = ({ prop, value, defaultValue, type }) => {
@@ -302,6 +316,11 @@ const checkSetUpType = ({ prop, value, defaultValue, type }) => {
     return isValid ? value : defaultValue;
 };
 
+/**
+ * @param {Object} obj
+ *
+ * @returns any
+ */
 const checkSetUpMq = (obj) => {
     const isValid =
         mobCore.checkType(Object, obj) &&
@@ -317,7 +336,14 @@ const checkSetUpMq = (obj) => {
     return isValid ? obj : mqDefault;
 };
 
+/**
+ * @param {string|undefined} value
+ * @param {string} label
+ *
+ * @returns string
+ */
 export const checkSetUpEase = (value, label) => {
+    // @ts-ignore
     const isValid = Object.keys(easeReference).includes(value);
     if (!isValid && value !== undefined && value !== null)
         console.warn(
