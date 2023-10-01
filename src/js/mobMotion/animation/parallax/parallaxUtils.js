@@ -1,7 +1,7 @@
 import {
     getParallaxPositionFromContanst,
     getStartEndUnitMisure,
-} from '../utils/getConstantFromRegex.js';
+} from './getConstantFromRegex.js';
 import {
     exactMatchInsensitive,
     exactMatchInsesitivePropArray,

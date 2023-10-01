@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @typedef {Object} directionTypes
  * @prop {('backward'|'forward'|'none')} direction

@@ -7,7 +7,7 @@ import {
 import HandleLerp from '../lerp/handleLerp.js';
 import HandleSpring from '../spring/handleSpring.js';
 import { clamp, getRoundedValue } from '../utils/animationUtils.js';
-import { getRangeUnitMisure } from '../utils/getConstantFromRegex.js';
+import { getRangeUnitMisure } from './getConstantFromRegex.js';
 import {
     breakpointIsValid,
     breakpointTypeIsValid,

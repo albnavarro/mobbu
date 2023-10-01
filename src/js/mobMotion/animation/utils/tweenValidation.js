@@ -79,7 +79,7 @@ import {
     checkIfIsOnlyNumberPositiveNegative,
     exactMatchInsesitiveNumberPropArray,
 } from './regexValidation';
-import { getPropiertiesValueFromConstant } from './getConstantFromRegex';
+import { getPropiertiesValueFromConstant } from '../parallax/getConstantFromRegex.js';
 import { mobCore } from '../../../mobCore';
 
 /**

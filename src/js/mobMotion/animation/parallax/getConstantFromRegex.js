@@ -1,12 +1,18 @@
+// @ts-check
+
 import { parallaxConstant } from '../parallax/parallaxConstant';
 import {
     exactMatchInsensitive,
     exactMatchInsesitiveNumberProp,
-} from './regexValidation';
+} from '../utils/regexValidation.js';
 
 /**
+ * @description
  * Support function for parallaxPropiertiesIsValid
  * Get exact prop name from constant ( resolve sensitive typing )
+ *
+ * @param {string} value
+ * @returns string
  */
 export const getPropiertiesValueFromConstant = (value) => {
     /**
@@ -41,6 +47,13 @@ export const getPropiertiesValueFromConstant = (value) => {
     return value;
 };
 
+/**
+ * @description
+ * Return unit misure for parallax form lower/upper mix case typing
+ *
+ * @param {string} pattern
+ * @returns string
+ */
 export const getStartEndUnitMisure = (pattern) => {
     if (pattern) {
         if (exactMatchInsesitiveNumberProp(pattern, parallaxConstant.PX))
@@ -54,6 +67,13 @@ export const getStartEndUnitMisure = (pattern) => {
     }
 };
 
+/**
+ * @description
+ * Return position for parallax form lower/upper mix case typing
+ *
+ * @param {string} position
+ * @returns string
+ */
 export const getParallaxPositionFromContanst = (position) => {
     if (exactMatchInsensitive(position, parallaxConstant.POSITION_TOP))
         return parallaxConstant.POSITION_TOP;
@@ -68,6 +88,13 @@ export const getParallaxPositionFromContanst = (position) => {
         return parallaxConstant.POSITION_RIGHT;
 };
 
+/**
+ * @description
+ * Return range unit misure for parallax form lower/upper mix case typing
+ *
+ * @param {string} string
+ * @returns string
+ */
 export const getRangeUnitMisure = (string) => {
     if (exactMatchInsesitiveNumberProp(string, parallaxConstant.PX))
         return parallaxConstant.PX;
