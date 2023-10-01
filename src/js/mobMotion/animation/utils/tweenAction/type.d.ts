@@ -30,3 +30,18 @@ export interface goFromToType {
     currentValue: number;
     settled: boolean;
 }
+
+export interface tweenParam {
+    currentValue: number;
+    fromFn: function;
+    fromIsFn: boolean;
+    fromValue: number;
+    prop: string;
+    settled: boolean;
+    shouldUpdate: boolean;
+    toFn: number;
+    toIsFn: function;
+    toValProcessed: number;
+    toValue: number;
+    toValueOnPause: number;
+}
