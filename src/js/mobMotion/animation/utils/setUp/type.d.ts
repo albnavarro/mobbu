@@ -55,14 +55,14 @@ export interface setUpType {
          * Parallax/scrollTrigger breackpoint default value, choice: `xSmall, small, medium, tablet, desktop, large, xLarge`
          * Default:  `{ value: 'desktop' }`
          */
-        value?: import('../../../utils/mediaManager.js').breackPointType;
+        value?: import('../../../utils/type').mqValues;
 
         /**
          * @description
          * Parallax/scrollTrigger mediaQuery type default value, choice is `min , max`,
          * Default:  `{ type: 'min' }`
          */
-        type?: import('../../../utils/mediaManager.js').mqChoiceType;
+        type?: import('../../../utils/type').mqAction;
     };
 
     sequencer?: {
