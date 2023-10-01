@@ -40,7 +40,7 @@ import {
     compareKeysWarning,
     staggerIsOutOfRangeWarning,
 } from '../utils/warning.js';
-import { fpsLoadedLog } from '../utils/log.js';
+import { fpsLoadedLog } from '../utils/fpsLogInizialization.js';
 import {
     relativeIsValid,
     springConfigIsValid,
