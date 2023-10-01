@@ -1,11 +1,4 @@
-import {
-    getValueObj,
-    getValueObjToNative,
-    getValueObjFromNative,
-    mergeArray,
-    compareKeys,
-    getRoundedValue,
-} from '../utils/animationUtils.js';
+import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import {
     setFromByCurrent,
     setFromCurrentByTo,
@@ -51,6 +44,12 @@ import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
 import { resume } from '../utils/resumeTween.js';
+import {
+    getValueObj,
+    getValueObjFromNative,
+    getValueObjToNative,
+} from '../utils/tweenAction/getValues.js';
+import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 
 /**
  * @typedef {Object} springTypes

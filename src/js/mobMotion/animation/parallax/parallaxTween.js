@@ -1,7 +1,4 @@
-import {
-    getValueObj,
-    getRoundedValue,
-} from '../../animation/utils/animationUtils.js';
+import { getRoundedValue } from '../../animation/utils/animationUtils.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
     getStaggerFromProps,
@@ -19,6 +16,7 @@ import {
     easeParallaxTweenIsValid,
 } from '../utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
+import { getValueObj } from '../utils/tweenAction/getValues.js';
 
 /**
  * @typedef {Object} parallaxTweenTypes

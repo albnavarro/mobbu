@@ -1,9 +1,5 @@
 import { getTweenFn } from '../tween/tweenConfig.js';
-import {
-    getValueObj,
-    compareKeys,
-    getRoundedValue,
-} from '../utils/animationUtils.js';
+import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
     getStaggerFromProps,
@@ -39,6 +35,7 @@ import {
 import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { directionConstant } from '../utils/timelineConstant.js';
+import { getValueObj } from '../utils/tweenAction/getValues.js';
 
 /**
  * @typedef {Object} sequencerTypes

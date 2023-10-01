@@ -1,11 +1,4 @@
-import {
-    getValueObj,
-    getValueObjToNative,
-    getValueObjFromNative,
-    mergeArrayTween,
-    compareKeys,
-    getRoundedValue,
-} from '../utils/animationUtils.js';
+import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import {
     setFromCurrentByTo,
     setFromToByCurrent,
@@ -48,6 +41,12 @@ import {
 } from '../utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
+import { mergeArrayTween } from '../utils/tweenAction/mergeArray.js';
+import {
+    getValueObj,
+    getValueObjFromNative,
+    getValueObjToNative,
+} from '../utils/tweenAction/getValues.js';
 
 /**
  * @typedef {Object} tweenCommonSpecialProps
