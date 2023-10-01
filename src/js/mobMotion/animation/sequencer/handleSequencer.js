@@ -30,7 +30,6 @@ import {
     getFirstValidValueBack,
     checkIsLastUsableProp,
 } from './reduceFunction.js';
-import { directionConstant } from '../utils/constant.js';
 import {
     durationIsValid,
     easeIsValid,
@@ -39,6 +38,7 @@ import {
 } from '../utils/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
+import { directionConstant } from '../utils/timelineConstant.js';
 
 /**
  * @typedef {Object} sequencerTypes

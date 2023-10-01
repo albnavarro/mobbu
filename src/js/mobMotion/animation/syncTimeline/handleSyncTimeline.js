@@ -1,6 +1,5 @@
 import { clamp } from '../utils/animationUtils.js';
 import { fpsLoadedLog } from '../utils/log.js';
-import { directionConstant } from '../utils/constant.js';
 import { syncTimelineLabelWarning } from '../utils/warning.js';
 import {
     durationIsValid,
@@ -8,6 +7,7 @@ import {
     valueIsBooleanAndReturnDefault,
 } from '../utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
+import { directionConstant } from '../utils/timelineConstant.js';
 
 /**
  * @typedef {Object} syncTimelineTypes

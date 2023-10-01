@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore/index.js';
 import { NOOP } from '../../utils/functionsUtils.js';
-import { directionConstant } from '../utils/constant.js';
+import { directionConstant } from '../utils/timelineConstant.js';
 import {
     addAsyncFunctionIsValid,
     asyncTimelineDelayIsValid,
