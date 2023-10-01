@@ -1,7 +1,7 @@
-import { handleSetUp } from '../../setup';
-import { MQ_MAX, MQ_MIN } from './setUpValidation.js';
-import { parallaxConstant } from '../parallax/parallaxConstant.js';
-import { getTweenFn, tweenConfig } from '../tween/tweenConfig';
+import { handleSetUp } from '../../../setup';
+import { MQ_MAX, MQ_MIN } from '../setUpValidation.js';
+import { parallaxConstant } from '../../parallax/parallaxConstant.js';
+import { getTweenFn, tweenConfig } from '../../tween/tweenConfig';
 import {
     DIRECTION_COL,
     DIRECTION_RADIAL,
@@ -15,7 +15,7 @@ import {
     STAGGER_TYPE_END,
     STAGGER_TYPE_EQUAL,
     STAGGER_TYPE_START,
-} from './stagger/staggerCostant.js';
+} from '../stagger/staggerCostant.js';
 import {
     addAsyncFunctionWarining,
     asyncTimelineDelayWarning,
@@ -73,14 +73,14 @@ import {
     timelineSetTweenLabelWarining,
     tweenEaseWarning,
     valueStringWarning,
-} from './warning';
+} from '../warning';
 import {
     checkIfIsOnlyNumber,
     checkIfIsOnlyNumberPositiveNegative,
     exactMatchInsesitiveNumberPropArray,
-} from './regexValidation';
-import { getPropiertiesValueFromConstant } from '../parallax/getConstantFromRegex.js';
-import { mobCore } from '../../../mobCore';
+} from '../regexValidation';
+import { getPropiertiesValueFromConstant } from '../../parallax/getConstantFromRegex.js';
+import { mobCore } from '../../../../mobCore';
 
 /**
  *

@@ -1,5 +1,5 @@
 import { getTweenFn } from '../tween/tweenConfig.js';
-import { dataTweenValueIsValid } from '../utils/tweenValidation.js';
+import { dataTweenValueIsValid } from '../utils/tweenAction/tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from '../utils/warning.js';
 
 export const goToSyncUtils = (obj, ease) => {

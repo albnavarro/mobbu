@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore/index.js';
 import { NOOP } from '../../utils/functionsUtils.js';
-import { directionConstant } from '../utils/timelineConstant.js';
+import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import {
     addAsyncFunctionIsValid,
     asyncTimelineDelayIsValid,
@@ -12,7 +12,7 @@ import {
     timelineSetTweenLabelIsValid,
     valueIsBooleanAndReturnDefault,
     valueStringIsValid,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import {
     asyncTimelineMetodsInsideGroupWarining,
     relativePropInsideTimelineWarning,

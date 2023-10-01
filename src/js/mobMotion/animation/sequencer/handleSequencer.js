@@ -31,10 +31,10 @@ import {
     easeIsValid,
     initialDataPropValidate,
     sequencerRangeValidate,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
-import { directionConstant } from '../utils/timelineConstant.js';
+import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 
 /**

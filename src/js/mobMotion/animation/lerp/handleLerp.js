@@ -38,7 +38,7 @@ import {
     lerpVelocityIsValid,
     relativeIsValid,
     valueIsBooleanAndTrue,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
 import { resume } from '../utils/resumeTween.js';

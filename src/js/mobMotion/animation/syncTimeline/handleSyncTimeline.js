@@ -4,9 +4,9 @@ import {
     durationIsValid,
     repeatIsValid,
     valueIsBooleanAndReturnDefault,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
-import { directionConstant } from '../utils/timelineConstant.js';
+import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { fpsLoadedLog } from '../utils/fpsLogInizialization.js';
 
 /**

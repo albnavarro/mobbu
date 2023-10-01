@@ -31,7 +31,7 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsNumberAndReturnDefault,
     valueIsStringAndReturnDefault,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { parallaxConstant } from './parallaxConstant.js';
 import { parallaxEmitter } from './parallaxEmitter.js';
 import { parallaxMarker } from './parallaxMarker.js';

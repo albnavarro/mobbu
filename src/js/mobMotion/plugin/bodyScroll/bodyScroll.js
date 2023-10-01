@@ -4,7 +4,7 @@ import {
     easeTweenIsValid,
     valueIsBooleanAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../animation/utils/tweenValidation.js';
+} from '../../animation/utils/tweenAction/tweenValidation.js';
 import { offset, isNode } from '../../../mobCore/utils/index.js';
 
 /**

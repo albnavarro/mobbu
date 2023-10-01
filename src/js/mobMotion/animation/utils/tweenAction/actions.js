@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../../mobCore/index.js';
-import { dataTweenValueIsValid } from '../tweenValidation.js';
+import { dataTweenValueIsValid } from './tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from '../warning.js';
 
 /**

@@ -14,7 +14,7 @@ import { staggerIsOutOfRangeWarning } from '../utils/warning.js';
 import {
     durationIsValid,
     easeParallaxTweenIsValid,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 

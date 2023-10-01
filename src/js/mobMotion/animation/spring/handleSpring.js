@@ -39,7 +39,7 @@ import {
     springConfigIsValidAndGetNew,
     springConfigPropIsValid,
     valueIsBooleanAndTrue,
-} from '../utils/tweenValidation.js';
+} from '../utils/tweenAction/tweenValidation.js';
 import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';

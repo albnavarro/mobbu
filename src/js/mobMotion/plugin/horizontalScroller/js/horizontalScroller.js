@@ -16,7 +16,7 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../../animation/utils/tweenValidation';
+} from '../../../animation/utils/tweenAction/tweenValidation';
 import { mobCore } from '../../../../mobCore';
 
 /**

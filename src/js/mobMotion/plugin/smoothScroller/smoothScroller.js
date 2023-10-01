@@ -12,7 +12,7 @@ import {
     valueIsBooleanAndReturnDefault,
     valueIsFunctionAndReturnDefault,
     valueIsNumberAndReturnDefault,
-} from '../../animation/utils/tweenValidation.js';
+} from '../../animation/utils/tweenAction/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import {
     isDescendant,
