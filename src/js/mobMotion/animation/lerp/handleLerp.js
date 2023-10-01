@@ -36,7 +36,6 @@ import {
     setUtils,
 } from '../utils/actions.js';
 import { initRaf } from '../utils/initRaf.js';
-import { resume } from '../utils/resume.js';
 import {
     compareKeysWarning,
     staggerIsOutOfRangeWarning,
@@ -50,6 +49,7 @@ import {
 } from '../utils/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { shouldInizializzeStagger } from '../utils/stagger/shouldInizialize.js';
+import { resume } from '../utils/resumeTween.js';
 
 /**
  * @typedef {Object} lerpTypes
