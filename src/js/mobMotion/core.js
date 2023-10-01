@@ -8,7 +8,7 @@ export const core = {
      * @description
      * - Here it is possible to modify the default values of the various modules of the library
      *
-     * @param {import('./animation/utils/setUp/setUpValidation.js').handleSetUpSetType} props
+     * @param {import('./animation/utils/setUp/type.js').setUpType} props
      *
      *
      * @example
@@ -116,7 +116,7 @@ export const core = {
      *
      * ```
      */
-    setDefault(props = {}) {
+    setDefault(props) {
         handleSetUp.set(props);
     },
 

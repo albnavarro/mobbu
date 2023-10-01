@@ -19,7 +19,7 @@
  **/
 
 /**
- * @typedef {('default'|'gentle'|'wobbly'|'bounce'|'scroller'):springConfigPropsTypes} springConfigStringTypes
+ * @type {import("./type").springPresentConfigType} springConfigStringTypes
  **/
 export const springPresetConfig = {
     default: {

@@ -21,7 +21,7 @@ import {
 import { mergeDeep } from './utils/mergeDeep.js';
 
 /**
- * @returns {import('./animation/utils/setUp/setUpValidation.js').handleSetUpSetType}
+ * @returns {import('./animation/utils/setUp/type.js').setUpType}
  */
 function getData() {
     return {
@@ -84,7 +84,7 @@ export const handleSetUp = (() => {
      * @description
      * - Here it is possible to modify the default values of the various modules of the library
      *
-     * @param {import('./animation/utils/setUp/setUpValidation.js').handleSetUpSetType} obj
+     * @param {import('./animation/utils/setUp/type.js').setUpType} obj
      *
      *
      * @example
