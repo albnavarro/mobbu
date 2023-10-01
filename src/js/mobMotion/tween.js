@@ -10,7 +10,7 @@ import { createStaggers } from './animation/sequencer/sequencerUtils.js';
 
 export const tween = {
     /**
-     * @param { import('./animation/parallax/parallaxTween.js').parallaxTweenTypes & import('./animation/utils/stagger/type.js').staggerPropiertiesObject & import('./animation/tween/tweenConfig.js').easeTypes} data
+     * @param {import('./animation/parallax/type.js').parallaxTweenType} data
      *
      * @example
      * ```javascript

@@ -18,16 +18,9 @@ import {
 import { mobCore } from '../../../mobCore/index.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 
-/**
- * @typedef {Object} parallaxTweenTypes
- * @prop {Object.<string, number>} from initial values of the animation.
- * @prop {Object.<string, number>} to final values of the animation.
- * @prop {number} [ duration=10] Defines the time range of the animation, ScrollTrigger will take care of processing the value as needed. The default value is 10
- **/
-
 export default class ParallaxTween {
     /**
-     * @param { parallaxTweenTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} data
+     * @param {import('./type.js').parallaxTweenType} data
      *
      * @example
      * ```js
@@ -253,7 +246,7 @@ export default class ParallaxTween {
     /**
      * @private
      *
-     * @param {Object.<string, number|function>} obj to values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to values
      * @returns {this} The instance on which this method was called.
      *
      * @example
