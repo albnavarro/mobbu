@@ -37,21 +37,9 @@ import { mobCore } from '../../../mobCore/index.js';
 import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 
-/**
- * @typedef {Object} sequencerTypes
- * @prop {Object.<string, number>} data Initial data Object
- * @prop {number} [ duration=10] Defines the time range of the animation, both syncTimeline and scrollTrigger will take care of processing the value as needed. The default value is 10
- **/
-
-/**
- * @typedef {Object} sequencerSpecialProps
- * @prop {number} [ start=0 ] Defines the start of the transformation of the timeline in use, from 0 to the maximum surat set. The default is 0
- * @prop {number} [ end=duration ] Defines the start of the transformation of the timeline in use, from 0 to the maximum surat set. The default value is the set duration
- **/
-
 export default class HandleSequencer {
     /**
-     * @param { sequencerTypes & import('../utils/stagger/type.js').staggerPropiertiesObject & import('../tween/tweenConfig.js').easeTypes} data
+     * @param {import('./type.js').sequencerProps} data
      *
      * @example
      * ```javascript
@@ -618,8 +606,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj  to values
-     * @param {sequencerSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special properties
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj  to values
+     * @param {import('./type.js').sequencerAction} props special properties
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -656,8 +644,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj from values
-     * @param {sequencerSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special properties
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from values
+     * @param {import('./type.js').sequencerAction} props special properties
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -694,9 +682,9 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {Object.<string, number|function>} fromObj from values
-     * @param {Object.<string, number|function>} toObj to values
-     * @param {sequencerSpecialProps & import('../tween/tweenConfig.js').easeTypes} props special properties
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to values
+     * @param {import('./type.js').sequencerAction} props special properties
      *
      * @example
      * ```javascript

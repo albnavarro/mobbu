@@ -51,7 +51,7 @@ export const tween = {
     },
 
     /**
-     * @param {import('./animation/sequencer/handleSequencer.js').sequencerTypes & import('./animation/utils/stagger/type.js').staggerPropiertiesObject & import('./animation/tween/tweenConfig.js').easeTypes} data
+     * @param {import('./animation/sequencer/type.js').sequencerProps} data
      *
      * @example
      * ```javascript
