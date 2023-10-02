@@ -11,6 +11,16 @@ export interface parallaxTweenType {
     ease?: easeTypes;
 }
 
+export interface dynamicStartType {
+    position: 'bottom' | 'top' | 'left' | 'right';
+    value: () => number;
+}
+
+export interface dynamicEndType {
+    position: 'bottom' | 'top' | 'left' | 'right';
+    value: () => number;
+}
+
 export interface parallaxCommonType {
     type?: 'parallax' | 'scrolltrigger';
 
@@ -163,6 +173,11 @@ export interface parallaxCommonType {
      * The default value is `false`.
      */
     useWillChange?: boolean;
+
+    /**
+     * @description
+     */
+    invertSide?: boolean;
 }
 
 export interface parallaxType {
@@ -323,10 +338,7 @@ export interface scrollTriggerType {
      * the resulting value of the function will be calculated starting from the specified position towards the center of the viewport.
      * if the property is used it will take precedence over start.
      */
-    dynamicStart?: {
-        position: 'bottom' | 'top' | 'left' | 'right';
-        value: () => number;
-    };
+    dynamicStart?: dynamicStartType;
 
     /**
      * @description
@@ -334,10 +346,7 @@ export interface scrollTriggerType {
      * The resulting value of the function will be calculated starting from the specified position towards the center of the viewport.
      * If the property is used it will take precedence over end.
      */
-    dynamicEnd?: {
-        position: 'bottom' | 'top' | 'left' | 'right';
-        value: () => number;
-    };
+    dynamicEnd?: dynamicEndType;
 
     /**
      * @description
@@ -381,4 +390,9 @@ export interface scrollTriggerType {
      * The function will have the current value as input parameter.
      */
     onTick?: () => void;
+}
+
+export interface parallaxMoveType {
+    value: number | undefined;
+    parentIsMoving: boolean;
 }
