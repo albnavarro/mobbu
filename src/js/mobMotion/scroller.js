@@ -5,11 +5,7 @@ import ParallaxClass from './animation/parallax/parallax.js';
 
 export const scroller = {
     /**
-     * @typedef { import('./animation/parallax/parallax.js').parallaxDefaultTypes & import('./utils/mediaManager.js').breackPointTypeObj & import('./animation/spring/springConfig.js').springConfigParallaxTypes & import('./utils/mediaManager.js').mqTypeObject & import('./animation/parallax/parallax.js').parallaxSpecificTypes } createParallaxType
-     */
-
-    /**
-     * @param { createParallaxType } data
+     * @param {import('./animation/parallax/type.js').parallaxCommonType & import('./animation/parallax/type.js').parallaxType} data
      *
      * @example
      * ```javascript
@@ -68,11 +64,7 @@ export const scroller = {
     },
 
     /**
-     * @typedef { import('./animation/parallax/parallax.js').parallaxDefaultTypes & import('./utils/mediaManager.js').breackPointTypeObj & import('./animation/spring/springConfig.js').springConfigParallaxTypes & import('./utils/mediaManager.js').mqTypeObject & import('./animation/parallax/parallax.js').scrolltriggerSpecificTypes  } createScrollTriggerType
-     */
-
-    /**
-     * @param { createScrollTriggerType } data
+     * @param {import('./animation/parallax/type.js').parallaxCommonType & import('./animation/parallax/type.js').scrollTriggerType } data
      *
      * @example
      *
