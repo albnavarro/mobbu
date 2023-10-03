@@ -1,3 +1,5 @@
+// @ts-check
+
 import {
     getParallaxPositionFromContanst,
     getStartEndUnitMisure,
@@ -8,7 +10,12 @@ import {
 } from '../utils/regexValidation.js';
 import { parallaxConstant } from './parallaxConstant.js';
 
-// fail return with bad data
+/**
+ * @description
+ * Fail return with bad data
+ *
+ * @returns {import('./utilsType.js').scrollTriggerLimitValues}
+ */
 const returnWhenFail = () => {
     return {
         numberVal: 0,
@@ -19,6 +26,11 @@ const returnWhenFail = () => {
 };
 
 export const parallaxUtils = {
+    /**
+     * @param {import('./utilsType.js').scrollTriggerIsInviewPort} obj
+     *
+     * @return { boolean }
+     */
     isInViewport({ offset, height, gap, wScrollTop, wHeight }) {
         return (
             offset + height > wScrollTop - gap &&
@@ -27,10 +39,12 @@ export const parallaxUtils = {
     },
 
     /**
-     * getStartEndValue - Filter input value with number in value and additonal value
-     *
      * @param  {array}  values spitted inut value es: 100px +h => ['100px','+height', 'top']
-     * @return {Object} return object with values or default
+     * @param  {string}  direction
+     * @return {import('./utilsType.js').scrollTriggerLimitValues} return object with values or default
+     *
+     * @description
+     * Filter input value with number in value and additonal value
      *
      * @example
      *  { numberVal: '100px', additionalVal: '+height', position:"top" }
@@ -112,7 +126,15 @@ export const parallaxUtils = {
     },
 
     /**
+     * @description
      * Get start point withuot addition value
+     *
+     * @param {number} screenUnit
+     * @param {string} data
+     * @param {string} direction
+     *
+     * @returns {import('./utilsType.js').scrollTriggerStartEndPartials}
+     *
      */
     getStartPoint(screenUnit, data, direction) {
         /**
@@ -137,6 +159,7 @@ export const parallaxUtils = {
          * Get number withot px or vw etc..
          */
         const number = Number.parseFloat(
+            // @ts-ignore
             String(numberVal).replaceAll(/^\D+/g, '')
         );
         const startValInNumber = number ?? 0;
@@ -157,7 +180,20 @@ export const parallaxUtils = {
               };
     },
 
-    // Get end point withuot addition value
+    /**
+     * @description
+     * Get end point withuot addition value
+     *
+     * @param {number} screenUnit
+     * @param {string} data
+     * @param {number} startPoint
+     * @param {number} scrollerHeight
+     * @param {boolean} invertSide
+     * @param {string} direction
+     *
+     * @returns {import('./utilsType.js').scrollTriggerStartEndPartials}
+     *
+     */
     getEndPoint(
         screenUnit,
         data,
@@ -188,6 +224,7 @@ export const parallaxUtils = {
          * Get number withot px or vw etc..
          */
         const number = Number.parseFloat(
+            // @ts-ignore
             String(numberVal).replaceAll(/^\D+/g, '')
         );
         const endValInNumber = number ?? 0;
@@ -255,6 +292,15 @@ export const parallaxUtils = {
               };
     },
 
+    /**
+     * @param {number} value
+     * @param {string} stringValue
+     * @param {number} height
+     * @param {number} width
+     *
+     * @returns {number}
+     *
+     */
     processFixedLimit(value, stringValue, height, width) {
         const str = String(stringValue);
 
@@ -295,6 +341,15 @@ export const parallaxUtils = {
         return value;
     },
 
+    /**
+     * @param {object} obj
+     * @param {string} obj.switchPropierties
+     * @param {boolean} obj.isReverse
+     * @param {number} obj.value
+     *
+     * @returns {number}
+     *
+     */
     getValueOnSwitch({ switchPropierties, isReverse, value }) {
         switch (switchPropierties) {
             case parallaxConstant.IN_STOP: {
@@ -327,6 +382,13 @@ export const parallaxUtils = {
         }
     },
 
+    /**
+     * @param {string} propierties
+     * @param {number} val
+     *
+     * @returns {number}
+     *
+     */
     getRetReverseValue(propierties, val) {
         switch (propierties) {
             case parallaxConstant.PROP_OPACITY: {

@@ -65,6 +65,8 @@ export const getStartEndUnitMisure = (pattern) => {
         if (exactMatchInsesitiveNumberProp(pattern, parallaxConstant.VW))
             return parallaxConstant.VW;
     }
+
+    return '';
 };
 
 /**
@@ -86,6 +88,8 @@ export const getParallaxPositionFromContanst = (position) => {
 
     if (exactMatchInsensitive(position, parallaxConstant.POSITION_RIGHT))
         return parallaxConstant.POSITION_RIGHT;
+
+    return '';
 };
 
 /**
