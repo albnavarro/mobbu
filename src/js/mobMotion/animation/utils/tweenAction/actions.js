@@ -27,7 +27,8 @@ export const goToUtils = (obj) => {
 
         const toValue = mobCore.checkType(Number, obj[item])
             ? obj[item]
-            : obj[item]();
+            : // @ts-ignore
+              obj[item]();
 
         return {
             prop: item,
@@ -62,7 +63,8 @@ export const goFromUtils = (obj) => {
         }
         const value = mobCore.checkType(Number, obj[item])
             ? obj[item]
-            : obj[item]();
+            : // @ts-ignore
+              obj[item]();
 
         return {
             prop: item,
@@ -156,7 +158,8 @@ export const setUtils = (obj) => {
         }
         const value = mobCore.checkType(Number, obj[item])
             ? obj[item]
-            : obj[item]();
+            : // @ts-ignore
+              obj[item]();
 
         return {
             prop: item,

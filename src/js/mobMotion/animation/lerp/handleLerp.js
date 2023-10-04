@@ -169,16 +169,19 @@ export default class HandleLerp {
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callback = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackCache = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackOnComplete = [];
 
@@ -229,13 +232,14 @@ export default class HandleLerp {
 
         /**
          * @private
-         * Stagger value
+         * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
          **/
         this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
          * @private
-         **/
+         * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+         */
         this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**

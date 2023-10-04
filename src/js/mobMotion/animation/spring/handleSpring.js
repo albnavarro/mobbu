@@ -165,16 +165,19 @@ export default class HandleSpring {
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callback = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackCache = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackOnComplete = [];
 
@@ -223,12 +226,14 @@ export default class HandleSpring {
 
         /**
          * @private
+         * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
          */
         this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
-        Stagger value
-         **/
+         * @private
+         * @type {import('../utils/stagger/type.js').staggerDefaultIndex}
+         */
         this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
 
         /**
