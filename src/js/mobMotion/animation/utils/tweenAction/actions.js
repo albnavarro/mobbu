@@ -6,7 +6,7 @@ import { dataTweenValueIsNotValidWarning } from '../warning.js';
 
 /**
  * @param {import('./type.js').valueToparseType} obj
- * @return { import('./type.js').goToParamsType[] }
+ * @return {Object}
  *
  * @description
  * Set goTo value, used by spring and lerp
@@ -41,7 +41,7 @@ export const goToUtils = (obj) => {
 
 /**
  * @param {import('./type.js').valueToparseType} obj
- * @returns {import('./type.js').goFromType[]}
+ * @return {Object}
  *
  * @description
  * Set goFrom value, used by spring and lerp
@@ -78,7 +78,7 @@ export const goFromUtils = (obj) => {
 /**
  * @param {import('./type.js').valueToparseType} fromObj
  * @param {import('./type.js').valueToparseType} toObj
- * @returns {import('./type.js').goFromToType[]}
+ * @return {Object}
  *
  * @description
  * Set goFromTo value, used by spring and lerp
@@ -108,11 +108,13 @@ export const goFromToUtils = (fromObj, toObj) => {
 
         const fromValue = mobCore.checkType(Number, fromObj[item])
             ? fromObj[item]
-            : fromObj[item]();
+            : // @ts-ignore
+              fromObj[item]();
 
         const toValue = mobCore.checkType(Number, toObj[item])
             ? toObj[item]
-            : toObj[item]();
+            : // @ts-ignore
+              toObj[item]();
 
         return {
             prop: item,
@@ -130,7 +132,7 @@ export const goFromToUtils = (fromObj, toObj) => {
 
 /**
  * @param {import('./type.js').valueToparseType} obj
- * @returns {import('./type.js').goFromToType[]}
+ * @returns {Object}
  *
  * @description
  * Set set value, used by spring and lerp

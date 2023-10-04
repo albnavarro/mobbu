@@ -102,7 +102,7 @@ export default class HandleLerp {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * @private
          * @type {import('../utils/stagger/type.js').staggerObject}
@@ -690,7 +690,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
      * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -724,7 +724,7 @@ export default class HandleLerp {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
      * @param {import('./type.js').lerpActions} props special props
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over

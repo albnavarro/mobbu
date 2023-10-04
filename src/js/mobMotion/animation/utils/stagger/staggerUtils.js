@@ -29,7 +29,9 @@ export const getEachByFps = (each) => {
 };
 
 /**
- * @param {import('./type.js').staggerPropiertiesObject} props
+ * @param {Object} props
+ *
+ * @returns {import('./type.js').staggerObject}
  */
 export const getStaggerFromProps = (props) => {
     return {

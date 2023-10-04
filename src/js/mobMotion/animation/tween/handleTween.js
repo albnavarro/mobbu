@@ -628,7 +628,7 @@ export default class HandleTween {
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
      * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -669,7 +669,7 @@ export default class HandleTween {
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
      * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -711,7 +711,7 @@ export default class HandleTween {
      * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
      * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
      * @param {import('./type.js').tweenAction} props special props
-     * @returns {Promise|null} Return a promise which is resolved when tween is over
+     * @returns {Promise|void|null} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -759,7 +759,7 @@ export default class HandleTween {
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
      * @param {import('./type.js').tweenCommonProps } props special props
-     * @returns {Promise} Return a promise which is resolved when tween is over
+     * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
      * ```javascript
@@ -794,7 +794,7 @@ export default class HandleTween {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
      * @param {import('./type.js').tweenAction} props special props
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over

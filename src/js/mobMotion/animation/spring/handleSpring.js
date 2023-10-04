@@ -104,7 +104,7 @@ export default class HandleSpring {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * @private
          * @type {import('../utils/stagger/type.js').staggerObject}
@@ -767,7 +767,7 @@ export default class HandleSpring {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} data Updated data
+     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
      * @param {import('./type.js').springActions} props special props
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
