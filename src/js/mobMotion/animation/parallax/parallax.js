@@ -38,8 +38,15 @@ import { parallaxConstant } from './parallaxConstant.js';
 import { parallaxEmitter } from './parallaxEmitter.js';
 import { parallaxMarker } from './parallaxMarker.js';
 import { ParallaxPin } from './parallaxPin.js';
-import { parallaxUtils } from './parallaxUtils.js';
 import { mobCore } from '../../../mobCore/index.js';
+import {
+    getEndPoint,
+    getRetReverseValue,
+    getStartPoint,
+    getValueOnSwitch,
+    detectViewPortInterception,
+    processFixedLimit,
+} from './parallaxUtils.js';
 
 export default class ParallaxClass {
     /**
@@ -276,102 +283,96 @@ export default class ParallaxClass {
 
         /**
          * @private
+         * @type {Element|undefined}
          */
-        this.startMarker = null;
+        this.startMarker = undefined;
 
         /**
          * @private
+         * @type {Element|undefined}
          */
-        this.endMarker = null;
+        this.endMarker = undefined;
 
         /**
          * @private
+         * @type {number|undefined}
          */
-        this.lastValue = null;
+        this.lastValue = undefined;
 
         /**
          * @private
+         * @type {number}
          */
         this.prevFixedRawValue = 0;
 
         /**
          * @private
+         * @type {boolean}
          */
-        this.fixedShouldRender = null;
+        this.fixedShouldRender = false;
 
         /**
          * @private
-         *
          * @type {number|undefined}
          */
         this.prevFixedClamp = undefined;
 
         /**
          * @private
-         *
          * @type {boolean}
          */
         this.firstTime = true;
 
         /**
          * @private
-         *
          * @type {boolean}
          */
         this.isInViewport = false;
 
         /**
          * @private
-         *
          * @type {boolean}
          */
         this.iSControlledFromOutside = false;
 
         /**
          * @private
-         *
          * @type {boolean}
          */
         this.force3D = false;
 
         /**
          * @private
-         *
          * @type {object|undefined}
          */
         this.pinInstance = undefined;
 
         /**
          * @private
-         *
          * @type {string}
          */
         this.unitMisure = '';
 
         /**
          * @private
-         *
          * @type {number}
          */
         this.startPoint = 0;
 
         /**
          * @private
-         *
          * @type {number}
          */
         this.endPoint = 0;
 
         /**
          * @private
-         *
          * @type {function}
          */
         this.unsubscribeMotion = () => {};
 
         /**
          * @private
-         *
          * @type {function}
          */
         this.unsubscribeOnComplete = () => {};
@@ -382,8 +383,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.pin = valueIsBooleanAndReturnDefault(
@@ -394,8 +393,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.animatePin = valueIsBooleanAndReturnDefault(
@@ -406,8 +403,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.forceTranspond = valueIsBooleanAndReturnDefault(
@@ -418,8 +413,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.anticipatePinOnLoad = valueIsBooleanAndReturnDefault(
@@ -430,8 +423,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {string}
          */
         this.start = valueIsStringAndReturnDefault(
@@ -442,8 +433,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {string}
          */
         this.end = valueIsStringAndReturnDefault(
@@ -454,8 +443,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.fromTo = valueIsBooleanAndReturnDefault(
@@ -466,8 +453,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.invertSide = valueIsBooleanAndReturnDefault(
@@ -478,8 +463,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {string}
          */
         this.marker = valueIsStringAndReturnDefault(
@@ -490,8 +473,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {import('./type.js').dynamicStartType}
          */
         this.dynamicStart = data?.dynamicStart
@@ -500,8 +481,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {import('./type.js').dynamicEndType}
          */
         this.dynamicEnd = data?.dynamicEnd
@@ -510,16 +489,12 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.dynamicRange = parallaxDynamicRangeIsValid(data?.dynamicRange);
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.animateAtStart = valueIsBooleanAndReturnDefault(
@@ -530,8 +505,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.onEnter = functionIsValidAndReturnDefault(
@@ -542,8 +515,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.onEnterBack = functionIsValidAndReturnDefault(
@@ -554,8 +525,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.onLeave = functionIsValidAndReturnDefault(
@@ -566,8 +535,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.onLeaveBack = functionIsValidAndReturnDefault(
@@ -578,8 +545,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {function}
          */
         this.onTickCallback = functionIsValidAndReturnDefault(
@@ -590,24 +555,18 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {string|number}
          */
         this.align = parallaxAlignIsValid(data?.align);
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {string}
          */
         this.onSwitch = parallaxOnSwitchIsValid(data?.onSwitch);
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.reverse = valueIsBooleanAndReturnDefault(
@@ -618,8 +577,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {number}
          */
         this.opacityStart = parallaxOpacityIsValid(
@@ -630,8 +587,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {number}
          */
         this.opacityEnd = parallaxOpacityIsValid(
@@ -642,8 +597,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * Pin prop
-         *
          * @type {boolean}
          */
         this.limiterOff = valueIsBooleanAndReturnDefault(
@@ -658,21 +611,18 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {boolean|undefined}
          */
         this.useWillChange = data?.useWillChange;
 
         /**
          * @description
-         *
          * @type {object}
          */
         this.tween = parallaxTweenIsValid(data?.tween);
 
         /**
          * @description
-         *
          * @type {boolean}
          */
         const tweenIsSequencer =
@@ -681,7 +631,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {boolean}
          */
         const tweenIsParallaxTween =
@@ -693,42 +642,36 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {HTMLElement}
          */
         this.item = domNodeIsValidAndReturnElOrWin(data?.item, false);
 
         /**
          * @description
-         *
          * @type {HTMLElement|Window}
          */
         this.scroller = domNodeIsValidAndReturnElOrWin(data?.scroller, true);
 
         /**
          * @description
-         *
          * @type {HTMLElement|Window}
          */
         this.screen = domNodeIsValidAndReturnElOrWin(data?.screen, true);
 
         /**
          * @description
-         *
          * @type {HTMLElement|null}
          */
         this.trigger = domNodeIsValidAndReturnNull(data?.trigger);
 
         /**
          * @description
-         *
          * @type {HTMLElement|null}
          */
         this.applyTo = domNodeIsValidAndReturnNull(data?.applyTo);
 
         /**
          * @description
-         *
          * @type {string}
          */
         this.direction = directionIsValid(
@@ -738,7 +681,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {boolean}
          */
         this.disableForce3D = valueIsBooleanAndReturnDefault(
@@ -750,7 +692,6 @@ export default class ParallaxClass {
         // With pin active no throttle is usable, pin need precision
         /**
          * @description
-         *
          * @type {boolean}
          */
         this.useThrottle = valueIsBooleanAndReturnDefault(
@@ -761,21 +702,18 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {string}
          */
         this.type = parallaxTypeIsValid(data?.type);
 
         /**
          * @description
-         *
          * @type {string|number}
          */
         this.range = parallaxRangeIsValid(data?.range, this.type);
 
         /**
          * @description
-         *
          * @type {number}
          */
         this.perspective = valueIsNumberAndReturnDefault(
@@ -786,7 +724,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {string}
          */
         this.breackpoint = breakpointIsValid(
@@ -797,7 +734,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         *
          * @type {string}
          */
         this.queryType = breakpointTypeIsValid(
@@ -1268,7 +1204,7 @@ export default class ParallaxClass {
             value: startPoint,
             additionalVal: additionalStartVal,
             position: startPosition,
-        } = parallaxUtils.getStartPoint(screenUnit, this.start, this.direction);
+        } = getStartPoint(screenUnit, this.start, this.direction);
 
         // Chek if come from top or left
         this.invertSide =
@@ -1276,7 +1212,7 @@ export default class ParallaxClass {
             startPosition === parallaxConstant.POSITION_LEFT;
 
         // Add/substract with height or half value
-        this.startPoint = parallaxUtils.processFixedLimit(
+        this.startPoint = processFixedLimit(
             startPoint,
             additionalStartVal,
             this.direction === parallaxConstant.DIRECTION_VERTICAL
@@ -1307,7 +1243,7 @@ export default class ParallaxClass {
             value: endPoint,
             additionalVal: additionalEndVal,
             position: endPosition,
-        } = parallaxUtils.getEndPoint(
+        } = getEndPoint(
             screenUnit,
             this.end,
             this.startPoint,
@@ -1332,7 +1268,7 @@ export default class ParallaxClass {
         })();
 
         // Add/substract with height or half value
-        this.endPoint = parallaxUtils.processFixedLimit(
+        this.endPoint = processFixedLimit(
             endPoint,
             additionalEndVal,
             this.direction === parallaxConstant.DIRECTION_VERTICAL
@@ -1533,8 +1469,8 @@ export default class ParallaxClass {
         if (this.startMarker) this.startMarker?.remove?.();
         if (this.endMarker) this.endMarker?.remove?.();
         this.motion = null;
-        this.startMarker = null;
-        this.endMarker = null;
+        this.startMarker = undefined;
+        this.endMarker = undefined;
         this.pinInstance = null;
         this.endValue = 0;
 
@@ -1571,7 +1507,7 @@ export default class ParallaxClass {
         }
         //
         // reset value to update animation after resize
-        this.lastValue = null;
+        this.lastValue = undefined;
         this.firstTime = true;
         this.firstScroll = false;
         //
@@ -1743,7 +1679,7 @@ export default class ParallaxClass {
             this.getScrollerOffset();
         }
 
-        this.isInViewport = parallaxUtils.isInViewport({
+        this.isInViewport = detectViewPortInterception({
             offset: this.offset,
             height: this.height,
             gap: this.gap,
@@ -1794,10 +1730,7 @@ export default class ParallaxClass {
          */
         const reverseValue =
             this.reverse && this.type !== parallaxConstant.TYPE_SCROLLTRIGGER
-                ? parallaxUtils.getRetReverseValue(
-                      this.propierties,
-                      this.endValue
-                  )
+                ? getRetReverseValue(this.propierties, this.endValue)
                 : this.endValue;
 
         /**
@@ -2098,7 +2031,7 @@ export default class ParallaxClass {
      * @param {number} value
      */
     getSwitchAfterZeroValue(value) {
-        return parallaxUtils.getValueOnSwitch({
+        return getValueOnSwitch({
             switchPropierties: this.onSwitch,
             isReverse: this.reverse,
             value,

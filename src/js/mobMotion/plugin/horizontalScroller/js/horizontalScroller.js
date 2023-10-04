@@ -788,7 +788,9 @@ export class HorizontalScroller {
             passive: true,
         });
 
-        this.row.addEventListener('touchmove', this.onTouchMove);
+        this.row.addEventListener('touchmove', this.onTouchMove, {
+            passive: true,
+        });
     }
 
     removeDragListener() {
