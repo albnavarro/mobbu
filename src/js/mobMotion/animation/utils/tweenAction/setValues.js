@@ -4,9 +4,8 @@
  * @description
  * Set fromValue with currentValue
  *
- * @param {import("./type").tweenParam[]} arr
- *
- * @returns {import("./type").tweenParam[]}
+ * @param {Array} arr
+ * @returns {Array}
  */
 export const setFromByCurrent = (arr) => {
     return arr.map((item) => {
@@ -22,9 +21,8 @@ export const setFromByCurrent = (arr) => {
  * @description
  * Set fromValue and currentValue with toValue
  *
- * @param {import("./type").tweenParam[]} arr
- *
- * @returns {import("./type").tweenParam[]}
+ * @param {Array} arr
+ * @returns {Array}
  */
 export const setFromCurrentByTo = (arr) => {
     return arr.map((item) => {
@@ -39,9 +37,8 @@ export const setFromCurrentByTo = (arr) => {
  * @description
  * Set toValue and fromValue with currentValue
  *
- * @param {import("./type").tweenParam[]} arr
- *
- * @returns {import("./type").tweenParam[]}
+ * @param {Array} arr
+ * @returns {Array}
  */
 export const setFromToByCurrent = (arr) => {
     return arr.map((item) => {
@@ -57,9 +54,9 @@ export const setFromToByCurrent = (arr) => {
  * Revert fromValue and toValue
  *
  * @param {import("./type").valueToparseType} obj
- * @param {import("./type").tweenParam[]} arr
+ * @param {Array} arr
  *
- * @returns {import("./type").tweenParam[]} arr
+ * @returns {Array} arr
  *
  */
 export const setReverseValues = (obj, arr) => {
@@ -80,10 +77,10 @@ export const setReverseValues = (obj, arr) => {
  * Set toValue in realtive mode, sum value from currentValue
  * Used by spring and lerp
  *
- * @param {import("./type").tweenParam[]} arr
+ * @param {Array} arr
  * @param {boolean} relative
  *
- * @returns {import("./type").tweenParam[]} arr
+ * @returns {Array} arr
  *
  */
 export const setRelative = (arr, relative) => {
@@ -105,10 +102,10 @@ const tweenSmallNumber = 0.000_01;
  * Set toValue in realtive mode, sum value from currentValue
  * Used by classic tween
  *
- * @param {import("./type").tweenParam[]} arr
+ * @param {Array} arr
  * @param {boolean} relative
  *
- * @returns {import("./type").tweenParam[]} arr
+ * @returns {Array} arr
  *
  */
 export const setRelativeTween = (arr, relative) => {

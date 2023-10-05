@@ -464,7 +464,7 @@ export const springConfigIsValid = (config) => {
 /**
  *
  * @param {String} spring config
- * @returns {Object}
+ * @returns {import('../../spring/type').springPropsOptional}
  *
  * @description
  * Check if every spring config prop is valid

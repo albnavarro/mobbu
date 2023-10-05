@@ -50,3 +50,19 @@ export interface springActions {
     config?: springChoiceConfig;
     configProp?: springPropsOptional;
 }
+
+export interface springInitialData {
+    prop: string;
+    toValue: number | function;
+    fromValue: number | function;
+    currentValue: number | function;
+}
+
+export interface springValues extends springInitialData {
+    velocity: number;
+    fromFn: function;
+    fromIsFn: boolean;
+    toFn: function;
+    toIsFn: boolean;
+    settled: boolean;
+}

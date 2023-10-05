@@ -1,3 +1,5 @@
+// @ts-check
+
 import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import {
     setFromByCurrent,
@@ -113,11 +115,13 @@ export default class HandleSpring {
 
         /**
          * @private
+         * @type {boolean}
          */
         this.relative = relativeIsValid(data?.relative, 'spring');
 
         /**
          * @private
+         * @type {import('./type.js').springProps}
          *
          * This value lives from user call ( goTo etc..) until next call
          **/
@@ -130,36 +134,43 @@ export default class HandleSpring {
 
         /**
          * @private
+         * @type {string}
          */
         this.uniqueId = mobCore.getUnivoqueId();
 
         /**
          * @private
+         * @type {boolean}
          */
         this.isActive = false;
 
         /**
          * @private
+         * @type{( function(any):void )|undefined}
          */
-        this.currentResolve = null;
+        this.currentResolve = undefined;
 
         /**
          * @private
+         * @type{function|undefined}
          */
-        this.currentReject = null;
+        this.currentReject = undefined;
 
         /**
          * @private
+         * @type{Promise|undefined}
          */
-        this.promise = null;
+        this.promise = undefined;
 
         /**
          * @private
+         * @type {import('./type.js').springValues[]}
          */
         this.values = [];
 
         /**
          * @private
+         * @type {import('./type.js').springInitialData[]}
          */
         this.initialData = [];
 
@@ -183,31 +194,37 @@ export default class HandleSpring {
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackStartInPause = [];
 
         /**
          * @private
+         * @type {Array<function>}
          */
         this.unsubscribeCache = [];
 
         /**
          * @private
+         * @type {boolean}
          */
         this.pauseStatus = false;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.firstRun = true;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.useStagger = true;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.fpsInLoading = false;
 
@@ -215,6 +232,8 @@ export default class HandleSpring {
          * @private
          * This value is the base value merged with new value in custom prop
          * passed form user in goTo etc..
+         *
+         * @type {object}
          **/
         this.defaultProps = {
             reverse: false,
@@ -248,99 +267,101 @@ export default class HandleSpring {
     /**
      * @private
      *
-     * @param {Number} time current global time
-     * @param {Boolean} fps current FPS
+     * @param {number} time current global time
+     * @param {number} fps current FPS
      * @param {function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
-            item.velocity = Number.parseFloat(this.config.velocity);
-            item.currentValue = Number.parseFloat(item.fromValue);
-
-            // Normalize toValue in case is a string
-            item.toValue = Number.parseFloat(item.toValue);
+            item.velocity = Math.trunc(this.config.velocity);
         });
 
-        // Normalize spring config props
-
         /**
-         * @type {Object|null}
+         * Normalize spring config props
          */
-        let o = {};
+        const tension = Math.trunc(this.config.tension);
+        const friction = Math.trunc(this.config.friction);
+        const mass = Math.trunc(this.config.mass);
+        const precision = Math.trunc(this.config.precision);
 
-        o.tension = Number.parseFloat(this.config.tension);
-        o.friction = Number.parseFloat(this.config.friction);
-        o.mass = Number.parseFloat(this.config.mass);
-        o.precision = Number.parseFloat(this.config.precision);
-
-        const draw = (_time, fps) => {
+        const draw = (/** @type{number} */ _time, /** @type{number} */ fps) => {
             this.isActive = true;
 
             this.values.forEach((item) => {
-                o.tensionForce =
-                    -o.tension * (item.currentValue - item.toValue);
-                o.dampingForce = -o.friction * item.velocity;
-                o.acceleration = (o.tensionForce + o.dampingForce) / o.mass;
+                const tensionForce =
+                    -tension * (item.currentValue - item.toValue);
+                const dampingForce = -friction * item.velocity;
+                const acceleration = (tensionForce + dampingForce) / mass;
 
-                item.velocity = item.velocity + (o.acceleration * 1) / fps;
+                item.velocity = item.velocity + (acceleration * 1) / fps;
                 item.currentValue =
                     item.currentValue + (item.velocity * 1) / fps;
 
                 item.currentValue = getRoundedValue(item.currentValue);
 
-                o.isVelocity = Math.abs(item.velocity) <= 0.1;
+                const isVelocity = Math.abs(item.velocity) <= 0.1;
 
-                o.isDisplacement =
-                    o.tension === 0
+                const isDisplacement =
+                    tension === 0
                         ? true
                         : Math.abs(
                               item.toValue - item.currentValue.toFixed(4)
-                          ) <= o.precision;
+                          ) <= precision;
 
-                item.settled = o.isVelocity && o.isDisplacement;
+                item.settled = isVelocity && isDisplacement;
             });
 
-            // Prepare an obj to pass to the callback
-            o.callBackObject = getValueObj(this.values, 'currentValue');
+            /**
+             * Prepare an obj to pass to the callback
+             */
+            const callBackObject = getValueObj(this.values, 'currentValue');
 
             defaultCallback({
                 stagger: this.stagger,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
-                callBackObject: o.callBackObject,
+                callBackObject: callBackObject,
                 useStagger: this.useStagger,
             });
 
-            // Check if all values is completed
-            o.allSettled = this.values.every((item) => item.settled === true);
+            /**
+             * Check if all values is completed
+             */
+            const allSettled = this.values.every(
+                (item) => item.settled === true
+            );
 
-            if (o.allSettled) {
+            if (allSettled) {
                 const onComplete = () => {
                     this.isActive = false;
 
-                    // End of animation
-                    // Set fromValue with ended value
-                    // At the next call fromValue become the start value
+                    /**
+                     * End of animation
+                     * Set fromValue with ended value
+                     * At the next call fromValue become the start value
+                     */
                     this.values.forEach((item) => {
                         item.fromValue = item.toValue;
                     });
 
-                    // On complete
+                    /**
+                     * On complete
+                     */
                     if (!this.pauseStatus) {
-                        // Remove reference to o Object
-                        o = null;
-
-                        //
                         res();
 
-                        // Set promise reference to null once resolved
-                        this.promise = null;
-                        this.currentReject = null;
-                        this.currentResolve = null;
+                        /**
+                         * Set promise reference to null once resolved
+                         */
+                        this.promise = undefined;
+                        this.currentReject = undefined;
+                        this.currentResolve = undefined;
                     }
                 };
 
-                // Prepare an obj to pass to the callback with rounded value ( end user value)
+                /**
+                 * Prepare an obj to pass to the callback with rounded value ( end user value)
+                 */
                 const cbObjectSettled = getValueObj(this.values, 'toValue');
 
                 defaultCallbackOnComplete({
@@ -369,6 +390,8 @@ export default class HandleSpring {
     /**
      * @description
      * Inzialize stagger array
+     *
+     * @returns {Promise<any>}
      */
     async inzializeStagger() {
         /**
@@ -424,6 +447,10 @@ export default class HandleSpring {
 
     /**
      * @private
+     * @param {function(any):void} res
+     * @param {function} reject
+     *
+     * @returns {Promise}
      */
     async startRaf(res, reject) {
         if (this.fpsInLoading) return;
@@ -446,8 +473,9 @@ export default class HandleSpring {
 
     /**
      * @param {import('../tween/type.js').tweenStopProps} Stop props
-     * @description
+     * @returns {void}
      *
+     * @description
      * Stop tween and fire reject of current promise.
      */
     stop({ clearCache = true } = {}) {
@@ -464,9 +492,9 @@ export default class HandleSpring {
         // Reject promise
         if (this.currentReject) {
             this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-            this.promise = null;
-            this.currentReject = null;
-            this.currentResolve = null;
+            this.promise = undefined;
+            this.currentReject = undefined;
+            this.currentResolve = undefined;
         }
 
         // Reset RAF
@@ -477,8 +505,9 @@ export default class HandleSpring {
 
     /**
      * @description
-     *
      * Pause the tween
+     *
+     * @returns {void}
      */
     pause() {
         if (this.pauseStatus) return;
@@ -489,8 +518,9 @@ export default class HandleSpring {
 
     /**
      * @description
-     *
      * Resume tween in pause
+     *
+     * @returns {void}
      */
     resume() {
         if (!this.pauseStatus) return;
@@ -503,6 +533,7 @@ export default class HandleSpring {
 
     /**
      * @param {Object.<string, number|function>} obj Initial data structure
+     * @returns {void}
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
@@ -542,9 +573,11 @@ export default class HandleSpring {
         });
     }
 
-    /*
+    /**
      * @description
      * Reset data value with initial
+     *
+     * @returns {void}
      */
     resetData() {
         this.values = mergeDeep(this.values, this.initialData);
@@ -949,12 +982,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object} configProp single spring config propierties
-     * @param {Number} [ configProp.tension ] tension - A positive number
-     * @param {Number} [ configProp.mass ] mass - A positive number
-     * @param {Number} [ configProp.friction ] friction - A positive number
-     * @param {Number} [ configProp.velocity ] velocity - A positive number
-     * @param {Number} [ configProp.precision ] precision - A positive number
+     * @param {import('./type.js').springPropsOptional} configProp single spring config propierties
      *
      *  @example
      *  ```javascript
@@ -980,7 +1008,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param  { import('../spring/springConfig.js').springConfigStringTypes} config
+     * @param  {import('./type.js').springPresentConfigType} config
      *
      * @description
      * updateConfig - Update config object with new preset
@@ -1144,7 +1172,7 @@ export default class HandleSpring {
         this.callback = [];
         this.callbackCache = [];
         this.values = [];
-        this.promise = null;
+        this.promise = undefined;
         this.unsubscribeCache.forEach((unsubscribe) => unsubscribe());
         this.unsubscribeCache = [];
     }
