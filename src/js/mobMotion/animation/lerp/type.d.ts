@@ -17,3 +17,27 @@ export interface lerpActions {
     precision?: number;
     velocity?: number;
 }
+
+export interface lerpDefault {
+    reverse: boolean;
+    velocity: number;
+    precision: number;
+    relative: boolean;
+    immediate: boolean;
+    immediateNoPromise: boolean;
+}
+
+export interface lerpInitialData {
+    prop: string;
+    toValue: number | function;
+    fromValue: number | function;
+    currentValue: number | function;
+}
+
+export interface lerpValues extends lerpInitialData {
+    fromFn: function;
+    fromIsFn: boolean;
+    toFn: function;
+    toIsFn: boolean;
+    settled: boolean;
+}
