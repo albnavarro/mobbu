@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getTweenFn } from '../tween/tweenConfig.js';
 import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
@@ -36,6 +38,7 @@ import { handleSetUp } from '../../setup.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
+import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
 
 export default class HandleSequencer {
     /**
@@ -75,13 +78,14 @@ export default class HandleSequencer {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * Basic array with all the propierties, is creted in setData methods
          * in draw methods currentValue and settled will be updated for each prop
          *
          * it is used as a mock to create the array to add to the timeline
          * @private
+         * @type {import('./type.js').sequencerValue[]}
          */
         this.values = [];
 
@@ -89,51 +93,61 @@ export default class HandleSequencer {
          * Timeline array
          *
          * @private
+         * @type {import('./type.js').sequencerRow[]}
          */
         this.timeline = [];
 
         /**
          * @private
+         * @type {import('./type.js').labelType[]}
          */
         this.labels = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callback = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackCache = [];
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackOnStop = [];
 
         /**
          * @private
+         * @type {import('./type.js').addType[]}
          */
         this.callbackAdd = [];
 
         /**
          * @private
+         * @type {Array<function>}
          */
         this.unsubscribeCache = [];
 
         /**
          * @private
+         * @type {number}
          */
         this.duration = durationIsValid(data?.duration);
 
         /**
          * @private
+         * @type {string}
          */
         this.type = 'sequencer';
 
         /**
          * @private
+         * @type {import('./type.js').sequencerDefault}
          */
         this.defaultProp = {
             start: 0,
@@ -153,18 +167,21 @@ export default class HandleSequencer {
 
         /**
          * @private
+         * @type {string|undefined}
          */
-        this.direction = null;
+        this.direction = undefined;
 
         /**
          * @private
+         * @type {number}
          */
-        this.lastPartial = null;
+        this.lastPartial = 0;
 
         /**
          * @private
+         * @type {string|undefined}
          */
-        this.lastDirection = null;
+        this.lastDirection = undefined;
 
         /**
          * @private
@@ -174,11 +191,13 @@ export default class HandleSequencer {
 
         /**
          * @private
+         * @type {boolean}
          */
         this.useStagger = true;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.staggerIsReady = false;
 
@@ -212,8 +231,8 @@ export default class HandleSequencer {
                 arr: cb,
                 endArr: this.callbackOnStop,
                 stagger: this.stagger,
-                slowlestStagger: {}, //sequencer doasn't support slowlestStagger
-                fastestStagger: {}, //sequencer doasn't support fastestStagger
+                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
+                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
             });
 
             if (this.callbackCache.length > this.callback.length) {
@@ -228,14 +247,11 @@ export default class HandleSequencer {
     }
 
     /**
-     * @typedef {Object} sequencerDrawTypes
-     * @prop {Number} [ partial = 0] render at specific partial between 0 and duration
-     * @prop {Boolean} [ isLastDraw = false] use the callback defined by the onStop method
-     * @prop {Boolean} [ useFrame = false ] when the method is used inside a requestAnimatioFrame the useFrame property must be set to true, otherwise it will be executed inside a nextTick
-     **/
-
-    /**
-     * @param {sequencerDrawTypes & import('../utils/constant.js').directionTypes} props
+     * @param {object} obj
+     * @param {number} obj.partial
+     * @param {boolean} obj.isLastDraw
+     * @param {boolean} obj.useFrame
+     * @param {string} obj.direction
      *
      * @example
      * ```javascript
@@ -275,6 +291,7 @@ export default class HandleSequencer {
              */
             if (
                 !this.firstRun &&
+                this.lastPartial &&
                 (!direction || direction === directionConstant.NONE)
             ) {
                 this.direction =
@@ -291,70 +308,68 @@ export default class HandleSequencer {
                 this.direction = direction;
             }
 
-            /*
-            Obj utils to avoid new GC allocation during animation
-            Try to reduce the GC timing
-            Support caluculation in each frame
-            */
-            let GC = {
-                currentEl: null,
-                isLastUsableProp: null,
-                duration: null,
-                inactivePosition: null,
-                toValue: null,
-                fromValue: null,
-            };
-
             this.values.forEach((item) => {
                 item.settled = false;
             });
 
             this.timeline.forEach(({ start, end, values }, i) => {
                 values.forEach((item) => {
-                    GC.currentEl = this.values.find(
+                    const currentEl = this.values.find(
                         ({ prop }) => prop === item.prop
                     );
 
-                    // Id the prop is settled or is inactive skip
-                    if (GC.currentEl.settled || !item.active) return;
+                    if (!currentEl) return;
 
-                    // Check if in the next step of timeline the same prop is active an start before partial
-                    GC.isLastUsableProp = checkIsLastUsableProp(
+                    /**
+                     * Id the prop is settled or is inactive skip
+                     */
+                    if (currentEl.settled || !item.active) return;
+
+                    /**
+                     * Check if in the next step of timeline the same prop is active an start before partial
+                     */
+                    const isLastUsableProp = checkIsLastUsableProp(
                         this.timeline,
                         i,
                         item.prop,
                         partial
                     );
 
-                    // If in the next step the same props is active and start before partial skip
-                    if (!GC.isLastUsableProp) return;
+                    /**
+                     * If in the next step the same props is active and start before partial skip
+                     */
+                    if (!isLastUsableProp) return;
 
-                    GC.toValue = mobCore.checkType(Number, item.toValue)
+                    const toValue = mobCore.checkType(Number, item.toValue)
                         ? item.toValue
-                        : item.toValue();
+                        : // @ts-ignore
+                          item.toValue();
 
-                    GC.fromValue = mobCore.checkType(Number, item.fromValue)
+                    const fromValue = mobCore.checkType(Number, item.fromValue)
                         ? item.fromValue
-                        : item.fromValue();
+                        : // @ts-ignore
+                          item.fromValue();
 
-                    // At least we get the current value
-                    GC.duration = end - start;
-                    GC.inactivePosition =
-                        partial < end ? GC.fromValue : GC.toValue;
+                    /**
+                     * At least we get the current value
+                     */
+                    const duration = end - start;
+                    const inactivePosition =
+                        partial < end ? fromValue : toValue;
 
                     item.currentValue =
                         partial >= start && partial <= end
                             ? item.ease(
                                   partial - start,
-                                  GC.fromValue,
-                                  GC.toValue - GC.fromValue,
-                                  GC.duration
+                                  fromValue,
+                                  toValue - fromValue,
+                                  duration
                               )
-                            : GC.inactivePosition;
+                            : inactivePosition;
 
                     item.currentValue = getRoundedValue(item.currentValue);
-                    GC.currentEl.currentValue = item.currentValue;
-                    GC.currentEl.settled = true;
+                    currentEl.currentValue = item.currentValue;
+                    currentEl.settled = true;
                 });
             });
 
@@ -373,8 +388,6 @@ export default class HandleSequencer {
             this.fireAddCallBack(partial);
 
             this.useStagger = true;
-            // Remove reference to o Object
-            GC = null;
             this.lastPartial = partial;
             this.lastDirection = this.direction;
             this.firstRun = false;
@@ -394,8 +407,8 @@ export default class HandleSequencer {
      */
     resetLastValue() {
         this.firstRun = true;
-        this.lastPartial = null;
-        this.lastDirection = null;
+        this.lastPartial = 0;
+        this.lastDirection = undefined;
     }
 
     /**
@@ -534,8 +547,10 @@ export default class HandleSequencer {
      *
      * @private
      *
-     * @param  {Array} data new datato merge
-     * @return {Array} main store Array merged with new data
+     * @param  {Array} newData new datato merge
+     * @param {import('./type.js').sequencerValue[]} data
+     *
+     * @return {import('./type.js').sequencerValue[]}
      */
     mergeArray(newData, data) {
         return data.map((item) => {
@@ -558,7 +573,8 @@ export default class HandleSequencer {
     /**
      * @private
      *
-     * @property {Array} arr
+     * @param {import('./type.js').sequencerRow[]} arr
+     * @returns {import('./type.js').sequencerRow[]} arr
      *
      * @description
      * Sorts the array by the lowest start value
@@ -620,9 +636,9 @@ export default class HandleSequencer {
      *
      * ```
      * @description
-      Transform some properties of your choice from the `current value` to the `entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
-      The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-      It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     * Transform some properties of your choice from the `current value` to the `entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
+     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goTo(obj, props) {
         const propMerged = { ...this.defaultProp, ...props };
@@ -634,8 +650,8 @@ export default class HandleSequencer {
         const newValues = this.mergeArray(data, this.values);
         this.timeline.push({
             values: newValues,
-            start,
-            end,
+            start: start ?? 0,
+            end: end ?? this.duration,
         });
 
         this.timeline = this.orderByStart(this.timeline);
@@ -658,9 +674,9 @@ export default class HandleSequencer {
      *
      * ```
      * @description
-      Transform some properties of your choice from the `entered value` to the `current value`, the transformation will start from the value associated with start and will end in the value associated with end.
-      The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-      It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     * Transform some properties of your choice from the `entered value` to the `current value`, the transformation will start from the value associated with start and will end in the value associated with end.
+     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goFrom(obj, props) {
         const propMerged = { ...this.defaultProp, ...props };
@@ -672,8 +688,8 @@ export default class HandleSequencer {
         const newValues = this.mergeArray(data, this.values);
         this.timeline.push({
             values: newValues,
-            start,
-            end,
+            start: start ?? 0,
+            end: end ?? this.duration,
         });
 
         this.timeline = this.orderByStart(this.timeline);
@@ -698,9 +714,9 @@ export default class HandleSequencer {
      * ```
      *
      * @description
-      Transform some properties of your choice from the `first entered value` to the `second entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
-      The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
-      It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
+     * Transform some properties of your choice from the `first entered value` to the `second entered value`, the transformation will start from the value associated with start and will end in the value associated with end.
+     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     * It is possible to associate an easing to the transformation, this easing will be applied only in this transformation.
      */
     goFromTo(fromObj, toObj, props) {
         const propMerged = { ...this.defaultProp, ...props };
@@ -717,8 +733,8 @@ export default class HandleSequencer {
         const newValues = this.mergeArray(data, this.values);
         this.timeline.push({
             values: newValues,
-            start,
-            end,
+            start: start ?? 0,
+            end: end ?? this.duration,
         });
 
         this.timeline = this.orderByStart(this.timeline);
@@ -726,7 +742,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {string} label name
+     * @param {string} name
      * @param {number} [ time = 0 ] time
      * @returns {this} The instance on which this method was called.
      *
@@ -737,8 +753,8 @@ export default class HandleSequencer {
      *
      * ```
      * @description
-      Adds a label associated with a specific step in a range between 0 and duration (default: 10).
-      Both syncTimeline and scrollTrigger will take care of processing the value as needed
+     * Adds a label associated with a specific step in a range between 0 and duration (default: 10).
+     * Both syncTimeline and scrollTrigger will take care of processing the value as needed
      */
     label(name = '', time = 0) {
         this.labels.push({ name, time });
@@ -747,7 +763,7 @@ export default class HandleSequencer {
 
     /**
      * Return the array of entered labels
-     * @returns {Array<string>} labels array
+     * @returns {import('./type.js').labelType[]} labels array
      */
     getLabels() {
         return this.labels;
@@ -760,7 +776,7 @@ export default class HandleSequencer {
      **/
 
     /**
-     * @param {function(import('../utils/constant.js').directionTypes & sequencerAddProps):void } fn - callback function
+     * @param {function(import('../utils/timeline/timelineConstant').directionTypes & sequencerAddProps):void } fn - callback function
      * @param {number} time - Value grater than 0 and minor duration.
      * @returns {this} The instance on which this method was called.
      *
@@ -862,10 +878,10 @@ export default class HandleSequencer {
      *
      * ```
      * @description
-       Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
-       Useful for applying a different style to an inactive element.
-       A typical example is to remove the teansform3D property:
-*
+     *  Similar to subscribe this callBack is launched when the data calculation stops (when the timeline ends or the scroll trigger is inactive).
+     *  Useful for applying a different style to an inactive element.
+     *  A typical example is to remove the teansform3D property:
+     *
      * @example
      * ```javascript
      * // Use transform3D while item is active

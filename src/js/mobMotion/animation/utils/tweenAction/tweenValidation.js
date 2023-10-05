@@ -149,7 +149,7 @@ export const repeatIsValid = (repeat) => {
 /**
  *
  * @param {String|undefined} ease
- * @returns {String}
+ * @returns {import('../../tween/type').easeTypes}
  *
  * @description
  * Check if ease definition is valid

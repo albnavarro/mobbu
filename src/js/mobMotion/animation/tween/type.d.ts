@@ -1,4 +1,4 @@
-import { staggerObject, staggerObjectOptional } from '../utils/stagger/type';
+import { staggerObjectOptional } from '../utils/stagger/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
 export type easeTypes =

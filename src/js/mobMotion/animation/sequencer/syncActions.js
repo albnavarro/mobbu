@@ -6,7 +6,7 @@ import { dataTweenValueIsNotValidWarning } from '../utils/warning.js';
 
 /**
  * @param {import('../utils/tweenAction/type.js').valueToparseType} obj
- * @param {string} ease
+ * @param {string|undefined} ease
  *
  * @returns {object}
  */
@@ -31,7 +31,7 @@ export const goToSyncUtils = (obj, ease) => {
 
 /**
  * @param {import('../utils/tweenAction/type.js').valueToparseType} obj
- * @param {string} ease
+ * @param {string|undefined} ease
  *
  * @returns {object}
  */
@@ -57,7 +57,7 @@ export const goFromSyncUtils = (obj, ease) => {
 /**
  * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj
  * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj
- * @param {string} ease
+ * @param {string|undefined} ease
  *
  * @returns {object}
  */

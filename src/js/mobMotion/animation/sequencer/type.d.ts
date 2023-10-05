@@ -9,6 +9,12 @@ export interface sequencerProps {
     ease?: easeTypes;
 }
 
+export interface sequencerDefault {
+    ease: easeTypes;
+    start: number;
+    end: number;
+}
+
 export interface sequencerAction {
     duration?: number;
     ease?: easeTypes;
@@ -37,4 +43,14 @@ export interface createStagger {
     end: number;
     index: number;
     item: HTMLElement | object;
+}
+
+export interface labelType {
+    name: string;
+    time: number;
+}
+
+export interface addType {
+    fn: function;
+    time: number;
 }
