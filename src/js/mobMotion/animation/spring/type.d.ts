@@ -51,6 +51,14 @@ export interface springActions {
     configProp?: springPropsOptional;
 }
 
+export interface springDefault {
+    reverse: boolean;
+    config: springProps;
+    relative: boolean;
+    immediate: boolean;
+    immediateNoPromise: boolean;
+}
+
 export interface springInitialData {
     prop: string;
     toValue: number | function;

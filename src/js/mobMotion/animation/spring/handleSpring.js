@@ -233,7 +233,7 @@ export default class HandleSpring {
          * This value is the base value merged with new value in custom prop
          * passed form user in goTo etc..
          *
-         * @type {object}
+         * @type {import('./type.js').springDefault}
          **/
         this.defaultProps = {
             reverse: false,
@@ -279,10 +279,11 @@ export default class HandleSpring {
         /**
          * Normalize spring config props
          */
-        const tension = Math.trunc(this.config.tension);
-        const friction = Math.trunc(this.config.friction);
-        const mass = Math.trunc(this.config.mass);
-        const precision = Math.trunc(this.config.precision);
+
+        const tension = this.config.tension;
+        const friction = this.config.friction;
+        const mass = this.config.mass;
+        const precision = this.config.precision;
 
         const draw = (/** @type{number} */ _time, /** @type{number} */ fps) => {
             this.isActive = true;
@@ -589,24 +590,30 @@ export default class HandleSpring {
      * @description
      * Mege special props with default props
      *
-     * @param  {Object} props
+     * @param  {import('./type.js').springActions} props
      * @return {Object} props merged
      *
      */
     mergeProps(props) {
+        const springParams = handleSetUp.get('spring');
+
         /**
-         * Get new config preset
+         * @description
+         * Get new config preset single values.
+         *
+         * @type {import('./type.js').springPresentConfigType}
          */
-        const { config: allConfig } = handleSetUp.get('spring');
+        const allPresetConfig = springParams.config;
         const newConfigPreset = springConfigIsValid(props?.config)
-            ? allConfig[props.config]
+            ? // @ts-ignore
+              allPresetConfig[props.config]
             : this.defaultProps.config;
 
         /*
          * Modify single propierties of newConfigPreset
          */
-        const configToMerge = springConfigPropIsValid(props?.configProp);
-        const newConfig = { ...newConfigPreset, ...configToMerge };
+        const configPropsToMerge = springConfigPropIsValid(props?.configProp);
+        const newConfigProps = { ...newConfigPreset, ...configPropsToMerge };
 
         /*
          * Merge all
@@ -614,7 +621,7 @@ export default class HandleSpring {
         const newProps = {
             ...this.defaultProps,
             ...props,
-            config: newConfig,
+            config: newConfigProps,
         };
         const { config, relative } = newProps;
         this.config = config;
@@ -982,7 +989,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {import('./type.js').springPropsOptional} configProp single spring config propierties
+     * @param {import('./type.js').springPropsOptional} configProp - single spring config propierties
      *
      *  @example
      *  ```javascript
@@ -1008,10 +1015,11 @@ export default class HandleSpring {
     }
 
     /**
-     * @param  {import('./type.js').springPresentConfigType} config
      *
      * @description
      * updateConfig - Update config object with new preset
+     *
+     * @param  {import('./type.js').springChoiceConfig} config
      *
      */
     updateConfig(config) {
