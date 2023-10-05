@@ -320,11 +320,6 @@ export default class HandleTween {
     onReuqestAnim(time, _fps, res) {
         this.startTime = time;
 
-        /**
-         * @type {Object|null}
-         */
-        let o = {};
-
         const draw = (/** @type{number} */ time) => {
             this.isActive = true;
 
@@ -354,22 +349,22 @@ export default class HandleTween {
                 }
             });
 
-            o.isSettled = Math.round(this.timeElapsed) === this.duration;
+            const isSettled = Math.round(this.timeElapsed) === this.duration;
 
             // Prepare an obj to pass to the callback
-            o.callBackObject = getValueObj(this.values, 'currentValue');
+            const callBackObject = getValueObj(this.values, 'currentValue');
 
             defaultCallback({
                 stagger: this.stagger,
                 callback: this.callback,
                 callbackCache: this.callbackCache,
-                callBackObject: o.callBackObject,
+                callBackObject: callBackObject,
                 useStagger: this.useStagger,
             });
 
             this.isRunning = true;
 
-            if (o.isSettled) {
+            if (isSettled) {
                 const onComplete = () => {
                     this.isActive = false;
                     this.isRunning = false;
@@ -387,10 +382,6 @@ export default class HandleTween {
 
                     // On complete
                     if (!this.pauseStatus) {
-                        // Remove reference to o Object
-                        o = null;
-
-                        //
                         res();
 
                         // Set promise reference to null once resolved
@@ -405,7 +396,7 @@ export default class HandleTween {
                     callback: this.callback,
                     callbackCache: this.callbackCache,
                     callbackOnComplete: this.callbackOnComplete,
-                    callBackObject: o.callBackObject,
+                    callBackObject: callBackObject,
                     stagger: this.stagger,
                     slowlestStagger: this.slowlestStagger,
                     fastestStagger: this.fastestStagger,
