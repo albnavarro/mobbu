@@ -53,7 +53,7 @@ export interface springActions {
 
 export interface springDefault {
     reverse: boolean;
-    config: springProps;
+    configProps: springProps;
     relative: boolean;
     immediate: boolean;
     immediateNoPromise: boolean;

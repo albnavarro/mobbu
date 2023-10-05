@@ -125,7 +125,7 @@ export default class HandleSpring {
          *
          * This value lives from user call ( goTo etc..) until next call
          **/
-        this.config = springConfigIsValidAndGetNew(data?.config);
+        this.configProps = springConfigIsValidAndGetNew(data?.config);
 
         /**
          * Update config with single props
@@ -237,7 +237,7 @@ export default class HandleSpring {
          **/
         this.defaultProps = {
             reverse: false,
-            config: this.config,
+            configProps: this.configProps,
             relative: this.relative,
             immediate: false,
             immediateNoPromise: false,
@@ -273,17 +273,17 @@ export default class HandleSpring {
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
-            item.velocity = Math.trunc(this.config.velocity);
+            item.velocity = Math.trunc(this.configProps.velocity);
         });
 
         /**
          * Normalize spring config props
          */
 
-        const tension = this.config.tension;
-        const friction = this.config.friction;
-        const mass = this.config.mass;
-        const precision = this.config.precision;
+        const tension = this.configProps.tension;
+        const friction = this.configProps.friction;
+        const mass = this.configProps.mass;
+        const precision = this.configProps.precision;
 
         const draw = (/** @type{number} */ _time, /** @type{number} */ fps) => {
             this.isActive = true;
@@ -554,7 +554,7 @@ export default class HandleSpring {
                 prop: prop,
                 toValue: value,
                 fromValue: value,
-                velocity: this.config.velocity,
+                velocity: this.configProps.velocity,
                 currentValue: value,
                 fromFn: () => {},
                 fromIsFn: false,
@@ -607,7 +607,7 @@ export default class HandleSpring {
         const newConfigPreset = springConfigIsValid(props?.config)
             ? // @ts-ignore
               allPresetConfig[props.config]
-            : this.defaultProps.config;
+            : this.defaultProps.configProps;
 
         /*
          * Modify single propierties of newConfigPreset
@@ -621,10 +621,11 @@ export default class HandleSpring {
         const newProps = {
             ...this.defaultProps,
             ...props,
-            config: newConfigProps,
+            configProps: newConfigProps,
         };
-        const { config, relative } = newProps;
-        this.config = config;
+
+        const { configProps, relative } = newProps;
+        this.configProps = configProps;
         this.relative = relative;
 
         return newProps;
@@ -1007,10 +1008,10 @@ export default class HandleSpring {
      */
     updateConfigProp(configProp = {}) {
         const configToMerge = springConfigPropIsValid(configProp);
-        this.config = { ...this.config, ...configToMerge };
+        this.configProps = { ...this.configProps, ...configToMerge };
 
         this.defaultProps = mergeDeep(this.defaultProps, {
-            config: configToMerge,
+            configProps: configToMerge,
         });
     }
 
@@ -1023,9 +1024,9 @@ export default class HandleSpring {
      *
      */
     updateConfig(config) {
-        this.config = springConfigIsValidAndGetNew(config);
+        this.configProps = springConfigIsValidAndGetNew(config);
         this.defaultProps = mergeDeep(this.defaultProps, {
-            config: this.config,
+            configProps: this.configProps,
         });
     }
 
