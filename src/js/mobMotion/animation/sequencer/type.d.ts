@@ -15,3 +15,26 @@ export interface sequencerAction {
     start?: number;
     end?: number;
 }
+
+export interface sequencerValue {
+    active: boolean;
+    currentValue: number;
+    ease: function;
+    fromValue: number;
+    prop: string;
+    settled: boolean;
+    toValue: number;
+}
+
+export interface sequencerRow {
+    start: number;
+    end: number;
+    values: sequencerValue[];
+}
+
+export interface createStagger {
+    start: number;
+    end: number;
+    index: number;
+    item: HTMLElement | object;
+}

@@ -49,6 +49,10 @@ export interface tweenCommonProps {
     immediateNoPromise?: boolean;
 }
 
+export interface tweenCommonPropsTween extends tweenCommonProps {
+    duration?: number;
+}
+
 export interface tweenAction {
     duration?: number;
     reverse?: boolean;
@@ -60,4 +64,22 @@ export interface tweenAction {
 
 export interface tweenStopProps {
     clearCache?: boolean;
+}
+
+export interface tweenInitialData {
+    prop: string;
+    toValue: number | function;
+    fromValue: number | function;
+    currentValue: number | function;
+    shouldUpdate: boolean;
+    fromFn: function;
+    fromIsFn: boolean;
+    toFn: function;
+    toIsFn: boolean;
+    settled: boolean;
+}
+
+export interface tweenStoreData extends tweenInitialData {
+    toValueOnPause: number | function;
+    toValProcessed: number | function;
 }

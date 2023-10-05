@@ -6,7 +6,7 @@ import { mobCore } from '../../../mobCore';
  * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} callbackPauseArray
  * @param {Function} rafFunction
  * @param {Function} pauseFunction
- * @param {Promise.<undefined>} resolve
+ * @param {(function(any):void)} resolve
  * @returns {void}
  *
  * @description

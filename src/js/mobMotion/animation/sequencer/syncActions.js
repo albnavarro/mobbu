@@ -1,7 +1,15 @@
+// @ts-check
+
 import { getTweenFn } from '../tween/tweenConfig.js';
 import { dataTweenValueIsValid } from '../utils/tweenAction/tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from '../utils/warning.js';
 
+/**
+ * @param {import('../utils/tweenAction/type.js').valueToparseType} obj
+ * @param {string} ease
+ *
+ * @returns {object}
+ */
 export const goToSyncUtils = (obj, ease) => {
     return Object.keys(obj).map((item) => {
         if (!dataTweenValueIsValid(obj[item])) {
@@ -21,6 +29,12 @@ export const goToSyncUtils = (obj, ease) => {
     });
 };
 
+/**
+ * @param {import('../utils/tweenAction/type.js').valueToparseType} obj
+ * @param {string} ease
+ *
+ * @returns {object}
+ */
 export const goFromSyncUtils = (obj, ease) => {
     return Object.keys(obj).map((item) => {
         if (!dataTweenValueIsValid(obj[item])) {
@@ -40,6 +54,13 @@ export const goFromSyncUtils = (obj, ease) => {
     });
 };
 
+/**
+ * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj
+ * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj
+ * @param {string} ease
+ *
+ * @returns {object}
+ */
 export const goFromToSyncUtils = (fromObj, toObj, ease) => {
     return Object.keys(fromObj).map((item) => {
         if (

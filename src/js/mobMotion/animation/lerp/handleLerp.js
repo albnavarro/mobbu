@@ -584,15 +584,15 @@ export default class HandleLerp {
      *
      * ```
      * @description
-       Transform some properties of your choice from the `current value` to the `entered value`.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - precision
-        - velocity
-        - relative
-        - reverse
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `current value` to the `entered value`.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - precision
+     *   - velocity
+     *   - relative
+     *   - reverse
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      *
      */
     goTo(obj, props = {}) {
@@ -626,15 +626,15 @@ export default class HandleLerp {
      *
      * ```
      * @description
-       Transform some properties of your choice from the `entered value` to the `current value`.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - precision
-        - velocity
-        - relative
-        - reverse
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `entered value` to the `current value`.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - precision
+     *   - velocity
+     *   - relative
+     *   - reverse
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      */
     goFrom(obj, props = {}) {
         if (this.pauseStatus) return;
@@ -712,11 +712,11 @@ export default class HandleLerp {
      *
      *
      * ```
-       Transform some properties of your choice from the `current value` to the `entered value` immediately.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      */
     set(obj, props = {}) {
         if (this.pauseStatus) return;

@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getRoundedValue } from '../utils/animationUtils.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
@@ -5,6 +7,7 @@ import {
     STAGGER_TYPE_END,
     STAGGER_TYPE_CENTER,
     STAGGER_TYPE_EQUAL,
+    STAGGER_DEFAULT_INDEX_OBJ,
 } from '../utils/stagger/staggerCostant.js';
 import {
     createStaggerEachWarning,
@@ -26,8 +29,94 @@ import { mobCore } from '../../../mobCore/index.js';
  **/
 
 /**
+ * @param {object} obj
+ * @param {number} obj.each
+ * @param {number} obj.duration
+ * @param {number} obj.numItem
+ * @param {number} obj.index
+ * @param {number} obj.eachByNumItem
+ *
+ * @returns {{start:number, end:number}}
+ */
+const getStaggerEqual = ({ each, duration, numItem, index, eachByNumItem }) => {
+    if (each === 1) {
+        const stepDuration = duration / numItem;
+        const start = getRoundedValue(index * stepDuration);
+        const end = getRoundedValue(start + stepDuration);
+        return { start, end };
+    }
+
+    const unit = duration / numItem;
+    const staggerDuration = unit * eachByNumItem;
+    const remainSpace = duration - staggerDuration;
+
+    // Avoid division with 0
+    const validNumItem = numItem - 1 > 0 ? numItem - 1 : 1;
+    const remainSpaceUnit = remainSpace / validNumItem;
+    const staggerStart = remainSpaceUnit * index;
+
+    return {
+        start: getRoundedValue(staggerStart),
+        end: getRoundedValue(staggerDuration + staggerStart),
+    };
+};
+
+/**
+ * @param {object} obj
+ * @param {number} obj.duration
+ * @param {number} obj.numItem
+ * @param {number} obj.index
+ * @param {number} obj.eachByNumItem
+ * @param {string} obj.type
+ *
+ * @returns {{start:number, end:number}}
+ */
+const getStaggerSpecial = ({
+    duration,
+    numItem,
+    index,
+    eachByNumItem,
+    type,
+}) => {
+    const unit = duration / numItem;
+    const cleanStart = unit * index;
+    const noopSpace = duration - (duration - cleanStart);
+    const gap = (noopSpace / numItem) * eachByNumItem;
+
+    if (type === STAGGER_TYPE_START) {
+        return {
+            start: 0,
+            end: getRoundedValue(duration - (cleanStart - gap)),
+        };
+    }
+
+    if (type === STAGGER_TYPE_CENTER) {
+        const space = (cleanStart - gap) / 2;
+        return {
+            start: getRoundedValue(space),
+            end: getRoundedValue(duration - space),
+        };
+    }
+
+    if (type === STAGGER_TYPE_END) {
+        return {
+            start: getRoundedValue(cleanStart - gap),
+            end: getRoundedValue(duration),
+        };
+    }
+
+    /**
+     * Fallback
+     */
+    return {
+        start: 0,
+        end: duration,
+    };
+};
+
+/**
  * @param { createSequencerTypes & import('../utils/stagger/type.js').staggerPropiertiesObject } data
- * @returns {Array<{ start: Number, end: Number,index: Number, item: (HTMLElement|Object) }>} Stagger array
+ * @returns {import('./type.js').createStagger[]} Stagger array
  *
  * @example
  * ```javascript
@@ -62,7 +151,7 @@ import { mobCore } from '../../../mobCore/index.js';
  *
  * ```
  */
-export const createStaggers = (data = {}) => {
+export const createStaggers = (data) => {
     const items = staggerItemsIsValid(data?.items);
     const stagger = getStaggerFromProps(data);
     const duration = durationIsValid(data?.duration);
@@ -119,8 +208,8 @@ export const createStaggers = (data = {}) => {
         arr: [...items].map((item) => ({ item })),
         endArr: [],
         stagger: stagger,
-        slowlestStagger: {},
-        fastestStagger: {},
+        slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ,
+        fastestStagger: STAGGER_DEFAULT_INDEX_OBJ,
     });
 
     /**
@@ -157,26 +246,13 @@ export const createStaggers = (data = {}) => {
 
         const { start, end } = (() => {
             if (stagger.type === STAGGER_TYPE_EQUAL) {
-                if (each === 1) {
-                    const stepDuration = duration / numItem;
-                    const start = getRoundedValue(index * stepDuration);
-                    const end = getRoundedValue(start + stepDuration);
-                    return { start, end };
-                } else {
-                    const unit = duration / numItem;
-                    const staggerDuration = unit * eachByNumItem;
-                    const remainSpace = duration - staggerDuration;
-
-                    // Avoid division with 0
-                    const validNumItem = numItem - 1 > 0 ? numItem - 1 : 1;
-                    const remainSpaceUnit = remainSpace / validNumItem;
-                    const staggerStart = remainSpaceUnit * index;
-
-                    return {
-                        start: getRoundedValue(staggerStart),
-                        end: getRoundedValue(staggerDuration + staggerStart),
-                    };
-                }
+                return getStaggerEqual({
+                    each,
+                    duration,
+                    numItem,
+                    index,
+                    eachByNumItem,
+                });
             }
 
             if (
@@ -184,33 +260,22 @@ export const createStaggers = (data = {}) => {
                 stagger.type === STAGGER_TYPE_END ||
                 stagger.type === STAGGER_TYPE_CENTER
             ) {
-                const unit = duration / numItem;
-                const cleanStart = unit * index;
-                const noopSpace = duration - (duration - cleanStart);
-                const gap = (noopSpace / numItem) * eachByNumItem;
-
-                if (stagger.type === STAGGER_TYPE_START) {
-                    return {
-                        start: 0,
-                        end: getRoundedValue(duration - (cleanStart - gap)),
-                    };
-                }
-
-                if (stagger.type === STAGGER_TYPE_CENTER) {
-                    const space = (cleanStart - gap) / 2;
-                    return {
-                        start: getRoundedValue(space),
-                        end: getRoundedValue(duration - space),
-                    };
-                }
-
-                if (stagger.type === STAGGER_TYPE_END) {
-                    return {
-                        start: getRoundedValue(cleanStart - gap),
-                        end: getRoundedValue(duration),
-                    };
-                }
+                return getStaggerSpecial({
+                    duration,
+                    numItem,
+                    index,
+                    eachByNumItem,
+                    type: stagger.type,
+                });
             }
+
+            /**
+             * Fallback
+             */
+            return {
+                start: 0,
+                end: duration,
+            };
         })();
 
         return {

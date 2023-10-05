@@ -1,3 +1,8 @@
+// @ts-check
+
+/**
+ * @type{Object}
+ */
 export const propToSet = {
     fromValue: {
         get: 'toValue',
@@ -9,8 +14,16 @@ export const propToSet = {
     },
 };
 
-export const getFirstValidValueBack = (arr, i, prop, propToFind) => {
-    return arr.slice(0, i).reduceRight((p, { values: valuesForward }) => {
+/**
+ * @param {import("./type").sequencerRow[]} arr
+ * @param {number} index
+ * @param {string} prop
+ * @param {string} propToFind
+ *
+ * @returns {import("./type").sequencerRow[]|null}
+ */
+export const getFirstValidValueBack = (arr, index, prop, propToFind) => {
+    return arr.slice(0, index).reduceRight((p, { values: valuesForward }) => {
         // Find active prop if exist
         const result = valuesForward.find(({ prop: propToCompare, active }) => {
             return active && propToCompare === prop;
@@ -22,8 +35,16 @@ export const getFirstValidValueBack = (arr, i, prop, propToFind) => {
     }, null);
 };
 
-export const checkIsLastUsableProp = (arr, i, prop, partial) => {
-    return arr.slice(i + 1, arr.length).reduce((p, { start, values }) => {
+/**
+ * @param {import("./type").sequencerRow[]} arr
+ * @param {number} index
+ * @param {string} prop
+ * @param {number} partial
+ *
+ * @returns {boolean}
+ */
+export const checkIsLastUsableProp = (arr, index, prop, partial) => {
+    return arr.slice(index + 1, arr.length).reduce((p, { start, values }) => {
         const nextActiveItem = values.find((nextItem) => {
             return nextItem.prop === prop && nextItem.active;
         });

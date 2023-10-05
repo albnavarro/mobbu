@@ -55,7 +55,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
                 })}
                 >
                 </code-button>
-                <div class="c-canvas__wrap c-canvas__wrap--border">
+                <div class="c-canvas__wrap">
                     <canvas></canvas>
                 </div>
             </div>

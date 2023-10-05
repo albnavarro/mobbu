@@ -1,3 +1,5 @@
+// @ts-check
+
 import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
 import {
     setFromCurrentByTo,
@@ -113,22 +115,21 @@ export default class HandleTween {
 
         /**
          * @private
+         * @type {function}
          */
         this.ease = easeTweenIsValidGetFunction(data?.ease);
 
         /**
          * @private
+         * @type {number}
          */
         this.duration = durationIsNumberOrFunctionIsValid(data?.duration);
 
         /**
          * @private
+         * @type {boolean}
          */
         this.relative = relativeIsValid(data?.relative, 'tween');
-
-        /**
-         *  end
-         **/
 
         /**
          * @private
@@ -138,36 +139,43 @@ export default class HandleTween {
 
         /**
          * @private
+         * @type {string}
          */
         this.uniqueId = mobCore.getUnivoqueId();
 
         /**
          * @private
+         * @type {boolean}
          */
         this.isActive = false;
 
         /**
          * @private
+         * @type{( function(any):void )|undefined}
          */
-        this.currentResolve = null;
+        this.currentResolve = undefined;
 
         /**
          * @private
+         * @type{function|undefined}
          */
-        this.currentReject = null;
+        this.currentReject = undefined;
 
         /**
          * @private
+         * @type{Promise|undefined}
          */
-        this.promise = null;
+        this.promise = undefined;
 
         /**
          * @private
+         * @type {import('./type.js').tweenStoreData[]}
          */
         this.values = [];
 
         /**
          * @private
+         * @type {import('./type.js').tweenInitialData[]}
          */
         this.initialData = [];
 
@@ -191,56 +199,67 @@ export default class HandleTween {
 
         /**
          * @private
+         * @type {import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackStartInPause = [];
 
         /**
          * @private
+         * @type {Array<function>}
          */
         this.unsubscribeCache = [];
 
         /**
          * @private
+         * @type {boolean}
          */
         this.pauseStatus = false;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.comeFromResume = false;
 
         /**
          * @private
+         * @type {number}
          */
         this.startTime = 0;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.isRunning = false;
 
         /**
          * @private
+         * @type {number}
          */
         this.timeElapsed = 0;
 
         /**
          * @private
+         * @type {number}
          */
         this.pauseTime = 0;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.firstRun = true;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.useStagger = true;
 
         /**
          * @private
+         * @type {boolean}
          */
         this.fpsInLoading = false;
 
@@ -251,6 +270,7 @@ export default class HandleTween {
 
         /**
          * @private
+         * @type{object}
          */
         this.defaultProps = {
             duration: this.duration,
@@ -294,6 +314,8 @@ export default class HandleTween {
      * @param {Number} time current global time
      * @param {Boolean} _fps current FPS
      * @param {Function} res current promise resolve
+     *
+     * @returns {void}
      **/
     onReuqestAnim(time, _fps, res) {
         this.startTime = time;
@@ -372,9 +394,9 @@ export default class HandleTween {
                         res();
 
                         // Set promise reference to null once resolved
-                        this.promise = null;
-                        this.currentReject = null;
-                        this.currentResolve = null;
+                        this.promise = undefined;
+                        this.currentReject = undefined;
+                        this.currentResolve = undefined;
                     }
                 };
 
@@ -404,6 +426,8 @@ export default class HandleTween {
     /**
      * @description
      * Inzialize stagger array
+     *
+     * @returns {Promise<any>}
      */
     async inzializeStagger() {
         /**
@@ -459,6 +483,10 @@ export default class HandleTween {
 
     /**
      * @private
+     * @param {function(any):void} res
+     * @param {function} reject
+     *
+     * @returns {Promise}
      */
     async startRaf(res, reject) {
         if (this.fpsInLoading) return;
@@ -481,6 +509,7 @@ export default class HandleTween {
 
     /**
      * @param {import('./type.js').tweenStopProps} Stop props
+     * @returns {void}
      *
      * @description
      *
@@ -502,9 +531,9 @@ export default class HandleTween {
         // Abort promise
         if (this.currentReject) {
             this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-            this.promise = null;
-            this.currentReject = null;
-            this.currentResolve = null;
+            this.promise = undefined;
+            this.currentReject = undefined;
+            this.currentResolve = undefined;
         }
 
         this.isActive = false;
@@ -512,8 +541,9 @@ export default class HandleTween {
 
     /**
      * @description
-     *
      * Pause the tween
+     *
+     * @returns {void}
      */
     pause() {
         if (this.pauseStatus) return;
@@ -522,8 +552,9 @@ export default class HandleTween {
 
     /**
      * @description
-     *
      * Resume tween in pause
+     *
+     * @returns {void}
      */
     resume() {
         if (!this.pauseStatus) return;
@@ -533,6 +564,7 @@ export default class HandleTween {
 
     /**
      * @param {Object.<string, number|function>} obj Initial data structure
+     * @returns {void}
      *
      * @description
      * Set initial data structure, the method is call by data prop in constructor. In case of need it can be called after creating the instance
@@ -580,9 +612,11 @@ export default class HandleTween {
         });
     }
 
-    /*
+    /**
      * @description
      * Reset data value with initial
+     *
+     * @returns {void}
      */
     resetData() {
         this.values = mergeDeep(this.values, this.initialData);
@@ -594,6 +628,7 @@ export default class HandleTween {
      * @description
      * Reject promise and update form value with current
      *
+     * @returns {void}
      */
     updateDataWhileRunning() {
         this.isActive = false;
@@ -601,7 +636,7 @@ export default class HandleTween {
         // Reject promise
         if (this.currentReject) {
             this.currentReject(mobCore.ANIMATION_STOP_REJECT);
-            this.promise = null;
+            this.promise = undefined;
         }
 
         this.values.forEach((item) => {
@@ -638,7 +673,6 @@ export default class HandleTween {
      * @example
      * ```javascript
      *
-     *
      * myTween.goTo(
      *     { string: ( Number|Function ) },
      *     {
@@ -654,15 +688,16 @@ export default class HandleTween {
      *
      * ```
      * @description
-       Transform some properties of your choice from the `current value` to the `entered value`.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - duration
-        - ease
-        - relative
-        - reverse
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `current value` to the `entered value`.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - duration
+     *   - ease
+     *   - relative
+     *   - reverse
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
+     *
      */
     goTo(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -695,15 +730,15 @@ export default class HandleTween {
      *
      * ```
      * @description
-       Transform some properties of your choice from the `entered value` to the `current value`.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - duration
-        - ease
-        - relative
-        - reverse
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `entered value` to the `current value`.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - duration
+     *   - ease
+     *   - relative
+     *   - reverse
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      */
     goFrom(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -738,15 +773,15 @@ export default class HandleTween {
      *
      * ```
      * @description
-       Transform some properties of your choice from the `first entered value` to the `second entered value`.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - duration
-        - ease
-        - relative
-        - reverse
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `first entered value` to the `second entered value`.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - duration
+     *   - ease
+     *   - relative
+     *   - reverse
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      */
     goFromTo(fromObj, toObj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -763,7 +798,7 @@ export default class HandleTween {
 
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
-     * @param {import('./type.js').tweenCommonProps } props special props
+     * @param {import('./type.js').tweenCommonPropsTween } props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @example
@@ -780,11 +815,11 @@ export default class HandleTween {
      *
      *
      * ```
-       Transform some properties of your choice from the `current value` to the `entered value` immediately.
-       The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-       It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-        - immediate (internal use)
-        - immediateNoPromise (internal use)
+     *  Transform some properties of your choice from the `current value` to the `entered value` immediately.
+     *  The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     *  It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *   - immediate (internal use)
+     *   - immediateNoPromise (internal use)
      */
     set(obj, props = {}) {
         if (this.pauseStatus || this.comeFromResume) this.stop();
@@ -992,7 +1027,7 @@ export default class HandleTween {
 
     /**
      * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @return {function} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -1134,6 +1169,8 @@ export default class HandleTween {
     /**
      * @description
      * Destroy tween
+     *
+     * @returns {void}
      */
     destroy() {
         if (this.promise) this.stop();
@@ -1142,7 +1179,7 @@ export default class HandleTween {
         this.callback = [];
         this.callbackCache = [];
         this.values = [];
-        this.promise = null;
+        this.promise = undefined;
         this.unsubscribeCache.forEach((unsubscribe) => unsubscribe());
         this.unsubscribeCache = [];
     }
