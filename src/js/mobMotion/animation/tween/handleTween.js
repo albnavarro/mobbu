@@ -1006,7 +1006,7 @@ export default class HandleTween {
     /**
      * Update ease with new preset
      *
-     * @param { import('../tween/tweenConfig.js').easeStringTypes } ease
+     * @param {import('./type.js').easeTypes} ease
      *
      */
     updateEase(ease) {

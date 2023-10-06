@@ -48,7 +48,7 @@ export const timeline = {
     },
 
     /**
-     * @param { import('./animation/asyncTimeline/handleAsyncTimeline.js').asyncTimelineTypes } data
+     * @param {import('./animation/asyncTimeline/type.js').asyncTimelineType} data
      *
      * @example
      * ```javascript
@@ -105,7 +105,7 @@ export const timeline = {
      * myTimeline.destroy()
      * ```
      */
-    createAsyncTimeline(data = {}) {
+    createAsyncTimeline(data) {
         return new HandleAsyncTimeline(data);
     },
 };

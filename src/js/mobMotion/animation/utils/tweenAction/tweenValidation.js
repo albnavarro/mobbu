@@ -670,8 +670,8 @@ export const asyncTimelineTweenIsValid = (instance) => {
 
 /**
  *
- * @param {Number|undefined} index
- * @param {String} label
+ * @param {string|Number|null} index
+ * @param {String|null} label
  *
  * @description
  * Check if label is found
