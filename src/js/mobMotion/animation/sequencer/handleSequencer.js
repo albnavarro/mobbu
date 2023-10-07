@@ -770,13 +770,7 @@ export default class HandleSequencer {
     }
 
     /**
-     * @typedef {Object} sequencerAddProps
-     * @prop {number} value  - The time value where the caalback is launched
-     * @prop {boolean} isForced Indicates that the callback was launched the first time without having exceeded the temporal value, e.g .: combined with a scrollTrigger it is launched the first time the page is loaded if it exceeds the set value even if this value has not been exceeded (as it is missing still the previous value)
-     **/
-
-    /**
-     * @param {function(import('../utils/timeline/timelineConstant').directionTypes & sequencerAddProps):void } fn - callback function
+     * @param {function(import('../utils/timeline/type.js').directionTypeObjectSequencer ):void } fn - callback function
      * @param {number} time - Value grater than 0 and minor duration.
      * @returns {this} The instance on which this method was called.
      *

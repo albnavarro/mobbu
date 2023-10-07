@@ -1352,7 +1352,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param { function(import('../utils/timeline/timelineConstant.js').directionTypes & asyncTimelineAddAsyncType):void } fn - callback function
+     * @param { function(import('../utils/timeline/type.js').directionTypeObject & asyncTimelineAddAsyncType):void } fn - callback function
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -2280,7 +2280,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {function(import('../utils/timeline/timelineConstant.js').directionTypes & asyncTimelineLoopType):void } cb - callback function
+     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
      * @return {Function} unsubscribe callback
      *
      * @example

@@ -3,11 +3,6 @@ import { handleSetUp } from '../../setup.js';
 import { easeReference } from '../utils/setUp/setUpValidation.js';
 import { tweenEaseWarning } from '../utils/warning.js';
 
-/**
- * @typedef {Object} easeTypes
- * @prop {('easeLinear'|'easeInQuad'|'easeOutQuad'|'easeInOutQuad'|'easeInCubic'|'easeOutCubic'|'easeInOutCubic'|'easeInQuart'|'easeOutQuart'|'easeInOutQuart'|'easeInQuint'|'easeOutQuint'|'easeInOutQuint'|'easeInSine'|'easeOutSine'|'easeInOutSine'|'easeInExpo'|'easeOutExpo'|'easeInOutExpo'|'easeInCirc'|'easeOutCirc'|'easeInOutCirc'|'easeInElastic'|'easeOutElastic'|'easeInOutElastic'|'easeInBack'|'easeOutBack'|'easeInOutBack'|'easeInBounce'|'easeOutBounce'|'easeInOutBounce')} [ ease ] Ease function
- **/
-
 export const tweenConfig = {
     [easeReference.easeLinear]: (
         elapsed,
