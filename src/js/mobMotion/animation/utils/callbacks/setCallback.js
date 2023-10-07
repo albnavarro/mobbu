@@ -4,11 +4,6 @@ import { mobCore } from '../../../../mobCore';
 import { callBackStore } from './callBackStore';
 
 /**
- * @callback subscribeCallbackType
- * @param {Object.<string, number>} props
- */
-
-/**
  * @param {Function} currentCallback - callback to execute.
  * @param {Array.<import('./type').callbackObject>} arrayOfCallback
  * @returns {{arrayOfCallbackUpdated:Array.<import('./type').callbackObject>,unsubscribeCb: function(Array.<import('./type').callbackObject>):Array.<import('./type').callbackObject> }}

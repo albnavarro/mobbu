@@ -59,6 +59,7 @@ export const scroller = {
     createParallax(data) {
         return new ParallaxClass({
             ...data,
+            // @ts-ignore
             type: parallaxConstant.TYPE_PARALLAX,
         });
     },
@@ -136,6 +137,7 @@ export const scroller = {
     createScrollTrigger(data) {
         return new ParallaxClass({
             ...data,
+            // @ts-ignore
             type: parallaxConstant.TYPE_SCROLLTRIGGER,
         });
     },

@@ -3,10 +3,6 @@
 import { handleSetUp } from '../setup.js';
 
 /**
- * @typedef {('min'|'max')} mqChoiceType - string
- **/
-
-/**
  * @typedef {('min'|'max'|'get')} mqType - string
  **/
 
@@ -22,17 +18,6 @@ import { handleSetUp } from '../setup.js';
 /**
  * @typedef {Object} breackPointTypeObj
  * @prop {('xSmall'|'small'|'medium'|'tablet'|"desktop"|'large'|'xLarge' )} [ breackpoint ]
- */
-
-/**
- * @typedef {Object} breackPointTypeObjKeyValue
- * @prop { Number } [ xSmall ]
- * @prop { Number } [ small ]
- * @prop { Number } [ medium ]
- * @prop { Number } [ tablet ]
- * @prop { Number } [ desktop ]
- * @prop { Number } [ large ]
- * @prop { Number } [ xLarge ]
  */
 
 /**

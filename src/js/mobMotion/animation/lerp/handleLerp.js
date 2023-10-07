@@ -51,12 +51,6 @@ import {
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
 
-/**
- * @typedef {Object} lerpPropTypes
- * @prop {Number} [ velocity ] It defines the initial value of the velocity properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, `default value is 0.06`,the closer the value is to 1, the faster the transition will be.
- * @prop {Number} [ precision ] It defines the initial value of the precision properties, the value can be momentarily changed whenever the goTo, goFrom, goFromTo methods are invoked, when the calculated value is less than this number, the transition will be considered completed, the smaller the value, the greater the precision of the calculation, the `default value is 0.01`.
- **/
-
 export default class HandleLerp {
     /**
      * @param {import('./type.js').lerpTweenProps} [ data  = {}]
@@ -969,7 +963,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function(any):void} cb - callback function.
      * @return {Function} unsubscribe callback.
      *
      * @example
@@ -1022,7 +1016,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function} cb - callback function.
      * @return {Function} unsubscribe callback.
      *
      * @example
@@ -1075,7 +1069,7 @@ export default class HandleLerp {
 
     /**
      * @param {('Object'|'HTMLElement')} item
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} fn - callback function.
+     * @param {function(any):void} fn - callback function.
      * @return {Function} unsubscribe callback
      *
      * @example

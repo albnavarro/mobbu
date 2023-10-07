@@ -277,7 +277,7 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function(any):void} cb - callback function.
      * @return {Function} unsubscribe callback.
      *
      * @example
@@ -313,7 +313,7 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function(any):void} cb - callback function.
      * @return {Function} unsubscribe callback.
      *
      * @example
@@ -365,7 +365,7 @@ export default class ParallaxTween {
 
     /**
      * @param {('Object'|'HTMLElement')} item
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} fn - callback function.
+     * @param {function(any):void} fn - callback function.
      * @return {Function} unsubscribe callback
      *
      * @example

@@ -50,18 +50,6 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 
-/**
- * @typedef {Object} tweenCommonSpecialProps
- * @prop {Boolean} [ reverse=false ] Revert tween values
- * @prop {Boolean} [ relative=false ] If set to true each value will be calculated starting from the last used value, by default each value is calculated starting from the value defined in the constructor.
- * @prop {Boolean} [ immediate=false ] (internal use) If set to true the current value is aligned to the target value without launching the rendering callbacks.
- * @prop {Boolean} [ immediateNoPromise=false ] (internal use) If set to true the current value is aligned to the target value without launching the rendering callbacks and without resolve any promise.
- **/
-
-/**
- * @typedef {Object} tweenSpecialProps
- * @prop {(Number|Function)} [ duration=false ] Defines the default duration of the tween, If a function is used, the value is recalculated every time the method is called, especially useful within a timeline, every time a specific step is performed, the duration of the step is recalculated.
- **/
 export default class HandleTween {
     /**
      * @param {import('./type.js').tweenProps} [ data ]
@@ -1019,7 +1007,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function(any):void} cb - callback function.
      * @return {function} unsubscribe callback.
      *
      * @example
@@ -1074,7 +1062,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} cb - callback function.
+     * @param {function(any):void} cb - callback function.
      * @return {Function} unsubscribe callback.
      *
      * @example
@@ -1127,7 +1115,7 @@ export default class HandleTween {
 
     /**
      * @param {('Object'|'HTMLElement')} item
-     * @param {import('../utils/callbacks/setCallback.js').subscribeCallbackType} fn - callback function.
+     * @param {function(any):void} fn - callback function.
      * @return {Function} unsubscribe callback
      *
      * @example
