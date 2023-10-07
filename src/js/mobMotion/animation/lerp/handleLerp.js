@@ -264,6 +264,95 @@ export default class HandleLerp {
     }
 
     /**
+     * @param {number} _time
+     * @param {number} fps
+     * @param {function} res
+     *
+     * @returns {void}
+     */
+    draw(_time, fps, res = () => {}) {
+        this.isActive = true;
+
+        this.values.forEach((item) => {
+            if (item.settled) return;
+
+            item.currentValue = lerp(
+                item.currentValue,
+                item.toValue,
+                (this.velocity / fps) * 60
+            );
+
+            item.currentValue = getRoundedValue(item.currentValue);
+
+            item.settled =
+                Number(Math.abs(item.toValue - item.currentValue).toFixed(4)) <=
+                this.precision;
+
+            if (item.settled) {
+                item.currentValue = item.toValue;
+            }
+        });
+
+        // Prepare an obj to pass to the callback
+        const callBackObject = getValueObj(this.values, 'currentValue');
+
+        defaultCallback({
+            stagger: this.stagger,
+            callback: this.callback,
+            callbackCache: this.callbackCache,
+            callBackObject: callBackObject,
+            useStagger: this.useStagger,
+        });
+
+        // Check if all values is completed
+        const allSettled = this.values.every((item) => item.settled === true);
+
+        if (allSettled) {
+            const onComplete = () => {
+                this.isActive = false;
+
+                // End of animation
+                // Set fromValue with ended value
+                // At the next call fromValue become the start value
+                this.values.forEach((item) => {
+                    item.fromValue = item.toValue;
+                });
+
+                // On complete
+                if (!this.pauseStatus) {
+                    res();
+
+                    // Set promise reference to null once resolved
+                    this.promise = undefined;
+                    this.currentReject = undefined;
+                    this.currentResolve = undefined;
+                }
+            };
+
+            // Prepare an obj to pass to the callback with rounded value ( end user value)
+            const cbObjectSettled = getValueObj(this.values, 'toValue');
+
+            defaultCallbackOnComplete({
+                onComplete,
+                callback: this.callback,
+                callbackCache: this.callbackCache,
+                callbackOnComplete: this.callbackOnComplete,
+                callBackObject: cbObjectSettled,
+                stagger: this.stagger,
+                slowlestStagger: this.slowlestStagger,
+                fastestStagger: this.fastestStagger,
+                useStagger: this.useStagger,
+            });
+        } else {
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(({ time, fps }) => {
+                    if (this.isActive) this.draw(time, fps, res);
+                });
+            });
+        }
+    }
+
+    /**
      * @private
      *
      * @param {number} time current global time
@@ -275,92 +364,7 @@ export default class HandleLerp {
             item.currentValue = Number.parseFloat(item.fromValue);
         });
 
-        const draw = (/** @type{number} */ _time, /** @type{number} */ fps) => {
-            this.isActive = true;
-
-            this.values.forEach((item) => {
-                if (item.settled) return;
-
-                item.currentValue = lerp(
-                    item.currentValue,
-                    item.toValue,
-                    (this.velocity / fps) * 60
-                );
-
-                item.currentValue = getRoundedValue(item.currentValue);
-
-                item.settled =
-                    Number(
-                        Math.abs(item.toValue - item.currentValue).toFixed(4)
-                    ) <= this.precision;
-
-                if (item.settled) {
-                    item.currentValue = item.toValue;
-                }
-            });
-
-            // Prepare an obj to pass to the callback
-            const callBackObject = getValueObj(this.values, 'currentValue');
-
-            defaultCallback({
-                stagger: this.stagger,
-                callback: this.callback,
-                callbackCache: this.callbackCache,
-                callBackObject: callBackObject,
-                useStagger: this.useStagger,
-            });
-
-            // Check if all values is completed
-            const allSettled = this.values.every(
-                (item) => item.settled === true
-            );
-
-            if (allSettled) {
-                const onComplete = () => {
-                    this.isActive = false;
-
-                    // End of animation
-                    // Set fromValue with ended value
-                    // At the next call fromValue become the start value
-                    this.values.forEach((item) => {
-                        item.fromValue = item.toValue;
-                    });
-
-                    // On complete
-                    if (!this.pauseStatus) {
-                        res();
-
-                        // Set promise reference to null once resolved
-                        this.promise = undefined;
-                        this.currentReject = undefined;
-                        this.currentResolve = undefined;
-                    }
-                };
-
-                // Prepare an obj to pass to the callback with rounded value ( end user value)
-                const cbObjectSettled = getValueObj(this.values, 'toValue');
-
-                defaultCallbackOnComplete({
-                    onComplete,
-                    callback: this.callback,
-                    callbackCache: this.callbackCache,
-                    callbackOnComplete: this.callbackOnComplete,
-                    callBackObject: cbObjectSettled,
-                    stagger: this.stagger,
-                    slowlestStagger: this.slowlestStagger,
-                    fastestStagger: this.fastestStagger,
-                    useStagger: this.useStagger,
-                });
-            } else {
-                mobCore.useFrame(() => {
-                    mobCore.useNextTick(({ time, fps }) => {
-                        if (this.isActive) draw(time, fps);
-                    });
-                });
-            }
-        };
-
-        draw(time, fps);
+        this.draw(time, fps, res);
     }
 
     /**

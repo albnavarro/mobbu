@@ -265,6 +265,121 @@ export default class HandleSpring {
     }
 
     /**
+     * @param {number} _time
+     * @param {number} fps
+     * @param {function} res
+     * @param {number} tension
+     * @param {number} friction
+     * @param {number} mass
+     * @param {number} precision
+     *
+     * @returns {void}
+     */
+    draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
+        this.isActive = true;
+
+        this.values.forEach((item) => {
+            const tensionForce = -tension * (item.currentValue - item.toValue);
+            const dampingForce = -friction * item.velocity;
+            const acceleration = (tensionForce + dampingForce) / mass;
+
+            item.velocity = item.velocity + (acceleration * 1) / fps;
+            item.currentValue = item.currentValue + (item.velocity * 1) / fps;
+
+            item.currentValue = getRoundedValue(item.currentValue);
+
+            const isVelocity = Math.abs(item.velocity) <= 0.1;
+
+            const isDisplacement =
+                tension === 0
+                    ? true
+                    : Math.abs(item.toValue - item.currentValue.toFixed(4)) <=
+                      precision;
+
+            item.settled = isVelocity && isDisplacement;
+        });
+
+        /**
+         * Prepare an obj to pass to the callback
+         */
+        const callBackObject = getValueObj(this.values, 'currentValue');
+
+        defaultCallback({
+            stagger: this.stagger,
+            callback: this.callback,
+            callbackCache: this.callbackCache,
+            callBackObject: callBackObject,
+            useStagger: this.useStagger,
+        });
+
+        /**
+         * Check if all values is completed
+         */
+        const allSettled = this.values.every((item) => item.settled === true);
+
+        if (allSettled) {
+            const onComplete = () => {
+                this.isActive = false;
+
+                /**
+                 * End of animation
+                 * Set fromValue with ended value
+                 * At the next call fromValue become the start value
+                 */
+                this.values.forEach((item) => {
+                    item.fromValue = item.toValue;
+                });
+
+                /**
+                 * On complete
+                 */
+                if (!this.pauseStatus) {
+                    res();
+
+                    /**
+                     * Set promise reference to null once resolved
+                     */
+                    this.promise = undefined;
+                    this.currentReject = undefined;
+                    this.currentResolve = undefined;
+                }
+            };
+
+            /**
+             * Prepare an obj to pass to the callback with rounded value ( end user value)
+             */
+            const cbObjectSettled = getValueObj(this.values, 'toValue');
+
+            defaultCallbackOnComplete({
+                onComplete,
+                callback: this.callback,
+                callbackCache: this.callbackCache,
+                callbackOnComplete: this.callbackOnComplete,
+                callBackObject: cbObjectSettled,
+                stagger: this.stagger,
+                slowlestStagger: this.slowlestStagger,
+                fastestStagger: this.fastestStagger,
+                useStagger: this.useStagger,
+            });
+        } else {
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(({ time, fps }) => {
+                    if (this.isActive)
+                        this.draw(
+                            time,
+                            fps,
+                            res,
+                            tension,
+                            friction,
+                            mass,
+                            precision
+                        );
+                });
+            });
+        }
+    }
+
+    /**
      * @private
      *
      * @param {number} time current global time
@@ -279,113 +394,12 @@ export default class HandleSpring {
         /**
          * Normalize spring config props
          */
-
         const tension = this.configProps.tension;
         const friction = this.configProps.friction;
         const mass = this.configProps.mass;
         const precision = this.configProps.precision;
 
-        const draw = (/** @type{number} */ _time, /** @type{number} */ fps) => {
-            this.isActive = true;
-
-            this.values.forEach((item) => {
-                const tensionForce =
-                    -tension * (item.currentValue - item.toValue);
-                const dampingForce = -friction * item.velocity;
-                const acceleration = (tensionForce + dampingForce) / mass;
-
-                item.velocity = item.velocity + (acceleration * 1) / fps;
-                item.currentValue =
-                    item.currentValue + (item.velocity * 1) / fps;
-
-                item.currentValue = getRoundedValue(item.currentValue);
-
-                const isVelocity = Math.abs(item.velocity) <= 0.1;
-
-                const isDisplacement =
-                    tension === 0
-                        ? true
-                        : Math.abs(
-                              item.toValue - item.currentValue.toFixed(4)
-                          ) <= precision;
-
-                item.settled = isVelocity && isDisplacement;
-            });
-
-            /**
-             * Prepare an obj to pass to the callback
-             */
-            const callBackObject = getValueObj(this.values, 'currentValue');
-
-            defaultCallback({
-                stagger: this.stagger,
-                callback: this.callback,
-                callbackCache: this.callbackCache,
-                callBackObject: callBackObject,
-                useStagger: this.useStagger,
-            });
-
-            /**
-             * Check if all values is completed
-             */
-            const allSettled = this.values.every(
-                (item) => item.settled === true
-            );
-
-            if (allSettled) {
-                const onComplete = () => {
-                    this.isActive = false;
-
-                    /**
-                     * End of animation
-                     * Set fromValue with ended value
-                     * At the next call fromValue become the start value
-                     */
-                    this.values.forEach((item) => {
-                        item.fromValue = item.toValue;
-                    });
-
-                    /**
-                     * On complete
-                     */
-                    if (!this.pauseStatus) {
-                        res();
-
-                        /**
-                         * Set promise reference to null once resolved
-                         */
-                        this.promise = undefined;
-                        this.currentReject = undefined;
-                        this.currentResolve = undefined;
-                    }
-                };
-
-                /**
-                 * Prepare an obj to pass to the callback with rounded value ( end user value)
-                 */
-                const cbObjectSettled = getValueObj(this.values, 'toValue');
-
-                defaultCallbackOnComplete({
-                    onComplete,
-                    callback: this.callback,
-                    callbackCache: this.callbackCache,
-                    callbackOnComplete: this.callbackOnComplete,
-                    callBackObject: cbObjectSettled,
-                    stagger: this.stagger,
-                    slowlestStagger: this.slowlestStagger,
-                    fastestStagger: this.fastestStagger,
-                    useStagger: this.useStagger,
-                });
-            } else {
-                mobCore.useFrame(() => {
-                    mobCore.useNextTick(({ time, fps }) => {
-                        if (this.isActive) draw(time, fps);
-                    });
-                });
-            }
-        };
-
-        draw(time, fps);
+        this.draw(time, fps, res, tension, friction, mass, precision);
     }
 
     /**

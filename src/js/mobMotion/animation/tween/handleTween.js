@@ -310,6 +310,100 @@ export default class HandleTween {
     }
 
     /**
+     * @param {number} time
+     * @param {function} res
+     *
+     * @returns {void}
+     */
+    draw(time, res = () => {}) {
+        this.isActive = true;
+
+        if (this.pauseStatus) {
+            this.pauseTime = time - this.startTime - this.timeElapsed;
+        }
+        this.timeElapsed = time - this.startTime - this.pauseTime;
+
+        if (this.isRunning && Math.round(this.timeElapsed) >= this.duration) {
+            this.timeElapsed = this.duration;
+        }
+
+        this.values.forEach((item) => {
+            if (item.shouldUpdate) {
+                item.currentValue = this.ease(
+                    this.timeElapsed,
+                    item.fromValue,
+                    item.toValProcessed,
+                    this.duration
+                );
+                item.currentValue = getRoundedValue(item.currentValue);
+            } else {
+                item.currentValue = item.fromValue;
+            }
+        });
+
+        const isSettled = Math.round(this.timeElapsed) === this.duration;
+
+        // Prepare an obj to pass to the callback
+        const callBackObject = getValueObj(this.values, 'currentValue');
+
+        defaultCallback({
+            stagger: this.stagger,
+            callback: this.callback,
+            callbackCache: this.callbackCache,
+            callBackObject: callBackObject,
+            useStagger: this.useStagger,
+        });
+
+        this.isRunning = true;
+
+        if (isSettled) {
+            const onComplete = () => {
+                this.isActive = false;
+                this.isRunning = false;
+                this.pauseTime = 0;
+
+                // End of animation
+                // Set fromValue with ended value
+                // At the next call fromValue become the start value
+                this.values.forEach((item) => {
+                    if (item.shouldUpdate) {
+                        item.toValue = item.currentValue;
+                        item.fromValue = item.currentValue;
+                    }
+                });
+
+                // On complete
+                if (!this.pauseStatus) {
+                    res();
+
+                    // Set promise reference to null once resolved
+                    this.promise = undefined;
+                    this.currentReject = undefined;
+                    this.currentResolve = undefined;
+                }
+            };
+
+            defaultCallbackOnComplete({
+                onComplete,
+                callback: this.callback,
+                callbackCache: this.callbackCache,
+                callbackOnComplete: this.callbackOnComplete,
+                callBackObject: callBackObject,
+                stagger: this.stagger,
+                slowlestStagger: this.slowlestStagger,
+                fastestStagger: this.fastestStagger,
+                useStagger: this.useStagger,
+            });
+        } else {
+            mobCore.useFrame(() => {
+                mobCore.useNextTick(({ time }) => {
+                    if (this.isActive) this.draw(time, res);
+                });
+            });
+        }
+    }
+
+    /**
      * @private
      * @param {Number} time current global time
      * @param {Boolean} _fps current FPS
@@ -319,99 +413,7 @@ export default class HandleTween {
      **/
     onReuqestAnim(time, _fps, res) {
         this.startTime = time;
-
-        const draw = (/** @type{number} */ time) => {
-            this.isActive = true;
-
-            if (this.pauseStatus) {
-                this.pauseTime = time - this.startTime - this.timeElapsed;
-            }
-            this.timeElapsed = time - this.startTime - this.pauseTime;
-
-            if (
-                this.isRunning &&
-                Math.round(this.timeElapsed) >= this.duration
-            ) {
-                this.timeElapsed = this.duration;
-            }
-
-            this.values.forEach((item) => {
-                if (item.shouldUpdate) {
-                    item.currentValue = this.ease(
-                        this.timeElapsed,
-                        item.fromValue,
-                        item.toValProcessed,
-                        this.duration
-                    );
-                    item.currentValue = getRoundedValue(item.currentValue);
-                } else {
-                    item.currentValue = item.fromValue;
-                }
-            });
-
-            const isSettled = Math.round(this.timeElapsed) === this.duration;
-
-            // Prepare an obj to pass to the callback
-            const callBackObject = getValueObj(this.values, 'currentValue');
-
-            defaultCallback({
-                stagger: this.stagger,
-                callback: this.callback,
-                callbackCache: this.callbackCache,
-                callBackObject: callBackObject,
-                useStagger: this.useStagger,
-            });
-
-            this.isRunning = true;
-
-            if (isSettled) {
-                const onComplete = () => {
-                    this.isActive = false;
-                    this.isRunning = false;
-                    this.pauseTime = 0;
-
-                    // End of animation
-                    // Set fromValue with ended value
-                    // At the next call fromValue become the start value
-                    this.values.forEach((item) => {
-                        if (item.shouldUpdate) {
-                            item.toValue = item.currentValue;
-                            item.fromValue = item.currentValue;
-                        }
-                    });
-
-                    // On complete
-                    if (!this.pauseStatus) {
-                        res();
-
-                        // Set promise reference to null once resolved
-                        this.promise = undefined;
-                        this.currentReject = undefined;
-                        this.currentResolve = undefined;
-                    }
-                };
-
-                defaultCallbackOnComplete({
-                    onComplete,
-                    callback: this.callback,
-                    callbackCache: this.callbackCache,
-                    callbackOnComplete: this.callbackOnComplete,
-                    callBackObject: callBackObject,
-                    stagger: this.stagger,
-                    slowlestStagger: this.slowlestStagger,
-                    fastestStagger: this.fastestStagger,
-                    useStagger: this.useStagger,
-                });
-            } else {
-                mobCore.useFrame(() => {
-                    mobCore.useNextTick(({ time }) => {
-                        if (this.isActive) draw(time);
-                    });
-                });
-            }
-        };
-
-        draw(time);
+        this.draw(time, res);
     }
 
     /**
