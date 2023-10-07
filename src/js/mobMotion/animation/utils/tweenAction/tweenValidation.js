@@ -163,8 +163,8 @@ export const easeIsValid = (ease) => {
 
 /**
  *
- * @param {String|undefined} ease
- * @returns {String}
+ * @param {import('../../tween/type').easeTypes|undefined} ease
+ * @returns {function}
  *
  * @description
  * Check if ease definition is valid

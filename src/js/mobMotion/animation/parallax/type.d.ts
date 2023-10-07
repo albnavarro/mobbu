@@ -4,13 +4,6 @@ import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
-export interface parallaxTweenType {
-    from: valueToparseType;
-    to: valueToparseType;
-    stagger?: staggerObjectOptional;
-    ease?: easeTypes;
-}
-
 export interface dynamicStartType {
     position: 'bottom' | 'top' | 'left' | 'right';
     value: () => number;
@@ -395,4 +388,25 @@ export interface scrollTriggerType {
 export interface parallaxMoveType {
     value: number | undefined;
     parentIsMoving: boolean;
+}
+
+export interface parallaxTweenType {
+    from: valueToparseType;
+    to: valueToparseType;
+    stagger?: staggerObjectOptional;
+    ease?: easeTypes;
+    duration?: number;
+}
+
+export interface parallaxTweenValue {
+    currentValue: number | function;
+    prop: string;
+    settled: boolean;
+    fromFn?: number | function;
+    fromIsFn?: number | function;
+    toFn?: number | function;
+    toIsFn?: boolean;
+    toValProcessed: number | func;
+    toValue: number | function;
+    fromValue: number | function;
 }

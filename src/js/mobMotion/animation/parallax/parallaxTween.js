@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getRoundedValue } from '../../animation/utils/animationUtils.js';
 import { setStagger } from '../utils/stagger/setStagger.js';
 import {
@@ -17,6 +19,7 @@ import {
 } from '../utils/tweenAction/tweenValidation.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
+import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
 
 export default class ParallaxTween {
     /**
@@ -53,14 +56,16 @@ export default class ParallaxTween {
      *
      * ```
      */
-    constructor(data = {}) {
+    constructor(data) {
         /**
          * @private
+         * @type {function}
          */
         this.ease = easeParallaxTweenIsValid(data?.ease);
 
         /**
          * @private
+         * @type {number}
          */
         this.duration = durationIsValid(data?.duration);
 
@@ -72,31 +77,37 @@ export default class ParallaxTween {
 
         /**
          * @private
+         * @type {import('./type.js').parallaxTweenValue[]}
          */
         this.values = [];
 
         /**
          * @private
+         * @type{import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackOnStop = [];
 
         /**
          * @private
+         * @type{import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callback = [];
 
         /**
          * @private
+         * @type{import('../utils/callbacks/type.js').callbackObject[]}
          */
         this.callbackCache = [];
 
         /**
          * @private
+         * @type {Array<function>}
          */
         this.unsubscribeCache = [];
 
         /**
          * @private
+         * @type {string}
          */
         this.type = 'parallaxTween';
 
@@ -115,6 +126,8 @@ export default class ParallaxTween {
     /**
      * @description
      * Inzialize stagger array
+     *
+     * @returns {void}
      */
     inzializeStagger() {
         if (
@@ -132,8 +145,8 @@ export default class ParallaxTween {
                 arr: cb,
                 endArr: this.callbackOnStop,
                 stagger: this.stagger,
-                slowlestStagger: {},
-                fastestStagger: {},
+                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
+                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
             });
 
             if (this.callbackCache.length > this.callback.length) {
@@ -146,13 +159,9 @@ export default class ParallaxTween {
     }
 
     /**
-     * @typedef {Object} sequencerDrawTypes
-     * @prop {Number} [ partial = 0] render at specific partial between 0 and duration
-     * @prop {Boolean} [ isLastDraw = false] use the callback defined by the onStop method
-     **/
-
-    /**
-     * @param {sequencerDrawTypes} props
+     * @param {object} obj
+     * @param {Number} obj.partial - render at specific partial between 0 and duration
+     * @param {Boolean} obj.isLastDraw - use the callback defined by the onStop method
      *
      * @example
      * ```js
@@ -203,7 +212,7 @@ export default class ParallaxTween {
 
     /**
      *
-     * @prop {Object.<string, number>} obj Initial data Object
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data Object
      * @returns {this} The instance on which this method was called.
      */
     setData(obj) {
@@ -229,8 +238,8 @@ export default class ParallaxTween {
      *
      * Return the new array maeged with main array created in setData
      *
-     * @param  {Array} newData new datato merge
-     * @return {Array} main store Array merged with new data
+     * @param  {import('./type.js').parallaxTweenValue[]} newData new datato merge
+     * @return {void}
      */
     mergeData(newData) {
         this.values = this.values.map((item) => {
@@ -258,8 +267,8 @@ export default class ParallaxTween {
      *
      * ```
      * @description
-      Transform some properties of your choice from the `current value` to the `entered value`.
-      The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
+     * Transform some properties of your choice from the `current value` to the `entered value`.
+     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
      */
     goTo(obj) {
         const data = goToUtils(obj);
