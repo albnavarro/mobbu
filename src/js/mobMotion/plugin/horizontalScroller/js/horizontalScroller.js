@@ -130,7 +130,17 @@ import { mobCore } from '../../../../mobCore';
   */
 
 /**
- * @typedef  { horizontalScrollerType & import('../../../utils/mediaManager.js').breackPointTypeObj & import('../../../utils/mediaManager.js').mqTypeObject } horizontalScrollerConstructorType
+ * @typedef {Object} mqTypeObject
+ * @prop {import('../../../utils/type.js').mqAction} [ queryType = "min" ] - Defines whether the defined breakpoint will be a max-with or a min-width. The default is 'min-width'.
+ **/
+
+/**
+ * @typedef {Object} breackPointTypeObj
+ * @prop {import('../../../utils/type.js').mqValues} [ breackpoint ]
+ */
+
+/**
+ * @typedef  { horizontalScrollerType & breackPointTypeObj & mqTypeObject } horizontalScrollerConstructorType
  */
 
 export class HorizontalScroller {

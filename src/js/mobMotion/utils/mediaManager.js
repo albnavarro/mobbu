@@ -3,22 +3,28 @@
 import { handleSetUp } from '../setup.js';
 
 /**
- * @typedef {('min'|'max'|'get')} mqType - string
- **/
-
-/**
- * @typedef {Object} mqTypeObject
- * @prop {('min'|'max')} [ queryType = "min" ] - Defines whether the defined breakpoint will be a max-with or a min-width. The default is 'min-width'.
- **/
-
-/**
- * @typedef {('xSmall'|'small'|'medium'|'tablet'|"desktop"|'large'|'xLarge' )} breackPointType
+ * @param { import('./type.js').mqValues } breackpoint
+ * @return {Boolean}
  */
+const max = (breackpoint = 'desktop') => {
+    return window.innerWidth < handleSetUp.get('mq')[breackpoint];
+};
 
 /**
- * @typedef {Object} breackPointTypeObj
- * @prop {('xSmall'|'small'|'medium'|'tablet'|"desktop"|'large'|'xLarge' )} [ breackpoint ]
+ * @param { import('./type.js').mqValues } breackpoint
+ * @return {Boolean}
  */
+const min = (breackpoint = 'desktop') => {
+    return window.innerWidth >= handleSetUp.get('mq')[breackpoint];
+};
+
+/**
+ * @param { import('./type.js').mqValues } breackpoint
+ * @return {Number}
+ */
+const getBreackpoint = (breackpoint = 'desktop') => {
+    return handleSetUp.get('mq')[breackpoint];
+};
 
 /**
  * @description
@@ -35,34 +41,8 @@ import { handleSetUp } from '../setup.js';
  *   const isMobile = mq.min('desktop'); // true/false
  *   const desktopBreackPoint = mobbu.getBreackpoint('desktop'); // 992
  *
- *
- *
  * ```
  */
 export const mq = (() => {
-    /**
-     * @param { breackPointType } breackpoint -
-     * @return {Boolean}
-     */
-    const max = (breackpoint = 'desktop') => {
-        return window.innerWidth < handleSetUp.get('mq')[breackpoint];
-    };
-
-    /**
-     * @param { breackPointType } breackpoint -
-     * @return {Boolean}
-     */
-    const min = (breackpoint = 'desktop') => {
-        return window.innerWidth >= handleSetUp.get('mq')[breackpoint];
-    };
-
-    /**
-     * @param { breackPointType } breackpoint -
-     * @return {Number}
-     */
-    const getBreackpoint = (breackpoint = 'desktop') => {
-        return handleSetUp.get('mq')[breackpoint];
-    };
-
     return { max, min, getBreackpoint };
 })();

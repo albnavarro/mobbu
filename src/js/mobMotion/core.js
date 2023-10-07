@@ -150,8 +150,8 @@ export const core = {
     },
 
     /**
-     * @param { import('./utils/mediaManager.js').mqType } action
-     * @param { import('./utils/mediaManager.js').breackPointType } breackpoint
+     * @param {import('./utils/type.js').mqActionMethods} action
+     * @param {import('./utils/type.js').mqValues} breackpoint
      *
      * @return {(Boolean|Number)} Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric value if it is equal to 'get'
      *

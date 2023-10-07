@@ -80,7 +80,17 @@ import {
  */
 
 /**
- * @typedef  { smoothScrollerType & import('../../utils/mediaManager.js').breackPointTypeObj & import('../../utils/mediaManager.js').mqTypeObject } smoothScrollerConstructorType
+ * @typedef {Object} mqTypeObject
+ * @prop {import('../../utils/type.js').mqAction} [ queryType = "min" ] - Defines whether the defined breakpoint will be a max-with or a min-width. The default is 'min-width'.
+ **/
+
+/**
+ * @typedef {Object} breackPointTypeObj
+ * @prop {import('../../utils/type.js').mqValues} [ breackpoint ]
+ */
+
+/**
+ * @typedef  { smoothScrollerType & breackPointTypeObj & mqTypeObject } smoothScrollerConstructorType
  */
 export default class SmoothScroller {
     /**
