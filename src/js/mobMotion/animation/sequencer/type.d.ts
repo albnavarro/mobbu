@@ -54,3 +54,16 @@ export interface addType {
     fn: function;
     time: number;
 }
+
+export interface masterSequencerItem {
+    draw: function;
+    inzializeStagger: function;
+    setDuration: function;
+    getDuration: function;
+    setStretchFactor: function;
+    getLabels: function;
+    disableStagger: function;
+    resetLastValue: function;
+    cleanCachedId: function;
+    destroy: function;
+}
