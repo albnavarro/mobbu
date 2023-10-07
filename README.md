@@ -1,13 +1,14 @@
-### Development environment for develop and testing mobJs (javascript component library ) and mobAnim ( javascript animation library ).
+### Development environment for:
+- mobJs: js component library.
+- mobCore: store & window event utils.
+- mobMotion: animation library.
+
 
 ## Node version:
-
 up to 16
 
 ## Installing:
-
 npm i
 
 ### Development:
-
 npm run serve
