@@ -67,3 +67,8 @@ export interface masterSequencerItem {
     cleanCachedId: function;
     destroy: function;
 }
+
+export interface createSequencerType {
+    items: Array<HTMLElement | Object>;
+    duration: number;
+}

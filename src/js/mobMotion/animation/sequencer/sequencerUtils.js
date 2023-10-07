@@ -23,12 +23,6 @@ import { getStaggerFromProps } from '../utils/stagger/staggerUtils.js';
 import { mobCore } from '../../../mobCore/index.js';
 
 /**
- * @typedef {Object} createSequencerTypes
- * @prop {Array.<Element|Object>} items Generally an array of HTMLelements but it is possible to use an array of objects as well
- * @prop {number} [ duration=10] Defines the time range of the animation, both syncTimeline and scrollTrigger will take care of processing the value as needed. The default value is 10
- **/
-
-/**
  * @param {object} obj
  * @param {number} obj.each
  * @param {number} obj.duration
@@ -115,7 +109,7 @@ const getStaggerSpecial = ({
 };
 
 /**
- * @param { createSequencerTypes & import('../utils/stagger/type.js').staggerPropiertiesObject } data
+ * @param { import('./type.js').createSequencerType & import('../utils/stagger/type.js').staggerPropiertiesObject } data
  * @returns {import('./type.js').createStagger[]} Stagger array
  *
  * @example
