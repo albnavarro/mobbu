@@ -88,7 +88,6 @@ export const scrollerN1Animation = ({
             ),
             opacity: relativeIndex * opacity,
             rotate: 0,
-            y: 0,
             relativeIndex,
             index: i,
         };
