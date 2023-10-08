@@ -7,11 +7,6 @@ import { handleNextTick } from '../rafutils/handleNextTick.js';
 import { getUnivoqueId } from '../../utils/index.js';
 
 /**
- * @typedef {Object} handleScrollUtilsType
- * @prop {number} scrollY - Scroll position
- */
-
-/**
  * @type {function}
  */
 let unsubscribeScrollStart = () => {};
@@ -118,7 +113,7 @@ function handleScrollUtils(type) {
     }
 
     /**
-     * @param {function(handleScrollUtilsType):void } cb - callback function
+     * @param {import('./type.js').handleScrollUtilsCallback} cb - callback function
      * @return {Function} unsubscribe callback
      */
     const addCb = (cb) => {

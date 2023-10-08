@@ -59,7 +59,7 @@ function init() {
  * @description
  * Perform a callback to the first nextTick available after scrolling
  *
- * @param {function(import('./handleScrollImmediate.js').handleScrollType):void } cb - callback function
+ * @param {import('./type.js').handleScrollCallback} cb - callback function
  * @return {Function} unsubscribe callback
  *
  * @example

@@ -72,7 +72,7 @@ function init() {
  * @description
  * Performs a scroll callback using a throttle function
  *
- * @param {function(import('./handleScrollImmediate.js').handleScrollType):void } cb - callback function
+ * @param {import('./type.js').handleScrollCallback} cb - callback function
  * @return {Function} unsubscribe callback
  *
  * @example

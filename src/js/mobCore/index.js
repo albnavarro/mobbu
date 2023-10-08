@@ -565,7 +565,7 @@ export const mobCore = {
      * @description
      * Perform a callback to the first nextTick available after scrolling
      *
-     * @param {function(import('./events/scrollUtils/handleScrollImmediate.js').handleScrollType):void } callback - callback function
+     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
      * @return {Function} unsubscribe callback
      *
      * @example
@@ -586,7 +586,7 @@ export const mobCore = {
      * @description
      * Execute a callback immediately on scroll
      *
-     * @param {function(import('./events/scrollUtils/handleScrollImmediate.js').handleScrollType):void } callback - callback function
+     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
      * @return {Function} unsubscribe callback
      *
      * @example
@@ -607,7 +607,7 @@ export const mobCore = {
      * @description
      * Performs a scroll callback using a throttle function
      *
-     * @param {function(import('./events/scrollUtils/handleScrollImmediate.js').handleScrollType):void } callback - callback function
+     * @param {import('./events/scrollUtils/type.js').handleScrollCallback} callback - callback function
      * @return {Function} unsubscribe callback
      *
      * @example
@@ -634,7 +634,7 @@ export const mobCore = {
      * @description
      * Execute a callback at the beginning of the scroll
      *
-     * @param {function(import('./events/scrollUtils/handleScrollUtils').handleScrollUtilsType):void } callback - callback function
+     * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
      * @return {Function} unsubscribe callback
      *
      * @example
@@ -655,7 +655,7 @@ export const mobCore = {
      * @description
      * Execute a callback at the end of the scroll
      *
-     * @param {function(import('./events/scrollUtils/handleScrollUtils').handleScrollUtilsType):void } callback - callback function
+     * @param {import('./events/scrollUtils/type.js').handleScrollUtilsCallback} callback - callback function
      * @return {Function} unsubscribe callback
      *
      * @example

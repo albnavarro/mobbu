@@ -3,12 +3,6 @@
 import { getUnivoqueId } from '../../utils';
 
 /**
- * @typedef {Object} handleScrollType
- * @prop {number} scrollY - Scroll position
- * @prop {('UP'|'DOWN')} direction
- */
-
-/**
  * @type {Boolean}
  */
 let inizialized = false;
@@ -17,15 +11,7 @@ let inizialized = false;
  * @type {Map<String,Function>}
  */
 const callbacks = new Map();
-
-/**
- * @type {String}
- */
 const UP = 'UP';
-
-/**
- * @type {String}
- */
 const DOWN = 'DOWN';
 
 /**
@@ -39,12 +25,12 @@ let prev = window.pageYOffset;
 let val = window.pageYOffset;
 
 /**
- * @type {String}
+ * @type {import('./type').scrollDirection}
  */
 let direction = DOWN;
 
 /**
- * @type {{scrollY: Number, direction:String}}
+ * @type {import('./type').handleScrollTypes}
  */
 let scrollData = {
     scrollY: val,
@@ -103,7 +89,7 @@ function init() {
  * @description
  * Execute a callback immediately on scroll
  *
- * @param {function(handleScrollType):void } cb - callback function
+ * @param {import('./type').handleScrollCallback} cb - callback function
  * @return {Function} unsubscribe callback
  *
  * @example
