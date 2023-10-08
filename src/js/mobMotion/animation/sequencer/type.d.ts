@@ -70,5 +70,5 @@ export interface masterSequencerItem {
 
 export interface createSequencerType {
     items: Array<HTMLElement | Object>;
-    duration: number;
+    duration?: number;
 }

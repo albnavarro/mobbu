@@ -21,7 +21,7 @@ export interface parallaxCommonType {
      * @description
      * Target element.
      */
-    item: string | HTMLElement;
+    item?: string | HTMLElement;
 
     /**
      * @description

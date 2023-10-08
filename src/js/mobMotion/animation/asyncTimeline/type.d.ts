@@ -14,7 +14,7 @@ export interface asyncTimelineType {
      * How many times the animation should be repeated.
      * -1 means that the animation will run in an infinite loop.
      */
-    repeat: number;
+    repeat?: number;
 
     /**
      * @description
@@ -23,7 +23,7 @@ export interface asyncTimelineType {
      * Sets are not saved in the timeline but are temporary.
      * If the `freeMode` property is set to `false` the sets are not executed so that multiple timelines can control the same tweens always starting from the current value of each tween. `The default is false`.
      */
-    freeMode: boolean;
+    freeMode?: boolean;
 
     /**
      * @description
@@ -32,7 +32,7 @@ export interface asyncTimelineType {
      * As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value.
      * `The default is false`
      */
-    autoSet: boolean;
+    autoSet?: boolean;
 }
 
 export interface asyncTimelineTypeSpecialProps {
