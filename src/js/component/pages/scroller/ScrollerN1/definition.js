@@ -1,6 +1,6 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { ScrollerN1 } from './caterpillarN3';
+import { ScrollerN1 } from './scrollerN1';
 
 export const scrollerN1Def = createComponent({
     name: 'caterpillar-n3',
