@@ -379,7 +379,7 @@ export const mobCore = {
      * @description
      * Add callback on mouse click
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse click.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse click.
      *
      * @example
      * ```javascript
@@ -401,7 +401,7 @@ export const mobCore = {
      * @description
      * Add callback on mouse down
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse down.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse down.
      *
      * @example
      * ```javascript
@@ -423,7 +423,7 @@ export const mobCore = {
      * @description
      * Add callback on touch start
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse touch start.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse touch start.
      *
      * @example
      * ```javascript
@@ -445,7 +445,7 @@ export const mobCore = {
      * @description
      * Add callback on mouse move
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse move.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse move.
      *
      * @example
      * ```javascript
@@ -467,7 +467,7 @@ export const mobCore = {
      * @description
      * Add callback on touch move
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on touch move.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch move.
      *
      * @example
      * ```javascript
@@ -489,7 +489,7 @@ export const mobCore = {
      * @description
      * Add callback on mouse up
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse up.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse up.
      *
      * @example
      * ```javascript
@@ -511,7 +511,7 @@ export const mobCore = {
      * @description
      * Add callback on touch end.
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on touch end.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on touch end.
      *
      * @example
      * ```javascript
@@ -533,7 +533,7 @@ export const mobCore = {
      * @description
      * Add callback on mouse wheel.
      *
-     * @param {function(import('./events/mouseUtils/handleMouse.js').mouseType):void } callback - callback function fired on mouse wheel.
+     * @param {import('./events/mouseUtils/type.js').mouseEventCallback} callback - callback function fired on mouse wheel.
      *
      * @example
      * ```javascript

@@ -5,28 +5,11 @@ import { eventStore } from '../eventStore.js';
 import { normalizeWheel } from './normalizeWhell.js';
 
 /**
- * @typedef {Object} mouseType
- * @prop {Object} page
- * @prop {Number} page.x
- * @prop {Number} page.y
- * @prop {Object} client
- * @prop {Number} client.x
- * @prop {Number} client.y
- * @prop {Element} target
- * @prop {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} type
- * @prop {function} preventDefault
- * @prop {Number} [ spinX ] - available only on mouseWheel
- * @prop {Number} [ spinY ] - available only on mouseWheel
- * @prop {Number} [ pixelX ] - available only on mouseWheel
- * @prop {Number} [ pixelY ] - available only on mouseWheel
- */
-
-/**
  * @param {Object} obj
- * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} obj.type
+ * @param {import('./type.js').mouseEvent} obj.type
  * @param {Object} obj.e
- * @returns Object
- * @description
+ *
+ * @returns { Object }
  */
 function getPageData({ type, e }) {
     // 'touchend'
@@ -38,7 +21,7 @@ function getPageData({ type, e }) {
 
 /**
  * @param {Object} obj
- * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} obj.type
+ * @param {import('./type.js').mouseEvent} obj.type
  * @param {Object} obj.e
  * @returns Object
  * @description
@@ -52,7 +35,7 @@ function getClientData({ type, e }) {
 }
 
 /**
- * @param {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} event
+ * @param {import('./type.js').mouseEvent} event
  */
 function handleMouse(event) {
     /**
@@ -96,7 +79,7 @@ function handleMouse(event) {
         }
 
         /**
-         * @type {('click'|'mousedown'|'mousemove'|'mouseup'|'touchstart'|'touchmove'|'touchend'|'wheel')} event
+         * @type {import('./type.js').mouseEvent} event
          */
         const type = e.type;
 
@@ -161,7 +144,7 @@ function handleMouse(event) {
      * @description
      * add callback on mouse action
      *
-     * @param {function(mouseType):void } cb - callback function fired on mouse action.
+     * @param {import('./type.js').mouseEventCallback} cb - callback function fired on mouse action.
      *
      * @example
      * ```javascript
