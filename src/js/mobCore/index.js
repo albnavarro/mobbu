@@ -332,7 +332,7 @@ export const mobCore = {
      * @description
      * Add callback on resize using a debounce function.
      *
-     * @param {function(import('./events/resizeUtils/handleResize.js').handleResizeTypes):void } callback - callback function fired on resize.
+     * @param {import('./events/resizeUtils/type.js').handleResizeCallback} callback - callback function fired on resize.
      *
      * @example
      * ```javascript

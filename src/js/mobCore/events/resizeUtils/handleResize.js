@@ -109,10 +109,10 @@ function init() {
 }
 
 /**
+ * @param {import('./type.js').handleResizeCallback} cb - callback function fired on resize.
+ *
  * @description
  * Add callback on resize using a debounce function.
- *
- * @param {function(handleResizeTypes):void } cb - callback function fired on resize.
  *
  * @example
  * ```javascript
@@ -142,13 +142,4 @@ const addCb = (cb) => {
     return () => callbacks.delete(id);
 };
 
-/**
- * @typedef {Object} handleResizeTypes
- * @prop {number} scrollY - Scroll postion
- * @prop {number} windowsHeight - Height of the window
- * @prop {number} windowsWidth - Width of the window
- * @prop {number} documentHeight - Height of the document
- * @prop {boolean} verticalResize - Boolean value indicating whether the height of the viewport changed during the resize.
- * @prop {boolean} horizontalResize - Boolean value indicating whether the width of the viewport changed during the resize.
- */
 export const handleResize = (() => addCb)();
