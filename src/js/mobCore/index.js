@@ -191,7 +191,7 @@ export const mobCore = {
      * Execute a callBack within the first available request animation frame.
      * Use this method to modify elements of the DOM
      *
-     * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
+     * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
      *
      * @example
      * ```javascript
@@ -209,7 +209,7 @@ export const mobCore = {
      * @description
      * Execute callbacks after scheduling the request animation frame. Use this method to read data from the DOM. To execute callbacks exactly after the request animation frame, set the global property deferredNextTick to true.
      *
-     * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
+     * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
      *
      * @example
      * ```javascript
@@ -247,7 +247,7 @@ export const mobCore = {
      * @description
      * Execute a callback to the next available frame allowing the creation of a request animation frame loop
      *
-     * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
+     * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
      *
      * @example
      * ```javascript
@@ -270,7 +270,7 @@ export const mobCore = {
      * @description
      * Add callback to a specific frame.
      *
-     * @param {function(import('./events/rafutils/handleFrame.js').handleFrameTypes):void } callback - callback function
+     * @param {import('./events/rafutils/type.js').handleFrameCallbakType} callback - callback function
      * @pram {number} index
      *
      * @example
@@ -291,7 +291,7 @@ export const mobCore = {
         After the method will be resolved the first time, subsequent calls will be resolved immediately returning the previously calculated value.
         The method is launched the first time automatically at the first loading.
      *
-     * @param {function(import('./events/rafutils/loadFps.js').loadFpsType):void } callback - callback function
+     * @param {import('./events/rafutils/type.js').loadFpsCallback} callback - callback function
      * @return {Promise}
      *
      */

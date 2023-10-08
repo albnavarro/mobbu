@@ -11,20 +11,6 @@ import { eventStore } from '../eventStore.js';
 import { defaultTimestep, getTime } from './time.js';
 
 /**
- * @typedef {Object} handleFrameTypes
- * @prop {number} time
-    The total activity time of the request animation frame
- * @prop {number} fps
-    Current fps value, the starting fps value is 60.
-    The effective value of the fps property will occur 30 frames after the initialization of handleFrame,
-    30 frames the minimum interval to have a correct result.
- * @prop {boolean} shouldRender
-    If the useScaleFps global property is on,
-    the property indicates whether there is a drop in frame rate compared
-    to the optimal frame rate calculated at application startup.
- */
-
-/**
  * Calculate a precise fps
  */
 loadFps();
@@ -46,7 +32,7 @@ const firstRunDuration = 2000;
 let frameIsRuning = false;
 
 /**
- * @type {Array.<function(handleFrameTypes):void>}
+ * @type {import('./type.js').handleFrameArrayType}
  */
 let callback = [];
 
@@ -442,7 +428,7 @@ export const handleFrame = (() => {
      * @description
      * Add callback
      *
-     * @param {function(handleFrameTypes):void } cb - callback function
+     * @param {import('./type.js').handleFrameCallbakType} cb - callback function
      * @returns void
      *
      * @example
@@ -462,7 +448,7 @@ export const handleFrame = (() => {
      * @description
      * Add an array of callback
      *
-     * @param {Array.<function(handleFrameTypes):void >} arr - array of callback
+     * @param {import('./type.js').handleFrameArrayType} arr - array of callback
      */
     const addMultiple = (arr = []) => {
         callback = [...callback, ...arr];
