@@ -27,56 +27,40 @@ import {
     storeWatchWarning,
 } from './storeWarining.js';
 
-/**
- * @typedef {('String'|'Number'|'Object'|'Function'|'Array'|'Boolean'|'Element'|'Map'|'Set'|'NodeList'|'Any')} SimpleStoreUsableType
- */
-
-/**
- * @typedef {(Number|String|Function|'FUNCTION'|Array|Boolean|Element|Map|Set|NodeList)} SimpleStoreBasicValues
- */
-
-/**
- * @typedef {function():{value:any,type?:SimpleStoreUsableType,validate?:function(any,any):Boolean,strict?:Boolean,skipEqual?:Boolean}} SimpleStoreTypeBase
- */
-
-/**
- * @typedef {Object<string,( SimpleStoreTypeBase|SimpleStoreBasicValues|Object<string,( SimpleStoreTypeBase|SimpleStoreBasicValues)>)>} SimpleStoreType
- */
-
 export class SimpleStore {
     /**
-     * @param {SimpleStoreType} data
+     * @param {import('./type.js').simpleStoreBaseData} data
      *
      * @description
      * SimpleStore inizialization.
      * The store accepts single properties or objects
-       Each individual property can be initialized with a simple value or via a more complex setup.
-       A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
-       `type` || `validation` || `skipEqual` || `strict`
+     * Each individual property can be initialized with a simple value or via a more complex setup.
+     * A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
+     * `type` || `validation` || `skipEqual` || `strict`
      *
-      `value`:
-       Initial value.
-
-      `type`:
-       Supported types:
-      `String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
-       The property will not be updated if it doesn't match, you will have a waring.
-       For custom Object use 'Any'.
-       Support Contructor || String.
-       Es: type: Number || type: 'Number'
-
-       `validation`:
-       Validation function to parse value.
-       This function will have the current value and old value as input parameter and will return a boolean value.
-       The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
-
-       `strict`:
-       If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.
-       THe default value is `false`.
-
-       `skipEqual`:
-       If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.
-       The default value is `true`.
+     * `value`:
+     * Initial value.
+     *
+     *`type`:
+     * Supported types:
+     *`String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
+     * The property will not be updated if it doesn't match, you will have a waring.
+     * For custom Object use 'Any'.
+     * Support Contructor || String.
+     * Es: type: Number || type: 'Number'
+     *
+     * `validation`:
+     * Validation function to parse value.
+     * This function will have the current value and old value as input parameter and will return a boolean value.
+     * The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
+     *
+     * `strict`:
+     * If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.
+     * THe default value is `false`.
+     *
+     * `skipEqual`:
+     * If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.
+     * The default value is `true`.
      *
      *
      *
@@ -440,11 +424,11 @@ export class SimpleStore {
     /**
      * @param {String} prop - propierties or object to update
      * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
-       If the type of value used is a function, only the new function can be passed
+     * If the type of value used is a function, only the new function can be passed
      * @param {Boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
      * @param {Boolean} [ clone ] - Return a clone of original object for Map,Set,Onject and Array,
-       Useful for Map and Set because with this contructor doasn't support spread
-       Default value is `false`.
+     *  Useful for Map and Set because with this contructor doasn't support spread
+     *  Default value is `false`.
      * @returns void
      *
      * @description
@@ -465,9 +449,9 @@ export class SimpleStore {
      *
      * // Use a Map and clone original data.
      * myStore.set('mySet', (set) => {
-          set.add(<val>)
-          return set
-       }, true, true);
+     *     set.add(<val>)
+     *     return set
+     *  }, true, true);
      *
      * ```
      */
@@ -1025,13 +1009,13 @@ export class SimpleStore {
      * })
      *
      * Prop target is an object and dependency is not an object.
-       When target is on object the result will be mergerd with original object.
+     * When target is on object the result will be mergerd with original object.
      * myStore.computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
      *     return { sum: val1 + val2 };
      * });
      *
      * Prop target is an object, and dependency is an object.
-       When target is on object the result will be mergerd with original object.
+     * When target is on object the result will be mergerd with original object.
      * myStore.computed('objectProp', ['objectProp1'], (obj) => {
      *     return { sum: obj.val1 + obj.val2 };
      * });

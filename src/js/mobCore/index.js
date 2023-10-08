@@ -32,10 +32,6 @@ import { SimpleStore } from './store/simpleStore.js';
 import { checkType, getTypeName } from './store/storeType.js';
 import { getUnivoqueId } from './utils/index.js';
 
-/**
- * @typedef {import('./store/simpleStore').SimpleStoreType} MobbuStoreType
- */
-
 export const mobCore = {
     /**
      * @description
@@ -70,7 +66,7 @@ export const mobCore = {
        The default value is `true`.
      *
      *
-     * @param {import('./store/simpleStore.js').SimpleStoreType} data
+     * @param {import('./store/type.js').simpleStoreBaseData} data
      *
      * @example
      *
