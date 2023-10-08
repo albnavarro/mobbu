@@ -15,6 +15,7 @@ export * from './pages/horizontalScroller/definition';
 export * from './pages/horizontalScroller/horizontalScrollerButton/definition';
 export * from './pages/horizontalScroller/horizontalScrollerSection/definition';
 export * from './pages/scroller/ScrollerN0/definition';
+export * from './pages/scroller/ScrollerN1/definition';
 export * from './pages/dynamicList/definition';
 export * from './pages/dynamicList/card/definition';
 export * from './pages/dynamicList/slot/definition';

@@ -16,4 +16,5 @@ export * from './scroller/scrollerN0v2';
 export * from './scroller/scrollerN0v3';
 export * from './scroller/scrollerN0v4';
 export * from './scroller/scrollerN0v5';
+export * from './scrollerN1';
 export * from './dynamicList';

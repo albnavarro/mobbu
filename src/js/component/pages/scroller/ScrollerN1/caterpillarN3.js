@@ -1,20 +1,15 @@
 import { getLegendData } from '../../../../data';
-import { scrollerN0Animation } from './animation/animation';
+import { scrollerN1Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
+export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ element }) => {
         const canvas = element.querySelector('canvas');
         const canvasScroller = element.querySelector('.canvas-scroller');
 
-        /**
-         * Prevent landing at bottom of the page.
-         */
-        window.scrollTo(0, 0);
-
-        const destroyAnimation = scrollerN0Animation({
+        const destroyAnimation = scrollerN1Animation({
             canvas,
             canvasScroller,
             ...getState(),
