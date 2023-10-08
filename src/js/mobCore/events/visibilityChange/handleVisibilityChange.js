@@ -3,11 +3,6 @@
 import { getUnivoqueId } from '../../utils';
 
 /**
- * @typedef {Object} visibilityChangeTYpe
- * @prop {('hidden'|'visible')} visibilityState - Boolean value indicating the visibility status of the current tab-
- */
-
-/**
  * @type {Boolean}
  */
 let inizialized = false;
@@ -59,7 +54,7 @@ function init() {
  * @description
  * Add callback on tab change
  *
- * @param {function(visibilityChangeTYpe):void } cb - callback function fired on tab change.
+ * @param {import('./type').visibilityChangeCallback} cb - callback function fired on tab change.
  * @returns function
  *
  * @example
