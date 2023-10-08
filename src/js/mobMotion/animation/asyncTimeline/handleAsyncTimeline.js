@@ -26,16 +26,6 @@ import {
 import { asyncReduceData } from './asyncReduceData.js';
 import { asyncReduceTween } from './asyncReduceTween.js';
 
-/**
- * @typedef {Object} asyncTimelineLoopType
- * @prop {number} loop
- **/
-
-/**
- * @typedef {Object} asyncTimelineAddAsyncType
- * @prop {number} loop
- **/
-
 export default class HandleAsyncTimeline {
     /**
      * @param {import('./type').asyncTimelineType} data
@@ -1047,12 +1037,12 @@ export default class HandleAsyncTimeline {
      * ```
      *
      * @description
-     Transform some properties of your choice from the `current value` to the `entered value` immediately.
-     The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
-     It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
-      - immediate (internal use)
-      - immediateNoPromise (internal use)
-      - dealy
+     * Transform some properties of your choice from the `current value` to the `entered value` immediately.
+     * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change every time this transformation is called.
+     * It is possible to associate the special pros to the current transformation, these properties will be valid only in the current transformation.
+     *  - immediate (internal use)
+     *  - immediateNoPromise (internal use)
+     *  - dealy
      */
     set(tween, valuesSet = {}, tweenProps = {}) {
         if (!asyncTimelineTweenIsValid(tween)) return this;
@@ -1320,8 +1310,8 @@ export default class HandleAsyncTimeline {
      *
      * ```
      * @description
-     Adds a `custom function` to the timeline, the function will be executed after the previous promise and before the next one, `the function will not overlap the tweens`.
-    `This property cannot be used within a group`.
+     *  Adds a `custom function` to the timeline, the function will be executed after the previous promise and before the next one, `the function will not overlap the tweens`.
+     * `This property cannot be used within a group`.
      */
     add(fn = NOOP) {
         const cb = functionIsValidAndReturnDefault(
@@ -1352,7 +1342,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param { function(import('../utils/timeline/type.js').directionTypeObject & asyncTimelineAddAsyncType):void } fn - callback function
+     * @param { function(import('../utils/timeline/type.js').directionTypeAsync):void } fn - callback function
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -1365,10 +1355,10 @@ export default class HandleAsyncTimeline {
      *
      * ```
      * @description
-     Adds an `asynchronous` function to the timeline.
-     The function receives the `resolve parameter as input`, the timeline will automatically enter the `suspended state`
-     Here it is possible to perform asynchronous operations, the timeline will be active again by launching the resolve function.
-     `This property cannot be used within a group`.
+     * Adds an `asynchronous` function to the timeline.
+     * The function receives the `resolve parameter as input`, the timeline will automatically enter the `suspended state`
+     * Here it is possible to perform asynchronous operations, the timeline will be active again by launching the resolve function.
+     * `This property cannot be used within a group`.
      */
     addAsync(fn) {
         const cb = addAsyncFunctionIsValid(fn);
@@ -1407,8 +1397,8 @@ export default class HandleAsyncTimeline {
      *
      * ```
      * @description
-     This method `synchronizes two different tweens` by updating their `current values`, it is possible for example to synchronize a tween with a spring and vice versa in order to manage a single element with two different interpolation methods.
-    `This property cannot be used within a group`
+     *  This method `synchronizes two different tweens` by updating their `current values`, it is possible for example to synchronize a tween with a spring and vice versa in order to manage a single element with two different interpolation methods.
+     * `This property cannot be used within a group`
      */
     sync(syncProp) {
         /**
@@ -1457,10 +1447,10 @@ export default class HandleAsyncTimeline {
      * ```
      *
      * @description
-     Initialize a group, within this group all instances will run in `parallel`.
-     If the waitComplete property is set to true the group will behave like a `promise.all()` otherwise it will behave like a `promise.race()`. This means that if waitComplete is equal to false the group of promises will be resolved by the fastest, otherwise it will be resolved only when each of the single promises (tween) are resolved.
-     To close the group use the `closeGroup()` method.
-     `Within a group, only the goTo, goFrom, goFromTo methods can be used`
+     * Initialize a group, within this group all instances will run in `parallel`.
+     * If the waitComplete property is set to true the group will behave like a `promise.all()` otherwise it will behave like a `promise.race()`. This means that if waitComplete is equal to false the group of promises will be resolved by the fastest, otherwise it will be resolved only when each of the single promises (tween) are resolved.
+     * To close the group use the `closeGroup()` method.
+     * `Within a group, only the goTo, goFrom, goFromTo methods can be used`
      */
     createGroup(groupProps = {}) {
         /**
@@ -1534,9 +1524,9 @@ export default class HandleAsyncTimeline {
      * ```
      *
      * @description
-     This method puts the timeline in a state of `suspension`, the individual instances if within a group with the property waitComplete = false, they will finish their interpolation, suspend in fact does not pause the individual instances but only the timeline.
-     It is possible to use a `function that returns a Boolean` value as a parameter to have conditional control.
-     To reactivate the timeline use the resume() method. `This property cannot be used within a group`.
+     * This method puts the timeline in a state of `suspension`, the individual instances if within a group with the property waitComplete = false, they will finish their interpolation, suspend in fact does not pause the individual instances but only the timeline.
+     * It is possible to use a `function that returns a Boolean` value as a parameter to have conditional control.
+     * To reactivate the timeline use the resume() method. `This property cannot be used within a group`.
      */
     suspend(fn = () => true) {
         /**
@@ -1573,8 +1563,8 @@ export default class HandleAsyncTimeline {
      * ```
      *
      * @description
-     Add a label, this label can be used by the playFrom(), playFromReverse(), setTween() methods.
-    `This property cannot be used within a group`
+     *  Add a label, this label can be used by the playFrom(), playFromReverse(), setTween() methods.
+     * `This property cannot be used within a group`
      */
     label(labelProps = {}) {
         /**
@@ -1684,10 +1674,10 @@ export default class HandleAsyncTimeline {
      * ```
      *
      * @description
-     Executes the set method on the tweens contained in the array to a specific label.
-     The method will return a promise.
-     It is possible for example to execute a set of specific instances before using the playFrom() method to be sure that all instances are in position, the instances on which a delay is applied could in fact remain in the old position until the delay is finished , by doing so we can be put in the right position before launching the method.
-     `This property cannot be used within a group`
+     * Executes the set method on the tweens contained in the array to a specific label.
+     * The method will return a promise.
+     * It is possible for example to execute a set of specific instances before using the playFrom() method to be sure that all instances are in position, the instances on which a delay is applied could in fact remain in the old position until the delay is finished , by doing so we can be put in the right position before launching the method.
+     * `This property cannot be used within a group`
      */
     setTween(label = '', items = []) {
         this.stop();
