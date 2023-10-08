@@ -41,10 +41,9 @@ export const scrollerN1Animation = ({
     width,
     height,
     radius,
-    fill,
-    stroke,
     opacity,
     intialRotation,
+    endRotation,
     disableOffcanvas,
 }) => {
     /**
@@ -87,8 +86,6 @@ export const scrollerN1Animation = ({
             height: Math.floor(
                 getHeightRounded({ height, relativeIndex, amountOfPath })
             ),
-            fill,
-            stroke,
             opacity: relativeIndex * opacity,
             rotate: 0,
             y: 0,
@@ -102,7 +99,7 @@ export const scrollerN1Animation = ({
      */
     let scrollerTween = tween.createScrollerTween({
         from: { rotate: 0 },
-        to: { rotate: 360 },
+        to: { rotate: endRotation },
         stagger: { each: 5, from: 'center' },
     });
 
@@ -210,7 +207,7 @@ export const scrollerN1Animation = ({
             value: () => outerHeight(canvasScroller),
         },
         ease: true,
-        easeType: 'lerp',
+        easeType: 'spring',
     });
 
     /**
