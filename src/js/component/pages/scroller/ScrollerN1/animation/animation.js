@@ -4,7 +4,6 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
@@ -63,6 +62,9 @@ export const scrollerN1Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = wichContext?.roundRect;
+    wichContext = null;
 
     /**
      * Initial misure.
@@ -164,14 +166,25 @@ export const scrollerN1Animation = ({
             /**
              * Shape
              */
-            roundRectCustom(
-                context,
-                -width / 2,
-                -height / 2 + unitInverse * 19,
-                width,
-                height,
-                radius
-            );
+            if (useRadius) {
+                context.beginPath();
+                context.roundRect(
+                    -width / 2,
+                    -height / 2 + unitInverse * 19,
+                    width,
+                    height,
+                    150
+                );
+            } else {
+                context.beginPath();
+                context.rect(
+                    Number.parseInt(-width / 2),
+                    Number.parseInt(-height / 2),
+                    width,
+                    height,
+                    radius
+                );
+            }
 
             /**
              * Color.

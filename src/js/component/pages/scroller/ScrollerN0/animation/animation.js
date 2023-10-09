@@ -47,6 +47,9 @@ export const scrollerN0Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = wichContext?.roundRect;
+    wichContext = null;
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
@@ -180,6 +183,25 @@ export const scrollerN0Animation = ({
                     height,
                     5
                 );
+
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        Math.round(-centerX + x),
+                        Math.round(-centerY + y),
+                        width,
+                        height,
+                        5
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        Math.round(-centerX + x),
+                        Math.round(-centerY + y),
+                        width,
+                        height
+                    );
+                }
                 context.fillStyle = hasFill ? highlightFill : defaultFill;
                 context.fill();
 

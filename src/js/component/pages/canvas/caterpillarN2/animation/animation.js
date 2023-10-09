@@ -4,7 +4,6 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
@@ -47,6 +46,9 @@ export const caterpillarN2Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = wichContext?.roundRect;
+    wichContext = null;
 
     /**
      *
@@ -172,16 +174,27 @@ export const caterpillarN2Animation = ({
                 context.setTransform(xx, xy, -xy, xx, centerX + x, centerY + y);
 
                 /**
-                 * Restore canvas center
+                 * Shape
                  */
-                roundRectCustom(
-                    context,
-                    Number.parseInt(-width / 2),
-                    Number.parseInt(-height / 2),
-                    width,
-                    height,
-                    radius
-                );
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        Number.parseInt(-width / 2),
+                        Number.parseInt(-height / 2),
+                        width,
+                        height,
+                        [150, 0]
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        Number.parseInt(-width / 2),
+                        Number.parseInt(-height / 2),
+                        width,
+                        height,
+                        radius
+                    );
+                }
 
                 if (hasFill) {
                     context.fillStyle = `rgba(255, 255, 255, 1)`;

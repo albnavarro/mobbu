@@ -4,7 +4,6 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
@@ -69,6 +68,9 @@ export const caterpillarN0Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    let wichContext = useOffscreen ? offScreenCtx : ctx;
+    const useRadius = wichContext?.roundRect;
+    wichContext = null;
 
     /**
      * Initial misure.
@@ -193,17 +195,28 @@ export const caterpillarN0Animation = ({
                     centerY + height / 2
                 );
 
-                /**
-                 * Shape
-                 */
-                roundRectCustom(
-                    context,
-                    -(width * centerDirection) / 2,
-                    -height / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
-                    width,
-                    height,
-                    radius
-                );
+                if (useRadius) {
+                    context.beginPath();
+                    context.roundRect(
+                        -(width * centerDirection) / 2,
+                        -height / 2 +
+                            offsetInverse +
+                            spacerY(i < amountOfPath / 2),
+                        width,
+                        height,
+                        [200, 0]
+                    );
+                } else {
+                    context.beginPath();
+                    context.rect(
+                        -(width * centerDirection) / 2,
+                        -height / 2 +
+                            offsetInverse +
+                            spacerY(i < amountOfPath / 2),
+                        width,
+                        height
+                    );
+                }
 
                 /**
                  * Color.

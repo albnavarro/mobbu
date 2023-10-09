@@ -8,7 +8,6 @@ import {
     getOffsetCanvas,
     getOffsetXCenter,
     getOffsetYCenter,
-    roundRectCustom,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
@@ -209,14 +208,14 @@ export const animatedPatternN1Animation = ({
                 /**
                  * Draw.
                  */
-                roundRectCustom(
-                    context,
+                context.beginPath();
+                context.rect(
                     Math.round(-centerX + x),
                     Math.round(-centerY + y),
                     width,
-                    height,
-                    0
+                    height
                 );
+
                 context.fillStyle = hasFill ? highlightFill : defaultFill;
                 context.fill();
 
