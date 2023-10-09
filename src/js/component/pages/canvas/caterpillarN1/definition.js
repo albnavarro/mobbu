@@ -25,7 +25,7 @@ export const caterpillarN1Def = createComponent({
         height: 40,
         fill: [14],
         opacity: 0.05,
-        radius: 100,
+        radius: 0,
         rotationEach: 15,
         centerEach: 3,
         rotationDuration: 5000,

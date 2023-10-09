@@ -158,7 +158,7 @@ export const scrollerN1Animation = ({
                 -xy,
                 xx,
                 centerX,
-                centerY + unitInverse * 30
+                centerY + unitInverse * 19
             );
 
             /**
@@ -167,7 +167,7 @@ export const scrollerN1Animation = ({
             roundRectCustom(
                 context,
                 -width / 2,
-                -height / 2 + unitInverse * 30,
+                -height / 2 + unitInverse * 19,
                 width,
                 height,
                 radius

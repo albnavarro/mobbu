@@ -165,7 +165,7 @@ export const animatedPatternN0Animation = ({
                     Math.round(-centerY + y),
                     width,
                     height,
-                    5
+                    0
                 );
                 context.fillStyle = hasFill ? highlightFill : defaultFill;
                 context.fill();

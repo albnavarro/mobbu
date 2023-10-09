@@ -19,9 +19,9 @@ export const scrollerN1Def = createComponent({
     ],
     state: {
         amountOfPath: 17,
-        width: 10,
-        height: 30,
-        radius: 20,
+        width: 15,
+        height: 40,
+        radius: 0,
         opacity: 0.05,
         intialRotation: 33,
         endRotation: 720,
