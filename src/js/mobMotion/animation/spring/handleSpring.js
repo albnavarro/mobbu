@@ -396,7 +396,7 @@ export default class HandleSpring {
          */
         const tension = this.configProps.tension;
         const friction = this.configProps.friction;
-        const mass = this.configProps.mass;
+        const mass = Math.max(1, this.configProps.mass);
         const precision = this.configProps.precision;
 
         this.draw(time, fps, res, tension, friction, mass, precision);

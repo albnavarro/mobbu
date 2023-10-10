@@ -8,10 +8,12 @@ import {
     getOffsetXCenter,
     getOffsetYCenter,
     roundRectCustom,
+    roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
+import { detectSafari } from '../../../../../utils/utils';
 
 export const scrollerN0Animation = ({
     canvas,
@@ -48,7 +50,7 @@ export const scrollerN0Animation = ({
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = wichContext?.roundRect;
+    const useRadius = roundRectIsSupported(wichContext);
     wichContext = null;
 
     canvas.width = canvas.clientWidth;

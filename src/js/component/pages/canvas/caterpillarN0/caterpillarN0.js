@@ -1,3 +1,4 @@
+import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN0Animation } from './animation/animation';
 
 /**
@@ -23,11 +24,13 @@ export const CaterpillarN0 = ({ onMount, html, getState }) => {
         };
     });
 
+    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
+
     return html`
-        <caterpillar-n0 class="c-canvas">
-            <div class="c-canvas__wrap c-canvas__wrap--border">
+        <div class="c-canvas">
+            <div class="c-canvas__wrap ${canvasStyle}">
                 <canvas></canvas>
             </div>
-        </caterpillar-n0>
+        </div>
     `;
 };

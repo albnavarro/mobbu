@@ -4,10 +4,12 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
+    roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { offset } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
+import { detectSafari } from '../../../../../utils/utils';
 
 function getWithRounded({ width, relativeIndex, amountOfPath }) {
     return (
@@ -69,7 +71,7 @@ export const caterpillarN0Animation = ({
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = wichContext?.roundRect;
+    const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
     wichContext = null;
 
     /**
