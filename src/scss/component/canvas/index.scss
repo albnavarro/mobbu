@@ -27,10 +27,9 @@
         height: calc(100vh - var(--footer-height));
 
         @include mq.mq('xxlarge') {
-            max-width: 1920px;
-            max-height: 769px;
-
-            &--border {
+            &--wrapped {
+                max-width: 1920px;
+                max-height: 769px;
                 border: 1px rgba($white, 0.2) solid;
             }
         }
