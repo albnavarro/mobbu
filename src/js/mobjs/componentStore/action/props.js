@@ -7,6 +7,8 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
     if (!item) return;
 
     const { parentPropsWatcher } = item;
+    if (!parentPropsWatcher) return;
+
     componentMap.set(id, {
         ...item,
         parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray],

@@ -7,16 +7,8 @@ import { componentMap } from './store';
 import { addPropsToState } from './utils';
 
 /**
- * @param {Object} obj
- *
- * @return {{
-    getState: function():object,
-    setState: function(string, any, boolean):void,
-    emit: function(string):void,
-    emitAsync: function(string):Promise,
-    computed: function(string, Array.<String>, function()):void,
-    watch: function(string, function()):Function
- * }}
+ * @param {import('./type').componentStoreInputTypes} params
+ * @returns {import('./type').componentStoreReturnType}
  *
  *
  * @description
@@ -34,7 +26,7 @@ export const addComponentToStore = ({
     destroy = () => {},
     freezedPros = [],
     isCancellable = true,
-    child = [],
+    child = {},
     parentId = '',
     id = '',
     componentName = '',

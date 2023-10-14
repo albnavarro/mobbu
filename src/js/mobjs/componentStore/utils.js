@@ -1,12 +1,12 @@
 // @ts-check
 
 /**
- * @param {Object} obj
- * @param {{String: Array.<string>}} obj.currentChild
+ * @param {object} obj
+ * @param {{string: Array.<string>}|{}} obj.currentChild
  * @param {string} obj.id
  * @param {string} obj.componentName
  *
- * @return {{String: Array.<string>}}
+ * @return {{string: Array.<string>}|{}}
  *
  *
  * @description
@@ -26,12 +26,12 @@ export const updateChildrenArray = ({
 };
 
 /**
- * @param {Object} obj
- * @param {{String: Array.<string>}} obj.currentChild
- * @param {String} obj.id
- * @param {String} obj.componentName
+ * @param {object} obj
+ * @param {{string: Array.<string>}|{}} obj.currentChild
+ * @param {string} obj.id
+ * @param {string} obj.componentName
  *
- * @return {{String: Array.<string>}}
+ * @return {{string: Array.<string>}|{}}
  *
  *
  * @description

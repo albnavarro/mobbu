@@ -5,8 +5,8 @@ import { componentMap } from '../store';
 /**
  * @param {string} id
  * @param {string} prop
- * @param {function} cb
- * @returns {(Promise.<Function>|undefined)}
+ * @param {function():void} cb
+ * @returns {(( function():void )|undefined)}
  *
  * @description
  * Watch state

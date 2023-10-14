@@ -28,7 +28,7 @@ export const getParentIdById = (id = '') => {
 
 /**
  * @param {Object} obj
- * @param {String} obj.id
+ * @param {string} obj.id
  *
  * @description
  * Update child id.
@@ -44,6 +44,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
 
     for (const [key, value] of componentMap) {
         const { child } = value;
+        if (!child) break;
 
         if (key === parentId) {
             componentMap.set(key, {

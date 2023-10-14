@@ -58,6 +58,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
 
     for (const [key, value] of componentMap) {
         const { child } = value;
+        if (!child) break;
 
         if (key === parentId) {
             componentMap.set(key, {
@@ -79,7 +80,8 @@ export const removeAndDestroyById = ({ id = '' }) => {
 
             destroy();
             state.destroy();
-            parentPropsWatcher.forEach((unwatch) => unwatch());
+            if (parentPropsWatcher)
+                parentPropsWatcher.forEach((unwatch) => unwatch());
             removeRepeaterComponentTargetByParentId({ id: key });
 
             /**
