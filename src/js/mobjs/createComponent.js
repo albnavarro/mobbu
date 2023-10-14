@@ -9,20 +9,7 @@ let defaultComponent = {
 };
 
 /**
- * @param {Object} obj
- * @param {Boolean} [ obj.isolateOnMount ] - Wait one frame after execute onMount function.( for havly onMount function ).
- *   - Less stress for big script fired inside onMont function.
- *  `default = false`.
- * @param {Boolean} [ obj.isolateCreation ] - Add DOM element in a dedicated request animation Frame.
- *   - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
- *  `default = false`.
- * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
- *  This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
- *  `default = false`.
- * @param {Number} [ obj.maxParseIteration ] - DOM creation use a recursive function, this value mimit the number of iteration.
- * - Prevent infinite loop, in case of error or wrong component incapsulation
- * @param {Boolean} [ obj.debug ] - Add data-mobjs="<id>" to each component
- *
+ * @param {import('./type').defaultComponent} obj
  * @returns Object
  *
  * @description
@@ -31,30 +18,13 @@ export const setDefaultComponent = (obj) => {
     defaultComponent = { ...defaultComponent, ...obj };
 };
 
+/**
+ * @returns {import('./type').defaultComponent}
+ */
 export const getDefaultComponent = () => defaultComponent;
 
 /**
- * @param {Object} obj
- * @param {String} obj.name
- * @param {Function} obj.component
- * @param {Array<String>} [ obj.exportState ]
- * @param {Boolean} [ obj.isolateOnMount ] - Wait one frame after execute onMount function.( for havly onMount function ).
- *   - Less stress for big script fired inside onMont function.
- *  `default = false`.
- * @param {Boolean} [ obj.isolateCreation ] - Add DOM element in a dedicated request animation Frame.
- *   - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
- *  `default = false`.
- * @param {Boolean} [ obj.scoped ] - Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
- *  This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
- *  `default = false`.
- * @param {function({'context':Object}):void} [ obj.constructorCallback ] -
- * @param {function({'context':Object,'data':Object}):void} [ obj.connectedCallback ] -
- * @param {function({'context':Object,'data':Object}):void} [ obj.disconnectedCallback ] -
- * @param {function({'context':Object,'data':Object}):void} [ obj.adoptedCallback ] -
- * @param {function({ 'name':String,'oldValue':String,'newValue':String,'context':Object, 'data':{'componentId':String,'emit':Function,'emitAsync':Function,'freezeProp':Function,'getChildren':Function,'getParentId':Function,'getState':Function,'remove':Function,'setState':Function,'unBind':Function,'unFreezeProp':Function,'watch':Function,'watchSync':Function,'watchParent':Function} }):void} [ obj.attributeChangedCallback ] -
- * @param {Array<String>} [ obj.attributeToObserve ] -
- * @param {Style} [ obj.style ] -
- * @param {import('../mobCore/store/type').simpleStoreBaseData} [ obj.state ]
+ * @param {import('./type').createComponentType} param
  * @returns Object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description

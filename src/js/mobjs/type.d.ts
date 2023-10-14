@@ -1,5 +1,7 @@
 // @ts-check
 
+import { simpleStoreBaseData } from '../mobCore/store/type';
+
 export interface componentType {
     key: String;
     id: String;
@@ -611,4 +613,101 @@ export interface componentType {
      * Internal use.
      */
     repeatId: string[];
+}
+
+export interface createComponentType {
+    name: string;
+    component: function;
+    exportState: string[];
+
+    /**
+     * @description
+     * Wait one frame after execute onMount function.( for havly onMount function ).
+     *   - Less stress for big script fired inside onMont function.
+     *  `default = false`.
+     */
+    isolateOnMount?: boolean;
+
+    /**
+     * @description
+     * Add DOM element in a dedicated request animation Frame.
+     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
+     * `default = false`.
+     */
+    isolateCreation?: boolean;
+
+    /**
+     * @description
+     * Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
+     * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
+     * `default = false`.
+     */
+    scoped?: boolean;
+    constructorCallback?: ({ context: object }) => void;
+    connectedCallback?: ({ context: object }) => void;
+    disconnectedCallback?: ({ context: object }) => void;
+    adoptedCallback?: ({ context: object }) => void;
+    attributeChangedCallback?: {
+        name: string;
+        oldValue: string;
+        newValue: string;
+        context: Object;
+        data: {
+            componentId: string;
+            emit: function;
+            emitAsync: function;
+            freezeProp: function;
+            getChildren: function;
+            getParentId: function;
+            getState: function;
+            remove: function;
+            setState: function;
+            unBind: function;
+            unFreezeProp: function;
+            watch: function;
+            watchSync: function;
+            watchParent: function;
+        };
+    };
+    attributeToObserve?: string[];
+    style?: string;
+    state: simpleStoreBaseData;
+}
+
+export interface defaultComponent {
+    /**
+     * @description
+     * Wait one frame after execute onMount function.( for havly onMount function ).
+     *   - Less stress for big script fired inside onMont function.
+     *  `default = false`.
+     */
+    isolateOnMount?: boolean;
+
+    /**
+     * @description
+     * Add DOM element in a dedicated request animation Frame.
+     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
+     * `default = false`.
+     */
+    isolateCreation?: boolean;
+
+    /**
+     * @description
+     * Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
+     * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
+     * `default = false`.
+     */
+    scoped?: boolean;
+
+    /**
+     * @description
+     * DOM creation use a recursive function, this value mimit the number of iteration.
+     * - Prevent infinite loop, in case of error or wrong component incapsulation
+     */
+    maxParseIteration?: number;
+
+    /**
+     * Add data-mobjs="<id>" to each component
+     */
+    debug?: boolean;
 }
