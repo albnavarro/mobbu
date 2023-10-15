@@ -1,5 +1,9 @@
 import { SimpleStore } from '../../mobCore/store/simpleStore';
-import { simpleStoreBaseData } from '../../mobCore/store/type';
+import {
+    simpleStoreBaseData,
+    simpleStoreComputedCallback,
+    simpleStoreWatchCallbackType,
+} from '../../mobCore/store/type';
 
 export interface componentCommonTypes {
     key: string;
@@ -45,7 +49,10 @@ export interface componentStoreReturnType {
     computed: (
         prop: string,
         keys: string[],
-        callback: (arg0: any, arg1: any) => any
+        callback: simpleStoreComputedCallback
     ) => void;
-    watch: (arg0: string, arg2: () => void) => function;
+    watch: (
+        propierties: string,
+        callback: simpleStoreWatchCallbackType
+    ) => void;
 }

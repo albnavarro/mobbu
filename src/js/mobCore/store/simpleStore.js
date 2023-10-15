@@ -861,8 +861,8 @@ export class SimpleStore {
     }
 
     /**
-     * @param {String} prop - property to watch.
-     * @param {function(any,any,(boolean|object)):void} callback - callback Function, fired on prop value change
+     * @param {string} prop - property to watch.
+     * @param {import('./type.js').simpleStoreWatchCallbackType} callback
      * @returns {function():void} unsubscribe function
      *
      * @description
@@ -988,7 +988,7 @@ export class SimpleStore {
     /**
      * @param  {string} prop - Property in store to update
      * @param  {Array.<String>} keys - Array of property to watch.
-     * @param {function(any,any):any} fn - Callback function launched when one of the properties of the array changes, the result of the function will be the new value of the property. The parameters of the function are the current values of the properties specified in the array.
+     * @param {import('./type.js').simpleStoreComputedCallback} fn - Callback function launched when one of the properties of the array changes, the result of the function will be the new value of the property. The parameters of the function are the current values of the properties specified in the array.
      *
      * @description
      * Update propierties value if some dependency change.

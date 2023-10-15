@@ -25,7 +25,7 @@ import { getChildrenInsideElement } from './utils';
  */
 
 /**
- * @param {import('../temporaryData/repeater/add').repeaterType & watchListType}
+ * @param {import('../temporaryData/repeater/type').repeaterType & watchListType}
  * @return {() => Function}
  */
 export const watchList = ({

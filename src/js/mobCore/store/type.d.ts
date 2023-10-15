@@ -72,3 +72,15 @@ export interface simpleStoreBaseData {
         | object
         | simpleStoreBaseData;
 }
+
+/**
+ * @description
+ * Callback Function, fired on prop value change
+ */
+export type simpleStoreWatchCallbackType = (
+    newValue: any,
+    oldValue: any,
+    validationValue: boolean | { [key: string]: boolean }
+) => void;
+
+export type simpleStoreComputedCallback = (arg0: any, arg1: any) => void;
