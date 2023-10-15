@@ -68,7 +68,7 @@ function handleScrollUtils(type) {
                     scrollY: window.pageYOffset,
                 };
 
-                // Fire end fo scroll
+                // Fire end of scroll
                 if (type === 'END') {
                     for (const value of callbacks.values()) {
                         value(scrollData);

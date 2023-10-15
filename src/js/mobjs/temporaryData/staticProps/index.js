@@ -69,7 +69,7 @@ export const removeCurrentToPropsByPropsId = ({ propsId }) => {
  *
  * @description
  * Delete all refs of props.
- * If slot in unsed and a propsFromStore is unused remain in store
+ * If slot in unused and a propsFromStore is unused remain in store
  * So when active parser counter is equal 0 ( no parser is running )
  * remove all reference
  */

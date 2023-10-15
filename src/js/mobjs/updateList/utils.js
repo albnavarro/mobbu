@@ -10,7 +10,7 @@ import { getElementById } from '../componentStore/action/element';
  *
  *
  * @description
- * Get new element of currrent array compare to previous.
+ * Get new element of current array compare to previous.
  */
 export const getNewElement = (current = [], previous = [], key = '') => {
     return current.filter((el) => {
@@ -46,7 +46,7 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
  * @return {Boolean}
  *
  * @description
- * Check if all new item in lsit has key.
+ * Check if all new item in list has key.
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {Object} */ item) => {

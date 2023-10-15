@@ -686,7 +686,7 @@ export default class HandleSyncTimeline {
 
     /**
      * @description
-     * Find label tha match the occurrency and return the time
+     * Find label than match the occurrency and return the time
      *
      * @param {number} partial
      * @returns {Promise}

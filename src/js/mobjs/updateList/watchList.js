@@ -56,7 +56,7 @@ export const watchList = ({
     const mainComponent = getElementById({ id });
 
     /**
-     * First run use an empty previus array
+     * First run use an empty previous array
      * To run first emit from definition store.
      */
     let forceRepeater = true;
@@ -72,7 +72,7 @@ export const watchList = ({
 
             /**
              * Secure step 1.
-             * Avoid state mutation during list contruction.
+             * Avoid state mutation during list construction.
              * Useful when list component is async.
              */
             freezePropById({ id, prop: state });

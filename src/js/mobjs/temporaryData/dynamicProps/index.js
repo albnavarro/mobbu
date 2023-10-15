@@ -211,7 +211,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     if (!dynamicPropsFilteredArray) return;
 
     /**
-     * Cicle dynamicProps from component or from slot.
+     * Cycle dynamicProps from component or from slot.
      */
     dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
         const { bind, props, parentId } = dynamicpropsfiltered;

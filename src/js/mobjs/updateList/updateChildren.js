@@ -45,7 +45,7 @@ export const updateChildren = async ({
     const fn = hasKey ? addWithKey : addWithoutKey;
 
     /**
-     * Execue function.
+     * Execute function.
      * Get unique array of data ( current compared with previous )
      */
     const currentUnivoque = fn({

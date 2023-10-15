@@ -224,7 +224,7 @@ export const addWithKey = ({
 
         /**
          * @description
-         * 1 - If the first element of the lsit is new append before
+         * 1 - If the first element of the list is new append before
          * the first existing element
          *
          * 2 -Otherwise append to element at index 0 of current chank

@@ -223,7 +223,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
  *
  * @description
  * Default grid direction is COL
- * In case of ROW grid covert col to row, something like rotate the matrix
+ * In case of ROW grid convert col to row, something like rotate the matrix
  */
 const getItemsByRow = (arr, stagger, chunckSizeCol) => {
     // Reorder main array if direction === row

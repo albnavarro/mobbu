@@ -223,7 +223,7 @@ export const createStaggers = (data) => {
 
     /*
      * Get the 'Chunk' number
-     * 1 - Create an arry with all the frame es: [1,1,2,2,2,3,3,3]
+     * 1 - Create an array with all the frame es: [1,1,2,2,2,3,3,3]
      * 2 - Remove the duplicate frame es; [1,2,3]
      * 3 - The length of resulted array is the number of 'chunck' es: 3
      */

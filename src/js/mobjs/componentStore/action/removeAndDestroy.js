@@ -12,7 +12,7 @@ import { removeChildFromChildrenArray } from '../utils';
  *
  *
  * @description
- * Remove component to store and destry it.
+ * Remove component to store and destroy it.
  */
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;

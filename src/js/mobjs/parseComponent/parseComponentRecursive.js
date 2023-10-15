@@ -124,7 +124,7 @@ export const parseComponentsRecursive = async ({
     });
 
     /**
-     * Lauch userFunctionComponent and wait for render function wirh custom DOM
+     * Launch userFunctionComponent and wait for render function with custom DOM
      * to add to component.
      */
     const { content, componentParsed, id } = await userFunctionComponent(
@@ -162,7 +162,7 @@ export const parseComponentsRecursive = async ({
     setElementById({ id, newElement });
 
     /**
-     * Get all repeat placholder to check the parent div for each list.
+     * Get all repeat placeholder to check the parent div for each list.
      */
     const placeholdreList = queryGenericRepeater(newElement);
     const placeholderListObj = [...placeholdreList].map((placeholder) => {
@@ -194,7 +194,7 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Fire immediatly onMount callback, scoped to current component DOM.
+     * Fire immediately onMount callback, scoped to current component DOM.
      * Child is ignored.
      */
 
@@ -209,7 +209,7 @@ export const parseComponentsRecursive = async ({
         });
 
     /**
-     * Inizialize custom component.
+     * Initialize custom component.
      */
     // @ts-ignore
     newElement?.inizializeCustomComponent?.(componentData);

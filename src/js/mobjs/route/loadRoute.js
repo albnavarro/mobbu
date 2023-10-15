@@ -37,7 +37,7 @@ export const loadRoute = async ({ route = '' }) => {
 
     /**
      * If another route change during loading current route
-     * ( async route woth some delay or similar )
+     * ( async route with some delay or similar )
      * skip fire after route change event
      */
     let skip = false;

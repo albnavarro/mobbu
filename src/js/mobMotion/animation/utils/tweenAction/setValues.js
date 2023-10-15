@@ -74,7 +74,7 @@ export const setReverseValues = (obj, arr) => {
 
 /**
  * @description
- * Set toValue in realtive mode, sum value from currentValue
+ * Set toValue in relative mode, sum value from currentValue
  * Used by spring and lerp
  *
  * @param {Array} arr
@@ -99,7 +99,7 @@ const tweenSmallNumber = 0.000_01;
 
 /**
  * @description
- * Set toValue in realtive mode, sum value from currentValue
+ * Set toValue in relative mode, sum value from currentValue
  * Used by classic tween
  *
  * @param {Array} arr

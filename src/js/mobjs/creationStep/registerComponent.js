@@ -37,7 +37,7 @@ import { instanceName as setInstanceName } from '../utils';
 import { getComponentData } from './getComponentData';
 import { renderHtml } from './utils';
 
-// JSDOC usare infered type quando possibile.
+// JSDOC usare inferred type quando possible.
 
 /**
  * @param {Object} obj
@@ -93,7 +93,7 @@ export const registerComponent = ({
         });
 
     /**
-     * Update Parent id before render, do child can use immediatly parentId.
+     * Update Parent id before render, do child can use immediately parentId.
      */
     setParentsComponent({ componentId: id });
 
@@ -114,7 +114,7 @@ export const registerComponent = ({
         setCurrentListValueById({ id, value: currentListValueReal });
 
     /**
-     * Inizialize dynamic props and
+     * Initialize dynamic props and
      * set initial state.
      */
     addCurrentIdToDynamicProps({

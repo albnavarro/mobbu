@@ -54,7 +54,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
 
         element.addEventListener(eventName, (e) => {
             /**
-             * Add current repeate rid for dynamic lsit.
+             * Add current repeate list for dynamic list.
              */
             const currentRepeaterState = getCurrentListValueById({
                 id: componentId,
@@ -75,7 +75,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
  *
  * @description
  * Delete all refs of events.
- * If slot in unsed and a propsFromStore is unused remain in store
+ * If slot in unused and a propsFromStore is unused remain in store
  * So when active parser counter is equal 0 ( no parser is running )
  * remove all reference
  */

@@ -10,7 +10,7 @@ import { mobCore } from '../../../mobCore';
  * @returns {void}
  *
  * @description
- * Fire mian requenst animation frame function.
+ * Fire mian request animation frame function.
  * In case the is some function add form timeline fire pauseFUnction.
  */
 export const initRaf = (

@@ -9,7 +9,7 @@ import { mainStore } from '../mainStore/mainStore';
  * @returns {String}
  *
  * @description
- * Validate url, in not exixst return pageNotFound.
+ * Validate url, in not exist return pageNotFound.
  */
 export const getRouteModule = ({ url = '' }) => {
     const { index, pageNotFound } = mainStore.get();

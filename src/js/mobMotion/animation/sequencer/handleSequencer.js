@@ -463,7 +463,7 @@ export default class HandleSequencer {
     fireAddCallBack(time = 0) {
         this.callbackAdd.forEach(({ fn, time: fnTime }) => {
             /*
-             * In forward mode current time must be greater or equel than fn time
+             * In forward mode current time must be greater or equal than fn time
              * and the last current time must be minor than fn time to prevent
              * the the fn is fired before fn time is reached
              */

@@ -492,7 +492,7 @@ export class ParallaxPin {
 
     /**
      * @description
-     * Get style fomr item and apply to wrapper ( es: flex)
+     * Get style from item and apply to wrapper ( es: flex)
      */
     addStyleFromPinToWrapper() {
         if (!this.item) return;

@@ -898,7 +898,7 @@ export default class ParallaxClass {
         };
 
         /**
-         * If scroller is !== window the istance is controlled by another component
+         * If scroller is !== window the instance is controlled by another component
          * Use move() methods to control children
          */
         if (this.ease) {
@@ -1165,7 +1165,7 @@ export default class ParallaxClass {
             );
 
             /**
-             * Extract number forms tring
+             * Extract number forms string
              */
             this.numericRange =
                 Number.parseFloat(strParsed.replaceAll(/^\D+/g, '')) *
