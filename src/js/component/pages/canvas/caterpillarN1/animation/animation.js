@@ -131,7 +131,7 @@ export const caterpillarN1Animation = ({
         context.fillStyle = '#1a1b26';
         context.fillRect(0, 0, canvas.width, canvas.height);
         squareData.forEach(
-            ({ width, height, x, y, radius, opacity, rotate, hasFill }, i) => {
+            ({ width, height, x, y, opacity, rotate, hasFill }, i) => {
                 const unitInverse = squareData.length - i;
                 const centerX = canvas.width / 2;
                 const centerY = canvas.height / 2;
@@ -146,7 +146,7 @@ export const caterpillarN1Animation = ({
                 const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Apply scale/rotation/scale all toghether.
+                 * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
                     xx,

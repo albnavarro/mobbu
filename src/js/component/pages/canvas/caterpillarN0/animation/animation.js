@@ -40,7 +40,6 @@ export const caterpillarN0Animation = ({
     amountOfPath,
     width,
     height,
-    radius,
     fill,
     stroke,
     opacity,
@@ -158,13 +157,13 @@ export const caterpillarN0Animation = ({
         steamDataReorded.forEach(
             ({ width, height, opacity, rotate, relativeIndex, index: i }) => {
                 /**
-                 * Pertual movment based on timeframe.
+                 * Pertual movement based on timeframe.
                  */
                 const offset =
                     Math.sin(time / 1000) * perpetualRatio * relativeIndex;
 
                 /**
-                 * Invert perpetual movment by the two half of array and set multiplier.
+                 * Invert perpetual movement by the two half of array and set multiplier.
                  */
                 const offsetInverse =
                     i < amountOfPath / 2
@@ -186,7 +185,7 @@ export const caterpillarN0Animation = ({
                 const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Apply scale/rotation/scale all toghether.
+                 * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
                     xx,

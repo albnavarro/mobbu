@@ -35,7 +35,7 @@ import { getUnivoqueId } from './utils/index.js';
 export const mobCore = {
     /**
      * @description
-     * SimpleStore inizialization.
+     * SimpleStore initialization.
      * The store accepts single properties or objects
      *  Each individual property can be initialized with a simple value or via a more complex setup.
      *  A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
@@ -47,9 +47,9 @@ export const mobCore = {
      * `type`:
      *  Supported types:
      * `String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
-     *  The property will not be updated if it doesn't match, you will have a waring.
+     *  The property will not be updated if it doesn't match, you will have a warning.
      *  For custom Object use 'Any'.
-     *  Support Contructor || String.
+     *  Support Constructor || String.
      *  Es: type: Number || type: 'Number'
      *
      *  `validation`:
@@ -157,7 +157,7 @@ export const mobCore = {
      * When useScaleFps is on, get the frame status related to fpsScalePercent object:
      * This methods get the standalone value.
      *
-     * Note: creted for mobMotion internal use.
+     * Note: created for mobMotion internal use.
      */
     getShouldRender() {
         return handleFrame.getShouldRender();
@@ -168,7 +168,7 @@ export const mobCore = {
      * If the current FPS drops below `2/5` of its maximum value the methods return true.
      * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
      *
-     * Note: creted for mobMotion internal use.
+     * Note: created for mobMotion internal use.
      */
     mustMakeSomething() {
         return handleFrame.mustMakeSomething();
@@ -179,7 +179,7 @@ export const mobCore = {
      * If the current FPS drops below `1/5` of its maximum value the methods return true.
      * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
      *
-     * Note: creted for mobMotion internal use.
+     * Note: created for mobMotion internal use.
      *
      */
     shouldMakeSomething() {
@@ -324,7 +324,7 @@ export const mobCore = {
      * @description
      * Get handleCache function.
      *
-     * Note: creted for mobMotion internal use.
+     * Note: created for mobMotion internal use.
      */
     useCache: handleCache,
 
@@ -752,7 +752,7 @@ export const mobCore = {
      * @description
      * Avoid console error when promise is rejected.
      *
-     * Note: creted for mobMotion internal use.
+     * Note: created for mobMotion internal use.
      *
      * @example
      * ``` javascript

@@ -47,7 +47,7 @@ export const loadRoute = async ({ route = '' }) => {
 
     /**
      * Remove props reference.
-     * Async loading and iterrupt can leave rubbish.
+     * Async loading and interrupt can leave rubbish.
      */
     removeOrphansPropsFromParent();
     removeOrphansBindEvent();

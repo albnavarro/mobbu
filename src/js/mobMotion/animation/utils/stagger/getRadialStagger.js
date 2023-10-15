@@ -101,7 +101,7 @@ export const getRadialArray = (arr, stagger) => {
 
     const chunk = sliceIntoChunks(arr, col);
 
-    // Add empy row (one row for each column) at the end to prevent missing cell form matrix calc
+    // Add empty row (one row for each column) at the end to prevent missing cell form matrix calc
     [...new Array(col).keys()].forEach(() => {
         chunk.push([]);
     });

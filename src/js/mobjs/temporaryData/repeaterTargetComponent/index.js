@@ -14,15 +14,15 @@ export const repeaterTargetComponentMap = new Map();
  * Add repeater target component.
  * When placeholder is created if has a repeaterId send information here.
  * So watchRepeater when react get the right target component.
- * All information is detected in contructor of userWebcomponent.
+ * All information is detected in constructor of userWebcomponent.
  *
  * - Information arrive from sync prop in repeater.
  * - Assume sync porp is used by the first depth compoenentr,
- *   so we dectect the right component recative to repeater..
- *-  repeaterParentIs is used to clean map when parent is destroyed
+ *   so we detect the right component recative to repeater..
+ * - RepeaterParentIs is used to clean map when parent is destroyed
  *
  * !Important.
- * A palceholder will become a component of the same type
+ * A placeholder will become a component of the same type
  * ( eg. card-item will be a card-item )
  * But the component is recreated so id instance is different.
  * We can only get the type of component, not the specific instance id.

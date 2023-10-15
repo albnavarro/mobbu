@@ -39,10 +39,10 @@ export const getRandomChoice = (arr, each, index) => {
         arr.slice(0, index).map((item) => item.frame)
     );
 
-    // Get possibile result
+    // Get possible result
     const posibileFrame = arr.map((_item, i) => i * each);
 
-    // Get array of possibile result without previous
+    // Get array of possible result without previous
     const randomChoice = posibileFrame.filter((x) => !previousFrame.has(x));
 
     return randomChoice;
@@ -260,7 +260,7 @@ export const getDefaultStagger = ({
     fastestStagger,
 }) => {
     /**
-     * If col/row is 1 use lenght of array, is used for default stagger without grid.
+     * If col/row is 1 use length of array, is used for default stagger without grid.
      * With a value greater than 1 row/col logic is active
      */
     const chunckSizeCol =
@@ -280,20 +280,20 @@ export const getDefaultStagger = ({
         return item && item !== undefined ? item : { index: 0, frame: 0 };
     });
 
-    const chunckSize =
+    const chunksize =
         stagger.grid.direction === DIRECTION_ROW
             ? chunckSizeRow
             : chunckSizeCol;
 
     // get chunkes array
-    const chuncked = sliceIntoChunks(staggerArray, chunckSize);
-    const firstChunk = chuncked[0];
+    const chunked = sliceIntoChunks(staggerArray, chunksize);
+    const firstChunk = chunked[0];
 
     // Get First row stagger
     firstChunk.forEach((item, i) => {
         const { index, frame } = getStaggerIndex(
             i,
-            chuncked[0].length,
+            chunked[0].length,
             stagger,
             getRandomChoice(firstChunk, stagger.each, i)
         );
@@ -315,24 +315,24 @@ export const getDefaultStagger = ({
     });
 
     // Set other chunk, copy from first [0]
-    chuncked.forEach((chunkItem) => {
+    chunked.forEach((chunkItem) => {
         chunkItem.forEach((item, i) => {
             if (item) {
-                item.index = chuncked[0][i].index;
-                item.frame = chuncked[0][i].frame;
+                item.index = chunked[0][i].index;
+                item.frame = chunked[0][i].frame;
             }
         });
     });
 
     // Flat the chunked array
-    const flatArray = chuncked.flat();
+    const flatArray = chunked.flat();
 
     // set data to original (this.callback) array
     flatArray.forEach((item, i) => {
         staggerArray[i].index = item.index;
         staggerArray[i].frame = item.frame;
 
-        // If there an OnCompelte callack
+        // If there an OnCompelte callback
         if (staggerArrayOnComplete.length > 0) {
             staggerArrayOnComplete[i].index = item.index;
             staggerArrayOnComplete[i].frame = item.frame;

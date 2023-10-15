@@ -30,7 +30,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
     // Update Incremental id.
     callBackStore.quickSetProp('id', id + 1);
 
-    // Delete item from arrayOfCallback, it is possibile unsubscribe a single stagger.
+    // Delete item from arrayOfCallback, it is possible unsubscribe a single stagger.
     return {
         arrayOfCallbackUpdated,
         unsubscribeCb: (arrayOfCallback) =>

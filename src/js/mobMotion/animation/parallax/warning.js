@@ -1,6 +1,6 @@
 export const parallaxWarningNoUnitMiusure = () => {
     console.warn(
-        'parallax prop checker: value in start or end prop with no unit misure is not allowed, failed operation, use vh in vertical mode or vw in horzontal or px'
+        'parallax prop checker: value in start or end prop with no unit misure is not allowed, failed operation, use vh in vertical mode or vw in horizontal or px'
     );
 };
 

@@ -452,7 +452,7 @@ export class ParallaxPin {
         })();
 
         /**
-         * Add disply table to avoid margin problem inside
+         * Add display table to avoid margin problem inside
          */
         const display = { display: 'table' };
 
@@ -485,7 +485,7 @@ export class ParallaxPin {
         /*
         Firse time ww don't use raf to apply basic
         misureimmediatly on component creation
-        Otherwise we can have some wron calculation after
+        Otherwise we can have some wrong calculation after
         */
         cb();
     }
@@ -897,7 +897,7 @@ export class ParallaxPin {
         }
 
         /**
-         * Cache previouse stop
+         * Cache previous stop
          */
         this.lastStep = step;
         return step * this.anticipateFactor;

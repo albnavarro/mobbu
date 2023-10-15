@@ -145,8 +145,8 @@ export default class ParallaxTween {
                 arr: cb,
                 endArr: this.callbackOnStop,
                 stagger: this.stagger,
-                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
-                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
+                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
+                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
             });
 
             if (this.callbackCache.length > this.callback.length) {

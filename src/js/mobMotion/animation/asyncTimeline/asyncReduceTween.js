@@ -11,7 +11,7 @@ import { asyncReduceData } from './asyncReduceData';
  *
  * @description
  * Get Obj data of tween in specific index
- * Indlude check when multiple tween is syncronized
+ * Indlude check when multiple tween is synchronized
  * index: get data until specific index
  */
 export const asyncReduceTween = (tweenList, tween, index) => {
@@ -26,7 +26,7 @@ export const asyncReduceTween = (tweenList, tween, index) => {
         const action = currentFirstData.action;
 
         /*
-         * If tween is syncronize with another tween,
+         * If tween is synchronize with another tween,
          * switch currenTween to the new one
          */
         if (action === 'sync') {

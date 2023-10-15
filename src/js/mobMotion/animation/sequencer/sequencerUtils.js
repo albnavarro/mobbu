@@ -169,7 +169,7 @@ export const createStaggers = (data) => {
     });
 
     /**
-     * Check of array lenght is > 0
+     * Check of array length is > 0
      * Recheck the items array after inizializtion to return fallback
      */
     if (!validateStaggerItems(items)) {
@@ -209,7 +209,7 @@ export const createStaggers = (data) => {
     /**
      * Remove element with no dom item ,is possible with row and item fantasiose
      * In tween there is no problem beciuse use NOOP callback
-     * Accpt only dom element and object
+     * Accept only dom element and object
      * */
     const staggerArrayFiltered = staggerArray.filter(
         ({ item }) =>
@@ -225,7 +225,7 @@ export const createStaggers = (data) => {
      * Get the 'Chunk' number
      * 1 - Create an arry with all the frame es: [1,1,2,2,2,3,3,3]
      * 2 - Remove the duplicate frame es; [1,2,3]
-     * 3 - The lenght of resulted array is the number of 'chunck' es: 3
+     * 3 - The length of resulted array is the number of 'chunck' es: 3
      */
     const frameArray = staggerArrayFiltered.map(({ frame }) => frame);
     const frameSet = [...new Set(frameArray)].sort((a, b) => a - b);

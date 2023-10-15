@@ -13,7 +13,7 @@ const getHash = () => {
 
 /**
  * @description
- * Inizialize router.
+ * Initialize router.
  */
 export const router = () => {
     getHash();

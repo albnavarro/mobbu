@@ -602,7 +602,7 @@ export default class HandleSpring {
      * @private
      *
      * @description
-     * Mege special props with default props
+     * Merge special props with default props
      *
      * @param  {import('./type.js').springActions} props
      * @return {Object} props merged

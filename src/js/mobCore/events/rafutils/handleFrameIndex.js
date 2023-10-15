@@ -104,7 +104,7 @@ const add = (callback, index) => {
 
 /**
  * @description
- * Get callabck array length
+ * Get callback array length
  *
  * @returns {number}
  */

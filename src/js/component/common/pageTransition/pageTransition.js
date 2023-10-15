@@ -73,7 +73,7 @@ export const PageTransition = ({ onMount, watch, html }) => {
         });
 
         /**
-         * Persisten component
+         * Persistent component
          * Nothig to destroy
          */
         return () => {};

@@ -40,7 +40,7 @@ export interface setUpType {
     /**
      * @description
      * Object representing key and value of the default breakpoints.
-     * deafult keys: `xSmall, small, medium, tablet, desktop, large, xLarge`.
+     * default keys: `xSmall, small, medium, tablet, desktop, large, xLarge`.
      * es: `desktop: 992`.
      */
     mq?: { [key: string]: number };
@@ -52,7 +52,7 @@ export interface setUpType {
     defaultMq?: {
         /**
          * @description
-         * Parallax/scrollTrigger breackpoint default value, choice: `xSmall, small, medium, tablet, desktop, large, xLarge`
+         * Parallax/scrollTrigger breakpoint default value, choice: `xSmall, small, medium, tablet, desktop, large, xLarge`
          * Default:  `{ value: 'desktop' }`
          */
         value?: import('../../../utils/type').mqValues;
@@ -83,14 +83,14 @@ export interface setUpType {
         /**
          * @description
          * Default value of lerp velocity,
-         * Deafult: `{ lerpConfig: 0.06 }`
+         * Default: `{ lerpConfig: 0.06 }`
          */
         lerpConfig?: number;
 
         /**
          * @description
          * Spring config, choice: `default, gentle, wobbly, bounce, scroller`.
-         * Deafult: `{ springConfig: 'default' }`
+         * Default: `{ springConfig: 'default' }`
          */
         springConfig?: import('../../spring/type').springChoiceConfig;
 
@@ -121,7 +121,7 @@ export interface setUpType {
 
         /**
          * @description
-         * Deafult spring config, choice: `default, gentle, wobbly, bounce, scroller`,
+         * Default spring config, choice: `default, gentle, wobbly, bounce, scroller`,
          * Default: `{ springConfig: 'default' }`.
          */
         springConfig?: import('../../spring/type').springChoiceConfig;
@@ -183,7 +183,7 @@ export interface setUpType {
 
         /**
          * @description
-         * Deafult spring config, choice: `default, gentle, wobbly, bounce, scroller`,
+         * Default spring config, choice: `default, gentle, wobbly, bounce, scroller`,
          * Default: `{ springConfig: 'default' }`.
          */
         config?: import('../../spring/type').springPresentConfigType;

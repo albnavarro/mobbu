@@ -80,7 +80,7 @@ export default class HandleSequencer {
      */
     constructor(data) {
         /**
-         * Basic array with all the propierties, is creted in setData methods
+         * Basic array with all the propierties, is created in setData methods
          * in draw methods currentValue and settled will be updated for each prop
          *
          * it is used as a mock to create the array to add to the timeline
@@ -231,8 +231,8 @@ export default class HandleSequencer {
                 arr: cb,
                 endArr: this.callbackOnStop,
                 stagger: this.stagger,
-                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
-                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doasn't support fastestStagger
+                slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
+                fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
             });
 
             if (this.callbackCache.length > this.callback.length) {
@@ -284,7 +284,7 @@ export default class HandleSequencer {
 
             /**
              * Inside a timeline the direction is controlled by timeline and pass the value
-             * becouse timeline konw the loop state and direction is stable
+             * because timeline know the loop state and direction is stable
              * Inside a parallax we have a fallback, but we don't have a loop
              *
              * On first run check is jumped
@@ -402,7 +402,7 @@ export default class HandleSequencer {
 
     /**
      * @description
-     * Methods call by syncTimeline, everty time user use play, playFrom etcc.. or loop end.
+     * Methods call by syncTimeline, everty time user use play, playFrom etc.. or loop end.
      * Reset the data that control add callback to have a new clean state
      */
     resetLastValue() {
@@ -418,7 +418,7 @@ export default class HandleSequencer {
      *
      * @description
      * Fire addCallback first time without check the previous position.
-     * becouse first time we can start from any position and we doasn't a have previous position
+     * because first time we can start from any position and we doesn't a have previous position
      * So we fire the callback once
      * To skip this callback, check isForce prop in callback
      */
@@ -476,7 +476,7 @@ export default class HandleSequencer {
              * In backward mode current time must be minor or equal than fn time
              * and the last current time must be greater than fn time to prevent
              * the the fn is fired before fn time is reached
-             * time and fnTime cannot be the same, becouse fnTime
+             * time and fnTime cannot be the same, because fnTime
              * is equal max duration of timeline/parallax the previous value
              * can be equal max duration, so we avoid double firing of fn
              */

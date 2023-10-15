@@ -144,7 +144,7 @@ export const animatedPatternN0Animation = ({
                 const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Apply scale/rotation/scale all toghether.
+                 * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
                     xx,

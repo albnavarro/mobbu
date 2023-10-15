@@ -28,7 +28,7 @@ function handleScrollUtils(type) {
     /**
      * @type {Boolean}
      */
-    let inizialized = false;
+    let initialized = false;
 
     /**
      * @type {Map<String,Function>}
@@ -57,7 +57,7 @@ function handleScrollUtils(type) {
                 unsubscribeScrollStart();
             }
 
-            inizialized = false;
+            initialized = false;
             return;
         }
 
@@ -79,13 +79,13 @@ function handleScrollUtils(type) {
     }
 
     /**
-     * init - if istener is not inizializad remove it
+     * init - if listener is not inizializad remove it
      *
      * @return {void}
      */
     function init() {
-        if (inizialized) return;
-        inizialized = true;
+        if (initialized) return;
+        initialized = true;
 
         // Add debunce function to detect scroll end
         debouceFunctionReference = debounceFuncion(() => handler());

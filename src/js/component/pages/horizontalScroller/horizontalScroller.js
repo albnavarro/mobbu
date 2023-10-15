@@ -102,7 +102,7 @@ export const HorizontalScroller = ({
             const height = outerHeight(shadowCenter);
             const scrollValue =
                 /**
-                 * Need previous and current value diffrence > 0 so add 1px.
+                 * Need previous and current value difference > 0 so add 1px.
                  *                              active: currentId || currentIdFromScroll
                  * ( onLeaveBack issue )
                  */

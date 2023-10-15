@@ -40,7 +40,7 @@ const createPins = ({ indicators, setState }) => {
 };
 
 /**
- * Referesh pins position
+ * Refresh pins position
  */
 const refreshPins = ({ pins }) => {
     pins.forEach((pin) => pin.refresh());
@@ -115,7 +115,7 @@ export const horizontalScrollerAnimation = ({
         columnAlign: 'center',
         pin: animatePin,
         animatePin,
-        breackpoint: 'tablet',
+        breakpoint: 'tablet',
         children: [...pins, ...titlesParallax],
         onEnter: () => {
             showNav({ nav, indicators });

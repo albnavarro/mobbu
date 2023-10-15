@@ -56,7 +56,7 @@ import { mobCore } from '../../../../mobCore';
  * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
  * @prop {function():void} [ afterInit = null ]
-   Function that is launched after inizialization
+   Function that is launched after initialization
  * @prop {function():void} [ afterDestroy = null ]
    Function that is launched after destroy
  * @prop {Boolean} [ useWillChange ]
@@ -70,7 +70,7 @@ import { mobCore } from '../../../../mobCore';
     A spring animation will be applied to the pinned element on state change.
 
  * @prop {Object} [ useSticky ]
-    Use native `postion: sticky` to pin the scroller or use scrolleTrigger pin.
+    Use native `position: sticky` to pin the scroller or use scrolleTrigger pin.
     Default value is `false`.
  * @prop {Boolean} [ addCss ]
     Generate scoped css.
@@ -136,7 +136,7 @@ import { mobCore } from '../../../../mobCore';
 
 /**
  * @typedef {Object} breackPointTypeObj
- * @prop {import('../../../utils/type.js').mqValues} [ breackpoint ]
+ * @prop {import('../../../utils/type.js').mqValues} [ breakpoint ]
  */
 
 /**
@@ -200,7 +200,7 @@ export class HorizontalScroller {
             useWillChange: [ Boolean ],
             animateAtStart: [ Boolean ],
             queryType: [ String ],
-            breackpoint: [ String ],
+            breakpoint: [ String ],
             ease: [ Boolean ],
             easeType: [ String ],
             addCss: [ Boolean ],
@@ -317,8 +317,8 @@ export class HorizontalScroller {
         /**
          * @private
          */
-        this.breackpoint = breakpointIsValid(
-            data?.breackpoint,
+        this.breakpoint = breakpointIsValid(
+            data?.breakpoint,
             'breakpoint',
             'horizontalScroller'
         );
@@ -604,13 +604,13 @@ export class HorizontalScroller {
          * @private
          *
          * @description
-         * Inizialize children.
+         * Initialize children.
          */
         this.children = data?.children || [];
         this.children.forEach((element) => {
             element.setScroller(this.row);
             element.setDirection('horizontal');
-            element.setBreakPoint(this.breackpoint);
+            element.setBreakPoint(this.breakpoint);
             element.setQueryType(this.queryType);
             element.init();
         });
@@ -619,7 +619,7 @@ export class HorizontalScroller {
             horizontalScrollerCss({
                 mainContainer: this.mainContainer,
                 queryType: this.queryType,
-                breackpoint: this.breackpoint,
+                breakpoint: this.breakpoint,
                 container: this.container,
                 trigger: data?.trigger ?? 'trigger',
                 row: data.row,
@@ -644,7 +644,7 @@ export class HorizontalScroller {
         };
 
         this.onMouseDown = () => {
-            if (!mq[this.queryType](this.breackpoint)) return;
+            if (!mq[this.queryType](this.breakpoint)) return;
 
             if (this.shouldDragValue) this.row.style.cursor = 'move';
             this.touchActive = true;
@@ -662,7 +662,7 @@ export class HorizontalScroller {
         };
 
         this.onTouchStart = (e) => {
-            if (!mq[this.queryType](this.breackpoint)) return;
+            if (!mq[this.queryType](this.breakpoint)) return;
 
             this.lastTouchValueX = -e.touches[0].clientX;
             this.touchActive = true;
@@ -696,7 +696,7 @@ export class HorizontalScroller {
 
     /**
      * @description
-     * Inizialize insatance
+     * Initialize insatance
      *
      * @example
      * myInstance.init()
@@ -847,7 +847,7 @@ export class HorizontalScroller {
     getWidth() {
         return new Promise((resolve) => {
             mobCore.useFrame(() => {
-                if (!mq[this.queryType](this.breackpoint)) {
+                if (!mq[this.queryType](this.breakpoint)) {
                     resolve();
                     return;
                 }
@@ -875,7 +875,7 @@ export class HorizontalScroller {
 
         return new Promise((resolve) => {
             mobCore.useFrame(() => {
-                if (!mq[this.queryType](this.breackpoint)) {
+                if (!mq[this.queryType](this.breakpoint)) {
                     resolve();
                     return;
                 }
@@ -933,7 +933,7 @@ export class HorizontalScroller {
      */
     updateShadow() {
         return new Promise((resolve) => {
-            if (!mq[this.queryType](this.breackpoint)) {
+            if (!mq[this.queryType](this.breakpoint)) {
                 resolve();
                 return;
             }
@@ -971,13 +971,13 @@ export class HorizontalScroller {
                         `.${this.shadowMainClassTransition}--end`
                     );
 
-                    // Strengh shadow end item to bottom of page
+                    // Strength shadow end item to bottom of page
                     const plusFull =
                         window.innerWidth > window.innerHeight
                             ? window.innerHeight
                             : 0;
 
-                    // Strengh center in out item to bottom of page
+                    // Strength center in out item to bottom of page
                     const plusHalf =
                         window.innerWidth > window.innerHeight
                             ? window.innerHeight / 2
@@ -1050,7 +1050,7 @@ export class HorizontalScroller {
      * @private
      */
     initScroller() {
-        if (!this.trigger || !mq[this.queryType](this.breackpoint)) return;
+        if (!this.trigger || !mq[this.queryType](this.breakpoint)) return;
 
         const scrollTriggerInstance = new ParallaxClass({
             type: 'scrolltrigger',
@@ -1058,7 +1058,7 @@ export class HorizontalScroller {
             useWillChange: this.useWillChange,
             trigger: this.trigger,
             propierties: 'x',
-            breackpoint: 'xSmall',
+            breakpoint: 'xSmall',
             pin: !this.useSticky,
             animatePin: this.animatePin,
             ease: this.ease,
@@ -1156,7 +1156,7 @@ export class HorizontalScroller {
      * myInstance.refresh()
      */
     refresh() {
-        if (!this.moduleisActive || !mq[this.queryType](this.breackpoint))
+        if (!this.moduleisActive || !mq[this.queryType](this.breakpoint))
             return;
 
         return new Promise((resolve) => {
@@ -1236,16 +1236,16 @@ export class HorizontalScroller {
      * @private
      */
     onResize(horizontalResize) {
-        if (this.moduleisActive && mq[this.queryType](this.breackpoint)) {
+        if (this.moduleisActive && mq[this.queryType](this.breakpoint)) {
             if (horizontalResize) this.refresh();
         } else if (
             !this.moduleisActive &&
-            mq[this.queryType](this.breackpoint)
+            mq[this.queryType](this.breakpoint)
         ) {
             this.createScroller();
         } else if (
             this.moduleisActive &&
-            !mq[this.queryType](this.breackpoint)
+            !mq[this.queryType](this.breakpoint)
         ) {
             this.killScroller({ destroyAll: false });
         }

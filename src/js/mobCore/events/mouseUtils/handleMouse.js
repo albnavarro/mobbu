@@ -41,7 +41,7 @@ function handleMouse(event) {
     /**
      * @type {boolean}
      */
-    let inizialized = false;
+    let initialized = false;
 
     /**
      * @type {Map<String,Function>}
@@ -59,7 +59,7 @@ function handleMouse(event) {
      */
     eventStore.watch('usePassive', () => {
         window.removeEventListener(event, handler);
-        inizialized = false;
+        initialized = false;
 
         init();
     });
@@ -74,7 +74,7 @@ function handleMouse(event) {
         if (callbacks.size === 0) {
             window.removeEventListener(event, handler);
 
-            inizialized = false;
+            initialized = false;
             return;
         }
 
@@ -131,8 +131,8 @@ function handleMouse(event) {
      * @return {void}
      */
     function init() {
-        if (inizialized) return;
-        inizialized = true;
+        if (initialized) return;
+        initialized = true;
         usePassive = eventStore.getProp('usePassive');
 
         window.addEventListener(event, handler, {

@@ -58,7 +58,7 @@ import {
  * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
  * @prop {function():void} [ afterInit = null ]
-   Function that is launched after inizialization
+   Function that is launched after initialization
  * @prop {function():void} [ afterDestroy = null ]
    Function that is launched after destroy
  * @prop {Array.<ParallaxClass>} children
@@ -86,7 +86,7 @@ import {
 
 /**
  * @typedef {Object} breackPointTypeObj
- * @prop {import('../../utils/type.js').mqValues} [ breackpoint ]
+ * @prop {import('../../utils/type.js').mqValues} [ breakpoint ]
  */
 
 /**
@@ -306,8 +306,8 @@ export default class SmoothScroller {
         /**
          * @private
          */
-        this.breackpoint = breakpointIsValid(
-            data?.breackpoint,
+        this.breakpoint = breakpointIsValid(
+            data?.breakpoint,
             'breakpoint',
             'SmoothScroller'
         );
@@ -422,7 +422,7 @@ export default class SmoothScroller {
             element.setScroller(this.scroller);
             element.setDirection(this.direction);
             element.setScreen(this.screen);
-            element.setBreakPoint(this.breackpoint);
+            element.setBreakPoint(this.breakpoint);
             element.setQueryType(this.queryType);
             element.init();
         });
@@ -455,7 +455,7 @@ export default class SmoothScroller {
 
     /**
      * @description
-     * Inizialize insatance
+     * Initialize insatance
      *
      * @example
      * myInstance.init()
@@ -536,7 +536,7 @@ export default class SmoothScroller {
 
         this.initMotion();
 
-        if (mq[this.queryType](this.breackpoint)) {
+        if (mq[this.queryType](this.breakpoint)) {
             this.setScrolerStyle();
             this.refreshScroller();
         }
@@ -678,7 +678,7 @@ export default class SmoothScroller {
      * @private
      */
     onScopedWhell({ spinY }) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         this.dragEnable = false;
         this.endValue += spinY * this.speed;
@@ -695,7 +695,7 @@ export default class SmoothScroller {
      * @private
      */
     onMouseDown({ target, client }) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         if (target === this.scroller || isDescendant(this.scroller, target)) {
             this.firstTouchValue = this.endValue;
@@ -741,7 +741,7 @@ export default class SmoothScroller {
             document.body.style.overflow === 'hidden' &&
             this.direction === parallaxConstant.DIRECTION_VERTICAL;
 
-        if (!mq[this.queryType](this.breackpoint) || bodyIsOverflow) return;
+        if (!mq[this.queryType](this.breakpoint) || bodyIsOverflow) return;
 
         if (target === this.scroller || isDescendant(this.scroller, target)) {
             this.dragEnable = false;
@@ -762,7 +762,7 @@ export default class SmoothScroller {
      * myInstance.move(val);
      */
     move(percent) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         this.scrollbarIsRunning = true;
         this.percent = percent;
@@ -781,7 +781,7 @@ export default class SmoothScroller {
      * myInstance.set(val);
      */
     set(percent) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         this.scrollbarIsRunning = true;
         this.percent = percent;
@@ -814,7 +814,7 @@ export default class SmoothScroller {
      */
     preventChecker({ target, preventDefault }) {
         if (
-            mq[this.queryType](this.breackpoint) &&
+            mq[this.queryType](this.breakpoint) &&
             (target === this.scroller || isDescendant(this.scroller, target)) &&
             Math.abs(this.endValue - this.firstTouchValue) > this.threshold
         ) {
@@ -835,7 +835,7 @@ export default class SmoothScroller {
      * myInstance.refresh()
      */
     refresh() {
-        if (!mq[this.queryType](this.breackpoint)) {
+        if (!mq[this.queryType](this.breakpoint)) {
             this.removeScrolerStyle();
             this.motion?.stop?.();
             mobCore.useFrame(() => {

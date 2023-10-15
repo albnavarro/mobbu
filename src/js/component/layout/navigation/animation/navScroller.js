@@ -44,7 +44,7 @@ export const initNavigationScoller = ({ root }) => {
     });
 
     /**
-     * Inizialize Scroller.
+     * Initialize Scroller.
      */
     const navScroller = new SmoothScroller({
         screen: screenEl,
@@ -52,7 +52,7 @@ export const initNavigationScoller = ({ root }) => {
         direction: 'vertical',
         drag: true,
         scopedEvent: true,
-        breackpoint: 'tablet',
+        breakpoint: 'tablet',
         children: [...children],
         onUpdate: ({ percent }) => {
             const { navigationIsOpen } = navigationStore.get();

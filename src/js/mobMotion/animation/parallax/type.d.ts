@@ -26,7 +26,7 @@ export interface parallaxCommonType {
     /**
      * @description
      */
-    breackpoint?: mqValues;
+    breakpoint?: mqValues;
 
     /**
      * @description
@@ -62,7 +62,7 @@ export interface parallaxCommonType {
     /**
      * @description
      * A node to apply the transformations to instead of the target.
-     * Applicable only with using native transformations ( x, y, scale, etcc... ).
+     * Applicable only with using native transformations ( x, y, scale, etc... ).
      */
     applyTo?: string | HTMLElement;
 

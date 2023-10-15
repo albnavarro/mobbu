@@ -224,7 +224,7 @@ export default class HandleSyncTimeline {
     updateTime(time, fps) {
         if (this.isStopped || this.fpsIsInLoading) return;
 
-        // If loop anitcipate by half frame ( in millsenconds ) next loop so we a have more precise animation
+        // If loop anitcipate by half frame ( in milliseconds ) next loop so we a have more precise animation
         const frameThreshold =
             !this.repeat ||
             (this.repeat >= 2 && this.loopCounter === this.repeat - 1)
@@ -250,7 +250,7 @@ export default class HandleSyncTimeline {
         if (!this.isInPause) {
             this.currentTime = clamp(partial, 0, this.duration);
 
-            // When come from playReverse skip first frame becouse is 0
+            // When come from playReverse skip first frame because is 0
             if (!this.skipFirstRender) {
                 this.sequencers.forEach((item) => {
                     item.draw({
@@ -327,7 +327,7 @@ export default class HandleSyncTimeline {
                 this.completed = true;
                 this.loopCounter++;
                 // this callback is fired after a frame so
-                // check end timeline use the right value not resetted
+                // check end timeline use the right value not reset
                 this.loopIteration = 0;
 
                 this.callbackLoop.forEach(({ cb }) =>
@@ -563,7 +563,7 @@ export default class HandleSyncTimeline {
         this.loopIteration = 0;
 
         /*
-         * Prevent multile firing
+         * Prevent multiple firing
          */
         this.fpsIsInLoading = true;
         this.startAnimation(time);
@@ -678,7 +678,7 @@ export default class HandleSyncTimeline {
         this.loopIteration = 0;
 
         /*
-         * Prevent multile firing
+         * Prevent multiple firing
          */
         this.fpsIsInLoading = true;
         this.startAnimation(time);

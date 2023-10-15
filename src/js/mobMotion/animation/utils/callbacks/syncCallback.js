@@ -48,7 +48,7 @@ export const syncCallback = ({
 
     if (isLastDraw) {
         if (each === 0 || useStagger === false) {
-            // No stagger, run immediatly
+            // No stagger, run immediately
             mobCore.useFrame(() => {
                 callbackOnStop.forEach(({ cb }) => cb(callBackObject));
             });

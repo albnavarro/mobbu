@@ -6,7 +6,7 @@ import { debounceFuncion } from '../debounce.js';
 /**
  * @type {Boolean}
  */
-let inizialized = false;
+let initialized = false;
 
 /**
  * @type {Map<String,Function>}
@@ -39,7 +39,7 @@ function handler() {
         // @ts-ignore
         window.removeEventListener('resize', debouceFunctionReference);
 
-        inizialized = false;
+        initialized = false;
         return;
     }
 
@@ -97,8 +97,8 @@ function handler() {
  * @return {void}
  */
 function init() {
-    if (inizialized) return;
-    inizialized = true;
+    if (initialized) return;
+    initialized = true;
 
     // Add debunce function to detect scroll end
     debouceFunctionReference = debounceFuncion(() => handler());

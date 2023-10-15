@@ -7,7 +7,7 @@ export const overlayScroller = ({ screen, scroller }) => {
         direction: 'vertical',
         drag: true,
         scopedEvent: true,
-        breackpoint: 'xSmall',
+        breakpoint: 'xSmall',
     });
 
     instance.init();

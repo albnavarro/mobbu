@@ -174,7 +174,7 @@ export const syncTimelineAddTimeWarning = (time) => {
  * @returns void
  */
 export const springPresetWarning = (preset) => {
-    console.warn(`${preset} doasn't exist in spring configuration list`);
+    console.warn(`${preset} doesn't exist in spring configuration list`);
 };
 
 /**
@@ -201,7 +201,7 @@ export const springConfigSpecificPropWarning = (config) => {
  * @returns void
  */
 export const tweenEaseWarning = (preset) => {
-    console.warn(`${preset} doasn't exixst in tweens ease function`);
+    console.warn(`${preset} doesn't exist in tweens ease function`);
 };
 
 /**
@@ -528,7 +528,7 @@ export const parallaxDynmicValueWarining = (label) => {
  */
 export const parallaxDynmicRangeValueWarining = () => {
     console.warn(
-        `scrollTrigger error; dynamicRange propierties: value must be a Funtion that return a Number`
+        `scrollTrigger error; dynamicRange propierties: value must be a Function that return a Number`
     );
 };
 
@@ -731,7 +731,7 @@ export const parallaxNoTweenDefinedWarning = () => {
  */
 export const parallaxUseTweenButNotProsDefinedWarning = () => {
     console.warn(
-        'parallax/ScrollTrrigger: there is tween associated but pros "propierties" is not setted to "tween"'
+        'parallax/ScrollTrrigger: there is tween associated but pros "propierties" is not set to "tween"'
     );
 };
 

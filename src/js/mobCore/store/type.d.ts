@@ -34,9 +34,9 @@ export type simpleStoreCustomValue = () => {
      * @description
      *  Supported types:
      * `String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
-     *  The property will not be updated if it doesn't match, you will have a waring.
+     *  The property will not be updated if it doesn't match, you will have a warning.
      *  For custom Object use 'Any'.
-     *  Support Contructor || String.
+     *  Support Constructor || String.
      *  Es: type: Number || type: 'Number'
      */
     type?: any;

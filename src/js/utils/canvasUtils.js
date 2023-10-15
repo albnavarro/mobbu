@@ -42,7 +42,9 @@ export const createGrid = ({
     cellHeight,
     gutter,
 }) => {
-    return [...Array(numberOfRow * numberOfColumn + numberOfRow).keys()].reduce(
+    return [
+        ...new Array(numberOfRow * numberOfColumn + numberOfRow).keys(),
+    ].reduce(
         (previous) => {
             const { row, col, items: previousItems } = previous;
             const newCol = col < numberOfColumn ? col + 1 : 0;

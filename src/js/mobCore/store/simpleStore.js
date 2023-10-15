@@ -32,7 +32,7 @@ export class SimpleStore {
      * @param {import('./type.js').simpleStoreBaseData} data
      *
      * @description
-     * SimpleStore inizialization.
+     * SimpleStore initialization.
      * The store accepts single properties or objects
      * Each individual property can be initialized with a simple value or via a more complex setup.
      * A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
@@ -44,9 +44,9 @@ export class SimpleStore {
      *`type`:
      * Supported types:
      *`String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
-     * The property will not be updated if it doesn't match, you will have a waring.
+     * The property will not be updated if it doesn't match, you will have a warning.
      * For custom Object use 'Any'.
-     * Support Contructor || String.
+     * Support Constructor || String.
      * Es: type: Number || type: 'Number'
      *
      * `validation`:
@@ -280,11 +280,11 @@ export class SimpleStore {
      * @private
      *
      * @description
-     * Inizialize validation status for each prop.
+     * Initialize validation status for each prop.
      */
     inizializeValidation() {
         /**
-         * Inizialize empty Object if prop is an object.
+         * Initialize empty Object if prop is an object.
          */
         for (const key in this.store) {
             if (storeType.isObject(this.store[key]))
@@ -427,7 +427,7 @@ export class SimpleStore {
      * If the type of value used is a function, only the new function can be passed
      * @param {Boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
      * @param {Boolean} [ clone ] - Return a clone of original object for Map,Set,Onject and Array,
-     *  Useful for Map and Set because with this contructor doasn't support spread
+     *  Useful for Map and Set because with this constructor doesn't support spread
      *  Default value is `false`.
      * @returns void
      *
@@ -443,7 +443,7 @@ export class SimpleStore {
      * //Function that return a value:
      * myStore.set('myProp', (currentValue) => currentValue + 1);
      *
-     * //Use spred to return a new data without mutate original
+     * //Use spread to return a new data without mutate original
      * myStore.set('myArray', (arr) => [...arr, 1]);
      * myStore.set('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
      *
@@ -692,7 +692,7 @@ export class SimpleStore {
 
         /**
          * Validate value (value passed to setObj is a Object to merge with original) and store the result in validationStatusObject arr
-         * id there is no validation return true, otherwse get boolean value from fnValidate obj
+         * id there is no validation return true, otherwise get boolean value from fnValidate obj
          */
         Object.entries(newValParsedByStrict).forEach((item) => {
             const [subProp, subVal] = item;
@@ -700,9 +700,9 @@ export class SimpleStore {
 
             /**
              * If in first level we have an object without the 'Any' type  specified
-             * is interpreted like nested object, so fail the fnValidate function if we set a diffrent key with set methods.
-             * Becouse the new key doasn't exist in original object, so log a warining.
-             * The only way to use obj is specify 'Any' key to not broke the gloab object logic.
+             * is interpreted like nested object, so fail the fnValidate function if we set a different key with set methods.
+             * Because the new key doesn't exist in original object, so log a warning.
+             * The only way to use obj is specify 'Any' key to not broke the globe object logic.
              */
             const validateResult = this.fnValidate[prop][subProp]?.(
                 subVal,
@@ -822,7 +822,7 @@ export class SimpleStore {
     }
 
     /**
-     * @param {string} prop - propierites froms store.
+     * @param {string} prop - propierites forms store.
      * @returns {any} property value
      *
      * @description
@@ -975,7 +975,7 @@ export class SimpleStore {
      * @returns void
      *
      * @description
-     * Modify style of warining.
+     * Modify style of warning.
      * Utils to have a different style for each store.
      *
      * @example
@@ -1055,7 +1055,7 @@ export class SimpleStore {
     }
 
     /**
-     * @descrition
+     * @description
      * Delete all data inside store.
      */
     destroy() {

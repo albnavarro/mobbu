@@ -180,7 +180,7 @@ export const storeTest = () => {
             // storeTest.set('simpleObj', { a: 1, b: { u: 1 } });
             storeTest.set('simpleObj', (obj) => ({
                 ...obj,
-                ...{ resppp: 1000 },
+                resppp: 1000,
             }));
             storeTest.set('simpleArray', (val) => {
                 return [...val];

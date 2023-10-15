@@ -151,7 +151,7 @@ export const core = {
 
     /**
      * @param {import('./utils/type.js').mqActionMethods} action
-     * @param {import('./utils/type.js').mqValues} breackpoint
+     * @param {import('./utils/type.js').mqValues} breakpoint
      *
      * @return {(Boolean|Number)} Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric value if it is equal to 'get'
      *
@@ -171,18 +171,18 @@ export const core = {
      *
      * ```
      **/
-    mq(action, breackpoint) {
+    mq(action, breakpoint) {
         switch (action) {
             case 'min': {
-                return mq.min(breackpoint);
+                return mq.min(breakpoint);
             }
 
             case 'max': {
-                return mq.max(breackpoint);
+                return mq.max(breakpoint);
             }
 
             case 'get': {
-                return mq.getBreackpoint(breackpoint);
+                return mq.getBreackpoint(breakpoint);
             }
         }
     },

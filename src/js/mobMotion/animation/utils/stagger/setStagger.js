@@ -40,7 +40,7 @@ const getRadial = ({
     }
 
     /**
-     * Check x value if is not setted use 0 as default
+     * Check x value if is not set use 0 as default
      */
     // @ts-ignore
     if (!mobCore.checkType(Number, stagger?.from?.x)) {
@@ -49,7 +49,7 @@ const getRadial = ({
     }
 
     /**
-     * Check y value if is not setted use 0 as default
+     * Check y value if is not set use 0 as default
      */
     // @ts-ignore
     if (!mobCore.checkType(Number, stagger?.from?.y)) {
@@ -114,7 +114,7 @@ const getRadial = ({
             /** @type{import('./type.js').setStagger} */ item,
             /** @type{number} */ i
         ) => {
-            // If there an OnCompelte callack
+            // If there an OnCompelte callback
             if (endstaggerArray.length > 0) {
                 endstaggerArray[i].index = item.index;
                 endstaggerArray[i].frame = item.frame;

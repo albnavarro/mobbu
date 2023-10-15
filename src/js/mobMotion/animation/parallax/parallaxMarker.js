@@ -14,7 +14,7 @@ import { mobCore } from '../../../mobCore/index.js';
  */
 const getMarker = ({ startMarker, endMarker, label }) => {
     if (!startMarker && !endMarker) {
-        // Replace illegal charachter with '-'
+        // Replace illegal character with '-'
         // @ts-ignore
         const labelSanitized = label.replaceAll(/^[^a-z]+|[^\w.:-]+/gi, '-');
 

@@ -631,7 +631,7 @@ export default class HandleTween {
      * @private
      *
      * @description
-     * Mege special props with default props
+     * Merge special props with default props
      *
      * @param  {Object} props
      * @return {Object} props merged

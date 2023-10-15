@@ -13,7 +13,6 @@ import {
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { outerHeight } from '../../../../../mobCore/utils';
 import { mobCore } from '../../../../../mobCore';
-import { detectSafari } from '../../../../../utils/utils';
 
 export const scrollerN0Animation = ({
     canvas,
@@ -163,7 +162,7 @@ export const scrollerN0Animation = ({
                 const xy = Math.sin(rotation) * scale;
 
                 /**
-                 * Apply scale/rotation/scale all toghether.
+                 * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
                     xx,
@@ -237,7 +236,7 @@ export const scrollerN0Animation = ({
     });
 
     /**
-     * Inizialize scrollTrigger.
+     * Initialize scrollTrigger.
      */
     scrollerInstance.init();
 

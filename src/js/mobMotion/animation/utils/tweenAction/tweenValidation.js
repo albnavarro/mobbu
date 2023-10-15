@@ -540,7 +540,7 @@ export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
  * @returns {String}
  *
  * @description
- * Check if value is String and return defualt
+ * Check if value is String and return default
  **/
 export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(String, value);
@@ -556,7 +556,7 @@ export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
  * @returns {Number}
  *
  * @description
- * Check if value is Number and return defualt
+ * Check if value is Number and return default
  **/
 export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Number, Number.parseFloat(value));
@@ -572,7 +572,7 @@ export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
  * @returns {Function}
  *
  * @description
- * Check if value is Function and return defualt
+ * Check if value is Function and return default
  **/
 export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Function, value);
@@ -685,14 +685,14 @@ export const playLabelIsValid = (index, label) => {
  * @param {Function|undefined} fn
  *
  * @description
- * Check if value is A function and return defualt
+ * Check if value is A function and return default
  **/
-export const functionIsValidAndReturnDefault = (fn, defualt, label) => {
+export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
     const isValid = mobCore.checkType(Function, fn);
     if (!isValid && fn !== undefined && fn !== null)
         functionIsValidAndReturnDefaultWarining(label, fn);
 
-    return isValid ? fn : defualt;
+    return isValid ? fn : defaultValue;
 };
 
 /**
@@ -827,7 +827,7 @@ export const parallaxDynamicValueIsValid = (obj, label) => {
     // obj is an Object
     const valueIsObject = mobCore.checkType(Object, obj);
     //
-    // position is a String and cotains the right value
+    // position is a String and contains the right value
     const positionIsValid =
         valueIsObject &&
         mobCore.checkType(String, obj?.position) &&
@@ -943,7 +943,7 @@ export const parallaxOnSwitchIsValid = (value) => {
  * @returns {Number}
  *
  * @description
- * Check if value is Number and return defualt
+ * Check if value is Number and return default
  **/
 export const parallaxOpacityIsValid = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Number, Number.parseFloat(value));
@@ -1019,7 +1019,7 @@ export const parallaxRangeIsValid = (value, type) => {
  * @returns {String}
  *
  * @description
- * Check if breackpoint prop is valid
+ * Check if breakpoint prop is valid
  **/
 export const breakpointIsValid = (mq, label, component) => {
     const mqObj = handleSetUp.get('mq');

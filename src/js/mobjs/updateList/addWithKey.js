@@ -198,7 +198,7 @@ export const addWithKey = ({
      * @description
      * Chunk the sequentially new element in group.
      * So then insert the block of new element.
-     * Every persisten element go in index 0 of chunk
+     * Every persistent element go in index 0 of chunk
      * This element is used to append new element.
      */
     const chunkedElementToAdd = elementToAddObj.reduce(
@@ -227,7 +227,7 @@ export const addWithKey = ({
          * 1 - If the first element of the lsit is new append before
          * the first existing element
          *
-         * 2 -Otherwise appen to element at index 0 of current chank
+         * 2 -Otherwise append to element at index 0 of current chank
          * this element is persistent.
          */
         const previousOrNextExistingElement = firstElementIsNew
@@ -264,7 +264,7 @@ export const addWithKey = ({
         const position = firstElementIsNew ? BEFORE : AFTER;
 
         /**
-         * If the new data is not empty go normale
+         * If the new data is not empty go normal
          * Otherwise append children to parent listCOntainer.
          */
         if (previousOrNextExistingElement) {

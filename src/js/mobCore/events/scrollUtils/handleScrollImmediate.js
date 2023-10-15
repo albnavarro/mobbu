@@ -5,7 +5,7 @@ import { getUnivoqueId } from '../../utils';
 /**
  * @type {Boolean}
  */
-let inizialized = false;
+let initialized = false;
 
 /**
  * @type {Map<String,Function>}
@@ -47,7 +47,7 @@ function handler() {
     if (callbacks.size === 0) {
         window.removeEventListener('scroll', handler);
 
-        inizialized = false;
+        initialized = false;
         return;
     }
 
@@ -72,13 +72,13 @@ function handler() {
 }
 
 /**
- * init - if istener is not inizializad remove it
+ * init - if listener is not inizializad remove it
  *
  * @return {void}
  */
 function init() {
-    if (inizialized) return;
-    inizialized = true;
+    if (initialized) return;
+    initialized = true;
 
     window.addEventListener('scroll', handler, {
         passive: true,

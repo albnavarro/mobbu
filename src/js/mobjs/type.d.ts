@@ -28,15 +28,15 @@ export interface componentType {
      * //Function that return a value:
      * setState('myProp', (currentValue) => currentValue + 1);
      *
-     * //Use spred to return a new data without mutate original
+     * //Use spread to return a new data without mutate original
      * setState('myArray', (arr) => [...arr, 1]);
      * setState('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
      *
      * // Use a Map and clone original data.
      * setState('mySet', (set) => {
-          set.add(<val>)
-          return set
-       }, true, true);
+     *     set.add(<val>)
+     *     return set
+     *  }, true, true);
      *
      * ```
      */
@@ -132,7 +132,7 @@ export interface componentType {
 
     /**
      * @description
-     * Watch state change and fire one callback after inizialization.
+     * Watch state change and fire one callback after initialization.
      *
      * @example
      * ```javascript
@@ -508,7 +508,7 @@ export interface componentType {
 
             /**
              * @description
-             * Active Childern ids
+             * Active Children ids
              */
             childrenId: string[];
         }): void;
@@ -540,7 +540,7 @@ export interface componentType {
 
             /**
              * @description
-             * New Childern ids
+             * New Children ids
              */
             childrenId: string[];
         }): void;
@@ -549,7 +549,7 @@ export interface componentType {
          * @description
          * Render child component.
          *
-         * - sync props is necessary (obbligatorie) for traking key and store current and index value.
+         * - sync props is necessary (obbligatorie) for tracking key and store current and index value.
          *   this props can be used "ONCE".
          *
          *
@@ -638,7 +638,7 @@ export interface createComponentType {
 
     /**
      * @description
-     * Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
+     * Fire onMount callback immediately, normally onMount is fired at the end of current parse.
      * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
      * `default = false`.
      */
@@ -693,7 +693,7 @@ export interface defaultComponent {
 
     /**
      * @description
-     * Fire onMount callback immediatly, normally onMount is fired at the end of current parse.
+     * Fire onMount callback immediately, normally onMount is fired at the end of current parse.
      * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
      * `default = false`.
      */

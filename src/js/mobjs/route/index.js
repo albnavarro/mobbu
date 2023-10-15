@@ -47,7 +47,7 @@ export const inizializeApp = async ({
     const wrapperDOM = wrapper();
 
     /**
-     * Validate intial data.
+     * Validate initial data.
      * Else skip.
      */
     if (!contentId || !rootEl) return;
@@ -89,7 +89,7 @@ export const inizializeApp = async ({
 
     /**
      * Render common layout component.
-     * Inizialize js on common layout component.
+     * Initialize js on common layout component.
      * All component here is persistent, so isCancellable is set to false.
      */
     await parseComponents({ element: rootEl, isCancellable: false });

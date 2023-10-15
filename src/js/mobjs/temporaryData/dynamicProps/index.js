@@ -18,7 +18,7 @@ export const dynamicPropsMap = new Map();
  * @return {String|undefined} props id in store.
  *
  * @description
- * Store props and return a unique indentifier
+ * Store props and return a unique identifier
  *
  * @example
  * ```javascript
@@ -62,7 +62,7 @@ export const setBindProps = (propsObj) => {
  * @return void
  *
  * @description
- * Store props and return a unique indentifier
+ * Store props and return a unique identifier
  *
  */
 const setDynamicProp = ({
@@ -87,7 +87,7 @@ const setDynamicProp = ({
 
     if (!bindArrayIsValid) {
         console.warn(
-            `bind props error: Some prop ${JSON.stringify(bind)} doasn't exist`
+            `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
         );
     }
 
@@ -130,7 +130,7 @@ const setDynamicProp = ({
  * @return void
  *
  * @description
- * Add componentId to dynamic props stored and inizialize them.
+ * Add componentId to dynamic props stored and initialize them.
  *
  */
 export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
@@ -275,7 +275,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
     });
 
     /**
-     * If all watcher ( from component or from slot ) is inizialized deleter all reference from store
+     * If all watcher ( from component or from slot ) is initialized deleter all reference from store
      */
     if (!inizilizeWatcher) return;
 

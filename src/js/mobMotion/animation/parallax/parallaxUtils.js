@@ -13,7 +13,7 @@ import {
     parallaxWarningNoUnitMiusure,
     parallaxWarningVhIsNotAllowed,
     parallaxWarningVwIsNotAllowed,
-} from './warining.js';
+} from './warning.js';
 
 /**
  * @description
@@ -121,19 +121,19 @@ export const detectViewPortInterception = ({
 };
 
 /**
- * @param  {array}  values spitted inut value es: 100px +h => ['100px','+height', 'top']
+ * @param  {array}  values spitted input value es: 100px +h => ['100px','+height', 'top']
  * @param  {string}  direction
  * @return {import('./utilsType.js').scrollTriggerLimitValues} return object with values or default
  *
  * @description
- * Filter input value with number in value and additonal value
+ * Filter input value with number in value and additional value
  *
  * @example
  *  { numberVal: '100px', additionalVal: '+height', position:"top" }
  *  default:  { numberVal: '0', additionalVal: '', position:"bottom" }
  */
 export const getStartEndValue = (values, direction) => {
-    // Get number value if exist, check values array to find a item wih almost 1 number ad get it
+    // Get number value if exist, check values array to find a item with almost 1 number ad get it
     const numberInString = values.find((item) => {
         return [...item].some((c) => !Number.isNaN(Number.parseFloat(c)));
     });
@@ -220,7 +220,7 @@ export const getStartPoint = (screenUnit, data, direction) => {
     const values = str.split(' ');
 
     /**
-     * Process splitted array
+     * Process split array
      */
     const { numberVal, unitMisure, additionalVal, position } = getStartEndValue(
         values,
@@ -234,7 +234,7 @@ export const getStartPoint = (screenUnit, data, direction) => {
     const isNegative = firstChar === '-' ? -1 : 1;
 
     /**
-     * Get number withot px or vw etc..
+     * Get number without px or vw etc..
      */
     const number = Number.parseFloat(
         // @ts-ignore
@@ -287,7 +287,7 @@ export const getEndPoint = (
     const values = str.split(' ');
 
     /**
-     * Process splitted array
+     * Process split array
      */
     const { numberVal, unitMisure, additionalVal, position } = getStartEndValue(
         values,
@@ -301,7 +301,7 @@ export const getEndPoint = (
     const isNegative = firstChar === '-' ? -1 : 1;
 
     /**
-     * Get number withot px or vw etc..
+     * Get number without px or vw etc..
      */
     const number = Number.parseFloat(
         // @ts-ignore

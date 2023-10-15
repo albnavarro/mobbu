@@ -483,7 +483,7 @@ export default class HandleAsyncTimeline {
             this.currentAction.push({ id, action });
 
             /*
-             * Check if the previus block i running again
+             * Check if the previous block i running again
              */
             const prevActionIsCurrent = lastAction.find(
                 ({ id: prevId, action: prevAction }) => {
@@ -509,7 +509,7 @@ export default class HandleAsyncTimeline {
                         const { from, to } = syncProp;
                         to?.set(from?.getToNativeType(), {
                             immediate: true,
-                        }).then(() => res({ resovle: true }));
+                        }).then(() => res({ resolve: true }));
                     });
                 },
                 add: () => {
@@ -545,12 +545,12 @@ export default class HandleAsyncTimeline {
                      * Es reverseNext inside it cause an infinite loop
                      */
                     if (prevActionIsCurrent) {
-                        return new Promise((res) => res({ resovle: true }));
+                        return new Promise((res) => res({ resolve: true }));
                     }
 
                     return new Promise((res, reject) => {
                         if (isImmediate) {
-                            res({ resovle: true });
+                            res({ resolve: true });
                         } else {
                             const direction = this.getDirection();
 
@@ -559,7 +559,7 @@ export default class HandleAsyncTimeline {
                                 loop: this.loopCounter,
                                 resolve: () => {
                                     if (sessionId === this.sessionId) {
-                                        res({ resovle: true });
+                                        res({ resolve: true });
                                     } else {
                                         reject();
                                     }
@@ -569,13 +569,13 @@ export default class HandleAsyncTimeline {
                     });
                 },
                 createGroup: () => {
-                    return new Promise((res) => res({ resovle: true }));
+                    return new Promise((res) => res({ resolve: true }));
                 },
                 closeGroup: () => {
-                    return new Promise((res) => res({ resovle: true }));
+                    return new Promise((res) => res({ resolve: true }));
                 },
                 label: () => {
-                    return new Promise((res) => res({ resovle: true }));
+                    return new Promise((res) => res({ resolve: true }));
                 },
                 suspend: () => {
                     /*
@@ -583,7 +583,7 @@ export default class HandleAsyncTimeline {
                      * Es reverseNext inside it cause an infinite loop
                      */
                     if (prevActionIsCurrent) {
-                        return new Promise((res) => res({ resovle: true }));
+                        return new Promise((res) => res({ resolve: true }));
                     }
 
                     /*
@@ -596,7 +596,7 @@ export default class HandleAsyncTimeline {
                         if (!isImmediate && sholudSuspend) {
                             this.isInSuspension = true;
                         }
-                        res({ resovle: true });
+                        res({ resolve: true });
                     });
                 },
             };
@@ -618,7 +618,7 @@ export default class HandleAsyncTimeline {
                      * { waitComplete: false }, so the promise is resolved but
                      * this tween is in delay status, if antther session start
                      * the value of this.sessionId change,
-                     * in this case isStopped doasn't work becouse next
+                     * in this case isStopped doesn't work because next
                      * session set it to true
                      * --
                      */
@@ -648,7 +648,7 @@ export default class HandleAsyncTimeline {
                             : NOOP;
 
                     fn[action]()
-                        .then(() => res({ resovle: true }))
+                        .then(() => res({ resolve: true }))
                         .catch(() => {})
                         .finally(() => {
                             unsubscribeActiveTween();
@@ -675,9 +675,9 @@ export default class HandleAsyncTimeline {
                             deltaTimeOnpause = current - this.timeOnPause;
 
                         /*
-                         * If play, resume, playFromLabel is fired whith
+                         * If play, resume, playFromLabel is fired with
                          * another tween in delay
-                         * fire this tween immediatly, so avoid probem
+                         * fire this tween immediately, so avoid problem
                          * with much delay in same group
                          *
                          * ! when stop the timeline manually ( es timeline.stop() )
@@ -708,7 +708,7 @@ export default class HandleAsyncTimeline {
             });
         });
 
-        // When gruop have waitComplete === true, all the teen in group have the same props
+        // When group have waitComplete === true, all the teen in group have the same props
         // so, check if the griup item is seted to waitComplete or not
         const waitComplete = this.tweenList[this.currentIndex].some((item) => {
             return item.data.groupProps?.waitComplete;
@@ -737,9 +737,9 @@ export default class HandleAsyncTimeline {
                  * With this.starterFunctionIsActive active this.labelState
                  * is equal the timeline length
                  *
-                 * Becouse we doasn't reach the repeat condition down
+                 * Because we doesn't reach the repeat condition down
                  * we manually increment loopCounter
-                 * The loop counter is decrtement in virutal loop
+                 * The loop counter is decrtement in virtual loop
                  *
                  */
                 if (
@@ -2022,7 +2022,7 @@ export default class HandleAsyncTimeline {
                  * Walk thru timeline until the end,
                  * so we can run reverse next step with forceyoyo
                  * forceyoyo is used only if we play directly from end
-                 * PlayFrom wich use reverse() need to go in forward direction
+                 * PlayFrom which use reverse() need to go in forward direction
                  */
                 if (forceYoYonow) this.forceYoyo = true;
 

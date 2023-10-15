@@ -18,7 +18,7 @@ export const scroller = {
      *      trigger: [ String | Element ],
      *      screen: [ String | Element ],
      *      scroller: [ String | Element ],
-     *      breackpoint: [ String ],
+     *      breakpoint: [ String ],
      *      queryType: [ String ],
      *      direction: [ String ],
      *      propierties: [ String ],
@@ -79,7 +79,7 @@ export const scroller = {
      *       trigger: [ String | Element ],
      *       screen: [ String | Element ],
      *       scroller: [ String | Element ],
-     *       breackpoint: [ String ],
+     *       breakpoint: [ String ],
      *       queryType: [ String ],
      *       direction: [ String ],
      *       propierties: [ String ],
@@ -94,7 +94,7 @@ export const scroller = {
      *       },
      *       end: [ String ],
      *       dynamicEnd: {
-     *          postion: [ String ],
+     *          position: [ String ],
      *          value: [ Function ]
      *       },
      *       ease: [ Boolean ],

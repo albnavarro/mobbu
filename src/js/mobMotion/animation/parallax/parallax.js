@@ -65,7 +65,7 @@ export default class ParallaxClass {
      *      trigger: [ String | Element ],
      *      screen: [ String | Element ],
      *      scroller: [ String | Element ],
-     *      breackpoint: [ String ],
+     *      breakpoint: [ String ],
      *      queryType: [ String ],
      *      direction: [ String ],
      *      propierties: [ String ],
@@ -97,7 +97,7 @@ export default class ParallaxClass {
      *      trigger: [ String | Element ],
      *      screen: [ String | Element ],
      *      scroller: [ String | Element ],
-     *      breackpoint: [ String ],
+     *      breakpoint: [ String ],
      *      queryType: [ String ],
      *      direction: [ String ],
      *      propierties: [ String ],
@@ -726,8 +726,8 @@ export default class ParallaxClass {
          * @description
          * @type {string}
          */
-        this.breackpoint = breakpointIsValid(
-            data?.breackpoint,
+        this.breakpoint = breakpointIsValid(
+            data?.breakpoint,
             'breakpoint',
             'parallax/scrolltrigger'
         );
@@ -772,7 +772,7 @@ export default class ParallaxClass {
         /**
          * @description
          * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-         * In case retutn a lerp
+         * In case return a lerp
          *
          * @type {string}
          */
@@ -785,7 +785,7 @@ export default class ParallaxClass {
         /**
          * @description
          * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-         * In case retutn a lerp
+         * In case return a lerp
          *
          * @type {string}
          */
@@ -797,7 +797,7 @@ export default class ParallaxClass {
         /**
          * @description
          * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
-         * In case retutn a lerp
+         * In case return a lerp
          *
          * @type {number}
          */
@@ -876,7 +876,7 @@ export default class ParallaxClass {
         /**
          * @description
          * If use pin we have to get fresh value on scroll
-         * Otherwise we can optimize and fire scoll callback after requerst animationFrame
+         * Otherwise we can optimize and fire scroll callback after requerst animationFrame
          *
          * @param {function():void} cb
          */
@@ -957,7 +957,7 @@ export default class ParallaxClass {
             this.noEasingRender();
 
             /**
-             * Execture render on scrollEnd to remove 3Dtransform
+             * Execute render on scrollEnd to remove 3Dtransform
              */
             this.unsubscribeScrollEnd = mobCore.useScrollEnd(() => {
                 /**
@@ -968,7 +968,7 @@ export default class ParallaxClass {
         }
 
         /**
-         * Inizialize marker
+         * Initialize marker
          */
         if (this.scroller !== window && this.marker) {
             this.unsubscribeMarker = mobCore.useScroll(() => {
@@ -978,19 +978,19 @@ export default class ParallaxClass {
         }
 
         /**
-         * Inizialize refresh
+         * Initialize refresh
          */
         this.unsubscribeResize = mobCore.useResize(({ horizontalResize }) => {
             if (horizontalResize) this.refresh();
         });
 
         /**
-         * Inizialize pin
+         * Initialize pin
          */
         if (this.pin) {
             this.pinInstance = new ParallaxPin();
 
-            if (mq[this.queryType](this.breackpoint)) {
+            if (mq[this.queryType](this.breakpoint)) {
                 mobCore.useNextTick(() => {
                     this.getScrollerOffset();
                     this.pinInstance?.init({ instance: this });
@@ -1030,11 +1030,11 @@ export default class ParallaxClass {
     /**
      * @description
      *
-     * @param {string} breackpoint
+     * @param {string} breakpoint
      */
-    setBreakPoint(breackpoint) {
-        this.breackpoint = breakpointIsValid(
-            breackpoint,
+    setBreakPoint(breakpoint) {
+        this.breakpoint = breakpointIsValid(
+            breakpoint,
             'breakpoint',
             'Parallax/Scrolltrigger'
         );
@@ -1165,7 +1165,7 @@ export default class ParallaxClass {
             );
 
             /**
-             * Extract number froms tring
+             * Extract number forms tring
              */
             this.numericRange =
                 Number.parseFloat(strParsed.replaceAll(/^\D+/g, '')) *
@@ -1184,7 +1184,7 @@ export default class ParallaxClass {
     calcFixedLimit() {
         const screenUnit = this.scrollerHeight / 100;
 
-        // Check if there is a function that return a start value dinamically
+        // Check if there is a function that return a start value dynamically
         if (
             this.dynamicStart &&
             this.dynamicStart?.position &&
@@ -1197,21 +1197,21 @@ export default class ParallaxClass {
             }
         }
 
-        // Get postion ( es: 'bottom'),
+        // Get position ( es: 'bottom'),
         // Get processed value ( based on px || vh || vw)
-        // Get addtional val ( +height -halfHeight etc ..)
+        // Get additional val ( +height -halfHeight etc ..)
         const {
             value: startPoint,
             additionalVal: additionalStartVal,
             position: startPosition,
         } = getStartPoint(screenUnit, this.start, this.direction);
 
-        // Chek if come from top or left
+        // Check if come from top or left
         this.invertSide =
             startPosition === parallaxConstant.POSITION_TOP ||
             startPosition === parallaxConstant.POSITION_LEFT;
 
-        // Add/substract with height or half value
+        // Add/subtract with height or half value
         this.startPoint = processFixedLimit(
             startPoint,
             additionalStartVal,
@@ -1223,7 +1223,7 @@ export default class ParallaxClass {
                 : this.height
         );
 
-        // Check if there is a function that return a end value dinamically
+        // Check if there is a function that return a end value dynamically
         if (
             this.dynamicEnd &&
             this.dynamicEnd?.position &&
@@ -1236,9 +1236,9 @@ export default class ParallaxClass {
             }
         }
 
-        // Get postion ( es: 'bottom'),
+        // Get position ( es: 'bottom'),
         // Get processed value ( based on px || vh || vw)
-        // Get addtional val ( +height -halfHeight etc ..)
+        // Get additional val ( +height -halfHeight etc ..)
         const {
             value: endPoint,
             additionalVal: additionalEndVal,
@@ -1252,7 +1252,7 @@ export default class ParallaxClass {
             this.direction
         );
 
-        // Get positive or negative multiplier to add or substract value basedto the position
+        // Get positive or negative multiplier to add or subtract value basedto the position
         const multiplier = (() => {
             if (this.invertSide) {
                 return endPosition === parallaxConstant.POSITION_BOTTOM ||
@@ -1267,7 +1267,7 @@ export default class ParallaxClass {
             }
         })();
 
-        // Add/substract with height or half value
+        // Add/subtract with height or half value
         this.endPoint = processFixedLimit(
             endPoint,
             additionalEndVal,
@@ -1325,7 +1325,7 @@ export default class ParallaxClass {
         }
 
         /**
-         * Reset transofrm for get right offset value if transform is applyed itself
+         * Reset transform for get right offset value if transform is applied itself
          * @ts-ignore all element is not window ( check the if statement ).
          */
         el.style.transform = '';
@@ -1500,7 +1500,7 @@ export default class ParallaxClass {
             if (
                 this.pin &&
                 this.pinInstance &&
-                mq[this.queryType](this.breackpoint)
+                mq[this.queryType](this.breakpoint)
             ) {
                 this.pinInstance.init({ instance: this });
             }
@@ -1511,13 +1511,13 @@ export default class ParallaxClass {
         this.firstTime = true;
         this.firstScroll = false;
         //
-        if (mq[this.queryType](this.breackpoint)) {
+        if (mq[this.queryType](this.breakpoint)) {
             if (this.ease) {
                 this.smoothParallaxJs();
             } else {
                 this.computeValue();
 
-                // Disable 3d transfrom at first render after refresh.
+                // Disable 3d transform at first render after refresh.
                 this.noEasingRender({ forceRender: true });
             }
         } else {
@@ -1569,7 +1569,7 @@ export default class ParallaxClass {
      *
      */
     move({ value, parentIsMoving = false }) {
-        if (!mq[this.queryType](this.breackpoint) || !value) return;
+        if (!mq[this.queryType](this.breakpoint) || !value) return;
         this.iSControlledFromOutside = true;
 
         const scrollVal = this.getScrollValueOnMove(value);
@@ -1633,7 +1633,7 @@ export default class ParallaxClass {
      * @param {number} [ scrollVal ]
      */
     smoothParallaxJs(scrollVal) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         this.computeValue(scrollVal);
 
@@ -1645,7 +1645,7 @@ export default class ParallaxClass {
         )
             return;
 
-        // Skip motion deafault type
+        // Skip motion default type
         if (
             !this.isInViewport &&
             !this.firstTime &&
@@ -1671,7 +1671,7 @@ export default class ParallaxClass {
      * @param {number} [ scrollVal ]
      */
     computeValue(scrollVal) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         if (scrollVal) {
             this.scrollerScroll = -scrollVal;
@@ -1687,7 +1687,7 @@ export default class ParallaxClass {
             wHeight: this.scrollerHeight,
         });
 
-        // Skip motion deafult with limiterOff not active
+        // Skip motion default with limiterOff not active
         if (
             !this.isInViewport &&
             !this.limiterOff &&
@@ -1746,7 +1746,7 @@ export default class ParallaxClass {
      * @private
      */
     noEasingRender({ forceRender = false, parentIsMoving = false } = {}) {
-        if (!mq[this.queryType](this.breackpoint)) return;
+        if (!mq[this.queryType](this.breakpoint)) return;
 
         mobCore.useFrame(() => {
             this.cleanRender({ forceRender, parentIsMoving });

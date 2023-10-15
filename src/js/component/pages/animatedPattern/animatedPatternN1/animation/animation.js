@@ -154,14 +154,14 @@ export const animatedPatternN1Animation = ({
                 offsetYCenter,
             }) => {
                 /**
-                 * X difference in px form mouse to sqaure.
+                 * X difference in px form mouse to square.
                  */
                 const mouseXparsed =
                     mouseX -
                     (canvas.width - (width + gutter) * numberOfColumn) / 2;
 
                 /**
-                 * Y difference in px form mouse to sqaure.
+                 * Y difference in px form mouse to square.
                  */
                 const mouseYparsed =
                     mouseY -
@@ -182,7 +182,7 @@ export const animatedPatternN1Animation = ({
                 );
 
                 /**
-                 * Clamp scale factor bwtween .1 and 1.
+                 * Clamp scale factor between .1 and 1.
                  */
                 const scaleFactor = clamp(Math.abs(delta), 0, 2);
 
@@ -194,7 +194,7 @@ export const animatedPatternN1Animation = ({
                 const xy = Math.sin(rotation) * (scaleFactor + scale);
 
                 /**
-                 * Apply scale/rotation/scale all toghether.
+                 * Apply scale/rotation/scale all together.
                  */
                 context.setTransform(
                     xx,

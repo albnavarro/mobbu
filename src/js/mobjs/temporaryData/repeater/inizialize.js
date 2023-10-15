@@ -7,7 +7,7 @@ import { repeatMap } from './add';
  * @param {Object} obj
  * @param {String} obj.repeatId - current unique id for repater.
  * @param {( Array.<{ parent:HTMLElement, id:(string|undefined) }>|undefined )} obj.placeholderListObj
-  - all repeat placholder active in current parse.
+ * - all repeat placeholder active in current parse.
  *
  * @description
  * Launch repeater from id. And find parent from placeholder.

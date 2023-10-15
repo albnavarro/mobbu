@@ -558,7 +558,7 @@ export default class HandleLerp {
      * @private
      *
      * @description
-     * Mege special props with default props
+     * Merge special props with default props
      *
      * @param  {import('./type.js').lerpActions} props
      * @return {Object} props merged

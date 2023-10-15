@@ -13,7 +13,7 @@ export const staticPropsMap = new Map();
  * @return {String} props id in store.
  *
  * @description
- * Store props and return a unique indentifier
+ * Store props and return a unique identifier
  *
  * @example
  * ```javascript

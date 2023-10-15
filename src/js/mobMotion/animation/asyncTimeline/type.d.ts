@@ -58,7 +58,7 @@ export interface asyncTimelineTween {
     destroy: function;
     onStartInPause: function;
     resetData: function;
-    getInitialData: fucntion;
+    getInitialData: function;
     stop: function;
     pause?: function;
     resume?: function;

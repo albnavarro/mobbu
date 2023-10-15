@@ -154,7 +154,7 @@ export const scrollerN1Animation = ({
             const xy = Math.sin(rotation) * scale;
 
             /**
-             * Apply scale/rotation/scale all toghether.
+             * Apply scale/rotation/scale all together.
              */
             context.setTransform(
                 xx,
@@ -225,7 +225,7 @@ export const scrollerN1Animation = ({
     });
 
     /**
-     * Inizialize scrollTrigger.
+     * Initialize scrollTrigger.
      */
     scrollerInstance.init();
 

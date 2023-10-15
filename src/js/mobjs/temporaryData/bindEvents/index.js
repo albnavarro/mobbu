@@ -14,7 +14,7 @@ export const bindEventMap = new Map();
  * @return {String} props id in store.
  *
  * @description
- * Store props and return a unique indentifier
+ * Store props and return a unique identifier
  *
  */
 export const setBindEvents = (eventsData = []) => {
@@ -39,7 +39,7 @@ export const setBindEvents = (eventsData = []) => {
  * @return {void}
  *
  * @description
- * Store props and return a unique indentifier
+ * Store props and return a unique identifier
  *
  */
 export const applyBindEvents = ({ element, componentId, bindEventsId }) => {

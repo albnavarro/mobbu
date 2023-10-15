@@ -74,7 +74,7 @@ const printContent = async ({
     const source = currentItem?.source;
 
     /**
-     * If url id not defined or is an ampty string return
+     * If url id not defined or is an empty string return
      * On overlay close url is empty.
      */
     if (!source?.length) return;

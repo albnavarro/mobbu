@@ -14,7 +14,7 @@ export const onMountCallbackMap = new Map();
  * @param {Object} obj
  * @param {String} obj.id - random Id
  * @param {Function} obj.cb - OnMount callback
- * @reurn void
+ * @return void
  *
  * @description
  * Add ouMount callback to store.
@@ -57,7 +57,7 @@ export const fireOnMountCallBack = async ({ id, element }) => {
 /**
  * @param {Object} obj
  * @param {String} obj.id - random Id
- * @reurn void
+ * @return void
  *
  * @description
  * Remove OnMount reference from main store.

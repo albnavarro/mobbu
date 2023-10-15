@@ -219,7 +219,7 @@ const getRenderStatus = () => {
 const nextTickFn = () => {
     /*
      * If currentFrame reach currentFrameLimit back to zero to avoid big numbers
-     * executte the opration outside requestAnimationFrame if deferredNextTick is active
+     * executte the operation outside requestAnimationFrame if deferredNextTick is active
      */
     if (currentFrame === currentFrameLimit) {
         currentFrame = 0;
@@ -316,7 +316,7 @@ const render = (timestamp) => {
     if (fps > maxFps) maxFps = fps;
 
     /**
-     * Chek if current frame can fire animation
+     * Check if current frame can fire animation
      * */
     shouldRender = getRenderStatus();
 

@@ -3,27 +3,27 @@
 import { handleSetUp } from '../setup.js';
 
 /**
- * @param { import('./type.js').mqValues } breackpoint
+ * @param { import('./type.js').mqValues } breakpoint
  * @return {Boolean}
  */
-const max = (breackpoint = 'desktop') => {
-    return window.innerWidth < handleSetUp.get('mq')[breackpoint];
+const max = (breakpoint = 'desktop') => {
+    return window.innerWidth < handleSetUp.get('mq')[breakpoint];
 };
 
 /**
- * @param { import('./type.js').mqValues } breackpoint
+ * @param { import('./type.js').mqValues } breakpoint
  * @return {Boolean}
  */
-const min = (breackpoint = 'desktop') => {
-    return window.innerWidth >= handleSetUp.get('mq')[breackpoint];
+const min = (breakpoint = 'desktop') => {
+    return window.innerWidth >= handleSetUp.get('mq')[breakpoint];
 };
 
 /**
- * @param { import('./type.js').mqValues } breackpoint
+ * @param { import('./type.js').mqValues } breakpoint
  * @return {Number}
  */
-const getBreackpoint = (breackpoint = 'desktop') => {
-    return handleSetUp.get('mq')[breackpoint];
+const getBreackpoint = (breakpoint = 'desktop') => {
+    return handleSetUp.get('mq')[breakpoint];
 };
 
 /**
