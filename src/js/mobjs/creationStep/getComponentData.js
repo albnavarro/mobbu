@@ -7,7 +7,7 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 /**
  * @param {Object} obj
  * @param {HTMLElement} obj.component
- * @returns {{component:HTMLElement, props: Object, id:String, componentName:String, instanceName:String, key:String, dynamicPropsId:( string|undefined ), dynamicPropsIdFromSlot:( string|undefined ),bindEventsId:( string|undefined ),parentId:( string|undefined ), currentListValueReal: any}}
+ * @returns {import('./type').componentDataType}
  *
  * @description
  * Create base DOM component from component tag.
