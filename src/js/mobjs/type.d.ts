@@ -686,7 +686,7 @@ export interface defaultComponent {
     /**
      * @description
      * Add DOM element in a dedicated request animation Frame.
-     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
+     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css transition working ).
      * `default = false`.
      */
     isolateCreation?: boolean;
