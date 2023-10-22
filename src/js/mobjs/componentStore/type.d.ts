@@ -14,7 +14,7 @@ export interface componentCommonTypes {
     isRepeater?: boolean;
     parentPropsWatcher?: function[];
     destroy: () => void;
-    freezedPros?: strig[];
+    freezedPros?: string[];
     isCancellable: boolean;
     child?:
         | {
