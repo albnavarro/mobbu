@@ -389,10 +389,12 @@ export interface componentType {
      *
      * ```
      */
-    onMount(arg0: {
-        element: HTMLElement;
-        refs: { [key: string]: HTMLElement | HTMLElement[] };
-    }): function;
+    onMount(
+        arg0: (arg1: {
+            element: HTMLElement;
+            refs: { [key: string]: HTMLElement | HTMLElement[] };
+        }) => function
+    ): void;
 
     /**
      * @description

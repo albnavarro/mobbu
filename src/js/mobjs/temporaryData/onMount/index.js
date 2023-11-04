@@ -12,9 +12,9 @@ import { parseRefs } from '../refs';
 export const onMountCallbackMap = new Map();
 
 /**
- * @param {Object} obj
- * @param {String} obj.id - random Id
- * @param {Function} obj.cb - OnMount callback
+ * @param {object} obj
+ * @param {string} obj.id - random Id
+ * @param {any} obj.cb - OnMount callback
  * @return void
  *
  * @description
