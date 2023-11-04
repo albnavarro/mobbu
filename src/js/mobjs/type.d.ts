@@ -377,14 +377,18 @@ export interface componentType {
      * @example
      * ```javascript
      *
-     * export const MyComponent = ({ onMount, html, ref }) => {
+     * export const MyComponent = ({ onMount, html }) => {
      *     onMount(({ element, refs }) => {
      *         const { myRef } = refs;
      *
      *         return () => {}
      *     });
      *
-     *     return html`<div ref='myRef'></div>`;
+     *     return html`
+     *       <div>
+     *          <div ref='myRef'></div>
+     *       </div>
+     *     `;
      * };
      *
      * ```

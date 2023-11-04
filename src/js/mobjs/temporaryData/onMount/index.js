@@ -14,7 +14,7 @@ export const onMountCallbackMap = new Map();
 /**
  * @param {object} obj
  * @param {string} obj.id - random Id
- * @param {any} obj.cb - OnMount callback
+ * @param {(arg0:{ element:HTMLElement,refs:{[key:string]:HTMLElement|HTMLElement[]} })=>void} obj.cb - OnMount callback
  * @return void
  *
  * @description
