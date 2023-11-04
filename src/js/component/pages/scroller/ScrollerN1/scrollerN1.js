@@ -5,9 +5,8 @@ import { scrollerN1Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
-    onMount(({ element }) => {
-        const canvas = element.querySelector('canvas');
-        const canvasScroller = element.querySelector('.canvas-scroller');
+    onMount(({ refs }) => {
+        const { canvas, canvasScroller } = refs;
 
         const destroyAnimation = scrollerN1Animation({
             canvas,
@@ -51,10 +50,10 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
                 >
                 </code-button>
                 <div class="c-canvas__wrap">
-                    <canvas></canvas>
+                    <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <div class="canvas-scroller"></div>
+            <div class="canvas-scroller" ref="canvasScroller"></div>
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
             </div>

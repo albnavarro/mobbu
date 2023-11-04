@@ -25,12 +25,8 @@ function getControls({ buttons }) {
 export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
     const { buttons, rotationDefault } = getState();
 
-    onMount(({ element }) => {
-        const canvas = element.querySelector('canvas');
-        const rangeValue = element.querySelector('.js-range-value');
-        const rotationButton = element.querySelector(
-            '.c-canvas__controls__range input'
-        );
+    onMount(({ element, refs }) => {
+        const { canvas, rangeValue, rotationButton } = refs;
 
         /**
          * Inizializa animation and get anima methods.
@@ -103,7 +99,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                     <li class="c-canvas__controls__item">
                         <label class="c-canvas__controls__label">
                             change rotation:
-                            <span class="js-range-value"
+                            <span class="js-range-value" ref="rangeValue"
                                 >${rotationDefault}</span
                             >
                         </label>
@@ -114,12 +110,13 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                                 max="720"
                                 value="${rotationDefault}"
                                 step="1"
+                                ref="rotationButton"
                             />
                         </div>
                     </li>
                 </ul>
                 <div class="c-canvas__wrap c-canvas__wrap">
-                    <canvas></canvas>
+                    <canvas ref="canvas"></canvas>
                 </div>
             </div>
         </div>

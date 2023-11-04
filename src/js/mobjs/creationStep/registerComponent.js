@@ -23,6 +23,7 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
     ATTR_PROPS,
+    ATTR_REFS,
     ATTR_REPEATID,
 } from '../constant';
 import { setBindEvents } from '../temporaryData/bindEvents';

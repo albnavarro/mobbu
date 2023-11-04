@@ -4,6 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
 import { UNSET } from '../../constant';
 import { getDefaultComponent } from '../../createComponent';
+import { parseRefs } from '../refs';
 
 /**
  * @type {Map<String,Function>}
@@ -27,11 +28,12 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
  * @param {Object} obj
  * @param {String} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
+ * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  *
  * @description
  * Fire onMount callback.
  */
-export const fireOnMountCallBack = async ({ id, element }) => {
+export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
     const callback = onMountCallbackMap.get(id);
 
     /**
@@ -41,7 +43,10 @@ export const fireOnMountCallBack = async ({ id, element }) => {
      * OnMount callback can be async.
      * Pass root component HTMLElement as parameter.
      */
-    const destroyCallback = await callback?.({ element });
+    const destroyCallback = await callback?.({
+        element,
+        refs: parseRefs(refsCollection),
+    });
 
     /**
      * Update destroy callback
@@ -71,12 +76,18 @@ export const removeOnMountCallbackReference = ({ id }) => {
  * @param {Boolean|'UNSET'} obj.isolateOnMount
  * @param {String} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
+ * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  * @returns Function
  *
  * @description
  * Fire onMount callback.
  */
-export const executeFireOnMountCallBack = ({ isolateOnMount, id, element }) => {
+export const executeFireOnMountCallBack = ({
+    isolateOnMount,
+    id,
+    element,
+    refsCollection,
+}) => {
     const isolateOnMountParsed =
         isolateOnMount === UNSET
             ? getDefaultComponent().isolateOnMount
@@ -90,6 +101,7 @@ export const executeFireOnMountCallBack = ({ isolateOnMount, id, element }) => {
               await fireOnMountCallBack({
                   id,
                   element,
+                  refsCollection,
               });
 
               return new Promise((resolve) => {
@@ -102,5 +114,9 @@ export const executeFireOnMountCallBack = ({ isolateOnMount, id, element }) => {
                   });
               });
           })()
-        : fireOnMountCallBack({ id, element });
+        : fireOnMountCallBack({
+              id,
+              element,
+              refsCollection,
+          });
 };

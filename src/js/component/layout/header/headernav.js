@@ -17,6 +17,7 @@ function additems() {
                               type="button"
                               data-url="${url}"
                               class="l-header__sidenav__link"
+                              ref="button"
                           >
                               ${label}
                           </button>
@@ -35,8 +36,9 @@ function additems() {
  * @param {import('../../../mobjs/type').componentType}
  */
 export const Headernav = ({ html, onMount }) => {
-    onMount(({ element }) => {
-        const buttons = element.querySelectorAll('button');
+    onMount(({ refs }) => {
+        const { button } = refs;
+        const buttons = button?.length ?? [button];
 
         [...buttons].forEach((button) => {
             button.addEventListener('click', () => {

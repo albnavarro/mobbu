@@ -120,14 +120,16 @@ export const CodeOverlay = ({
     bindProps,
     bindEvents,
 }) => {
-    onMount(({ element }) => {
-        const screenEl = element.querySelector('.js-overlay-screen');
-        const codeEl = element.querySelector('.js-overlay-code');
-        const scrollerEl = element.querySelector('.js-overlay-scroller');
-        const descriptionEl = element.querySelector('.js-overlay-description');
-        const closebtn = element.querySelector('.js-overlay-close');
-        const background = element.querySelector('.js-overlay-background');
-        const copyButton = element.querySelector('.js-overlay-copy');
+    onMount(({ element, refs }) => {
+        const {
+            screenEl,
+            codeEl,
+            scrollerEl,
+            descriptionEl,
+            closebtn,
+            background,
+            copyButton,
+        } = refs;
 
         const { updateScroller, goToTop } = overlayScroller({
             screen: screenEl,
@@ -187,15 +189,17 @@ export const CodeOverlay = ({
 
     return html`
         <div class="code-overlay js-overlay">
-            <span class="code-overlay__background js-overlay-background"></span>
+            <span class="code-overlay__background" ref="background"></span>
             <div class="code-overlay__wrap js-overlay-wrap">
                 <button
                     type="button"
-                    class="code-overlay__close js-overlay-close"
+                    class="code-overlay__close"
+                    ref="closebtn"
                 ></button>
                 <button
                     type="button"
-                    class="code-overlay__copy js-overlay-copy"
+                    class="code-overlay__copy"
+                    ref="copyButton"
                 >
                     ${copyIcon}
                 </button>
@@ -213,15 +217,17 @@ export const CodeOverlay = ({
                         },
                     })}
                 </div>
-                <div class="code-overlay__content js-overlay-screen">
-                    <div class="js-overlay-scroller">
+                <div class="code-overlay__content" ref="screenEl">
+                    <div ref="scrollerEl">
                         <code>
                             <pre
-                                class="code-overlay__content__code js-overlay-code"
+                                class="code-overlay__content__code"
+                                ref="codeEl"
                             ></pre>
                         </code>
                         <div
-                            class="code-overlay__content__description js-overlay-description"
+                            class="code-overlay__content__description"
+                            ref="descriptionEl"
                         ></div>
                     </div>
                 </div>

@@ -13,8 +13,8 @@ export const DynamicListSlottedLabel = async ({
 }) => {
     const { label } = getState();
 
-    onMount(({ element }) => {
-        const contentEl = element.querySelector('.content');
+    onMount(({ refs }) => {
+        const { contentEl } = refs;
 
         watch('label', (value) => {
             contentEl.textContent = setContent(value);
@@ -22,6 +22,6 @@ export const DynamicListSlottedLabel = async ({
     });
 
     return html`<div class="dynamic-list-slotted-label">
-        <p class="content">${setContent(label)}</p>
+        <p class="content" ref="contentEl">${setContent(label)}</p>
     </div>`;
 };

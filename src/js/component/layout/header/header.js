@@ -14,9 +14,9 @@ function closeInfo({ navInfo }) {
  * @param {import('../../../mobjs/type').componentType}
  */
 export const Header = ({ html, onMount, staticProps }) => {
-    onMount(({ element }) => {
-        const navInfo = element.querySelector('.l-header__navinfo');
-        const titleLink = element.querySelector('.l-header__title');
+    onMount(({ refs }) => {
+        const { navInfo, titleLink } = refs;
+
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
 
@@ -36,12 +36,18 @@ export const Header = ({ html, onMount, staticProps }) => {
             <div class="l-header__container">
                 <div class="l-header__grid">
                     <mob-header-toggle></mob-header-toggle>
-                    <button type="button" class="l-header__title">title</button>
+                    <button
+                        type="button"
+                        class="l-header__title"
+                        ref="titleLink"
+                    >
+                        title
+                    </button>
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
                     </div>
                 </div>
-                <div class="l-header__navinfo">
+                <div class="l-header__navinfo" ref="navInfo">
                     <p class="p--small"></p>
                     <code-button
                         ${staticProps({

@@ -9,8 +9,8 @@ export const DynamicListCounter = async ({
 }) => {
     const { parentListId, counter } = getState();
 
-    onMount(({ element }) => {
-        const counterValueEl = element.querySelector('span');
+    onMount(({ refs }) => {
+        const { counterValueEl } = refs;
 
         watch('counter', (value) => {
             counterValueEl.textContent = value;
@@ -20,6 +20,6 @@ export const DynamicListCounter = async ({
         <p class="dynamic-counter__title">Nested:</p>
         <p class="dynamic-counter__subtitle">(slotted)</p>
         <p class="dynamic-counter__list">list index: ${parentListId}</p>
-        <span>${counter}</span>
+        <span ref="counterValueEl">${counter}</span>
     </div>`;
 };

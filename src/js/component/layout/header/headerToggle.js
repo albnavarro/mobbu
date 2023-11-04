@@ -4,8 +4,8 @@ import { navigationStore } from '../navigation/store/navStore';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HeaderToggle = ({ onMount, html }) => {
-    onMount(({ element }) => {
-        const hamburger = element.querySelector('.hamburger');
+    onMount(({ element, refs }) => {
+        const { hamburger } = refs;
 
         element.addEventListener('click', () => {
             const { navigationIsOpen } =
@@ -31,7 +31,7 @@ export const HeaderToggle = ({ onMount, html }) => {
 
     return html`
         <button type="button" class="l-header__toggle">
-            <div class="hamburger hamburger--squeeze">
+            <div class="hamburger hamburger--squeeze" ref="hamburger">
                 <div class="hamburger-box">
                     <div class="hamburger-inner"></div>
                 </div>

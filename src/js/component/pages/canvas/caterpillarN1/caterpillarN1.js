@@ -6,8 +6,8 @@ import { caterpillarN1Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
-    onMount(({ element }) => {
-        const canvas = element.querySelector('canvas');
+    onMount(({ refs }) => {
+        const { canvas } = refs;
 
         const destroyAnimation = caterpillarN1Animation({
             canvas,
@@ -52,7 +52,7 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
             </code-button>
             <div class="c-canvas">
                 <div class="c-canvas__wrap ${canvasStyle}">
-                    <canvas></canvas>
+                    <canvas ref="canvas"></canvas>
                 </div>
             </div>
         </div>

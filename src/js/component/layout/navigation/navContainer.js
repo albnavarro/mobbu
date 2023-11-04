@@ -37,15 +37,18 @@ function addHandler({ main, toTopBtn }) {
  * @param {import('../../../mobjs/type').componentType}
  */
 export const NavigationContainer = ({ html, onMount }) => {
-    onMount(({ element }) => {
+    onMount(({ element, refs }) => {
         const main = document.querySelector('main.main');
-        const toTopBtn = element.querySelector('.l-navcontainer__totop');
+        const { toTopBtn } = refs;
+
         navigationStore.watch('openNavigation', () =>
             openNavigation({ element, main })
         );
+
         navigationStore.watch('closeNavigation', () =>
             closeNavigation({ element, main })
         );
+
         addHandler({ main, toTopBtn });
         initNavigationScoller({ root: element });
 
@@ -56,7 +59,7 @@ export const NavigationContainer = ({ html, onMount }) => {
         <div class="l-navcontainer">
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
-                <button class="l-navcontainer__totop"></button>
+                <button class="l-navcontainer__totop" ref="toTopBtn"></button>
             </div>
             <div class="l-navcontainer__wrap">
                 <span class="l-navcontainer__angles">

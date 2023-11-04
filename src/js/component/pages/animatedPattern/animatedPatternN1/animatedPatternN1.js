@@ -5,8 +5,8 @@ import { animatedPatternN1Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
-    onMount(({ element }) => {
-        const canvas = element.querySelector('canvas');
+    onMount(({ refs }) => {
+        const { canvas } = refs;
 
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
@@ -49,7 +49,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
             </code-button>
             <div class="c-canvas">
                 <div class="c-canvas__wrap">
-                    <canvas></canvas>
+                    <canvas ref="canvas"></canvas>
                 </div>
             </div>
         </div>

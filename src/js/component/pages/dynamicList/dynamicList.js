@@ -108,8 +108,8 @@ export const DynamicList = async ({
     bindEvents,
     watchSync,
 }) => {
-    onMount(({ element }) => {
-        const counterEl = element.querySelector('.dynamic-list__counter span');
+    onMount(({ refs }) => {
+        const { counterEl } = refs;
 
         watchSync('counter', (value) => {
             counterEl.textContent = value;
@@ -147,7 +147,7 @@ export const DynamicList = async ({
 
             <div class="dynamic-list__counter">
                 <h4>List counter</h4>
-                <span></span>
+                <span ref="counterEl"></span>
             </div>
 
             <div class="dynamic-list__container">

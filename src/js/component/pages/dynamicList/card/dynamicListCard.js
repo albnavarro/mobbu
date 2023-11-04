@@ -27,10 +27,8 @@ export const DynamicListCard = async ({
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
 
-    onMount(({ element }) => {
-        const indexEl = element.querySelector('.index');
-        const labelEl = element.querySelector('.label');
-        const counterEl = element.querySelector('.counter');
+    onMount(({ element, refs }) => {
+        const { indexEl, labelEl, counterEl } = refs;
 
         element.addEventListener('click', () => {
             element.classList.toggle('is-selected');
@@ -63,9 +61,15 @@ export const DynamicListCard = async ({
                 <p class="dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index">${updateContent('index', index)}</div>
-                <div class="label">${updateContent('label', label)}</div>
-                <div class="counter">${updateContent('counter', counter)}</div>
+                <div class="index" ref="indexEl">
+                    ${updateContent('index', index)}
+                </div>
+                <div class="label" ref="labelEl">
+                    ${updateContent('label', label)}
+                </div>
+                <div class="counter" ref="counterEl">
+                    ${updateContent('counter', counter)}
+                </div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
                 <mobjs-slot

@@ -37,11 +37,12 @@ export const NavigationSubmenu = ({
     const { children, headerButton, callback } = getState();
     const { label, url } = headerButton;
 
-    onMount(({ element }) => {
+    onMount(({ refs }) => {
         /**
          * Accordion
          */
-        const content = element.querySelector('.l-navigation__submenu');
+        const { content } = refs;
+
         slide.subscribe(content);
         slide.reset(content);
 
@@ -78,7 +79,7 @@ export const NavigationSubmenu = ({
                     },
                 })}
             ></mob-navigation-button>
-            <ul class="l-navigation__submenu">
+            <ul class="l-navigation__submenu" ref="content">
                 ${getSubmenu(children, staticProps)}
             </ul>
         </li>

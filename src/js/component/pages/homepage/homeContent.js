@@ -4,8 +4,8 @@ import { tween } from '../../../mobMotion';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeContent = ({ onMount, html }) => {
-    onMount(({ element }) => {
-        const title = element.querySelector('.js-title');
+    onMount(({ refs }) => {
+        const { title } = refs;
 
         let contentTween = tween.createTween({
             data: { opacity: 0, scale: 1.1 },
@@ -31,7 +31,7 @@ export const HomeContent = ({ onMount, html }) => {
 
     return html`
         <div class="l-index__content">
-            <h1 class="l-index__title js-title">Lorem ipsum</h1>
+            <h1 class="l-index__title" ref="title">Lorem ipsum</h1>
         </div>
     `;
 };

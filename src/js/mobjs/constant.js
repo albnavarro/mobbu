@@ -56,6 +56,11 @@ export const ATTR_BIND_EVENTS = 'bindevents';
 export const ATTR_PARENT_ID = 'parentid';
 
 /**
+ * @type {string};
+ */
+export const ATTR_REFS = 'ref';
+
+/**
  * @type {Number};
  */
 export const frameDelayAfterParse = 5;

@@ -10,9 +10,8 @@ function getPreValue(value) {
 export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
     const { staticFromSlot, staticFromComponent } = getState();
 
-    onMount(({ element }) => {
-        const tEl = element.querySelector('.js-t-state');
-        const t2El = element.querySelector('.js-t2-state');
+    onMount(({ refs }) => {
+        const { tEl, t2El } = refs;
 
         watchSync('parentParentState', (val) => {
             tEl.textContent = '';
@@ -33,11 +32,11 @@ export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
             <h3 class="dynamic-slot__label">
                 Reactive state from parent component scope (dynamicList):
             </h3>
-            <div class="js-t-state"></div>
+            <div ref="tEl"></div>
             <h3 class="dynamic-slot__label">
                 Reactive state from parent slot scope (dynamicCard):
             </h3>
-            <div class="js-t2-state"></div>
+            <div ref="t2El"></div>
         </div>
     `;
 };

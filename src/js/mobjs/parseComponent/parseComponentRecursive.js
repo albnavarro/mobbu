@@ -15,6 +15,7 @@ import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { registerComponent } from '../creationStep/registerComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import { addSelfIdToFutureComponent } from '../componentStore/action/parent';
+import { getRefs } from '../temporaryData/refs';
 
 /**
  * @param {Object} obj
@@ -140,6 +141,11 @@ export const parseComponentsRecursive = async ({
         isolateCreation,
     });
 
+    /**
+     * Find all refs.
+     */
+    const refsCollection = newElement ? getRefs(newElement) : {};
+
     addSelfIdToFutureComponent({ element: newElement, id });
 
     /**
@@ -206,6 +212,7 @@ export const parseComponentsRecursive = async ({
             isolateOnMount,
             id,
             element: newElement,
+            refsCollection,
         });
 
     /**
@@ -232,6 +239,7 @@ export const parseComponentsRecursive = async ({
                 isolateOnMount,
                 id,
                 element: newElement,
+                refsCollection,
             });
         },
         fireDynamic: () => {
