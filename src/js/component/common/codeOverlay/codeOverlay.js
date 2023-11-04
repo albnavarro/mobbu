@@ -41,7 +41,7 @@ function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
                     const { label, source } = _current;
                     return {
                         key: label,
-                        disable: source.length === 0,
+                        disable: !source || source.length === 0,
                         selected: label === activeContent,
                     };
                 },
