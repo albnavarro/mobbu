@@ -31,7 +31,7 @@ export const NavigationButton = ({ getState, html, onMount, watch }) => {
     return html`
         <button
             type="button"
-            class="l-navigation__link ${arrowClass} ${subMenuClass}"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
         >
             ${label}
         </button>

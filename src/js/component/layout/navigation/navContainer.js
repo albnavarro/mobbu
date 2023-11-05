@@ -62,12 +62,6 @@ export const NavigationContainer = ({ html, onMount }) => {
                 <button class="l-navcontainer__totop" ref="toTopBtn"></button>
             </div>
             <div class="l-navcontainer__wrap">
-                <span class="l-navcontainer__angles">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
                 <div class="l-navcontainer__scroll">
                     <mob-navigation></mob-navigation>
                 </div>

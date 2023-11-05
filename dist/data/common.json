@@ -20,45 +20,106 @@
     },
     "navigation": [
         {
-            "label": "home",
-            "url": "home",
-            "children": null
+            "label": "mobCore",
+            "section": true
         },
         {
-            "label": "js component library",
+            "label": "Store",
+            "url": "#"
+        },
+        {
+            "label": "Event",
+            "url": "#"
+        },
+        {
+            "label": "mobJs",
+            "section": true
+        },
+        {
+            "label": "Overview",
+            "url": "mobJs_overview"
+        },
+        {
+            "label": "Component",
+            "url": "#"
+        },
+        {
+            "label": "Props/State",
+            "url": "#"
+        },
+        {
+            "label": "Refs",
+            "url": "#"
+        },
+        {
+            "label": "Event",
+            "url": "#"
+        },
+        {
+            "label": "Slot",
+            "url": "#"
+        },
+        {
+            "label": "Routing",
+            "url": "#"
+        },
+        {
+            "label": "Listing ( ...forEach )",
+            "url": "#"
+        },
+        {
+            "label": "examples:",
             "url": "#",
             "children": [
                 {
-                    "label": "overview",
-                    "url": "mobJs_overview"
-                },
-                {
-                    "label": "Dynamic list",
+                    "label": "Listing",
                     "url": "dynamic_list"
-                },
-                {
-                    "label": "test button (#)",
-                    "url": "#"
                 }
             ]
         },
         {
-            "label": "js animation library",
-            "url": "#",
-            "children": [
-                {
-                    "label": "test button (#)",
-                    "url": "#"
-                },
-                {
-                    "label": "test button (#)",
-                    "url": "#"
-                },
-                {
-                    "label": "test button (#)",
-                    "url": "#"
-                }
-            ]
+            "label": "mobMotion",
+            "section": true
+        },
+        {
+            "label": "overview",
+            "url": "mobJs_overview"
+        },
+        {
+            "label": "Tween/Spring/Lerp",
+            "url": "#"
+        },
+        {
+            "label": "Async timeline",
+            "url": "#"
+        },
+        {
+            "label": "Sequencer",
+            "url": "#"
+        },
+        {
+            "label": "Stagger",
+            "url": "#"
+        },
+        {
+            "label": "Create stagger",
+            "url": "#"
+        },
+        {
+            "label": "Sync timeline",
+            "url": "#"
+        },
+        {
+            "label": "ScrollTrigger",
+            "url": "#"
+        },
+        {
+            "label": "Parallax",
+            "url": "#"
+        },
+        {
+            "label": "Animations:",
+            "section": true
         },
         {
             "label": "caterpillar n.1",
@@ -149,131 +210,6 @@
                     "url": "horizontalScrollerV2"
                 }
             ]
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
-        },
-        {
-            "label": "test button (#)",
-            "url": "#",
-            "children": null
         }
     ]
 }

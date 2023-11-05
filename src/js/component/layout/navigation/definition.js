@@ -2,6 +2,7 @@ import { createComponent } from '../../../mobjs';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
 import { NavigationButton } from './navigationButton';
+import { NavigationLabel } from './navigationLabel';
 import { NavigationSubmenu } from './navigationSubmenu';
 
 export const navigationComponentDef = createComponent({
@@ -51,7 +52,6 @@ export const navigationSubmenuDef = createComponent({
 export const navigationButtonDef = createComponent({
     name: 'mob-navigation-button',
     type: 'button',
-    DOMprimitive: HTMLButtonElement,
     component: NavigationButton,
     exportState: [
         'label',
@@ -90,6 +90,18 @@ export const navigationButtonDef = createComponent({
         isOpen: () => ({
             value: false,
             type: Boolean,
+        }),
+    },
+});
+
+export const navigationLabelDef = createComponent({
+    name: 'mob-navigation-label',
+    component: NavigationLabel,
+    exportState: ['label'],
+    state: {
+        label: () => ({
+            value: '',
+            type: String,
         }),
     },
 });

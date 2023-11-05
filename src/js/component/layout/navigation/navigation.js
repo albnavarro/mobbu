@@ -7,7 +7,16 @@ import { html } from '../../../mobjs';
 function getItems({ data, staticProps, setState, bindProps }) {
     return data
         .map((item, index) => {
-            const { label, url, children } = item;
+            const { label, url, children, section } = item;
+            console.log('section');
+
+            if (section) {
+                return html`
+                    <mob-navigation-label
+                        ${staticProps({ label })}
+                    ></mob-navigation-label>
+                `;
+            }
 
             return children
                 ? html`
