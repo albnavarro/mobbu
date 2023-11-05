@@ -24,6 +24,8 @@ export const Header = ({ html, onMount, staticProps }) => {
             const pageTransitionId = getIdByInstanceName('page-transition');
             setStateById(pageTransitionId, 'url', '#home');
             navigationStore.set('currentButtonId', '');
+            navigationStore.set('navigationIsOpen', false);
+            navigationStore.emit('closeNavigation');
         });
 
         return () => {};

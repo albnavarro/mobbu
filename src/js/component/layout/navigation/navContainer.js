@@ -6,7 +6,6 @@ function closeNavigation({ element, main }) {
     element.classList.remove('active');
     main.classList.remove('shift');
     document.body.style.overflow = '';
-    navigationStore.emit('closeAllAccordion');
 }
 
 function openNavigation({ element, main }) {
