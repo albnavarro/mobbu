@@ -2,6 +2,7 @@ export * from './common/codeButton/definition';
 export * from './common/codeOverlay/definition';
 export * from './common/debug/definition';
 export * from './common/pageTransition/definition';
+export * from './common/htmlContent/definition';
 export * from './layout/footer/definition';
 export * from './layout/header/definition';
 export * from './layout/navigation/definition';

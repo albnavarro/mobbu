@@ -29,12 +29,12 @@
             "url": "#",
             "children": [
                 {
-                    "label": "Dynamic list",
-                    "url": "dynamic_list"
+                    "label": "overview",
+                    "url": "mobJs_overview"
                 },
                 {
-                    "label": "test button (#)",
-                    "url": "#"
+                    "label": "Dynamic list",
+                    "url": "dynamic_list"
                 },
                 {
                     "label": "test button (#)",

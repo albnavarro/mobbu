@@ -1,0 +1,7 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.html-content {
+    color: $white;
+}
