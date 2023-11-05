@@ -51,6 +51,7 @@ export const Headernav = ({ html, onMount }) => {
                 if (!navigationIsOpen) return;
 
                 navigationStore.set('navigationIsOpen', false);
+                navigationStore.set('currentButtonId', '');
                 navigationStore.emit('closeNavigation');
             });
         });

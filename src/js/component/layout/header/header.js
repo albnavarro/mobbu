@@ -23,6 +23,7 @@ export const Header = ({ html, onMount, staticProps }) => {
         titleLink.addEventListener('click', () => {
             const pageTransitionId = getIdByInstanceName('page-transition');
             setStateById(pageTransitionId, 'url', '#home');
+            navigationStore.set('currentButtonId', '');
         });
 
         return () => {};

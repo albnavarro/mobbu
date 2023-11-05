@@ -4,7 +4,7 @@ import { navigationStore } from './store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({ getState, html, onMount, watch }) => {
+export const NavigationButton = ({ getState, html, onMount, watch, id }) => {
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
 
@@ -19,10 +19,22 @@ export const NavigationButton = ({ getState, html, onMount, watch }) => {
 
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
+
+            navigationStore.set('currentButtonId', id);
         });
 
+        /**
+         * Is a toggle accordion.
+         */
         watch('isOpen', (isOpen) => {
             element.classList.toggle('active', isOpen);
+        });
+
+        /**
+         * Is a link button.
+         */
+        navigationStore.watch('currentButtonId', (current) => {
+            element.classList.toggle('current', current === id);
         });
 
         return () => {};
