@@ -7,13 +7,26 @@ hljs.registerLanguage('javascript', javascript);
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Snippet = async ({ html, onMount, getState }) => {
+export const Snippet = ({ html, onMount, getState }) => {
     const { source } = getState();
-    const { success, data } = await loadTextContent({ source });
-    if (!success) return;
 
-    onMount(({ refs }) => {
+    onMount(async ({ refs }) => {
         const { codeEl } = refs;
+
+        /**
+         * Get snippet data.
+         */
+        const { success, data } = await loadTextContent({ source });
+        if (!success) return;
+
+        /**
+         * Add contento to dom.
+         */
+        codeEl.textContent = data;
+
+        /**
+         * Apply highlight.
+         */
         hljs.highlightElement(codeEl, { language: 'javascript' });
 
         return () => {};
@@ -21,7 +34,7 @@ export const Snippet = async ({ html, onMount, getState }) => {
 
     return html`<div class="snippet">
         <code>
-            <pre ref="codeEl">${data}</pre>
+            <pre ref="codeEl"></pre>
         </code>
     </div>`;
 };
