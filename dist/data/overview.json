@@ -43,6 +43,12 @@
             "content": "big"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/snippet-test.js"

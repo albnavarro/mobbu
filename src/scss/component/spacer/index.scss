@@ -1,0 +1,17 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.spacer {
+    &--small {
+        height: rem(20);
+    }
+
+    &--medium {
+        height: rem(60);
+    }
+
+    &--big {
+        height: rem(100);
+    }
+}
