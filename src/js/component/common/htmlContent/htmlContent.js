@@ -14,6 +14,7 @@ export const HtmlContent = ({ html, staticProps }) => {
             <mob-paragraph ${staticProps({ style: 'small' })}
                 >small</mob-paragraph
             >
+            <mob-snippet>my code</mob-snippet>
         </section>
     `;
 };
