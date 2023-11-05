@@ -61,7 +61,7 @@
         }
 
         &.current {
-            &:before {
+            &::before {
                 content: '';
                 position: absolute;
                 right: 0;
