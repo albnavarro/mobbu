@@ -4,5 +4,7 @@
 export const Title = ({ html, getState }) => {
     const { tag } = getState();
 
-    return html`<${tag} class="mob-title"></${tag}>`;
+    return html`<${tag} class="mob-title">
+        <mobjs-slot/>
+    </${tag}>`;
 };

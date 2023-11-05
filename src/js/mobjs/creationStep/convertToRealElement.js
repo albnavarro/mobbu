@@ -6,6 +6,7 @@ import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
 import { queryGenericSlot } from '../query/queryGenericSlot';
 import { querySecificSlot } from '../query/querySpecificSlot';
+import { queryUnNamedSlot } from '../query/queryUnNamedSlot';
 import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicProps';
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
@@ -160,7 +161,22 @@ const executeConversion = ({ componentParsed, content }) => {
     if (newElement) {
         // @ts-ignore
         const id = componentParsed.getId();
-        newElement.insertAdjacentHTML('afterbegin', prevContent);
+
+        /**
+         * @description
+         * if unNamedSlot is used.
+         * Replace un-named slot with previous content.
+         *
+         * @type {HTMLElement|null}
+         */
+        const unNamedSlot = queryUnNamedSlot(newElement);
+
+        if (unNamedSlot) {
+            unNamedSlot.replaceWith(prevContent);
+        } else {
+            newElement.insertAdjacentHTML('afterbegin', prevContent);
+        }
+
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
 

@@ -17,9 +17,8 @@ export const Snippet = ({ html, onMount }) => {
     return html`<div class="snippet">
         <code>
             <pre ref="codeEl">
-                let p =2;
-            </pre
-            >
+                <mobjs-slot/>
+            </pre>
         </code>
     </div>`;
 };
