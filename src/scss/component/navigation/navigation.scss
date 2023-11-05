@@ -39,6 +39,18 @@
         border: 0;
         background: transparent;
 
+        &::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: rem(20);
+            background: $green;
+            transform: scaleX(0);
+            transition: transform 0.55s;
+        }
+
         &--arrow {
             &::after {
                 content: '';
@@ -62,13 +74,7 @@
 
         &.current {
             &::before {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                width: rem(20);
-                background: $green;
+                transform: scaleX(100%);
             }
         }
 
