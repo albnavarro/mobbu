@@ -8,7 +8,6 @@ function getItems({ data, staticProps, setState, bindProps }) {
     return data
         .map((item, index) => {
             const { label, url, children, section } = item;
-            console.log('section');
 
             if (section) {
                 return html`
