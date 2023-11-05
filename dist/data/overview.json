@@ -45,7 +45,7 @@
         {
             "component": "mob-snippet",
             "props": {},
-            "content": "let p =2;"
+            "content": "let p = 2;"
         }
     ]
 }
