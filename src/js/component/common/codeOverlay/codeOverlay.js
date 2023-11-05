@@ -3,32 +3,13 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
 import { html } from '../../../mobjs';
+import { loadTextContent } from '../../../utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
 
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
     navigator.clipboard.writeText(rawContent);
-};
-
-/**
- * Load common data.
- */
-const loadContent = async ({ source }) => {
-    const response = await fetch(source);
-    if (!response.ok) {
-        console.warn(`${source} not found`);
-
-        return {
-            success: false,
-            data: '',
-        };
-    }
-    const data = await response.text();
-    return {
-        success: true,
-        data,
-    };
 };
 
 function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
@@ -82,7 +63,7 @@ const printContent = async ({
     /**
      * Load data.
      */
-    const { success, data } = await loadContent({ source });
+    const { success, data } = await loadTextContent({ source });
     if (!success) return;
 
     /**

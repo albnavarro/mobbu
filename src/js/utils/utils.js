@@ -15,3 +15,37 @@ export function detectFirefox() {
 
     return firefixAgent;
 }
+
+export const loadTextContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+        console.warn(`${source} not found`);
+
+        return {
+            success: false,
+            data: '',
+        };
+    }
+    const data = await response.text();
+    return {
+        success: true,
+        data,
+    };
+};
+
+export const loadJsonContent = async ({ source }) => {
+    const response = await fetch(source);
+    if (!response.ok) {
+        console.warn(`${source} not found`);
+
+        return {
+            success: false,
+            data: '',
+        };
+    }
+    const data = await response.json();
+    return {
+        success: true,
+        data,
+    };
+};

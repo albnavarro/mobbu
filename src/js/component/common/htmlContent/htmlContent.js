@@ -1,20 +1,32 @@
+import { html } from '../../../mobjs';
+import { loadJsonContent } from '../../../utils/utils';
+
+const getComponents = ({ data, staticProps }) => {
+    return data
+        .map((item) => {
+            const { component, props, content } = item;
+
+            return html`
+                <${component} ${staticProps(props)}>
+                    ${content}
+                </${component}>
+            `;
+        })
+        .join('');
+};
+
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const HtmlContent = ({ html, staticProps }) => {
+export const HtmlContent = async ({ html, getState, staticProps }) => {
+    const { source } = getState();
+
+    const { success, data } = await loadJsonContent({ source });
+    if (!success) return '';
+
     return html`
         <section class="html-content" ref="section">
-            <mob-title> h1 </mob-title>
-            <mob-title ${staticProps({ tag: 'h2' })}> h2 </mob-title>
-            <mob-title ${staticProps({ tag: 'h3' })}> h3 </mob-title>
-            <mob-paragraph ${staticProps({ style: 'big' })}>big</mob-paragraph>
-            <mob-paragraph ${staticProps({ style: 'medium' })}
-                >medium</mob-paragraph
-            >
-            <mob-paragraph ${staticProps({ style: 'small' })}
-                >small</mob-paragraph
-            >
-            <mob-snippet>let p =2;</mob-snippet>
+            ${getComponents({ data: data.data, staticProps })}
         </section>
     `;
 };
