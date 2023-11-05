@@ -25,7 +25,7 @@ export const HtmlContent = async ({ html, getState, staticProps }) => {
     if (!success) return '';
 
     return html`
-        <section class="html-content" ref="section">
+        <section class="html-content">
             ${getComponents({ data: data.data, staticProps })}
         </section>
     `;
