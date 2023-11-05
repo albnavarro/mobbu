@@ -61,7 +61,15 @@ p {
 
 .p {
     &--small {
+        font-size: rem(14);
+    }
+
+    &--medium {
         font-size: rem(18);
+    }
+
+    &--big {
+        font-size: rem(22);
     }
 }
 
