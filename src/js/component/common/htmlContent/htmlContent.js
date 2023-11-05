@@ -8,7 +8,7 @@ const getComponents = ({ data, staticProps }) => {
 
             return html`
                 <${component} ${staticProps(props)}>
-                    ${content}
+                    ${content ?? ''}
                 </${component}>
             `;
         })

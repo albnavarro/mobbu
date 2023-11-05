@@ -1,0 +1,14 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.snippet {
+    code {
+        display: inline-block;
+        min-width: rem(600);
+    }
+
+    pre {
+        padding: rem(30);
+    }
+}

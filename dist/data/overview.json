@@ -44,8 +44,9 @@
         },
         {
             "component": "mob-snippet",
-            "props": {},
-            "content": "let p = 2;"
+            "props": {
+                "source": "/snippets/snippet-test.js"
+            }
         }
     ]
 }
