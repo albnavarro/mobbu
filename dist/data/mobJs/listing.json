@@ -1,0 +1,11 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "Listing"
+        }
+    ]
+}

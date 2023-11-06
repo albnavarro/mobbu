@@ -1,7 +1,7 @@
 import { html, staticProps } from '../../../mobjs';
 
-export const mobJs_overview = () => {
+export const mobJs_listing = () => {
     return html`<html-content
-        ${staticProps({ source: '/data/mobJs/overview.json' })}
+        ${staticProps({ source: '/data/mobJs/listing.json' })}
     ></html-content>`;
 };

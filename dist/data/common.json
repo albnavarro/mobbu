@@ -135,43 +135,47 @@
         },
         {
             "label": "Initialization",
-            "url": "#"
+            "url": "mobJs_initialization"
         },
         {
             "label": "Component lifecycle",
-            "url": "#"
+            "url": "mobJs_lifecycle"
+        },
+        {
+            "label": "Web component",
+            "url": "mobJs_web_component"
         },
         {
             "label": "Routing",
-            "url": "#"
+            "url": "mobJs_routing"
         },
         {
             "label": "Props/State",
-            "url": "#"
+            "url": "mobJs_props_state"
         },
         {
             "label": "Props inheritance",
-            "url": "#"
+            "url": "mobJs_props_inheritance"
         },
         {
-            "label": "Events",
-            "url": "#"
+            "label": "Event handler",
+            "url": "mobJs_events"
         },
         {
-            "label": "Listing ( ...dynamic map )",
-            "url": "#"
+            "label": "Listing ( reactive map )",
+            "url": "mobJs_listing"
         },
         {
             "label": "Refs",
-            "url": "#"
+            "url": "mobJs_refs"
         },
         {
             "label": "Slot",
-            "url": "#"
+            "url": "mobJs_slot"
         },
         {
             "label": "Utils",
-            "url": "#"
+            "url": "mobJs_utils"
         },
         {
             "label": "examples:",
