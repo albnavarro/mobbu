@@ -119,11 +119,11 @@
         },
         {
             "label": "Store",
-            "url": "#"
+            "url": "mobCore_store"
         },
         {
             "label": "Event",
-            "url": "#"
+            "url": "mobCore_events"
         },
         {
             "label": "mobJs",
