@@ -3,7 +3,8 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-btn-debug {
-    background: rgba($white, 0.2);
+    background: $green;
+    color: $dark-green;
     border: 0;
     margin: 0;
     position: absolute;
