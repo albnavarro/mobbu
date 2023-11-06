@@ -1,6 +1,8 @@
 import { SmoothScroller } from '../../../../mobMotion/plugin';
 import { navigationStore } from '../store/navStore';
 
+let currentPercent = 0;
+
 export const initNavigationScoller = ({ root }) => {
     const screenEl = root.querySelector('.l-navcontainer__wrap');
     const scrollerEl = root.querySelector('.l-navcontainer__scroll');
@@ -20,9 +22,8 @@ export const initNavigationScoller = ({ root }) => {
             const { navigationIsOpen } = navigationStore.get();
             if (!navigationIsOpen) return;
 
-            percentEl.style.transform = `scaleX(${
-                Number.parseInt(percent) / 100
-            })`;
+            currentPercent = Number.parseInt(percent) / 100;
+            percentEl.style.transform = `scaleX(${currentPercent})`;
         },
     });
 
@@ -35,6 +36,9 @@ export const initNavigationScoller = ({ root }) => {
     navigationStore.watch('refreshScroller', () => navScroller.refresh());
     navigationStore.watch('closeNavigation', () => {
         percentEl.style.transform = `scaleX(0)`;
+    });
+    navigationStore.watch('openNavigation', () => {
+        percentEl.style.transform = `scaleX(${currentPercent})`;
     });
     navigationStore.watch('goToTop', () => navScroller.move(0));
 };
