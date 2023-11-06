@@ -3,6 +3,8 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .spacer {
+    position: relative;
+
     &--small {
         height: rem(20);
     }
@@ -13,5 +15,17 @@
 
     &--big {
         height: rem(100);
+    }
+
+    &--line {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba($white, 0.1);
+        }
     }
 }
