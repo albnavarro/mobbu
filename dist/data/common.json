@@ -20,104 +20,6 @@
     },
     "navigation": [
         {
-            "label": "mobCore",
-            "section": true
-        },
-        {
-            "label": "Store",
-            "url": "#"
-        },
-        {
-            "label": "Event",
-            "url": "#"
-        },
-        {
-            "label": "mobJs",
-            "section": true
-        },
-        {
-            "label": "Overview",
-            "url": "mobJs_overview"
-        },
-        {
-            "label": "Component",
-            "url": "#"
-        },
-        {
-            "label": "Props/State",
-            "url": "#"
-        },
-        {
-            "label": "Refs",
-            "url": "#"
-        },
-        {
-            "label": "Event",
-            "url": "#"
-        },
-        {
-            "label": "Slot",
-            "url": "#"
-        },
-        {
-            "label": "Routing",
-            "url": "#"
-        },
-        {
-            "label": "Listing ( ...forEach )",
-            "url": "#"
-        },
-        {
-            "label": "examples:",
-            "url": "#",
-            "children": [
-                {
-                    "label": "Listing",
-                    "url": "dynamic_list"
-                }
-            ]
-        },
-        {
-            "label": "mobMotion",
-            "section": true
-        },
-        {
-            "label": "overview",
-            "url": "mobJs_overview"
-        },
-        {
-            "label": "Tween/Spring/Lerp",
-            "url": "#"
-        },
-        {
-            "label": "Async timeline",
-            "url": "#"
-        },
-        {
-            "label": "Sequencer",
-            "url": "#"
-        },
-        {
-            "label": "Stagger",
-            "url": "#"
-        },
-        {
-            "label": "Create stagger",
-            "url": "#"
-        },
-        {
-            "label": "Sync timeline",
-            "url": "#"
-        },
-        {
-            "label": "ScrollTrigger",
-            "url": "#"
-        },
-        {
-            "label": "Parallax",
-            "url": "#"
-        },
-        {
             "label": "Animations:",
             "section": true
         },
@@ -210,6 +112,116 @@
                     "url": "horizontalScrollerV2"
                 }
             ]
+        },
+        {
+            "label": "mobCore",
+            "section": true
+        },
+        {
+            "label": "Store",
+            "url": "#"
+        },
+        {
+            "label": "Event",
+            "url": "#"
+        },
+        {
+            "label": "mobJs",
+            "section": true
+        },
+        {
+            "label": "Overview",
+            "url": "mobJs_overview"
+        },
+        {
+            "label": "Initialization",
+            "url": "#"
+        },
+        {
+            "label": "Component lifecycle",
+            "url": "#"
+        },
+        {
+            "label": "Routing",
+            "url": "#"
+        },
+        {
+            "label": "Props/State",
+            "url": "#"
+        },
+        {
+            "label": "Props inheritance",
+            "url": "#"
+        },
+        {
+            "label": "Events",
+            "url": "#"
+        },
+        {
+            "label": "Listing ( ...dynamic map )",
+            "url": "#"
+        },
+        {
+            "label": "Refs",
+            "url": "#"
+        },
+        {
+            "label": "Slot",
+            "url": "#"
+        },
+        {
+            "label": "Utils",
+            "url": "#"
+        },
+        {
+            "label": "examples:",
+            "url": "#",
+            "children": [
+                {
+                    "label": "Listing",
+                    "url": "dynamic_list"
+                }
+            ]
+        },
+        {
+            "label": "mobMotion",
+            "section": true
+        },
+        {
+            "label": "overview",
+            "url": "mobJs_overview"
+        },
+        {
+            "label": "Tween/Spring/Lerp",
+            "url": "#"
+        },
+        {
+            "label": "Async timeline",
+            "url": "#"
+        },
+        {
+            "label": "Sequencer",
+            "url": "#"
+        },
+        {
+            "label": "Stagger",
+            "url": "#"
+        },
+        {
+            "label": "Create stagger",
+            "url": "#"
+        },
+        {
+            "label": "Sync timeline",
+            "url": "#"
+        },
+        {
+            "label": "ScrollTrigger",
+            "url": "#"
+        },
+        {
+            "label": "Parallax",
+            "url": "#"
         }
     ]
 }
