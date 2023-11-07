@@ -3,16 +3,6 @@
         "links": [
             {
                 "svg": "github",
-                "url": "#home",
-                "internal": true
-            },
-            {
-                "svg": "github",
-                "url": "#",
-                "internal": false
-            },
-            {
-                "svg": "github",
                 "url": "https://github.com/albnavarro/mobbu",
                 "internal": false
             }

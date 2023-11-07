@@ -1,4 +1,4 @@
-import githubIcon from '../../../../svg/github.svg';
+import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
@@ -47,6 +47,8 @@ function additems() {
 export const Headernav = ({ html, onMount }) => {
     onMount(({ refs }) => {
         const { button } = refs;
+        if (!button) return;
+
         const buttons = button?.length ?? [button];
 
         [...buttons].forEach((button) => {
