@@ -6,6 +6,13 @@
                 "tag": "h1"
             },
             "content": "Refs"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "refs => genric html element,<br/> instanceName => component"
         }
     ]
 }
