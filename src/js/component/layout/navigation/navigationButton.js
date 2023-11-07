@@ -1,10 +1,10 @@
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({ getState, html, onMount, watch, id }) => {
+export const NavigationButton = ({ getState, html, onMount, watch }) => {
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
 
@@ -19,8 +19,6 @@ export const NavigationButton = ({ getState, html, onMount, watch, id }) => {
 
             navigationStore.set('navigationIsOpen', false);
             navigationStore.emit('closeNavigation');
-
-            navigationStore.set('currentButtonId', id);
         });
 
         /**
@@ -33,8 +31,8 @@ export const NavigationButton = ({ getState, html, onMount, watch, id }) => {
         /**
          * Is a link button.
          */
-        navigationStore.watch('currentButtonId', (current) => {
-            element.classList.toggle('current', current === id);
+        mainStore.watch('activeRoute', (current) => {
+            element.classList.toggle('current', current === url);
         });
 
         return () => {};
