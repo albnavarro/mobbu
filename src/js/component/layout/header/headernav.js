@@ -28,7 +28,11 @@ function additems() {
                           </button>
                       `
                     : html`
-                          <a href="${url}" class="l-header__sidenav__link">
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
                               ${icon[svg]}
                           </a>
                       `}
