@@ -23,7 +23,7 @@ export const initNavigationScoller = ({ root }) => {
             if (!navigationIsOpen) return;
 
             currentPercent = Number.parseInt(percent) / 100;
-            percentEl.style.transform = `scaleX(${currentPercent})`;
+            percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
         },
     });
 
@@ -35,10 +35,10 @@ export const initNavigationScoller = ({ root }) => {
      */
     navigationStore.watch('refreshScroller', () => navScroller.refresh());
     navigationStore.watch('closeNavigation', () => {
-        percentEl.style.transform = `scaleX(0)`;
+        percentEl.style.transform = `translateZ(0) scaleX(0)`;
     });
     navigationStore.watch('openNavigation', () => {
-        percentEl.style.transform = `scaleX(${currentPercent})`;
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
     });
     navigationStore.watch('goToTop', () => navScroller.move(0));
 };
