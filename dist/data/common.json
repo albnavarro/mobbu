@@ -2,17 +2,17 @@
     "header": {
         "links": [
             {
-                "label": "home",
+                "svg": "github",
                 "url": "#home",
                 "internal": true
             },
             {
-                "label": "info",
+                "svg": "github",
                 "url": "#",
                 "internal": false
             },
             {
-                "label": "Github",
+                "svg": "github",
                 "url": "#",
                 "internal": false
             }

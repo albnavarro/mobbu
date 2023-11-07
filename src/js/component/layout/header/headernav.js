@@ -1,6 +1,11 @@
+import githubIcon from '../../../../svg/github.svg';
 import { getCommonData } from '../../../data';
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
+
+const icon = {
+    github: githubIcon,
+};
 
 function additems() {
     const { header } = getCommonData();
@@ -8,7 +13,7 @@ function additems() {
 
     return links
         .map((link) => {
-            const { label, url, internal } = link;
+            const { svg, url, internal } = link;
 
             return html`<li class="l-header__sidenav__item">
                 ${internal
@@ -19,12 +24,12 @@ function additems() {
                               class="l-header__sidenav__link"
                               ref="button"
                           >
-                              ${label}
+                              ${icon[svg]}
                           </button>
                       `
                     : html`
                           <a href="${url}" class="l-header__sidenav__link">
-                              ${label}
+                              ${icon[svg]}
                           </a>
                       `}
             </li>`;
