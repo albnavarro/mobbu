@@ -172,7 +172,8 @@ const executeConversion = ({ componentParsed, content }) => {
         const unNamedSlot = queryUnNamedSlot(newElement);
 
         if (unNamedSlot) {
-            unNamedSlot.replaceWith(prevContent);
+            unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+            unNamedSlot.remove();
         } else {
             newElement.insertAdjacentHTML('afterbegin', prevContent);
         }

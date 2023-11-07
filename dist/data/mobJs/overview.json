@@ -33,7 +33,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "medium"
+            "content": "<a href='#mobJs_lifecycle'>link test</test>"
         },
         {
             "component": "mob-paragraph",
