@@ -39,6 +39,10 @@
         border: 0;
         background: transparent;
 
+        &:hover {
+            background: $grey;
+        }
+
         &::before {
             content: '';
             position: absolute;
@@ -48,6 +52,7 @@
             width: rem(20);
             background: $green;
             transform: scaleX(0);
+            transform-origin: right;
             transition: transform 0.55s;
         }
 
@@ -81,7 +86,7 @@
         &--submenu {
             padding-left: rem(30);
             position: relative;
-            background: $grey;
+            background: $grey-light;
             border-bottom: 1px rgba($white, 0.3) solid;
         }
     }
