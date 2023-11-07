@@ -1,6 +1,9 @@
+import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
 import { HorizontalScroller } from '../../../../mobMotion/plugin';
+
+let sideWidth = 0;
 
 const createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
@@ -14,7 +17,9 @@ const createPins = ({ indicators, setState }) => {
                 position: 'right',
                 value: () => {
                     return (
-                        window.innerWidth + 20 - outerWidth(button) * (i + 1)
+                        window.innerWidth +
+                        sideWidth -
+                        outerWidth(button) * (i + 1)
                     );
                 },
             },
@@ -95,6 +100,13 @@ export const horizontalScrollerAnimation = ({
     const pins = createPins({ indicators, setState });
     const titlesParallax = createParallax({ titles });
 
+    const side = document.querySelector('.l-navcontainer__side');
+    sideWidth = outerWidth(side) / 2;
+
+    const unsubscribeResize = mobCore.useResize(() => {
+        sideWidth = outerWidth(side) / 2;
+    });
+
     const horizontalCustom = new HorizontalScroller({
         root: '.js-root',
         container: '.js-container',
@@ -137,7 +149,10 @@ export const horizontalScrollerAnimation = ({
     horizontalCustom.init();
 
     return {
-        destroy: () => horizontalCustom.destroy(),
+        destroy: () => {
+            horizontalCustom.destroy();
+            unsubscribeResize();
+        },
         refresh: () => horizontalCustom.refresh(),
     };
 };

@@ -167,6 +167,9 @@ export const HorizontalScroller = ({
                         pinIsVisible: !animatePin,
                         staticProps,
                     })}
+                    <section
+                        class="l-h-scroller__fakeColumn js-column"
+                    ></section>
                 </div>
                 <div class="l-h-scroller__trigger js-trigger"></div>
             </div>
