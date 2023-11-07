@@ -3,13 +3,14 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-btn-debug {
-    background: $green;
-    color: $dark-green;
     border: 0;
     margin: 0;
     position: absolute;
     right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 0 rem(20);
+    bottom: 100%;
+    background: $green;
+    width: var(--header-height);
+    height: var(--header-height);
+    padding: rem(5);
+    color: $white;
 }
