@@ -138,6 +138,10 @@
             "url": "mobJs_initialization"
         },
         {
+            "label": "Debug",
+            "url": "mobJs_debug"
+        },
+        {
             "label": "Component lifecycle",
             "url": "mobJs_lifecycle"
         },

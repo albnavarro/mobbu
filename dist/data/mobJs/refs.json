@@ -12,7 +12,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "refs => genric html element,<br/> instanceName => component"
+            "content": "refs => generic html element,<br/> instanceName => component"
         }
     ]
 }
