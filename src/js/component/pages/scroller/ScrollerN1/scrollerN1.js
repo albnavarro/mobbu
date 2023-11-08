@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { detectSafari } from '../../../../utils/utils';
 import { scrollerN1Animation } from './animation/animation';
 
 /**
@@ -21,6 +22,8 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
 
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
+
+    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 
     return html`
         <div>
@@ -49,7 +52,7 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
                     })}
                 >
                 </code-button>
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap ${canvasStyle}">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

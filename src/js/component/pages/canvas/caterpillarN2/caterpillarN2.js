@@ -1,5 +1,6 @@
 import { getLegendData } from '../../../../data';
 import { html } from '../../../../mobjs';
+import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -67,6 +68,8 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
+    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
+
     return html`
         <div>
             <code-button
@@ -115,7 +118,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                         </div>
                     </li>
                 </ul>
-                <div class="c-canvas__wrap c-canvas__wrap">
+                <div class="c-canvas__wrap ${canvasStyle}">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
