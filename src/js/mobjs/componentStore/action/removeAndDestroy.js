@@ -111,8 +111,9 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * Remove all inner node before remove element.
      * here we remove event handlers.
      * Prevent memory leaks.
+     * Should not necessary on modern browser.
      */
-    removeAllChildNodes(element);
+    // removeAllChildNodes(element);
 
     /**
      * Remove component from dom
