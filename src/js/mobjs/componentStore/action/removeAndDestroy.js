@@ -6,6 +6,20 @@ import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
 /**
+ * @param {HTMLElement} parent
+ * @return void
+ *
+ *
+ * @description
+ * Remove component to store and destroy it.
+ */
+const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+        parent.firstChild.remove();
+    }
+};
+
+/**
  * @param {Object} obj
  * @param {string} obj.id
  * @return void
@@ -92,6 +106,13 @@ export const removeAndDestroyById = ({ id = '' }) => {
     }
 
     componentMap.delete(id);
+
+    /**
+     * Remove all inner node before remove element.
+     * here we remove event handlers.
+     * Prevent memory leaks.
+     */
+    removeAllChildNodes(element);
 
     /**
      * Remove component from dom
