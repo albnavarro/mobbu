@@ -13,11 +13,11 @@ import { removeChildFromChildrenArray } from '../utils';
  * @description
  * Remove component to store and destroy it.
  */
-const removeAllChildNodes = (parent) => {
-    while (parent.firstChild) {
-        parent.firstChild.remove();
-    }
-};
+// const removeAllChildNodes = (parent) => {
+//     while (parent.firstChild) {
+//         parent.firstChild.remove();
+//     }
+// };
 
 /**
  * @param {Object} obj
