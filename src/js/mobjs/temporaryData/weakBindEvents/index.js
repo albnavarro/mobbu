@@ -158,12 +158,12 @@ export const applyDelegationBindEvent = (root) => {
              * Replace target with new target
              * ( parent of original target if event.tatget is inside )
              */
-            const newEvent = { ...event, target: targetParsed };
+            Object.defineProperty(event, 'target', { value: targetParsed });
 
             /**
              * Fire callback.
              */
-            callback(newEvent, currentRepeaterState);
+            callback(event, currentRepeaterState);
         });
     });
 };

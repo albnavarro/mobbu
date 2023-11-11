@@ -161,7 +161,7 @@ export const DynamicList = async ({
                 <div class="dynamic-list__content__bottom">
                     <h4 class="dynamic-list__title">Card outer list scope:</h4>
                     <dynamic-list-card
-                        ${bindEvents([
+                        ${delegateEvents([
                             {
                                 click: (e) => console.log(e, 'click'),
                             },

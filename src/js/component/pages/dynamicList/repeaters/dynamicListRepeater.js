@@ -4,7 +4,6 @@ function getRepeaterCard({
     sync,
     staticProps,
     bindProps,
-    bindEvents,
     listId,
     delegateEvents,
 }) {
@@ -67,7 +66,6 @@ export const DynamicListRepeater = ({
     repeat,
     staticProps,
     bindProps,
-    bindEvents,
     delegateEvents,
 }) => {
     const { listId, key, clean, label } = getState();
@@ -96,7 +94,6 @@ export const DynamicListRepeater = ({
                             sync,
                             staticProps,
                             bindProps,
-                            bindEvents,
                             delegateEvents,
                             listId,
                         });
