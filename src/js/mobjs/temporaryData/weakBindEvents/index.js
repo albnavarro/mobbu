@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
 import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
@@ -7,9 +9,24 @@ import {
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
 
+/**
+ * @type {Map<String,Array<Object<string,Function>>>}
+ */
 export const weakBindEventMap = new Map();
+
+/**
+ * @type {WeakMap<Object,Array<String,function>|Object<String,function>>}
+ */
 export const eventDelegationMap = new WeakMap();
+
+/**
+ * @type {Set<string>}
+ */
 const eventToAdd = new Set();
+
+/**
+ * @type {Set<string>}
+ */
 const eventRegistered = new Set();
 
 /**
@@ -47,18 +64,19 @@ export const applyDelegationBindEvent = (root) => {
      * Get parent node of root ( root of parseComponentRecursive ).
      */
     const parent = root.parentNode;
-    const elements = parent.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`);
+    const elements =
+        parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
 
     /**
      * Create event object associated to DOM element.
      */
     [...elements].forEach((element) => {
-        const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS);
+        const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? '';
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
         const data = weakBindEventMap.get(id);
         weakBindEventMap.delete(id);
 
-        const dataParsed = data.flatMap((item) => {
+        const dataParsed = data?.flatMap((item) => {
             return Object.entries(item).map((current) => {
                 const [event, callback] = current;
                 eventToAdd.add(event);
@@ -78,7 +96,9 @@ export const applyDelegationBindEvent = (root) => {
 
         document.addEventListener(eventKey, (event) => {
             const target = event.target;
+
             const item = eventDelegationMap.get(target);
+            // @ts-ignore
             if (!item || !document.contains(target)) return;
 
             const currentEvent = item.find(({ event }) => event === eventKey);
@@ -89,6 +109,7 @@ export const applyDelegationBindEvent = (root) => {
             /**
              * Get current repeater state if target is a component.
              */
+            // @ts-ignore
             const componentId = getIdByElement({ element: target });
             const currentRepeaterState = componentId
                 ? getCurrentListValueById({
