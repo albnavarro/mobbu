@@ -65,7 +65,6 @@ export const HorizontalScroller = ({
     watch,
     staticProps,
     bindProps,
-    bindEvents,
     delegateEvents,
 }) => {
     const { animatePin } = getState();
@@ -163,7 +162,6 @@ export const HorizontalScroller = ({
                 setState,
                 bindProps,
                 staticProps,
-                bindEvents,
                 delegateEvents,
             })}
         </ul>
