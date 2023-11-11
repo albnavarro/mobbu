@@ -9,7 +9,7 @@ export const Paragraph = ({ html, getState, delegateBindEvents }) => {
             type="button"
             ${delegateBindEvents({
                 click: () => {
-                    console.log('weak 1');
+                    console.log('weak 1 click');
                 },
             })}
         >
@@ -20,10 +20,10 @@ export const Paragraph = ({ html, getState, delegateBindEvents }) => {
             ${delegateBindEvents([
                 {
                     click: () => {
-                        console.log('weak 2');
+                        console.log('weak 2 click');
                     },
-                    mouseenter: () => {
-                        console.log('weak 2');
+                    mousedown: () => {
+                        console.log('weak 2 down');
                     },
                 },
             ])}

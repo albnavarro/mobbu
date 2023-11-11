@@ -8,7 +8,7 @@ import {
 export const weakBindEventMap = new Map();
 export const eventDelegationMap = new WeakMap();
 const eventToAdd = new Set();
-// const eventRegistered = new Set();
+const eventRegistered = new Set();
 
 /**
  * @param {Array<String,function>|Object<String,function>} [ eventsData ]
@@ -59,6 +59,22 @@ export const applyDelegationBindEvent = (root) => {
         });
 
         eventDelegationMap.set(element, dataParsed);
-        console.log(eventToAdd);
     });
+
+    for (const eventKey of eventToAdd) {
+        if (eventRegistered.has(eventKey)) break;
+        eventRegistered.add(eventKey);
+
+        document.addEventListener(eventKey, (event) => {
+            const target = event.target;
+            const item = eventDelegationMap.get(target);
+            if (!item) return;
+
+            const currentEvent = item.find(({ event }) => event === eventKey);
+            if (!currentEvent) return;
+
+            const { callback } = currentEvent;
+            callback(event);
+        });
+    }
 };
