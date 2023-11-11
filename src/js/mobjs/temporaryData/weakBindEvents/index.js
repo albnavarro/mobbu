@@ -77,7 +77,7 @@ export const applyDelegationBindEvent = (root) => {
         document.addEventListener(eventKey, (event) => {
             const target = event.target;
             const item = eventDelegationMap.get(target);
-            if (!item) return;
+            if (!item || !document.contains(target)) return;
 
             const currentEvent = item.find(({ event }) => event === eventKey);
             if (!currentEvent) return;
