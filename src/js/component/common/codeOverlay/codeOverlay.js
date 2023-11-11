@@ -12,7 +12,7 @@ const copyToClipboard = ({ getState }) => {
     navigator.clipboard.writeText(rawContent);
 };
 
-function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
+function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
     return html`
         <code-overlay-button
             ${sync}
@@ -27,7 +27,7 @@ function getRepeaterCard({ sync, bindProps, bindEvents, setState }) {
                     };
                 },
             })}
-            ${bindEvents({
+            ${delegateEvents({
                 click: (_e, { current }) => {
                     const { label } = current;
                     setState('activeContent', label);
@@ -99,7 +99,6 @@ export const CodeOverlay = ({
     repeat,
     html,
     bindProps,
-    bindEvents,
     delegateEvents,
 }) => {
     onMount(({ element, refs }) => {
@@ -191,7 +190,7 @@ export const CodeOverlay = ({
                             return getRepeaterCard({
                                 sync,
                                 bindProps,
-                                bindEvents,
+                                delegateEvents,
                                 setState,
                             });
                         },
