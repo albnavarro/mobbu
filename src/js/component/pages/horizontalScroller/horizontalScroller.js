@@ -21,7 +21,14 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .join('');
 };
 
-const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
+const getNav = ({
+    numOfCol,
+    setState,
+    bindProps,
+    bindEvents,
+    staticProps,
+    delegateEvents,
+}) => {
     return [...new Array(numOfCol).keys()]
         .map((_col, i) => {
             return html`
@@ -29,7 +36,7 @@ const getNav = ({ numOfCol, setState, bindProps, bindEvents, staticProps }) => {
                     ${staticProps({
                         id: i,
                     })}
-                    ${bindEvents({
+                    ${delegateEvents({
                         click: () => setState('currentId', i),
                     })}
                     ${bindProps({
@@ -60,6 +67,7 @@ export const HorizontalScroller = ({
     staticProps,
     bindProps,
     bindEvents,
+    delegateEvents,
 }) => {
     const { animatePin } = getState();
 
@@ -157,6 +165,7 @@ export const HorizontalScroller = ({
                 bindProps,
                 staticProps,
                 bindEvents,
+                delegateEvents,
             })}
         </ul>
         <div class="l-h-scroller__root js-root">

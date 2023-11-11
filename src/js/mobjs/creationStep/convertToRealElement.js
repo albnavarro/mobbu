@@ -184,7 +184,7 @@ const executeConversion = ({ componentParsed, content }) => {
         removeOrphanSlot({ element: newElement });
 
         /**
-         * transfer delegateEventId if exist in palceHolder element.
+         * transfer delegateEventId if exist in placeholder element.
          */
         if (delegateEventId)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
