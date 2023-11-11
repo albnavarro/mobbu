@@ -20,14 +20,14 @@ export const weakBindEventMap = new Map();
 export const eventDelegationMap = new WeakMap();
 
 /**
- * @type {Set<string>}
+ * @type {Array<string>}
  */
-const eventToAdd = new Set();
+const eventToAdd = [];
 
 /**
- * @type {Set<string>}
+ * @type {Array<string>}
  */
-const eventRegistered = new Set();
+const eventRegistered = [];
 
 /**
  * @param {Array<String,function>|Object<String,function>} [ eventsData ]
@@ -112,7 +112,7 @@ export const applyDelegationBindEvent = (root) => {
         const dataParsed = data?.flatMap((item) => {
             return Object.entries(item).map((current) => {
                 const [event, callback] = current;
-                eventToAdd.add(event);
+                if (!eventToAdd.includes(event)) eventToAdd.push(event);
                 return { event, callback };
             });
         });
@@ -123,9 +123,9 @@ export const applyDelegationBindEvent = (root) => {
     /**
      * Cycle all event and add a click if needed.
      */
-    for (const eventKey of eventToAdd) {
-        if (eventRegistered.has(eventKey)) break;
-        eventRegistered.add(eventKey);
+    eventToAdd.forEach((eventKey) => {
+        if (eventRegistered.includes(eventKey)) return;
+        eventRegistered.push(eventKey);
 
         document.addEventListener(eventKey, (event) => {
             const target = event.target;
@@ -165,5 +165,5 @@ export const applyDelegationBindEvent = (root) => {
              */
             callback(newEvent, currentRepeaterState);
         });
-    }
+    });
 };

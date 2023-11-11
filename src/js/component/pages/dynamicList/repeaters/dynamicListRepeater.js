@@ -1,6 +1,13 @@
 import { html } from '../../../../mobjs';
 
-function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
+function getRepeaterCard({
+    sync,
+    staticProps,
+    bindProps,
+    bindEvents,
+    listId,
+    delegateEvents,
+}) {
     return html`
         <dynamic-list-card
             ${staticProps({
@@ -16,7 +23,7 @@ function getRepeaterCard({ sync, staticProps, bindProps, bindEvents, listId }) {
                     };
                 },
             })}
-            ${bindEvents({
+            ${delegateEvents({
                 mousedown: (_e, { current, index }) =>
                     console.log(current, index),
             })}
@@ -61,6 +68,7 @@ export const DynamicListRepeater = ({
     staticProps,
     bindProps,
     bindEvents,
+    delegateEvents,
 }) => {
     const { listId, key, clean, label } = getState();
     const keyParsed = key.length > 0 ? key : null;
@@ -89,6 +97,7 @@ export const DynamicListRepeater = ({
                             staticProps,
                             bindProps,
                             bindEvents,
+                            delegateEvents,
                             listId,
                         });
                     },
