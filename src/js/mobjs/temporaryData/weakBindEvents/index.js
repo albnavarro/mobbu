@@ -52,6 +52,39 @@ export const setDelegateBindEvent = (eventsData = []) => {
 };
 
 /**
+ * @param {EventTarget|null} target
+ * @returns {{ target:EventTarget|null,data:Array<String,function>|Object<String,function> }}
+ */
+const findParentElementInMap = (target) => {
+    // @ts-ignore
+    let parent = target?.parentNode;
+
+    while (parent) {
+        if (eventDelegationMap.has(parent))
+            return { target: parent, data: eventDelegationMap.get(parent) };
+        parent = parent?.parentNode;
+    }
+
+    return { target: null, data: null };
+};
+
+/**
+ * @param {EventTarget|null} target
+ * @returns {{ target:EventTarget|null,data:Array<String,function>|Object<String,function> }}
+ */
+const getItemFromTarget = (target) => {
+    const data = eventDelegationMap.get(target);
+
+    if (data) return { target, data: eventDelegationMap.get(target) };
+
+    /**
+     * Wall up DOM tree searcing first element in map.
+     * If event.target is inside element where eventi is applied.
+     **/
+    return findParentElementInMap(target);
+};
+
+/**
  * @param {HTMLElement} root
  * @return { void }
  *
@@ -97,20 +130,24 @@ export const applyDelegationBindEvent = (root) => {
         document.addEventListener(eventKey, (event) => {
             const target = event.target;
 
-            const item = eventDelegationMap.get(target);
-            // @ts-ignore
-            if (!item || !document.contains(target)) return;
+            const { target: targetParsed, data } = getItemFromTarget(target);
 
-            const currentEvent = item.find(({ event }) => event === eventKey);
+            // @ts-ignore
+            if (!data || !document.contains(targetParsed)) return;
+
+            const currentEvent = data.find(({ event }) => event === eventKey);
             if (!currentEvent) return;
 
+            /**
+             * Get callback.
+             */
             const { callback } = currentEvent;
 
             /**
              * Get current repeater state if target is a component.
              */
             // @ts-ignore
-            const componentId = getIdByElement({ element: target });
+            const componentId = getIdByElement({ element: targetParsed });
             const currentRepeaterState = componentId
                 ? getCurrentListValueById({
                       id: componentId,
@@ -118,9 +155,15 @@ export const applyDelegationBindEvent = (root) => {
                 : DEFAULT_CURRENT_REPEATER_STATE;
 
             /**
+             * Replace target with new target
+             * ( parent of original target if event.tatget is inside )
+             */
+            const newEvent = { ...event, target: targetParsed };
+
+            /**
              * Fire callback.
              */
-            callback(event, currentRepeaterState);
+            callback(newEvent, currentRepeaterState);
         });
     }
 };
