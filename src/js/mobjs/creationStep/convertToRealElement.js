@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { ATTR_IS_COMPONENT, UNSET } from '../constant';
+import { ATTR_IS_COMPONENT, ATTR_WEAK_BIND_EVENTS, UNSET } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
 import { queryGenericSlot } from '../query/queryGenericSlot';
@@ -161,6 +161,8 @@ const executeConversion = ({ componentParsed, content }) => {
     if (newElement) {
         // @ts-ignore
         const id = componentParsed.getId();
+        // @ts-ignore
+        const delegateEventId = componentParsed.getDelegateEventId();
 
         /**
          * @description
@@ -180,6 +182,12 @@ const executeConversion = ({ componentParsed, content }) => {
 
         addToSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
+
+        /**
+         * transfer delegateEventId if exist in palceHolder element.
+         */
+        if (delegateEventId)
+            newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
 
         /**
          * Add data-mobjs="id" in debug mode.

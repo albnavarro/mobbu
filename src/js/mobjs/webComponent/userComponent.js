@@ -8,6 +8,7 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
+    ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
@@ -161,6 +162,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #isChildOfRepeatId;
 
+                /**
+                 * @type {String}
+                 */
+                #delegateEventId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -216,6 +222,10 @@ export const defineUserComponent = (componentList) => {
                     this.#parentId = host.getAttribute(ATTR_PARENT_ID) ?? '';
                     this.#isChildOfRepeatId =
                         host.getAttribute(ATTR_CHILD_REPEATID);
+
+                    this.#delegateEventId = host.getAttribute(
+                        ATTR_WEAK_BIND_EVENTS
+                    );
 
                     /**
                      * Add component type to repeaterTargetComponentMap
@@ -328,6 +338,10 @@ export const defineUserComponent = (componentList) => {
 
                 getSlotPosition() {
                     return this.#slotPosition;
+                }
+
+                getDelegateEventId() {
+                    return this.#delegateEventId;
                 }
 
                 #getData() {

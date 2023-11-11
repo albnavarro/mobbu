@@ -1,13 +1,18 @@
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-const getComponents = ({ data, staticProps }) => {
+const getComponents = ({ data, staticProps, delegateEvents }) => {
     return data
         .map((item) => {
             const { component, props, content } = item;
 
             return html`
-                <${component} ${staticProps(props)}>
+                <${component} ${staticProps(props)}
+                ${delegateEvents({
+                    click: () => {
+                        console.log('pippo');
+                    },
+                })}>
                     ${content ?? ''}
                 </${component}>
             `;
@@ -18,7 +23,12 @@ const getComponents = ({ data, staticProps }) => {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const HtmlContent = async ({ html, getState, staticProps }) => {
+export const HtmlContent = async ({
+    html,
+    getState,
+    staticProps,
+    delegateEvents,
+}) => {
     const { source } = getState();
 
     const { success, data } = await loadJsonContent({ source });
@@ -26,7 +36,7 @@ export const HtmlContent = async ({ html, getState, staticProps }) => {
 
     return html`
         <section class="html-content">
-            ${getComponents({ data: data.data, staticProps })}
+            ${getComponents({ data: data.data, staticProps, delegateEvents })}
         </section>
     `;
 };

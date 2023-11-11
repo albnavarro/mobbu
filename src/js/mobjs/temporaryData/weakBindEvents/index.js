@@ -1,9 +1,6 @@
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
-import {
-    ATTR_WEAK_BIND_EVENTS,
-    ATTR_WEAK_BIND_EVENTS_PARTIAL,
-} from '../../constant';
+import { ATTR_WEAK_BIND_EVENTS } from '../../constant';
 
 export const weakBindEventMap = new Map();
 export const eventDelegationMap = new WeakMap();
@@ -51,7 +48,7 @@ export const applyDelegationBindEvent = (root) => {
      * Create event object associated to DOM element.
      */
     [...elements].forEach((element) => {
-        const id = element.dataset[ATTR_WEAK_BIND_EVENTS_PARTIAL];
+        const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS);
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
         const data = weakBindEventMap.get(id);
         weakBindEventMap.delete(id);
