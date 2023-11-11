@@ -7,7 +7,7 @@ import {
 
 export const weakBindEventMap = new Map();
 export const eventDelegationMap = new WeakMap();
-// const eventToAdd = new Set();
+const eventToAdd = new Set();
 // const eventRegistered = new Set();
 
 /**
@@ -46,8 +46,19 @@ export const applyDelegationBindEvent = (root) => {
 
     [...elements].forEach((element) => {
         const id = element.dataset[ATTR_WEAK_BIND_EVENTS_PARTIAL];
+        element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
         const data = weakBindEventMap.get(id);
         weakBindEventMap.delete(id);
-        console.log(data);
+
+        const dataParsed = data.flatMap((item) => {
+            return Object.entries(item).map((current) => {
+                const [event, callback] = current;
+                eventToAdd.add(event);
+                return { event, callback };
+            });
+        });
+
+        eventDelegationMap.set(element, dataParsed);
+        console.log(eventToAdd);
     });
 };

@@ -17,11 +17,16 @@ export const Paragraph = ({ html, getState, delegateBindEvents }) => {
         </button>
         <button
             type="button"
-            ${delegateBindEvents({
-                click: () => {
-                    console.log('weak 2');
+            ${delegateBindEvents([
+                {
+                    click: () => {
+                        console.log('weak 2');
+                    },
+                    mouseenter: () => {
+                        console.log('weak 2');
+                    },
                 },
-            })}
+            ])}
         >
             | test weak2 |
         </button>
