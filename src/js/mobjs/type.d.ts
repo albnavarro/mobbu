@@ -345,7 +345,7 @@ export interface componentType {
             | [{ [key: string]: (arg0: Object) => {} }]
     ): void;
 
-    delegateBindEvents(
+    delegateEvents(
         arg0:
             | { [key: string]: (arg0: Object) => {} }
             | [{ [key: string]: (arg0: Object) => {} }]

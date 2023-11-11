@@ -177,7 +177,7 @@ export const registerComponent = ({
         bindEvents: (eventsData) => {
             return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
         },
-        delegateBindEvents: (eventsData) => {
+        delegateEvents: (eventsData) => {
             return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
                 eventsData
             )}"`;

@@ -1,13 +1,13 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const Paragraph = ({ html, getState, delegateBindEvents }) => {
+export const Paragraph = ({ html, getState, delegateEvents }) => {
     const { style } = getState();
 
     return html`<p class="p p--${style}">
         <button
             type="button"
-            ${delegateBindEvents({
+            ${delegateEvents({
                 click: () => {
                     console.log('weak 1 click');
                 },
@@ -17,7 +17,7 @@ export const Paragraph = ({ html, getState, delegateBindEvents }) => {
         </button>
         <button
             type="button"
-            ${delegateBindEvents([
+            ${delegateEvents([
                 {
                     click: () => {
                         console.log('weak 2 click');

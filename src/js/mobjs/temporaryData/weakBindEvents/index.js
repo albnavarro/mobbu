@@ -41,9 +41,15 @@ export const setDelegateBindEvent = (eventsData = []) => {
  *
  */
 export const applyDelegationBindEvent = (root) => {
+    /**
+     * Get parent node of root ( root of parseComponentRecursive ).
+     */
     const parent = root.parentNode;
     const elements = parent.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`);
 
+    /**
+     * Create event object associated to DOM element.
+     */
     [...elements].forEach((element) => {
         const id = element.dataset[ATTR_WEAK_BIND_EVENTS_PARTIAL];
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
@@ -61,6 +67,9 @@ export const applyDelegationBindEvent = (root) => {
         eventDelegationMap.set(element, dataParsed);
     });
 
+    /**
+     * Cycle all event and add a click if needed.
+     */
     for (const eventKey of eventToAdd) {
         if (eventRegistered.has(eventKey)) break;
         eventRegistered.add(eventKey);
