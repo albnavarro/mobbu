@@ -105,7 +105,6 @@ export const DynamicList = async ({
     onMount,
     staticProps,
     bindProps,
-    bindEvents,
     delegateEvents,
     watchSync,
 }) => {
