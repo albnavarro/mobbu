@@ -16,6 +16,7 @@ import { registerComponent } from '../creationStep/registerComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import { addSelfIdToFutureComponent } from '../componentStore/action/parent';
 import { getRefs } from '../temporaryData/refs';
+import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 
 /**
  * @param {Object} obj
@@ -82,6 +83,8 @@ export const parseComponentsRecursive = async ({
             fireDynamic();
             fireFirstRepeat();
         }
+
+        applyDelegationBindEvent(element);
 
         return;
     }

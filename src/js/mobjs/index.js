@@ -1,5 +1,9 @@
 // @ts-check
 
+export {
+    eventDelegationMap,
+    weakBindEventMap,
+} from './temporaryData/weakBindEvents';
 export { getPropsFromParent } from './temporaryData/staticProps';
 export { componentMap } from './componentStore/store';
 export { renderHtml as html } from './creationStep/utils';

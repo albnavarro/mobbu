@@ -53,6 +53,16 @@ export const ATTR_BIND_EVENTS = 'bindevents';
 /**
  * @type {string};
  */
+export const ATTR_WEAK_BIND_EVENTS = 'data-weakbindevents';
+
+/**
+ * @type {string};
+ */
+export const ATTR_WEAK_BIND_EVENTS_PARTIAL = 'weakbindevents';
+
+/**
+ * @type {string};
+ */
 export const ATTR_PARENT_ID = 'parentid';
 
 /**

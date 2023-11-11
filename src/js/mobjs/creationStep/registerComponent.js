@@ -24,6 +24,7 @@ import {
     ATTR_DYNAMIC,
     ATTR_PROPS,
     ATTR_REPEATID,
+    ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import {
@@ -33,6 +34,7 @@ import {
 import { addOnMoutCallback } from '../temporaryData/onMount';
 import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
+import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
 import { instanceName as setInstanceName } from '../utils';
 import { getComponentData } from './getComponentData';
 import { renderHtml } from './utils';
@@ -174,6 +176,11 @@ export const registerComponent = ({
         onMount: (cb) => addOnMoutCallback({ id, cb }),
         bindEvents: (eventsData) => {
             return `${ATTR_BIND_EVENTS}="${setBindEvents(eventsData)}"`;
+        },
+        delegateBindEvents: (eventsData) => {
+            return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
+                eventsData
+            )}"`;
         },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.

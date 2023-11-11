@@ -1,4 +1,9 @@
-import { componentMap, mainStore } from '../../../mobjs';
+import {
+    componentMap,
+    eventDelegationMap,
+    mainStore,
+    weakBindEventMap,
+} from '../../../mobjs';
 import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
 import { currentListValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
 import { dynamicPropsMap } from '../../../mobjs/temporaryData/dynamicProps';
@@ -24,6 +29,8 @@ export const DebugButton = ({ onMount, html }) => {
             console.log('staticPropsMap', staticPropsMap);
             console.log('dynamicPropsMap', dynamicPropsMap);
             console.log('repeaterTargetComponent', repeaterTargetComponentMap);
+            console.log('eventDelegationMap', eventDelegationMap);
+            console.log('weakEventMap', weakBindEventMap);
         });
 
         return () => {};
