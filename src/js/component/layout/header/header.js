@@ -10,22 +10,22 @@ function closeInfo({ navInfo }) {
     navInfo.classList.remove('open');
 }
 
+function titleHandler() {
+    const pageTransitionId = getIdByInstanceName('page-transition');
+    setStateById(pageTransitionId, 'url', '#home');
+    navigationStore.set('navigationIsOpen', false);
+    navigationStore.emit('closeNavigation');
+}
+
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Header = ({ html, onMount, staticProps }) => {
+export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
     onMount(({ refs }) => {
-        const { navInfo, titleLink } = refs;
+        const { navInfo } = refs;
 
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
-
-        titleLink.addEventListener('click', () => {
-            const pageTransitionId = getIdByInstanceName('page-transition');
-            setStateById(pageTransitionId, 'url', '#home');
-            navigationStore.set('navigationIsOpen', false);
-            navigationStore.emit('closeNavigation');
-        });
 
         return () => {};
     });
@@ -42,6 +42,11 @@ export const Header = ({ html, onMount, staticProps }) => {
                         type="button"
                         class="l-header__title"
                         ref="titleLink"
+                        ${delegateEvents({
+                            click: () => {
+                                titleHandler();
+                            },
+                        })}
                     >
                         title
                     </button>

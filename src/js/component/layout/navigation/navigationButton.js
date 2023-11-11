@@ -4,23 +4,17 @@ import { navigationStore } from './store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({ getState, html, onMount, watch }) => {
+export const NavigationButton = ({
+    getState,
+    html,
+    onMount,
+    watch,
+    delegateEvents,
+}) => {
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
 
     onMount(({ element }) => {
-        element.addEventListener('click', () => {
-            callback();
-
-            if (!fireRoute) return;
-
-            const pageTransitionId = getIdByInstanceName('page-transition');
-            setStateById(pageTransitionId, 'url', url);
-
-            navigationStore.set('navigationIsOpen', false);
-            navigationStore.emit('closeNavigation');
-        });
-
         /**
          * Is a toggle accordion.
          */
@@ -42,6 +36,20 @@ export const NavigationButton = ({ getState, html, onMount, watch }) => {
         <button
             type="button"
             class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+                click: () => {
+                    callback();
+
+                    if (!fireRoute) return;
+
+                    const pageTransitionId =
+                        getIdByInstanceName('page-transition');
+                    setStateById(pageTransitionId, 'url', url);
+
+                    navigationStore.set('navigationIsOpen', false);
+                    navigationStore.emit('closeNavigation');
+                },
+            })}
         >
             ${label}
         </button>

@@ -7,7 +7,22 @@ const icon = {
     github: githubIcon,
 };
 
-function additems() {
+const onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = button.dataset;
+
+    const pageTransitionId = getIdByInstanceName('page-transition');
+    setStateById(pageTransitionId, 'url', url);
+
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) return;
+
+    navigationStore.set('navigationIsOpen', false);
+    navigationStore.emit('closeNavigation');
+};
+
+function additems({ delegateEvents }) {
     const { header } = getCommonData();
     const { links } = header;
 
@@ -22,7 +37,12 @@ function additems() {
                               type="button"
                               data-url="${url}"
                               class="l-header__sidenav__link"
-                              ref="button"
+                              ${delegateEvents({
+                                  click: (event) => {
+                                      console.log('click');
+                                      onClick({ event });
+                                  },
+                              })}
                           >
                               ${icon[svg]}
                           </button>
@@ -44,34 +64,10 @@ function additems() {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Headernav = ({ html, onMount }) => {
-    onMount(({ refs }) => {
-        const { button } = refs;
-        if (!button) return;
-
-        const buttons = button?.length ?? [button];
-
-        [...buttons].forEach((button) => {
-            button.addEventListener('click', () => {
-                const { url } = button.dataset;
-
-                const pageTransitionId = getIdByInstanceName('page-transition');
-                setStateById(pageTransitionId, 'url', url);
-
-                const { navigationIsOpen } = navigationStore.get();
-                if (!navigationIsOpen) return;
-
-                navigationStore.set('navigationIsOpen', false);
-                navigationStore.emit('closeNavigation');
-            });
-        });
-
-        return () => {};
-    });
-
+export const Headernav = ({ html, delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
-            ${additems()}
+            ${additems({ delegateEvents })}
         </ul>
     `;
 };

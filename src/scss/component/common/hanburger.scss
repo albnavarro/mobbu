@@ -21,6 +21,10 @@
     --total-height: 10px;
     --offset: -8px;
 
+    * {
+        pointer-events: none;
+    }
+
     // --width: #{rem(30)};
     // --height: #{rem(2)};
     // --total-height: #{rem(10)};

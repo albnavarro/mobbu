@@ -100,17 +100,10 @@ export const CodeOverlay = ({
     html,
     bindProps,
     bindEvents,
+    delegateEvents,
 }) => {
     onMount(({ element, refs }) => {
-        const {
-            screenEl,
-            codeEl,
-            scrollerEl,
-            descriptionEl,
-            closebtn,
-            background,
-            copyButton,
-        } = refs;
+        const { screenEl, codeEl, scrollerEl, descriptionEl } = refs;
 
         const { updateScroller, goToTop } = overlayScroller({
             screen: screenEl,
@@ -153,15 +146,6 @@ export const CodeOverlay = ({
             }
         });
 
-        /**
-         * Close overlay.
-         */
-        closebtn.addEventListener('click', () => setState('isOpen', false));
-        background.addEventListener('click', () => setState('isOpen', false));
-        copyButton.addEventListener('click', () =>
-            copyToClipboard({ getState })
-        );
-
         return () => {
             unWatchVisibleState();
             unWatchActiveContent();
@@ -170,17 +154,32 @@ export const CodeOverlay = ({
 
     return html`
         <div class="code-overlay js-overlay">
-            <span class="code-overlay__background" ref="background"></span>
+            <span
+                class="code-overlay__background"
+                ${delegateEvents({
+                    click: () => {
+                        setState('isOpen', false);
+                    },
+                })}
+            ></span>
             <div class="code-overlay__wrap js-overlay-wrap">
                 <button
                     type="button"
                     class="code-overlay__close"
-                    ref="closebtn"
+                    ${delegateEvents({
+                        click: () => {
+                            setState('isOpen', false);
+                        },
+                    })}
                 ></button>
                 <button
                     type="button"
                     class="code-overlay__copy"
-                    ref="copyButton"
+                    ${delegateEvents({
+                        click: () => {
+                            copyToClipboard({ getState });
+                        },
+                    })}
                 >
                     ${copyIcon}
                 </button>

@@ -56,7 +56,7 @@ export const DynamicListCard = async ({
     const isFullClass = isFull ? 'is-full' : '';
 
     return html`
-        <dynamic-list-card class="dynamic-card ${isFullClass}">
+        <div class="dynamic-card ${isFullClass}">
             <div class="dynamic-card__container">
                 <p class="dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
@@ -106,6 +106,6 @@ export const DynamicListCard = async ({
                     />
                 </dynamic-list-empty>
             </div>
-        </dynamic-list-card>
+        </div>
     `;
 };
