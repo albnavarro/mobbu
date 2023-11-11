@@ -102,7 +102,6 @@
             border-top: 5px transparent solid;
             transition: background 0.55s, border-top 0.55s;
             position: relative;
-            pointer-events: none;
 
             &.active {
                 border-top: 5px $green solid;
