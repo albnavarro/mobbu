@@ -1,6 +1,11 @@
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
-import { ATTR_WEAK_BIND_EVENTS } from '../../constant';
+import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
+import { getIdByElement } from '../../componentStore/action/element';
+import {
+    ATTR_WEAK_BIND_EVENTS,
+    DEFAULT_CURRENT_REPEATER_STATE,
+} from '../../constant';
 
 export const weakBindEventMap = new Map();
 export const eventDelegationMap = new WeakMap();
@@ -80,7 +85,21 @@ export const applyDelegationBindEvent = (root) => {
             if (!currentEvent) return;
 
             const { callback } = currentEvent;
-            callback(event);
+
+            /**
+             * Get current repeater state if target is a component.
+             */
+            const componentId = getIdByElement({ element: target });
+            const currentRepeaterState = componentId
+                ? getCurrentListValueById({
+                      id: componentId,
+                  })
+                : DEFAULT_CURRENT_REPEATER_STATE;
+
+            /**
+             * Fire callback.
+             */
+            callback(event, currentRepeaterState);
         });
     }
 };

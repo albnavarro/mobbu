@@ -25,7 +25,6 @@ const getNav = ({
     numOfCol,
     setState,
     bindProps,
-    bindEvents,
     staticProps,
     delegateEvents,
 }) => {

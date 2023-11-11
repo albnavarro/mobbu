@@ -345,6 +345,39 @@ export interface componentType {
             | [{ [key: string]: (arg0: Object) => {} }]
     ): void;
 
+    /**
+     * @description
+     * Delegate event.
+     * Event is associaed to document.
+     * If target of event is the dom element, the callBack will be fired.
+     * It is possible use an array to bind multiple event.
+     *
+     * - `Extra props inside repeater:`
+     * Return the current value inside a repeater:
+     *
+     * - `Slot`
+     *  It is possible to combine this utility directly with a slot, the bindings will then be used by the component that will be hosted.
+     *
+     * @example
+     * ```javascript
+     * <MyComponent
+     *       ${delegateEvents({
+     *            click: (e, {current, index}) => myFunction(e)
+     *       })}
+     * ></MyComponent>
+     *
+     * <MyComponent
+     *       ${delegateEvents([
+     *           {
+     *               click: (e, {current, index}) => myFunction(e)
+     *           },
+     *           {
+     *               mousedown: (e, {current, index}) => myFunction(e)
+     *           },
+     *       ])}
+     * ></MyComponent>
+     * ```
+     */
     delegateEvents(
         arg0:
             | { [key: string]: (arg0: Object) => {} }
