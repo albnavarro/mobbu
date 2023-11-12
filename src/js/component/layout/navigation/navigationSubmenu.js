@@ -46,9 +46,11 @@ export const NavigationSubmenu = ({
         slide.subscribe(content);
         slide.reset(content);
 
-        watch('isOpen', (isOpen) => {
+        watch('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
-            slide[action](content);
+            await slide[action](content);
+
+            navigationStore.emit('refreshScroller');
         });
 
         navigationStore.watch('closeAllAccordion', () => {
