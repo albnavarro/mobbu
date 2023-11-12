@@ -11,8 +11,7 @@ import { mobCore } from '../../../mobCore';
  */
 export const getRoundedValue = (x) => {
     if (mobCore.checkType(Number, x)) {
-        return Number((Math.round(x * 10_000) / 10_000 || 0).toFixed(2));
-        // return Math.round(x * 10_000) / 10_000 || 0;
+        return Math.round(x * 10_000) / 10_000 || 0;
     } else {
         if (Math.abs(x) < 1) {
             const e = Number.parseInt(x.toString().split('e-')[1]);
