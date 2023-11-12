@@ -1218,6 +1218,11 @@ export class HorizontalScroller {
                     this.moduleisActive = false;
                     this.button = [];
 
+                    this.mainContainer = null;
+                    this.container = null;
+                    this.trigger = null;
+                    this.row = null;
+
                     mobCore.useNextTick(() => {
                         this.afterDestroy?.();
                         this.afterDestroy = null;
@@ -1260,13 +1265,5 @@ export class HorizontalScroller {
      */
     destroy() {
         this.killScroller({ destroyAll: true });
-        this.mainContainer = null;
-        this.container = null;
-        this.trigger = null;
-        this.row = null;
-        this.column = null;
-        this.shadow = null;
-        this.shadowMainClassTransition = null;
-        this.button = null;
     }
 }
