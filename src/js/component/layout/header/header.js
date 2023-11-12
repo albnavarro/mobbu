@@ -37,7 +37,9 @@ export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
         <header class="l-header">
             <div class="l-header__container">
                 <div class="l-header__grid">
-                    <mob-header-toggle></mob-header-toggle>
+                    <div class="l-header__toggle">
+                        <mob-header-toggle></mob-header-toggle>
+                    </div>
                     <button
                         type="button"
                         class="l-header__title"

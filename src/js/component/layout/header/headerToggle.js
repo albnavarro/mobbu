@@ -1,48 +1,41 @@
 import { navigationStore } from '../navigation/store/navStore';
 
-const hanburgerHandler = (event) => {
-    const target = event.target;
+const hanburgerHandler = () => {
     const { navigationIsOpen } = navigationStore.get('navigationIsOpen');
+    navigationStore.set('navigationIsOpen', (state) => !state);
 
     if (navigationIsOpen) {
-        target.classList.remove('is-open');
         navigationStore.emit('closeNavigation');
-    } else {
-        target.classList.add('is-open');
-        navigationStore.emit('openNavigation');
+        return;
     }
 
-    navigationStore.set('navigationIsOpen', (state) => !state);
+    navigationStore.emit('openNavigation');
 };
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HeaderToggle = ({ onMount, html, delegateEvents }) => {
-    onMount(({ refs }) => {
-        const { hamburger } = refs;
-
+    onMount(({ element }) => {
         navigationStore.watch('closeNavigation', () => {
-            hamburger.classList.remove('is-open');
+            element.classList.remove('is-open');
         });
 
-        return () => {};
+        navigationStore.watch('openNavigation', () => {
+            element.classList.add('is-open');
+        });
     });
 
     return html`
-        <button type="button" class="l-header__toggle">
-            <div
-                class="hamburger hamburger--squeeze"
-                ref="hamburger"
-                ${delegateEvents({
-                    click: (event) => {
-                        hanburgerHandler(event);
-                    },
-                })}
-            >
-                <div class="hamburger-box">
-                    <div class="hamburger-inner"></div>
-                </div>
+        <button
+            class="hamburger hamburger--squeeze"
+            type="button"
+            ${delegateEvents({
+                click: () => hanburgerHandler(),
+            })}
+        >
+            <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
             </div>
         </button>
     `;
