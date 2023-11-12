@@ -10,11 +10,6 @@
     flex-direction: column;
     position: relative;
 
-    &__content {
-        position: relative;
-        z-index: 2;
-    }
-
     &__logo {
         position: absolute;
         top: 50%;
@@ -25,10 +20,5 @@
             width: calc((1000 * 100) / 1920 * 1vw);
             height: calc((800 * 100) / 1920 * 1vw);
         }
-    }
-
-    &__title {
-        opacity: 0;
-        color: $white;
     }
 }
