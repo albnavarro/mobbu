@@ -10,11 +10,36 @@
     flex-direction: column;
     position: relative;
 
+    &__top-left {
+        position: absolute;
+        transform: translate(-50%, -20%);
+        top: 0;
+        left: 0;
+
+        svg {
+            width: max(800px, calc((800 * 100) / 1920 * 1vw));
+            height: max(700px, calc((700 * 100) / 1920 * 1vw));
+        }
+    }
+
+    &__top-right {
+        position: absolute;
+        transform: translate(60%, -10%) rotate(33deg);
+        top: 0;
+        right: 0;
+
+        svg {
+            width: max(800px, calc((800 * 100) / 1920 * 1vw));
+            height: max(700px, calc((700 * 100) / 1920 * 1vw));
+        }
+    }
+
     &__logo {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-55%, -50%);
+        z-index: 1;
 
         svg {
             width: max(1200px, calc((1200 * 100) / 1920 * 1vw));
