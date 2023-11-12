@@ -1,4 +1,4 @@
-import logo from '../../../../svg/logo.svg';
+import logo from '../../../../svg/logov2.svg';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
