@@ -2,7 +2,7 @@ import {
     componentMap,
     eventDelegationMap,
     mainStore,
-    weakBindEventMap,
+    tempDelegateEventMap,
 } from '../../../mobjs';
 import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
 import { currentListValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
@@ -37,7 +37,7 @@ export const DebugButton = ({ html, delegateEvents }) => {
                         repeaterTargetComponentMap
                     );
                     console.log('eventDelegationMap', eventDelegationMap);
-                    console.log('weakEventMap', weakBindEventMap);
+                    console.log('tempDelegateEventMap', tempDelegateEventMap);
                 },
             })}
         >

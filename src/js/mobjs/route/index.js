@@ -3,7 +3,7 @@
 import { mobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
-import { setContent } from '../mainStore/actions/root';
+import { setContentId, setRoot } from '../mainStore/actions/root';
 import {
     setIndex,
     setPageNotFound,
@@ -53,6 +53,12 @@ export const inizializeApp = async ({
     if (!contentId || !rootEl) return;
 
     /**
+     *
+     */
+    setContentId({ contentId });
+    setRoot({ element: rootEl });
+
+    /**
      * Init parse watcher.
      */
     initParseWatcher();
@@ -76,11 +82,6 @@ export const inizializeApp = async ({
      * Set idnex route
      */
     setPageNotFound({ routeName: pageNotFound });
-
-    /**
-     *
-     */
-    setContent({ contentId });
 
     /**
      * Add wrapper to root node.

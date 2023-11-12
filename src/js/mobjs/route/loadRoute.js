@@ -2,7 +2,7 @@ import {
     removeCancellableComponent,
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
-import { getContent } from '../mainStore/actions/root';
+import { getContentId } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
@@ -20,7 +20,7 @@ export const loadRoute = async ({ route = '' }) => {
     /**
      *
      */
-    const contentId = getContent();
+    const contentId = getContentId();
     const contentEl = document?.querySelector(contentId);
 
     /**

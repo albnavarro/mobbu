@@ -11,7 +11,7 @@ import { mainStore } from '../mainStore';
  * @description
  * Set root app.
  */
-export const setContent = ({ contentId = '' }) => {
+export const setContentId = ({ contentId = '' }) => {
     mainStore.set('contentId', contentId);
 };
 
@@ -21,7 +21,31 @@ export const setContent = ({ contentId = '' }) => {
  * @description
  * Set root app.
  */
-export const getContent = () => {
+export const getContentId = () => {
     const { contentId } = mainStore.get();
     return contentId;
+};
+
+/**
+ * @returns { HTMLElement }
+ *
+ * @description
+ * Set root app.
+ */
+export const getRoot = () => {
+    const { rootElement } = mainStore.get();
+    return rootElement;
+};
+
+/**
+ * @param {Object} obj
+ * @param {HTMLElement} obj.element
+ * returns void
+ *
+ *
+ * @description
+ * Set root app.
+ */
+export const setRoot = ({ element }) => {
+    mainStore.set('rootElement', element);
 };

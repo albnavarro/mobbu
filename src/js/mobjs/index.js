@@ -2,7 +2,7 @@
 
 export {
     eventDelegationMap,
-    weakBindEventMap,
+    tempDelegateEventMap,
 } from './temporaryData/weakBindEvents';
 export { getPropsFromParent } from './temporaryData/staticProps';
 export { componentMap } from './componentStore/store';

@@ -8,11 +8,12 @@ import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
+import { getRoot } from '../../mainStore/actions/root';
 
 /**
  * @type {Map<String,Array<Object<string,Function>>>}
  */
-export const weakBindEventMap = new Map();
+export const tempDelegateEventMap = new Map();
 
 /**
  * @type {WeakMap<Object,Array<String,function>|Object<String,function>>}
@@ -46,7 +47,7 @@ export const setDelegateBindEvent = (eventsData = []) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
-    weakBindEventMap.set(id, eventsDataParsed);
+    tempDelegateEventMap.set(id, eventsDataParsed);
 
     return id;
 };
@@ -106,8 +107,8 @@ export const applyDelegationBindEvent = (root) => {
     [...elements].forEach((element) => {
         const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? '';
         element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
-        const data = weakBindEventMap.get(id);
-        weakBindEventMap.delete(id);
+        const data = tempDelegateEventMap.get(id);
+        tempDelegateEventMap.delete(id);
 
         const dataParsed = data?.flatMap((item) => {
             return Object.entries(item).map((current) => {
@@ -120,6 +121,8 @@ export const applyDelegationBindEvent = (root) => {
         eventDelegationMap.set(element, dataParsed);
     });
 
+    const rootElement = getRoot();
+
     /**
      * Cycle all event and add a click if needed.
      */
@@ -127,7 +130,7 @@ export const applyDelegationBindEvent = (root) => {
         if (eventRegistered.includes(eventKey)) return;
         eventRegistered.push(eventKey);
 
-        document.addEventListener(eventKey, (event) => {
+        rootElement.addEventListener(eventKey, (event) => {
             const target = event.target;
 
             const { target: targetParsed, data } = getItemFromTarget(target);

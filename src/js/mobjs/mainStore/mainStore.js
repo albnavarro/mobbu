@@ -7,6 +7,10 @@ export const mainStore = mobCore.createStore({
         value: '',
         type: String,
     }),
+    rootElement: () => ({
+        value: document.createElement('div'),
+        type: HTMLElement,
+    }),
     index: () => ({
         value: '',
         type: String,
