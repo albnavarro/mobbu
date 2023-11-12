@@ -86,6 +86,50 @@ const getItemFromTarget = (target) => {
 };
 
 /**
+ * @param {string} eventKey
+ * @param {Event} event
+ * @returns {void}
+ */
+function handleAction(eventKey, event) {
+    const target = event.target;
+
+    const { target: targetParsed, data } = getItemFromTarget(target);
+
+    // @ts-ignore
+    if (!data || !document.contains(targetParsed)) return;
+
+    const currentEvent = data.find(({ event }) => event === eventKey);
+    if (!currentEvent) return;
+
+    /**
+     * Get callback.
+     */
+    const { callback } = currentEvent;
+
+    /**
+     * Get current repeater state if target is a component.
+     */
+    // @ts-ignore
+    const componentId = getIdByElement({ element: targetParsed });
+    const currentRepeaterState = componentId
+        ? getCurrentListValueById({
+              id: componentId,
+          })
+        : DEFAULT_CURRENT_REPEATER_STATE;
+
+    /**
+     * Replace target with new target
+     * ( parent of original target if event.tatget is inside )
+     */
+    Object.defineProperty(event, 'target', { value: targetParsed });
+
+    /**
+     * Fire callback.
+     */
+    callback(event, currentRepeaterState);
+}
+
+/**
  * @param {HTMLElement} root
  * @return { void }
  *
@@ -130,43 +174,9 @@ export const applyDelegationBindEvent = (root) => {
         if (eventRegistered.includes(eventKey)) return;
         eventRegistered.push(eventKey);
 
-        rootElement.addEventListener(eventKey, (event) => {
-            const target = event.target;
-
-            const { target: targetParsed, data } = getItemFromTarget(target);
-
-            // @ts-ignore
-            if (!data || !document.contains(targetParsed)) return;
-
-            const currentEvent = data.find(({ event }) => event === eventKey);
-            if (!currentEvent) return;
-
-            /**
-             * Get callback.
-             */
-            const { callback } = currentEvent;
-
-            /**
-             * Get current repeater state if target is a component.
-             */
-            // @ts-ignore
-            const componentId = getIdByElement({ element: targetParsed });
-            const currentRepeaterState = componentId
-                ? getCurrentListValueById({
-                      id: componentId,
-                  })
-                : DEFAULT_CURRENT_REPEATER_STATE;
-
-            /**
-             * Replace target with new target
-             * ( parent of original target if event.tatget is inside )
-             */
-            Object.defineProperty(event, 'target', { value: targetParsed });
-
-            /**
-             * Fire callback.
-             */
-            callback(event, currentRepeaterState);
-        });
+        rootElement.addEventListener(
+            eventKey,
+            handleAction.bind(null, eventKey)
+        );
     });
 };
