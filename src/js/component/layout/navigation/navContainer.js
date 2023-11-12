@@ -1,18 +1,24 @@
+import { mobCore } from '../../../mobCore';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
 
 function closeNavigation({ element, main }) {
-    element.classList.remove('active');
-    main.classList.remove('shift');
-    document.body.style.overflow = '';
+    mobCore.useFrame(() => {
+        document.body.style.overflow = '';
+        element.classList.remove('active');
+        main.classList.remove('shift');
+    });
 }
 
 function openNavigation({ element, main }) {
-    element.classList.add('active');
-    main.classList.add('shift');
-    document.body.style.overflow = 'hidden';
     navigationStore.emit('refreshScroller');
+
+    mobCore.useFrame(() => {
+        document.body.style.overflow = 'hidden';
+        element.classList.add('active');
+        main.classList.add('shift');
+    });
 }
 
 function addHandler({ main, toTopBtn }) {

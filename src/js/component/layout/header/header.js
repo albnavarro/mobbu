@@ -1,13 +1,18 @@
 import { getLegendData } from '../../../data';
+import { mobCore } from '../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
-    navInfo.classList.add('open');
+    mobCore.useFrame(() => {
+        navInfo.classList.add('open');
+    });
 }
 
 function closeInfo({ navInfo }) {
-    navInfo.classList.remove('open');
+    mobCore.useFrame(() => {
+        navInfo.classList.remove('open');
+    });
 }
 
 function titleHandler() {

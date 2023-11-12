@@ -1,3 +1,4 @@
+import { mobCore } from '../../../mobCore';
 import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
@@ -19,14 +20,18 @@ export const NavigationButton = ({
          * Is a toggle accordion.
          */
         watch('isOpen', (isOpen) => {
-            element.classList.toggle('active', isOpen);
+            mobCore.useFrame(() => {
+                element.classList.toggle('active', isOpen);
+            });
         });
 
         /**
          * Is a link button.
          */
         mainStore.watch('activeRoute', (current) => {
-            element.classList.toggle('current', current === url);
+            mobCore.useFrame(() => {
+                element.classList.toggle('current', current === url);
+            });
         });
 
         return () => {};

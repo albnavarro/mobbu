@@ -1,3 +1,4 @@
+import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
 const hanburgerHandler = () => {
@@ -18,11 +19,15 @@ const hanburgerHandler = () => {
 export const HeaderToggle = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
         navigationStore.watch('closeNavigation', () => {
-            element.classList.remove('is-open');
+            mobCore.useFrame(() => {
+                element.classList.remove('is-open');
+            });
         });
 
         navigationStore.watch('openNavigation', () => {
-            element.classList.add('is-open');
+            mobCore.useFrame(() => {
+                element.classList.add('is-open');
+            });
         });
     });
 
