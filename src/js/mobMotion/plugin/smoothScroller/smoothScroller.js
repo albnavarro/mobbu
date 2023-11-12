@@ -911,6 +911,8 @@ export default class SmoothScroller {
             mobCore.useNextTick(() => {
                 this.afterDestroy?.();
                 this.afterDestroy = [];
+                this.scroller = null;
+                this.screen = null;
             });
         }, 3);
     }
