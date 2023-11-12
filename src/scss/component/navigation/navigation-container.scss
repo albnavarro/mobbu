@@ -47,6 +47,11 @@
 
     &__scroll {
         padding-bottom: 20vh;
+        position: absolute;
+        top: calc(var(--header-height) * 0.5);
+        left: 0;
+        width: 100%;
+        height: auto;
 
         @include mq.mq(tablet) {
             padding-bottom: 20vh;
