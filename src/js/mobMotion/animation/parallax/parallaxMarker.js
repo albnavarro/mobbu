@@ -51,7 +51,7 @@ const getMarker = ({ startMarker, endMarker, label }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement|Window} obj.screen
+ * @param {HTMLElement|Window|null} obj.screen
  *
  * @returns {{top:number,right:number,bottom:number,left:number}}
  */
