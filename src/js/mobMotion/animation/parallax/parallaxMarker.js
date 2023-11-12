@@ -207,7 +207,7 @@ const getEndStyle = ({
  * @param {Element|undefined} obj.endMarker
  * @param {number} obj.startPoint
  * @param {number} obj.endPoint
- * @param {HTMLElement|Window} obj.screen
+ * @param {HTMLElement|Window|null} obj.screen
  * @param {string} obj.direction
  * @param {boolean} obj.invertSide
  * @param {string} obj.label

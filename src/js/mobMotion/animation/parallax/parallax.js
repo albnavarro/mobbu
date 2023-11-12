@@ -642,25 +642,25 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {HTMLElement}
+         * @type {HTMLElement|null}
          */
         this.item = domNodeIsValidAndReturnElOrWin(data?.item, false);
 
         /**
          * @description
-         * @type {HTMLElement|Window}
+         * @type {HTMLElement|Window|null}
          */
         this.scroller = domNodeIsValidAndReturnElOrWin(data?.scroller, true);
 
         /**
          * @description
-         * @type {HTMLElement|Window}
+         * @type {HTMLElement|Window|null}
          */
         this.screen = domNodeIsValidAndReturnElOrWin(data?.screen, true);
 
         /**
          * @description
-         * @type {HTMLElement|null}
+         * @type {HTMLElement|null|null}
          */
         this.trigger = domNodeIsValidAndReturnNull(data?.trigger);
 
@@ -1314,6 +1314,8 @@ export default class ParallaxClass {
     calcOffset() {
         const el = this.trigger === null ? this.item : this.trigger;
 
+        if (!el) return;
+
         let x = 0;
         let y = 0;
         let z = 0;
@@ -1379,6 +1381,7 @@ export default class ParallaxClass {
      */
     calcHeight() {
         const el = this.trigger === null ? this.item : this.trigger;
+        if (!el) return;
 
         this.height =
             this.direction === parallaxConstant.DIRECTION_VERTICAL
@@ -1391,6 +1394,8 @@ export default class ParallaxClass {
      */
     calcWidth() {
         const el = this.trigger === null ? this.item : this.trigger;
+        if (!el) return;
+
         this.width =
             this.direction === parallaxConstant.DIRECTION_VERTICAL
                 ? Math.trunc(el.offsetWidth)
@@ -1447,41 +1452,6 @@ export default class ParallaxClass {
 
     /**
      * @description
-     * Destroy instance
-     */
-    destroy() {
-        this.motion?.stop?.();
-        this.unsubscribeScroll();
-        this.unsubscribeScrollStart();
-        this.unsubscribeScrollEnd();
-        this.unsubscribeResize();
-        this.unsubscribeMotion();
-        this.unsubscribeOnComplete();
-        this.unsubscribeMarker();
-        this.motion?.destroy?.();
-        this.dynamicRange = () => {};
-        this.onEnter = () => {};
-        this.onEnterBack = () => {};
-        this.onLeave = () => {};
-        this.onLeaveBack = () => {};
-        this.onTickCallback = () => {};
-        if (this.pin && this.pinInstance) this.pinInstance?.destroy?.();
-        if (this.startMarker) this.startMarker?.remove?.();
-        if (this.endMarker) this.endMarker?.remove?.();
-        this.motion = null;
-        this.startMarker = undefined;
-        this.endMarker = undefined;
-        this.pinInstance = null;
-        this.endValue = 0;
-
-        // Remove style from element, if style prop exist.
-        const el = this.applyTo ?? this.item;
-        // @ts-ignore
-        if ('style' in el) el.style = '';
-    }
-
-    /**
-     * @description
      * Recalculate positions and align all values
      */
     refresh() {
@@ -1531,7 +1501,8 @@ export default class ParallaxClass {
                     Object.assign(this.applyTo.style, this.getResetStyle());
                 } else {
                     this.resetTweenStyle(this.item);
-                    Object.assign(this.item.style, this.getResetStyle());
+                    if (this.item)
+                        Object.assign(this.item.style, this.getResetStyle());
                 }
             }, 3);
         }
@@ -1813,7 +1784,7 @@ export default class ParallaxClass {
     updateStyle(value) {
         if (this.applyTo) {
             Object.assign(this.applyTo.style, this.getStyle(value));
-        } else {
+        } else if (this.item) {
             Object.assign(this.item.style, this.getStyle(value));
         }
 
@@ -2135,7 +2106,7 @@ export default class ParallaxClass {
      * @private
      * Reset sequencer/parallaxTween style
      *
-     * @param {HTMLElement} item
+     * @param {HTMLElement|null} item
      */
     resetTweenStyle(item) {
         // @ts-ignore
@@ -2168,5 +2139,49 @@ export default class ParallaxClass {
                 return { [this.propierties.toLowerCase()]: `` };
             }
         }
+    }
+
+    /**
+     * @description
+     * Destroy instance
+     */
+    destroy() {
+        this.motion?.stop?.();
+        this.unsubscribeScroll();
+        this.unsubscribeScrollStart();
+        this.unsubscribeScrollEnd();
+        this.unsubscribeResize();
+        this.unsubscribeMotion();
+        this.unsubscribeOnComplete();
+        this.unsubscribeMarker();
+        this.motion?.destroy?.();
+        this.dynamicRange = () => {};
+        this.onEnter = () => {};
+        this.onEnterBack = () => {};
+        this.onLeave = () => {};
+        this.onLeaveBack = () => {};
+        this.onTickCallback = () => {};
+        if (this.pin && this.pinInstance) this.pinInstance?.destroy?.();
+        if (this.startMarker) this.startMarker?.remove?.();
+        if (this.endMarker) this.endMarker?.remove?.();
+        this.motion = null;
+        this.startMarker = undefined;
+        this.endMarker = undefined;
+        this.pinInstance = null;
+        this.endValue = 0;
+
+        // Remove style from element, if style prop exist.
+        const el = this.applyTo ?? this.item;
+        // @ts-ignore
+        if ('style' in el) el.style = '';
+
+        /**
+         * Remove HTMLELement reference.
+         */
+        this.item = null;
+        this.scroller = null;
+        this.screen = null;
+        this.trigger = null;
+        this.applyTo = null;
     }
 }
