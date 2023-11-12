@@ -6,6 +6,7 @@ export * from './animatedPattern/animatedPatternN0v4';
 export * from './animatedPattern/animatedPatternN0v5';
 export * from './animatedPattern/animatedPatternN0v6';
 export * from './animatedPattern/animatedPatternN1';
+export * from './canvas/caterpillarN0';
 export * from './canvas/caterpillarN1';
 export * from './canvas/caterpillarN2';
 export * from './home';
