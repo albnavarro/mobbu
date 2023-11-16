@@ -39,15 +39,37 @@
 // responsive font size mixin v2
 @mixin font-size-map() {
     $last-output: null;
+    $last-unit: null;
 
     @each $key, $value in $html-font-size {
-        @if $last-output != $value {
-            @include mq.mq($key) {
-                font-size: $value;
+        $unit-misure: map.get($html-font-unit, $key);
+
+        @if $last-output != $value or $last-unit != $unit-misure {
+            // Pixel html font size
+            @if $unit-misure == 'px' {
+                $current-value: $value;
+
+                @include mq.mq($key) {
+                    font-size: $current-value;
+                }
+            }
+
+            // VW html font-size
+            @if $unit-misure == 'vw' {
+                @include mq.mq($key) {
+                    $breakpoint: strip-unit(map.get($breakpoints, $key));
+                    $current-value: math.div(
+                            (strip-unit($value) * 100),
+                            $breakpoint
+                        ) * 1vw;
+
+                    font-size: $current-value;
+                }
             }
         }
 
         $last-output: $value;
+        $last-unit: $unit-misure;
     }
 }
 

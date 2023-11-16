@@ -17,8 +17,6 @@
         $pixels: $pixels * 1px;
     }
 
-    $keys: map.keys($html-font-size);
-
     @if $mq == '' {
         $mq: map.get($html-font-size, $default-font-size);
     } @else {
@@ -33,8 +31,6 @@
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
     }
-
-    $keys: map.keys($html-font-size);
 
     @if $mq == '' {
         $mq: map.get($html-font-size, $default-font-size);

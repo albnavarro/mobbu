@@ -6,6 +6,7 @@ $orange: #ffb700;
 $green: #9ece6a;
 $medium-green: #84af56;
 $dark-green: #1a1b26;
+$show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
 $breakpoints: (
     'xsmall': 320px,
     'small': 360px,
@@ -16,16 +17,25 @@ $breakpoints: (
     'xlarge': 1440px,
     'xxlarge': 1980px,
 );
-$show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
 $html-font-size: (
     'xsmall': 16px,
     'small': 16px,
     'medium': 16px,
     'tablet': 16px,
-    'desktop': 18px,
-    'large': 18px,
-    'xlarge': 18px,
-    'xxlarge': 18px,
+    'desktop': 16px,
+    'large': 19.3px,
+    'xlarge': 19.3px,
+    'xxlarge': 19.3px,
+);
+$html-font-unit: (
+    'xsmall': px,
+    'small': px,
+    'medium': px,
+    'tablet': px,
+    'desktop': vw,
+    'large': px,
+    'xlarge': px,
+    'xxlarge': px,
 );
 $default-font-size: desktop;
 
