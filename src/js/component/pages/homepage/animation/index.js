@@ -8,7 +8,7 @@ export const homeAnimation = ({ logoRefs }) => {
 
     const logoTween = tween.createTween({
         data: { scale: 1, x: 0 },
-        duration: 3000,
+        duration: 4000,
         ease: 'easeInOutQuad',
         stagger: { each: 40, from: 'end' },
     });
