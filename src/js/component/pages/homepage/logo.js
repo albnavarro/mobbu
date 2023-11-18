@@ -1,5 +1,6 @@
 import logo from '../../../../svg/logov9.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
+import { detectFirefox, detectSafari } from '../../../utils/utils';
 import { homeAnimation } from './animation';
 
 /**
@@ -16,26 +17,26 @@ export const HomeLogo = ({ html, onMount }) => {
             block6,
             block7,
             block8,
-            block9,
-            block10,
+            M_left,
+            M_right,
         } = refs;
 
         const { play, destroy } = homeAnimation({
             logoRefs: [
-                block1,
-                block2,
-                block3,
-                block4,
-                block5,
-                block6,
-                block7,
-                block8,
-                block9,
-                block10,
+                { block1 },
+                { block2 },
+                { block3 },
+                { block4 },
+                { block5 },
+                { block6 },
+                { block7 },
+                { block8 },
+                { M_left },
+                { M_right },
             ],
         });
 
-        play();
+        if (!detectSafari() && !detectFirefox()) play();
 
         return () => {
             destroy();
