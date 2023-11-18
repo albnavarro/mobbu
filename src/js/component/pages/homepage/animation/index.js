@@ -10,7 +10,7 @@ export const homeAnimation = ({ logoRefs }) => {
         data: { scale: 1, x: 0 },
         duration: 3000,
         ease: 'easeInOutQuad',
-        stagger: { each: 40 },
+        stagger: { each: 40, from: 'end' },
     });
 
     logoRefsByKey.forEach(({ key, item }) => {
@@ -32,6 +32,9 @@ export const homeAnimation = ({ logoRefs }) => {
 
     return {
         play: () => tl.play(),
-        destroy: () => {},
+        destroy: () => {
+            logoTween.destroy();
+            tl.destroy();
+        },
     };
 };

@@ -7,7 +7,7 @@ import { homeAnimation } from './animation';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeLogo = ({ html, onMount }) => {
-    onMount(({ refs }) => {
+    onMount(({ element, refs }) => {
         const {
             block1,
             block2,
@@ -22,6 +22,7 @@ export const HomeLogo = ({ html, onMount }) => {
         } = refs;
 
         const { play, destroy } = homeAnimation({
+            element,
             logoRefs: [
                 { block1 },
                 { block2 },
@@ -36,7 +37,7 @@ export const HomeLogo = ({ html, onMount }) => {
             ],
         });
 
-        if (!detectSafari() && !detectFirefox()) play();
+        play();
 
         return () => {
             destroy();
