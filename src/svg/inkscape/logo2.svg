@@ -24,15 +24,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="4"
-     inkscape:cx="162.875"
-     inkscape:cy="108.5"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="121.44559"
+     inkscape:cy="119.14749"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer6" />
+     inkscape:current-layer="layer8" />
   <defs
      id="defs195">
     <clipPath
@@ -349,7 +349,7 @@
        id="path278"
        style="isolation:isolate" />
     <path
-       d="m 125.308,85.622 20.144,-50.115 10.419,-4.468 -11.098,38.219 -4.59565,9.795435 L 154.195,33.047 l -8.07,3.578 z"
+       d="M 128.37035,79.348672 145.452,35.507 155.871,31.039 144.773,69.258 140.17735,79.053435 154.195,33.047 l -8.07,3.578 z"
        fill="#ffffff"
        id="path298"
        style="isolation:isolate"
@@ -421,7 +421,7 @@
        transform="translate(-0.80192417,-0.34883055)" />
     <path
        style="fill:#2a2c41;fill-opacity:1;stroke:none;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 146.125,36.625 8.07,-3.578 -14.01765,46.006437 -6.55873,3.124498 -22.37032,43.171535 -1.7713,0.22853 c 0,0 29.25124,-71.543228 36.648,-88.953 z"
+       d="m 146.125,36.625 8.07,-3.578 -14.01765,46.006437 -6.55873,3.124498 -22.37032,43.171535 -1.7713,0.22853 z"
        id="path9034"
        sodipodi:nodetypes="ccccccc" />
     <path
@@ -457,10 +457,10 @@
        style="isolation:isolate"
        sodipodi:nodetypes="cccccccc" />
     <path
-       d="m 132.53564,96.169359 v 0 l -6.06668,12.842471 -9.24996,16.71917 -9.893,1.451 25.27544,-58.857732 -23.12444,57.253732 7.171,-1.055 z"
+       d="m 132.53564,96.169359 v 0 L 126.46896,109.01183 117.219,125.731 107.326,127.182 132.60144,68.324268 146.125,36.625 l -36.648,88.953 7.171,-1.055 z"
        fill="#ffffff"
        id="path300"
        style="isolation:isolate"
-       sodipodi:nodetypes="ccccccccc" />
+       sodipodi:nodetypes="cccccccccc" />
   </g>
 </svg>
