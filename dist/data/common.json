@@ -10,6 +10,11 @@
     },
     "navigation": [
         {
+            "label": "About the project",
+            "url": "about",
+            "children": null
+        },
+        {
             "label": "Animations:",
             "section": true
         },

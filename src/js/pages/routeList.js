@@ -10,6 +10,7 @@ export * from './canvas/caterpillarN0';
 export * from './canvas/caterpillarN1';
 export * from './canvas/caterpillarN2';
 export * from './home';
+export * from './about';
 export * from './horizontalScroller/horizontalScrollerv1';
 export * from './horizontalScroller/horizontalScrollerv2';
 export * from './scroller/scrollerN0v1';

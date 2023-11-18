@@ -5,8 +5,8 @@
 .l-index {
     height: calc(100vh - var(--header-height) - var(--footer-height));
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     flex-direction: column;
     position: relative;
 
@@ -51,5 +51,31 @@
                 transform: translateZ(0.5px);
             }
         }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 3;
+        color: $white;
+        padding-left: rem(300);
+        padding-top: rem(100);
+
+        h1 {
+            font-size: rem(40);
+            margin-right: rem(10);
+
+            span {
+                display: inline;
+                color: $green;
+            }
+        }
+
+        h2 {
+            font-size: rem(20);
+        }
+    }
+
+    &__item {
+        margin-bottom: rem(20);
     }
 }
