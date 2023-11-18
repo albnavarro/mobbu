@@ -1,4 +1,4 @@
-import logo from '../../../../svg/logov8.svg';
+import logo from '../../../../svg/logov9.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
 
 /**
