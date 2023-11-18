@@ -45,6 +45,10 @@
             width: max(1200px, calc((1200 * 100) / 1920 * 1vw));
             height: max(700px, calc((700 * 100) / 1920 * 1vw));
             overflow: visible;
+
+            g {
+                transform-origin: center;
+            }
         }
     }
 }
