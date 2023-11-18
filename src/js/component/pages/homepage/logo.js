@@ -1,6 +1,5 @@
 import logo from '../../../../svg/logov9.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
-import { detectFirefox, detectSafari } from '../../../utils/utils';
 import { homeAnimation } from './animation';
 
 /**
