@@ -23,12 +23,16 @@ export const homeAnimation = ({ logoRefs }) => {
         });
     });
 
-    const tl = timeline.createAsyncTimeline({ repeat: -1, yoyo: true });
-
-    tl.goTo(logoTween, { scale: 0.95, x: 0.5 }).goTo(logoTween, {
-        scale: 1.05,
-        x: -0.5,
-    });
+    const tl = timeline
+        .createAsyncTimeline({ repeat: -1, yoyo: true })
+        .goTo(logoTween, {
+            scale: 0.95,
+            x: 0.5,
+        })
+        .goTo(logoTween, {
+            scale: 1.05,
+            x: -0.5,
+        });
 
     return {
         play: () => tl.play(),
