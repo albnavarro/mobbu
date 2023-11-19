@@ -23,13 +23,13 @@ function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
         <code-overlay-button
             ${sync}
             ${bindProps({
-                bind: ['activeContent'],
-                props: ({ activeContent, _current }) => {
+                bind: ['currentButtonState'],
+                props: ({ currentButtonState, _current }) => {
                     const { label, source } = _current;
                     return {
                         key: label,
                         disable: !source || source.length === 0,
-                        selected: label === activeContent,
+                        selected: label === currentButtonState,
                     };
                 },
             })}
@@ -75,7 +75,6 @@ const printContent = async ({
                 source,
             })}
         ></html-content>`;
-        codeEl.textContent = '';
         descriptionEl.insertAdjacentHTML('afterbegin', htmlComponent);
         await parseDom(descriptionEl);
 
@@ -92,7 +91,6 @@ const printContent = async ({
 
         descriptionEl.classList.add('hide');
         codeEl.classList.remove('hide');
-        descriptionEl.textContent = '';
         codeEl.textContent = data;
         hljs.highlightElement(codeEl, { language: 'javascript' });
 
@@ -107,18 +105,33 @@ const printContent = async ({
 };
 
 /**
+ * Clean content DOM
+ */
+const cleanDom = ({ codeEl, descriptionEl, removeDOM }) => {
+    codeEl.textContent = '';
+    const descriptionElChild = descriptionEl.firstElementChild;
+
+    /**
+     * Clean HTML component.
+     */
+    if (descriptionElChild) removeDOM(descriptionElChild);
+};
+
+/**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const CodeOverlay = ({
     onMount,
     setState,
     getState,
-    watch,
     repeat,
     html,
     bindProps,
     delegateEvents,
     staticProps,
+    computed,
+    watch,
+    removeDOM,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, codeEl, scrollerEl, descriptionEl } = refs;
@@ -129,11 +142,44 @@ export const CodeOverlay = ({
         });
 
         /**
-         * Watch content change, and update content.
+         * Update button active state when after mutation of
+         * urls and activeContent.
+         * Is necessary or first selected.
+         * ( urls and and activeContent canghe together ).
+         */
+        computed(
+            'currentButtonState',
+            ['urls', 'activeContent'],
+            (urls, activeContent) => {
+                /**
+                 * Open/Close overlay.
+                 */
+                const shouldOpen = urls.length > 0;
+
+                if (shouldOpen) {
+                    element.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    element.classList.remove('active');
+                    document.body.style.overflow = '';
+                    cleanDom({ codeEl, descriptionEl, removeDOM });
+
+                    /**
+                     * Reset buttons state on overlay close.
+                     */
+                    setState('activeContent', '');
+                    goToTop();
+                }
+
+                return activeContent;
+            }
+        );
+
+        /**
+         * Update current content.
          */
         const unWatchActiveContent = watch('activeContent', (currentKey) => {
-            codeEl.textContent = '';
-            descriptionEl.textContent = '';
+            cleanDom({ codeEl, descriptionEl, removeDOM });
 
             printContent({
                 setState,
@@ -147,53 +193,8 @@ export const CodeOverlay = ({
             });
         });
 
-        /**
-         * On urls change, wait on tick and set active button to description.
-         */
-        const unWatchUrls = watch('urls', (urls) => {
-            const shouldOpen = urls.length > 0;
-
-            if (shouldOpen) {
-                element.classList.add('active');
-                document.body.style.overflow = 'hidden';
-
-                /**
-                 * Await next tick to set to active the description button
-                 * on overlay opened.
-                 */
-                const shouldOpenDescription = urls.some((item) => {
-                    return item?.label === 'description';
-                });
-
-                if (!shouldOpenDescription) return;
-
-                setTimeout(() => {
-                    setState('activeContent', 'description');
-                });
-
-                return;
-            }
-
-            element.classList.remove('active');
-            document.body.style.overflow = '';
-            codeEl.textContent = '';
-            descriptionEl.textContent = '';
-
-            /**
-             * Reset buttons state on overlay close.
-             */
-            setState('activeContent', '');
-            goToTop();
-
-            /**
-             * Remove html contnet component.
-             */
-            removeOrphanComponent();
-        });
-
         return () => {
             unWatchActiveContent();
-            unWatchUrls();
         };
     });
 

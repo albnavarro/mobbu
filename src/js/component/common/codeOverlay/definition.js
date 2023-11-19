@@ -10,7 +10,7 @@ export const codeOverlayDef = createComponent({
     component: CodeOverlay,
     isolateOnMount: true,
     isolateCreation: true,
-    exportState: ['urls'],
+    exportState: ['urls', 'activeContent'],
     state: {
         urls: () => ({
             value: [],
@@ -20,11 +20,16 @@ export const codeOverlayDef = createComponent({
         activeContent: () => ({
             value: '',
             type: String,
-            skipEqual: false,
+            skipEqual: true,
         }),
         rawContent: () => ({
             value: '',
             type: String,
+        }),
+        currentButtonState: () => ({
+            value: String,
+            type: '',
+            skipEqual: true,
         }),
     },
 });
