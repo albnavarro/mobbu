@@ -3,7 +3,7 @@ import { tween } from '../../../../mobMotion';
 export const homeTextAnimation = ({ refs }) => {
     let textTween = tween.createTween({
         data: { y: 100 },
-        duration: 1000,
+        duration: 500,
         ease: 'easeOutCubic',
         stagger: { each: 10 },
     });
