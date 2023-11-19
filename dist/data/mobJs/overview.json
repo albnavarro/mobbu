@@ -5,7 +5,15 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "h1"
+            "content": "h1 white"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "color": "green"
+            },
+            "content": "h1 green"
         },
         {
             "component": "mob-title",
@@ -40,7 +48,15 @@
             "props": {
                 "style": "big"
             },
-            "content": "big"
+            "content": "big white"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "big",
+                "color": "green"
+            },
+            "content": "big green"
         },
         {
             "component": "mob-spacer",

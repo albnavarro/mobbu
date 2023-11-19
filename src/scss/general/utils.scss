@@ -1,3 +1,6 @@
+@use '../vars' as *;
+@use '../abstract' as *;
+
 .component {
     opacity: 0;
     transition: opacity 0.55s;
@@ -8,5 +11,9 @@
 }
 
 .is-green {
-    color: #9ece6a;
+    color: $green;
+}
+
+.is-white {
+    color: $white;
 }
