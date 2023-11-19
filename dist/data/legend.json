@@ -1,11 +1,10 @@
 {
     "caterpillarN1": {
         "source": {
-            "description": "/codeExample/test/description.html",
+            "description": "/codeExample/test/description.json",
             "definition": "/codeExample/test/definition.js",
             "component": "/codeExample/test/component.js",
-            "animation": "/codeExample/test/animation.js",
-            "scss": "/codeExample/test/test.scss"
+            "animation": "/codeExample/test/animation.js"
         }
     }
 }

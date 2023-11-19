@@ -2,7 +2,13 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { html } from '../../../mobjs';
+import {
+    html,
+    instanceName,
+    parseDom,
+    removeOrphanComponent,
+    staticProps,
+} from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
@@ -60,28 +66,40 @@ const printContent = async ({
      */
     if (!source?.length) return;
 
-    /**
-     * Load data.
-     */
-    const { success, data } = await loadTextContent({ source });
-    if (!success) return;
-
-    /**
-     * Save raw data.
-     */
-    setState('rawContent', /* HTML */ data);
-
     if (currentKey === 'description') {
         descriptionEl.classList.remove('hide');
         codeEl.classList.add('hide');
-        descriptionEl.insertAdjacentHTML('afterbegin', data);
+        const htmlComponent = html`<html-content
+            ${instanceName('overlay-descripion')}
+            ${staticProps({
+                source,
+            })}
+        ></html-content>`;
         codeEl.textContent = '';
+        descriptionEl.insertAdjacentHTML('afterbegin', htmlComponent);
+        await parseDom(descriptionEl);
+
+        /**
+         * Save raw data.
+         */
+        setState('rawContent', /* HTML */ descriptionEl.textContent);
     } else {
+        /**
+         * Load data.
+         */
+        const { success, data } = await loadTextContent({ source });
+        if (!success) return;
+
         descriptionEl.classList.add('hide');
         codeEl.classList.remove('hide');
         descriptionEl.textContent = '';
         codeEl.textContent = data;
         hljs.highlightElement(codeEl, { language: 'javascript' });
+
+        /**
+         * Save raw data.
+         */
+        setState('rawContent', /* HTML */ data);
     }
 
     updateScroller();
@@ -100,6 +118,7 @@ export const CodeOverlay = ({
     html,
     bindProps,
     delegateEvents,
+    staticProps,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, codeEl, scrollerEl, descriptionEl } = refs;
@@ -112,17 +131,24 @@ export const CodeOverlay = ({
         /**
          * Watch content change, and update content.
          */
-        const unWatchActiveContent = watch('activeContent', (currentKey) => {
-            printContent({
-                setState,
-                getState,
-                codeEl,
-                descriptionEl,
-                currentKey,
-                updateScroller,
-                goToTop,
-            });
-        });
+        const unWatchActiveContent = watch(
+            'activeContent',
+            async (currentKey) => {
+                codeEl.textContent = '';
+                descriptionEl.textContent = '';
+
+                printContent({
+                    setState,
+                    getState,
+                    codeEl,
+                    descriptionEl,
+                    currentKey,
+                    updateScroller,
+                    goToTop,
+                    staticProps,
+                });
+            }
+        );
 
         /**
          * Toggle visible state.
@@ -142,6 +168,11 @@ export const CodeOverlay = ({
                  */
                 setState('activeContent', '');
                 goToTop();
+
+                /**
+                 * Remove html contnet component.
+                 */
+                removeOrphanComponent();
             }
         });
 
