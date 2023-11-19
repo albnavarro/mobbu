@@ -1,4 +1,4 @@
-import logo from '../../../../svg/logov9.svg';
+import logo from '../../../../svg/logo.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
 import { homeAnimation } from './animation';
 
@@ -18,6 +18,7 @@ export const HomeLogo = ({ html, onMount }) => {
             block8,
             M_left,
             M_right,
+            around,
         } = refs;
 
         const { play, destroy } = homeAnimation({
@@ -34,6 +35,7 @@ export const HomeLogo = ({ html, onMount }) => {
                 { M_left },
                 { M_right },
             ],
+            around,
         });
 
         play();

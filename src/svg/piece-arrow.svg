@@ -1,2 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 284.241 233.029" width="284.241pt" height="233.029pt"><defs><clipPath id="_clipPath_jM8YYUJ7y6SITknhJSHhTEy5fIjGL6tT"><rect width="284.241" height="233.029"/></clipPath></defs><g clip-path="url(#_clipPath_jM8YYUJ7y6SITknhJSHhTEy5fIjGL6tT)"><g><path d=" M 165.556 14.255 L 243.65 117.334 L 215.833 203.213 L 91.093 221.601 L 0 180.5 L 14 67 L 82 0 L 165.556 14.255 Z " fill="rgb(0,0,0)"/><g><path d=" M 211.033 87.241 L 168.098 21.583 C 167.904 19.926 174.307 13.547 186.268 12.358 Q 205.898 10.955 223.089 30.65 Q 240.781 53.383 236.673 92.272 Q 233.705 113.781 244.536 117.432 L 245.045 111.915 L 253.077 111.41 L 284.241 145.537 L 277.82 149.915 L 237.975 145.267 L 237.069 137.534 L 241.466 133.144 Q 221.44 122.54 227.131 92.216 Q 230.444 62.568 216.179 45.65 Q 203.089 31.361 195.159 37.662 Q 193.653 38.835 192.754 40.452 C 188.036 48.946 202.139 65.509 216.662 89.224 L 211.033 87.241 Z " fill="rgb(0,0,0)"/></g></g><path d=" M 92.375 223 L 215.938 204.813 L 213.313 213.063 L 95.938 225.063 L 92.375 223 Z " fill="rgb(0,0,0)"/><path d=" M 97.773 227.032 L 204.274 215.527 L 201.752 222.511 L 100.758 228.918 L 97.773 227.032 Z " fill="rgb(0,0,0)"/><path d=" M 100.846 230.321 L 197.401 226.911 L 194.677 233.029 L 103.409 232.212 L 100.846 230.321 Z " fill="rgb(0,0,0)"/></g></svg>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generator: Gravit.io -->
+<svg width="284.24pt" height="233.03pt" style="isolation:isolate" inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)" sodipodi:docname="piece-arrow.svg" version="1.1" viewBox="0 0 284.24 233.03" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+ <sodipodi:namedview bordercolor="#666666" borderopacity="1.0" inkscape:current-layer="layer7" inkscape:cx="162.01632" inkscape:cy="179.9568" inkscape:document-units="pt" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="1011" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="1.8115459" pagecolor="#ffffff" showgrid="false"/>
+ <g inkscape:groupmode="layer" inkscape:label="arrow 1" ref="around" sodipodi:insensitive="true">
+  <g style="isolation:isolate">
+   <path d="m211.03 87.241-42.935-65.658c-0.194-1.657 6.209-8.036 18.17-9.225q19.63-1.403 36.821 18.292 17.692 22.733 13.584 61.622-2.968 21.509 7.863 25.16l0.509-5.517 8.032-0.505 31.164 34.127-6.421 4.378-39.845-4.648-0.906-7.733 4.397-4.39q-20.026-10.604-14.335-40.928 3.313-29.648-10.952-46.566-13.09-14.289-21.02-7.988-1.506 1.173-2.405 2.79c-4.718 8.494 9.385 25.057 23.908 48.772z"/>
+  </g>
+ </g>
+ <g inkscape:groupmode="layer" inkscape:label="main" ref="around" sodipodi:insensitive="true">
+  <path d="m166.44 14.353 78.094 103.08-27.817 85.879-124.74 18.388-91.093-41.101 14-113.5 68-67z" style="isolation:isolate"/>
+ </g>
+ <g inkscape:groupmode="layer" inkscape:label="piece1" ref="around" sodipodi:insensitive="true">
+  <path d="m92.944 223.39 123.56-18.187-2.625 8.25-117.38 12z" style="isolation:isolate"/>
+ </g>
+ <g inkscape:groupmode="layer" inkscape:label="piece2" ref="around" sodipodi:insensitive="true">
+  <path d="m106.56 226.25 106.5-11.505-2.522 6.984-100.99 6.407z" style="isolation:isolate"/>
+ </g>
+ <g inkscape:groupmode="layer" inkscape:label="piece3" ref="around" sodipodi:insensitive="true">
+  <path d="m115.27 229.72 94.158-5.6234-2.513 6.0363-89.099 1.372z" stroke-width=".88056" style="isolation:isolate"/>
+ </g>
+</svg>
