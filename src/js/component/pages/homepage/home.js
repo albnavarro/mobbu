@@ -6,7 +6,7 @@ import { homeTextAnimation } from './animation/text';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeLogo = ({ html, onMount }) => {
+export const HomeComponent = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
         const {
             textStagger,
