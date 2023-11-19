@@ -82,6 +82,10 @@
         }
     }
 
+    &__inner-content {
+        overflow: hidden;
+    }
+
     &__item {
         margin-bottom: rem(20);
     }

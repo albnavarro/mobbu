@@ -1,6 +1,6 @@
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -27,10 +27,14 @@ function titleHandler() {
  */
 export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
     onMount(({ refs }) => {
-        const { navInfo } = refs;
+        const { navInfo, title } = refs;
 
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
+
+        mainStore.watch('atfterRouteChange', (route) => {
+            title.classList.toggle('visible', route !== 'home');
+        });
 
         return () => {};
     });
@@ -56,9 +60,7 @@ export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
                         })}
                     >
                         <div class="l-header__title-container">
-                            <h2 class="l-header__title">
-                                <span>Mob</span>Project
-                            </h2>
+                            <h3 ref="title"><span>Mob</span>Project</h3>
                         </div>
                     </button>
                     <div class="l-header__utils">

@@ -58,8 +58,8 @@ export const homeAnimation = ({ logoRefs, around }) => {
         .closeGroup();
 
     return {
-        play: () => tl.play(),
-        destroy: () => {
+        playSvg: () => tl.play(),
+        destroySvg: () => {
             logoTween.destroy();
             tl.destroy();
             logoTween = null;

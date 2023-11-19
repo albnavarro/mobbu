@@ -1,6 +1,7 @@
 import logo from '../../../../svg/logo.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
 import { homeAnimation } from './animation';
+import { homeTextAnimation } from './animation/text';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
@@ -8,6 +9,7 @@ import { homeAnimation } from './animation';
 export const HomeLogo = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
         const {
+            textStagger,
             block1,
             block2,
             block3,
@@ -21,7 +23,7 @@ export const HomeLogo = ({ html, onMount }) => {
             around,
         } = refs;
 
-        const { play, destroy } = homeAnimation({
+        const { playSvg, destroySvg } = homeAnimation({
             element,
             logoRefs: [
                 { block1 },
@@ -38,10 +40,16 @@ export const HomeLogo = ({ html, onMount }) => {
             around,
         });
 
-        play();
+        const { playText, destroyText } = homeTextAnimation({
+            refs: textStagger,
+        });
+
+        playSvg();
+        playText();
 
         return () => {
-            destroy();
+            destroySvg();
+            destroyText();
         };
     });
 
@@ -49,14 +57,18 @@ export const HomeLogo = ({ html, onMount }) => {
         <div class="l-index__content">
             <div class="l-index__item" ref="mobjs">
                 <div class="l-index__inner-content">
-                    <h1><span>Mob</span>Js</h1>
-                    <h2>js component library</h2>
+                    <h1 ref="textStagger"><span>Mob</span>Js</h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 ref="textStagger">js component library</h2>
                 </div>
             </div>
-            <div class="l-index__item" ref="mobmotion">
+            <div class="l-index__item" ref="mobMotion">
                 <div class="l-index__inner-content">
-                    <h1><span>Mob</span>Motion</h1>
-                    <h2>js animation library</h2>
+                    <h1 ref="textStagger"><span>Mob</span>Motion</h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 ref="textStagger">js animation library</h2>
                 </div>
             </div>
         </div>

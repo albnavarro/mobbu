@@ -71,12 +71,12 @@
     }
 
     &__title-container {
+        display: block;
         overflow: hidden;
     }
 
     &__title {
         color: $white;
-        font-size: rem(25);
         grid-area: title;
         padding-left: rem(20);
         display: inline-block;
@@ -84,12 +84,16 @@
         width: auto;
         border: 0;
         text-align: left;
-        transform: translateY(0);
-        transition: transform 0.35s;
 
-        @include when-inside('[data-route= ' home ']') {
+        h3 {
             transform: translateY(100%);
+            transition: transform 0.35s;
             pointer-events: none;
+
+            &.visible {
+                transform: translateY(0);
+                pointer-events: all;
+            }
         }
 
         span {
