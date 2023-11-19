@@ -89,6 +89,7 @@
 
         @include when-inside('[data-route= ' home ']') {
             transform: translateY(100%);
+            pointer-events: none;
         }
 
         span {
