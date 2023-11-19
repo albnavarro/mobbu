@@ -57,18 +57,26 @@ export const HomeLogo = ({ html, onMount }) => {
         <div class="l-index__content">
             <div class="l-index__item" ref="mobjs">
                 <div class="l-index__inner-content">
-                    <h1 ref="textStagger"><span>Mob</span>Js</h1>
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Js
+                    </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 ref="textStagger">js component library</h2>
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        js component library
+                    </h2>
                 </div>
             </div>
             <div class="l-index__item" ref="mobMotion">
                 <div class="l-index__inner-content">
-                    <h1 ref="textStagger"><span>Mob</span>Motion</h1>
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Motion
+                    </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 ref="textStagger">js animation library</h2>
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        js animation library
+                    </h2>
                 </div>
             </div>
         </div>

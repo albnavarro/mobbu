@@ -60,6 +60,10 @@
         }
     }
 
+    &__stagger {
+        translate: 0px 100%;
+    }
+
     &__content {
         position: relative;
         z-index: 3;
