@@ -1,7 +1,12 @@
 // @ts-check
 
-import { removeCurrentIdToDynamicProps } from '../../temporaryData/dynamicProps';
+import { removeOrphansBindEvent } from '../../temporaryData/bindEvents';
+import {
+    removeCurrentIdToDynamicProps,
+    removeOrphansDynamicProps,
+} from '../../temporaryData/dynamicProps';
 import { removeRepeaterComponentTargetByParentId } from '../../temporaryData/repeaterTargetComponent';
+import { removeOrphansPropsFromParent } from '../../temporaryData/staticProps';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
@@ -152,6 +157,14 @@ export const removeOrphanComponent = () => {
     );
 
     orphans.forEach(({ id }) => removeAndDestroyById({ id }));
+
+    /**
+     * Remove props reference.
+     * Async loading and interrupt can leave rubbish.
+     */
+    removeOrphansPropsFromParent();
+    removeOrphansBindEvent();
+    removeOrphansDynamicProps();
 };
 
 /**

@@ -6,8 +6,6 @@ import { getContentId } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
-import { removeOrphansBindEvent } from '../temporaryData/bindEvents';
-import { removeOrphansPropsFromParent } from '../temporaryData/staticProps';
 
 /**
  * @param {Object} obj
@@ -46,11 +44,11 @@ export const loadRoute = async ({ route = '' }) => {
     });
 
     /**
+     * Clean DOM
      * Remove props reference.
      * Async loading and interrupt can leave rubbish.
      */
-    removeOrphansPropsFromParent();
-    removeOrphansBindEvent();
+    removeOrphanComponent();
 
     /**
      * Set new active route.
@@ -60,7 +58,6 @@ export const loadRoute = async ({ route = '' }) => {
     contentEl.innerHTML = '';
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
-    removeOrphanComponent();
 
     /**jj
      * Wait for all render.
