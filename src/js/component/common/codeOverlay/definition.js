@@ -10,7 +10,7 @@ export const codeOverlayDef = createComponent({
     component: CodeOverlay,
     isolateOnMount: true,
     isolateCreation: true,
-    exportState: ['urls', 'isOpen'],
+    exportState: ['urls'],
     state: {
         urls: () => ({
             value: [],
@@ -25,10 +25,6 @@ export const codeOverlayDef = createComponent({
         rawContent: () => ({
             value: '',
             type: String,
-        }),
-        isOpen: () => ({
-            value: false,
-            type: Boolean,
         }),
     },
 });

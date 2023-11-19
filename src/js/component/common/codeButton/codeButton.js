@@ -18,11 +18,6 @@ export const CodeButton = ({ getState, onMount, html }) => {
              * Update overlay urls state.
              */
             setStateById(codeOverlayId, 'urls', drawers);
-
-            /**
-             * Open overlay.
-             */
-            setStateById(codeOverlayId, 'isOpen', true);
         });
 
         return () => {
