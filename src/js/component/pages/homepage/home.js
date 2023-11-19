@@ -1,12 +1,13 @@
 import logo from '../../../../svg/logo.svg';
 import pieceArrow from '../../../../svg/piece-arrow.svg';
+import { getLegendData } from '../../../data';
 import { homeAnimation } from './animation';
 import { homeTextAnimation } from './animation/text';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeComponent = ({ html, onMount }) => {
+export const HomeComponent = ({ html, onMount, staticProps }) => {
     onMount(({ element, refs }) => {
         const {
             textStagger,
@@ -53,7 +54,34 @@ export const HomeComponent = ({ html, onMount }) => {
         };
     });
 
+    const { caterpillarN1 } = getLegendData();
+    const { source } = caterpillarN1;
+
     return html`<div>
+        <code-button
+            ${staticProps({
+                drawers: [
+                    {
+                        label: 'description',
+                        source: source.description,
+                    },
+                    {
+                        label: 'definition',
+                        source: source.definition,
+                    },
+                    {
+                        label: 'component',
+                        source: source.component,
+                    },
+                    {
+                        label: 'animation',
+                        source: source.animation,
+                    },
+                ],
+                style: 'legend',
+            })}
+        >
+        </code-button>
         <div class="l-index__content">
             <div class="l-index__item" ref="mobjs">
                 <div class="l-index__inner-content">
