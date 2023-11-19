@@ -13,3 +13,7 @@ Cosi da avere un punto solo nel caso si trovi una sluzione piu solida.
 - add removeOrphanComponent() in remove come fatto in removeDOM.
 
 
+### DOCS
+
+- mobJs add parseDOM/remove/remvoeDOM a parte nella lista di rotte.
+- removeOrphanComponent => da index esportare cleanDOM function.
