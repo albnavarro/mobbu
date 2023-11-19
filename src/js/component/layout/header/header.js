@@ -55,7 +55,11 @@ export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
                             },
                         })}
                     >
-                        title
+                        <div class="l-header__title-container">
+                            <h2 class="l-header__title">
+                                <span>Mob</span>Project
+                            </h2>
+                        </div>
                     </button>
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
