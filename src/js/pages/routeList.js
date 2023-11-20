@@ -33,6 +33,7 @@ export * from './mobJs/slot';
 export * from './mobJs/utils';
 export * from './mobJs/webComponent';
 export * from './mobJs/debug';
+export * from './mobJs/runtime';
 export * from './mobCore/events';
 export * from './mobCore/store';
 export * from './mobMotion/asyncTimeline';

@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "Runtime"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "runtime"
+        }
+    ]
+}

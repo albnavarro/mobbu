@@ -178,6 +178,10 @@
             "url": "mobJs_slot"
         },
         {
+            "label": "Runtime add/remove",
+            "url": "mobJs_runtime"
+        },
+        {
             "label": "Utils",
             "url": "mobJs_utils"
         },
