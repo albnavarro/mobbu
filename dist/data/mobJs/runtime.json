@@ -12,7 +12,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "parseDom | syncParent | remove | removeDOm  "
+            "content": "parseDom | syncParent | remove | removeDom  "
         }
     ]
 }
