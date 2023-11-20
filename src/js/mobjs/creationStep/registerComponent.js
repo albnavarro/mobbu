@@ -158,7 +158,10 @@ export const registerComponent = ({
             })}" `;
         },
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
-        remove: () => removeAndDestroyById({ id }),
+        remove: () => {
+            removeAndDestroyById({ id });
+            removeOrphanComponent();
+        },
         removeDOM: (element) => {
             element.remove();
             removeOrphanComponent();
