@@ -201,7 +201,7 @@ export const watchList = ({
             /**
              * Fire onComplete next tick;
              */
-            setTimeout(async () => {
+            mobCore.useNextLoop(async () => {
                 /**
                  * Execute afterUpdate function
                  */

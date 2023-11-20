@@ -31,6 +31,7 @@ import { handleVisibilityChange } from './events/visibilityChange/handleVisibili
 import { SimpleStore } from './store/simpleStore.js';
 import { checkType, getTypeName } from './store/storeType.js';
 import { getUnivoqueId } from './utils/index.js';
+import { useNextLoop } from './utils/nextTick.js';
 
 export const mobCore = {
     /**
@@ -713,6 +714,17 @@ export const mobCore = {
      */
     getTime() {
         return getTime();
+    },
+
+    /**
+     * @param {function} fn
+     * @returns {void}
+     *
+     * @description
+     * Wait next event loop.
+     */
+    useNextLoop(fn) {
+        useNextLoop(fn);
     },
 
     /**

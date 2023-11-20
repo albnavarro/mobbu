@@ -105,7 +105,7 @@ export const executeFireOnMountCallBack = ({
               });
 
               return new Promise((resolve) => {
-                  setTimeout(() => {
+                  mobCore.useNextLoop(() => {
                       mobCore.useFrame(() => {
                           mobCore.useNextTick(() => {
                               resolve({ success: true });

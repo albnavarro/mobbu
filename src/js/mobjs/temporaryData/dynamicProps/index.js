@@ -250,7 +250,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                  * Wait the end of current block.
                  */
                 watchIsRunning = true;
-                setTimeout(() => {
+                mobCore.useNextLoop(() => {
                     setDynamicProp({
                         componentId,
                         bind,

@@ -1,6 +1,7 @@
 // @ts-check
 
 import { getUnivoqueId } from '../utils/index.js';
+import { useNextLoop } from '../utils/nextTick.js';
 import { checkEquality } from './checkEquality.js';
 import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
 import {
@@ -417,7 +418,7 @@ export class SimpleStore {
 
         if (!this.computedRunning) {
             this.computedRunning = true;
-            setTimeout(() => this.fireComputed());
+            useNextLoop(() => this.fireComputed());
         }
     }
 

@@ -9,6 +9,7 @@ import { catchAnimationReject } from '../errorHandler/catchAnimationReject.js';
 import { loadFps } from './loadFps.js';
 import { eventStore } from '../eventStore.js';
 import { defaultTimestep, getTime } from './time.js';
+import { useNextLoop } from '../../utils/nextTick.js';
 
 /**
  * Calculate a precise fps
@@ -360,7 +361,7 @@ const render = (timestamp) => {
     const deferredNextTick = eventStore.getProp('deferredNextTick');
 
     if (deferredNextTick) {
-        setTimeout(() => nextTickFn());
+        useNextLoop(() => nextTickFn());
     } else {
         nextTickFn();
     }
