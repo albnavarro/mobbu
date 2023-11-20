@@ -12,7 +12,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "runtime"
+            "content": "parseDom | syncParent | remove | removeDOm  "
         }
     ]
 }
