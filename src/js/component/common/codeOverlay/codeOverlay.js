@@ -52,6 +52,7 @@ const printContent = async ({
     currentKey,
     updateScroller,
     goToTop,
+    syncParent,
 }) => {
     const { urls } = getState();
     const currentItem = urls.find(({ label }) => {
@@ -70,10 +71,8 @@ const printContent = async ({
         descriptionEl.classList.remove('hide');
         codeEl.classList.add('hide');
         const htmlComponent = html`<html-content
-            ${instanceName('overlay-descripion')}
-            ${staticProps({
-                source,
-            })}
+            ${staticProps({ source })}
+            ${syncParent}
         ></html-content>`;
         descriptionEl.insertAdjacentHTML('afterbegin', htmlComponent);
         await parseDom(descriptionEl);
@@ -132,6 +131,7 @@ export const CodeOverlay = ({
     computed,
     watch,
     removeDOM,
+    syncParent,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, codeEl, scrollerEl, descriptionEl } = refs;
@@ -190,6 +190,7 @@ export const CodeOverlay = ({
                 updateScroller,
                 goToTop,
                 staticProps,
+                syncParent,
             });
         });
 

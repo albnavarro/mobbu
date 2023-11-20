@@ -22,6 +22,7 @@ import { addComponentToStore } from '../componentStore/registerComponent';
 import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
+    ATTR_PARENT_ID,
     ATTR_PROPS,
     ATTR_REPEATID,
     ATTR_WEAK_BIND_EVENTS,
@@ -158,6 +159,7 @@ export const registerComponent = ({
             })}" `;
         },
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
+        syncParent: ` ${ATTR_PARENT_ID}="${id}" `,
         remove: () => {
             removeAndDestroyById({ id });
             removeOrphanComponent();

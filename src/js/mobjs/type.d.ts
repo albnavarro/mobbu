@@ -257,6 +257,24 @@ export interface componentType {
     staticProps(arg0: { [key: string]: any }): Object;
 
     /**
+     *
+     * @description
+     * Add to runtime component added manually parentId
+     * Necessary to use bindProps.
+     *
+     * @example
+     * ```javascript
+     * const myRuntimeComponent = html`<MyComponent
+     *     ${syncParent}
+     * ></MyComponent>`
+     *
+     * parentEl.insertAdjacentHTML('afterbegin', myRuntimeComponent);
+     * await parseDom(descriptionEl);
+     * ```
+     */
+    syncParent: string;
+
+    /**
      * @example
      * ```javascript
      * unBind()
