@@ -149,6 +149,10 @@ export const parseComponentsRecursive = async ({
      */
     const refsCollection = newElement ? getRefs(newElement) : {};
 
+    /**
+     * Add self id to future component.
+     * If id is assigned to component nested in next cycle will be override.
+     */
     addSelfIdToFutureComponent({ element: newElement, id });
 
     /**
