@@ -1,4 +1,5 @@
 import { mobCore } from '../../../mobCore';
+import { core } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
@@ -44,15 +45,32 @@ function addHandler({ main, toTopBtn }) {
 export const NavigationContainer = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
         const main = document.querySelector('main.main');
-        const { toTopBtn } = refs;
+        let lastMq = '';
+        const { toTopBtn, wrap } = refs;
 
+        /**
+         * Open navigation.
+         */
         navigationStore.watch('openNavigation', () =>
             openNavigation({ element, main })
         );
 
+        /**
+         * Close navigation.
+         */
         navigationStore.watch('closeNavigation', () =>
             closeNavigation({ element, main })
         );
+
+        /**
+         * Reset scrollPositon from mobile to desktop.
+         */
+        mobCore.useResize(() => {
+            const isDesktop = core.mq('max', 'desktop');
+            const currentMq = isDesktop ? 'desk' : 'mob';
+            if (currentMq !== lastMq) wrap.scrollTo(0, 0);
+            lastMq = currentMq;
+        });
 
         addHandler({ main, toTopBtn });
         initNavigationScoller({ root: element });
@@ -66,7 +84,7 @@ export const NavigationContainer = ({ html, onMount }) => {
                 <div class="l-navcontainer__percent"></div>
                 <button class="l-navcontainer__totop" ref="toTopBtn"></button>
             </div>
-            <div class="l-navcontainer__wrap">
+            <div class="l-navcontainer__wrap" ref="wrap">
                 <div class="l-navcontainer__scroll">
                     <mob-navigation></mob-navigation>
                 </div>
