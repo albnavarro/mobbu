@@ -1,5 +1,6 @@
 import { getLegendData } from '../../../../data';
 import { html } from '../../../../mobjs';
+import { core } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
@@ -27,6 +28,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
     const { buttons, rotationDefault } = getState();
 
     onMount(({ element, refs }) => {
+        if (core.mq('max', 'desktop')) return;
         const { canvas, rangeValue, rotationButton } = refs;
 
         /**
@@ -72,6 +74,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
 
     return html`
         <div>
+            <only-desktop></only-desktop>
             <code-button
                 ${staticProps({
                     drawers: [

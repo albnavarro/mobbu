@@ -7,6 +7,7 @@ export * from './common/typography/titles/definition';
 export * from './common/typography/paragraph/definition';
 export * from './common/snippet/definition';
 export * from './common/spacer/definition';
+export * from './common/onlyDesktop/definition';
 export * from './layout/footer/definition';
 export * from './layout/header/definition';
 export * from './layout/navigation/definition';

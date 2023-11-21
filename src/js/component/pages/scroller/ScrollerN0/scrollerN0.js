@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { core } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
 /**
@@ -6,6 +7,8 @@ import { scrollerN0Animation } from './animation/animation';
  */
 export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
+        if (core.mq('max', 'desktop')) return;
+
         const { canvas, canvasScroller } = refs;
 
         /**
@@ -27,8 +30,18 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
+    /**
+     * Skip mobile.
+     */
+    if (core.mq('max', 'desktop'))
+        return html`<div><only-desktop></only-desktop></div>`;
+
+    /**
+     * Desktop
+     */
     return html`
         <div>
+            <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
                 <code-button
                     ${staticProps({

@@ -1,6 +1,7 @@
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { html } from '../../../mobjs';
+import { core } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
 
@@ -70,6 +71,8 @@ export const HorizontalScroller = ({
     const { animatePin } = getState();
 
     onMount(({ element }) => {
+        if (core.mq('max', 'desktop')) return;
+
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
         const titles = element.querySelectorAll('.js-title h1');
@@ -130,7 +133,17 @@ export const HorizontalScroller = ({
     const { caterpillarN1 } = getLegendData();
     const { source } = caterpillarN1;
 
+    /**
+     * Skip mobile.
+     */
+    if (core.mq('max', 'desktop'))
+        return html`<div><only-desktop></only-desktop></div>`;
+
+    /**
+     * Desktop
+     */
     return html`<div class="l-h-scroller">
+        <only-desktop></only-desktop>
         <div class="l-h-scroller__top">scroll down</div>
         <code-button
             ${staticProps({

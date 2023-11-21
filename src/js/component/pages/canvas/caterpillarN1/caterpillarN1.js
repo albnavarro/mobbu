@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { core } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN1Animation } from './animation/animation';
 
@@ -7,6 +8,8 @@ import { caterpillarN1Animation } from './animation/animation';
  */
 export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
+        if (core.mq('max', 'desktop')) return;
+
         const { canvas } = refs;
 
         const destroyAnimation = caterpillarN1Animation({
@@ -26,6 +29,7 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
 
     return html`
         <div>
+            <only-desktop></only-desktop>
             <code-button
                 ${staticProps({
                     drawers: [
