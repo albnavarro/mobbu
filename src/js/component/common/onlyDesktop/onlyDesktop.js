@@ -5,7 +5,7 @@ import { core } from '../../../mobMotion';
 const content = html`
     <div class="only-desktop">
         <h3>This content is available only on desktop</h3>
-        <h4>Need page reload</h4>
+        <h4>Need page reload on a screen size up to 1024px</h4>
     </div>
 `;
 

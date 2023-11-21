@@ -5,11 +5,20 @@
 .snippet {
     code {
         display: inline-block;
-        min-width: rem(600);
         border: 1px rgba($white, 0.1) solid;
+        width: 100%;
+
+        @include mq.mq('desktop') {
+            width: auto;
+            min-width: rem(600);
+        }
     }
 
     pre {
-        padding: rem(30);
+        padding: rem(10);
+
+        @include mq.mq('desktop') {
+            padding: rem(30);
+        }
     }
 }

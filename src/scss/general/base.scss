@@ -67,12 +67,13 @@ main {
 
 .container {
     margin: auto;
-    padding-left: rem(40);
 
-    // max-width: map.get($breakpoints, xxlarge);
+    @include mq.mq('desktop') {
+        padding-left: rem(40);
 
-    &--padding {
-        padding: rem(20) rem(40);
+        &--padding {
+            padding: rem(20) rem(40);
+        }
     }
 }
 
