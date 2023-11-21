@@ -2,13 +2,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import {
-    html,
-    instanceName,
-    parseDom,
-    removeOrphanComponent,
-    staticProps,
-} from '../../../mobjs';
+import { html, parseDom, staticProps } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
