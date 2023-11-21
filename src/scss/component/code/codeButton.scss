@@ -12,6 +12,11 @@
     height: var(--header-navinfo);
     width: rem(40);
     transition: transform 0.55s, background 0.55s, opacity 0.55s;
+    display: none;
+
+    @include mq.mq('desktop') {
+        display: block;
+    }
 
     &--green {
         background: $green;

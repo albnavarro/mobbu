@@ -4,8 +4,8 @@ import { core } from '../../../mobMotion';
 
 const content = html`
     <div class="only-desktop">
-        <h3>All the animation is aavailable only on desktop</h3>
-        <h4>Need page relaod</h4>
+        <h3>This content is available only on desktop</h3>
+        <h4>Need page reload</h4>
     </div>
 `;
 
