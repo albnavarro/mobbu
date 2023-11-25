@@ -17,7 +17,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/codeExample/test/definition.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/canvas/caterpillarN1/definition.js",
                 "isFull": true
             }
         }
