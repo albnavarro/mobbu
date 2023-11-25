@@ -1,9 +1,7 @@
-// @ts-check
-
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
-import { core } from './mobMotion';
+import { core, tween } from './mobMotion';
 import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
@@ -39,6 +37,20 @@ mobCore.useLoad(() => {
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {
+        const jsMainLoader = document.body.querySelector('.js-main-loader');
+
+        let loaderTween = tween.createTween({
+            data: { opacity: 1, scale: 1 },
+            duration: 500,
+        });
+
+        if (jsMainLoader) {
+            loaderTween.subscribe(({ opacity, scale }) => {
+                jsMainLoader.style.opacity = opacity;
+                jsMainLoader.style.transform = `scale(${scale})`;
+            });
+        }
+
         await loadData();
 
         setDefaultComponent({
@@ -57,8 +69,10 @@ mobCore.useLoad(() => {
             pages,
             index: 'home',
             pageNotFound: 'pageNotFound',
-            afterInit: () => {
-                console.log('after init');
+            afterInit: async () => {
+                await loaderTween.goTo({ opacity: 0, scale: 0.9 });
+                jsMainLoader?.remove();
+                loaderTween = null;
             },
         });
     };
