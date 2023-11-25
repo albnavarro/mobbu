@@ -8,7 +8,7 @@ import { homeTextAnimation } from './animation/text';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeComponent = ({ html, onMount, staticProps }) => {
-    onMount(({ element, refs }) => {
+    onMount(async ({ element, refs }) => {
         const {
             textStagger,
             block1,
@@ -24,7 +24,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
             around,
         } = refs;
 
-        const { playSvg, destroySvg } = homeAnimation({
+        const { playIntro, playSvg, destroySvg } = homeAnimation({
             element,
             logoRefs: [
                 { block1 },
@@ -45,8 +45,9 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
             refs: textStagger,
         });
 
-        playSvg();
         playText();
+        await playIntro();
+        playSvg();
 
         return () => {
             destroySvg();
