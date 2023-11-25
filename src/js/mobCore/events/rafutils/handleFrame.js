@@ -10,6 +10,7 @@ import { loadFps } from './loadFps.js';
 import { eventStore } from '../eventStore.js';
 import { defaultTimestep, getTime } from './time.js';
 import { useNextLoop } from '../../utils/nextTick.js';
+import { clamp } from '../../../mobMotion/animation/utils/animationUtils.js';
 
 /**
  * Calculate a precise fps
@@ -282,12 +283,21 @@ const render = (timestamp) => {
     time = Math.round(rawTime - startTime);
 
     /**
+     * Update frame counter for fps or reset id tab change.
+     */
+    if (isStopped) {
+        fpsPrevTime = time;
+        frames = 0;
+        fps = eventStore.getProp('instantFps');
+    } else {
+        frames++;
+    }
+
+    /**
      * Get fps
      * Update fps every second
      **/
-    if (!isStopped) frames++;
-
-    if (time > fpsPrevTime + 1000) {
+    if (time > fpsPrevTime + 1000 && !isStopped) {
         /**
          * Calc fps
          * Set fps when stable after 2 seconds otherwise use instantFps
@@ -301,8 +311,9 @@ const render = (timestamp) => {
 
         /**
          * Prevent fps error;
+         * Se a minimum of 30 fps.
          */
-        if (fps === 0) fps = eventStore.getProp('instantFps');
+        fps = fps < 30 ? eventStore.getProp('instantFps') : fps;
 
         /**
          * Update value every seconds
