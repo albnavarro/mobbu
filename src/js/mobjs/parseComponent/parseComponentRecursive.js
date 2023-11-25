@@ -76,8 +76,12 @@ export const parseComponentsRecursive = async ({
         /**
          * Fire onMount queue.
          * Wait parse is ended to fire onMount callback.
+         *
+         * Launch from the end so childn can initialize watch before parent.
+         * In case a watcher is watching a props initialized inside
+         * onMount state of parent.
          */
-        for (const item of functionToFireAtTheEnd) {
+        for (const item of functionToFireAtTheEnd.reverse()) {
             const { onMount, fireDynamic, fireFirstRepeat } = item;
             await onMount();
             fireDynamic();
