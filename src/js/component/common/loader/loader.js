@@ -3,7 +3,9 @@ import { tween } from '../../../mobMotion';
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Loader = ({ onMount, html, watch, remove }) => {
+export const Loader = ({ onMount, html, watch, remove, getState }) => {
+    const { position } = getState();
+
     onMount(({ element }) => {
         let tweenOut = tween.createTween({
             data: { opacity: 1, scale: 1 },
@@ -17,7 +19,6 @@ export const Loader = ({ onMount, html, watch, remove }) => {
 
         watch('shouldRemove', async (shouldRemove) => {
             await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-
             if (shouldRemove) remove();
         });
 
@@ -28,8 +29,8 @@ export const Loader = ({ onMount, html, watch, remove }) => {
     });
 
     return html`
-        <div class="c-loader">
-            <span class="c-loader__inner"> loader </span>
+        <div class="c-loader ${position}">
+            <span class="c-loader__inner"></span>
         </div>
     `;
 };

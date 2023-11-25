@@ -10,5 +10,9 @@ export const snippetContentDef = createComponent({
             value: '',
             type: String,
         }),
+        contentIsLoaded: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });

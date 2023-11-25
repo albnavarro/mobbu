@@ -7,7 +7,14 @@ hljs.registerLanguage('javascript', javascript);
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Snippet = ({ html, onMount, getState }) => {
+export const Snippet = ({
+    html,
+    onMount,
+    getState,
+    bindProps,
+    staticProps,
+    setState,
+}) => {
     const { source } = getState();
 
     onMount(async ({ refs }) => {
@@ -18,6 +25,8 @@ export const Snippet = ({ html, onMount, getState }) => {
          */
         const { success, data } = await loadTextContent({ source });
         if (!success) return;
+
+        setState('contentIsLoaded', true);
 
         /**
          * Add contento to dom.
@@ -34,6 +43,15 @@ export const Snippet = ({ html, onMount, getState }) => {
 
     return html`<div class="snippet">
         <code>
+            <mob-loader
+                ${staticProps({ position: 'center-component' })}
+                ${bindProps({
+                    bind: ['contentIsLoaded'],
+                    props: ({ contentIsLoaded }) => {
+                        return { shouldRemove: contentIsLoaded };
+                    },
+                })}
+            ></mob-loader>
             <pre ref="codeEl"></pre>
         </code>
     </div>`;
