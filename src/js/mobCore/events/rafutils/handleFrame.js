@@ -10,7 +10,6 @@ import { loadFps } from './loadFps.js';
 import { eventStore } from '../eventStore.js';
 import { defaultTimestep, getTime } from './time.js';
 import { useNextLoop } from '../../utils/nextTick.js';
-import { clamp } from '../../../mobMotion/animation/utils/animationUtils.js';
 
 /**
  * Calculate a precise fps
@@ -57,6 +56,16 @@ let rawTime = 0;
  * @type {Number}
  */
 let timeElapsed = 0;
+
+/**
+ * @type {Number}
+ */
+let lastTime = 0;
+
+/**
+ * @type {Number}
+ */
+let timeLost = 0;
 
 /**
  * @type {Boolean}
@@ -262,6 +271,7 @@ const nextTickFn = () => {
     } else {
         isStopped = true;
         currentFrame = 0;
+        lastTime = time;
         eventStore.quickSetProp('currentFrame', currentFrame);
     }
 };
@@ -279,8 +289,26 @@ const render = (timestamp) => {
 
     if (isStopped) startTime += timeElapsed;
 
+    /**
+     * Default time calculation.
+     */
     rawTime += timeElapsed;
     time = Math.round(rawTime - startTime);
+
+    /**
+     * Get frame duration.
+     */
+    const frameDuration = Math.round(1000 / fps);
+
+    /**
+     * Get time lost
+     * ( if the difference of current time with last time and frame duration is han 100ms ).
+     * Problem with workspace and switch to dirrent application without fire visibilityChange event.
+     */
+    timeLost = Math.abs(time - lastTime - frameDuration);
+    const timeToSubsctract = timeLost > 100 ? timeLost : 0;
+    time = time - timeToSubsctract;
+    lastTime = time;
 
     /**
      * Update frame counter for fps or reset id tab change.
