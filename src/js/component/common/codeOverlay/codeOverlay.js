@@ -56,7 +56,7 @@ const printContent = async ({
     if (!source?.length) return;
 
     const htmlComponent = html`<html-content
-        ${staticProps({ source })}
+        ${staticProps({ source, useMinHeight: true })}
         ${syncParent}
     ></html-content>`;
     codeEl.insertAdjacentHTML('afterbegin', htmlComponent);

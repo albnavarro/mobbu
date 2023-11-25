@@ -17,7 +17,6 @@ export const Snippet = ({
 }) => {
     const { source, isFull } = getState();
     const isFullClass = isFull ? 'is-full' : '';
-    console.log(isFull);
 
     onMount(async ({ refs }) => {
         const { codeEl } = refs;

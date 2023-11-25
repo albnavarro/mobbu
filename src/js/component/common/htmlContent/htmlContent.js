@@ -31,12 +31,15 @@ export const HtmlContent = async ({
     const { success, data } = await loadJsonContent({ source });
     if (!success) return '';
 
+    const { useMinHeight } = getState();
+    const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
+
     onMount(async () => {
         setState('contentIsLoaded', true);
     });
 
     return html`
-        <section class="html-content">
+        <section class="html-content ${useMinHeightClass}">
             <mob-loader
                 ${bindProps({
                     bind: ['contentIsLoaded'],
