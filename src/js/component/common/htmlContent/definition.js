@@ -10,5 +10,9 @@ export const htmlContentDef = createComponent({
             value: '',
             type: String,
         }),
+        contentIsLoaded: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
 });

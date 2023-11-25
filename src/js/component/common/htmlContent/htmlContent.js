@@ -18,14 +18,33 @@ const getComponents = ({ data, staticProps }) => {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const HtmlContent = async ({ html, getState, staticProps }) => {
+export const HtmlContent = async ({
+    html,
+    getState,
+    setState,
+    staticProps,
+    bindProps,
+    onMount,
+}) => {
     const { source } = getState();
 
     const { success, data } = await loadJsonContent({ source });
     if (!success) return '';
 
+    onMount(async () => {
+        setState('contentIsLoaded', true);
+    });
+
     return html`
         <section class="html-content">
+            <mob-loader
+                ${bindProps({
+                    bind: ['contentIsLoaded'],
+                    props: ({ contentIsLoaded }) => {
+                        return { shouldRemove: contentIsLoaded };
+                    },
+                })}
+            ></mob-loader>
             ${getComponents({ data: data.data, staticProps })}
         </section>
     `;
