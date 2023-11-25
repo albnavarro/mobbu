@@ -279,7 +279,7 @@ const render = (timestamp) => {
     if (isStopped) startTime += timeElapsed;
 
     rawTime += timeElapsed;
-    time = rawTime - startTime;
+    time = Math.round(rawTime - startTime);
 
     /**
      * Get fps
