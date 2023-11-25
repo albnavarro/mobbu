@@ -4,7 +4,8 @@
             "description": "/codeExample/home/description.json",
             "definition": "/codeExample/home/definition.json",
             "component": "/codeExample/home/component.json",
-            "animation": "/codeExample/home/animation.json"
+            "logoAnimation": "/codeExample/home/logoAnimation.json",
+            "textAnimation": "/codeExample/home/textAnimation.json"
         }
     },
     "caterpillarN1": {

@@ -74,8 +74,12 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
                         source: source.component,
                     },
                     {
-                        label: 'animation',
-                        source: source.animation,
+                        label: 'Logo animation',
+                        source: source.logoAnimation,
+                    },
+                    {
+                        label: 'text animation',
+                        source: source.textAnimation,
                     },
                 ],
                 style: 'legend',

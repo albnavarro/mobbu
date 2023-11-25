@@ -5,7 +5,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "animation"
+            "content": "Logo animation"
         },
         {
             "component": "mob-spacer",
