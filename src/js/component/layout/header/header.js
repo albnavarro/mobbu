@@ -39,9 +39,6 @@ export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
         return () => {};
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
-
     return html`
         <header class="l-header">
             <div class="l-header__container">
@@ -69,30 +66,6 @@ export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
                 </div>
                 <div class="l-header__navinfo" ref="navInfo">
                     <p class="p--small"></p>
-                    <code-button
-                        ${staticProps({
-                            drawers: [
-                                {
-                                    label: 'description',
-                                    source: source.description,
-                                },
-                                {
-                                    label: 'definition',
-                                    source: source.definition,
-                                },
-                                {
-                                    label: 'component',
-                                    source: source.component,
-                                },
-                                {
-                                    label: 'animation',
-                                    source: source.animation,
-                                },
-                            ],
-                            style: 'green',
-                        })}
-                    >
-                    </code-button>
                 </div>
             </div>
         </header>

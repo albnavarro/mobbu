@@ -5,7 +5,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "animation"
+            "content": "definition"
         },
         {
             "component": "mob-spacer",
@@ -17,7 +17,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/canvas/caterpillarN1/animation/animation.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/homepage/definition.js",
                 "isFull": true
             }
         }

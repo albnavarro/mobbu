@@ -1,0 +1,67 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "definition scroller"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/definition.js",
+                "isFull": true
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "definition section"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/definition.js",
+                "isFull": true
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "definition buttons"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/horizontalScrollerButton/definition.js",
+                "isFull": true
+            }
+        }
+    ]
+}

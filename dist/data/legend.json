@@ -1,10 +1,28 @@
 {
+    "home": {
+        "source": {
+            "description": "/codeExample/home/description.json",
+            "definition": "/codeExample/home/definition.json",
+            "component": "/codeExample/home/component.json",
+            "animation": "/codeExample/home/animation.json"
+        }
+    },
     "caterpillarN1": {
         "source": {
-            "description": "/codeExample/test/description.json",
-            "definition": "/codeExample/test/definition.json",
-            "component": "/codeExample/test/component.json",
-            "animation": "/codeExample/test/animation.json"
+            "description": "/codeExample/caterpillarn1/description.json",
+            "definition": "/codeExample/caterpillarn1/definition.json",
+            "component": "/codeExample/caterpillarn1/component.json",
+            "animation": "/codeExample/caterpillarn1/animation.json"
+        }
+    },
+    "horizontalScroller": {
+        "source": {
+            "description": "/codeExample/horizontalScroller/description.json",
+            "definition": "/codeExample/horizontalScroller/definition.json",
+            "scroller": "/codeExample/horizontalScroller/scroller.json",
+            "section": "/codeExample/horizontalScroller/section.json",
+            "buttons": "/codeExample/horizontalScroller/buttons.json",
+            "animation": "/codeExample/horizontalScroller/animation.json"
         }
     }
 }

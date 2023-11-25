@@ -54,8 +54,8 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
         };
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
+    const { home } = getLegendData();
+    const { source } = home;
 
     return html`<div>
         <code-button

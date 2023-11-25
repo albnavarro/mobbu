@@ -130,8 +130,8 @@ export const HorizontalScroller = ({
         };
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
+    const { horizontalScroller } = getLegendData();
+    const { source } = horizontalScroller;
 
     /**
      * Skip mobile.
@@ -157,8 +157,16 @@ export const HorizontalScroller = ({
                         source: source.definition,
                     },
                     {
-                        label: 'component',
-                        source: source.component,
+                        label: 'scroller',
+                        source: source.scroller,
+                    },
+                    {
+                        label: 'section',
+                        source: source.section,
+                    },
+                    {
+                        label: 'buttons',
+                        source: source.buttons,
                     },
                     {
                         label: 'animation',
