@@ -13,13 +13,28 @@
             width: auto;
             min-width: rem(600);
         }
+
+        &.is-full {
+            @include mq.mq('desktop') {
+                width: 100%;
+                min-width: auto;
+                border: 0;
+            }
+        }
     }
 
     pre {
         padding: rem(10);
+        overflow: hidden;
 
         @include mq.mq('desktop') {
             padding: rem(30);
+
+            &.is-full {
+                @include mq.mq('desktop') {
+                    padding: 0;
+                }
+            }
         }
     }
 }

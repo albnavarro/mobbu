@@ -1,11 +1,6 @@
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
 import { html, parseDom, staticProps } from '../../../mobjs';
-import { loadTextContent } from '../../../utils/utils';
-
-hljs.registerLanguage('javascript', javascript);
 
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
@@ -42,7 +37,6 @@ const printContent = async ({
     setState,
     getState,
     codeEl,
-    descriptionEl,
     currentKey,
     updateScroller,
     goToTop,
@@ -61,37 +55,17 @@ const printContent = async ({
      */
     if (!source?.length) return;
 
-    if (currentKey === 'description') {
-        descriptionEl.classList.remove('hide');
-        codeEl.classList.add('hide');
-        const htmlComponent = html`<html-content
-            ${staticProps({ source })}
-            ${syncParent}
-        ></html-content>`;
-        descriptionEl.insertAdjacentHTML('afterbegin', htmlComponent);
-        await parseDom(descriptionEl);
+    const htmlComponent = html`<html-content
+        ${staticProps({ source })}
+        ${syncParent}
+    ></html-content>`;
+    codeEl.insertAdjacentHTML('afterbegin', htmlComponent);
+    await parseDom(codeEl);
 
-        /**
-         * Save raw data.
-         */
-        setState('rawContent', /* HTML */ descriptionEl.textContent);
-    } else {
-        /**
-         * Load data.
-         */
-        const { success, data } = await loadTextContent({ source });
-        if (!success) return;
-
-        descriptionEl.classList.add('hide');
-        codeEl.classList.remove('hide');
-        codeEl.textContent = data;
-        hljs.highlightElement(codeEl, { language: 'javascript' });
-
-        /**
-         * Save raw data.
-         */
-        setState('rawContent', /* HTML */ data);
-    }
+    /**
+     * Save raw data.
+     */
+    setState('rawContent', /* HTML */ codeEl.textContent);
 
     updateScroller();
     goToTop();
@@ -100,9 +74,9 @@ const printContent = async ({
 /**
  * Clean content DOM
  */
-const cleanDom = ({ codeEl, descriptionEl, removeDOM }) => {
+const cleanDom = ({ codeEl, removeDOM }) => {
     codeEl.textContent = '';
-    const descriptionElChild = descriptionEl.firstElementChild;
+    const descriptionElChild = codeEl.firstElementChild;
 
     /**
      * Clean HTML component.
@@ -128,7 +102,7 @@ export const CodeOverlay = ({
     syncParent,
 }) => {
     onMount(({ element, refs }) => {
-        const { screenEl, codeEl, scrollerEl, descriptionEl } = refs;
+        const { screenEl, scrollerEl, codeEl } = refs;
 
         const { updateScroller, goToTop } = overlayScroller({
             screen: screenEl,
@@ -156,7 +130,7 @@ export const CodeOverlay = ({
                 } else {
                     element.classList.remove('active');
                     document.body.style.overflow = '';
-                    cleanDom({ codeEl, descriptionEl, removeDOM });
+                    cleanDom({ codeEl, removeDOM });
 
                     /**
                      * Reset buttons state on overlay close.
@@ -173,13 +147,12 @@ export const CodeOverlay = ({
          * Update current content.
          */
         const unWatchActiveContent = watch('activeContent', (currentKey) => {
-            cleanDom({ codeEl, descriptionEl, removeDOM });
+            cleanDom({ codeEl, removeDOM });
 
             printContent({
                 setState,
                 getState,
                 codeEl,
-                descriptionEl,
                 currentKey,
                 updateScroller,
                 goToTop,
@@ -240,15 +213,9 @@ export const CodeOverlay = ({
                 </div>
                 <div class="code-overlay__content" ref="screenEl">
                     <div ref="scrollerEl">
-                        <code>
-                            <pre
-                                class="code-overlay__content__code"
-                                ref="codeEl"
-                            ></pre>
-                        </code>
                         <div
                             class="code-overlay__content__description"
-                            ref="descriptionEl"
+                            ref="codeEl"
                         ></div>
                     </div>
                 </div>

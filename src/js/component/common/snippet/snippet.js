@@ -15,7 +15,9 @@ export const Snippet = ({
     staticProps,
     setState,
 }) => {
-    const { source } = getState();
+    const { source, isFull } = getState();
+    const isFullClass = isFull ? 'is-full' : '';
+    console.log(isFull);
 
     onMount(async ({ refs }) => {
         const { codeEl } = refs;
@@ -42,7 +44,7 @@ export const Snippet = ({
     });
 
     return html`<div class="snippet">
-        <code>
+        <code class="${isFullClass}">
             <mob-loader
                 ${staticProps({ position: 'center-component' })}
                 ${bindProps({
@@ -52,7 +54,7 @@ export const Snippet = ({
                     },
                 })}
             ></mob-loader>
-            <pre ref="codeEl"></pre>
+            <pre class="${isFullClass}" ref="codeEl"></pre>
         </code>
     </div>`;
 };
