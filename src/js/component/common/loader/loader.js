@@ -18,8 +18,10 @@ export const Loader = ({ onMount, html, watch, remove, getState }) => {
         });
 
         watch('shouldRemove', async (shouldRemove) => {
+            if (!shouldRemove) return;
+
             await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-            if (shouldRemove) remove();
+            remove();
         });
 
         return () => {
