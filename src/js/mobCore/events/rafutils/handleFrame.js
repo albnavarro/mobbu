@@ -285,7 +285,7 @@ const render = (timestamp) => {
      * Get fps
      * Update fps every second
      **/
-    if (!isStopped) frames++;
+    // if (!isStopped) frames++;
 
     if (time > fpsPrevTime + 1000) {
         /**
