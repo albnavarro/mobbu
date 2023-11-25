@@ -22,6 +22,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -40,6 +46,12 @@
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/definition.js",
                 "isFull": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
             }
         },
         {
