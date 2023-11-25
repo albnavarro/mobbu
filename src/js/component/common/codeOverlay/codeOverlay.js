@@ -102,11 +102,16 @@ export const CodeOverlay = ({
     syncParent,
 }) => {
     onMount(({ element, refs }) => {
-        const { screenEl, scrollerEl, codeEl } = refs;
+        const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
 
-        const { updateScroller, goToTop } = overlayScroller({
+        const { updateScroller, move, goToTop } = overlayScroller({
             screen: screenEl,
             scroller: scrollerEl,
+            scrollbar,
+        });
+
+        scrollbar.addEventListener('input', () => {
+            move(scrollbar.value);
         });
 
         /**
@@ -211,6 +216,17 @@ export const CodeOverlay = ({
                         },
                     })}
                 </div>
+                <input
+                    type="range"
+                    id="test"
+                    name="test"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step=".5"
+                    ref="scrollbar"
+                    class="code-overlay__scrollbar"
+                />
                 <div class="code-overlay__content" ref="screenEl">
                     <div ref="scrollerEl">
                         <div

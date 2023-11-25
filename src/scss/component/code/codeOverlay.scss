@@ -21,6 +21,59 @@
         pointer-events: all;
     }
 
+    &__scrollbar {
+        position: absolute;
+        bottom: rem(100);
+        width: calc(100vh - var(--header-height) - #{rem(200)});
+        right: rem(25);
+        transform: rotate(90deg);
+        transform-origin: right;
+        z-index: 11;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::-webkit-slider-runnable-track {
+            background-color: rgba($white, 0.05);
+            border-radius: 0;
+            height: rem(10);
+            width: rem(10);
+        }
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            background-color: $black;
+            height: rem(10);
+            width: rem(10);
+        }
+
+        &:focus::-webkit-slider-thumb {
+            outline-offset: 0;
+        }
+
+        &::-moz-range-track {
+            background-color: rgba($white, 0.05);
+            border-radius: 0;
+            height: rem(10);
+        }
+
+        &::-moz-range-thumb {
+            border: none; /* Removes extra border that FF applies */
+            border-radius: 0; /* Removes default border-radius that FF applies */
+            background-color: $black;
+            height: rem(10);
+            width: rem(10);
+        }
+
+        &:focus::-moz-range-thumb {
+            outline-offset: 0;
+        }
+    }
+
     &__background {
         background: rgba($black, 0.85);
         position: absolute;
