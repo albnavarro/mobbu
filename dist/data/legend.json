@@ -78,7 +78,7 @@
         "source": {
             "description": "/codeExample/repeater/description.json",
             "definition": "/codeExample/repeater/definition.json",
-            "scroller": "/codeExample/repeater/mainComponent.json",
+            "mainComponent": "/codeExample/repeater/mainComponent.json",
             "repeaters": "/codeExample/repeater/repeaters.json",
             "buttons": "/codeExample/repeater/buttons.json",
             "cards": "/codeExample/repeater/cards.json"

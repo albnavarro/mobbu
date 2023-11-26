@@ -202,8 +202,8 @@ export const DynamicList = async ({
                             source: source.definition,
                         },
                         {
-                            label: 'scroller',
-                            source: source.scroller,
+                            label: 'mainComponent',
+                            source: source.mainComponent,
                         },
                         {
                             label: 'repeater',
