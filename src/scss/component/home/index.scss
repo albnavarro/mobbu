@@ -32,6 +32,10 @@
                 width: max(800px, calc((800 * 100) / 1920 * 1vw));
                 height: max(700px, calc((700 * 100) / 1920 * 1vw));
             }
+
+            g {
+                opacity: 0;
+            }
         }
     }
 
@@ -53,6 +57,10 @@
             @include mq.mq('tablet') {
                 width: max(800px, calc((800 * 100) / 1920 * 1vw));
                 height: max(700px, calc((700 * 100) / 1920 * 1vw));
+            }
+
+            g {
+                opacity: 0;
             }
         }
     }

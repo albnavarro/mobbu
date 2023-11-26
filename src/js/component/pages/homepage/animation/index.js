@@ -29,6 +29,16 @@ export const homeAnimation = ({ logoRefs, around }) => {
     /**
      * Side tween.
      */
+    let aroundIntroTween = tween.createTween({
+        data: { scale: 0.5, opacity: 0 },
+        duration: 1000,
+        ease: 'easeInOutQuad',
+        stagger: { each: 4 },
+    });
+
+    /**
+     * Side tween.
+     */
     let aroundTween = tween.createTween({
         data: { scale: 1 },
         duration: 4000,
@@ -64,7 +74,17 @@ export const homeAnimation = ({ logoRefs, around }) => {
     });
 
     /**
-     * Subscribe side tween.
+     * Subscribe intro side tween.
+     */
+    around.forEach((item) => {
+        aroundIntroTween.subscribe(({ scale, opacity }) => {
+            item.style.scale = `${scale}`;
+            item.style.opacity = opacity;
+        });
+    });
+
+    /**
+     * Subscribe default side tween.
      */
     around.forEach((item) => {
         aroundTween.subscribe(({ scale }) => {
@@ -77,11 +97,17 @@ export const homeAnimation = ({ logoRefs, around }) => {
      */
     let introTl = timeline
         .createAsyncTimeline({ repeat: 1 })
+        .createGroup({ waitComplete: true })
         .goTo(logoIntroTween, {
             opacity: 1,
             scale: 1,
             x: 0,
-        });
+        })
+        .goTo(aroundIntroTween, {
+            opacity: 1,
+            scale: 1,
+        })
+        .closeGroup();
 
     /**
      * Default timeline.
@@ -116,9 +142,11 @@ export const homeAnimation = ({ logoRefs, around }) => {
             logoTween.destroy();
             tl.destroy();
             introTl.destroy();
+            aroundIntroTween.destroy();
             logoTween = null;
             logoIntroTween = null;
             aroundTween = null;
+            aroundIntroTween = null;
             tl = null;
             introTl = null;
         },
