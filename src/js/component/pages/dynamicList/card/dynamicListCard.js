@@ -46,9 +46,9 @@ export const DynamicListCard = async ({
             counterEl.textContent = updateContent('counter', val);
         });
 
-        mobCore.useFrameIndex(() => {
+        mobCore.useFrame(() => {
             element.classList.add('active');
-        }, 1);
+        });
     });
 
     // await asyncTest();
