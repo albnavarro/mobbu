@@ -79,14 +79,14 @@ export const animatedPatternN1Animation = ({
         .sort((value) => (value.hasFill ? -1 : 1));
 
     /**
-     * Create rotation tween.
+     * Create mouse tween.
      */
     centerTween = tween.createLerp({
         data: { mouseX: 0, mouseY: 0 },
     });
 
     /**
-     * Subscribe rect to rotation tween.
+     * Subscribe rect to mouse tween.
      */
     data.forEach((item) => {
         centerTween.subscribeCache(item, ({ mouseX, mouseY }) => {
