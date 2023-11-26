@@ -12,7 +12,7 @@ export const homeAnimation = ({ logoRefs, around }) => {
     let logoIntroTween = tween.createTween({
         data: { opacity: 0, scale: 0.5, x: -10 },
         duration: 2000,
-        ease: 'easeInOutBack',
+        ease: 'easeOutQuart',
         stagger: { each: 8, from: 'end' },
     });
 
