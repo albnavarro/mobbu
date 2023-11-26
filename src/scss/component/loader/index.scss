@@ -13,7 +13,7 @@
     border-right: 4px solid transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    z-index: 10;
+    z-index: 16;
 
     &.center-viewport {
         position: fixed;
@@ -48,4 +48,14 @@
             transform: rotate(360deg);
         }
     }
+}
+
+.c-loader-background {
+    position: fixed;
+    top: -400px;
+    left: -400px;
+    width: 200%;
+    height: 200%;
+    background: $dark-green;
+    z-index: 15;
 }

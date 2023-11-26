@@ -38,16 +38,21 @@ mobCore.useLoad(() => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {
         const jsMainLoader = document.body.querySelector('.js-main-loader');
+        const jsMainLoaderBackground = document.body.querySelector(
+            '.js-main-loader-background'
+        );
 
         let loaderTween = tween.createTween({
             data: { opacity: 1, scale: 1 },
             duration: 500,
         });
 
-        if (jsMainLoader) {
-            loaderTween.subscribe(({ opacity, scale }) => {
-                jsMainLoader.style.opacity = opacity;
-                jsMainLoader.style.transform = `scale(${scale})`;
+        if (jsMainLoader && jsMainLoaderBackground) {
+            [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
+                loaderTween.subscribe(({ opacity, scale }) => {
+                    item.style.opacity = opacity;
+                    item.style.transform = `scale(${scale})`;
+                });
             });
         }
 
@@ -72,6 +77,7 @@ mobCore.useLoad(() => {
             afterInit: async () => {
                 await loaderTween.goTo({ opacity: 0, scale: 0.9 });
                 jsMainLoader?.remove();
+                jsMainLoaderBackground?.remove();
                 loaderTween = null;
             },
         });
