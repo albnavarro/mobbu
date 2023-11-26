@@ -33,6 +33,8 @@
         background: transparent;
         cursor: pointer;
 
+        --thumb-width: #{rem(200)};
+
         &:focus {
             outline: none;
         }
@@ -48,7 +50,7 @@
             appearance: none;
             background-color: $black;
             height: rem(10);
-            width: rem(10);
+            width: var(--thumb-width);
         }
 
         &:focus::-webkit-slider-thumb {
@@ -66,7 +68,7 @@
             border-radius: 0; /* Removes default border-radius that FF applies */
             background-color: $black;
             height: rem(10);
-            width: rem(10);
+            width: var(--thumb-width);
         }
 
         &:focus::-moz-range-thumb {
