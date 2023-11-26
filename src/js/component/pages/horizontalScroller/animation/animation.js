@@ -97,8 +97,8 @@ export const horizontalScrollerAnimation = ({
     animatePin,
     setState,
 }) => {
-    const pins = createPins({ indicators, setState });
-    const titlesParallax = createParallax({ titles });
+    let pins = createPins({ indicators, setState });
+    let titlesParallax = createParallax({ titles });
 
     const side = document.querySelector('.l-navcontainer__side');
     sideWidth = outerWidth(side) / 2;
@@ -107,7 +107,7 @@ export const horizontalScrollerAnimation = ({
         sideWidth = outerWidth(side) / 2;
     });
 
-    const horizontalCustom = new HorizontalScroller({
+    let horizontalCustom = new HorizontalScroller({
         root: '.js-root',
         container: '.js-container',
         row: '.js-row',
@@ -150,7 +150,27 @@ export const horizontalScrollerAnimation = ({
 
     return {
         destroy: () => {
+            /**
+             * Destroy pin.
+             */
+            pins.forEach((pin) => {
+                pin?.destroy();
+            });
+            pins = [];
+
+            /**
+             * Destroy titles.
+             */
+            titlesParallax.forEach((item) => {
+                item?.destroy();
+            });
+            titlesParallax = [];
+
+            /**
+             * Destroy timelines.
+             */
             horizontalCustom.destroy();
+            horizontalCustom = null;
             unsubscribeResize();
         },
         refresh: () => horizontalCustom.refresh(),
