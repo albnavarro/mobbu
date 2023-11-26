@@ -44,7 +44,7 @@ mobCore.useLoad(() => {
 
         let loaderTween = tween.createTween({
             data: { opacity: 1, scale: 1 },
-            duration: 500,
+            duration: 1000,
         });
 
         if (jsMainLoader && jsMainLoaderBackground) {
