@@ -18,7 +18,10 @@ export const Snippet = ({ html, onMount, getState }) => {
          * Get snippet data.
          */
         const { success, data } = await loadTextContent({ source });
-        if (!success) return;
+        if (!success) {
+            codeEl.textContent = `something went wrong`;
+            return;
+        }
 
         /**
          * Add contento to dom.

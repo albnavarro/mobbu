@@ -29,7 +29,11 @@ export const HtmlContent = async ({
     const { source } = getState();
 
     const { success, data } = await loadJsonContent({ source });
-    if (!success) return '';
+    if (!success) {
+        return html`
+            <section class="html-content">something went wrong</section>
+        `;
+    }
 
     const { useMinHeight } = getState();
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
