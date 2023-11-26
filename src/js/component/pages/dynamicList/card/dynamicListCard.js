@@ -81,7 +81,6 @@ export const DynamicListCard = async ({
                         bind: ['counter', 'label', 'index'],
                         props: () => {
                             return {
-                                /* HTML */
                                 parentState: `${JSON.stringify(
                                     getState(),
                                     null,

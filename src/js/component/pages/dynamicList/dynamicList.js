@@ -2,14 +2,6 @@ import { getLegendData } from '../../../data';
 import { html } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
-// function asyncTest() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve();
-//         }, 1000);
-//     });
-// }
-
 const buttons = [
     {
         buttonLabel: 'sample1',
@@ -116,13 +108,8 @@ export const DynamicList = async ({
         });
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
-
-    /**
-     * Async test
-     */
-    // await asyncTest();
+    const { repeater } = getLegendData();
+    const { source } = repeater;
 
     return html`
         <dynamic-list class="dynamic-list">
@@ -215,12 +202,20 @@ export const DynamicList = async ({
                             source: source.definition,
                         },
                         {
-                            label: 'component',
-                            source: source.component,
+                            label: 'scroller',
+                            source: source.scroller,
                         },
                         {
-                            label: 'animation',
-                            source: source.animation,
+                            label: 'repeater',
+                            source: source.repeaters,
+                        },
+                        {
+                            label: 'buttons',
+                            source: source.buttons,
+                        },
+                        {
+                            label: 'cards',
+                            source: source.cards,
                         },
                     ],
                     style: 'legend',
