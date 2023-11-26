@@ -81,7 +81,8 @@
             "mainComponent": "/codeExample/repeater/mainComponent.json",
             "repeaters": "/codeExample/repeater/repeaters.json",
             "buttons": "/codeExample/repeater/buttons.json",
-            "cards": "/codeExample/repeater/cards.json"
+            "cards": "/codeExample/repeater/cards.json",
+            "data": "/codeExample/repeater/data.json"
         }
     }
 }

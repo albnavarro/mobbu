@@ -202,7 +202,7 @@ export const DynamicList = async ({
                             source: source.definition,
                         },
                         {
-                            label: 'mainComponent',
+                            label: 'main',
                             source: source.mainComponent,
                         },
                         {
@@ -216,6 +216,10 @@ export const DynamicList = async ({
                         {
                             label: 'cards',
                             source: source.cards,
+                        },
+                        {
+                            label: 'data',
+                            source: source.data,
                         },
                     ],
                     style: 'legend',
