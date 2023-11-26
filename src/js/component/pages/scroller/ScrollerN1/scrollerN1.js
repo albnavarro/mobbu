@@ -23,8 +23,8 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
         };
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
+    const { scrollerN1 } = getLegendData();
+    const { source } = scrollerN1;
 
     const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 

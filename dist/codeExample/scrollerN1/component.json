@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "component"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/scroller/ScrollerN1/scrollerN1.js",
+                "isFull": true
+            }
+        }
+    ]
+}
