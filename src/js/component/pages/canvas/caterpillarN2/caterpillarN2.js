@@ -67,8 +67,8 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
         };
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
+    const { caterpillarN2 } = getLegendData();
+    const { source } = caterpillarN2;
 
     const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 

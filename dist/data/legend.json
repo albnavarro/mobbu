@@ -8,12 +8,28 @@
             "textAnimation": "/codeExample/home/textAnimation.json"
         }
     },
+    "caterpillarN0": {
+        "source": {
+            "description": "/codeExample/caterpillarN0/description.json",
+            "definition": "/codeExample/caterpillarN0/definition.json",
+            "component": "/codeExample/caterpillarN0/component.json",
+            "animation": "/codeExample/caterpillarN0/animation.json"
+        }
+    },
     "caterpillarN1": {
         "source": {
             "description": "/codeExample/caterpillarn1/description.json",
             "definition": "/codeExample/caterpillarn1/definition.json",
             "component": "/codeExample/caterpillarn1/component.json",
             "animation": "/codeExample/caterpillarn1/animation.json"
+        }
+    },
+    "caterpillarN2": {
+        "source": {
+            "description": "/codeExample/caterpillarN2/description.json",
+            "definition": "/codeExample/caterpillarN2/definition.json",
+            "component": "/codeExample/caterpillarN2/component.json",
+            "animation": "/codeExample/caterpillarN2/animation.json"
         }
     },
     "horizontalScroller": {
