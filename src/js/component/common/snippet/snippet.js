@@ -7,14 +7,7 @@ hljs.registerLanguage('javascript', javascript);
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Snippet = ({
-    html,
-    onMount,
-    getState,
-    bindProps,
-    staticProps,
-    setState,
-}) => {
+export const Snippet = ({ html, onMount, getState }) => {
     const { source, isFull } = getState();
     const isFullClass = isFull ? 'is-full' : '';
 
@@ -26,8 +19,6 @@ export const Snippet = ({
          */
         const { success, data } = await loadTextContent({ source });
         if (!success) return;
-
-        setState('contentIsLoaded', true);
 
         /**
          * Add contento to dom.
@@ -44,16 +35,10 @@ export const Snippet = ({
 
     return html`<div class="snippet">
         <code class="${isFullClass}">
-            <mob-loader
-                ${staticProps({ position: 'center-component' })}
-                ${bindProps({
-                    bind: ['contentIsLoaded'],
-                    props: ({ contentIsLoaded }) => {
-                        return { shouldRemove: contentIsLoaded };
-                    },
-                })}
-            ></mob-loader>
-            <pre class="${isFullClass}" ref="codeEl"></pre>
+            <pre class="${isFullClass}" ref="codeEl">
+Loading snippet ...
+            </pre
+            >
         </code>
     </div>`;
 };
