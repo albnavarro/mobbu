@@ -1,13 +1,5 @@
 import { mobCore } from '../../../../mobCore';
 
-// function asyncTest() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve();
-//         }, 100);
-//     });
-// }
-
 function updateContent(label, val) {
     return `${label}: ${val}`;
 }
@@ -50,8 +42,6 @@ export const DynamicListCard = async ({
             element.classList.add('active');
         });
     });
-
-    // await asyncTest();
 
     const isFullClass = isFull ? 'is-full' : '';
 
