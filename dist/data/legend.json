@@ -18,10 +18,10 @@
     },
     "caterpillarN1": {
         "source": {
-            "description": "/codeExample/caterpillarn1/description.json",
-            "definition": "/codeExample/caterpillarn1/definition.json",
-            "component": "/codeExample/caterpillarn1/component.json",
-            "animation": "/codeExample/caterpillarn1/animation.json"
+            "description": "/codeExample/caterpillarN1/description.json",
+            "definition": "/codeExample/caterpillarN1/definition.json",
+            "component": "/codeExample/caterpillarN1/component.json",
+            "animation": "/codeExample/caterpillarN1/animation.json"
         }
     },
     "caterpillarN2": {
@@ -30,6 +30,22 @@
             "definition": "/codeExample/caterpillarN2/definition.json",
             "component": "/codeExample/caterpillarN2/component.json",
             "animation": "/codeExample/caterpillarN2/animation.json"
+        }
+    },
+    "animatedPatternN0": {
+        "source": {
+            "description": "/codeExample/animatedPatternN0/description.json",
+            "definition": "/codeExample/animatedPatternN0/definition.json",
+            "component": "/codeExample/animatedPatternN0/component.json",
+            "animation": "/codeExample/animatedPatternN0/animation.json"
+        }
+    },
+    "animatedPatternN1": {
+        "source": {
+            "description": "/codeExample/animatedPatternN1/description.json",
+            "definition": "/codeExample/animatedPatternN1/definition.json",
+            "component": "/codeExample/animatedPatternN1/component.json",
+            "animation": "/codeExample/animatedPatternN1/animation.json"
         }
     },
     "horizontalScroller": {

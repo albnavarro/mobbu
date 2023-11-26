@@ -20,8 +20,8 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
         };
     });
 
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
+    const { animatedPatternN1 } = getLegendData();
+    const { source } = animatedPatternN1;
 
     return html`
         <div>

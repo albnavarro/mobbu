@@ -70,7 +70,6 @@ export const animatedPatternN1Animation = ({
         .map((item, i) => {
             return {
                 ...item,
-
                 scale: 0,
                 mouseX: 0,
                 mouseY: 0,
