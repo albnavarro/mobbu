@@ -2173,7 +2173,7 @@ export default class ParallaxClass {
         // Remove style from element, if style prop exist.
         const el = this.applyTo ?? this.item;
         // @ts-ignore
-        if ('style' in el) el.style = '';
+        if (el && 'style' in el) el.style = '';
 
         /**
          * Remove HTMLELement reference.
