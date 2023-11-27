@@ -4,7 +4,7 @@ import { HtmlContent } from './htmlContent';
 export const htmlContentDef = createComponent({
     name: 'html-content',
     component: HtmlContent,
-    exportState: ['source', 'useMinHeight'],
+    exportState: ['source', 'useMinHeight', 'useMaxWidth'],
     state: {
         source: () => ({
             value: '',
@@ -15,6 +15,10 @@ export const htmlContentDef = createComponent({
             type: Boolean,
         }),
         useMinHeight: () => ({
+            value: false,
+            type: Boolean,
+        }),
+        useMaxWidth: () => ({
             value: false,
             type: Boolean,
         }),

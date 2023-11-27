@@ -10,4 +10,8 @@
     &.is-min-100 {
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
     }
+
+    &.is-max-width {
+        max-width: rem(800);
+    }
 }

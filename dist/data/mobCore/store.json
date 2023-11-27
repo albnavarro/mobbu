@@ -6,6 +6,20 @@
                 "tag": "h1"
             },
             "content": "Store"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<a href='#mobJs_lifecycle'>link test</a>"
         }
     ]
 }

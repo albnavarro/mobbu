@@ -35,15 +35,16 @@ export const HtmlContent = async ({
         `;
     }
 
-    const { useMinHeight } = getState();
+    const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
+    const useMaxWidthClass = useMaxWidth ? 'is-max-width' : '';
 
     onMount(async () => {
         setState('contentIsLoaded', true);
     });
 
     return html`
-        <section class="html-content ${useMinHeightClass}">
+        <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
             <mob-loader
                 ${bindProps({
                     bind: ['contentIsLoaded'],
