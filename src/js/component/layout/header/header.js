@@ -1,4 +1,3 @@
-import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
@@ -20,13 +19,14 @@ function titleHandler() {
     setStateById(pageTransitionId, 'url', '#home');
     navigationStore.set('navigationIsOpen', false);
     navigationStore.emit('closeNavigation');
+    navigationStore.emit('closeAllAccordion');
     navigationStore.emit('goToTop');
 }
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Header = ({ html, onMount, staticProps, delegateEvents }) => {
+export const Header = ({ html, onMount, delegateEvents }) => {
     onMount(({ refs }) => {
         const { navInfo, title } = refs;
 
