@@ -364,7 +364,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Listen to the changing data"
+            "content": "Listen to the changing data and return the unsubcribe function."
         },
         {
             "component": "mob-spacer",
@@ -449,6 +449,142 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Computed"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/computed.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {}
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Destroy"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Destroy store and remove all reference"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/destroy.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Other functions"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "debugStore()"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "log store status."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "debugValidate()"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "log validate status."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/other.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "big"
             }
         }
     ]
