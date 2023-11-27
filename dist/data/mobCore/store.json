@@ -111,11 +111,17 @@
             "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <strong>validate, type, skipEqual</strong>."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to insert up to a maximum of two levels per property as in the example above. To use a 'custom' object as a value without having to check type... use the <strong>'any'</strong> type."
+            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/><br/> To use a object with infinite insertions use the <strong>any</strong> type"
         },
         {
             "component": "mob-spacer",
@@ -141,9 +147,9 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
-            "content": "Availabel type:"
+            "content": "Available type:"
         },
         {
             "component": "mob-list",
@@ -172,16 +178,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
-            "content": "Validate"
+            "content": "validate"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "content"
+            "content": "Validation function to analyze the value. This function will take the current value and old value as input parameters and return a boolean value. The validation status of each property will be displayed in observers and will be retrievable using the getValidation() method."
         },
         {
             "component": "mob-spacer",
@@ -198,7 +204,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "skipEqual"
         },
@@ -207,7 +213,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "content"
+            "content": "If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.<br/> The default value is <strong>true</strong>."
         },
         {
             "component": "mob-spacer",
@@ -224,7 +230,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "strict"
         },
@@ -233,12 +239,216 @@
             "props": {
                 "style": "medium"
             },
-            "content": "content"
+            "content": "If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.<br/> The default value is <strong>false</strong>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Set"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Update store value:"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/set.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Other set params:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ).Default value is <strong>true</strong>.<br/> Clone the original data if using a function and make a copy of the original data.Default value is <strong>false</strong>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/setParams.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Get"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The get() method will return the complete store, use object destructuring to retrieve the desired property."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/get.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Watch"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Listen to the changing data"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/watch.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Emit"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Execute property-related callbacks"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/emit.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Emit async"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Execute property-related async callbacks"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/emitAsync.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
             }
         }
     ]

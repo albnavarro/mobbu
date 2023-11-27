@@ -1,0 +1,1 @@
+const { prop } = myStore.get();

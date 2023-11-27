@@ -10,7 +10,7 @@ const myStore = mobCore.createStore({
     }),
     myObject: {
         myProps: () => ({
-            value: '',
+            value: 'option1',
             type: String,
             validate: (val) => {
                 return ['option1', 'option2'].includes(val);

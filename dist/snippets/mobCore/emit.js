@@ -1,0 +1,1 @@
+myStore.emit('prop');
