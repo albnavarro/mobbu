@@ -20,6 +20,7 @@ function titleHandler() {
     setStateById(pageTransitionId, 'url', '#home');
     navigationStore.set('navigationIsOpen', false);
     navigationStore.emit('closeNavigation');
+    navigationStore.emit('goToTop');
 }
 
 /**
