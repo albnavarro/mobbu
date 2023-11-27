@@ -3,7 +3,9 @@ const myStore = mobCore.createStore({
         value: {
             prop: {
                 nestedProp: {
-                    value: 2,
+                    nestedProp: {
+                        value: 2,
+                    },
                 },
             },
         },
