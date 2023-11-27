@@ -5,6 +5,7 @@ export * from './common/pageTransition/definition';
 export * from './common/htmlContent/definition';
 export * from './common/typography/titles/definition';
 export * from './common/typography/paragraph/definition';
+export * from './common/typography/list/definition';
 export * from './common/snippet/definition';
 export * from './common/spacer/definition';
 export * from './common/onlyDesktop/definition';

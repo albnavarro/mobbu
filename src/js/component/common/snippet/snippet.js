@@ -8,8 +8,10 @@ hljs.registerLanguage('javascript', javascript);
  * @param {import("../../../mobjs/type").componentType}
  */
 export const Snippet = ({ html, onMount, getState }) => {
-    const { source, isFull } = getState();
+    const { source, isFull, hasBorder, hasOverflow } = getState();
     const isFullClass = isFull ? 'is-full' : '';
+    const hasBorderClass = hasBorder ? 'has-border' : '';
+    const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
 
     onMount(async ({ refs }) => {
         const { codeEl } = refs;
@@ -37,8 +39,8 @@ export const Snippet = ({ html, onMount, getState }) => {
     });
 
     return html`<div class="snippet">
-        <code class="${isFullClass}">
-            <pre class="${isFullClass}" ref="codeEl">
+        <code class="${isFullClass} ${hasBorderClass}">
+            <pre class="${isFullClass} ${hasOverflowClass}" ref="codeEl">
 Loading snippet ...
             </pre
             >

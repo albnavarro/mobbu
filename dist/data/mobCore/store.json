@@ -19,7 +19,118 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='#mobJs_lifecycle'>link test</a>"
+            "content": "Classic store based on the pub/sub pattern. This module will then be the basis of the reactivity of the javascript components."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Feature:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": [
+                    "Optional Dynamic type check",
+                    "Optional Validation function",
+                    "Optional Equal check"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {}
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Basic implementations:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/basicUse.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {}
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Advanced implementations:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/advancedUse.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <strong>validate, type, skipEqual</strong>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to insert up to a maximum of two levels per property as in the example above. To use a 'custom' object as a value without having to check type... use the <strong>'any'</strong> type."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/any.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         }
     ]
 }
