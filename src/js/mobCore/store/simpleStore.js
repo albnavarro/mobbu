@@ -831,7 +831,7 @@ export class SimpleStore {
      *
      * @example
      * ```javascript
-     * const myProp = myStore.get('myProp');
+     * const myProp = myStore.getProp('myProp');
      *
      * ```
      */
