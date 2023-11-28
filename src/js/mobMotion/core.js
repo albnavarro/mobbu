@@ -3,7 +3,7 @@
 import { handleSetUp } from './setup.js';
 import { mq } from './utils/mediaManager.js';
 
-export const core = {
+export const motionCore = {
     /**
      * @description
      * - Here it is possible to modify the default values of the various modules of the library

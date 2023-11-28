@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
-import { core } from '../../../mobMotion';
+import { motionCore } from '../../../mobMotion';
 
 const content = html`
     <div class="only-desktop">
@@ -11,7 +11,7 @@ const content = html`
 
 const onResize = ({ element }) => {
     element.textContent = '';
-    if (core.mq('min', 'desktop')) return;
+    if (motionCore.mq('min', 'desktop')) return;
 
     element.textContent = '';
     element.insertAdjacentHTML('afterbegin', content);

@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { core } from '../../../../mobMotion';
+import { motionCore } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
 /**
@@ -7,7 +7,7 @@ import { scrollerN0Animation } from './animation/animation';
  */
 export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
-        if (core.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) return;
 
         const { canvas, canvasScroller } = refs;
 
@@ -33,7 +33,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     /**
      * Skip mobile.
      */
-    if (core.mq('max', 'desktop'))
+    if (motionCore.mq('max', 'desktop'))
         return html`<div><only-desktop></only-desktop></div>`;
 
     /**

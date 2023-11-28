@@ -1,5 +1,5 @@
 import { mobCore } from '../../../mobCore';
-import { core } from '../../../mobMotion';
+import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
 import { navigationStore } from './store/navStore';
@@ -66,7 +66,7 @@ export const NavigationContainer = ({ html, onMount }) => {
          * Reset scrollPositon from mobile to desktop.
          */
         mobCore.useResize(() => {
-            const isDesktop = core.mq('max', 'desktop');
+            const isDesktop = motionCore.mq('max', 'desktop');
             const currentMq = isDesktop ? 'desk' : 'mob';
             if (currentMq !== lastMq) wrap.scrollTo(0, 0);
             lastMq = currentMq;

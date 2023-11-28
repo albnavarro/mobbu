@@ -1,7 +1,7 @@
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
-import { core, tween } from './mobMotion';
+import { motionCore, tween } from './mobMotion';
 import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
@@ -13,7 +13,7 @@ import { mobCore } from './mobCore';
 mobCore.useLoad(() => {
     mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
 
-    core.setDefault({
+    motionCore.setDefault({
         deferredNextTick: true,
         useScaleFps: true,
         usePassive: true,
@@ -33,7 +33,7 @@ mobCore.useLoad(() => {
         },
     });
 
-    core.printDefault();
+    motionCore.printDefault();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const init = async () => {

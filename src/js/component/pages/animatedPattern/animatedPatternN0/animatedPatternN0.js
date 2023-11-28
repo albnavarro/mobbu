@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { core } from '../../../../mobMotion';
+import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN0Animation } from './animation/animation';
 
 /**
@@ -7,7 +7,7 @@ import { animatedPatternN0Animation } from './animation/animation';
  */
 export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
-        if (core.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) return;
         const { canvas } = refs;
 
         const destroyAnimation = animatedPatternN0Animation({

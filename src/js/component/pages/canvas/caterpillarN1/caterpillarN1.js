@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { core } from '../../../../mobMotion';
+import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN1Animation } from './animation/animation';
 
@@ -8,7 +8,7 @@ import { caterpillarN1Animation } from './animation/animation';
  */
 export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
-        if (core.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) return;
 
         const { canvas } = refs;
 

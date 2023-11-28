@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../../data';
-import { core } from '../../../../mobMotion';
+import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { scrollerN1Animation } from './animation/animation';
 
@@ -8,7 +8,7 @@ import { scrollerN1Animation } from './animation/animation';
  */
 export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
-        if (core.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) return;
 
         const { canvas, canvasScroller } = refs;
 
@@ -31,7 +31,7 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
     /**
      * Skip mobile.
      */
-    if (core.mq('max', 'desktop'))
+    if (motionCore.mq('max', 'desktop'))
         return html`<div><only-desktop></only-desktop></div>`;
 
     /**
