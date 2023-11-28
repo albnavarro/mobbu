@@ -358,7 +358,7 @@ export const mobCore = {
 
     /**
      * @description
-     * Add callback on resize using a debounce function.
+     * Add callback on tab change.
      *
      * @param {import('./events/visibilityChange/type.js').visibilityChangeCallback} callback - callback function fired on tab change.
      *

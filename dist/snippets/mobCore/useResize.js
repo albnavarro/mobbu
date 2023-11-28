@@ -1,4 +1,4 @@
-mobCore.useResize(
+const unsubscribe = mobCore.useResize(
     ({
         documentHeight,
         horizontalResize,
@@ -10,3 +10,5 @@ mobCore.useResize(
         // code
     }
 );
+
+unsubscribe();
