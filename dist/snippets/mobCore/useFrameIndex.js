@@ -1,0 +1,3 @@
+mobCore.useFrameIndex(({ fps, shouldRender, time }) => {
+    // code ...
+}, 5);

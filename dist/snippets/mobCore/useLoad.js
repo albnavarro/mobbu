@@ -1,0 +1,3 @@
+mobCore.useLoad(() => {
+    // code
+});
