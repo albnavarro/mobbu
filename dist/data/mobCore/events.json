@@ -372,6 +372,72 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "useMouseClick"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "... useMouseDown<br/>... useMouseUp<br/>... useTouchMove<br/>... useTouchStart<br/>... useTouchMove<br/>  ... useTouchEnd"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Add callback on mouse/touch event"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "page: { x: <strong>number</strong> y: <strong>number</strong> }",
+                    "client: { x: <strong>number</strong> y: <strong>number</strong> }",
+                    "target: <strong>Element</strong>",
+                    "type: <strong>mouseEvent</strong>",
+                    "preventDefault: <strong>function</strong>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/useMouseClick.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         }
     ]
 }
