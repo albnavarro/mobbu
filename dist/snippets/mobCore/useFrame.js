@@ -1,0 +1,3 @@
+mobCore.useframe(({ fps, shouldrender, time }) => {
+    // code ...
+});
