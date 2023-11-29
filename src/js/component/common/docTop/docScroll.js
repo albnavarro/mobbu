@@ -10,7 +10,7 @@ export const DocTop = ({ html, onMount, delegateEvents }) => {
         <div
             class="c-doc-top"
             ${delegateEvents({
-                click: () => bodyScroll.to(0),
+                click: () => bodyScroll.to(0, { duration: 2000 }),
             })}
         ></div>
     `;

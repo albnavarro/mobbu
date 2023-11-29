@@ -41,7 +41,7 @@ export const DebugButton = ({ html, delegateEvents }) => {
                 },
             })}
         >
-            D
+            Debug
         </button>
     `;
 };

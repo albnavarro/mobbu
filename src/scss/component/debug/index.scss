@@ -6,21 +6,20 @@
     border: 0;
     margin: 0;
     position: absolute;
-    right: 0;
-    bottom: 100%;
-    background: $black;
-    width: var(--header-height);
-    height: var(--header-height);
-    padding: rem(5);
+    right: rem(20);
+    bottom: 50%;
+    background: transparent;
     color: $white;
     transition: opacity 0.55s;
+    transform: translateY(50%);
     display: none;
+    opacity: 0.3;
 
     @include mq.mq('desktop') {
         display: block;
     }
 
     &:hover {
-        opacity: 0.5;
+        opacity: 0.2;
     }
 }
