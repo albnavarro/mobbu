@@ -8,3 +8,7 @@
 
 ## sync ( repeater ) || syncParent
 - come passare la stringa al componente senza doverla inserire manualmente.
+
+## bindProps
+- Aggiungere parentId (suncParent ) in modo da non dover aggiungere syncParent pe ri nuovi componenti
+fatti con parseDom().
