@@ -10,7 +10,7 @@ export const DocContainer = ({ html }) => {
             <div class="c-doc-container__side">
                 <doc-scroll></doc-scroll>
                 <doc-top></doc-top>
-                <mobjs-slot name="side"></mobjs-slot>
+                <mobjs-slot name="section-title"></mobjs-slot>
             </div>
         </div>
     `;
