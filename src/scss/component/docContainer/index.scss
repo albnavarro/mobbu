@@ -1,0 +1,27 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-doc-container {
+    @include mq.mq(desktop) {
+        display: flex;
+    }
+
+    &__content {
+        flex: auto;
+        max-width: rem(1000);
+    }
+
+    &__side {
+        display: none;
+
+        @include mq.mq('large') {
+            display: block;
+            flex: 1;
+            border: 1px $white solid;
+            position: sticky;
+            top: var(--header-height);
+            align-self: start;
+        }
+    }
+}
