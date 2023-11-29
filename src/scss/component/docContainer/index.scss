@@ -14,14 +14,27 @@
 
     &__side {
         display: none;
+        flex: 1;
+        position: sticky;
+        top: var(--header-height);
+        align-self: start;
+        height: 100vh;
+        border-left: 1px rgba($black, 0.2) solid;
+        margin-left: rem(100);
 
         @include mq.mq('large') {
             display: block;
-            flex: 1;
-            border: 1px $white solid;
-            position: sticky;
-            top: var(--header-height);
-            align-self: start;
+        }
+
+        h2 {
+            color: $black;
+            font-size: rem(200);
+            opacity: 0.1;
+            transform-origin: left bottom;
+            transform: translate(calc(rem(29) * -1), calc(rem(220) * -1))
+                rotate(90deg);
+            display: inline-block;
+            line-height: 1;
         }
     }
 }

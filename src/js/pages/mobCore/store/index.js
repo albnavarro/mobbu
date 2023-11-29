@@ -9,6 +9,6 @@ export const mobCore_store = () => {
                 useMaxWidth: true,
             })}
         ></html-content>
-        <doc-side slot="side"> </doc-side>
+        <doc-side slot="side">Store</doc-side>
     </doc-container>`;
 };

@@ -4,4 +4,5 @@ import { DocSide } from './docSide';
 export const docsSideComponentDef = createComponent({
     name: 'doc-side',
     component: DocSide,
+    state: {},
 });
