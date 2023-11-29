@@ -1,8 +1,8 @@
-import { html, instanceName } from '../mobjs';
+import { html } from '../mobjs';
 
 export const wrapper = () => {
     return html`
-        <code-overlay ${instanceName('codeOverlay')}></code-overlay>
+        <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container></mob-navigation-container>
         <main class="main">
@@ -15,6 +15,6 @@ export const wrapper = () => {
         <mob-footer>
             <debug-button slot="debug"></debug-button>
         </mob-footer>
-        <page-transition ${instanceName('page-transition')}></page-transition>
+        <page-transition name="page-transition"></page-transition>
     `;
 };

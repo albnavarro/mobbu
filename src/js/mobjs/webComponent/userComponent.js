@@ -8,6 +8,7 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
+    ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
@@ -110,7 +111,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {String}
                  */
-                #instanceName;
+                #name;
 
                 /**
                  * @type {String}
@@ -194,7 +195,7 @@ export const defineUserComponent = (componentList) => {
 
                     //
                     this.#isPlaceholder = true;
-                    this.#instanceName = '';
+                    this.#name = '';
                     this.#staticPropsId = '';
                     this.#dynamicPropsId = '';
                     this.#bindEventsId = '';
@@ -210,7 +211,7 @@ export const defineUserComponent = (componentList) => {
                     this.isUserComponent = true;
 
                     const host = this.shadowRoot.host;
-                    this.#instanceName = host.getAttribute(ATTR_INSTANCENAME);
+                    this.#name = host.getAttribute(ATTR_INSTANCENAME);
                     this.#staticPropsId = host.getAttribute(ATTR_PROPS);
                     this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
                     this.#currentKey = host.getAttribute(ATTR_KEY);
@@ -218,7 +219,7 @@ export const defineUserComponent = (componentList) => {
                     this.#currentListValueId = host.getAttribute(
                         ATTR_CURRENT_LIST_VALUE
                     );
-                    this.#slotPosition = host.getAttribute('slot');
+                    this.#slotPosition = host.getAttribute(ATTR_SLOT);
                     this.#parentId = host.getAttribute(ATTR_PARENT_ID) ?? '';
                     this.#isChildOfRepeatId =
                         host.getAttribute(ATTR_CHILD_REPEATID);
@@ -291,7 +292,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getInstanceName() {
-                    return this.#instanceName;
+                    return this.#name;
                 }
 
                 getStaticPropsId() {

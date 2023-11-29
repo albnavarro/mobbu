@@ -22,4 +22,4 @@ export { getStateById } from './componentStore/action/state';
 export { getChildrenIdByName } from './componentStore/action/children';
 export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
-export { instanceName, staticProps } from './utils';
+export { staticProps } from './utils';

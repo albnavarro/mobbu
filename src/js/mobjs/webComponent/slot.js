@@ -1,4 +1,4 @@
-import { ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
+import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
 
 export const defineSlotComponent = () => {
     customElements.define(
@@ -29,7 +29,8 @@ export const defineSlotComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    this.#slotName = this.shadowRoot?.host.getAttribute('name');
+                    this.#slotName =
+                        this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
                     this.#staticProps =
                         this.shadowRoot?.host.getAttribute(ATTR_PROPS);
                     this.#dynamicProps =

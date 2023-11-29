@@ -36,7 +36,6 @@ import { addOnMoutCallback } from '../temporaryData/onMount';
 import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
-import { instanceName as setInstanceName } from '../utils';
 import { getComponentData } from './getComponentData';
 import { renderHtml } from './utils';
 
@@ -148,7 +147,6 @@ export const registerComponent = ({
             emit(state);
             return unsubscribe;
         },
-        instanceName: (name = '') => setInstanceName(name),
         freezeProp: (prop) => freezePropById({ id, prop }),
         unFreezeProp: (prop) => unFreezePropById({ id, prop }),
         unBind: () => unBind({ id }),

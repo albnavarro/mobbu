@@ -187,15 +187,6 @@ export interface componentType {
     /**
      * @example
      * ```javascript
-     * <MyComponent ${instanceName('my-instance-component')}></MyComponent>
-     *
-     * ```
-     */
-    instanceName(name: string): void;
-
-    /**
-     * @example
-     * ```javascript
      *
      * freezeProp('myStateProp');
      *

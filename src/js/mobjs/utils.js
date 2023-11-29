@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ATTR_INSTANCENAME, ATTR_PROPS } from './constant';
+import { ATTR_PROPS } from './constant';
 import { getComponentList } from './mainStore/actions/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
 
@@ -23,24 +23,6 @@ export const getComponentsReference = () => {
         .reduce((previous, current) => {
             return { ...previous, ...current };
         }, {});
-};
-
-/**
- * @param {String} name
- * @returns {String}
- *
- * @description
- * Set instance name.
- *
- * @example
- * ```javascript
- * <MyComponent ${instanceName('my-instance-component')}></MyComponent>
- *
- * ```
- *
- */
-export const instanceName = (name = '') => {
-    return `${ATTR_INSTANCENAME}="${name}"`;
 };
 
 /**

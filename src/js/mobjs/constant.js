@@ -23,7 +23,17 @@ export const ATTR_DYNAMIC = 'bindprops';
 /**
  * @type {string};
  */
-export const ATTR_INSTANCENAME = 'instancename';
+export const ATTR_INSTANCENAME = 'name';
+
+/**
+ * @type {string};
+ */
+export const ATTR_COMPONENT_NAME = 'name';
+
+/**
+ * @type {string};
+ */
+export const ATTR_SLOT = 'slot';
 
 /**
  * @type {string};
