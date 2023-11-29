@@ -8,12 +8,12 @@
     position: absolute;
     right: 0;
     bottom: 100%;
-    background: $green;
+    background: $black;
     width: var(--header-height);
     height: var(--header-height);
     padding: rem(5);
     color: $white;
-    transition: background 0.55s;
+    transition: opacity 0.55s;
     display: none;
 
     @include mq.mq('desktop') {
@@ -21,6 +21,6 @@
     }
 
     &:hover {
-        background: $black;
+        opacity: 0.5;
     }
 }

@@ -23,7 +23,7 @@
     }
 
     &--legend {
-        background: $green;
+        background: $black;
         width: var(--header-height);
         height: var(--header-height);
         position: fixed;
@@ -39,7 +39,7 @@
     }
 
     &:hover {
-        background: $black;
+        opacity: 0.5;
     }
 
     &__icon {
@@ -50,6 +50,7 @@
         width: rem(30);
         height: rem(23);
 
+        /* stylelint-disable-next-line no-descending-specificity */
         svg {
             fill: $white;
             width: 100%;
