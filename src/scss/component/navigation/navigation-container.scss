@@ -62,7 +62,7 @@
         display: none;
         background: rgba($green, 0.05);
 
-        @include mq.mq(tablet) {
+        @include mq.mq(desktop) {
             display: block;
         }
     }
