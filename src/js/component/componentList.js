@@ -10,6 +10,8 @@ export * from './common/snippet/definition';
 export * from './common/spacer/definition';
 export * from './common/onlyDesktop/definition';
 export * from './common/loader/definition';
+export * from './common/docScroll/definition';
+export * from './common/docTop/definition';
 export * from './layout/footer/definition';
 export * from './layout/header/definition';
 export * from './layout/navigation/definition';

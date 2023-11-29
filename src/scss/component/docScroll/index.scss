@@ -1,0 +1,16 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-doc-scroll {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: rem(10);
+    background: $black;
+    transform: scaleY(var(--delta));
+    transform-origin: top;
+    transition: transform 0.35s;
+
+    --delta: 0;
+}

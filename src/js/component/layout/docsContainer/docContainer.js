@@ -8,6 +8,8 @@ export const DocContainer = ({ html }) => {
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
             <div class="c-doc-container__side">
+                <doc-scroll></doc-scroll>
+                <doc-top></doc-top>
                 <mobjs-slot name="side"></mobjs-slot>
             </div>
         </div>
