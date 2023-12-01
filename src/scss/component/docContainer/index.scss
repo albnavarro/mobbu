@@ -9,7 +9,10 @@
 
     &__content {
         flex: auto;
-        max-width: rem(1000);
+
+        @include mq.mq('large') {
+            width: 70%;
+        }
     }
 
     &__side {
@@ -20,10 +23,14 @@
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));
         border-left: 1px rgba($black, 0.2) solid;
-        margin-left: rem(100);
+        width: 30%;
 
         @include mq.mq('large') {
             display: block;
+        }
+
+        @include mq.mq('xlarge') {
+            margin-left: rem(100);
         }
 
         h2 {
