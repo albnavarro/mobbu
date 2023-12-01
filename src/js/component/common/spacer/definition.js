@@ -4,7 +4,7 @@ import { Spacer } from './spacer';
 export const spacerContentDef = createComponent({
     name: 'mob-spacer',
     component: Spacer,
-    exportState: ['style', 'line'],
+    exportState: ['style', 'line', 'id', 'label'],
     state: {
         style: () => ({
             value: 'medium',
@@ -15,6 +15,14 @@ export const spacerContentDef = createComponent({
         line: () => ({
             value: false,
             type: Boolean,
+        }),
+        id: () => ({
+            value: '',
+            type: String,
+        }),
+        label: () => ({
+            value: '',
+            type: String,
         }),
     },
 });

@@ -11,6 +11,7 @@ export const DocContainer = ({ html }) => {
                 <doc-scroll></doc-scroll>
                 <doc-top></doc-top>
                 <mobjs-slot name="section-title"></mobjs-slot>
+                <scroll-to></scroll-to>
             </div>
         </div>
     `;

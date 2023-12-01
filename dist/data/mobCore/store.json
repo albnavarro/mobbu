@@ -1,6 +1,14 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "store-start",
+                "label": "top"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
@@ -244,7 +252,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-set",
+                "label": "set"
             }
         },
         {
@@ -314,7 +324,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-get",
+                "label": "get"
             }
         },
         {

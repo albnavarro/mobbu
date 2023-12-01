@@ -1,0 +1,15 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-scroll-to {
+    color: $white;
+    position: absolute;
+    top: rem(50);
+    left: rem(200);
+
+    button {
+        background: transparent;
+        border: 0;
+    }
+}
