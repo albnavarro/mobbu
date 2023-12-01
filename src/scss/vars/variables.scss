@@ -16,16 +16,18 @@ $breakpoints: (
     'large': 1200px,
     'xlarge': 1600px,
     'xxlarge': 1980px,
+    'xxxlarge': 2140px,
 );
 $html-font-size: (
-    'xsmall': 14px,
-    'small': 14px,
+    'xsmall': 13px,
+    'small': 13px,
     'medium': 14px,
     'tablet': 14px,
     'desktop': 15px,
     'large': 15px,
     'xlarge': 15px,
-    'xxlarge': 15px,
+    'xxlarge': 16px,
+    'xxxlarge': 17px,
 );
 $html-font-unit: (
     'xsmall': px,
@@ -36,6 +38,7 @@ $html-font-unit: (
     'large': px,
     'xlarge': px,
     'xxlarge': px,
+    'xxxlarge': px,
 );
 $default-font-size: desktop;
 
