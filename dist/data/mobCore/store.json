@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "store-start",
-                "label": "top"
+                "label": "Implementations"
             }
         },
         {
@@ -254,7 +254,7 @@
             "props": {
                 "style": "medium",
                 "id": "store-set",
-                "label": "set"
+                "label": "Set"
             }
         },
         {
@@ -326,7 +326,7 @@
             "props": {
                 "style": "medium",
                 "id": "store-get",
-                "label": "get"
+                "label": "Get"
             }
         },
         {
@@ -361,7 +361,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-get-props",
+                "label": "Get-props"
             }
         },
         {
@@ -396,7 +398,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-watch",
+                "label": "Watch"
             }
         },
         {
@@ -431,7 +435,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-emit",
+                "label": "Emit"
             }
         },
         {
@@ -466,7 +472,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-emit-async",
+                "label": "Emit-async"
             }
         },
         {
@@ -501,7 +509,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "store-computed",
+                "label": "Computed"
             }
         },
         {
@@ -535,7 +545,10 @@
         },
         {
             "component": "mob-spacer",
-            "props": {}
+            "props": {
+                "id": "store-destroy",
+                "label": "Destroy"
+            }
         },
         {
             "component": "mob-title",

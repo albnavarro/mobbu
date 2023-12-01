@@ -16,7 +16,9 @@ function addElements({ targets, delegateEvents }) {
                     },
                 })}
             >
-                <button type="button">${label}</button>
+                <button type="button">
+                    <span> ${label} </span>
+                </button>
             </li> `;
         })
         .join('');
@@ -33,7 +35,7 @@ export const ScrollTo = ({ html, onMount, delegateEvents }) => {
         const targets = document.querySelectorAll('[data-scroll]');
 
         list.insertAdjacentHTML(
-            'afterend',
+            'beforeend',
             addElements({ targets: [...targets], delegateEvents })
         );
 
