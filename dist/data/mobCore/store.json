@@ -4,7 +4,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "small",
-                "id": "store-start",
+                "id": "start",
                 "label": "Implementations"
             }
         },

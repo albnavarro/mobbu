@@ -6,13 +6,14 @@ import { bodyScroll } from '../../../mobMotion/plugin';
 function addElements({ targets, delegateEvents }) {
     return targets
         .map((target) => {
-            const { label } = target.dataset;
+            const { label, scroll } = target.dataset;
 
             return html`<li
                 ${delegateEvents({
                     click: () => {
-                        const offsetTop = offset(target).top;
-                        bodyScroll.to(offsetTop - 50);
+                        const offsetTop =
+                            scroll === 'start' ? 0 : offset(target).top - 50;
+                        bodyScroll.to(offsetTop);
                     },
                 })}
             >
