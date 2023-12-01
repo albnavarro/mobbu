@@ -43,9 +43,9 @@
             display: inline-block;
         }
 
-        &:hover {
-            /* stylelint-disable-next-line selector-pseudo-element-colon-notation */
-            &:after {
+        &:hover,
+        &.active {
+            &::after {
                 transform: scaleX(100%);
             }
 
