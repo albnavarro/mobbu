@@ -7,7 +7,7 @@ export const scrollToDef = createComponent({
     exportState: ['activeId'],
     state: {
         activeId: () => ({
-            value: -1,
+            value: 0,
             type: Number,
         }),
     },
