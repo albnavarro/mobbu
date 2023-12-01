@@ -1,7 +1,6 @@
 @use '../vars' as *;
 @use '../abstract' as *;
 @use '../../../node_modules/sass-mq/mq';
-
 @import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap';
 
 /*
@@ -26,7 +25,7 @@ h4,
 h5,
 h6,
 label {
-    margin: 0;
+    margin: 0 0 em(5) 0;
 }
 
 body {

@@ -89,6 +89,7 @@
             transform: translateY(100%);
             transition: transform 0.35s;
             pointer-events: none;
+            margin: 0;
 
             &.visible {
                 transform: translateY(0);

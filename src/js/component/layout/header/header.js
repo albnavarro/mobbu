@@ -33,7 +33,7 @@ export const Header = ({ html, onMount, delegateEvents }) => {
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
 
-        mainStore.watch('atfterRouteChange', (route) => {
+        mainStore.watch('beforeRouteChange', (route) => {
             title.classList.toggle('visible', route !== 'home');
         });
 

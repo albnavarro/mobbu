@@ -11,7 +11,7 @@
         flex: auto;
 
         @include mq.mq('large') {
-            width: 70%;
+            max-width: rem(1000);
         }
     }
 
