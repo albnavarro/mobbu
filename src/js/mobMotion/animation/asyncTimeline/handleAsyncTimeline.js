@@ -405,6 +405,11 @@ export default class HandleAsyncTimeline {
         this.currentAction = [];
 
         /**
+         * Prevent possible error when destroy instance.
+         */
+        if (!currentTweelist) return;
+
+        /**
          * Update previous values for revert.
          */
         this.tweenList[this.currentIndex] = currentTweelist.map((item) => {
