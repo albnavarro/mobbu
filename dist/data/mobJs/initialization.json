@@ -199,9 +199,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "small"
+                "style": "medium"
             },
-            "content": "bla"
+            "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined.<br/> It is already possible to use components by passing them <a href='/#mobJs_props_state'>static props</a>, it is not possible to use reactive props in the wrapper as this module is not a component."
         },
         {
             "component": "mob-spacer",
