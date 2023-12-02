@@ -57,7 +57,8 @@ p {
     padding: 0;
 }
 
-.p {
+.p,
+.ul {
     &--small {
         font-size: rem(14);
     }
