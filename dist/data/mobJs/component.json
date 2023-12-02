@@ -155,7 +155,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <a href='/#mobJs_props_state'>states</a> of the component. The state is an instance of <a href='/#mobCore_store'>store</a>"
+            "content": "The states of the component. The state is an instance of <a href='/#mobCore_store'>store</a>"
         },
         {
             "component": "mob-spacer",
@@ -192,7 +192,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Basic component structure."
+            "content": "Basic component structure example."
         },
         {
             "component": "mob-spacer",
@@ -203,7 +203,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/constructor.js",
+                "source": "/snippets/mobJs/component.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

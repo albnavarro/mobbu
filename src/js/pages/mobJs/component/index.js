@@ -1,11 +1,11 @@
 import { html, staticProps } from '../../../mobjs';
 
-export const mobJs_lifecycle = () => {
+export const mobJs_component = () => {
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/lifecycle.json',
+                source: '/data/mobJs/component.json',
                 useMaxWidth: true,
             })}
         ></html-content>

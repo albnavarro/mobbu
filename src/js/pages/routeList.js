@@ -23,7 +23,7 @@ export * from './dynamicList';
 export * from './mobJs/overview';
 export * from './mobJs/initialization';
 export * from './mobJs/routing';
-export * from './mobJs/lifecycle';
+export * from './mobJs/component';
 export * from './mobJs/refs';
 export * from './mobJs/slot';
 export * from './mobJs/utils';
