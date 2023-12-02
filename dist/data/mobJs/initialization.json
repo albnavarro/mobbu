@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Implementations"
+                "label": "Main"
             }
         },
         {
@@ -18,7 +18,149 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "small"
+            },
+            "content": "bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "main.js"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/inizialization.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "componentlist",
+                "label": "ComponentList"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "componentList.js"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "small"
+            },
+            "content": "bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/componentList.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "routelist",
+                "label": "RouteList"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "routeList.js"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "small"
+            },
+            "content": "bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/routeList.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "defaults",
+                "label": "Defaults"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "Defaults"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "line": true
             }
         },
@@ -27,7 +169,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Classic store based on the pub/sub pattern. This module will then be the basis of the reactivity of the javascript components."
+            "content": "bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/defaults.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         }
     ]
 }
