@@ -1,11 +1,33 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Implementations"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
             },
             "content": "Initialization"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Classic store based on the pub/sub pattern. This module will then be the basis of the reactivity of the javascript components."
         }
     ]
 }
