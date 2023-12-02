@@ -737,7 +737,7 @@ export interface defaultComponent {
     /**
      * @description
      * Wait one frame after execute onMount function.( for havly onMount function ).
-     *   - Less stress for big script fired inside onMont function.
+     *   - Less stress for big script fired inside onMount function.
      *  `default = false`.
      */
     isolateOnMount?: boolean;

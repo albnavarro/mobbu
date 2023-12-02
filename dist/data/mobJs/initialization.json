@@ -250,7 +250,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla"
+            "content": "The default parameters with which the components will be created (optional)."
         },
         {
             "component": "mob-spacer",
