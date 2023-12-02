@@ -1,7 +1,11 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const DocContainer = ({ html }) => {
+export const DocContainer = ({ html, onMount }) => {
+    onMount(() => {
+        // window.scrollTo(0, 0);
+    });
+
     return html`
         <div class="c-doc-container">
             <div class="c-doc-container__content">

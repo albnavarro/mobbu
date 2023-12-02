@@ -10,4 +10,9 @@
     &.is-min-100 {
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
     }
+
+    a {
+        text-decoration: underline;
+        color: $medium-green;
+    }
 }

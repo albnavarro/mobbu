@@ -138,11 +138,7 @@
             "url": "mobJs_initialization"
         },
         {
-            "label": "Debug",
-            "url": "mobJs_debug"
-        },
-        {
-            "label": "Component lifecycle",
+            "label": "Component structure",
             "url": "mobJs_lifecycle"
         },
         {
@@ -180,6 +176,10 @@
         {
             "label": "Runtime add/remove",
             "url": "mobJs_runtime"
+        },
+        {
+            "label": "Debug",
+            "url": "mobJs_debug"
         },
         {
             "label": "Utils",

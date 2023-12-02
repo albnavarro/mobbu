@@ -25,9 +25,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "small"
+                "style": "medium"
             },
-            "content": "bla"
+            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
         },
         {
             "component": "mob-spacer",
@@ -43,6 +43,13 @@
                 "tag": "h3"
             },
             "content": "index.html"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The 'root' id will be the DOM element where the app will be initialized."
         },
         {
             "component": "mob-spacer",
@@ -112,9 +119,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "small"
+                "style": "medium"
             },
-            "content": "bla"
+            "content": "Export of all component definitions.<br/> <a href='/#mobJs_lifecycle'>Component structure</a>"
         },
         {
             "component": "mob-spacer",
@@ -149,9 +156,9 @@
         {
             "component": "mob-paragraph",
             "props": {
-                "style": "small"
+                "style": "medium"
             },
-            "content": "bla"
+            "content": "Export of all page definitions.<br/> <a href='/#mobJs_routing'>Routing</a>"
         },
         {
             "component": "mob-spacer",
