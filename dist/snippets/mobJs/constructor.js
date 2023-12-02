@@ -5,7 +5,8 @@ export const MyComponent = ({ html, onMount, getState }) => {
     const { label } = getState();
 
     /**
-     * function fired at the end of component parse.
+     * Function fired at the end of all component parse.
+     * Here all components is attached to the DOM (if scoped params is disabled).
      * element: root DOM element.
      * refs: Object with all refs.
      */

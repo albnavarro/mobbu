@@ -150,22 +150,6 @@
             "url": "mobJs_routing"
         },
         {
-            "label": "Props/State",
-            "url": "mobJs_props_state"
-        },
-        {
-            "label": "Props inheritance",
-            "url": "mobJs_props_inheritance"
-        },
-        {
-            "label": "Event handler",
-            "url": "mobJs_events"
-        },
-        {
-            "label": "Listing ( reactive map )",
-            "url": "mobJs_listing"
-        },
-        {
             "label": "Refs",
             "url": "mobJs_refs"
         },
