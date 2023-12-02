@@ -1,11 +1,42 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Overview"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
             },
-            "content": "lifecycle"
+            "content": "Compoent structure"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "line": true
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The components are divided into two modules:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "Definition",
+                    "Function launched when the component is created</strong>"
+                ]
+            }
         }
     ]
 }
