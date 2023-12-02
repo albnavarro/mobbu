@@ -1,6 +1,7 @@
 import { inizializeApp } from './mobjs';
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
+import { wrapper } from './wrapper';
 
 inizializeApp({
     rootId: '#root',
@@ -11,9 +12,6 @@ inizializeApp({
     index: 'home',
     pageNotFound: 'pageNotFound',
     afterInit: async () => {
-        await loaderTween.goTo({ opacity: 0, scale: 0.9 });
-        jsMainLoader?.remove();
-        jsMainLoaderBackground?.remove();
-        loaderTween = null;
+        //
     },
 });

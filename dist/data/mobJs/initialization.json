@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Main"
+                "label": "Overview"
             }
         },
         {
@@ -32,7 +32,38 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium",
+                "id": "index",
+                "label": "Index"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "index.html"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/index.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "id": "main",
+                "label": "Main"
             }
         },
         {
@@ -132,6 +163,49 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/routeList.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "wrapper",
+                "label": "Wrapper"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "wrapper.js"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "small"
+            },
+            "content": "bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/wrapper.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
