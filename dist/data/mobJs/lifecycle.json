@@ -208,6 +208,71 @@
                 "hasOverflow": false,
                 "hasBorder": true
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "parameters",
+                "label": "Component-parameters"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Function params"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "All params of component function"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": [
+                    "html: Function",
+                    "onMount: Function",
+                    "getState: Function",
+                    "setState: Functions",
+                    "emit: Function",
+                    "emitAsync: Function",
+                    "computed: Function",
+                    "watch: Function",
+                    "watchSync: Function",
+                    "remove: Function",
+                    "removeDOM: Function",
+                    "getChildren: Function",
+                    "freezeProp: Function",
+                    "unFreezeProp: Function",
+                    "getParentId: Function",
+                    "watchParent: Function",
+                    "staticProps: Function",
+                    "bindProps: Function",
+                    "unBind: Function",
+                    "syncParent: Function",
+                    "bindEvents: Function",
+                    "delegateEvents: Function",
+                    "repeat: Function"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }

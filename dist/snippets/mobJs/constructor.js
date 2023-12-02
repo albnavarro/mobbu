@@ -6,6 +6,8 @@ export const MyComponent = ({ html, onMount, getState }) => {
 
     /**
      * function fired at the end of component parse.
+     * element: root DOM element.
+     * refs: Object with all refs.
      */
     onMount(({ element, refs }) => {
         const { labelRef } = refs;
