@@ -13,14 +13,14 @@
     }
 
     li {
-        margin-bottom: rem(10);
+        margin-bottom: rem(5);
     }
 
     button {
         background: transparent;
         border: 0;
         transition: opacity 0.55s;
-        font-size: rem(18);
+        font-size: rem(15);
         position: relative;
 
         &::after {
