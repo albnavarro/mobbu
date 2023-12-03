@@ -107,6 +107,7 @@
 
         &__item {
             position: relative;
+            border-bottom: 1px $white solid;
 
             &:last-child {
                 border-bottom: 0;
@@ -120,9 +121,9 @@
                 transform: translateY(-50%);
                 width: rem(5);
                 height: rem(5);
-                background: $dark-green;
+                background: $green;
                 z-index: 2;
-                border-radius: 100%;
+                // border-radius: 100%;
             }
 
             &::after {
