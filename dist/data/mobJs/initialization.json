@@ -89,7 +89,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/inizialization.js",
+                "source": "/snippets/mobJs/initialization.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
