@@ -115,7 +115,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <strong>validate, type, skipEqual</strong>."
+            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <span>validate, type, skipEqual</span>."
         },
         {
             "component": "mob-spacer",
@@ -128,7 +128,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/><br/> To use a object with infinite insertions use the <strong>any</strong> type"
+            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/><br/> To use a object with infinite insertions use the <span>any</span> type"
         },
         {
             "component": "mob-spacer",
@@ -220,7 +220,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.<br/> The default value is <strong>true</strong>."
+            "content": "If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.<br/> The default value is <span>true</span>."
         },
         {
             "component": "mob-spacer",
@@ -246,7 +246,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.<br/> The default value is <strong>false</strong>."
+            "content": "If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.<br/> The default value is <span>false</span>."
         },
         {
             "component": "mob-spacer",
@@ -303,7 +303,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ).Default value is <strong>true</strong>.<br/> Clone the original data if using a function and make a copy of the original data.Default value is <strong>false</strong>"
+            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ).Default value is <span>true</span>.<br/> Clone the original data if using a function and make a copy of the original data.Default value is <span>false</span>"
         },
         {
             "component": "mob-spacer",

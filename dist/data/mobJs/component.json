@@ -26,7 +26,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The components are divided into two modules: <strong>Definition</strong> and <strong>Function</strong>"
+            "content": "The components are divided into two modules: <span>Definition</span> and <span>Function</span>"
         },
         {
             "component": "mob-spacer",
@@ -233,7 +233,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library.<br/> Using the parameters <strong>watch, bindProps, etc..</strong> you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
+            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library.<br/> Using the parameters <span>watch, bindProps, etc..</span> you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
         },
         {
             "component": "mob-spacer",

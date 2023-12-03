@@ -61,9 +61,9 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<strong>fps</strong>: current fps value: <strong>number</strong>",
-                    "<strong>shouldRender</strong>: Indicates a possible loss of frames compared to the optimal value: <strong>boolean</strong>",
-                    "<strong>time</strong>: current time: <strong>number</strong>"
+                    "<span>fps</span>: current fps value: <span>number</span>",
+                    "<span>shouldRender</span>: Indicates a possible loss of frames compared to the optimal value: <span>boolean</span>",
+                    "<span>time</span>: current time: <span>number</span>"
                 ]
             }
         },
@@ -280,12 +280,12 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "horizontalResize: <strong>boolean</strong>",
-                    "verticalResize: <strong>boolean</strong>",
-                    "documentHeight: <strong>number</strong>",
-                    "scrollY: <strong>number</strong>",
-                    "windowsHeight: <strong>number</strong>",
-                    "windowsWidth: <strong>number</strong>"
+                    "horizontalResize: <span>boolean</span>",
+                    "verticalResize: <span>boolean</span>",
+                    "documentHeight: <span>number</span>",
+                    "scrollY: <span>number</span>",
+                    "windowsHeight: <span>number</span>",
+                    "windowsWidth: <span>number</span>"
                 ]
             }
         },
@@ -398,11 +398,11 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: <strong>number</strong> y: <strong>number</strong> }",
-                    "client: { x: <strong>number</strong> y: <strong>number</strong> }",
-                    "target: <strong>Element</strong>",
-                    "type: <strong>mouseEvent</strong>",
-                    "preventDefault: <strong>function</strong>"
+                    "page: { x: <span>number</span> y: <span>number</span> }",
+                    "client: { x: <span>number</span> y: <span>number</span> }",
+                    "target: <span>Element</span>",
+                    "type: <span>mouseEvent</span>",
+                    "preventDefault: <span>function</span>"
                 ]
             }
         },
@@ -459,15 +459,15 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: <strong>number</strong>; y: <strong>number</strong>; }",
-                    "client: { x: <strong>number</strong>; y: <strong>number</strong>; }",
-                    "target: <strong>Element</strong>",
-                    "type: <strong>mouseEvent</strong>",
-                    "preventDefault: <strong>function</strong>",
-                    "spinX: <strong>number</strong>",
-                    "spinY: <strong>number</strong>",
-                    "pixelX: <strong>number</strong>",
-                    "pixelY: <strong>number</strong>"
+                    "page: { x: <span>number</span>; y: <span>number</span>; }",
+                    "client: { x: <span>number</span>; y: <span>number</span>; }",
+                    "target: <span>Element</span>",
+                    "type: <span>mouseEvent</span>",
+                    "preventDefault: <span>function</span>",
+                    "spinX: <span>number</span>",
+                    "spinY: <span>number</span>",
+                    "pixelX: <span>number</span>",
+                    "pixelY: <span>number</span>"
                 ]
             }
         },

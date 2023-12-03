@@ -21,6 +21,10 @@
 
 .is-grey {
     color: $grey-blue;
+
+    span {
+        color: $white;
+    }
 }
 
 .is-mobile {
