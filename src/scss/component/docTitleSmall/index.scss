@@ -3,14 +3,24 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-doc-title-small {
-    h3 {
-        margin-top: rem(15);
-        padding-left: rem(40);
-        color: $green;
-        margin-bottom: rem(20);
+    margin-top: rem(15);
+    padding-left: rem(40);
+    color: $green;
+    margin-bottom: rem(20);
+    font-size: rem(20);
+    font-weight: 600;
 
-        span {
-            color: $white;
+    a {
+        color: $green;
+        transition: opacity 0.35s;
+        text-decoration: underline;
+
+        &:hover {
+            opacity: 0.3;
         }
+    }
+
+    span {
+        color: $white;
     }
 }

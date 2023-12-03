@@ -10,7 +10,9 @@ export const mobJs_watch = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>watch</span></doc-title-small
+            ><a href="/#mobJs_overview">mobjs</a> /
+            <a href="/#mobJs_component">component</a> /
+            <span>watch</span></doc-title-small
         >
         <doc-title slot="section-title">watch</doc-title>
     </doc-container>`;

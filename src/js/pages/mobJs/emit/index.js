@@ -10,7 +10,9 @@ export const mobJs_emit = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>emit</span></doc-title-small
+            ><a href="/#mobJs_overview">mobjs</a> /
+            <a href="/#mobJs_component">component</a> /
+            <span>emit</span></doc-title-small
         >
         <doc-title slot="section-title">emit</doc-title>
     </doc-container>`;

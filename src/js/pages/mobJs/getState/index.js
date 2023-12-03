@@ -10,7 +10,9 @@ export const mobJs_getState = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>getState</span></doc-title-small
+            ><a href="/#mobJs_overview">mobjs</a> /
+            <a href="/#mobJs_component">component</a> /
+            <span>getState</span></doc-title-small
         >
         <doc-title slot="section-title">getState</doc-title>
     </doc-container>`;

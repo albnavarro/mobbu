@@ -10,7 +10,9 @@ export const mobJs_removeDom = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>removeDom</span></doc-title-small
+            ><a href="/#mobJs_overview">mobjs</a> /
+            <a href="/#mobJs_component">component</a> /
+            <span>removeDom</span></doc-title-small
         >
         <doc-title slot="section-title">removeDom</doc-title>
     </doc-container>`;

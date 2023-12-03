@@ -10,8 +10,7 @@ export const mobJs_initialization = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>initialization</span></doc-title-small
-        >
+            ><a href="/#mobJs_overview">mobjs</a> / <span>initialization</span>
         <doc-title slot="section-title">Initialization</doc-title>
     </doc-container>`;
 };

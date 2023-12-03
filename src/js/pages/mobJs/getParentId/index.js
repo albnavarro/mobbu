@@ -10,7 +10,9 @@ export const mobJs_getParentId = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs / <span>getParentId</span></doc-title-small
+            ><a href="/#mobJs_overview">mobjs</a> /
+            <a href="/#mobJs_component">component</a> /
+            <span>getParentId</span></doc-title-small
         >
         <doc-title slot="section-title">getParentId</doc-title>
     </doc-container>`;
