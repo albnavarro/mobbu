@@ -10,7 +10,7 @@ export const mobCore_store = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobCore/<span>store</span></doc-title-small
+            >mobCore / <span>store</span></doc-title-small
         >
         <doc-title slot="section-title">Store</doc-title>
     </doc-container>`;

@@ -10,7 +10,7 @@ export const mobJs_component = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            >mobjs/<span>component</span></doc-title-small
+            >mobjs / <span>component</span></doc-title-small
         >
         <doc-title slot="section-title">Component</doc-title>
     </doc-container>`;

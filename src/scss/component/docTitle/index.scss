@@ -16,5 +16,7 @@
         pointer-events: none;
         width: calc(100vh - var(--header-height) - var(--footer-height));
         overflow: hidden;
+        position: absolute;
+        top: 0;
     }
 }
