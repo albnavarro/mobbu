@@ -69,7 +69,6 @@ export const Navigation = ({
     setState,
     bindProps,
     bindEvents,
-    watch,
 }) => {
     const { navigation: data } = getCommonData();
 
@@ -78,10 +77,6 @@ export const Navigation = ({
      */
     navigationStore.watch('closeAllAccordion', () => {
         setState('currentAccordionId', -1);
-    });
-
-    watch('currentAccordionId', (val) => {
-        console.log(val);
     });
 
     return html`

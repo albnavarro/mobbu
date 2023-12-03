@@ -1,4 +1,4 @@
-import { html } from '../../../mobjs';
+import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
 
@@ -52,6 +52,15 @@ export const NavigationSubmenu = ({
 
             await slide[action](content);
             navigationStore.emit('refreshScroller');
+
+            /**
+             * When accordion is closed form element itSelf
+             * Need to reset currentAccordionId without fire callback.
+             */
+            if (!isOpen) {
+                const navId = getIdByInstanceName('main_navigation');
+                setStateById(navId, 'currentAccordionId', -1, false);
+            }
         });
 
         return () => {};
