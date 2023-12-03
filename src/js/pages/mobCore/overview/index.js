@@ -1,16 +1,16 @@
 import { html, staticProps } from '../../../mobjs';
 
-export const mobCore_store = () => {
+export const mobCore_overview = () => {
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobCore/store.json',
+                source: '/data/mobCore/overview.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobCore_overview">mobCore</a> / <span>Store</span>
-        <doc-title slot="section-title">Store</doc-title>
+            >mobCore 
+        <doc-title slot="section-title">mobCore</doc-title>
     </doc-container>`;
 };

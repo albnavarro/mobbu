@@ -13,15 +13,15 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "mobJs"
+            "content": "mobCore"
         },
         {
             "component": "mob-list",
             "props": {
                 "tag": "h3",
                 "items": [
-                    "<a href='#mobJs_initialization'>initialization</a>",
-                    "<a href='#mobJs_component'>Component structure</a>"
+                    "<a href='#mobCore_store'>Store</a>",
+                    "<a href='#mobCore_events'>Events</a>"
                 ]
             }
         }

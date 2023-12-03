@@ -22,7 +22,7 @@ export const DocScroll = ({ html, onMount }) => {
     onMount(({ element }) => {
         if (motionCore.mq('max', 'large')) return;
 
-        element.style.setProperty('--delta', `0%`);
+        element.style.setProperty('--delta', `0`);
 
         const unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
             mobCore.useFrame(() => {

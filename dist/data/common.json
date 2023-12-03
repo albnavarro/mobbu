@@ -118,6 +118,10 @@
             "section": true
         },
         {
+            "label": "Overview",
+            "url": "mobCore_overview"
+        },
+        {
             "label": "Store",
             "url": "mobCore_store"
         },
