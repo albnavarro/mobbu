@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "onlyMob": true
             },
-            "content": "Html"
+            "content": "onMount"
         },
         {
             "component": "mob-spacer",

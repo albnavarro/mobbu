@@ -54,6 +54,7 @@
             transform: scaleX(0);
             transform-origin: right;
             transition: transform 0.55s;
+            z-index: 2;
         }
 
         &--arrow {
@@ -74,6 +75,10 @@
                 &::after {
                     transform: translateY(-50%) rotate(-135deg);
                 }
+
+                &::before {
+                    transform: scaleX(25%);
+                }
             }
         }
 
@@ -87,7 +92,6 @@
             padding-left: rem(30);
             position: relative;
             background: $grey-light;
-            border-bottom: 1px rgba($white, 0.3) solid;
         }
     }
 
@@ -97,5 +101,31 @@
         padding-bottom: 0;
         margin-bottom: 0;
         background: rgba($white, 0.2);
+
+        &__item {
+            position: relative;
+            border-bottom: 1px $white solid;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: rem(5);
+                background: $green;
+                transform-origin: right;
+                transition: transform 0.55s;
+                z-index: 1;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
     }
 }

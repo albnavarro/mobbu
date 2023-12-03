@@ -25,6 +25,7 @@ export * from './mobJs/initialization';
 export * from './mobJs/routing';
 export * from './mobJs/component';
 export * from './mobJs/html';
+export * from './mobJs/onMount';
 export * from './mobJs/refs';
 export * from './mobJs/slot';
 export * from './mobJs/utils';
