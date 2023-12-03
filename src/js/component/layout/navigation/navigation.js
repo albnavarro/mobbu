@@ -46,7 +46,8 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
                           <mob-navigation-button
                               ${bindEvents({
                                   click: () => {
-                                      setState('currentAccordionId', -1);
+                                      // Close accordion if click first level button.
+                                      //setState('currentAccordionId', -1);
                                   },
                               })}
                               ${staticProps({
