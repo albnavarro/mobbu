@@ -40,9 +40,9 @@
         border: 0;
         background: transparent;
 
-        &:hover {
-            // opacity: 0.5;
-        }
+        // &:hover {
+        //     opacity: 0.5;
+        // }
 
         &::before {
             content: '';
@@ -59,8 +59,6 @@
         }
 
         &--arrow {
-            background: $grey-light;
-
             &::after {
                 content: '';
                 position: absolute;
