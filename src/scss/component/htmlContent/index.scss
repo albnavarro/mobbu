@@ -12,7 +12,11 @@
     }
 
     a {
-        text-decoration: underline;
         color: $medium-green;
+        transition: opacity 0.35s;
+
+        &:hover {
+            opacity: 0.5;
+        }
     }
 }
