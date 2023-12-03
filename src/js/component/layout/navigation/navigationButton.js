@@ -53,6 +53,13 @@ export const NavigationButton = ({
 
                     navigationStore.set('navigationIsOpen', false);
                     navigationStore.emit('closeNavigation');
+
+                    /**
+                     * Close all submenu if click a first level button.
+                     */
+                    if (subMenuClass === '') {
+                        navigationStore.emit('closeAllAccordion');
+                    }
                 },
             })}
         >

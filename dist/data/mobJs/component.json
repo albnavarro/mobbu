@@ -203,6 +203,32 @@
         {
             "component": "mob-snippet",
             "props": {
+                "source": "/snippets/mobJs/componentBase.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {}
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Params use example:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
                 "source": "/snippets/mobJs/component.js",
                 "isFull": true,
                 "hasOverflow": false,
