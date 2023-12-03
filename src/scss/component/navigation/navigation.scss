@@ -92,7 +92,7 @@
         }
 
         &--submenu {
-            padding-left: rem(35);
+            padding-left: rem(20);
             position: relative;
             background: $grey-light;
         }
@@ -111,18 +111,6 @@
 
             &:last-child {
                 border-bottom: 0;
-            }
-
-            &::before {
-                content: '';
-                position: absolute;
-                left: rem(20);
-                top: 50%;
-                transform: translateY(-50%);
-                width: rem(5);
-                height: rem(5);
-                background: $green;
-                z-index: 2;
             }
 
             &::after {
