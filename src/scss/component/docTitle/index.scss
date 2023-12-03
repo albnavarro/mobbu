@@ -1,0 +1,20 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-doc-title {
+    h2 {
+        color: $black;
+        font-size: rem(300);
+        opacity: 0.1;
+        transform-origin: left bottom;
+        transform: translate(calc(rem(44) * -1), calc(rem(320) * -1))
+            rotate(90deg);
+        display: inline-block;
+        line-height: 1;
+        user-select: none;
+        pointer-events: none;
+        width: calc(100vh - var(--header-height) - var(--footer-height));
+        overflow: hidden;
+    }
+}

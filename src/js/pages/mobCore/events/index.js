@@ -9,6 +9,9 @@ export const mobCore_events = () => {
                 useMaxWidth: true,
             })}
         ></html-content>
+        <doc-title-small slot="section-title-small"
+            >mobCore/<span>events</span></doc-title-small
+        >
         <doc-title slot="section-title">Events</doc-title>
     </doc-container>`;
 };

@@ -4,9 +4,7 @@
 
 .c-scroll-to {
     color: $white;
-    position: absolute;
-    top: rem(40);
-    left: rem(40);
+    margin-left: rem(40);
 
     ul {
         padding: 0;

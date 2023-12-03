@@ -9,6 +9,9 @@ export const mobCore_store = () => {
                 useMaxWidth: true,
             })}
         ></html-content>
+        <doc-title-small slot="section-title-small"
+            >mobCore/<span>store</span></doc-title-small
+        >
         <doc-title slot="section-title">Store</doc-title>
     </doc-container>`;
 };

@@ -1,0 +1,16 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-doc-title-small {
+    h3 {
+        margin-top: rem(15);
+        padding-left: rem(40);
+        color: $green;
+        margin-bottom: rem(20);
+
+        span {
+            color: $white;
+        }
+    }
+}

@@ -9,6 +9,9 @@ export const mobJs_initialization = () => {
                 useMaxWidth: true,
             })}
         ></html-content>
+        <doc-title-small slot="section-title-small"
+            >mobjs/<span>initialization</span></doc-title-small
+        >
         <doc-title slot="section-title">Initialization</doc-title>
     </doc-container>`;
 };

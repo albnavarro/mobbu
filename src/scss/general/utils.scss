@@ -1,5 +1,6 @@
 @use '../vars' as *;
 @use '../abstract' as *;
+@use '../../../node_modules/sass-mq/mq';
 
 .component {
     opacity: 0;
@@ -16,4 +17,10 @@
 
 .is-white {
     color: $white;
+}
+
+.is-mobile {
+    @include mq.mq('large') {
+        display: none;
+    }
 }

@@ -11,15 +11,15 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h1",
+                "onlyMob": true
             },
             "content": "Events"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "line": true
+                "style": "small"
             }
         },
         {

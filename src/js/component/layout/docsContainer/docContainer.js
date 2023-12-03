@@ -3,7 +3,7 @@
  */
 export const DocContainer = ({ html, onMount }) => {
     onMount(() => {
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     });
 
     return html`
@@ -14,8 +14,9 @@ export const DocContainer = ({ html, onMount }) => {
             <div class="c-doc-container__side">
                 <doc-scroll></doc-scroll>
                 <doc-top></doc-top>
-                <mobjs-slot name="section-title"></mobjs-slot>
+                <mobjs-slot name="section-title-small"></mobjs-slot>
                 <scroll-to></scroll-to>
+                <mobjs-slot name="section-title"></mobjs-slot>
             </div>
         </div>
     `;
