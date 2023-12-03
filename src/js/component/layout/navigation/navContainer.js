@@ -86,7 +86,7 @@ export const NavigationContainer = ({ html, onMount }) => {
             </div>
             <div class="l-navcontainer__wrap" ref="wrap">
                 <div class="l-navcontainer__scroll">
-                    <mob-navigation></mob-navigation>
+                    <mob-navigation name="main_navigation"></mob-navigation>
                 </div>
             </div>
         </div>

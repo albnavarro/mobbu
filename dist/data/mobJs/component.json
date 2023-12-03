@@ -284,7 +284,7 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='#'>html</a>: Function",
+                    "<a href='/#mobJs_html'>html</a>: Function",
                     "<a href='#'>onMount</a>: Function",
                     "<a href='#'>getState</a>: Function",
                     "<a href='#'>setState</a>: Functions",

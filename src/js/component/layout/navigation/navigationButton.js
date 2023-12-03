@@ -30,7 +30,16 @@ export const NavigationButton = ({
          */
         mainStore.watch('activeRoute', (current) => {
             mobCore.useFrame(() => {
-                element.classList.toggle('current', current === url);
+                const isActiveRoute = current === url;
+                element.classList.toggle('current', isActiveRoute);
+
+                /**
+                 * Set current accordion menu open state.
+                 * On load route, or if route is loaded outside menu.
+                 */
+                if (isActiveRoute && fireRoute) {
+                    callback();
+                }
             });
         });
 
@@ -43,23 +52,22 @@ export const NavigationButton = ({
             class="l-navigation__link  ${arrowClass} ${subMenuClass}"
             ${delegateEvents({
                 click: () => {
+                    /**
+                     * Set current accordion menu open state.
+                     * On Submenu label click.
+                     */
                     callback();
-
                     if (!fireRoute) return;
 
+                    /**
+                     * Fire page transition if button is cliccable.
+                     */
                     const pageTransitionId =
                         getIdByInstanceName('page-transition');
                     setStateById(pageTransitionId, 'url', url);
 
                     navigationStore.set('navigationIsOpen', false);
                     navigationStore.emit('closeNavigation');
-
-                    /**
-                     * Close all submenu if click a first level button.
-                     */
-                    if (subMenuClass === '') {
-                        navigationStore.emit('closeAllAccordion');
-                    }
                 },
             })}
         >

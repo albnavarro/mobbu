@@ -1,5 +1,6 @@
 import { getCommonData } from '../../../data';
 import { html } from '../../../mobjs';
+import { navigationStore } from './store/navStore';
 
 /**
  * Create first level items.
@@ -59,6 +60,13 @@ function getItems({ data, staticProps, setState, bindProps }) {
  */
 export const Navigation = ({ html, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
+
+    /**
+     * Close all accordion.
+     */
+    navigationStore.watch('closeAllAccordion', () => {
+        setState('currentAccordionId', -1);
+    });
 
     return html`
         <nav class="l-navigation">

@@ -15,6 +15,7 @@ export const navigationComponentDef = createComponent({
 export const navigationDef = createComponent({
     name: 'mob-navigation',
     component: Navigation,
+    exportState: ['currentAccordionId'],
     state: {
         currentAccordionId: () => ({
             value: -1,

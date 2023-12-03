@@ -142,6 +142,17 @@
             "url": "mobJs_component"
         },
         {
+            "label": "params",
+            "url": "#",
+            "name": "params",
+            "children": [
+                {
+                    "label": "html",
+                    "url": "mobJs_html"
+                }
+            ]
+        },
+        {
             "label": "Web component",
             "url": "mobJs_web_component"
         },

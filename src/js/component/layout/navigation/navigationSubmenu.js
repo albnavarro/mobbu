@@ -1,8 +1,8 @@
-import { html } from '../../../mobjs';
+import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
 
-function getSubmenu(children, staticProps) {
+function getSubmenu({ children, staticProps, callback }) {
     return children
         .map((child) => {
             const { label, url } = child;
@@ -11,6 +11,7 @@ function getSubmenu(children, staticProps) {
                 <li class="l-navigation__submenu__item">
                     <mob-navigation-button
                         ${staticProps({
+                            callback,
                             label,
                             url,
                             subMenuClass: 'l-navigation__link--submenu',
@@ -48,13 +49,16 @@ export const NavigationSubmenu = ({
 
         watch('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
+
             await slide[action](content);
-
             navigationStore.emit('refreshScroller');
-        });
 
-        navigationStore.watch('closeAllAccordion', () => {
-            setState('isOpen', false);
+            /**
+             * When accordion is closed form element itSelf
+             * Reset main current accordion is without fire callback.
+             */
+            const navId = getIdByInstanceName('main_navigation');
+            setStateById(navId, 'currentAccordionId', -1, false);
         });
 
         return () => {};
@@ -82,7 +86,7 @@ export const NavigationSubmenu = ({
                 })}
             ></mob-navigation-button>
             <ul class="l-navigation__submenu" ref="content">
-                ${getSubmenu(children, staticProps)}
+                ${getSubmenu({ children, staticProps, callback })}
             </ul>
         </li>
     `;
