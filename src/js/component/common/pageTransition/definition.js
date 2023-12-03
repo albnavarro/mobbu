@@ -11,6 +11,7 @@ export const pageTransitionComponentDef = createComponent({
         url: () => ({
             value: '',
             type: String,
+            skipEqual: false,
         }),
     },
 });
