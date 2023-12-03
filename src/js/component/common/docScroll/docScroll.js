@@ -3,9 +3,11 @@ import { motionCore } from '../../../mobMotion';
 
 const setProperty = ({ scrollY, element }) => {
     mobCore.useNextTick(() => {
-        const scrollValue = scrollY + window.innerHeight;
-        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollValue = scrollY;
+        const scrollHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
         const delta = Math.round((scrollValue / scrollHeight) * 100);
+        console.log(delta);
 
         mobCore.useNextFrame(() => {
             element.style.setProperty('--delta', `${delta}%`);
@@ -20,7 +22,7 @@ export const DocScroll = ({ html, onMount }) => {
     onMount(({ element }) => {
         if (motionCore.mq('max', 'large')) return;
 
-        setProperty({ scrollY: window.scrollY, element });
+        element.style.setProperty('--delta', `0%`);
 
         const unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
             mobCore.useFrame(() => {
