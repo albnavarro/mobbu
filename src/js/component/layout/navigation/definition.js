@@ -20,6 +20,7 @@ export const navigationDef = createComponent({
         currentAccordionId: () => ({
             value: -1,
             type: Number,
+            skipEqual: false,
         }),
     },
 });

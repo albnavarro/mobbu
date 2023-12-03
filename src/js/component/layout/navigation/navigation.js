@@ -5,7 +5,7 @@ import { navigationStore } from './store/navStore';
 /**
  * Create first level items.
  */
-function getItems({ data, staticProps, setState, bindProps }) {
+function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
     return data
         .map((item, index) => {
             const { label, url, children, section } = item;
@@ -44,6 +44,11 @@ function getItems({ data, staticProps, setState, bindProps }) {
                 : html`
                       <li class="l-navigation__item">
                           <mob-navigation-button
+                              ${bindEvents({
+                                  click: () => {
+                                      setState('currentAccordionId', -1);
+                                  },
+                              })}
                               ${staticProps({
                                   label,
                                   url,
@@ -58,7 +63,14 @@ function getItems({ data, staticProps, setState, bindProps }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Navigation = ({ html, staticProps, setState, bindProps }) => {
+export const Navigation = ({
+    html,
+    staticProps,
+    setState,
+    bindProps,
+    bindEvents,
+    watch,
+}) => {
     const { navigation: data } = getCommonData();
 
     /**
@@ -68,10 +80,20 @@ export const Navigation = ({ html, staticProps, setState, bindProps }) => {
         setState('currentAccordionId', -1);
     });
 
+    watch('currentAccordionId', (val) => {
+        console.log(val);
+    });
+
     return html`
         <nav class="l-navigation">
             <ul class="l-navigation__list">
-                ${getItems({ data, staticProps, setState, bindProps })}
+                ${getItems({
+                    data,
+                    staticProps,
+                    setState,
+                    bindProps,
+                    bindEvents,
+                })}
             </ul>
         </nav>
     `;
