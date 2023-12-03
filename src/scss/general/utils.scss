@@ -19,6 +19,10 @@
     color: $white;
 }
 
+.is-grey {
+    color: $grey-blue;
+}
+
 .is-mobile {
     @include mq.mq('large') {
         display: none;

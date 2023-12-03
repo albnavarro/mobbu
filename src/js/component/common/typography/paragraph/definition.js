@@ -13,10 +13,10 @@ export const paragraphContentDef = createComponent({
             strict: true,
         }),
         color: () => ({
-            value: 'white',
+            value: 'grey',
             type: String,
             validate: (val) => {
-                return ['white', 'green'].includes(val);
+                return ['white', 'grey', 'green'].includes(val);
             },
         }),
     },

@@ -17,9 +17,5 @@ export const titleContentDef = createComponent({
                 return ['white', 'green'].includes(val);
             },
         }),
-        onlyMob: () => ({
-            value: false,
-            type: Boolean,
-        }),
     },
 });

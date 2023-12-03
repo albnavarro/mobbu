@@ -11,8 +11,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1",
-                "onlyMob": true
+                "tag": "h1"
             },
             "content": "emitAsync"
         },
