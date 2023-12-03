@@ -177,7 +177,7 @@
             "props": {
                 "style": "medium",
                 "id": "function",
-                "label": "Component-function"
+                "label": "Component&nbsp;function"
             }
         },
         {
@@ -201,6 +201,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/componentBase.js",
@@ -211,14 +217,24 @@
         },
         {
             "component": "mob-spacer",
-            "props": {}
+            "props": {
+                "id": "function-params",
+                "label": "Params&nbsp;example"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Note:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Params use example:"
+            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library.<br/> Using the parameters <strong>watch, bindProps, etc..</strong> you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
         },
         {
             "component": "mob-spacer",
@@ -240,7 +256,7 @@
             "props": {
                 "style": "medium",
                 "id": "parameters",
-                "label": "Component-parameters"
+                "label": "All&nbsp;params"
             }
         },
         {
