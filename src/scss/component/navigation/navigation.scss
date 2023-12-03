@@ -32,7 +32,8 @@
         padding: rem(10) rem(20);
         display: block;
         color: $dark-green;
-        transition: background 0.35s, color 0.35s, border-color 0.35s;
+        transition: background 0.35s, color 0.35s, border-color 0.35s,
+            opacity 0.35s;
         width: 100%;
         text-align: left;
         position: relative;
@@ -40,7 +41,7 @@
         background: transparent;
 
         &:hover {
-            background: $grey;
+            // opacity: 0.5;
         }
 
         &::before {
@@ -58,6 +59,8 @@
         }
 
         &--arrow {
+            background: $grey-light;
+
             &::after {
                 content: '';
                 position: absolute;
@@ -72,6 +75,8 @@
             }
 
             &.active {
+                background: $grey;
+
                 &::after {
                     transform: translateY(-50%) rotate(-135deg);
                 }
@@ -89,7 +94,7 @@
         }
 
         &--submenu {
-            padding-left: rem(30);
+            padding-left: rem(35);
             position: relative;
             background: $grey-light;
         }
@@ -104,10 +109,22 @@
 
         &__item {
             position: relative;
-            border-bottom: 1px $white solid;
 
             &:last-child {
                 border-bottom: 0;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: rem(20);
+                top: 50%;
+                transform: translateY(-50%);
+                width: rem(5);
+                height: rem(5);
+                background: $dark-green;
+                z-index: 2;
+                border-radius: 100%;
             }
 
             &::after {
@@ -121,10 +138,6 @@
                 transform-origin: right;
                 transition: transform 0.55s;
                 z-index: 1;
-            }
-
-            &:last-child {
-                border-bottom: 0;
             }
         }
     }

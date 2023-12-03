@@ -121,7 +121,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Export of all component definitions.<br/> <a href='/#mobJs_lifecycle'>Component structure</a>"
+            "content": "Export of all component definitions.<br/> <a href='/#mobJs_component'>Component structure</a>"
         },
         {
             "component": "mob-spacer",
