@@ -29,6 +29,7 @@ const items = [
  */
 export const linksMobJs = ({ html, staticProps }) => {
     return html`<div class="c-params-mobjs">
-        <mob-list ${staticProps({ items, style: 'small' })}> </mob-list>
+        <mob-list ${staticProps({ items, style: 'small', dots: false })}>
+        </mob-list>
     </div>`;
 };

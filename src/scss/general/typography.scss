@@ -73,6 +73,12 @@ p {
     }
 }
 
+ul {
+    &.hide-dots {
+        list-style-type: none;
+    }
+}
+
 a {
     text-decoration: none;
     color: $white;
