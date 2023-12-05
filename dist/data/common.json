@@ -174,6 +174,30 @@
                     "url": "mobJs_watchSync"
                 },
                 {
+                    "label": "staticProps",
+                    "url": "mobJs_staticProps"
+                },
+                {
+                    "label": "bindProps",
+                    "url": "mobJs_bindProps"
+                },
+                {
+                    "label": "bindEvents",
+                    "url": "mobJs_bindEvents"
+                },
+                {
+                    "label": "delegateEvents",
+                    "url": "mobJs_delegateEvents"
+                },
+                {
+                    "label": "repeat",
+                    "url": "mobJs_repeat"
+                },
+                {
+                    "label": "unBind",
+                    "url": "mobJs_unBind"
+                },
+                {
                     "label": "emit",
                     "url": "mobJs_emit"
                 },
@@ -214,32 +238,8 @@
                     "url": "mobJs_watchParent"
                 },
                 {
-                    "label": "staticProps",
-                    "url": "mobJs_staticProps"
-                },
-                {
-                    "label": "bindProps",
-                    "url": "mobJs_bindProps"
-                },
-                {
-                    "label": "unBind",
-                    "url": "mobJs_unBind"
-                },
-                {
                     "label": "syncParent",
                     "url": "mobJs_syncParent"
-                },
-                {
-                    "label": "bindEvents",
-                    "url": "mobJs_bindEvents"
-                },
-                {
-                    "label": "delegateEvents",
-                    "url": "mobJs_delegateEvents"
-                },
-                {
-                    "label": "repeat",
-                    "url": "mobJs_repeat"
                 }
             ]
         },

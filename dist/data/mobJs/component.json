@@ -261,6 +261,13 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Main params:"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
@@ -271,6 +278,27 @@
                     "<a href='/#mobJs_setState'>setState</a>: Functions",
                     "<a href='/#mobJs_watch'>watch</a>: Function",
                     "<a href='/#mobJs_watchSync'>watchSync</a>: Function",
+                    "<a href='/#mobJs_staticProps'>staticProps</a>: Function",
+                    "<a href='/#mobJs_bindProps'>bindProps</a>: Function",
+                    "<a href='/#mobJs_bindEvents'>bindEvents</a>: Function",
+                    "<a href='/#mobJs_delegateEvents'>delegateEvents</a>: Function",
+                    "<a href='/#mobJs_repeat'>repeat</a>: Function"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Secondary params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='/#mobJs_unBind'>unBind</a>: Function",
                     "<a href='/#mobJs_emit'>emit</a>: Function",
                     "<a href='/#mobJs_emitAsync'>emitAsync</a>: Function",
                     "<a href='/#mobJs_computed'>computed</a>: Function",
@@ -281,13 +309,7 @@
                     "<a href='/#mobJs_unFreezeProp'>unFreezeProp</a>: Function",
                     "<a href='/#mobJs_getParentId'>getParentId</a>: Function",
                     "<a href='/#mobJs_watchParent'>watchParent</a>: Function",
-                    "<a href='/#mobJs_staticProps'>staticProps</a>: Function",
-                    "<a href='/#mobJs_bindProps'>bindProps</a>: Function",
-                    "<a href='/#mobJs_unBind'>unBind</a>: Function",
-                    "<a href='/#mobJs_syncParent'>syncParent</a>: Function",
-                    "<a href='/#mobJs_bindEvents'>bindEvents</a>: Function",
-                    "<a href='/#mobJs_delegateEvents'>delegateEvents</a>: Function",
-                    "<a href='/#mobJs_repeat'>repeat</a>: Function"
+                    "<a href='/#mobJs_syncParent'>syncParent</a>: Function"
                 ]
             }
         },
