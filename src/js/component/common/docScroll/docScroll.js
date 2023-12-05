@@ -7,7 +7,6 @@ const setProperty = ({ scrollY, element }) => {
         const scrollHeight =
             document.documentElement.scrollHeight - window.innerHeight;
         const delta = Math.round((scrollValue / scrollHeight) * 100);
-        console.log(delta);
 
         mobCore.useNextFrame(() => {
             element.style.setProperty('--delta', `${delta}%`);

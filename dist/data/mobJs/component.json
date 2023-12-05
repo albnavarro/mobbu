@@ -282,7 +282,7 @@
                     "<a href='/#mobJs_bindProps'>bindProps</a>: Function",
                     "<a href='/#mobJs_bindEvents'>bindEvents</a>: Function",
                     "<a href='/#mobJs_delegateEvents'>delegateEvents</a>: Function",
-                    "<a href='/#mobJs_repeat'>repeat</a>: Function"
+                    "<a href='/#mobJs_repeat'>reactive list (repeat)</a>: Function"
                 ]
             }
         },

@@ -13,7 +13,7 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "repeat"
+            "content": "reactive list ( repeat )"
         },
         {
             "component": "mob-spacer",

@@ -190,7 +190,7 @@
                     "url": "mobJs_delegateEvents"
                 },
                 {
-                    "label": "repeat",
+                    "label": "reactive list (repeat)",
                     "url": "mobJs_repeat"
                 },
                 {
