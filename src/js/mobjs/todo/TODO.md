@@ -7,7 +7,6 @@
 ## sync ( repeater ) || syncParent
 - come passare la stringa al componente senza doverla inserire manualmente.
 
-## Docs
-- Docs nelle macrosezioni ( mobCore / mobJs / mobMotion )  aggiungere quicklinks con tutti i link della macrosezione.
-content - internal link - quick link
-Prenderli direttamante da common.json ?
+## SLot
+- Perche doc container devo mettere opacita 0 immadiata altrimenti vedo il contento dello slot saltare per un frame ?i ( title-small ) breaddcrumbs.
+
