@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -26,7 +24,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "Html is the tag that allows you to return the <span>component's HTML</span>.<br/>In addition to the HTML, it will take care of passing the component <span>id</span> and the <span>original tag</span> to the parser ready to be replaced with the <span>real final component</span>."
         },
         {
             "component": "mob-spacer",
@@ -37,7 +35,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/html.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
