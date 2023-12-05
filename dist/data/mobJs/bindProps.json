@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -26,7 +24,51 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "The bindProps function allows a component to update its state upon the mutation of one or more states of the parent component."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The bindProps function is an object with two properties:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "bind"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The bind property is an array in which the states to monitor are listed, bindProps will fire when one or all of the listed states change. If the states change in the same eventLoop there will be only one reaction."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "props"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The props property is a function that will have as a parameter an object with the current value of the monitored states. This function will return an object with the values to assign to the state of the child component."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/bindProps.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         },
         {
             "component": "mob-spacer",
@@ -35,9 +77,23 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "extra argument"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The props function can have two values added: <span>_current</span> and <span>_index</span>. These two values will be needed when using reactive lists ( <a href='/#mobJs_repeat'>repater</a> )"
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/bindPropsExtra.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
