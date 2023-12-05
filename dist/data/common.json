@@ -166,6 +166,14 @@
                     "url": "mobJs_setState"
                 },
                 {
+                    "label": "watch",
+                    "url": "mobJs_watch"
+                },
+                {
+                    "label": "watchSync",
+                    "url": "mobJs_watchSync"
+                },
+                {
                     "label": "emit",
                     "url": "mobJs_emit"
                 },
@@ -176,14 +184,6 @@
                 {
                     "label": "computed",
                     "url": "mobJs_computed"
-                },
-                {
-                    "label": "watch",
-                    "url": "mobJs_watch"
-                },
-                {
-                    "label": "watchSync",
-                    "url": "mobJs_watchSync"
                 },
                 {
                     "label": "remove",
