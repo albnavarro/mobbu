@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -26,18 +24,19 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The <span>getState()</span> function is equivalent to <span>myStore.get()</span>. By destructuring the object it is possible to access a particular state."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
+                "style": "medium"
+            },
+            "content": "Component states are declared in the component's <a href='#mobJs_component'>definition</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/getState.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
