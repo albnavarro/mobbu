@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -13,7 +11,7 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "watchAsync"
+            "content": "watchSync"
         },
         {
             "component": "mob-spacer",
@@ -26,18 +24,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "Like the <a href='/#mobJs_watch'>watch</a> function but the callback will be launched a <span>first time</span> as soon as the onMount function is launched."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/watchSync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
