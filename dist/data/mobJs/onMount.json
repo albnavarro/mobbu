@@ -72,7 +72,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>onMount</span> function will return the destroy function which will be executed when the component is dismounted."
+            "content": "The <span>onMount</span> function ( optional ) will return the destroy function which will be executed when the component is dismounted."
         },
         {
             "component": "mob-snippet",

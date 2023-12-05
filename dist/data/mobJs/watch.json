@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -26,18 +24,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "Using the watch function you can react to the change of state whether it occurs from outside the component (for example from a parent through <a href='/#mobJs_bindProps'>bindProps</a>) or from the component itself."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/watch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

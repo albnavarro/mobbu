@@ -1,5 +1,5 @@
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @param {import("../mobjs/type").componentType}
  */
 export const MyComponent = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
@@ -10,6 +10,7 @@ export const MyComponent = ({ html, onMount }) => {
 
         /**
          * Destroy function
+         * Optional
          */
         return () => {};
     });
