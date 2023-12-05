@@ -27,12 +27,6 @@
             "content": "Html is the tag that allows you to return the <span>component's HTML</span>.<br/>In addition to the HTML, it will take care of passing the component <span>id</span> and the <span>original tag</span> to the parser ready to be replaced with the <span>real final component</span>."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/html.js",

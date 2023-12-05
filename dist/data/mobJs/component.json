@@ -266,7 +266,7 @@
                 "style": "medium",
                 "items": [
                     "<a href='/#mobJs_html'>html</a>: Function",
-                    "<a href='/#mobJs_onMount'>onMount</a>: Function",
+                    "<a href='/#mobJs_onMount'>onMount/Destroy</a>: Function",
                     "<a href='/#mobJs_getState'>getState</a>: Function",
                     "<a href='/#mobJs_setState'>setState</a>: Functions",
                     "<a href='/#mobJs_emit'>emit</a>: Function",

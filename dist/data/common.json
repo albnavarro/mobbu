@@ -154,7 +154,7 @@
                     "url": "mobJs_html"
                 },
                 {
-                    "label": "onMount",
+                    "label": "onMount/Destroy",
                     "url": "mobJs_onMount"
                 },
                 {

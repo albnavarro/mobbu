@@ -3,9 +3,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small",
-                "id": "start",
-                "label": "Overview"
+                "style": "small"
             }
         },
         {
@@ -26,7 +24,35 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "The <span>onMount</span> function will be executed when <span>all components of the current loop</span> have been created and attached to the DOM. onMount functions will be executed starting from the deepest level up."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>onMount</span> function will have as its parameter an object containing the <span>main node</span> of the component and all the <span>refs</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Most of the operations in the component will take place in this function having all the nodes of the component available."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Scoped"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the <span>scoped</span> parameter in the component definition."
         },
         {
             "component": "mob-spacer",
@@ -35,9 +61,23 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Destroy"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>onMount</span> function will return the destroy function which will be executed when the component is dismounted."
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/onmount.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
