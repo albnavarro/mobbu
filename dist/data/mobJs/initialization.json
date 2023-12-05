@@ -16,12 +16,6 @@
             "content": "Initialization"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -31,7 +25,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "index",
                 "label": "Index"
             }
@@ -49,12 +43,6 @@
                 "style": "medium"
             },
             "content": "The 'root' id will be the DOM element where the app will be initialized."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -123,12 +111,6 @@
             "content": "Export of all component definitions.<br/> <a href='/#mobJs_component'>Component structure</a>"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/componentList.js",
@@ -158,12 +140,6 @@
                 "style": "medium"
             },
             "content": "Export of all page definitions.<br/> <a href='/#mobJs_routing'>Routing</a>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -203,12 +179,6 @@
             "content": "The general wrapper that will host the pages. Here the node in which to load the individual pages/routes is defined.<br/> It is already possible to use components by passing them <a href='/#mobJs_staticProps'>static props</a>, it is not possible to use reactive props in the wrapper as this module is not a component."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/wrapper.js",
@@ -239,23 +209,11 @@
             "content": "Defaults"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "line": true
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
             "content": "The default parameters with which the components will be created (optional)."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",

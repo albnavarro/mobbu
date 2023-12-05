@@ -16,12 +16,6 @@
             "content": "Component structure"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -71,23 +65,11 @@
             "content": "This must start with a lowercase letter, contain a hyphen, and satisfy certain other rules listed in the web component specification's.<br/>When a specific block of DOM (still in string format) is attached to the DOM the components defined as webComponent will be recognized and transformed into real components."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
             "content": "All components share a set of properties that allow a specific walker to recognize them and check a single option without having to deal with multiple possibilities (e.g. if we have 50 components, we don't have to search for all 50 but we just need to check the nodes that have the specific property 'I am a member')."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-paragraph",

@@ -105,12 +105,6 @@
             "content": "Event launched just after the first available request animation frame"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/useNextTick.js",
@@ -146,12 +140,6 @@
                 "style": "medium"
             },
             "content": "Event launched to the next available frame allowing the creation of a request animation frame loop"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -191,12 +179,6 @@
             "content": "Event launched to a specific frame."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/useFrameIndex.js",
@@ -214,7 +196,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "useLoad",
+                "label": "useLoad"
             }
         },
         {
@@ -230,14 +214,6 @@
                 "style": "medium"
             },
             "content": "Event launched on page load"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small",
-                "id": "useLoad",
-                "label": "useLoad"
-            }
         },
         {
             "component": "mob-snippet",
@@ -290,12 +266,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/useResize.js",
@@ -336,12 +306,6 @@
             "component": "mob-list",
             "props": {
                 "items": ["visibilityState: 'hidden' | 'visible'"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -407,12 +371,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/useMouseClick.js",
@@ -443,12 +401,6 @@
             "content": "useMouseWheel"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -469,12 +421,6 @@
                     "pixelX: <span>number</span>",
                     "pixelY: <span>number</span>"
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -502,12 +448,6 @@
             "content": "useScroll"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -518,12 +458,6 @@
             "component": "mob-list",
             "props": {
                 "items": ["scrollY: number", "direction: scrollDirection"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -557,12 +491,6 @@
             "content": "useScrollImmediate"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -573,12 +501,6 @@
             "component": "mob-list",
             "props": {
                 "items": ["scrollY: number", "direction: scrollDirection"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -612,12 +534,6 @@
             "content": "useScrollThrottle"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -628,12 +544,6 @@
             "component": "mob-list",
             "props": {
                 "items": ["scrollY: number", "direction: scrollDirection"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -667,12 +577,6 @@
             "content": "useScrollStart | useScrollEnd"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -683,12 +587,6 @@
             "component": "mob-list",
             "props": {
                 "items": ["scrollY: number"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
@@ -722,12 +620,6 @@
             "content": "Check type"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -749,12 +641,6 @@
                     "Set",
                     "Map"
                 ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {

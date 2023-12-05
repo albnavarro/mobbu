@@ -118,23 +118,11 @@
             "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <span>validate, type, skipEqual</span>."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
             "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/><br/> To use a object with infinite insertions use the <span>any</span> type"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -203,12 +191,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h4"
@@ -221,12 +203,6 @@
                 "style": "medium"
             },
             "content": "If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.<br/> The default value is <span>true</span>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-spacer",
@@ -271,12 +247,6 @@
             "content": "Update store value:"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/set.js",
@@ -304,12 +274,6 @@
                 "style": "medium"
             },
             "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ).Default value is <span>true</span>.<br/> Clone the original data if using a function and make a copy of the original data.Default value is <span>false</span>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -343,12 +307,6 @@
             "content": "The get() method will return the complete store, use object destructuring to retrieve the desired property."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/get.js",
@@ -378,12 +336,6 @@
                 "style": "medium"
             },
             "content": "The getProp() method will return a specific prop from store."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -417,12 +369,6 @@
             "content": "Listen to the changing data and return the unsubcribe function."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/watch.js",
@@ -452,12 +398,6 @@
                 "style": "medium"
             },
             "content": "Execute property-related callbacks"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -491,12 +431,6 @@
             "content": "Execute property-related async callbacks"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/emitAsync.js",
@@ -526,12 +460,6 @@
                 "style": "medium"
             },
             "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -564,12 +492,6 @@
             "content": "Destroy store and remove all reference"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobCore/destroy.js",
@@ -581,7 +503,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "big"
+                "style": "medium"
             }
         },
         {
