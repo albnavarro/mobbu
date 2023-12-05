@@ -14,6 +14,7 @@ export const mobJs_unBind = () => {
             <a href="/#mobJs_component">component</a> /
             <span>unBind</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">unBind</doc-title>
     </doc-container>`;
 };

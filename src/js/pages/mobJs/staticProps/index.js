@@ -14,6 +14,7 @@ export const mobJs_staticProps = () => {
             <a href="/#mobJs_component">component</a> /
             <span>staticProps</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">staticProps</doc-title>
     </doc-container>`;
 };

@@ -14,6 +14,7 @@ export const mobJs_getChildren = () => {
             <a href="/#mobJs_component">component</a> /
             <span>getChildren</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">getChildren</doc-title>
     </doc-container>`;
 };

@@ -14,6 +14,7 @@ export const mobJs_watchSync = () => {
             <a href="/#mobJs_component">component</a> /
             <span>watchSync</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">watchSync</doc-title>
     </doc-container>`;
 };

@@ -14,6 +14,7 @@ export const mobJs_emit = () => {
             <a href="/#mobJs_component">component</a> /
             <span>emit</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">emit</doc-title>
     </doc-container>`;
 };

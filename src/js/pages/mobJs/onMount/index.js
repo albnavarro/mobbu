@@ -14,6 +14,7 @@ export const mobJs_onMount = () => {
             <a href="/#mobJs_component">component</a> /
             <span>onMount</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">onMount</doc-title>
     </doc-container>`;
 };

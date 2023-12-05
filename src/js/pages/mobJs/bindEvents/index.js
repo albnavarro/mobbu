@@ -14,6 +14,7 @@ export const mobJs_bindEvents = () => {
             <a href="/#mobJs_component">component</a> /
             <span>bindEvents</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">bindEvents</doc-title>
     </doc-container>`;
 };

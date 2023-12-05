@@ -14,6 +14,7 @@ export const mobJs_syncParent = () => {
             <a href="/#mobJs_component">component</a> /
             <span>syncParent</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">syncParent</doc-title>
     </doc-container>`;
 };

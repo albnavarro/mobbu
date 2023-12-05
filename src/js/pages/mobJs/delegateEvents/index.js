@@ -14,6 +14,7 @@ export const mobJs_delegateEvents = () => {
             <a href="/#mobJs_component">component</a> /
             <span>delegateEvents</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">delegateEvents</doc-title>
     </doc-container>`;
 };

@@ -14,6 +14,7 @@ export const mobJs_computed = () => {
             <a href="/#mobJs_component">component</a> /
             <span>computed</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">computed</doc-title>
     </doc-container>`;
 };

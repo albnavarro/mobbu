@@ -14,6 +14,7 @@ export const mobJs_setState = () => {
             <a href="/#mobJs_component">component</a> /
             <span>setState</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">setState</doc-title>
     </doc-container>`;
 };

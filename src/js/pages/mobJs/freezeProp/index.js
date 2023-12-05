@@ -14,6 +14,7 @@ export const mobJs_freezeProp = () => {
             <a href="/#mobJs_component">component</a> /
             <span>freezeProp</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">freezeProp</doc-title>
     </doc-container>`;
 };

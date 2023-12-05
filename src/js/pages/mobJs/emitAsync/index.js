@@ -14,6 +14,7 @@ export const mobJs_emitAsync = () => {
             <a href="/#mobJs_component">component</a> /
             <span>emitAsync</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">emitAsync</doc-title>
     </doc-container>`;
 };

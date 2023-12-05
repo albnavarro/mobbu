@@ -14,6 +14,7 @@ export const mobJs_removeDom = () => {
             <a href="/#mobJs_component">component</a> /
             <span>removeDom</span></doc-title-small
         >
+        <links-mobjs slot="section-links"></links-mobjs>
         <doc-title slot="section-title">removeDom</doc-title>
     </doc-container>`;
 };
