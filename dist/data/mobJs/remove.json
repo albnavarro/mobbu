@@ -24,7 +24,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Destroys the component and all its children, removing any references."
+            "content": "<span>Destroys the component and all its children</span>, removing any references."
         },
         {
             "component": "mob-snippet",
