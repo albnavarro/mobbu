@@ -1,6 +1,12 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
@@ -18,18 +24,26 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The <span>emitAsync()</span> function is equivalent to <span>myStore.emitAsync()</span>."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
+                "style": "medium"
+            },
+            "content": "The emit function executes all the callbacks linked to a given state without needing to modify it."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Component states are declared in the component's <a href='#mobJs_component'>definition</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/emitAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
