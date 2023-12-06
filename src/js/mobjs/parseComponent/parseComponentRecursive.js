@@ -149,11 +149,6 @@ export const parseComponentsRecursive = async ({
     });
 
     /**
-     * Hide component. With slot we can have one frame with unStyled component.
-     */
-    if (newElement) newElement.style.display = 'none';
-
-    /**
      * Find all refs.
      */
     const refsCollection = newElement ? getRefs(newElement) : {};
@@ -224,11 +219,6 @@ export const parseComponentsRecursive = async ({
         scoped === UNSET ? getDefaultComponent().scoped : scoped;
 
     if (scopedParsed) {
-        /**
-         * Component Ready to mounted, remove display: none;
-         */
-        newElement.style.display = '';
-
         await executeFireOnMountCallBack({
             isolateOnMount,
             id,
@@ -253,11 +243,6 @@ export const parseComponentsRecursive = async ({
     functionToFireAtTheEnd.push({
         onMount: async () => {
             if (scopedParsed) return;
-
-            /**
-             * Component Ready to mounted, remove display: none;
-             */
-            newElement.style.display = '';
 
             /**
              * Fire onMount callback at the end of current parse.

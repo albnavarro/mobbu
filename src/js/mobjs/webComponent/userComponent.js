@@ -229,6 +229,14 @@ export const defineUserComponent = (componentList) => {
                     );
 
                     /**
+                     * Placeholder element that will move to slot.
+                     * Add visibility hidden to avoid visiual jump before and after the sobstituition.
+                     */
+                    if (this.#slotPosition && !this.active) {
+                        this.style.visibility = 'hidden';
+                    }
+
+                    /**
                      * Add component type to repeaterTargetComponentMap
                      * So in watch callback of repeater will be filter the right child component.
                      * Use the component name of the first repeater child.
