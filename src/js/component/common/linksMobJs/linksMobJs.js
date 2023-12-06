@@ -1,4 +1,5 @@
 const items = [
+    "<strong class='is-green'>Main params:</strong>",
     "<a href='/#mobJs_html'>html</a>",
     "<a href='/#mobJs_onMount'>onMount/Destroy</a>",
     "<a href='/#mobJs_getState'>getState</a>",
@@ -10,6 +11,7 @@ const items = [
     "<a href='/#mobJs_bindEvents'>bindEvents</a>",
     "<a href='/#mobJs_delegateEvents'>delegateEvents</a>",
     "<a href='/#mobJs_repeat'>reactive list (repeat)</a>",
+    "<strong class='is-green'>Secondary params:</strong>",
     "<a href='/#mobJs_unBind'>unBind</a>",
     "<a href='/#mobJs_emit'>emit</a>",
     "<a href='/#mobJs_emitAsync'>emitAsync</a>",
