@@ -18,7 +18,27 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "The bindEvent function allows you to associate an event with a component, this function has no effect on generic (non-component) elements of the dom. If you want to associate twenty to any node in the DOM use <a href='/#mobJs_delegateEvents'>delegateEvents</a>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "extra argument"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The props function can have two values added: <span>current</span> and <span>index</span>. These two values will be needed when using <span>reactive lists</span> ( <a href='/#mobJs_repeat'>repeat</a> )"
         },
         {
             "component": "mob-spacer",
@@ -29,7 +49,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/bindEvents.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
