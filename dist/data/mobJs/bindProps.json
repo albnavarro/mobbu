@@ -52,6 +52,20 @@
             "props": {
                 "tag": "h4"
             },
+            "content": "forceParent"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a slot) you can decide to point to the states of the first component that hosts it and not of the general function component."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
             "content": "props"
         },
         {

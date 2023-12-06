@@ -27,6 +27,7 @@ export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
             <my-child-component
                 ${bindProps({
                     bind: ['label', 'counter'],
+                    forceParent: false, // optional
                     props: ({ label, counter }) => {
                         return {
                             childProp3: label,
