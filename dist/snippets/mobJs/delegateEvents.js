@@ -18,7 +18,7 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
                     click: (e, { current, index }) => {
                         setState('counter', (value) => (value += 1));
                     },
-                    onmouseenter: (e, { current, index }) => {
+                    onmousedown: (e, { current, index }) => {
                         setState('counter', (value) => (value += 1));
                     },
                 })}

@@ -27,6 +27,13 @@
             "content": "The <span>delegateEvents</span> function collects all events associated with individual elements into a <span>single listener associated with the app root</span>. The event target will then be redirected to the right node. This works and you can use it on simple components or nodes."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Typically we use events like <span>click, mousedown, mouseup, mouseover.</span> Events like <span>mouseenter</span> cannot work in this case, use <a href='/#mobJs_bindEvents'>bindEvent</a> to handle similar events."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
