@@ -9,12 +9,8 @@ function myAsyncFunction() {
 /**
  * @param {import("../mobjs/type").componentType}
  */
-export const MyComponent = async ({ html, onMount }) => {
-    onMount(async () => {
-        await myAsyncFunction();
-
-        console.log('async onMount');
-    });
+export const MyComponent = async ({ html }) => {
+    await myAsyncFunction();
 
     /**
      * Return the DOM.

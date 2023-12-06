@@ -256,7 +256,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/onmountAsync.js",
+                "source": "/snippets/mobJs/componentAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
