@@ -3,6 +3,14 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-params-mobjs {
+    a {
+        transition: color 0.35s;
+
+        &:hover {
+            color: $green;
+        }
+    }
+
     .current {
         color: $green;
     }
