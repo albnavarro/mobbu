@@ -12,8 +12,8 @@ return html`
         <my-component-inner
             slot="my-slot"
             ${bindProps({
-                // here we bind <my-component> counter state.
                 bind: ['counter'],
+                // here we bind <my-component> counter state, with forceParent.
                 forceParent: true,
                 props: ({ counter }) => {
                     return {

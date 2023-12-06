@@ -158,7 +158,7 @@
                 "style": "medium",
                 "items": [
                     "<span>html</span>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "<strong><span>sync</span></strong>: sync props is necessary (<span>obbligatorie</span>) for tracking key and store current and index value."
+                    "<strong><span>sync</span></strong>: sync props is necessary (<span>obbligatorie</span>) for tracking key and and the current value of the state observed."
                 ]
             }
         },

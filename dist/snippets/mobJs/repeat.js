@@ -3,6 +3,7 @@ import { html } from '../mobjs';
 function getItems({ sync, bindProps, delegateEvents }) {
     return html`
         <my-child-component
+            ${sync} // !important
             ${bindProps({
                 bind: ['counter'],
                 props: ({ counter, _current, _index }) => {
@@ -16,7 +17,6 @@ function getItems({ sync, bindProps, delegateEvents }) {
             ${delegateEvents({
                 click: (_e, { current, index }) => console.log(current, index),
             })}
-            ${sync} // !important
         >
         </my-child-component>
     `;
@@ -29,7 +29,7 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
     return html`
         <div>
             ${repeat({
-                watch: 'myArray',
+                watch: 'myStateArray',
                 clean: false,
                 key: 'myKey',
                 beforeUpdate: ({ element, container, childrenId }) => {
