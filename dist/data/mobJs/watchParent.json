@@ -18,7 +18,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "It is possible for a component to remain synchronized to a parent component state by using the <span>watchParent()</span> function. It is recommended to always use <a href='/#mobJs_bindProps'>bindProps()</a> to keep the component as abstract as possible."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If you decide to use this utility you need to return the <span>unsubscribe function</span> to the destroy function."
         },
         {
             "component": "mob-spacer",
@@ -29,7 +36,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/watchParent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
