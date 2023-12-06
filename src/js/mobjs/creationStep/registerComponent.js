@@ -12,7 +12,7 @@ import {
     getParentIdById,
     setParentsComponent,
 } from '../componentStore/action/parent';
-import { unBind } from '../componentStore/action/props';
+import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
 import {
     removeAndDestroyById,
     removeOrphanComponent,
@@ -167,7 +167,10 @@ export const registerComponent = ({
             removeOrphanComponent();
         },
         getParentId: () => getParentIdById(id),
-        watchParent: (prop, cb) => watchById(getParentIdById(id), prop, cb),
+        watchParent: (prop, cb) => {
+            const unsubscribeParent = watchById(getParentIdById(id), prop, cb);
+            setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
+        },
         html: (strings, ...values) => {
             return {
                 id,

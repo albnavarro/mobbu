@@ -21,13 +21,6 @@
             "content": "It is possible for a component to remain synchronized to a parent component state by using the <span>watchParent()</span> function. It is recommended to always use <a href='/#mobJs_bindProps'>bindProps()</a> to keep the component as abstract as possible."
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "If you decide to use this utility you need to return the <span>unsubscribe function</span> to the destroy function."
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"

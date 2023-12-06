@@ -3,13 +3,9 @@
  */
 export const MyComponent = ({ html, onMount, watchParent }) => {
     onMount(() => {
-        const unsubscribe = watchParent('parentState', (value, _oldValue) => {
+        watchParent('parentState', (value, _oldValue) => {
             console.log(value);
         });
-
-        return () => {
-            unsubscribe();
-        };
     });
     /**
      * DOM component structure.
