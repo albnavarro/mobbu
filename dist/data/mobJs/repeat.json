@@ -163,6 +163,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -175,6 +181,12 @@
                 "style": "medium"
             },
             "content": "When using the <span>bindProps/bindEvent/delegateEvent</span> functions, it is possible to use the two attributes <span>index and current( _index and _current in the case of bindProps)</span> to update the state of the component with the corresponding value of the observed array"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
