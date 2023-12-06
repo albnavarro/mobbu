@@ -80,8 +80,6 @@ export const DynamicListRepeater = ({
                     watch: 'data',
                     clean,
                     key: keyParsed,
-                    //beforeUpdate: ({ container, childrenId }) => {
-                    //},
                     afterUpdate: ({ childrenId, element }) => {
                         afterUpdateList({
                             className: `.js-list`,

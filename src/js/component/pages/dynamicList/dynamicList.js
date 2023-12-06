@@ -91,7 +91,6 @@ function getRepeaters({ bindProps, staticProps }) {
  * @param {import('../../../mobjs/type').componentType}
  */
 export const DynamicList = async ({
-    getState,
     setState,
     html,
     onMount,
@@ -143,53 +142,6 @@ export const DynamicList = async ({
                 </div>
             </div>
 
-            <div class="dynamic-list__container">
-                <div class="dynamic-list__content__bottom">
-                    <h4 class="dynamic-list__title">Card outer list scope:</h4>
-                    <dynamic-list-card
-                        ${delegateEvents([
-                            {
-                                click: (e) => console.log(e, 'click'),
-                            },
-                            {
-                                mousedown: (e) => console.log(e, 'mousedown'),
-                            },
-                        ])}
-                        ${staticProps({ isFull: true })}
-                        ${bindProps({
-                            bind: ['counter', 'data'],
-                            props: ({ counter, data }) => {
-                                return {
-                                    label: data[1]?.key ?? '',
-                                    index: 1,
-                                    counter,
-                                };
-                            },
-                        })}
-                    >
-                        <dynamic-list-slot
-                            slot="card-slot"
-                            ${staticProps({
-                                staticFromComponent: `static prop from list`,
-                            })}
-                            ${bindProps({
-                                bind: ['data', 'counter'],
-                                props: () => {
-                                    return {
-                                        /* HTML */
-                                        parentParentState: `${JSON.stringify(
-                                            getState(),
-                                            null,
-                                            4
-                                        )}`,
-                                    };
-                                },
-                            })}
-                        >
-                        </dynamic-list-slot>
-                    </dynamic-list-card>
-                </div>
-            </div>
             <code-button
                 ${staticProps({
                     drawers: [
