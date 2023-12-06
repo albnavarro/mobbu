@@ -14,7 +14,10 @@ export const mobJs_getParentId = () => {
             <a href="/#mobJs_component">component</a> /
             <span>getParentId</span></doc-title-small
         >
-        <links-mobjs slot="section-links"></links-mobjs>
+        <links-mobjs
+            ${staticProps({ section: 'mobjs' })}
+            slot="section-links"
+        ></links-mobjs>
         <doc-title slot="section-title">getParentId</doc-title>
     </doc-container>`;
 };

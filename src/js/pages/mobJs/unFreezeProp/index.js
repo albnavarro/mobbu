@@ -14,7 +14,10 @@ export const mobJs_unFreezeProp = () => {
             <a href="/#mobJs_component">component</a> /
             <span>unFreezeProp</span></doc-title-small
         >
-        <links-mobjs slot="section-links"></links-mobjs>
+        <links-mobjs
+            ${staticProps({ section: 'mobjs' })}
+            slot="section-links"
+        ></links-mobjs>
         <doc-title slot="section-title">unFreezeProp</doc-title>
     </doc-container>`;
 };

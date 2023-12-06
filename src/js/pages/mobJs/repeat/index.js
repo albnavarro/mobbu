@@ -14,7 +14,10 @@ export const mobJs_repeat = () => {
             <a href="/#mobJs_component">component</a> /
             <span>repeat</span></doc-title-small
         >
-        <links-mobjs slot="section-links"></links-mobjs>
+        <links-mobjs
+            ${staticProps({ section: 'mobjs' })}
+            slot="section-links"
+        ></links-mobjs>
         <doc-title slot="section-title">repeat</doc-title>
     </doc-container>`;
 };

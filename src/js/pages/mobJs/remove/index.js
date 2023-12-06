@@ -14,7 +14,10 @@ export const mobJs_remove = () => {
             <a href="/#mobJs_component">component</a> /
             <span>remove</span></doc-title-small
         >
-        <links-mobjs slot="section-links"></links-mobjs>
+        <links-mobjs
+            ${staticProps({ section: 'mobjs' })}
+            slot="section-links"
+        ></links-mobjs>
         <doc-title slot="section-title">remove</doc-title>
     </doc-container>`;
 };

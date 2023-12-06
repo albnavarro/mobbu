@@ -14,7 +14,10 @@ export const mobJs_watch = () => {
             <a href="/#mobJs_component">component</a> /
             <span>watch</span></doc-title-small
         >
-        <links-mobjs slot="section-links"></links-mobjs>
+        <links-mobjs
+            ${staticProps({ section: 'mobjs' })}
+            slot="section-links"
+        ></links-mobjs>
         <doc-title slot="section-title">watch</doc-title>
     </doc-container>`;
 };
