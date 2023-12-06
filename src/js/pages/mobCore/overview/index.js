@@ -11,6 +11,7 @@ export const mobCore_overview = () => {
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobCore 
+        <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">mobCore</doc-title>
     </doc-container>`;
 };

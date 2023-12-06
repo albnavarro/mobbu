@@ -11,6 +11,7 @@ export const mobJs_overview = () => {
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobjs 
+        <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">mobJs</doc-title>
     </doc-container>`;
 };
