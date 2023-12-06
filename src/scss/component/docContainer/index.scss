@@ -11,12 +11,12 @@
         flex: auto;
 
         @include mq.mq('large') {
-            width: 70%;
-            max-width: rem(1000);
+            width: auto;
+            max-width: rem(900, large);
         }
 
         @include mq.mq('xlarge') {
-            width: auto;
+            max-width: rem(1000, xlarge);
         }
     }
 
@@ -37,12 +37,11 @@
 
         @include mq.mq('large') {
             display: block;
-            width: 30%;
+            width: auto;
         }
 
         @include mq.mq('xlarge') {
-            margin-left: rem(100);
-            width: auto;
+            margin-left: rem(100, xlarge);
         }
     }
 }
