@@ -1,37 +1,123 @@
+import { html } from '../../../mobjs';
+
 const items = [
-    "<strong class='is-green'>Main params:</strong>",
-    "<a href='/#mobJs_html'>html</a>",
-    "<a href='/#mobJs_onMount'>onMount/Destroy</a>",
-    "<a href='/#mobJs_getState'>getState</a>",
-    "<a href='/#mobJs_setState'>setState</a>",
-    "<a href='/#mobJs_watch'>watch</a>",
-    "<a href='/#mobJs_watchSync'>watchSync</a>",
-    "<a href='/#mobJs_staticProps'>staticProps</a>",
-    "<a href='/#mobJs_bindProps'>bindProps</a>",
-    "<a href='/#mobJs_bindEvents'>bindEvents</a>",
-    "<a href='/#mobJs_delegateEvents'>delegateEvents</a>",
-    "<a href='/#mobJs_repeat'>reactive list (repeat)</a>",
-    "<strong class='is-green'>Secondary params:</strong>",
-    "<a href='/#mobJs_unBind'>unBind</a>",
-    "<a href='/#mobJs_emit'>emit</a>",
-    "<a href='/#mobJs_emitAsync'>emitAsync</a>",
-    "<a href='/#mobJs_computed'>computed</a>",
-    "<a href='/#mobJs_remove'>remove</a>",
-    "<a href='/#mobJs_removeDom'>removeDOM</a>",
-    "<a href='/#mobJs_getChildren'>getChildren</a>",
-    "<a href='/#mobJs_freezeProp'>freezeProp</a>",
-    "<a href='/#mobJs_unFreezeProp'>unFreezeProp</a>",
-    "<a href='/#mobJs_getParentId'>getParentId</a>",
-    "<a href='/#mobJs_watchParent'>watchParent</a>",
-    "<a href='/#mobJs_syncParent'>syncParent</a>",
+    {
+        label: 'html',
+        url: 'mobJs_html',
+    },
+    {
+        label: 'onMount',
+        url: 'mobJs_onMount',
+    },
+    {
+        label: 'getState',
+        url: 'mobJs_getState',
+    },
+    {
+        label: 'setState',
+        url: 'mobJs_setState',
+    },
+    {
+        label: 'watch',
+        url: 'mobJs_watch',
+    },
+    {
+        label: 'watchSync',
+        url: 'mobJs_watchSync',
+    },
+    {
+        label: 'staticProps',
+        url: 'mobJs_staticProps',
+    },
+    {
+        label: 'bindProps',
+        url: 'mobJs_bindProps',
+    },
+    {
+        label: 'bindEvents',
+        url: 'mobJs_bindEvents',
+    },
+    {
+        label: 'delegateEvents',
+        url: 'mobJs_delegateEvents',
+    },
+    {
+        label: 'reactive list: (repeat)',
+        url: 'mobJs_repeat',
+    },
+    {
+        label: 'unBind',
+        url: 'mobJs_unBind',
+    },
+    {
+        label: 'emit',
+        url: 'mobJs_emit',
+    },
+    {
+        label: 'emitAsync',
+        url: 'mobJs_emitAsync',
+    },
+    {
+        label: 'computed',
+        url: 'mobJs_computed',
+    },
+    {
+        label: 'remove',
+        url: 'mobJs_remove',
+    },
+    {
+        label: 'removeDOM',
+        url: 'mobJs_removeDom',
+    },
+    {
+        label: 'getChildren',
+        url: 'mobJs_getChildren',
+    },
+    {
+        label: 'freezeProp',
+        url: 'mobJs_freezeProp',
+    },
+    {
+        label: 'unFreezeProp',
+        url: 'mobJs_unFreezeProp',
+    },
+    {
+        label: 'getParentId',
+        url: 'mobJs_getParentId',
+    },
+    {
+        label: 'watchParent',
+        url: 'mobJs_watchParent',
+    },
+    {
+        label: 'syncParent',
+        url: 'mobJs_syncParent',
+    },
 ];
+
+const getItems = (staticProps) => {
+    return items
+        .map((item) => {
+            const { label, url } = item;
+            return html`<li>
+                <links-mobjs-button
+                    ${staticProps({
+                        label,
+                        url,
+                    })}
+                ></links-mobjs-button>
+            </li>`;
+        })
+        .join('');
+};
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const linksMobJs = ({ html, staticProps }) => {
     return html`<div class="c-params-mobjs">
-        <mob-list ${staticProps({ items, style: 'small', dots: false })}>
-        </mob-list>
+        <ul>
+            ${getItems(staticProps)}
+        </ul>
     </div>`;
 };

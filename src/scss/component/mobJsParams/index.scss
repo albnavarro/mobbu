@@ -1,0 +1,9 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-params-mobjs {
+    .current {
+        color: $green;
+    }
+}
