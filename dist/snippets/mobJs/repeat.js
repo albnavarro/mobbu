@@ -32,10 +32,10 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
                 watch: 'myArray',
                 clean: false,
                 key: 'myKey',
-                beforeUpdate: ({ container, childrenId }) => {
+                beforeUpdate: ({ element, container, childrenId }) => {
                     //
                 },
-                afterUpdate: ({ childrenId, element }) => {
+                afterUpdate: ({ element, childrenId, element }) => {
                     //
                 },
                 render: ({ sync }) => {

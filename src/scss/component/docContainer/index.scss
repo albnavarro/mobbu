@@ -12,7 +12,7 @@
 
         @include mq.mq('large') {
             width: auto;
-            max-width: rem(850, large);
+            max-width: rem(950, large);
         }
 
         @include mq.mq('xlarge') {

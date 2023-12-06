@@ -21,6 +21,142 @@
             "content": "The <span>repeat</span> function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<a href='/#dynamic_list'>example</a>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Params:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "watch:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Reactive state ( must be an array ) to watch"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "clean:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Cleans the entire list by deleting previous components before updating it."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "key:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Optional key, if you are using an array of objects you can use an object key to maintain the order of the results. If multiple elements share the same key, duplicates will be eliminated."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "beforeUpdate"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event triggered before list update. The function has as parameter an object composed as follows:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>element</span>: Root component HTMLElement ",
+                    "<span>container</span>: List container HTMLElement.",
+                    "<span>childrenId</span>: Active Children ids."
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "afterUpdate"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event triggered after list update. The function has as parameter an object composed as follows:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>element</span>: Root component HTMLElement ",
+                    "<span>container</span>: List container HTMLElement.",
+                    "<span>childrenId</span>: Active Children ids."
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "render"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The render function. The function has as parameter an object composed as follows:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>html</span>: the function that return the HTML",
+                    "<span>sync</span>: sync props is necessary (obbligatorie) for tracking key and store current and index value."
+                ]
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/repeat.js",
