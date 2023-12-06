@@ -16,7 +16,7 @@ function getItems({ sync, bindProps, delegateEvents }) {
             ${delegateEvents({
                 click: (_e, { current, index }) => console.log(current, index),
             })}
-            ${sync}
+            ${sync} // !important
         >
         </my-child-component>
     `;
