@@ -5,6 +5,13 @@ import { linksMobJsButton } from './linksMobJsButton';
 export const paramsMobJsDef = createComponent({
     name: 'links-mobjs',
     component: linksMobJs,
+    exportState: ['section'],
+    state: {
+        section: () => ({
+            value: '',
+            type: String,
+        }),
+    },
 });
 
 export const paramsMobJsButtonDef = createComponent({
