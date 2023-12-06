@@ -5,7 +5,7 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "reactive list ( repeat )"
+            "content": "reactive list: repeat"
         },
         {
             "component": "mob-spacer",
@@ -18,18 +18,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as <strong>components</strong>, <strong>routes</strong>, <strong>before</strong> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "The <span>repeat</span> function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "/snippets/mobJs/repeat.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
