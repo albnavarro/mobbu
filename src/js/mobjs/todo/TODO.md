@@ -8,5 +8,6 @@
 - come passare la stringa al componente senza doverla inserire manualmente.
 
 ## SLot
-- Perche doc container devo mettere opacita 0 immadiata altrimenti vedo il contento dello slot saltare per un frame ?i ( title-small ) breaddcrumbs.
+- newElement display: none in parseComponentRecursive.
+Capire come togliere il tag style orfano.
 
