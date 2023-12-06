@@ -1,6 +1,12 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
@@ -151,8 +157,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>html</span>: the function that return the HTML",
-                    "<span>sync</span>: sync props is necessary (obbligatorie) for tracking key and store current and index value."
+                    "<span>html</span>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
+                    "<strong><span>sync</span></strong>: sync props is necessary (<span>obbligatorie</span>) for tracking key and store current and index value."
                 ]
             }
         },
