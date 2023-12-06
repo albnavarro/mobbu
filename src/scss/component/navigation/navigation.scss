@@ -65,10 +65,10 @@
                 right: rem(20);
                 top: 50%;
                 transform: translateY(-50%) rotate(45deg);
-                width: rem(5);
-                height: rem(5);
-                border-bottom: 1px $dark-green solid;
-                border-right: 1px $dark-green solid;
+                width: rem(7);
+                height: rem(7);
+                border-bottom: 2px $dark-green solid;
+                border-right: 2px $dark-green solid;
                 transition: border-color 0.55s, transform 0.35s;
             }
 
