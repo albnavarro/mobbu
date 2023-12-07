@@ -703,9 +703,9 @@ export interface createComponentType {
      */
     scoped?: boolean;
     constructorCallback?: ({ context: object }) => void;
-    connectedCallback?: ({ context: object }) => void;
-    disconnectedCallback?: ({ context: object }) => void;
-    adoptedCallback?: ({ context: object }) => void;
+    connectedCallback?: ({ context: object, data: object }) => void;
+    disconnectedCallback?: ({ context: object, data: object }) => void;
+    adoptedCallback?: ({ context: object, data: object }) => void;
     attributeChangedCallback?: {
         name: string;
         oldValue: string;

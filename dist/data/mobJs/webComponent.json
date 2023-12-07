@@ -1,11 +1,158 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
             },
-            "content": "Web component"
+            "content": "webComponent"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Function"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the definition of the component and used to recall it:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/webComponentFunction.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Definition"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the definition of the component it will be possible to define the functions that interact with the life cycle of the component:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>attributeToObserve</span>",
+                    "<span>constructorCallback</span>",
+                    "<span>connectedCallback</span>",
+                    "<span>disconnectedCallback</span>",
+                    "<span>adoptedCallback</span>",
+                    "<span>attributeChangedCallback</span>",
+                    "<span>style</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Each function has the context as an argument, and optionally as in the example below an object with all the utilities of our function"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "context:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["<span>webComponent context</span>"]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "data:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>componentId:</span> string",
+                    "<span>emit:</span> function",
+                    "<span>emitAsync:</span> function",
+                    "<span>freezeProp:</span> function",
+                    "<span>getChildren:</span> function",
+                    "<span>getParentId:</span> function",
+                    "<span>getState:</span> function",
+                    "<span>remove:</span> function",
+                    "<span>setState:</span> function",
+                    "<span>unBind:</span> function",
+                    "<span>unFreezeProp:</span> function",
+                    "<span>watch:</span> function",
+                    "<span>watchSync:</span> function",
+                    "<span>watchParent:</span> function"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>attributeChangedCallback</span> will have additional parameters that allow you to communicate with the native webComponent observer such as:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>name</span>: name of the changed attribute",
+                    "<span>oldValue</span>: old value",
+                    "<span>newValue</span>: new value"
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/webComponentDefinition.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         }
     ]
 }
