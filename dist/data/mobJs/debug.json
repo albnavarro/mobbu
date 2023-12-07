@@ -1,11 +1,39 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
             },
-            "content": "Debug"
+            "content": "debug"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The <span>emit()</span> function is equivalent to <span>myStore.emit()</span>."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/debug.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         }
     ]
 }
