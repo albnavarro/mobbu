@@ -158,7 +158,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "A series of events are available to intercept and react to the change of course, to do this a special store called mainStore is available. Being a store, all the methods listed in the <a href='/#mobCore_store'>store</a> apply"
         },
         {
             "component": "mob-spacer",
@@ -174,6 +174,13 @@
                 "tag": "h4"
             },
             "content": "beforeRouteChange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event launched <span>before the change of route</span>, as parameter we would have the name of the <span>next route</span>."
         },
         {
             "component": "mob-snippet",
@@ -200,6 +207,13 @@
             "content": "beforeRouteLeave"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event launched <span>before the change of route</span>, as parameter we would have the name of the <span>previous route</span>."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/beforeRouteLeave.js",
@@ -224,6 +238,13 @@
             "content": "afterRouteChange"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Event launched <span>after the change of route</span>, as parameter we would have the name of the <span>current route</span>."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobJs/afterRouteChange.js",
@@ -246,6 +267,13 @@
                 "tag": "h4"
             },
             "content": "activeRoute"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value of the current route will be returned."
         },
         {
             "component": "mob-snippet",
