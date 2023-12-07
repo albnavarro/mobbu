@@ -1,7 +1,7 @@
-import { parseDom } from '../../../src/js/mobjs';
+import { parseDom } from '../mobjs';
 
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @param {import("../mobjs/type").componentType}
  */
 export const MyComponent = ({
     html,
@@ -29,12 +29,19 @@ export const MyComponent = ({
         ></runtime-component>`;
 
         container.insertAdjacentHTML('afterbegin', runTimeComponent);
+
+        /**
+         * Parse container node, and render all component inside. ( async )
+         */
         await parseDom(container);
 
         /**
          * Remove new component added.
          */
         button.addEventListener('click', () => {
+            /**
+             * Remove firstChild of container node and all component reference inside.
+             */
             const componentToRemove = container.firstElementChild;
             removeDOM(componentToRemove);
         });
