@@ -1,18 +1,39 @@
 {
     "data": [
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h1"
             },
-            "content": "Refs"
+            "content": "refs"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "refs => generic html element,<br/> instanceName => component"
+            "content": "It is possible to retrieve <span>HTML nodes</span> using refs. A <spansingle node</span> will be returned if the ref is single, an <span>array of nodes</span> if the ref has been defined multiple times."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/refs.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         }
     ]
 }

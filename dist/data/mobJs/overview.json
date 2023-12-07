@@ -23,7 +23,8 @@
                     "<a href='#mobJs_initialization'>initialization</a>",
                     "<a href='#mobJs_component'>Component structure</a>",
                     "<a href='/#mobJs_web_component'>Web component</a>",
-                    "<a href='/#mobJs_routing'>Routing</a>"
+                    "<a href='/#mobJs_routing'>Routing</a>",
+                    "<a href='/#mobJs_refs'>Refs</a>"
                 ]
             }
         }
