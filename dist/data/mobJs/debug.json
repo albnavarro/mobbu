@@ -20,11 +20,39 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "setDefaultComponent"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The <span>emit()</span> function is equivalent to <span>myStore.emit()</span>."
+            "content": "Enable the debug property through the setDefaultComponent function."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "mainStore"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the <span>mainStore map</span> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Each component is identified by an <span>id</span> in string format, by enabling the debug property each component will display its own id in the <span>data-mobjs</span> attribute so as to be searchable in the <span map >mainStore</span>."
         },
         {
             "component": "mob-snippet",
