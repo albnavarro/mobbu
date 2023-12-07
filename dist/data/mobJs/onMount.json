@@ -52,7 +52,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the <span>scoped</span> parameter in the component definition."
+            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the <span>scoped</span> parameter in the <a href='/#mobJs_component'>component definition</a>."
         },
         {
             "component": "mob-spacer",
