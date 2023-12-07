@@ -26,7 +26,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla"
+            "content": "The slots are identified by the <span>mobjs-slot</span> tag, they can be <span>unnamed</span> or <span>named</span> as in the following examples:"
         },
         {
             "component": "mob-spacer",
@@ -42,13 +42,6 @@
                 "tag": "h3"
             },
             "content": "Unnamed slot"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "bal bla"
         },
         {
             "component": "mob-snippet",
@@ -73,13 +66,6 @@
                 "tag": "h3"
             },
             "content": "Named slot"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "bal bla"
         },
         {
             "component": "mob-snippet",
@@ -110,7 +96,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bal bla"
+            "content": "Slots can use both <span>staticProps</span> and <span>bindProps</span> as all components. The component that will use the slot will inherit the props that will be added to its own."
         },
         {
             "component": "mob-snippet",
