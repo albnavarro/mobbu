@@ -1,9 +1,13 @@
 /**
- * @param {import("../mobjs/type").componentType}
+ * Default component
  */
 export const MyComponent = ({ html }) => {
-    /**
-     * DOM component structure.
-     */
+    return html` <div>my component.</div> `;
+};
+
+/**
+ * webComponent
+ */
+export const MyComponent = ({ html }) => {
     return html` <my-component>my component.</my-component> `;
 };
