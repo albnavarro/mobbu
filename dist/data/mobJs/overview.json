@@ -25,7 +25,8 @@
                     "<a href='/#mobJs_web_component'>Web component</a>",
                     "<a href='/#mobJs_routing'>Routing</a>",
                     "<a href='/#mobJs_refs'>Refs</a>",
-                    "<a href='/#mobJs_slot'>Slot</a>"
+                    "<a href='/#mobJs_slot'>Slot</a>",
+                    "<a href='/#mobJs_runtime'>Runtime add/remove</a>"
                 ]
             }
         }

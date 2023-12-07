@@ -22,7 +22,7 @@ export const MyLayout = ({ html, staticProps, bindProps }) => {
 };
 
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @param {import("../mobjs/type").componentType}
  */
 export const MyComponent = ({ html, bindProps }) => {
     return html`
