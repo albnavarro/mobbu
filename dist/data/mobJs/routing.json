@@ -3,7 +3,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "small",
+                "id": "start",
+                "label": "Overview"
             }
         },
         {
@@ -36,7 +38,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "id": "function",
+                "label": "Function"
             }
         },
         {
@@ -44,7 +48,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "route:"
+            "content": "Route:"
         },
         {
             "component": "mob-snippet",
@@ -58,7 +62,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "link navigate",
+                "label": "Link_navigate"
             }
         },
         {
@@ -66,7 +72,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "navigate via link"
+            "content": "Navigate via link"
         },
         {
             "component": "mob-snippet",
@@ -80,7 +86,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "javascript navigate",
+                "label": "Javascript_navigate"
             }
         },
         {
@@ -88,7 +96,31 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "initialization"
+            "content": "Navigate via javascript"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/routeLinkJs.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "initialization",
+                "label": "Initialization"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Initialization"
         },
         {
             "component": "mob-paragraph",
