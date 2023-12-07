@@ -24,12 +24,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla"
+            "content": "Below are some utilities that allow you to interact with the components in a transversal manner starting from the name/id."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/onmountAsync.js",
+                "source": "/snippets/mobJs/utils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

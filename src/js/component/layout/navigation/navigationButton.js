@@ -1,5 +1,10 @@
 import { mobCore } from '../../../mobCore';
-import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
+import {
+    getIdByInstanceName,
+    getStateById,
+    mainStore,
+    setStateById,
+} from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
@@ -11,9 +16,13 @@ export const NavigationButton = ({
     onMount,
     watch,
     delegateEvents,
+    id,
 }) => {
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
+
+    const state = getStateById(id);
+    console.log(state);
 
     onMount(({ element }) => {
         /**
