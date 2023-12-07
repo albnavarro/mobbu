@@ -1,3 +1,3 @@
-import { getStateById } from '../../../src/js/mobjs';
+import { getStateById } from '../mobjs';
 
 const stateById = getStateById('_jhsdjs');

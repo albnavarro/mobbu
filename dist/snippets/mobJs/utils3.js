@@ -1,4 +1,4 @@
-import { watchById } from '../../../src/js/mobjs';
+import { watchById } from '../mobjs';
 
 watchById('_jhsdjs', (value, previousValue) => {
     //

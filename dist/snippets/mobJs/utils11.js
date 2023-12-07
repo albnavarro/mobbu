@@ -1,3 +1,3 @@
-import { loadUrl } from '../../../src/js/mobjs';
+import { loadUrl } from '../mobjs';
 
 loadUrl({ url: '/#my-route' });

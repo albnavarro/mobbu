@@ -1,3 +1,3 @@
-import { getIdByInstanceName } from '../../../src/js/mobjs';
+import { getIdByInstanceName } from '../mobjs';
 
 const idByName = getIdByInstanceName('mycomponentName');

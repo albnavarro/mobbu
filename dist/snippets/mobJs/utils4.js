@@ -1,3 +1,3 @@
-import { setStateById } from '../../../src/js/mobjs';
+import { setStateById } from '../mobjs';
 
 setStateById('_jhsdjs', 'myState', 'value');

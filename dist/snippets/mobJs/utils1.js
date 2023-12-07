@@ -1,3 +1,3 @@
-import { removeAndDestroyById } from '../../../src/js/mobjs';
+import { removeAndDestroyById } from '../mobjs';
 
 removeAndDestroyById({ id: '_jhsdjs' });

@@ -1,3 +1,3 @@
-import { getComponentNameById } from '../../../src/js/mobjs';
+import { getComponentNameById } from '../mobjs';
 
 const nameById = getComponentNameById('_jhsdjs');

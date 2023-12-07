@@ -307,7 +307,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Get component name by id."
+            "content": "Get component name ( not instance name ) by id."
         },
         {
             "component": "mob-spacer",
