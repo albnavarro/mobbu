@@ -1,0 +1,53 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "instanceName"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to associate a unique <span>name</span> with a <span>single instance of a component</span>, from the name we can then recover its <span>id</span> and use the component in a transversal manner."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Utils"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "List of <a href='/#mobJs_utils'>utilities</a> to manage a component starting from the name/id"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobJs/instanceName.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        }
+    ]
+}

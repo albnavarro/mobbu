@@ -264,12 +264,16 @@
             "url": "mobJs_runtime"
         },
         {
-            "label": "Debug",
-            "url": "mobJs_debug"
+            "label": "instanceName",
+            "url": "mobJs_instanceName"
         },
         {
             "label": "Utils",
             "url": "mobJs_utils"
+        },
+        {
+            "label": "Debug",
+            "url": "mobJs_debug"
         },
         {
             "label": "examples:",
