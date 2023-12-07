@@ -1,19 +1,21 @@
 /**
  * @param {import("../mobjs/type").componentType}
  */
-export const MyComponent = ({ html, bindEvents, setState }) => {
+export const MyLayout = ({ html }) => {
     return html`
-        <div>
-            <my-child-component
-                ${bindEvents({
-                    click: (e, { current, index }) => {
-                        setState('counter', (value) => (value += 1));
-                    },
-                    onmouseenter: (e, { current, index }) => {
-                        setState('counter', (value) => (value += 1));
-                    },
-                })}
-            ></my-child-component>
-        </div>
+        <section>
+            <mobjs-slot></mobjs-slot>
+        </section>
+    `;
+};
+
+/**
+ * @param {import("../mobjs/type").componentType}
+ */
+export const MyComponent = ({ html }) => {
+    return html`
+        <my-layout>
+            <my-component></my-component>
+        </my-layout>
     `;
 };
