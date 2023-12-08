@@ -21,9 +21,6 @@ export const NavigationButton = ({
     const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
         getState();
 
-    const state = getStateById(id);
-    console.log(state);
-
     onMount(({ element }) => {
         /**
          * Is a toggle accordion.
