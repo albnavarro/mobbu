@@ -11,18 +11,18 @@ tween.createTween({
 /**
  * const myTween = new HandleTween({
  *   data: Object.<string, number>,
- *   duration: Number,
- *   ease: String,
- *   relative: Boolean
- *   stagger:{
- *      each: Number,
- *      from: Number|String|{x:number,y:number},
- *      grid: {
- *          col: Number,
- *          row: Number,
- *          direction: String
+ *   duration?: Number,
+ *   ease?: String,
+ *   relative?: Boolean
+ *   stagger?:{
+ *      each?: Number,
+ *      from?: Number|String|{x:number,y:number},
+ *      grid?: {
+ *          col?: Number,
+ *          row?: Number,
+ *          direction?: String
  *      },
- *      waitComplete: Boolean,
+ *      waitComplete?: Boolean,
  *   },
  * })
  */

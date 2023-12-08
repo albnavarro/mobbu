@@ -11,26 +11,28 @@ tween.createSpring({
 });
 
 /**
+ * Schema:
+ *
  * const mySpring = new HandleSpring({
  *   data: Object.<string, number>,
- *   config: String,
- *   configProp: {
- *      tension: Number,
- *      mass: Number,
- *      friction: Number,
- *      velocity: Number,
- *      precision: Number,
+ *   config?: String,
+ *   configProp?: {
+ *      tension?: Number,
+ *      mass?: Number,
+ *      friction?: Number,
+ *      velocity?: Number,
+ *      precision?: Number,
  *   },
- *   relative: Boolean
- *   stagger:{
- *      each: Number,
- *      from: Number|String|{x:number,y:number},
- *      grid: {
- *          col: Number,
- *          row: Number,
- *          direction: String,
+ *   relative?: Boolean
+ *   stagger?:{
+ *      each?: Number,
+ *      from?: Number|String|{x:number,y:number},
+ *      grid?: {
+ *          col?: Number,
+ *          row?: Number,
+ *          direction?: String,
  *      },
- *      waitComplete: Boolean,
+ *      waitComplete?: Boolean,
  *   },
  * })
  */

@@ -31,7 +31,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "Time-based:"
         },
@@ -39,7 +39,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["Tween"]
+                "items": ["<span>Tween</span>"]
             }
         },
         {
@@ -58,7 +58,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "Based on a precision value:"
         },
@@ -66,7 +66,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["Lerp", "Spring"]
+                "items": ["<span>Lerp</span>", "<span>Spring</span>"]
             }
         },
         {
@@ -75,6 +75,61 @@
                 "style": "medium"
             },
             "content": "Suitable for interactive use such as mouse trail etc..."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Common params:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "data:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Data object."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "realtive:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If true the values will always be relative to the previous value reached by the tween."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "stagger:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "To manage staggers refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
