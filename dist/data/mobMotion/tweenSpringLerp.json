@@ -39,7 +39,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["<span>tween.createTween({ .. })</span>"]
+                "items": ["Tween"]
             }
         },
         {
@@ -66,10 +66,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": [
-                    "<span>tween.createLerp({ .. })</span>",
-                    "<span>tween.createSpring({ .. })</span>"
-                ]
+                "items": ["Lerp", "Spring"]
             }
         },
         {
@@ -108,15 +105,9 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/tween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -159,7 +150,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/spring.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -202,7 +193,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/lerp.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
