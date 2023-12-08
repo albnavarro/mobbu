@@ -13,14 +13,71 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "Tweens"
+            "content": "Tween / Lerp / Spring"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "Tweens can be thought of as stores that simply change numbers and launch callbacks."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Time-based:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["<span>tween.createTween({ .. })</span>"]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It cannot be used interactively with a mouse etc... it simply processes the data over a given period of time."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Based on a precision value:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>tween.createLerp({ .. })</span>",
+                    "<span>tween.createSpring({ .. })</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Suitable for interactive use such as mouse trail etc..."
         },
         {
             "component": "mob-spacer",
