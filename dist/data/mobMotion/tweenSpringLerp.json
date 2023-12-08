@@ -608,7 +608,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The subscribe method will allow us to apply the values in <span>real time</span> to our target."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
         },
         {
             "component": "mob-spacer",
@@ -625,7 +632,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/subscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
