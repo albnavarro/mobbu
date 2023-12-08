@@ -32,7 +32,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Time-based:"
         },
@@ -59,7 +59,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
             "content": "Based on a precision value:"
         },
@@ -247,11 +247,39 @@
             "content": "Spring"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "config:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "preset configuration (The configurations were taken from react-spring)"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["default", "gentle", "wobbly", "bounce", "scroller"]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "configProp"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Here it is possible to alter the individual values of the chosen configuration."
         },
         {
             "component": "mob-spacer",
