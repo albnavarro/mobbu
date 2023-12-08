@@ -88,7 +88,19 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
         >
         </code-button>
         <div class="l-index__content">
-            <div class="l-index__item" ref="mobjs">
+            <a class="l-index__item" href="/#mobCore_overview">
+                <div class="l-index__inner-content">
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Core
+                    </h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        store & window events
+                    </h2>
+                </div>
+            </a>
+            <a class="l-index__item" href="/#mobJs_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Js
@@ -99,8 +111,8 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
                         js component library
                     </h2>
                 </div>
-            </div>
-            <div class="l-index__item" ref="mobMotion">
+            </a>
+            <a class="l-index__item" href="/#mobMotion_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Motion
@@ -111,7 +123,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
                         js animation library
                     </h2>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="l-index__top-left">${pieceArrow}</div>

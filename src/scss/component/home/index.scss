@@ -113,11 +113,11 @@
 
         @include mq.mq('large') {
             padding-left: rem(300);
-            padding-top: rem(100);
+            padding-top: rem(70);
         }
 
         h1 {
-            font-size: rem(40);
+            font-size: rem(30);
             margin-right: rem(10);
 
             span {
@@ -127,7 +127,7 @@
         }
 
         h2 {
-            font-size: rem(20);
+            font-size: rem(15);
         }
     }
 
@@ -137,5 +137,11 @@
 
     &__item {
         margin-bottom: rem(20);
+        display: block;
+        transition: opacity 0.55s;
+
+        &:hover {
+            opacity: 0.5;
+        }
     }
 }
