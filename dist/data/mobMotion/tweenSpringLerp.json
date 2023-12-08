@@ -415,7 +415,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The set() method instantly applies the applied value, even if the value is not applied it returns a promise,"
         },
         {
             "component": "mob-spacer",
@@ -432,7 +432,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/set.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -458,7 +458,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The goTo method takes the values <span>from the current state</span> to the state indicated in the <span>first parameter</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-spacer",
@@ -475,7 +482,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/goTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -501,7 +508,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The goFrom method brings the values <span>from the state indicated in the first parameter</span> to the <span>current state</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-spacer",
@@ -518,7 +532,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/goFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -544,7 +558,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The goFromTo method takes the values from the state indicated in the <span>first parameter</span> to the state indicated in the <span>second parameter</span>. The two parameters must have the same keys."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the <span>third parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-spacer",
@@ -561,7 +582,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/goFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

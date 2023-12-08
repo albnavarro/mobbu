@@ -2,7 +2,7 @@ import { tween } from '../mobMotion';
 
 const myTween = tween.createLerp({
     data: { x: 0, y: 0, rotate: 0 },
-    velocity: 3,
+    velocity: 0.06,
     precision: 0.01,
     relative: false,
     stagger: { each: 7 },
