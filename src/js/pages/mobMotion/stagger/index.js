@@ -1,7 +1,19 @@
 import { html, staticProps } from '../../../mobjs';
 
 export const mobMotion_stagger = () => {
-    return html`<html-content
-        ${staticProps({ source: '/data/mobMotion/stagger.json' })}
-    ></html-content>`;
+    return html` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+                source: '/data/mobMotion/stagger.json',
+                useMaxWidth: true,
+            })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="/#mobMotion_overview">mobMotion</a> /
+            <span>Stagger</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Stagger</doc-title>
+    </doc-container>`;
 };
