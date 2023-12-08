@@ -658,7 +658,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='/#mobMotion_stagger'>stagger</a> by optimizing memory consumption."
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='/#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
         },
         {
             "component": "mob-paragraph",
@@ -708,7 +708,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the GPU unnecessarily:"
+            "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
         },
         {
             "component": "mob-spacer",
