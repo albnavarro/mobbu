@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Overview"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "Plugin"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Coming soon"
+        }
+    ]
+}
