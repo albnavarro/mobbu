@@ -1,6 +1,6 @@
-import { tween } from '../../../src/js/mobMotion';
+import { tween } from '../mobMotion';
 
-tween.createSpring({
+const myTween = tween.createSpring({
     data: { x: 0, y: 0, rotate: 0 },
     config: 'wobbly',
     configProp: {

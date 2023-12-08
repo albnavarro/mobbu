@@ -1,6 +1,6 @@
-import { tween } from '../../../src/js/mobMotion';
+import { tween } from '../mobMotion';
 
-tween.createTween({
+const myTween = tween.createTween({
     data: { x: 0, y: 0, rotate: 0 },
     duration: 1000,
     ease: 'easeInQuad',

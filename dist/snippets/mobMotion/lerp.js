@@ -1,6 +1,6 @@
-import { tween } from '../../../src/js/mobMotion';
+import { tween } from '../mobMotion';
 
-tween.createLerp({
+const myTween = tween.createLerp({
     data: { x: 0, y: 0, rotate: 0 },
     velocity: 3,
     precision: 0.01,
