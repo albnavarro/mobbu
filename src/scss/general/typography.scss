@@ -25,7 +25,7 @@ h4,
 h5,
 h6,
 label {
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em;
 }
 
 body {
@@ -52,10 +52,14 @@ h4 {
     line-height: line-height(20, 27);
 }
 
+h5 {
+    font-size: rem(18px);
+    line-height: line-height(20, 27);
+}
+
 p {
-    margin: 0;
     padding: 0;
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
 }
 
 .p,
