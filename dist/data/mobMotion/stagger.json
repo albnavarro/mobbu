@@ -20,7 +20,35 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "<span>The stagger's task is to calculate the number of delay frames for each subscriber of the tween</span>. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This mechanism is not to be confused with a setTimeout(), the stagger does not think in this way but rather counts the frames, in fact the use of the stagger does not affect the perception of the animation in any way. This count varies based on the frame rate identified at the start. The stagger can no longer be modified once calculated."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "example:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If we had <span>2 subscribers</span>, in the simplest case, with a value of each equal to 2 we could have a situation like:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>first subscriber</span> will use the frames: <span>0,1,2,3,4,...</span><br/> The <span>second subscriber</span> will use the frames: <span>2,3,4,5,6,...</span><br/> Naturally the offset value will vary based on the frame rate."
         },
         {
             "component": "mob-spacer",
