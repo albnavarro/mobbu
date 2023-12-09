@@ -557,7 +557,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla"
+            "content": "The <span>masterSequencer</span> allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='/#mobMotion_create_stagger'>createStagger</a>"
         },
         {
             "component": "mob-spacer",
@@ -574,7 +574,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/masterSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

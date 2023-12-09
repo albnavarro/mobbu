@@ -1,4 +1,4 @@
-import { timeline, tween } from '../../../src/js/mobMotion';
+import { timeline, tween } from '../mobMotion';
 
 /**
  * Complete example:

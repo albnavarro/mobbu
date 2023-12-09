@@ -1,4 +1,4 @@
-import { tween } from '../../../src/js/mobMotion';
+import { tween } from '../mobMotion';
 
 /**
  * Create and set the goTo value.
