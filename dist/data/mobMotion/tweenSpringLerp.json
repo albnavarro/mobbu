@@ -20,7 +20,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Tweens can be thought of as stores that simply change numbers and launch callbacks."
+            "content": "Tweens can be thought of as stores that simply interpolate numbers and launch callbacks."
         },
         {
             "component": "mob-spacer",

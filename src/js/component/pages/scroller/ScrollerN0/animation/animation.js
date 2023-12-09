@@ -102,27 +102,21 @@ export const scrollerN0Animation = ({
     /**
      * Create sequencer instances from staggera array
      */
-    const createSequencerInstances = () => {
-        return staggers.map(({ item, start, end }) => {
-            const scale = item.hasFill ? 1.1 : 1;
 
-            const sequencer = tween
-                .createSequencer({ data: { scale: 0 } })
-                .goTo({ scale }, { start, end, ease: 'easeInOutBack' });
+    let sequencersInstances = staggers.map(({ item, start, end }) => {
+        const scale = item.hasFill ? 1.1 : 1;
 
-            const unsubscribe = sequencer.subscribe(({ scale }) => {
-                item.scale = scale;
-            });
+        const sequencer = tween
+            .createSequencer({ data: { scale: 0 } })
+            .goTo({ scale }, { start, end, ease: 'easeInOutBack' });
 
-            masterSequencer.add(sequencer);
-            return { sequencer, unsubscribe };
+        const unsubscribe = sequencer.subscribe(({ scale }) => {
+            item.scale = scale;
         });
-    };
 
-    /**
-     * Create.
-     */
-    let sequencersInstances = createSequencerInstances();
+        masterSequencer.add(sequencer);
+        return { sequencer, unsubscribe };
+    });
 
     /**
      * Main draw function.
