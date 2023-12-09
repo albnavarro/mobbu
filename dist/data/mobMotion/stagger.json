@@ -53,6 +53,50 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Stagger interface example:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/staggerInterface.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "type",
+                "label": "type"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "type"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The type parameter is used exclusively by the <a href='/#mobMotion_create_stagger'>createStagger</a> module. Module that allows you to synchronize x instances of <a href='/#mobMotion_sequencer'>sequencer</a> according to the stagger scheme. In 'simple' tweens it is not used."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "each",
                 "label": "each"
@@ -70,13 +114,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "Determines the offset of the renderings:"
         },
         {
             "component": "mob-spacer",
@@ -87,7 +125,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/each.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -113,7 +151,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Determines whether the tween is considered completed when the sagger for the <span>first subscriber is launched ( waitComplete: false )</span> or for the <span>last subscriber ( waitComplete: true )</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <a href='/#animatedPatternN0v2'>animated pattern</a> modules are based on this mechanism"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using waitComplete: false the loops of the tweens synchronized by a <a href='/#mobMotion_async_timeline'>asyncTimeline</a> will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
         },
         {
             "component": "mob-spacer",
@@ -130,7 +182,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/waitComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
