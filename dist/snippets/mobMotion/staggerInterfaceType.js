@@ -1,4 +1,5 @@
 interface stagger {
+    type?: 'equal' | 'start' | 'end' | 'center';
     each?: number;
     waitComplete?: boolean;
     from?:

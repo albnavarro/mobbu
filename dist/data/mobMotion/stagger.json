@@ -76,28 +76,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "type",
-                "label": "type"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "type"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The type parameter is used exclusively by the <a href='/#mobMotion_create_stagger'>createStagger</a> module. Module that allows you to synchronize x instances of <a href='/#mobMotion_sequencer'>sequencer</a> according to the stagger scheme. In 'simple' tweens it is not used."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "each",
                 "label": "each"
             }

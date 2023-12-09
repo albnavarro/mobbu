@@ -45,16 +45,10 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/staggerInterface.js",
+                "source": "/snippets/mobMotion/staggerInterfaceType.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
             }
         },
         {
@@ -68,7 +62,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "type:"
         },
@@ -78,6 +72,12 @@
                 "style": "medium"
             },
             "content": "Type is a special property of createStagger:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-title",
@@ -91,28 +91,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using the each option all the instances will have the <span>same duration</span>."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "- The <span>value 0</span> has no effect"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "- The <span>value 1</span> will ensure that <span>all the instances will start in sequence</span>, the end of the previous one corresponds to the beginning of the next"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "- <span>Above the value 1</span> the instances will begin to overlap while always maintaining the same duration"
+            "content": "All the instances will have the <span>same duration</span>.<br/> The <span>value 0</span> has no effect.<br/> The <span>value 1</span> will ensure that <span>all the instances will start in sequence</span>, the end of the previous one corresponds to the beginning of the next.</br> <span>Above the value 1</span> the instances will begin to overlap while always maintaining the same duration.<br/> "
         },
         {
             "component": "mob-spacer",
@@ -123,11 +102,18 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "start:"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "All staggers will have a <span>different duration</span>. They will <span>start at the same time</span> and will <span>reach the maximum value at different times</span>."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -136,11 +122,18 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "end:"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "All staggers will have a <span>different duration</span>. They will <span>start at different times</span> and will <span>reach the maximum value at the same time</span>."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -149,9 +142,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "center:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "All staggers will have a <span>different duration</span>. They will <span>start at different times</span> and will <span>reach the maximum value at different times</span>, the <span>first will start first and will be the slowest</span>, the <span>last will start at the end and will be the fastest</span>."
         },
         {
             "component": "mob-spacer",
@@ -188,7 +188,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
+            "content": "The higher the value of each, the smaller the difference in duration will be."
         },
         {
             "component": "mob-spacer",
