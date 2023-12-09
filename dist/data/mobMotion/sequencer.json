@@ -23,6 +23,13 @@
             "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='/#mobMotion_sync_timeline'>syncTimeline</a> and <a href='/#mobMotion_scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<a href='/#caterpillarN2'>example</a>"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
