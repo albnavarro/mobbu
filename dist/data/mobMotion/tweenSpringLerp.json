@@ -468,6 +468,13 @@
             "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -518,6 +525,13 @@
             "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -566,6 +580,13 @@
                 "style": "medium"
             },
             "content": "In the <span>third parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
         },
         {
             "component": "mob-spacer",
