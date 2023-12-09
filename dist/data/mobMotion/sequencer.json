@@ -272,13 +272,62 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "It is possible to execute a <span>custom function</span> at a certain point of the duration value. The callback will be launched <span>as soon as the indicated value is exceeded</span>, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Callback Params:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "value:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The exact value at which the function is launched. As above, if we indicate 2 the function can start at the value 2.05"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "isForced:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value will be true if the sequencer is started beyond the indicated value, in this case we can decide whether to launch the function or not, as in reality the value has never been exceeded."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "direction:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>'backward' | 'forward' | 'none'</span>"
         },
         {
             "component": "mob-spacer",
@@ -289,7 +338,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/sequencerAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
