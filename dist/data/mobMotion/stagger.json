@@ -208,7 +208,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Determines where in the subscriber array the first stagger starts."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "note:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>{ x: number, y: number }</span> object will only take effect with a value of the <span>grid: { direction: 'radial' }</span> parameter"
         },
         {
             "component": "mob-spacer",
@@ -225,7 +239,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -251,7 +265,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by <a href='/#animatedPatternN0v5'>row</a> / <a href='/#animatedPatternN0v6'>column</a> or as a single element <a href='/#animatedPatternN0v7'>radial</a>"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "note:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to play with grids with 'wrong' numbers to create nice offset games."
         },
         {
             "component": "mob-spacer",
@@ -268,7 +296,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/grid.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
