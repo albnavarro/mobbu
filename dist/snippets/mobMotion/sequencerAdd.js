@@ -9,6 +9,9 @@ const mySequencer = tween
         duration: 10,
         ease: 'easeInQuad',
     })
+    .goTo({ x: 10 }, { start: 2, end: 5, ease: 'easeInExpo' })
     .add(({ value, isForced, direction }) => {
-        //
+        /**
+         * Callback fired at 4, ( in a range between 0 and 10 ).
+         */
     }, 4);

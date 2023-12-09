@@ -134,7 +134,7 @@
                 "style": "medium",
                 "items": [
                     "If the start value is not used it will be 0,",
-                    "if the start value is not used it will be 0, if the end value is not used it will be equal to the value defined in the duration parameter."
+                    "If the end value is not used it will be equal to the value defined in the duration parameter."
                 ]
             }
         },
@@ -275,6 +275,13 @@
             "content": "It is possible to execute a <span>custom function</span> at a certain point of the duration value. The callback will be launched <span>as soon as the indicated value is exceeded</span>, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The add method has two parameters, the callBack and a numeric value indicating when to execute the callBack."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -364,7 +371,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "It is possible to define labels to use as a reference from our <a href='/#mobMotion_sync_timeline'>syncTimeline</a>"
         },
         {
             "component": "mob-spacer",
@@ -381,7 +388,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/sequencerLabel.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
