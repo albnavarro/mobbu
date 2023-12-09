@@ -579,6 +579,34 @@
                 "hasOverflow": false,
                 "hasBorder": true
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "createStagger",
+                "label": "createStagger"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "createStagger"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Sequencers can use the <a href='/#mobMotion_create_stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }
