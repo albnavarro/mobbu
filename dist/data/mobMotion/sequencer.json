@@ -20,7 +20,77 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='/#mobMotion_sync_timeline'>syncTimeline</a> and <a href='/#mobMotion_scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "duration"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "We can see the duration property as its main property. <span>It is not a time value, but rather a numerical range, which by default is 10.</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Within this range we can define how each property varies, its greatest value is the possibility of managing each individual property independently as we will see later.<br/> Based on our needs we can readjust this value to a more specific one that can help us in managing the individual values."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In fact we can think of a <span>musical sequencer</span> where we are free to move the beginning and end of each track. If our track lasts 2.30 minutes we can set this value and manage the attack and end of each individual instrument within our track."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If we decide to use a timeline to manage the sequencer ( <a href='/#mobMotion_sync_timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='/#mobMotion_scrolltrigger'>scrollTrigger</a>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Inizialization"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The initialization is actually very similar to tween/Spring/Lerp:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/sequencer.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         },
         {
             "component": "mob-spacer",
@@ -42,7 +112,31 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The goTo method takes the values <span>from the current state</span> to the state indicated in the <span>first parameter</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the second parameter we define the <span>start</span> and <span>end</span> value in the range defined by us, we can also apply a specific easing."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "If the start value is not used it will be 0,",
+                    "if the start value is not used it will be 0, if the end value is not used it will be equal to the value defined in the duration parameter."
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, in this case it will be possible to vary the value while running"
         },
         {
             "component": "mob-spacer",
@@ -59,7 +153,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/sequencerGoTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
