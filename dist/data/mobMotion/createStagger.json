@@ -40,7 +40,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Stagger interface example:"
+            "content": "Stagger interface"
         },
         {
             "component": "mob-snippet",
@@ -67,7 +67,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/createStagger.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
