@@ -32,6 +32,34 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Stagger interface example:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/staggerInterface.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "type",
                 "label": "type"
@@ -42,20 +70,88 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "type"
+            "content": "type:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Type is a special property of createStagger:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "equal:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using the each option all the instances will have the <span>same duration</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "- The <span>value 0</span> has no effect"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "- The <span>value 1</span> will ensure that <span>all the instances will start in sequence</span>, the end of the previous one corresponds to the beginning of the next"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "- <span>Above the value 1</span> the instances will begin to overlap while always maintaining the same duration"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "start:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "end:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "center:"
         },
         {
             "component": "mob-spacer",
