@@ -414,7 +414,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The subscribe method will allow us to apply the values in <span>real time</span> to our target."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
         },
         {
             "component": "mob-spacer",
@@ -431,7 +438,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/sequencerSubscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -457,7 +464,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='/#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Unlike the subscribe method, subscribeCache requires <span>two parameters</span>, the <span>first is the target</span>, the <span>second is the callback</span> to execute."
         },
         {
             "component": "mob-spacer",
@@ -474,7 +488,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/sequencerSubscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -500,7 +514,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
         },
         {
             "component": "mob-spacer",
@@ -517,7 +531,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/onStop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
