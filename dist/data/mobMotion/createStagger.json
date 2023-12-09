@@ -54,6 +54,28 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Usage:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/test.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "type",
                 "label": "type"
@@ -152,21 +174,6 @@
                 "style": "medium"
             },
             "content": "All staggers will have a <span>different duration</span>. They will <span>start at different times</span> and will <span>reach the maximum value at different times</span>, the <span>first will start first and will be the slowest</span>, the <span>last will start at the end and will be the fastest</span>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
         },
         {
             "component": "mob-spacer",
