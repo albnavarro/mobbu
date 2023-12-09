@@ -40,7 +40,33 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Stagger interface"
+            "content": "Examples: ( scrollTrigger based )"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='/#scrollerN0v1'>scrollerN0 v1</a>",
+                    "<a href='/#scrollerN0v2'>scrollerN0 v2</a>",
+                    "<a href='/#scrollerN0v3'>scrollerN0 v3</a>",
+                    "<a href='/#scrollerN0v4'>scrollerN0 v4</a>",
+                    "<a href='/#scrollerN0v5'>scrollerN0 v5</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Stagger schema:"
         },
         {
             "component": "mob-snippet",
@@ -76,6 +102,19 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Difference from default stagger object:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "type",
                 "label": "type"
@@ -84,7 +123,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "type:"
         },
@@ -93,18 +133,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Type is a special property of createStagger:"
+            "content": "Type is a special property of <span>createStagger</span>:"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "equal:"
         },
@@ -124,7 +164,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "start:"
         },
@@ -144,7 +184,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "end:"
         },
@@ -164,7 +204,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "center:"
         },
@@ -186,7 +226,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "each"
         },
@@ -195,7 +236,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The higher the value of each, the smaller the difference in duration will be."
+            "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
         },
         {
             "component": "mob-spacer",
@@ -214,7 +255,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "waitComplete"
         },
@@ -242,7 +284,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "from"
         },
@@ -270,7 +313,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "grid"
         },

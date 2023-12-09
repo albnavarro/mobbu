@@ -1,6 +1,11 @@
-import { timeline, tween } from '../../../src/js/mobMotion';
+import { timeline, tween, scroller } from '../mobMotion';
 
+const triggerElement = document.querySelector('.trigger');
 const targets = document.querySelectorAll('.targets');
+
+/**
+ * Let's create a masterSequencer to group all the instances.
+ */
 const masterSequencer = tween.createMasterSequencer();
 
 /**
@@ -9,7 +14,7 @@ const masterSequencer = tween.createMasterSequencer();
 const staggers = tween.createStaggers({
     items: targets,
     stagger: {
-        type: 'equal ',
+        type: 'equal',
         each: 2,
         from: 'end',
     },
@@ -45,7 +50,7 @@ const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
 });
 
 /**
- * Add sequencer to timeline.
+ * Timeline example:
  */
 const mytimeline = timeline
     .createSyncTimeline({
@@ -55,7 +60,25 @@ const mytimeline = timeline
     })
     .add(masterSequencer);
 
-/**
- * Play timeline.
- */
 mytimeline.play();
+
+/**
+ * Scrolltrigger example:
+ */
+const scrollerInstance = scroller.createScrollTrigger({
+    trigger: triggerElement,
+    propierties: 'tween',
+    tween: masterSequencer,
+    dynamicStart: {
+        position: 'bottom',
+        value: () => 0,
+    },
+    dynamicEnd: {
+        position: 'bottom',
+        value: () => outerHeight(triggerElement),
+    },
+    ease: true,
+    easeType: 'lerp',
+});
+
+scrollerInstance.init();
