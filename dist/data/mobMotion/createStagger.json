@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike <a href='/#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer, createStagger is a utility that allows you to <span>synchronize multiple senquencers</span> using the stagger scheme. <span>createStagger returns an array with precomputed start and end values</span>."
+            "content": "Unlike <a href='/#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to <span>synchronize multiple senquencers</span> using the stagger scheme. <span>createStagger returns an array with precomputed start and end values</span>."
         },
         {
             "component": "mob-spacer",
