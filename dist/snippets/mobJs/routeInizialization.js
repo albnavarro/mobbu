@@ -8,9 +8,9 @@ export * from './routes/route4';
 
 // main.js
 import { inizializeApp } from './mobjs';
-import * as components from './component/componentList';
-import * as pages from './pages/routeList';
-import { wrapper } from './wrapper';
+...
+import * as pages from './pages/routeList'; // load pages
+...
 
 inizializeApp({
 
@@ -18,6 +18,7 @@ inizializeApp({
 
     /**
      * Object that container all route.
+     * Load pages
      */
     pages,
 
