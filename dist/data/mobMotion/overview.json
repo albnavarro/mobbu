@@ -18,6 +18,26 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3"
+            },
+            "content": "async vs sync"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The modules under the <span>async</span> section are based entirely on the concept of <span>promise</span>, while the <span>sync</span> modules are based entirely on the concept of <span>time</span>. The modules are divided as follows to try to make the most of their strong points:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4",
                 "color": "green"
             },
@@ -30,6 +50,46 @@
                     "<a href='#mobMotion_tween_spring_lerp'>Tween/Spring/Lerp</a>",
                     "<a href='#mobMotion_async_timeline'>Async timeline</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Pros:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "The single tween can be used <span>without other dependencies</span>",
+                    "Lerp and Spring can handle <span>interactive animations</span> such as <span>mouse trails</span>.",
+                    "In a timeline it is possible to exploit the <span>space between one tween and the next in a very precise manner</span> without approximations on time.",
+                    "Timelines very effectively handle looped animations that don't involve too much user interaction,"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Cons:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "The data transformations ( x, y, rotate, etc.. ) will all have the same 'duration' for each tween",
+                    "Within a timeline it is possible to <span>change direction only when a single tween is completed</span>, this is because as mentioned above the whole mechanism is based on the resolution of promises and not on time."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
@@ -55,6 +115,45 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h5"
+            },
+            "content": "Pros:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "It is possible to <span>manage the individual properties (x, y, rotate, etc..) independently</span>, the timing of each property is independent of the others.",
+                    "Timelines can handle <span>changes of direction</span> and so on <span>without limitations</span>.",
+                    "<span>Staggers</span> can be managed either at the <span>individual tween level</span>, or create <span>multiple tweens one for each stagger element</span> ( createStagger )."
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Cons:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "items": [
+                    "<span>They are not standalone</span>, they require a timer ( syncTimeline ) or a scrollTrigger to be used.",
+                    "They cannot handle interactive animations like mouse trails"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4",
                 "color": "green"
             },
@@ -64,6 +163,12 @@
             "component": "mob-list",
             "props": {
                 "items": ["<a href='#mobMotion_stagger'>Stagger</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
@@ -79,6 +184,12 @@
             "props": {
                 "tag": "h3",
                 "items": ["<a href='#mobMotion_plugin'>Plugin</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]
