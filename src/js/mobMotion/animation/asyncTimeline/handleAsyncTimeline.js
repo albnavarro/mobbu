@@ -2074,7 +2074,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} obj
-     * @prop {Boolean} [ obj.clearCache ]
+     * @param {Boolean} [ obj.clearCache ]
      *
      * @example
      * ```javascript
