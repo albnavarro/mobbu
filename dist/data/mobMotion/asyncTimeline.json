@@ -20,7 +20,110 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "Async timeline is a <span>promise manager</span>., it allows you to <span>coordinate different tweens</span>, it can manage <span>single tweens</span> or <span>groups of tweens</span>. Manages <spna>loops</span> and allows you to use <span>custom functions</span> between different tweens."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Params:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimelineSchema.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "yoyo:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Reverse the direction</span> each time the animation ends."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "repeat:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the animation will run in an <span>infinite loop</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "freeMode:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": " By <span>default</span> when a <span>play or a playReverse</span> is performed a <span>`set method`</span> is executed on each tween using the <span>`initial values`</span> (play) or the <span>`final values`</span> (playReverse) to make each tween <span>start from a 'neutral' position</span> regardless of its value current. Sets are not saved in the timeline but are <span>`temporary`</span>. <span>If the `freeMode` property is set to `true`</span> a sets are not executed so that <span>multiple timelines can control the same tweens</span> always starting from the current value of each tween.<br/> <span>`The default is false`</span>. "
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "autoSet:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created</span>. The newly created methods will be <span>`permanently`</span> added to the ends of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
         },
         {
             "component": "mob-spacer",
