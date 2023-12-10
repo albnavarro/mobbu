@@ -630,6 +630,13 @@
             "content": "<span>play</span>, <span>play reverse</span> and <span>stop</span> of the timeline. The <span>play()</span> and <span>playReverse()</span> methods <span>will return a promise when the timeline is completed</span>."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
