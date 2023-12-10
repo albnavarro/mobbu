@@ -424,7 +424,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "reverseNext"
         },
@@ -433,7 +434,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Reverses the timeline as soon as the current promise/tween is finished. <span>Cannot be used within a group</span>"
         },
         {
             "component": "mob-spacer",
@@ -450,7 +451,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineNext.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -467,7 +468,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "sync"
         },
@@ -476,7 +478,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Synchronize the current values of one tween with another. <span>Cannot be used within a group</span>."
         },
         {
             "component": "mob-spacer",
@@ -493,7 +495,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineSync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -510,7 +512,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "create/closeGroup"
         },
@@ -519,7 +522,24 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>Manages multiple instances in parallel.</span><br/> The <span>waitComplete</span> parameter allows you to decide whether the group is resolved when the last tween is resolved ( <span>promiseAll</span>) or when the first is resolved ( <span>promiseRace</span> )."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>true</span>: promiseAll",
+                    "<span>false</span>: promiseRace"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Within a group each instance will still be able to use the <span>delay property</span>."
         },
         {
             "component": "mob-spacer",
@@ -536,7 +556,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineGroup.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
