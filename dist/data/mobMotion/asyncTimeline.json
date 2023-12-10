@@ -417,50 +417,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "reverseNext",
-                "label": "reverseNext"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3",
-                "color": "green"
-            },
-            "content": "reverseNext"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Reverses the timeline as soon as the current promise/tween is finished. <span>Cannot be used within a group</span>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/asyncTimelineNext.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "sync",
                 "label": "sync"
             }
@@ -573,7 +529,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "suspend"
         },
@@ -582,7 +539,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Put the <span>timeline on hold</span>, through the <span>resume()</span> method, the timeline will restart. As with add/addAsync remove will only be executed when the previous tween is completely finished."
         },
         {
             "component": "mob-spacer",
@@ -599,7 +556,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineSuspend.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -616,7 +573,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "label"
         },
@@ -625,7 +583,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Adds a label at a specific point in the timeline, the label will then be used by the playFrom(label) or playFromReverse(label) method"
         },
         {
             "component": "mob-spacer",
@@ -642,7 +600,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineLabel.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -815,6 +773,50 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/test.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "reverseNext",
+                "label": "reverseNext"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "reverseNext"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Reverses the timeline as soon as the current promise/tween is finished."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimelineNext.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
