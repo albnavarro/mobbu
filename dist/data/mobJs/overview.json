@@ -16,6 +16,26 @@
             "content": "mobJs"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "dependency:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<a href='/#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-list",
             "props": {
                 "tag": "h3",

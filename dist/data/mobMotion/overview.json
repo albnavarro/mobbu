@@ -18,16 +18,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4"
             },
-            "content": "async vs sync"
+            "content": "dependency:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The modules under the <span>async</span> section are based entirely on the concept of <span>promise</span>, while the <span>sync</span> modules are based entirely on the concept of <span>time</span>. The modules are divided as follows to try to make the most of their strong points:"
+            "content": "<a href='/#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -38,7 +38,27 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
+                "tag": "h3"
+            },
+            "content": "async vs sync"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The modules under the <span>async</span> section are based entirely on the concept of <span>promise</span>, while the <span>sync</span> modules are based entirely on the concept of <span>time</span>. The modules are divided as follows to try to make the most of their strong points, and at the same time <span>keep the code more updatable</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Async:"
@@ -53,6 +73,12 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -64,7 +90,7 @@
             "props": {
                 "items": [
                     "The single tween can be used <span>without other dependencies</span>",
-                    "Lerp and Spring can handle <span>interactive animations</span> such as <span>mouse trails</span>.",
+                    "<span>Lerp</span> and <span>Spring</span> can handle <span>interactive animations</span> such as <span>mouse trails</span>.",
                     "In a timeline it is possible to exploit the <span>space between one tween and the next in a very precise manner</span> without approximations on time.",
                     "Timelines very effectively handle looped animations that don't involve too much user interaction,"
                 ]
@@ -95,7 +121,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Sync:"
@@ -110,6 +136,12 @@
                     "<a href='#mobMotion_scrolltrigger'>ScrollTrigger</a>",
                     "<a href='#mobMotion_parallax'>Parallax</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {

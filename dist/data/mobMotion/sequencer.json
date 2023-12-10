@@ -88,7 +88,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The initialization is actually very similar to tween/Spring/Lerp:"
+            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='/#mobMotion_tween_spring_lerp'>tween</a>:"
         },
         {
             "component": "mob-snippet",
