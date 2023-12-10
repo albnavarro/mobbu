@@ -48,6 +48,21 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimeline.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium"
             }
         },
@@ -136,7 +151,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Set"
         },
@@ -162,7 +178,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineSet.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -179,7 +195,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "goTo"
         },
@@ -205,7 +222,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineGoTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -248,7 +265,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineGoFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -291,7 +308,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineGoFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
