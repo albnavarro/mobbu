@@ -800,7 +800,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "onLoopEnd/onComplete"
         },
@@ -809,12 +810,36 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "There are two methods, <span>onLoopEnd</span> and <span>onComplete</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Both events will return an <span>unsubscribe function</span>."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "onLoopEnd params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>loop</span>: current loop counter",
+                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                ]
             }
         },
         {
@@ -826,7 +851,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineEvents.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
