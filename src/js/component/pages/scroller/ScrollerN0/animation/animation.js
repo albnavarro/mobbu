@@ -108,7 +108,7 @@ export const scrollerN0Animation = ({
 
         const sequencer = tween
             .createSequencer({ data: { scale: 0 } })
-            .goTo({ scale }, { start, end, ease: 'easeInOutBack' });
+            .goTo({ scale }, { start, end, ease: 'easeOutBack' });
 
         const unsubscribe = sequencer.subscribe(({ scale }) => {
             item.scale = scale;
