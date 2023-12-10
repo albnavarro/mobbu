@@ -610,6 +610,50 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "settween",
+                "label": "setTween"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "setTween"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Since asyncTimeline does not reason with time</span>, it may happen that using the playFrom(label) method some tweens with a <span>delay applied are not immediately aligned to the starting point</span> specified by the label. To overcome this (but it can also be useful in other cases) the <span>setTween method allows you to align the desired tweens to a label</span> after which we can, for example, start from the same label:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimelineSetTween.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "utils",
                 "label": "play/playRevese/stop"
             }
@@ -868,7 +912,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "destroy"
         },
@@ -877,7 +922,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Destroy function.<br/>The destroy function will also destroy <span>all the tweens that have been used</span>, and it is advisable to also <span>cancel the references to the individual tweens</span>."
         },
         {
             "component": "mob-spacer",
@@ -894,7 +939,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -920,7 +965,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "isPaused/isSuspended/getDirection/setTween"
+            "content": "isPaused/isSuspended/getDirection"
         },
         {
             "component": "mob-spacer",
