@@ -61,8 +61,8 @@ myTimeline
      * wait first tween completed.
      */
     .createGroup({ waitComplete: false })
-    .goTo(myTween, { x: 10, y: 10 }, { duration: 1000 })
-    .goTo(mySpring, { x: 10, y: 10 }, { config: 'gentle', delay: 100 })
+    .goTo(myTween, { x: 300, y: 0 }, { duration: 1000 })
+    .goTo(mySpring, { x: 200, y: 50 }, { config: 'gentle', delay: 100 })
     .closeGroup();
 
 /*

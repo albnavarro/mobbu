@@ -20,7 +20,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Async timeline is a <span>promise manager</span>., it allows you to <span>coordinate different tweens</span>, it can manage <span>single tweens</span> or <span>groups of tweens</span>. Manages <spna>loops</span> and allows you to use <span>custom functions</span> between different tweens."
+            "content": "Async timeline is a <span>promise manager</span>., it allows you to <span>coordinate tween, lerp and spring</span>, it can manage <span>single tweens</span> or <span>groups of tweens</span>. Manages <spna>loops</span> and allows you to use <span>custom functions</span> between different tweens."
         },
         {
             "component": "mob-spacer",
@@ -166,6 +166,44 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineExample.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "ovverride",
+                "label": "tween&nbsp;params&nbsp;and&nbsp;override"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "tween params and override"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>The parameters relating to each instance</span> will be used, if necessary, according to the following scheme, in addition there is the <span>delay</span> parameter expressed in milliseconds."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncOverride.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
