@@ -38,9 +38,10 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "async vs sync"
+            "content": "Async vs Sync"
         },
         {
             "component": "mob-paragraph",
@@ -52,7 +53,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "async",
+                "label": "Async"
             }
         },
         {
@@ -115,7 +118,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "sync",
+                "label": "Sync"
             }
         },
         {
@@ -157,7 +162,8 @@
                 "items": [
                     "It is possible to <span>manage the individual properties (x, y, rotate, etc..) independently</span>, the timing of each property is independent of the others.",
                     "Timelines can handle <span>changes of direction</span> and so on <span>without limitations</span>.",
-                    "<span>Staggers</span> can be managed either at the <span>individual tween level</span>, or create <span>multiple tweens one for each stagger element</span> ( createStagger )."
+                    "<span>Staggers</span> can be managed either at the <span>individual tween level</span>, or create <span>multiple tweens one for each stagger element</span> ( createStagger ).",
+                    "<span>ScrollTrigger</span> and <span>Parallax</span>"
                 ]
             }
         },
@@ -180,7 +186,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "stagger",
+                "label": "Stagger"
             }
         },
         {
@@ -189,7 +197,14 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Common:"
+            "content": "Stagger:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Common utility for <span>sync</span> and <span>Async</span> animation"
         },
         {
             "component": "mob-list",
@@ -200,7 +215,9 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "medium",
+                "id": "plugin",
+                "label": "Plugin"
             }
         },
         {
