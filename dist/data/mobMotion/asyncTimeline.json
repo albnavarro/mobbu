@@ -144,6 +144,37 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "code_example",
+                "label": "code&nbsp;example"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "code example"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimelineExample.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "set",
                 "label": "Set"
             }
@@ -155,13 +186,6 @@
                 "color": "green"
             },
             "content": "Set"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
         },
         {
             "component": "mob-spacer",
@@ -201,13 +225,6 @@
             "content": "goTo"
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -244,13 +261,6 @@
             "content": "goFrom"
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -285,13 +295,6 @@
                 "tag": "h3"
             },
             "content": "goFromTo"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
         },
         {
             "component": "mob-spacer",
