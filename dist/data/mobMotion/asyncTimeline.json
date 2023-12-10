@@ -71,14 +71,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "yoyo:"
+            "content": "repeat:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reverse the direction</span> each time the animation ends."
+            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>."
         },
         {
             "component": "mob-spacer",
@@ -91,14 +91,14 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "repeat:"
+            "content": "yoyo:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the animation will run in an <span>infinite loop</span>."
+            "content": "<span>Reverse the direction</span> each time the timeline ends.<br/><span>The current/arrival/destination values of each tween will be reversed according to the timeline.</span>"
         },
         {
             "component": "mob-spacer",
@@ -294,7 +294,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "goFrom"
         },
@@ -330,7 +331,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "goFromTo"
         },
@@ -366,9 +368,65 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "add/addAsync"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to use both synchronous and asynchronous custom functions within the timeline. Both functions will be executed only when the promise has been resolved ( tween ). This allows you to execute functions exactly after the previous one or before the next one without any risk of even minimal overlap."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "addAsync params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>resolve</span>: the resolve function",
+                    "<span>loop</span>: current loop counter",
+                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/asyncTimelineAdd.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "reverseNext",
+                "label": "reverseNext"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "reverseNext"
         },
         {
             "component": "mob-paragraph",
@@ -575,7 +633,7 @@
             "props": {
                 "style": "medium",
                 "id": "utils",
-                "label": "play/stop"
+                "label": "play/playRevese/stop"
             }
         },
         {

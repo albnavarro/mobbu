@@ -108,7 +108,7 @@
             "props": {
                 "items": [
                     "The data transformations ( x, y, rotate, etc.. ) will all have the same 'duration' for each tween",
-                    "Within a timeline it is possible to <span>change direction only when a single tween is completed</span>, this is because as mentioned above the whole mechanism is based on the resolution of promises and not on time."
+                    "Within a timeline it is possible to <span>change direction only when a single tween is completed ( reverseNext )</span>, this is because as mentioned above the whole mechanism is based on the resolution of promises and not on time."
                 ]
             }
         },

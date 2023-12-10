@@ -23,6 +23,7 @@ const mySpring = tween.createSpring({
  */
 const myTimeline = timeline.createAsyncTimeline({
     repeat: 10,
+    yoyo: true,
     freeMode: false,
     autoSet: true,
 });
