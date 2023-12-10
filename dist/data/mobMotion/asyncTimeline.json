@@ -668,7 +668,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "playFrom/playFromReverse"
         },
@@ -677,7 +678,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Like the play() / playReverse() method but a label will be used as the starting point."
         },
         {
             "component": "mob-spacer",
@@ -694,7 +695,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelinePlayFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -711,7 +712,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "pause/resume"
         },
@@ -720,7 +722,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Pauses and unpauses a timeline. the resume() method is also used for a timeline that has been put into pause status via the suspend method."
         },
         {
             "component": "mob-spacer",
@@ -737,7 +739,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelinePause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

@@ -186,7 +186,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Common:"
@@ -206,7 +206,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Plugin:"
