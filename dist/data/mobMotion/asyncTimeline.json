@@ -968,6 +968,13 @@
             "content": "isPaused/isSuspended/getDirection"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Utilities to check the status of the timeline:"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -982,10 +989,16 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/asyncTimelineUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

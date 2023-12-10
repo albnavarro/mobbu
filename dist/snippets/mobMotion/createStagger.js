@@ -30,7 +30,7 @@ const unsubScribeStagger = staggers.map(({ item, start, end, index }) => {
     const sequencer = tween
         .createSequencer({
             data: { x: 0, y: 0 },
-            duration: 10,
+            duration: 10, // duration is the same of createStagger
             ease: 'easeInQuad',
         })
         .goTo({ x: 10, y: 10 }, { start, end });
