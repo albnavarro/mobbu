@@ -48,7 +48,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>first subscriber</span> will use the frames: <span>0,1,2,3,4,...</span><br/> The <span>second subscriber</span> will use the frames: <span>2,3,4,5,6,...</span><br/> Naturally the offset value will vary based on the frame rate."
+            "content": "The <span>first subscriber</span> will use the frames: <span>0,1,2,3,4,...</span><br/> The <span>second subscriber</span> will use the frames: <span>2,3,4,5,6,...</span><br/> Naturally the offset value will vary <span>based on the frame rate</span>."
         },
         {
             "component": "mob-spacer",
@@ -93,12 +93,6 @@
                 "style": "medium"
             },
             "content": "Determines the offset of the renderings:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -146,18 +140,6 @@
             "content": "Using waitComplete: false the loops of the tweens synchronized by a <a href='/#mobMotion_async_timeline'>asyncTimeline</a> will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/waitComplete.js",
@@ -201,18 +183,6 @@
                 "style": "medium"
             },
             "content": "The <span>{ x: number, y: number }</span> object will only take effect with a value of the <span>grid: { direction: 'radial' }</span> parameter"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -260,24 +230,18 @@
             "content": "It is possible to play with grids with 'wrong' numbers to create nice offset games."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/grid.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

@@ -182,18 +182,6 @@
             "content": "The add method allows you to add <span>one or more sequencers/masterSequencers</span> to the timeline."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/syncTimeAdd.js",
@@ -277,18 +265,6 @@
             "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/syncTimelinePlay.js",
@@ -319,18 +295,6 @@
                 "style": "medium"
             },
             "content": "play or play reverse from a <span>specific label</span>, both methods will return a <span>promise</span> which will be resolved when the timeline is completed.<br/> The label is defined within the individual <a href='/#mobMotion_sequencer'>sequencer</a>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -365,18 +329,6 @@
             "content": "<span>Reverses immediately the direction of travel</span>"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/syncTimelineReverse.js",
@@ -407,18 +359,6 @@
                 "style": "medium"
             },
             "content": "<span>Pause/Resume the timeline</span>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -470,18 +410,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/syncTimelineLoop.js",
@@ -512,18 +440,6 @@
                 "style": "medium"
             },
             "content": "Event launched at the <span>end of the timeline</span>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -575,18 +491,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/syncTimelineUpdate.js",
@@ -617,18 +521,6 @@
                 "style": "medium"
             },
             "content": "Destroy function.<br/>The destroy function will also destroy <span>all the sequencers that have been used</span>, and it is advisable to also <span>cancel the references to the individual sequencer</span>."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -668,18 +560,6 @@
                 "style": "medium"
             },
             "content": "Utilities to check the status of the timeline:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
