@@ -110,7 +110,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "realtive:"
+            "content": "relative:"
         },
         {
             "component": "mob-paragraph",
@@ -446,6 +446,19 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Common methods"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium",
                 "id": "set",
                 "label": "Set"
@@ -652,6 +665,92 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/goFromTo.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "stop",
+                "label": "stop"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "stop"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/stop.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "pause",
+                "label": "pause/resume"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "pause/resume"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Pauses and unpauses a tween/Spring/Lerp. "
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/pause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
