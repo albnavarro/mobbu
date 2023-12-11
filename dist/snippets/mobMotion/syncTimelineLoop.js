@@ -1,0 +1,3 @@
+mytimeline.onLoopEnd(({ loop, direction }) => {
+    //
+});
