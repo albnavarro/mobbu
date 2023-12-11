@@ -23,6 +23,19 @@
             "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more <a href='/#mobMotion_sequencer'>sequencer</a></span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<a href='/#caterpillarN2'>example</a>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h3",
