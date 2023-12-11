@@ -420,49 +420,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "destroy",
-                "label": "destroy"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "destroy"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "onLoopEnd",
                 "label": "onLoopEnd"
             }
@@ -583,6 +540,50 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/test.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "destroy",
+                "label": "destroy"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "destroy"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Destroy function.<br/>The destroy function will also destroy <span>all the sequencers that have been used</span>, and it is advisable to also <span>cancel the references to the individual sequencer</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/syncTimelineDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
