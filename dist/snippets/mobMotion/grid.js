@@ -5,7 +5,7 @@ const myTween = tween.createTween({
     stagger: {
         each: 4,
         waitComplete: false,
-        from: 'edges',
+        from: { x: 5, y: 5 },
         grid: { col: 10, row: 10, direction: 'radial' },
     },
 });

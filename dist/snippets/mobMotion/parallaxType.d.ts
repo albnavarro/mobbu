@@ -1,4 +1,4 @@
-export interface scrollTrigger {
+export interface parallax {
     /**
      * Paralalx/scrollTrigger common params:
      */
@@ -39,30 +39,20 @@ export interface scrollTrigger {
     useWillChange?: boolean;
 
     /**
-     * Specific scrollTrigger params:
+     * Specific parallax params:
      */
-    invertSide?: boolean;
-    pin?: boolean;
-    animatePin?: boolean;
-    forceTranspond?: boolean;
-    anticipatePinOnLoad?: boolean;
-    start?: string;
-    end?: string;
-    fromTo?: boolean;
-    marker?: string;
-    dynamicStart?: {
-        position: 'bottom' | 'top' | 'left' | 'right';
-        value: () => number;
-    };
-    dynamicEnd?: {
-        position: 'bottom' | 'top' | 'left' | 'right';
-        value: () => number;
-    };
-    dynamicRange?: () => number;
-    animateAtStart?: boolean;
-    onEnter?: () => void;
-    onEnterBack?: () => void;
-    onLeave?: () => void;
-    onLeaveBack?: () => void;
-    onTick?: () => void;
+    align?:
+        | 'start'
+        | 'top'
+        | 'right'
+        | 'center'
+        | 'bottom'
+        | 'left'
+        | 'end'
+        | number;
+    onSwitch?: 'in-stop' | 'in-back' | 'out-stop' | 'out-back';
+    reverse?: boolean;
+    opacityStart?: number;
+    opacityEnd?: number;
+    limiterOff?: boolean;
 }
