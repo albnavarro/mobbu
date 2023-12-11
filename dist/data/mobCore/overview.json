@@ -16,6 +16,12 @@
             "content": "mobCore"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-list",
             "props": {
                 "tag": "h3",

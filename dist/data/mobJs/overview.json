@@ -32,8 +32,43 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Main features:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "No virtual dom or code to compile.",
+                    "Pure vanilla javascript.",
+                    "JsDoc type checking",
+                    "Parent/Child reactivity.",
+                    "SPA ready.",
+                    "Independent of the DOM, it only exposes APIs to manage the same.",
+                    "Optional use of web component."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Explore:"
         },
         {
             "component": "mob-list",
