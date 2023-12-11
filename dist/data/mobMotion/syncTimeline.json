@@ -156,7 +156,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "add"
         },
@@ -165,7 +166,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The add method allows you to add <span>one or more sequencers/masterSequencers</span> to the timeline."
         },
         {
             "component": "mob-spacer",
@@ -182,7 +183,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimeAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -193,22 +194,30 @@
             "props": {
                 "style": "medium",
                 "id": "play",
-                "label": "play/stop"
+                "label": "play/playReverse/stop"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "play/stop"
+            "content": "play/playReverse/stop"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>play</span>, <span>play reverse</span> and <span>stop</span> of the timeline. The <span>play()</span> and <span>playReverse()</span> methods <span>will return a promise when the timeline is completed</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
             "component": "mob-spacer",
@@ -225,38 +234,10 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelinePlay.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "playReverse",
-                "label": "playReverse"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "playReverse"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
             }
         },
         {
