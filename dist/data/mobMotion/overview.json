@@ -38,6 +38,30 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h4"
+            },
+            "content": "Philosophy:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>It doesn't aim to write as little code as possible</span>, but rather to provide utilities while leaving more freedom for <span>personal customization</span>.",
+                    "<span>As much modularity as possible</span>, no big objects, but smaller modules that interact.",
+                    "Each module is provided with <span>comments and type in jsDoc and ts interface</span> to facilitate completion. The entire project remains anyway. written in <span>vanilla javascript</span>."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h3",
                 "color": "green"
             },
