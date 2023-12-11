@@ -175,7 +175,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "ovverride",
+                "id": "override",
                 "label": "tween&nbsp;params&nbsp;and&nbsp;override"
             }
         },
@@ -226,18 +226,6 @@
             "content": "Set"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineSet.js",
@@ -261,18 +249,6 @@
                 "color": "green"
             },
             "content": "goTo"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -300,18 +276,6 @@
             "content": "goFrom"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineGoFrom.js",
@@ -335,18 +299,6 @@
                 "color": "green"
             },
             "content": "goFromTo"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -437,18 +389,6 @@
             "content": "Synchronize the current values of one tween with another. <span>Cannot be used within a group</span>."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineSync.js",
@@ -498,18 +438,6 @@
             "content": "Within a group each instance will still be able to use the <span>delay property</span>."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineGroup.js",
@@ -540,18 +468,6 @@
                 "style": "medium"
             },
             "content": "Put the <span>timeline on hold</span>, through the <span>resume()</span> method, the timeline will restart. As with add/addAsync remove will only be executed when the previous tween is completely finished."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -586,18 +502,6 @@
             "content": "Adds a label at a specific point in the timeline, the label will then be used by the playFrom(label) or playFromReverse(label) method"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineLabel.js",
@@ -628,18 +532,6 @@
                 "style": "medium"
             },
             "content": "<span>Since asyncTimeline does not reason with time</span>, it may happen that using the playFrom(label) method some tweens with a <span>delay applied are not immediately aligned to the starting point</span> specified by the label. To overcome this (but it can also be useful in other cases) the <span>setTween method allows you to align the desired tweens to a label</span> after which we can, for example, start from the same label:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -681,18 +573,6 @@
             "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelinePlay.js",
@@ -723,18 +603,6 @@
                 "style": "medium"
             },
             "content": "Like the play() / playReverse() method but a label will be used as the starting point."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -769,18 +637,6 @@
             "content": "Pauses and unpauses a timeline. the resume() method is also used for a timeline that has been put into pause status via the suspend method."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelinePause.js",
@@ -811,18 +667,6 @@
                 "style": "medium"
             },
             "content": "Reverses the timeline as soon as the current promise/tween is finished."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -925,18 +769,6 @@
             "content": "Destroy function.<br/>The destroy function will also destroy <span>all the tweens that have been used</span>, and it is advisable to also <span>cancel the references to the individual tweens</span>."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/asyncTimelineDestroy.js",
@@ -973,18 +805,6 @@
                 "style": "medium"
             },
             "content": "Utilities to check the status of the timeline:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
