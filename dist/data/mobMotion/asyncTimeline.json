@@ -138,7 +138,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created</span>. The newly created methods will be <span>`permanently`</span> added to the ends of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
+            "content": "<span>If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created</span>. The newly created methods will be <span>`permanently`</span> added to the <span>start and ends</span> of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
         },
         {
             "component": "mob-spacer",
