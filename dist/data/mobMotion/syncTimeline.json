@@ -85,7 +85,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>."
+            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>.<br/>During the loop <span>a time equal to 1/2 of the current fps will be subtracted from the last frame</span>. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='/#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
         },
         {
             "component": "mob-spacer",
