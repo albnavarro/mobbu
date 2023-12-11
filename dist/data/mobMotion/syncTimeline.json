@@ -488,7 +488,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "onComplete"
         },
@@ -497,7 +498,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Event launched at the <span>end of the timeline</span>."
         },
         {
             "component": "mob-spacer",
@@ -514,7 +515,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelinecomplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -531,7 +532,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "onUpdate"
         },
@@ -540,7 +542,24 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Event launched at <span>every frame of the timeline</span>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>time</span>: current time",
+                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                ]
+            }
         },
         {
             "component": "mob-spacer",
@@ -557,7 +576,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelineUpdate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

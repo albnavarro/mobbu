@@ -13,6 +13,10 @@ export interface directionTypeObjectLoop extends directionTypeObject {
     loop: number;
 }
 
+export interface directionTypeObjectUpdate extends directionTypeObject {
+    time: number;
+}
+
 export interface directionTypeAsync extends directionTypeObjectLoop {
     resolve: function;
 }

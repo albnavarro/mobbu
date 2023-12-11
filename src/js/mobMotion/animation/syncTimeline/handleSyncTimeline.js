@@ -1009,7 +1009,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
+     * @param {function(import('../utils/timeline/type.js').directionTypeObjectUpdate ):void } cb - callback function
      * @return {Function} unsubscribe callback
      *
      * @example

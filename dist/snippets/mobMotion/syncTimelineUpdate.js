@@ -1,0 +1,3 @@
+mytimeline.onUpdate(({ time, direction }) => {
+    //
+});
