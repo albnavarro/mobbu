@@ -332,23 +332,24 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "revere",
-                "label": "revere"
+                "id": "reverse",
+                "label": "reverse"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "revere"
+            "content": "reverse"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>Reverses immediately the direction of travel</span>"
         },
         {
             "component": "mob-spacer",
@@ -365,7 +366,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelineReverse.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -375,23 +376,24 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "pause",
-                "label": "pause"
+                "id": "pause/resume",
+                "label": "pause/resume"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "pause"
+            "content": "pause/resume"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>Pause/Resume the timeline</span>."
         },
         {
             "component": "mob-spacer",
@@ -408,50 +410,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "resume",
-                "label": "resume"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "resume"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelinePause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
