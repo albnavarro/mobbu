@@ -305,7 +305,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "play or play reverse from a <span>specific label</span>, both methods will return a <span>promise</span> which will be resolved when the timeline is completed.<br/> The label is defined within the individual <a href='/#mobMotion_sequencer'>sequencer</a>."
         },
         {
             "component": "mob-spacer",
