@@ -79,6 +79,28 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h4"
+            },
+            "content": "All Params:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/sequencerType.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h5"
             },
             "content": "Inizialization"
