@@ -168,18 +168,6 @@
             "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, in this case it will be possible to vary the value while running"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/sequencerGoTo.js",
@@ -211,18 +199,6 @@
             "content": "Like goTo but the value of the first parameter will be the starting value and the arrival value will be the current one."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/sequencerGoFrom.js",
@@ -252,18 +228,6 @@
                 "style": "medium"
             },
             "content": "Like goTo but the value of the first parameter will be the starting value and the second parameter will be the arrival value."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -396,18 +360,6 @@
             "content": "It is possible to define labels to use as a reference from our <a href='/#mobMotion_sync_timeline'>syncTimeline</a>"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/sequencerLabel.js",
@@ -444,18 +396,6 @@
                 "style": "medium"
             },
             "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -496,18 +436,6 @@
             "content": "Unlike the subscribe method, subscribeCache requires <span>two parameters</span>, the <span>first is the target</span>, the <span>second is the callback</span> to execute."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/sequencerSubscribeCache.js",
@@ -539,18 +467,6 @@
             "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/onStop.js",
@@ -580,18 +496,6 @@
                 "style": "medium"
             },
             "content": "The <span>masterSequencer</span> allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='/#mobMotion_create_stagger'>createStagger</a>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
