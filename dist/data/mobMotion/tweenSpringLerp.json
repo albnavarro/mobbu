@@ -318,13 +318,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -425,13 +419,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
@@ -479,18 +467,6 @@
             "content": "The set() method instantly applies the applied value, even if the value is not applied it returns a promise,"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/set.js",
@@ -534,18 +510,6 @@
                 "style": "medium"
             },
             "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -593,18 +557,6 @@
             "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/goFrom.js",
@@ -650,18 +602,6 @@
             "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/goFromTo.js",
@@ -693,18 +633,6 @@
             "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/stop.js",
@@ -734,18 +662,6 @@
                 "style": "medium"
             },
             "content": "Pauses and unpauses a tween/Spring/Lerp. "
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -786,18 +702,6 @@
             "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/subscribe.js",
@@ -836,18 +740,6 @@
             "content": "Unlike the subscribe method, subscribeCache requires <span>two parameters</span>, the <span>first is the target</span>, the <span>second is the callback</span> to execute."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/subscribeCache.js",
@@ -877,18 +769,6 @@
                 "style": "medium"
             },
             "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
