@@ -407,6 +407,22 @@
             "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is <span>0.01</span>"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "All Params:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/lerpType.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
