@@ -189,45 +189,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The animation curve:"
+            "content": "The animation curve"
         },
         {
-            "component": "mob-list",
+            "component": "mob-title",
             "props": {
-                "style": "medium",
-                "items": [
-                    "easeLinear",
-                    "easeInQuad",
-                    "easeOutQuad",
-                    "easeInOutQuad",
-                    "easeInCubic",
-                    "easeOutCubic",
-                    "easeInOutCubic",
-                    "easeInQuart",
-                    "easeOutQuart",
-                    "easeInOutQuart",
-                    "easeInQuint",
-                    "easeOutQuint",
-                    "easeInOutQuint",
-                    "easeInSine",
-                    "easeOutSine",
-                    "easeInOutSine",
-                    "easeInExpo",
-                    "easeOutExpo",
-                    "easeInOutExpo",
-                    "easeInCirc",
-                    "easeOutCirc",
-                    "easeInOutCirc",
-                    "easeInElastic",
-                    "easeOutElastic",
-                    "easeInOutElastic",
-                    "easeInBack",
-                    "easeOutBack",
-                    "easeInOutBack",
-                    "easeInBounce",
-                    "easeOutBounce",
-                    "easeInOutBounce"
-                ]
+                "tag": "h4"
+            },
+            "content": "All Params:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/tweenType.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
             }
         },
         {
@@ -321,6 +298,22 @@
                 "style": "medium"
             },
             "content": "Here it is possible to alter the individual values of the chosen configuration."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "All Params:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/springType.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
         },
         {
             "component": "mob-spacer",
