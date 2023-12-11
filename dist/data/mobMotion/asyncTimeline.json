@@ -654,7 +654,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "utils",
+                "id": "play",
                 "label": "play/playRevese/stop"
             }
         },

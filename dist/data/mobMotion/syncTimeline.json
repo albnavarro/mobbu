@@ -20,7 +20,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more sequencers</span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
+            "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more <a href='/#mobMotion_sequencer'>sequencer</a></span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
         },
         {
             "component": "mob-title",
@@ -631,22 +631,30 @@
             "props": {
                 "style": "medium",
                 "id": "utils",
-                "label": "utils"
+                "label": "Utils"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "utils"
+            "content": "Utils"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "isActive/isSuspended/getDirection/getTime"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Utilities to check the status of the timeline:"
         },
         {
             "component": "mob-spacer",
@@ -663,10 +671,16 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/syncTimelineUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]
