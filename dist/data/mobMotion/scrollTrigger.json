@@ -185,11 +185,44 @@
             "content": "breakpoint"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "breakpoint"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <span>motionCore.setDefault({})</span>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "queryType"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "determines whether the scrollTriger should be active from <span>breakpoint up</span> or <span>up to the breakpoint</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-spacer",
