@@ -161,15 +161,6 @@
             }
         },
         {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -227,27 +218,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "medium",
                 "id": "range",
                 "label": "range"
@@ -265,7 +235,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Property that defines the calculation of the distance value."
+            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in transformations</span>"
         },
         {
             "component": "mob-title",
@@ -371,6 +341,56 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/scrollTriggerRange.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "dynamicRange",
+                "label": "dynamicRange"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "dynamicRange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Alternative to the range property.<br/><span>Valid only if you use simple built-in transformations</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "The transformation value calculated through the <span>use of a function</span>.",
+                    "The result of the function <span>will be used in px</span>.",
+                    "The function will be <span>re-executed at each resize</span>.",
+                    "If used, it will take <span>priority over the range method</span>.",
+                    "<span>if the property is a tween it will have no effect.</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/scrollTriggerDynamicRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

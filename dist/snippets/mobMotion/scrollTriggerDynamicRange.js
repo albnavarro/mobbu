@@ -1,4 +1,4 @@
-import { scroller, tween } from '../mobMotion';
+import { scroller } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
@@ -8,7 +8,9 @@ const myTarget = document.querySelector('myTarget');
 const myScrollTrigger = scroller.createScrollTrigger({
     item: myTarget,
     propierties: 'x',
-    range: '+50vw',
+    dynamicRange: () => {
+        return myTarget.offsetWidth;
+    },
     start: 'bottom',
     end: 'bottom +50vh',
 });
