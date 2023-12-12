@@ -19,6 +19,7 @@ export interface scrollTrigger {
     disableForce3D?: boolean;
     useThrottle?: boolean;
     range?: string | number;
+    dynamicRange?: () => number;
     perspective?: number;
     ease?: boolean;
     easeType?: 'spring' | 'lerp';
@@ -37,10 +38,6 @@ export interface scrollTrigger {
     tween?: Object;
     direction?: 'vertical' | 'horizontal';
     useWillChange?: boolean;
-
-    /**
-     * Specific scrollTrigger params:
-     */
     invertSide?: boolean;
     pin?: boolean;
     animatePin?: boolean;
@@ -58,7 +55,6 @@ export interface scrollTrigger {
         position: 'bottom' | 'top' | 'left' | 'right';
         value: () => number;
     };
-    dynamicRange?: () => number;
     animateAtStart?: boolean;
     onEnter?: () => void;
     onEnterBack?: () => void;

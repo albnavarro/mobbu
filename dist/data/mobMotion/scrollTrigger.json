@@ -265,13 +265,101 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Property that defines the calculation of the distance value."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "X | Y"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>+/-100px:</span> move by +-100 pixel",
+                    "<span>+/-100vw | +/-100vh:</span> move by +-100 fractions of viewport",
+                    "<span>+/-100w | +/-100h:</span> move by +-100 fractions of itself"
+                ]
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "rotate | rotateY | rotateX | rotateZ"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>45deg</span> |  <span>-45deg</span>, The default value is 0."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "scale"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "example: <span>+/-0.5</span>, The scale property is increased by 0.5, th default value is 0."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "opacity"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>+/-</span> number between 0 and 1."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "customCssPropierites"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "('margin', 'padding-left', etc ...) Each value will be converted to px, no unit misure is needed."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "tween"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>If a tween is used</span> there are no options the value will be controlled by the <span>sequencer/scrollerTween</span> itself."
         },
         {
             "component": "mob-spacer",
@@ -282,7 +370,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -293,7 +381,7 @@
             "props": {
                 "style": "medium",
                 "id": "tween",
-                "label": "parallaxTween/sequencer"
+                "label": "scrollerTween/sequencer"
             }
         },
         {
@@ -301,7 +389,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "use parallaxTween/sequencer"
+            "content": "use scrollerTween/sequencer"
         },
         {
             "component": "mob-paragraph",
