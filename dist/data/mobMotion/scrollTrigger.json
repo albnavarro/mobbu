@@ -50,7 +50,7 @@
             "props": {
                 "style": "medium",
                 "id": "target",
-                "label": "target"
+                "label": "DOM&nbsp;Element"
             }
         },
         {
@@ -58,20 +58,101 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "target"
+            "content": "DOM Element"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "item"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "item, applyTo, trigger, screen, scroller"
+            "content": "The default subject to apply transformations to. If you use the <span>pin</span> property it will be applied to this element."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "trigger"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A DOM node other than <span>item</span> to be used as a reference for <span>position, height, and width</span> calculations."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "applyTo"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A DOM node other than <span>item</span> to apply transformations to."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "scroller"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>scrollable node</span> in which the target is contained.<br/> The default is <span>window</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "screen"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A node that contains the <span>scrollable element</span>.<br/> The default is <span>window</span>."
         },
         {
             "component": "mob-spacer",
@@ -136,7 +217,7 @@
             "props": {
                 "style": "medium",
                 "id": "range",
-                "label": "built-in&nbsp;range"
+                "label": "range"
             }
         },
         {
@@ -144,7 +225,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "built-in range"
+            "content": "range"
         },
         {
             "component": "mob-paragraph",
