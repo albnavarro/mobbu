@@ -20,7 +20,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "Manages scroll animations.<br/>To be activated, the <span>init</span> method must be executed."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/scrollTriggerInit.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-title",
@@ -473,13 +488,44 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/test.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
             }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "id": "direction",
+                "label": "direction"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "direction"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Bla bla bla"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {

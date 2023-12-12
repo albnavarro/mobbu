@@ -12,3 +12,5 @@ const myScrollTrigger = scroller.createScrollTrigger({
     start: 'bottom',
     end: 'bottom +50vh',
 });
+
+myScrollTrigger.init();

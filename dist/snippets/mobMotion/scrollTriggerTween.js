@@ -20,9 +20,11 @@ myTween.subscribe(({ x, y }) => {
 });
 
 const myScrollTrigger = scroller.createScrollTrigger({
-    item: myTarget,
+    item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.
     start: 'bottom',
     end: 'bottom +50vh',
 });
+
+myScrollTrigger.init();
