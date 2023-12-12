@@ -258,7 +258,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "X | Y"
+            "content": "x | y"
         },
         {
             "component": "mob-list",
@@ -432,7 +432,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more complex animations with multiple propierties use a <span>custom tween</span>. It is possible to use a <a href='/#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
+            "content": "For more <span>complex animations</span> propierties use a <span>custom tween</span>. It is possible to use a <a href='/#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
         },
         {
             "component": "mob-list",

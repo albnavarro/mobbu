@@ -23,6 +23,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
     item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.
+    // no range parameters needed.
     start: 'bottom',
     end: 'bottom +50vh',
 });
