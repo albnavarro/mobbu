@@ -3,17 +3,6 @@ import { scroller, tween } from '../mobMotion';
 const myTarget = document.querySelector('myTarget');
 
 /**
- * Builtin propierties
- */
-const myScrollTrigger = scroller.createScrollTrigger({
-    item: myTarget,
-    propierties: 'x',
-    range: '+50vw',
-    start: 'bottom',
-    end: 'bottom +50vh',
-});
-
-/**
  * Use a scrollerTween ( sequencer is supported too )
  * Range parameters is unused.
  */
@@ -32,8 +21,8 @@ myTween.subscribe(({ x, y }) => {
 
 const myScrollTrigger = scroller.createScrollTrigger({
     item: myTarget,
-    propierties: 'tween',
-    tween: myTween,
+    propierties: 'tween', // set this propierties to 'tween'
+    tween: myTween, // or a sequencer.
     start: 'bottom',
     end: 'bottom +50vh',
 });

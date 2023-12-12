@@ -252,7 +252,8 @@
                 "items": [
                     "<span>+/-100px:</span> move by +-100 pixel",
                     "<span>+/-100vw | +/-100vh:</span> move by +-100 fractions of viewport",
-                    "<span>+/-100w | +/-100h:</span> move by +-100 fractions of itself"
+                    "<span>+/-100w | +/-100h:</span> move by +-100 fractions of itself",
+                    "The propierties will be <span>re-calculated at each resize</span>"
                 ]
             }
         },
@@ -416,13 +417,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "For more complex animations with multiple propierties use a <span>custom tween</span>. It is possible to use a <a href='/#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-list",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "items": ["subscribe", "subscribeCache", "onStop", "destroy"]
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Instead of the given property scrollerTween only needs two properties <span>from</span> and <span>to</span>"
         },
         {
             "component": "mob-spacer",
@@ -433,7 +442,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
