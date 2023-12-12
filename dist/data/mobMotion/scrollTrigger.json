@@ -196,7 +196,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <span>motionCore.setDefault({})</span>"
+            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='/#mobMotion_defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",

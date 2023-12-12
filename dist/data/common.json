@@ -332,6 +332,10 @@
         {
             "label": "Plugin",
             "url": "mobMotion_plugin"
+        },
+        {
+            "label": "Defaults",
+            "url": "mobMotion_defaults"
         }
     ]
 }
