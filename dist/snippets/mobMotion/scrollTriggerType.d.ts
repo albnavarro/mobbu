@@ -18,7 +18,7 @@ export interface scrollTrigger {
     queryType?: 'min' | 'max';
     disableForce3D?: boolean;
     useThrottle?: boolean;
-    range?: string | number;
+    range?: string;
     dynamicRange?: () => number;
     perspective?: number;
     ease?: boolean;
@@ -34,6 +34,8 @@ export interface scrollTrigger {
         | 'rotateZ'
         | 'opacity'
         | 'scale'
+        | 'scaleX'
+        | 'scaleY'
         | 'tween';
     tween?: Object;
     direction?: 'vertical' | 'horizontal';

@@ -1078,6 +1078,8 @@ export const parallaxPropiertiesIsValid = (
         parallaxConstant.PROP_ROTATEZ,
         parallaxConstant.PROP_OPACITY,
         parallaxConstant.PROP_SCALE,
+        parallaxConstant.PROP_SCALE_X,
+        parallaxConstant.PROP_SCALE_Y,
         parallaxConstant.PROP_TWEEN,
     ];
 
@@ -1274,7 +1276,11 @@ export const checkStringRangeOnPropierties = (string, properties) => {
     /**
      * Check SCALE PROP
      */
-    if (properties === parallaxConstant.PROP_SCALE) {
+    if (
+        properties === parallaxConstant.PROP_SCALE ||
+        properties === parallaxConstant.PROP_SCALE_X ||
+        properties === parallaxConstant.PROP_SCALE_Y
+    ) {
         const isValid = checkIfIsOnlyNumberPositiveNegative(string);
         if (!isValid) scrollTriggerRangeScaleWarning(string, properties);
         return isValid ? string : '0';

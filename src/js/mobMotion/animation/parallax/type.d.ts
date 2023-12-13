@@ -147,6 +147,8 @@ export interface parallaxCommonType {
         | 'rotateZ'
         | 'opacity'
         | 'scale'
+        | 'scaleX'
+        | 'scaleY'
         | 'tween';
 
     /**

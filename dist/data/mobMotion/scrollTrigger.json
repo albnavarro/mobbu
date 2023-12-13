@@ -250,7 +250,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in transformations</span>"
+            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in transformations</span><br/><span>Must be a string</span>"
         },
         {
             "component": "mob-title",
@@ -258,7 +258,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "x | y"
+            "content": "1) x | y"
         },
         {
             "component": "mob-list",
@@ -278,7 +278,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "rotate | rotateY | rotateX | rotateZ"
+            "content": "2) rotate | rotateY | rotateX | rotateZ"
         },
         {
             "component": "mob-paragraph",
@@ -293,7 +293,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "scale"
+            "content": "3) scale | scaleX | scaleY"
         },
         {
             "component": "mob-paragraph",
@@ -308,7 +308,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "opacity"
+            "content": "4) opacity"
         },
         {
             "component": "mob-paragraph",
@@ -323,7 +323,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "customCssPropierites"
+            "content": "5) customCssPropierites"
         },
         {
             "component": "mob-paragraph",
@@ -338,7 +338,7 @@
                 "tag": "h6",
                 "color": "green"
             },
-            "content": "tween"
+            "content": "6) tween"
         },
         {
             "component": "mob-paragraph",
@@ -477,6 +477,116 @@
                 "tag": "h3"
             },
             "content": "start/end"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Defines the <span>start/end position of the animation</span>, the value is a string made up of 3 optional values:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "1) bottom | top | left | right"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Indicates the <span>side of the viewport</span> that will be referenced."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If <span>start</span> corresponds to <span>bottom/right</span> the animation will begin when the <span>top/left side of the item touches the indicated value</span> from the bottom/right of the screen."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If <span>start</span> corresponds to <span>top/left</span> the animation will begin when the <span>bottom/right side of the item touches the indicated value</span> from the top/left of the screen."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value indicated in start ( top/bottom/et.. ) <span>will also influence the end value</span>.<br/> If the start value takes the upper edge of the item as reference (i.e. start = 'bottom'), <span>regardless of whether the end value is top or bottom the reference will always be the upper edge</span>"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "2) +/-<value>vh | vw | px"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "add a value in <span>vh|vw|px</span>, use <span>vh in vertical direction</span>, <span>vw in horizontal direction</span>,"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "3) +/- height | halfHeight | width | halfWidth"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can add the <span>item height/width value or half of one of them</span> to the final value.<br/>Useful for centering the element."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The values 2 & 3 will always be <span>added from the chosen position towards</span> the center of the screen, whether the position corresponds to top|bottom left|right"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/scrollTriggerStart.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "dynamicstart",
+                "label": "dynamicStart/dynamicEnd"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "dynamicStart/dynamicEnd"
         },
         {
             "component": "mob-paragraph",

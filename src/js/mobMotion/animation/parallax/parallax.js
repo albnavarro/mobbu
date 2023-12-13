@@ -1073,7 +1073,10 @@ export default class ParallaxClass {
      */
     setMotion() {
         const initialValue =
-            parallaxConstant.PROP_SCALE || parallaxConstant.PROP_OPACITY
+            parallaxConstant.PROP_SCALE ||
+            parallaxConstant.PROP_SCALE_X ||
+            parallaxConstant.PROP_SCALE_Y ||
+            parallaxConstant.PROP_OPACITY
                 ? 1
                 : 0;
 
@@ -1859,6 +1862,8 @@ export default class ParallaxClass {
             }
 
             case parallaxConstant.PROP_SCALE:
+            case parallaxConstant.PROP_SCALE_X:
+            case parallaxConstant.PROP_SCALE_Y:
             case parallaxConstant.PROP_OPACITY: {
                 return 1 - percentValue;
             }
@@ -2090,6 +2095,28 @@ export default class ParallaxClass {
                         : 1 + value / 1000;
                 return {
                     transform: `${force3DStyle} scale(${scaleVal})`,
+                    willChange: shouldWill,
+                };
+            }
+
+            case parallaxConstant.PROP_SCALE_X: {
+                const scaleVal =
+                    this.type === parallaxConstant.TYPE_SCROLLTRIGGER
+                        ? value
+                        : 1 + value / 1000;
+                return {
+                    transform: `${force3DStyle} scaleX(${scaleVal})`,
+                    willChange: shouldWill,
+                };
+            }
+
+            case parallaxConstant.PROP_SCALE_Y: {
+                const scaleVal =
+                    this.type === parallaxConstant.TYPE_SCROLLTRIGGER
+                        ? value
+                        : 1 + value / 1000;
+                return {
+                    transform: `${force3DStyle} scaleY(${scaleVal})`,
                     willChange: shouldWill,
                 };
             }

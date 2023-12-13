@@ -162,6 +162,16 @@ export const parallaxConstant = {
     /**
      * @type {string}
      */
+    PROP_SCALE_X: 'scaleX',
+
+    /**
+     * @type {string}
+     */
+    PROP_SCALE_Y: 'scaleY',
+
+    /**
+     * @type {string}
+     */
     PROP_TWEEN: 'tween',
 
     /**

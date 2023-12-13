@@ -33,6 +33,8 @@ export interface parallax {
         | 'rotateZ'
         | 'opacity'
         | 'scale'
+        | 'scaleX'
+        | 'scaleY'
         | 'tween';
     tween?: Object;
     direction?: 'vertical' | 'horizontal';
