@@ -512,7 +512,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If <span>start</span> corresponds to <span>top/left</span> the animation will begin when the <span>bottom/right side of the item touches the indicated value</span> from the top/left of the screen."
+            "content": "If <span>start</span> corresponds to <span>top/left</span> the animation will begin when the <span>bottom/right side of the item touches the indicated value</span> from the top/left of the screen. ( reverse scroll use )"
         },
         {
             "component": "mob-paragraph",
@@ -593,7 +593,44 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "These properties can be used <span>in place of start or end</span>. This is an object that accepts two parameters:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "1) position:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>top | right | bottom | left</span><br/>this parameter behaves exactly like the equivalent in start/end."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "2) value:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>A function that returns a number</span><br/>Same as range this value will always be <span>added from the chosen position towards</span> the center of the screen, whether the position corresponds to top|bottom left|right"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Each function is recomputed after the resize event.</span>"
         },
         {
             "component": "mob-spacer",
@@ -604,7 +641,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerDynamicStart.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
