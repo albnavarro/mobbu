@@ -651,6 +651,28 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "marker",
+                "label": "marker"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "marker"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Displays the start and end indicators of the animation.<br/> A marker will be applied to <span>the edge of our element</span>, and <span>two fixed markers</span> corresponding to the <span>start and end</span> values.<br/> The marker property accepts a <span>string as a parameter</span>, the assigned value will be displayed next to the marker"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "direction",
                 "label": "direction"
             }
@@ -667,22 +689,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
+            "content": "Indicates the <span>direction of the scroller</span>, it can be <span>vertical</span> or <span>horizontal</span>."
         },
         {
             "component": "mob-spacer",
@@ -741,49 +748,6 @@
                 "tag": "h3"
             },
             "content": "pin"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "marker",
-                "label": "marker"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "marker"
         },
         {
             "component": "mob-paragraph",
