@@ -651,6 +651,28 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "fromto",
+                "label": "fromTo"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "fromTo"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Reverse the animation.</br> The default is <span>false</span>. "
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "marker",
                 "label": "marker"
             }
