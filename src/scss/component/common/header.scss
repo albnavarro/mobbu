@@ -90,6 +90,7 @@
             transition: transform 0.35s;
             pointer-events: none;
             margin: 0;
+            font-weight: 600;
 
             &.visible {
                 transform: translateY(0);
