@@ -667,7 +667,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Reverse the animation.</br> The default is <span>false</span>. "
+            "content": "If this property is true the values <span>will be applied starting from the final value leaving the start/end values unchanged</span>."
         },
         {
             "component": "mob-spacer",
