@@ -385,6 +385,12 @@ export interface scrollTriggerType {
      * The function will have the current value as input parameter.
      */
     onTick?: (arg0: parallaxMoveType) => void;
+
+    /**
+     * @description
+     * Move element from outside
+     */
+    move?: (arg0: parallaxMoveType) => void;
 }
 
 export interface parallaxMoveType {
