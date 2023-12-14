@@ -1,15 +1,39 @@
 import { scroller } from '../../../src/js/mobMotion';
 
-const myScrollerItem = document.querySelector('myTarget');
-const myTrigger = document.querySelector('myTrigger');
-const myChild = document.querySelector('myChild');
+/**
+ * Horizontal Scroller item.
+ * display: flex;
+ * height: 100vh;
+ */
+const myScrollerItem = document.querySelector('.myScroller');
 
 /**
- * Create basic scrollTrigger.
+ * i.e:
+ * Get section with inside myScrollerItem
+ * Supposed myScrollerItem is display: flex.
+ * and sections are ten element width: 100vw;
+ */
+const sectionWidth = window.innerWidth;
+const numOfSection = 10;
+const elementWidth = sectionWidth * numOfSection;
+
+/**
+ * i.e:
+ * Supposed myTrigger is a HTMLElement under myScrollerItem with a
+ * margin-top: -100vh ( To have the top edges aligned with scroller )
+ * The height of this element will determine the duration of the scroll.
+ *
+ */
+const myTrigger = document.querySelector('.myTrigger');
+myTrigger.style.height = `${elementWidth}px`;
+
+/**
+ * Create basic child scrollTrigger.
  * It is possible to use a parallax too.
  *
  * Move from left edge to the center of the screen.
  */
+const myChild = document.querySelector('.myChild');
 const myScrollTriggerChild = scroller.createScrollTrigger({
     item: myChild,
 
@@ -27,8 +51,6 @@ const myScrollTriggerChild = scroller.createScrollTrigger({
     fromTo: true,
 });
 
-myScrollTriggerChild.init();
-
 /**
  * Create basic horizontal scroller.
  */
@@ -37,12 +59,13 @@ const myScrollTrigger = scroller.createScrollTrigger({
     trigger: myTrigger,
     propierties: 'x',
     pin: true,
+    ease: true,
 
     /**
      * Move horizontal by item with minus windows width.
      */
     dynamicRange: () => {
-        return -(myScrollerItem.offsetWidth - window.innerWidth);
+        return -(elementWidth - window.innerWidth);
     },
 
     /**
@@ -61,7 +84,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
     dynamicEnd: {
         position: 'bottom',
         value: () => {
-            return myTrigger.offsetHeight;
+            return elementWidth;
         },
     },
 
@@ -77,4 +100,5 @@ const myScrollTrigger = scroller.createScrollTrigger({
 /**
  * Run instance.
  */
+myScrollTriggerChild.init();
 myScrollTrigger.init();

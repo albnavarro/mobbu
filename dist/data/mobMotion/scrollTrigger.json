@@ -1074,7 +1074,7 @@
             "props": {
                 "tag": "h6"
             },
-            "content": "Classic horizontal scroller example:"
+            "content": "Classic horizontal scroller example: (purely demonstrative)"
         },
         {
             "component": "mob-snippet",
