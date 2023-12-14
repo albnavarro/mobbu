@@ -62,5 +62,8 @@ export interface scrollTrigger {
     onEnterBack?: () => void;
     onLeave?: () => void;
     onLeaveBack?: () => void;
-    onTick?: () => void;
+    onTick?: (arg0: {
+        value: number | undefined;
+        parentIsMoving: boolean;
+    }) => void;
 }

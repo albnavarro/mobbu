@@ -384,7 +384,7 @@ export interface scrollTriggerType {
      * Function that is launched at each tick.
      * The function will have the current value as input parameter.
      */
-    onTick?: () => void;
+    onTick?: (arg0: parallaxMoveType) => void;
 }
 
 export interface parallaxMoveType {

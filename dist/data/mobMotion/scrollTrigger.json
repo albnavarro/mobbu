@@ -934,29 +934,96 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Events fired when animation starts/ends."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "onEnter"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["no params"]
             }
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "onEnterBack"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["no params"]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "onLeave"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["no params"]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "onLeaveBack"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["no params"]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "onTick"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>value</span>: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
+                    "<span>parentIsMoving</span>: Internal parameter use this parameter to connect two scrollTriggers as in the following point."
+                ]
             }
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerEvent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
             }
         },
+
         {
             "component": "mob-spacer",
             "props": {
@@ -971,13 +1038,6 @@
                 "tag": "h3"
             },
             "content": "utils"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
         },
         {
             "component": "mob-spacer",
