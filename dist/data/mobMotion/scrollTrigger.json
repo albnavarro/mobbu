@@ -753,7 +753,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "ease"
         },
@@ -767,7 +768,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "easeType"
         },
@@ -781,7 +783,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "lerpConfig"
         },
@@ -795,7 +798,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "springConfig"
         },
@@ -846,7 +850,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "pin"
         },
@@ -860,7 +865,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "animatePin"
         },
@@ -874,7 +880,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "forceTranspond"
         },
@@ -888,7 +895,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "anticipatePinOnLoad"
         },

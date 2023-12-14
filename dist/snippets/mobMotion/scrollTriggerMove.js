@@ -2,22 +2,32 @@ import { scroller } from '../../../src/js/mobMotion';
 
 const myScrollerItem = document.querySelector('myTarget');
 const myTrigger = document.querySelector('myTrigger');
-const myParallaxItem = document.querySelector('myParallax');
+const myChild = document.querySelector('myChild');
 
 /**
- * Create basic parallax.
- * It is also possible to use a scrollTrigger.
+ * Create basic scrollTrigger.
+ * It is possible to use a parallax too.
+ *
+ * Move from left edge to the center of the screen.
  */
-const myParallax = scroller.createParallax({
-    item: myParallaxItem,
+const myScrollTriggerChild = scroller.createScrollTrigger({
+    item: myChild,
 
     // window scroll has no effect if scroller is !== window.
     scroller: myScrollerItem,
     propierties: 'x',
-    range: 7,
-    reverse: true,
-    ease: true,
+    direction: 'horizontal',
+    range: '50vw',
+    start: 'right',
+    end: 'left +50vw',
+
+    /**
+     * Start from 50vw
+     */
+    fromTo: true,
 });
+
+myScrollTriggerChild.init();
 
 /**
  * Create basic horizontal scroller.
@@ -25,7 +35,6 @@ const myParallax = scroller.createParallax({
 const myScrollTrigger = scroller.createScrollTrigger({
     item: myScrollerItem,
     trigger: myTrigger,
-    direction: 'horizontal',
     propierties: 'x',
     pin: true,
 
@@ -61,7 +70,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
      * value and parentIsMoving is needed for internal mechanism.
      */
     onTick: ({ value, parentIsMoving }) => {
-        myParallax.move({ value, parentIsMoving });
+        myScrollTriggerChild.move({ value, parentIsMoving });
     },
 });
 
