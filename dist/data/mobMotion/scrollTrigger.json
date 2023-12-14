@@ -1010,7 +1010,7 @@
                 "style": "medium",
                 "items": [
                     "<span>value</span>: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
-                    "<span>parentIsMoving</span>: Internal parameter use this parameter to connect two scrollTriggers as in the following point."
+                    "<span>parentIsMoving</span>: Internal parameter use this parameter to connect two scrollTriggers as in the following point ( move() )."
                 ]
             }
         },
@@ -1023,7 +1023,43 @@
                 "hasBorder": true
             }
         },
-
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "move",
+                "label": "move"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "move"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is <span>possible to connect multiple scrolltriggers</span> or you can control a parallax from a scrollTrigger:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/test.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
         {
             "component": "mob-spacer",
             "props": {
@@ -1038,12 +1074,6 @@
                 "tag": "h3"
             },
             "content": "utils"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-spacer",
