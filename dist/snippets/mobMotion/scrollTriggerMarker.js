@@ -11,23 +11,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
     range: '45deg ',
     start: 'bottom +50vh -halfHeight',
     end: 'top',
-
-    /**
-     * Enable ease.
-     */
-    ease: true,
-
-    /**
-     * i.e. Spring
-     * easeType: 'spring',
-     * springConfig: 'gentle', // optional
-     */
-
-    /**
-     * i.e. Lerp
-     */
-    easeType: 'lerp',
-    lerpConfig: 0.06, // optional
+    marker: 'my-scrolltrigger',
 });
 
 /**

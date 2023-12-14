@@ -13,21 +13,12 @@ const myScrollTrigger = scroller.createScrollTrigger({
     end: 'top',
 
     /**
-     * Enable ease.
+     * All pin params
      */
-    ease: true,
-
-    /**
-     * i.e. Spring
-     * easeType: 'spring',
-     * springConfig: 'gentle', // optional
-     */
-
-    /**
-     * i.e. Lerp
-     */
-    easeType: 'lerp',
-    lerpConfig: 0.06, // optional
+    pin: true,
+    animatePin: true,
+    animateAtStart: false,
+    anticipatePinOnLoad: true,
 });
 
 /**

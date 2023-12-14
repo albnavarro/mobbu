@@ -692,6 +692,15 @@
             "content": "Displays the start and end indicators of the animation.<br/> A marker will be applied to <span>the edge of our element</span>, and <span>two fixed markers</span> corresponding to the <span>start and end</span> values.<br/> The marker property accepts a <span>string as a parameter</span>, the assigned value will be displayed next to the marker"
         },
         {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/scrollTriggerMarker.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
@@ -832,13 +841,63 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "Allows you to <span>freeze the element</span> as if it were in <span>sticky position</span>. The <span>position: sticky rule is always advisable</span>, but there are situations in which a jsavascirpt solution can be convenient. The element will go to <span>position: fixed</span> with a certain advance before impacting the start position to prevent visual jumps. <span>If the html structure allows it, the element will remain in its original node, otherwise it will come as a direct child of the body tag</span> when attaching."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h5"
+            },
+            "content": "pin"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Boolean value: default is false"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "animatePin"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='/#horizontalScrollerV2'>example</a>"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "forceTranspond"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Boolean value, if true, the element <span>will always be moved as a child of the body tag</span>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "anticipatePinOnLoad"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The pin is always activated a little earlier based on the last scroll made. With this property, <span>when loading the page and without having performed any scrolling, the element can be pinned even if slightly earlier than the preset position</span>. The default value is false. "
         },
         {
             "component": "mob-spacer",
@@ -849,7 +908,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerPin.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
