@@ -38,9 +38,9 @@ const myScrollTriggerChild = scroller.createScrollTrigger({
     item: myChild,
 
     // window scroll has no effect if scroller is !== window.
-    scroller: myScrollerItem,
+    scroller: myScrollerItem, // we use the scroller instead of the window.
     propierties: 'x',
-    direction: 'horizontal',
+    direction: 'horizontal', // The scroller moves on the x axis.
     range: '50vw',
     start: 'right',
     end: 'left +50vw',
@@ -89,7 +89,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
     },
 
     /**
-     * Move myParallx in every tick.
+     * Move myScrollTriggerChild on every tick.
      * value and parentIsMoving is needed for internal mechanism.
      */
     onTick: ({ value, parentIsMoving }) => {
