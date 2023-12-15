@@ -11,7 +11,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h1",
+                "isBold": true
             },
             "content": "scrollTrigger"
         },
@@ -20,7 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Manages scroll animations.<br/>To be activated, the <span>init</span> method must be executed."
+            "content": "To be activated, the <span>init</span> method must be executed."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Unlike <span>parallax which reasons by speed/multipliers</span>, scrollTrigger allows you to reason in <span>absolute values</span> from point A ( <span>start</span> ) to point B ( <span>end</span> )."
         },
         {
             "component": "mob-snippet",
@@ -234,6 +242,47 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "propierties",
+                "label": "propierties"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "propierties"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>built-in propierties:</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>y</span>",
+                    "<span>x</span>",
+                    "<span>rotate</span>",
+                    "<span>rotateY</span>",
+                    "<span>rotateX</span>",
+                    "<span>rotateZ</span>",
+                    "<span>opacity</span>",
+                    "<span>scale</span>",
+                    "<span>scaleX</span>",
+                    "<span>scaleY</span>",
+                    "<span>tween</span>: use external <span>scrollerTween/sequencer</span> for complex animation"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "range",
                 "label": "range"
             }
@@ -250,7 +299,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in transformations</span><br/><span>Must be a string</span>"
+            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in propierties</span><br/>Must be a <span>string</span>"
         },
         {
             "component": "mob-title",
@@ -808,7 +857,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The Spring configuration. can be a preset between <span>default</span> | <span>gentle</span> | <span>wobbly</span> | <span>bounce</span> | <span>scroller</span>"
+            "content": "The Spring configuration. can be a preset between <span>default</span> | <span>gentle</span> | <span>wobbly</span> | <span>bounce</span> | <span>scroller</span>.<br/>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Spring has no effect with the sequencer module</span>, it can instead be used with the <span>scrollerTween modules</span>.<br/>This is because the <span>sequencer module uses a clamp on the maximum</span> value thus preventing it from being exceeded."
         },
         {
             "component": "mob-spacer",
@@ -1090,7 +1146,7 @@
             "props": {
                 "style": "medium",
                 "id": "utils",
-                "label": "utils"
+                "label": "utils&nbsp;parameters"
             }
         },
         {
@@ -1098,7 +1154,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "utils"
+            "content": "utils parameters"
         },
         {
             "component": "mob-spacer",
@@ -1107,9 +1163,69 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "disableForce3D"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Disable the transform: <span>translate3d(0,0,0) rule</span> applied by the <span>built-in property during animation</span> to activate the GPU."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "useThrottle"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='/#mobMotion_defaults'>Default utils</a>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "perspective"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Apply the css rule <span>perspective: {value}px; transform-style: preserve-3d;</span> to the parent HTMLElement."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "useWillChange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>When there is a <span>large drop in fps</span>, the will-change property is activated for a <span>limited period of time</span>. It is intended as a <span>last resort</span> to deal with a temporary problem. The default value is true."
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1131,6 +1247,13 @@
             "content": "refresh"
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Recalculate all position/measurement</span> values and <span>update rendering</span>. This operation is carried out automatically after each resize."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
@@ -1139,7 +1262,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1161,18 +1284,25 @@
             "content": "destroy"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
+                "style": "medium"
+            },
+            "content": "<span>Destroy instance</span>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/scrollTriggerDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

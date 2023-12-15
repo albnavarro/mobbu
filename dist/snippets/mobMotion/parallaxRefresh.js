@@ -1,0 +1,1 @@
+myParallax.refresh();

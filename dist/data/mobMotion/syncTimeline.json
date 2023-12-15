@@ -11,7 +11,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h1",
+                "isBold": true
             },
             "content": "Sync timeline"
         },

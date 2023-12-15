@@ -1,0 +1,2 @@
+myParallax.destroy();
+myParallax = null;

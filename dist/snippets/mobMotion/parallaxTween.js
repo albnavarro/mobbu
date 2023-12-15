@@ -1,16 +1,14 @@
-import { scroller, tween } from '../mobMotion';
+import { scroller, tween } from '../../../src/js/mobMotion';
 
 const myTarget = document.querySelector('myTarget');
 
 /**
  * Use a scrollerTween ( sequencer is supported too )
  * Range parameters is unused.
- * from 10px to 40px om x axis
- * from 20px to 10px om y axis
  */
 const myTween = tween.createScrollerTween({
-    from: { x: 10, y: 20 },
-    to: { x: 40, y: 10 },
+    from: { x: 10, y: 20 }, // exact value.
+    to: { x: 100, y: 200 }, // multiplier.
     ease: 'easeLinear',
     stagger: {
         each: 10,
@@ -21,13 +19,11 @@ myTween.subscribe(({ x, y }) => {
     myTarget.style.translate = `${x}px ${y}px`;
 });
 
-const myScrollTrigger = scroller.createScrollTrigger({
+const myParallax = scroller.createScrollTrigger({
     item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.
-    // no range parameters needed.
-    start: 'bottom',
-    end: 'bottom +50vh',
+    range: 4,
 });
 
-myScrollTrigger.init();
+myParallax.init();

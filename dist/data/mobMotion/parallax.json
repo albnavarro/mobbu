@@ -11,7 +11,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h1",
+                "isBold": true
             },
             "content": "Parallax"
         },
@@ -20,7 +21,36 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "To be activated, the <span>init</span> method must be executed."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Unlike scrollTrigger which performs precise calculations</span>, parallax allows you to move elements around a neutral point (value === 0) <span>reasoning by speed/multipliers</span> rather than absolute numbers."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The only property that is calculated absolutely is the <span>opacity</span>, where there are two special parameters <span>opacityStart</span> and <span>opacityEnd</span>."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/parallaxInit.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-title",
@@ -50,7 +80,7 @@
             "props": {
                 "style": "medium",
                 "id": "target",
-                "label": "target"
+                "label": "DOM&nbsp;Element"
             }
         },
         {
@@ -58,14 +88,21 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "target"
+            "content": "DOM Element"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "item"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "item, applyTo, trigger, screen, scroller"
+            "content": "The default subject to apply transformations to. If you use the <span>pin</span> property it will be applied to this element."
         },
         {
             "component": "mob-spacer",
@@ -74,18 +111,83 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "trigger"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A DOM node other than <span>item</span> to be used as a reference for <span>position, height, and width</span> calculations."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
         },
         {
-            "component": "mob-snippet",
+            "component": "mob-title",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
+                "tag": "h5"
+            },
+            "content": "applyTo"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A DOM node other than <span>item</span> to apply transformations to."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "scroller"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>scrollable node</span> in which the target is contained.<br/> The default is <span>window</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "screen"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A node that contains the <span>scrollable element</span>.<br/> The default is <span>window</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -104,11 +206,18 @@
             "content": "breakpoint"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "breakpoint"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='/#mobMotion_defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",
@@ -117,26 +226,31 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "queryType"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "determines whether the scrollTriger should be active from <span>breakpoint up</span> or <span>up to the breakpoint</span>."
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
             }
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "range",
-                "label": "built-in&nbsp;range"
+                "id": "propierties",
+                "label": "propierties"
             }
         },
         {
@@ -144,14 +258,62 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "built-in range"
+            "content": "propierties"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "<span>built-in propierties:</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>y</span>",
+                    "<span>x</span>",
+                    "<span>rotate</span>",
+                    "<span>rotateY</span>",
+                    "<span>rotateX</span>",
+                    "<span>rotateZ</span>",
+                    "<span>opacity</span>",
+                    "<span>scale</span>",
+                    "<span>scaleX</span>",
+                    "<span>scaleY</span>",
+                    "<span>tween</span>: use external <span>scrollerTween/sequencer</span> for complex animation"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "range",
+                "label": "range"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "range"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean|string</span> value"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Value indicating the <span>movement ratio</span>.<br/>The <span>closer the value is to 10 the faster the element will move</span>.<br/>To manage the opacity use the two specific properties <span>opacityStart</span> and <span>opacityEnd</span>."
         },
         {
             "component": "mob-spacer",
@@ -168,7 +330,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -194,24 +356,42 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "To manage the opacity use the two specific properties:"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "opacityStart"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
-            }
+                "style": "medium"
+            },
+            "content": "Defines the <span>start</span> value of the opacity animation <span>from the tp of the viewport</span>.<br/> 100 corresponds to 100vh.</br> <span>The default value is 100</span>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "opacityEnd"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Defines the <span>end</span> value of the opacity animation <span>from the top of the viewport</span>.<br/> 100 corresponds to 100vh.<br/> <span>The default value is 0</span>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxOpacity.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -221,8 +401,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "tween",
-                "label": "parallaxTween/sequencer"
+                "id": "scrollerTween",
+                "label": "scrollerTween"
             }
         },
         {
@@ -230,20 +410,79 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "use parallaxTween/sequencer"
+            "content": "use scrollerTween"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "To manage <span>multiple parameters</span> at the same time it is possible to use the appropriate <span>scrollerTween</span> module."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-paragraph",
             "props": {
-                "style": "small"
+                "style": "medium"
+            },
+            "content": "To use the <span>opacity property use the built-in parameters ( opacityStart | opacityEnd ) or scrollTrigger</span>. The opacity property by its nature works with precise values from <span>1 to 0</span>, it does not adapt to a multiplier logic."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "scrollerTween <span>shares some methods with other tweens</span> such as:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["subscribe", "subscribeCache", "onStop", "destroy"]
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>scrollerTween if used inside a parallax</span> will use the <span>from</span> and <span>to</span> parameters in the following way:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "from"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This value <span>will be the exact value applied to the element</span> in its neutral position, the neutral position depends directly on the <span>align property</span>"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "to"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This value is to be <span>understood as a multiplier in addition to the range parameter</span>. using the different properties they will be able to have <span>different multipliers</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The multiplier can go from <span>1 to X without limitations</span>."
         },
         {
             "component": "mob-spacer",
@@ -254,7 +493,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -264,8 +503,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "position",
-                "label": "start/end"
+                "id": "align",
+                "label": "align"
             }
         },
         {
@@ -273,20 +512,134 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "start/end"
+            "content": "align"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "direction, align, onSwitch, reverse"
+            "content": "Defines when the <span>current value reaches 0</span> ( neutral position ).<br/> It is possible to use a <span>preset value</span> or a <span>number from 0 to 100</span> which corresponds to a value calculated from the bottom of the viewport.<br/>The default value is <span>center</span>."
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "start:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The scroller ( default is the document ) is located at <span>scrolltop === 0</span>;"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "top:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the top edge of the screen</span> ( default is the the window )."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "right:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the right edge of the screen</span> ( default is the the window )."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "center:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the center of the screen</span> ( default is the the window )."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "bottom:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the bottom edge of the screen</span> ( default is the the window )."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "left:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the left edge of the screen</span> ( default is the the window )."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "end:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The element <span>matches the end of the scroller</span> ( default is the the document ).."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6",
+                "color": "green"
+            },
+            "content": "Number:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "number from <span>0 to 100</span> which corresponds to a value calculated <span>from the bottom of the viewport</span>"
         },
         {
             "component": "mob-spacer",
@@ -297,7 +650,50 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxAlign.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "onSwitch",
+                "label": "onSwitch"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "onSwitch"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Defines the behavior of the parallax <span>once it reaches point 0</span> ( neutral position ).<br/> It can continue, stop or go back.<br/>If it is not set the value <span>from positive will become negative</span>."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>in-stop</span>",
+                    "<span>in-back</span>",
+                    "<span>out-stop</span>",
+                    "<span>out-back</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/parallaxOnSwitch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -323,142 +719,73 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='/#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "pin",
-                "label": "pin"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5",
+                "color": "green"
             },
-            "content": "pin"
+            "content": "ease"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "marker",
-                "label": "marker"
-            }
+            "content": "Boolean value indicating whether to use easing."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5",
+                "color": "green"
             },
-            "content": "marker"
+            "content": "easeType"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "/snippets/mobMotion/test.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "id": "events",
-                "label": "events"
-            }
+            "content": "The type of easing used: <span>spring</span> | <span>lerp</span>."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h5",
+                "color": "green"
             },
-            "content": "events"
+            "content": "lerpConfig"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Bla bla bla"
+            "content": "The <span>velocity</span> value of the lerp function. It must be a value <span>between 0.01 and 0.1</span>. The default value is 0.06"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-title",
             "props": {
-                "style": "small"
-            }
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "springConfig"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The Spring configuration. can be a preset between <span>default</span> | <span>gentle</span> | <span>wobbly</span> | <span>bounce</span> | <span>scroller</span>"
         },
         {
             "component": "mob-spacer",
@@ -469,7 +796,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -480,7 +807,7 @@
             "props": {
                 "style": "medium",
                 "id": "utils",
-                "label": "utils"
+                "label": "utils&nbsp;parameters"
             }
         },
         {
@@ -488,20 +815,104 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "utils"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Bla bla bla"
+            "content": "utils parameters"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "disableForce3D"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Disable the transform: <span>translate3d(0,0,0) rule</span> applied by the <span>built-in property during animation</span> to activate the GPU."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "useThrottle"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='/#mobMotion_defaults'>Default utils</a>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "perspective"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>Apply the css rule <span>perspective: {value}px; transform-style: preserve-3d;</span> to the parent HTMLElement."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5",
+                "color": "green"
+            },
+            "content": "useWillChange"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Boolean value</span>.<br/>When there is a <span>large drop in fps</span>, the will-change property is activated for a <span>limited period of time</span>. It is intended as a <span>last resort</span> to deal with a temporary problem. The default value is true."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/parallaxUtils.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "refresh",
+                "label": "refresh"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "refresh"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Recalculate all position/measurement</span> values and <span>update rendering</span>. This operation is carried out automatically after each resize."
         },
         {
             "component": "mob-spacer",
@@ -512,10 +923,47 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/parallaxRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "destroy",
+                "label": "destroy"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "destroy"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Destroy instance</span>"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/parallaxDestroy.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

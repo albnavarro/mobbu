@@ -58,7 +58,7 @@ const createParallax = ({ titles }) => {
             item: title,
             propierties: 'x',
             reverse: true,
-            range: '9',
+            range: 9,
         });
     });
 };

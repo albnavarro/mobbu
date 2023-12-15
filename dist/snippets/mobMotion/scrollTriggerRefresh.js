@@ -1,0 +1,1 @@
+myScrollTrigger.refresh();

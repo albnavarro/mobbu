@@ -31,6 +31,10 @@ label {
 
 body {
     font-weight: 300;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 h1 {
@@ -101,4 +105,8 @@ code {
     @include mq.mq('desktop') {
         font-size: rem(16);
     }
+}
+
+.is-bold {
+    font-weight: 600;
 }

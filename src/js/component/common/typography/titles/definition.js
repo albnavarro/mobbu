@@ -4,7 +4,7 @@ import { Title } from './title';
 export const titleContentDef = createComponent({
     name: 'mob-title',
     component: Title,
-    exportState: ['tag', 'color', 'onlyMob'],
+    exportState: ['tag', 'color', 'isBold'],
     state: {
         tag: () => ({
             value: 'h1',
@@ -16,6 +16,10 @@ export const titleContentDef = createComponent({
             validate: (val) => {
                 return ['white', 'green'].includes(val);
             },
+        }),
+        isBold: () => ({
+            value: false,
+            type: Boolean,
         }),
     },
 });

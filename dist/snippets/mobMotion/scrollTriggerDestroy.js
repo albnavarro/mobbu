@@ -1,0 +1,2 @@
+myScrollTrigger.destroy();
+myScrollTrigger = null;
