@@ -14,7 +14,7 @@ const myParallaxBuiltin = scroller.createParallax({
 myParallaxBuiltin.init();
 
 /**
- * Use a scrollerTween ( sequencer is supported too )
+ * Use a scrollerTween ( sequencer is not supported )
  * Range parameters is unused.
  */
 const myTween = tween.createScrollerTween({

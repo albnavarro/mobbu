@@ -3,7 +3,7 @@ import { scroller, tween } from '../../../src/js/mobMotion';
 const myTarget = document.querySelector('myTarget');
 
 /**
- * Use a scrollerTween ( sequencer is supported too )
+ * Use a scrollerTween ( sequencer is not supported )
  * Range parameters is unused.
  */
 const myTween = tween.createScrollerTween({
