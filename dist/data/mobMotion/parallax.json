@@ -281,9 +281,39 @@
                     "<span>opacity</span>",
                     "<span>scale</span>",
                     "<span>scaleX</span>",
-                    "<span>scaleY</span>",
-                    "<span>tween</span>: use external <span>scrollerTween/sequencer</span> for complex animation"
+                    "<span>scaleY</span>"
                 ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>custom scrollerTween:</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>tween</span>: use external <span>scrollerTween</span> for complex animation"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/parallaxPropierties.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
             }
         },
         {
@@ -299,7 +329,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "range"
+            "content": "range ( built-in properties )"
         },
         {
             "component": "mob-paragraph",
@@ -314,6 +344,13 @@
                 "style": "medium"
             },
             "content": "Value indicating the <span>movement ratio</span>.<br/>The <span>closer the value is to 10 the faster the element will move</span>.<br/>To manage the opacity use the two specific properties <span>opacityStart</span> and <span>opacityEnd</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This property is valid <span>only for built-in properties</span>."
         },
         {
             "component": "mob-spacer",
@@ -441,11 +478,24 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "scrolllerTween range:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>scrollerTween if used inside a parallax</span> will use the <span>from</span> and <span>to</span> parameters in the following way:"
+            "content": "These values will be used <span>in place of the range property</span>"
         },
         {
             "component": "mob-title",
@@ -475,14 +525,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This value is to be <span>understood as a multiplier in addition to the range parameter</span>. using the different properties they will be able to have <span>different multipliers</span>."
+            "content": "This value is to be <span>understood as a multiplier</span>. using the different properties they will be able to have <span>different multipliers</span>."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The multiplier can go from <span>1 to X without limitations</span>."
+            "content": "The <span>'to'</span> properties can be <span>lower or higher</span> than the value defined in the <span>'from'</span> property.<br/> If the <span>'from' </span>and <span>'to' </span>values <span>'coincide' </span>there will be <span>no movement</span>.<br/>The <span>greater the difference</span> between the two values, the <span>greater the movement</span>."
         },
         {
             "component": "mob-spacer",

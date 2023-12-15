@@ -274,7 +274,22 @@
                     "<span>opacity</span>",
                     "<span>scale</span>",
                     "<span>scaleX</span>",
-                    "<span>scaleY</span>",
+                    "<span>scaleY</span>"
+                ]
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>custom scrollerTween/sequencer:</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
                     "<span>tween</span>: use external <span>scrollerTween/sequencer</span> for complex animation"
                 ]
             }

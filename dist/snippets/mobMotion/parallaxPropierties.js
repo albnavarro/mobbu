@@ -3,6 +3,17 @@ import { scroller, tween } from '../../../src/js/mobMotion';
 const myTarget = document.querySelector('myTarget');
 
 /**
+ * Use built-in
+ */
+const myParallaxBuiltin = scroller.createParallax({
+    item: myTarget,
+    propierties: 'x',
+    range: 6,
+});
+
+myParallaxBuiltin.init();
+
+/**
  * Use a scrollerTween ( sequencer is supported too )
  * Range parameters is unused.
  */
@@ -19,10 +30,10 @@ myTween.subscribe(({ x, y }) => {
     myTarget.style.translate = `${x}px ${y}px`;
 });
 
-const myParallax = scroller.createScrollTrigger({
+const myParallaxTween = scroller.createScrollTrigger({
     item: myTarget, // track position.
     propierties: 'tween', // set this propierties to 'tween'
     tween: myTween, // or a sequencer.
 });
 
-myParallax.init();
+myParallaxTween.init();

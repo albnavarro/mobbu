@@ -10,12 +10,12 @@ const myParallax = scroller.createParallax({
     propierties: 'x',
 
     /**
-     * False
+     * Fast.
      */
     range: 9,
 
     /**
-     * Slow:
+     * Slow.
      * range: 2,
      */
 });
