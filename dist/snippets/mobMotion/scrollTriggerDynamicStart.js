@@ -28,7 +28,7 @@ const myScrollTrigger = scroller.createScrollTrigger({
 });
 
 /**
- *In this case the animation starts when the element is
+ * In this case the animation starts when the element is
  * completely visible and ends 100px below the top edge of the screen.
  */
 const myScrollTrigger = scroller.createScrollTrigger({
