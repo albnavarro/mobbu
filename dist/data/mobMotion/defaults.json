@@ -319,6 +319,80 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "sequencer",
+                "label": "sequencer"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "sequencer"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Default sequencer params"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultSequencer.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "scrollTrigger",
+                "label": "scrollTrigger"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "scrollTrigger"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Default scrollTrigger params"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultScrollTrigger.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         }
     ]
 }
