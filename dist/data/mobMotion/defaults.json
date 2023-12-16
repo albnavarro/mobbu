@@ -34,7 +34,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/test.js",
+                "source": "/snippets/mobMotion/defaultType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

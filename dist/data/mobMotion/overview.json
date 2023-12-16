@@ -241,29 +241,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "plugin",
-                "label": "Plugin"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3",
-                "color": "green"
-            },
-            "content": "Plugin:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
-                "items": ["<a href='#mobMotion_plugin'>Plugin</a>"]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "defaults",
                 "label": "Defaults"
             }
@@ -281,6 +258,35 @@
             "props": {
                 "tag": "h3",
                 "items": ["<a href='#mobMotion_defaults'>Defaults</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "plugin",
+                "label": "Plugin"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Plugin:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": ["<a href='#mobMotion_plugin'>Plugin</a>"]
             }
         },
         {
