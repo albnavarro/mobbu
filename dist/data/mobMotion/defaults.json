@@ -275,6 +275,50 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "media",
+                "label": "media query"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "media query"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can <span>add or edit values</span> in the <span>breakpoint list</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to specify the <span>default values that the modules that require them will use</span>, it will always be possible to overwrite this value in the appropriate module.<br/><span>Modules that use these values are scrollTrigger and parallax</span>."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultMedia.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         }
     ]
 }
