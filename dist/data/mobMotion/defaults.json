@@ -99,6 +99,145 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "usePassive",
+                "label": "usePassive"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "usePassive"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Use passive event on wheel/etc.. event.<br/> Use by scrollTrigger/Parallax."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultPassive.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "scaleFps",
+                "label": "scaleFps"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "scaleFps ( exporimental )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Enable or disable <span>conditional module operation</span> on fps drop."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "When there is a drop in fps equal to <span>0%, 50%, 70%</span> the <span>rendering is carried out on x frames</span>, this is to lighten the temporary load that led to a problem."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>fpsScalePercent</span> allows you to <span>modify the number of activities in correspondence with a drop in fsp</span>, for example with a <span>30% drop in fps a rendering will be performed every 5 frames</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "We can <span>add or modify values</span> but not <span>delete existing values</span> (a deep merge of the object is done)."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultScale.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "deferredNextTick",
+                "label": "deferredNextTick"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "deferredNextTick"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If the property is true the callbacks relating to the nextTick event <span>will be executed after the request animation frame</span> as soon as possible, otherwise they <span>will be executed a moment before</span>.<br/>Inside nextTick, reading operations from the DOM are performed but never writing."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>The mechanism is enabled by default</span> to ensure that you have <span>performed all rendering operations before taking data from the DOM</span>.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultNext.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         }
     ]
 }
