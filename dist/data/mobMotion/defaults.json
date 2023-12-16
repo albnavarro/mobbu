@@ -123,6 +123,13 @@
             "content": "Use passive event on wheel/etc.. event.<br/> Use by scrollTrigger/Parallax."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Override mobCore value</span>"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/defaultPassive.js",
@@ -150,7 +157,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "scaleFps ( exporimental )"
+            "content": "scaleFps ( experimental )"
         },
         {
             "component": "mob-paragraph",
@@ -179,6 +186,13 @@
                 "style": "medium"
             },
             "content": "We can <span>add or modify values</span> but not <span>delete existing values</span> (a deep merge of the object is done)."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Override mobCore value</span>"
         },
         {
             "component": "mob-snippet",
@@ -225,6 +239,13 @@
             "content": "<span>The mechanism is enabled by default</span> to ensure that you have <span>performed all rendering operations before taking data from the DOM</span>.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Override mobCore value</span>"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/defaultNext.js",
@@ -260,6 +281,13 @@
                 "style": "medium"
             },
             "content": "Throttle value in <span>milliseconds</span>, throttle can be used by <span>scrollTrigger/parallax</span>.<br/>Default is <span>100</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Override moCore value</span>"
         },
         {
             "component": "mob-snippet",
