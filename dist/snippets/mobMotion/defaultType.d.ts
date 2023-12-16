@@ -1,5 +1,3 @@
-import { mqAction } from '../../../src/js/mobMotion/utils/type';
-
 interface deafults {
     usePassive?: boolean;
     fpsScalePercent?: { [key: string]: number };

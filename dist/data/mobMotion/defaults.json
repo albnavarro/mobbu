@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "bla bla bla"
+            "content": "All default parameters are grouped in an <span>editable object</span>.<br/> The object must be modified <span>before initializing the various modules</span>."
         },
         {
             "component": "mob-title",
@@ -35,6 +35,60 @@
             "component": "mob-snippet",
             "props": {
                 "source": "/snippets/mobMotion/defaultType.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "example",
+                "label": "Example"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Override example:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultExample.d.ts",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "get",
+                "label": "Debug"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Console log current value:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobMotion/defaultGet.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
