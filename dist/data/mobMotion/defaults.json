@@ -308,8 +308,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "media",
-                "label": "media query"
+                "id": "breakpoint",
+                "label": "breakpoint"
             }
         },
         {
@@ -317,7 +317,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "media query"
+            "content": "breakpoint"
         },
         {
             "component": "mob-paragraph",
