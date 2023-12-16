@@ -1,3 +1,5 @@
+import { mobCore } from '../mobCore';
+
 mobCore.useFrame(() => {
     mobCore.useNextTick(({ fps, shouldRender, time }) => {
         // code

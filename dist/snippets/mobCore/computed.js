@@ -1,3 +1,5 @@
+import { mobCore } from '../mobCore';
+
 const myStore = mobCore.createStore({
     prop: 0,
     dependency1: 1,

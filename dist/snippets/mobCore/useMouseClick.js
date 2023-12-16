@@ -1,3 +1,5 @@
+import { mobCore } from '../mobCore';
+
 const unsubscribe = mobCore.useMouseClick(
     ({ client, page, preventDefault, target, type }) => {
         // code

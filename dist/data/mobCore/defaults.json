@@ -1,0 +1,121 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Overview"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "Default value"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to <span>modify some default values</span>.<br/><span>Some of the values are for internal use</span>, others may be useful for <span>customizing window events</span>.<br/>The values are stored in a store."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "/snippets/mobCore/coreDefault.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "usePassive",
+                "label": "usePassive"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "usePassive"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Use passive event on wheel/etc.. event."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "deferredNextTick",
+                "label": "deferredNextTick"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "deferredNextTick"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If the property is true the callbacks relating to the nextTick event ( <span>useNextTick</span> ) <span>will be executed after the request animation frame</span> as soon as possible, otherwise they <span>will be executed a moment before</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>The mechanism is enabled by default</span> to ensure that you have <span>performed all rendering operations before taking data from the DOM</span>.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "throttle",
+                "label": "throttle"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "throttle"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Throttle value in <span>milliseconds</span>, used by <span>useScrollThrottle</span>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        }
+    ]
+}

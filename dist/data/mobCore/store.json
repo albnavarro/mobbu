@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Classic store based on the pub/sub pattern. This module will then be the basis of the reactivity of the javascript components."
+            "content": "<span>Classic store based on the pub/sub pattern</span>.<br/> This module will then be the basis of the reactivity of the javascript components."
         },
         {
             "component": "mob-spacer",

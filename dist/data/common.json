@@ -134,6 +134,10 @@
             "url": "mobCore_events"
         },
         {
+            "label": "Event",
+            "url": "mobCore_defaults"
+        },
+        {
             "label": "mobJs",
             "section": true
         },

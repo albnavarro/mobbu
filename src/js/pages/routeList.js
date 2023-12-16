@@ -58,6 +58,7 @@ export * from './mobJs/instanceName';
 export * from './mobCore/overview';
 export * from './mobCore/events';
 export * from './mobCore/store';
+export * from './mobCore/defaults';
 export * from './mobMotion/asyncTimeline';
 export * from './mobMotion/createStagger';
 export * from './mobMotion/overview';
