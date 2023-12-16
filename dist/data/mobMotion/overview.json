@@ -63,8 +63,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Async vs Sync"
         },
@@ -86,7 +85,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h2",
                 "color": "green"
             },
             "content": "Async:"
@@ -151,7 +150,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h2",
                 "color": "green"
             },
             "content": "Sync:"
@@ -219,7 +218,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h2",
                 "color": "green"
             },
             "content": "Stagger:"
@@ -248,7 +247,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h2",
                 "color": "green"
             },
             "content": "Defaults:"
