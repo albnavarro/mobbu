@@ -204,14 +204,14 @@ export interface setUpType {
         /**
          * @description
          * Default value of precision properties.
-         * Default: `{ precision:  'false' }`.
+         * Default: `{ precision:  0.01 }`.
          */
         precision?: number;
 
         /**
          * @description
          * Default value of velocity properties.
-         * Default: `{ velocity: 'false' }`.
+         * Default: `{ velocity: 0.06 }`.
          */
         velocity?: number;
     };
