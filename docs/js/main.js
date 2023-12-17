@@ -1205,7 +1205,7 @@ Loading snippet ...
     </div>`;var ay=()=>b`<div class="l-index">
         <home-component></home-component>
     </div>`;var ly=()=>b`<html-content
-        ${T({source:"/data/about.json"})}
+        ${T({source:"./data/about.json"})}
     ></html-content>`;var cy=()=>b`<div>
         <horizontal-scroller></horizontal-scroller>
     </div>`;var uy=()=>b`<div>
