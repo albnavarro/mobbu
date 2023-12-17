@@ -159,7 +159,7 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<a href='./#mobMotion_sequencer'>Sequencer</a>",
+                    "<a href='./#mobMotion_sequencer'>Sequencer ( sync tween )</a>",
                     "<a href='./#mobMotion_create_stagger'>Create Stagger</a>",
                     "<a href='./#mobMotion_sync_timeline'>Sync timeline</a>",
                     "<a href='./#mobMotion_scrolltrigger'>ScrollTrigger</a>",
