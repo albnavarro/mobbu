@@ -88,7 +88,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
         >
         </code-button>
         <div class="l-index__content">
-            <a class="l-index__item" href="/#mobCore_overview">
+            <a class="l-index__item" href="./#mobCore_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Core
