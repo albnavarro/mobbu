@@ -6,7 +6,8 @@
         "development": "node development.config.js",
         "developmentExperimental": "node devExperiemental.config.js",
         "serve": "npm run developmentExperimental",
-        "dev": "npm run development"
+        "dev": "npm run development",
+        "build": "node build.config.js"
     },
     "devDependencies": {
         "eslint": "^8.56.0",

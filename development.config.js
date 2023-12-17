@@ -4,20 +4,6 @@ import browserSync from 'browser-sync';
 
 const bs = browserSync.create();
 
-// esbuild.build({
-//     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
-//     bundle: true,
-//     sourcemap: true,
-//     outdir: 'dist',
-//     loader: { '.svg': 'text' },
-//     plugins: [
-//         sassPlugin(),
-//         // sassPlugin({
-//         //     type: 'css-text',
-//         // }),
-//     ],
-// });
-
 const ctx = await esbuild.context({
     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
     bundle: true,
