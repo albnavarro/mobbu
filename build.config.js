@@ -6,7 +6,7 @@ esbuild.build({
     bundle: true,
     minify: true,
     sourcemap: true,
-    outdir: 'dist',
+    outdir: 'docs',
     loader: { '.svg': 'text' },
     plugins: [sassPlugin()],
 });

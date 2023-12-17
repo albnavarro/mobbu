@@ -11,7 +11,7 @@ const ctx = await esbuild.context({
     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
     bundle: true,
     sourcemap: true,
-    outdir: 'dist',
+    outdir: 'docs',
     banner: {
         js: reload,
     },
@@ -28,7 +28,7 @@ const ctx = await esbuild.context({
 await ctx.watch();
 
 const { host, port } = await ctx.serve({
-    servedir: 'dist',
+    servedir: 'docs',
 });
 
 // Then start a proxy server on port 3000
@@ -55,7 +55,7 @@ http.createServer((request, response) => {
 }).listen(proxiPort);
 
 chokidar
-    .watch(['./dist/**/*.html', './dist/**/*.json'])
+    .watch(['./docs/**/*.html', './docs/**/*.json'])
     .on('change', (page) => {
         console.log(`[update] ${page}`);
 

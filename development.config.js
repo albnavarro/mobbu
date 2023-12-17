@@ -8,7 +8,7 @@ const ctx = await esbuild.context({
     entryPoints: ['src/scss/style.scss', 'src/js/main.js'],
     bundle: true,
     sourcemap: true,
-    outdir: 'dist',
+    outdir: 'docs',
     loader: { '.svg': 'text' },
     plugins: [
         sassPlugin(),
@@ -21,7 +21,7 @@ const ctx = await esbuild.context({
 const initAll = async () => {
     await ctx.rebuild();
 
-    bs.watch(['./dist/**/*.html', './dist/**/*.json']).on('change', bs.reload);
+    bs.watch(['./docs/**/*.html', './docs/**/*.json']).on('change', bs.reload);
 
     bs.watch(['./src/js/**/*.js']).on('change', () => {
         ctx.rebuild()
@@ -32,13 +32,13 @@ const initAll = async () => {
     bs.watch(['./src/scss/**/*.scss']).on('change', () => {
         ctx.rebuild()
             .then(() => {
-                bs.reload(['./dist/scss/style.css']);
+                bs.reload(['./docs/scss/style.css']);
             })
             .catch((error) => console.log(error));
     });
 
     bs.init({
-        server: './dist',
+        server: './docs',
         notify: false,
     });
 };
