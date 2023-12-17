@@ -5,7 +5,14 @@
             "props": {
                 "tag": "h1"
             },
-            "content": "about"
+            "content": "About the project"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Coming soon."
         }
     ]
 }

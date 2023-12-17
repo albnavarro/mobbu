@@ -1,3 +1,8 @@
+### website url
+https://albnavarro.github.io/mobbu/
+
+TODO: missing some copy.
+
 ### Development environment for:
 - mobJs: js component library.
 - mobCore: store & window event utils.
