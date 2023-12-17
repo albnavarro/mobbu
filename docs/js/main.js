@@ -1235,7 +1235,7 @@ Loading snippet ...
     </div>`;var by=()=>b` <dynamic-list> </dynamic-list> `;var yy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/overview.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/overview.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobjs 
@@ -1680,7 +1680,7 @@ Loading snippet ...
     </doc-container>`;var Zy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobCore/overview.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobCore/overview.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobCore 
@@ -1689,28 +1689,28 @@ Loading snippet ...
     </doc-container>`;var Qy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobCore/events.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobCore/events.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobCore_overview">mobCore</a> / <span>Events</span>
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Events</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Events</doc-title>
     </doc-container>`;var e0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobCore/store.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobCore/store.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobCore_overview">mobCore</a> / <span>Store</span>
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Store</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Store</doc-title>
     </doc-container>`;var t0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobCore/defaults.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobCore/defaults.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobCore_overview">mobCore</a> / <span>Defaults</span>
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Defaults</doc-title>
     </doc-container>`;var r0=()=>b` <doc-container>

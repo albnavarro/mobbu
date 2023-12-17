@@ -5,7 +5,7 @@ export const mobCore_overview = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobCore/overview.json',
+                source: './data/mobCore/overview.json',
                 useMaxWidth: true,
             })}
         ></html-content>
