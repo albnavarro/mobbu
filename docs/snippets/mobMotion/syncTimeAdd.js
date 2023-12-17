@@ -10,4 +10,4 @@ const mytimeline = timeline
     .add(mySequencer)
     .add(mySequencer2)
     .add(mySequencer3)
-    .add(myMasterTimeline);
+    .add(myMasterSequencer);
