@@ -156,7 +156,7 @@ Loading snippet ...
         <ul>
             ${Vg({staticProps:t,data:Lg?.[o]??[]})}
         </ul>
-    </div>`};var Ih=({html:e,getState:t})=>{let{label:r,url:o}=t(),{activeRoute:s}=V.get();return e`<a href="/#${o}" class="${s===o?"current":""}">${r}</a>`};var Fg=k({name:"links-mobjs",component:Ch,exportState:["section"],state:{section:()=>({value:"",type:String})}}),Dg=k({name:"links-mobjs-button",component:Ih,exportState:["label","url"],state:{label:()=>({value:"",type:String}),url:()=>({value:"",type:String})}});var Eh=({html:e})=>e`
+    </div>`};var Ih=({html:e,getState:t})=>{let{label:r,url:o}=t(),{activeRoute:s}=V.get();return e`<a href="./#${o}" class="${s===o?"current":""}">${r}</a>`};var Fg=k({name:"links-mobjs",component:Ch,exportState:["section"],state:{section:()=>({value:"",type:String})}}),Dg=k({name:"links-mobjs-button",component:Ih,exportState:["label","url"],state:{label:()=>({value:"",type:String}),url:()=>({value:"",type:String})}});var Eh=({html:e})=>e`
         <footer class="l-footer">
             <div class="l-footer__container">
                 <mobjs-slot name="debug"></mobjs-slot>
@@ -1244,39 +1244,39 @@ Loading snippet ...
     </doc-container>`;var vy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/initialization.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/initialization.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>initialization</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>initialization</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Initialization</doc-title>
     </doc-container>`;var Sy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/routing.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/routing.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>routing</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>routing</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">routing</doc-title>
     </doc-container>`;var Ty=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/component.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/component.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>component</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>component</span>
         </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Component</doc-title>
     </doc-container>`;var xy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/html.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/html.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>html</span></doc-title-small
         >
         <links-mobjs
@@ -1287,11 +1287,11 @@ Loading snippet ...
     </doc-container>`;var wy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/onMount.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/onMount.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>onMount</span></doc-title-small
         >
         <links-mobjs
@@ -1302,11 +1302,11 @@ Loading snippet ...
     </doc-container>`;var Cy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/getState.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/getState.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>getState</span></doc-title-small
         >
         <links-mobjs
@@ -1317,11 +1317,11 @@ Loading snippet ...
     </doc-container>`;var Iy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/setState.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/setState.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>setState</span></doc-title-small
         >
         <links-mobjs
@@ -1332,11 +1332,11 @@ Loading snippet ...
     </doc-container>`;var Ey=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/emit.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/emit.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>emit</span></doc-title-small
         >
         <links-mobjs
@@ -1347,11 +1347,11 @@ Loading snippet ...
     </doc-container>`;var ky=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/emitAsync.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/emitAsync.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>emitAsync</span></doc-title-small
         >
         <links-mobjs
@@ -1365,8 +1365,8 @@ Loading snippet ...
             ${T({source:"/data/mobJs/computed.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>computed</span></doc-title-small
         >
         <links-mobjs
@@ -1377,11 +1377,11 @@ Loading snippet ...
     </doc-container>`;var Py=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/watch.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/watch.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>watch</span></doc-title-small
         >
         <links-mobjs
@@ -1392,11 +1392,11 @@ Loading snippet ...
     </doc-container>`;var Ay=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/watchSync.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/watchSync.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>watchSync</span></doc-title-small
         >
         <links-mobjs
@@ -1407,11 +1407,11 @@ Loading snippet ...
     </doc-container>`;var _y=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/remove.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/remove.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>remove</span></doc-title-small
         >
         <links-mobjs
@@ -1422,11 +1422,11 @@ Loading snippet ...
     </doc-container>`;var Oy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/removeDom.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/removeDom.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>removeDom</span></doc-title-small
         >
         <links-mobjs
@@ -1437,11 +1437,11 @@ Loading snippet ...
     </doc-container>`;var Ny=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/getChildren.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/getChildren.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>getChildren</span></doc-title-small
         >
         <links-mobjs
@@ -1452,11 +1452,11 @@ Loading snippet ...
     </doc-container>`;var My=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/freezeProp.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/freezeProp.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>freezeProp</span></doc-title-small
         >
         <links-mobjs
@@ -1467,11 +1467,11 @@ Loading snippet ...
     </doc-container>`;var Ly=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/unFreezeProp.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/unFreezeProp.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>unFreezeProp</span></doc-title-small
         >
         <links-mobjs
@@ -1482,11 +1482,11 @@ Loading snippet ...
     </doc-container>`;var Vy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/getParentId.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/getParentId.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>getParentId</span></doc-title-small
         >
         <links-mobjs
@@ -1497,11 +1497,11 @@ Loading snippet ...
     </doc-container>`;var Fy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/watchParent.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/watchParent.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>watchParent</span></doc-title-small
         >
         <links-mobjs
@@ -1512,11 +1512,11 @@ Loading snippet ...
     </doc-container>`;var Dy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/staticProps.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/staticProps.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>staticProps</span></doc-title-small
         >
         <links-mobjs
@@ -1527,11 +1527,11 @@ Loading snippet ...
     </doc-container>`;var $y=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/bindProps.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/bindProps.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>bindProps</span></doc-title-small
         >
         <links-mobjs
@@ -1542,11 +1542,11 @@ Loading snippet ...
     </doc-container>`;var Wy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/unBind.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/unBind.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>unBind</span></doc-title-small
         >
         <links-mobjs
@@ -1557,11 +1557,11 @@ Loading snippet ...
     </doc-container>`;var jy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/syncParent.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/syncParent.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>syncParent</span></doc-title-small
         >
         <links-mobjs
@@ -1572,11 +1572,11 @@ Loading snippet ...
     </doc-container>`;var By=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/bindEvents.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/bindEvents.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>bindEvents</span></doc-title-small
         >
         <links-mobjs
@@ -1587,11 +1587,11 @@ Loading snippet ...
     </doc-container>`;var zy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/delegateEvents.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/delegateEvents.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>delegateEvents</span></doc-title-small
         >
         <links-mobjs
@@ -1602,11 +1602,11 @@ Loading snippet ...
     </doc-container>`;var Hy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/repeat.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/repeat.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>repeat</span></doc-title-small
         >
         <links-mobjs
@@ -1617,64 +1617,64 @@ Loading snippet ...
     </doc-container>`;var Uy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/refs.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/refs.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>refs</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>refs</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">refs</doc-title>
     </doc-container>`;var qy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/slot.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/slot.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>slot</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>slot</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">slot</doc-title>
     </doc-container>`;var Gy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/utils.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/utils.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>utils</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>utils</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Utils</doc-title>
     </doc-container>`;var Jy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/webComponent.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/webComponent.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>webComponent</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>webComponent</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">WebComponent</doc-title>
     </doc-container>`;var Yy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/debug.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/debug.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>debug</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>debug</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Debug</doc-title>
     </doc-container>`;var Xy=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/runtime.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/runtime.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>runtime</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>runtime</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Runtime</doc-title>
     </doc-container>`;var Ky=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/instanceName.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/instanceName.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>instanceName</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>instanceName</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">InstanceName</doc-title>
     </doc-container>`;var Zy=()=>b` <doc-container>
@@ -1716,10 +1716,10 @@ Loading snippet ...
     </doc-container>`;var r0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/asyncTimeline.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/asyncTimeline.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Async timeline</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1727,10 +1727,10 @@ Loading snippet ...
     </doc-container>`;var o0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/createStagger.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/createStagger.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>CreateStagger</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1747,10 +1747,10 @@ Loading snippet ...
     </doc-container>`;var n0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/parallax.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/parallax.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Parallax</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1758,10 +1758,10 @@ Loading snippet ...
     </doc-container>`;var i0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/scrollTrigger.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/scrollTrigger.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>ScrollTrigger</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1769,10 +1769,10 @@ Loading snippet ...
     </doc-container>`;var a0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/sequencer.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/sequencer.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Sequencer</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1780,10 +1780,10 @@ Loading snippet ...
     </doc-container>`;var l0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/stagger.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/stagger.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Stagger</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1791,10 +1791,10 @@ Loading snippet ...
     </doc-container>`;var c0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/syncTimeline.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/syncTimeline.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Sync timeline</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1802,10 +1802,10 @@ Loading snippet ...
     </doc-container>`;var u0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/tweenSpringLerp.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/tweenSpringLerp.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Tween Spring Lerp</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1813,10 +1813,10 @@ Loading snippet ...
     </doc-container>`;var p0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/plugin.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/plugin.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Plugin</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>
@@ -1824,10 +1824,10 @@ Loading snippet ...
     </doc-container>`;var h0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/defaults.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/defaults.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Defaults</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

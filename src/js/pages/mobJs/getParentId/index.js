@@ -5,13 +5,13 @@ export const mobJs_getParentId = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/getParentId.json',
+                source: './data/mobJs/getParentId.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>getParentId</span></doc-title-small
         >
         <links-mobjs

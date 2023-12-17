@@ -25,12 +25,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to <span>add and remove</span> components even after the 'component function' has been executed by using the 'global' <span>parseDom</span> function to render the new component and the parameter <a href='/#mobJs_removeDom'> removeDOM</a> to remove it."
+            "content": "It is possible to <span>add and remove</span> components even after the 'component function' has been executed by using the 'global' <span>parseDom</span> function to render the new component and the parameter <a href='./#mobJs_removeDom'> removeDOM</a> to remove it."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/runtime.js",
+                "source": "./snippets/mobJs/runtime.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

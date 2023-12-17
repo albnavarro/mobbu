@@ -5,12 +5,12 @@ export const mobMotion_parallax = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/parallax.json',
+                source: './data/mobMotion/parallax.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Parallax</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

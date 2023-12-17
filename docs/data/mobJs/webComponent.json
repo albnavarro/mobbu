@@ -32,12 +32,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <a href='/#mobJs_component'>definition</a> of the component and used to recall it:"
+            "content": "To use web components it is necessary that in the html function in which the dom is defined, the first node has the same tag used in the <a href='./#mobJs_component'>definition</a> of the component and used to recall it:"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/webComponentFunction.js",
+                "source": "./snippets/mobJs/webComponentFunction.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -61,7 +61,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <a href='/#mobJs_component'>definition</a> of the component it will be possible to define the functions that interact with the life cycle of the component:"
+            "content": "In the <a href='./#mobJs_component'>definition</a> of the component it will be possible to define the functions that interact with the life cycle of the component:"
         },
         {
             "component": "mob-list",
@@ -149,7 +149,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/webComponentDefinition.js",
+                "source": "./snippets/mobJs/webComponentDefinition.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

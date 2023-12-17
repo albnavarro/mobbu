@@ -32,12 +32,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <a href='/#mobJs_utils'>utils</a> sections it is possible to consult the utilities to manage the components starting from their id and more."
+            "content": "In the <a href='./#mobJs_utils'>utils</a> sections it is possible to consult the utilities to manage the components starting from their id and more."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/getChildren.js",
+                "source": "./snippets/mobJs/getChildren.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

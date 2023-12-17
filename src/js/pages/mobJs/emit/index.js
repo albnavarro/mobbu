@@ -5,13 +5,13 @@ export const mobJs_emit = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/emit.json',
+                source: './data/mobJs/emit.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>emit</span></doc-title-small
         >
         <links-mobjs

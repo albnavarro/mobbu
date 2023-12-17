@@ -132,7 +132,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To manage staggers refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
+            "content": "To manage staggers refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
@@ -202,7 +202,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/tweenType.d.ts",
+                "source": "./snippets/mobMotion/tweenType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -217,7 +217,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/tween.js",
+                "source": "./snippets/mobMotion/tween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -310,7 +310,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/springType.d.ts",
+                "source": "./snippets/mobMotion/springType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -325,7 +325,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/spring.js",
+                "source": "./snippets/mobMotion/spring.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -411,7 +411,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/lerpType.d.ts",
+                "source": "./snippets/mobMotion/lerpType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -426,7 +426,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/lerp.js",
+                "source": "./snippets/mobMotion/lerp.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -470,7 +470,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/set.js",
+                "source": "./snippets/mobMotion/set.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -515,7 +515,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/goTo.js",
+                "source": "./snippets/mobMotion/goTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -560,7 +560,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/goFrom.js",
+                "source": "./snippets/mobMotion/goFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -605,7 +605,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/goFromTo.js",
+                "source": "./snippets/mobMotion/goFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -636,7 +636,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/stop.js",
+                "source": "./snippets/mobMotion/stop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -667,7 +667,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/pause.js",
+                "source": "./snippets/mobMotion/pause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -705,7 +705,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/subscribe.js",
+                "source": "./snippets/mobMotion/subscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -731,7 +731,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='/#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='./#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
         },
         {
             "component": "mob-paragraph",
@@ -743,7 +743,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/subscribeCache.js",
+                "source": "./snippets/mobMotion/subscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -774,7 +774,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/onComplete.js",
+                "source": "./snippets/mobMotion/onComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

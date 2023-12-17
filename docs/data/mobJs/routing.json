@@ -54,7 +54,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/routingFunction.js",
+                "source": "./snippets/mobJs/routingFunction.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -85,7 +85,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/routeInizialization.js",
+                "source": "./snippets/mobJs/routeInizialization.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -109,7 +109,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/routingLink.js",
+                "source": "./snippets/mobJs/routingLink.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -133,7 +133,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/routeLinkJs.js",
+                "source": "./snippets/mobJs/routeLinkJs.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -159,7 +159,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A series of events are available to intercept and react to the change of course, to do this a special store called mainStore is available. Being a store, all the methods listed in the <a href='/#mobCore_store'>store</a> apply"
+            "content": "A series of events are available to intercept and react to the change of course, to do this a special store called mainStore is available. Being a store, all the methods listed in the <a href='./#mobCore_store'>store</a> apply"
         },
         {
             "component": "mob-spacer",
@@ -186,7 +186,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/beforeRouteChange.js",
+                "source": "./snippets/mobJs/beforeRouteChange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -217,7 +217,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/beforeRouteLeave.js",
+                "source": "./snippets/mobJs/beforeRouteLeave.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -248,7 +248,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/afterRouteChange.js",
+                "source": "./snippets/mobJs/afterRouteChange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -279,7 +279,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/activeRoute.js",
+                "source": "./snippets/mobJs/activeRoute.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

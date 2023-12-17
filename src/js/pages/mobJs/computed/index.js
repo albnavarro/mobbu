@@ -10,8 +10,8 @@ export const mobJs_computed = () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>computed</span></doc-title-small
         >
         <links-mobjs

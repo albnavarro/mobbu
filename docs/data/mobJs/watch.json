@@ -25,19 +25,19 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Using the watch function you can react to the change of state whether it occurs from outside the component (for example from a parent through <a href='/#mobJs_bindProps'>bindProps</a>) or from the component itself."
+            "content": "Using the watch function you can react to the change of state whether it occurs from outside the component (for example from a parent through <a href='./#mobJs_bindProps'>bindProps</a>) or from the component itself."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The default value will not be detected, the reactivity will start from the first mutation. To execute the callback as soon as the <span>onMount</span> function is launched before any mutation use the <a href='/#mobJs_watchSync'>watchSync</a> function"
+            "content": "The default value will not be detected, the reactivity will start from the first mutation. To execute the callback as soon as the <span>onMount</span> function is launched before any mutation use the <a href='./#mobJs_watchSync'>watchSync</a> function"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/watch.js",
+                "source": "./snippets/mobJs/watch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

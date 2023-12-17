@@ -19,7 +19,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible for a component to remain synchronized to a parent component state by using the <span>watchParent()</span> function. It is recommended to always use <a href='/#mobJs_bindProps'>bindProps()</a> to keep the component as abstract as possible."
+            "content": "It is possible for a component to remain synchronized to a parent component state by using the <span>watchParent()</span> function. It is recommended to always use <a href='./#mobJs_bindProps'>bindProps()</a> to keep the component as abstract as possible."
         },
         {
             "component": "mob-spacer",
@@ -30,7 +30,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/watchParent.js",
+                "source": "./snippets/mobJs/watchParent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

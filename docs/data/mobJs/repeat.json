@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='/#dynamic_list'>example</a>"
+            "content": "<a href='./#dynamic_list'>example</a>"
         },
         {
             "component": "mob-spacer",
@@ -199,7 +199,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/repeat.js",
+                "source": "./snippets/mobJs/repeat.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

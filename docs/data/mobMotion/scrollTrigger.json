@@ -33,7 +33,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerInit.js",
+                "source": "./snippets/mobMotion/scrollTriggerInit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -56,7 +56,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerType.d.ts",
+                "source": "./snippets/mobMotion/scrollTriggerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -210,7 +210,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='/#mobMotion_defaults'>Default utils</a>"
+            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",
@@ -420,7 +420,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerRange.js",
+                "source": "./snippets/mobMotion/scrollTriggerRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -470,7 +470,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerDynamicRange.js",
+                "source": "./snippets/mobMotion/scrollTriggerDynamicRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -496,7 +496,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more <span>complex animations</span> propierties use a <span>custom tween</span>. It is possible to use a <a href='/#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
+            "content": "For more <span>complex animations</span> propierties use a <span>custom tween</span>. It is possible to use a <a href='./#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
         },
         {
             "component": "mob-list",
@@ -521,7 +521,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerTween.js",
+                "source": "./snippets/mobMotion/scrollTriggerTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -631,7 +631,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerStart.js",
+                "source": "./snippets/mobMotion/scrollTriggerStart.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -705,7 +705,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerDynamicStart.js",
+                "source": "./snippets/mobMotion/scrollTriggerDynamicStart.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -758,7 +758,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerMarker.js",
+                "source": "./snippets/mobMotion/scrollTriggerMarker.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -806,7 +806,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='/#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
+            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
         },
         {
             "component": "mob-spacer",
@@ -890,7 +890,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerEasing.js",
+                "source": "./snippets/mobMotion/scrollTriggerEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -946,7 +946,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='/#horizontalScrollerV2'>example</a>"
+            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='./#horizontalScrollerV2'>example</a>"
         },
         {
             "component": "mob-title",
@@ -987,7 +987,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerPin.js",
+                "source": "./snippets/mobMotion/scrollTriggerPin.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1096,7 +1096,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerEvent.js",
+                "source": "./snippets/mobMotion/scrollTriggerEvent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1150,7 +1150,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerMove.js",
+                "source": "./snippets/mobMotion/scrollTriggerMove.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1205,7 +1205,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='/#mobMotion_defaults'>Default utils</a>."
+            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",
@@ -1240,7 +1240,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerUtils.js",
+                "source": "./snippets/mobMotion/scrollTriggerUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1277,7 +1277,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerRefresh.js",
+                "source": "./snippets/mobMotion/scrollTriggerRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1308,7 +1308,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/scrollTriggerDestroy.js",
+                "source": "./snippets/mobMotion/scrollTriggerDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

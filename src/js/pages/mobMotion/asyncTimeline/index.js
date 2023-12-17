@@ -5,12 +5,12 @@ export const mobMotion_async_timeline = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/asyncTimeline.json',
+                source: './data/mobMotion/asyncTimeline.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Async timeline</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

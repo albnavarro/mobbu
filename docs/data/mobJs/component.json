@@ -43,7 +43,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The main properties necessary for the definition of a component.<br/> It is possible to use other specific properties if you decide to use the component as a webComponent, consult the <a href='/#mobJs_web_component'>specific section</a>"
+            "content": "The main properties necessary for the definition of a component.<br/> It is possible to use other specific properties if you decide to use the component as a webComponent, consult the <a href='./#mobJs_web_component'>specific section</a>"
         },
         {
             "component": "mob-spacer",
@@ -137,7 +137,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The states of the component. The state is an instance of <a href='/#mobCore_store'>store</a>"
+            "content": "The states of the component. The state is an instance of <a href='./#mobCore_store'>store</a>"
         },
         {
             "component": "mob-spacer",
@@ -148,7 +148,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/definition.js",
+                "source": "./snippets/mobJs/definition.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -191,7 +191,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/componentBase.js",
+                "source": "./snippets/mobJs/componentBase.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -227,7 +227,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/component.js",
+                "source": "./snippets/mobJs/component.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -257,7 +257,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/componentAsync.js",
+                "source": "./snippets/mobJs/componentAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -303,17 +303,17 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='/#mobJs_html'>html</a>: Function",
-                    "<a href='/#mobJs_onMount'>onMount/Destroy</a>: Function",
-                    "<a href='/#mobJs_getState'>getState</a>: Function",
-                    "<a href='/#mobJs_setState'>setState</a>: Functions",
-                    "<a href='/#mobJs_watch'>watch</a>: Function",
-                    "<a href='/#mobJs_watchSync'>watchSync</a>: Function",
-                    "<a href='/#mobJs_staticProps'>staticProps</a>: Function",
-                    "<a href='/#mobJs_bindProps'>bindProps</a>: Function",
-                    "<a href='/#mobJs_bindEvents'>bindEvents</a>: Function",
-                    "<a href='/#mobJs_delegateEvents'>delegateEvents</a>: Function",
-                    "<a href='/#mobJs_repeat'>reactive list (repeat)</a>: Function"
+                    "<a href='./#mobJs_html'>html</a>: Function",
+                    "<a href='./#mobJs_onMount'>onMount/Destroy</a>: Function",
+                    "<a href='./#mobJs_getState'>getState</a>: Function",
+                    "<a href='./#mobJs_setState'>setState</a>: Functions",
+                    "<a href='./#mobJs_watch'>watch</a>: Function",
+                    "<a href='./#mobJs_watchSync'>watchSync</a>: Function",
+                    "<a href='./#mobJs_staticProps'>staticProps</a>: Function",
+                    "<a href='./#mobJs_bindProps'>bindProps</a>: Function",
+                    "<a href='./#mobJs_bindEvents'>bindEvents</a>: Function",
+                    "<a href='./#mobJs_delegateEvents'>delegateEvents</a>: Function",
+                    "<a href='./#mobJs_repeat'>reactive list (repeat)</a>: Function"
                 ]
             }
         },
@@ -329,18 +329,18 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='/#mobJs_unBind'>unBind</a>: Function",
-                    "<a href='/#mobJs_emit'>emit</a>: Function",
-                    "<a href='/#mobJs_emitAsync'>emitAsync</a>: Function",
-                    "<a href='/#mobJs_computed'>computed</a>: Function",
-                    "<a href='/#mobJs_remove'>remove</a>: Function",
-                    "<a href='/#mobJs_removeDom'>removeDOM</a>: Function",
-                    "<a href='/#mobJs_getChildren'>getChildren</a>: Function",
-                    "<a href='/#mobJs_freezeProp'>freezeProp</a>: Function",
-                    "<a href='/#mobJs_unFreezeProp'>unFreezeProp</a>: Function",
-                    "<a href='/#mobJs_getParentId'>getParentId</a>: Function",
-                    "<a href='/#mobJs_watchParent'>watchParent</a>: Function",
-                    "<a href='/#mobJs_syncParent'>syncParent</a>: Function"
+                    "<a href='./#mobJs_unBind'>unBind</a>: Function",
+                    "<a href='./#mobJs_emit'>emit</a>: Function",
+                    "<a href='./#mobJs_emitAsync'>emitAsync</a>: Function",
+                    "<a href='./#mobJs_computed'>computed</a>: Function",
+                    "<a href='./#mobJs_remove'>remove</a>: Function",
+                    "<a href='./#mobJs_removeDom'>removeDOM</a>: Function",
+                    "<a href='./#mobJs_getChildren'>getChildren</a>: Function",
+                    "<a href='./#mobJs_freezeProp'>freezeProp</a>: Function",
+                    "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>: Function",
+                    "<a href='./#mobJs_getParentId'>getParentId</a>: Function",
+                    "<a href='./#mobJs_watchParent'>watchParent</a>: Function",
+                    "<a href='./#mobJs_syncParent'>syncParent</a>: Function"
                 ]
             }
         },

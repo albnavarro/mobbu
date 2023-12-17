@@ -25,19 +25,19 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The <span>getState()</span> function is equivalent to <span>myStore.get()</span>. By destructuring the object it is possible to access a particular state."
+            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore_store'>store class</a>. The <span>getState()</span> function is equivalent to <span>myStore.get()</span>. By destructuring the object it is possible to access a particular state."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Component states are declared in the component's <a href='#mobJs_component'>definition</a>"
+            "content": "Component states are declared in the component's <a href='./#mobJs_component'>definition</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/getState.js",
+                "source": "./snippets/mobJs/getState.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

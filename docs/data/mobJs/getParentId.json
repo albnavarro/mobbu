@@ -30,7 +30,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/getParentId.js",
+                "source": "./snippets/mobJs/getParentId.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

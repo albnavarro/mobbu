@@ -30,7 +30,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/remove.js",
+                "source": "./snippets/mobJs/remove.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

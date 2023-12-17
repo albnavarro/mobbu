@@ -5,12 +5,12 @@ export const mobMotion_defaults = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/defaults.json',
+                source: './data/mobMotion/defaults.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Defaults</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

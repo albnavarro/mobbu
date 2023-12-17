@@ -39,12 +39,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "List of <a href='/#mobJs_utils'>utilities</a> to manage a component starting from the name/id"
+            "content": "List of <a href='./#mobJs_utils'>utilities</a> to manage a component starting from the name/id"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/instanceName.js",
+                "source": "./snippets/mobJs/instanceName.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

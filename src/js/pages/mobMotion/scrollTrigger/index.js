@@ -5,12 +5,12 @@ export const mobMotion_scrolltrigger = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/scrollTrigger.json',
+                source: './data/mobMotion/scrollTrigger.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>ScrollTrigger</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

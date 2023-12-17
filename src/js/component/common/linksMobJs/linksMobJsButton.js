@@ -8,5 +8,5 @@ export const linksMobJsButton = ({ html, getState }) => {
     const { activeRoute } = mainStore.get();
     const currentClass = activeRoute === url ? 'current' : '';
 
-    return html`<a href="/#${url}" class="${currentClass}">${label}</a>`;
+    return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
 };

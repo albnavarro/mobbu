@@ -5,12 +5,12 @@ export const mobJs_component = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/component.json',
+                source: './data/mobJs/component.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> / <span>component</span>
+            ><a href="./#mobJs_overview">mobjs</a> / <span>component</span>
         </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Component</doc-title>

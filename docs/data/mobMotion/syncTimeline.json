@@ -21,14 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more <a href='/#mobMotion_sequencer'>sequencer</a></span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
+            "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more <a href='./#mobMotion_sequencer'>sequencer</a></span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='/#caterpillarN2'>example</a>"
+            "content": "<a href='./#caterpillarN2'>example</a>"
         },
         {
             "component": "mob-spacer",
@@ -47,7 +47,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineSchema.d.ts",
+                "source": "./snippets/mobMotion/syncTimelineSchema.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -62,7 +62,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimeline.js",
+                "source": "./snippets/mobMotion/syncTimeline.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>.<br/>During the loop <span>a time equal to 1/2 of the current fps will be subtracted from the last frame</span>. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='/#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
+            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>.<br/>During the loop <span>a time equal to 1/2 of the current fps will be subtracted from the last frame</span>. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
         },
         {
             "component": "mob-spacer",
@@ -153,7 +153,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineExample.js",
+                "source": "./snippets/mobMotion/syncTimelineExample.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -185,7 +185,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimeAdd.js",
+                "source": "./snippets/mobMotion/syncTimeAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -268,7 +268,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelinePlay.js",
+                "source": "./snippets/mobMotion/syncTimelinePlay.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -295,12 +295,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "play or play reverse from a <span>specific label</span>, both methods will return a <span>promise</span> which will be resolved when the timeline is completed.<br/> The label is defined within the individual <a href='/#mobMotion_sequencer'>sequencer</a>."
+            "content": "play or play reverse from a <span>specific label</span>, both methods will return a <span>promise</span> which will be resolved when the timeline is completed.<br/> The label is defined within the individual <a href='./#mobMotion_sequencer'>sequencer</a>."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelinePlayFrom.js",
+                "source": "./snippets/mobMotion/syncTimelinePlayFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -332,7 +332,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineReverse.js",
+                "source": "./snippets/mobMotion/syncTimelineReverse.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -364,7 +364,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelinePause.js",
+                "source": "./snippets/mobMotion/syncTimelinePause.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -413,7 +413,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineLoop.js",
+                "source": "./snippets/mobMotion/syncTimelineLoop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -445,7 +445,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelinecomplete.js",
+                "source": "./snippets/mobMotion/syncTimelinecomplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -494,7 +494,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineUpdate.js",
+                "source": "./snippets/mobMotion/syncTimelineUpdate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -526,7 +526,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineDestroy.js",
+                "source": "./snippets/mobMotion/syncTimelineDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -565,7 +565,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/syncTimelineUtils.js",
+                "source": "./snippets/mobMotion/syncTimelineUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

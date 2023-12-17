@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Typically we use events like <span>click, mousedown, mouseup, mouseover.</span> Events like <span>mouseenter</span> cannot work in this case, use <a href='/#mobJs_bindEvents'>bindEvent</a> to handle similar events."
+            "content": "Typically we use events like <span>click, mousedown, mouseup, mouseover.</span> Events like <span>mouseenter</span> cannot work in this case, use <a href='./#mobJs_bindEvents'>bindEvent</a> to handle similar events."
         },
         {
             "component": "mob-spacer",
@@ -52,7 +52,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The props function can have two values added: <span>current</span> and <span>index</span>. These two values will be needed when using <span>reactive lists</span> ( <a href='/#mobJs_repeat'>repeat</a> )"
+            "content": "The props function can have two values added: <span>current</span> and <span>index</span>. These two values will be needed when using <span>reactive lists</span> ( <a href='./#mobJs_repeat'>repeat</a> )"
         },
         {
             "component": "mob-spacer",
@@ -63,7 +63,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/delegateEvents.js",
+                "source": "./snippets/mobJs/delegateEvents.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

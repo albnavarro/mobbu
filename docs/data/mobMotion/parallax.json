@@ -40,7 +40,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxInit.js",
+                "source": "./snippets/mobMotion/parallaxInit.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -63,7 +63,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxType.d.ts",
+                "source": "./snippets/mobMotion/parallaxType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -217,7 +217,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='/#mobMotion_defaults'>Default utils</a>"
+            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",
@@ -310,7 +310,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxPropierties.js",
+                "source": "./snippets/mobMotion/parallaxPropierties.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -367,7 +367,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxRange.js",
+                "source": "./snippets/mobMotion/parallaxRange.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -428,7 +428,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxOpacity.js",
+                "source": "./snippets/mobMotion/parallaxOpacity.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -543,7 +543,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxTween.js",
+                "source": "./snippets/mobMotion/parallaxTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -700,7 +700,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxAlign.js",
+                "source": "./snippets/mobMotion/parallaxAlign.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -743,7 +743,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxOnSwitch.js",
+                "source": "./snippets/mobMotion/parallaxOnSwitch.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -769,7 +769,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='/#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
+            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
         },
         {
             "component": "mob-spacer",
@@ -846,7 +846,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxEasing.js",
+                "source": "./snippets/mobMotion/parallaxEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -901,7 +901,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='/#mobMotion_defaults'>Default utils</a>."
+            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",
@@ -936,7 +936,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxUtils.js",
+                "source": "./snippets/mobMotion/parallaxUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -973,7 +973,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxRefresh.js",
+                "source": "./snippets/mobMotion/parallaxRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -1004,7 +1004,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/parallaxDestroy.js",
+                "source": "./snippets/mobMotion/parallaxDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

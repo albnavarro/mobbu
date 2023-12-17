@@ -67,7 +67,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/staggerInterface.js",
+                "source": "./snippets/mobMotion/staggerInterface.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -98,7 +98,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/each.js",
+                "source": "./snippets/mobMotion/each.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -131,19 +131,19 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <a href='/#animatedPatternN0v2'>animated pattern</a> modules are based on this mechanism"
+            "content": "The <a href='./#animatedPatternN0v2'>animated pattern</a> modules are based on this mechanism"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Using waitComplete: false the loops of the tweens synchronized by a <a href='/#mobMotion_async_timeline'>asyncTimeline</a> will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
+            "content": "Using waitComplete: false the loops of the tweens synchronized by a <a href='./#mobMotion_async_timeline'>asyncTimeline</a> will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/waitComplete.js",
+                "source": "./snippets/mobMotion/waitComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -188,7 +188,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/from.js",
+                "source": "./snippets/mobMotion/from.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -214,7 +214,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by <a href='/#animatedPatternN0v5'>row</a> / <a href='/#animatedPatternN0v6'>column</a> or as a single element <a href='/#animatedPatternN0v7'>radial</a>"
+            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by <a href='./#animatedPatternN0v5'>row</a> / <a href='./#animatedPatternN0v6'>column</a> or as a single element <a href='./#animatedPatternN0v7'>radial</a>"
         },
         {
             "component": "mob-title",
@@ -233,7 +233,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/grid.js",
+                "source": "./snippets/mobMotion/grid.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

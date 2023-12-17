@@ -28,7 +28,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='/#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -76,16 +76,16 @@
             "props": {
                 "tag": "h3",
                 "items": [
-                    "<a href='#mobJs_initialization'>initialization</a>",
-                    "<a href='#mobJs_component'>Component structure</a>",
-                    "<a href='/#mobJs_web_component'>Web component</a>",
-                    "<a href='/#mobJs_routing'>Routing</a>",
-                    "<a href='/#mobJs_refs'>Refs</a>",
-                    "<a href='/#mobJs_slot'>Slot</a>",
-                    "<a href='/#mobJs_runtime'>Runtime add/remove</a>",
-                    "<a href='/#mobJs_instanceName'>InstanceName</a>",
-                    "<a href='/#mobJs_utils'>Utils</a>",
-                    "<a href='/#mobJs_debug'>Debug</a>"
+                    "<a href='./#mobJs_initialization'>initialization</a>",
+                    "<a href='./#mobJs_component'>Component structure</a>",
+                    "<a href='./#mobJs_web_component'>Web component</a>",
+                    "<a href='./#mobJs_routing'>Routing</a>",
+                    "<a href='./#mobJs_refs'>Refs</a>",
+                    "<a href='./#mobJs_slot'>Slot</a>",
+                    "<a href='./#mobJs_runtime'>Runtime add/remove</a>",
+                    "<a href='./#mobJs_instanceName'>InstanceName</a>",
+                    "<a href='./#mobJs_utils'>Utils</a>",
+                    "<a href='./#mobJs_debug'>Debug</a>"
                 ]
             }
         }

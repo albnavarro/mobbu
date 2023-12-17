@@ -5,12 +5,12 @@ export const mobMotion_stagger = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/stagger.json',
+                source: './data/mobMotion/stagger.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Stagger</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

@@ -5,13 +5,13 @@ export const mobJs_bindProps = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/bindProps.json',
+                source: './data/mobJs/bindProps.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobJs_overview">mobjs</a> /
-            <a href="/#mobJs_component">component</a> /
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
             <span>bindProps</span></doc-title-small
         >
         <links-mobjs

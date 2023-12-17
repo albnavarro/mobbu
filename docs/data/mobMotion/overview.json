@@ -28,7 +28,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='/#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -94,8 +94,8 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<a href='#mobMotion_tween_spring_lerp'>Tween/Spring/Lerp</a>",
-                    "<a href='#mobMotion_async_timeline'>Async timeline</a>"
+                    "<a href='./#mobMotion_tween_spring_lerp'>Tween/Spring/Lerp</a>",
+                    "<a href='./#mobMotion_async_timeline'>Async timeline</a>"
                 ]
             }
         },
@@ -159,11 +159,11 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<a href='#mobMotion_sequencer'>Sequencer</a>",
-                    "<a href='#mobMotion_create_stagger'>Create Stagger</a>",
-                    "<a href='#mobMotion_sync_timeline'>Sync timeline</a>",
-                    "<a href='#mobMotion_scrolltrigger'>ScrollTrigger</a>",
-                    "<a href='#mobMotion_parallax'>Parallax</a>"
+                    "<a href='./#mobMotion_sequencer'>Sequencer</a>",
+                    "<a href='./#mobMotion_create_stagger'>Create Stagger</a>",
+                    "<a href='./#mobMotion_sync_timeline'>Sync timeline</a>",
+                    "<a href='./#mobMotion_scrolltrigger'>ScrollTrigger</a>",
+                    "<a href='./#mobMotion_parallax'>Parallax</a>"
                 ]
             }
         },
@@ -233,7 +233,7 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["<a href='#mobMotion_stagger'>Stagger</a>"]
+                "items": ["<a href='./#mobMotion_stagger'>Stagger</a>"]
             }
         },
         {
@@ -256,7 +256,7 @@
             "component": "mob-list",
             "props": {
                 "tag": "h3",
-                "items": ["<a href='#mobMotion_defaults'>Defaults</a>"]
+                "items": ["<a href='./#mobMotion_defaults'>Defaults</a>"]
             }
         },
         {

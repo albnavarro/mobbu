@@ -32,12 +32,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Use <a href='/#mobJs_unFreezeProp'>unFreezeProp()</a> to clear the freeze."
+            "content": "Use <a href='./#mobJs_unFreezeProp'>unFreezeProp()</a> to clear the freeze."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/freezeProp.js",
+                "source": "./snippets/mobJs/freezeProp.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

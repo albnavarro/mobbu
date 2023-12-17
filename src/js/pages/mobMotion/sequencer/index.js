@@ -5,12 +5,12 @@ export const mobMotion_sequencer = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/sequencer.json',
+                source: './data/mobMotion/sequencer.json',
                 useMaxWidth: true,
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="/#mobMotion_overview">mobMotion</a> /
+            ><a href="./#mobMotion_overview">mobMotion</a> /
             <span>Sequencer</span></doc-title-small
         >
         <scroll-to slot="section-links"></scroll-to>

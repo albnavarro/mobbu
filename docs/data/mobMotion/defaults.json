@@ -34,7 +34,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultType.d.ts",
+                "source": "./snippets/mobMotion/defaultType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -58,7 +58,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultExample.d.ts",
+                "source": "./snippets/mobMotion/defaultExample.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -88,7 +88,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultGet.d.ts",
+                "source": "./snippets/mobMotion/defaultGet.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -132,7 +132,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultPassive.js",
+                "source": "./snippets/mobMotion/defaultPassive.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -197,7 +197,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultScale.js",
+                "source": "./snippets/mobMotion/defaultScale.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -248,7 +248,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultNext.js",
+                "source": "./snippets/mobMotion/defaultNext.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -292,7 +292,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultThrottle.js",
+                "source": "./snippets/mobMotion/defaultThrottle.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -336,7 +336,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultMedia.js",
+                "source": "./snippets/mobMotion/defaultMedia.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -373,7 +373,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultSequencer.js",
+                "source": "./snippets/mobMotion/defaultSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -410,7 +410,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultScrollTrigger.js",
+                "source": "./snippets/mobMotion/defaultScrollTrigger.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -447,7 +447,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultParallax.js",
+                "source": "./snippets/mobMotion/defaultParallax.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -484,7 +484,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultTween.js",
+                "source": "./snippets/mobMotion/defaultTween.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -521,7 +521,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultSpring.js",
+                "source": "./snippets/mobMotion/defaultSpring.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -558,7 +558,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/defaultLerp.js",
+                "source": "./snippets/mobMotion/defaultLerp.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

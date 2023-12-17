@@ -21,14 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='/#mobMotion_sync_timeline'>syncTimeline</a> and <a href='/#mobMotion_scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
+            "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='./#mobMotion_sync_timeline'>syncTimeline</a> and <a href='./#mobMotion_scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='/#caterpillarN2'>example</a>"
+            "content": "<a href='./#caterpillarN2'>example</a>"
         },
         {
             "component": "mob-spacer",
@@ -69,7 +69,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If we decide to use a timeline to manage the sequencer ( <a href='/#mobMotion_sync_timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='/#mobMotion_scrolltrigger'>scrollTrigger</a>"
+            "content": "If we decide to use a timeline to manage the sequencer ( <a href='./#mobMotion_sync_timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>"
         },
         {
             "component": "mob-spacer",
@@ -87,7 +87,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerType.d.ts",
+                "source": "./snippets/mobMotion/sequencerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -111,12 +111,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='/#mobMotion_tween_spring_lerp'>tween</a>:"
+            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='./#mobMotion_tween_spring_lerp'>tween</a>:"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencer.js",
+                "source": "./snippets/mobMotion/sequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -171,7 +171,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerGoTo.js",
+                "source": "./snippets/mobMotion/sequencerGoTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -202,7 +202,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerGoFrom.js",
+                "source": "./snippets/mobMotion/sequencerGoFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -233,7 +233,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerGoFromTo.js",
+                "source": "./snippets/mobMotion/sequencerGoFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -332,7 +332,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerAdd.js",
+                "source": "./snippets/mobMotion/sequencerAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -358,12 +358,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to define labels to use as a reference from our <a href='/#mobMotion_sync_timeline'>syncTimeline</a>"
+            "content": "It is possible to define labels to use as a reference from our <a href='./#mobMotion_sync_timeline'>syncTimeline</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerLabel.js",
+                "source": "./snippets/mobMotion/sequencerLabel.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -401,7 +401,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerSubscribe.js",
+                "source": "./snippets/mobMotion/sequencerSubscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -427,7 +427,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='/#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='./#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
         },
         {
             "component": "mob-paragraph",
@@ -439,7 +439,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/sequencerSubscribeCache.js",
+                "source": "./snippets/mobMotion/sequencerSubscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -470,7 +470,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/onStop.js",
+                "source": "./snippets/mobMotion/onStop.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -496,12 +496,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>masterSequencer</span> allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='/#mobMotion_create_stagger'>createStagger</a>"
+            "content": "The <span>masterSequencer</span> allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion_create_stagger'>createStagger</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/masterSequencer.js",
+                "source": "./snippets/mobMotion/masterSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -527,7 +527,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Sequencers can use the <a href='/#mobMotion_create_stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
+            "content": "Sequencers can use the <a href='./#mobMotion_create_stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
         },
         {
             "component": "mob-spacer",

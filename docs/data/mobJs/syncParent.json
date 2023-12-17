@@ -19,14 +19,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When <span>manually adding a runtime component</span> using the <a href='/#mobJs_runtime'>parseDom()</a> utility, it is necessary that the new component remains <span>synchronized with the context (component)</span> in which it was created through the syncParent() function."
+            "content": "When <span>manually adding a runtime component</span> using the <a href='./#mobJs_runtime'>parseDom()</a> utility, it is necessary that the new component remains <span>synchronized with the context (component)</span> in which it was created through the syncParent() function."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Without this precaution it will not be possible to use the <a href='/#mobJs_bindProps'>bindProps()</a> function"
+            "content": "Without this precaution it will not be possible to use the <a href='./#mobJs_bindProps'>bindProps()</a> function"
         },
         {
             "component": "mob-spacer",
@@ -37,7 +37,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/syncParent.js",
+                "source": "./snippets/mobJs/syncParent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

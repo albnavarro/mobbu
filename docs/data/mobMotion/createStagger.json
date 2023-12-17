@@ -28,7 +28,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike <a href='/#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to <span>synchronize multiple senquencers</span> using the stagger scheme. <span>createStagger returns an array with precomputed start and end values</span>."
+            "content": "Unlike <a href='./#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to <span>synchronize multiple senquencers</span> using the stagger scheme. <span>createStagger returns an array with precomputed start and end values</span>."
         },
         {
             "component": "mob-spacer",
@@ -48,11 +48,11 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='/#scrollerN0v1'>scrollerN0 v1</a>",
-                    "<a href='/#scrollerN0v2'>scrollerN0 v2</a>",
-                    "<a href='/#scrollerN0v3'>scrollerN0 v3</a>",
-                    "<a href='/#scrollerN0v4'>scrollerN0 v4</a>",
-                    "<a href='/#scrollerN0v5'>scrollerN0 v5</a>"
+                    "<a href='./#scrollerN0v1'>scrollerN0 v1</a>",
+                    "<a href='./#scrollerN0v2'>scrollerN0 v2</a>",
+                    "<a href='./#scrollerN0v3'>scrollerN0 v3</a>",
+                    "<a href='./#scrollerN0v4'>scrollerN0 v4</a>",
+                    "<a href='./#scrollerN0v5'>scrollerN0 v5</a>"
                 ]
             }
         },
@@ -72,7 +72,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/staggerInterfaceType.js",
+                "source": "./snippets/mobMotion/staggerInterfaceType.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -94,7 +94,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobMotion/createStagger.js",
+                "source": "./snippets/mobMotion/createStagger.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
@@ -266,7 +266,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
@@ -295,7 +295,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
@@ -324,7 +324,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='/#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
