@@ -1738,7 +1738,7 @@ Loading snippet ...
     </doc-container>`;var s0=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobMotion/overview.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobMotion/overview.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobMotion 

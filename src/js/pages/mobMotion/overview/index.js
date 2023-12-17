@@ -5,7 +5,7 @@ export const mobMotion_overview = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobMotion/overview.json',
+                source: './data/mobMotion/overview.json',
                 useMaxWidth: true,
             })}
         ></html-content>
