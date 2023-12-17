@@ -27,9 +27,9 @@
             "props": {
                 "tag": "h3",
                 "items": [
-                    "<a href='#mobCore_store'>Store</a>",
-                    "<a href='#mobCore_events'>Events</a>",
-                    "<a href='#mobCore_defaults'>Defaults</a>"
+                    "<a href='./#mobCore_store'>Store</a>",
+                    "<a href='./#mobCore_events'>Events</a>",
+                    "<a href='./#mobCore_defaults'>Defaults</a>"
                 ]
             }
         }

@@ -100,7 +100,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="/#mobJs_overview">
+            <a class="l-index__item" href="./#mobJs_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Js
@@ -112,7 +112,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="/#mobMotion_overview">
+            <a class="l-index__item" href="./#mobMotion_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Motion

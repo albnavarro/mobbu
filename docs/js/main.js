@@ -932,7 +932,7 @@ Loading snippet ...
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="/#mobJs_overview">
+            <a class="l-index__item" href="./#mobJs_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Js
@@ -944,7 +944,7 @@ Loading snippet ...
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="/#mobMotion_overview">
+            <a class="l-index__item" href="./#mobMotion_overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Motion

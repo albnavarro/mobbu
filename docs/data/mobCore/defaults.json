@@ -32,7 +32,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobCore/coreDefault.js",
+                "source": "./snippets/mobCore/coreDefault.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
