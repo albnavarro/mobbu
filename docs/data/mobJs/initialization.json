@@ -34,7 +34,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "index.html"
         },
@@ -58,15 +59,16 @@
             "component": "mob-spacer",
             "props": {
                 "id": "main",
-                "label": "Main"
+                "label": "Entry&nbsp;point"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "main.js"
+            "content": "Entry point"
         },
         {
             "component": "mob-spacer",
@@ -88,7 +90,7 @@
             "props": {
                 "style": "medium",
                 "id": "componentlist",
-                "label": "ComponentList"
+                "label": "Export&nbsp;component"
             }
         },
         {
@@ -100,9 +102,10 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "componentList.js"
+            "content": "Export components"
         },
         {
             "component": "mob-paragraph",
@@ -125,15 +128,16 @@
             "props": {
                 "style": "medium",
                 "id": "routelist",
-                "label": "RouteList"
+                "label": "Export&nbsp;routes"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "routeList.js"
+            "content": "Export routes"
         },
         {
             "component": "mob-paragraph",
@@ -162,15 +166,16 @@
             "props": {
                 "style": "medium",
                 "id": "wrapper",
-                "label": "Wrapper"
+                "label": "Define&nbsp;dynamic&nbsp;content"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
-            "content": "wrapper.js"
+            "content": "Define dynamic content"
         },
         {
             "component": "mob-paragraph",
@@ -205,7 +210,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Defaults"
         },
