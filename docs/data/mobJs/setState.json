@@ -44,7 +44,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "/snippets/mobJs/setState.js",
+                "source": "./snippets/mobJs/setState.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true

@@ -5,7 +5,7 @@ export const mobJs_computed = () => {
         <html-content
             slot="docs"
             ${staticProps({
-                source: '/data/mobJs/computed.json',
+                source: './data/mobJs/computed.json',
                 useMaxWidth: true,
             })}
         ></html-content>
