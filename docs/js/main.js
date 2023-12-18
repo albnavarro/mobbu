@@ -1367,7 +1367,7 @@ Loading snippet ...
     </doc-container>`;var Ry=()=>b` <doc-container>
         <html-content
             slot="docs"
-            ${T({source:"/data/mobJs/computed.json",useMaxWidth:!0})}
+            ${T({source:"./data/mobJs/computed.json",useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
             ><a href="./#mobJs_overview">mobjs</a> /
