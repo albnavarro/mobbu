@@ -150,7 +150,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Events"
         },
