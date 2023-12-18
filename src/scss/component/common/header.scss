@@ -91,6 +91,20 @@
             pointer-events: none;
             margin: 0;
             font-weight: 600;
+            display: inline-block;
+
+            &.visible {
+                transform: translateY(0);
+                pointer-events: all;
+            }
+        }
+
+        h5 {
+            display: inline-block;
+            margin-left: rem(10);
+            transform: translateY(200%);
+            transition: transform 0.35s;
+            pointer-events: none;
 
             &.visible {
                 transform: translateY(0);

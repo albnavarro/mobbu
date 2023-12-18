@@ -28,13 +28,14 @@ function titleHandler() {
  */
 export const Header = ({ html, onMount, delegateEvents }) => {
     onMount(({ refs }) => {
-        const { navInfo, title } = refs;
+        const { navInfo, title, beta } = refs;
 
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
 
         mainStore.watch('beforeRouteChange', (route) => {
             title.classList.toggle('visible', route !== 'home');
+            beta.classList.toggle('visible', route !== 'home');
         });
 
         return () => {};
@@ -59,6 +60,7 @@ export const Header = ({ html, onMount, delegateEvents }) => {
                     >
                         <div class="l-header__title-container">
                             <h3 ref="title"><span>Mob</span>Project</h3>
+                            <h5 ref="beta">beta 0.0.1</h5>
                         </div>
                     </button>
                     <div class="l-header__utils">
