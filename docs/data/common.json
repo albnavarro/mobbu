@@ -16,21 +16,25 @@
         },
         {
             "label": "Canvas animations:",
-            "section": true
+            "section": true,
+            "sectioName": "canvas"
         },
         {
             "label": "caterpillar n.0",
             "url": "caterpillarN0",
+            "scrollToSection": "canvas",
             "children": null
         },
         {
             "label": "caterpillar n.1",
             "url": "caterpillarN1",
+            "scrollToSection": "canvas",
             "children": null
         },
         {
             "label": "caterpillar n.2",
             "url": "caterpillarN2",
+            "scrollToSection": "canvas",
             "children": null
         },
         {
@@ -39,30 +43,37 @@
             "children": [
                 {
                     "label": "animated pattern n.0 v1",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v1"
                 },
                 {
                     "label": "animated pattern n.0 v2",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v2"
                 },
                 {
                     "label": "animated pattern n.0 v3",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v3"
                 },
                 {
                     "label": "animated pattern n.0 v4",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v4"
                 },
                 {
                     "label": "animated pattern n.0 v5",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v5"
                 },
                 {
                     "label": "animated pattern n.0 v6",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v6"
                 },
                 {
                     "label": "animated pattern n.0 v7",
+                    "scrollToSection": "canvas",
                     "url": "animatedPatternN0v7"
                 }
             ]
@@ -70,6 +81,7 @@
         {
             "label": "animated pattern n.1",
             "url": "animatedPatternN1",
+            "scrollToSection": "canvas",
             "children": null
         },
         {
@@ -78,22 +90,27 @@
             "children": [
                 {
                     "label": "scroller n.0 v1",
+                    "scrollToSection": "canvas",
                     "url": "scrollerN0v1"
                 },
                 {
                     "label": "scroller n.0 v2",
+                    "scrollToSection": "canvas",
                     "url": "scrollerN0v2"
                 },
                 {
                     "label": "scroller n.0 v3",
+                    "scrollToSection": "canvas",
                     "url": "scrollerN0v3"
                 },
                 {
                     "label": "scroller n.0 v4",
+                    "scrollToSection": "canvas",
                     "url": "scrollerN0v4"
                 },
                 {
                     "label": "scroller n.0 v5",
+                    "scrollToSection": "canvas",
                     "url": "scrollerN0v5"
                 }
             ]
@@ -101,6 +118,7 @@
         {
             "label": "scroller n.1",
             "url": "scrollerN1",
+            "scrollToSection": "canvas",
             "children": null
         },
         {
@@ -109,48 +127,59 @@
             "children": [
                 {
                     "label": "horizotnal scroller v1",
+                    "scrollToSection": "canvas",
                     "url": "horizontalScrollerV1"
                 },
                 {
                     "label": "horizotnal scroller v2",
+                    "scrollToSection": "canvas",
                     "url": "horizontalScrollerV2"
                 }
             ]
         },
         {
             "label": "mobCore",
-            "section": true
+            "section": true,
+            "sectioName": "mobCore"
         },
         {
             "label": "Overview",
+            "scrollToSection": "mobCore",
             "url": "mobCore_overview"
         },
         {
             "label": "Store",
+            "scrollToSection": "mobCore",
             "url": "mobCore_store"
         },
         {
             "label": "Event",
+            "scrollToSection": "mobCore",
             "url": "mobCore_events"
         },
         {
             "label": "Event",
+            "scrollToSection": "mobCore",
             "url": "mobCore_defaults"
         },
         {
             "label": "mobJs",
-            "section": true
+            "section": true,
+            "sectioName": "mobJs"
         },
         {
             "label": "Overview",
+            "scrollToSection": "mobJs",
             "url": "mobJs_overview"
         },
         {
             "label": "Initialization",
+            "scrollToSection": "mobJs",
             "url": "mobJs_initialization"
         },
         {
             "label": "Component structure",
+            "scrollToSection": "mobJs",
             "url": "mobJs_component"
         },
         {
@@ -159,128 +188,159 @@
             "children": [
                 {
                     "label": "html",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_html"
                 },
                 {
                     "label": "onMount/Destroy",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_onMount"
                 },
                 {
                     "label": "getState",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_getState"
                 },
                 {
                     "label": "setState",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_setState"
                 },
                 {
                     "label": "watch",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_watch"
                 },
                 {
                     "label": "watchSync",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_watchSync"
                 },
                 {
                     "label": "staticProps",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_staticProps"
                 },
                 {
                     "label": "bindProps",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_bindProps"
                 },
                 {
                     "label": "bindEvents",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_bindEvents"
                 },
                 {
                     "label": "delegateEvents",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_delegateEvents"
                 },
                 {
                     "label": "reactive list (repeat)",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_repeat"
                 },
                 {
                     "label": "unBind",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_unBind"
                 },
                 {
                     "label": "emit",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_emit"
                 },
                 {
                     "label": "emitAsync",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_emitAsync"
                 },
                 {
                     "label": "computed",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_computed"
                 },
                 {
                     "label": "remove",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_remove"
                 },
                 {
                     "label": "removeDom",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_removeDom"
                 },
                 {
                     "label": "getChildren",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_getChildren"
                 },
                 {
                     "label": "freezeProp",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_freezeProp"
                 },
                 {
                     "label": "unFreezeProp",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_unFreezeProp"
                 },
                 {
                     "label": "getParentId",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_getParentId"
                 },
                 {
                     "label": "watchParent",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_watchParent"
                 },
                 {
                     "label": "syncParent",
+                    "scrollToSection": "mobJs",
                     "url": "mobJs_syncParent"
                 }
             ]
         },
         {
             "label": "Web component",
+            "scrollToSection": "mobJs",
             "url": "mobJs_web_component"
         },
         {
             "label": "Routing",
+            "scrollToSection": "mobJs",
             "url": "mobJs_routing"
         },
         {
             "label": "Refs",
+            "scrollToSection": "mobJs",
             "url": "mobJs_refs"
         },
         {
             "label": "Slot",
+            "scrollToSection": "mobJs",
             "url": "mobJs_slot"
         },
         {
             "label": "Runtime add/remove",
+            "scrollToSection": "mobJs",
             "url": "mobJs_runtime"
         },
         {
             "label": "instanceName",
+            "scrollToSection": "mobJs",
             "url": "mobJs_instanceName"
         },
         {
             "label": "Utils",
+            "scrollToSection": "mobJs",
             "url": "mobJs_utils"
         },
         {
             "label": "Debug",
+            "scrollToSection": "mobJs",
             "url": "mobJs_debug"
         },
         {
@@ -289,56 +349,69 @@
             "children": [
                 {
                     "label": "Listing",
+                    "scrollToSection": "mobJs",
                     "url": "dynamic_list"
                 }
             ]
         },
         {
             "label": "mobMotion",
-            "section": true
+            "section": true,
+            "sectioName": "mobMotion"
         },
         {
             "label": "overview",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_overview"
         },
         {
             "label": "Tween/Spring/Lerp",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_tween_spring_lerp"
         },
         {
             "label": "Async timeline",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_async_timeline"
         },
         {
             "label": "Sequencer",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_sequencer"
         },
         {
             "label": "Stagger",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_stagger"
         },
         {
             "label": "Create stagger",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_create_stagger"
         },
         {
             "label": "Sync timeline",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_sync_timeline"
         },
         {
             "label": "ScrollTrigger",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_scrolltrigger"
         },
         {
             "label": "Parallax",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_parallax"
         },
         {
             "label": "Plugin",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_plugin"
         },
         {
             "label": "Defaults",
+            "scrollToSection": "mobMotion",
             "url": "mobMotion_defaults"
         }
     ]

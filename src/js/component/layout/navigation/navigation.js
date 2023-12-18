@@ -8,12 +8,19 @@ import { navigationStore } from './store/navStore';
 function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
     return data
         .map((item, index) => {
-            const { label, url, children, section } = item;
+            const {
+                label,
+                url,
+                children,
+                section,
+                sectioName,
+                scrollToSection,
+            } = item;
 
             if (section) {
                 return html`
                     <mob-navigation-label
-                        ${staticProps({ label })}
+                        ${staticProps({ label, sectioName })}
                     ></mob-navigation-label>
                 `;
             }
@@ -53,6 +60,8 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
                               ${staticProps({
                                   label,
                                   url,
+                                  scrollToSection:
+                                      scrollToSection ?? 'no-scroll',
                               })}
                           ></mob-navigation-button>
                       </li>

@@ -63,6 +63,7 @@ export const navigationButtonDef = createComponent({
         'fireRoute',
         'callback',
         'isOpen',
+        'scrollToSection',
     ],
     state: {
         label: () => ({
@@ -70,6 +71,10 @@ export const navigationButtonDef = createComponent({
             type: String,
         }),
         url: () => ({
+            value: '',
+            type: String,
+        }),
+        scrollToSection: () => ({
             value: '',
             type: String,
         }),
@@ -99,9 +104,13 @@ export const navigationButtonDef = createComponent({
 export const navigationLabelDef = createComponent({
     name: 'mob-navigation-label',
     component: NavigationLabel,
-    exportState: ['label'],
+    exportState: ['label', 'sectioName'],
     state: {
         label: () => ({
+            value: '',
+            type: String,
+        }),
+        sectioName: () => ({
             value: '',
             type: String,
         }),

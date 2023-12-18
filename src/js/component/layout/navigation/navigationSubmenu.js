@@ -5,7 +5,7 @@ import { navigationStore } from './store/navStore';
 function getSubmenu({ children, staticProps, callback }) {
     return children
         .map((child) => {
-            const { label, url } = child;
+            const { label, url, scrollToSection } = child;
 
             return html`
                 <li class="l-navigation__submenu__item">
@@ -15,6 +15,7 @@ function getSubmenu({ children, staticProps, callback }) {
                             label,
                             url,
                             subMenuClass: 'l-navigation__link--submenu',
+                            scrollToSection,
                         })}
                     ></mob-navigation-button>
                 </li>

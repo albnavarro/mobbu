@@ -12,8 +12,15 @@ export const NavigationButton = ({
     watch,
     delegateEvents,
 }) => {
-    const { label, url, arrowClass, subMenuClass, fireRoute, callback } =
-        getState();
+    const {
+        label,
+        url,
+        arrowClass,
+        subMenuClass,
+        fireRoute,
+        callback,
+        scrollToSection,
+    } = getState();
 
     onMount(({ element }) => {
         /**
@@ -39,6 +46,11 @@ export const NavigationButton = ({
                  */
                 if (isActiveRoute && fireRoute) {
                     callback();
+
+                    /**
+                     * Aign menu to current active main section label
+                     */
+                    navigationStore.set('activeSection', scrollToSection);
                 }
             });
         });

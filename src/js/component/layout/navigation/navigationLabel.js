@@ -2,7 +2,11 @@
  * @param {import('../../../mobjs/type').componentType}
  */
 export const NavigationLabel = ({ getState, html }) => {
-    const { label } = getState();
+    const { label, sectioName } = getState();
 
-    return html` <div class="l-navigation__label">${label}</div> `;
+    return html`
+        <div class="l-navigation__label" data-sectionname="${sectioName}">
+            ${label}
+        </div>
+    `;
 };
