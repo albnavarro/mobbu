@@ -2123,6 +2123,9 @@ code {
 .footer-nav__item {
   display: inline-block;
 }
+.footer-nav__item:last-child > button:after {
+  display: none;
+}
 .footer-nav__button {
   background: transparent;
   border: 0;

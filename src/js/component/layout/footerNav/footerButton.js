@@ -1,4 +1,3 @@
-import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
 /**
