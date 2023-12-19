@@ -1,0 +1,43 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.footer-nav {
+    justify-self: end;
+    align-self: center;
+    margin: 0;
+    display: none;
+
+    @include mq.mq('desktop') {
+        display: block;
+    }
+
+    &__item {
+        display: inline-block;
+    }
+
+    &__button {
+        background: transparent;
+        border: 0;
+        color: rgba($green, 0.5);
+        position: relative;
+        padding: 0 rem(15);
+        transition: color 0.55s;
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 10px;
+            background: rgba($green, 0.5);
+        }
+
+        &:hover {
+            color: $white;
+        }
+    }
+}

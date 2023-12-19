@@ -1056,11 +1056,10 @@ code {
   margin: 0;
   position: absolute;
   right: 1.3333333333rem;
-  bottom: 50%;
+  bottom: calc(100% + 0.6666666667rem);
   background: transparent;
   color: #fff;
   transition: opacity 0.55s;
-  transform: translateY(50%);
   display: none;
   opacity: 0.3;
 }
@@ -1571,6 +1570,8 @@ code {
 }
 .l-footer__container {
   padding: 0 1.3333333333rem;
+  display: grid;
+  height: 100%;
 }
 .c-canvas {
   position: absolute;
@@ -2107,6 +2108,42 @@ code {
 }
 .c-params-mobjs .current {
   color: #9ece6a;
+}
+.footer-nav {
+  justify-self: end;
+  align-self: center;
+  margin: 0;
+  display: none;
+}
+@media (min-width: 62em) {
+  .footer-nav {
+    display: block;
+  }
+}
+.footer-nav__item {
+  display: inline-block;
+}
+.footer-nav__button {
+  background: transparent;
+  border: 0;
+  color: rgba(158, 206, 106, 0.5);
+  position: relative;
+  padding: 0 1rem;
+  transition: color 0.55s;
+}
+.footer-nav__button:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 10px;
+  background: rgba(158, 206, 106, 0.5);
+}
+.footer-nav__button:hover {
+  color: #fff;
 }
 .l-parallax {
   height: 200vh;

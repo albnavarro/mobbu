@@ -15,7 +15,7 @@
             "children": null
         },
         {
-            "label": "Canvas animations:",
+            "label": "Canvas 2d animations:",
             "section": true,
             "sectioName": "canvas"
         },

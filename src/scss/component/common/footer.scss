@@ -23,5 +23,7 @@
 
     &__container {
         padding: 0 rem(20);
+        display: grid;
+        height: 100%;
     }
 }
