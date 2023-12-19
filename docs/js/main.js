@@ -23106,6 +23106,11 @@ Loading snippet ...
   // src/js/component/layout/footerNav/footerNav.js
   var data2 = [
     {
+      label: "about",
+      url: "about",
+      section: "no-section"
+    },
+    {
       label: "canvas 2d",
       url: "canvas_overview",
       section: "canvas"

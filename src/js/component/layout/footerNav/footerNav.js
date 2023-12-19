@@ -3,6 +3,11 @@ import { motionCore } from '../../../mobMotion';
 
 const data = [
     {
+        label: 'about',
+        url: 'about',
+        section: 'no-section',
+    },
+    {
         label: 'canvas 2d',
         url: 'canvas_overview',
         section: 'canvas',
