@@ -133,6 +133,11 @@
             "sectioName": "plugin"
         },
         {
+            "label": "pverview",
+            "scrollToSection": "plugin",
+            "url": "plugin_overview"
+        },
+        {
             "label": "horizotnal scroller v1",
             "scrollToSection": "plugin",
             "url": "horizontalScrollerV1"

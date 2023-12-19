@@ -9,7 +9,11 @@ export const navigationStore = mobCore.createStore({
     openNavigation: () => {},
     closeNavigation: () => {},
     goToTop: () => {},
-    activeSection: '',
+    activeSection: () => ({
+        value: '',
+        type: String,
+        skipEqual: false,
+    }),
     navigationIsOpen: () => ({
         value: false,
         type: Boolean,

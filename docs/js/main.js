@@ -1637,6 +1637,7 @@
     dynamicListRepeaterDef: () => dynamicListRepeaterDef,
     dynamicListSlotDef: () => dynamicListSlotDef,
     footerComponentDef: () => footerComponentDef,
+    footerNavButtonDef: () => footerNavButtonDef,
     footerNavDef: () => footerNavDef,
     headerComponentDef: () => headerComponentDef,
     headerNavComponentDef: () => headerNavComponentDef,
@@ -23064,70 +23065,6 @@ Loading snippet ...
     component: Footer
   });
 
-  // src/js/component/layout/footerNav/footerNav.js
-  var data2 = [
-    {
-      label: "home",
-      url: "home"
-    },
-    {
-      label: "canvas 2d",
-      url: "canvas_overview"
-    },
-    {
-      label: "plugin",
-      url: "plugin_overview"
-    },
-    {
-      label: "mobCore",
-      url: "mobCore_overview"
-    },
-    {
-      label: "mobJs",
-      url: "mobJs_overview"
-    },
-    {
-      label: "mobMotion",
-      url: "mobMotion_overview"
-    }
-  ];
-  function buttonHandler({ url }) {
-    const pageTransitionId = getIdByInstanceName("page-transition");
-    setStateById(pageTransitionId, "url", url);
-  }
-  var getItems2 = ({ delegateEvents }) => {
-    return data2.map(({ label, url }) => {
-      return renderHtml`<li class="footer-nav__item">
-                <button
-                    type="button"
-                    class="footer-nav__button"
-                    ${delegateEvents({
-        click: () => {
-          buttonHandler({ url });
-        }
-      })}
-                >
-                    ${label}
-                </button>
-            </li> `;
-    }).join("");
-  };
-  var FooterNav = ({ html, delegateEvents }) => {
-    if (motionCore.mq("max", "desktop"))
-      return html` <span></span> `;
-    return html`
-        <ul class="footer-nav">
-            ${getItems2({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/footerNav/definition.js
-  var footerNavDef = createComponent({
-    name: "footer-nav",
-    component: FooterNav
-  });
-
   // src/js/component/layout/navigation/store/navStore.js
   var navigationStore = mobCore.createStore({
     closeAllAccordion: () => {
@@ -23140,11 +23077,110 @@ Loading snippet ...
     },
     goToTop: () => {
     },
-    activeSection: "",
+    activeSection: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
     navigationIsOpen: () => ({
       value: false,
       type: Boolean
     })
+  });
+
+  // src/js/component/layout/footerNav/footerButton.js
+  var FooterNavButton = ({ html, onMount, getState }) => {
+    const { label, section } = getState();
+    onMount(({ element }) => {
+      navigationStore.watch("activeSection", (current) => {
+        const isActiveSection = current === section;
+        console.log(isActiveSection);
+        element.classList.toggle("current", isActiveSection);
+      });
+    });
+    return html`
+        <button type="button" class="footer-nav__button">${label}</button>
+    `;
+  };
+
+  // src/js/component/layout/footerNav/footerNav.js
+  var data2 = [
+    {
+      label: "canvas 2d",
+      url: "canvas_overview",
+      section: "canvas"
+    },
+    {
+      label: "plugin",
+      url: "plugin_overview",
+      section: "plugin"
+    },
+    {
+      label: "mobCore",
+      url: "mobCore_overview",
+      section: "mobCore"
+    },
+    {
+      label: "mobJs",
+      url: "mobJs_overview",
+      section: "mobJs"
+    },
+    {
+      label: "mobMotion",
+      url: "mobMotion_overview",
+      section: "mobMotion"
+    }
+  ];
+  function buttonHandler({ url }) {
+    const pageTransitionId = getIdByInstanceName("page-transition");
+    setStateById(pageTransitionId, "url", url);
+  }
+  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
+    return data2.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
+                <footer-nav-button
+                    ${delegateEvents({
+        click: () => {
+          buttonHandler({ url });
+        }
+      })}
+                    ${staticProps2({
+        label,
+        section
+      })}
+                ></footer-nav-button>
+            </li> `;
+    }).join("");
+  };
+  var FooterNav = ({ html, delegateEvents, staticProps: staticProps2 }) => {
+    if (motionCore.mq("max", "desktop"))
+      return html` <span></span> `;
+    return html`
+        <ul class="footer-nav">
+            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/footerNav/definition.js
+  var footerNavDef = createComponent({
+    name: "footer-nav",
+    component: FooterNav
+  });
+  var footerNavButtonDef = createComponent({
+    name: "footer-nav-button",
+    component: FooterNavButton,
+    exportState: ["label", "section"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      section: () => ({
+        value: "",
+        type: String
+      })
+    }
   });
 
   // src/js/component/layout/header/header.js

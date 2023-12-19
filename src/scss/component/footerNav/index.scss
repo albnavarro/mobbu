@@ -36,7 +36,8 @@
             background: rgba($green, 0.5);
         }
 
-        &:hover {
+        &:hover,
+        &.current {
             color: $green;
         }
     }

@@ -2142,7 +2142,8 @@ code {
   height: 10px;
   background: rgba(158, 206, 106, 0.5);
 }
-.footer-nav__button:hover {
+.footer-nav__button:hover,
+.footer-nav__button.current {
   color: #9ece6a;
 }
 .l-parallax {

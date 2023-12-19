@@ -3,28 +3,29 @@ import { motionCore } from '../../../mobMotion';
 
 const data = [
     {
-        label: 'home',
-        url: 'home',
-    },
-    {
         label: 'canvas 2d',
         url: 'canvas_overview',
+        section: 'canvas',
     },
     {
         label: 'plugin',
         url: 'plugin_overview',
+        section: 'plugin',
     },
     {
         label: 'mobCore',
         url: 'mobCore_overview',
+        section: 'mobCore',
     },
     {
         label: 'mobJs',
         url: 'mobJs_overview',
+        section: 'mobJs',
     },
     {
         label: 'mobMotion',
         url: 'mobMotion_overview',
+        section: 'mobMotion',
     },
 ];
 
@@ -33,21 +34,21 @@ function buttonHandler({ url }) {
     setStateById(pageTransitionId, 'url', url);
 }
 
-const getItems = ({ delegateEvents }) => {
+const getItems = ({ delegateEvents, staticProps }) => {
     return data
-        .map(({ label, url }) => {
+        .map(({ label, url, section }) => {
             return html`<li class="footer-nav__item">
-                <button
-                    type="button"
-                    class="footer-nav__button"
+                <footer-nav-button
                     ${delegateEvents({
                         click: () => {
                             buttonHandler({ url });
                         },
                     })}
-                >
-                    ${label}
-                </button>
+                    ${staticProps({
+                        label,
+                        section,
+                    })}
+                ></footer-nav-button>
             </li> `;
         })
         .join('');
@@ -56,12 +57,12 @@ const getItems = ({ delegateEvents }) => {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const FooterNav = ({ html, delegateEvents }) => {
+export const FooterNav = ({ html, delegateEvents, staticProps }) => {
     if (motionCore.mq('max', 'desktop')) return html` <span></span> `;
 
     return html`
         <ul class="footer-nav">
-            ${getItems({ delegateEvents })}
+            ${getItems({ delegateEvents, staticProps })}
         </ul>
     `;
 };
