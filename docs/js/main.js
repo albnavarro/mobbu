@@ -21548,6 +21548,7 @@
   var PageTransition = ({ onMount, watch, html }) => {
     onMount(({ element }) => {
       let currentUrl = "";
+      let isRunning = false;
       const clipPathpoint = [
         { xIn: 0, xOut: 0 },
         { xIn: 0, xOut: 0 }
@@ -21583,9 +21584,13 @@
         { xOut: 100 },
         { ease: "easeInCubic", duration: 500 }
       );
-      watch("url", (url) => {
+      watch("url", async (url) => {
+        if (isRunning)
+          return;
+        isRunning = true;
         currentUrl = url;
-        transitionTimeline.play();
+        await transitionTimeline.play();
+        isRunning = false;
       });
       return () => {
       };
@@ -23068,6 +23073,10 @@ Loading snippet ...
     {
       label: "canvas 2d",
       url: "canvas_overview"
+    },
+    {
+      label: "plugin",
+      url: "plugin_overview"
     },
     {
       label: "mobCore",
@@ -27567,6 +27576,7 @@ Loading snippet ...
     mobMotion_sync_timeline: () => mobMotion_sync_timeline,
     mobMotion_tween_spring_lerp: () => mobMotion_tween_spring_lerp,
     pageNotFound: () => pageNotFound,
+    plugin_overview: () => plugin_overview,
     scrollerN0v1: () => scrollerN0v1,
     scrollerN0v2: () => scrollerN0v2,
     scrollerN0v3: () => scrollerN0v3,
@@ -27911,14 +27921,31 @@ Loading snippet ...
     ></html-content>`;
   };
 
-  // src/js/pages/horizontalScroller/horizontalScrollerv1/index.js
+  // src/js/pages/plugin/overview/index.js
+  var plugin_overview = () => {
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      source: "./data/plugin/overview.json",
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            >Plugin 
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Plugin</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/plugin/horizontalScroller/horizontalScrollerv1/index.js
   var horizontalScrollerV1 = () => {
     return renderHtml`<div>
         <horizontal-scroller></horizontal-scroller>
     </div>`;
   };
 
-  // src/js/pages/horizontalScroller/horizontalScrollerv2/index.js
+  // src/js/pages/plugin/horizontalScroller/horizontalScrollerv2/index.js
   var horizontalScrollerV2 = () => {
     return renderHtml`<div>
         <horizontal-scroller

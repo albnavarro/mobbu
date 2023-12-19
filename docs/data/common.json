@@ -128,18 +128,18 @@
             "children": null
         },
         {
-            "label": "Horizontal scroller",
+            "label": "plugin",
             "section": true,
-            "sectioName": "horizotnalScroller"
+            "sectioName": "plugin"
         },
         {
             "label": "horizotnal scroller v1",
-            "scrollToSection": "horizotnalScroller",
+            "scrollToSection": "plugin",
             "url": "horizontalScrollerV1"
         },
         {
             "label": "horizotnal scroller v2",
-            "scrollToSection": "horizotnalScroller",
+            "scrollToSection": "plugin",
             "url": "horizontalScrollerV2"
         },
         {

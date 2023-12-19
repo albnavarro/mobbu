@@ -7,6 +7,7 @@ import { loadUrl } from '../../../mobjs';
 export const PageTransition = ({ onMount, watch, html }) => {
     onMount(({ element }) => {
         let currentUrl = '';
+        let isRunning = false;
 
         const clipPathpoint = [
             { xIn: 0, xOut: 0 },
@@ -67,9 +68,13 @@ export const PageTransition = ({ onMount, watch, html }) => {
         /**
          * Watch rounte change (callback).
          */
-        watch('url', (url) => {
+        watch('url', async (url) => {
+            if (isRunning) return;
+
+            isRunning = true;
             currentUrl = url;
-            transitionTimeline.play();
+            await transitionTimeline.play();
+            isRunning = false;
         });
 
         /**

@@ -1,4 +1,4 @@
-import { html, staticProps } from '../../../mobjs';
+import { html, staticProps } from '../../../../mobjs';
 
 export const horizontalScrollerV2 = () => {
     return html`<div>

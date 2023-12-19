@@ -11,6 +11,10 @@ const data = [
         url: 'canvas_overview',
     },
     {
+        label: 'plugin',
+        url: 'plugin_overview',
+    },
+    {
         label: 'mobCore',
         url: 'mobCore_overview',
     },

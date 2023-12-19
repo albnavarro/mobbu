@@ -1,4 +1,4 @@
-import { html } from '../../../mobjs';
+import { html } from '../../../../mobjs';
 
 export const horizontalScrollerV1 = () => {
     return html`<div>
