@@ -128,26 +128,6 @@
             "children": null
         },
         {
-            "label": "plugin",
-            "section": true,
-            "sectioName": "plugin"
-        },
-        {
-            "label": "pverview",
-            "scrollToSection": "plugin",
-            "url": "plugin_overview"
-        },
-        {
-            "label": "horizotnal scroller v1",
-            "scrollToSection": "plugin",
-            "url": "horizontalScrollerV1"
-        },
-        {
-            "label": "horizotnal scroller v2",
-            "scrollToSection": "plugin",
-            "url": "horizontalScrollerV2"
-        },
-        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"
@@ -423,6 +403,26 @@
             "label": "Defaults",
             "scrollToSection": "mobMotion",
             "url": "mobMotion_defaults"
+        },
+        {
+            "label": "plugin",
+            "section": true,
+            "sectioName": "plugin"
+        },
+        {
+            "label": "pverview",
+            "scrollToSection": "plugin",
+            "url": "plugin_overview"
+        },
+        {
+            "label": "horizotnal scroller v1",
+            "scrollToSection": "plugin",
+            "url": "horizontalScrollerV1"
+        },
+        {
+            "label": "horizotnal scroller v2",
+            "scrollToSection": "plugin",
+            "url": "horizontalScrollerV2"
         }
     ]
 }

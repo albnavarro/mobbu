@@ -8,11 +8,6 @@ const data = [
         section: 'canvas',
     },
     {
-        label: 'plugin',
-        url: 'plugin_overview',
-        section: 'plugin',
-    },
-    {
         label: 'mobCore',
         url: 'mobCore_overview',
         section: 'mobCore',
@@ -26,6 +21,11 @@ const data = [
         label: 'mobMotion',
         url: 'mobMotion_overview',
         section: 'mobMotion',
+    },
+    {
+        label: 'plugin',
+        url: 'plugin_overview',
+        section: 'plugin',
     },
 ];
 
