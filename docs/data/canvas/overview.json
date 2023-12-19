@@ -1,0 +1,80 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "Canvas 2d animations"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "test"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='./#caterpillarN0'>caterpillar n.0</a>",
+                    "<a href='./#caterpillarN1'>caterpillar n.1</a>",
+                    "<a href='./#caterpillarN2'>caterpillar n.2</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='./#animatedPatternN0v1'>animatedPattern n.0 v1</a>",
+                    "<a href='./#animatedPatternN0v2'>animatedPattern n.0 v2</a>",
+                    "<a href='./#animatedPatternN0v3'>animatedPattern n.0 v3</a>",
+                    "<a href='./#animatedPatternN0v4'>animatedPattern n.0 v4</a>",
+                    "<a href='./#animatedPatternN0v5'>animatedPattern n.0 v5</a>",
+                    "<a href='./#animatedPatternN0v6'>animatedPattern n.0 v6</a>",
+                    "<a href='./#animatedPatternN0v7'>animatedPattern n.0 v7</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='./#animatedPatternN1'>animatedPattern n.1</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<a href='./#scrollerN0v1'>scroller n.0 v1</a>",
+                    "<a href='./#scrollerN0v2'>scroller n.0 v2</a>",
+                    "<a href='./#scrollerN0v3'>scroller n.0 v3</a>",
+                    "<a href='./#scrollerN0v4'>scroller n.0 v4</a>",
+                    "<a href='./#scrollerN0v4'>scroller n.0 v5</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["<a href='./#scrollerN1'>scrollerN1</a>"]
+            }
+        }
+    ]
+}

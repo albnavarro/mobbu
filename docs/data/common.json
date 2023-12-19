@@ -20,6 +20,12 @@
             "sectioName": "canvas"
         },
         {
+            "label": "Overview",
+            "url": "canvas_overview",
+            "scrollToSection": "canvas",
+            "children": null
+        },
+        {
             "label": "caterpillar n.0",
             "url": "caterpillarN0",
             "scrollToSection": "canvas",
@@ -122,20 +128,19 @@
             "children": null
         },
         {
-            "label": "horizotnal scroller",
-            "url": "#",
-            "children": [
-                {
-                    "label": "horizotnal scroller v1",
-                    "scrollToSection": "canvas",
-                    "url": "horizontalScrollerV1"
-                },
-                {
-                    "label": "horizotnal scroller v2",
-                    "scrollToSection": "canvas",
-                    "url": "horizontalScrollerV2"
-                }
-            ]
+            "label": "Horizontal scroller",
+            "section": true,
+            "sectioName": "horizotnalScroller"
+        },
+        {
+            "label": "horizotnal scroller v1",
+            "scrollToSection": "horizotnalScroller",
+            "url": "horizontalScrollerV1"
+        },
+        {
+            "label": "horizotnal scroller v2",
+            "scrollToSection": "horizotnalScroller",
+            "url": "horizontalScrollerV2"
         },
         {
             "label": "mobCore",
