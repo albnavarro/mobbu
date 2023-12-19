@@ -2110,7 +2110,7 @@ code {
   color: #9ece6a;
 }
 .footer-nav {
-  justify-self: end;
+  justify-self: center;
   align-self: center;
   margin: 0;
   display: none;
@@ -2126,7 +2126,7 @@ code {
 .footer-nav__button {
   background: transparent;
   border: 0;
-  color: rgba(158, 206, 106, 0.5);
+  color: #fff;
   position: relative;
   padding: 0 1rem;
   transition: color 0.55s;
@@ -2143,7 +2143,7 @@ code {
   background: rgba(158, 206, 106, 0.5);
 }
 .footer-nav__button:hover {
-  color: #fff;
+  color: #9ece6a;
 }
 .l-parallax {
   height: 200vh;

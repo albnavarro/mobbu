@@ -3,7 +3,7 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .footer-nav {
-    justify-self: end;
+    justify-self: center;
     align-self: center;
     margin: 0;
     display: none;
@@ -19,7 +19,7 @@
     &__button {
         background: transparent;
         border: 0;
-        color: rgba($green, 0.5);
+        color: $white;
         position: relative;
         padding: 0 rem(15);
         transition: color 0.55s;
@@ -37,7 +37,7 @@
         }
 
         &:hover {
-            color: $white;
+            color: $green;
         }
     }
 }
