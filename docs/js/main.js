@@ -16725,6 +16725,10 @@
       scrollbar.addEventListener("input", () => {
         move(scrollbar.value);
       });
+      mainStore.watch("beforeRouteLeave", () => {
+        console.log("oooo");
+        setState("urls", []);
+      });
       computed(
         "currentButtonState",
         ["urls", "activeContent"],

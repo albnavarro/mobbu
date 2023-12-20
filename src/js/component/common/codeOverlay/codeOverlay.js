@@ -1,6 +1,6 @@
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { html, parseDom, staticProps } from '../../../mobjs';
+import { html, mainStore, parseDom, staticProps } from '../../../mobjs';
 
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
@@ -112,6 +112,11 @@ export const CodeOverlay = ({
 
         scrollbar.addEventListener('input', () => {
             move(scrollbar.value);
+        });
+
+        mainStore.watch('beforeRouteLeave', () => {
+            console.log('oooo');
+            setState('urls', []);
         });
 
         /**
