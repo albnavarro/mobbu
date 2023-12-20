@@ -22,12 +22,18 @@
             "content": "In the creation of these instruments I was careful to follow specific points:"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h4",
                 "color": "green"
             },
-            "content": "1- Less dependecies."
+            "content": "1- Less dependencies."
         },
         {
             "component": "mob-paragraph",
@@ -35,6 +41,61 @@
                 "style": "medium"
             },
             "content": "<span>Not relying on third-party dependencies</span>, even at the cost of reinventing the wheel, is necessary to develop something that is as <span>maintainable as possible</span>, and why not as <span>original as possible</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "2- Es modules"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Each tool should <span>hypothetically</span> be able to run in the browser natively <span>without the need for bundlers</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "3- Learn from others."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Take everything that's good about existing tools at a conceptual level.</span>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Although the project may seem to have been created for distribution, <span>it was created exclusively for personal use</span>, the present <span>documentation was primarily for myself to have a complete picture of the work done</span>.<br/>Of course, if anyone ever finds the project interesting, the code is open and available to everyone."
         }
     ]
 }
