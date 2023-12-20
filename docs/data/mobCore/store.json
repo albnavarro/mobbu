@@ -274,7 +274,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ).Default value is <span>true</span>.<br/> Clone the original data if using a function and make a copy of the original data.Default value is <span>false</span>"
+            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ). Default value is <span>true</span> (fire callback).<br/> Clone the original data if using a function and make a copy of the original data. Default value is <span>false</span> (value is not clonbed)"
         },
         {
             "component": "mob-snippet",
