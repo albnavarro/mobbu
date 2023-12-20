@@ -13,10 +13,25 @@
 
     a {
         transition: opacity 0.35s;
-        text-decoration: underline;
+        color: $green;
 
         &:hover {
             opacity: 0.5;
         }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li > a {
+        color: $white;
+        background: rgba($white, 0.1);
+        padding: rem(5) rem(10);
+        border-radius: rem(20);
+        display: inline-block;
+        margin-bottom: rem(10);
+        margin-right: rem(10);
     }
 }

@@ -22,6 +22,20 @@
             "content": "Canvas 2d experiment with <a href='./#mobMotion_overview'>mobMotion</a>"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "caterpillar series:"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
@@ -31,6 +45,20 @@
                     "<a href='./#caterpillarN2'>caterpillar n.2</a>"
                 ]
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "animated pattern series:"
         },
         {
             "component": "mob-list",
@@ -48,6 +76,20 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "interactive animated pattern"
+        },
+        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
@@ -55,6 +97,20 @@
                     "<a href='./#animatedPatternN1'>animatedPattern n.1</a>"
                 ]
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "scroller pattern series:"
         },
         {
             "component": "mob-list",
@@ -68,6 +124,20 @@
                     "<a href='./#scrollerN0v4'>scroller n.0 v5</a>"
                 ]
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "scroller shape series:"
         },
         {
             "component": "mob-list",

@@ -1851,10 +1851,23 @@ code {
 }
 .html-content a {
   transition: opacity 0.35s;
-  text-decoration: underline;
+  color: #9ece6a;
 }
 .html-content a:hover {
   opacity: 0.5;
+}
+.html-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+.html-content li > a {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3333333333rem 0.6666666667rem;
+  border-radius: 1.3333333333rem;
+  display: inline-block;
+  margin-bottom: 0.6666666667rem;
+  margin-right: 0.6666666667rem;
 }
 .snippet code {
   display: inline-block;
