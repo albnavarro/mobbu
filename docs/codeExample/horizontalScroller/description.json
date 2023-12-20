@@ -3,9 +3,33 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h1",
+                "color": "green"
             },
-            "content": "coming soon"
+            "content": "Canvas animation"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Custom <span>horizontal scroller scrollable/draggable</span> based on <span>scrollTrigger</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Made in two variants with <span>fixed pin</span> and <span>animated pin</span>.<br/> The module is completed with <span>parallaxes internal</span> to the scrollable element and <span>scroll to the various sections</span>."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": [
+                    "<a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>"
+                ]
+            }
         }
     ]
 }
