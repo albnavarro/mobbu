@@ -1862,7 +1862,7 @@ code {
 }
 .html-content li > a {
   color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   padding: 0.3333333333rem 0.6666666667rem;
   border-radius: 1.3333333333rem;
   display: inline-block;
