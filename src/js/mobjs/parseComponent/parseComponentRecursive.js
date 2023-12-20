@@ -88,6 +88,12 @@ export const parseComponentsRecursive = async ({
             fireFirstRepeat();
         }
 
+        /**
+         * Reset reference.
+         */
+        functionToFireAtTheEnd.length = 0;
+        currentSelectors.length = 0;
+
         applyDelegationBindEvent(element);
 
         return;
