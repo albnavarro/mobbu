@@ -21,7 +21,7 @@
                 "tag": "h3",
                 "items": [
                     "<a href='./#mobMotion_tween_spring_lerp'>Tween</a>",
-                    "<a href='./#mobMotion_async_timeline'>asyncTween</a>"
+                    "<a href='./#mobMotion_async_timeline'>asyncTimeline</a>"
                 ]
             }
         }
