@@ -5,7 +5,7 @@ const data = [
     {
         label: 'about',
         url: 'about',
-        section: 'no-section',
+        section: 'about',
     },
     {
         label: 'canvas 2d',

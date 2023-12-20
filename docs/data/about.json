@@ -96,6 +96,33 @@
                 "style": "medium"
             },
             "content": "Although the project may seem to have been created for distribution, <span>it was created exclusively for personal use</span>, the present <span>documentation was primarily for myself to have a complete picture of the work done</span>.<br/>Of course, if anyone ever finds the project interesting, the code is open and available to everyone."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In addition to being code, this site also wants to be, over time, <span>a showcase for more purely graphic works</span>, which is why the <span>intention is to have a tool that can be as long-lived and maintainable as possible</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "This project was also and above all possible thanks to the <span>effort of the open-source community</span>. A special thanks to all the people who freely carry out the <a href='https://neovim.io/' target='_blank'>Neovim</a> project or tools like <a href='https://inkscape.org/' target='_blank'>inkscape</a>, everything I have managed to achieve has been done thanks to these people."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Another special thanks to <span>skateboarding</span> and <span>writing</span>, thanks to you I'm still here today."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }

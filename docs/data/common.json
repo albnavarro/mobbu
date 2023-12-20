@@ -10,8 +10,14 @@
     },
     "navigation": [
         {
+            "label": "About",
+            "section": true,
+            "sectioName": "about"
+        },
+        {
             "label": "About the project",
             "url": "about",
+            "scrollToSection": "about",
             "children": null
         },
         {
