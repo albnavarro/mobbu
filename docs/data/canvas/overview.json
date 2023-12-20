@@ -19,7 +19,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "test"
+            "content": "Canvas 2d experiment with <a href='./#mobMotion_overview'>mobMotion</a>"
         },
         {
             "component": "mob-list",
