@@ -12,7 +12,29 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Coming soon."
+            "content": "This site is the result of the <span>work carried out in recent years</span>.<br/> The main reason why it was created was the need to have my <span>own tools disconnected from the commercial flow</span> to be able to carry on my work without having to follow the flows of other organizations/people."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the creation of these instruments I was careful to follow specific points:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "1- Less dependecies."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Not relying on third-party dependencies</span>, even at the cost of reinventing the wheel, is necessary to develop something that is as <span>maintainable as possible</span>, and why not as <span>original as possible</span>."
         }
     ]
 }

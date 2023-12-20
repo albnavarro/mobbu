@@ -1,7 +1,17 @@
 import { html, staticProps } from '../../mobjs';
 
 export const about = () => {
-    return html`<html-content
-        ${staticProps({ source: './data/about.json' })}
-    ></html-content>`;
+    return html` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+                source: './data/about.json',
+                useMaxWidth: true,
+            })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            >About 
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">About</doc-title>
+    </doc-container>`;
 };
