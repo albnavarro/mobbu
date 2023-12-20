@@ -19,7 +19,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "test"
+            "content": "A collection of plugin examples developed with <a href='./#mobMotion_overview'>mobMotion</a>: coming soon."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "Some examples:"
         },
         {
             "component": "mob-list",
