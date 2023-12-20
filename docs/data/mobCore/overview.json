@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "MobCore is made up of <span>two main modules</span>, a store and a collection of <span>utilities to manage browser functions</span>, from requestAnimationFrame to classic window-related events.<br/><span>The store will then be the basis for the <a href='./#mobJs_overview'>mobJs</a> project</span>"
+            "content": "MobCore is made up of <span>two main modules</span>, a <span>store</span> and a collection of <span>utilities to manage browser functions</span>, from requestAnimationFrame to classic window-related events.<br/><span>The store will then be the basis for the <a href='./#mobJs_overview'>mobJs</a> project</span>"
         },
         {
             "component": "mob-list",
