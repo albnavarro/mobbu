@@ -1846,6 +1846,15 @@ code {
   padding: 2.6666666667rem;
   position: relative;
 }
+.html-content:before {
+  content: "";
+  bottom: var(--footer-height);
+  height: 3.3333333333rem;
+  background: linear-gradient(rgba(26, 27, 38, 0), #1a1b26);
+  left: 0;
+  width: 100%;
+  position: fixed;
+}
 .html-content.is-min-100 {
   min-height: calc(100vh - var(--header-height) - 5.3333333333rem);
 }
