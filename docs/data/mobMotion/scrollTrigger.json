@@ -36,7 +36,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerInit.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -59,7 +60,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 69
             }
         },
         {
@@ -423,7 +425,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerRange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 29
             }
         },
         {
@@ -473,7 +476,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerDynamicRange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 18
             }
         },
         {
@@ -524,7 +528,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerTween.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 33
             }
         },
         {
@@ -634,7 +639,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerStart.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 28
             }
         },
         {
@@ -708,7 +714,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerDynamicStart.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 57
             }
         },
         {
@@ -761,7 +768,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerMarker.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 20
             }
         },
         {
@@ -893,7 +901,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 36
             }
         },
         {
@@ -990,7 +999,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerPin.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 27
             }
         },
         {
@@ -1099,7 +1109,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerEvent.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 34
             }
         },
         {
@@ -1153,7 +1164,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerMove.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 104
             }
         },
         {
@@ -1243,7 +1255,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 27
             }
         },
         {
@@ -1280,7 +1293,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 1
             }
         },
         {
@@ -1311,7 +1325,8 @@
                 "source": "./snippets/mobMotion/scrollTriggerDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 2
             }
         },
         {
