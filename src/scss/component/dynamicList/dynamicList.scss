@@ -4,7 +4,7 @@
 
 .dynamic-list {
     border: 0;
-    padding-bottom: rem(50);
+    padding-bottom: var(--footer-height);
     box-sizing: border-box;
 
     &__header {

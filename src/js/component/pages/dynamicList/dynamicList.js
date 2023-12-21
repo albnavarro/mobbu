@@ -111,7 +111,7 @@ export const DynamicList = async ({
     const { source } = repeater;
 
     return html`
-        <dynamic-list class="dynamic-list">
+        <div class="dynamic-list">
             <div class="dynamic-list__header">
                 <div class="dynamic-list__top">
                     ${getButton({
@@ -178,6 +178,6 @@ export const DynamicList = async ({
                 })}
             >
             </code-button>
-        </dynamic-list>
+        </div>
     `;
 };

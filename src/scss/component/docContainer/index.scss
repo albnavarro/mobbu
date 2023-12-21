@@ -3,6 +3,8 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .c-doc-container {
+    padding-bottom: var(--footer-height);
+
     @include mq.mq(desktop) {
         display: flex;
     }
