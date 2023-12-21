@@ -205,7 +205,8 @@
                 "source": "./snippets/mobMotion/tweenType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 55
             }
         },
         {
@@ -220,7 +221,8 @@
                 "source": "./snippets/mobMotion/tween.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -313,7 +315,8 @@
                 "source": "./snippets/mobMotion/springType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 30
             }
         },
         {
@@ -328,7 +331,8 @@
                 "source": "./snippets/mobMotion/spring.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 11
             }
         },
         {
@@ -414,7 +418,8 @@
                 "source": "./snippets/mobMotion/lerpType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 24
             }
         },
         {
@@ -429,7 +434,8 @@
                 "source": "./snippets/mobMotion/lerp.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -473,7 +479,8 @@
                 "source": "./snippets/mobMotion/set.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -518,7 +525,8 @@
                 "source": "./snippets/mobMotion/goTo.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 11
             }
         },
         {
@@ -563,7 +571,8 @@
                 "source": "./snippets/mobMotion/goFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -608,7 +617,8 @@
                 "source": "./snippets/mobMotion/goFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -639,7 +649,8 @@
                 "source": "./snippets/mobMotion/stop.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 1
             }
         },
         {
@@ -670,7 +681,8 @@
                 "source": "./snippets/mobMotion/pause.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -708,7 +720,8 @@
                 "source": "./snippets/mobMotion/subscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {
@@ -746,7 +759,8 @@
                 "source": "./snippets/mobMotion/subscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         },
         {
@@ -777,7 +791,8 @@
                 "source": "./snippets/mobMotion/onComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 12
             }
         }
     ]
