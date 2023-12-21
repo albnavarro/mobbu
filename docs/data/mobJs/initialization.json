@@ -52,7 +52,8 @@
                 "source": "./snippets/mobJs/index.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 16
             }
         },
         {
@@ -82,7 +83,8 @@
                 "source": "./snippets/mobJs/initialization.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 51
             }
         },
         {
@@ -120,7 +122,8 @@
                 "source": "./snippets/mobJs/componentList.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {
@@ -152,7 +155,8 @@
                 "source": "./snippets/mobJs/routeList.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 26
             }
         },
         {
@@ -190,7 +194,8 @@
                 "source": "./snippets/mobJs/wrapper.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 35
             }
         },
         {
