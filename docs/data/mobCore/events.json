@@ -80,7 +80,8 @@
                 "source": "./snippets/mobCore/useFrame.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -111,7 +112,8 @@
                 "source": "./snippets/mobCore/useNextTick.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 22
             }
         },
         {
@@ -148,7 +150,8 @@
                 "source": "./snippets/mobCore/useNextFrame.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 10
             }
         },
         {
@@ -185,7 +188,8 @@
                 "source": "./snippets/mobCore/useFrameIndex.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -222,7 +226,8 @@
                 "source": "./snippets/mobCore/useLoad.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -272,7 +277,8 @@
                 "source": "./snippets/mobCore/useResize.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 16
             }
         },
         {
@@ -317,7 +323,8 @@
                 "source": "./snippets/mobCore/useVisibilityChange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -379,7 +386,8 @@
                 "source": "./snippets/mobCore/useMouseClick.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 19
             }
         },
         {
@@ -432,7 +440,8 @@
                 "source": "./snippets/mobCore/useMouseWheel.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 19
             }
         },
         {
@@ -469,7 +478,8 @@
                 "source": "./snippets/mobCore/useScroll.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -512,7 +522,8 @@
                 "source": "./snippets/mobCore/useScrollImmediate.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -555,7 +566,8 @@
                 "source": "./snippets/mobCore/useScrollThrottle.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -598,7 +610,8 @@
                 "source": "./snippets/mobCore/useScrollStart.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -652,7 +665,8 @@
                 "source": "./snippets/mobCore/checkType.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 26
             }
         },
         {
