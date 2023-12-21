@@ -218,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Validation function to analyze the value. This function will take the <span>current value and old value as input parameters</span> and <span>return a boolean value</span>. The validation status of each property will be <span>displayed in as paramaters in watch function</span> and will be retrievable using the <span>getValidation()</span> method."
+            "content": "Validation function to analyze the value. This function will take the <span>current value and old value as input parameters</span> and <span>return a boolean value</span>. The validation status of each property will be <span>displayed in as parameters in watch function</span> and will be retrievable using the <span>getValidation()</span> method."
         },
         {
             "component": "mob-spacer",
