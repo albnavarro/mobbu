@@ -75,7 +75,8 @@
                 "source": "./snippets/mobMotion/staggerInterfaceType.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -97,7 +98,8 @@
                 "source": "./snippets/mobMotion/createStagger.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 84
             }
         },
         {

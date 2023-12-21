@@ -37,7 +37,8 @@
                 "source": "./snippets/mobMotion/defaultType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 159
             }
         },
         {
@@ -61,7 +62,8 @@
                 "source": "./snippets/mobMotion/defaultExample.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 21
             }
         },
         {
@@ -91,7 +93,8 @@
                 "source": "./snippets/mobMotion/defaultGet.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -135,7 +138,8 @@
                 "source": "./snippets/mobMotion/defaultPassive.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -200,7 +204,8 @@
                 "source": "./snippets/mobMotion/defaultScale.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 14
             }
         },
         {
@@ -251,7 +256,8 @@
                 "source": "./snippets/mobMotion/defaultNext.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -295,7 +301,8 @@
                 "source": "./snippets/mobMotion/defaultThrottle.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -339,7 +346,8 @@
                 "source": "./snippets/mobMotion/defaultMedia.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 33
             }
         },
         {
@@ -376,7 +384,8 @@
                 "source": "./snippets/mobMotion/defaultSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         },
         {
@@ -413,7 +422,8 @@
                 "source": "./snippets/mobMotion/defaultScrollTrigger.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {
@@ -450,7 +460,8 @@
                 "source": "./snippets/mobMotion/defaultParallax.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 20
             }
         },
         {
@@ -487,7 +498,8 @@
                 "source": "./snippets/mobMotion/defaultTween.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -524,7 +536,8 @@
                 "source": "./snippets/mobMotion/defaultSpring.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 26
             }
         },
         {
@@ -561,7 +574,8 @@
                 "source": "./snippets/mobMotion/defaultLerp.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {

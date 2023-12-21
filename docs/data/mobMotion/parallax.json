@@ -43,7 +43,8 @@
                 "source": "./snippets/mobMotion/parallaxInit.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -66,7 +67,8 @@
                 "source": "./snippets/mobMotion/parallaxType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 60
             }
         },
         {
@@ -313,7 +315,8 @@
                 "source": "./snippets/mobMotion/parallaxPropierties.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 39
             }
         },
         {
@@ -370,7 +373,8 @@
                 "source": "./snippets/mobMotion/parallaxRange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {
@@ -431,7 +435,8 @@
                 "source": "./snippets/mobMotion/parallaxOpacity.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 16
             }
         },
         {
@@ -546,7 +551,8 @@
                 "source": "./snippets/mobMotion/parallaxTween.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 28
             }
         },
         {
@@ -703,7 +709,8 @@
                 "source": "./snippets/mobMotion/parallaxAlign.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 25
             }
         },
         {
@@ -746,7 +753,8 @@
                 "source": "./snippets/mobMotion/parallaxOnSwitch.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 26
             }
         },
         {
@@ -849,7 +857,8 @@
                 "source": "./snippets/mobMotion/parallaxEasing.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 34
             }
         },
         {
@@ -939,7 +948,8 @@
                 "source": "./snippets/mobMotion/parallaxUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 25
             }
         },
         {
@@ -976,7 +986,8 @@
                 "source": "./snippets/mobMotion/parallaxRefresh.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 1
             }
         },
         {
@@ -1007,7 +1018,8 @@
                 "source": "./snippets/mobMotion/parallaxDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 2
             }
         },
         {
