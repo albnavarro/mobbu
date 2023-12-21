@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Collection of commonly used events.<br/> Each event is built with the pub/sub model.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> Each subscription will be provided with an unsubscribe function when necessary."
+            "content": "<span>Collection of commonly used events</span>.<br/> Each event is built with the <span>pub/sub model</span>.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> <span>Each subscription will be provided with an unsubscribe function when necessary</span>."
         },
         {
             "component": "mob-spacer",
@@ -103,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched just after the first available request animation frame"
+            "content": "Event launched <span>just after the first available request animation frame</span>"
         },
         {
             "component": "mob-snippet",
@@ -140,7 +140,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to the next available frame allowing the creation of a request animation frame loop"
+            "content": "Event launched to the <span>next available frame</span> allowing the creation of a request animation frame loop"
         },
         {
             "component": "mob-snippet",
@@ -177,7 +177,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to a specific frame."
+            "content": "Event launched to a <span>specific frame</span>."
         },
         {
             "component": "mob-snippet",
@@ -214,7 +214,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched on page load"
+            "content": "Event launched on <span>page load</span>"
         },
         {
             "component": "mob-snippet",
@@ -251,7 +251,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched at every resize using a debounce"
+            "content": "Event launched at <span>every resize</span> using a <span>debounce</span>"
         },
         {
             "component": "mob-list",
@@ -301,12 +301,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on tab change."
+            "content": "Add callback on <span>tab change</span>."
         },
         {
             "component": "mob-list",
             "props": {
-                "items": ["visibilityState: 'hidden' | 'visible'"]
+                "items": [
+                    "visibilityState: <span>hidden</span> | <span>visible</span>"
+                ]
             }
         },
         {
@@ -357,7 +359,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on mouse/touch event"
+            "content": "Add callback on <span>mouse/touch event</span>"
         },
         {
             "component": "mob-list",
@@ -406,7 +408,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on mouse wheel."
+            "content": "Add callback on <span>mouse wheel</span>."
         },
         {
             "component": "mob-list",
@@ -453,7 +455,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Perform a callback to the first nextTick available after scrolling"
+            "content": "Perform a callback to the <span>first nextTick available after scrolling</span>"
         },
         {
             "component": "mob-list",
@@ -496,7 +498,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback immediately on scroll"
+            "content": "Execute a callback <span>immediately on scroll</span>"
         },
         {
             "component": "mob-list",
@@ -539,7 +541,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Performs a scroll callback using a throttle function"
+            "content": "Performs a scroll callback using a <span>throttle function</span>"
         },
         {
             "component": "mob-list",
@@ -582,7 +584,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback at the beginning?end of the scroll"
+            "content": "Execute a callback at the <span>beginning/end of the scroll</span>"
         },
         {
             "component": "mob-list",
@@ -625,7 +627,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Compares the type of a variable, returns a boolean value:"
+            "content": "<span>Compares the type of a variable</span>, returns a boolean value:"
         },
         {
             "component": "mob-list",
