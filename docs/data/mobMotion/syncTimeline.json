@@ -50,7 +50,8 @@
                 "source": "./snippets/mobMotion/syncTimelineSchema.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -65,7 +66,8 @@
                 "source": "./snippets/mobMotion/syncTimeline.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -156,7 +158,8 @@
                 "source": "./snippets/mobMotion/syncTimelineExample.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 44
             }
         },
         {
@@ -188,7 +191,8 @@
                 "source": "./snippets/mobMotion/syncTimeAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -271,7 +275,8 @@
                 "source": "./snippets/mobMotion/syncTimelinePlay.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 14
             }
         },
         {
@@ -303,7 +308,8 @@
                 "source": "./snippets/mobMotion/syncTimelinePlayFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 9
             }
         },
         {
@@ -335,7 +341,8 @@
                 "source": "./snippets/mobMotion/syncTimelineReverse.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 11
             }
         },
         {
@@ -367,7 +374,8 @@
                 "source": "./snippets/mobMotion/syncTimelinePause.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -416,7 +424,8 @@
                 "source": "./snippets/mobMotion/syncTimelineLoop.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -448,7 +457,8 @@
                 "source": "./snippets/mobMotion/syncTimelinecomplete.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -497,7 +507,8 @@
                 "source": "./snippets/mobMotion/syncTimelineUpdate.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -529,7 +540,8 @@
                 "source": "./snippets/mobMotion/syncTimelineDestroy.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -568,7 +580,8 @@
                 "source": "./snippets/mobMotion/syncTimelineUtils.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 4
             }
         },
         {
