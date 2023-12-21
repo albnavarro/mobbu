@@ -70,7 +70,8 @@
                 "source": "./snippets/mobMotion/staggerInterface.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 17
             }
         },
         {
@@ -101,7 +102,8 @@
                 "source": "./snippets/mobMotion/each.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -146,7 +148,8 @@
                 "source": "./snippets/mobMotion/waitComplete.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -191,7 +194,8 @@
                 "source": "./snippets/mobMotion/from.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -236,7 +240,8 @@
                 "source": "./snippets/mobMotion/grid.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 11
             }
         },
         {
