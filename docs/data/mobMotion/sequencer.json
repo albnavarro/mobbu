@@ -90,7 +90,8 @@
                 "source": "./snippets/mobMotion/sequencerType.d.ts",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 54
             }
         },
         {
@@ -104,7 +105,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Inizialization"
+            "content": "Initialization"
         },
         {
             "component": "mob-paragraph",
@@ -119,7 +120,8 @@
                 "source": "./snippets/mobMotion/sequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         },
         {
@@ -174,7 +176,8 @@
                 "source": "./snippets/mobMotion/sequencerGoTo.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 46
             }
         },
         {
@@ -205,7 +208,8 @@
                 "source": "./snippets/mobMotion/sequencerGoFrom.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 10
             }
         },
         {
@@ -236,7 +240,8 @@
                 "source": "./snippets/mobMotion/sequencerGoFromTo.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 10
             }
         },
         {
@@ -335,7 +340,8 @@
                 "source": "./snippets/mobMotion/sequencerAdd.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 17
             }
         },
         {
@@ -366,7 +372,8 @@
                 "source": "./snippets/mobMotion/sequencerLabel.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 37
             }
         },
         {
@@ -404,7 +411,8 @@
                 "source": "./snippets/mobMotion/sequencerSubscribe.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 23
             }
         },
         {
@@ -442,7 +450,8 @@
                 "source": "./snippets/mobMotion/sequencerSubscribeCache.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         },
         {
@@ -473,7 +482,8 @@
                 "source": "./snippets/mobMotion/onStop.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 12
             }
         },
         {
@@ -504,7 +514,8 @@
                 "source": "./snippets/mobMotion/masterSequencer.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 21
             }
         },
         {
