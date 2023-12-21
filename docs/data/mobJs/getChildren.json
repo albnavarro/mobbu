@@ -40,7 +40,8 @@
                 "source": "./snippets/mobJs/getChildren.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 27
             }
         }
     ]

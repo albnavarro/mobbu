@@ -47,7 +47,8 @@
                 "source": "./snippets/mobJs/emitAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         }
     ]

@@ -40,7 +40,8 @@
                 "source": "./snippets/mobJs/watch.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 25
             }
         }
     ]

@@ -41,7 +41,8 @@
                 "source": "./snippets/mobJs/webComponentFunction.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 13
             }
         },
         {
@@ -154,7 +155,8 @@
                 "source": "./snippets/mobJs/webComponentDefinition.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 29
             }
         }
     ]

@@ -81,7 +81,8 @@
                 "source": "./snippets/mobJs/onmount.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 26
             }
         },
         {

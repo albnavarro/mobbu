@@ -47,7 +47,8 @@
                 "source": "./snippets/mobJs/computed.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 20
             }
         }
     ]

@@ -57,7 +57,8 @@
                 "source": "./snippets/mobJs/routingFunction.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         },
         {
@@ -88,7 +89,8 @@
                 "source": "./snippets/mobJs/routeInizialization.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 28
             }
         },
         {
@@ -112,7 +114,8 @@
                 "source": "./snippets/mobJs/routingLink.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 1
             }
         },
         {
@@ -136,7 +139,8 @@
                 "source": "./snippets/mobJs/routeLinkJs.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -190,7 +194,8 @@
                 "source": "./snippets/mobJs/beforeRouteChange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -221,7 +226,8 @@
                 "source": "./snippets/mobJs/beforeRouteLeave.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -252,7 +258,8 @@
                 "source": "./snippets/mobJs/afterRouteChange.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 7
             }
         },
         {
@@ -283,7 +290,8 @@
                 "source": "./snippets/mobJs/activeRoute.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         }
     ]

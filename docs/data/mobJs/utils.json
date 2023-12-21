@@ -64,7 +64,8 @@
                 "source": "./snippets/mobJs/utils0.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -102,7 +103,8 @@
                 "source": "./snippets/mobJs/utils1.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -140,7 +142,8 @@
                 "source": "./snippets/mobJs/utils2.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -178,7 +181,8 @@
                 "source": "./snippets/mobJs/utils3.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -216,7 +220,8 @@
                 "source": "./snippets/mobJs/utils4.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -254,7 +259,8 @@
                 "source": "./snippets/mobJs/utils5.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -292,7 +298,8 @@
                 "source": "./snippets/mobJs/utils6.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -330,7 +337,8 @@
                 "source": "./snippets/mobJs/utils7.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -368,7 +376,8 @@
                 "source": "./snippets/mobJs/utils8.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 3
             }
         },
         {
@@ -406,7 +415,8 @@
                 "source": "./snippets/mobJs/utils9.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 5
             }
         },
         {
@@ -444,7 +454,8 @@
                 "source": "./snippets/mobJs/utils10.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 6
             }
         },
         {
@@ -482,7 +493,8 @@
                 "source": "./snippets/mobJs/utils11.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 11
             }
         }
     ]

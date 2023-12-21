@@ -47,7 +47,8 @@
                 "source": "./snippets/mobJs/instanceName.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 8
             }
         }
     ]

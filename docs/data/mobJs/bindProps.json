@@ -82,7 +82,8 @@
                 "source": "./snippets/mobJs/bindProps.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 41
             }
         },
         {
@@ -111,7 +112,8 @@
                 "source": "./snippets/mobJs/bindPropsExtra.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 15
             }
         },
         {
@@ -133,7 +135,8 @@
                 "source": "./snippets/mobJs/bindPropsForce.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 27
             }
         }
     ]

@@ -40,7 +40,8 @@
                 "source": "./snippets/mobJs/freezeProp.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 12
             }
         }
     ]

@@ -202,7 +202,8 @@
                 "source": "./snippets/mobJs/repeat.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 51
             }
         }
     ]
