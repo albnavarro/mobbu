@@ -68,7 +68,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each tool should <span>hypothetically</span> be able to run in the browser natively <span>without the need for bundlers</span>."
+            "content": "Each tool should <span>hypothetically</span> be able to run in the browser natively <span>without the need for bundlers</span>.<br/>This is why I opted to use <span>jsDoc + single d.ts files</span> over a typescript project."
         },
         {
             "component": "mob-spacer",

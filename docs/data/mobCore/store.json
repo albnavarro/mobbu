@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Classic store based on the pub/sub pattern</span>.<br/> This module will then be the basis of the reactivity of the javascript components."
+            "content": "<span>Classic store based on the pub/sub pattern</span>.<br/> This module will then be the basis of the reactivity of <span><a href='./#mobJs_overview'>mobJs</a> javascript components</span>."
         },
         {
             "component": "mob-spacer",
@@ -123,7 +123,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above.<br/><br/> To use a object with infinite insertions use the <span>any</span> type"
+            "content": "It is possible to insert up to a <span>maximum of two levels</span> (both base and advanced use) per property as in the example above."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>To use a object with infinite insertions use the any type.</span><br/>In this case it will not be possible to define specific properties for nested properties."
         },
         {
             "component": "mob-snippet",
@@ -137,6 +144,34 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "color": "green"
+            },
+            "content": "Properties"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "value"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Initial value"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "small"
             }
         },
@@ -145,7 +180,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Available type:"
+            "content": "type"
         },
         {
             "component": "mob-list",
@@ -183,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Validation function to analyze the value. This function will take the current value and old value as input parameters and return a boolean value. The validation status of each property will be displayed in observers and will be retrievable using the getValidation() method."
+            "content": "Validation function to analyze the value. This function will take the <span>current value and old value as input parameters</span> and <span>return a boolean value</span>. The validation status of each property will be <span>displayed in as paramaters in watch function</span> and will be retrievable using the <span>getValidation()</span> method."
         },
         {
             "component": "mob-spacer",
@@ -203,7 +238,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.<br/> The default value is <span>true</span>."
+            "content": "<span>If the value is equal to the previous one, the property will not be updated</span>.<br/>The watches will not be executed and the property will have no effect on the computed related to it. The default value is <span>true</span>."
         },
         {
             "component": "mob-spacer",
@@ -223,7 +258,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.<br/> The default value is <span>false</span>."
+            "content": "If set to true, the validation function will become blocking and <span>the property will be updated only if the validation function is successful</span>.<br/> The default value is <span>false</span>."
         },
         {
             "component": "mob-spacer",
@@ -236,7 +271,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Set"
         },
@@ -245,7 +281,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Update store value:"
+            "content": "<span>Update</span> store value:"
         },
         {
             "component": "mob-snippet",
@@ -274,7 +310,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Furthermore it is possible:<br/> Changing data without a reaction ( no callback will be fired ). Default value is <span>true</span> (fire callback).<br/> Clone the original data if using a function and make a copy of the original data. Default value is <span>false</span> (value is not clonbed)"
+            "content": "Furthermore it is possible:<br/><span>Changing data without a reaction</span> ( no callback will be fired ). Default value is <span>true</span> (fire callback).<br/> <span>Clone the original data</span> if using a function and make a copy of the original data. Default value is <span>false</span> (value is not cloned)"
         },
         {
             "component": "mob-snippet",
@@ -296,7 +332,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Get"
         },
@@ -305,7 +342,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The get() method will return the complete store, use object destructuring to retrieve the desired property."
+            "content": "This method will <span>return the complete store</span>, use <span>object destructuring</span> to retrieve the desired property."
         },
         {
             "component": "mob-snippet",
@@ -327,7 +364,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Get props"
         },
@@ -336,7 +374,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The getProp() method will return a specific prop from store."
+            "content": "This method will <span>return a specific prop</span> from store."
         },
         {
             "component": "mob-snippet",
@@ -358,7 +396,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Watch"
         },
@@ -367,7 +406,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Listen to the changing data and return the unsubcribe function."
+            "content": "<span>Listen to the changing data</span> and return the unsubcribe function."
         },
         {
             "component": "mob-snippet",
@@ -389,7 +428,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Emit"
         },
@@ -398,7 +438,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute property-related callbacks"
+            "content": "<span>Execute property-related callbacks</span>"
         },
         {
             "component": "mob-snippet",
@@ -420,7 +460,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Emit async"
         },
@@ -429,7 +470,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute property-related async callbacks"
+            "content": "<span>Execute property-related async callbacks</span>"
         },
         {
             "component": "mob-snippet",
@@ -451,7 +492,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Computed"
         },
@@ -460,7 +502,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
+            "content": "<span>Update properties value if some dependency ( store props) change</span>.<br/> Computed functions are resolved on the <span>javascript loop</span>.<br/> If multiple dependencies change at the <span>same time</span>, the computed <span>will be resolved only once</span>."
         },
         {
             "component": "mob-snippet",
@@ -481,7 +523,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Destroy"
         },
@@ -490,7 +533,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Destroy store and remove all reference"
+            "content": "<span>Destroy store and remove all reference</span>"
         },
         {
             "component": "mob-snippet",
@@ -510,7 +553,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2",
+                "color": "green"
             },
             "content": "Other functions"
         },
