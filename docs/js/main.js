@@ -22553,7 +22553,7 @@
   // src/js/component/common/snippet/snippet.js
   core_default.registerLanguage("javascript", javascript);
   var Snippet = ({ html, onMount, getState }) => {
-    const { source, isFull, hasBorder, hasOverflow } = getState();
+    const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? "is-full" : "";
     const hasBorderClass = hasBorder ? "has-border" : "";
     const hasOverflowClass = hasOverflow ? "has-overflow" : "";
@@ -22566,14 +22566,18 @@
       }
       codeEl.textContent = data3;
       core_default.highlightElement(codeEl, { language: "javascript" });
+      codeEl.style.minHeight = "";
       return () => {
       };
     });
     return html`<div class="snippet">
         <code class="${isFullClass} ${hasBorderClass}">
-            <pre class="${isFullClass} ${hasOverflowClass}" ref="codeEl">
-Loading snippet ...
-            </pre
+            <pre
+                class="${isFullClass} ${hasOverflowClass}"
+                ref="codeEl"
+                style="min-height:${numLines * 1.5}rem;"
+            >
+Loading snippet ...</pre
             >
         </code>
     </div>`;
@@ -22583,7 +22587,7 @@ Loading snippet ...
   var snippetContentDef = createComponent({
     name: "mob-snippet",
     component: Snippet,
-    exportState: ["source", "isFull", "hasOverflow", "hasBorder"],
+    exportState: ["source", "isFull", "hasOverflow", "hasBorder", "numLines"],
     state: {
       source: () => ({
         value: "",
@@ -22604,6 +22608,10 @@ Loading snippet ...
       hasBorder: () => ({
         value: false,
         type: Boolean
+      }),
+      numLines: () => ({
+        value: 1,
+        type: Number
       })
     }
   });

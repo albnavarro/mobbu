@@ -1907,6 +1907,7 @@ code {
 .snippet pre {
   padding: 0.6666666667rem;
   overflow: auto;
+  line-height: 1.5rem;
 }
 .snippet pre.has-overflow {
   overflow: hidden;
@@ -1919,6 +1920,7 @@ code {
 @media (min-width: 62em) and (min-width: 62em) {
   .snippet pre.is-full {
     padding: 0;
+    margin: 0;
   }
 }
 .spacer {

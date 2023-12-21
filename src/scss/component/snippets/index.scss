@@ -33,6 +33,7 @@
     pre {
         padding: rem(10);
         overflow: auto;
+        line-height: 1.5rem;
 
         &.has-overflow {
             overflow: hidden;
