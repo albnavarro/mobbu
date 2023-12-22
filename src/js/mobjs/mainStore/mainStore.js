@@ -30,6 +30,7 @@ export const mainStore = mobCore.createStore({
     activeRoute: () => ({
         value: '',
         type: String,
+        skipEqual: false,
     }),
     beforeRouteLeave: () => ({
         value: '',

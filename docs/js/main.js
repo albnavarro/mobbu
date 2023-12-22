@@ -4601,7 +4601,8 @@
     }),
     activeRoute: () => ({
       value: "",
-      type: String
+      type: String,
+      skipEqual: false
     }),
     beforeRouteLeave: () => ({
       value: "",
@@ -7059,16 +7060,24 @@
   };
 
   // src/js/mobjs/route/router.js
+  var previousUrl = "";
   var getHash = () => {
     const locationHash = window.location.hash.slice(1);
     loadRoute({ route: getRouteModule({ url: locationHash }) });
   };
   var router = () => {
     getHash();
-    window.addEventListener("hashchange", () => getHash());
+    window.addEventListener("hashchange", () => {
+      getHash();
+      console.log("hash");
+    });
   };
   var loadUrl = ({ url = "" }) => {
     window.location.hash = url;
+    if (url === previousUrl || previousUrl === "") {
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+    }
+    previousUrl = url;
   };
 
   // src/js/mobjs/route/test.js

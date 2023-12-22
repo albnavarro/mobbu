@@ -2,12 +2,15 @@
 import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
+let previousUrl = '';
+
 /**
  * @description
  * Get hash from url and load new route.
  */
 const getHash = () => {
     const locationHash = window.location.hash.slice(1);
+
     loadRoute({ route: getRouteModule({ url: locationHash }) });
 };
 
@@ -17,7 +20,11 @@ const getHash = () => {
  */
 export const router = () => {
     getHash();
-    window.addEventListener('hashchange', () => getHash());
+
+    window.addEventListener('hashchange', () => {
+        getHash();
+        console.log('hash');
+    });
 };
 
 /**
@@ -26,4 +33,13 @@ export const router = () => {
  */
 export const loadUrl = ({ url = '' }) => {
     window.location.hash = url;
+
+    /**
+     * If we want reload same route force hash.
+     */
+    if (url === previousUrl || previousUrl === '') {
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+    }
+
+    previousUrl = url;
 };
