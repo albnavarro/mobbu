@@ -1,5 +1,5 @@
 import { timeline, tween } from '../../../mobMotion';
-import { loadUrl } from '../../../mobjs';
+import { loadUrl, mainStore } from '../../../mobjs';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
@@ -58,7 +58,14 @@ export const PageTransition = ({ onMount, watch, html }) => {
                 { xIn: 100 },
                 { ease: 'easeInOutCirc', duration: 500 }
             )
-            .add(() => loadUrl({ url: currentUrl }))
+            .addAsync(({ resolve }) => {
+                const unWatch = mainStore.watch('atfterRouteChange', () => {
+                    unWatch();
+                    resolve();
+                });
+
+                loadUrl({ url: currentUrl });
+            })
             .goTo(
                 transitionTween,
                 { xOut: 100 },

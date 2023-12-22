@@ -21587,7 +21587,13 @@
         transitionTween,
         { xIn: 100 },
         { ease: "easeInOutCirc", duration: 500 }
-      ).add(() => loadUrl({ url: currentUrl })).goTo(
+      ).addAsync(({ resolve }) => {
+        const unWatch = mainStore.watch("atfterRouteChange", () => {
+          unWatch();
+          resolve();
+        });
+        loadUrl({ url: currentUrl });
+      }).goTo(
         transitionTween,
         { xOut: 100 },
         { ease: "easeInCubic", duration: 500 }
