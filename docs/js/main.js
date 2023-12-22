@@ -7038,8 +7038,7 @@
     });
     removeOrphanComponent();
     mainStore.set("activeRoute", route);
-    const data3 = await getRouteList()?.[route]?.before?.();
-    const content2 = getRouteList()?.[route]?.after?.(data3);
+    const content2 = await getRouteList()?.[route]?.();
     contentEl.innerHTML = "";
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
@@ -27971,43 +27970,34 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/home/index.js
-  var home = {
-    before: () => {
-    },
-    after: () => {
-      return renderHtml`<div class="l-index">
-            <home-component></home-component>
-        </div>`;
-    }
+  var home = () => {
+    return renderHtml`<div class="l-index">
+        <home-component></home-component>
+    </div>`;
   };
 
   // src/js/pages/about/index.js
-  var about = {
-    before: async () => {
-      const { success, data: data3 } = await loadJsonContent({
-        source: "./data/about.json"
-      });
-      if (!success) {
-        console.warn("fetch data fail");
-        return [];
-      }
-      return data3;
-    },
-    after: (data3) => {
-      return renderHtml`<doc-container>
+  var about = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/about.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
+    return renderHtml`<doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-        data: data3.data,
-        useMaxWidth: true
-      })}
+      data: data3.data,
+      useMaxWidth: true
+    })}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >About 
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">About</doc-title>
     </doc-container>`;
-    }
   };
 
   // src/js/pages/plugin/overview/index.js

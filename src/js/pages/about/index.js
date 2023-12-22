@@ -1,21 +1,17 @@
 import { html, staticProps } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
 
-export const about = {
-    before: async () => {
-        const { success, data } = await loadJsonContent({
-            source: './data/about.json',
-        });
+export const about = async () => {
+    const { success, data } = await loadJsonContent({
+        source: './data/about.json',
+    });
 
-        if (!success) {
-            console.warn('fetch data fail');
-            return [];
-        }
+    if (!success) {
+        console.warn('fetch data fail');
+        return [];
+    }
 
-        return data;
-    },
-    after: (data) => {
-        return html`<doc-container>
+    return html`<doc-container>
         <html-content
             slot="docs"
             ${staticProps({
@@ -28,5 +24,4 @@ export const about = {
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">About</doc-title>
     </doc-container>`;
-    },
 };
