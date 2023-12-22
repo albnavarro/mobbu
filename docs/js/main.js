@@ -1659,6 +1659,7 @@
     paragraphContentDef: () => paragraphContentDef,
     paramsMobJsButtonDef: () => paramsMobJsButtonDef,
     paramsMobJsDef: () => paramsMobJsDef,
+    routeLoaderDef: () => routeLoaderDef,
     scrollToButtonDef: () => scrollToButtonDef,
     scrollToDef: () => scrollToDef,
     scrollerN0Def: () => scrollerN0Def,
@@ -23075,6 +23076,47 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/routeLoader/routeLoader.js
+  var RouteLoader = ({ html, onMount }) => {
+    onMount(({ element }) => {
+      let tweenOut = tween.createTween({
+        data: { opacity: 1, scale: 1 },
+        duration: 500
+      });
+      tweenOut.subscribe(({ opacity, scale }) => {
+        element.style.opacity = opacity;
+        element.style.transform = `scale(${scale})`;
+      });
+      mainStore.watch("beforeRouteChange", () => {
+        tweenOut.goTo({ opacity: 1, scale: 1 });
+      });
+      mainStore.watch("atfterRouteChange", () => {
+        tweenOut.goTo({ opacity: 0, scale: 0.9 });
+      });
+      return () => {
+        tweenOut.destroy();
+        tweenOut = null;
+      };
+    });
+    return html`
+        <div class="c-loader center-viewport">
+            <span class="c-loader__inner"></span>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/routeLoader/definition.js
+  var routeLoaderDef = createComponent({
+    name: "route-loader",
+    component: RouteLoader,
+    state: {
+      isLoading: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
   // src/js/component/layout/footer/footer.js
   var Footer = ({ html }) => {
     return html`
@@ -29502,6 +29544,7 @@ Loading snippet ...</pre
             <debug-button slot="debug"></debug-button>
         </mob-footer>
         <page-transition name="page-transition"></page-transition>
+        <route-loader></route-loader>
     `;
   };
 

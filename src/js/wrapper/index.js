@@ -16,5 +16,6 @@ export const wrapper = () => {
             <debug-button slot="debug"></debug-button>
         </mob-footer>
         <page-transition name="page-transition"></page-transition>
+        <route-loader></route-loader>
     `;
 };
