@@ -27,21 +27,28 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To define a route just create a function that returns the DOM of the route. The name of the function will then be the name of the route with the # character in front e.g.:"
+            "content": "To define a route just create a function that <span>returns the DOM of the route</span>. The <span>name</span> of the function <span>will then be the name of the route with the # character in front</span>"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "it is not possible to use reactive props in the route as this module is not a component."
+            "content": "The route functions can be <span>asynchronous</span>, this is to allow the <span>fetching</span> of any data.<br/>The <span>function is executed before deleting the old route</span>, only when the data has been recovered and the data is ready will the new route be rendered."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>it is not possible to use reactive props in the route as this module is not a component.</span>"
         },
         {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "function",
-                "label": "Function"
+                "id": "basicfunction",
+                "label": "Basic&nbsp;route"
             }
         },
         {
@@ -49,12 +56,37 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Route:"
+            "content": "basic Route:"
         },
         {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/routingFunction.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 8
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "asyncfunction",
+                "label": "async&nbsp;route"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "async Route:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/routingAsyncFunction.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -81,7 +113,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All the routes will then be exported and imported during the initialization of the app:"
+            "content": "All the routes will then be <span>exported</span> and <span>imported</span> during the initialization of the app:"
         },
         {
             "component": "mob-snippet",
@@ -98,7 +130,7 @@
             "props": {
                 "style": "medium",
                 "id": "link navigate",
-                "label": "Link_navigate"
+                "label": "Link&nbsp;navigate"
             }
         },
         {
@@ -123,7 +155,7 @@
             "props": {
                 "style": "medium",
                 "id": "javascript navigate",
-                "label": "Javascript_navigate"
+                "label": "Javascript&nbsp;navigate"
             }
         },
         {
@@ -164,7 +196,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A series of events are available to intercept and react to the change of course, to do this a special store called mainStore is available. Being a store, all the methods listed in the <a href='./#mobCore_store'>store</a> apply"
+            "content": "A series of <span>events are available to intercept and react to the change of route</span>, to do this a special store called <span>mainStore</span> is available. Being a store, all the methods listed in the <a href='./#mobCore_store'>store</a> apply"
         },
         {
             "component": "mob-spacer",
