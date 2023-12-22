@@ -7042,6 +7042,7 @@
     mainStore.set("activeRoute", route);
     const content2 = await getRouteList()?.[route]?.();
     contentEl.innerHTML = "";
+    scrollTo(0, 0);
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
