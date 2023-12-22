@@ -37,13 +37,14 @@ export const loadJsonContent = async ({ source }) => {
     const response = await fetch(source);
     if (!response.ok) {
         console.warn(`${source} not found`);
-
         return {
             success: false,
             data: '',
         };
     }
+
     const data = await response.json();
+
     return {
         success: true,
         data,

@@ -21681,6 +21681,14 @@
             `;
     }).join("");
   };
+  var getData2 = async ({ source, data: data3 }) => {
+    if (data3 && data3.length > 0)
+      return data3;
+    const { success, data: currentData } = await loadJsonContent({ source });
+    if (!success)
+      return [];
+    return currentData.data;
+  };
   var HtmlContent = async ({
     html,
     getState,
@@ -21689,13 +21697,8 @@
     bindProps,
     onMount
   }) => {
-    const { source } = getState();
-    const { success, data: data3 } = await loadJsonContent({ source });
-    if (!success) {
-      return html`
-            <section class="html-content">something went wrong</section>
-        `;
-    }
+    const { source, data: data3 } = getState();
+    const currentData = await getData2({ source, data: data3 });
     const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
     const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
@@ -21712,7 +21715,7 @@
       }
     })}
             ></mob-loader>
-            ${getComponents({ data: data3.data, staticProps: staticProps2 })}
+            ${getComponents({ data: currentData, staticProps: staticProps2 })}
         </section>
     `;
   };
@@ -21721,11 +21724,15 @@
   var htmlContentDef = createComponent({
     name: "html-content",
     component: HtmlContent,
-    exportState: ["source", "useMinHeight", "useMaxWidth"],
+    exportState: ["source", "useMinHeight", "useMaxWidth", "data"],
     state: {
       source: () => ({
         value: "",
         type: String
+      }),
+      data: () => ({
+        value: [],
+        type: Array
       }),
       contentIsLoaded: () => ({
         value: false,
@@ -27975,20 +27982,32 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/about/index.js
-  var about = () => {
-    return renderHtml` <doc-container>
+  var about = {
+    before: async () => {
+      const { success, data: data3 } = await loadJsonContent({
+        source: "./data/about.json"
+      });
+      if (!success) {
+        console.warn("fetch data fail");
+        return [];
+      }
+      return data3;
+    },
+    after: (data3) => {
+      return renderHtml`<doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/about.json",
-      useMaxWidth: true
-    })}
+        data: data3.data,
+        useMaxWidth: true
+      })}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >About 
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">About</doc-title>
     </doc-container>`;
+    }
   };
 
   // src/js/pages/plugin/overview/index.js

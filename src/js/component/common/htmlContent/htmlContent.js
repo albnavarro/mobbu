@@ -16,6 +16,18 @@ const getComponents = ({ data, staticProps }) => {
 };
 
 /**
+ * Get data from props or fetch.
+ */
+const getData = async ({ source, data }) => {
+    if (data && data.length > 0) return data;
+
+    const { success, data: currentData } = await loadJsonContent({ source });
+    if (!success) return [];
+
+    return currentData.data;
+};
+
+/**
  * @param {import("../../../mobjs/type").componentType}
  */
 export const HtmlContent = async ({
@@ -26,14 +38,9 @@ export const HtmlContent = async ({
     bindProps,
     onMount,
 }) => {
-    const { source } = getState();
+    const { source, data } = getState();
 
-    const { success, data } = await loadJsonContent({ source });
-    if (!success) {
-        return html`
-            <section class="html-content">something went wrong</section>
-        `;
-    }
+    const currentData = await getData({ source, data });
 
     const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
@@ -53,7 +60,7 @@ export const HtmlContent = async ({
                     },
                 })}
             ></mob-loader>
-            ${getComponents({ data: data.data, staticProps })}
+            ${getComponents({ data: currentData, staticProps })}
         </section>
     `;
 };
