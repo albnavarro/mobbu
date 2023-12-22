@@ -27,6 +27,21 @@ const getData = async ({ source, data }) => {
     return currentData.data;
 };
 
+const getLoader = ({ data, bindProps }) => {
+    if (data && data.length > 0) return '';
+
+    return html`
+        <mob-loader
+            ${bindProps({
+                bind: ['contentIsLoaded'],
+                props: ({ contentIsLoaded }) => {
+                    return { shouldRemove: contentIsLoaded };
+                },
+            })}
+        ></mob-loader>
+    `;
+};
+
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
@@ -52,14 +67,7 @@ export const HtmlContent = async ({
 
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
-            <mob-loader
-                ${bindProps({
-                    bind: ['contentIsLoaded'],
-                    props: ({ contentIsLoaded }) => {
-                        return { shouldRemove: contentIsLoaded };
-                    },
-                })}
-            ></mob-loader>
+            ${getLoader({ data, bindProps })}
             ${getComponents({ data: currentData, staticProps })}
         </section>
     `;

@@ -21688,6 +21688,20 @@
       return [];
     return currentData.data;
   };
+  var getLoader = ({ data: data3, bindProps }) => {
+    if (data3 && data3.length > 0)
+      return "";
+    return renderHtml`
+        <mob-loader
+            ${bindProps({
+      bind: ["contentIsLoaded"],
+      props: ({ contentIsLoaded }) => {
+        return { shouldRemove: contentIsLoaded };
+      }
+    })}
+        ></mob-loader>
+    `;
+  };
   var HtmlContent = async ({
     html,
     getState,
@@ -21706,14 +21720,7 @@
     });
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
-            <mob-loader
-                ${bindProps({
-      bind: ["contentIsLoaded"],
-      props: ({ contentIsLoaded }) => {
-        return { shouldRemove: contentIsLoaded };
-      }
-    })}
-            ></mob-loader>
+            ${getLoader({ data: data3, bindProps })}
             ${getComponents({ data: currentData, staticProps: staticProps2 })}
         </section>
     `;
