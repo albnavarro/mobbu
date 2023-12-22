@@ -54,7 +54,8 @@ export const loadRoute = async ({ route = '' }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
-    const content = getRouteList()?.[route]?.();
+    const data = await getRouteList()?.[route]?.before?.();
+    const content = getRouteList()?.[route]?.after?.(data);
     contentEl.innerHTML = '';
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
