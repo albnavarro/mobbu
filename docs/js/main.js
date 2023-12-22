@@ -25743,8 +25743,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/homepage/home.js
+  var playAnimation = async ({ playText, playIntro, playSvg }) => {
+    playText();
+    await playIntro();
+    playSvg();
+  };
   var HomeComponent = ({ html, onMount, staticProps: staticProps2 }) => {
-    onMount(async ({ element, refs }) => {
+    onMount(({ element, refs }) => {
       const {
         textStagger,
         block1,
@@ -25778,9 +25783,7 @@ Loading snippet ...</pre
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
       });
-      playText();
-      await playIntro();
-      playSvg();
+      playAnimation({ playText, playIntro, playSvg });
       return () => {
         destroySvg();
         destroyText();

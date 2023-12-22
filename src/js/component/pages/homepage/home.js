@@ -4,11 +4,17 @@ import { getLegendData } from '../../../data';
 import { homeAnimation } from './animation';
 import { homeTextAnimation } from './animation/text';
 
+const playAnimation = async ({ playText, playIntro, playSvg }) => {
+    playText();
+    await playIntro();
+    playSvg();
+};
+
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeComponent = ({ html, onMount, staticProps }) => {
-    onMount(async ({ element, refs }) => {
+    onMount(({ element, refs }) => {
         const {
             textStagger,
             block1,
@@ -45,9 +51,7 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
             refs: textStagger,
         });
 
-        playText();
-        await playIntro();
-        playSvg();
+        playAnimation({ playText, playIntro, playSvg });
 
         return () => {
             destroySvg();
