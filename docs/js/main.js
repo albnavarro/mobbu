@@ -28144,12 +28144,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/overview/index.js
-  var mobJs_overview = () => {
+  var mobJs_overview = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/overview.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/overview.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28161,12 +28168,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/initialization/index.js
-  var mobJs_initialization = () => {
+  var mobJs_initialization = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/initialization.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/initialization.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28178,12 +28192,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/routing/index.js
-  var mobJs_routing = () => {
+  var mobJs_routing = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/routing.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/routing.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28220,12 +28241,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/html/index.js
-  var mobJs_html = () => {
+  var mobJs_html = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/html.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/html.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28243,12 +28271,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/onMount/index.js
-  var mobJs_onMount = () => {
+  var mobJs_onMount = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/onMount.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/onMount.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28266,12 +28301,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/getState/index.js
-  var mobJs_getState = () => {
+  var mobJs_getState = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/getState.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/getState.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28289,12 +28331,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/setState/index.js
-  var mobJs_setState = () => {
+  var mobJs_setState = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/setState.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/setState.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28374,7 +28423,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/computed/index.js
   var mobJs_computed = async () => {
     const { success, data: data3 } = await loadJsonContent({
-      source: "./data/about.json"
+      source: "./data/mobJs/computed.json"
     });
     if (!success) {
       console.warn("fetch data fail");
@@ -28402,12 +28451,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watch/index.js
-  var mobJs_watch = () => {
+  var mobJs_watch = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watch.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/watch.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28425,12 +28481,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watchSync/index.js
-  var mobJs_watchSync = () => {
+  var mobJs_watchSync = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watchSync.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/watchSync.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28448,12 +28511,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/remove/index.js
-  var mobJs_remove = () => {
+  var mobJs_remove = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/remove.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/remove.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28471,12 +28541,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/removeDom/index.js
-  var mobJs_removeDom = () => {
+  var mobJs_removeDom = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/removeDom.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/removeDom.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28554,12 +28631,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/unFreezeProp/index.js
-  var mobJs_unFreezeProp = () => {
+  var mobJs_unFreezeProp = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/unFreezeProp.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/unFreezeProp.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28607,12 +28691,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watchParent/index.js
-  var mobJs_watchParent = () => {
+  var mobJs_watchParent = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watchParent.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/watchParent.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28630,12 +28721,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/staticProps/index.js
-  var mobJs_staticProps = () => {
+  var mobJs_staticProps = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/staticProps.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/staticProps.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28683,12 +28781,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/unBind/index.js
-  var mobJs_unBind = () => {
+  var mobJs_unBind = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/unBind.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/unBind.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28706,12 +28811,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/syncParent/index.js
-  var mobJs_syncParent = () => {
+  var mobJs_syncParent = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/syncParent.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/syncParent.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28789,12 +28901,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/repeat/index.js
-  var mobJs_repeat = () => {
+  var mobJs_repeat = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/repeat.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/repeat.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28812,12 +28931,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/refs/index.js
-  var mobJs_refs = () => {
+  var mobJs_refs = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/refs.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/refs.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28829,12 +28955,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/slot/index.js
-  var mobJs_slot = () => {
+  var mobJs_slot = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/slot.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/slot.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28846,12 +28979,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/utils/index.js
-  var mobJs_utils = () => {
+  var mobJs_utils = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/utils.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/utils.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28863,12 +29003,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/webComponent/index.js
-  var mobJs_web_component = () => {
+  var mobJs_web_component = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/webComponent.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/webComponent.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28904,12 +29051,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/runtime/index.js
-  var mobJs_runtime = () => {
+  var mobJs_runtime = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/runtime.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/runtime.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28921,12 +29075,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/instanceName/index.js
-  var mobJs_instanceName = () => {
+  var mobJs_instanceName = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/instanceName.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobJs/instanceName.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
