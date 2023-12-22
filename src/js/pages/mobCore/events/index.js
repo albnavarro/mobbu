@@ -1,11 +1,21 @@
 import { html, staticProps } from '../../../mobjs';
+import { loadJsonContent } from '../../../utils/utils';
 
-export const mobCore_events = () => {
+export const mobCore_events = async () => {
+    const { success, data } = await loadJsonContent({
+        source: './data/mobCore/events.json',
+    });
+
+    if (!success) {
+        console.warn('fetch data fail');
+        return [];
+    }
+
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: './data/mobCore/events.json',
+                data: data.data,
                 useMaxWidth: true,
             })}
         ></html-content>

@@ -28034,12 +28034,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/canvas/overview/index.js
-  var canvas_overview = () => {
+  var canvas_overview = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/canvas/overview.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/canvas/overview.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28854,12 +28861,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/overview/index.js
-  var mobCore_overview = () => {
+  var mobCore_overview = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/overview.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobCore/overview.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28871,12 +28885,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/events/index.js
-  var mobCore_events = () => {
+  var mobCore_events = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/events.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobCore/events.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28888,12 +28909,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/store/index.js
-  var mobCore_store = () => {
+  var mobCore_store = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/store.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobCore/store.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -28905,12 +28933,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/defaults/index.js
-  var mobCore_defaults = () => {
+  var mobCore_defaults = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/defaults.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobCore/defaults.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
