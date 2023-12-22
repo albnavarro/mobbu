@@ -1,11 +1,21 @@
 import { html, staticProps } from '../../../mobjs';
+import { loadJsonContent } from '../../../utils/utils';
 
-export const mobMotion_tween_spring_lerp = () => {
+export const mobMotion_tween_spring_lerp = async () => {
+    const { success, data } = await loadJsonContent({
+        source: './data/mobMotion/tweenSpringLerp.json',
+    });
+
+    if (!success) {
+        console.warn('fetch data fail');
+        return [];
+    }
+
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: './data/mobMotion/tweenSpringLerp.json',
+                data: data.data,
                 useMaxWidth: true,
             })}
         ></html-content>

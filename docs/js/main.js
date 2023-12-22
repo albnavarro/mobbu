@@ -29195,12 +29195,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/asyncTimeline/index.js
-  var mobMotion_async_timeline = () => {
+  var mobMotion_async_timeline = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/asyncTimeline.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/asyncTimeline.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29214,12 +29221,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/createStagger/index.js
-  var mobMotion_create_stagger = () => {
+  var mobMotion_create_stagger = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/createStagger.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/createStagger.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29233,12 +29247,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/overview/index.js
-  var mobMotion_overview = () => {
+  var mobMotion_overview = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/overview.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/overview.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29250,12 +29271,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/parallax/index.js
-  var mobMotion_parallax = () => {
+  var mobMotion_parallax = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/parallax.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/parallax.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29269,12 +29297,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/scrollTrigger/index.js
-  var mobMotion_scrolltrigger = () => {
+  var mobMotion_scrolltrigger = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/scrollTrigger.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/scrollTrigger.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29288,12 +29323,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/sequencer/index.js
-  var mobMotion_sequencer = () => {
+  var mobMotion_sequencer = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/sequencer.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/sequencer.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29307,12 +29349,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/stagger/index.js
-  var mobMotion_stagger = () => {
+  var mobMotion_stagger = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/stagger.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/stagger.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29326,12 +29375,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/syncTimeline/index.js
-  var mobMotion_sync_timeline = () => {
+  var mobMotion_sync_timeline = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/syncTimeline.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/syncTimeline.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29345,12 +29401,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/tweenSpringLerp/index.js
-  var mobMotion_tween_spring_lerp = () => {
+  var mobMotion_tween_spring_lerp = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/tweenSpringLerp.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/tweenSpringLerp.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29364,12 +29427,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/plugin/index.js
-  var mobMotion_plugin = () => {
+  var mobMotion_plugin = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/plugin.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/plugin.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -29383,12 +29453,19 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/defaults/index.js
-  var mobMotion_defaults = () => {
+  var mobMotion_defaults = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/defaults.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      source: "./data/mobMotion/defaults.json",
+      data: data3.data,
       useMaxWidth: true
     })}
         ></html-content>

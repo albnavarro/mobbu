@@ -1,11 +1,21 @@
 import { html, staticProps } from '../../../mobjs';
+import { loadJsonContent } from '../../../utils/utils';
 
-export const mobMotion_scrolltrigger = () => {
+export const mobMotion_scrolltrigger = async () => {
+    const { success, data } = await loadJsonContent({
+        source: './data/mobMotion/scrollTrigger.json',
+    });
+
+    if (!success) {
+        console.warn('fetch data fail');
+        return [];
+    }
+
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: './data/mobMotion/scrollTrigger.json',
+                data: data.data,
                 useMaxWidth: true,
             })}
         ></html-content>
