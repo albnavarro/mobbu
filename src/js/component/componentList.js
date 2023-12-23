@@ -23,7 +23,7 @@ export * from './layout/navigation/definition';
 export * from './layout/docsContainer/definition';
 export * from './layout/doctitle/definition';
 export * from './layout/doctitleSmall/definition';
-export * from './layout/shapes/definition';
+// export * from './layout/shapes/definition';
 export * from './pages/animatedPattern/animatedPatternN0/definition';
 export * from './pages/animatedPattern/animatedPatternN1/definition';
 export * from './pages/canvas/caterpillarN0/definition';

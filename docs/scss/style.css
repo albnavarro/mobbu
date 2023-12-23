@@ -2191,7 +2191,7 @@ code {
 }
 .shape {
   position: fixed;
-  bottom: 3.3333333333rem;
+  bottom: calc(3.3333333333rem * -1);
   width: 1200px;
   pointer-events: none;
   z-index: 10;

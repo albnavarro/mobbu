@@ -4,7 +4,7 @@
 
 .shape {
     position: fixed;
-    bottom: rem(50);
+    bottom: calc(#{rem(50)} * -1);
     width: 1200px;
     pointer-events: none;
     z-index: 10;
