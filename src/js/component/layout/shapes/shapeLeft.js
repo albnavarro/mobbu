@@ -1,10 +1,10 @@
-import shapeSvg from '../../../../svg/footer_shape_right.svg';
+import shapeSvg from '../../../../svg/footer_shape_left.svg';
 import { mobCore } from '../../../mobCore';
 
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const ShapeRight = ({ html, onMount }) => {
+export const ShapeLeft = ({ html, onMount }) => {
     onMount(({ refs }) => {
         const { shape } = refs;
 
@@ -15,7 +15,7 @@ export const ShapeRight = ({ html, onMount }) => {
 
     return html`
         <div>
-            <div class="shape shape-right" ref="shape">${shapeSvg}</div>
+            <div class="shape shape-left" ref="shape">${shapeSvg}</div>
         </div>
     `;
 };

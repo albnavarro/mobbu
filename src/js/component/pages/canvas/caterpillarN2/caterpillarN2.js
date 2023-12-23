@@ -131,6 +131,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
 };

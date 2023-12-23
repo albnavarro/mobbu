@@ -2183,30 +2183,33 @@ code {
   padding: 2rem;
 }
 .shape {
+  position: fixed;
+  bottom: 3.3333333333rem;
+  width: 1200px;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
   opacity: 0;
   transition: opacity 1.55s;
 }
 .shape.active {
   opacity: 1;
 }
-.shape-right {
-  position: fixed;
-  left: 40%;
-  bottom: 3.3333333333rem;
-  width: 1200px;
-  pointer-events: none;
-  z-index: 10;
-  display: none;
-}
 @media (min-width: 62em) {
-  .shape-right {
+  .shape {
     display: block;
   }
 }
-.shape-right svg {
+.shape svg {
   height: auto;
   width: 100%;
   overflow: visible;
+}
+.shape-right {
+  left: 40%;
+}
+.shape-left {
+  right: 40%;
 }
 .l-parallax {
   height: 200vh;

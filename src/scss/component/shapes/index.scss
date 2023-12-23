@@ -3,22 +3,18 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .shape {
+    position: fixed;
+    bottom: rem(50);
+    width: 1200px;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
     opacity: 0;
     transition: opacity 1.55s;
 
     &.active {
         opacity: 1;
     }
-}
-
-.shape-right {
-    position: fixed;
-    left: 40%;
-    bottom: rem(50);
-    width: 1200px;
-    pointer-events: none;
-    z-index: 10;
-    display: none;
 
     @include mq.mq(desktop) {
         display: block;
@@ -29,4 +25,12 @@
         width: 100%;
         overflow: visible;
     }
+}
+
+.shape-right {
+    left: 40%;
+}
+
+.shape-left {
+    right: 40%;
 }

@@ -1664,6 +1664,7 @@
     scrollToDef: () => scrollToDef,
     scrollerN0Def: () => scrollerN0Def,
     scrollerN1Def: () => scrollerN1Def,
+    shapeLeftDef: () => shapeLeftDef,
     shapeRightDef: () => shapeRightDef,
     snippetContentDef: () => snippetContentDef,
     spacerContentDef: () => spacerContentDef,
@@ -23982,6 +23983,24 @@ Loading snippet ...</pre
     state: {}
   });
 
+  // src/svg/footer_shape_left.svg
+  var footer_shape_left_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="1200" height="980" version="1.1" viewBox="0 0 317.5 259.29" xmlns="http://www.w3.org/2000/svg">\n <g stroke="#050a00" stroke-width=".26458">\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n </g>\n <g fill="none" stroke="#000">\n  <path d="m204.96 258.03-122.13-65.8-21.693 3.6062 48.029 45.965 79.999 17.984" stroke-width="2.6458"/>\n  <path d="m109.17 241.8-45.381-37.754-1.4199 12.118 36.166 38.532 80.678 2.916-0.68989 0.0979" stroke-width="2.6458"/>\n  <path d="m168.07 230.13 3.7989-8.3494 38.21 5.6147 11.652 22.723-16.775 7.9127" stroke-width="1.9188"/>\n  <path d="m180.17 222.48 4.913-5.7217 28.937 7.3146 12.959 19.948-6.2162 3.4577 0.97247 2.6403" stroke-width="1.9188"/>\n  <path d="m20.599 259.33c-3.1133-2.5929-28.185-25.754-28.185-25.754l40.942-68.777-12.877 1.3964-54.216 60.351 40.071-54.179-8.9768-0.1376-173.51 87.97 193.58-2.9013" stroke-width="2.6458"/>\n  <path d="m8.3298 205.08 18.386-1.029 21.106 37.141-30.395 16.103" stroke-width="2.6458"/>\n </g>\n <path d="m309.28 259.99c-3.7734-1.0583-81.413-27.396-81.413-27.396l-10.09 10.166-1.2252 6.3417-20.422 2.3792s-32.291-25.065-33.149-24.585-66.174 5.0788-66.174 5.0788l8.5106 7.0647-19.764 9.3302-24.362 11.195-16.604-16.262-49.121-5.8524-29.204-10.902s-9.6718-15.155-10.656-14.931c-0.98444 0.22427-83.131 16.984-83.131 16.984l-239.72 47.353z"/>\n <path d="m152.88 229.92c-1.2847-1.2506-44.764-25.099-44.764-25.099l-24.452-23.763 8.9865 0.26148 58.597 30.899 36.846-1.7389 20.196 12.186" fill="none" stroke="#000" stroke-width="2.6458"/>\n <path d="m75.204 230.62-20.891 10.389-3.175 14.611" fill="none" stroke="#000" stroke-width="2.6458"/>\n</svg>\n';
+
+  // src/js/component/layout/shapes/shapeLeft.js
+  var ShapeLeft = ({ html, onMount }) => {
+    onMount(({ refs }) => {
+      const { shape } = refs;
+      mobCore.useFrame(() => {
+        shape.classList.add("active");
+      });
+    });
+    return html`
+        <div>
+            <div class="shape shape-left" ref="shape">${footer_shape_left_default}</div>
+        </div>
+    `;
+  };
+
   // src/svg/footer_shape_right.svg
   var footer_shape_right_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="1200" height="980" version="1.1" viewBox="0 0 317.5 259.29" xmlns="http://www.w3.org/2000/svg">\n <g stroke="#050a00" stroke-width=".26458">\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n </g>\n <g>\n  <path d="m28.238 260.65c-0.3255 0.16275-0.51902 0.26769-0.65039 0.33008-0.13137 0.0624-0.18876 0.0806-0.28125 0.0859-0.18498 0.0106-0.52913-0.0566-1.5918-0.0566v0.26562c1.0513 0 1.3511 0.0692 1.6055 0.0547 0.12717-7e-3 0.23675-0.0409 0.38086-0.10937 0.14411-0.0684 0.33415-0.17294 0.65625-0.33399z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m310.35 166.43-7.3691 62.881-27.609-59.113-4.5762 18.93 12.809 41.584-70.994 9.0293 12.928-35.07-13.283-16.855-43.551 52.678-149.17 21.092-0.05908 1.3297 151.31-18.709 41.539-53.535 11.163 13.853-16.858 39.979 79.667-11.777-12.592-43.73 2.8412-12.804 27.836 60.329z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m197.13 168.51-66.23 68.701-37.824 9.0859-9.748 7.498 4.5071-0.14014 6.1497-5.7814 40.043-8.7697 63.648-68.76 17.923 4.5515-47.499 66.341 3.2832 2.2285 47.131-69.373z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m217.78 221.83-1.0602 2.8922-5.3592 16.696 26.127-3.6632 1.2513-0.13012-7.793-10.664z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m234.6 220.01-10.734 5.2285 1.1555 0.82552 9.7291-4.7741 30.012 14.566 1.0449-2.4316z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m278.47 211.23c-0.44002 0.79881-2.1458 3.4295-3.6797 5.7402-1.5339 2.3107-2.9375 4.3828-2.9375 4.3828l-0.15429 0.22851-2.4277 12.953 2.6016 0.48633 11.734-4.3066-3.6106-17.251z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m293.47 211.58 0.38623 1.6573 9.9539 19.148 0.40184-11.901 1.5538-2.6361-3.173-5.862z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m143.85 219.82-28.883 9.0996-5.2683 14.921 2.7452-0.80307 3.8192-12.988 27.016-8.9112 3.7966 3.6554 0.20933-1.1297z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m114.94 231.78-8.0801 1.7832-4.4726 11.346 2.9244-0.34294 3.124-9.5391 6.7445-1.9711z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n <path d="m170.78 244.21 41.539-53.535-0.15507 4.9649-40.194 52.31z" fill="#9ece6a"/>\n <path d="m212.32 190.67 11.163 13.853-0.67945 1.7456-10.639-10.634z" fill="#679138"/>\n <path d="m90.208 251.45 3.7785-3.5747 0.41947 2.113-2.4378 1.4327z" fill="none"/>\n <g>\n  <path d="m89.968 251.64 4.019-3.7664 0.41947 2.113-2.2712 1.3366z" fill="#9ece6a"/>\n  <path d="m170.78 244.21-151.31 18.709 0.71397 0.24358 151.78-15.212z" fill="#679138"/>\n  <path d="m93.987 247.87 40.043-8.7697 1.1594 4.3959-40.782 6.4868z" fill="#679138"/>\n  <path d="m134.03 239.1 63.648-68.76-0.0532 1.9678-62.436 71.188z" fill="#9ece6a"/>\n  <path d="m197.68 170.34 17.923 4.5515-1.9266 2.6452-16.05-5.2289z" fill="#679138"/>\n  <path d="m195.05 208.63 23.468-34.538-0.74405 4.7424-9.8705 14.251z" fill="#679138"/>\n  <path d="m105.68 243.3 2.7624-8.277 0.47214 3.1386-1.179 4.6217z" fill="#9ece6a"/>\n  <path d="m108.44 235.02 0.47214 3.1386 3.2422-1.2584 1.1871-3.3025z" fill="#679138"/>\n  <path d="m112.82 241.58 3.4403-11.529 0.47997 3.3183-2.2256 7.8212z" fill="#9ece6a"/>\n  <path d="m116.26 230.05 27.016-8.9112-0.12467 1.8196-26.412 10.41z" fill="#679138"/>\n  <path d="m143.15 222.96 0.12467-1.8196 1.7204 1.5876-1.0987 1.0933z" fill="#5d8134"/>\n  <path d="m88.589 252.15 3.8635-4.0612 40.853-10.409s10.878-10.55 11.209-9.8636 6.0888 9.1762 6.0888 9.1762l-0.25942 6.2472z"/>\n  <path d="m20.19 263.16s139.43-18.876 140.44-17.708c1.0063 1.1678 30.598 11.871 30.598 11.871l81.055 2.563-252.81 3.0307z"/>\n  <path d="m225.54 204.67 0.27622 5.6959-3.5352 13.215-3.3032-1.2151z" fill="#9ece6a"/>\n  <path d="m188.15 250.63 22.866-16.093-4.3844 9.9674 8.963-1.7121 79.754-11.446-7.9309 28.585-105.52-0.41444z"/>\n  <path d="m226.57 225.28 8.1764-3.991 0.21868 2.5082c0.23141-0.13735-5.8475 2.4693-5.8475 2.4693z" fill="#9ece6a"/>\n  <path d="m234.75 221.29 0.21868 2.5082 21.476 10.391 3.8514-0.49969z" fill="#679138"/>\n  <path d="m286.29 232.72-12.592-43.73 1.3618 2.7028 13.212 40.662z" fill="#9ece6a"/>\n  <path d="m273.7 188.99 2.8412-12.804 0.6558 1.5479-2.1352 13.959z" fill="#679138"/>\n  <path d="m294.71 211.63-19.337-41.432 1.9924 2.4302 20.698 39.175z" fill="#9ece6a"/>\n  <path d="m310.35 166.43-5.9721 70.09 2.4397-3.553 3.8425-62.614z" fill="#679138"/>\n  <path d="m297.59 221.53-2.2429 9.8127-16.908 22.668-27.062 5.848 66.693-0.21851 68.105 1.38-59.426-26.716-20.351-25.308-2.0067 25.574z"/>\n </g>\n</svg>\n';
 
@@ -24004,6 +24023,10 @@ Loading snippet ...</pre
   var shapeRightDef = createComponent({
     name: "shape-right",
     component: ShapeRight
+  });
+  var shapeLeftDef = createComponent({
+    name: "shape-left",
+    component: ShapeLeft
   });
 
   // src/js/utils/canvasUtils.js
@@ -24332,6 +24355,7 @@ Loading snippet ...</pre
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -24649,6 +24673,7 @@ Loading snippet ...</pre
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -24947,6 +24972,7 @@ Loading snippet ...</pre
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -25248,6 +25274,7 @@ Loading snippet ...</pre
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -25586,6 +25613,7 @@ Loading snippet ...</pre
                 </div>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -26593,6 +26621,7 @@ Loading snippet ...</pre
                 <h1>Scroll down</h1>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
@@ -26912,6 +26941,7 @@ Loading snippet ...</pre
                 <h1>Scroll down</h1>
             </div>
             <shape-right></shape-right>
+            <shape-left></shape-left>
         </div>
     `;
   };
