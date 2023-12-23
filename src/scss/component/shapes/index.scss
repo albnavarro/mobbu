@@ -13,7 +13,7 @@
 
 .shape-right {
     position: fixed;
-    right: 0;
+    left: 40%;
     bottom: rem(50);
     width: 1200px;
     pointer-events: none;
@@ -27,5 +27,6 @@
     svg {
         height: auto;
         width: 100%;
+        overflow: visible;
     }
 }
