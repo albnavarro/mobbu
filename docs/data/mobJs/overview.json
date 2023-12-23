@@ -19,6 +19,20 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "javascript component library"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4"
             },
             "content": "dependency:"

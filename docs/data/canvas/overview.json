@@ -12,7 +12,21 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Canvas 2d animations"
+            "content": "Canvas 2d"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "canvas 2d experiment"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-paragraph",

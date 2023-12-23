@@ -13,7 +13,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Custom <span>horizontal scroller scrollable/draggable</span> based on <span>scrollTrigger</span>"
+            "content": "Custom <span>horizontal scroller scrollable/draggable</span> based on <span>mobMotion/scrollTrigger</span>"
         },
         {
             "component": "mob-paragraph",

@@ -17,6 +17,20 @@
             "content": "mobCore"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "javascript utils"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
