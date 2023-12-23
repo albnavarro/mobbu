@@ -69,10 +69,10 @@
 
     &__totop {
         position: absolute;
-        bottom: 0;
+        bottom: calc(var(--footer-height) / 2);
         left: 0;
         right: 0;
-        height: var(--footer-height);
+        height: calc(var(--footer-height) / 2);
         border: 0;
         background: $green;
         transform: translateY(100%);
