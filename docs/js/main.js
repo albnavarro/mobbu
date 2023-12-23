@@ -24359,8 +24359,6 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <shape-right></shape-right>
-            <shape-left></shape-left>
         </div>
     `;
   };
@@ -24678,8 +24676,6 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <shape-right></shape-right>
-            <shape-left></shape-left>
         </div>
     `;
   };
