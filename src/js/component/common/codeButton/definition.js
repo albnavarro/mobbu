@@ -4,7 +4,7 @@ import { CodeButton } from './codeButton';
 export const codeButtonComponentDef = createComponent({
     name: 'code-button',
     component: CodeButton,
-    exportState: ['drawers', 'style'],
+    exportState: ['drawers', 'style', 'color'],
     state: {
         drawers: () => ({
             value: [],
@@ -13,6 +13,10 @@ export const codeButtonComponentDef = createComponent({
         style: () => ({
             value: '',
             type: 'String',
+        }),
+        color: () => ({
+            value: 'black',
+            type: String,
         }),
     },
 });

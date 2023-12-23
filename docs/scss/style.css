@@ -685,14 +685,18 @@ code {
 .c-code-btn--green {
   background: #9ece6a;
 }
-.c-code-btn--legend {
+.c-code-btn--black {
   background: #000;
+}
+.c-code-btn--legend {
   width: var(--header-height);
   height: var(--header-height);
   position: fixed;
   bottom: var(--footer-height);
   left: calc(var(--header-height) * 0.5);
-  z-index: 10;
+  z-index: 15;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
 }
 .shift .c-code-btn--legend {
   transform: translateX(var(--nav-width));

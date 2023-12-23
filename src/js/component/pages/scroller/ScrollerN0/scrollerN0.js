@@ -69,6 +69,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
                             },
                         ],
                         style: 'legend',
+                        color: 'green',
                     })}
                 >
                 </code-button>
@@ -80,8 +81,6 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
             </div>
-            <shape-right></shape-right>
-            <shape-left></shape-left>
         </div>
     `;
 };

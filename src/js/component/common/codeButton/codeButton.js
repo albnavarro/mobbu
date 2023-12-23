@@ -5,7 +5,7 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const CodeButton = ({ getState, onMount, html }) => {
-    const { style, drawers } = getState();
+    const { style, drawers, color } = getState();
 
     onMount(({ element }) => {
         element.addEventListener('click', () => {
@@ -27,7 +27,7 @@ export const CodeButton = ({ getState, onMount, html }) => {
     });
 
     return html`
-        <button class="c-code-btn c-code-btn--${style}">
+        <button class="c-code-btn c-code-btn--${style} c-code-btn--${color}">
             <span class="c-code-btn__icon">${codeIcon}</span>
         </button>
     `;

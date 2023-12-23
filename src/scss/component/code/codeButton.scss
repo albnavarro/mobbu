@@ -22,14 +22,19 @@
         background: $green;
     }
 
-    &--legend {
+    &--black {
         background: $black;
+    }
+
+    &--legend {
         width: var(--header-height);
         height: var(--header-height);
         position: fixed;
         bottom: var(--footer-height);
         left: calc(var(--header-height) * 0.5);
-        z-index: 10;
+        z-index: 15;
+        border-top-right-radius: rem(30);
+        border-bottom-left-radius: rem(30);
 
         @include when-inside('.shift') {
             transform: translateX(var(--nav-width));

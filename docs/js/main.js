@@ -7165,7 +7165,7 @@
 
   // src/js/component/common/codeButton/codeButton.js
   var CodeButton = ({ getState, onMount, html }) => {
-    const { style, drawers } = getState();
+    const { style, drawers, color } = getState();
     onMount(({ element }) => {
       element.addEventListener("click", () => {
         const codeOverlayId = getIdByInstanceName("codeOverlay");
@@ -7177,7 +7177,7 @@
       };
     });
     return html`
-        <button class="c-code-btn c-code-btn--${style}">
+        <button class="c-code-btn c-code-btn--${style} c-code-btn--${color}">
             <span class="c-code-btn__icon">${icon_code_default}</span>
         </button>
     `;
@@ -7187,7 +7187,7 @@
   var codeButtonComponentDef = createComponent({
     name: "code-button",
     component: CodeButton,
-    exportState: ["drawers", "style"],
+    exportState: ["drawers", "style", "color"],
     state: {
       drawers: () => ({
         value: [],
@@ -7196,6 +7196,10 @@
       style: () => ({
         value: "",
         type: "String"
+      }),
+      color: () => ({
+        value: "black",
+        type: String
       })
     }
   });
@@ -24345,7 +24349,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
             >
             </code-button>
@@ -24663,7 +24668,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
             >
             </code-button>
@@ -24962,7 +24968,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
             >
             </code-button>
@@ -25264,7 +25271,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
             >
             </code-button>
@@ -25582,7 +25590,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
             >
             </code-button>
@@ -26608,7 +26617,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
                 >
                 </code-button>
@@ -26620,8 +26630,6 @@ Loading snippet ...</pre
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
             </div>
-            <shape-right></shape-right>
-            <shape-left></shape-left>
         </div>
     `;
   };
@@ -26928,7 +26936,8 @@ Loading snippet ...</pre
           source: source.animation
         }
       ],
-      style: "legend"
+      style: "legend",
+      color: "green"
     })}
                 >
                 </code-button>
@@ -26940,8 +26949,6 @@ Loading snippet ...</pre
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
             </div>
-            <shape-right></shape-right>
-            <shape-left></shape-left>
         </div>
     `;
   };
