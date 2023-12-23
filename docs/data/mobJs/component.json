@@ -180,23 +180,17 @@
             "content": "myComponent.js"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
             "content": "<span>Basic component</span> structure example."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-snippet",
@@ -234,6 +228,13 @@
             "props": {
                 "style": "small"
             }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>Advanced component</span> structure example."
         },
         {
             "component": "mob-snippet",
