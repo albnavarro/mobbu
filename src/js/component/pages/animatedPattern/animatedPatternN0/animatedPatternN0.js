@@ -60,6 +60,7 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
+            <shape-right></shape-right>
         </div>
     `;
 };

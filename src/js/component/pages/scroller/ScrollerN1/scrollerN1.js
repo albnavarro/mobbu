@@ -78,6 +78,7 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
             </div>
+            <shape-right></shape-right>
         </div>
     `;
 };
