@@ -2186,6 +2186,9 @@ code {
 .footer-nav__button.current {
   color: #9ece6a;
 }
+.page-not-found {
+  padding: 2rem;
+}
 .l-parallax {
   height: 200vh;
 }

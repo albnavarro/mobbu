@@ -27741,7 +27741,14 @@ Loading snippet ...</pre
 
   // src/js/pages/404/index.js
   var pageNotFound = () => {
-    return renderHtml` <div>page not found</div> `;
+    return renderHtml`
+        <div class="page-not-found">
+            <mob-title ${staticProps({ tag: "h3", color: "green" })}>
+                Page not found
+            </mob-title>
+            <a href="./#home">back to home</a>
+        </div>
+    `;
   };
 
   // src/js/pages/canvas/animatedPattern/animatedPatternN0v1/index.js
