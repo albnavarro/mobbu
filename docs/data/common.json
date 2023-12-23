@@ -401,11 +401,6 @@
             "url": "mobMotion_parallax"
         },
         {
-            "label": "Plugin",
-            "scrollToSection": "mobMotion",
-            "url": "mobMotion_plugin"
-        },
-        {
             "label": "Defaults",
             "scrollToSection": "mobMotion",
             "url": "mobMotion_defaults"

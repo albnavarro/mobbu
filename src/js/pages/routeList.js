@@ -70,5 +70,4 @@ export * from './mobMotion/sequencer';
 export * from './mobMotion/stagger';
 export * from './mobMotion/syncTimeline';
 export * from './mobMotion/tweenSpringLerp';
-export * from './mobMotion/plugin';
 export * from './mobMotion/defaults';
