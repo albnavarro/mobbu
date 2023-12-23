@@ -23,8 +23,8 @@ export const caterpillarN0Def = createComponent({
     ],
     state: {
         amountOfPath: 17,
-        width: 40,
-        height: 40,
+        width: detectFirefox() || detectSafari() ? 30 : 40,
+        height: detectFirefox() || detectSafari() ? 30 : 40,
         radius: 0,
         fill: '',
         stroke: '#fff',
