@@ -22,4 +22,14 @@
         color: $white;
         font-weight: 600;
     }
+
+    svg {
+        position: absolute;
+        top: calc(100% + #{rem(20)});
+        left: 50%;
+        transform: translateX(-50%);
+        fill: $white;
+        width: rem(30);
+        height: rem(30);
+    }
 }

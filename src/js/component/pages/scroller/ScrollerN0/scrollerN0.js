@@ -1,3 +1,4 @@
+import arrow from '../../../../../svg/scroll_arrow.svg';
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
@@ -80,6 +81,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
             <div class="canvas-scroller" ref="canvasScroller"></div>
             <div class="canvas-scroller-title">
                 <h1>Scroll down</h1>
+                ${arrow}
             </div>
         </div>
     `;

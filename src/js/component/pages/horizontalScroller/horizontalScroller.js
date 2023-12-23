@@ -202,5 +202,8 @@ export const HorizontalScroller = ({
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>
+
+        <shape-right></shape-right>
+        <shape-left></shape-left>
     </div>`;
 };

@@ -1722,6 +1722,15 @@ code {
   color: #fff;
   font-weight: 600;
 }
+.canvas-scroller-title svg {
+  position: absolute;
+  top: calc(100% + 1.3333333333rem);
+  left: 50%;
+  transform: translateX(-50%);
+  fill: #fff;
+  width: 2rem;
+  height: 2rem;
+}
 .l-h-scroller {
   margin-top: calc(var(--header-height) * -1);
   margin-left: calc(var(--header-height) * -0.5);
@@ -2191,7 +2200,7 @@ code {
 }
 .shape {
   position: fixed;
-  bottom: calc(3.3333333333rem * -1);
+  bottom: 3.3333333333rem;
   width: 1200px;
   pointer-events: none;
   z-index: 10;
