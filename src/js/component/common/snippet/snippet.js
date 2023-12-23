@@ -4,6 +4,28 @@ import { loadTextContent } from '../../../utils/utils';
 
 hljs.registerLanguage('javascript', javascript);
 
+const loadSnippet = async ({ ref, source }) => {
+    /**
+     * Get snippet data.
+     */
+    const { success, data } = await loadTextContent({ source });
+    if (!success) {
+        ref.textContent = `something went wrong`;
+        return;
+    }
+
+    /**
+     * Add contento to dom.
+     */
+    ref.textContent = data;
+
+    /**
+     * Apply highlight.
+     */
+    hljs.highlightElement(ref, { language: 'javascript' });
+    ref.style.minHeight = '';
+};
+
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
@@ -13,28 +35,9 @@ export const Snippet = ({ html, onMount, getState }) => {
     const hasBorderClass = hasBorder ? 'has-border' : '';
     const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
 
-    onMount(async ({ refs }) => {
+    onMount(({ refs }) => {
         const { codeEl } = refs;
-
-        /**
-         * Get snippet data.
-         */
-        const { success, data } = await loadTextContent({ source });
-        if (!success) {
-            codeEl.textContent = `something went wrong`;
-            return;
-        }
-
-        /**
-         * Add contento to dom.
-         */
-        codeEl.textContent = data;
-
-        /**
-         * Apply highlight.
-         */
-        hljs.highlightElement(codeEl, { language: 'javascript' });
-        codeEl.style.minHeight = '';
+        loadSnippet({ ref: codeEl, source });
 
         return () => {};
     });
