@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN0Animation } from './animation/animation';
@@ -10,11 +11,15 @@ export const CaterpillarN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { canvas } = refs;
+        const { wrap, canvas } = refs;
 
         const destroyAnimation = caterpillarN0Animation({
             canvas,
             ...getState(),
+        });
+
+        mobCore.useFrame(() => {
+            wrap.classList.add('active');
         });
 
         return () => {
@@ -55,7 +60,7 @@ export const CaterpillarN0 = ({ onMount, html, getState, staticProps }) => {
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

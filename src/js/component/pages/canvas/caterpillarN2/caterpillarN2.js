@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
@@ -29,7 +30,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
 
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
-        const { canvas, rangeValue, rotationButton } = refs;
+        const { wrap, canvas, rangeValue, rotationButton } = refs;
 
         /**
          * Inizializa animation and get anima methods.
@@ -60,6 +61,10 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
             const value = rotationButton.value;
             setRotation(value);
             rangeValue.textContent = value;
+        });
+
+        mobCore.useFrame(() => {
+            wrap.classList.add('active');
         });
 
         return () => {
@@ -121,7 +126,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                         </div>
                     </li>
                 </ul>
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

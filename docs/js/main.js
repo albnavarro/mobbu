@@ -24260,10 +24260,13 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas } = refs;
+      const { wrap, canvas } = refs;
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -24299,7 +24302,7 @@ Loading snippet ...</pre
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -24573,10 +24576,13 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas } = refs;
+      const { wrap, canvas } = refs;
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -24612,7 +24618,7 @@ Loading snippet ...</pre
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -24866,10 +24872,13 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas } = refs;
+      const { wrap, canvas } = refs;
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -24906,7 +24915,7 @@ Loading snippet ...</pre
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -25163,10 +25172,13 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas } = refs;
+      const { wrap, canvas } = refs;
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -25203,7 +25215,7 @@ Loading snippet ...</pre
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -25465,7 +25477,7 @@ Loading snippet ...</pre
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas, rangeValue, rotationButton } = refs;
+      const { wrap, canvas, rangeValue, rotationButton } = refs;
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -25480,6 +25492,9 @@ Loading snippet ...</pre
         const value = rotationButton.value;
         setRotation(value);
         rangeValue.textContent = value;
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroy();
@@ -25537,7 +25552,7 @@ Loading snippet ...</pre
                         </div>
                     </li>
                 </ul>
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -26493,12 +26508,15 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas, canvasScroller } = refs;
+      const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
         canvas,
         canvasScroller,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -26536,7 +26554,7 @@ Loading snippet ...</pre
     })}
                 >
                 </code-button>
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -26808,11 +26826,14 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
-      const { canvas, canvasScroller } = refs;
+      const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
         canvasScroller,
         ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
       });
       return () => {
         destroyAnimation();
@@ -26851,7 +26872,7 @@ Loading snippet ...</pre
     })}
                 >
                 </code-button>
-                <div class="c-canvas__wrap ${canvasStyle}">
+                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
@@ -9,7 +10,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { canvas, canvasScroller } = refs;
+        const { wrap, canvas, canvasScroller } = refs;
 
         /**
          * Prevent landing at bottom of the page.
@@ -20,6 +21,10 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
             canvas,
             canvasScroller,
             ...getState(),
+        });
+
+        mobCore.useFrame(() => {
+            wrap.classList.add('active');
         });
 
         return () => {
@@ -67,7 +72,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
                     })}
                 >
                 </code-button>
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

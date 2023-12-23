@@ -1596,6 +1596,11 @@ code {
 .c-canvas__wrap {
   width: 100%;
   height: calc(100vh - var(--footer-height));
+  opacity: 0;
+  transition: opacity 0.55s;
+}
+.c-canvas__wrap.active {
+  opacity: 1;
 }
 @media (min-width: 123.75em) {
   .c-canvas__wrap--wrapped {

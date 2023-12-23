@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { mobCore } from '../../../../mobCore';
 import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN1Animation } from './animation/animation';
 
@@ -8,11 +9,16 @@ import { animatedPatternN1Animation } from './animation/animation';
 export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
-        const { canvas } = refs;
+
+        const { wrap, canvas } = refs;
 
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
             ...getState(),
+        });
+
+        mobCore.useFrame(() => {
+            wrap.classList.add('active');
         });
 
         return () => {
@@ -51,7 +57,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
             >
             </code-button>
             <div class="c-canvas">
-                <div class="c-canvas__wrap">
+                <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

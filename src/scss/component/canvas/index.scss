@@ -25,6 +25,12 @@
     &__wrap {
         width: 100%;
         height: calc(100vh - var(--footer-height));
+        opacity: 0;
+        transition: opacity 0.55s;
+
+        &.active {
+            opacity: 1;
+        }
 
         @include mq.mq('xxlarge') {
             &--wrapped {
