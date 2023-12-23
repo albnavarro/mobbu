@@ -1,3 +1,4 @@
+import { mobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
@@ -61,8 +62,12 @@ export const HtmlContent = async ({
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
     const useMaxWidthClass = useMaxWidth ? 'is-max-width' : '';
 
-    onMount(async () => {
+    onMount(async ({ element }) => {
         setState('contentIsLoaded', true);
+
+        mobCore.useFrame(() => {
+            element.classList.add('active');
+        });
     });
 
     return html`

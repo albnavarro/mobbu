@@ -6,6 +6,12 @@
     color: $white;
     padding: rem(40);
     position: relative;
+    opacity: 0;
+    transition: opacity 0.55s;
+
+    &.active {
+        opacity: 1;
+    }
 
     &:before {
         content: '';
