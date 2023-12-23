@@ -26,6 +26,7 @@
         display: none;
         flex: 1;
         position: sticky;
+        z-index: 14;
         top: var(--header-height);
         align-self: start;
         height: calc(100vh - var(--header-height) - var(--footer-height));

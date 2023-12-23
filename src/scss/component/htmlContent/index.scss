@@ -13,16 +13,6 @@
         opacity: 1;
     }
 
-    &:before {
-        content: '';
-        bottom: var(--footer-height);
-        height: rem(50);
-        background: linear-gradient(rgba($dark-green, 0), rgba($dark-green, 1));
-        left: 0;
-        width: 100%;
-        position: fixed;
-    }
-
     &.is-min-100 {
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
     }
