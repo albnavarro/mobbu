@@ -23983,13 +23983,19 @@ Loading snippet ...</pre
   });
 
   // src/svg/footer_shape_right.svg
-  var footer_shape_right_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="1200" height="980" version="1.1" viewBox="0 0 317.5 259.29" xmlns="http://www.w3.org/2000/svg">\n <g stroke="#050a00" stroke-width=".26458">\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n </g>\n <g fill="none" stroke="#000">\n  <path d="m25.715 261.14c2.1139 0 1.288 0.27356 2.5832-0.37404" stroke-width=".26458px"/>\n  <g>\n   <path d="m19.813 263.55 149.93-21.2 42.476-51.375 11.075 14.052-13.675 37.095 76.578-9.7374-13.344-43.318 3.1174-12.897 28.17 60.313 14.237-128.7" stroke-width="3.9688"/>\n   <path d="m169.74 242.35 45.551-67.05-17.54-4.5779-65.825 68.281-37.977 9.1227-9.4119 7.2413" stroke-width="3.9688"/>\n   <g stroke-width="2.6458">\n    <path d="m217.3 223.07 12.807 4.9901 7.5657 10.351"/>\n    <path d="m224.44 226.42 10.19-4.9632 30.651 13.175"/>\n    <path d="m279.63 211.86c-1.058 1.9206-6.6803 10.227-6.6803 10.227l-2.3773 12.683"/>\n    <path d="m292.42 212.9 9.3686 0.3771 3.5829 6.5739"/>\n    <path d="m110.77 244.93 5.2246-14.945 27.435-8.6443 2.8659 3.2079"/>\n    <path d="m103.62 245.39 4.2142-10.691 7.3937-1.6313"/>\n   </g>\n  </g>\n </g>\n</svg>\n';
+  var footer_shape_right_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="1200" height="980" version="1.1" viewBox="0 0 317.5 259.29" xmlns="http://www.w3.org/2000/svg">\n <g stroke="#050a00" stroke-width=".26458">\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n </g>\n <g fill="none" stroke="#000">\n  <path d="m25.715 261.14c2.1139 0 1.288 0.27356 2.5832-0.37404" stroke-width=".26458px"/>\n  <g>\n   <path d="m19.813 263.55 149.93-21.2 42.476-51.375 11.075 14.052-13.675 37.095 76.578-9.7374-13.344-43.318 3.1174-12.897 28.17 60.313 8.1201-69.288 25.847-34.392" stroke-width="3.9688"/>\n   <path d="m169.74 242.35 45.551-67.05-17.54-4.5779-65.825 68.281-37.977 9.1227-9.4119 7.2413" stroke-width="3.9688"/>\n   <g stroke-width="2.6458">\n    <path d="m217.3 223.07 12.807 4.9901 7.5657 10.351"/>\n    <path d="m224.44 226.42 10.19-4.9632 30.651 13.175"/>\n    <path d="m279.63 211.86c-1.058 1.9206-6.6803 10.227-6.6803 10.227l-2.3773 12.683"/>\n    <path d="m292.42 212.9 9.3686 0.3771 3.5829 6.5739"/>\n    <path d="m110.77 244.93 5.2246-14.945 27.435-8.6443 2.8659 3.2079"/>\n    <path d="m103.62 245.39 4.2142-10.691 7.3937-1.6313"/>\n   </g>\n  </g>\n </g>\n</svg>\n';
 
   // src/js/component/layout/shapes/shapeRight.js
-  var ShapeRight = ({ html }) => {
+  var ShapeRight = ({ html, onMount }) => {
+    onMount(({ refs }) => {
+      const { shape } = refs;
+      mobCore.useFrame(() => {
+        shape.classList.add("active");
+      });
+    });
     return html`
         <div>
-            <div class="shape-right">${footer_shape_right_default}</div>
+            <div class="shape shape-right" ref="shape">${footer_shape_right_default}</div>
         </div>
     `;
   };
@@ -25239,6 +25245,7 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
+            <shape-right></shape-right>
         </div>
     `;
   };
@@ -25576,6 +25583,7 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
+            <shape-right></shape-right>
         </div>
     `;
   };

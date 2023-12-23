@@ -2,6 +2,15 @@
 @use '../../abstract' as *;
 @use '../../../../node_modules/sass-mq/mq';
 
+.shape {
+    opacity: 0;
+    transition: opacity 1.55s;
+
+    &.active {
+        opacity: 1;
+    }
+}
+
 .shape-right {
     position: fixed;
     right: 0;

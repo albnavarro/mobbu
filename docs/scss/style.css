@@ -2181,6 +2181,13 @@ code {
 .page-not-found {
   padding: 2rem;
 }
+.shape {
+  opacity: 0;
+  transition: opacity 1.55s;
+}
+.shape.active {
+  opacity: 1;
+}
 .shape-right {
   position: fixed;
   right: 0;
