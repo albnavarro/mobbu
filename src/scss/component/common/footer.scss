@@ -26,23 +26,4 @@
         display: grid;
         height: 100%;
     }
-
-    &__shape-right {
-        position: absolute;
-        right: 0;
-        bottom: rem(50);
-        width: 980px;
-        pointer-events: none;
-        z-index: -1;
-        display: none;
-
-        @include mq.mq(xlarge) {
-            display: block;
-        }
-
-        svg {
-            height: auto;
-            width: 100%;
-        }
-    }
 }

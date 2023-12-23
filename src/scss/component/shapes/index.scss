@@ -1,0 +1,22 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.shape-right {
+    position: fixed;
+    right: 0;
+    bottom: rem(50);
+    width: 1200px;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
+
+    @include mq.mq(desktop) {
+        display: block;
+    }
+
+    svg {
+        height: auto;
+        width: 100%;
+    }
+}

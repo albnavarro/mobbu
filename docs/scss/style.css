@@ -1573,24 +1573,6 @@ code {
   display: grid;
   height: 100%;
 }
-.l-footer__shape-right {
-  position: absolute;
-  right: 0;
-  bottom: 3.3333333333rem;
-  width: 980px;
-  pointer-events: none;
-  z-index: -1;
-  display: none;
-}
-@media (min-width: 100em) {
-  .l-footer__shape-right {
-    display: block;
-  }
-}
-.l-footer__shape-right svg {
-  height: auto;
-  width: 100%;
-}
 .c-canvas {
   position: absolute;
   top: 0;
@@ -2198,6 +2180,24 @@ code {
 }
 .page-not-found {
   padding: 2rem;
+}
+.shape-right {
+  position: fixed;
+  right: 0;
+  bottom: 3.3333333333rem;
+  width: 1200px;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+@media (min-width: 62em) {
+  .shape-right {
+    display: block;
+  }
+}
+.shape-right svg {
+  height: auto;
+  width: 100%;
 }
 .l-parallax {
   height: 200vh;

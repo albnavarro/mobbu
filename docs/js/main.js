@@ -1664,6 +1664,7 @@
     scrollToDef: () => scrollToDef,
     scrollerN0Def: () => scrollerN0Def,
     scrollerN1Def: () => scrollerN1Def,
+    shapeRightDef: () => shapeRightDef,
     snippetContentDef: () => snippetContentDef,
     spacerContentDef: () => spacerContentDef,
     titleContentDef: () => titleContentDef
@@ -23136,9 +23137,6 @@ Loading snippet ...</pre
     }
   });
 
-  // src/svg/footer_shape_right.svg
-  var footer_shape_right_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n\n<svg\n   width="980"\n   height="980"\n   viewBox="0 0 259.29166 259.29165"\n   version="1.1"\n   id="svg5"\n   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"\n   sodipodi:docname="footer_shape_right.svg"\n   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"\n   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:svg="http://www.w3.org/2000/svg">\n  <sodipodi:namedview\n     id="namedview7"\n     pagecolor="#ffffff"\n     bordercolor="#666666"\n     borderopacity="1.0"\n     inkscape:pageshadow="2"\n     inkscape:pageopacity="0.0"\n     inkscape:pagecheckerboard="0"\n     inkscape:document-units="px"\n     showgrid="false"\n     units="px"\n     width="1980px"\n     inkscape:zoom="1.0003729"\n     inkscape:cx="414.34548"\n     inkscape:cy="671.74948"\n     inkscape:window-width="1920"\n     inkscape:window-height="1011"\n     inkscape:window-x="0"\n     inkscape:window-y="0"\n     inkscape:window-maximized="1"\n     inkscape:current-layer="svg5" />\n  <defs\n     id="defs2" />\n  <g\n     inkscape:label="Livello 1"\n     inkscape:groupmode="layer"\n     id="layer1"\n     style="display:inline">\n    <circle\n       id="path1075"\n       style="fill:#000000;stroke:#050a00;stroke-width:0.264583"\n       cx="349.5968"\n       cy="88.869049"\n       r="0" />\n    <circle\n       id="path1077"\n       style="fill:#000000;stroke:#050a00;stroke-width:0.264583"\n       cx="349.5968"\n       cy="88.869049"\n       r="0" />\n    <circle\n       id="path1079"\n       style="fill:#000000;stroke:#050a00;stroke-width:0.264583"\n       cx="328.35263"\n       cy="134.82603"\n       r="0" />\n    <circle\n       id="path1081"\n       style="fill:#000000;stroke:#050a00;stroke-width:0.264583"\n       cx="328.35263"\n       cy="134.82603"\n       r="0" />\n  </g>\n  <path\n     style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"\n     d="m 2.6466914,260.63699 c 2.11392,0 1.288,0.27356 2.5832,-0.37404"\n     id="path1151" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="M -3.2546232,263.04628 146.67555,241.8466 l 42.47577,-51.37531 11.07452,14.05191 -13.67496,37.09492 76.57779,-9.7374 -13.34355,-43.31831 3.11744,-12.89651 28.17019,60.31313 14.23659,-128.70272"\n     id="path1186"\n     sodipodi:nodetypes="cccccccccc" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:3.96875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 146.67555,241.8466 45.55072,-67.04966 -17.53966,-4.57786 -65.82468,68.28148 -37.977299,9.12266 -9.41193,7.2413"\n     id="path5433"\n     sodipodi:nodetypes="cccccc" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 194.2285,222.56535 12.80686,4.99009 7.56571,10.35106"\n     id="path7535" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 201.37167,225.92204 10.1899,-4.96322 30.65129,13.17464"\n     id="path7650" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 256.56013,211.36195 c -1.05797,1.92061 -6.68031,10.22708 -6.68031,10.22708 l -2.37728,12.68287"\n     id="path7765" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 269.35043,212.39819 9.36855,0.3771 3.58293,6.57389"\n     id="path7880" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 87.702141,244.42977 5.2246,-14.94545 27.435119,-8.64431 2.86594,3.20791"\n     id="path8090" />\n  <path\n     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n     d="m 80.552791,244.88745 4.21417,-10.69097 7.3937,-1.63133"\n     id="path8205" />\n</svg>\n';
-
   // src/js/component/layout/footer/footer.js
   var Footer = ({ html }) => {
     return html`
@@ -23146,7 +23144,6 @@ Loading snippet ...</pre
             <div class="l-footer__container">
                 <footer-nav></footer-nav>
                 <mobjs-slot name="debug"></mobjs-slot>
-                <div class="l-footer__shape-right">${footer_shape_right_default}</div>
             </div>
         </footer>
     `;
@@ -23983,6 +23980,24 @@ Loading snippet ...</pre
     name: "doc-title-small",
     component: DocTitleSmall,
     state: {}
+  });
+
+  // src/svg/footer_shape_right.svg
+  var footer_shape_right_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="1200" height="980" version="1.1" viewBox="0 0 317.5 259.29" xmlns="http://www.w3.org/2000/svg">\n <g stroke="#050a00" stroke-width=".26458">\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="349.6" cy="88.869" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n  <circle cx="328.35" cy="134.83" r="0"/>\n </g>\n <g fill="none" stroke="#000">\n  <path d="m25.715 261.14c2.1139 0 1.288 0.27356 2.5832-0.37404" stroke-width=".26458px"/>\n  <g>\n   <path d="m19.813 263.55 149.93-21.2 42.476-51.375 11.075 14.052-13.675 37.095 76.578-9.7374-13.344-43.318 3.1174-12.897 28.17 60.313 14.237-128.7" stroke-width="3.9688"/>\n   <path d="m169.74 242.35 45.551-67.05-17.54-4.5779-65.825 68.281-37.977 9.1227-9.4119 7.2413" stroke-width="3.9688"/>\n   <g stroke-width="2.6458">\n    <path d="m217.3 223.07 12.807 4.9901 7.5657 10.351"/>\n    <path d="m224.44 226.42 10.19-4.9632 30.651 13.175"/>\n    <path d="m279.63 211.86c-1.058 1.9206-6.6803 10.227-6.6803 10.227l-2.3773 12.683"/>\n    <path d="m292.42 212.9 9.3686 0.3771 3.5829 6.5739"/>\n    <path d="m110.77 244.93 5.2246-14.945 27.435-8.6443 2.8659 3.2079"/>\n    <path d="m103.62 245.39 4.2142-10.691 7.3937-1.6313"/>\n   </g>\n  </g>\n </g>\n</svg>\n';
+
+  // src/js/component/layout/shapes/shapeRight.js
+  var ShapeRight = ({ html }) => {
+    return html`
+        <div>
+            <div class="shape-right">${footer_shape_right_default}</div>
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/shapes/definition.js
+  var shapeRightDef = createComponent({
+    name: "shape-right",
+    component: ShapeRight
   });
 
   // src/js/utils/canvasUtils.js
@@ -24923,6 +24938,7 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
+            <shape-right></shape-right>
         </div>
     `;
   };
