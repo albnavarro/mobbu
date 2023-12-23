@@ -1374,7 +1374,6 @@ code {
 }
 .l-header__toggle {
   grid-area: toggle;
-  background: #1a1b26;
   border: 0;
   position: relative;
 }
@@ -1496,6 +1495,10 @@ code {
   overflow: visible;
   height: var(--header-height);
   width: var(--header-height);
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  overflow: hidden;
+  background: #1a1b26;
   --width: 30px;
   --height: 2px;
   --total-height: 10px;
