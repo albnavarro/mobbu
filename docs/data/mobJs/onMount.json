@@ -25,7 +25,22 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>onMount</span> function will be executed when <span>all components of the current loop</span> have been created and attached to the DOM. onMount functions will be executed starting from the deepest level up."
+            "content": "The <span>onMount</span> function will be executed when <span>all components of the current loop</span> have been created and attached to the DOM.<br/> <span>onMount functions will be executed starting from the deepest level up.</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The <span>route will be considered loaded</span> (and consequently the specific <a href='./#mobJs_routing'>events</a> will be launched) when <span>all onMount functions are executed</span>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "Params"
         },
         {
             "component": "mob-paragraph",
@@ -44,7 +59,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "Scoped"
         },
