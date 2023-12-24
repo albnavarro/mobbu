@@ -18,7 +18,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         }
     ]

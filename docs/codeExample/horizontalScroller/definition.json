@@ -18,7 +18,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         },
         {
@@ -45,7 +46,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         },
         {
@@ -72,7 +74,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/horizontalScrollerButton/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         }
     ]

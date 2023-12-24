@@ -18,7 +18,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/dynamicList/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         },
         {
@@ -45,7 +46,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/dynamicList/repeaters/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         },
         {
@@ -72,7 +74,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/dynamicList/card/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         },
         {
@@ -99,7 +102,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/dynamicList/button/definition.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         }
     ]

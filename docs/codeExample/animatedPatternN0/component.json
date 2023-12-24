@@ -18,7 +18,8 @@
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js",
-                "isFull": true
+                "isFull": true,
+                "loadOnMount": true
             }
         }
     ]
