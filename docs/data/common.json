@@ -154,7 +154,7 @@
             "url": "mobCore_events"
         },
         {
-            "label": "Event",
+            "label": "defaults",
             "scrollToSection": "mobCore",
             "url": "mobCore_defaults"
         },
