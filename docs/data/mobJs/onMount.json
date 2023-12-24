@@ -108,10 +108,6 @@
             }
         },
         {
-            "component": "mob-spacer",
-            "props": {}
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h3"
@@ -132,6 +128,41 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Tips"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is important to know <span>whether it is necessary to make the onMount function 'blocking'</span> or to <span>delegate the asynchronous behavior to an external function, for example</span>:<br/>If upstream of our component we need to know the exact measurements of the same, and the same depend from a calculation carried out in the onMount function (for example a data <span>fetch</span>) we should solve the onMount function when our asynchronous function is solved, otherwise we can solve our onMount function immediately."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/onmountTips.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]
