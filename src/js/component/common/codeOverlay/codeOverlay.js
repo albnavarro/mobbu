@@ -115,7 +115,6 @@ export const CodeOverlay = ({
         });
 
         mainStore.watch('beforeRouteLeave', () => {
-            console.log('oooo');
             setState('urls', []);
         });
 

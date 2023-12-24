@@ -9,7 +9,6 @@ export const FooterNavButton = ({ html, onMount, getState }) => {
     onMount(({ element }) => {
         navigationStore.watch('activeSection', (current) => {
             const isActiveSection = current === section;
-            console.log(isActiveSection);
             element.classList.toggle('current', isActiveSection);
         });
     });

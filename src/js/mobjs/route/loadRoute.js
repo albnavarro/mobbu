@@ -15,6 +15,8 @@ import { parseComponents } from '../parseComponent/componentParse';
  * Load new route.
  */
 export const loadRoute = async ({ route = '' }) => {
+    mainStore.set('routeIsLoading', true);
+
     /**
      *
      */
@@ -60,7 +62,7 @@ export const loadRoute = async ({ route = '' }) => {
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
 
-    /**jj
+    /**
      * Wait for all render.
      */
     await parseComponents({ element: contentEl });
@@ -79,4 +81,6 @@ export const loadRoute = async ({ route = '' }) => {
      * Remove watcher.
      */
     unWatchRouteChange?.();
+
+    mainStore.set('routeIsLoading', false);
 };

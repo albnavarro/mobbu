@@ -24,6 +24,7 @@ export const DebugButton = ({ html, delegateEvents }) => {
             ${delegateEvents({
                 click: () => {
                     mainStore.debugStore();
+                    console.log(mainStore);
                     console.log(componentMap);
                     console.log('bindEventMap', bindEventMap);
                     console.log('currentListValueMap', currentListValueMap);

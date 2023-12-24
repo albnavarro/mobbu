@@ -1,4 +1,5 @@
 // @ts-check
+import { mainStore } from '../mainStore/mainStore';
 import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
@@ -11,6 +12,15 @@ let previousUrl = '';
 const getHash = () => {
     const locationHash = window.location.hash.slice(1);
 
+    /**
+     * Prevent multiple routes start at same time.
+     */
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) return;
+
+    /**
+     * Load.
+     */
     loadRoute({ route: getRouteModule({ url: locationHash }) });
 };
 
@@ -23,7 +33,6 @@ export const router = () => {
 
     window.addEventListener('hashchange', () => {
         getHash();
-        console.log('hash');
     });
 };
 

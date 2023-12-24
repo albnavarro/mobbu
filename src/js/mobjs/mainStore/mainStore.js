@@ -47,6 +47,10 @@ export const mainStore = mobCore.createStore({
         type: String,
         skipEqual: false,
     }),
+    routeIsLoading: () => ({
+        value: false,
+        type: Boolean,
+    }),
     repeaterParserRoot: () => ({
         value: document.createElement('div'),
         type: HTMLElement,
