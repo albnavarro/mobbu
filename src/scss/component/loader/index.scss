@@ -15,6 +15,11 @@
     animation: rotation 1s linear infinite;
     z-index: 16;
 
+    &.disable {
+        animation: none;
+        display: none;
+    }
+
     &.center-viewport {
         position: fixed;
         top: calc(50vh - #{rem(24)});

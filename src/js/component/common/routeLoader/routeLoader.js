@@ -6,6 +6,8 @@ import { tween } from '../../../mobMotion';
  */
 export const RouteLoader = ({ html, onMount }) => {
     onMount(({ element }) => {
+        element.classList.add('disable');
+
         let tweenOut = tween.createTween({
             data: { opacity: 1, scale: 1 },
             duration: 500,
@@ -17,11 +19,13 @@ export const RouteLoader = ({ html, onMount }) => {
         });
 
         mainStore.watch('beforeRouteChange', () => {
+            element.classList.remove('disable');
             tweenOut.goTo({ opacity: 1, scale: 1 });
         });
 
-        mainStore.watch('atfterRouteChange', () => {
-            tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        mainStore.watch('atfterRouteChange', async () => {
+            await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+            element.classList.add('disable');
         });
 
         return () => {
