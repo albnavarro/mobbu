@@ -20,12 +20,12 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Svg drawing."
+            "content": "Svg drawing and animation."
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -33,7 +33,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "svg"
+            "content": "Collection of svg experiment."
         },
         {
             "component": "mob-spacer",

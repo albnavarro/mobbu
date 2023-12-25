@@ -3,12 +3,12 @@ import { motionCore } from '../../../mobMotion';
 
 const data = [
     {
-        label: 'about',
+        label: 'About',
         url: 'about',
         section: 'about',
     },
     {
-        label: 'canvas 2d',
+        label: 'Canvas 2d',
         url: 'canvas_overview',
         section: 'canvas',
     },
@@ -18,22 +18,22 @@ const data = [
         section: 'svg',
     },
     {
-        label: 'mobCore',
+        label: 'MobCore',
         url: 'mobCore_overview',
         section: 'mobCore',
     },
     {
-        label: 'mobJs',
+        label: 'MobJs',
         url: 'mobJs_overview',
         section: 'mobJs',
     },
     {
-        label: 'mobMotion',
+        label: 'MobMotion',
         url: 'mobMotion_overview',
         section: 'mobMotion',
     },
     {
-        label: 'plugin',
+        label: 'Plugin',
         url: 'plugin_overview',
         section: 'plugin',
     },
