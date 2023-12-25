@@ -1,0 +1,17 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.svg-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    svg {
+        overflow: visible;
+        width: rem(1980);
+        height: rem(1000);
+    }
+}

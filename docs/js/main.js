@@ -1668,6 +1668,7 @@
     shapeRightDef: () => shapeRightDef,
     snippetContentDef: () => snippetContentDef,
     spacerContentDef: () => spacerContentDef,
+    svgChild: () => svgChild,
     titleContentDef: () => titleContentDef
   });
 
@@ -27761,6 +27762,27 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/pages/svg/child/child.js
+  var SvgChild = ({ onMount, html, getState }) => {
+    const { svg } = getState();
+    onMount(() => {
+    });
+    return html` <div class="svg-child">${svg}</div> `;
+  };
+
+  // src/js/component/pages/svg/child/definition.js
+  var svgChild = createComponent({
+    name: "svg-child",
+    component: SvgChild,
+    exportState: ["svg"],
+    state: {
+      svg: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
   // src/js/pages/routeList.js
   var routeList_exports = {};
   __export(routeList_exports, {
@@ -29678,9 +29700,16 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/svg/child/index.js
-  var child = () => {
+  var child = async () => {
+    const { success, data: data3 } = await loadTextContent({
+      source: "./asset/svg/child.svg"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
     return renderHtml`<div>
-        <scroller-n0></scroller-n0>
+        <svg-child ${staticProps({ svg: data3 })}></svg-child>
     </div>`;
   };
 

@@ -2232,6 +2232,18 @@ code {
 .shape-left {
   right: 40%;
 }
+.svg-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.svg-child svg {
+  overflow: visible;
+  width: 132rem;
+  height: 66.6666666667rem;
+}
 .l-parallax {
   height: 200vh;
 }
