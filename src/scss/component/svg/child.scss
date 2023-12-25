@@ -2,6 +2,13 @@
 @use '../../abstract' as *;
 @use '../../../../node_modules/sass-mq/mq';
 
+.svg-child-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    overflow: hidden;
+}
+
 .svg-child {
     position: absolute;
     top: 50%;
