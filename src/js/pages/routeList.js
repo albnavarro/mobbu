@@ -71,3 +71,5 @@ export * from './mobMotion/stagger';
 export * from './mobMotion/syncTimeline';
 export * from './mobMotion/tweenSpringLerp';
 export * from './mobMotion/defaults';
+export * from './svg/overview';
+export * from './svg/child';

@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "Svg"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Svg drawing."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "svg"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": ["<a href='./#child'>Child</a>"]
+            }
+        }
+    ]
+}

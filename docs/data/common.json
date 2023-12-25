@@ -134,6 +134,23 @@
             "children": null
         },
         {
+            "label": "Svg",
+            "section": true,
+            "sectioName": "svg"
+        },
+        {
+            "label": "Overview",
+            "url": "svg_overview",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
+            "label": "Child",
+            "url": "child",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"

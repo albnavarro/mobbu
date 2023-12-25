@@ -13,6 +13,11 @@ const data = [
         section: 'canvas',
     },
     {
+        label: 'Svg',
+        url: 'svg_overview',
+        section: 'svg',
+    },
+    {
         label: 'mobCore',
         url: 'mobCore_overview',
         section: 'mobCore',
