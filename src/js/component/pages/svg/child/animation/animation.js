@@ -1,8 +1,6 @@
 import { timeline, tween } from '../../../../../mobMotion';
 
 export const childAnimations = ({ groups }) => {
-    console.log(groups);
-
     /**
      * Intro tween.
      */
