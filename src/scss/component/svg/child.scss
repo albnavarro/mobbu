@@ -32,4 +32,11 @@
         transform: translateZ(0.5px);
         transform-origin: center center;
     }
+
+    #layer1 {
+        path {
+            transform-origin: center center;
+            translate: -10px -10px;
+        }
+    }
 }

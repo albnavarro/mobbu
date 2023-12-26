@@ -10,8 +10,12 @@ const playAnimation = async ({ playIntro }) => {
 export const SvgChild = ({ onMount, html, getState }) => {
     const { svg } = getState();
 
-    onMount(({ refs }) => {
+    onMount(({ element, refs }) => {
+        const svg = element.querySelector('svg');
+        const { width, height } = svg.viewBox.baseVal;
+
         const {
+            trail1,
             black,
             body,
             bottom_green,
@@ -34,7 +38,12 @@ export const SvgChild = ({ onMount, html, getState }) => {
                 green_top,
                 head,
                 light_shadow,
+                trail1,
             ],
+            trails: [trail1],
+            boxWidth: width,
+            boxHeight: height,
+            svg,
         });
 
         const { playIntro, destroy } = childMethods;

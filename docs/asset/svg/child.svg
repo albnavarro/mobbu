@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.3107219"
-     inkscape:cx="822.27871"
-     inkscape:cy="820.66955"
+     inkscape:zoom="2.4857752"
+     inkscape:cx="908.56969"
+     inkscape:cy="512.11389"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer7"
+     inkscape:current-layer="layer1"
      units="px"
      inkscape:lockguides="false"
      inkscape:snap-nodes="false" />
@@ -547,6 +547,16 @@
        d="m 200.30273,-9.9980469 15.82094,24.7004019 13.97568,10.108099 4.25719,-0.209727 -1.40817,-1.624582 -3.83951,0.152156 -12.41244,-9.214252 -15.09834,-24.863774 z"
        id="path6028"
        sodipodi:nodetypes="ccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="trail"
+     ref="trail1">
+    <path
+       style="fill:#0000e8;fill-opacity:1;stroke:none;stroke-width:0.41084px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 248.73907,116.09132 h 26.39686 l -14.59378,32.40069 z"
+       id="path1262" />
   </g>
   <g
      inkscape:groupmode="layer"
