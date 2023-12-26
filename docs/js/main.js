@@ -27762,10 +27762,74 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/pages/svg/child/animation/animation.js
+  var childAnimations = ({ groups }) => {
+    console.log(groups);
+    let introTween = tween.createTween({
+      data: { opacity: 0, scale: 1.2 },
+      duration: 2e3,
+      ease: "easeOutQuart",
+      stagger: { each: 5, from: "center" }
+    });
+    groups.forEach((item) => {
+      introTween.subscribe(({ scale, opacity }) => {
+        item.style.scale = `${scale}`;
+        item.style.opacity = opacity;
+      });
+    });
+    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
+      opacity: 1,
+      scale: 1
+    });
+    return {
+      playIntro: async () => {
+        return introTl.play();
+      },
+      destroy: () => {
+        introTween.destroy();
+        introTween = null;
+        introTl.destroy();
+        introTl = null;
+      }
+    };
+  };
+
   // src/js/component/pages/svg/child/child.js
+  var playAnimation2 = async ({ playIntro }) => {
+    await playIntro();
+  };
   var SvgChild = ({ onMount, html, getState }) => {
     const { svg } = getState();
-    onMount(() => {
+    onMount(({ refs }) => {
+      const {
+        black,
+        body,
+        bottom_green,
+        collo,
+        dark_shadow,
+        gambe,
+        green_top,
+        head,
+        light_shadow
+      } = refs;
+      const childMethods = childAnimations({
+        groups: [
+          black,
+          body,
+          bottom_green,
+          collo,
+          dark_shadow,
+          gambe,
+          green_top,
+          head,
+          light_shadow
+        ]
+      });
+      const { playIntro, destroy } = childMethods;
+      playAnimation2({ playIntro });
+      return () => {
+        destroy();
+      };
     });
     return html`<div class="svg-child-container">
         <div class="svg-child">${svg}</div>

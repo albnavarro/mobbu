@@ -21,4 +21,9 @@
         width: rem(1980);
         height: rem(1000);
     }
+
+    g {
+        opacity: 0;
+        transform-origin: center center;
+    }
 }

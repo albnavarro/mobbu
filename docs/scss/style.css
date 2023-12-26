@@ -2250,6 +2250,10 @@ code {
   width: 132rem;
   height: 66.6666666667rem;
 }
+.svg-child g {
+  opacity: 0;
+  transform-origin: center center;
+}
 .l-parallax {
   height: 200vh;
 }
