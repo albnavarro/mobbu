@@ -52,7 +52,7 @@ export const childAnimations = ({
 
     tranilRotateElement.forEach((item) => {
         mouseTweenRotate.subscribe(({ rotation }) => {
-            item.style.transform = `rotate(${rotation}deg) `;
+            item.style.rotate = `${rotation}deg`;
         });
     });
 

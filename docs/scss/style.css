@@ -2261,9 +2261,9 @@ code {
   transform: translateZ(0.5px);
   transform-origin: center center;
 }
-.svg-child #layer1 path {
+.svg-child .trail-element path {
   transform-origin: center center;
-  translate: -10px -10px;
+  transform: translate3d(-10px, -10px, 0.5px);
 }
 .l-parallax {
   height: 200vh;

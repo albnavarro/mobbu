@@ -27797,7 +27797,7 @@ Loading snippet ...</pre
     });
     tranilRotateElement.forEach((item) => {
       mouseTweenRotate.subscribe(({ rotation }) => {
-        item.style.transform = `rotate(${rotation}deg) `;
+        item.style.rotate = `${rotation}deg`;
       });
     });
     const unsubScribeResize = mobCore.useResize(() => {
