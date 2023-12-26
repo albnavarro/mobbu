@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../../data';
+import { motionCore } from '../../../../mobMotion';
 import { childAnimations } from './animation/animation';
 
 const playAnimation = async ({ playIntro }) => {
@@ -9,12 +10,16 @@ const playAnimation = async ({ playIntro }) => {
  * @param {import("../../../../mobjs/type").componentType}
  */
 export const SvgChild = ({ onMount, html, getState, staticProps }) => {
-    const { svg } = getState();
+    const isDesktop = motionCore.mq('min', 'desktop');
+
+    const { svg } = isDesktop ? getState() : '';
 
     const { child } = getLegendData();
     const { source } = child;
 
     onMount(({ element, refs }) => {
+        if (!isDesktop) return;
+
         const svg = element.querySelector('svg');
         const { width, height } = svg.viewBox.baseVal;
 
@@ -71,6 +76,7 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
      * Desktop
      */
     return html`<div class="svg-child-container">
+        <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
         <code-button
             ${staticProps({
