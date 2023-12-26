@@ -31,7 +31,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer12"
+     inkscape:current-layer="layer4"
      units="px"
      inkscape:lockguides="false"
      inkscape:snap-nodes="false" />
@@ -313,7 +313,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="head-green"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     ref="head_green">
     <path
        style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#9ece6a;fill-opacity:1;stroke:none;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 278.35317,45.588819 2.14688,2.509665 20.83647,0.277633 5.89187,-2.465226 -9.71425,-2.536407 -15.75305,2.725028 z"

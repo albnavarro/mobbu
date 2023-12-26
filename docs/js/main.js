@@ -27834,7 +27834,7 @@ Loading snippet ...</pre
       mouseTween.goTo({ x: x3, y: y3 });
     });
     let introTween = tween.createTween({
-      data: { opacity: 0, scale: 1.2 },
+      data: { opacity: 0, scale: 0.95 },
       duration: 2e3,
       ease: "easeOutQuart",
       stagger: { each: 5, from: "center" }
@@ -27899,7 +27899,8 @@ Loading snippet ...</pre
         head,
         light_shadow,
         head_bg,
-        body_bg
+        body_bg,
+        head_green
       } = refs;
       const childMethods = childAnimations({
         groups: [
@@ -27913,7 +27914,8 @@ Loading snippet ...</pre
           head,
           light_shadow,
           head_bg,
-          body_bg
+          body_bg,
+          head_green
         ],
         trails: [trail1, trail2],
         boxWidth: width,
