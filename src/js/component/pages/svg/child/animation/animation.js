@@ -8,6 +8,8 @@ export const childAnimations = ({
     boxHeight,
     svg,
 }) => {
+    const RAD2DEG = 180 / Math.PI;
+
     /**
      * Generic utils.
      */
@@ -92,7 +94,6 @@ export const childAnimations = ({
         /**
          * Get Rad
          */
-        const RAD2DEG = 180 / Math.PI;
         const yDiff = y3 - lastY;
         const xDiff = x3 - lastX;
 
