@@ -27763,39 +27763,12 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/svg/child/child.js
-  var SvgChild = ({ onMount, html, staticProps: staticProps2, getState }) => {
+  var SvgChild = ({ onMount, html, getState }) => {
     const { svg } = getState();
-    const { scrollerN0 } = getLegendData();
-    const { source } = scrollerN0;
     onMount(() => {
     });
     return html`<div class="svg-child-container">
         <div class="svg-child">${svg}</div>
-        <code-button
-            ${staticProps2({
-      drawers: [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ],
-      style: "legend",
-      color: "green"
-    })}
-        >
-        </code-button>
     </div>`;
   };
 
