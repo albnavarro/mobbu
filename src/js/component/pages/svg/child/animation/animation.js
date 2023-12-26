@@ -140,7 +140,7 @@ export const childAnimations = ({
     });
 
     groups.forEach((item) => {
-        introTween.subscribe(({ scale, opacity }) => {
+        introTween.subscribeCache(item, ({ scale, opacity }) => {
             item.style.scale = `${scale}`;
             item.style.opacity = opacity;
         });
