@@ -13,7 +13,7 @@ const data = [
         section: 'canvas',
     },
     {
-        label: 'Svg',
+        label: 'Illustration',
         url: 'svg_overview',
         section: 'svg',
     },
