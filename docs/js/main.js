@@ -25825,6 +25825,7 @@ Loading snippet ...</pre
       },
       playSvg: () => tl.play(),
       destroySvg: () => {
+        tl.stop();
         logoTween.destroy();
         tl.destroy();
         introTl.destroy();

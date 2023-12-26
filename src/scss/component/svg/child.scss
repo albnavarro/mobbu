@@ -18,8 +18,13 @@
 
     svg {
         overflow: visible;
-        width: rem(1980);
-        height: rem(1000);
+        width: rem(990, xxs);
+        height: rem(500, xxs);
+
+        @include mq.mq(desktop) {
+            width: rem(1980);
+            height: rem(1000);
+        }
     }
 
     g {

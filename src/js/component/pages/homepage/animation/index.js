@@ -139,6 +139,7 @@ export const homeAnimation = ({ logoRefs, around }) => {
         },
         playSvg: () => tl.play(),
         destroySvg: () => {
+            tl.stop();
             logoTween.destroy();
             tl.destroy();
             introTl.destroy();

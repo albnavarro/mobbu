@@ -2247,8 +2247,14 @@ code {
 }
 .svg-child svg {
   overflow: visible;
-  width: 132rem;
-  height: 66.6666666667rem;
+  width: 80rem;
+  height: 40rem;
+}
+@media (min-width: 62em) {
+  .svg-child svg {
+    width: 132rem;
+    height: 66.6666666667rem;
+  }
 }
 .svg-child g {
   opacity: 0;
