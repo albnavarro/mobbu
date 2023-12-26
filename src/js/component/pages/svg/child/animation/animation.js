@@ -24,6 +24,9 @@ export const childAnimations = ({
     let lastRotation = 0;
     let loopToAdd = 0;
 
+    /**
+     * Get trail path.
+     */
     let tranilRotateElement = trails.map((item) => {
         return item.querySelector('path');
     });
@@ -33,7 +36,7 @@ export const childAnimations = ({
      */
     let mouseTween = tween.createSpring({
         data: { x: 0, y: 0 },
-        stagger: { each: 5, from: 'start' },
+        stagger: { each: 2, from: 'start' },
     });
 
     trails.forEach((item) => {
@@ -51,7 +54,7 @@ export const childAnimations = ({
     });
 
     tranilRotateElement.forEach((item) => {
-        mouseTweenRotate.subscribe(({ rotation }) => {
+        mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
             item.style.rotate = `${rotation}deg`;
         });
     });

@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.6214438"
-     inkscape:cx="1067.675"
-     inkscape:cy="674.23635"
+     inkscape:zoom="2.4857752"
+     inkscape:cx="939.94823"
+     inkscape:cy="514.92991"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="trail4"
      units="px"
      inkscape:lockguides="false"
      inkscape:snap-nodes="false" />
@@ -120,6 +120,34 @@
   </g>
   <g
      inkscape:groupmode="layer"
+     id="trail4"
+     inkscape:label="trail 4"
+     ref="trail4"
+     class="trail-element"
+     sodipodi:insensitive="true">
+    <path
+       id="path2226"
+       style="opacity:1;fill:#9ece6a;fill-opacity:1;stroke-width:4.94163"
+       inkscape:transform-center-x="0.15189857"
+       inkscape:transform-center-y="-1.1243414"
+       d="m 270.34222,143.43748 -8.007,-3.73316 -7.70323,4.03962 1.17843,-8.26076 -6.58275,-5.7056 8.73534,-1.37229 3.63485,-7.56589 4.22027,7.41265 8.8292,1.02969 -6.12708,5.95356 z" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="trail3"
+     inkscape:label="trail 3"
+     ref="trail3"
+     class="trail-element"
+     sodipodi:insensitive="true">
+    <path
+       id="path1552"
+       style="opacity:1;fill:#9ece6a;fill-opacity:1;stroke-width:6.14832"
+       inkscape:transform-center-x="0.18899083"
+       inkscape:transform-center-y="-1.3988902"
+       d="m 272.39456,146.15915 -9.96222,-4.64475 -9.58428,5.02605 1.46619,-10.27795 -8.19018,-7.09884 10.86841,-1.70739 4.52245,-9.41339 5.25081,9.22273 10.98519,1.28113 -7.62325,7.40735 z" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="trail2"
      inkscape:label="trail 2"
      ref="trail2"
@@ -138,8 +166,8 @@
      inkscape:label="trail 1"
      ref="trail1"
      class="trail-element"
-     sodipodi:insensitive="true"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        id="path21400"
        style="fill:#9ece6a;fill-opacity:1;stroke-width:10.636"
@@ -163,9 +191,10 @@
      inkscape:groupmode="layer"
      id="layer12"
      inkscape:label="bpdyBg"
-     ref="body_bg">
+     ref="body_bg"
+     sodipodi:insensitive="true">
     <path
-       style="fill:#1a1b26;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:0.9"
+       style="opacity:0.9;fill:#1a1b26;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 218.89686,158.7688 -2.12561,-3.17048 -3.70733,-10.40992 -0.0764,-2.78769 -1.74635,-2.4843 -35.28104,11.18666 -10.53927,16.47452 -7.18181,3.79964 c 0,0 -148.224233,212.28894 -143.802489,212.28894 4.421743,0 454.757459,9.495 454.757459,9.495 L 336.63106,214.24933 211.31522,203.15969 l 1.35004,-2.50252 -1.43295,-5.56657 106.89798,-8.16788 -34.47958,-41.62848 -7.54284,-0.28929 -5.89116,3.54798 -12.82952,0.96843 -13.01768,-6.24983 -4.45114,6.83195 -3.04583,0.73676 -1.87689,3.97839 -14.02433,4.40822 z"
        id="path19990" />
   </g>

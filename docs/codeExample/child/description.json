@@ -1,0 +1,30 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "color": "green"
+            },
+            "content": "Svg illustration"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Svg illustration animation with <span>mouse interaction</span>"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "items": [
+                    "<a href='./#mobMotion_tween_spring_lerp'>tween</a>",
+                    "<a href='./#mobMotion_tween_spring_lerp'>Spring</a>",
+                    "<a href='./#mobMotion_async_timeline'>asyncTimeline</a>"
+                ]
+            }
+        }
+    ]
+}

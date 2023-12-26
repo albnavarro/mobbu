@@ -27784,7 +27784,7 @@ Loading snippet ...</pre
     });
     let mouseTween = tween.createSpring({
       data: { x: 0, y: 0 },
-      stagger: { each: 5, from: "start" }
+      stagger: { each: 2, from: "start" }
     });
     trails.forEach((item) => {
       mouseTween.subscribe(({ x, y }) => {
@@ -27796,7 +27796,7 @@ Loading snippet ...</pre
       stagger: { each: 5, from: "start" }
     });
     tranilRotateElement.forEach((item) => {
-      mouseTweenRotate.subscribe(({ rotation }) => {
+      mouseTweenRotate.subscribeCache(item, ({ rotation }) => {
         item.style.rotate = `${rotation}deg`;
       });
     });
@@ -27881,14 +27881,18 @@ Loading snippet ...</pre
   var playAnimation2 = async ({ playIntro }) => {
     await playIntro();
   };
-  var SvgChild = ({ onMount, html, getState }) => {
+  var SvgChild = ({ onMount, html, getState, staticProps: staticProps2 }) => {
     const { svg } = getState();
+    const { child: child2 } = getLegendData();
+    const { source } = child2;
     onMount(({ element, refs }) => {
       const svg2 = element.querySelector("svg");
       const { width, height } = svg2.viewBox.baseVal;
       const {
         trail1,
         trail2,
+        trail3,
+        trail4,
         black,
         body,
         bottom_green,
@@ -27917,7 +27921,7 @@ Loading snippet ...</pre
           body_bg,
           head_green
         ],
-        trails: [trail1, trail2],
+        trails: [trail1, trail2, trail3, trail4],
         boxWidth: width,
         boxHeight: height,
         svg: svg2
@@ -27930,6 +27934,31 @@ Loading snippet ...</pre
     });
     return html`<div class="svg-child-container">
         <div class="svg-child">${svg}</div>
+        <code-button
+            ${staticProps2({
+      drawers: [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ],
+      style: "legend",
+      color: "green"
+    })}
+        >
+        </code-button>
     </div>`;
   };
 

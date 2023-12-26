@@ -2268,7 +2268,13 @@ code {
   transform: translate3d(-10px, -10px, 0.5px);
 }
 .svg-child #trail2 {
-  opacity: 0.9;
+  opacity: 0.3;
+}
+.svg-child #trail3 {
+  opacity: 0.2;
+}
+.svg-child #trail4 {
+  opacity: 0.1;
 }
 .l-parallax {
   height: 200vh;

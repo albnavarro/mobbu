@@ -84,5 +84,13 @@
             "cards": "./codeExample/repeater/cards.json",
             "data": "./codeExample/repeater/data.json"
         }
+    },
+    "child": {
+        "source": {
+            "description": "./codeExample/child/description.json",
+            "definition": "./codeExample/child/definition.json",
+            "component": "./codeExample/child/component.json",
+            "animation": "./codeExample/child/animation.json"
+        }
     }
 }
