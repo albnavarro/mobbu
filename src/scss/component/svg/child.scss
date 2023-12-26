@@ -27,10 +27,13 @@
         }
     }
 
-    g {
-        opacity: 0;
+    g:not(.trail-element) {
         transform: translateZ(0.5px);
         transform-origin: center center;
+    }
+
+    g:not(.trail-element) {
+        opacity: 0;
     }
 
     .trail-element {
@@ -38,5 +41,9 @@
             transform-origin: center center;
             transform: translate3d(-10px, -10px, 0.5px);
         }
+    }
+
+    #trail2 {
+        opacity: 0.9;
     }
 }

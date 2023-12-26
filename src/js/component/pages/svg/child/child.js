@@ -16,6 +16,7 @@ export const SvgChild = ({ onMount, html, getState }) => {
 
         const {
             trail1,
+            trail2,
             black,
             body,
             bottom_green,
@@ -25,6 +26,8 @@ export const SvgChild = ({ onMount, html, getState }) => {
             green_top,
             head,
             light_shadow,
+            head_bg,
+            body_bg,
         } = refs;
 
         const childMethods = childAnimations({
@@ -38,9 +41,10 @@ export const SvgChild = ({ onMount, html, getState }) => {
                 green_top,
                 head,
                 light_shadow,
-                trail1,
+                head_bg,
+                body_bg,
             ],
-            trails: [trail1],
+            trails: [trail1, trail2],
             boxWidth: width,
             boxHeight: height,
             svg,

@@ -27888,6 +27888,7 @@ Loading snippet ...</pre
       const { width, height } = svg2.viewBox.baseVal;
       const {
         trail1,
+        trail2,
         black,
         body,
         bottom_green,
@@ -27896,7 +27897,9 @@ Loading snippet ...</pre
         gambe,
         green_top,
         head,
-        light_shadow
+        light_shadow,
+        head_bg,
+        body_bg
       } = refs;
       const childMethods = childAnimations({
         groups: [
@@ -27909,9 +27912,10 @@ Loading snippet ...</pre
           green_top,
           head,
           light_shadow,
-          trail1
+          head_bg,
+          body_bg
         ],
-        trails: [trail1],
+        trails: [trail1, trail2],
         boxWidth: width,
         boxHeight: height,
         svg: svg2

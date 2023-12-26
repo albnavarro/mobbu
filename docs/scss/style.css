@@ -2256,14 +2256,19 @@ code {
     height: 66.6666666667rem;
   }
 }
-.svg-child g {
-  opacity: 0;
+.svg-child g:not(.trail-element) {
   transform: translateZ(0.5px);
   transform-origin: center center;
+}
+.svg-child g:not(.trail-element) {
+  opacity: 0;
 }
 .svg-child .trail-element path {
   transform-origin: center center;
   transform: translate3d(-10px, -10px, 0.5px);
+}
+.svg-child #trail2 {
+  opacity: 0.9;
 }
 .l-parallax {
   height: 200vh;
