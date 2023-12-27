@@ -62,6 +62,7 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
             head_bg,
             body_bg,
             head_green,
+            highlight,
         } = refs;
 
         const childMethods = childAnimations({
@@ -78,6 +79,7 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
                 head_bg,
                 body_bg,
                 head_green,
+                highlight,
             ],
             trails: [
                 trail0,
