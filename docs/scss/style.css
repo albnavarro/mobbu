@@ -2269,6 +2269,9 @@ code {
   left: 50%;
   width: 26.6666666667rem;
   height: 26.6666666667rem;
+  transform-origin: top left;
+  opacity: 0;
+  transform: translateZ(0.5px);
 }
 .child-trail svg {
   position: absolute;

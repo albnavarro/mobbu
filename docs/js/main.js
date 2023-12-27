@@ -27775,6 +27775,7 @@ Loading snippet ...</pre
     let lastX = 0;
     let lastRotation = 0;
     let loopToAdd = 0;
+    let trailCanMove = false;
     let tranilRotateElement = trails.map((item) => {
       return item.querySelector("svg");
     });
@@ -27784,7 +27785,7 @@ Loading snippet ...</pre
     });
     trails.forEach((item) => {
       mouseTween.subscribe(({ x, y }) => {
-        item.style.transform = `translate(${x}px, ${y}px)`;
+        item.style.translate = `${x}px ${y}px`;
       });
     });
     let mouseTweenRotate = tween.createSpring({
@@ -27796,11 +27797,22 @@ Loading snippet ...</pre
         item.style.rotate = `${rotation}deg`;
       });
     });
+    let trailIntro = tween.createTween({
+      data: { opacity: 0, scale: 1.4 }
+    });
+    trails.forEach((item) => {
+      trailIntro.subscribe(({ scale, opacity }) => {
+        item.style.scale = `${scale}`;
+        item.style.opacity = opacity;
+      });
+    });
     const unsubScribeResize = mobCore.useResize(() => {
       windowWidth = window.innerWidth;
       windowHeight = window.innerHeight;
     });
     const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+      if (!trailCanMove)
+        return;
       const { x, y } = client;
       const yDiff = y - lastY;
       const xDiff = x - lastX;
@@ -27832,13 +27844,18 @@ Loading snippet ...</pre
         item.style.opacity = opacity;
       });
     });
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
+    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup().goTo(introTween, {
       opacity: 1,
       scale: 1
-    });
+    }).goTo(trailIntro, {
+      scale: 1,
+      opacity: 1
+    }).closeGroup();
     return {
       playIntro: async () => {
-        return introTl.play();
+        return introTl.play().then(() => {
+          trailCanMove = true;
+        });
       },
       destroy: () => {
         introTween.destroy();
@@ -27849,6 +27866,8 @@ Loading snippet ...</pre
         mouseTween = null;
         mouseTweenRotate.destroy();
         mouseTweenRotate = null;
+        trailIntro.destroy();
+        trailIntro = null;
         unsubScribeResize();
         unsubscribeMouseMove();
         windowWidth = null;

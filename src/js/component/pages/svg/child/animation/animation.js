@@ -19,6 +19,11 @@ export const childAnimations = ({ groups, trails }) => {
     let loopToAdd = 0;
 
     /**
+     * Enable trail.
+     */
+    let trailCanMove = false;
+
+    /**
      * Get trail path.
      */
     let tranilRotateElement = trails.map((item) => {
@@ -35,7 +40,7 @@ export const childAnimations = ({ groups, trails }) => {
 
     trails.forEach((item) => {
         mouseTween.subscribe(({ x, y }) => {
-            item.style.transform = `translate(${x}px, ${y}px)`;
+            item.style.translate = `${x}px ${y}px`;
         });
     });
 
@@ -54,6 +59,20 @@ export const childAnimations = ({ groups, trails }) => {
     });
 
     /**
+     * Create trail intro tween.
+     */
+    let trailIntro = tween.createTween({
+        data: { opacity: 0, scale: 1.4 },
+    });
+
+    trails.forEach((item) => {
+        trailIntro.subscribe(({ scale, opacity }) => {
+            item.style.scale = `${scale}`;
+            item.style.opacity = opacity;
+        });
+    });
+
+    /**
      * Resize event.
      */
     const unsubScribeResize = mobCore.useResize(() => {
@@ -65,6 +84,8 @@ export const childAnimations = ({ groups, trails }) => {
      * Mouse move.
      */
     const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+        if (!trailCanMove) return;
+
         const { x, y } = client;
 
         /**
@@ -126,14 +147,24 @@ export const childAnimations = ({ groups, trails }) => {
         });
     });
 
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
-        opacity: 1,
-        scale: 1,
-    });
+    let introTl = timeline
+        .createAsyncTimeline({ repeat: 1 })
+        .createGroup()
+        .goTo(introTween, {
+            opacity: 1,
+            scale: 1,
+        })
+        .goTo(trailIntro, {
+            scale: 1,
+            opacity: 1,
+        })
+        .closeGroup();
 
     return {
         playIntro: async () => {
-            return introTl.play();
+            return introTl.play().then(() => {
+                trailCanMove = true;
+            });
         },
         destroy: () => {
             introTween.destroy();
@@ -144,6 +175,8 @@ export const childAnimations = ({ groups, trails }) => {
             mouseTween = null;
             mouseTweenRotate.destroy();
             mouseTweenRotate = null;
+            trailIntro.destroy();
+            trailIntro = null;
             unsubScribeResize();
             unsubscribeMouseMove();
             windowWidth = null;
