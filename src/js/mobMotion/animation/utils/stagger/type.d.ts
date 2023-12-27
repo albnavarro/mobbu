@@ -56,7 +56,7 @@ export interface staggerObjectOptional {
 
     /**
      * @description
-     * Determines if the promise will be resolved by the fastest or slowest stagger, if the value is true the promise will be resolved by the slowest stagger
+     * Determines if the promise will be resolved by the fastest or slowest stagger, if the value is false the promise will be resolved by the slowest stagger
      */
     waitComplete?: boolean;
 

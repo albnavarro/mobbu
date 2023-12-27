@@ -137,7 +137,7 @@ export const childAnimations = ({ groups, trails }) => {
         data: { opacity: 0, scale: 0.95 },
         duration: 2000,
         ease: 'easeOutQuart',
-        stagger: { each: 5, from: 'center' },
+        stagger: { waitComplete: true, each: 5, from: 'center' },
     });
 
     groups.forEach((item) => {
