@@ -27764,7 +27764,7 @@ Loading snippet ...</pre
   });
 
   // src/svg/star.svg
-  var star_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n\n<svg\n   width="400"\n   height="400"\n   viewBox="0 0 105.83333 105.83334"\n   version="1.1"\n   id="svg1713"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:svg="http://www.w3.org/2000/svg">\n  <defs\n     id="defs1710" />\n  <g\n     id="layer1">\n    <path\n       d="M 314.66331,372.25958 93.889916,264.46734 -120.06656,385.22612 -85.772782,141.94851 -266.73739,-24.219674 -24.76928,-66.781266 77.344916,-290.23763 192.59565,-73.264538 436.67031,-45.199981 265.93107,131.45836 Z"\n       transform="matrix(0.13816225,0,0,0.13816225,41.19189,46.490067)" />\n  </g>\n</svg>\n';
+  var star_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n\n<svg\n   width="400"\n   height="400"\n   viewBox="0 0 105.83333 105.83334"\n   version="1.1"\n   id="svg1713"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:svg="http://www.w3.org/2000/svg">\n    <path\n       d="M 314.66331,372.25958 93.889916,264.46734 -120.06656,385.22612 -85.772782,141.94851 -266.73739,-24.219674 -24.76928,-66.781266 77.344916,-290.23763 192.59565,-73.264538 436.67031,-45.199981 265.93107,131.45836 Z"\n       transform="matrix(0.13816225,0,0,0.13816225,41.19189,46.490067)" />\n</svg>\n';
 
   // src/js/component/pages/svg/child/animation/animation.js
   var childAnimations = ({ groups, trails }) => {
@@ -27853,8 +27853,6 @@ Loading snippet ...</pre
         unsubscribeMouseMove();
         windowWidth = null;
         windowHeight = null;
-        svgWidth = null;
-        svgHeight = null;
         lastY = null;
         lastX = null;
         lastRotation = null;

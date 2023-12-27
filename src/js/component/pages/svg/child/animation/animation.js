@@ -148,8 +148,6 @@ export const childAnimations = ({ groups, trails }) => {
             unsubscribeMouseMove();
             windowWidth = null;
             windowHeight = null;
-            svgWidth = null;
-            svgHeight = null;
             lastY = null;
             lastX = null;
             lastRotation = null;
