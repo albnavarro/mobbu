@@ -1,4 +1,4 @@
-// ./routes/index.js
+// ./pages/routeList
 export * from './routes/404';
 export * from './routes/home';
 export * from './routes/route1';
