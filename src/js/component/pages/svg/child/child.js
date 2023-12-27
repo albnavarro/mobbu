@@ -1,9 +1,28 @@
+import star from '../../../../../svg/star.svg';
 import { getLegendData } from '../../../../data';
+import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { childAnimations } from './animation/animation';
 
+const numberOfStar = 10;
+
 const playAnimation = async ({ playIntro }) => {
     await playIntro();
+};
+
+const getTrail = () => {
+    return [...new Array(numberOfStar).keys()]
+        .map((_item, index) => {
+            return html`
+                <div
+                    class="child-trail child-trail--${index}"
+                    ref="trail${index}"
+                >
+                    ${star}
+                </div>
+            `;
+        })
+        .join('');
 };
 
 /**
@@ -17,17 +36,20 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
     const { child } = getLegendData();
     const { source } = child;
 
-    onMount(({ element, refs }) => {
+    onMount(({ refs }) => {
         if (!isDesktop) return;
 
-        const svg = element.querySelector('svg');
-        const { width, height } = svg.viewBox.baseVal;
-
         const {
+            trail0,
             trail1,
             trail2,
             trail3,
             trail4,
+            trail5,
+            trail6,
+            trail7,
+            trail8,
+            trail9,
             black,
             body,
             bottom_green,
@@ -57,14 +79,21 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
                 body_bg,
                 head_green,
             ],
-            trails: [trail1, trail2, trail3, trail4],
-            boxWidth: width,
-            boxHeight: height,
-            svg,
+            trails: [
+                trail0,
+                trail1,
+                trail2,
+                trail3,
+                trail4,
+                trail5,
+                trail6,
+                trail7,
+                trail8,
+                trail9,
+            ],
         });
 
         const { playIntro, destroy } = childMethods;
-
         playAnimation({ playIntro });
 
         return () => {
@@ -78,6 +107,7 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
     return html`<div class="svg-child-container">
         <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
+        ${getTrail()}
         <code-button
             ${staticProps({
                 drawers: [

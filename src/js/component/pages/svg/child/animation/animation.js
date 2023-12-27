@@ -1,13 +1,7 @@
 import { mobCore } from '../../../../../mobCore';
 import { timeline, tween } from '../../../../../mobMotion';
 
-export const childAnimations = ({
-    groups,
-    trails,
-    boxWidth,
-    boxHeight,
-    svg,
-}) => {
+export const childAnimations = ({ groups, trails }) => {
     const RAD2DEG = 180 / Math.PI;
 
     /**
@@ -15,8 +9,6 @@ export const childAnimations = ({
      */
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
-    let svgWidth = svg.clientWidth;
-    let svgHeight = svg.clientHeight;
 
     /**
      * Rotation utils.
@@ -30,7 +22,7 @@ export const childAnimations = ({
      * Get trail path.
      */
     let tranilRotateElement = trails.map((item) => {
-        return item.querySelector('path');
+        return item.querySelector('svg');
     });
 
     /**
@@ -38,7 +30,7 @@ export const childAnimations = ({
      */
     let mouseTween = tween.createSpring({
         data: { x: 0, y: 0 },
-        stagger: { each: 2, from: 'start' },
+        stagger: { each: 3, from: 'start' },
     });
 
     trails.forEach((item) => {
@@ -67,8 +59,6 @@ export const childAnimations = ({
     const unsubScribeResize = mobCore.useResize(() => {
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
-        svgWidth = svg.clientWidth;
-        svgHeight = svg.clientHeight;
     });
 
     /**
@@ -80,29 +70,18 @@ export const childAnimations = ({
         /**
          * Get X
          */
-        const x1 = (x * boxWidth) / windowWidth;
-        const x2 = x1 - boxWidth / 2;
-        const x3 = (x2 * windowWidth) / svgWidth;
-
-        /**
-         * Get Y
-         */
-        const y1 = (y * boxHeight) / windowHeight;
-        const y2 = y1 - boxHeight / 2;
-        const y3 = (y2 * windowHeight) / svgHeight;
-
         /**
          * Get Rad
          */
-        const yDiff = y3 - lastY;
-        const xDiff = x3 - lastX;
+        const yDiff = y - lastY;
+        const xDiff = x - lastX;
 
         /**
          * Rotation tween.
          */
         if (Math.abs(xDiff) > 10 || Math.abs(yDiff) > 10) {
-            lastY = y3;
-            lastX = x3;
+            lastY = y;
+            lastX = x;
             const rotationBase = Math.atan2(yDiff, xDiff) * RAD2DEG;
             const rotationParsed = rotationBase + 180;
             const difference = Math.abs(lastRotation - rotationParsed);
@@ -127,7 +106,7 @@ export const childAnimations = ({
             lastRotation = rotationParsed;
         }
 
-        mouseTween.goTo({ x: x3, y: y3 });
+        mouseTween.goTo({ x: x - windowWidth / 2, y: y - windowHeight / 2 });
     });
 
     /**
