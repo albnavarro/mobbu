@@ -44,7 +44,7 @@ export const childAnimations = ({ groups, trails }) => {
      */
     let mouseTweenRotate = tween.createSpring({
         data: { rotation: 0 },
-        stagger: { each: 5, from: 'start' },
+        stagger: { each: 8, from: 'start' },
     });
 
     tranilRotateElement.forEach((item) => {

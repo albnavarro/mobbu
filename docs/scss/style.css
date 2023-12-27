@@ -2274,12 +2274,14 @@ code {
   position: absolute;
   top: 50%;
   left: 50%;
-  fill: #9ece6a;
   overflow: visible;
   transform-origin: center center;
   translate: -100% -100%;
   width: 26.6666666667rem;
   height: 26.6666666667rem;
+}
+.child-trail--0 {
+  z-index: 100;
 }
 .child-trail--0 svg {
   scale: 0.35;
