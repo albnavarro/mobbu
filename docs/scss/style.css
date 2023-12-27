@@ -2272,6 +2272,7 @@ code {
   transform-origin: top left;
   opacity: 0;
   transform: translateZ(0.5px);
+  pointer-events: none;
 }
 .child-trail svg {
   position: absolute;
