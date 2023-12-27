@@ -1715,7 +1715,7 @@ code {
 }
 .canvas-scroller-title {
   position: fixed;
-  top: 0.3333333333rem;
+  top: 5.3333333333rem;
   left: 50%;
   transform: translate(-50%, 50%);
   text-align: center;
