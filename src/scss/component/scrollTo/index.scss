@@ -10,6 +10,10 @@
         padding: 0;
         margin: 0;
         list-style-type: none;
+
+        @media screen and (max-height: 825px) {
+            margin-top: calc(#{rem(10)} * -1);
+        }
     }
 
     li {
@@ -22,6 +26,7 @@
         transition: opacity 0.55s;
         font-size: rem(15);
         position: relative;
+        display: block;
 
         &::after {
             content: '';
@@ -38,7 +43,12 @@
 
         span {
             transition: transform 0.55s;
-            display: inline-block;
+            display: block;
+
+            @media screen and (max-height: 825px) {
+                font-size: 12px;
+                line-height: 1.5;
+            }
         }
 
         &:hover,
