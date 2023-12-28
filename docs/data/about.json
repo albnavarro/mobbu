@@ -12,14 +12,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This site is the result of the <span>work carried out in recent years</span>.<br/> The main reason why it was created was the need to have my <span>own tools disconnected from the commercial flow</span> to be able to carry on my work without having to follow the flows of other organizations/people."
+            "content": "This site is the result of the <span>work carried out in recent years</span>."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the creation of these instruments I was careful to follow specific points:"
+            "content": "The main reason why it was created was the need to have my <span>own tools disconnected from the commercial flow</span> to be able to carry on my work without having to follow the flows of other organizations/people."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Since it is a project designed for <span>personal use</span>, <span>no npm packages</span> have been created, the project will however remain <span>open source</span>."
         },
         {
             "component": "mob-paragraph",
@@ -27,6 +34,13 @@
                 "style": "medium"
             },
             "content": "The site is <span>designed for desktop use</span>, on a mobile level the bare minimum has been done.<br/><span>Safai has fairly poor canvas support, please don't use safari</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "In the creation of these instruments I was careful to follow specific points:"
         },
         {
             "component": "mob-spacer",
