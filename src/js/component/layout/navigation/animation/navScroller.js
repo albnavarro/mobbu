@@ -79,7 +79,7 @@ export const initNavigationScoller = ({ root }) => {
      */
     navigationStore.watch('goToTop', () => {
         setTimeout(() => {
-            navScroller.set(0);
+            navScroller.move(0);
 
             /**
              * Reset active section to scroll.
