@@ -11,7 +11,6 @@ export * from './common/spacer/definition';
 export * from './common/onlyDesktop/definition';
 export * from './common/loader/definition';
 export * from './common/docScroll/definition';
-export * from './common/docTop/definition';
 export * from './common/scrollTo/definition';
 export * from './common/scrollTo/button/definition';
 export * from './common/linksMobJs/definition';
