@@ -25,6 +25,11 @@
             width: rem(1980);
             height: rem(1000);
         }
+
+        @include mq.mq('xxxlarge') {
+            width: rem(2500);
+            height: rem(1500);
+        }
     }
 
     g:not(.trail-element) {
