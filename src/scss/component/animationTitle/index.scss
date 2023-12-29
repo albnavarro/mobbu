@@ -1,0 +1,23 @@
+@use '../../vars' as *;
+@use '../../abstract' as *;
+@use '../../../../node_modules/sass-mq/mq';
+
+.c-animation-title {
+    position: fixed;
+    z-index: 10;
+    top: calc(var(--header-height) + #{rem(30)});
+    left: calc(var(--header-height) + #{rem(20)});
+    overflow: hidden;
+
+    h4 {
+        color: $white;
+        transform: translateY(100%);
+        transition: transform 0.55s;
+        margin: 0;
+        padding: 0;
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+}
