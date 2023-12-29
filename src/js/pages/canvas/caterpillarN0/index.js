@@ -5,8 +5,8 @@ export const caterpillarN0 = () => {
         <caterpillar-n0></caterpillar-n0>
         <quick-nav
             ${staticProps({
-                nextRoute: '#caterpillarN1',
                 prevRoute: '',
+                nextRoute: '#caterpillarN1',
             })}
         ></quick-nav>
     </div>`;

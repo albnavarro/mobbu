@@ -21,5 +21,11 @@ export const animatedPatternN0v3 = () => {
                 reorder: false,
             })}
         ></animatedpattern-n0>
+        <quick-nav
+            ${staticProps({
+                prevRoute: '#animatedPatternN0v2',
+                nextRoute: '#animatedPatternN0v4',
+            })}
+        ></quick-nav>
     </div>`;
 };

@@ -13,5 +13,11 @@ export const scrollerN0v3 = () => {
                 reorder: false,
             })}
         ></scroller-n0>
+        <quick-nav
+            ${staticProps({
+                prevRoute: '#scrollerN0v2',
+                nextRoute: '#scrollerN0v4',
+            })}
+        ></quick-nav>
     </div>`;
 };
