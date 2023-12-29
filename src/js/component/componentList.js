@@ -15,6 +15,7 @@ export * from './common/scrollTo/definition';
 export * from './common/scrollTo/button/definition';
 export * from './common/linksMobJs/definition';
 export * from './common/routeLoader/definition';
+export * from './common/nextPage/definition';
 export * from './layout/footer/definition';
 export * from './layout/footerNav/definition';
 export * from './layout/header/definition';

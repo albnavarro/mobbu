@@ -105,6 +105,9 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                 })}
             >
             </code-button>
+            <quick-nav
+                ${staticProps({ nextRoute: '#animatedPatternN0v1' })}
+            ></quick-nav>
             <div class="c-canvas">
                 <ul class="c-canvas__controls">
                     ${getControls({ buttons })}
