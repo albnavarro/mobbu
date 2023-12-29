@@ -25023,9 +25023,6 @@ Loading snippet ...</pre
     })}
             >
             </code-button>
-            <quick-nav
-                ${staticProps2({ nextRoute: "#caterpillarN1" })}
-            ></quick-nav>
             <div class="c-canvas">
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
@@ -25327,12 +25324,6 @@ Loading snippet ...</pre
     })}
             >
             </code-button>
-            <quick-nav
-                ${staticProps2({
-      nextRoute: "#caterpillarN2",
-      prevRoute: "#caterpillarN0"
-    })}
-            ></quick-nav>
             <div class="c-canvas">
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
@@ -25650,9 +25641,6 @@ Loading snippet ...</pre
     })}
             >
             </code-button>
-            <quick-nav
-                ${staticProps2({ nextRoute: "#animatedPatternN0v1" })}
-            ></quick-nav>
             <div class="c-canvas">
                 <ul class="c-canvas__controls">
                     ${getControls({ buttons: buttons3 })}
@@ -28432,6 +28420,12 @@ Loading snippet ...</pre
   var caterpillarN0 = () => {
     return renderHtml`<div class="l-padding">
         <caterpillar-n0></caterpillar-n0>
+        <quick-nav
+            ${staticProps({
+      nextRoute: "#caterpillarN1",
+      prevRoute: ""
+    })}
+        ></quick-nav>
     </div>`;
   };
 

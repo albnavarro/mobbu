@@ -60,12 +60,6 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
                 })}
             >
             </code-button>
-            <quick-nav
-                ${staticProps({
-                    nextRoute: '#caterpillarN2',
-                    prevRoute: '#caterpillarN0',
-                })}
-            ></quick-nav>
             <div class="c-canvas">
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
