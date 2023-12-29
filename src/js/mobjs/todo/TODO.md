@@ -4,10 +4,17 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
-## sync ( repeater ) || syncParent
-- come passare la stringa al componente senza doverla inserire manualmente.
 
-## SLot
-- newElement display: none in parseComponentRecursive.
-Capire come togliere il tag style orfano.
+## Mobjs - params:
 
+example:
+
+`
+var hash = window.location.hash.substr(1);
+
+var result = hash.split('&').reduce(function (res, item) {
+    var parts = item.split('=');
+    res[parts[0]] = parts[1];
+    return res;
+}, {});
+`
