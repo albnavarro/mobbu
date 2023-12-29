@@ -2,6 +2,9 @@ import { html, staticProps } from '../../../../mobjs';
 
 export const animatedPatternN0v3 = () => {
     return html`<div class="l-padding">
+        <animation-title
+            ${staticProps({ title: 'Animated pattern N.0 v3' })}
+        ></animation-title>
         <animatedpattern-n0
             ${staticProps({
                 fill: [

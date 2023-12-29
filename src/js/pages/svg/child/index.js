@@ -12,6 +12,9 @@ export const child = async () => {
     }
 
     return html`<div>
+        <animation-title
+            ${staticProps({ title: 'Child svg' })}
+        ></animation-title>
         <svg-child ${staticProps({ svg: data })}></svg-child>
     </div>`;
 };

@@ -2,6 +2,9 @@ import { html, staticProps } from '../../../../mobjs';
 
 export const scrollerN0v2 = () => {
     return html`<div>
+        <animation-title
+            ${staticProps({ title: 'Scroller N.0 v2' })}
+        ></animation-title>
         <scroller-n0
             ${staticProps({
                 stagger: {
