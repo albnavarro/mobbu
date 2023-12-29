@@ -40,9 +40,14 @@
         border: 0;
         background: transparent;
 
-        // &:hover {
-        //     opacity: 0.5;
-        // }
+        &:hover {
+            background: $grey;
+
+            &::before {
+                background: $dark-green;
+                transform: scaleX(25%);
+            }
+        }
 
         &::before {
             content: '';
