@@ -111,13 +111,13 @@ export const childAnimations = ({ groups, trails }) => {
              * Fix 360 to 0;
              */
             if (difference > 180 && lastRotation < rotationParsed)
-                loopToAdd -= 360;
+                loopToAdd -= difference;
 
             /**
              * Fix 360 to 0;
              */
             if (difference > 180 && lastRotation > rotationParsed)
-                loopToAdd += 360;
+                loopToAdd += difference;
 
             /**
              * Add or remove 360.
