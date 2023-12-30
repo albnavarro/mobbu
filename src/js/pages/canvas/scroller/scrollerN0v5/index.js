@@ -9,7 +9,7 @@ export const scrollerN0v5 = () => {
             ${staticProps({
                 stagger: {
                     type: 'equal',
-                    each: 3,
+                    each: 2,
                     from: 'end',
                 },
                 reorder: false,

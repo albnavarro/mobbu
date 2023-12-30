@@ -1,4 +1,4 @@
-import { html, staticProps } from '../../../../mobjs';
+import { html, staticProps } from '../../../mobjs';
 
 export const animatedPatternN1 = () => {
     return html`<div class="l-padding">
@@ -8,7 +8,7 @@ export const animatedPatternN1 = () => {
         <animatedpattern-n1></animatedpattern-n1>
         <quick-nav
             ${staticProps({
-                prevRoute: '#animatedPatternN0v7',
+                prevRoute: '#animatedPatternN0v3',
                 nextRoute: '#scrollerN0v1',
             })}
         ></quick-nav>

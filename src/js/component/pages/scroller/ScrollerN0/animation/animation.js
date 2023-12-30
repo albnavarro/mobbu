@@ -69,7 +69,7 @@ export const scrollerN0Animation = ({
 
     /**
      * Add props to transform.
-     * Order byy hasFill, so is linke z-index: -1.
+     * Order by hasFill, so is like z-index: -1.
      */
     data = reorder
         ? gridData
@@ -108,7 +108,7 @@ export const scrollerN0Animation = ({
 
         const sequencer = tween
             .createSequencer({ data: { scale: 0 } })
-            .goTo({ scale }, { start, end, ease: 'easeOutBack' });
+            .goTo({ scale }, { start, end, ease: 'easeInOutQuad' });
 
         const unsubscribe = sequencer.subscribe(({ scale }) => {
             item.scale = scale;
@@ -225,6 +225,7 @@ export const scrollerN0Animation = ({
             position: 'bottom',
             value: () => outerHeight(canvasScroller),
         },
+        fromTo: true,
         ease: true,
         easeType: 'lerp',
     });
