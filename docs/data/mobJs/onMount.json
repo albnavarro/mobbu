@@ -40,6 +40,21 @@
                 "tag": "h4",
                 "color": "green"
             },
+            "content": "Scoped rendering"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the <span>scoped</span> parameter in the <a href='./#mobJs_component'>component definition</a>."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
             "content": "Params"
         },
         {
@@ -50,26 +65,21 @@
             "content": "The <span>onMount</span> function will have as its parameter an object containing the <span>main node</span> of the component and all the <span>refs</span>."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "- <span>element</span>: main node.",
+                    "- <span>refs</span>: nested node"
+                ]
+            }
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
             "content": "Most of the operations in the component will take place in this function having all the nodes of the component available."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4",
-                "color": "green"
-            },
-            "content": "Scoped"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the <span>scoped</span> parameter in the <a href='./#mobJs_component'>component definition</a>."
         },
         {
             "component": "mob-spacer",
@@ -80,7 +90,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "Destroy"
         },
@@ -89,7 +100,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>onMount</span> function ( optional ) will return the destroy function which will be executed when the component is dismounted."
+            "content": "The <span>onMount</span> function ( optional ) <span>will return the destroy function</span> which will be executed when the component is dismounted."
         },
         {
             "component": "mob-snippet",
