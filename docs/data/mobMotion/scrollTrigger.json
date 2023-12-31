@@ -1131,62 +1131,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "move",
-                "label": "move"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3",
-                "color": "green"
-            },
-            "content": "move ( connect multiple instances )"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "It is <span>possible to connect multiple scrolltriggers</span> or you can control a parallax from a scrollTrigger:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<span>value</span>: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
-                    "<span>parentIsMoving</span>: Internal parameter that helps synchronization, <span>no direct utility for the user</span>."
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h6"
-            },
-            "content": "Classic horizontal scroller example: (purely demonstrative)"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mobMotion/scrollTriggerMove.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 104
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "utils",
                 "label": "utils&nbsp;parameters"
             }
@@ -1273,6 +1217,108 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 27
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "init",
+                "label": "init"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Methods"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "init"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Initialize instance"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobMotion/scrollTriggerInit.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 1
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "move",
+                "label": "move"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "move ( connect multiple instances )"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is <span>possible to connect multiple scrolltriggers</span> or you can control a parallax from a scrollTrigger:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span>value</span>: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
+                    "<span>parentIsMoving</span>: Internal parameter that helps synchronization, <span>no direct utility for the user</span>."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h6"
+            },
+            "content": "Classic horizontal scroller example: (purely demonstrative)"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobMotion/scrollTriggerMove.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 104
             }
         },
         {

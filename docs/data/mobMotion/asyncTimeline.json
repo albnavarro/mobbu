@@ -225,6 +225,13 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h2"
+            },
+            "content": "Methods"
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h3",
                 "color": "green"
             },

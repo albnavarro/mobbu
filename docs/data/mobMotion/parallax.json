@@ -966,6 +966,52 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
+                "id": "init",
+                "label": "init"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Methods"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "init"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Initialize instance"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobMotion/parallaxInit.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 1
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
                 "id": "refresh",
                 "label": "refresh"
             }

@@ -39,7 +39,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "Examples: ( scrollTrigger based )"
         },
@@ -65,7 +66,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "createStagger schema:"
         },
@@ -88,7 +90,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "Usage:"
         },
@@ -147,7 +150,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "equal:"
         },
@@ -167,7 +171,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "start:"
         },
@@ -187,7 +192,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "end:"
         },
@@ -207,7 +213,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h5",
+                "color": "green"
             },
             "content": "center:"
         },
@@ -239,7 +246,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
+            "content": "The each parameter behaves differently from the default stagger:<br/><span>The higher the value of each, the smaller the difference in duration will be</span>."
         },
         {
             "component": "mob-spacer",
