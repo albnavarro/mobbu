@@ -54,22 +54,22 @@
             "url": "#",
             "children": [
                 {
-                    "label": "animated pattern n.0 v1",
+                    "label": "animated pattern n.0 v0",
                     "scrollToSection": "canvas",
                     "url": "animatedPatternN0v1"
                 },
                 {
-                    "label": "animated pattern n.0 v2",
+                    "label": "animated pattern n.0 v1",
                     "scrollToSection": "canvas",
                     "url": "animatedPatternN0v2"
                 },
                 {
-                    "label": "animated pattern n.0 v3",
+                    "label": "animated pattern n.0 v2",
                     "scrollToSection": "canvas",
                     "url": "animatedPatternN0v3"
                 },
                 {
-                    "label": "animated pattern n.0 v4",
+                    "label": "animated pattern n.0 v3",
                     "scrollToSection": "canvas",
                     "url": "animatedPatternN0v4"
                 }
