@@ -6,8 +6,22 @@ export const horizontalScrollerDef = createComponent({
     component: HorizontalScroller,
     isolateOnMount: true,
     isolateCreation: true,
-    exportState: ['currentId', 'currentIdFromScroll', 'animatePin'],
+    exportState: [
+        'currentId',
+        'currentIdFromScroll',
+        'animatePin',
+        'svgLeft',
+        'svgRight',
+    ],
     state: {
+        svgLeft: () => ({
+            value: 0,
+            type: '',
+        }),
+        svgRight: () => ({
+            value: 0,
+            type: '',
+        }),
         currentId: () => ({
             value: 0,
             type: Number,

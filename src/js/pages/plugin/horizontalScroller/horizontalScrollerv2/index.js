@@ -1,9 +1,22 @@
 import { html, staticProps } from '../../../../mobjs';
+import { loadTextContent } from '../../../../utils/utils';
 
-export const horizontalScrollerV2 = () => {
+export const horizontalScrollerV2 = async () => {
+    const { data: data_left } = await loadTextContent({
+        source: './asset/svg/footer_shape_left.svg',
+    });
+
+    const { data: data_right } = await loadTextContent({
+        source: './asset/svg/footer_shape_right.svg',
+    });
+
     return html`<div>
         <horizontal-scroller
-            ${staticProps({ animatePin: true })}
+            ${staticProps({
+                animatePin: true,
+                svgLeft: data_left,
+                svgRight: data_right,
+            })}
         ></horizontal-scroller>
     </div>`;
 };

@@ -1,10 +1,12 @@
-import shapeSvg from '../../../../svg/footer_shape_right.svg';
 import { mobCore } from '../../../mobCore';
 
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const ShapeRight = ({ html, onMount }) => {
+export const FooterShaperV1 = ({ html, onMount, getState }) => {
+    const { svg, position } = getState();
+    const positionClass = `shape-${position}`;
+
     onMount(({ refs }) => {
         const { shape } = refs;
 
@@ -15,7 +17,7 @@ export const ShapeRight = ({ html, onMount }) => {
 
     return html`
         <div>
-            <div class="shape shape-right" ref="shape">${shapeSvg}</div>
+            <div class="shape ${positionClass}" ref="shape">${svg}</div>
         </div>
     `;
 };

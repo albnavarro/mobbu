@@ -1,13 +1,18 @@
 import { createComponent } from '../../../mobjs';
-import { ShapeLeft } from './shapeLeft';
-import { ShapeRight } from './shapeRight';
+import { FooterShaperV1 } from './footerShapeV0';
 
-export const shapeRightDef = createComponent({
-    name: 'shape-right',
-    component: ShapeRight,
-});
-
-export const shapeLeftDef = createComponent({
-    name: 'shape-left',
-    component: ShapeLeft,
+export const footerShaperV1Def = createComponent({
+    name: 'footer-shape-v1',
+    component: FooterShaperV1,
+    exportState: ['position', 'svg'],
+    state: {
+        position: () => ({
+            value: 'left',
+            type: String,
+        }),
+        svg: () => ({
+            value: '',
+            type: String,
+        }),
+    },
 });
