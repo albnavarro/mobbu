@@ -50,7 +50,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "usePassive"
         },
@@ -72,7 +73,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "deferredNextTick"
         },
@@ -101,7 +103,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "throttle"
         },

@@ -34,8 +34,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "definition.js"
         },
@@ -55,7 +54,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "name:"
         },
@@ -96,7 +96,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "component:"
         },
@@ -116,7 +117,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "exportState:"
         },
@@ -136,7 +138,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "state:"
         },
@@ -146,6 +149,27 @@
                 "style": "medium"
             },
             "content": "<span>The states of the component</span>. The state is an instance of <a href='./#mobCore_store'>store</a>"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4",
+                "color": "green"
+            },
+            "content": "webComponent:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If you decide to use a <span>webComponent</span> it is possible to use <a href='./#mobJs_web_component'>specific parameters</a> that will allow you to control the life cycle of the <span>webComponent</span>."
         },
         {
             "component": "mob-spacer",
@@ -174,8 +198,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "myComponent.js"
         },
@@ -256,8 +279,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Async"
         },
@@ -289,8 +311,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Function params"
         },

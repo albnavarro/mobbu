@@ -34,8 +34,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "index.html"
         },
@@ -66,8 +65,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Entry point"
         },
@@ -104,8 +102,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Export components"
         },
@@ -137,8 +134,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Export routes"
         },
@@ -176,8 +172,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Define dynamic content"
         },
@@ -215,8 +210,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Defaults"
         },

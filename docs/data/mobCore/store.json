@@ -153,7 +153,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Properties"
@@ -274,7 +274,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Set"
@@ -337,7 +337,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Get"
@@ -370,7 +370,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Get props"
@@ -403,7 +403,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Watch"
@@ -436,7 +436,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Emit"
@@ -469,7 +469,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Emit async"
@@ -502,7 +502,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Computed"
@@ -534,7 +534,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Destroy"
@@ -565,7 +565,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
+                "tag": "h3",
                 "color": "green"
             },
             "content": "Other functions"

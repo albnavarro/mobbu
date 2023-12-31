@@ -23,8 +23,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Function"
         },
@@ -48,16 +47,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
-            "content": "Definition"
+            "content": "Definition additional params:"
         },
         {
             "component": "mob-paragraph",
@@ -71,14 +69,20 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>attributeToObserve</span>",
-                    "<span>constructorCallback</span>",
-                    "<span>connectedCallback</span>",
-                    "<span>disconnectedCallback</span>",
-                    "<span>adoptedCallback</span>",
-                    "<span>attributeChangedCallback</span>",
-                    "<span>style</span>"
+                    "- <span>attributeToObserve</span>",
+                    "- <span>constructorCallback</span>",
+                    "- <span>connectedCallback</span>",
+                    "- <span>disconnectedCallback</span>",
+                    "- <span>adoptedCallback</span>",
+                    "- <span>attributeChangedCallback</span>",
+                    "- <span>style</span>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
@@ -86,12 +90,13 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each function has the context as an argument, and optionally as in the example below an object with all the utilities of our function"
+            "content": "Each function has the <span>context</span> as an argument, and optionally as in the example below an <span>object with all the utilities of our function</span>"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "context:"
         },
@@ -105,7 +110,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "data:"
         },
@@ -129,6 +135,12 @@
                     "<span>watchSync:</span> function",
                     "<span>watchParent:</span> function"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         },
         {
