@@ -11,16 +11,14 @@
     font: inherit;
     color: inherit;
     text-transform: none;
-    background-color: transparent;
+    background-color: $dark-green;
     border: 0;
     margin: 0;
-    overflow: visible;
     height: var(--header-height);
     width: var(--header-height);
     border-top-left-radius: rem(30);
     border-bottom-right-radius: rem(30);
     overflow: hidden;
-    background: $dark-green;
 
     --width: 30px;
     --height: 2px;

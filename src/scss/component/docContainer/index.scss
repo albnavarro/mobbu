@@ -32,7 +32,6 @@
         height: calc(100vh - var(--header-height) - var(--footer-height));
         border-left: 1px rgba($black, 0.2) solid;
         overflow: hidden;
-        // opacity: 0;
 
         &.active {
             opacity: 1;

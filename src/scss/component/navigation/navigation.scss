@@ -49,6 +49,7 @@
             }
         }
 
+        /* stylelint-disable-next-line no-descending-specificity */
         &::before {
             content: '';
             position: absolute;

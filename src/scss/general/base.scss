@@ -19,7 +19,7 @@
     --default-padding: #{rem(100)};
 
     @include mq.mq(desktop) {
-        @media screen and (max-height: 700px) {
+        @media screen and (height <= 700px) {
             --footer-height: #{rem(50)};
         }
     }

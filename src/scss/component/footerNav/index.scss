@@ -3,8 +3,7 @@
 @use '../../../../node_modules/sass-mq/mq';
 
 .footer-nav {
-    justify-self: center;
-    align-self: center;
+    place-self: center center;
     margin: 0;
     display: none;
 
@@ -17,7 +16,7 @@
 
         &:last-child {
             > button {
-                &:after {
+                &::after {
                     display: none;
                 }
             }
@@ -32,10 +31,9 @@
         padding: 0 rem(15);
         transition: color 0.55s;
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
-            right: 0;
             top: 50%;
             right: 0;
             transform: translateY(-50%);

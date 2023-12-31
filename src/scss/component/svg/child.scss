@@ -35,9 +35,6 @@
     g:not(.trail-element) {
         transform: translateZ(0.5px);
         transform-origin: center center;
-    }
-
-    g:not(.trail-element) {
         opacity: 0;
     }
 }
