@@ -42,7 +42,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='./#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The <span>mobMotion</span> and <span>mobCore</span> folders must be at the same level."
         },
         {
             "component": "mob-spacer",

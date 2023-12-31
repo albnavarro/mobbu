@@ -44,7 +44,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>main properties necessary for the definition of a component</span>.<br/> It is possible to use other specific properties if you decide to use the component as a webComponent, consult the <a href='./#mobJs_web_component'>specific section</a>"
+            "content": "The <span>main properties necessary for the definition of a component</span>.<br/> It is possible to use <span>other specific properties</span> if you decide to use the component as a  <a href='./#mobJs_web_component'>webComponent</a>"
         },
         {
             "component": "mob-spacer",

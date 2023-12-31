@@ -42,7 +42,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='./#mobCore_overview'>mobCore</a>, The mobMotion and mobCore folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The <span>mobJs</span> and <span>mobCore</span> folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -62,13 +62,14 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "No virtual dom or code to compile.",
-                    "Pure vanilla javascript.",
-                    "JsDoc type checking",
-                    "Parent/Child reactivity.",
-                    "SPA ready.",
-                    "Independent of the DOM, it only exposes APIs to manage the same.",
-                    "Optional use of web component."
+                    "- No virtual dom or code to compile.",
+                    "- Pure vanilla javascript.",
+                    "- Independent from the npm ecosystem.",
+                    "- JsDoc type checking",
+                    "- Parent/Child reactivity.",
+                    "- SPA ready.",
+                    "- Independent of the DOM, it only exposes APIs to manage the same.",
+                    "- Optional use of web component."
                 ]
             }
         },
