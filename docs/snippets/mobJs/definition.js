@@ -25,7 +25,7 @@ export const myComponentDefinition = createComponent({
 
     /**
      * Experimental.
-     * See the initialization - default section.
+     * See the mobjs / initialization - params section.
      */
     isolateCreation: true,
     isolateOnMount: true,
