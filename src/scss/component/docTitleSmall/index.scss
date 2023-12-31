@@ -12,6 +12,7 @@
 
     a {
         color: $green;
+        text-decoration: underline;
         transition: opacity 0.35s;
 
         &:hover {

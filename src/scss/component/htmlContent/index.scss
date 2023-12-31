@@ -20,6 +20,7 @@
     a {
         transition: opacity 0.35s;
         color: $green;
+        text-decoration: underline;
 
         &:hover {
             opacity: 0.5;
@@ -40,5 +41,6 @@
         display: inline-block;
         margin-bottom: rem(10);
         margin-right: rem(10);
+        text-decoration: none;
     }
 }
