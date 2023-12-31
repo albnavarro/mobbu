@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The components are divided into two modules: <span>Definition</span> and <span>Function</span>"
+            "content": "The components are divided into two modules: <span>Definition</span> and <span>Function</span><br/>For <span>convenience</span> it is recommended to divide the <span>two modules into two separate files</span>:"
         },
         {
             "component": "mob-spacer",
@@ -55,7 +55,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "name:"
         },
@@ -96,7 +97,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "component:"
         },
@@ -116,7 +118,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "exportState:"
         },
@@ -136,7 +139,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "state:"
         },
@@ -156,7 +160,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h4",
+                "color": "green"
             },
             "content": "webComponent:"
         },

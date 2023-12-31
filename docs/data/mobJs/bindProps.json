@@ -37,6 +37,14 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Params:"
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4"
             },
             "content": "bind"
@@ -97,7 +105,38 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "extra argument"
+            "content": "forceParent:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindPropsForce.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 27
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Props extra argument"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "_current<br/>_index"
         },
         {
             "component": "mob-paragraph",
@@ -114,29 +153,6 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 15
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "forceParent:"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mobJs/bindPropsForce.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 27
             }
         }
     ]

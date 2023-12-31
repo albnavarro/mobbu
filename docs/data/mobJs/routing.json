@@ -186,7 +186,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Events"
         },
@@ -208,8 +209,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "beforeRouteChange"
         },
@@ -241,8 +241,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "beforeRouteLeave"
         },
@@ -274,8 +273,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "afterRouteChange"
         },
@@ -307,8 +305,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "activeRoute"
         },

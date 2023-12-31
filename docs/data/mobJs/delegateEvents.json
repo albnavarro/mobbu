@@ -43,16 +43,24 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3",
+                "color": "green"
+            },
+            "content": "Extra argument"
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4"
             },
-            "content": "extra argument"
+            "content": "current<br/>index"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The props function can have two values added: <span>current</span> and <span>index</span>. These two values will be needed when using <span>reactive lists</span> ( <a href='./#mobJs_repeat'>repeat</a> )"
+            "content": "The callback can have an object with two values: <span>current</span> and <span>index</span>. These two values will be needed when using <span>reactive lists</span> ( <a href='./#mobJs_repeat'>repeat</a> )"
         },
         {
             "component": "mob-spacer",
