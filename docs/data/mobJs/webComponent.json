@@ -64,7 +64,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <a href='./#mobJs_component'>definition</a> of the component it will be possible to define the functions that interact with the life cycle of the component:"
+            "content": "In the <a href='./#mobJs_component'>createComponent</a> function it will be possible to define the functions that interact with the life cycle of the component:"
         },
         {
             "component": "mob-list",

@@ -153,15 +153,15 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h2"
             },
-            "content": "Properties"
+            "content": "Params:"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "value"
         },
@@ -181,7 +181,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "type"
         },
@@ -212,7 +213,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "validate"
         },
@@ -232,7 +234,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "skipEqual"
         },
@@ -252,7 +255,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "strict"
         },
@@ -269,6 +273,19 @@
                 "style": "medium",
                 "id": "store-set",
                 "label": "Set"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2"
+            },
+            "content": "Methods:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {

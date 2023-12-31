@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "Component structure"
+            "content": "Component"
         },
         {
             "component": "mob-paragraph",
@@ -28,7 +28,28 @@
             "props": {
                 "style": "medium",
                 "id": "definition",
-                "label": "Definition"
+                "label": "createComponent"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h2",
+                "color": "green"
+            },
+            "content": "createComponent"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>createComponent</span> is the function that will take care of <span>registering our component</span>."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -37,20 +58,7 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "definition.js"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The <span>main properties necessary for the definition of a component</span>.<br/> It is possible to use <span>other specific properties</span> if you decide to use the component as a  <a href='./#mobJs_web_component'>webComponent</a>"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
+            "content": "Params:"
         },
         {
             "component": "mob-title",
@@ -199,10 +207,10 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h2",
                 "color": "green"
             },
-            "content": "myComponent.js"
+            "content": "component function"
         },
         {
             "component": "mob-spacer",
@@ -281,7 +289,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
+                "tag": "h4",
                 "color": "green"
             },
             "content": "Async"
