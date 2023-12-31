@@ -1,5 +1,5 @@
 import { createComponent } from '../../../mobjs';
-import { FooterShaperV1 } from './footerShapeV0';
+import { FooterShaperV1 } from './footerShapeV1';
 
 export const footerShaperV1Def = createComponent({
     name: 'footer-shape-v1',

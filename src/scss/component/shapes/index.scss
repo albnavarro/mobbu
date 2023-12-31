@@ -2,7 +2,7 @@
 @use '../../abstract' as *;
 @use '../../../../node_modules/sass-mq/mq';
 
-.shape {
+.shape-v1 {
     position: fixed;
     bottom: rem(50);
     width: 1200px;
@@ -25,12 +25,12 @@
         width: 100%;
         overflow: visible;
     }
-}
 
-.shape-right {
-    left: 40%;
-}
+    &--right {
+        left: 40%;
+    }
 
-.shape-left {
-    right: 40%;
+    &--left {
+        right: 40%;
+    }
 }
