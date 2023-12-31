@@ -1,5 +1,3 @@
-import logo from '../../../../svg/logo.svg';
-import pieceArrow from '../../../../svg/piece-arrow.svg';
 import { getLegendData } from '../../../data';
 import { homeAnimation } from './animation';
 import { homeTextAnimation } from './animation/text';
@@ -13,7 +11,9 @@ const playAnimation = async ({ playText, playIntro, playSvg }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeComponent = ({ html, onMount, staticProps }) => {
+export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
+    const { logo, sideShape } = getState();
+
     onMount(({ element, refs }) => {
         const {
             textStagger,
@@ -130,8 +130,8 @@ export const HomeComponent = ({ html, onMount, staticProps }) => {
             </a>
         </div>
 
-        <div class="l-index__top-left">${pieceArrow}</div>
+        <div class="l-index__top-left">${sideShape}</div>
         <div class="l-index__logo">${logo}</div>
-        <div class="l-index__top-right">${pieceArrow}</div>
+        <div class="l-index__top-right">${sideShape}</div>
     </div>`;
 };

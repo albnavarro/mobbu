@@ -1,4 +1,3 @@
-import star from '../../../../../svg/star.svg';
 import { getLegendData } from '../../../../data';
 import { html } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
@@ -10,7 +9,7 @@ const playAnimation = async ({ playIntro }) => {
     await playIntro();
 };
 
-const getTrail = () => {
+const getTrail = ({ star }) => {
     return [...new Array(numberOfStar).keys()]
         .map((_item, index) => {
             return html`
@@ -31,7 +30,7 @@ const getTrail = () => {
 export const SvgChild = ({ onMount, html, getState, staticProps }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
 
-    const { svg } = isDesktop ? getState() : '';
+    const { svg, star } = isDesktop ? getState() : '';
 
     const { child } = getLegendData();
     const { source } = child;
@@ -109,7 +108,7 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
     return html`<div class="svg-child-container">
         <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
-        ${getTrail()}
+        ${getTrail({ star })}
         <code-button
             ${staticProps({
                 drawers: [
