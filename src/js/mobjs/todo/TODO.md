@@ -6,7 +6,6 @@
 
 
 ## Mobjs - params:
-
 example:
 
 `
@@ -18,3 +17,9 @@ var result = hash.split('&').reduce(function (res, item) {
     return res;
 }, {});
 `
+
+## Mobjs - page transition.
+- Clone node, and expose setTimeout value to remove.
+
+## mobCore - handleCache.
+- Switch from object to new Map.
