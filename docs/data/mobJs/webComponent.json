@@ -57,7 +57,7 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Definition additional params:"
+            "content": "createComponent additional params:"
         },
         {
             "component": "mob-paragraph",
@@ -88,11 +88,18 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Common argument:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Each function has the <span>context</span> as an argument, and optionally as in the example below an <span>object with all the utilities of our function</span>"
+            "content": "Each param has the <span>context</span> as an argument, and optionally as in the example below an <span>object with all the utilities of our function</span>"
         },
         {
             "component": "mob-title",
@@ -100,7 +107,7 @@
                 "tag": "h4",
                 "color": "green"
             },
-            "content": "context:"
+            "content": "context ( native webComponent context ):"
         },
         {
             "component": "mob-list",
@@ -115,7 +122,7 @@
                 "tag": "h4",
                 "color": "green"
             },
-            "content": "data:"
+            "content": "data ( Object ):"
         },
         {
             "component": "mob-list",
@@ -144,6 +151,13 @@
             "props": {
                 "style": "medium"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Specific argument:"
         },
         {
             "component": "mob-paragraph",

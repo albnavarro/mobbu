@@ -92,7 +92,7 @@
             "props": {
                 "style": "medium",
                 "id": "componentlist",
-                "label": "Export&nbsp;component"
+                "label": "Import&nbsp;component"
             }
         },
         {
@@ -107,14 +107,14 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Export components"
+            "content": "Import components"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Export of all component definitions</span>.<br/> <a href='./#mobJs_component'>Component structure</a>"
+            "content": "<span>Import of all component definitions ( createComponent )</span>.<br/> <a href='./#mobJs_component'>Component structure</a>"
         },
         {
             "component": "mob-snippet",
@@ -131,7 +131,7 @@
             "props": {
                 "style": "medium",
                 "id": "routelist",
-                "label": "Export&nbsp;routes"
+                "label": "Import&nbsp;routes"
             }
         },
         {
@@ -140,14 +140,14 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Export routes"
+            "content": "Import routes"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Export of all page definitions</span>.<br/> <a href='./#mobJs_routing'>Routing</a>"
+            "content": "<span>Import of all page definitions</span>.<br/> <a href='./#mobJs_routing'>Routing</a>"
         },
         {
             "component": "mob-snippet",
@@ -170,7 +170,7 @@
             "props": {
                 "style": "medium",
                 "id": "wrapper",
-                "label": "Define&nbsp;dynamic&nbsp;content"
+                "label": "Wrapper"
             }
         },
         {
@@ -179,7 +179,7 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Define dynamic content"
+            "content": "Wrapper"
         },
         {
             "component": "mob-paragraph",
@@ -208,8 +208,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "defaults",
-                "label": "Defaults"
+                "id": "params",
+                "label": "Params"
             }
         },
         {
@@ -218,7 +218,7 @@
                 "tag": "h3",
                 "color": "green"
             },
-            "content": "Defaults"
+            "content": "Params"
         },
         {
             "component": "mob-paragraph",
