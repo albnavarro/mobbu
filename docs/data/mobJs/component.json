@@ -34,7 +34,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "definition.js"
         },
@@ -54,8 +55,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "name:"
         },
@@ -96,8 +96,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "component:"
         },
@@ -117,8 +116,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "exportState:"
         },
@@ -138,8 +136,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "state:"
         },
@@ -159,8 +156,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "webComponent:"
         },
@@ -198,7 +194,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "myComponent.js"
         },
@@ -279,7 +276,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Async"
         },
@@ -311,7 +309,8 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h3",
+                "color": "green"
             },
             "content": "Function params"
         },
