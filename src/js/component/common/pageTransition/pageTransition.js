@@ -19,7 +19,9 @@ export const PageTransition = ({ onMount, watch, html }) => {
             const { xIn: xIn2 } = clipPathpoint[1];
             const { xOut } = clipPathpoint[0];
             const { xOut: xOut2 } = clipPathpoint[1];
+            element.style.display = 'block';
             element.style.clipPath = `polygon(${xOut}% 0%, ${xIn}% 0%, ${xIn2}% 100%, ${xOut2}% 100%)`;
+            element.style.transform = `translateZ(0.5px)`;
         };
 
         /**
@@ -27,7 +29,7 @@ export const PageTransition = ({ onMount, watch, html }) => {
          */
         const transitionTween = tween.createTween({
             data: { xIn: 0, xOut: 0 },
-            stagger: { each: 8 },
+            stagger: { waitComplete: true, each: 8 },
         });
 
         /**
@@ -46,7 +48,7 @@ export const PageTransition = ({ onMount, watch, html }) => {
          */
         const transitionTimeline = timeline.createAsyncTimeline({
             repeat: 1,
-            autoSet: true,
+            autoSet: false,
         });
 
         /**
@@ -82,6 +84,13 @@ export const PageTransition = ({ onMount, watch, html }) => {
             currentUrl = url;
             await transitionTimeline.play();
             isRunning = false;
+
+            /**
+             * Reset mask.
+             */
+            element.style.clipPath = 'none';
+            element.style.transform = 'none';
+            element.style.display = 'none';
         });
 
         /**
