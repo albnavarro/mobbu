@@ -1,5 +1,6 @@
 import { mobCore } from '../../../../../mobCore';
 import { timeline, tween } from '../../../../../mobMotion';
+import { detectSafari } from '../../../../../utils/utils';
 
 export const childAnimations = ({ groups, trails }) => {
     const RAD2DEG = 180 / Math.PI;
@@ -163,7 +164,11 @@ export const childAnimations = ({ groups, trails }) => {
     return {
         playIntro: async () => {
             return introTl.play().then(() => {
-                trailCanMove = true;
+                const timeOutValue = detectSafari() ? 500 : 0;
+
+                setTimeout(() => {
+                    trailCanMove = true;
+                }, timeOutValue);
             });
         },
         destroy: () => {
