@@ -5,12 +5,15 @@ import { motionCore, tween } from './mobMotion';
 import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
+import { setBrowserClass } from './utils/utils';
 // import { storeTest } from './test/storeTest';
 
 /**
  * Set default
  */
 mobCore.useLoad(() => {
+    setBrowserClass();
+
     mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
 
     motionCore.setDefault({

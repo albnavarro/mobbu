@@ -16,6 +16,31 @@ export function detectFirefox() {
     return firefixAgent;
 }
 
+export function setBrowserClass() {
+    const userAgent = navigator.userAgent;
+    const body = document.body;
+
+    if (/chrome|chromium|crios/i.test(userAgent)) {
+        body.classList.add('is-chrome');
+        return;
+    }
+
+    if (/firefox|fxios/i.test(userAgent)) {
+        body.classList.add('is-firefox');
+        return;
+    }
+
+    if (/safari/i.test(userAgent)) {
+        body.classList.add('is-safari');
+        return;
+    }
+
+    if (/edg/i.test(userAgent)) {
+        body.classList.add('is-edge');
+        return;
+    }
+}
+
 export const loadTextContent = async ({ source }) => {
     const response = await fetch(source);
     if (!response.ok) {

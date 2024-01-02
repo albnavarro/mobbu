@@ -33,9 +33,14 @@
     }
 
     g:not(.trail-element) {
-        transform: translateZ(0.5px);
         transform-origin: center center;
         opacity: 0;
+    }
+
+    @include when-inside('.is-firefox') {
+        g:not(.trail-element) {
+            transform: translateZ(0.5px);
+        }
     }
 }
 
@@ -47,8 +52,11 @@
     height: rem(400);
     transform-origin: top left;
     opacity: 0;
-    transform: translateZ(0.5px);
     pointer-events: none;
+
+    @include when-inside('.is-firefox') {
+        transform: translateZ(0.5px);
+    }
 
     svg {
         position: absolute;
