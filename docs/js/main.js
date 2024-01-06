@@ -7071,6 +7071,7 @@
 
   // src/js/mobjs/route/router.js
   var previousUrl = "";
+  var currentSearch;
   var getParams = (value) => {
     return value.split("&").reduce((previous, current) => {
       const currentParams = current.split("=");
@@ -7081,10 +7082,12 @@
   };
   var getHash = () => {
     const hash = window.location.hash.slice(1);
-    const params = getParams(window.location.search);
+    const params = getParams(currentSearch ?? window.location.search);
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading)
       return;
+    currentSearch = void 0;
+    previousUrl = hash;
     loadRoute({
       route: getRouteModule({ url: hash }),
       params
@@ -7097,11 +7100,16 @@
     });
   };
   var loadUrl = ({ url = "" }) => {
-    window.location.hash = url;
-    if (url === previousUrl || previousUrl === "") {
+    const hashPosition = url.indexOf("#");
+    const hash = hashPosition > -1 ? url.slice(Math.max(0, hashPosition)).replace("#", "") : url.replace("#", "");
+    const search = url.slice(0, Math.max(0, hashPosition));
+    if (search.length > 0)
+      currentSearch = search;
+    window.location.hash = hash;
+    if (hash === previousUrl || previousUrl === "") {
       window.dispatchEvent(new HashChangeEvent("hashchange"));
+      console.log("hash after", hash, previousUrl);
     }
-    previousUrl = url;
   };
 
   // src/js/mobjs/route/test.js

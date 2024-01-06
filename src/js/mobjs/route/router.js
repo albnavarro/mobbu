@@ -4,6 +4,7 @@ import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
 let previousUrl = '';
+let currentSearch;
 
 /**
  * @param {string} value
@@ -25,13 +26,16 @@ const getParams = (value) => {
  */
 const getHash = () => {
     const hash = window.location.hash.slice(1);
-    const params = getParams(window.location.search);
+    const params = getParams(currentSearch ?? window.location.search);
 
     /**
      * Prevent multiple routes start at same time.
      */
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) return;
+
+    currentSearch = undefined;
+    previousUrl = hash;
 
     /**
      * Load.
@@ -59,14 +63,34 @@ export const router = () => {
  * Set hash in current browser url.
  */
 export const loadUrl = ({ url = '' }) => {
-    window.location.hash = url;
+    const hashPosition = url.indexOf('#');
+
+    /**
+     * Extract hash.
+     */
+    const hash =
+        hashPosition > -1
+            ? url.slice(Math.max(0, hashPosition)).replace('#', '')
+            : url.replace('#', '');
+
+    /**
+     * Extract current params, to use later ( in getHash function ).
+     */
+    const search = url.slice(0, Math.max(0, hashPosition));
+    if (search.length > 0) currentSearch = search;
+
+    /**
+     * Update hash.
+     */
+    window.location.hash = hash;
 
     /**
      * If we want reload same route force hash.
      */
-    if (url === previousUrl || previousUrl === '') {
+    if (hash === previousUrl || previousUrl === '') {
         window.dispatchEvent(new HashChangeEvent('hashchange'));
+        console.log('hash after', hash, previousUrl);
     }
 
-    previousUrl = url;
+    // previousUrl = hash;
 };
