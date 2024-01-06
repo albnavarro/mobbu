@@ -7070,12 +7070,15 @@
   };
 
   // src/js/mobjs/route/router.js
-  var previousUrl = "";
+  var previousHash = "";
   var currentSearch;
+  var sanitizeParams = (value) => {
+    return value.replace("?", "").replace("/", "");
+  };
   var getParams = (value) => {
     return value.split("&").reduce((previous, current) => {
       const currentParams = current.split("=");
-      const key = currentParams[0]?.replace("?", "");
+      const key = sanitizeParams(currentParams?.[0] ?? "");
       const value2 = currentParams?.[1];
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
@@ -7087,7 +7090,12 @@
     if (routeIsLoading)
       return;
     currentSearch = void 0;
-    previousUrl = hash;
+    previousHash = hash;
+    window.history.pushState(
+      {},
+      document.title,
+      window.location.pathname + window.location.hash
+    );
     loadRoute({
       route: getRouteModule({ url: hash }),
       params
@@ -7106,9 +7114,8 @@
     if (search.length > 0)
       currentSearch = search;
     window.location.hash = hash;
-    if (hash === previousUrl || previousUrl === "") {
+    if (hash === previousHash || previousHash === "") {
       window.dispatchEvent(new HashChangeEvent("hashchange"));
-      console.log("hash after", hash, previousUrl);
     }
   };
 
@@ -29591,8 +29598,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/overview/index.js
-  var mobCore_overview = async ({ params }) => {
-    console.log(params);
+  var mobCore_overview = async () => {
     const { success, data: data3 } = await loadJsonContent({
       source: "./data/mobCore/overview.json"
     });

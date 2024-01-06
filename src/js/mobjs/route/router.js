@@ -8,12 +8,20 @@ let currentSearch;
 
 /**
  * @param {string} value
+ * @returns {string}
+ */
+const sanitizeParams = (value) => {
+    return value.replace('?', '').replace('/', '');
+};
+
+/**
+ * @param {string} value
  * @returns {{[key:string]:any}}
  */
 const getParams = (value) => {
     return value.split('&').reduce((previous, current) => {
         const currentParams = current.split('=');
-        const key = currentParams[0]?.replace('?', '');
+        const key = sanitizeParams(currentParams?.[0] ?? '');
         const value = currentParams?.[1];
 
         return key && key.length > 0 ? { ...previous, [key]: value } : previous;
