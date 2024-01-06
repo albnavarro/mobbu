@@ -27,7 +27,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To define a route just create a function that <span>returns the DOM of the route</span>. The <span>name</span> of the function <span>will then be the name of the route with the # character in front</span>"
+            "content": "To define a route just create a function that <span>returns the DOM of the route</span>."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The function number corresponds to the <span>Location.hash</span> parameter of the window."
         },
         {
             "component": "mob-paragraph",
@@ -35,6 +42,13 @@
                 "style": "medium"
             },
             "content": "The route functions can be <span>asynchronous</span>, this is to allow the <span>fetching</span> of any data.<br/>The <span>function is executed before deleting the old route</span>, only when the data has been recovered and the data is ready will the new route be rendered."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The function will have as input an object with the <span>route parameters</span> if present."
         },
         {
             "component": "mob-paragraph",
