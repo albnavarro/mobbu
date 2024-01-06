@@ -10,11 +10,12 @@ import { parseComponents } from '../parseComponent/componentParse';
 /**
  * @param {Object} obj
  * @param {String} obj.route
+ * @param {{[key:string]: any}} obj.params
  *
  * @description
  * Load new route.
  */
-export const loadRoute = async ({ route = '' }) => {
+export const loadRoute = async ({ route = '', params = {} }) => {
     mainStore.set('routeIsLoading', true);
 
     /**
@@ -56,7 +57,7 @@ export const loadRoute = async ({ route = '' }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
-    const content = await getRouteList()?.[route]?.();
+    const content = await getRouteList()?.[route]?.({ params });
     contentEl.innerHTML = '';
     scrollTo(0, 0);
     removeCancellableComponent();

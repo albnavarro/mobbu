@@ -6,11 +6,26 @@ import { getRouteModule } from './utils';
 let previousUrl = '';
 
 /**
+ * @param {string} value
+ * @returns {{[key:string]:any}}
+ */
+const getParams = (value) => {
+    return value.split('&').reduce((previous, current) => {
+        const currentParams = current.split('=');
+        const key = currentParams[0]?.replace('?', '');
+        const value = currentParams?.[1];
+
+        return key && key.length > 0 ? { ...previous, [key]: value } : previous;
+    }, {});
+};
+
+/**
  * @description
  * Get hash from url and load new route.
  */
 const getHash = () => {
-    const locationHash = window.location.hash.slice(1);
+    const hash = window.location.hash.slice(1);
+    const params = getParams(window.location.search);
 
     /**
      * Prevent multiple routes start at same time.
@@ -21,7 +36,10 @@ const getHash = () => {
     /**
      * Load.
      */
-    loadRoute({ route: getRouteModule({ url: locationHash }) });
+    loadRoute({
+        route: getRouteModule({ url: hash }),
+        params,
+    });
 };
 
 /**
