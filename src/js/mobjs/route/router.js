@@ -66,7 +66,7 @@ export const loadUrl = ({ url = '' }) => {
     const hashPosition = url.indexOf('#');
 
     /**
-     * Extract hash.
+     * Isolate hash, without # character.
      */
     const hash =
         hashPosition > -1
@@ -80,17 +80,14 @@ export const loadUrl = ({ url = '' }) => {
     if (search.length > 0) currentSearch = search;
 
     /**
-     * Update hash.
+     * Update hash without params.
      */
     window.location.hash = hash;
 
     /**
-     * If we want reload same route force hash.
+     * If we want reload same route from same hash, maybe params is different.
      */
     if (hash === previousUrl || previousUrl === '') {
         window.dispatchEvent(new HashChangeEvent('hashchange'));
-        console.log('hash after', hash, previousUrl);
     }
-
-    // previousUrl = hash;
 };
