@@ -3,7 +3,7 @@ import { mainStore } from '../mainStore/mainStore';
 import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
-let previousUrl = '';
+let previousHash = '';
 let currentSearch;
 
 /**
@@ -34,8 +34,24 @@ const getHash = () => {
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) return;
 
+    /**
+     * Reset last search value ( id come form loadUrl function ).
+     */
     currentSearch = undefined;
-    previousUrl = hash;
+
+    /**
+     * Store previous hash.
+     */
+    previousHash = hash;
+
+    /**
+     * Remove params from url.
+     */
+    window.history.pushState(
+        {},
+        document.title,
+        window.location.pathname + window.location.hash
+    );
 
     /**
      * Load.
@@ -87,7 +103,7 @@ export const loadUrl = ({ url = '' }) => {
     /**
      * If we want reload same route from same hash, maybe params is different.
      */
-    if (hash === previousUrl || previousUrl === '') {
+    if (hash === previousHash || previousHash === '') {
         window.dispatchEvent(new HashChangeEvent('hashchange'));
     }
 };
