@@ -216,7 +216,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "events",
+                "id": "beforeRouteChange",
                 "label": "beforeRouteChange"
             }
         },
@@ -248,7 +248,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "events",
+                "id": "beforeRouteChange",
                 "label": "beforeRouteLeave"
             }
         },
@@ -280,7 +280,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "events",
+                "id": "afterRouteChange",
                 "label": "afterRouteChange"
             }
         },
@@ -312,7 +312,7 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "events",
+                "id": "activeRoute",
                 "label": "activeRoute"
             }
         },
@@ -334,6 +334,38 @@
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/activeRoute.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 3
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "params",
+                "label": "activeParams"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "activeParams"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value of the current params will be returned."
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/activeParams.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
