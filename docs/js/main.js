@@ -28440,10 +28440,18 @@ Loading snippet ...</pre
   // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
   var horizontalScrollerParams = [
     {
-      animatePin: false
+      animatePin: false,
+      nav: {
+        prevRoute: "",
+        nextRoute: "#horizontalScroller?version=1&activeId=1"
+      }
     },
     {
-      animatePin: true
+      animatePin: true,
+      nav: {
+        prevRoute: "#horizontalScroller?version=0&activeId=0",
+        nextRoute: ""
+      }
     }
   ];
 
@@ -28465,6 +28473,7 @@ Loading snippet ...</pre
       svgRight: data_right
     })}
         ></horizontal-scroller>
+        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
     </div>`;
   };
 

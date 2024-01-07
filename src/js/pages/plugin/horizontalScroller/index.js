@@ -26,5 +26,6 @@ export const horizontalScroller = async ({ params }) => {
                 svgRight: data_right,
             })}
         ></horizontal-scroller>
+        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
     </div>`;
 };
