@@ -92,27 +92,32 @@
                 {
                     "label": "scroller n.0 v1",
                     "scrollToSection": "canvas",
-                    "url": "scrollerN0v1"
+                    "url": "scrollerN0?version=0&activeId=0",
+                    "activeId": 0
                 },
                 {
                     "label": "scroller n.0 v2",
                     "scrollToSection": "canvas",
-                    "url": "scrollerN0v2"
+                    "url": "scrollerN0?version=1&activeId=1",
+                    "activeId": 1
                 },
                 {
                     "label": "scroller n.0 v3",
                     "scrollToSection": "canvas",
-                    "url": "scrollerN0v3"
+                    "url": "scrollerN0?version=2&activeId=2",
+                    "activeId": 2
                 },
                 {
                     "label": "scroller n.0 v4",
                     "scrollToSection": "canvas",
-                    "url": "scrollerN0v4"
+                    "url": "scrollerN0?version=3&activeId=3",
+                    "activeId": 3
                 },
                 {
                     "label": "scroller n.0 v5",
                     "scrollToSection": "canvas",
-                    "url": "scrollerN0v5"
+                    "url": "scrollerN0?version=4&activeId=4",
+                    "activeId": 4
                 }
             ]
         },

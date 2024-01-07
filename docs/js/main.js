@@ -26695,8 +26695,8 @@ Loading snippet ...</pre
         destroyAnimation();
       };
     });
-    const { scrollerN0 } = getLegendData();
-    const { source } = scrollerN0;
+    const { scrollerN0: scrollerN02 } = getLegendData();
+    const { source } = scrollerN02;
     if (motionCore.mq("max", "desktop"))
       return html`<div><only-desktop></only-desktop></div>`;
     return html`
@@ -28154,11 +28154,7 @@ Loading snippet ...</pre
     mobMotion_tween_spring_lerp: () => mobMotion_tween_spring_lerp,
     pageNotFound: () => pageNotFound,
     plugin_overview: () => plugin_overview,
-    scrollerN0v1: () => scrollerN0v1,
-    scrollerN0v2: () => scrollerN0v2,
-    scrollerN0v3: () => scrollerN0v3,
-    scrollerN0v4: () => scrollerN0v4,
-    scrollerN0v5: () => scrollerN0v5,
+    scrollerN0: () => scrollerN0,
     scrollerN1: () => scrollerN1,
     svg_overview: () => svg_overview
   });
@@ -28334,7 +28330,7 @@ Loading snippet ...</pre
         <quick-nav
             ${staticProps({
       prevRoute: "#animatedPatternN0?version=3&activeId=3",
-      nextRoute: "#scrollerN0v1"
+      nextRoute: "#scrollerN0?version=0&activeId=0"
     })}
         ></quick-nav>
     </div>`;
@@ -28503,122 +28499,91 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/canvas/scroller/scrollerN0v1/index.js
-  var scrollerN0v1 = () => {
-    return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: "Scroller N.0 v1" })}
-        ></animation-title>
-        <scroller-n0></scroller-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#animatedPatternN1",
-      nextRoute: "#scrollerN0v2"
-    })}
-        ></quick-nav>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/scroller/scrollerN0v2/index.js
-  var scrollerN0v2 = () => {
-    return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: "Scroller N.0 v2" })}
-        ></animation-title>
-        <scroller-n0
-            ${staticProps({
-      stagger: {
-        type: "end",
-        each: 1,
-        from: { x: 0, y: 0 },
-        grid: { col: 11, row: 10, direction: "radial" }
+  // src/js/pages/canvas/scroller/scrollerParams.js
+  var scrollerParams = [
+    {
+      title: "Scroller N.0 v0",
+      animation: {},
+      nav: {
+        prevRoute: "#animatedPatternN1",
+        nextRoute: "#scrollerN0?version=1&activeId=1"
+      }
+    },
+    {
+      title: "Scroller N.0 v1",
+      animation: {
+        stagger: {
+          type: "end",
+          each: 1,
+          from: { x: 0, y: 0 },
+          grid: { col: 11, row: 10, direction: "radial" }
+        },
+        reorder: false
       },
-      reorder: false
-    })}
-        ></scroller-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#scrollerN0v1",
-      nextRoute: "#scrollerN0v3"
-    })}
-        ></quick-nav>
-    </div>`;
-  };
+      nav: {
+        prevRoute: "#scrollerN0?version=0&activeId=0",
+        nextRoute: "#scrollerN0?version=2&activeId=2"
+      }
+    },
+    {
+      title: "Scroller N.0 v2",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 7,
+          from: "center",
+          grid: { col: 11, row: 10, direction: "col" }
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=1&activeId=1",
+        nextRoute: "#scrollerN0?version=3&activeId=3"
+      }
+    },
+    {
+      title: "Scroller N.0 v3",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 3,
+          from: "end",
+          grid: { col: 11, row: 10, direction: "row" }
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=2&activeId=2",
+        nextRoute: "#scrollerN0?version=4&activeId=4"
+      }
+    },
+    {
+      title: "Scroller N.0 v4",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 2,
+          from: "end"
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=3&activeId=3",
+        nextRoute: "#scrollerN1"
+      }
+    }
+  ];
 
-  // src/js/pages/canvas/scroller/scrollerN0v3/index.js
-  var scrollerN0v3 = () => {
+  // src/js/pages/canvas/scroller/index.js
+  var scrollerN0 = ({ params }) => {
+    const { version } = params;
+    const props = scrollerParams[Math.min(Number(version), scrollerParams.length)];
     return renderHtml`<div>
         <animation-title
-            ${staticProps({ title: "Scroller N.0 v3" })}
+            ${staticProps({ title: props.title })}
         ></animation-title>
-        <scroller-n0
-            ${staticProps({
-      stagger: {
-        type: "equal",
-        each: 7,
-        from: "center",
-        grid: { col: 11, row: 10, direction: "col" }
-      },
-      reorder: false
-    })}
-        ></scroller-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#scrollerN0v2",
-      nextRoute: "#scrollerN0v4"
-    })}
-        ></quick-nav>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/scroller/scrollerN0v4/index.js
-  var scrollerN0v4 = () => {
-    return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: "Scroller N.0 v4" })}
-        ></animation-title>
-        <scroller-n0
-            ${staticProps({
-      stagger: {
-        type: "equal",
-        each: 3,
-        from: "end",
-        grid: { col: 11, row: 10, direction: "row" }
-      },
-      reorder: false
-    })}
-        ></scroller-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#scrollerN0v3",
-      nextRoute: "#scrollerN0v5"
-    })}
-        ></quick-nav>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/scroller/scrollerN0v5/index.js
-  var scrollerN0v5 = () => {
-    return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: "Scroller N.0 v5" })}
-        ></animation-title>
-        <scroller-n0
-            ${staticProps({
-      stagger: {
-        type: "equal",
-        each: 2,
-        from: "end"
-      },
-      reorder: false
-    })}
-        ></scroller-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#scrollerN0v4",
-      nextRoute: "#scrollerN1"
-    })}
-        ></quick-nav>
+        <scroller-n0 ${staticProps({ ...props.animation })}></scroller-n0>
+        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
     </div>`;
   };
 
@@ -28631,7 +28596,7 @@ Loading snippet ...</pre
         <caterpillar-n3></caterpillar-n3>
         <quick-nav
             ${staticProps({
-      prevRoute: "#scrollerN0v4",
+      prevRoute: "#scrollerN0?version=4&activeId=4",
       nextRoute: ""
     })}
         ></quick-nav>

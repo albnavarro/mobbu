@@ -9,7 +9,7 @@ export const animatedPatternN1 = () => {
         <quick-nav
             ${staticProps({
                 prevRoute: '#animatedPatternN0?version=3&activeId=3',
-                nextRoute: '#scrollerN0v1',
+                nextRoute: '#scrollerN0?version=0&activeId=0',
             })}
         ></quick-nav>
     </div>`;

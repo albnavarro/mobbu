@@ -8,7 +8,7 @@ export const scrollerN1 = () => {
         <caterpillar-n3></caterpillar-n3>
         <quick-nav
             ${staticProps({
-                prevRoute: '#scrollerN0v4',
+                prevRoute: '#scrollerN0?version=4&activeId=4',
                 nextRoute: '',
             })}
         ></quick-nav>
