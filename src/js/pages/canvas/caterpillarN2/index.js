@@ -9,7 +9,7 @@ export const caterpillarN2 = () => {
         <quick-nav
             ${staticProps({
                 prevRoute: '#caterpillarN1',
-                nextRoute: '#animatedPatternN0v1',
+                nextRoute: '#animatedPatternN0?version=0&activeId=0',
             })}
         ></quick-nav>
     </div>`;

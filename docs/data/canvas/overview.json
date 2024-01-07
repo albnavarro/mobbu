@@ -79,10 +79,10 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='./#animatedPatternN0v1'>animatedPattern n.0 v1</a>",
-                    "<a href='./#animatedPatternN0v2'>animatedPattern n.0 v2</a>",
-                    "<a href='./#animatedPatternN0v3'>animatedPattern n.0 v3</a>",
-                    "<a href='./#animatedPatternN0v4'>animatedPattern n.0 v4</a>"
+                    "<a href='./#animatedPatternN0?version=0&activeId=0'>animatedPattern n.0 v1</a>",
+                    "<a href='./#animatedPatternN0?version=1&activeId=1'>animatedPattern n.0 v2</a>",
+                    "<a href='./#animatedPatternN0?version=2&activeId=2'>animatedPattern n.0 v3</a>",
+                    "<a href='./#animatedPatternN0?version=3&activeId=3'>animatedPattern n.0 v4</a>"
                 ]
             }
         },

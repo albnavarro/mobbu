@@ -32,6 +32,11 @@ export const mainStore = mobCore.createStore({
         type: String,
         skipEqual: false,
     }),
+    activeParams: () => ({
+        value: {},
+        type: 'any',
+        skipEqual: false,
+    }),
     beforeRouteLeave: () => ({
         value: '',
         type: String,

@@ -64,6 +64,7 @@ export const navigationButtonDef = createComponent({
         'callback',
         'isOpen',
         'scrollToSection',
+        'activeId',
     ],
     state: {
         label: () => ({
@@ -73,6 +74,10 @@ export const navigationButtonDef = createComponent({
         url: () => ({
             value: '',
             type: String,
+        }),
+        activeId: () => ({
+            value: -1,
+            type: Number,
         }),
         scrollToSection: () => ({
             value: '',

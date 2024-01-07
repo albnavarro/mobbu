@@ -57,6 +57,7 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * Set new active route.
      */
     mainStore.set('activeRoute', route);
+    mainStore.set('activeParams', params);
     const content = await getRouteList()?.[route]?.({ params });
     contentEl.innerHTML = '';
     scrollTo(0, 0);

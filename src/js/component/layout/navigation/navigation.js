@@ -11,6 +11,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
             const {
                 label,
                 url,
+                activeId,
                 children,
                 section,
                 sectioName,
@@ -62,6 +63,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
                                   url,
                                   scrollToSection:
                                       scrollToSection ?? 'no-scroll',
+                                  activeId: activeId ?? -1,
                               })}
                           ></mob-navigation-button>
                       </li>

@@ -56,22 +56,26 @@
                 {
                     "label": "animated pattern n.0 v0",
                     "scrollToSection": "canvas",
-                    "url": "animatedPatternN0v1"
+                    "url": "animatedPatternN0?version=0&activeId=0",
+                    "activeId": 0
                 },
                 {
                     "label": "animated pattern n.0 v1",
                     "scrollToSection": "canvas",
-                    "url": "animatedPatternN0v2"
+                    "url": "animatedPatternN0?version=1&activeId=1",
+                    "activeId": 1
                 },
                 {
                     "label": "animated pattern n.0 v2",
                     "scrollToSection": "canvas",
-                    "url": "animatedPatternN0v3"
+                    "url": "animatedPatternN0?version=2&activeId=2",
+                    "activeId": 2
                 },
                 {
                     "label": "animated pattern n.0 v3",
                     "scrollToSection": "canvas",
-                    "url": "animatedPatternN0v4"
+                    "url": "animatedPatternN0?version=3&activeId=3",
+                    "activeId": 3
                 }
             ]
         },

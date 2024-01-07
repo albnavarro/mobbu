@@ -20,6 +20,7 @@ export const NavigationButton = ({
         fireRoute,
         callback,
         scrollToSection,
+        activeId,
     } = getState();
 
     onMount(({ element }) => {
@@ -37,7 +38,21 @@ export const NavigationButton = ({
          */
         mainStore.watch('activeRoute', (current) => {
             mobCore.useFrame(() => {
-                const isActiveRoute = current === url;
+                const urlParsed = url.split('?');
+
+                /**
+                 * Get hash.
+                 */
+                const hash = urlParsed?.[0] ?? '';
+
+                /**
+                 * Check is activeId match with route
+                 */
+                const { activeParams } = mainStore.get();
+                const paramsMatch =
+                    activeId === -1 || activeParams?.activeId == activeId;
+
+                const isActiveRoute = current === hash && paramsMatch;
                 element.classList.toggle('current', isActiveRoute);
 
                 /**

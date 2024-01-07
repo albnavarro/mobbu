@@ -5,7 +5,7 @@ import { navigationStore } from './store/navStore';
 function getSubmenu({ children, staticProps, callback }) {
     return children
         .map((child) => {
-            const { label, url, scrollToSection } = child;
+            const { label, url, scrollToSection, activeId } = child;
 
             return html`
                 <li class="l-navigation__submenu__item">
@@ -16,6 +16,7 @@ function getSubmenu({ children, staticProps, callback }) {
                             url,
                             subMenuClass: 'l-navigation__link--submenu',
                             scrollToSection,
+                            activeId: activeId ?? -1,
                         })}
                     ></mob-navigation-button>
                 </li>
@@ -37,7 +38,7 @@ export const NavigationSubmenu = ({
     watch,
 }) => {
     const { children, headerButton, callback } = getState();
-    const { label, url } = headerButton;
+    const { label, url, activeId } = headerButton;
 
     onMount(({ refs }) => {
         /**
@@ -75,6 +76,7 @@ export const NavigationSubmenu = ({
                     url,
                     arrowClass: 'l-navigation__link--arrow',
                     fireRoute: false,
+                    activeId: activeId ?? -1,
                     callback: () => {
                         setState('isOpen', (prev) => !prev);
                         const { isOpen } = getState('isOpen');

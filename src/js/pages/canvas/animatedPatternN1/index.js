@@ -8,7 +8,7 @@ export const animatedPatternN1 = () => {
         <animatedpattern-n1></animatedpattern-n1>
         <quick-nav
             ${staticProps({
-                prevRoute: '#animatedPatternN0v3',
+                prevRoute: '#animatedPatternN0?version=3&activeId=3',
                 nextRoute: '#scrollerN0v1',
             })}
         ></quick-nav>

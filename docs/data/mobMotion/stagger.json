@@ -133,7 +133,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <a href='./#animatedPatternN0v2'>animated pattern</a> modules are based on this mechanism"
+            "content": "The <a href='./#animatedPatternN0?version=2&activeId=2'>animated pattern</a> modules are based on this mechanism"
         },
         {
             "component": "mob-paragraph",
