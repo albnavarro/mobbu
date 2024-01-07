@@ -49,11 +49,11 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='./#scrollerN0v1'>scrollerN0 v1</a>",
-                    "<a href='./#scrollerN0v2'>scrollerN0 v2</a>",
-                    "<a href='./#scrollerN0v3'>scrollerN0 v3</a>",
-                    "<a href='./#scrollerN0v4'>scrollerN0 v4</a>",
-                    "<a href='./#scrollerN0v5'>scrollerN0 v5</a>"
+                    "<a href='./#scrollerN0?version=0&activeId=0'>scrollerN0 v0</a>",
+                    "<a href='./#scrollerN0?version=1&activeId=1'>scrollerN0 v1</a>",
+                    "<a href='./#scrollerN0?version=2&activeId=2'>scrollerN0 v2</a>",
+                    "<a href='./#scrollerN0?version=3&activeId=3'>scrollerN0 v3</a>",
+                    "<a href='./#scrollerN0?version=4&activeId=4'>scrollerN0 v4</a>"
                 ]
             }
         },
