@@ -1,14 +1,3 @@
-$white: #fff;
-$black: #000;
-$grey-light: #f6f6f6;
-$grey: #eee;
-$grey-blue: #5b5b67;
-$grey-medium: #ccc;
-$grey-medium-2: #7c7c8b;
-$orange: #ffb700;
-$green: #9ece6a;
-$medium-green: #84af56;
-$dark-green: #1a1b26;
 $show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
 $breakpoints: (
     'xsmall': 320px,
@@ -45,6 +34,6 @@ $html-font-unit: (
 );
 $default-font-size: desktop;
 
-@use '../../../node_modules/sass-mq/mq' with (
+@use 'sass-mq/mq' with (
     $breakpoints: $breakpoints
 );

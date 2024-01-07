@@ -1,10 +1,10 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
+@use 'sass-mq/mq';
 @use 'sass:math';
 @use 'sass:map';
-@use '../vars' as *;
-@use '../../../node_modules/sass-mq/mq';
+@use '../variables' as *;
 
 /// Event wrapper
 /// @author Harry Roberts

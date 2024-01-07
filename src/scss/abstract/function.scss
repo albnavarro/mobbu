@@ -9,8 +9,7 @@
 /// @return {Url}
 @use 'sass:math';
 @use 'sass:map';
-@use '../vars' as *;
-@use '../../../node_modules/sass-mq/mq';
+@use '../variables' as *;
 
 @function rem($pixels, $mq: '') {
     @if unitless($pixels) {
