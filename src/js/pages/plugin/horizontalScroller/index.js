@@ -22,6 +22,12 @@ export const horizontalScroller = async ({ params }) => {
     });
 
     return html`<div>
+        <animation-title
+            ${staticProps({
+                title: props.title,
+                align: 'right',
+            })}
+        ></animation-title>
         <horizontal-scroller
             ${staticProps({
                 animatePin: props.animatePin,

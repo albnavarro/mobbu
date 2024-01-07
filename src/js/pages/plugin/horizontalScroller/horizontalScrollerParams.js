@@ -1,5 +1,6 @@
 export const horizontalScrollerParams = [
     {
+        title: 'horizontalScroller with fixed pin',
         animatePin: false,
         nav: {
             prevRoute: '',
@@ -7,6 +8,7 @@ export const horizontalScrollerParams = [
         },
     },
     {
+        title: 'horizontalScroller with animated pin',
         animatePin: true,
         nav: {
             prevRoute: '#horizontalScroller?version=0&activeId=0',

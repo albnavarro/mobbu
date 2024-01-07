@@ -23203,15 +23203,17 @@ Loading snippet ...</pre
 
   // src/js/component/common/animationTitle/animationTitle.js
   var AnimationTitle = ({ getState, html, onMount }) => {
-    const { title } = getState();
+    const { title, align, color } = getState();
+    const alignClass = `is-${align}`;
+    const colorClass = `is-${color}`;
     onMount(({ refs }) => {
       const { titleEl } = refs;
       mobCore.useFrame(() => {
         titleEl.classList.add("visible");
       });
     });
-    return html`<div class="c-animation-title">
-        <h4 ref="titleEl">${title}</h4>
+    return html`<div class="c-animation-title ${alignClass}">
+        <h4 ref="titleEl" class="${colorClass}">${title}</h4>
     </div>`;
   };
 
@@ -23219,11 +23221,25 @@ Loading snippet ...</pre
   var animationTitleDef = createComponent({
     name: "animation-title",
     component: AnimationTitle,
-    exportState: ["title"],
+    exportState: ["title", "align", "color"],
     state: {
       title: () => ({
         value: "",
         type: String
+      }),
+      align: () => ({
+        value: "left",
+        type: String,
+        validate: (value) => {
+          return ["left", "right"].includes(value);
+        }
+      }),
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (value) => {
+          return ["white", "black", "green"].includes(value);
+        }
       })
     }
   });
@@ -28443,6 +28459,7 @@ Loading snippet ...</pre
   // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
   var horizontalScrollerParams = [
     {
+      title: "horizontalScroller with fixed pin",
       animatePin: false,
       nav: {
         prevRoute: "",
@@ -28450,6 +28467,7 @@ Loading snippet ...</pre
       }
     },
     {
+      title: "horizontalScroller with animated pin",
       animatePin: true,
       nav: {
         prevRoute: "#horizontalScroller?version=0&activeId=0",
@@ -28472,6 +28490,12 @@ Loading snippet ...</pre
       source: "./asset/svg/footer_shape_right.svg"
     });
     return renderHtml`<div>
+        <animation-title
+            ${staticProps({
+      title: props.title,
+      align: "right"
+    })}
+        ></animation-title>
         <horizontal-scroller
             ${staticProps({
       animatePin: props.animatePin,

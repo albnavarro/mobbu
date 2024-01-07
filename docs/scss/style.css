@@ -2390,11 +2390,15 @@ code {
   position: fixed;
   z-index: 10;
   top: calc(var(--header-height) + 2rem);
-  left: calc(var(--header-height) + 1.3333333333rem);
   overflow: hidden;
 }
+.c-animation-title.is-left {
+  left: calc(var(--header-height) + 1.3333333333rem);
+}
+.c-animation-title.is-right {
+  right: calc(var(--header-height) / 2);
+}
 .c-animation-title h4 {
-  color: #fff;
   transform: translateY(100%);
   transition: transform 0.55s;
   margin: 0;
@@ -2402,6 +2406,15 @@ code {
 }
 .c-animation-title h4.visible {
   transform: translateY(0);
+}
+.c-animation-title h4.is-white {
+  color: #fff;
+}
+.c-animation-title h4.is-black {
+  color: #000;
+}
+.c-animation-title h4.is-green {
+  color: #9ece6a;
 }
 .l-parallax {
   height: 200vh;
