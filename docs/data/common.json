@@ -427,14 +427,16 @@
             "url": "plugin_overview"
         },
         {
-            "label": "horizotnal scroller v1",
+            "label": "horizotnal scroller v0",
             "scrollToSection": "plugin",
-            "url": "horizontalScrollerV1"
+            "url": "horizontalScroller?version=0&activeId=0",
+            "activeId": 0
         },
         {
-            "label": "horizotnal scroller v2",
+            "label": "horizotnal scroller v1",
             "scrollToSection": "plugin",
-            "url": "horizontalScrollerV2"
+            "url": "horizontalScroller?version=1&activeId=1",
+            "activeId": 1
         }
     ]
 }

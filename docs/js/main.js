@@ -26266,8 +26266,8 @@ Loading snippet ...</pre
         destroy();
       };
     });
-    const { horizontalScroller } = getLegendData();
-    const { source } = horizontalScroller;
+    const { horizontalScroller: horizontalScroller2 } = getLegendData();
+    const { source } = horizontalScroller2;
     if (motionCore.mq("max", "desktop"))
       return html`<div><only-desktop></only-desktop></div>`;
     return html`<div class="l-h-scroller">
@@ -28102,8 +28102,7 @@ Loading snippet ...</pre
     child: () => child,
     dynamic_list: () => dynamic_list,
     home: () => home,
-    horizontalScrollerV1: () => horizontalScrollerV1,
-    horizontalScrollerV2: () => horizontalScrollerV2,
+    horizontalScroller: () => horizontalScroller,
     mobCore_defaults: () => mobCore_defaults,
     mobCore_events: () => mobCore_events,
     mobCore_overview: () => mobCore_overview,
@@ -28438,26 +28437,20 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/plugin/horizontalScroller/horizontalScrollerv1/index.js
-  var horizontalScrollerV1 = async () => {
-    const { data: data_left } = await loadTextContent({
-      source: "./asset/svg/footer_shape_left.svg"
-    });
-    const { data: data_right } = await loadTextContent({
-      source: "./asset/svg/footer_shape_right.svg"
-    });
-    return renderHtml`<div>
-        <horizontal-scroller
-            ${staticProps({
-      svgLeft: data_left,
-      svgRight: data_right
-    })}
-        ></horizontal-scroller>
-    </div>`;
-  };
+  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
+  var horizontalScrollerParams = [
+    {
+      animatePin: false
+    },
+    {
+      animatePin: true
+    }
+  ];
 
-  // src/js/pages/plugin/horizontalScroller/horizontalScrollerv2/index.js
-  var horizontalScrollerV2 = async () => {
+  // src/js/pages/plugin/horizontalScroller/index.js
+  var horizontalScroller = async ({ params }) => {
+    const { version } = params;
+    const props = horizontalScrollerParams[Math.min(Number(version), horizontalScrollerParams.length)];
     const { data: data_left } = await loadTextContent({
       source: "./asset/svg/footer_shape_left.svg"
     });
@@ -28467,7 +28460,7 @@ Loading snippet ...</pre
     return renderHtml`<div>
         <horizontal-scroller
             ${staticProps({
-      animatePin: true,
+      animatePin: props.animatePin,
       svgLeft: data_left,
       svgRight: data_right
     })}

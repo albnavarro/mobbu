@@ -968,7 +968,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='./#horizontalScrollerV2'>example</a>"
+            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='./#horizontalScroller?version=1&activeId=1'>example</a>"
         },
         {
             "component": "mob-title",
