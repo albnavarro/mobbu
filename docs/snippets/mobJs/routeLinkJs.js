@@ -5,4 +5,4 @@ loadUrl({ url: 'my-route' });
 /**
  * Add params
  */
-loadUrl({ url: '?param1=10&param2=1#my_route' });
+loadUrl({ url: 'my-route?param1=value&param2=value' });

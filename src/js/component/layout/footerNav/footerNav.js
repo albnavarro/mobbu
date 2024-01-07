@@ -19,7 +19,7 @@ const data = [
     },
     {
         label: 'MobCore',
-        url: './#mobCore_overview?param1=2&param2=30',
+        url: 'mobCore_overview',
         section: 'mobCore',
     },
     {

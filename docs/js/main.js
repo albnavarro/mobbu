@@ -190,7 +190,7 @@ Loading snippet ...</pre
         </footer>
     `;var ob=E({name:"mob-footer",component:Mh});var W=c.createStore({closeAllAccordion:()=>{},refreshScroller:()=>{},openNavigation:()=>{},closeNavigation:()=>{},goToTop:()=>{},activeSection:()=>({value:"",type:String,skipEqual:!1}),navigationIsOpen:()=>({value:!1,type:Boolean})});var Lh=({html:e,onMount:t,getState:r})=>{let{label:o,section:n}=r();return t(({element:s})=>{W.watch("activeSection",i=>{let a=i===n;s.classList.toggle("current",a)})}),e`
         <button type="button" class="footer-nav__button">${o}</button>
-    `};var nb=[{label:"About",url:"about",section:"about"},{label:"Canvas 2d",url:"canvas_overview",section:"canvas"},{label:"Illustration",url:"svg_overview",section:"svg"},{label:"MobCore",url:"./#mobCore_overview?param1=2&param2=30",section:"mobCore"},{label:"MobJs",url:"mobJs_overview",section:"mobJs"},{label:"MobMotion",url:"mobMotion_overview",section:"mobMotion"},{label:"Plugin",url:"plugin_overview",section:"plugin"}];function sb({url:e}){let t=Ge("page-transition");_e(t,"url",e)}var ib=({delegateEvents:e,staticProps:t})=>nb.map(({label:r,url:o,section:n})=>b`<li class="footer-nav__item">
+    `};var nb=[{label:"About",url:"about",section:"about"},{label:"Canvas 2d",url:"canvas_overview",section:"canvas"},{label:"Illustration",url:"svg_overview",section:"svg"},{label:"MobCore",url:"mobCore_overview",section:"mobCore"},{label:"MobJs",url:"mobJs_overview",section:"mobJs"},{label:"MobMotion",url:"mobMotion_overview",section:"mobMotion"},{label:"Plugin",url:"plugin_overview",section:"plugin"}];function sb({url:e}){let t=Ge("page-transition");_e(t,"url",e)}var ib=({delegateEvents:e,staticProps:t})=>nb.map(({label:r,url:o,section:n})=>b`<li class="footer-nav__item">
                 <footer-nav-button
                     ${e({click:()=>{sb({url:o})}})}
                     ${t({label:r,section:n})}
@@ -1330,10 +1330,10 @@ Loading snippet ...</pre
             ><a href="./#mobJs_overview">mobjs</a> / <span>instanceName</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">InstanceName</doc-title>
-    </doc-container>`:(console.warn("fetch data fail"),[])};var Cv=async({params:e})=>{console.log(e);let{success:t,data:r}=await R({source:"./data/mobCore/overview.json"});return t?b` <doc-container>
+    </doc-container>`:(console.warn("fetch data fail"),[])};var Cv=async()=>{let{success:e,data:t}=await R({source:"./data/mobCore/overview.json"});return e?b` <doc-container>
         <html-content
             slot="docs"
-            ${y({data:r.data,useMaxWidth:!0})}
+            ${y({data:t.data,useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
             >mobCore 
@@ -1363,7 +1363,7 @@ Loading snippet ...</pre
             ${y({data:t.data,useMaxWidth:!0})}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview?param1=1000">mobCore</a> / <span>Defaults</span>
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Defaults</doc-title>
     </doc-container>`:(console.warn("fetch data fail"),[])};var Pv=async()=>{let{success:e,data:t}=await R({source:"./data/mobMotion/asyncTimeline.json"});return e?b` <doc-container>
