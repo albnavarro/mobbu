@@ -128,11 +128,11 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='./#scrollerN0v1'>scroller n.0 v1</a>",
-                    "<a href='./#scrollerN0v2'>scroller n.0 v2</a>",
-                    "<a href='./#scrollerN0v3'>scroller n.0 v3</a>",
-                    "<a href='./#scrollerN0v4'>scroller n.0 v4</a>",
-                    "<a href='./#scrollerN0v4'>scroller n.0 v5</a>"
+                    "<a href='./#scrollerN0?version=0&activeId=0'>scroller n.0 v0</a>",
+                    "<a href='./#scrollerN0?version=1&activeId=1'>scroller n.0 v1</a>",
+                    "<a href='./#scrollerN0?version=2&activeId=2'>scroller n.0 v2</a>",
+                    "<a href='./#scrollerN0?version=3&activeId=3'>scroller n.0 v3</a>",
+                    "<a href='./#scrollerN0?version=4&activeId=4'>scroller n.0 v4</a>"
                 ]
             }
         },
