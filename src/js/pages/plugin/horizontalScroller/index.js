@@ -1,5 +1,6 @@
 import { html, staticProps } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
+import { scrollerParams } from '../../canvas/scroller/scrollerParams';
 import { horizontalScrollerParams } from './horizontalScrollerParams';
 
 export const horizontalScroller = async ({ params }) => {
@@ -7,7 +8,10 @@ export const horizontalScroller = async ({ params }) => {
 
     const props =
         horizontalScrollerParams[
-            Math.min(Number(version), horizontalScrollerParams.length)
+            Math.max(
+                0,
+                Math.min(Number(version), horizontalScrollerParams.length - 1)
+            )
         ];
 
     const { data: data_left } = await loadTextContent({

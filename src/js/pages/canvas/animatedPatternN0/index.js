@@ -6,7 +6,10 @@ export const animatedPatternN0 = ({ params }) => {
 
     const props =
         animatedPatternN0Params[
-            Math.min(Number(version), animatedPatternN0Params.length)
+            Math.max(
+                0,
+                Math.min(Number(version), animatedPatternN0Params.length - 1)
+            )
         ];
 
     return html`<div class="l-padding">

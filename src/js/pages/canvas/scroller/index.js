@@ -5,7 +5,9 @@ export const scrollerN0 = ({ params }) => {
     const { version } = params;
 
     const props =
-        scrollerParams[Math.min(Number(version), scrollerParams.length)];
+        scrollerParams[
+            Math.max(0, Math.min(Number(version), scrollerParams.length - 1))
+        ];
 
     return html`<div>
         <animation-title
