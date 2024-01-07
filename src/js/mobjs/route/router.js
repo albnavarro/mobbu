@@ -16,6 +16,14 @@ const sanitizeParams = (value) => {
 
 /**
  * @param {string} value
+ * @returns {string}
+ */
+const sanitizeHash = (value) => {
+    return value.replace('#', '').replace('/', '').replace('.', '');
+};
+
+/**
+ * @param {string} value
  * @returns {{[key:string]:any}}
  */
 const getParams = (value) => {
@@ -32,15 +40,31 @@ const getParams = (value) => {
  * @description
  * Get hash from url and load new route.
  */
-const getHash = () => {
-    const hash = window.location.hash.slice(1);
-    const params = getParams(currentSearch ?? window.location.search);
+const hashHandler = () => {
+    const hashOriginal = window.location.hash.slice(1);
+    const parts = hashOriginal.split('?');
+    const search = sanitizeParams(parts?.[1] ?? '');
+
+    /**
+     * Get final hash/params value.
+     */
+    const hash = sanitizeHash(parts?.[0] ?? '');
+    const params = getParams(currentSearch ?? search);
 
     /**
      * Prevent multiple routes start at same time.
      */
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) return;
+
+    /**
+     * Update browser history.
+     */
+    const paramsToPush =
+        currentSearch || Object.keys(search).length > 0
+            ? `?${currentSearch ?? search}`
+            : '';
+    history.replaceState({}, '', `#${hash}${paramsToPush}`);
 
     /**
      * Reset last search value ( id come form loadUrl function ).
@@ -51,15 +75,6 @@ const getHash = () => {
      * Store previous hash.
      */
     previousHash = hash;
-
-    /**
-     * Remove params from url.
-     */
-    window.history.pushState(
-        {},
-        document.title,
-        window.location.pathname + window.location.hash
-    );
 
     /**
      * Load.
@@ -75,10 +90,10 @@ const getHash = () => {
  * Initialize router.
  */
 export const router = () => {
-    getHash();
+    hashHandler();
 
     window.addEventListener('hashchange', () => {
-        getHash();
+        hashHandler();
     });
 };
 
@@ -87,20 +102,17 @@ export const router = () => {
  * Set hash in current browser url.
  */
 export const loadUrl = ({ url = '' }) => {
-    const hashPosition = url.indexOf('#');
+    const parts = url.split('?');
 
     /**
      * Isolate hash, without # character.
      */
-    const hash =
-        hashPosition > -1
-            ? url.slice(Math.max(0, hashPosition)).replace('#', '')
-            : url.replace('#', '');
+    const hash = sanitizeHash(parts?.[0] ?? '');
 
     /**
      * Extract current params, to use later ( in getHash function ).
      */
-    const search = url.slice(0, Math.max(0, hashPosition));
+    const search = sanitizeParams(parts?.[1] ?? '');
     if (search.length > 0) currentSearch = search;
 
     /**
