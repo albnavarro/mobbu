@@ -1,7 +1,9 @@
 import { html, staticProps } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-export const mobCore_overview = async () => {
+export const mobCore_overview = async ({ params }) => {
+    console.log(params);
+
     const { success, data } = await loadJsonContent({
         source: './data/mobCore/overview.json',
     });
