@@ -1,5 +1,6 @@
-@import 'highlight.js/scss/tokyo-night-dark';
-@import './vendor/normalize';
-@import './general';
-@import './layout';
-@import './component';
+@use 'sass_mq';
+@use 'highlight.js/scss/tokyo-night-dark';
+@use './vendor/normalize';
+@use './general';
+@use './layout';
+@use './component';

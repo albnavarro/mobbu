@@ -33,7 +33,3 @@ $html-font-unit: (
     'xxxlarge': px,
 );
 $default-font-size: desktop;
-
-@use 'sass-mq/mq' with (
-    $breakpoints: $breakpoints
-);

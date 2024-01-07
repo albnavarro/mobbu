@@ -1,6 +1,6 @@
+@use 'sass-mq/mq';
 @use '../../variables' as *;
 @use '../../abstract' as *;
-@use 'sass-mq/mq';
 
 .c-doc-title-small {
     margin-top: rem(15);

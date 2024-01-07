@@ -1,6 +1,6 @@
+@use 'sass-mq/mq';
 @use '../../variables' as *;
 @use '../../abstract' as *;
-@use 'sass-mq/mq';
 
 .l-index {
     height: calc(100vh - var(--header-height) - var(--footer-height));
