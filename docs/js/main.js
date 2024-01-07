@@ -28440,6 +28440,73 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
+  var horizontalScrollerParams = [
+    {
+      animatePin: false,
+      nav: {
+        prevRoute: "",
+        nextRoute: "#horizontalScroller?version=1&activeId=1"
+      }
+    },
+    {
+      animatePin: true,
+      nav: {
+        prevRoute: "#horizontalScroller?version=0&activeId=0",
+        nextRoute: ""
+      }
+    }
+  ];
+
+  // src/js/pages/plugin/horizontalScroller/index.js
+  var horizontalScroller = async ({ params }) => {
+    const { version } = params;
+    const props = horizontalScrollerParams[Math.max(
+      0,
+      Math.min(Number(version), horizontalScrollerParams.length - 1)
+    )];
+    const { data: data_left } = await loadTextContent({
+      source: "./asset/svg/footer_shape_left.svg"
+    });
+    const { data: data_right } = await loadTextContent({
+      source: "./asset/svg/footer_shape_right.svg"
+    });
+    return renderHtml`<div>
+        <horizontal-scroller
+            ${staticProps({
+      animatePin: props.animatePin,
+      svgLeft: data_left,
+      svgRight: data_right
+    })}
+        ></horizontal-scroller>
+        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
+    </div>`;
+  };
+
+  // src/js/pages/canvas/overview/index.js
+  var canvas_overview = async () => {
+    const { success, data: data3 } = await loadJsonContent({
+      source: "./data/canvas/overview.json"
+    });
+    if (!success) {
+      console.warn("fetch data fail");
+      return [];
+    }
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            >Canvas 
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Canvas</doc-title>
+    </doc-container>`;
+  };
+
   // src/js/pages/canvas/scroller/scrollerParams.js
   var scrollerParams = [
     {
@@ -28514,73 +28581,6 @@ Loading snippet ...</pre
       }
     }
   ];
-
-  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
-  var horizontalScrollerParams = [
-    {
-      animatePin: false,
-      nav: {
-        prevRoute: "",
-        nextRoute: "#horizontalScroller?version=1&activeId=1"
-      }
-    },
-    {
-      animatePin: true,
-      nav: {
-        prevRoute: "#horizontalScroller?version=0&activeId=0",
-        nextRoute: ""
-      }
-    }
-  ];
-
-  // src/js/pages/plugin/horizontalScroller/index.js
-  var horizontalScroller = async ({ params }) => {
-    const { version } = params;
-    const props = horizontalScrollerParams[Math.max(
-      0,
-      Math.min(Number(version), horizontalScrollerParams.length - 1)
-    )];
-    const { data: data_left } = await loadTextContent({
-      source: "./asset/svg/footer_shape_left.svg"
-    });
-    const { data: data_right } = await loadTextContent({
-      source: "./asset/svg/footer_shape_right.svg"
-    });
-    return renderHtml`<div>
-        <horizontal-scroller
-            ${staticProps({
-      animatePin: props.animatePin,
-      svgLeft: data_left,
-      svgRight: data_right
-    })}
-        ></horizontal-scroller>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/overview/index.js
-  var canvas_overview = async () => {
-    const { success, data: data3 } = await loadJsonContent({
-      source: "./data/canvas/overview.json"
-    });
-    if (!success) {
-      console.warn("fetch data fail");
-      return [];
-    }
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            >Canvas 
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Canvas</doc-title>
-    </doc-container>`;
-  };
 
   // src/js/pages/canvas/scroller/index.js
   var scrollerN0 = ({ params }) => {

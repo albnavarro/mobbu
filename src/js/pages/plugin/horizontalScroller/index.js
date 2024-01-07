@@ -1,6 +1,5 @@
 import { html, staticProps } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
-import { scrollerParams } from '../../canvas/scroller/scrollerParams';
 import { horizontalScrollerParams } from './horizontalScrollerParams';
 
 export const horizontalScroller = async ({ params }) => {
