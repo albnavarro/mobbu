@@ -20,7 +20,7 @@ export const mobCore_defaults = async () => {
             })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview?param1=1000">mobCore</a> / <span>Defaults</span>
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Defaults</doc-title>
     </doc-container>`;
