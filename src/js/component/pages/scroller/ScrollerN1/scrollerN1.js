@@ -76,8 +76,8 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <div class="canvas-scroller" ref="canvasScroller"></div>
-            <div class="canvas-scroller-title">
+            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller-title">
                 <h1>Scroll down</h1>
                 ${arrow}
             </div>

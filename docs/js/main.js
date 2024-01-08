@@ -16826,19 +16826,19 @@
       };
     });
     return html`
-        <div class="code-overlay js-overlay">
+        <div class="c-code-overlay js-overlay">
             <span
-                class="code-overlay__background"
+                class="c-code-overlay__background"
                 ${delegateEvents({
       click: () => {
         setState("urls", []);
       }
     })}
             ></span>
-            <div class="code-overlay__wrap js-overlay-wrap">
+            <div class="c-code-overlay__wrap js-overlay-wrap">
                 <button
                     type="button"
-                    class="code-overlay__close"
+                    class="c-code-overlay__close"
                     ${delegateEvents({
       click: () => {
         setState("urls", []);
@@ -16847,7 +16847,7 @@
                 ></button>
                 <button
                     type="button"
-                    class="code-overlay__copy"
+                    class="c-code-overlay__copy"
                     ${delegateEvents({
       click: () => {
         copyToClipboard({ getState });
@@ -16856,7 +16856,7 @@
                 >
                     ${icon_copy_default}
                 </button>
-                <div class="code-overlay__header">
+                <div class="c-code-overlay__header">
                     ${repeat({
       clean: true,
       watch: "urls",
@@ -16879,12 +16879,12 @@
                     value="0"
                     step=".5"
                     ref="scrollbar"
-                    class="code-overlay__scrollbar"
+                    class="c-code-overlay__scrollbar"
                 />
-                <div class="code-overlay__content" ref="screenEl">
+                <div class="c-code-overlay__content" ref="screenEl">
                     <div ref="scrollerEl">
                         <div
-                            class="code-overlay__content__description"
+                            class="c-code-overlay__content__description"
                             ref="codeEl"
                         ></div>
                     </div>
@@ -16907,7 +16907,7 @@
     });
     const isDisable = disable ? "disable" : "";
     return html`
-        <button class="code-overlay__button ${isDisable}">${key}</button>
+        <button class="c-code-overlay__button ${isDisable}">${key}</button>
     `;
   };
 
@@ -26748,8 +26748,8 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <div class="canvas-scroller" ref="canvasScroller"></div>
-            <div class="canvas-scroller-title">
+            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller-title">
                 <h1>Scroll down</h1>
                 ${scroll_arrow_default}
             </div>
@@ -27068,8 +27068,8 @@ Loading snippet ...</pre
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
-            <div class="canvas-scroller" ref="canvasScroller"></div>
-            <div class="canvas-scroller-title">
+            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller-title">
                 <h1>Scroll down</h1>
                 ${scroll_arrow_default}
             </div>

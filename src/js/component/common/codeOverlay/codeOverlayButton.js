@@ -23,6 +23,6 @@ export const CodeOverlayButton = ({ onMount, watch, getState, html }) => {
      * First render button is disabled.
      */
     return html`
-        <button class="code-overlay__button ${isDisable}">${key}</button>
+        <button class="c-code-overlay__button ${isDisable}">${key}</button>
     `;
 };
