@@ -130,7 +130,6 @@ export const SvgChild = ({ onMount, html, getState, staticProps }) => {
                     },
                 ],
                 style: 'legend',
-                color: 'green',
             })}
         >
         </code-button>

@@ -21,21 +21,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To be activated, the <span>init</span> method must be executed."
+            "content": "To be activated, the init method must be executed."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Unlike scrollTrigger which performs precise calculations</span>, parallax allows you to move elements around a neutral point (value === 0) <span>reasoning by speed/multipliers</span> rather than absolute numbers."
+            "content": "Unlike scrollTrigger which performs precise calculations, parallax allows you to move elements around a neutral point (value === 0) reasoning by speed/multipliers rather than absolute numbers."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The only property that is calculated absolutely is the <span>opacity</span>, where there are two special parameters <span>opacityStart</span> and <span>opacityEnd</span>."
+            "content": "The only property that is calculated absolutely is the opacity, where there are two special parameters opacityStart and opacityEnd."
         },
         {
             "component": "mob-snippet",
@@ -56,8 +56,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -88,8 +87,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "DOM Element"
         },
@@ -105,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The default subject to apply transformations to. If you use the <span>pin</span> property it will be applied to this element."
+            "content": "The default subject to apply transformations to. If you use the pin property it will be applied to this element."
         },
         {
             "component": "mob-spacer",
@@ -125,7 +123,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A DOM node other than <span>item</span> to be used as a reference for <span>position, height, and width</span> calculations."
+            "content": "A DOM node other than item to be used as a reference for position, height, and width calculations."
         },
         {
             "component": "mob-spacer",
@@ -145,7 +143,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A DOM node other than <span>item</span> to apply transformations to."
+            "content": "A DOM node other than item to apply transformations to."
         },
         {
             "component": "mob-spacer",
@@ -165,7 +163,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>scrollable node</span> in which the target is contained.<br/> The default is <span>window</span>."
+            "content": "The scrollable node in which the target is contained.<br/> The default is window."
         },
         {
             "component": "mob-spacer",
@@ -185,7 +183,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A node that contains the <span>scrollable element</span>.<br/> The default is <span>window</span>."
+            "content": "A node that contains the scrollable element.<br/> The default is window."
         },
         {
             "component": "mob-spacer",
@@ -204,8 +202,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "breakpoint"
         },
@@ -221,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
+            "content": "Reference breakpoint, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",
@@ -241,7 +238,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "determines whether the scrollTriger should be active from <span>breakpoint up</span> or <span>up to the breakpoint</span>."
+            "content": "determines whether the scrollTriger should be active from breakpoint up or up to the breakpoint."
         },
         {
             "component": "mob-spacer",
@@ -260,8 +257,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "propierties"
         },
@@ -270,23 +266,23 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>built-in propierties:</span>"
+            "content": "built-in propierties:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>y</span>",
-                    "<span>x</span>",
-                    "<span>rotate</span>",
-                    "<span>rotateY</span>",
-                    "<span>rotateX</span>",
-                    "<span>rotateZ</span>",
-                    "<span>opacity</span>",
-                    "<span>scale</span>",
-                    "<span>scaleX</span>",
-                    "<span>scaleY</span>"
+                    "y",
+                    "x",
+                    "rotate",
+                    "rotateY",
+                    "rotateX",
+                    "rotateZ",
+                    "opacity",
+                    "scale",
+                    "scaleX",
+                    "scaleY"
                 ]
             }
         },
@@ -295,14 +291,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>custom scrollerTween:</span>"
+            "content": "custom scrollerTween:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>tween</span>: use external <span>scrollerTween</span> for complex animation"
+                    "tween: use external scrollerTween for complex animation"
                 ]
             }
         },
@@ -333,8 +329,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "range ( built-in properties )"
         },
@@ -343,21 +338,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean|string</span> value"
+            "content": "Boolean|string value"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Value indicating the <span>movement ratio</span>.<br/>The <span>closer the value is to 10 the faster the element will move</span>.<br/>To manage the opacity use the two specific properties <span>opacityStart</span> and <span>opacityEnd</span>."
+            "content": "Value indicating the movement ratio.<br/>The closer the value is to 10 the faster the element will move.<br/>To manage the opacity use the two specific properties opacityStart and opacityEnd."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "This property is valid <span>only for built-in properties</span>."
+            "content": "This property is valid only for built-in properties."
         },
         {
             "component": "mob-spacer",
@@ -392,8 +387,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "opacity special props."
         },
@@ -407,8 +401,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "opacityStart"
         },
@@ -417,13 +410,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Defines the <span>start</span> value of the opacity animation <span>from the tp of the viewport</span>.<br/> 100 corresponds to 100vh.</br> <span>The default value is 100</span>."
+            "content": "Defines the start value of the opacity animation from the tp of the viewport.<br/> 100 corresponds to 100vh.</br> The default value is 100."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "opacityEnd"
         },
@@ -432,7 +424,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Defines the <span>end</span> value of the opacity animation <span>from the top of the viewport</span>.<br/> 100 corresponds to 100vh.<br/> <span>The default value is 0</span>"
+            "content": "Defines the end value of the opacity animation from the top of the viewport.<br/> 100 corresponds to 100vh.<br/> The default value is 0"
         },
         {
             "component": "mob-snippet",
@@ -455,8 +447,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "use scrollerTween"
         },
@@ -465,21 +456,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To manage <span>multiple parameters</span> at the same time it is possible to use the appropriate <span>scrollerTween</span> module."
+            "content": "To manage multiple parameters at the same time it is possible to use the appropriate scrollerTween module."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "To use the <span>opacity property use the built-in parameters ( opacityStart | opacityEnd ) or scrollTrigger</span>. The opacity property by its nature works with precise values from <span>1 to 0</span>, it does not adapt to a multiplier logic."
+            "content": "To use the opacity property use the built-in parameters ( opacityStart | opacityEnd ) or scrollTrigger. The opacity property by its nature works with precise values from 1 to 0, it does not adapt to a multiplier logic."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "scrollerTween <span>shares some methods with other tweens</span> such as:"
+            "content": "scrollerTween shares some methods with other tweens such as:"
         },
         {
             "component": "mob-list",
@@ -506,13 +497,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "These values will be used <span>in place of the range property</span>"
+            "content": "These values will be used in place of the range property"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "from"
         },
@@ -521,13 +511,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This value <span>will be the exact value applied to the element</span> in its neutral position, the neutral position depends directly on the <span>align property</span>"
+            "content": "This value will be the exact value applied to the element in its neutral position, the neutral position depends directly on the align property"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "to"
         },
@@ -536,14 +525,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This value is to be <span>understood as a multiplier</span>. using the different properties they will be able to have <span>different multipliers</span>."
+            "content": "This value is to be understood as a multiplier. using the different properties they will be able to have different multipliers."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>'to'</span> properties can be <span>lower or higher</span> than the value defined in the <span>'from'</span> property.<br/> If the <span>'from' </span>and <span>'to' </span>values <span>'coincide' </span>there will be <span>no movement</span>.<br/>The <span>greater the difference</span> between the two values, the <span>greater the movement</span>."
+            "content": "The 'to' properties can be lower or higher than the value defined in the 'from' property.<br/> If the 'from' and 'to' values 'coincide' there will be no movement.<br/>The greater the difference between the two values, the greater the movement."
         },
         {
             "component": "mob-spacer",
@@ -572,8 +561,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "align"
         },
@@ -582,13 +570,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Defines when the <span>current value reaches 0</span> ( neutral position ).<br/> It is possible to use a <span>preset value</span> or a <span>number from 0 to 100</span> which corresponds to a value calculated from the bottom of the viewport.<br/>The default value is <span>center</span>."
+            "content": "Defines when the current value reaches 0 ( neutral position ).<br/> It is possible to use a preset value or a number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport.<br/>The default value is center."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "start:"
         },
@@ -597,13 +584,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The scroller ( default is the document ) is located at <span>scrolltop === 0</span>;"
+            "content": "The scroller ( default is the document ) is located at scrolltop === 0;"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "top:"
         },
@@ -612,13 +598,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the top edge of the screen</span> ( default is the the window )."
+            "content": "The element matches the top edge of the screen ( default is the the window )."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "right:"
         },
@@ -627,13 +612,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the right edge of the screen</span> ( default is the the window )."
+            "content": "The element matches the right edge of the screen ( default is the the window )."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "center:"
         },
@@ -642,13 +626,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the center of the screen</span> ( default is the the window )."
+            "content": "The element matches the center of the screen ( default is the the window )."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "bottom:"
         },
@@ -657,13 +640,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the bottom edge of the screen</span> ( default is the the window )."
+            "content": "The element matches the bottom edge of the screen ( default is the the window )."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "left:"
         },
@@ -672,13 +654,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the left edge of the screen</span> ( default is the the window )."
+            "content": "The element matches the left edge of the screen ( default is the the window )."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "end:"
         },
@@ -687,13 +668,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The element <span>matches the end of the scroller</span> ( default is the the document ).."
+            "content": "The element matches the end of the scroller ( default is the the document ).."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "Number:"
         },
@@ -702,7 +682,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "number from <span>0 to 100</span> which corresponds to a value calculated <span>from the bottom of the viewport</span>"
+            "content": "number from 0 to 100 which corresponds to a value calculated from the bottom of the viewport"
         },
         {
             "component": "mob-spacer",
@@ -731,8 +711,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onSwitch"
         },
@@ -741,18 +720,13 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Defines the behavior of the parallax <span>once it reaches point 0</span> ( neutral position ).<br/> It can continue, stop or go back.<br/>If it is not set the value <span>from positive will become negative</span>."
+            "content": "Defines the behavior of the parallax once it reaches point 0 ( neutral position ).<br/> It can continue, stop or go back.<br/>If it is not set the value from positive will become negative."
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": [
-                    "<span>in-stop</span>",
-                    "<span>in-back</span>",
-                    "<span>out-stop</span>",
-                    "<span>out-back</span>"
-                ]
+                "items": ["in-stop", "in-back", "out-stop", "out-back"]
             }
         },
         {
@@ -776,8 +750,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "ease"
         },
@@ -786,7 +759,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
+            "content": "If you decide to use the easing parameter, an instance of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
         },
         {
             "component": "mob-spacer",
@@ -797,8 +770,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "ease"
         },
@@ -812,8 +784,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "easeType"
         },
@@ -822,13 +793,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The type of easing used: <span>spring</span> | <span>lerp</span>."
+            "content": "The type of easing used: spring | lerp."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "lerpConfig"
         },
@@ -837,13 +807,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>velocity</span> value of the lerp function. It must be a value <span>between 0.01 and 0.1</span>. The default value is 0.06"
+            "content": "The velocity value of the lerp function. It must be a value between 0.01 and 0.1. The default value is 0.06"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "springConfig"
         },
@@ -852,7 +821,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The Spring configuration. can be a preset between <span>default</span> | <span>gentle</span> | <span>wobbly</span> | <span>bounce</span> | <span>scroller</span>"
+            "content": "The Spring configuration. can be a preset between default | gentle | wobbly | bounce | scroller"
         },
         {
             "component": "mob-spacer",
@@ -881,8 +850,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "utils parameters"
         },
@@ -895,8 +863,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "disableForce3D"
         },
@@ -905,13 +872,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Disable the transform: <span>translate3d(0,0,0) rule</span> applied by the <span>built-in property during animation</span> to activate the GPU."
+            "content": "Boolean value.<br/>Disable the transform: translate3d(0,0,0) rule applied by the built-in property during animation to activate the GPU."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "useThrottle"
         },
@@ -920,13 +886,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
+            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "perspective"
         },
@@ -935,13 +900,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply the css rule <span>perspective: {value}px; transform-style: preserve-3d;</span> to the parent HTMLElement."
+            "content": "Boolean value.<br/>Apply the css rule perspective: {value}px; transform-style: preserve-3d; to the parent HTMLElement."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "useWillChange"
         },
@@ -950,7 +914,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>When there is a <span>large drop in fps</span>, the will-change property is activated for a <span>limited period of time</span>. It is intended as a <span>last resort</span> to deal with a temporary problem. The default value is true."
+            "content": "Boolean value.<br/>When there is a large drop in fps, the will-change property is activated for a limited period of time. It is intended as a last resort to deal with a temporary problem. The default value is true."
         },
         {
             "component": "mob-snippet",
@@ -980,8 +944,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "init"
         },
@@ -1019,8 +982,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "refresh"
         },
@@ -1029,7 +991,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Recalculate all position/measurement</span> values and <span>update rendering</span>. This operation is carried out automatically after each resize."
+            "content": "Recalculate all position/measurement values and update rendering. This operation is carried out automatically after each resize."
         },
         {
             "component": "mob-spacer",
@@ -1058,8 +1020,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "destroy"
         },
@@ -1068,7 +1029,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Destroy instance</span>"
+            "content": "Destroy instance"
         },
         {
             "component": "mob-snippet",

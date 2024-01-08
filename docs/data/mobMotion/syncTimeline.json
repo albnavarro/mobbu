@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "syncTimeline is a <span>large timer</span> that can handle <span>one or more <a href='./#mobMotion_sequencer'>sequencer</a></span>. It regulates its <span>duration</span> and manages all the <span>play, stop, pause and more</span> options."
+            "content": "syncTimeline is a large timer that can handle one or more <a href='./#mobMotion_sequencer'>sequencer</a>. It regulates its duration and manages all the play, stop, pause and more options."
         },
         {
             "component": "mob-paragraph",
@@ -39,8 +39,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -88,7 +87,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>.<br/>During the loop <span>a time equal to 1/2 of the current fps will be subtracted from the last frame</span>. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
+            "content": "Determines the number of loops to run.</br>Number -1 means that the timeline will run in an infinite loop.<br/>During the loop a time equal to 1/2 of the current fps will be subtracted from the last frame. This allows you to eliminate the repetition of the same frame between the end and the beginning.<br/><a href='./#caterpillarN2'>here</a> you can see how the start and end time of the loop is not perceptible."
         },
         {
             "component": "mob-spacer",
@@ -108,7 +107,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reverse the direction</span> each time the timeline ends."
+            "content": "Reverse the direction each time the timeline ends."
         },
         {
             "component": "mob-spacer",
@@ -128,7 +127,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The duration of the animation in <psn>milliseconds</span>"
+            "content": "The duration of the animation in milliseconds"
         },
         {
             "component": "mob-spacer",
@@ -141,8 +140,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "code example"
         },
@@ -180,8 +178,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "add"
         },
@@ -190,7 +187,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The add method allows you to add <span>one or more sequencers/masterSequencers</span> to the timeline."
+            "content": "The add method allows you to add one or more sequencers/masterSequencers to the timeline."
         },
         {
             "component": "mob-snippet",
@@ -213,8 +210,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "play/playReverse/stop"
         },
@@ -236,23 +232,23 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>play</span>, <span>play reverse</span> and <span>stop</span> of the timeline. The <span>play()</span> and <span>playReverse()</span> methods <span>will return a promise when the timeline is completed</span>."
+            "content": "play, play reverse and stop of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The play/playReverse methods have as their parameter the possibility to <span>apply the action based on the current direction</span> of the timeline.<br/>"
+            "content": "The play/playReverse methods have as their parameter the possibility to apply the action based on the current direction of the timeline.<br/>"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>useCurrent: false</span> The timeline will always start from the <span>start/end</span> regardless of the current position.<br/>",
-                    "<span>useCurrent: true</span> The timeline <span>will reverse its direction</span> (it will perform a reverse action) only if it is going in the opposite direction, otherwise it will continue on its path.",
-                    "The default value of useCurrent is <span>false</span>."
+                    "useCurrent: false The timeline will always start from the start/end regardless of the current position.<br/>",
+                    "useCurrent: true The timeline will reverse its direction (it will perform a reverse action) only if it is going in the opposite direction, otherwise it will continue on its path.",
+                    "The default value of useCurrent is false."
                 ]
             }
         },
@@ -274,7 +270,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+            "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
             "component": "mob-snippet",
@@ -297,8 +293,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "playFrom/playReverse"
         },
@@ -307,7 +302,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "play or play reverse from a <span>specific label</span>, both methods will return a <span>promise</span> which will be resolved when the timeline is completed.<br/> The label is defined within the individual <a href='./#mobMotion_sequencer'>sequencer</a>."
+            "content": "play or play reverse from a specific label, both methods will return a promise which will be resolved when the timeline is completed.<br/> The label is defined within the individual sequencer."
         },
         {
             "component": "mob-snippet",
@@ -330,8 +325,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "reverse"
         },
@@ -340,7 +334,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reverses immediately the direction of travel</span>"
+            "content": "Reverses immediately the direction of travel"
         },
         {
             "component": "mob-snippet",
@@ -363,8 +357,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "pause/resume"
         },
@@ -373,7 +366,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Pause/Resume the timeline</span>."
+            "content": "Pause/Resume the timeline."
         },
         {
             "component": "mob-snippet",
@@ -396,8 +389,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onLoopEnd"
         },
@@ -406,7 +398,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched <span>every end of cycle</span>."
+            "content": "Event launched every end of cycle."
         },
         {
             "component": "mob-title",
@@ -420,8 +412,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>loop</span>: current loop counter",
-                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                    "loop: current loop counter",
+                    "direction: current direction 'forward | backward'"
                 ]
             }
         },
@@ -446,8 +438,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onComplete"
         },
@@ -456,7 +447,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched at the <span>end of the timeline</span>."
+            "content": "Event launched at the end of the timeline."
         },
         {
             "component": "mob-snippet",
@@ -479,8 +470,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onUpdate"
         },
@@ -489,7 +479,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched at <span>every frame of the timeline</span>."
+            "content": "Event launched at every frame of the timeline."
         },
         {
             "component": "mob-title",
@@ -503,8 +493,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>time</span>: current time",
-                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                    "time: current time",
+                    "direction: current direction 'forward | backward'"
                 ]
             }
         },
@@ -529,8 +519,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "destroy"
         },
@@ -539,7 +528,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Destroy function.<br/>The destroy function will also destroy <span>all the sequencers that have been used</span>, and it is advisable to also <span>cancel the references to the individual sequencer</span>."
+            "content": "Destroy function.<br/>The destroy function will also destroy all the sequencers that have been used, and it is advisable to also cancel the references to the individual sequencer."
         },
         {
             "component": "mob-snippet",
@@ -562,8 +551,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Utils"
         },

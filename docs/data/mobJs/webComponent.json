@@ -23,8 +23,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Function"
         },
@@ -54,8 +53,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "createComponent additional params:"
         },
@@ -71,13 +69,13 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "- <span>attributeToObserve</span>",
-                    "- <span>constructorCallback</span>",
-                    "- <span>connectedCallback</span>",
-                    "- <span>disconnectedCallback</span>",
-                    "- <span>adoptedCallback</span>",
-                    "- <span>attributeChangedCallback</span>",
-                    "- <span>style</span>"
+                    "- attributeToObserve",
+                    "- constructorCallback",
+                    "- connectedCallback",
+                    "- disconnectedCallback",
+                    "- adoptedCallback",
+                    "- attributeChangedCallback",
+                    "- style"
                 ]
             }
         },
@@ -99,13 +97,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each param has the <span>context</span> as an argument, and optionally as in the example below an <span>object with all the utilities of our function</span>"
+            "content": "Each param has the context as an argument, and optionally as in the example below an object with all the utilities of our function"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "context ( native webComponent context ):"
         },
@@ -113,14 +110,13 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["<span>webComponent context</span>"]
+                "items": ["webComponent context"]
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "data ( Object ):"
         },
@@ -129,20 +125,20 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>componentId:</span> string",
-                    "<span>emit:</span> function",
-                    "<span>emitAsync:</span> function",
-                    "<span>freezeProp:</span> function",
-                    "<span>getChildren:</span> function",
-                    "<span>getParentId:</span> function",
-                    "<span>getState:</span> function",
-                    "<span>remove:</span> function",
-                    "<span>setState:</span> function",
-                    "<span>unBind:</span> function",
-                    "<span>unFreezeProp:</span> function",
-                    "<span>watch:</span> function",
-                    "<span>watchSync:</span> function",
-                    "<span>watchParent:</span> function"
+                    "componentId: string",
+                    "emit: function",
+                    "emitAsync: function",
+                    "freezeProp: function",
+                    "getChildren: function",
+                    "getParentId: function",
+                    "getState: function",
+                    "remove: function",
+                    "setState: function",
+                    "unBind: function",
+                    "unFreezeProp: function",
+                    "watch: function",
+                    "watchSync: function",
+                    "watchParent: function"
                 ]
             }
         },
@@ -164,16 +160,16 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>attributeChangedCallback</span> will have additional parameters that allow you to communicate with the native webComponent observer such as:"
+            "content": "attributeChangedCallback will have additional parameters that allow you to communicate with the native webComponent observer such as:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>name</span>: name of the changed attribute",
-                    "<span>oldValue</span>: old value",
-                    "<span>newValue</span>: new value"
+                    "name: name of the changed attribute",
+                    "oldValue: old value",
+                    "newValue: new value"
                 ]
             }
         },

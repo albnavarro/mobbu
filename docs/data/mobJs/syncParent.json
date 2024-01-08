@@ -19,7 +19,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When <span>manually adding a runtime component</span> using the <a href='./#mobJs_runtime'>parseDom()</a> utility, it is necessary that the new component remains <span>synchronized with the context (component)</span> in which it was created through the syncParent() function."
+            "content": "When manually adding a runtime component using the <a href='./#mobJs_runtime'>parseDom()</a> utility, it is necessary that the new component remains synchronized with the context (component) in which it was created through the syncParent() function."
         },
         {
             "component": "mob-paragraph",

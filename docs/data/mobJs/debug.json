@@ -46,14 +46,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In the <span>mainStore map</span> there are all the instances of our components in which it is possible to analyze all the specifications from the console."
+            "content": "In the mainStore map there are all the instances of our components in which it is possible to analyze all the specifications from the console."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Each component is identified by an <span>id</span> in string format, by enabling the debug property each component will display its own id in the <span>data-mobjs</span> attribute so as to be searchable in the <span map >mainStore</span>."
+            "content": "Each component is identified by an id in string format, by enabling the debug property each component will display its own id in the data-mobjs attribute so as to be searchable in the mainStore."
         },
         {
             "component": "mob-snippet",

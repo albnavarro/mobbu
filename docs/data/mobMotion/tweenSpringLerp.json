@@ -41,7 +41,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["<span>Tween</span>"]
+                "items": ["Tween"]
             }
         },
         {
@@ -68,7 +68,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["<span>Lerp</span>", "<span>Spring</span>"]
+                "items": ["Lerp", "Spring"]
             }
         },
         {
@@ -146,8 +146,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Tween:"
         },
@@ -249,8 +248,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Spring"
         },
@@ -359,8 +357,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Lerp"
         },
@@ -389,7 +386,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the speed of the lerp, it must be a value between <span>0.01</span> and <span>0.1</span>. The default value is <span>0.06</span>"
+            "content": "Determines the speed of the lerp, it must be a value between 0.01 and 0.1. The default value is 0.06"
         },
         {
             "component": "mob-title",
@@ -403,7 +400,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is <span>0.01</span>"
+            "content": "Indicates the difference between the current value and the target value for which the animation can be considered finished. The default value is 0.01"
         },
         {
             "component": "mob-title",
@@ -462,8 +459,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Set"
         },
@@ -495,8 +491,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goTo"
         },
@@ -505,21 +500,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The goTo method takes the values <span>from the current state</span> to the state indicated in the <span>first parameter</span>."
+            "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+            "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
+            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
         },
         {
             "component": "mob-snippet",
@@ -542,8 +537,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFrom"
         },
@@ -552,21 +546,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The goFrom method brings the values <span>from the state indicated in the first parameter</span> to the <span>current state</span>."
+            "content": "The goFrom method brings the values from the state indicated in the first parameter to the current state."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the <span>second parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+            "content": "In the second parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
+            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
         },
         {
             "component": "mob-snippet",
@@ -589,8 +583,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFromTo"
         },
@@ -599,21 +592,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The goFromTo method takes the values from the state indicated in the <span>first parameter</span> to the state indicated in the <span>second parameter</span>. The two parameters must have the same keys."
+            "content": "The goFromTo method takes the values from the state indicated in the first parameter to the state indicated in the second parameter. The two parameters must have the same keys."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the <span>third parameter</span> it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
+            "content": "In the third parameter it will be possible to temporarily change the default values of the tween except for the configuration of the stagger property."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, The function value will be recalculated at each play()"
+            "content": "The value can be numeric or the result of a function, The function value will be recalculated at each play()"
         },
         {
             "component": "mob-snippet",
@@ -636,8 +629,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "stop"
         },
@@ -646,7 +638,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+            "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
             "component": "mob-snippet",
@@ -669,8 +661,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "pause/resume"
         },
@@ -702,8 +693,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Subscribe"
         },
@@ -712,14 +702,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The subscribe method will allow us to apply the values in <span>real time</span> to our target."
+            "content": "The subscribe method will allow us to apply the values in real time to our target."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
+            "content": "The subscribe() method always returns an unsubscribe() function"
         },
         {
             "component": "mob-snippet",
@@ -742,8 +732,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "SubscribeCache"
         },
@@ -752,14 +741,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='./#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike the subscribe method, subscribeCache requires <span>two parameters</span>, the <span>first is the target</span>, the <span>second is the callback</span> to execute."
+            "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
         },
         {
             "component": "mob-snippet",
@@ -782,8 +771,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onComplete"
         },
@@ -792,7 +780,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
+            "content": "The onComplete method is launched when the animation is finished, it can be used for example to inhibit the use of the GPU unnecessarily:"
         },
         {
             "component": "mob-snippet",

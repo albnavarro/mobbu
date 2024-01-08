@@ -17,15 +17,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "canvas 2d experiment"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -38,14 +37,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "caterpillar series:"
         },
@@ -63,14 +61,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "animated pattern series:"
         },
@@ -89,14 +86,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "interactive animated pattern"
         },
@@ -112,14 +108,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "scroller pattern series:"
         },
@@ -139,14 +134,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "scroller shape series:"
         },
@@ -155,6 +149,12 @@
             "props": {
                 "style": "medium",
                 "items": ["<a href='./#scrollerN1'>scrollerN1</a>"]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

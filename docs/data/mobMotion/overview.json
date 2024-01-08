@@ -19,8 +19,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "animation library"
         },
@@ -42,7 +41,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The <span>mobMotion</span> and <span>mobCore</span> folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The mobMotion and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -62,9 +61,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>It doesn't aim to write as little code as possible</span>, but rather to provide utilities while leaving more freedom for <span>personal customization</span>.",
-                    "<span>As much modularity as possible</span>, no big objects, but smaller modules that interact.",
-                    "Each module is provided with <span>comments and type in jsDoc and ts interface</span> to facilitate completion. The entire project remains anyway. written in <span>vanilla javascript</span>."
+                    "It doesn't aim to write as little code as possible, but rather to provide utilities while leaving more freedom for personal customization.",
+                    "As much modularity as possible, no big objects, but smaller modules that interact.",
+                    "Each module is provided with comments and type in jsDoc and ts interface to facilitate completion. The entire project remains anyway. written in vanilla javascript."
                 ]
             }
         },
@@ -86,7 +85,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The modules under the <span>async</span> section are based entirely on the concept of <span>promise</span>, while the <span>sync</span> modules are based entirely on the concept of <span>time</span>. The modules are divided as follows to try to make the most of their strong points, and at the same time <span>keep the code more updatable</span>."
+            "content": "The modules under the async section are based entirely on the concept of promise, while the sync modules are based entirely on the concept of time. The modules are divided as follows to try to make the most of their strong points, and at the same time keep the code more updatable."
         },
         {
             "component": "mob-spacer",
@@ -99,8 +98,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h2"
             },
             "content": "Async:"
         },
@@ -130,9 +128,9 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "The single tween can be used <span>without other dependencies</span>",
-                    "<span>Lerp</span> and <span>Spring</span> can handle <span>interactive animations</span> such as <span>mouse trails</span>.",
-                    "In a timeline it is possible to exploit the <span>space between one tween and the next in a very precise manner</span> without approximations on time.",
+                    "The single tween can be used without other dependencies",
+                    "Lerp and Spring can handle interactive animations such as mouse trails.",
+                    "In a timeline it is possible to exploit the space between one tween and the next in a very precise manner without approximations on time.",
                     "Timelines very effectively handle looped animations that don't involve too much user interaction,"
                 ]
             }
@@ -149,7 +147,7 @@
             "props": {
                 "items": [
                     "The data transformations ( x, y, rotate, etc.. ) will all have the same 'duration' for each tween",
-                    "Within a timeline it is possible to <span>change direction only when a single tween is completed ( reverseNext )</span>, this is because as mentioned above the whole mechanism is based on the resolution of promises and not on time."
+                    "Within a timeline it is possible to change direction only when a single tween is completed ( reverseNext ), this is because as mentioned above the whole mechanism is based on the resolution of promises and not on time."
                 ]
             }
         },
@@ -164,8 +162,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h2"
             },
             "content": "Sync:"
         },
@@ -198,10 +195,10 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "It is possible to <span>manage the individual properties (x, y, rotate, etc..) independently</span>, the timing of each property is independent of the others.",
-                    "Timelines can handle <span>changes of direction</span> and so on <span>without limitations</span>.",
-                    "<span>Staggers</span> can be managed either at the <span>individual tween level</span>, or create <span>multiple tweens one for each stagger element</span> ( createStagger ).",
-                    "<span>ScrollTrigger</span> and <span>Parallax</span>"
+                    "It is possible to manage the individual properties (x, y, rotate, etc..) independently, the timing of each property is independent of the others.",
+                    "Timelines can handle changes of direction and so on without limitations.",
+                    "Staggers can be managed either at the individual tween level, or create multiple tweens one for each stagger element ( createStagger ).",
+                    "ScrollTrigger and Parallax"
                 ]
             }
         },
@@ -216,7 +213,7 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span>They are not standalone</span>, they require a timer ( syncTimeline ) or a scrollTrigger to be used.",
+                    "They are not standalone, they require a timer ( syncTimeline ) or a scrollTrigger to be used.",
                     "They cannot handle interactive animations like mouse trails"
                 ]
             }
@@ -232,8 +229,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h2"
             },
             "content": "Stagger:"
         },
@@ -242,7 +238,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Common utility for <span>sync</span> and <span>Async</span> animation"
+            "content": "Common utility for sync and Async animation"
         },
         {
             "component": "mob-list",
@@ -261,8 +257,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h2"
             },
             "content": "Defaults:"
         },

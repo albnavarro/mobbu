@@ -27,35 +27,35 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To define a route just create a function that <span>returns the DOM of the route</span>."
+            "content": "To define a route just create a function that returns the DOM of the route."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The function number corresponds to the <span>Location.hash</span> parameter of the window."
+            "content": "The function number corresponds to the Location.hash parameter of the window."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The route functions can be <span>asynchronous</span>, this is to allow the <span>fetching</span> of any data.<br/>The <span>function is executed before deleting the old route</span>, only when the data has been recovered and the data is ready will the new route be rendered."
+            "content": "The route functions can be asynchronous, this is to allow the fetching of any data.<br/>The function is executed before deleting the old route, only when the data has been recovered and the data is ready will the new route be rendered."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The function will have as input an object with the <span>route parameters</span> if present."
+            "content": "The function will have as input an object with the route parameters if present."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>it is not possible to use reactive props in the route as this module is not a component.</span>"
+            "content": "it is not possible to use reactive props in the route as this module is not a component."
         },
         {
             "component": "mob-spacer",
@@ -127,7 +127,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All the routes will then be <span>exported</span> and <span>imported</span> during the initialization of the app:"
+            "content": "All the routes will then be exported and imported during the initialization of the app:"
         },
         {
             "component": "mob-snippet",
@@ -200,8 +200,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Events"
         },
@@ -210,7 +209,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A series of <span>events are available to intercept and react to the change of route</span>, to do this a special store called <span>mainStore</span> is available. Being a store, all the methods listed in the <a href='./#mobCore_store'>store</a> apply"
+            "content": "A series of events are available to intercept and react to the change of route, to do this a special store called mainStore is available. Being a store, all the methods listed in the store apply"
         },
         {
             "component": "mob-spacer",
@@ -232,7 +231,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched <span>before the change of route</span>, as parameter we would have the name of the <span>next route</span>."
+            "content": "Event launched before the change of route, as parameter we would have the name of the next route."
         },
         {
             "component": "mob-snippet",
@@ -264,7 +263,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched <span>before the change of route</span>, as parameter we would have the name of the <span>previous route</span>."
+            "content": "Event launched before the change of route, as parameter we would have the name of the previous route."
         },
         {
             "component": "mob-snippet",
@@ -296,7 +295,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched <span>after the change of route</span>, as parameter we would have the name of the <span>current route</span>."
+            "content": "Event launched after the change of route, as parameter we would have the name of the current route."
         },
         {
             "component": "mob-snippet",

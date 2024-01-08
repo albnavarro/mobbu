@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>unBind</span> function detach the states that have been given a reactivity via bindProps, once the function is launched the states will no longer be responsive."
+            "content": "The unBind function detach the states that have been given a reactivity via bindProps, once the function is launched the states will no longer be responsive."
         },
         {
             "component": "mob-snippet",

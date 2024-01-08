@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Since the library uses <span>ES6 modules</span> without any type of compilation it is necessary to <span>define dependencies</span> such as <span>components</span>, <span>routes</span>, <span>before</span> initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
+            "content": "Since the library uses ES6 modules without any type of compilation it is necessary to define dependencies such as components, routes, before initializing the app.<br/> The following snippets outline the simplest way to initialize your app with dependencies."
         },
         {
             "component": "mob-spacer",
@@ -34,8 +34,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "index.html"
         },
@@ -44,7 +43,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The 'root' id</span> will be the DOM element where the <span>app will be initialized</span>."
+            "content": "The 'root' id will be the DOM element where the app will be initialized."
         },
         {
             "component": "mob-snippet",
@@ -66,8 +65,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Entry point"
         },
@@ -104,8 +102,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Import components"
         },
@@ -114,7 +111,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Import of all component definitions ( createComponent )</span>.<br/> <a href='./#mobJs_component'>Component structure</a>"
+            "content": "Import of all component definitions ( createComponent ).<br/> <a href='./#mobJs_component'>Component structure</a>"
         },
         {
             "component": "mob-snippet",
@@ -137,8 +134,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Import routes"
         },
@@ -147,7 +143,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Import of all page definitions</span>.<br/> <a href='./#mobJs_routing'>Routing</a>"
+            "content": "Import of all page definitions.<br/> <a href='./#mobJs_routing'>Routing</a>"
         },
         {
             "component": "mob-snippet",
@@ -176,8 +172,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Wrapper"
         },
@@ -186,7 +181,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The general wrapper that will host the pages</span>.<br/>Here the node in which to <span>load the individual pages/routes</span> is defined.<br/> It is already possible to use components by passing them <a href='./#mobJs_staticProps'>static props</a>, it is not possible to use reactive props in the wrapper as this <span>module is not a component</span>."
+            "content": "The general wrapper that will host the pages.<br/>Here the node in which to load the individual pages/routes is defined.<br/> It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component."
         },
         {
             "component": "mob-snippet",
@@ -215,8 +210,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params"
         },
@@ -225,7 +219,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The default parameters</span> with which the components will be created (optional)."
+            "content": "The default parameters with which the components will be created (optional)."
         },
         {
             "component": "mob-snippet",

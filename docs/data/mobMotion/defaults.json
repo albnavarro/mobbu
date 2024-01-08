@@ -21,13 +21,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All default parameters are grouped in an <span>editable object</span>.<br/> The object must be modified <span>before initializing the various modules</span>."
+            "content": "All default parameters are grouped in an editable object.<br/> The object must be modified before initializing the various modules."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -130,7 +129,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Override mobCore value</span>"
+            "content": "Override mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -168,35 +167,35 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Enable or disable <span>conditional module operation</span> on fps drop."
+            "content": "Enable or disable conditional module operation on fps drop."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "When there is a drop in fps equal to <span>0%, 50%, 70%</span> the <span>rendering is carried out on x frames</span>, this is to lighten the temporary load that led to a problem."
+            "content": "When there is a drop in fps equal to 0%, 50%, 70% the rendering is carried out on x frames, this is to lighten the temporary load that led to a problem."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>fpsScalePercent</span> allows you to <span>modify the number of activities in correspondence with a drop in fsp</span>, for example with a <span>30% drop in fps a rendering will be performed every 5 frames</span>."
+            "content": "fpsScalePercent allows you to modify the number of activities in correspondence with a drop in fsp, for example with a 30% drop in fps a rendering will be performed every 5 frames."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "We can <span>add or modify values</span> but not <span>delete existing values</span> (a deep merge of the object is done)."
+            "content": "We can add or modify values but not delete existing values (a deep merge of the object is done)."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Override mobCore value</span>"
+            "content": "Override mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -234,21 +233,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the property is true the callbacks relating to the nextTick event <span>will be executed after the request animation frame</span> as soon as possible, otherwise they <span>will be executed a moment before</span>.<br/>Inside nextTick, reading operations from the DOM are performed but never writing."
+            "content": "If the property is true the callbacks relating to the nextTick event will be executed after the request animation frame as soon as possible, otherwise they will be executed a moment before.<br/>Inside nextTick, reading operations from the DOM are performed but never writing."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The mechanism is enabled by default</span> to ensure that you have <span>performed all rendering operations before taking data from the DOM</span>.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
+            "content": "The mechanism is enabled by default to ensure that you have performed all rendering operations before taking data from the DOM.<br/>This brings greater security but creates a one frame offset in the rendering, which is absolutely negligible."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Override mobCore value</span>"
+            "content": "Override mobCore value"
         },
         {
             "component": "mob-snippet",
@@ -286,14 +285,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Throttle value in <span>milliseconds</span>, throttle can be used by <span>scrollTrigger/parallax</span>.<br/>Default is <span>100</span>"
+            "content": "Throttle value in milliseconds, throttle can be used by scrollTrigger/parallax.<br/>Default is 100"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Override moCore value</span>"
+            "content": "Override moCore value"
         },
         {
             "component": "mob-snippet",
@@ -331,14 +330,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can <span>add or edit values</span> in the <span>breakpoint list</span>."
+            "content": "You can add or edit values in the breakpoint list."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to specify the <span>default values that the modules that require them will use</span>, it will always be possible to overwrite this value in the appropriate module.<br/><span>Modules that use these values are scrollTrigger and parallax</span>."
+            "content": "It is possible to specify the default values that the modules that require them will use, it will always be possible to overwrite this value in the appropriate module.<br/>Modules that use these values are scrollTrigger and parallax."
         },
         {
             "component": "mob-snippet",

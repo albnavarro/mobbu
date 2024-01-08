@@ -25,14 +25,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to <span>add and remove</span> components even after the 'component function' has been executed by using the 'global' <span>parseDom</span> function to render the new component and the parameter <a href='./#mobJs_removeDom'> removeDOM</a> to remove it."
+            "content": "It is possible to add and remove components even after the 'component function' has been executed by using the 'global' parseDom function to render the new component and the parameter <a href='./#mobJs_removeDom'> removeDOM</a> to remove it."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "To have a <span>reactive</span> component you need to use the <span>syncParent</span> parameter.<br/> This will allow the new component to <span>link to the component in which it was defined</span>."
+            "content": "To have a reactive component you need to use the syncParent parameter.<br/> This will allow the new component to link to the component in which it was defined."
         },
         {
             "component": "mob-snippet",

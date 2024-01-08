@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Collection of commonly used events</span>.<br/> Each event is built with the <span>pub/sub model</span>.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> <span>Each subscription will be provided with an unsubscribe function when necessary</span>."
+            "content": "Collection of commonly used events.<br/> Each event is built with the pub/sub model.<br/> The listener remains active as long as there are subscribers, after which it is automatically disconnected.<br/> Each subscription will be provided with an unsubscribe function when necessary."
         },
         {
             "component": "mob-spacer",
@@ -39,7 +39,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "line": true,
                 "id": "useFrame",
                 "label": "useFrame"
             }
@@ -47,8 +46,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useFrame"
         },
@@ -63,9 +61,9 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "<span>fps</span>: current fps value: <span>number</span>",
-                    "<span>shouldRender</span>: Indicates a possible loss of frames compared to the optimal value: <span>boolean</span>",
-                    "<span>time</span>: current time: <span>number</span>"
+                    "fps: current fps value: number",
+                    "shouldRender: Indicates a possible loss of frames compared to the optimal value: boolean",
+                    "time: current time: number"
                 ]
             }
         },
@@ -96,8 +94,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useNextTick"
         },
@@ -106,7 +103,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched <span>just after the first available request animation frame</span>"
+            "content": "Event launched just after the first available request animation frame"
         },
         {
             "component": "mob-snippet",
@@ -135,8 +132,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useNextFrame"
         },
@@ -145,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to the <span>next available frame</span> allowing the creation of a request animation frame loop"
+            "content": "Event launched to the next available frame allowing the creation of a request animation frame loop"
         },
         {
             "component": "mob-snippet",
@@ -174,8 +170,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useFrameIndex"
         },
@@ -184,7 +179,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched to a <span>specific frame</span>."
+            "content": "Event launched to a specific frame."
         },
         {
             "component": "mob-snippet",
@@ -213,8 +208,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useLoad"
         },
@@ -223,7 +217,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched on <span>page load</span>"
+            "content": "Event launched on page load"
         },
         {
             "component": "mob-snippet",
@@ -252,8 +246,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useResize"
         },
@@ -262,18 +255,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched at <span>every resize</span> using a <span>debounce</span>"
+            "content": "Event launched at every resize using a debounce"
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "horizontalResize: <span>boolean</span>",
-                    "verticalResize: <span>boolean</span>",
-                    "documentHeight: <span>number</span>",
-                    "scrollY: <span>number</span>",
-                    "windowsHeight: <span>number</span>",
-                    "windowsWidth: <span>number</span>"
+                    "horizontalResize: boolean",
+                    "verticalResize: boolean",
+                    "documentHeight: number",
+                    "scrollY: number",
+                    "windowsHeight: number",
+                    "windowsWidth: number"
                 ]
             }
         },
@@ -304,8 +297,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useVisibilityChange"
         },
@@ -314,14 +306,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on <span>tab change</span>."
+            "content": "Add callback on tab change."
         },
         {
             "component": "mob-list",
             "props": {
-                "items": [
-                    "visibilityState: <span>hidden</span> | <span>visible</span>"
-                ]
+                "items": ["visibilityState: hidden | visible"]
             }
         },
         {
@@ -351,8 +341,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useMouseClick"
         },
@@ -374,17 +363,17 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on <span>mouse/touch event</span>"
+            "content": "Add callback on mouse/touch event"
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: <span>number</span> y: <span>number</span> }",
-                    "client: { x: <span>number</span> y: <span>number</span> }",
-                    "target: <span>Element</span>",
-                    "type: <span>mouseEvent</span>",
-                    "preventDefault: <span>function</span>"
+                    "page: { x: number y: number }",
+                    "client: { x: number y: number }",
+                    "target: Element",
+                    "type: mouseEvent",
+                    "preventDefault: function"
                 ]
             }
         },
@@ -415,8 +404,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useMouseWheel"
         },
@@ -425,21 +413,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Add callback on <span>mouse wheel</span>."
+            "content": "Add callback on mouse wheel."
         },
         {
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: <span>number</span>; y: <span>number</span>; }",
-                    "client: { x: <span>number</span>; y: <span>number</span>; }",
-                    "target: <span>Element</span>",
-                    "type: <span>mouseEvent</span>",
-                    "preventDefault: <span>function</span>",
-                    "spinX: <span>number</span>",
-                    "spinY: <span>number</span>",
-                    "pixelX: <span>number</span>",
-                    "pixelY: <span>number</span>"
+                    "page: { x: number; y: number; }",
+                    "client: { x: number; y: number; }",
+                    "target: Element",
+                    "type: mouseEvent",
+                    "preventDefault: function",
+                    "spinX: number",
+                    "spinY: number",
+                    "pixelX: number",
+                    "pixelY: number"
                 ]
             }
         },
@@ -464,8 +452,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useScroll"
         },
@@ -474,7 +461,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Perform a callback to the <span>first nextTick available after scrolling</span>"
+            "content": "Perform a callback to the first nextTick available after scrolling"
         },
         {
             "component": "mob-list",
@@ -509,8 +496,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useScrollImmediate"
         },
@@ -519,7 +505,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback <span>immediately on scroll</span>"
+            "content": "Execute a callback immediately on scroll"
         },
         {
             "component": "mob-list",
@@ -554,8 +540,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useScrollThrottle"
         },
@@ -564,7 +549,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Performs a scroll callback using a <span>throttle function</span>"
+            "content": "Performs a scroll callback using a throttle function"
         },
         {
             "component": "mob-list",
@@ -599,8 +584,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "useScrollStart | useScrollEnd"
         },
@@ -609,7 +593,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Execute a callback at the <span>beginning/end of the scroll</span>"
+            "content": "Execute a callback at the beginning/end of the scroll"
         },
         {
             "component": "mob-list",
@@ -644,8 +628,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Check type"
         },
@@ -654,7 +637,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Compares the type of a variable</span>, returns a boolean value:"
+            "content": "Compares the type of a variable, returns a boolean value:"
         },
         {
             "component": "mob-list",

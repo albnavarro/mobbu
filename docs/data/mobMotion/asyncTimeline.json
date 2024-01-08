@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Async timeline is a <span>promise manager</span>., it allows you to <span>coordinate tween, lerp and spring</span>, it can manage <span>single tweens</span> or <span>groups of tweens</span>. Manages <spna>loops</span> and allows you to use <span>custom functions</span> between different tweens."
+            "content": "Async timeline is a promise manager., it allows you to coordinate tween, lerp and spring, it can manage single tweens or groups of tweens. Manages loops and allows you to use custom functions between different tweens."
         },
         {
             "component": "mob-spacer",
@@ -32,8 +32,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -81,7 +80,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines the <span>number of loops</span> to run.</br><span>Number -1</span> means that the timeline will run in an <span>infinite loop</span>."
+            "content": "Determines the number of loops to run.</br>Number -1 means that the timeline will run in an infinite loop."
         },
         {
             "component": "mob-spacer",
@@ -101,7 +100,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reverse the direction</span> each time the timeline ends.<br/><span>The current/arrival/destination values of each tween will be reversed according to the timeline.</span>"
+            "content": "Reverse the direction each time the timeline ends.<br/>The current/arrival/destination values of each tween will be reversed according to the timeline."
         },
         {
             "component": "mob-spacer",
@@ -121,7 +120,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": " By <span>default</span> when a <span>play or a playReverse</span> is performed a <span>`set method`</span> is executed on each tween using the <span>`initial values`</span> (play) or the <span>`final values`</span> (playReverse) to make each tween <span>start from a 'neutral' position</span> regardless of its value current. Sets are not saved in the timeline but are <span>`temporary`</span>. <span>If the `freeMode` property is set to `true`</span> a sets are not executed so that <span>multiple timelines can control the same tweens</span> always starting from the current value of each tween.<br/> <span>`The default is false`</span>. "
+            "content": " By default when a play or a playReverse is performed a `set method` is executed on each tween using the `initial values` (play) or the `final values` (playReverse) to make each tween start from a 'neutral' position regardless of its value current. Sets are not saved in the timeline but are `temporary`. If the `freeMode` property is set to `true` a sets are not executed so that multiple timelines can control the same tweens always starting from the current value of each tween.<br/> `The default is false`. "
         },
         {
             "component": "mob-spacer",
@@ -141,7 +140,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created</span>. The newly created methods will be <span>`permanently`</span> added to the <span>start and ends</span> of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
+            "content": "If `autoSet` is set to true for each tween a `set method` corresponding to the `beginning` and `end` of the same timeline will be created. The newly created methods will be `permanently` added to the start and ends of the timeline. As these sets are permanent unlike the default behavior (with freeMode = false) during a repeat the timeline will always restart from the initial (or final) value. "
         },
         {
             "component": "mob-spacer",
@@ -154,8 +153,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "code example"
         },
@@ -186,8 +184,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "tween params and override"
         },
@@ -196,7 +193,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The parameters relating to each instance</span> will be used, if necessary, according to the following scheme, in addition there is the <span>delay</span> parameter expressed in milliseconds."
+            "content": "The parameters relating to each instance will be used, if necessary, according to the following scheme, in addition there is the delay parameter expressed in milliseconds."
         },
         {
             "component": "mob-spacer",
@@ -232,8 +229,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Set"
         },
@@ -258,8 +254,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goTo"
         },
@@ -284,8 +279,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFrom"
         },
@@ -310,8 +304,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFromTo"
         },
@@ -336,8 +329,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "add/addAsync"
         },
@@ -366,9 +358,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>resolve</span>: the resolve function",
-                    "<span>loop</span>: current loop counter",
-                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                    "resolve: the resolve function",
+                    "loop: current loop counter",
+                    "direction: current direction 'forward | backward'"
                 ]
             }
         },
@@ -393,8 +385,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "sync"
         },
@@ -403,7 +394,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Synchronize the current values of one tween with another. <span>Cannot be used within a group</span>."
+            "content": "Synchronize the current values of one tween with another. Cannot be used within a group."
         },
         {
             "component": "mob-snippet",
@@ -426,8 +417,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "create/closeGroup"
         },
@@ -436,16 +426,13 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Manages multiple instances in parallel.</span><br/> The <span>waitComplete</span> parameter allows you to decide whether the group is resolved when the last tween is resolved ( <span>promiseAll</span>) or when the first is resolved ( <span>promiseRace</span> )."
+            "content": "Manages multiple instances in parallel.<br/> The waitComplete parameter allows you to decide whether the group is resolved when the last tween is resolved ( promiseAll) or when the first is resolved ( promiseRace )."
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": [
-                    "<span>true</span>: promiseAll",
-                    "<span>false</span>: promiseRace"
-                ]
+                "items": ["true: promiseAll", "false: promiseRace"]
             }
         },
         {
@@ -453,7 +440,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Within a group each instance will still be able to use the <span>delay property</span>."
+            "content": "Within a group each instance will still be able to use the delay property."
         },
         {
             "component": "mob-snippet",
@@ -476,8 +463,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "suspend"
         },
@@ -486,7 +472,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Put the <span>timeline on hold</span>, through the <span>resume()</span> method, the timeline will restart. As with add/addAsync remove will only be executed when the previous tween is completely finished."
+            "content": "Put the timeline on hold, through the resume() method, the timeline will restart. As with add/addAsync remove will only be executed when the previous tween is completely finished."
         },
         {
             "component": "mob-snippet",
@@ -509,8 +495,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "label"
         },
@@ -542,8 +527,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "setTween"
         },
@@ -552,7 +536,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Since asyncTimeline does not reason with time</span>, it may happen that using the playFrom(label) method some tweens with a <span>delay applied are not immediately aligned to the starting point</span> specified by the label. To overcome this (but it can also be useful in other cases) the <span>setTween method allows you to align the desired tweens to a label</span> after which we can, for example, start from the same label:"
+            "content": "Since asyncTimeline does not reason with time, it may happen that using the playFrom(label) method some tweens with a delay applied are not immediately aligned to the starting point specified by the label. To overcome this (but it can also be useful in other cases) the setTween method allows you to align the desired tweens to a label after which we can, for example, start from the same label:"
         },
         {
             "component": "mob-snippet",
@@ -575,8 +559,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "play/playReverse/stop"
         },
@@ -585,14 +568,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>play</span>, <span>play reverse</span> and <span>stop</span> of the timeline. The <span>play()</span> and <span>playReverse()</span> methods <span>will return a promise when the timeline is completed</span>."
+            "content": "play, play reverse and stop of the timeline. The play() and playReverse() methods will return a promise when the timeline is completed."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>stop()</span> method has as its parameter the possibility of <span>clearing the stagger cache</span> if <span>subscribeCache</span> has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
+            "content": "The stop() method has as its parameter the possibility of clearing the stagger cache if subscribeCache has been used (by default it is true).<br/> If disabled at the stop event the staggers will finish their path by aligning with the first element."
         },
         {
             "component": "mob-snippet",
@@ -615,8 +598,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "playFrom/playFromReverse"
         },
@@ -648,8 +630,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "pause/resume"
         },
@@ -681,8 +662,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "reverseNext"
         },
@@ -714,8 +694,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onLoopEnd/onComplete"
         },
@@ -724,14 +703,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "There are two methods, <span>onLoopEnd</span> and <span>onComplete</span>."
+            "content": "There are two methods, onLoopEnd and onComplete."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Both events will return an <span>unsubscribe function</span>."
+            "content": "Both events will return an unsubscribe function."
         },
         {
             "component": "mob-spacer",
@@ -751,8 +730,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>loop</span>: current loop counter",
-                    "<span>direction</span>: current direction <span>'forward | backward'</span>"
+                    "loop: current loop counter",
+                    "direction: current direction 'forward | backward'"
                 ]
             }
         },
@@ -783,8 +762,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "destroy"
         },
@@ -793,7 +771,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Destroy function.<br/>The destroy function will also destroy <span>all the tweens that have been used</span>, and it is advisable to also <span>cancel the references to the individual tweens</span>."
+            "content": "Destroy function.<br/>The destroy function will also destroy all the tweens that have been used, and it is advisable to also cancel the references to the individual tweens."
         },
         {
             "component": "mob-snippet",

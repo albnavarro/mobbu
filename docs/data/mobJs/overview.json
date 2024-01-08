@@ -19,8 +19,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "javascript component library"
         },
@@ -42,7 +41,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The <span>mobJs</span> and <span>mobCore</span> folders must be at the same level."
+            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The mobJs and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",

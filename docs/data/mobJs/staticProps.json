@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>staticProps</span> function allows you to pass static values to the state of a component without triggering any reactivity."
+            "content": "The staticProps function allows you to pass static values to the state of a component without triggering any reactivity."
         },
         {
             "component": "mob-paragraph",

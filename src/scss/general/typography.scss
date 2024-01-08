@@ -78,11 +78,12 @@ p {
 .p,
 .ul {
     &--small {
-        font-size: rem(14);
+        font-size: rem(12);
     }
 
     &--medium {
-        font-size: rem(18);
+        font-size: rem(16);
+        line-height: line-height(16, 24);
     }
 
     &--big {

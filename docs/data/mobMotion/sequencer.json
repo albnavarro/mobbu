@@ -48,7 +48,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "We can see the duration property as its main property. <span>It is not a time value, but rather a numerical range, which by default is 10.</span>"
+            "content": "We can see the duration property as its main property. It is not a time value, but rather a numerical range, which by default is 10."
         },
         {
             "component": "mob-paragraph",
@@ -62,7 +62,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "In fact we can think of a <span>musical sequencer</span> where we are free to move the beginning and end of each track. If our track lasts 2.30 minutes we can set this value and manage the attack and end of each individual instrument within our track."
+            "content": "In fact we can think of a musical sequencer where we are free to move the beginning and end of each track. If our track lasts 2.30 minutes we can set this value and manage the attack and end of each individual instrument within our track."
         },
         {
             "component": "mob-paragraph",
@@ -142,8 +142,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goTo"
         },
@@ -152,14 +151,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The goTo method takes the values <span>from the current state</span> to the state indicated in the <span>first parameter</span>."
+            "content": "The goTo method takes the values from the current state to the state indicated in the first parameter."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In the second parameter we define the <span>start</span> and <span>end</span> value in the range defined by us, we can also apply a specific easing."
+            "content": "In the second parameter we define the start and end value in the range defined by us, we can also apply a specific easing."
         },
         {
             "component": "mob-list",
@@ -176,7 +175,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The value can be <span>numeric</span> or the <span>result of a function</span>, in this case it will be possible to vary the value while running"
+            "content": "The value can be numeric or the result of a function, in this case it will be possible to vary the value while running"
         },
         {
             "component": "mob-snippet",
@@ -199,8 +198,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFrom"
         },
@@ -232,8 +230,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "goFromTo"
         },
@@ -265,8 +262,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "add"
         },
@@ -275,7 +271,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to execute a <span>custom function</span> at a certain point of the duration value. The callback will be launched <span>as soon as the indicated value is exceeded</span>, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
+            "content": "It is possible to execute a custom function at a certain point of the duration value. The callback will be launched as soon as the indicated value is exceeded, sequencer and syncTimeline are not based on promsie therefore it is necessary to intercept the first available moment in which to execute the function."
         },
         {
             "component": "mob-paragraph",
@@ -337,7 +333,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>'backward' | 'forward' | 'none'</span>"
+            "content": "'backward' | 'forward' | 'none'"
         },
         {
             "component": "mob-spacer",
@@ -366,8 +362,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "label"
         },
@@ -399,8 +394,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "subscribe"
         },
@@ -409,14 +403,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The subscribe method will allow us to apply the values in <span>real time</span> to our target."
+            "content": "The subscribe method will allow us to apply the values in real time to our target."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The subscribe() method always returns an <span>unsubscribe()</span> function"
+            "content": "The subscribe() method always returns an unsubscribe() function"
         },
         {
             "component": "mob-snippet",
@@ -439,8 +433,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "subscribeCache"
         },
@@ -449,14 +442,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of <a href='./#mobMotion_stagger'>stagger</a> by optimizing <span>memory consumption</span>."
+            "content": "While the subscribe method stores the entire function for the number of targets used, the subscribeCache method stores the target and the function only once, and creates an array with only the numeric values to pass to the function.<br/> This method is specific for the use of stagger by optimizing memory consumption."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike the subscribe method, subscribeCache requires <span>two parameters</span>, the <span>first is the target</span>, the <span>second is the callback</span> to execute."
+            "content": "Unlike the subscribe method, subscribeCache requires two parameters, the first is the target, the second is the callback to execute."
         },
         {
             "component": "mob-snippet",
@@ -479,8 +472,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "onStop"
         },
@@ -489,7 +481,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the <span>GPU</span> unnecessarily:"
+            "content": "The onStop method is launched when the animation/scrollTrigger is stopped, it can be used for example to inhibit the use of the GPU unnecessarily:"
         },
         {
             "component": "mob-snippet",
@@ -512,8 +504,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "masterSequencer"
         },
@@ -522,7 +513,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>masterSequencer</span> allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion_create_stagger'>createStagger</a>"
+            "content": "The masterSequencer allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion_create_stagger'>createStagger</a>"
         },
         {
             "component": "mob-snippet",
@@ -545,8 +536,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "createStagger"
         },

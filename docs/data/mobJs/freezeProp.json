@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The freezeProp() function <span>momentarily freezes a state</span>, inhibiting any mutation made by <span>setState()</span>."
+            "content": "The freezeProp() function momentarily freezes a state, inhibiting any mutation made by setState()."
         },
         {
             "component": "mob-paragraph",

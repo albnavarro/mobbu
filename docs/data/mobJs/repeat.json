@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>repeat</span> function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
+            "content": "The repeat function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
         },
         {
             "component": "mob-paragraph",
@@ -43,8 +43,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -109,9 +108,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>element</span>: Root component HTMLElement ",
-                    "<span>container</span>: List container HTMLElement.",
-                    "<span>childrenId</span>: Active Children ids."
+                    "element: Root component HTMLElement ",
+                    "container: List container HTMLElement.",
+                    "childrenId: Active Children ids."
                 ]
             }
         },
@@ -134,9 +133,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>element</span>: Root component HTMLElement ",
-                    "<span>container</span>: List container HTMLElement.",
-                    "<span>childrenId</span>: Active Children ids."
+                    "element: Root component HTMLElement ",
+                    "container: List container HTMLElement.",
+                    "childrenId: Active Children ids."
                 ]
             }
         },
@@ -159,8 +158,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>html</span>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "<strong><span>sync</span></strong>: sync props is necessary (<span>obbligatorie</span>) for tracking key and and the current value of the state observed."
+                    "html: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
+                    "sync: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed."
                 ]
             }
         },
@@ -173,8 +172,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Note:"
         },
@@ -190,7 +188,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "When using the <span>bindProps/bindEvent/delegateEvent</span> functions, it is possible to use the two attributes <span>index and current ( _index and _current in the case of bindProps)</span> to update the state of the component with the corresponding value of the observed array"
+            "content": "When using the bindProps/bindEvent/delegateEvent functions, it is possible to use the two attributes index and current ( _index and _current in the case of bindProps) to update the state of the component with the corresponding value of the observed array"
         },
         {
             "component": "mob-spacer",

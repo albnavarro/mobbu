@@ -19,7 +19,7 @@
     a {
         transition: opacity 0.35s;
         color: $green;
-        text-decoration: underline;
+        // text-decoration: underline;
 
         &:hover {
             opacity: 0.5;
@@ -33,13 +33,35 @@
 
     /* stylelint-disable-next-line no-descending-specificity */
     li > a {
-        color: $white;
-        background: rgba($white, 0.08);
+        background: rgba($black, 1);
         padding: rem(5) rem(10);
         border-radius: rem(20);
-        display: inline-block;
         margin-bottom: rem(10);
         margin-right: rem(10);
+        display: inline-block;
         text-decoration: none;
+        min-width: 300px;
+        color: $white;
+        text-align: center;
+        transition: background 0.35s;
+        font-size: rem(14);
+
+        &:hover {
+            background: rgba($black, 0.2);
+        }
+    }
+
+    p,
+    code,
+    li,
+    h5,
+    h6 {
+        margin-left: rem(10);
+    }
+
+    h3 {
+        border-bottom: 1px rgba($white, 0.05) solid;
+        padding-bottom: rem(20);
+        margin-bottom: rem(40);
     }
 }

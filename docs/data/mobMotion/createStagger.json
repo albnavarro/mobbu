@@ -21,14 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Createstagger is a specific utility for sequencers.</span>"
+            "content": "Createstagger is a specific utility for sequencers."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike <a href='./#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to <span>synchronize multiple senquencers</span> using the stagger scheme. <span>createStagger returns an array with precomputed start and end values</span>."
+            "content": "Unlike <a href='./#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
         },
         {
             "component": "mob-spacer",
@@ -39,8 +39,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "Examples: ( scrollTrigger based )"
         },
@@ -66,8 +65,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "createStagger schema:"
         },
@@ -90,8 +88,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "Usage:"
         },
@@ -129,8 +126,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "type:"
         },
@@ -139,7 +135,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Type is a special property of <span>createStagger</span>:"
+            "content": "Type is a special property of createStagger:"
         },
         {
             "component": "mob-spacer",
@@ -150,8 +146,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "equal:"
         },
@@ -160,7 +155,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All the instances will have the <span>same duration</span>.<br/> The <span>value 0</span> has no effect.<br/> The <span>value 1</span> will ensure that <span>all the instances will start in sequence</span>, the end of the previous one corresponds to the beginning of the next.</br> <span>Above the value 1</span> the instances will begin to overlap while always maintaining the same duration.<br/> "
+            "content": "All the instances will have the same duration.<br/> The value 0 has no effect.<br/> The value 1 will ensure that all the instances will start in sequence, the end of the previous one corresponds to the beginning of the next.</br> Above the value 1 the instances will begin to overlap while always maintaining the same duration.<br/> "
         },
         {
             "component": "mob-spacer",
@@ -171,8 +166,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "start:"
         },
@@ -181,7 +175,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All staggers will have a <span>different duration</span>. They will <span>start at the same time</span> and will <span>reach the maximum value at different times</span>."
+            "content": "All staggers will have a different duration. They will start at the same time and will reach the maximum value at different times."
         },
         {
             "component": "mob-spacer",
@@ -192,8 +186,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "end:"
         },
@@ -202,7 +195,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All staggers will have a <span>different duration</span>. They will <span>start at different times</span> and will <span>reach the maximum value at the same time</span>."
+            "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at the same time."
         },
         {
             "component": "mob-spacer",
@@ -213,8 +206,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "center:"
         },
@@ -223,7 +215,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "All staggers will have a <span>different duration</span>. They will <span>start at different times</span> and will <span>reach the maximum value at different times</span>, the <span>first will start first and will be the slowest</span>, the <span>last will start at the end and will be the fastest</span>."
+            "content": "All staggers will have a different duration. They will start at different times and will reach the maximum value at different times, the first will start first and will be the slowest, the last will start at the end and will be the fastest."
         },
         {
             "component": "mob-spacer",
@@ -236,8 +228,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "each"
         },
@@ -246,7 +237,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The each parameter behaves differently from the default stagger:<br/><span>The higher the value of each, the smaller the difference in duration will be</span>."
+            "content": "The each parameter behaves differently from the default stagger:<br/>The higher the value of each, the smaller the difference in duration will be."
         },
         {
             "component": "mob-spacer",
@@ -265,8 +256,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "waitComplete"
         },
@@ -294,8 +284,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "from"
         },
@@ -323,8 +312,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "grid"
         },

@@ -12,28 +12,28 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This site is the result of the <span>work carried out in recent years</span>."
+            "content": "This site is the result of the work carried out in recent years."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The main reason why it was created was the need to have my <span>own tools disconnected from the commercial flow</span> to be able to carry on my work without having to follow the flows of other organizations/people."
+            "content": "The main reason why it was created was the need to have my own tools disconnected from the commercial flow to be able to carry on my work without having to follow the flows of other organizations/people."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Since it is a project designed for <span>personal use</span>, <span>no npm packages</span> have been created, the project will however remain <span>open source</span>."
+            "content": "Since it is a project designed for personal use, no npm packages have been created, the project will however remain open source."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The site is <span>designed for desktop use</span>, on a mobile level the bare minimum has been done.<br/><span>Safai has fairly poor canvas support, please don't use safari</span>."
+            "content": "The site is designed for desktop use, on a mobile level the bare minimum has been done.<br/>Safai has fairly poor canvas support, please don't use safari."
         },
         {
             "component": "mob-paragraph",
@@ -51,8 +51,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "1- Less dependencies."
         },
@@ -61,7 +60,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Not relying on third-party dependencies</span>, even at the cost of reinventing the wheel, is necessary to develop something that is as <span>maintainable as possible</span>, and why not as <span>original as possible</span>."
+            "content": "Not relying on third-party dependencies, even at the cost of reinventing the wheel, is necessary to develop something that is as maintainable as possible, and why not as original as possible."
         },
         {
             "component": "mob-spacer",
@@ -72,8 +71,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "2- Es modules"
         },
@@ -82,7 +80,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Each tool should <span>hypothetically</span> be able to run in the browser natively <span>without the need for bundlers</span>.<br/>This is why I opted to use <span>jsDoc + single d.ts files</span> over a typescript project."
+            "content": "Each tool should hypothetically be able to run in the browser natively without the need for bundlers.<br/>This is why I opted to use jsDoc + single d.ts files over a typescript project."
         },
         {
             "component": "mob-spacer",
@@ -93,8 +91,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "3- Learn from others."
         },
@@ -103,7 +100,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Take everything that's good about existing tools at a conceptual level.</span>"
+            "content": "Take everything that's good about existing tools at a conceptual level."
         },
         {
             "component": "mob-spacer",
@@ -116,28 +113,28 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Although the project may seem to have been created for distribution, <span>it was created exclusively for personal use</span>, the present <span>documentation was primarily for myself to have a complete picture of the work done</span>.<br/>Of course, if anyone ever finds the project interesting, the code is open and available to everyone."
+            "content": "Although the project may seem to have been created for distribution, it was created exclusively for personal use, the present documentation was primarily for myself to have a complete picture of the work done.<br/>Of course, if anyone ever finds the project interesting, the code is open and available to everyone."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "In addition to being code, this site also wants to be, over time, <span>a showcase for more purely graphic works</span>, which is why the <span>intention is to have a tool that can be as long-lived and maintainable as possible</span>."
+            "content": "In addition to being code, this site also wants to be, over time, a showcase for more purely graphic works, which is why the intention is to have a tool that can be as long-lived and maintainable as possible."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "This project was also and above all possible thanks to the <span>effort of the open-source community</span>.<br/>A special thanks to all the people who freely carry out the <a href='https://neovim.io/' target='_blank'>Neovim</a> project or tools like <a href='https://inkscape.org/' target='_blank'>inkscape</a>, everything I have managed to achieve has been done thanks to these people."
+            "content": "This project was also and above all possible thanks to the effort of the open-source community.<br/>A special thanks to all the people who freely carry out the <a href='https://neovim.io/' target='_blank'>Neovim</a> project or tools like <a href='https://inkscape.org/' target='_blank'>inkscape</a>, everything I have managed to achieve has been done thanks to these people."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Another special thanks to <span>skateboarding</span> and <span>writing</span>, thanks to you I'm still here today."
+            "content": "Another special thanks to skateboarding and writing, thanks to you I'm still here today."
         },
         {
             "component": "mob-spacer",

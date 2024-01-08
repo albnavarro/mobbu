@@ -101,7 +101,6 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                         },
                     ],
                     style: 'legend',
-                    color: 'green',
                 })}
             >
             </code-button>

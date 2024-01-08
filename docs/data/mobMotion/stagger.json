@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The stagger's task is to calculate the number of delay frames for each subscriber of the tween</span>. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames."
+            "content": "The stagger's task is to calculate the number of delay frames for each subscriber of the tween. The stagger does not generate new instances of our tween it simply manages their rendering over time in specific request animation frames."
         },
         {
             "component": "mob-paragraph",
@@ -42,14 +42,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If we had <span>2 subscribers</span>, in the simplest case, with a value of each equal to 2 we could have a situation like:"
+            "content": "If we had 2 subscribers, in the simplest case, with a value of each equal to 2 we could have a situation like:"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>first subscriber</span> will use the frames: <span>0,1,2,3,4,...</span><br/> The <span>second subscriber</span> will use the frames: <span>2,3,4,5,6,...</span><br/> Naturally the offset value will vary <span>based on the frame rate</span>."
+            "content": "The first subscriber will use the frames: 0,1,2,3,4,...<br/> The second subscriber will use the frames: 2,3,4,5,6,...<br/> Naturally the offset value will vary based on the frame rate."
         },
         {
             "component": "mob-spacer",
@@ -126,21 +126,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Determines whether the tween is considered completed when the sagger for the <span>first subscriber is launched ( waitComplete: false )</span> or for the <span>last subscriber ( waitComplete: true )</span>."
+            "content": "Determines whether the tween is considered completed when the sagger for the first subscriber is launched ( waitComplete: false ) or for the last subscriber ( waitComplete: true )."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The <a href='./#animatedPatternN0?version=2&activeId=2'>animated pattern</a> modules are based on this mechanism"
+            "content": "The animated pattern modules are based on this mechanism"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Using waitComplete: false the loops of the tweens synchronized by a <a href='./#mobMotion_async_timeline'>asyncTimeline</a> will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
+            "content": "Using waitComplete: false the loops of the tweens synchronized by a asyncTimeline will repeat without taking into account the duration of the staggers which will have an 'own life'. Thus, an affect of continuous movement can be created by concatenating several tweens."
         },
         {
             "component": "mob-snippet",
@@ -186,7 +186,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>{ x: number, y: number }</span> object will only take effect with a value of the <span>grid: { direction: 'radial' }</span> parameter"
+            "content": "The { x: number, y: number } object will only take effect with a value of the grid: { direction: 'radial' } parameter"
         },
         {
             "component": "mob-snippet",

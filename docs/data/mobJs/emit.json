@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore_store'>store class</a>. The <span>emit()</span> function is equivalent to <span>myStore.emit()</span>."
+            "content": "The state of the component is actually managed by an instance of the <a href='./#mobCore_store'>store class</a>. The emit() function is equivalent to myStore.emit()."
         },
         {
             "component": "mob-paragraph",

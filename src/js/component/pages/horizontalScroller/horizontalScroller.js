@@ -174,7 +174,6 @@ export const HorizontalScroller = ({
                     },
                 ],
                 style: 'legend',
-                color: 'green',
             })}
         >
         </code-button>

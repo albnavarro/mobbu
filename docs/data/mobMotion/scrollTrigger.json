@@ -21,14 +21,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To be activated, the <span>init</span> method must be executed."
+            "content": "To be activated, the init method must be executed."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike <span>parallax which reasons by speed/multipliers</span>, scrollTrigger allows you to reason in <span>absolute values</span> from point A ( <span>start</span> ) to point B ( <span>end</span> )."
+            "content": "Unlike parallax which reasons by speed/multipliers, scrollTrigger allows you to reason in absolute values from point A ( start ) to point B ( end )."
         },
         {
             "component": "mob-snippet",
@@ -49,8 +49,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Params:"
         },
@@ -81,8 +80,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "DOM Element"
         },
@@ -98,7 +96,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The default subject to apply transformations to. If you use the <span>pin</span> property it will be applied to this element."
+            "content": "The default subject to apply transformations to. If you use the pin property it will be applied to this element."
         },
         {
             "component": "mob-spacer",
@@ -118,7 +116,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A DOM node other than <span>item</span> to be used as a reference for <span>position, height, and width</span> calculations."
+            "content": "A DOM node other than item to be used as a reference for position, height, and width calculations."
         },
         {
             "component": "mob-spacer",
@@ -138,7 +136,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A DOM node other than <span>item</span> to apply transformations to."
+            "content": "A DOM node other than item to apply transformations to."
         },
         {
             "component": "mob-spacer",
@@ -158,7 +156,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>scrollable node</span> in which the target is contained.<br/> The default is <span>window</span>."
+            "content": "The scrollable node in which the target is contained.<br/> The default is window."
         },
         {
             "component": "mob-spacer",
@@ -178,7 +176,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A node that contains the <span>scrollable element</span>.<br/> The default is <span>window</span>."
+            "content": "A node that contains the scrollable element.<br/> The default is window."
         },
         {
             "component": "mob-spacer",
@@ -197,8 +195,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "breakpoint"
         },
@@ -214,7 +211,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Reference breakpoint</span>, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
+            "content": "Reference breakpoint, it will be possible to add custom values in Default utils"
         },
         {
             "component": "mob-spacer",
@@ -234,7 +231,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "determines whether the scrollTriger should be active from <span>breakpoint up</span> or <span>up to the breakpoint</span>."
+            "content": "determines whether the scrollTriger should be active from breakpoint up or up to the breakpoint."
         },
         {
             "component": "mob-spacer",
@@ -253,8 +250,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "propierties"
         },
@@ -263,23 +259,23 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>built-in propierties:</span>"
+            "content": "built-in propierties:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>y</span>",
-                    "<span>x</span>",
-                    "<span>rotate</span>",
-                    "<span>rotateY</span>",
-                    "<span>rotateX</span>",
-                    "<span>rotateZ</span>",
-                    "<span>opacity</span>",
-                    "<span>scale</span>",
-                    "<span>scaleX</span>",
-                    "<span>scaleY</span>"
+                    "y",
+                    "x",
+                    "rotate",
+                    "rotateY",
+                    "rotateX",
+                    "rotateZ",
+                    "opacity",
+                    "scale",
+                    "scaleX",
+                    "scaleY"
                 ]
             }
         },
@@ -288,14 +284,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>custom scrollerTween/sequencer:</span>"
+            "content": "custom scrollerTween/sequencer:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>tween</span>: use external <span>scrollerTween/sequencer</span> for complex animation"
+                    "tween: use external scrollerTween/sequencer for complex animation"
                 ]
             }
         },
@@ -310,8 +306,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "range"
         },
@@ -320,13 +315,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Property that defines the calculation of the distance value.<br/><span>Valid only if you use simple built-in propierties</span><br/>Must be a <span>string</span>"
+            "content": "Property that defines the calculation of the distance value.<br/>Valid only if you use simple built-in propierties<br/>Must be a string"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "1) x | y"
         },
@@ -335,18 +335,23 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>+/-100px:</span> move by +-100 pixel",
-                    "<span>+/-100vw | +/-100vh:</span> move by +-100 fractions of viewport",
-                    "<span>+/-100w | +/-100h:</span> move by +-100 fractions of itself",
-                    "The propierties will be <span>re-calculated at each resize</span>"
+                    "+/-100px: move by +-100 pixel",
+                    "+/-100vw | +/-100vh: move by +-100 fractions of viewport",
+                    "+/-100w | +/-100h: move by +-100 fractions of itself",
+                    "The propierties will be re-calculated at each resize"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "2) rotate | rotateY | rotateX | rotateZ"
         },
@@ -355,13 +360,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>45deg</span> |  <span>-45deg</span>, The default value is 0."
+            "content": "45deg |  -45deg, The default value is 0."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "3) scale | scaleX | scaleY"
         },
@@ -370,13 +380,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "example: <span>+/-0.5</span>, The scale property is increased by 0.5, th default value is 0."
+            "content": "example: +/-0.5, The scale property is increased by 0.5, th default value is 0."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "4) opacity"
         },
@@ -385,13 +400,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>+/-</span> number between 0 and 1."
+            "content": "+/- number between 0 and 1."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "5) customCssPropierites"
         },
@@ -403,10 +423,15 @@
             "content": "('margin', 'padding-left', etc ...) Each value will be converted to px, no unit misure is needed."
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "6) tween"
         },
@@ -415,7 +440,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>If a tween is used</span> there are no options the value will be controlled by the <span>sequencer/scrollerTween</span> itself."
+            "content": "If a tween is used there are no options the value will be controlled by the sequencer/scrollerTween itself."
         },
         {
             "component": "mob-spacer",
@@ -444,8 +469,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "dynamicRange"
         },
@@ -454,18 +478,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Alternative to the range property.<br/><span>Valid only if you use simple built-in transformations</span>"
+            "content": "Alternative to the range property.<br/>Valid only if you use simple built-in transformations"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "The transformation value calculated through the <span>use of a function</span>.",
-                    "The result of the function <span>will be used in px</span>.",
-                    "The function will be <span>re-executed at each resize</span>.",
-                    "If used, it will take <span>priority over the range method</span>.",
-                    "<span>if the property is a tween it will have no effect.</span>"
+                    "The transformation value calculated through the use of a function.",
+                    "The result of the function will be used in px.",
+                    "The function will be re-executed at each resize.",
+                    "If used, it will take priority over the range method.",
+                    "if the property is a tween it will have no effect."
                 ]
             }
         },
@@ -496,8 +520,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "use scrollerTween/sequencer"
         },
@@ -506,7 +529,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more <span>complex animations</span> propierties use a <span>custom tween</span>. It is possible to use a <a href='./#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: <span>scrollerTween</span> which shares some methods :"
+            "content": "For more complex animations propierties use a custom tween. It is possible to use a <a href='./#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: scrollerTween which shares some methods :"
         },
         {
             "component": "mob-list",
@@ -520,7 +543,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Instead of the given property scrollerTween only needs two properties <span>from</span> and <span>to</span>"
+            "content": "Instead of the given property scrollerTween only needs two properties from and to"
         },
         {
             "component": "mob-spacer",
@@ -549,8 +572,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "start/end"
         },
@@ -559,13 +581,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Defines the <span>start/end position of the animation</span>, the value is a string made up of 3 optional values:"
+            "content": "Defines the start/end position of the animation, the value is a string made up of 3 optional values:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "1) bottom | top | left | right"
         },
@@ -574,34 +601,39 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the <span>side of the viewport</span> that will be referenced."
+            "content": "Indicates the side of the viewport that will be referenced."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "If <span>start</span> corresponds to <span>bottom/right</span> the animation will begin when the <span>top/left side of the item touches the indicated value</span> from the bottom/right of the screen."
+            "content": "If start corresponds to bottom/right the animation will begin when the top/left side of the item touches the indicated value from the bottom/right of the screen."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "If <span>start</span> corresponds to <span>top/left</span> the animation will begin when the <span>bottom/right side of the item touches the indicated value</span> from the top/left of the screen. ( reverse scroll use )"
+            "content": "If start corresponds to top/left the animation will begin when the bottom/right side of the item touches the indicated value from the top/left of the screen. ( reverse scroll use )"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The value indicated in start ( top/bottom/et.. ) <span>will also influence the end value</span>.<br/> If the start value takes the upper edge of the item as reference (i.e. start = 'bottom'), <span>regardless of whether the end value is top or bottom the reference will always be the upper edge</span>"
+            "content": "The value indicated in start ( top/bottom/et.. ) will also influence the end value.<br/> If the start value takes the upper edge of the item as reference (i.e. start = 'bottom'), regardless of whether the end value is top or bottom the reference will always be the upper edge"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "2) +/-<value>vh | vw | px"
         },
@@ -610,13 +642,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "add a value in <span>vh|vw|px</span>, use <span>vh in vertical direction</span>, <span>vw in horizontal direction</span>,"
+            "content": "add a value in vh|vw|px, use vh in vertical direction, vw in horizontal direction,"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "3) +/- height | halfHeight | width | halfWidth"
         },
@@ -625,14 +662,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can add the <span>item height/width value or half of one of them</span> to the final value.<br/>Useful for centering the element."
+            "content": "You can add the item height/width value or half of one of them to the final value.<br/>Useful for centering the element."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The values 2 & 3 will always be <span>added from the chosen position towards</span> the center of the screen, whether the position corresponds to top|bottom left|right"
+            "content": "The values 2 & 3 will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
         },
         {
             "component": "mob-spacer",
@@ -659,10 +696,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "dynamicStart/dynamicEnd"
         },
@@ -671,13 +713,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "These properties can be used <span>in place of start or end</span>. This is an object that accepts two parameters:"
+            "content": "These properties can be used in place of start or end. This is an object that accepts two parameters:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "1) position:"
         },
@@ -686,13 +733,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>top | right | bottom | left</span><br/>this parameter behaves exactly like the equivalent in start/end."
+            "content": "top | right | bottom | left<br/>this parameter behaves exactly like the equivalent in start/end."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h6",
-                "color": "green"
+                "tag": "h6"
             },
             "content": "2) value:"
         },
@@ -701,14 +753,20 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>A function that returns a number</span><br/>Same as range this value will always be <span>added from the chosen position towards</span> the center of the screen, whether the position corresponds to top|bottom left|right"
+            "content": "A function that returns a number<br/>Same as range this value will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Each function is recomputed after the resize event.</span>"
+            "content": "Each function is recomputed after the resize event."
         },
         {
             "component": "mob-spacer",
@@ -737,8 +795,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "fromTo"
         },
@@ -747,7 +804,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If this property is true the values <span>will be applied starting from the final value leaving the start/end values unchanged</span>."
+            "content": "If this property is true the values will be applied starting from the final value leaving the start/end values unchanged."
         },
         {
             "component": "mob-spacer",
@@ -760,8 +817,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "marker"
         },
@@ -770,7 +826,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Displays the start and end indicators of the animation.<br/> A marker will be applied to <span>the edge of our element</span>, and <span>two fixed markers</span> corresponding to the <span>start and end</span> values.<br/> The marker property accepts a <span>string as a parameter</span>, the assigned value will be displayed next to the marker"
+            "content": "Displays the start and end indicators of the animation.<br/> A marker will be applied to the edge of our element, and two fixed markers corresponding to the start and end values.<br/> The marker property accepts a string as a parameter, the assigned value will be displayed next to the marker"
         },
         {
             "component": "mob-snippet",
@@ -793,8 +849,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "direction"
         },
@@ -803,7 +858,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Indicates the <span>direction of the scroller</span>, it can be <span>vertical</span> or <span>horizontal</span>."
+            "content": "Indicates the direction of the scroller, it can be vertical or horizontal."
         },
         {
             "component": "mob-spacer",
@@ -816,8 +871,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "ease"
         },
@@ -826,7 +880,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use the easing parameter, an <span>instance</span> of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
+            "content": "If you decide to use the easing parameter, an instance of Lerp or Spring will be used to update the values."
         },
         {
             "component": "mob-spacer",
@@ -837,8 +891,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "ease"
         },
@@ -852,8 +905,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "easeType"
         },
@@ -862,13 +914,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The type of easing used: <span>spring</span> | <span>lerp</span>."
+            "content": "The type of easing used: spring | lerp."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "lerpConfig"
         },
@@ -877,13 +928,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>velocity</span> value of the lerp function. It must be a value <span>between 0.01 and 0.1</span>. The default value is 0.06"
+            "content": "The velocity value of the lerp function. It must be a value between 0.01 and 0.1. The default value is 0.06"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "springConfig"
         },
@@ -892,14 +942,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The Spring configuration. can be a preset between <span>default</span> | <span>gentle</span> | <span>wobbly</span> | <span>bounce</span> | <span>scroller</span>.<br/>"
+            "content": "The Spring configuration. can be a preset between default | gentle | wobbly | bounce | scroller.<br/>"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Spring has no effect with the sequencer module</span>, it can instead be used with the <span>scrollerTween modules</span>.<br/>This is because the <span>sequencer module uses a clamp on the maximum</span> value thus preventing it from being exceeded."
+            "content": "Spring has no effect with the sequencer module, it can instead be used with the scrollerTween modules.<br/>This is because the sequencer module uses a clamp on the maximum value thus preventing it from being exceeded."
         },
         {
             "component": "mob-spacer",
@@ -928,8 +978,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "pin"
         },
@@ -938,13 +987,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Allows you to <span>freeze the element</span> as if it were in <span>sticky position</span>. The <span>position: sticky rule is always advisable</span>, but there are situations in which a jsavascirpt solution can be convenient. The element will go to <span>position: fixed</span> with a certain advance before impacting the start position to prevent visual jumps. <span>If the html structure allows it, the element will remain in its original node, otherwise it will come as a direct child of the body tag</span> when attaching."
+            "content": "Allows you to freeze the element as if it were in sticky position. The position: sticky rule is always advisable, but there are situations in which a jsavascirpt solution can be convenient. The element will go to position: fixed with a certain advance before impacting the start position to prevent visual jumps. If the html structure allows it, the element will remain in its original node, otherwise it will come as a direct child of the body tag when attaching."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "pin"
         },
@@ -958,8 +1006,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "animatePin"
         },
@@ -968,13 +1015,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value, if true, an instance of <span>Spring will be used at the moment of impact</span> to make the release smoother. <a href='./#horizontalScroller?version=1&activeId=1'>example</a>"
+            "content": "Boolean value, if true, an instance of Spring will be used at the moment of impact to make the release smoother. example"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "forceTranspond"
         },
@@ -983,13 +1029,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value, if true, the element <span>will always be moved as a child of the body tag</span>."
+            "content": "Boolean value, if true, the element will always be moved as a child of the body tag."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "anticipatePinOnLoad"
         },
@@ -998,7 +1043,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The pin is always activated a little earlier based on the last scroll made. With this property, <span>when loading the page and without having performed any scrolling, the element can be pinned even if slightly earlier than the preset position</span>. The default value is false. "
+            "content": "The pin is always activated a little earlier based on the last scroll made. With this property, when loading the page and without having performed any scrolling, the element can be pinned even if slightly earlier than the preset position. The default value is false. "
         },
         {
             "component": "mob-spacer",
@@ -1027,8 +1072,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "events"
         },
@@ -1042,8 +1086,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "onEnter"
         },
@@ -1057,8 +1100,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "onEnterBack"
         },
@@ -1072,8 +1114,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "onLeave"
         },
@@ -1087,8 +1128,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "onLeaveBack"
         },
@@ -1102,8 +1142,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "onTick"
         },
@@ -1112,8 +1151,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>value</span>: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
-                    "<span>parentIsMoving</span>: Internal parameter use this parameter to connect two scrollTriggers as in the following point ( move() )."
+                    "value: The scroll position of the parent. If no value is provided, the instance will calculate it autonomously.",
+                    "parentIsMoving: Internal parameter use this parameter to connect two scrollTriggers as in the following point ( move() )."
                 ]
             }
         },
@@ -1138,8 +1177,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "utils parameters"
         },
@@ -1152,8 +1190,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "disableForce3D"
         },
@@ -1162,13 +1199,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Disable the transform: <span>translate3d(0,0,0) rule</span> applied by the <span>built-in property during animation</span> to activate the GPU."
+            "content": "Boolean value.<br/>Disable the transform: translate3d(0,0,0) rule applied by the built-in property during animation to activate the GPU."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "useThrottle"
         },
@@ -1177,13 +1213,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
+            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "perspective"
         },
@@ -1192,13 +1227,12 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>Apply the css rule <span>perspective: {value}px; transform-style: preserve-3d;</span> to the parent HTMLElement."
+            "content": "Boolean value.<br/>Apply the css rule perspective: {value}px; transform-style: preserve-3d; to the parent HTMLElement."
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "useWillChange"
         },
@@ -1207,7 +1241,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Boolean value</span>.<br/>When there is a <span>large drop in fps</span>, the will-change property is activated for a <span>limited period of time</span>. It is intended as a <span>last resort</span> to deal with a temporary problem. The default value is true."
+            "content": "Boolean value.<br/>When there is a large drop in fps, the will-change property is activated for a limited period of time. It is intended as a last resort to deal with a temporary problem. The default value is true."
         },
         {
             "component": "mob-snippet",
@@ -1237,8 +1271,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "init"
         },
@@ -1276,8 +1309,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "move ( connect multiple instances )"
         },
@@ -1286,15 +1318,15 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is <span>possible to connect multiple scrolltriggers</span> or you can control a parallax from a scrollTrigger:"
+            "content": "It is possible to connect multiple scrolltriggers or you can control a parallax from a scrollTrigger:"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span>value</span>: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
-                    "<span>parentIsMoving</span>: Internal parameter that helps synchronization, <span>no direct utility for the user</span>."
+                    "value: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
+                    "parentIsMoving: Internal parameter that helps synchronization, no direct utility for the user."
                 ]
             }
         },
@@ -1332,8 +1364,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "refresh"
         },
@@ -1342,7 +1373,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Recalculate all position/measurement</span> values and <span>update rendering</span>. This operation is carried out automatically after each resize."
+            "content": "Recalculate all position/measurement values and update rendering. This operation is carried out automatically after each resize."
         },
         {
             "component": "mob-spacer",
@@ -1371,8 +1402,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "destroy"
         },
@@ -1381,7 +1411,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Destroy instance</span>"
+            "content": "Destroy instance"
         },
         {
             "component": "mob-snippet",

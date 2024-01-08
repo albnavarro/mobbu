@@ -68,7 +68,6 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
                             },
                         ],
                         style: 'legend',
-                        color: 'green',
                     })}
                 >
                 </code-button>

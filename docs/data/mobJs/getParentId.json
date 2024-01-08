@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The getParentId() function will return the <span>parent's id</span>."
+            "content": "The getParentId() function will return the parent's id."
         },
         {
             "component": "mob-snippet",

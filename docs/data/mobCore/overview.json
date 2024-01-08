@@ -19,15 +19,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "javascript utils"
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
@@ -41,7 +40,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "MobCore is made up of <span>two main modules</span>, a <span>store</span> and a collection of <span>utilities to manage browser functions</span>, from requestAnimationFrame to classic window-related events.<br/><span>The store will then be the basis for the <a href='./#mobJs_overview'>mobJs</a> project</span>"
+            "content": "MobCore is made up of two main modules, a store and a collection of utilities to manage browser functions, from requestAnimationFrame to classic window-related events.<br/>The store will then be the basis for the <a href='./#mobJs_overview'>mobJs</a> project"
         },
         {
             "component": "mob-list",

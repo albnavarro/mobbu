@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Like the <a href='./#mobJs_watch'>watch</a> function but the callback will be launched a <span>first time</span> as soon as the onMount function is launched."
+            "content": "Like the <a href='./#mobJs_watch'>watch</a> function but the callback will be launched a first time as soon as the onMount function is launched."
         },
         {
             "component": "mob-snippet",

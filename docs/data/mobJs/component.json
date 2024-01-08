@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The components are divided into two modules: <span>Definition</span> and <span>Function</span><br/>For <span>convenience</span> it is recommended to divide the <span>two modules into two separate files</span>:"
+            "content": "The components are divided into two modules: Definition and Function<br/>For convenience it is recommended to divide the two modules into two separate files:"
         },
         {
             "component": "mob-spacer",
@@ -34,8 +34,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "createComponent"
         },
@@ -44,7 +43,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>createComponent</span> is the function that will take care of <span>registering our component</span>."
+            "content": "createComponent is the function that will take care of registering our component."
         },
         {
             "component": "mob-spacer",
@@ -55,16 +54,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
-            },
-            "content": "Params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "name:"
         },
@@ -73,28 +63,28 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This must start with a <span>lowercase letter, contain a hyphen</span>, and satisfy certain other <span>rules listed in the web component specification's</span>."
+            "content": "This must start with a lowercase letter, contain a hyphen, and satisfy certain other rules listed in the web component specification's."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "When a specific block of <span>DOM</span> (still in string format) is <span>attached to the DOM the components defined as webComponent</span> will be <span>recognized</span> and <span>transformed</span> into real components."
+            "content": "When a specific block of DOM (still in string format) is attached to the DOM the components defined as webComponent will be recognized and transformed into real components."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "All components <span>share a set of properties</span> that allow a <span>specific walker to recognize them</span> and check a single option without having to deal with multiple possibilities (e.g. if we have 50 components, we don't have to search for all 50 but we just need to check the nodes that have the specific property 'I am a member')."
+            "content": "All components share a set of properties that allow a specific walker to recognize them and check a single option without having to deal with multiple possibilities (e.g. if we have 50 components, we don't have to search for all 50 but we just need to check the nodes that have the specific property 'I am a member')."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "This mechanism significantly <span>speeds up</span> the search and transformation of components into the page."
+            "content": "This mechanism significantly speeds up the search and transformation of components into the page."
         },
         {
             "component": "mob-spacer",
@@ -105,8 +95,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "component:"
         },
@@ -115,7 +104,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>component function</span> launched when the <span>component is created</span>."
+            "content": "The component function launched when the component is created."
         },
         {
             "component": "mob-spacer",
@@ -126,8 +115,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "exportState:"
         },
@@ -136,7 +124,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "An array of <span>states visible from the outside</span>, e.g. from the parent component."
+            "content": "An array of states visible from the outside, e.g. from the parent component."
         },
         {
             "component": "mob-spacer",
@@ -147,8 +135,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "state:"
         },
@@ -157,7 +144,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>The states of the component</span>. The state is an instance of <a href='./#mobCore_store'>store</a>"
+            "content": "The states of the component. The state is an instance of store"
         },
         {
             "component": "mob-spacer",
@@ -168,8 +155,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h5"
             },
             "content": "webComponent:"
         },
@@ -178,7 +164,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use a <span>webComponent</span> it is possible to use <a href='./#mobJs_web_component'>specific parameters</a> that will allow you to control the life cycle of the <span>webComponent</span>."
+            "content": "If you decide to use a webComponent it is possible to use specific parameters that will allow you to control the life cycle of the webComponent."
         },
         {
             "component": "mob-spacer",
@@ -207,8 +193,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "component function"
         },
@@ -223,7 +208,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Basic component</span> structure example."
+            "content": "Basic component structure example."
         },
         {
             "component": "mob-snippet",
@@ -254,7 +239,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Once the function has been executed and the HTML block <span>has been rendered</span>, it is <span>no longer under the control of the library</span>.<br/> Using the parameters <span>watch, bindProps, etc..</span> you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
+            "content": "Once the function has been executed and the HTML block has been rendered, it is no longer under the control of the library.<br/> Using the parameters watch, bindProps, etc.. you can modify the DOM based on the state change. The parameters of the function are in fact the only elements that will remain 'alive'."
         },
         {
             "component": "mob-spacer",
@@ -267,7 +252,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Advanced component</span> structure example."
+            "content": "Advanced component structure example."
         },
         {
             "component": "mob-snippet",
@@ -289,8 +274,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "Async"
         },
@@ -299,7 +283,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The component function can be <span>asynchronous</span>. It is therefore possible to perform <span>fetches</span> and similar operations <span>before rendering the DOM</span>"
+            "content": "The component function can be asynchronous. It is therefore possible to perform fetches and similar operations before rendering the DOM"
         },
         {
             "component": "mob-snippet",
@@ -322,8 +306,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Function params"
         },
@@ -352,17 +335,17 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='./#mobJs_html'>html</a>: Function",
-                    "<a href='./#mobJs_onMount'>onMount/Destroy</a>: Function",
-                    "<a href='./#mobJs_getState'>getState</a>: Function",
-                    "<a href='./#mobJs_setState'>setState</a>: Functions",
-                    "<a href='./#mobJs_watch'>watch</a>: Function",
-                    "<a href='./#mobJs_watchSync'>watchSync</a>: Function",
-                    "<a href='./#mobJs_staticProps'>staticProps</a>: Function",
-                    "<a href='./#mobJs_bindProps'>bindProps</a>: Function",
-                    "<a href='./#mobJs_bindEvents'>bindEvents</a>: Function",
-                    "<a href='./#mobJs_delegateEvents'>delegateEvents</a>: Function",
-                    "<a href='./#mobJs_repeat'>reactive list (repeat)</a>: Function"
+                    "<a href='./#mobJs_html'>html</a>",
+                    "<a href='./#mobJs_onMount'>onMount/Destroy</a>",
+                    "<a href='./#mobJs_getState'>getState</a>",
+                    "<a href='./#mobJs_setState'>setState</a>",
+                    "<a href='./#mobJs_watch'>watch</a>",
+                    "<a href='./#mobJs_watchSync'>watchSync</a>",
+                    "<a href='./#mobJs_staticProps'>staticProps</a>",
+                    "<a href='./#mobJs_bindProps'>bindProps</a>",
+                    "<a href='./#mobJs_bindEvents'>bindEvents</a>",
+                    "<a href='./#mobJs_delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs_repeat'>reactive list (repeat)</a>"
                 ]
             }
         },
@@ -378,18 +361,18 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<a href='./#mobJs_unBind'>unBind</a>: Function",
-                    "<a href='./#mobJs_emit'>emit</a>: Function",
-                    "<a href='./#mobJs_emitAsync'>emitAsync</a>: Function",
-                    "<a href='./#mobJs_computed'>computed</a>: Function",
-                    "<a href='./#mobJs_remove'>remove</a>: Function",
-                    "<a href='./#mobJs_removeDom'>removeDOM</a>: Function",
-                    "<a href='./#mobJs_getChildren'>getChildren</a>: Function",
-                    "<a href='./#mobJs_freezeProp'>freezeProp</a>: Function",
-                    "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>: Function",
-                    "<a href='./#mobJs_getParentId'>getParentId</a>: Function",
-                    "<a href='./#mobJs_watchParent'>watchParent</a>: Function",
-                    "<a href='./#mobJs_syncParent'>syncParent</a>: Function"
+                    "<a href='./#mobJs_unBind'>unBind</a>",
+                    "<a href='./#mobJs_emit'>emit</a>",
+                    "<a href='./#mobJs_emitAsync'>emitAsync</a>",
+                    "<a href='./#mobJs_computed'>computed</a>",
+                    "<a href='./#mobJs_remove'>remove</a>",
+                    "<a href='./#mobJs_removeDom'>removeDOM</a>",
+                    "<a href='./#mobJs_getChildren'>getChildren</a>",
+                    "<a href='./#mobJs_freezeProp'>freezeProp</a>",
+                    "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>",
+                    "<a href='./#mobJs_getParentId'>getParentId</a>",
+                    "<a href='./#mobJs_watchParent'>watchParent</a>",
+                    "<a href='./#mobJs_syncParent'>syncParent</a>"
                 ]
             }
         },

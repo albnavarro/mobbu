@@ -52,7 +52,6 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
                         },
                     ],
                     style: 'legend',
-                    color: 'green',
                 })}
             >
             </code-button>

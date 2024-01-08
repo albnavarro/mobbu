@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Html is the tag that allows you to return the <span>component's HTML</span>.<br/>In addition to the HTML, it will take care of passing the component <span>id</span> and the <span>original tag</span> to the parser ready to be replaced with the <span>real final component</span>."
+            "content": "Html is the tag that allows you to return the component's HTML.<br/>In addition to the HTML, it will take care of passing the component id and the original tag to the parser ready to be replaced with the real final component."
         },
         {
             "component": "mob-snippet",

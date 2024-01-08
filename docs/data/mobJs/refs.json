@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to retrieve <span>HTML nodes</span> using refs. A <spansingle node</span> will be returned if the ref is single, an <span>array of nodes</span> if the ref has been defined multiple times."
+            "content": "It is possible to retrieve HTML nodes using refs. A single node will be returned if the ref is single, an array of nodes if the ref has been defined multiple times."
         },
         {
             "component": "mob-snippet",

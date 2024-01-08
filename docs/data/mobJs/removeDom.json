@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Remove and destroy specific HTMLElement</span> ( not component ).<br/> Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map."
+            "content": "Remove and destroy specific HTMLElement ( not component ).<br/> Every time the dom is removed, any reference to any components present within it such as watchers etc... will be removed from the map."
         },
         {
             "component": "mob-snippet",

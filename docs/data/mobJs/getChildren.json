@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The <span>getChildren</span> function will return an <span>array of ids (strings)</span> based on the specified component. With them it will then be possible to carry out some operations, for example changing their state:"
+            "content": "The getChildren function will return an array of ids (strings) based on the specified component. With them it will then be possible to carry out some operations, for example changing their state:"
         },
         {
             "component": "mob-paragraph",

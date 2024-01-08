@@ -27,7 +27,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Classic store based on the pub/sub pattern</span>.<br/> This module will then be the basis of the reactivity of <span><a href='./#mobJs_overview'>mobJs</a> javascript components</span>."
+            "content": "Classic store based on the pub/sub pattern.<br/> This module will then be the basis of the reactivity of mobJs javascript components."
         },
         {
             "component": "mob-spacer",
@@ -118,21 +118,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: <span>validate, type, skipEqual</span>."
+            "content": "For more advanced use it is necessary to return a function that returns an object with at least one of the following properties: validate, type, skipEqual."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to insert up to a <span>maximum of two levels</span> (both base and advanced use) per property as in the example above."
+            "content": "It is possible to insert up to a maximum of two levels (both base and advanced use) per property as in the example above."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "<span>To use a object with infinite insertions use the any type.</span><br/>In this case it will not be possible to define specific properties for nested properties."
+            "content": "To use a object with infinite insertions use the any type.<br/>In this case it will not be possible to define specific properties for nested properties."
         },
         {
             "component": "mob-snippet",
@@ -153,15 +153,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h2"
+                "tag": "h3"
             },
             "content": "Params:"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "value"
         },
@@ -181,8 +180,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "type"
         },
@@ -213,8 +211,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "validate"
         },
@@ -223,7 +220,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Validation function to analyze the value. This function will take the <span>current value and old value as input parameters</span> and <span>return a boolean value</span>. The validation status of each property will be <span>displayed in as parameters in watch function</span> and will be retrievable using the <span>getValidation()</span> method."
+            "content": "Validation function to analyze the value. This function will take the current value and old value as input parameters and return a boolean value. The validation status of each property will be displayed in as parameters in watch function and will be retrievable using the getValidation() method."
         },
         {
             "component": "mob-spacer",
@@ -234,8 +231,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "skipEqual"
         },
@@ -244,7 +240,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>If the value is equal to the previous one, the property will not be updated</span>.<br/>The watches will not be executed and the property will have no effect on the computed related to it. The default value is <span>true</span>."
+            "content": "If the value is equal to the previous one, the property will not be updated.<br/>The watches will not be executed and the property will have no effect on the computed related to it. The default value is true."
         },
         {
             "component": "mob-spacer",
@@ -255,8 +251,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h4"
             },
             "content": "strict"
         },
@@ -265,7 +260,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If set to true, the validation function will become blocking and <span>the property will be updated only if the validation function is successful</span>.<br/> The default value is <span>false</span>."
+            "content": "If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.<br/> The default value is false."
         },
         {
             "component": "mob-spacer",
@@ -291,8 +286,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Set"
         },
@@ -301,7 +295,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Update</span> store value:"
+            "content": "Update store value:"
         },
         {
             "component": "mob-snippet",
@@ -331,7 +325,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Furthermore it is possible:<br/><span>Changing data without a reaction</span> ( no callback will be fired ). Default value is <span>true</span> (fire callback).<br/> <span>Clone the original data</span> if using a function and make a copy of the original data. Default value is <span>false</span> (value is not cloned)"
+            "content": "Furthermore it is possible:<br/>Changing data without a reaction ( no callback will be fired ). Default value is true (fire callback).<br/> Clone the original data if using a function and make a copy of the original data. Default value is false (value is not cloned)"
         },
         {
             "component": "mob-snippet",
@@ -354,8 +348,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Get"
         },
@@ -364,7 +357,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This method will <span>return the complete store</span>, use <span>object destructuring</span> to retrieve the desired property."
+            "content": "This method will return the complete store, use object destructuring to retrieve the desired property."
         },
         {
             "component": "mob-snippet",
@@ -387,8 +380,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Get props"
         },
@@ -397,7 +389,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "This method will <span>return a specific prop</span> from store."
+            "content": "This method will return a specific prop from store."
         },
         {
             "component": "mob-snippet",
@@ -420,8 +412,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Watch"
         },
@@ -430,7 +421,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Listen to the changing data</span> and return the unsubcribe function."
+            "content": "Listen to the changing data and return the unsubcribe function."
         },
         {
             "component": "mob-snippet",
@@ -453,8 +444,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Emit"
         },
@@ -463,7 +453,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Execute property-related callbacks</span>"
+            "content": "Execute property-related callbacks"
         },
         {
             "component": "mob-snippet",
@@ -486,8 +476,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Emit async"
         },
@@ -496,7 +485,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Execute property-related async callbacks</span>"
+            "content": "Execute property-related async callbacks"
         },
         {
             "component": "mob-snippet",
@@ -519,8 +508,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Computed"
         },
@@ -529,7 +517,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Update properties value if some dependency ( store props) change</span>.<br/> Computed functions are resolved on the <span>javascript loop</span>.<br/> If multiple dependencies change at the <span>same time</span>, the computed <span>will be resolved only once</span>."
+            "content": "Update properties value if some dependency ( store props) change.<br/> Computed functions are resolved on the javascript loop.<br/> If multiple dependencies change at the same time, the computed will be resolved only once."
         },
         {
             "component": "mob-snippet",
@@ -551,8 +539,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Destroy"
         },
@@ -561,7 +548,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<span>Destroy store and remove all reference</span>"
+            "content": "Destroy store and remove all reference"
         },
         {
             "component": "mob-snippet",
@@ -582,8 +569,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "color": "green"
+                "tag": "h3"
             },
             "content": "Other functions"
         },
