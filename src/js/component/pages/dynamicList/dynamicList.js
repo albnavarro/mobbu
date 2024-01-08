@@ -111,9 +111,9 @@ export const DynamicList = async ({
     const { source } = repeater;
 
     return html`
-        <div class="dynamic-list">
-            <div class="dynamic-list__header">
-                <div class="dynamic-list__top">
+        <div class="c-dynamic-list">
+            <div class="c-dynamic-list__header">
+                <div class="c-dynamic-list__top">
                     ${getButton({
                         setState,
                         delegateEvents,
@@ -131,13 +131,13 @@ export const DynamicList = async ({
                 </div>
             </div>
 
-            <div class="dynamic-list__counter">
+            <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
                 <span ref="counterEl"></span>
             </div>
 
-            <div class="dynamic-list__container">
-                <div class="dynamic-list__grid">
+            <div class="c-dynamic-list__container">
+                <div class="c-dynamic-list__grid">
                     ${getRepeaters({ bindProps, staticProps })}
                 </div>
             </div>

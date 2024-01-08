@@ -1,7 +1,7 @@
 @use 'sass-mq/mq';
 @use '../../abstract' as *;
 
-.dynamic-slot {
+.c-dynamic-slot {
     background: $black;
     padding: rem(30);
     border-radius: rem(20);

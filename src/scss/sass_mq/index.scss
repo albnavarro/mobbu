@@ -1,4 +1,14 @@
-$show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
+$show-breakpoints: (
+    xsmall,
+    small,
+    medium,
+    tablet,
+    large,
+    large,
+    xlarge,
+    xxlarge,
+    xxxlarge
+);
 $breakpoints: (
     'xsmall': 320px,
     'small': 360px,

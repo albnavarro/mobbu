@@ -46,9 +46,9 @@ export const DynamicListCard = async ({
     const isFullClass = isFull ? 'is-full' : '';
 
     return html`
-        <div class="dynamic-card ${isFullClass}">
-            <div class="dynamic-card__container">
-                <p class="dynamic-card__title">card content</p>
+        <div class="c-dynamic-card ${isFullClass}">
+            <div class="c-dynamic-card__container">
+                <p class="c-dynamic-card__title">card content</p>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
                 <div class="index" ref="indexEl">

@@ -1,4 +1,4 @@
-import { createComponent } from '../../../mobjs';
+import { createComponent } from '../../../../mobjs';
 import { FooterNavButton } from './footerButton';
 import { FooterNav } from './footerNav';
 

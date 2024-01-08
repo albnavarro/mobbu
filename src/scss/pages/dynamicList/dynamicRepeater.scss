@@ -1,7 +1,7 @@
 @use 'sass-mq/mq';
 @use '../../abstract' as *;
 
-.dynamic-list-repeater {
+.c-dynamic-list-repeater {
     &__title {
         color: $white;
         padding: rem(20);

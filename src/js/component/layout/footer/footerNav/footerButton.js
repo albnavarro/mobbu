@@ -1,7 +1,7 @@
-import { navigationStore } from '../navigation/store/navStore';
+import { navigationStore } from '../../navigation/store/navStore';
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @param {import("../../../../mobjs/type").componentType}
  */
 export const FooterNavButton = ({ html, onMount, getState }) => {
     const { label, section } = getState();

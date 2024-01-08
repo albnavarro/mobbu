@@ -23285,7 +23285,7 @@ Loading snippet ...</pre
     })
   });
 
-  // src/js/component/layout/footerNav/footerButton.js
+  // src/js/component/layout/footer/footerNav/footerButton.js
   var FooterNavButton = ({ html, onMount, getState }) => {
     const { label, section } = getState();
     onMount(({ element }) => {
@@ -23299,7 +23299,7 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/layout/footerNav/footerNav.js
+  // src/js/component/layout/footer/footerNav/footerNav.js
   var data2 = [
     {
       label: "About",
@@ -23368,7 +23368,7 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/layout/footerNav/definition.js
+  // src/js/component/layout/footer/footerNav/definition.js
   var footerNavDef = createComponent({
     name: "footer-nav",
     component: FooterNav
@@ -24046,7 +24046,7 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/layout/docsContainer/docContainer.js
+  // src/js/component/common/docsContainer/docContainer.js
   var DocContainer = ({ html, onMount }) => {
     onMount(({ refs }) => {
       window.scrollTo(0, 0);
@@ -24068,13 +24068,13 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/layout/docsContainer/definition.js
+  // src/js/component/common/docsContainer/definition.js
   var docsContainerComponentDef = createComponent({
     name: "doc-container",
     component: DocContainer
   });
 
-  // src/js/component/layout/doctitle/docSide.js
+  // src/js/component/common/doctitle/docSide.js
   var DocTitle = ({ html }) => {
     return html`
         <div class="c-doc-title">
@@ -24083,14 +24083,14 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/layout/doctitle/definition.js
+  // src/js/component/common/doctitle/definition.js
   var docsTitleComponentDef = createComponent({
     name: "doc-title",
     component: DocTitle,
     state: {}
   });
 
-  // src/js/component/layout/doctitleSmall/docSide.js
+  // src/js/component/common/doctitleSmall/docSide.js
   var DocTitleSmall = ({ html }) => {
     return html`
         <div class="c-doc-title-small">
@@ -24099,14 +24099,14 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/layout/doctitleSmall/definition.js
+  // src/js/component/common/doctitleSmall/definition.js
   var docsTitleSmallComponentDef = createComponent({
     name: "doc-title-small",
     component: DocTitleSmall,
     state: {}
   });
 
-  // src/js/component/layout/shapes/footerShapeV1.js
+  // src/js/component/common/shapes/footerShapeV1.js
   var FooterShaperV1 = ({ html, onMount, getState }) => {
     const { svg, position: position2 } = getState();
     const positionClass = `shape-v1--${position2}`;
@@ -24118,7 +24118,7 @@ Loading snippet ...</pre
     return html` <div class="shape-v1 ${positionClass}">${svg}</div> `;
   };
 
-  // src/js/component/layout/shapes/definition.js
+  // src/js/component/common/shapes/definition.js
   var footerShaperV1Def = createComponent({
     name: "footer-shape-v1",
     component: FooterShaperV1,
@@ -27329,9 +27329,9 @@ Loading snippet ...</pre
     const { repeater } = getLegendData();
     const { source } = repeater;
     return html`
-        <div class="dynamic-list">
-            <div class="dynamic-list__header">
-                <div class="dynamic-list__top">
+        <div class="c-dynamic-list">
+            <div class="c-dynamic-list__header">
+                <div class="c-dynamic-list__top">
                     ${getButton({
       setState,
       delegateEvents,
@@ -27349,13 +27349,13 @@ Loading snippet ...</pre
                 </div>
             </div>
 
-            <div class="dynamic-list__counter">
+            <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
                 <span ref="counterEl"></span>
             </div>
 
-            <div class="dynamic-list__container">
-                <div class="dynamic-list__grid">
+            <div class="c-dynamic-list__container">
+                <div class="c-dynamic-list__grid">
                     ${getRepeaters({ bindProps, staticProps: staticProps2 })}
                 </div>
             </div>
@@ -27455,9 +27455,9 @@ Loading snippet ...</pre
     });
     const isFullClass = isFull ? "is-full" : "";
     return html`
-        <div class="dynamic-card ${isFullClass}">
-            <div class="dynamic-card__container">
-                <p class="dynamic-card__title">card content</p>
+        <div class="c-dynamic-card ${isFullClass}">
+            <div class="c-dynamic-card__container">
+                <p class="c-dynamic-card__title">card content</p>
                 <div class="id">id: ${id2}</div>
                 <div class="parentId">list index: ${parentListId}</div>
                 <div class="index" ref="indexEl">
@@ -27555,15 +27555,15 @@ Loading snippet ...</pre
       });
     });
     return html`
-        <div class="dynamic-slot">
-            <h3 class="dynamic-slot__label">Component inside slot</h3>
+        <div class="c-dynamic-slot">
+            <h3 class="c-dynamic-slot__label">Component inside slot</h3>
             <div>${staticFromSlot}</div>
             <div>${staticFromComponent}</div>
-            <h3 class="dynamic-slot__label">
+            <h3 class="c-dynamic-slot__label">
                 Reactive state from parent component scope (dynamicList):
             </h3>
             <div ref="tEl"></div>
-            <h3 class="dynamic-slot__label">
+            <h3 class="c-dynamic-slot__label">
                 Reactive state from parent slot scope (dynamicCard):
             </h3>
             <div ref="t2El"></div>
@@ -27603,7 +27603,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
   var DynamicListEmpty = async ({ html }) => {
-    return html`<div class="dynamic-list-empty">
+    return html`<div class="c-dynamic-list-empty">
         <p>empty comp</p>
         <mobjs-slot name="empty-slot"></mobjs-slot>
     </div>`;
@@ -27630,9 +27630,9 @@ Loading snippet ...</pre
       });
     });
     return html`<div class="dynamic-counter">
-        <p class="dynamic-counter__title">Nested:</p>
-        <p class="dynamic-counter__subtitle">(slotted)</p>
-        <p class="dynamic-counter__list">list index: ${parentListId}</p>
+        <p class="c-dynamic-counter__title">Nested:</p>
+        <p class="c-dynamic-counter__subtitle">(slotted)</p>
+        <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
         <span ref="counterValueEl">${counter}</span>
     </div>`;
   };
@@ -27663,7 +27663,7 @@ Loading snippet ...</pre
       });
     });
     return html`
-        <button type="button" class="dynamic-list-button">${label}</button>
+        <button type="button" class="c-dynamic-list-button">${label}</button>
     `;
   };
 
@@ -27747,10 +27747,10 @@ Loading snippet ...</pre
     const { listId, key, clean: clean2, label } = getState();
     const keyParsed = key.length > 0 ? key : null;
     return html`
-        <div class="dynamic-list-repeater">
-            <h4 class="dynamic-list-repeater__title">${label}</h4>
-            <p class="dynamic-list-repeater__new js-list"></p>
-            <div class="dynamic-list-repeater__list">
+        <div class="c-dynamic-list-repeater">
+            <h4 class="c-dynamic-list-repeater__title">${label}</h4>
+            <p class="c-dynamic-list-repeater__new js-list"></p>
+            <div class="c-dynamic-list-repeater__list">
                 ${repeat({
       watch: "data",
       clean: clean2,
@@ -27835,7 +27835,7 @@ Loading snippet ...</pre
         contentEl.textContent = setContent(value);
       });
     });
-    return html`<div class="dynamic-list-slotted-label">
+    return html`<div class="c-dynamic-list-slotted-label">
         <p class="content" ref="contentEl">${setContent(label)}</p>
     </div>`;
   };

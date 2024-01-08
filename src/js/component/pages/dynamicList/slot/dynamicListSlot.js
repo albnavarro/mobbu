@@ -25,15 +25,15 @@ export const DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
     });
 
     return html`
-        <div class="dynamic-slot">
-            <h3 class="dynamic-slot__label">Component inside slot</h3>
+        <div class="c-dynamic-slot">
+            <h3 class="c-dynamic-slot__label">Component inside slot</h3>
             <div>${staticFromSlot}</div>
             <div>${staticFromComponent}</div>
-            <h3 class="dynamic-slot__label">
+            <h3 class="c-dynamic-slot__label">
                 Reactive state from parent component scope (dynamicList):
             </h3>
             <div ref="tEl"></div>
-            <h3 class="dynamic-slot__label">
+            <h3 class="c-dynamic-slot__label">
                 Reactive state from parent slot scope (dynamicCard):
             </h3>
             <div ref="t2El"></div>

@@ -21,7 +21,7 @@ export const DynamicListSlottedLabel = async ({
         });
     });
 
-    return html`<div class="dynamic-list-slotted-label">
+    return html`<div class="c-dynamic-list-slotted-label">
         <p class="content" ref="contentEl">${setContent(label)}</p>
     </div>`;
 };

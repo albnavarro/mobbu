@@ -1,5 +1,5 @@
-import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
-import { motionCore } from '../../../mobMotion';
+import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
+import { motionCore } from '../../../../mobMotion';
 
 const data = [
     {
@@ -65,7 +65,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
 };
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @param {import("../../../../mobjs/type").componentType}
  */
 export const FooterNav = ({ html, delegateEvents, staticProps }) => {
     if (motionCore.mq('max', 'desktop')) return html` <span></span> `;

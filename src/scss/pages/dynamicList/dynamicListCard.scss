@@ -1,7 +1,7 @@
 @use 'sass-mq/mq';
 @use '../../abstract' as *;
 
-.dynamic-card {
+.c-dynamic-card {
     $self: &;
 
     flex: 0 0 50%;

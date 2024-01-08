@@ -1,7 +1,7 @@
 @use 'sass-mq/mq';
 @use '../../abstract' as *;
 
-.dynamic-list-slotted-label {
+.c-dynamic-list-slotted-label {
     border: 1px rgba($white, 0.1) solid;
     padding: rem(5);
     margin-top: rem(10);

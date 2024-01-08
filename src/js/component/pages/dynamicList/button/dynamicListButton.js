@@ -11,6 +11,6 @@ export const DynamicListButton = ({ html, getState, onMount, watchSync }) => {
     });
 
     return html`
-        <button type="button" class="dynamic-list-button">${label}</button>
+        <button type="button" class="c-dynamic-list-button">${label}</button>
     `;
 };
