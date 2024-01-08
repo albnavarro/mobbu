@@ -27,7 +27,7 @@ export const MyLayout = ({ html, staticProps, bindProps }) => {
 export const MyComponent = ({ html, bindProps }) => {
     return html`
         <my-layout>
-            <my-component
+            <my-child
                 ${bindProps({
                     bind: ['myState'],
                     props: ({ myState }) => {
@@ -36,7 +36,7 @@ export const MyComponent = ({ html, bindProps }) => {
                         };
                     },
                 })}
-            ></my-component>
+            ></my-child>
         </my-layout>
     `;
 };
