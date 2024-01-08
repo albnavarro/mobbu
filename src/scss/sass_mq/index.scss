@@ -1,4 +1,40 @@
-@use '../variables' as *;
-@use 'sass-mq/mq' with (
-    $breakpoints: $breakpoints
+$show-breakpoints: (xsmall, small, medium, tablet, large, large, xlarge);
+$breakpoints: (
+    'xsmall': 320px,
+    'small': 360px,
+    'medium': 600px,
+    'tablet': 768px,
+    'desktop': 992px,
+    'large': 1200px,
+    'xlarge': 1600px,
+    'xxlarge': 1980px,
+    'xxxlarge': 2140px,
 );
+$html-font-size: (
+    'xsmall': 12px,
+    'small': 12px,
+    'medium': 14px,
+    'tablet': 14px,
+    'desktop': 15px,
+    'large': 15px,
+    'xlarge': 15px,
+    'xxlarge': 16px,
+    'xxxlarge': 17px,
+);
+$html-font-unit: (
+    'xsmall': px,
+    'small': px,
+    'medium': px,
+    'tablet': px,
+    'desktop': px,
+    'large': px,
+    'xlarge': px,
+    'xxlarge': px,
+    'xxxlarge': px,
+);
+$default-font-size: desktop;
+
+@use 'sass-mq/mq' with (
+        $breakpoints: $breakpoints,
+        // $show-breakpoints: $show-breakpoints
+    );

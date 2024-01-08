@@ -4,7 +4,7 @@
 @use 'sass-mq/mq';
 @use 'sass:math';
 @use 'sass:map';
-@use '../variables' as *;
+@use '../sass_mq' as *;
 
 /// Event wrapper
 /// @author Harry Roberts
