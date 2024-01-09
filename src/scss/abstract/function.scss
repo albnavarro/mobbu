@@ -12,6 +12,10 @@
 @use 'sass:math';
 @use 'sass:map';
 
+@function strip-unit($value) {
+    @return math.div($value, $value * 0 + 1);
+}
+
 @function rem($pixels, $mq: '') {
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
