@@ -51,9 +51,9 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
-            "content": "1- Less dependencies."
+            "content": "Less dependencies."
         },
         {
             "component": "mob-paragraph",
@@ -71,9 +71,9 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
-            "content": "2- Es modules"
+            "content": "Es modules"
         },
         {
             "component": "mob-paragraph",
@@ -91,9 +91,9 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
-            "content": "3- Learn from others."
+            "content": "Learn from others."
         },
         {
             "component": "mob-paragraph",

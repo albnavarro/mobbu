@@ -59,8 +59,19 @@
     }
 
     h3 {
-        border-bottom: 1px rgba($white, 0.05) solid;
+        border-bottom: 1px rgba($white, 1) solid;
         padding-bottom: rem(20);
         margin-bottom: rem(40);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: rem(50);
+            height: 5px;
+            background: $white;
+        }
     }
 }
