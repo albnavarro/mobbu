@@ -83,7 +83,7 @@
             height: max(300px, calc((300 * 100) / 375 * 1vw));
 
             @include mq.mq('desktop') {
-                width: max(600, calc((600 * 100) / 1024 * 1vw));
+                width: max(600px, calc((600 * 100) / 1024 * 1vw));
                 height: max(400px, calc((400 * 100) / 1024 * 1vw));
             }
 
