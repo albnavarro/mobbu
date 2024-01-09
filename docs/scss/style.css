@@ -2084,6 +2084,7 @@ code {
 .html-content p,
 .html-content code,
 .html-content li,
+.html-content h4,
 .html-content h5,
 .html-content h6 {
   margin-left: 0.6666666667rem;
