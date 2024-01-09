@@ -26,6 +26,7 @@
             "component": "mob-list",
             "props": {
                 "tag": "h3",
+                "dots": false,
                 "items": [
                     "<a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>"
                 ]
