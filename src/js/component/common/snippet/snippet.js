@@ -36,6 +36,14 @@ export const Snippet = ({ html, onMount, getState }) => {
     const hasBorderClass = hasBorder ? 'has-border' : '';
     const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
 
+    /**
+     * Get pre rem font size.
+     * Calculate full size of snippet before load.
+     */
+    const remValue = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue('--snippet-rem-value');
+
     onMount(async ({ refs }) => {
         const { codeEl } = refs;
 
@@ -53,7 +61,7 @@ export const Snippet = ({ html, onMount, getState }) => {
             <pre
                 class="${isFullClass} ${hasOverflowClass}"
                 ref="codeEl"
-                style="min-height:${numLines * 1.5}rem;"
+                style="min-height:${numLines * remValue}rem;"
             >
 Loading snippet ...</pre
             >

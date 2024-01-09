@@ -218,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by <a href='./#animatedPatternN0v5'>row</a> / <a href='./#animatedPatternN0v6'>column</a> or as a single element <a href='./#animatedPatternN0v7'>radial</a>"
+            "content": "If you use a two-dimensional column/row model, you need to specify the number of columns and the number of rows. We could then specify whether to group subscribers by row / column or as a single element radial"
         },
         {
             "component": "mob-title",

@@ -16,6 +16,7 @@
     --footer-height: #{rem(80)};
     --nav-width: 100vw;
     --default-padding: #{rem(100)};
+    --snippet-rem-value: #{strip-unit(rem(14))};
 
     @include mq.mq(desktop) {
         @media screen and (height <= 700px) {
