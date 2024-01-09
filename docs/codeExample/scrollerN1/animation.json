@@ -8,13 +8,6 @@
             "content": "animation"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "line": true
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/scroller/ScrollerN1/animation/animation.js",

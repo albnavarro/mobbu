@@ -8,13 +8,6 @@
             "content": "Data"
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
-                "line": true
-            }
-        },
-        {
             "component": "mob-snippet",
             "props": {
                 "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/dynamicList/data/index.js",
