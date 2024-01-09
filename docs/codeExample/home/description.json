@@ -3,8 +3,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1",
-                "color": "green"
+                "tag": "h1"
             },
             "content": "Svg lettering"
         },

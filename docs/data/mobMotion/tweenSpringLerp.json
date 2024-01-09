@@ -26,8 +26,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
-                "line": true
+                "style": "medium"
             }
         },
         {
@@ -81,8 +80,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
-                "line": true
+                "style": "medium"
             }
         },
         {
@@ -139,8 +137,7 @@
             "props": {
                 "style": "medium",
                 "id": "tween",
-                "label": "Tween",
-                "line": true
+                "label": "Tween"
             }
         },
         {
@@ -235,8 +232,7 @@
             "props": {
                 "style": "medium",
                 "id": "Spring",
-                "label": "spring",
-                "line": true
+                "label": "spring"
             }
         },
         {
@@ -344,8 +340,7 @@
             "props": {
                 "style": "medium",
                 "id": "lerp",
-                "label": "Lerp",
-                "line": true
+                "label": "Lerp"
             }
         },
         {
