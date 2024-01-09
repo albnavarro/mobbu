@@ -92,7 +92,10 @@ p {
 }
 
 ul {
+    margin-left: rem(20);
+
     &.hide-dots {
+        margin-left: 0;
         list-style-type: none;
     }
 }

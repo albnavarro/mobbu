@@ -19,7 +19,6 @@
     a {
         transition: opacity 0.35s;
         color: $green;
-        // text-decoration: underline;
 
         &:hover {
             opacity: 0.5;
@@ -27,7 +26,6 @@
     }
 
     ul {
-        list-style-type: none;
         padding: 0;
     }
 

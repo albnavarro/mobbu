@@ -44,6 +44,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": ["<a href='./#child'>Child</a>"]
             }
         }

@@ -417,7 +417,11 @@ p {
 .ul--big {
   font-size: 1.4666666667rem;
 }
+ul {
+  margin-left: 1.3333333333rem;
+}
 ul.hide-dots {
+  margin-left: 0;
   list-style-type: none;
 }
 a {
@@ -2058,7 +2062,6 @@ code {
   opacity: 0.5;
 }
 .html-content ul {
-  list-style-type: none;
   padding: 0;
 }
 .html-content li > a {

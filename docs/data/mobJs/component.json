@@ -334,6 +334,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#mobJs_html'>html</a>",
                     "<a href='./#mobJs_onMount'>onMount/Destroy</a>",
@@ -360,6 +361,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#mobJs_unBind'>unBind</a>",
                     "<a href='./#mobJs_emit'>emit</a>",

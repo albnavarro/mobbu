@@ -105,6 +105,7 @@
         {
             "component": "mob-list",
             "props": {
+                "dots": false,
                 "items": [
                     "<a href='./#mobMotion_tween_spring_lerp'>Tween/Spring/Lerp</a>",
                     "<a href='./#mobMotion_async_timeline'>Async timeline</a>"
@@ -169,6 +170,7 @@
         {
             "component": "mob-list",
             "props": {
+                "dots": false,
                 "items": [
                     "<a href='./#mobMotion_sequencer'>Sequencer ( sync tween )</a>",
                     "<a href='./#mobMotion_create_stagger'>Create Stagger</a>",
@@ -243,6 +245,7 @@
         {
             "component": "mob-list",
             "props": {
+                "dots": false,
                 "items": ["<a href='./#mobMotion_stagger'>Stagger</a>"]
             }
         },
@@ -265,6 +268,7 @@
             "component": "mob-list",
             "props": {
                 "tag": "h3",
+                "dots": false,
                 "items": ["<a href='./#mobMotion_defaults'>Defaults</a>"]
             }
         },

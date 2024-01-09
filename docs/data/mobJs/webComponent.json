@@ -69,13 +69,13 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "- attributeToObserve",
-                    "- constructorCallback",
-                    "- connectedCallback",
-                    "- disconnectedCallback",
-                    "- adoptedCallback",
-                    "- attributeChangedCallback",
-                    "- style"
+                    "attributeToObserve",
+                    "constructorCallback",
+                    "connectedCallback",
+                    "disconnectedCallback",
+                    "adoptedCallback",
+                    "attributeChangedCallback",
+                    "style"
                 ]
             }
         },

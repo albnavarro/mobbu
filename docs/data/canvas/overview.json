@@ -51,6 +51,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#caterpillarN0'>caterpillar n.0</a>",
                     "<a href='./#caterpillarN1'>caterpillar n.1</a>",
@@ -75,6 +76,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#animatedPatternN0?version=0&activeId=0'>animatedPattern n.0 v1</a>",
                     "<a href='./#animatedPatternN0?version=1&activeId=1'>animatedPattern n.0 v2</a>",
@@ -100,6 +102,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#animatedPatternN1'>animatedPattern n.1</a>"
                 ]
@@ -122,6 +125,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": [
                     "<a href='./#scrollerN0?version=0&activeId=0'>scroller n.0 v0</a>",
                     "<a href='./#scrollerN0?version=1&activeId=1'>scroller n.0 v1</a>",
@@ -148,6 +152,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
+                "dots": false,
                 "items": ["<a href='./#scrollerN1'>scrollerN1</a>"]
             }
         },
