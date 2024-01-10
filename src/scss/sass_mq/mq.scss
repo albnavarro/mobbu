@@ -32,7 +32,13 @@ $html-font-size: (
 
 /* 
 Unit miusre per breakpoints.
-values: px || vw.
+values: px || vw || number ( ration number value ).
+
+- px - pizel value.
+- vw - vw calculated with brackpoint ratio.
+- number = vw calculated with custom ratio dofferent from brackpoint
+  es: use next breakpoint ratio to calculate vw value.
+
 If no key is used font-size-map skip this key.
 So missed brackpoint inherit from previous.
 */
