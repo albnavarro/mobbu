@@ -1,3 +1,4 @@
+/* stylelint-disable scss/operator-no-newline-after */
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
@@ -73,19 +74,27 @@
     padding-inline: var(--gap-size);
 
     @each $key, $value in $grid-container-size {
-        @include mq.mq($key) {
-            $col-number: map.get($grid-col-count, $key);
-            $gap-size: map.get($grid-gap-size, $key);
+        $unit-misure: map.get($grid-unit-misure, $key);
+        $col-number: map.get($grid-col-count, $key);
+        $gap-size: map.get($grid-gap-size, $key);
+        $max-width: 0;
 
-            //
+        @if $unit-misure == 'px' {
+            $max-width: min(rem($value, $key), 100vw);
+        }
+
+        @if $unit-misure == 'vw' {
+            $max-width: $value * 1vw;
+        }
+
+        @include mq.mq($key) {
             --col-size: calc(
-                (
-                    (#{rem($value, $key)} / #{$col-number}) -
-                        (var(--gap-size) / #{$col-number})
-                )
+                (#{$max-width}/ #{$col-number}) -
+                    (var(--gap-size) / #{$col-number})
             );
             --gap-size: #{rem($gap-size, $key)};
-            max-width: rem($value, $key);
+
+            max-width: $max-width;
         }
     }
 }

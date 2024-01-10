@@ -3,10 +3,23 @@ Grid setUp.
 Container 
 */
 $grid-container-size: (
-    'xsmall': 320,
-    'desktop': 992,
+    'xsmall': 100,
+    'medium': 600,
+    'desktop': 100,
     'large': 1200,
     'xlarge': 1600,
+);
+
+/* 
+Grid setUp.
+container unit misure
+*/
+$grid-unit-misure: (
+    'xsmall': vw,
+    'medium': px,
+    'desktop': vw,
+    'large': px,
+    'xlarge': px,
 );
 
 /* 
@@ -14,7 +27,8 @@ Grid setUp.
 Column size
 */
 $grid-col-count: (
-    'xsmall': 4,
+    'xsmall': 3,
+    'medium': 4,
     'desktop': 8,
     'large': 10,
     'xlarge': 12,
@@ -25,8 +39,9 @@ Grid setUp.
 Column size
 */
 $grid-gap-size: (
-    'xsmall': 5,
-    'desktop': 5,
-    'large': 10,
-    'xlarge': 10,
+    'xsmall': 10,
+    'medium': 10,
+    'desktop': 40,
+    'large': 20,
+    'xlarge': 20,
 );
