@@ -1,0 +1,32 @@
+/* 
+Grid setUp.
+Container 
+*/
+$grid-container-size: (
+    'xsmall': 320,
+    'desktop': 992,
+    'large': 1200,
+    'xlarge': 1600,
+);
+
+/* 
+Grid setUp.
+Column size
+*/
+$grid-col-count: (
+    'xsmall': 4,
+    'desktop': 8,
+    'large': 10,
+    'xlarge': 12,
+);
+
+/* 
+Grid setUp.
+Column size
+*/
+$grid-gap-size: (
+    'xsmall': 5,
+    'desktop': 5,
+    'large': 10,
+    'xlarge': 10,
+);
