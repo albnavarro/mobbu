@@ -16,6 +16,14 @@
     @return math.div($value, $value * 0 + 1);
 }
 
+/**
+* Calc REM in houses at the lowest average media query
+* 
+* @param {String} $pixel - current value in pixel
+* @param {String} $mq - reference brackpoint
+* 
+* @return {String}
+*/
 @function rem($pixels, $mq: '') {
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
@@ -30,7 +38,14 @@
     @return math.div($pixels, $mq) * 1rem;
 }
 
-// calc EM in houses at the lowest average media query
+/**
+* Calc EM in houses at the lowest average media query
+* 
+* @param {String} $pixel - current value in pixel
+* @param {String} $mq - reference brackpoint
+* 
+* @return {String}
+*/
 @function em($pixels, $mq: '') {
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
@@ -47,4 +62,28 @@
 
 @function line-height($font-size, $line-height) {
     @return math.div($line-height, $font-size) * 1em;
+}
+
+/**
+* Get container size in rem or vw based to specific unit misure
+* 
+* @param {Map}    $unit-map  - Map of unit misuse per brackpoint.
+* @param {String} $key - current breackpint.
+* @param {String} $value - current unit misure.
+* 
+* @return {String}
+*/
+@function get-container-with($unit-map, $key, $value) {
+    $unit-misure: map.get($unit-map, $key);
+    $max-width: 0;
+
+    @if $unit-misure == 'px' {
+        $max-width: min(rem($value, $key), 100vw);
+    }
+
+    @if $unit-misure == 'vw' {
+        $max-width: $value * 1vw;
+    }
+
+    @return $max-width;
 }

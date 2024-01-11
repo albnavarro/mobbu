@@ -14,7 +14,7 @@
     }
 
     &__cont {
-        @include grid-context;
+        @include container;
 
         span {
             height: rem(100);

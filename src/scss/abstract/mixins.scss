@@ -38,7 +38,9 @@
     }
 }
 
-// responsive font size mixin v2
+/**
+* Set html fontsize on html for each queries.
+*/
 @mixin font-size-map() {
     @each $key, $value in $html-font-size {
         $unit-misure: map.get($html-font-unit, $key);
@@ -69,49 +71,69 @@
                     1vw;
             }
 
-            @include mq.mq($key) {
-                font-size: $font-size;
+            html {
+                @include mq.mq($key) {
+                    font-size: $font-size;
+                }
             }
         }
     }
 }
 
+/**
+* Set cssVar for col/gutter on root for each brackpoint.
+* --col-size
+* --gap-size
+*/
 @mixin grid-context() {
-    max-width: 100%;
-    margin: auto;
-    padding-inline: var(--gap-size);
-
     @each $key, $value in $grid-container-size {
-        $unit-misure: map.get($grid-unit-misure, $key);
         $col-number: map.get($grid-col-count, $key);
         $gap-size: map.get($grid-gap-size, $key);
-        $max-width: 0;
+        $max-width: get-container-with($grid-unit-misure, $key, $value);
+        $wide-factor: -1;
 
-        @if $unit-misure == 'px' {
-            $max-width: min(rem($value, $key), 100vw);
+        @if $wide {
+            $wide-factor: 1;
         }
 
-        @if $unit-misure == 'vw' {
-            $max-width: $value * 1vw;
-        }
-
-        @include mq.mq($key) {
-            --col-size: calc(
-                (#{$max-width}/ #{$col-number}) -
-                    (var(--gap-size) / #{$col-number})
-            );
-            --gap-size: #{rem($gap-size, $key)};
-
-            max-width: $max-width;
+        :root {
+            @include mq.mq($key) {
+                --col-size: calc(
+                    (#{$max-width}/ #{$col-number}) -
+                        (var(--gap-size) / #{$col-number * $wide-factor})
+                );
+                --gap-size: #{rem($gap-size, $key)};
+            }
         }
     }
 }
 
+/**
+* Set container width for each brackpoint.
+*/
+@mixin container() {
+    max-width: 100%;
+    margin: auto;
+
+    @if $wide {
+        padding-inline: var(--gap-size);
+    }
+
+    @each $key, $value in $grid-container-size {
+        @include mq.mq($key) {
+            max-width: get-container-with($grid-unit-misure, $key, $value);
+        }
+    }
+}
+
+/**
+* Set grid width for each brackpoint.
+*/
 @mixin grid() {
     display: grid;
     gap: var(--gap-size);
 
-    @include grid-context;
+    @include container;
 
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);

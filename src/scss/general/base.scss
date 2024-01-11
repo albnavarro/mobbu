@@ -1,15 +1,19 @@
 @use 'sass-mq/mq';
 @use '../abstract' as *;
 
-// -----------------------------------------------------------------------------
-// This file contains very basic styles.
-// -----------------------------------------------------------------------------
-@use 'sass:map';
+/**
+ * HTML font size map.
+ */
+@include font-size-map;
+
+/**
+ * Global columns/gap definition.
+ */
+@include grid-context;
 
 /**
  * Set up a decent box model on the root element
  */
-
 :root {
     --header-height: #{rem(80)};
     --header-navinfo: #{rem(40)};
