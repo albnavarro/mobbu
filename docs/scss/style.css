@@ -2494,7 +2494,9 @@ code {
   max-width: 100%;
   margin: auto;
   padding-inline: var(--gap-size);
+  margin-bottom: 1.3333333333rem;
   height: 2.6666666667rem;
+  overflow: hidden;
 }
 @media (min-width: 20em) {
   .test-grid__grid {
@@ -2545,6 +2547,11 @@ code {
   .test-grid__grid {
     grid-template-columns: repeat(12, 1fr);
   }
+}
+.test-grid__grid span {
+  height: 2.6666666667rem;
+  width: 100%;
+  background: red;
 }
 .test-grid__cont {
   max-width: 100%;

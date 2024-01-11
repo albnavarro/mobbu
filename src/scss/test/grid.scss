@@ -10,7 +10,15 @@
     &__grid {
         @include grid;
 
+        margin-bottom: rem(20);
         height: rem(40);
+        overflow: hidden;
+
+        span {
+            height: rem(40);
+            width: 100%;
+            background: red;
+        }
     }
 
     &__cont {

@@ -82,8 +82,8 @@
 
 /**
 * Set cssVar for col/gutter on root for each brackpoint.
-* --col-size
-* --gap-size
+* --col-size: 1 column + 1 gutter.
+* --gap-size: 1 gutter.
 */
 @mixin grid-context() {
     @each $key, $value in $grid-container-size {
