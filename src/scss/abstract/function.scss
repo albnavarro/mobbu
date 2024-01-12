@@ -78,7 +78,7 @@
     $max-width: 0;
 
     @if $unit-misure == 'px' {
-        $max-width: min(rem($value, $key), 100vw);
+        $max-width: rem($value, $key);
     }
 
     @if $unit-misure == 'vw' {

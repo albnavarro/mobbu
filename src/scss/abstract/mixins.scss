@@ -91,13 +91,11 @@
         $gap-size: map.get($grid-gap-size, $key);
         $max-width: get-container-with($grid-unit-misure, $key, $value);
 
-        :root {
-            @include mq.mq($key) {
-                --col-size: calc(
-                    (100% / #{$col-number}) + (var(--gap-size) / #{$col-number})
-                );
-                --gap-size: #{rem($gap-size, $key)};
-            }
+        @include mq.mq($key) {
+            --col-size: calc(
+                (100% / #{$col-number}) + (var(--gap-size) / #{$col-number})
+            );
+            --gap-size: #{rem($gap-size, $key)};
         }
     }
 }
@@ -109,7 +107,11 @@
     max-width: 100%;
     margin: auto;
 
-    @if $wide {
+    @if $spread == 'wide' {
+        padding-inline: calc(var(--gap-size) / 2);
+    }
+
+    @if $spread == 'wider' {
         padding-inline: var(--gap-size);
     }
 

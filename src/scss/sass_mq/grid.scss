@@ -47,6 +47,10 @@ $grid-gap-size: (
 );
 
 /* 
-Add a gutter on grid/container side.
+Define spread.
+
+narrow: ( default ) no padding.
+wide: half inline-padding indise container.
+wider: inline-padding indise container.
 */
-$wide: true;
+$spread: 'wide';

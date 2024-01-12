@@ -2,16 +2,6 @@
 @use '../abstract' as *;
 
 /**
- * HTML font size map.
- */
-@include font-size-map;
-
-/**
- * Global columns/gap definition.
- */
-@include grid-context;
-
-/**
  * Set up a decent box model on the root element
  */
 :root {

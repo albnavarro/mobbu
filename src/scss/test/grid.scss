@@ -8,6 +8,7 @@
 
     &__grid {
         @include grid;
+        @include grid-context;
 
         margin-bottom: rem(20);
         height: rem(40);
@@ -22,6 +23,7 @@
 
     &__cont {
         @include container;
+        @include grid-context;
 
         span {
             height: rem(100);
