@@ -1,0 +1,48 @@
+@use 'sass:map';
+
+$map: (
+    mobile: (
+        one: 12,
+        two: 12,
+        three: 13,
+    ),
+
+    tablet: (
+        one: 21,
+        three: 22,
+        four: 24,
+    ),
+
+    desktop: (
+        one: 31,
+        two: 32,
+        three: 33,
+    ),
+);
+
+@function filter-nested-map($original, $keyOriginal) {
+    $filter-map: ();
+
+    @each $key, $value in $original {
+        $sub-map: map.get($original, $key);
+
+        @if $sub-map {
+            $value-parsed: map.get($sub-map, $keyOriginal);
+
+            @if $value-parsed {
+                $filter-map: map.merge(
+                    $filter-map,
+                    (
+                        $key: $value-parsed,
+                    )
+                );
+            }
+        }
+    }
+
+    @return $filter-map;
+}
+
+$new-map: filter-nested-map($map, 'two');
+
+@debug ($new-map);
