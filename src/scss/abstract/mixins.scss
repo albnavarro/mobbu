@@ -90,17 +90,11 @@
         $col-number: map.get($grid-col-count, $key);
         $gap-size: map.get($grid-gap-size, $key);
         $max-width: get-container-with($grid-unit-misure, $key, $value);
-        $wide-factor: -1;
-
-        @if $wide {
-            $wide-factor: 1;
-        }
 
         :root {
             @include mq.mq($key) {
                 --col-size: calc(
-                    (#{$max-width}/ #{$col-number}) -
-                        (var(--gap-size) / #{$col-number * $wide-factor})
+                    (100% / #{$col-number}) + (var(--gap-size) / #{$col-number})
                 );
                 --gap-size: #{rem($gap-size, $key)};
             }
