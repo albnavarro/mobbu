@@ -6,6 +6,7 @@ import { inizializeApp, setDefaultComponent } from './mobjs';
 import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
+import { getScrollbarWith } from './utils/scrollbarWith';
 // import { storeTest } from './test/storeTest';
 
 /**
@@ -13,6 +14,7 @@ import { setBrowserClass } from './utils/utils';
  */
 mobCore.useLoad(() => {
     setBrowserClass();
+    getScrollbarWith();
 
     mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
 

@@ -5,6 +5,7 @@
 @use 'sass-mq/mq';
 @use 'sass:math';
 @use 'sass:map';
+@use 'sass:meta';
 @use '../sass_mq' as *;
 @use './function' as *;
 
@@ -84,18 +85,36 @@
 * Set cssVar for col/gutter on root for each brackpoint.
 * --col-size: 1 column + 1 gutter.
 * --gap-size: 1 gutter.
+*
+*
+* Snippet to update --scrollbar-with.
+* window.innerWidth - document.documentElement.clientWidth;
 */
 @mixin grid-context() {
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);
         $gap-size: map.get($grid-gap-size, $key);
         $max-width: get-container-with($grid-unit-misure, $key, $value);
+        $spread-factor: -1;
 
-        @include mq.mq($key) {
-            --col-size: calc(
-                (100% / #{$col-number}) + (var(--gap-size) / #{$col-number})
-            );
-            --gap-size: #{rem($gap-size, $key)};
+        @if $spread == 'wide' {
+            $spread-factor: 1;
+        }
+
+        :root {
+            /*
+            Update this value in jsvascript on resize.
+            This is only a default value.
+            */
+            --scrollbar-with: 15px;
+
+            @include mq.mq($key) {
+                --col-size: calc(
+                    (#{$max-width}/ #{$col-number}) -
+                        (var(--gap-size) / #{$col-number * $spread-factor})
+                );
+                --gap-size: #{rem($gap-size, $key)};
+            }
         }
     }
 }
@@ -108,10 +127,6 @@
     margin: auto;
 
     @if $spread == 'wide' {
-        padding-inline: calc(var(--gap-size) / 2);
-    }
-
-    @if $spread == 'wider' {
         padding-inline: var(--gap-size);
     }
 

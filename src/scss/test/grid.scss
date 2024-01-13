@@ -1,14 +1,11 @@
 @use '../abstract' as *;
 
 .test-grid {
-    position: relative;
-    width: 100%;
+    margin-top: rem(100);
     z-index: 12;
-    top: rem(200);
 
     &__grid {
         @include grid;
-        @include grid-context;
 
         margin-bottom: rem(20);
         height: rem(40);
@@ -23,7 +20,6 @@
 
     &__cont {
         @include container;
-        @include grid-context;
 
         span {
             height: rem(100);

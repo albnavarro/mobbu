@@ -78,11 +78,11 @@
     $max-width: 0;
 
     @if $unit-misure == 'px' {
-        $max-width: rem($value, $key);
+        $max-width: min(rem($value, $key), calc(100vw - var(--scrollbar-with)));
     }
 
     @if $unit-misure == 'vw' {
-        $max-width: $value * 1vw;
+        $max-width: min(($value * 1vw), calc(100vw - var(--scrollbar-with)));
     }
 
     @return $max-width;

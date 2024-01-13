@@ -6,7 +6,7 @@ $grid-container-size: (
     'xsmall': 100,
     'medium': 600,
     'desktop': 100,
-    'large': 1400,
+    'large': 1200,
     'xlarge': 1600,
 );
 
@@ -47,10 +47,8 @@ $grid-gap-size: (
 );
 
 /* 
-Define spread.
-
-narrow: ( default ) no padding.
-wide: half inline-padding indise container.
-wider: inline-padding indise container.
+TODO: non abbigatorie value.
+Add a gutter on grid/container side.
+Value: 'wide' or '';
 */
 $spread: 'wide';
