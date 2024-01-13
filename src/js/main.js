@@ -14,7 +14,6 @@ import { getScrollbarWith } from './utils/scrollbarWith';
  */
 mobCore.useLoad(() => {
     setBrowserClass();
-    getScrollbarWith();
 
     mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
 
@@ -84,6 +83,7 @@ mobCore.useLoad(() => {
                 jsMainLoader?.remove();
                 jsMainLoaderBackground?.remove();
                 loaderTween = null;
+                getScrollbarWith();
             },
         });
     };
