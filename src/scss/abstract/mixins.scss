@@ -95,10 +95,24 @@
         $col-number: map.get($grid-col-count, $key);
         $gap-size: map.get($grid-gap-size, $key);
         $max-width: get-container-with($grid-unit-misure, $key, $value);
+
+        // Default value
         $spread-factor: -1;
+        $additional-value: '0px';
+
+        @if $spread == 'narrow' {
+            $spread-factor: -1;
+            $additional-value: '0px';
+        }
 
         @if $spread == 'wide' {
+            $additional-value: var(--gap-size) / (#{$col-number});
+            $spread-factor: -1;
+        }
+
+        @if $spread == 'wider' {
             $spread-factor: 1;
+            $additional-value: '0px';
         }
 
         :root {
@@ -110,8 +124,15 @@
 
             @include mq.mq($key) {
                 --col-size: calc(
-                    (#{$max-width}/ #{$col-number}) -
-                        (var(--gap-size) / #{$col-number * $spread-factor})
+                    (
+                            (#{$max-width}/ #{$col-number}) -
+                                (
+                                    (
+                                        var(--gap-size) / #{$col-number *
+                                            $spread-factor}
+                                    )
+                                )
+                        ) - #{$additional-value}
                 );
                 --gap-size: #{rem($gap-size, $key)};
             }
@@ -127,7 +148,11 @@
     margin: auto;
 
     @if $spread == 'wide' {
-        padding-inline: var(--gap-size);
+        padding-inline: calc(var(--gap-size) / 2);
+    }
+
+    @if $spread == 'wider' {
+        padding-inline: calc(var(--gap-size));
     }
 
     @each $key, $value in $grid-container-size {
