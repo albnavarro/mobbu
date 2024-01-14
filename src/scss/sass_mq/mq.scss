@@ -13,48 +13,61 @@ $breakpoints: (
     'xxxlarge': 2140px,
 );
 
-/* 
-Font size per breakpoints.
-Is necessary use all key defined in $breakpoints:
-rem && em function should use custom breakpoints.
-*/
-$html-font-size: (
-    'xsmall': 12px,
-    'small': 12px,
-    'medium': 14px,
-    'tablet': 14px,
-    'desktop': 15px,
-    'large': 15px,
-    'xlarge': 15px,
-    'xxlarge': 16px,
-    'xxxlarge': 17px,
-);
-
-/* 
-Unit miusre per breakpoints.
-values: px || vw || number ( ration number value ).
-
-- px - pizel value.
-- vw - vw calculated with brackpoint ratio.
-- number = vw calculated with custom ratio dofferent from brackpoint
-  es: use next breakpoint ratio to calculate vw value.
-
-If no key is used font-size-map skip this key.
-So missed brackpoint inherit from previous.
-*/
-$html-font-unit: (
-    'xsmall': px,
-    'medium': px,
-    'desktop': px,
-    'xxlarge': px,
-    'xxxlarge': px,
-);
-
 /*
-Default brackpoint for rem and em function 
-if no $mq is specified.
+size: size of font for specific breakpoint.
+es: 12px.
+
+unit: unit of value: px || vw,
+The default ratio of vw is the related brackpoint. 
+es: px || vw.
+
+ratio: if used the vw falue is calculated with this ratio.
+Generally the ratio value is the next brackpoint.
+es: 1200.
+
+default: Default brackpoint for rem/em conversion.
+es: true.
 */
-$default-font-size: desktop;
+$font-map: (
+    'xsmall': (
+        size: 12px,
+        unit: px,
+        ratio: null,
+    ),
+    'small': (
+        size: 12px,
+    ),
+    'medium': (
+        size: 14px,
+        unit: px,
+        ratio: null,
+    ),
+    'tablet': (
+        size: 14px,
+    ),
+    'desktop': (
+        size: 15px,
+        unit: px,
+        default: true,
+    ),
+    'large': (
+        size: 15px,
+        unit: px,
+    ),
+    'xlarge': (
+        size: 15px,
+    ),
+    'xxlarge': (
+        size: 16px,
+        unit: px,
+        ratio: null,
+    ),
+    'xxxlarge': (
+        size: 17px,
+        unit: px,
+        ratio: null,
+    ),
+);
 
 /* 
 Apply custom breakpoints to sass-mq.
@@ -66,7 +79,7 @@ Apply custom breakpoints to sass-mq.
     //     small,
     //     medium,
     //     tablet,
-    //     desktop
+    //     desktop,
     //     large,
     //     xlarge,
     //     xxlarge,

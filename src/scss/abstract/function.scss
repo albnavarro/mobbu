@@ -25,12 +25,28 @@
 * @return {String}
 */
 @function rem($pixels, $mq: '') {
+    $html-font-size: filter-nested-map($font-map, size);
+
+    /*
+    Get default font size;
+    */
+    $default-map: filter-nested-map($font-map, default);
+    $defult-key: null;
+
+    /*
+    TODO: get first or last value in map.
+    We expect only one default value.
+    */
+    @each $key, $value in $default-map {
+        $defult-key: $key;
+    }
+
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
     }
 
     @if $mq == '' {
-        $mq: map.get($html-font-size, $default-font-size);
+        $mq: map.get($html-font-size, $defult-key);
     } @else {
         $mq: map.get($html-font-size, $mq);
     }
@@ -47,6 +63,22 @@
 * @return {String}
 */
 @function em($pixels, $mq: '') {
+    $html-font-size: filter-nested-map($font-map, size);
+
+    /*
+    Get default font size;
+    */
+    $default-map: filter-nested-map($font-map, default);
+    $defult-key: null;
+
+    /*
+    TODO: get first or last value in map.
+    We expect only one default value.
+    */
+    @each $key, $value in $default-map {
+        $defult-key: $key;
+    }
+
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
     }
@@ -86,4 +118,27 @@
     }
 
     @return $max-width;
+}
+
+@function filter-nested-map($original, $keyOriginal) {
+    $filter-map: ();
+
+    @each $key, $value in $original {
+        $sub-map: map.get($original, $key);
+
+        @if $sub-map {
+            $value-parsed: map.get($sub-map, $keyOriginal);
+
+            @if $value-parsed {
+                $filter-map: map.merge(
+                    $filter-map,
+                    (
+                        $key: $value-parsed,
+                    )
+                );
+            }
+        }
+    }
+
+    @return $filter-map;
 }
