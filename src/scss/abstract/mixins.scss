@@ -97,22 +97,18 @@
         $max-width: get-container-with($grid-unit-misure, $key, $value);
 
         // Default value
-        $spread-factor: -1;
         $additional-value: '0px';
 
         @if $spread == 'narrow' {
-            $spread-factor: -1;
             $additional-value: '0px';
         }
 
         @if $spread == 'wide' {
             $additional-value: var(--gap-size) / #{$col-number};
-            $spread-factor: -1;
         }
 
         @if $spread == 'wider' {
-            $spread-factor: 1;
-            $additional-value: '0px';
+            $additional-value: calc(var(--gap-size) * 2) / #{$col-number};
         }
 
         :root {
@@ -123,11 +119,11 @@
             --scrollbar-with: 15px;
 
             $max-with-parsed: $max-width / $col-number;
-            $gap-parsed: var(--gap-size) / ($col-number * $spread-factor);
+            $gap-parsed: var(--gap-size) / ($col-number);
 
             @include mq.mq($key) {
                 --col-size: calc(
-                    #{$max-with-parsed} - #{$gap-parsed} - #{$additional-value}
+                    #{$max-with-parsed} + #{$gap-parsed} - #{$additional-value}
                 );
                 --gap-size: #{rem($gap-size, $key)};
             }
