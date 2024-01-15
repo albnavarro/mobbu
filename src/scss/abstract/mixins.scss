@@ -93,6 +93,11 @@
 * window.innerWidth - document.documentElement.clientWidth;
 */
 @mixin grid-context() {
+    $grid-unit-misure: filter-nested-map($grid-map, unit);
+    $grid-container-size: filter-nested-map($grid-map, size);
+    $grid-gap-size: filter-nested-map($grid-map, gap);
+    $grid-col-count: filter-nested-map($grid-map, column);
+
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);
 
@@ -143,6 +148,9 @@
 * Set container width for each brackpoint.
 */
 @mixin container() {
+    $grid-unit-misure: filter-nested-map($grid-map, unit);
+    $grid-container-size: filter-nested-map($grid-map, size);
+
     max-width: 100%;
     margin: auto;
 
@@ -165,6 +173,9 @@
 * Set grid width for each brackpoint.
 */
 @mixin grid() {
+    $grid-container-size: filter-nested-map($grid-map, size);
+    $grid-col-count: filter-nested-map($grid-map, column);
+
     display: grid;
     gap: var(--gap-size);
 

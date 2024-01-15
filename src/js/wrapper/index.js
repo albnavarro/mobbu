@@ -2,14 +2,14 @@ import { html } from '../mobjs';
 
 export const wrapper = () => {
     return html`
-        <!-- <div class="test-grid"> -->
-        <!--     <div class="test-grid__grid"> -->
-        <!--         <span></span><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span> -->
-        <!--     </div> -->
-        <!--     <div class="test-grid__cont"><span>test</span></div> -->
-        <!-- </div> -->
+        <div class="test-grid">
+            <div class="test-grid__grid">
+                <span></span><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span><span></span
+                ><span></span><span></span><span></span>
+            </div>
+            <div class="test-grid__cont"><span>test</span></div>
+        </div>
 
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>

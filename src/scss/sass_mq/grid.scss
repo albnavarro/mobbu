@@ -1,49 +1,34 @@
-/* 
-Grid setUp.
-Container 
-*/
-$grid-container-size: (
-    'xsmall': 100,
-    'medium': 600,
-    'desktop': 100,
-    'large': 1200,
-    'xlarge': 1600,
-);
-
-/* 
-Grid setUp.
-container unit misure
-*/
-$grid-unit-misure: (
-    'xsmall': vw,
-    'medium': px,
-    'desktop': vw,
-    'large': px,
-    'xlarge': px,
-);
-
-/* 
-Grid setUp.
-Column size
-*/
-$grid-col-count: (
-    'xsmall': 3,
-    'medium': 4,
-    'desktop': 8,
-    'large': 10,
-    'xlarge': 12,
-);
-
-/* 
-Grid setUp.
-Column size
-*/
-$grid-gap-size: (
-    'xsmall': 10,
-    'medium': 10,
-    'desktop': 40,
-    'large': 20,
-    'xlarge': 20,
+$grid-map: (
+    'xsmall': (
+        size: 100,
+        unit: vw,
+        column: 3,
+        gap: 10,
+    ),
+    'medium': (
+        size: 600,
+        unit: px,
+        column: 4,
+        gap: 10,
+    ),
+    'desktop': (
+        size: 100,
+        unit: vw,
+        column: 8,
+        gap: 15,
+    ),
+    'large': (
+        size: 1200,
+        unit: px,
+        column: 10,
+        gap: 20,
+    ),
+    'xlarge': (
+        size: 1600,
+        unit: px,
+        column: 12,
+        gap: 25,
+    ),
 );
 
 /* 
@@ -51,4 +36,4 @@ TODO: non abbigatorie value.
 Add a gutter on grid/container side.
 Value: 'wide' or 'wider' or 'narrow';
 */
-$spread: 'wider';
+$spread: 'wide';
