@@ -5,7 +5,7 @@
 @use 'sass-mq/mq';
 @use 'sass:math';
 @use 'sass:map';
-@use 'sass:meta';
+@use 'sass:list';
 @use '../sass_mq' as *;
 @use './function' as *;
 
@@ -95,23 +95,23 @@
 @mixin grid-context() {
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);
-        $gap-size: map.get($grid-gap-size, $key);
+
+        /*
+        max-with value.
+        */
         $max-width: get-container-with($grid-unit-misure, $key, $value);
 
-        // Default value
-        $additional-value: '0px';
+        /*
+        gap value.
+        */
+        $gap-size: map.get($grid-gap-size, $key);
+        $gap-to-rem: rem($gap-size, $key);
 
-        @if $spread == 'narrow' {
-            $additional-value: '0px';
-        }
-
-        @if $spread == 'wide' {
-            $additional-value: var(--gap-size) / #{$col-number};
-        }
-
-        @if $spread == 'wider' {
-            $additional-value: calc(var(--gap-size) * 2) / #{$col-number};
-        }
+        /**
+        subdivide col and gap for numbers of column
+        */
+        $max-with-unit: list.slash($max-width, $col-number);
+        $gap-unit: math.div($gap-to-rem, $col-number);
 
         :root {
             /*
@@ -120,14 +120,20 @@
             */
             --scrollbar-with: 15px;
 
-            $max-with-parsed: $max-width / $col-number;
-            $gap-parsed: var(--gap-size) / ($col-number);
-
             @include mq.mq($key) {
-                --col-size: calc(
-                    #{$max-with-parsed} + #{$gap-parsed} - #{$additional-value}
-                );
-                --gap-size: #{rem($gap-size, $key)};
+                @if $spread == 'narrow' {
+                    --col-size: calc(#{$max-with-unit} + #{$gap-unit});
+                }
+
+                @if $spread == 'wide' {
+                    --col-size: #{$max-with-unit};
+                }
+
+                @if $spread == 'wider' {
+                    --col-size: calc(#{$max-with-unit} - #{$gap-unit});
+                }
+
+                --gap-size: #{$gap-to-rem};
             }
         }
     }
