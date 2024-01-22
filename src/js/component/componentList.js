@@ -45,3 +45,4 @@ export * from './pages/dynamicList/button/definition';
 export * from './pages/dynamicList/repeaters/definition';
 export * from './pages/dynamicList/slottedLabel/definition';
 export * from './pages/svg/child/definition';
+export * from './pages/svg/m3/definition';

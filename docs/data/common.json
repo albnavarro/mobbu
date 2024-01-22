@@ -145,6 +145,12 @@
             "children": null
         },
         {
+            "label": "M3",
+            "url": "m3",
+            "scrollToSection": "svg",
+            "children": null
+        },
+        {
             "label": "mobCore",
             "section": true,
             "sectioName": "mobCore"
