@@ -8,6 +8,7 @@
     align-items: start;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
 
     &__logo {
         position: absolute;
