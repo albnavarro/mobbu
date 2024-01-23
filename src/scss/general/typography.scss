@@ -1,6 +1,6 @@
 @use 'sass-mq/mq';
 @use '../abstract' as *;
-@import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap';
 
 /*
  * -- BASE STYLES --
@@ -38,23 +38,23 @@ h1 {
     line-height: line-height(30, 37);
 
     @include mq.mq('desktop') {
-        font-size: rem(50px);
+        font-size: rem(40px);
         line-height: line-height(30, 37);
     }
 }
 
 h2 {
-    font-size: rem(40px);
-    line-height: line-height(20, 27);
-}
-
-h3 {
     font-size: rem(30px);
     line-height: line-height(20, 27);
 }
 
+h3 {
+    font-size: rem(25px);
+    line-height: line-height(20, 27);
+}
+
 h4 {
-    font-size: rem(22px);
+    font-size: rem(20px);
     line-height: line-height(20, 27);
 }
 
@@ -80,8 +80,8 @@ p {
     }
 
     &--medium {
-        font-size: rem(16);
-        line-height: line-height(16, 24);
+        font-size: rem(15);
+        line-height: line-height(15, 22);
     }
 
     &--big {
@@ -110,8 +110,4 @@ code {
     @include mq.mq('desktop') {
         font-size: rem(16);
     }
-}
-
-.is-bold {
-    font-weight: 600;
 }
