@@ -4,9 +4,13 @@ import { HomeComponent } from './home';
 export const homePageComponentDef = createComponent({
     name: 'home-component',
     component: HomeComponent,
-    exportState: ['svg'],
+    exportState: ['logo', 'sideShape'],
     state: {
-        svg: () => ({
+        logo: () => ({
+            value: '',
+            type: String,
+        }),
+        sideShape: () => ({
             value: '',
             type: String,
         }),

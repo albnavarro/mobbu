@@ -1648,7 +1648,6 @@
     horizontalScrollerDef: () => horizontalScrollerDef,
     horizontalScrollerSectionDef: () => horizontalScrollerSectionDef,
     htmlContentDef: () => htmlContentDef,
-    letteringM3: () => letteringM3,
     listContentDef: () => listContentDef,
     loaderDef: () => loaderDef,
     navigationButtonDef: () => navigationButtonDef,
@@ -25802,100 +25801,29 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/homepage/animation/index.js
-  var homeAnimation = ({ logoRefs, around }) => {
-    const logoRefsByKey = logoRefs.map((item) => {
-      const [key, value] = Object.entries(item)[0];
-      return { key, item: value };
-    });
-    let logoIntroTween = tween.createTween({
-      data: { opacity: 0, scale: 0.5, x: -10 },
+  var m3Animation = ({ refs }) => {
+    let introTween = tween.createTween({
+      data: { opacity: 0, scale: 0.5 },
       duration: 2e3,
       ease: "easeOutQuart",
       stagger: { each: 8, from: "end" }
     });
-    let logoTween = tween.createTween({
-      data: { scale: 1, x: 0 },
-      duration: 4e3,
-      ease: "easeInOutQuad",
-      stagger: { each: 40, from: "end" }
-    });
-    let aroundIntroTween = tween.createTween({
-      data: { scale: 0.5, opacity: 0 },
-      duration: 1e3,
-      ease: "easeInOutQuad",
-      stagger: { each: 4 }
-    });
-    let aroundTween = tween.createTween({
-      data: { scale: 1 },
-      duration: 4e3,
-      ease: "easeInOutQuad",
-      stagger: { each: 20 }
-    });
-    logoRefsByKey.forEach(({ key, item }) => {
-      logoTween.subscribe(({ scale, x }) => {
-        item.style.scale = `${scale}`;
-        if (key !== "M_right" && key !== "M_left")
-          return;
-        const xVal = key === "M_right" ? -x : x;
-        item.style.translate = `${xVal}px 0px`;
-      });
-    });
-    logoRefsByKey.forEach(({ key, item }) => {
-      logoIntroTween.subscribe(({ scale, x, opacity }) => {
-        item.style.scale = `${scale}`;
-        item.style.opacity = opacity;
-        if (key !== "M_right" && key !== "M_left")
-          return;
-        const xVal = key === "M_right" ? -x : x;
-        item.style.translate = `${xVal}px 0px`;
-      });
-    });
-    around.forEach((item) => {
-      aroundIntroTween.subscribe(({ scale, opacity }) => {
+    refs.forEach((item) => {
+      introTween.subscribe(({ scale, opacity }) => {
         item.style.scale = `${scale}`;
         item.style.opacity = opacity;
       });
     });
-    around.forEach((item) => {
-      aroundTween.subscribe(({ scale }) => {
-        item.style.scale = `${scale}`;
-      });
-    });
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(logoIntroTween, {
-      opacity: 1,
-      scale: 1,
-      x: 0
-    }).goTo(aroundIntroTween, {
+    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
       opacity: 1,
       scale: 1
-    }).closeGroup();
-    let tl = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).createGroup({ waitComplete: false }).goTo(logoTween, {
-      scale: 0.95,
-      x: 0.5
-    }).goTo(aroundTween, {
-      scale: 0.95
-    }).closeGroup().createGroup({ waitComplete: false }).goTo(logoTween, {
-      scale: 1.05,
-      x: -0.5
-    }).goTo(aroundTween, {
-      scale: 1.05
-    }).closeGroup();
+    });
     return {
-      playIntro: async () => {
-        return introTl.play();
-      },
-      playSvg: () => tl.play(),
-      destroySvg: () => {
-        tl.stop();
-        logoTween.destroy();
-        tl.destroy();
+      playIntro: () => introTl.play(),
+      destroy: () => {
+        introTween.destroy();
+        introTween = null;
         introTl.destroy();
-        aroundIntroTween.destroy();
-        logoTween = null;
-        logoIntroTween = null;
-        aroundTween = null;
-        aroundIntroTween = null;
-        tl = null;
         introTl = null;
       }
     };
@@ -25924,50 +25852,46 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/homepage/home.js
-  var playAnimation = async ({ playText, playIntro, playSvg }) => {
-    playText();
-    await playIntro();
-    playSvg();
-  };
   var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState }) => {
-    const { logo, sideShape } = getState();
-    onMount(({ element, refs }) => {
+    const isDesktop = motionCore.mq("min", "desktop");
+    const { svg } = isDesktop ? getState() : "";
+    onMount(({ refs }) => {
       const {
         textStagger,
-        block1,
-        block2,
-        block3,
-        block4,
-        block5,
-        block6,
-        block7,
-        block8,
-        M_left,
-        M_right,
-        around
+        around_bottom,
+        around_top,
+        back_green,
+        back_green_1,
+        circle,
+        dark_green,
+        fill_middle,
+        main_letter,
+        reflex,
+        stroke,
+        stroke_back
       } = refs;
-      const { playIntro, playSvg, destroySvg } = homeAnimation({
-        element,
-        logoRefs: [
-          { block1 },
-          { block2 },
-          { block3 },
-          { block4 },
-          { block5 },
-          { block6 },
-          { block7 },
-          { block8 },
-          { M_left },
-          { M_right }
-        ],
-        around
+      const { destroy, playIntro } = m3Animation({
+        refs: [
+          around_bottom,
+          around_top,
+          back_green,
+          back_green_1,
+          circle,
+          dark_green,
+          fill_middle,
+          main_letter,
+          reflex,
+          stroke,
+          stroke_back
+        ]
       });
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
       });
-      playAnimation({ playText, playIntro, playSvg });
+      playIntro();
+      playText();
       return () => {
-        destroySvg();
+        destroy();
         destroyText();
       };
     });
@@ -26041,9 +25965,7 @@ Loading snippet ...</pre
             </a>
         </div>
 
-        <div class="l-index__top-left">${sideShape}</div>
-        <div class="l-index__logo">${logo}</div>
-        <div class="l-index__top-right">${sideShape}</div>
+        <div class="l-index__logo">${svg}</div>
     </div>`;
   };
 
@@ -26051,13 +25973,9 @@ Loading snippet ...</pre
   var homePageComponentDef = createComponent({
     name: "home-component",
     component: HomeComponent,
-    exportState: ["logo", "sideShape"],
+    exportState: ["svg"],
     state: {
-      logo: () => ({
-        value: "",
-        type: String
-      }),
-      sideShape: () => ({
+      svg: () => ({
         value: "",
         type: String
       })
@@ -27969,7 +27887,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/svg/child/child.js
   var numberOfStar = 10;
-  var playAnimation2 = async ({ playIntro }) => {
+  var playAnimation = async ({ playIntro }) => {
     await playIntro();
   };
   var getTrail = ({ star }) => {
@@ -28047,7 +27965,7 @@ Loading snippet ...</pre
         ]
       });
       const { playIntro, destroy } = childMethods;
-      playAnimation2({ playIntro });
+      playAnimation({ playIntro });
       return () => {
         destroy();
       };
@@ -28100,61 +28018,6 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/pages/svg/m3/m3.js
-  var M3 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
-    const isDesktop = motionCore.mq("min", "desktop");
-    const { svg } = isDesktop ? getState() : "";
-    const { child: child2 } = getLegendData();
-    const { source } = child2;
-    onMount(() => {
-      if (!isDesktop)
-        return;
-      return () => {
-      };
-    });
-    return html`<div class="svg-m3-container">
-        <only-desktop></only-desktop>
-        <div class="svg-m3">${svg}</div>
-        <code-button
-            ${staticProps2({
-      drawers: [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ],
-      style: "legend"
-    })}
-        >
-        </code-button>
-    </div>`;
-  };
-
-  // src/js/component/pages/svg/m3/definition.js
-  var letteringM3 = createComponent({
-    name: "lettering-m3",
-    component: M3,
-    exportState: ["svg"],
-    state: {
-      svg: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
   // src/js/pages/routeList.js
   var routeList_exports = {};
   __export(routeList_exports, {
@@ -28169,7 +28032,6 @@ Loading snippet ...</pre
     dynamic_list: () => dynamic_list,
     home: () => home,
     horizontalScroller: () => horizontalScroller,
-    m3: () => m3,
     mobCore_defaults: () => mobCore_defaults,
     mobCore_events: () => mobCore_events,
     mobCore_overview: () => mobCore_overview,
@@ -28455,14 +28317,11 @@ Loading snippet ...</pre
 
   // src/js/pages/home/index.js
   var home = async () => {
-    const { data: logo } = await loadTextContent({
-      source: "./asset/svg/logo.svg"
-    });
-    const { data: sideShape } = await loadTextContent({
-      source: "./asset/svg/piece-arrow.svg"
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/m3.svg"
     });
     return renderHtml`<div class="l-index">
-        <home-component ${staticProps({ logo, sideShape })}></home-component>
+        <home-component ${staticProps({ svg })}></home-component>
     </div>`;
   };
 
@@ -30037,29 +29896,6 @@ Loading snippet ...</pre
             ${staticProps({ title: "Child svg" })}
         ></animation-title>
         <svg-child ${staticProps({ svg, star })}></svg-child>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "",
-      nextRoute: "#m3"
-    })}
-        ></quick-nav>
-    </div>`;
-  };
-
-  // src/js/pages/svg/m3/index.js
-  var m3 = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/m3.svg"
-    });
-    return renderHtml`<div>
-        <animation-title ${staticProps({ title: "M3" })}></animation-title>
-        <lettering-m3 ${staticProps({ svg })}></lettering-m3>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#child",
-      nextRoute: ""
-    })}
-        ></quick-nav>
     </div>`;
   };
 

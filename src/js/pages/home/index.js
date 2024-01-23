@@ -2,15 +2,11 @@ import { html, staticProps } from '../../mobjs';
 import { loadTextContent } from '../../utils/utils';
 
 export const home = async () => {
-    const { data: logo } = await loadTextContent({
-        source: './asset/svg/logo.svg',
-    });
-
-    const { data: sideShape } = await loadTextContent({
-        source: './asset/svg/piece-arrow.svg',
+    const { data: svg } = await loadTextContent({
+        source: './asset/svg/m3.svg',
     });
 
     return html`<div class="l-index">
-        <home-component ${staticProps({ logo, sideShape })}></home-component>
+        <home-component ${staticProps({ svg })}></home-component>
     </div>`;
 };

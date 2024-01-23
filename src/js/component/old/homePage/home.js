@@ -1,56 +1,60 @@
 import { getLegendData } from '../../../data';
-import { motionCore } from '../../../mobMotion';
-import { m3Animation } from './animation';
+import { homeAnimation } from './animation';
 import { homeTextAnimation } from './animation/text';
+
+const playAnimation = async ({ playText, playIntro, playSvg }) => {
+    playText();
+    await playIntro();
+    playSvg();
+};
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
-    const isDesktop = motionCore.mq('min', 'desktop');
-    const { svg } = isDesktop ? getState() : '';
+    const { logo, sideShape } = getState();
 
-    onMount(({ refs }) => {
+    onMount(({ element, refs }) => {
         const {
             textStagger,
-            around_bottom,
-            around_top,
-            back_green,
-            back_green_1,
-            circle,
-            dark_green,
-            fill_middle,
-            main_letter,
-            reflex,
-            stroke,
-            stroke_back,
+            block1,
+            block2,
+            block3,
+            block4,
+            block5,
+            block6,
+            block7,
+            block8,
+            M_left,
+            M_right,
+            around,
         } = refs;
 
-        const { destroy, playIntro } = m3Animation({
-            refs: [
-                around_bottom,
-                around_top,
-                back_green,
-                back_green_1,
-                circle,
-                dark_green,
-                fill_middle,
-                main_letter,
-                reflex,
-                stroke,
-                stroke_back,
+        const { playIntro, playSvg, destroySvg } = homeAnimation({
+            element,
+            logoRefs: [
+                { block1 },
+                { block2 },
+                { block3 },
+                { block4 },
+                { block5 },
+                { block6 },
+                { block7 },
+                { block8 },
+                { M_left },
+                { M_right },
             ],
+            around,
         });
 
         const { playText, destroyText } = homeTextAnimation({
             refs: textStagger,
         });
 
-        playIntro();
-        playText();
+        playAnimation({ playText, playIntro, playSvg });
 
         return () => {
-            destroy();
+            destroySvg();
             destroyText();
         };
     });
@@ -126,6 +130,8 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
             </a>
         </div>
 
-        <div class="l-index__logo">${svg}</div>
+        <div class="l-index__top-left">${sideShape}</div>
+        <div class="l-index__logo">${logo}</div>
+        <div class="l-index__top-right">${sideShape}</div>
     </div>`;
 };

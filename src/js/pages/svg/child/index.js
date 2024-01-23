@@ -15,11 +15,5 @@ export const child = async () => {
             ${staticProps({ title: 'Child svg' })}
         ></animation-title>
         <svg-child ${staticProps({ svg, star })}></svg-child>
-        <quick-nav
-            ${staticProps({
-                prevRoute: '',
-                nextRoute: '#m3',
-            })}
-        ></quick-nav>
     </div>`;
 };

@@ -62,4 +62,3 @@ export * from './mobMotion/tweenSpringLerp';
 export * from './mobMotion/defaults';
 export * from './svg/overview';
 export * from './svg/child';
-export * from './svg/m3';
