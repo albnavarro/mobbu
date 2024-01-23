@@ -23,7 +23,7 @@
         svg {
             overflow: visible;
             width: rem(1200, xsmall);
-            height: rem(600, xsmall);
+            height: rem(400, xsmall);
 
             @include mq.mq('large') {
                 width: rem(1980);

@@ -1,5 +1,4 @@
 import { getLegendData } from '../../../data';
-import { motionCore } from '../../../mobMotion';
 import { m3Animation } from './animation';
 import { homeTextAnimation } from './animation/text';
 
@@ -7,8 +6,7 @@ import { homeTextAnimation } from './animation/text';
  * @param {import('../../../mobjs/type').componentType}
  */
 export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
-    const isDesktop = motionCore.mq('min', 'desktop');
-    const { svg } = isDesktop ? getState() : '';
+    const { svg } = getState();
 
     onMount(({ refs }) => {
         const {
