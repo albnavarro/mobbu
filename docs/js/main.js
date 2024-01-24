@@ -25808,23 +25808,40 @@ Loading snippet ...</pre
       ease: "easeOutQuart",
       stagger: { each: 8, from: "end" }
     });
+    let loopTween = tween.createTween({
+      data: { scale: 1 },
+      duration: 6e3,
+      ease: "easeInOutQuad",
+      stagger: { each: 12, from: "end" }
+    });
     refs.forEach((item) => {
       introTween.subscribe(({ scale, opacity }) => {
         item.style.scale = `${scale}`;
         item.style.opacity = opacity;
+      });
+      loopTween.subscribe(({ scale }) => {
+        item.style.scale = `${scale}`;
       });
     });
     let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
       opacity: 1,
       scale: 1
     });
+    const tl = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
+      scale: 1.1
+    });
     return {
       playIntro: () => introTl.play(),
+      playSvg: () => {
+        tl.play();
+      },
       destroy: () => {
         introTween.destroy();
         introTween = null;
         introTl.destroy();
         introTl = null;
+        loopTween.destroy();
+        loopTween = null;
       }
     };
   };
@@ -25854,7 +25871,7 @@ Loading snippet ...</pre
   // src/js/component/pages/homepage/home.js
   var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState }) => {
     const { svg } = getState();
-    onMount(({ refs }) => {
+    onMount(async ({ refs }) => {
       const {
         textStagger,
         around_bottom,
@@ -25869,7 +25886,7 @@ Loading snippet ...</pre
         stroke,
         stroke_back
       } = refs;
-      const { destroy, playIntro } = m3Animation({
+      const { destroy, playIntro, playSvg } = m3Animation({
         refs: [
           around_bottom,
           around_top,
@@ -25887,8 +25904,9 @@ Loading snippet ...</pre
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
       });
-      playIntro();
+      await playIntro();
       playText();
+      playSvg();
       return () => {
         destroy();
         destroyText();

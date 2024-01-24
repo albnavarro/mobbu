@@ -8,10 +8,21 @@ export const m3Animation = ({ refs }) => {
         stagger: { each: 8, from: 'end' },
     });
 
+    let loopTween = tween.createTween({
+        data: { scale: 1 },
+        duration: 6000,
+        ease: 'easeInOutQuad',
+        stagger: { each: 12, from: 'end' },
+    });
+
     refs.forEach((item) => {
         introTween.subscribe(({ scale, opacity }) => {
             item.style.scale = `${scale}`;
             item.style.opacity = opacity;
+        });
+
+        loopTween.subscribe(({ scale }) => {
+            item.style.scale = `${scale}`;
         });
     });
 
@@ -20,13 +31,24 @@ export const m3Animation = ({ refs }) => {
         scale: 1,
     });
 
+    const tl = timeline
+        .createAsyncTimeline({ repeat: -1, yoyo: true })
+        .goTo(loopTween, {
+            scale: 1.1,
+        });
+
     return {
         playIntro: () => introTl.play(),
+        playSvg: () => {
+            tl.play();
+        },
         destroy: () => {
             introTween.destroy();
             introTween = null;
             introTl.destroy();
             introTl = null;
+            loopTween.destroy();
+            loopTween = null;
         },
     };
 };

@@ -8,7 +8,7 @@ import { homeTextAnimation } from './animation/text';
 export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
     const { svg } = getState();
 
-    onMount(({ refs }) => {
+    onMount(async ({ refs }) => {
         const {
             textStagger,
             around_bottom,
@@ -24,7 +24,7 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
             stroke_back,
         } = refs;
 
-        const { destroy, playIntro } = m3Animation({
+        const { destroy, playIntro, playSvg } = m3Animation({
             refs: [
                 around_bottom,
                 around_top,
@@ -44,8 +44,9 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
             refs: textStagger,
         });
 
-        playIntro();
+        await playIntro();
         playText();
+        playSvg();
 
         return () => {
             destroy();
