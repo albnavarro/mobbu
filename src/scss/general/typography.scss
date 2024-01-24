@@ -39,13 +39,13 @@ h1 {
 
     @include mq.mq('desktop') {
         font-size: rem(40px);
-        line-height: line-height(30, 37);
+        line-height: line-height(40, 55);
     }
 }
 
 h2 {
     font-size: rem(30px);
-    line-height: line-height(20, 27);
+    line-height: line-height(30, 35);
 }
 
 h3 {
@@ -60,12 +60,12 @@ h4 {
 
 h5 {
     font-size: rem(18px);
-    line-height: line-height(20, 27);
+    line-height: line-height(18, 24);
 }
 
 h6 {
     font-size: rem(16px);
-    line-height: line-height(18, 27);
+    line-height: line-height(16, 25);
 }
 
 p {

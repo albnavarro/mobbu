@@ -423,12 +423,12 @@ h1 {
 @media (min-width: 62em) {
   h1 {
     font-size: 2.6666666667rem;
-    line-height: 1.2333333333em;
+    line-height: 1.375em;
   }
 }
 h2 {
   font-size: 2rem;
-  line-height: 1.35em;
+  line-height: 1.1666666667em;
 }
 h3 {
   font-size: 1.6666666667rem;
@@ -440,11 +440,11 @@ h4 {
 }
 h5 {
   font-size: 1.2rem;
-  line-height: 1.35em;
+  line-height: 1.3333333333em;
 }
 h6 {
   font-size: 1.0666666667rem;
-  line-height: 1.5em;
+  line-height: 1.5625em;
 }
 p {
   padding: 0;
