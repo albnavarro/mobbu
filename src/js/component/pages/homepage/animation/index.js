@@ -31,7 +31,7 @@ export const m3Animation = ({ refs }) => {
         scale: 1,
     });
 
-    const tl = timeline
+    let loopTimeline = timeline
         .createAsyncTimeline({ repeat: -1, yoyo: true })
         .goTo(loopTween, {
             scale: 1.1,
@@ -40,7 +40,7 @@ export const m3Animation = ({ refs }) => {
     return {
         playIntro: () => introTl.play(),
         playSvg: () => {
-            tl.play();
+            loopTimeline.play();
         },
         destroy: () => {
             introTween.destroy();
@@ -49,6 +49,8 @@ export const m3Animation = ({ refs }) => {
             introTl = null;
             loopTween.destroy();
             loopTween = null;
+            loopTimeline.destroy();
+            loopTimeline = null;
         },
     };
 };

@@ -2,6 +2,12 @@ import { getLegendData } from '../../../data';
 import { m3Animation } from './animation';
 import { homeTextAnimation } from './animation/text';
 
+const playAnimation = async ({ playIntro, playText, playSvg }) => {
+    await playIntro();
+    playText();
+    playSvg();
+};
+
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
@@ -44,9 +50,7 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
             refs: textStagger,
         });
 
-        await playIntro();
-        playText();
-        playSvg();
+        playAnimation({ playIntro, playText, playSvg });
 
         return () => {
             destroy();

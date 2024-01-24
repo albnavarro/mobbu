@@ -25827,13 +25827,13 @@ Loading snippet ...</pre
       opacity: 1,
       scale: 1
     });
-    const tl = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
+    let loopTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
       scale: 1.1
     });
     return {
       playIntro: () => introTl.play(),
       playSvg: () => {
-        tl.play();
+        loopTimeline.play();
       },
       destroy: () => {
         introTween.destroy();
@@ -25842,6 +25842,8 @@ Loading snippet ...</pre
         introTl = null;
         loopTween.destroy();
         loopTween = null;
+        loopTimeline.destroy();
+        loopTimeline = null;
       }
     };
   };
@@ -25869,6 +25871,11 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/homepage/home.js
+  var playAnimation = async ({ playIntro, playText, playSvg }) => {
+    await playIntro();
+    playText();
+    playSvg();
+  };
   var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState }) => {
     const { svg } = getState();
     onMount(async ({ refs }) => {
@@ -25904,9 +25911,7 @@ Loading snippet ...</pre
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
       });
-      await playIntro();
-      playText();
-      playSvg();
+      playAnimation({ playIntro, playText, playSvg });
       return () => {
         destroy();
         destroyText();
@@ -27904,7 +27909,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/svg/child/child.js
   var numberOfStar = 10;
-  var playAnimation = async ({ playIntro }) => {
+  var playAnimation2 = async ({ playIntro }) => {
     await playIntro();
   };
   var getTrail = ({ star }) => {
@@ -27982,7 +27987,7 @@ Loading snippet ...</pre
         ]
       });
       const { playIntro, destroy } = childMethods;
-      playAnimation({ playIntro });
+      playAnimation2({ playIntro });
       return () => {
         destroy();
       };
