@@ -15,7 +15,6 @@ export const DocContainer = ({ html, onMount }) => {
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
             <div class="c-doc-container__side" ref="side">
-                <doc-scroll></doc-scroll>
                 <mobjs-slot name="section-title-small"></mobjs-slot>
                 <mobjs-slot name="section-title"></mobjs-slot>
                 <mobjs-slot name="section-links"></mobjs-slot>
