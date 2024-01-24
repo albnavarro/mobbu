@@ -1,0 +1,25 @@
+@use 'sass-mq/mq';
+@use '../../abstract' as *;
+
+.m-logo-1 {
+    display: none;
+    pointer-events: none;
+
+    @include mq.mq(large) {
+        display: block;
+    }
+
+    svg {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: rem(700);
+        height: rem(400);
+        transform: translateX(30%);
+
+        @include mq.mq(xlarge) {
+            width: rem(1000);
+            height: rem(500);
+        }
+    }
+}

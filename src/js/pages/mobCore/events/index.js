@@ -21,6 +21,7 @@ export const mobCore_events = async () => {
         ></html-content>
         <doc-title-small slot="section-title-small"
             ><a href="./#mobCore_overview">mobCore</a> / <span>Events</span>
+        </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Events</doc-title>
     </doc-container>`;
