@@ -947,7 +947,7 @@ code {
   top: 0;
   height: calc(100vh - var(--header-height) - var(--footer-height));
   display: none;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.25);
 }
 @media (min-width: 62em) {
   .l-navcontainer__side {
