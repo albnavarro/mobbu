@@ -15,9 +15,11 @@
         right: 0;
         width: rem(700);
         height: rem(400);
-        transform: translateX(30%);
+        transform: translateX(40%);
+        z-index: 10;
 
         @include mq.mq(xlarge) {
+            transform: translateX(30%);
             width: rem(1000);
             height: rem(500);
         }

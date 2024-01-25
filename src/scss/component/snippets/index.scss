@@ -23,6 +23,7 @@
             border: 1px rgba($white, 0.05) solid;
             padding: rem(10);
             border-radius: rem(30);
+            background-color: transparent;
 
             @include mq.mq('desktop') {
                 padding: rem(30);
@@ -35,6 +36,7 @@
         overflow: auto;
         font-size: rem(14);
         line-height: line-height(15, 22);
+        background: transparent;
 
         &.has-overflow {
             overflow: hidden;

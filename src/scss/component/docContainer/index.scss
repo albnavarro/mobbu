@@ -10,6 +10,7 @@
 
     &__content {
         flex: auto;
+        background-color: rgba($black, 0.1);
 
         @include mq.mq('large') {
             width: auto;
@@ -17,7 +18,8 @@
         }
 
         @include mq.mq('xlarge') {
-            max-width: rem(1000, xlarge);
+            max-width: rem(1100, xlarge);
+            padding-right: rem(100, xlarge);
         }
     }
 
@@ -41,7 +43,7 @@
         }
 
         @include mq.mq('xlarge') {
-            margin-left: rem(100, xlarge);
+            // margin-left: rem(100, xlarge);
         }
     }
 }
