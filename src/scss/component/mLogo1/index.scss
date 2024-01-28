@@ -17,6 +17,7 @@
         height: rem(400);
         transform: translateX(40%);
         z-index: 10;
+        overflow: visible;
 
         @include mq.mq(xlarge) {
             transform: translateX(30%);
