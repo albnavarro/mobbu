@@ -16,7 +16,7 @@ export const m3Animation = ({ refs }) => {
     });
 
     refs.forEach((item) => {
-        introTween.subscribe(({ scale, opacity }) => {
+        introTween.subscribeCache(item, ({ scale, opacity }) => {
             item.style.scale = `${scale}`;
             item.style.opacity = opacity;
         });

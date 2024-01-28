@@ -25780,7 +25780,7 @@ Loading snippet ...</pre
       stagger: { each: 12, from: "end" }
     });
     refs.forEach((item) => {
-      introTween.subscribe(({ scale, opacity }) => {
+      introTween.subscribeCache(item, ({ scale, opacity }) => {
         item.style.scale = `${scale}`;
         item.style.opacity = opacity;
       });
