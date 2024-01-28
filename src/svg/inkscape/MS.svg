@@ -24,18 +24,29 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="0.6135712"
-     inkscape:cx="985.21573"
-     inkscape:cy="456.34476"
+     inkscape:cx="838.53349"
+     inkscape:cy="570.43095"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer10"
+     inkscape:current-layer="layer6"
      units="px"
      width="1980px" />
   <defs
      id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect1814"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="true" />
     <inkscape:path-effect
        effect="bspline"
        id="path-effect371351"
@@ -2412,7 +2423,15 @@
      id="layer6"
      inkscape:label="S 1"
      style="display:inline"
-     sodipodi:insensitive="true" />
+     sodipodi:insensitive="true">
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#030500;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 256.18851,262.37381 c -4.4916,-0.40855 -7.98051,-0.7259 -14.47006,-2.87189 -6.48956,-2.14598 -14.65209,-6.28156 -15.66112,-11.36951 -1.00904,-5.08795 1.42669,-36.03042 2.991,-55.90284 0,0 3.77449,-57.50245 3.77449,-57.50245 0,0 -2.45858,8.74909 -2.45858,8.74909 0,0 -3.73532,50.34241 -3.73532,50.34241 -1.40621,20.16377 -3.50531,50.26277 -1.97687,56.18308 1.52844,5.9203 12.62124,10.66338 20.05274,13.84095 0,0 11.48372,-1.46884 11.48372,-1.46884 z"
+       id="path1181"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:path-effect="#path-effect1814"
+       inkscape:original-d="m 256.18851,262.37381 c 0,0 -7.98053,-0.72567 -13.4748,-1.22566 -7.48487,-3.79211 -15.6474,-7.92768 -18.35832,-9.30131 0.69319,-8.80236 4.69294,-59.61727 4.69294,-59.61727 l 3.77449,-57.50245 -2.45858,8.74909 -3.73532,50.34241 c 0,0 -3.50502,50.26279 -4.21864,60.49131 3.77016,1.6122 22.29451,9.53272 22.29451,9.53272 z" />
+  </g>
   <g
      inkscape:groupmode="layer"
      id="layer10"
