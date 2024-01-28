@@ -1,15 +1,14 @@
 import { html, staticProps } from '../../../mobjs';
-import { loadJsonContent } from '../../../utils/utils';
+import { loadJsonContent, loadTextContent } from '../../../utils/utils';
 
 export const mobJs_emitAsync = async () => {
-    const { success, data } = await loadJsonContent({
+    const { data } = await loadJsonContent({
         source: './data/mobJs/emitAsync.json',
     });
 
-    if (!success) {
-        console.warn('fetch data fail');
-        return [];
-    }
+    const { data: svg } = await loadTextContent({
+        source: './asset/svg/logo.svg',
+    });
 
     return html` <doc-container>
         <html-content
@@ -29,5 +28,6 @@ export const mobJs_emitAsync = async () => {
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">emitAsync</doc-title>
+        <m-logo-1 ${staticProps({ svg })}></m-logo-1>
     </doc-container>`;
 };

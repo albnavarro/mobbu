@@ -3,9 +3,9 @@
 
 <svg
    style="isolation:isolate"
-   viewBox="0 0 405.13989 755.80046"
-   width="540.18652"
-   height="1007.7339"
+   viewBox="0 0 437.42285 530.12543"
+   width="583.23047"
+   height="706.83386"
    version="1.1"
    id="svg314"
    sodipodi:docname="psilo.svg"
@@ -24,15 +24,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="1"
-     inkscape:cx="184.5"
-     inkscape:cy="759"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="96.520076"
+     inkscape:cy="258.09398"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer9"
+     inkscape:current-layer="layer8"
      units="px"
      width="200px"
      fit-margin-top="0"
@@ -638,8 +638,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="background"
-     style="display:inline"
-     transform="translate(-45.633942,2.51881)"
+     style="display:none"
+     transform="translate(-79.888588,-263.97784)"
      sodipodi:insensitive="true">
     <rect
        style="fill:#1a1b26;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.24823"
@@ -652,7 +652,7 @@
   <g
      clip-path="url(#_clipPath_VL4lQNFTekCiBlrKs3lIcRmLPUe8LF3L)"
      id="g312"
-     transform="translate(-45.633942,2.51881)">
+     transform="translate(-79.888588,-263.97784)">
     <clipPath
        id="_clipPath_2R05YMjZbD0UgsZZwA9G1NSyA91KCKEh">
       <rect
@@ -702,7 +702,7 @@
      id="layer2"
      inkscape:label="gambi"
      style="display:inline"
-     transform="translate(-46.435866,2.1699795)"
+     transform="translate(-80.690512,-264.32668)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:76.0396;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -752,7 +752,7 @@
      id="layer3"
      inkscape:label="erba"
      style="display:inline"
-     transform="translate(-46.435866,2.1699795)"
+     transform="translate(-80.690512,-264.32668)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:14.1732;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -788,7 +788,7 @@
      id="layer4"
      inkscape:label="caps"
      style="display:inline"
-     transform="translate(-46.435866,2.1699795)"
+     transform="translate(-80.690512,-264.32668)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:139.627;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -824,6 +824,7 @@
      id="layer8"
      inkscape:label="caps-over 1"
      style="display:inline"
+     transform="translate(-34.254646,-266.49665)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#dbdbdb;fill-opacity:1;stroke:none;stroke-width:14.1732;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -845,7 +846,7 @@
      id="layer6"
      inkscape:label="caps-over"
      style="display:inline"
-     transform="translate(-46.435866,2.1699795)"
+     transform="translate(-80.690512,-264.32668)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;isolation:isolate;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:76.0396;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -898,7 +899,7 @@
        sodipodi:nodetypes="ccccccc" />
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:14.1732;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
-       d="m 321.08822,320.92622 c 2.21875,16.04492 6.01211,43.47667 4.56005,48.17912 -1.45206,4.70245 -29.59329,42.34933 -31.54812,47.69235 -1.95483,5.34302 2.19527,21.1612 4.80008,31.08947 -1.66329,-10.02737 -3.75599,-22.64353 0.30085,-32.2786 4.05684,-9.63507 27.0561,-38.7461 29.39265,-45.23953 2.33655,-6.49344 -0.50942,-28.47015 -2.32582,-42.49652 0,0 -5.17969,-6.94629 -5.17969,-6.94629 z"
+       d="m 321.08822,320.92622 c 2.21875,16.04492 6.01211,43.47668 4.56005,48.17913 -1.45206,4.70244 -29.59329,42.34932 -31.54812,47.69234 -1.95483,5.34302 2.19527,21.1612 4.80008,31.08947 -1.66329,-10.02737 -3.75599,-22.64353 0.30085,-32.2786 4.05684,-9.63508 27.0561,-38.7461 29.39265,-45.23954 2.33655,-6.49343 -0.50942,-28.47014 -2.32582,-42.49651 0,0 -5.17969,-6.94629 -5.17969,-6.94629 z"
        id="path108463"
        sodipodi:nodetypes="cccccscc"
        inkscape:path-effect="#path-effect111324"
@@ -929,6 +930,7 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="M"
+     transform="translate(-34.254646,-266.49665)"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#9ece6a;fill-opacity:1;stroke:none;stroke-width:15.7662;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -942,6 +944,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="star"
+     transform="translate(-34.254646,-266.49665)"
      sodipodi:insensitive="true">
     <path
        sodipodi:type="star"

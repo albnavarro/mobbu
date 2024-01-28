@@ -4,6 +4,7 @@
 .c-params-mobjs {
     ul {
         list-style: none;
+        margin-left: 0;
 
         @media screen and (height <= 825px) {
             margin-top: calc(#{rem(10)} * -1);
