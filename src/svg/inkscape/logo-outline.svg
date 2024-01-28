@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="4"
-     inkscape:cx="132.625"
-     inkscape:cy="85.750001"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="168.46819"
+     inkscape:cy="112.07643"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
@@ -35,6 +35,61 @@
      inkscape:current-layer="layer3" />
   <defs
      id="defs195">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect40323"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect35649"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect35149"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect34245"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect33330"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
     <inkscape:path-effect
        effect="bspline"
        id="path-effect19266"
@@ -86,7 +141,8 @@
      inkscape:groupmode="layer"
      id="layer10"
      inkscape:label="background 1"
-     sodipodi:insensitive="true" />
+     sodipodi:insensitive="true"
+     style="display:inline" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
@@ -317,7 +373,7 @@
        transform="translate(-0.80192417,-0.34883055)" />
     <path
        style="display:inline;isolation:isolate;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 123.20192,117.45883 1.54995,4.4326 4.59687,-1.46013 -0.57781,-4.84046 z"
+       d="m 123.20192,117.45883 c -0.72029,-0.0935 1.0333,2.95507 1.54995,4.4326 l 4.59687,-1.46013 -0.57781,-4.84046 z"
        id="path54417"
        sodipodi:nodetypes="ccccc"
        transform="translate(-0.80192417,-0.34883055)" />
@@ -346,7 +402,7 @@
        sodipodi:nodetypes="ccccccc"
        transform="translate(-0.80192417,-0.34883055)" />
     <path
-       d="m 140.484,90.211 -12.515,25.031 -5.569,1.868 10.13564,-20.940641 v 0 L 124.219,115.172 l 3.328,-1.125 z"
+       d="m 140.484,90.211 -12.515,25.031 -6.1133,2.42091 10.67994,-21.493551 v 0 L 124.219,115.172 l 3.328,-1.125 z"
        fill="#ffffff"
        id="path296"
        style="isolation:isolate;fill:#000000;fill-opacity:1"
@@ -371,7 +427,9 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="M-right 1">
+     inkscape:label="M-right 1"
+     sodipodi:insensitive="true"
+     style="display:inline">
     <circle
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:19.6764;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:300;paint-order:fill markers stroke"
        id="path28223"
