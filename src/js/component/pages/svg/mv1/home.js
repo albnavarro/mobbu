@@ -1,5 +1,5 @@
-import { m3Animation } from './animation';
 import { getLegendData } from '../../../../data';
+import { simpleIntroAnimation } from '../../../lib/animation/simpleIntro';
 
 const playAnimation = async ({ playIntro, playSvg }) => {
     await playIntro();
@@ -17,7 +17,7 @@ export const Mv1Component = ({ html, onMount, staticProps, getState }) => {
     onMount(async ({ refs }) => {
         const { svg_group } = refs;
 
-        const { destroy, playIntro, playSvg } = m3Animation({
+        const { destroy, playIntro, playSvg } = simpleIntroAnimation({
             refs: svg_group,
         });
 

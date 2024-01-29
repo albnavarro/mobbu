@@ -1,6 +1,6 @@
-import { timeline, tween } from '../../../../../mobMotion';
+import { timeline, tween } from '../../../mobMotion';
 
-export const m3Animation = ({ refs }) => {
+export const simpleIntroAnimation = ({ refs }) => {
     let introTween = tween.createTween({
         data: { opacity: 0, scale: 0.5 },
         duration: 2000,

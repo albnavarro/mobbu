@@ -10,7 +10,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/homepage/animation/index.js",
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/lib/animation/simpleIntro.js",
                 "isFull": true,
                 "loadOnMount": true
             }
