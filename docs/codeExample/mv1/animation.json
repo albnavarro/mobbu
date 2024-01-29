@@ -5,7 +5,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Logo animation"
+            "content": "animation"
         },
         {
             "component": "mob-snippet",
