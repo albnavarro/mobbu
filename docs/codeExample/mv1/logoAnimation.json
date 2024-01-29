@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Logo animation"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/svg/mv1/animation/index.js",
+                "isFull": true,
+                "loadOnMount": true
+            }
+        }
+    ]
+}

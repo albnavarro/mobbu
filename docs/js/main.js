@@ -28028,8 +28028,10 @@ Loading snippet ...</pre
     await playIntro();
     playSvg();
   };
-  var Mv1Component = ({ html, onMount, getState }) => {
+  var Mv1Component = ({ html, onMount, staticProps: staticProps2, getState }) => {
     const { svg } = getState();
+    const { mv1: mv12 } = getLegendData();
+    const { source } = mv12;
     onMount(async ({ refs }) => {
       const { svg_group } = refs;
       const { destroy, playIntro, playSvg } = m3Animation2({
@@ -28042,6 +28044,30 @@ Loading snippet ...</pre
     });
     return html`<div class="mv1-container">
         <div class="mv1-svg">${svg}</div>
+        <code-button
+            ${staticProps2({
+      drawers: [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ],
+      style: "legend"
+    })}
+        >
+        </code-button>
     </div>`;
   };
 
@@ -29984,9 +30010,10 @@ Loading snippet ...</pre
   // src/js/pages/svg/mv1/index.js
   var mv1 = async () => {
     const { data: svg } = await loadTextContent({
-      source: "./asset/svg/m3.svg"
+      source: "./asset/svg/mv1.svg"
     });
     return renderHtml`<div class="l-index">
+        <animation-title ${staticProps({ title: "Mv1" })}></animation-title>
         <mv1-component ${staticProps({ svg })}></mv1-component>
         <quick-nav
             ${staticProps({

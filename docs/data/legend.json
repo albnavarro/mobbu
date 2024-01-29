@@ -92,5 +92,13 @@
             "component": "./codeExample/child/component.json",
             "animation": "./codeExample/child/animation.json"
         }
+    },
+    "mv1": {
+        "source": {
+            "description": "./codeExample/mv1/description.json",
+            "definition": "./codeExample/mv1/definition.json",
+            "component": "./codeExample/mv1/component.json",
+            "animation": "./codeExample/mv1/animation.json"
+        }
     }
 }

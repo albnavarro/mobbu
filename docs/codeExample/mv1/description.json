@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1"
+            },
+            "content": "Svg lettering"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span>SVG letter</span> animation based on <span>mobMotion</span>."
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobMotion_tween_spring_lerp'>Tween</a>",
+                    "<a href='./#mobMotion_async_timeline'>asyncTimeline</a>"
+                ]
+            }
+        }
+    ]
+}
