@@ -1614,6 +1614,7 @@
   // src/js/component/componentList.js
   var componentList_exports = {};
   __export(componentList_exports, {
+    Mv1Def: () => Mv1Def,
     animatedPatternN0Def: () => animatedPatternN0Def,
     animatedPatternN1Def: () => animatedPatternN1Def,
     animationTitleDef: () => animationTitleDef,
@@ -25837,41 +25838,16 @@ Loading snippet ...</pre
 
   // src/js/component/pages/homepage/home.js
   var playAnimation = async ({ playIntro, playText, playSvg }) => {
-    await playIntro();
     playText();
+    await playIntro();
     playSvg();
   };
   var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState }) => {
     const { svg } = getState();
     onMount(async ({ refs }) => {
-      const {
-        textStagger,
-        around_bottom,
-        around_top,
-        back_green,
-        back_green_1,
-        circle,
-        dark_green,
-        fill_middle,
-        main_letter,
-        reflex,
-        stroke,
-        stroke_back
-      } = refs;
+      const { textStagger, svg_group } = refs;
       const { destroy, playIntro, playSvg } = m3Animation({
-        refs: [
-          around_bottom,
-          around_top,
-          back_green,
-          back_green_1,
-          circle,
-          dark_green,
-          fill_middle,
-          main_letter,
-          reflex,
-          stroke,
-          stroke_back
-        ]
+        refs: svg_group
       });
       const { playText, destroyText } = homeTextAnimation({
         refs: textStagger
@@ -27999,7 +27975,90 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/pages/mLogo1/mLogo1.js
+  // src/js/component/pages/svg/mv1/animation/index.js
+  var m3Animation2 = ({ refs }) => {
+    let introTween = tween.createTween({
+      data: { opacity: 0, scale: 0.5 },
+      duration: 2e3,
+      ease: "easeOutQuart",
+      stagger: { each: 8, from: "end" }
+    });
+    let loopTween = tween.createTween({
+      data: { scale: 1 },
+      duration: 6e3,
+      ease: "easeInOutQuad",
+      stagger: { each: 12, from: "end" }
+    });
+    refs.forEach((item) => {
+      introTween.subscribeCache(item, ({ scale, opacity }) => {
+        item.style.scale = `${scale}`;
+        item.style.opacity = opacity;
+      });
+      loopTween.subscribe(({ scale }) => {
+        item.style.scale = `${scale}`;
+      });
+    });
+    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
+      opacity: 1,
+      scale: 1
+    });
+    let loopTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
+      scale: 1.1
+    });
+    return {
+      playIntro: () => introTl.play(),
+      playSvg: () => {
+        loopTimeline.play();
+      },
+      destroy: () => {
+        introTween.destroy();
+        introTween = null;
+        introTl.destroy();
+        introTl = null;
+        loopTween.destroy();
+        loopTween = null;
+        loopTimeline.destroy();
+        loopTimeline = null;
+      }
+    };
+  };
+
+  // src/js/component/pages/svg/mv1/home.js
+  var playAnimation3 = async ({ playIntro, playSvg }) => {
+    await playIntro();
+    playSvg();
+  };
+  var Mv1Component = ({ html, onMount, getState }) => {
+    const { svg } = getState();
+    onMount(async ({ refs }) => {
+      const { svg_group } = refs;
+      const { destroy, playIntro, playSvg } = m3Animation2({
+        refs: svg_group
+      });
+      playAnimation3({ playIntro, playSvg });
+      return () => {
+        destroy();
+      };
+    });
+    return html`<div class="mv1-container">
+        <div class="mv1-svg">${svg}</div>
+    </div>`;
+  };
+
+  // src/js/component/pages/svg/mv1/definition.js
+  var Mv1Def = createComponent({
+    name: "mv1-component",
+    component: Mv1Component,
+    exportState: ["svg"],
+    state: {
+      svg: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/component/common/mLogo1/mLogo1.js
   var Mlogo1 = ({ html, onMount, getState }) => {
     const { svg } = getState();
     onMount(() => {
@@ -28011,7 +28070,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/pages/mLogo1/definition.js
+  // src/js/component/common/mLogo1/definition.js
   var mLogo1SvgDef = createComponent({
     name: "m-logo-1",
     component: Mlogo1,
@@ -28086,6 +28145,7 @@ Loading snippet ...</pre
     mobMotion_stagger: () => mobMotion_stagger,
     mobMotion_sync_timeline: () => mobMotion_sync_timeline,
     mobMotion_tween_spring_lerp: () => mobMotion_tween_spring_lerp,
+    mv1: () => mv1,
     pageNotFound: () => pageNotFound,
     plugin_overview: () => plugin_overview,
     scrollerN0: () => scrollerN0,
@@ -28324,7 +28384,7 @@ Loading snippet ...</pre
   // src/js/pages/home/index.js
   var home = async () => {
     const { data: svg } = await loadTextContent({
-      source: "./asset/svg/m3.svg"
+      source: "./asset/svg/ms.svg"
     });
     return renderHtml`<div class="l-index">
         <home-component ${staticProps({ svg })}></home-component>
@@ -29912,6 +29972,28 @@ Loading snippet ...</pre
             ${staticProps({ title: "Child svg" })}
         ></animation-title>
         <svg-child ${staticProps({ svg, star })}></svg-child>
+        <quick-nav
+            ${staticProps({
+      prevRoute: "",
+      nextRoute: "#mv1"
+    })}
+        ></quick-nav>
+    </div>`;
+  };
+
+  // src/js/pages/svg/mv1/index.js
+  var mv1 = async () => {
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/m3.svg"
+    });
+    return renderHtml`<div class="l-index">
+        <mv1-component ${staticProps({ svg })}></mv1-component>
+        <quick-nav
+            ${staticProps({
+      prevRoute: "#child",
+      nextRoute: ""
+    })}
+        ></quick-nav>
     </div>`;
   };
 

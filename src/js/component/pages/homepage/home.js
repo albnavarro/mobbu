@@ -3,8 +3,8 @@ import { m3Animation } from './animation';
 import { homeTextAnimation } from './animation/text';
 
 const playAnimation = async ({ playIntro, playText, playSvg }) => {
-    await playIntro();
     playText();
+    await playIntro();
     playSvg();
 };
 
@@ -15,35 +15,10 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
     const { svg } = getState();
 
     onMount(async ({ refs }) => {
-        const {
-            textStagger,
-            around_bottom,
-            around_top,
-            back_green,
-            back_green_1,
-            circle,
-            dark_green,
-            fill_middle,
-            main_letter,
-            reflex,
-            stroke,
-            stroke_back,
-        } = refs;
+        const { textStagger, svg_group } = refs;
 
         const { destroy, playIntro, playSvg } = m3Animation({
-            refs: [
-                around_bottom,
-                around_top,
-                back_green,
-                back_green_1,
-                circle,
-                dark_green,
-                fill_middle,
-                main_letter,
-                reflex,
-                stroke,
-                stroke_back,
-            ],
+            refs: svg_group,
         });
 
         const { playText, destroyText } = homeTextAnimation({

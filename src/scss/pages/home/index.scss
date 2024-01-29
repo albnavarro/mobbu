@@ -14,11 +14,11 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -30%);
+        transform: translate(-50%, -20%);
         z-index: 1;
 
         @include mq.mq('tablet') {
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -55%);
         }
 
         svg {
@@ -27,8 +27,8 @@
             height: rem(400, xsmall);
 
             @include mq.mq('large') {
-                width: rem(1980);
-                height: rem(1000);
+                width: rem(1700);
+                height: rem(800);
             }
 
             g {

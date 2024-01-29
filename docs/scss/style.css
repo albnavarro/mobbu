@@ -1012,12 +1012,12 @@ code {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, -20%);
   z-index: 1;
 }
 @media (min-width: 48em) {
   .l-index__logo {
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -55%);
   }
 }
 .l-index__logo svg {
@@ -1027,8 +1027,8 @@ code {
 }
 @media (min-width: 75em) {
   .l-index__logo svg {
-    width: 132rem;
-    height: 66.6666666667rem;
+    width: 113.3333333333rem;
+    height: 53.3333333333rem;
   }
 }
 .l-index__logo svg g {
@@ -1335,6 +1335,36 @@ code {
 .child-trail--9 svg {
   scale: 0.1;
   opacity: 0.05;
+}
+.mv1-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  z-index: 1;
+}
+@media (min-width: 48em) {
+  .mv1-svg {
+    transform: translate(-50%, -50%);
+  }
+}
+.mv1-svg svg {
+  overflow: visible;
+  width: 100rem;
+  height: 33.3333333333rem;
+}
+@media (min-width: 75em) {
+  .mv1-svg svg {
+    width: 132rem;
+    height: 66.6666666667rem;
+  }
+}
+.mv1-svg svg g {
+  transform-origin: center;
+  opacity: 0;
+}
+.is-firefox .mv1-svg svg g {
+  transform: translateZ(0.5px);
 }
 .c-dynamic-list {
   border: 0;

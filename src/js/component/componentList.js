@@ -44,4 +44,5 @@ export * from './pages/dynamicList/button/definition';
 export * from './pages/dynamicList/repeaters/definition';
 export * from './pages/dynamicList/slottedLabel/definition';
 export * from './pages/svg/child/definition';
-export * from './pages/mLogo1/definition';
+export * from './pages/svg/mv1/definition';
+export * from './common/mLogo1/definition';

@@ -24,14 +24,14 @@
      inkscape:document-units="px"
      showgrid="false"
      inkscape:zoom="1.2271424"
-     inkscape:cx="728.11437"
-     inkscape:cy="916.76404"
+     inkscape:cx="464.90122"
+     inkscape:cy="916.76402"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer8"
      units="px"
      width="1980px" />
   <defs
@@ -1635,7 +1635,7 @@
      id="layer10"
      inkscape:label="circle"
      sodipodi:insensitive="true"
-     ref="circle"
+     ref="svg_group"
      style="display:inline">
     <circle
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:300;paint-order:fill markers stroke"
@@ -1684,7 +1684,7 @@
      id="layer7"
      inkscape:label="around-bottom"
      style="display:inline"
-     ref="around_bottom"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#9ece6a;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1721,13 +1721,13 @@
      inkscape:label="back-green 1"
      style="display:inline"
      sodipodi:insensitive="true"
-     ref="back_green_1" />
+     ref="svg_group" />
   <g
      inkscape:groupmode="layer"
      id="layer23"
      inkscape:label="back-green"
      style="display:inline"
-     ref="back_green"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1742,7 +1742,7 @@
      id="layer1"
      inkscape:label="stroke-back"
      style="display:inline"
-     ref="stroke_back"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#030500;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1757,7 +1757,7 @@
      id="layer2"
      inkscape:label="main-letter"
      style="display:inline"
-     ref="main_letter"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1793,7 +1793,7 @@
      id="layer3"
      inkscape:label="fill-middle"
      style="display:inline"
-     ref="fill_middle"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1857,7 +1857,7 @@
      id="layer5"
      inkscape:label="dark-green"
      style="display:inline"
-     ref="dark_green"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#444555;fill-opacity:1;stroke:none;stroke-width:4.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -1929,7 +1929,7 @@
      inkscape:label="reflex"
      style="display:inline"
      sodipodi:insensitive="true"
-     ref="reflex">
+     ref="svg_group">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 187.59977,54.479357 c -0.0247,-0.04814 -14.45644,-10.697596 -16.03284,-6.901393 -1.57641,3.796203 0.88516,24.477406 2.76308,40.255007 -1.21086,-14.477918 -2.62133,-31.342498 -0.71111,-35.94261 1.91022,-4.600112 14.00559,2.637136 13.98087,2.588996 z"
@@ -1978,7 +1978,7 @@
      id="layer28"
      inkscape:label="stroke"
      style="display:inline"
-     ref="stroke">
+     ref="svg_group">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 221.82461,179.8891 c 0.0609,-0.001 -0.89481,-21.4698 -0.78763,-29.5621 0.10719,-8.09231 0.85077,-14.93941 4.83472,-16.05951 3.98394,-1.1201 12.04189,4.15572 18.4289,9.05941 6.38701,4.9037 17.99751,14.76631 27.5101,22.84684 -9.6475,-9.1818 -18.46726,-17.57582 -28.54335,-26.14391 -10.07609,-8.56808 -20.84375,-16.54244 -23.83448,-15.39254 -2.99074,1.1499 -2.52577,11.51592 -1.32182,24.43313 1.20394,12.9172 3.65262,30.81987 3.71356,30.81868 z"
@@ -2111,7 +2111,7 @@
      id="layer8"
      inkscape:label="around-top"
      style="display:inline"
-     ref="around_top"
+     ref="svg_group"
      sodipodi:insensitive="true">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#9ece6a;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"

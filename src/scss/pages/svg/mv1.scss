@@ -1,0 +1,36 @@
+@use 'sass-mq/mq';
+@use '../../abstract' as *;
+
+.mv1-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    z-index: 1;
+
+    @include mq.mq('tablet') {
+        transform: translate(-50%, -50%);
+    }
+
+    svg {
+        overflow: visible;
+        width: rem(1200, xsmall);
+        height: rem(400, xsmall);
+
+        @include mq.mq('large') {
+            width: rem(1980);
+            height: rem(1000);
+        }
+
+        g {
+            transform-origin: center;
+            opacity: 0;
+        }
+
+        @include when-inside('.is-firefox') {
+            g {
+                transform: translateZ(0.5px);
+            }
+        }
+    }
+}
