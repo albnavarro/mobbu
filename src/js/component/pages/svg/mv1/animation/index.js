@@ -1,6 +1,6 @@
-import { timeline, tween } from '../../../../mobMotion';
+import { timeline, tween } from '../../../../../mobMotion';
 
-export const homeAnimation = ({ logoRefs, around }) => {
+export const mv1Animation = ({ logoRefs, around }) => {
     const logoRefsByKey = logoRefs.map((item) => {
         const [key, value] = Object.entries(item)[0];
         return { key, item: value };
