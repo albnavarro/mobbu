@@ -14,7 +14,7 @@
   <g
      id="layer1"
      style="display:inline"
-     ref="head_bg">
+     ref="stagger">
     <path
        style="display:inline;opacity:0.9;fill:#414353;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 251.302,-28.186261 -14.24248,-3.360406 -1.18246,-2.515455 -8.39367,6.473267 -2.79475,6.633203 -13.62979,7.092429 -5.60656,-2.226159 -27.36776,40.861139 10.96204,6.389182 -3.97193,2.580725 0.73265,3.619711 2.56661,-0.524491 4.53934,12.296796 -4.71574,13.26229 4.21829,1.311232 -0.59329,5.581865 5.27376,-0.113485 -0.78204,19.504474 2.48311,2.28731 0.86553,3.143438 25.5585,37.550126 -0.54389,14.55823 6.32273,-13.11294 42.06477,-14.32303 12.73075,-11.20136 4.14538,-8.197275 5.46719,-3.678515 4.14833,-5.567749 -0.67443,-5.122637 22.36804,-40.589486 -0.27991,-2.511925 2.3861,-0.636801 4.70281,-4.748671 0.28223,-7.335271 -6.71317,-5.143216 -1.18539,-4.307084 0.84495,-4.467607 -27.16316,-21.5906888 -2.80768,0.3480948 -9.90835,-6.580283 0.0906,-5.831762 -6.42565,-1.927456 -6.1287,-10.191764 -14.81049,-0.980194 z"
@@ -22,7 +22,7 @@
   </g>
   <g
      id="layer12"
-     ref="body_bg"
+     ref="stagger"
      style="display:inline">
     <path
        style="opacity:0.9;fill:#1f202d;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -32,7 +32,7 @@
   <g
      id="layer3"
      style="display:inline"
-     ref="dark_shadow">
+     ref="stagger">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#2f3145;fill-opacity:1;stroke:none;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 231.09339,132.97999 43.17618,-14.10198 11.61013,-11.15384 3.44889,-8.519373 4.49082,-2.364974 0.67837,0.0832 1.95234,-2.357996 2.87864,-9.747983 10.55931,-25.227142 4.07805,-1.275892 7.63336,-13.705104 -1.28466,-2.1022 2.45851,0.309801 5.37408,-5.884138 0.90072,-7.655086 -2.35386,-1.778188 91.65021,-47.157843 -13.82242,-0.09715 -92.03467,50.30494 -20.79781,11.002713 22.07214,-6.4371 3.5587,1.372267 -2.06629,5.743577 -13.10514,6.76987 10.26373,-3.061052 -3.91631,10.729061 -4.50308,0.58756 1.86783,1.434796 -5.41773,-0.111105 -16.92636,-5.321121 12.28207,5.659861 -0.36321,2.222621 -10.22465,2.963884 -29.88216,-8.679831 27.76006,11.514542 5.79449,7.35304 -3.00448,14.334265 1.93786,0.915448 -0.38938,2.966487 -1.17952,-0.327888 -1.01025,3.803126 h 2.01408 l -1.73556,3.126941 -2.12132,7.775756 -10.27972,10.9306 z"
@@ -117,7 +117,7 @@
   <g
      id="layer8"
      style="display:inline"
-     ref="light_shadow">
+     ref="stagger">
     <path
        style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#616370;fill-opacity:1;stroke:none;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 144.52965,7.0308067 43.9852,23.5600163 -3.53385,3.30694 0.17722,2.723748 2.99342,0.722045 4.15176,11.800107 -4.50073,13.326776 4.77003,1.506577 -1.01875,5.287082 4.88878,-0.11693 0.13996,19.649059 2.04191,1.728363 0.56563,2.453728 28.66805,38.829672 -21.49217,-38.435033 -0.72406,-4.450298 -3.75329,-2.869546 0.91682,-15.742853 14.71021,-5.970394 c -6.20462,-0.10877 -16.07282,-0.505726 -16.07282,-0.505726 l 1.74061,-8.427886 -3.46131,1.691964 -1.25079,2.504138 -5.98574,-1.943238 5.99012,-8.35614 -7.85041,-11.843588 1.18428,-5.779651 L 188.52581,20.104358 162.06227,8.5973088 153.79894,8.6481006 148.954,6.73775 Z"
@@ -146,7 +146,7 @@
   <g
      id="layer11"
      style="display:inline"
-     ref="black">
+     ref="stagger">
     <path
        style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
        d="m 197.45875,62.742939 2.76262,-7.195942 38.26639,-10.626224 6.81768,5.853387 -2.10634,5.798614 -33.1866,8.187613 z"
@@ -158,7 +158,7 @@
   </g>
   <g
      id="layer4"
-     ref="head_green"
+     ref="stagger"
      style="display:inline">
     <path
        style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
@@ -176,7 +176,7 @@
   <g
      id="layer2"
      style="display:inline"
-     ref="head">
+     ref="stagger">
     <path
        style="color:#000000;fill:#000000;-inkscape-stroke:none"
        d="m 308.95802,59.843801 -10.14357,24.826121 -24.77343,5.640625 -18.69922,-4.597656 -2.96008,1.664021 -4.38758,-2.70699 c 0,0 -1.68344,0.06671 -2.41401,0.117105 -3.96429,0.27981 -7.57068,0.551966 -11.66602,0.867188 l -0.0723,0.0039 -6.62187,0.429624 -31.72579,-7.994077 -0.32031,1.283203 35.06836,8.755859 17.32358,-2.32317 4.76627,3.477469 3.25586,-2.15039 18.44141,4.533203 25.71484,-5.855469 14.40037,-26.792883 z"
@@ -397,7 +397,7 @@
   <g
      id="layer5"
      style="display:inline"
-     ref="collo">
+     ref="stagger">
     <path
        style="color:#000000;fill:#000000;-inkscape-stroke:none"
        d="m 213.70234,113.01553 -3.50898,-3.89053 5.4082,17.11133 -3.89453,19.64648 4.41016,11.05078 2.48229,4.30463 1.32685,-2.96533 -2.74469,-2.23773 -3.19175,-11.54946 2.97495,-18.32359 z"
@@ -426,7 +426,7 @@
   <g
      id="layer6"
      style="display:inline"
-     ref="body">
+     ref="stagger">
     <path
        style="color:#000000;fill:#000000;-inkscape-stroke:none"
        d="m 211.44647,138.49116 -41.21014,13.71782 -156.957033,231.23438 2.576517,1.74743 155.216456,-231.85876 40.6978,-12.04643 z"
@@ -467,7 +467,7 @@
   <g
      id="layer7"
      style="display:inline"
-     ref="gambe">
+     ref="stagger">
     <path
        style="color:#000000;fill:#000000;-inkscape-stroke:none"
        d="m 217.34046,195.19095 c 0,0 -3.79609,-0.30305 -3.25858,0.64546 1.00783,3.11192 2.10469,6.19425 3.17612,9.28467 -4.4369,8.251 -8.91576,16.48185 -13.32644,24.74543 -1.08585,2.56273 -2.17169,5.12545 -3.25754,7.68817 0.44565,0.0357 1.22368,0.89161 1.36379,0.17317 1.13952,-2.61702 2.17529,-5.28386 3.38033,-7.86943 l 13.95862,-26.82896 z"

@@ -45,31 +45,11 @@ export const SvgChild = ({ onMount, html, getState }) => {
             trail7,
             trail8,
             trail9,
-            black,
-            body,
-            collo,
-            dark_shadow,
-            gambe,
-            head,
-            light_shadow,
-            head_bg,
-            body_bg,
-            head_green,
+            stagger,
         } = refs;
 
         const childMethods = childAnimations({
-            groups: [
-                black,
-                body,
-                collo,
-                dark_shadow,
-                gambe,
-                head,
-                light_shadow,
-                head_bg,
-                body_bg,
-                head_green,
-            ],
+            groups: stagger,
             trails: [
                 trail0,
                 trail1,
