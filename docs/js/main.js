@@ -3735,9 +3735,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler7());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY3 }) => {
           const scrollData2 = {
-            scrollY
+            scrollY: scrollY3
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -4635,6 +4635,10 @@
     repeaterParserRoot: () => ({
       value: document.createElement("div"),
       type: HTMLElement
+    }),
+    pageTransition: () => ({
+      value: () => Promise.resolve(),
+      type: "any"
     })
   });
 
@@ -4652,6 +4656,13 @@
   };
   var setRoot = ({ element }) => {
     mainStore.set("rootElement", element);
+  };
+  var setPageTransition = ({ fn }) => {
+    mainStore.set("pageTransition", fn);
+  };
+  var getPageTransition = () => {
+    const { pageTransition: pageTransition2 } = mainStore.get();
+    return pageTransition2;
   };
 
   // src/js/mobjs/temporaryData/weakBindEvents/index.js
@@ -7056,11 +7067,22 @@
     mainStore.set("activeRoute", route);
     mainStore.set("activeParams", params);
     const content2 = await getRouteList()?.[route]?.({ params });
+    const clone = contentEl.cloneNode(true);
+    contentEl.parentNode.insertBefore(clone, contentEl);
     contentEl.innerHTML = "";
     scrollTo(0, 0);
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
+    const pageTransition2 = getPageTransition();
+    await pageTransition2({
+      oldNode: clone,
+      newNode: contentEl,
+      oldRoute: activeRoute,
+      newRoute: route,
+      scrollY
+    });
+    clone.remove();
     if (!skip)
       mainStore.set("atfterRouteChange", route);
     document.body.dataset.route = route;
@@ -7159,7 +7181,8 @@
     afterInit = () => {
     },
     index = "home",
-    pageNotFound: pageNotFound2 = "pageNotFound"
+    pageNotFound: pageNotFound2 = "pageNotFound",
+    pageTransition: pageTransition2 = () => Promise.resolve()
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -7170,6 +7193,7 @@
       return;
     setContentId({ contentId });
     setRoot({ element: rootEl });
+    setPageTransition({ fn: pageTransition2 });
     initParseWatcher();
     setComponentList(components);
     setRouteList(pages);
@@ -13762,15 +13786,15 @@
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
+      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY3 }) => {
         if (!this.isInizialized)
           return;
         if (this.screen !== window) {
           if (this.orientation === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY - this.prevscrollY;
-          this.prevscrollY = scrollY;
+          const gap = scrollY3 - this.prevscrollY;
+          this.prevscrollY = scrollY3;
           if (this.isInner && this.pin) {
             const { verticalGap } = this.spring.get();
             const translateValue = verticalGap - gap;
@@ -30087,6 +30111,57 @@ Loading snippet ...</pre
     });
   };
 
+  // src/js/pageTransition/index.js
+  var animableRoute = /* @__PURE__ */ new Set(["home", "child", "mv1"]);
+  var scrollY2 = 0;
+  mainStore.watch("beforeRouteChange", () => {
+    scrollY2 = window.scrollY;
+  });
+  var pageTransition = async ({
+    oldNode,
+    newNode,
+    oldRoute,
+    newRoute
+  }) => {
+    if (motionCore.mq("max", "desktop") || oldRoute === newRoute || !animableRoute.has(newRoute))
+      return;
+    oldNode.classList.add("old-node");
+    newNode.classList.add("new-node");
+    newNode.style.opacity = 0;
+    oldNode.style.position = "fixed";
+    oldNode.style.top = "var(--header-height)";
+    oldNode.style.left = "0";
+    oldNode.style.width = "100vw";
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY2}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+    const oldNodeTween = tween.createTween({
+      data: { opacity: 1 },
+      duration: 500
+    });
+    const newNodeTween = tween.createTween({
+      data: { opacity: 0 },
+      duration: 500
+    });
+    oldNodeTween.subscribe(({ opacity }) => {
+      oldNode.style.opacity = opacity;
+    });
+    newNodeTween.subscribe(({ opacity }) => {
+      newNode.style.opacity = opacity;
+    });
+    let tl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
+    await tl.play();
+    tl.destroy();
+    tl = null;
+    mobCore.useNextFrame(() => {
+      newNode.style.removeProperty("opacity");
+      newNode.style.removeProperty("position");
+      newNode.style.removeProperty("top");
+      newNode.style.removeProperty("left");
+      newNode.style.removeProperty("width");
+      newNode.classList.remove("new-node");
+    });
+  };
+
   // src/js/main.js
   mobCore.useLoad(() => {
     setBrowserClass();
@@ -30144,6 +30219,7 @@ Loading snippet ...</pre
         pages: routeList_exports,
         index: "home",
         pageNotFound: "pageNotFound",
+        pageTransition,
         afterInit: async () => {
           await loaderTween.goTo({ opacity: 0, scale: 0.9 });
           jsMainLoader?.remove();

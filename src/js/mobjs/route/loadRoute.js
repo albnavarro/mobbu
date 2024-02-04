@@ -2,7 +2,7 @@ import {
     removeCancellableComponent,
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
-import { getContentId } from '../mainStore/actions/root';
+import { getContentId, getPageTransition } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
@@ -59,6 +59,16 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     mainStore.set('activeRoute', route);
     mainStore.set('activeParams', params);
     const content = await getRouteList()?.[route]?.({ params });
+
+    /**
+     * Clone old route.
+     */
+    const clone = contentEl.cloneNode(true);
+    contentEl.parentNode.insertBefore(clone, contentEl);
+    /**
+     *
+     */
+
     contentEl.innerHTML = '';
     scrollTo(0, 0);
     removeCancellableComponent();
@@ -68,6 +78,22 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * Wait for all render.
      */
     await parseComponents({ element: contentEl });
+
+    /**
+     * Remove old route.
+     */
+    const pageTransition = getPageTransition();
+    await pageTransition({
+        oldNode: clone,
+        newNode: contentEl,
+        oldRoute: activeRoute,
+        newRoute: route,
+        scrollY,
+    });
+    clone.remove();
+    /**
+     *
+     */
 
     /**
      * SKit after route change if another route is called.

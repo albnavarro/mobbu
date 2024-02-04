@@ -5,21 +5,6 @@
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
 
-## Mobjs - params:
-example:
-
-`
-var hash = window.location.hash.substr(1);
-
-var result = hash.split('&').reduce(function (res, item) {
-    var parts = item.split('=');
-    res[parts[0]] = parts[1];
-    return res;
-}, {});
-`
-
 ## Mobjs - page transition.
 - Clone node, and expose setTimeout value to remove.
 
-## mobCore - handleCache.
-- Switch from object to new Map.

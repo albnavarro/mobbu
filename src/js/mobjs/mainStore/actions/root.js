@@ -49,3 +49,25 @@ export const getRoot = () => {
 export const setRoot = ({ element }) => {
     mainStore.set('rootElement', element);
 };
+
+/**
+ * @param {Object} obj
+ * @param {() => Promise<any>} obj.fn
+ * returns void
+ *
+ *
+ * @description
+ * Set root app.
+ */
+export const setPageTransition = ({ fn }) => {
+    mainStore.set('pageTransition', fn);
+};
+
+/**
+ * @returns {() => Promise<any>}
+ *
+ */
+export const getPageTransition = () => {
+    const { pageTransition } = mainStore.get();
+    return pageTransition;
+};

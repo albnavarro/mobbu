@@ -3,7 +3,11 @@
 import { mobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';
 import { setComponentList } from '../mainStore/actions/componentList';
-import { setContentId, setRoot } from '../mainStore/actions/root';
+import {
+    setContentId,
+    setPageTransition,
+    setRoot,
+} from '../mainStore/actions/root';
 import {
     setIndex,
     setPageNotFound,
@@ -26,6 +30,7 @@ import { debugRoute } from './test';
  * @param {Function} obj.afterInit
  * @param {String} obj.index
  * @param {String} obj.pageNotFound
+ * @param {() => Promise<any>} obj.pageTransition
  *
  * @description
  * Inizializa default route.
@@ -39,6 +44,7 @@ export const inizializeApp = async ({
     afterInit = () => {},
     index = 'home',
     pageNotFound = 'pageNotFound',
+    pageTransition = () => Promise.resolve(),
 }) => {
     /**
      * @type {HTMLElement|null}
@@ -57,6 +63,7 @@ export const inizializeApp = async ({
      */
     setContentId({ contentId });
     setRoot({ element: rootEl });
+    setPageTransition({ fn: pageTransition });
 
     /**
      * Init parse watcher.
