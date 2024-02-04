@@ -52,7 +52,30 @@ export const setRoot = ({ element }) => {
 
 /**
  * @param {Object} obj
- * @param {() => Promise<any>} obj.fn
+ * @param {(() => Promise<any>|undefined)} obj.fn
+ * returns void
+ *
+ *
+ * @description
+ */
+export const setBeforePageTransition = ({ fn }) => {
+    if (!fn) return;
+
+    mainStore.set('beforePageTransition', fn);
+};
+
+/**
+ * @returns {() => Promise<any>}
+ *
+ */
+export const getBeforePageTransition = () => {
+    const { beforePageTransition } = mainStore.get();
+    return beforePageTransition;
+};
+
+/**
+ * @param {Object} obj
+ * @param {(() => Promise<any>|undefined)} obj.fn
  * returns void
  *
  *
@@ -60,6 +83,8 @@ export const setRoot = ({ element }) => {
  * Set root app.
  */
 export const setPageTransition = ({ fn }) => {
+    if (!fn) return;
+
     mainStore.set('pageTransition', fn);
 };
 

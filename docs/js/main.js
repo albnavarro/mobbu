@@ -3734,9 +3734,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler7());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY3 }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY2 }) => {
           const scrollData2 = {
-            scrollY: scrollY3
+            scrollY: scrollY2
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -4635,9 +4635,13 @@
       value: document.createElement("div"),
       type: HTMLElement
     }),
+    beforePageTransition: () => ({
+      value: void 0,
+      type: "Any"
+    }),
     pageTransition: () => ({
-      value: () => Promise.resolve(),
-      type: "any"
+      value: void 0,
+      type: "Any"
     })
   });
 
@@ -4656,7 +4660,18 @@
   var setRoot = ({ element }) => {
     mainStore.set("rootElement", element);
   };
+  var setBeforePageTransition = ({ fn }) => {
+    if (!fn)
+      return;
+    mainStore.set("beforePageTransition", fn);
+  };
+  var getBeforePageTransition = () => {
+    const { beforePageTransition: beforePageTransition2 } = mainStore.get();
+    return beforePageTransition2;
+  };
   var setPageTransition = ({ fn }) => {
+    if (!fn)
+      return;
     mainStore.set("pageTransition", fn);
   };
   var getPageTransition = () => {
@@ -7066,22 +7081,32 @@
     mainStore.set("activeRoute", route);
     mainStore.set("activeParams", params);
     const content2 = await getRouteList()?.[route]?.({ params });
-    const clone = contentEl.cloneNode(true);
-    contentEl.parentNode.insertBefore(clone, contentEl);
+    const beforePageTransition2 = getBeforePageTransition();
+    let clone = contentEl.cloneNode(true);
+    if (beforePageTransition2) {
+      await beforePageTransition2({
+        oldNode: clone,
+        oldRoute: activeRoute,
+        newRoute: route
+      });
+      contentEl.parentNode.insertBefore(clone, contentEl);
+    }
     contentEl.innerHTML = "";
     scrollTo(0, 0);
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
     const pageTransition2 = getPageTransition();
-    await pageTransition2({
-      oldNode: clone,
-      newNode: contentEl,
-      oldRoute: activeRoute,
-      newRoute: route,
-      scrollY
-    });
-    clone.remove();
+    if (pageTransition2) {
+      await pageTransition2({
+        oldNode: clone,
+        newNode: contentEl,
+        oldRoute: activeRoute,
+        newRoute: route
+      });
+      clone.remove();
+    }
+    clone = null;
     if (!skip)
       mainStore.set("atfterRouteChange", route);
     document.body.dataset.route = route;
@@ -7181,7 +7206,8 @@
     },
     index = "home",
     pageNotFound: pageNotFound2 = "pageNotFound",
-    pageTransition: pageTransition2 = () => Promise.resolve()
+    beforePageTransition: beforePageTransition2,
+    pageTransition: pageTransition2
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -7193,6 +7219,7 @@
     setContentId({ contentId });
     setRoot({ element: rootEl });
     setPageTransition({ fn: pageTransition2 });
+    setBeforePageTransition({ fn: beforePageTransition2 });
     initParseWatcher();
     setComponentList(components);
     setRouteList(pages);
@@ -13785,15 +13812,15 @@
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY3 }) => {
+      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
         if (!this.isInizialized)
           return;
         if (this.screen !== window) {
           if (this.orientation === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY3 - this.prevscrollY;
-          this.prevscrollY = scrollY3;
+          const gap = scrollY2 - this.prevscrollY;
+          this.prevscrollY = scrollY2;
           if (this.isInner && this.pin) {
             const { verticalGap } = this.spring.get();
             const translateValue = verticalGap - gap;
@@ -30077,10 +30104,18 @@ Loading snippet ...</pre
 
   // src/js/pageTransition/index.js
   var animableRoute = /* @__PURE__ */ new Set(["home", "child", "mv1"]);
-  var scrollY2 = 0;
+  var scrollY = 0;
   mainStore.watch("beforeRouteChange", () => {
-    scrollY2 = window.scrollY;
+    scrollY = window.scrollY;
   });
+  var beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
+    oldNode.style.position = "fixed";
+    oldNode.style.top = "var(--header-height)";
+    oldNode.style.left = "0";
+    oldNode.style.width = "100vw";
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+  };
   var pageTransition = async ({
     oldNode,
     newNode,
@@ -30089,15 +30124,7 @@ Loading snippet ...</pre
   }) => {
     if (motionCore.mq("max", "desktop") || oldRoute === newRoute || !animableRoute.has(newRoute))
       return;
-    oldNode.classList.add("old-node");
-    newNode.classList.add("new-node");
     newNode.style.opacity = 0;
-    oldNode.style.position = "fixed";
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY2}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
     const oldNodeTween = tween.createTween({
       data: { opacity: 1 },
       duration: 500
@@ -30118,11 +30145,6 @@ Loading snippet ...</pre
     tl = null;
     mobCore.useNextFrame(() => {
       newNode.style.removeProperty("opacity");
-      newNode.style.removeProperty("position");
-      newNode.style.removeProperty("top");
-      newNode.style.removeProperty("left");
-      newNode.style.removeProperty("width");
-      newNode.classList.remove("new-node");
     });
   };
 
@@ -30183,6 +30205,7 @@ Loading snippet ...</pre
         pages: routeList_exports,
         index: "home",
         pageNotFound: "pageNotFound",
+        beforePageTransition,
         pageTransition,
         afterInit: async () => {
           await loaderTween.goTo({ opacity: 0, scale: 0.9 });

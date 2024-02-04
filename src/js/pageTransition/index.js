@@ -9,6 +9,16 @@ mainStore.watch('beforeRouteChange', () => {
     scrollY = window.scrollY;
 });
 
+export const beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
+    oldNode.style.position = 'fixed';
+    oldNode.style.top = 'var(--header-height)';
+    oldNode.style.left = '0';
+    oldNode.style.width = '100vw';
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.minHeight =
+        'calc(100vh - var(--header-height) - var(--footer-height))';
+};
+
 export const pageTransition = async ({
     oldNode,
     newNode,
@@ -22,16 +32,7 @@ export const pageTransition = async ({
     )
         return;
 
-    oldNode.classList.add('old-node');
-    newNode.classList.add('new-node');
     newNode.style.opacity = 0;
-    oldNode.style.position = 'fixed';
-    oldNode.style.top = 'var(--header-height)';
-    oldNode.style.left = '0';
-    oldNode.style.width = '100vw';
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight =
-        'calc(100vh - var(--header-height) - var(--footer-height))';
 
     const oldNodeTween = tween.createTween({
         data: { opacity: 1 },
@@ -65,10 +66,5 @@ export const pageTransition = async ({
 
     mobCore.useNextFrame(() => {
         newNode.style.removeProperty('opacity');
-        newNode.style.removeProperty('position');
-        newNode.style.removeProperty('top');
-        newNode.style.removeProperty('left');
-        newNode.style.removeProperty('width');
-        newNode.classList.remove('new-node');
     });
 };

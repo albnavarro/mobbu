@@ -2,7 +2,11 @@ import {
     removeCancellableComponent,
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
-import { getContentId, getPageTransition } from '../mainStore/actions/root';
+import {
+    getBeforePageTransition,
+    getContentId,
+    getPageTransition,
+} from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
@@ -62,13 +66,23 @@ export const loadRoute = async ({ route = '', params = {} }) => {
 
     /**
      * Clone old route.
+     * Execute function to manipulate old Node.
      */
-    const clone = contentEl.cloneNode(true);
-    contentEl.parentNode.insertBefore(clone, contentEl);
+    const beforePageTransition = getBeforePageTransition();
+    let clone = contentEl.cloneNode(true);
+
+    if (beforePageTransition) {
+        await beforePageTransition({
+            oldNode: clone,
+            oldRoute: activeRoute,
+            newRoute: route,
+        });
+        contentEl.parentNode.insertBefore(clone, contentEl);
+    }
+
     /**
      *
      */
-
     contentEl.innerHTML = '';
     scrollTo(0, 0);
     removeCancellableComponent();
@@ -80,17 +94,22 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     await parseComponents({ element: contentEl });
 
     /**
+     * Animate pgae teansition.
      * Remove old route.
      */
     const pageTransition = getPageTransition();
-    await pageTransition({
-        oldNode: clone,
-        newNode: contentEl,
-        oldRoute: activeRoute,
-        newRoute: route,
-        scrollY,
-    });
-    clone.remove();
+    if (pageTransition) {
+        await pageTransition({
+            oldNode: clone,
+            newNode: contentEl,
+            oldRoute: activeRoute,
+            newRoute: route,
+        });
+        clone.remove();
+    }
+
+    clone = null;
+
     /**
      *
      */

@@ -60,8 +60,12 @@ export const mainStore = mobCore.createStore({
         value: document.createElement('div'),
         type: HTMLElement,
     }),
+    beforePageTransition: () => ({
+        value: undefined,
+        type: 'Any',
+    }),
     pageTransition: () => ({
-        value: () => Promise.resolve(),
-        type: 'any',
+        value: undefined,
+        type: 'Any',
     }),
 });
