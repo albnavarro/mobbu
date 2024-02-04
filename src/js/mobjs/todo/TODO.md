@@ -5,6 +5,5 @@
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
 
-## Mobjs - page transition.
-- Clone node, and expose setTimeout value to remove.
-
+## - Timeline
+AsyncTimeline ( sync ? ) viene risolta con un frame di aniticipo, vedere pageTransition.
