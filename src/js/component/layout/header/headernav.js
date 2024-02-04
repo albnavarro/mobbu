@@ -1,6 +1,6 @@
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
-import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
+import { html, loadUrl } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 const icon = {
@@ -11,9 +11,7 @@ const onClick = ({ event }) => {
     const button = event.target;
     console.log(button);
     const { url } = button.dataset;
-
-    const pageTransitionId = getIdByInstanceName('page-transition');
-    setStateById(pageTransitionId, 'url', url);
+    loadUrl({ url });
 
     const { navigationIsOpen } = navigationStore.get();
     if (!navigationIsOpen) return;

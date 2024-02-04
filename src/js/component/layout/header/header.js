@@ -1,5 +1,5 @@
 import { mobCore } from '../../../mobCore';
-import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
+import { loadUrl, mainStore } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -15,8 +15,7 @@ function closeInfo({ navInfo }) {
 }
 
 function titleHandler() {
-    const pageTransitionId = getIdByInstanceName('page-transition');
-    setStateById(pageTransitionId, 'url', '#home');
+    loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
     navigationStore.emit('closeNavigation');
     navigationStore.emit('closeAllAccordion');

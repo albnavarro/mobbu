@@ -1657,7 +1657,6 @@
     navigationLabelDef: () => navigationLabelDef,
     navigationSubmenuDef: () => navigationSubmenuDef,
     onlyDesktopDef: () => onlyDesktopDef,
-    pageTransitionComponentDef: () => pageTransitionComponentDef,
     paragraphContentDef: () => paragraphContentDef,
     paramsMobJsButtonDef: () => paramsMobJsButtonDef,
     paramsMobJsDef: () => paramsMobJsDef,
@@ -17020,34 +17019,6 @@
     component: DebugButton
   });
 
-  // src/js/component/common/pageTransition/pageTransition.js
-  var PageTransition = ({ onMount, watch, html }) => {
-    onMount(() => {
-      watch("url", async (url) => {
-        loadUrl({ url });
-      });
-      return () => {
-      };
-    });
-    return html`<div class="c-page-transiotion"></div>`;
-  };
-
-  // src/js/component/common/pageTransition/definition.js
-  var pageTransitionComponentDef = createComponent({
-    name: "page-transition",
-    component: PageTransition,
-    isolateOnMount: true,
-    isolateCreation: true,
-    exportState: ["url"],
-    state: {
-      url: () => ({
-        value: "",
-        type: String,
-        skipEqual: false
-      })
-    }
-  });
-
   // src/js/utils/utils.js
   function detectSafari() {
     const userAgentString = navigator.userAgent;
@@ -23331,17 +23302,13 @@ Loading snippet ...</pre
       section: "plugin"
     }
   ];
-  function buttonHandler({ url }) {
-    const pageTransitionId = getIdByInstanceName("page-transition");
-    setStateById(pageTransitionId, "url", url);
-  }
   var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
     return data2.map(({ label, url, section }) => {
       return renderHtml`<li class="footer-nav__item">
                 <footer-nav-button
                     ${delegateEvents({
         click: () => {
-          buttonHandler({ url });
+          loadUrl({ url });
         }
       })}
                     ${staticProps2({
@@ -23395,8 +23362,7 @@ Loading snippet ...</pre
     });
   }
   function titleHandler() {
-    const pageTransitionId = getIdByInstanceName("page-transition");
-    setStateById(pageTransitionId, "url", "#home");
+    loadUrl({ url: "#home" });
     navigationStore.set("navigationIsOpen", false);
     navigationStore.emit("closeNavigation");
     navigationStore.emit("closeAllAccordion");
@@ -23469,8 +23435,7 @@ Loading snippet ...</pre
     const button = event.target;
     console.log(button);
     const { url } = button.dataset;
-    const pageTransitionId = getIdByInstanceName("page-transition");
-    setStateById(pageTransitionId, "url", url);
+    loadUrl({ url });
     const { navigationIsOpen } = navigationStore.get();
     if (!navigationIsOpen)
       return;
@@ -23825,8 +23790,7 @@ Loading snippet ...</pre
         callback2();
         if (!fireRoute)
           return;
-        const pageTransitionId = getIdByInstanceName("page-transition");
-        setStateById(pageTransitionId, "url", url);
+        loadUrl({ url });
         navigationStore.set("navigationIsOpen", false);
         navigationStore.emit("closeNavigation");
       }

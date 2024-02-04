@@ -1,5 +1,5 @@
 import { mobCore } from '../../../mobCore';
-import { getIdByInstanceName, mainStore, setStateById } from '../../../mobjs';
+import { loadUrl, mainStore } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
@@ -89,10 +89,7 @@ export const NavigationButton = ({
                     /**
                      * Fire page transition if button is cliccable.
                      */
-                    const pageTransitionId =
-                        getIdByInstanceName('page-transition');
-                    setStateById(pageTransitionId, 'url', url);
-
+                    loadUrl({ url });
                     navigationStore.set('navigationIsOpen', false);
                     navigationStore.emit('closeNavigation');
                 },

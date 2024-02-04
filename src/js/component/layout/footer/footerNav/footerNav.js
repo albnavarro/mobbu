@@ -1,4 +1,9 @@
-import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
+import {
+    getIdByInstanceName,
+    html,
+    loadUrl,
+    setStateById,
+} from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 
 const data = [
@@ -39,11 +44,6 @@ const data = [
     },
 ];
 
-function buttonHandler({ url }) {
-    const pageTransitionId = getIdByInstanceName('page-transition');
-    setStateById(pageTransitionId, 'url', url);
-}
-
 const getItems = ({ delegateEvents, staticProps }) => {
     return data
         .map(({ label, url, section }) => {
@@ -51,7 +51,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
                 <footer-nav-button
                     ${delegateEvents({
                         click: () => {
-                            buttonHandler({ url });
+                            loadUrl({ url });
                         },
                     })}
                     ${staticProps({
