@@ -59,7 +59,11 @@ export const ScrollTo = ({
         if (motionCore.mq('max', 'large')) return;
 
         const { list } = refs;
-        const targets = document.querySelectorAll('[data-scroll]');
+        const targets1 = document.querySelectorAll('[data-scroll]');
+        const fakeContent = document.querySelector('.fake-content');
+        const targets = [...targets1].filter(
+            (element) => !fakeContent.contains(element)
+        );
 
         list.insertAdjacentHTML(
             'beforeend',

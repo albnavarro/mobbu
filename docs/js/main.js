@@ -22884,7 +22884,11 @@ Loading snippet ...</pre
       if (motionCore.mq("max", "large"))
         return;
       const { list } = refs;
-      const targets = document.querySelectorAll("[data-scroll]");
+      const targets1 = document.querySelectorAll("[data-scroll]");
+      const fakeContent = document.querySelector(".fake-content");
+      const targets = [...targets1].filter(
+        (element) => !fakeContent.contains(element)
+      );
       list.insertAdjacentHTML(
         "beforeend",
         addElements({
@@ -30109,6 +30113,7 @@ Loading snippet ...</pre
     scrollY = window.scrollY;
   });
   var beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
+    oldNode.classList.add("fake-content");
     oldNode.style.position = "fixed";
     oldNode.style.top = "var(--header-height)";
     oldNode.style.left = "0";
