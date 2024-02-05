@@ -80,8 +80,8 @@ p {
     }
 
     &--medium {
-        font-size: rem(15);
-        line-height: line-height(15, 22);
+        font-size: rem(16);
+        line-height: line-height(16, 25);
     }
 
     &--big {
@@ -95,6 +95,10 @@ ul {
     &.hide-dots {
         margin-left: 0;
         list-style-type: none;
+    }
+
+    li::marker {
+        color: $white;
     }
 }
 
