@@ -52,7 +52,7 @@ export const setRoot = ({ element }) => {
 
 /**
  * @param {Object} obj
- * @param {(() => Promise<any>|undefined)} obj.fn
+ * @param {((arg0:{oldNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.fn ]
  * returns void
  *
  *
@@ -65,7 +65,7 @@ export const setBeforePageTransition = ({ fn }) => {
 };
 
 /**
- * @returns {() => Promise<any>}
+ * @returns {((arg0:{oldNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)}
  *
  */
 export const getBeforePageTransition = () => {
@@ -75,7 +75,7 @@ export const getBeforePageTransition = () => {
 
 /**
  * @param {Object} obj
- * @param {(() => Promise<any>|undefined)} obj.fn
+ * @param {((arg0:{oldNode:HTMLElement,newNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.fn ]
  * returns void
  *
  *
@@ -89,7 +89,7 @@ export const setPageTransition = ({ fn }) => {
 };
 
 /**
- * @returns {() => Promise<any>}
+ * @returns {((arg0:{oldNode:HTMLElement,newNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)}
  *
  */
 export const getPageTransition = () => {

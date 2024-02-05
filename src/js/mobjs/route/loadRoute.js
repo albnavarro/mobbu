@@ -108,11 +108,10 @@ export const loadRoute = async ({ route = '', params = {} }) => {
         clone.remove();
     }
 
-    clone = null;
-
     /**
-     *
+     * Destroy Clone.
      */
+    clone = null;
 
     /**
      * SKit after route change if another route is called.

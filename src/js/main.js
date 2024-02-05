@@ -1,3 +1,5 @@
+// @ts-check
+
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
@@ -54,8 +56,10 @@ mobCore.useLoad(() => {
 
         if (jsMainLoader && jsMainLoaderBackground) {
             [jsMainLoader, jsMainLoaderBackground].forEach((item) => {
-                loaderTween.subscribe(({ opacity, scale }) => {
+                loaderTween?.subscribe(({ opacity, scale }) => {
+                    // @ts-ignore
                     item.style.opacity = opacity;
+                    // @ts-ignore
                     item.style.transform = `scale(${scale})`;
                 });
             });
@@ -79,12 +83,13 @@ mobCore.useLoad(() => {
             pages,
             index: 'home',
             pageNotFound: 'pageNotFound',
-            beforePageTransition,
-            pageTransition,
+            // beforePageTransition,
+            // pageTransition,
             afterInit: async () => {
                 await loaderTween.goTo({ opacity: 0, scale: 0.9 });
                 jsMainLoader?.remove();
                 jsMainLoaderBackground?.remove();
+                // @ts-ignore
                 loaderTween = null;
                 getScrollbarWith();
             },

@@ -31,8 +31,8 @@ import { debugRoute } from './test';
  * @param {Function} obj.afterInit
  * @param {String} obj.index
  * @param {String} obj.pageNotFound
- * @param {(() => Promise<any>|undefined)} obj.beforePageTransition
- * @param {(() => Promise<any>|undefined)} obj.pageTransition
+ * @param {((arg0:{oldNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.beforePageTransition ]
+ * @param {((arg0:{oldNode:HTMLElement,newNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.pageTransition ]
  *
  * @description
  * Inizializa default route.
