@@ -3734,9 +3734,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler7());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY2 }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
           const scrollData2 = {
-            scrollY: scrollY2
+            scrollY
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -4666,8 +4666,8 @@
     mainStore.set("beforePageTransition", fn);
   };
   var getBeforePageTransition = () => {
-    const { beforePageTransition: beforePageTransition2 } = mainStore.get();
-    return beforePageTransition2;
+    const { beforePageTransition } = mainStore.get();
+    return beforePageTransition;
   };
   var setPageTransition = ({ fn }) => {
     if (!fn)
@@ -4675,8 +4675,8 @@
     mainStore.set("pageTransition", fn);
   };
   var getPageTransition = () => {
-    const { pageTransition: pageTransition2 } = mainStore.get();
-    return pageTransition2;
+    const { pageTransition } = mainStore.get();
+    return pageTransition;
   };
 
   // src/js/mobjs/temporaryData/weakBindEvents/index.js
@@ -7081,10 +7081,10 @@
     mainStore.set("activeRoute", route);
     mainStore.set("activeParams", params);
     const content2 = await getRouteList()?.[route]?.({ params });
-    const beforePageTransition2 = getBeforePageTransition();
+    const beforePageTransition = getBeforePageTransition();
     let clone = contentEl.cloneNode(true);
-    if (beforePageTransition2) {
-      await beforePageTransition2({
+    if (beforePageTransition) {
+      await beforePageTransition({
         oldNode: clone,
         oldRoute: activeRoute,
         newRoute: route
@@ -7096,9 +7096,9 @@
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
-    const pageTransition2 = getPageTransition();
-    if (pageTransition2) {
-      await pageTransition2({
+    const pageTransition = getPageTransition();
+    if (pageTransition) {
+      await pageTransition({
         oldNode: clone,
         newNode: contentEl,
         oldRoute: activeRoute,
@@ -7206,8 +7206,8 @@
     },
     index = "home",
     pageNotFound: pageNotFound2 = "pageNotFound",
-    beforePageTransition: beforePageTransition2,
-    pageTransition: pageTransition2
+    beforePageTransition,
+    pageTransition
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -7218,8 +7218,8 @@
       return;
     setContentId({ contentId });
     setRoot({ element: rootEl });
-    setPageTransition({ fn: pageTransition2 });
-    setBeforePageTransition({ fn: beforePageTransition2 });
+    setPageTransition({ fn: pageTransition });
+    setBeforePageTransition({ fn: beforePageTransition });
     initParseWatcher();
     setComponentList(components);
     setRouteList(pages);
@@ -13812,15 +13812,15 @@
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
+      this.unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
         if (!this.isInizialized)
           return;
         if (this.screen !== window) {
           if (this.orientation === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY2 - this.prevscrollY;
-          this.prevscrollY = scrollY2;
+          const gap = scrollY - this.prevscrollY;
+          this.prevscrollY = scrollY;
           if (this.isInner && this.pin) {
             const { verticalGap } = this.spring.get();
             const translateValue = verticalGap - gap;
@@ -30105,12 +30105,6 @@ Loading snippet ...</pre
       setValue();
     });
   };
-
-  // src/js/pageTransition/index.js
-  var scrollY = 0;
-  mainStore.watch("beforeRouteChange", () => {
-    scrollY = window.scrollY;
-  });
 
   // src/js/main.js
   mobCore.useLoad(() => {
