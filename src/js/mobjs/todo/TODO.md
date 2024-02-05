@@ -5,5 +5,6 @@
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
 
-## - Timeline
-AsyncTimeline ( sync ? ) viene risolta con un frame di aniticipo, vedere pageTransition.
+## ScrollTO
+- Gestire scrollTo senza querySelector ma con uno sotre o simile.
+
