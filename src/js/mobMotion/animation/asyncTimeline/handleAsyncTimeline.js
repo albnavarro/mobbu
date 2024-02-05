@@ -1,5 +1,7 @@
 // @ts-check
 
+import { handleNextFrame } from '../../../mobCore/events/rafutils/handleNextFrame.js';
+import { handleNextTick } from '../../../mobCore/events/rafutils/handleNextTick.js';
 import { mobCore } from '../../../mobCore/index.js';
 import { NOOP } from '../../utils/functionsUtils.js';
 import { directionConstant } from '../utils/timeline/timelineConstant.js';
@@ -866,11 +868,18 @@ export default class HandleAsyncTimeline {
 
                 /**
                  * All ended
+                 * Fire and of timeline
                  **/
-                // Fire and of timeline
                 this.callbackComplete.forEach(({ cb }) => cb());
                 this.isStopped = true;
-                if (this.currentResolve) this.currentResolve({ resolve: true });
+
+                if (this.currentResolve) {
+                    handleNextFrame.add(() => {
+                        handleNextTick.add(() => {
+                            this.currentResolve?.({ resolve: true });
+                        });
+                    });
+                }
             })
             .catch(() => {
                 // If play or reverse or playFromLabel is fired diring delay tween fail

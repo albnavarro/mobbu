@@ -65,7 +65,5 @@ export const pageTransition = async ({
     tl.destroy();
     tl = null;
 
-    mobCore.useNextFrame(() => {
-        newNode.style.removeProperty('opacity');
-    });
+    newNode.style.removeProperty('opacity');
 };
