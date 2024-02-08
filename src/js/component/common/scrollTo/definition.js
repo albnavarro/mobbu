@@ -10,5 +10,9 @@ export const scrollToDef = createComponent({
             value: 0,
             type: Number,
         }),
+        anchorItems: () => ({
+            value: [],
+            type: Array,
+        }),
     },
 });
