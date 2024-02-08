@@ -4,16 +4,10 @@ function hasAnchor({ id }) {
     return id && id.length > 0;
 }
 
-function getId({ id, label }) {
-    if (!hasAnchor({ id })) return 0;
-
-    return `data-scroll=${id} data-label=${label}`;
-}
-
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Spacer = async ({ html, getState, onMount }) => {
+export const SpacerAnchor = async ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? 'spacer--line' : '';
 
@@ -26,8 +20,5 @@ export const Spacer = async ({ html, getState, onMount }) => {
         });
     });
 
-    return html`<div
-        ${getId({ id, label })}
-        class="spacer spacer--${style} ${lineClass}"
-    ></div>`;
+    return html`<div class="spacer spacer--${style} ${lineClass}"></div>`;
 };
