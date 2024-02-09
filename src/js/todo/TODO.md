@@ -5,6 +5,7 @@
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
 
-## ScrollTO
-- Gestire scrollTo senza querySelector ma con uno sotre o simile.
+## wrapper
+- doc - aggiungere async option.
+
 

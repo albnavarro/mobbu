@@ -1,13 +1,9 @@
 import { html, staticProps } from '../../../mobjs';
-import { loadJsonContent, loadTextContent } from '../../../utils/utils';
+import { loadJsonContent } from '../../../utils/utils';
 
 export const mobJs_debug = async () => {
     const { data } = await loadJsonContent({
         source: './data/mobJs/debug.json',
-    });
-
-    const { data: svg } = await loadTextContent({
-        source: './asset/svg/logo.svg',
     });
 
     return html` <doc-container>
@@ -23,6 +19,5 @@ export const mobJs_debug = async () => {
         </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">Debug</doc-title>
-        <m-logo-1 ${staticProps({ svg })}></m-logo-1>
     </doc-container>`;
 };

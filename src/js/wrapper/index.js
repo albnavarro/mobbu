@@ -1,6 +1,11 @@
-import { html } from '../mobjs';
+import { html, staticProps } from '../mobjs';
+import { loadTextContent } from '../utils/utils';
 
-export const wrapper = () => {
+export const wrapper = async () => {
+    const { data: svg } = await loadTextContent({
+        source: './asset/svg/logo.svg',
+    });
+
     return html`
         <!-- <div class="test-grid"> -->
         <!--     <div class="test-grid__grid"> -->
@@ -26,5 +31,6 @@ export const wrapper = () => {
         </mob-footer>
         <page-transition name="page-transition"></page-transition>
         <route-loader></route-loader>
+        <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
     `;
 };

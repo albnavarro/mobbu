@@ -1,4 +1,3 @@
-import { mobCore } from '../mobCore';
 import { mainStore } from '../mobjs';
 import { motionCore, timeline, tween } from '../mobMotion';
 
@@ -28,8 +27,8 @@ export const pageTransition = async ({
 }) => {
     if (
         motionCore.mq('max', 'desktop') ||
-        oldRoute === newRoute ||
-        !animableRoute.has(newRoute)
+        oldRoute === newRoute
+        // !animableRoute.has(newRoute)
     )
         return;
 

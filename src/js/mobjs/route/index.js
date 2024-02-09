@@ -53,7 +53,7 @@ export const inizializeApp = async ({
      * @type {HTMLElement|null}
      */
     const rootEl = /** @type{HTMLElement} */ document.querySelector(rootId);
-    const wrapperDOM = wrapper();
+    const wrapperDOM = await wrapper();
 
     /**
      * Validate initial data.

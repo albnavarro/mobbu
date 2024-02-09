@@ -1,3 +1,5 @@
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
+
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
@@ -7,6 +9,19 @@ export const DocContainer = ({ html, onMount }) => {
 
         const { side } = refs;
         side.classList.add('active');
+
+        /**
+         * Show side logo.
+         */
+        const logoM1Id = getIdByInstanceName('m1_logo');
+        setStateById(logoM1Id, 'active', true);
+
+        return () => {
+            /**
+             * Hide side logo.
+             */
+            setStateById(logoM1Id, 'active', false);
+        };
     });
 
     return html`
