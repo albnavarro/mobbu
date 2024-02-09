@@ -24455,8 +24455,9 @@ Loading snippet ...</pre
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps2({
+            <div class="c-canvas">
+                <code-button
+                    ${staticProps2({
       drawers: [
         {
           label: "description",
@@ -24477,9 +24478,8 @@ Loading snippet ...</pre
       ],
       style: "legend"
     })}
-            >
-            </code-button>
-            <div class="c-canvas">
+                >
+                </code-button>
                 <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
@@ -24771,8 +24771,9 @@ Loading snippet ...</pre
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps2({
+            <div class="c-canvas">
+                <code-button
+                    ${staticProps2({
       drawers: [
         {
           label: "description",
@@ -24793,9 +24794,8 @@ Loading snippet ...</pre
       ],
       style: "legend"
     })}
-            >
-            </code-button>
-            <div class="c-canvas">
+                >
+                </code-button>
                 <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
@@ -25068,8 +25068,9 @@ Loading snippet ...</pre
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps2({
+            <div class="c-canvas">
+                <code-button
+                    ${staticProps2({
       drawers: [
         {
           label: "description",
@@ -25090,9 +25091,8 @@ Loading snippet ...</pre
       ],
       style: "legend"
     })}
-            >
-            </code-button>
-            <div class="c-canvas">
+                >
+                </code-button>
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
@@ -25368,8 +25368,9 @@ Loading snippet ...</pre
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps2({
+            <div class="c-canvas">
+                <code-button
+                    ${staticProps2({
       drawers: [
         {
           label: "description",
@@ -25390,9 +25391,8 @@ Loading snippet ...</pre
       ],
       style: "legend"
     })}
-            >
-            </code-button>
-            <div class="c-canvas">
+                >
+                </code-button>
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
@@ -25684,8 +25684,9 @@ Loading snippet ...</pre
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps2({
+            <div class="c-canvas">
+                <code-button
+                    ${staticProps2({
       drawers: [
         {
           label: "description",
@@ -25706,9 +25707,8 @@ Loading snippet ...</pre
       ],
       style: "legend"
     })}
-            >
-            </code-button>
-            <div class="c-canvas">
+                >
+                </code-button>
                 <ul class="c-canvas__controls">
                     ${getControls({ buttons: buttons3 })}
                     <li class="c-canvas__controls__item">
@@ -28129,7 +28129,7 @@ Loading snippet ...</pre
         destroySvg();
       };
     });
-    return html`<div>
+    return html`<div class="mv1">
         <only-desktop></only-desktop>
         <div class="mv1__top-left">${sideShape}</div>
         <div class="mv1__logo">${logo}</div>

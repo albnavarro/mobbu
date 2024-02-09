@@ -36,9 +36,9 @@
     &--legend {
         width: var(--header-height);
         height: var(--header-height);
-        position: fixed;
+        position: absolute;
         bottom: var(--footer-height);
-        left: calc(var(--header-height) * 0.5);
+        left: 0;
         z-index: 15;
         border-top-right-radius: rem(30);
         border-bottom-left-radius: rem(30);

@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - var(--header-height));
 
     @include mq.mq('xxlarge') {
         display: flex;
@@ -19,14 +19,15 @@
 
     &--fixed {
         position: fixed;
+        top: var(--header-height);
     }
 
     &__wrap {
         width: 100%;
-        height: 100vh;
         opacity: 0;
         transition: opacity 0.55s;
         overflow: hidden;
+        height: calc(100vh - var(--header-height) - var(--header-height));
 
         &.active {
             opacity: 1;
@@ -43,12 +44,12 @@
 
     &__controls {
         position: absolute;
-        top: var(--header-height);
-        right: 0;
-        width: auto;
-        height: calc(100% - var(--footer-height) - var(--header-height));
+        top: 0;
+        left: calc(100vw - #{rem(300)});
+        width: rem(300);
+        height: 100%;
         list-style: none;
-        z-index: 11;
+        z-index: 15;
         display: flex;
         align-items: flex-end;
         flex-direction: column;

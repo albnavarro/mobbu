@@ -54,7 +54,7 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         };
     });
 
-    return html`<div>
+    return html`<div class="mv1">
         <only-desktop></only-desktop>
         <div class="mv1__top-left">${sideShape}</div>
         <div class="mv1__logo">${logo}</div>

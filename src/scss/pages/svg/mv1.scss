@@ -3,6 +3,7 @@
 
 .mv1 {
     height: calc(100vh - var(--header-height) - var(--footer-height));
+    width: 100vw;
     display: flex;
     justify-content: start;
     align-items: start;

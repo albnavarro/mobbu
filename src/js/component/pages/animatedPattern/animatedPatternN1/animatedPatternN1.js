@@ -32,31 +32,31 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
     return html`
         <div>
             <only-desktop></only-desktop>
-            <code-button
-                ${staticProps({
-                    drawers: [
-                        {
-                            label: 'description',
-                            source: source.description,
-                        },
-                        {
-                            label: 'definition',
-                            source: source.definition,
-                        },
-                        {
-                            label: 'component',
-                            source: source.component,
-                        },
-                        {
-                            label: 'animation',
-                            source: source.animation,
-                        },
-                    ],
-                    style: 'legend',
-                })}
-            >
-            </code-button>
             <div class="c-canvas">
+                <code-button
+                    ${staticProps({
+                        drawers: [
+                            {
+                                label: 'description',
+                                source: source.description,
+                            },
+                            {
+                                label: 'definition',
+                                source: source.definition,
+                            },
+                            {
+                                label: 'component',
+                                source: source.component,
+                            },
+                            {
+                                label: 'animation',
+                                source: source.animation,
+                            },
+                        ],
+                        style: 'legend',
+                    })}
+                >
+                </code-button>
                 <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
