@@ -9,7 +9,7 @@ import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
 import { getScrollbarWith } from './utils/scrollbarWith';
-import { beforePageTransition, pageTransition } from './pageTransition';
+// import { beforePageTransition, pageTransition } from './pageTransition';
 // import { storeTest } from './test/storeTest';
 
 /**
@@ -83,8 +83,8 @@ mobCore.useLoad(() => {
             pages,
             index: 'home',
             pageNotFound: 'pageNotFound',
-            beforePageTransition,
-            pageTransition,
+            // beforePageTransition,
+            // pageTransition,
             afterInit: async () => {
                 await loaderTween.goTo({ opacity: 0, scale: 0.9 });
                 jsMainLoader?.remove();
