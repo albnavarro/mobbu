@@ -94,6 +94,11 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     await parseComponents({ element: contentEl });
 
     /**
+     * SKit after route change if another route is called.
+     */
+    if (!skip) mainStore.set('atfterRouteChange', route);
+
+    /**
      * Animate pgae teansition.
      * Remove old route.
      */
@@ -112,11 +117,6 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * Destroy Clone.
      */
     clone = null;
-
-    /**
-     * SKit after route change if another route is called.
-     */
-    if (!skip) mainStore.set('atfterRouteChange', route);
 
     /**
      * Set active route to body data-route
