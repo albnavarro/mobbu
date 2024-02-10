@@ -3735,9 +3735,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler7());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY2 }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
           const scrollData2 = {
-            scrollY: scrollY2
+            scrollY
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -4667,8 +4667,8 @@
     mainStore.set("beforePageTransition", fn);
   };
   var getBeforePageTransition = () => {
-    const { beforePageTransition: beforePageTransition2 } = mainStore.get();
-    return beforePageTransition2;
+    const { beforePageTransition } = mainStore.get();
+    return beforePageTransition;
   };
   var setPageTransition = ({ fn }) => {
     if (!fn)
@@ -4676,8 +4676,8 @@
     mainStore.set("pageTransition", fn);
   };
   var getPageTransition = () => {
-    const { pageTransition: pageTransition2 } = mainStore.get();
-    return pageTransition2;
+    const { pageTransition } = mainStore.get();
+    return pageTransition;
   };
 
   // src/js/mobjs/temporaryData/weakBindEvents/index.js
@@ -7082,10 +7082,10 @@
     mainStore.set("activeRoute", route);
     mainStore.set("activeParams", params);
     const content2 = await getRouteList()?.[route]?.({ params });
-    const beforePageTransition2 = getBeforePageTransition();
+    const beforePageTransition = getBeforePageTransition();
     let clone = contentEl.cloneNode(true);
-    if (beforePageTransition2) {
-      await beforePageTransition2({
+    if (beforePageTransition) {
+      await beforePageTransition({
         oldNode: clone,
         oldRoute: activeRoute,
         newRoute: route
@@ -7099,9 +7099,9 @@
     await parseComponents({ element: contentEl });
     if (!skip)
       mainStore.set("atfterRouteChange", route);
-    const pageTransition2 = getPageTransition();
-    if (pageTransition2) {
-      await pageTransition2({
+    const pageTransition = getPageTransition();
+    if (pageTransition) {
+      await pageTransition({
         oldNode: clone,
         newNode: contentEl,
         oldRoute: activeRoute,
@@ -7211,8 +7211,8 @@
     },
     index = "home",
     pageNotFound: pageNotFound2 = "pageNotFound",
-    beforePageTransition: beforePageTransition2,
-    pageTransition: pageTransition2
+    beforePageTransition,
+    pageTransition
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -7223,8 +7223,8 @@
       return;
     setContentId({ contentId });
     setRoot({ element: rootEl });
-    setPageTransition({ fn: pageTransition2 });
-    setBeforePageTransition({ fn: beforePageTransition2 });
+    setPageTransition({ fn: pageTransition });
+    setBeforePageTransition({ fn: beforePageTransition });
     initParseWatcher();
     setComponentList(components);
     setRouteList(pages);
@@ -13817,15 +13817,15 @@
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
+      this.unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
         if (!this.isInizialized)
           return;
         if (this.screen !== window) {
           if (this.orientation === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY2 - this.prevscrollY;
-          this.prevscrollY = scrollY2;
+          const gap = scrollY - this.prevscrollY;
+          this.prevscrollY = scrollY;
           if (this.isInner && this.pin) {
             const { verticalGap } = this.spring.get();
             const translateValue = verticalGap - gap;
@@ -26337,45 +26337,11 @@ Loading snippet ...</pre
         setStateById(quicknavId, "nextRoute", "");
       };
     });
-    const { horizontalScroller: horizontalScroller2 } = getLegendData();
-    const { source } = horizontalScroller2;
     if (motionCore.mq("max", "desktop"))
       return html`<div><only-desktop></only-desktop></div>`;
     return html`<div class="l-h-scroller">
         <only-desktop></only-desktop>
         <div class="l-h-scroller__top">scroll down</div>
-        <code-button
-            ${staticProps2({
-      drawers: [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "scroller",
-          source: source.scroller
-        },
-        {
-          label: "section",
-          source: source.section
-        },
-        {
-          label: "buttons",
-          source: source.buttons
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ],
-      style: "legend"
-    })}
-        >
-        </code-button>
         <ul class="l-h-scroller__nav js-nav" ref="js_nav">
             ${getNav({
       numOfCol: 10,
@@ -30097,51 +30063,6 @@ Loading snippet ...</pre
     });
   };
 
-  // src/js/pageTransition/index.js
-  var scrollY = 0;
-  mainStore.watch("beforeRouteChange", () => {
-    scrollY = window.scrollY;
-  });
-  var beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
-    oldNode.classList.add("fake-content");
-    oldNode.style.position = "fixed";
-    oldNode.style.zIndex = 10;
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
-  };
-  var pageTransition = async ({
-    oldNode,
-    newNode,
-    oldRoute,
-    newRoute
-  }) => {
-    if (motionCore.mq("max", "desktop") || oldRoute === newRoute)
-      return;
-    newNode.style.opacity = 0;
-    const oldNodeTween = tween.createTween({
-      data: { opacity: 1 },
-      duration: 300
-    });
-    const newNodeTween = tween.createTween({
-      data: { opacity: 0 },
-      duration: 500
-    });
-    oldNodeTween.subscribe(({ opacity }) => {
-      oldNode.style.opacity = opacity;
-    });
-    newNodeTween.subscribe(({ opacity }) => {
-      newNode.style.opacity = opacity;
-    });
-    let tl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
-    await tl.play();
-    tl.destroy();
-    tl = null;
-    newNode.style.removeProperty("opacity");
-  };
-
   // src/js/main.js
   mobCore.useLoad(() => {
     setBrowserClass();
@@ -30199,8 +30120,8 @@ Loading snippet ...</pre
         pages: routeList_exports,
         index: "home",
         pageNotFound: "pageNotFound",
-        beforePageTransition,
-        pageTransition,
+        // beforePageTransition,
+        // pageTransition,
         afterInit: async () => {
           await loaderTween.goTo({ opacity: 0, scale: 0.9 });
           jsMainLoader?.remove();

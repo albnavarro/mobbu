@@ -1,4 +1,3 @@
-import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -139,9 +138,6 @@ export const HorizontalScroller = ({
         };
     });
 
-    const { horizontalScroller } = getLegendData();
-    const { source } = horizontalScroller;
-
     /**
      * Skip mobile.
      */
@@ -154,38 +150,6 @@ export const HorizontalScroller = ({
     return html`<div class="l-h-scroller">
         <only-desktop></only-desktop>
         <div class="l-h-scroller__top">scroll down</div>
-        <code-button
-            ${staticProps({
-                drawers: [
-                    {
-                        label: 'description',
-                        source: source.description,
-                    },
-                    {
-                        label: 'definition',
-                        source: source.definition,
-                    },
-                    {
-                        label: 'scroller',
-                        source: source.scroller,
-                    },
-                    {
-                        label: 'section',
-                        source: source.section,
-                    },
-                    {
-                        label: 'buttons',
-                        source: source.buttons,
-                    },
-                    {
-                        label: 'animation',
-                        source: source.animation,
-                    },
-                ],
-                style: 'legend',
-            })}
-        >
-        </code-button>
         <ul class="l-h-scroller__nav js-nav" ref="js_nav">
             ${getNav({
                 numOfCol: 10,
