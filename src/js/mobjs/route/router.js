@@ -4,6 +4,7 @@ import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
 let previousHash = '';
+let previousParamsToPush = '';
 let currentSearch;
 
 /**
@@ -41,6 +42,18 @@ const getParams = (value) => {
  * Get hash from url and load new route.
  */
 const hashHandler = () => {
+    /**
+     * Prevent multiple routes start at same time.
+     */
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) {
+        /**
+         * Restore previous hash/params.
+         */
+        history.replaceState({}, '', `#${previousHash}${previousParamsToPush}`);
+        return;
+    }
+
     const hashOriginal = window.location.hash.slice(1);
     const parts = hashOriginal.split('?');
     const search = sanitizeParams(parts?.[1] ?? '');
@@ -50,12 +63,6 @@ const hashHandler = () => {
      */
     const hash = sanitizeHash(parts?.[0] ?? '');
     const params = getParams(currentSearch ?? search);
-
-    /**
-     * Prevent multiple routes start at same time.
-     */
-    const { routeIsLoading } = mainStore.get();
-    if (routeIsLoading) return;
 
     /**
      * Update browser history.
@@ -75,6 +82,11 @@ const hashHandler = () => {
      * Store previous hash.
      */
     previousHash = hash;
+
+    /**
+     * Store previous paramsToPush.
+     */
+    previousParamsToPush = paramsToPush;
 
     /**
      * Load.

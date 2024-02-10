@@ -7125,6 +7125,7 @@
 
   // src/js/mobjs/route/router.js
   var previousHash = "";
+  var previousParamsToPush = "";
   var currentSearch;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
@@ -7141,18 +7142,21 @@
     }, {});
   };
   var hashHandler = () => {
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) {
+      history.replaceState({}, "", `#${previousHash}${previousParamsToPush}`);
+      return;
+    }
     const hashOriginal = window.location.hash.slice(1);
     const parts = hashOriginal.split("?");
     const search = sanitizeParams(parts?.[1] ?? "");
     const hash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentSearch ?? search);
-    const { routeIsLoading } = mainStore.get();
-    if (routeIsLoading)
-      return;
     const paramsToPush = currentSearch || Object.keys(search).length > 0 ? `?${currentSearch ?? search}` : "";
     history.replaceState({}, "", `#${hash}${paramsToPush}`);
     currentSearch = void 0;
     previousHash = hash;
+    previousParamsToPush = paramsToPush;
     loadRoute({
       route: getRouteModule({ url: hash }),
       params
@@ -30119,7 +30123,7 @@ Loading snippet ...</pre
     newNode.style.opacity = 0;
     const oldNodeTween = tween.createTween({
       data: { opacity: 1 },
-      duration: 500
+      duration: 300
     });
     const newNodeTween = tween.createTween({
       data: { opacity: 0 },

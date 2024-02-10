@@ -1,13 +1,14 @@
 import { mainStore } from '../mobjs';
 import { motionCore, timeline, tween } from '../mobMotion';
 
-const animableRoute = new Set(['home', 'child', 'mv1']);
+// const animableRoute = new Set(['home', 'child', 'mv1']);
 let scrollY = 0;
 
 mainStore.watch('beforeRouteChange', () => {
     scrollY = window.scrollY;
 });
 
+// eslint-disable-next-line no-unused-vars
 export const beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
@@ -37,7 +38,7 @@ export const pageTransition = async ({
 
     const oldNodeTween = tween.createTween({
         data: { opacity: 1 },
-        duration: 500,
+        duration: 300,
     });
 
     const newNodeTween = tween.createTween({
