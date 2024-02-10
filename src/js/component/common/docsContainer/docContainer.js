@@ -4,11 +4,8 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
  * @param {import("../../../mobjs/type").componentType}
  */
 export const DocContainer = ({ html, onMount }) => {
-    onMount(({ refs }) => {
+    onMount(() => {
         window.scrollTo(0, 0);
-
-        const { side } = refs;
-        side.classList.add('active');
 
         /**
          * Show side logo.
@@ -29,7 +26,7 @@ export const DocContainer = ({ html, onMount }) => {
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
-            <div class="c-doc-container__side" ref="side">
+            <div class="c-doc-container__side">
                 <mobjs-slot name="section-title-small"></mobjs-slot>
                 <mobjs-slot name="section-title"></mobjs-slot>
                 <mobjs-slot name="section-links"></mobjs-slot>

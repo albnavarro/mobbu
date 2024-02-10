@@ -2302,9 +2302,6 @@ code {
   height: calc(100vh - var(--header-height) - var(--footer-height));
   overflow: hidden;
 }
-.c-doc-container__side.active {
-  opacity: 1;
-}
 @media (min-width: 75em) {
   .c-doc-container__side {
     display: block;

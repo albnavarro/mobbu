@@ -11,6 +11,7 @@ mainStore.watch('beforeRouteChange', () => {
 export const beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
+    oldNode.style.zIndex = 10;
     oldNode.style.top = 'var(--header-height)';
     oldNode.style.left = '0';
     oldNode.style.width = '100vw';

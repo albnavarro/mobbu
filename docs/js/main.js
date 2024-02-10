@@ -24110,10 +24110,8 @@ Loading snippet ...</pre
 
   // src/js/component/common/docsContainer/docContainer.js
   var DocContainer = ({ html, onMount }) => {
-    onMount(({ refs }) => {
+    onMount(() => {
       window.scrollTo(0, 0);
-      const { side } = refs;
-      side.classList.add("active");
       const logoM1Id = getIdByInstanceName("m1_logo");
       setStateById(logoM1Id, "active", true);
       return () => {
@@ -24125,7 +24123,7 @@ Loading snippet ...</pre
             <div class="c-doc-container__content">
                 <mobjs-slot name="docs"></mobjs-slot>
             </div>
-            <div class="c-doc-container__side" ref="side">
+            <div class="c-doc-container__side">
                 <mobjs-slot name="section-title-small"></mobjs-slot>
                 <mobjs-slot name="section-title"></mobjs-slot>
                 <mobjs-slot name="section-links"></mobjs-slot>
@@ -30103,6 +30101,7 @@ Loading snippet ...</pre
   var beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
     oldNode.classList.add("fake-content");
     oldNode.style.position = "fixed";
+    oldNode.style.zIndex = 10;
     oldNode.style.top = "var(--header-height)";
     oldNode.style.left = "0";
     oldNode.style.width = "100vw";
