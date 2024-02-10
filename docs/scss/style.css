@@ -1213,29 +1213,6 @@ code {
   height: 500vh;
   pointer-events: none;
 }
-.c-canvas-scroller-title {
-  position: fixed;
-  top: 5.3333333333rem;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  text-align: center;
-  z-index: 15;
-}
-.c-canvas-scroller-title h1 {
-  text-transform: capitalize;
-  font-size: 1.6666666667rem;
-  color: #fff;
-  font-weight: 600;
-}
-.c-canvas-scroller-title svg {
-  position: absolute;
-  top: calc(100% + 1.3333333333rem);
-  left: 50%;
-  transform: translateX(-50%);
-  fill: #fff;
-  width: 2rem;
-  height: 2rem;
-}
 .page-not-found {
   padding: 2rem;
 }
@@ -2574,6 +2551,36 @@ code {
     width: 66.6666666667rem;
     height: 33.3333333333rem;
   }
+}
+.c-scroller-down-label {
+  position: fixed;
+  top: 5.3333333333rem;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+  z-index: 15;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s, visibility 0.35s;
+}
+.c-scroller-down-label.active {
+  opacity: 1;
+  visibility: visible;
+}
+.c-scroller-down-label h1 {
+  text-transform: capitalize;
+  font-size: 1.6666666667rem;
+  color: #fff;
+  font-weight: 600;
+}
+.c-scroller-down-label svg {
+  position: absolute;
+  top: calc(100% + 1.3333333333rem);
+  left: 50%;
+  transform: translateX(-50%);
+  fill: #fff;
+  width: 2rem;
+  height: 2rem;
 }
 .test-grid {
   margin-top: 6.6666666667rem;

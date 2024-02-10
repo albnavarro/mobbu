@@ -32,5 +32,6 @@ export const wrapper = async () => {
         <page-transition name="page-transition"></page-transition>
         <route-loader></route-loader>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
+        <scroll-down-label name="scroll_down_label" />
     `;
 };

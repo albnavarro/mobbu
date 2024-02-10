@@ -1662,6 +1662,7 @@
     paramsMobJsDef: () => paramsMobJsDef,
     quickNavDef: () => quickNavDef,
     routeLoaderDef: () => routeLoaderDef,
+    scrollDownLabelDef: () => scrollDownLabelDef,
     scrollToButtonDef: () => scrollToButtonDef,
     scrollToDef: () => scrollToDef,
     scrollerN0Def: () => scrollerN0Def,
@@ -23271,6 +23272,38 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
+  var ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
+    const { active } = getState();
+    const activeClass = active ? "active" : "";
+    onMount(({ element }) => {
+      watchSync("active", (isActive) => {
+        element.classList.toggle("active", isActive);
+      });
+      return () => {
+      };
+    });
+    return html`
+        <div class="c-scroller-down-label ${activeClass}">
+            <h1>Scroll down</h1>
+            ${scroll_arrow_default}
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrolldownLabel/definition.js
+  var scrollDownLabelDef = createComponent({
+    name: "scroll-down-label",
+    component: ScrollDownLabel,
+    exportState: ["active"],
+    state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
   // src/js/component/layout/footer/footer.js
   var Footer = ({ html }) => {
     return html`
@@ -26631,6 +26664,8 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
+      const scrollLabelId = getIdByInstanceName("scroll_down_label");
+      setStateById(scrollLabelId, "active", true);
       const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -26643,6 +26678,7 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
+        setStateById(scrollLabelId, "active", false);
       };
     });
     const { scrollerN0: scrollerN02 } = getLegendData();
@@ -26682,10 +26718,6 @@ Loading snippet ...</pre
                 </div>
             </div>
             <div class="c-canvas-scroller" ref="canvasScroller"></div>
-            <div class="c-canvas-scroller-title">
-                <h1>Scroll down</h1>
-                ${scroll_arrow_default}
-            </div>
         </div>
     `;
   };
@@ -26950,6 +26982,8 @@ Loading snippet ...</pre
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
+      const scrollLabelId = getIdByInstanceName("scroll_down_label");
+      setStateById(scrollLabelId, "active", true);
       const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -26961,6 +26995,7 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
+        setStateById(scrollLabelId, "active", false);
       };
     });
     const { scrollerN1: scrollerN12 } = getLegendData();
@@ -27001,10 +27036,6 @@ Loading snippet ...</pre
                 </div>
             </div>
             <div class="c-canvas-scroller" ref="canvasScroller"></div>
-            <div class="c-canvas-scroller-title">
-                <h1>Scroll down</h1>
-                ${scroll_arrow_default}
-            </div>
         </div>
     `;
   };
@@ -29928,6 +29959,7 @@ Loading snippet ...</pre
         <page-transition name="page-transition"></page-transition>
         <route-loader></route-loader>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
+        <scroll-down-label name="scroll_down_label" />
     `;
   };
 

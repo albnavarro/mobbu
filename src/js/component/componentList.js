@@ -15,6 +15,7 @@ export * from './common/linksMobJs/definition';
 export * from './common/routeLoader/definition';
 export * from './common/nextPage/definition';
 export * from './common/animationTitle/definition';
+export * from './common/scrolldownLabel/definition';
 export * from './layout/footer/definition';
 export * from './layout/footer/footerNav/definition';
 export * from './layout/header/definition';

@@ -1,6 +1,6 @@
-import arrow from '../../../../../svg/scroll_arrow.svg';
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
+import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
@@ -11,6 +11,15 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
+        /**
+         * Show scroll down label.
+         */
+        const scrollLabelId = getIdByInstanceName('scroll_down_label');
+        setStateById(scrollLabelId, 'active', true);
+
+        /**
+         * Refs
+         */
         const { wrap, canvas, canvasScroller } = refs;
 
         /**
@@ -30,6 +39,11 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
 
         return () => {
             destroyAnimation();
+
+            /**
+             * Hide scroll down label.
+             */
+            setStateById(scrollLabelId, 'active', false);
         };
     });
 
@@ -78,10 +92,6 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
                 </div>
             </div>
             <div class="c-canvas-scroller" ref="canvasScroller"></div>
-            <div class="c-canvas-scroller-title">
-                <h1>Scroll down</h1>
-                ${arrow}
-            </div>
         </div>
     `;
 };
