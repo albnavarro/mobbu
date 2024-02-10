@@ -17,8 +17,12 @@ export const animatedPatternN0 = ({ params }) => {
             ${staticProps({ title: props.title })}
         ></animation-title>
         <animatedpattern-n0
-            ${staticProps({ ...props.animation })}
+            ${staticProps({
+                ...props.animation,
+                prevRoute: props.nav.prevRoute,
+                nextRoute: props.nav.nextRoute,
+            })}
         ></animatedpattern-n0>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
 };

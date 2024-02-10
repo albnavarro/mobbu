@@ -29,7 +29,7 @@ export const wrapper = async () => {
         <mob-footer>
             <debug-button slot="debug"></debug-button>
         </mob-footer>
-        <page-transition name="page-transition"></page-transition>
+        <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
         <scroll-down-label name="scroll_down_label" />

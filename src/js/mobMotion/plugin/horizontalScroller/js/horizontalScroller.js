@@ -517,7 +517,10 @@ export class HorizontalScroller {
         /**
          * @private
          */
-        this.mainContainer = document.querySelector(data.root);
+        this.mainContainer = mobCore.checkType(String, data.root)
+            ? document.querySelector(data.root)
+            : data.root;
+
         if (!this.mainContainer) {
             this.propsisValid = false;
             console.warn('horizontal custom: root node not found');

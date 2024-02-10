@@ -9,7 +9,7 @@ import { wrapper } from './wrapper';
 import { mobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
 import { getScrollbarWith } from './utils/scrollbarWith';
-// import { beforePageTransition, pageTransition } from './pageTransition';
+import { beforePageTransition, pageTransition } from './pageTransition';
 // import { storeTest } from './test/storeTest';
 
 /**

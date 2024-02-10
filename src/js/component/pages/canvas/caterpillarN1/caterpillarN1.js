@@ -1,5 +1,6 @@
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
+import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN1Animation } from './animation/animation';
@@ -13,6 +14,11 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
 
         const { wrap, canvas } = refs;
 
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', '#caterpillarN0');
+        setStateById(quicknavId, 'nextRoute', '#caterpillarN2');
+
         const destroyAnimation = caterpillarN1Animation({
             canvas,
             ...getState(),
@@ -24,6 +30,9 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
 
         return () => {
             destroyAnimation();
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
         };
     });
 

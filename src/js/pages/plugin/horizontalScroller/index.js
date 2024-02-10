@@ -33,8 +33,9 @@ export const horizontalScroller = async ({ params }) => {
                 animatePin: props.animatePin,
                 svgLeft: data_left,
                 svgRight: data_right,
+                prevRoute: props.nav.prevRoute,
+                nextRoute: props.nav.nextRoute,
             })}
         ></horizontal-scroller>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
     </div>`;
 };

@@ -1,3 +1,4 @@
+import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { mv1Animation } from './animation';
 
@@ -15,6 +16,10 @@ export const Mv1Component = ({ html, onMount, getState }) => {
 
     onMount(({ element, refs }) => {
         if (!isDesktop) return;
+
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', '#child');
 
         const {
             block1,
@@ -50,6 +55,9 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         playAnimation({ playIntro, playSvg });
 
         return () => {
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
             destroySvg();
         };
     });

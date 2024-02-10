@@ -8,6 +8,8 @@ export const scrollerN0Def = createComponent({
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+        'nextRoute',
+        'prevRoute',
         'numberOfRow',
         'numberOfColumn',
         'cellWidth',
@@ -19,6 +21,14 @@ export const scrollerN0Def = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        nextRoute: () => ({
+            value: '',
+            type: String,
+        }),
+        prevRoute: () => ({
+            value: '',
+            type: String,
+        }),
         numberOfRow: () => ({
             value: 10,
             type: Number,

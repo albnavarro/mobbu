@@ -1,6 +1,6 @@
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
-import { html } from '../../../../mobjs';
+import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN2Animation } from './animation/animation';
@@ -31,6 +31,15 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
         const { wrap, canvas, rangeValue, rotationButton } = refs;
+
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', '#caterpillarN1');
+        setStateById(
+            quicknavId,
+            'nextRoute',
+            '#animatedPatternN0?version=0&activeId=0'
+        );
 
         /**
          * Inizializa animation and get anima methods.
@@ -68,6 +77,9 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
         });
 
         return () => {
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
             destroy();
         };
     });

@@ -8,6 +8,8 @@ export const caterpillarN0Def = createComponent({
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+        'nextRoute',
+        'prevRoute',
         'amountOfPath',
         'width',
         'height',
@@ -22,6 +24,14 @@ export const caterpillarN0Def = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        nextRoute: () => ({
+            value: '',
+            type: String,
+        }),
+        prevRoute: () => ({
+            value: '',
+            type: String,
+        }),
         amountOfPath: 17,
         width: detectFirefox() || detectSafari() ? 30 : 40,
         height: detectFirefox() || detectSafari() ? 30 : 40,

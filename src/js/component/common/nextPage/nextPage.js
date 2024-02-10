@@ -3,22 +3,30 @@ import arrow from '../../../../svg/scroll_arrow.svg';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const QuickNav = ({ getState, html }) => {
-    const { prevRoute, nextRoute } = getState();
+export const QuickNav = ({ getState, onMount, html, watchSync }) => {
+    const { active } = getState();
+    const activeClass = active ? 'active' : '';
 
-    const prevIsDisable = prevRoute === '' ? 'is-disable' : '';
-    const nextIsDisable = nextRoute === '' ? 'is-disable' : '';
+    onMount(({ element, refs }) => {
+        const { prev, next } = refs;
 
-    return html`<div>
-        <a
-            class="c-quick-nav c-quick-nav--prev ${prevIsDisable}"
-            href="${prevRoute}"
-            >${arrow}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--next ${nextIsDisable}"
-            href="${nextRoute}"
-            >${arrow}</a
-        >
+        watchSync('active', (isActive) => {
+            element.classList.toggle('active', isActive);
+        });
+
+        watchSync('nextRoute', (route) => {
+            next.classList.toggle('is-disable', !route);
+            next.href = route;
+        });
+
+        watchSync('prevRoute', (route) => {
+            prev.classList.toggle('is-disable', !route);
+            prev.href = route;
+        });
+    });
+
+    return html`<div class="c-quick-nav-container ${activeClass}">
+        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${arrow}</a>
+        <a class="c-quick-nav c-quick-nav--next" ref="next">${arrow}</a>
     </div>`;
 };

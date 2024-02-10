@@ -6,11 +6,6 @@ export const scrollerN1 = () => {
             ${staticProps({ title: 'Scroller N.1' })}
         ></animation-title>
         <caterpillar-n3></caterpillar-n3>
-        <quick-nav
-            ${staticProps({
-                prevRoute: '#scrollerN0?version=4&activeId=4',
-                nextRoute: '',
-            })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
 };

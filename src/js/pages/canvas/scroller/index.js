@@ -13,7 +13,13 @@ export const scrollerN0 = ({ params }) => {
         <animation-title
             ${staticProps({ title: props.title })}
         ></animation-title>
-        <scroller-n0 ${staticProps({ ...props.animation })}></scroller-n0>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
+        <scroller-n0
+            ${staticProps({
+                ...props.animation,
+                prevRoute: props.nav.prevRoute,
+                nextRoute: props.nav.nextRoute,
+            })}
+        ></scroller-n0>
+        <quick-nav></quick-nav>
     </div>`;
 };

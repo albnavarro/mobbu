@@ -3735,9 +3735,9 @@
       debouceFunctionReference2 = debounceFuncion(() => handler7());
       unsubscribeScrollEnd = handleScrollImmediate(debouceFunctionReference2);
       if (type === "START") {
-        unsubscribeScrollStart = handleScrollImmediate(({ scrollY }) => {
+        unsubscribeScrollStart = handleScrollImmediate(({ scrollY: scrollY2 }) => {
           const scrollData2 = {
-            scrollY
+            scrollY: scrollY2
           };
           if (!isScrolling) {
             isScrolling = true;
@@ -4667,8 +4667,8 @@
     mainStore.set("beforePageTransition", fn);
   };
   var getBeforePageTransition = () => {
-    const { beforePageTransition } = mainStore.get();
-    return beforePageTransition;
+    const { beforePageTransition: beforePageTransition2 } = mainStore.get();
+    return beforePageTransition2;
   };
   var setPageTransition = ({ fn }) => {
     if (!fn)
@@ -4676,8 +4676,8 @@
     mainStore.set("pageTransition", fn);
   };
   var getPageTransition = () => {
-    const { pageTransition } = mainStore.get();
-    return pageTransition;
+    const { pageTransition: pageTransition2 } = mainStore.get();
+    return pageTransition2;
   };
 
   // src/js/mobjs/temporaryData/weakBindEvents/index.js
@@ -7082,10 +7082,10 @@
     mainStore.set("activeRoute", route);
     mainStore.set("activeParams", params);
     const content2 = await getRouteList()?.[route]?.({ params });
-    const beforePageTransition = getBeforePageTransition();
+    const beforePageTransition2 = getBeforePageTransition();
     let clone = contentEl.cloneNode(true);
-    if (beforePageTransition) {
-      await beforePageTransition({
+    if (beforePageTransition2) {
+      await beforePageTransition2({
         oldNode: clone,
         oldRoute: activeRoute,
         newRoute: route
@@ -7099,9 +7099,9 @@
     await parseComponents({ element: contentEl });
     if (!skip)
       mainStore.set("atfterRouteChange", route);
-    const pageTransition = getPageTransition();
-    if (pageTransition) {
-      await pageTransition({
+    const pageTransition2 = getPageTransition();
+    if (pageTransition2) {
+      await pageTransition2({
         oldNode: clone,
         newNode: contentEl,
         oldRoute: activeRoute,
@@ -7207,8 +7207,8 @@
     },
     index = "home",
     pageNotFound: pageNotFound2 = "pageNotFound",
-    beforePageTransition,
-    pageTransition
+    beforePageTransition: beforePageTransition2,
+    pageTransition: pageTransition2
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -7219,8 +7219,8 @@
       return;
     setContentId({ contentId });
     setRoot({ element: rootEl });
-    setPageTransition({ fn: pageTransition });
-    setBeforePageTransition({ fn: beforePageTransition });
+    setPageTransition({ fn: pageTransition2 });
+    setBeforePageTransition({ fn: beforePageTransition2 });
     initParseWatcher();
     setComponentList(components);
     setRouteList(pages);
@@ -13813,15 +13813,15 @@
           });
         }
       });
-      this.unsubscribeScroll = mobCore.useScroll(({ scrollY }) => {
+      this.unsubscribeScroll = mobCore.useScroll(({ scrollY: scrollY2 }) => {
         if (!this.isInizialized)
           return;
         if (this.screen !== window) {
           if (this.orientation === parallaxConstant.DIRECTION_VERTICAL) {
             this.refreshCollisionPoint();
           }
-          const gap = scrollY - this.prevscrollY;
-          this.prevscrollY = scrollY;
+          const gap = scrollY2 - this.prevscrollY;
+          this.prevscrollY = scrollY2;
           if (this.isInner && this.pin) {
             const { verticalGap } = this.spring.get();
             const translateValue = verticalGap - gap;
@@ -16140,7 +16140,7 @@
         "HorizontalScroller: onTick",
         null
       );
-      this.mainContainer = document.querySelector(data3.root);
+      this.mainContainer = mobCore.checkType(String, data3.root) ? document.querySelector(data3.root) : data3.root;
       if (!this.mainContainer) {
         this.propsisValid = false;
         console.warn("horizontal custom: root node not found");
@@ -23194,21 +23194,26 @@ Loading snippet ...</pre
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/nextPage/nextPage.js
-  var QuickNav = ({ getState, html }) => {
-    const { prevRoute, nextRoute } = getState();
-    const prevIsDisable = prevRoute === "" ? "is-disable" : "";
-    const nextIsDisable = nextRoute === "" ? "is-disable" : "";
-    return html`<div>
-        <a
-            class="c-quick-nav c-quick-nav--prev ${prevIsDisable}"
-            href="${prevRoute}"
-            >${scroll_arrow_default}</a
-        >
-        <a
-            class="c-quick-nav c-quick-nav--next ${nextIsDisable}"
-            href="${nextRoute}"
-            >${scroll_arrow_default}</a
-        >
+  var QuickNav = ({ getState, onMount, html, watchSync }) => {
+    const { active } = getState();
+    const activeClass = active ? "active" : "";
+    onMount(({ element, refs }) => {
+      const { prev: prev2, next } = refs;
+      watchSync("active", (isActive) => {
+        element.classList.toggle("active", isActive);
+      });
+      watchSync("nextRoute", (route) => {
+        next.classList.toggle("is-disable", !route);
+        next.href = route;
+      });
+      watchSync("prevRoute", (route) => {
+        prev2.classList.toggle("is-disable", !route);
+        prev2.href = route;
+      });
+    });
+    return html`<div class="c-quick-nav-container ${activeClass}">
+        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
+        <a class="c-quick-nav c-quick-nav--next" ref="next">${scroll_arrow_default}</a>
     </div>`;
   };
 
@@ -23216,8 +23221,12 @@ Loading snippet ...</pre
   var quickNavDef = createComponent({
     name: "quick-nav",
     component: QuickNav,
-    exportState: ["prevRoute", "nextRoute"],
+    exportState: ["active", "prevRoute", "nextRoute"],
     state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      }),
       prevRoute: () => ({
         value: "",
         type: String
@@ -24468,10 +24477,15 @@ Loading snippet ...</pre
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
   var AnimatedPatternN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
+    const { prevRoute, nextRoute } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
       const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", prevRoute);
+      setStateById(quicknavId, "nextRoute", nextRoute);
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -24481,6 +24495,9 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { animatedPatternN0: animatedPatternN02 } = getLegendData();
@@ -24526,6 +24543,8 @@ Loading snippet ...</pre
     name: "animatedpattern-n0",
     component: AnimatedPatternN0,
     exportState: [
+      "nextRoute",
+      "prevRoute",
       "numberOfRow",
       "numberOfColumn",
       "cellWidth",
@@ -24537,6 +24556,14 @@ Loading snippet ...</pre
       "disableOffcanvas"
     ],
     state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
       numberOfRow: () => ({
         value: 10,
         type: Number
@@ -24788,6 +24815,18 @@ Loading snippet ...</pre
       if (motionCore.mq("max", "desktop"))
         return;
       const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(
+        quicknavId,
+        "prevRoute",
+        "#animatedPatternN0?version=3&activeId=3"
+      );
+      setStateById(
+        quicknavId,
+        "nextRoute",
+        "#scrollerN0?version=0&activeId=0"
+      );
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -24796,6 +24835,9 @@ Loading snippet ...</pre
         wrap.classList.add("active");
       });
       return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
         destroyAnimation();
       };
     });
@@ -25084,6 +25126,9 @@ Loading snippet ...</pre
       if (motionCore.mq("max", "desktop"))
         return;
       const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "nextRoute", "#caterpillarN1");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -25093,6 +25138,9 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { caterpillarN0: caterpillarN02 } = getLegendData();
@@ -25141,6 +25189,8 @@ Loading snippet ...</pre
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+      "nextRoute",
+      "prevRoute",
       "amountOfPath",
       "width",
       "height",
@@ -25155,6 +25205,14 @@ Loading snippet ...</pre
       "disableOffcanvas"
     ],
     state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
       amountOfPath: 17,
       width: detectFirefox() || detectSafari() ? 30 : 40,
       height: detectFirefox() || detectSafari() ? 30 : 40,
@@ -25384,6 +25442,10 @@ Loading snippet ...</pre
       if (motionCore.mq("max", "desktop"))
         return;
       const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", "#caterpillarN0");
+      setStateById(quicknavId, "nextRoute", "#caterpillarN2");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -25393,6 +25455,9 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { caterpillarN1: caterpillarN12 } = getLegendData();
@@ -25689,6 +25754,14 @@ Loading snippet ...</pre
       if (motionCore.mq("max", "desktop"))
         return;
       const { wrap, canvas, rangeValue, rotationButton } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", "#caterpillarN1");
+      setStateById(
+        quicknavId,
+        "nextRoute",
+        "#animatedPatternN0?version=0&activeId=0"
+      );
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -25708,6 +25781,9 @@ Loading snippet ...</pre
         wrap.classList.add("active");
       });
       return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
         destroy();
       };
     });
@@ -26099,7 +26175,8 @@ Loading snippet ...</pre
     titles,
     nav,
     animatePin,
-    setState
+    setState,
+    rootRef
   }) => {
     let pins = createPins({ indicators, setState });
     let titlesParallax = createParallax({ titles });
@@ -26109,7 +26186,7 @@ Loading snippet ...</pre
       sideWidth = outerWidth(side) / 2;
     });
     let horizontalCustom = new HorizontalScroller({
-      root: ".js-root",
+      root: rootRef,
       container: ".js-container",
       row: ".js-row",
       column: ".js-column",
@@ -26213,20 +26290,25 @@ Loading snippet ...</pre
     bindProps,
     delegateEvents
   }) => {
-    const { animatePin, svgLeft, svgRight } = getState();
-    onMount(({ element }) => {
+    const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
+    onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
       const indicators = element.querySelectorAll(".js-indicator");
       const nav = element.querySelector(".js-nav");
       const titles = element.querySelectorAll(".js-title h1");
       const { destroy } = horizontalScrollerAnimation({
+        rootRef: refs.js_root,
         indicators,
         titles,
         nav,
         ...getState(),
         setState
       });
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", prevRoute);
+      setStateById(quicknavId, "nextRoute", nextRoute);
       window.scrollTo(0, 0);
       watch("currentId", (id2) => {
         if (id2 === -1)
@@ -26248,6 +26330,9 @@ Loading snippet ...</pre
       });
       return () => {
         destroy();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { horizontalScroller: horizontalScroller2 } = getLegendData();
@@ -26289,7 +26374,7 @@ Loading snippet ...</pre
     })}
         >
         </code-button>
-        <ul class="l-h-scroller__nav js-nav">
+        <ul class="l-h-scroller__nav js-nav" ref="js_nav">
             ${getNav({
       numOfCol: 10,
       setState,
@@ -26298,9 +26383,12 @@ Loading snippet ...</pre
       delegateEvents
     })}
         </ul>
-        <div class="l-h-scroller__root js-root">
-            <div class="l-h-scroller__container js-container">
-                <div class="l-h-scroller__row js-row">
+        <div class="l-h-scroller__root js-root" ref="js_root">
+            <div
+                class="l-h-scroller__container js-container"
+                ref="js_container"
+            >
+                <div class="l-h-scroller__row js-row" ref="js_row">
                     ${getColumns({
       numOfCol: 10,
       pinIsVisible: !animatePin,
@@ -26308,9 +26396,13 @@ Loading snippet ...</pre
     })}
                     <section
                         class="l-h-scroller__fakeColumn js-column"
+                        ref="js_column"
                     ></section>
                 </div>
-                <div class="l-h-scroller__trigger js-trigger"></div>
+                <div
+                    class="l-h-scroller__trigger js-trigger"
+                    ref="js_trigger"
+                ></div>
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>
@@ -26331,6 +26423,8 @@ Loading snippet ...</pre
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+      "nextRoute",
+      "prevRoute",
       "currentId",
       "currentIdFromScroll",
       "animatePin",
@@ -26338,6 +26432,14 @@ Loading snippet ...</pre
       "svgRight"
     ],
     state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
       svgLeft: () => ({
         value: 0,
         type: ""
@@ -26661,11 +26763,16 @@ Loading snippet ...</pre
 
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
   var ScrollerN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
+    const { prevRoute, nextRoute } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
       const scrollLabelId = getIdByInstanceName("scroll_down_label");
       setStateById(scrollLabelId, "active", true);
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", prevRoute);
+      setStateById(quicknavId, "nextRoute", nextRoute);
       const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -26679,6 +26786,9 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         setStateById(scrollLabelId, "active", false);
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { scrollerN0: scrollerN02 } = getLegendData();
@@ -26729,6 +26839,8 @@ Loading snippet ...</pre
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+      "nextRoute",
+      "prevRoute",
       "numberOfRow",
       "numberOfColumn",
       "cellWidth",
@@ -26740,6 +26852,14 @@ Loading snippet ...</pre
       "disableOffcanvas"
     ],
     state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
       numberOfRow: () => ({
         value: 10,
         type: Number
@@ -26984,6 +27104,14 @@ Loading snippet ...</pre
         return;
       const scrollLabelId = getIdByInstanceName("scroll_down_label");
       setStateById(scrollLabelId, "active", true);
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "nextRoute", "#caterpillarN1");
+      setStateById(
+        quicknavId,
+        "prevRoute",
+        "#scrollerN0?version=4&activeId=4"
+      );
       const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -26996,6 +27124,9 @@ Loading snippet ...</pre
       return () => {
         destroyAnimation();
         setStateById(scrollLabelId, "active", false);
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
       };
     });
     const { scrollerN1: scrollerN12 } = getLegendData();
@@ -27954,6 +28085,9 @@ Loading snippet ...</pre
   var SvgChild = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq("min", "desktop");
     const { svg, star } = isDesktop ? getState() : "";
+    const quicknavId = getIdByInstanceName("quick_nav");
+    setStateById(quicknavId, "active", true);
+    setStateById(quicknavId, "nextRoute", "#mv1");
     onMount(({ refs }) => {
       if (!isDesktop)
         return;
@@ -27988,6 +28122,9 @@ Loading snippet ...</pre
       const { playIntro, destroy } = childMethods;
       playAnimation2({ playIntro });
       return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
         destroy();
       };
     });
@@ -28126,6 +28263,9 @@ Loading snippet ...</pre
     onMount(({ element, refs }) => {
       if (!isDesktop)
         return;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", "#child");
       const {
         block1,
         block2,
@@ -28157,6 +28297,9 @@ Loading snippet ...</pre
       });
       playAnimation3({ playIntro, playSvg });
       return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
         destroySvg();
       };
     });
@@ -28447,9 +28590,13 @@ Loading snippet ...</pre
             ${staticProps({ title: props.title })}
         ></animation-title>
         <animatedpattern-n0
-            ${staticProps({ ...props.animation })}
+            ${staticProps({
+      ...props.animation,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute
+    })}
         ></animatedpattern-n0>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28460,12 +28607,7 @@ Loading snippet ...</pre
             ${staticProps({ title: "Animated pattern N.1" })}
         ></animation-title>
         <animatedpattern-n1></animatedpattern-n1>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#animatedPatternN0?version=3&activeId=3",
-      nextRoute: "#scrollerN0?version=0&activeId=0"
-    })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28476,12 +28618,7 @@ Loading snippet ...</pre
             ${staticProps({ title: "Caterpillar N.0" })}
         ></animation-title>
         <caterpillar-n0></caterpillar-n0>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "",
-      nextRoute: "#caterpillarN1"
-    })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28492,12 +28629,7 @@ Loading snippet ...</pre
             ${staticProps({ title: "Caterpillar N.1" })}
         ></animation-title>
         <caterpillar-n1></caterpillar-n1>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#caterpillarN0",
-      nextRoute: "#caterpillarN2"
-    })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28508,12 +28640,7 @@ Loading snippet ...</pre
             ${staticProps({ title: "Caterpillar N.2" })}
         ></animation-title>
         <caterpillar-n2></caterpillar-n2>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#caterpillarN1",
-      nextRoute: "#animatedPatternN0?version=0&activeId=0"
-    })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28606,10 +28733,11 @@ Loading snippet ...</pre
             ${staticProps({
       animatePin: props.animatePin,
       svgLeft: data_left,
-      svgRight: data_right
+      svgRight: data_right,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute
     })}
         ></horizontal-scroller>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
     </div>`;
   };
 
@@ -28715,8 +28843,14 @@ Loading snippet ...</pre
         <animation-title
             ${staticProps({ title: props.title })}
         ></animation-title>
-        <scroller-n0 ${staticProps({ ...props.animation })}></scroller-n0>
-        <quick-nav ${staticProps({ ...props.nav })}></quick-nav>
+        <scroller-n0
+            ${staticProps({
+      ...props.animation,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute
+    })}
+        ></scroller-n0>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28727,12 +28861,7 @@ Loading snippet ...</pre
             ${staticProps({ title: "Scroller N.1" })}
         ></animation-title>
         <caterpillar-n3></caterpillar-n3>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#scrollerN0?version=4&activeId=4",
-      nextRoute: ""
-    })}
-        ></quick-nav>
+        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -29899,12 +30028,6 @@ Loading snippet ...</pre
             ${staticProps({ title: "Child svg" })}
         ></animation-title>
         <svg-child ${staticProps({ svg, star })}></svg-child>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "",
-      nextRoute: "#mv1"
-    })}
-        ></quick-nav>
     </div>`;
   };
 
@@ -29919,12 +30042,6 @@ Loading snippet ...</pre
     return renderHtml`<div>
         <animation-title ${staticProps({ title: "Mv1" })}></animation-title>
         <mv1-component ${staticProps({ logo, sideShape })}></mv1-component>
-        <quick-nav
-            ${staticProps({
-      prevRoute: "#child",
-      nextRoute: ""
-    })}
-        ></quick-nav>
     </div>`;
   };
 
@@ -29956,7 +30073,7 @@ Loading snippet ...</pre
         <mob-footer>
             <debug-button slot="debug"></debug-button>
         </mob-footer>
-        <page-transition name="page-transition"></page-transition>
+        <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
         <scroll-down-label name="scroll_down_label" />
@@ -29977,6 +30094,12 @@ Loading snippet ...</pre
       setValue();
     });
   };
+
+  // src/js/pageTransition/index.js
+  var scrollY = 0;
+  mainStore.watch("beforeRouteChange", () => {
+    scrollY = window.scrollY;
+  });
 
   // src/js/main.js
   mobCore.useLoad(() => {

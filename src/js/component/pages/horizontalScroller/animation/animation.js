@@ -96,6 +96,7 @@ export const horizontalScrollerAnimation = ({
     nav,
     animatePin,
     setState,
+    rootRef,
 }) => {
     let pins = createPins({ indicators, setState });
     let titlesParallax = createParallax({ titles });
@@ -108,7 +109,7 @@ export const horizontalScrollerAnimation = ({
     });
 
     let horizontalCustom = new HorizontalScroller({
-        root: '.js-root',
+        root: rootRef,
         container: '.js-container',
         row: '.js-row',
         column: '.js-column',

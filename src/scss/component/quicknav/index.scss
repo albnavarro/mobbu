@@ -1,6 +1,19 @@
 @use 'sass-mq/mq';
 @use '../../abstract' as *;
 
+.c-quick-nav-container {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s, visibility 0.35s;
+    pointer-events: none;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+}
+
 .c-quick-nav {
     position: fixed;
     bottom: calc(var(--header-height) + #{rem(20)});

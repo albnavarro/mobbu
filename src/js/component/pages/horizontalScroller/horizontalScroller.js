@@ -1,6 +1,6 @@
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
-import { html } from '../../../mobjs';
+import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
@@ -68,21 +68,27 @@ export const HorizontalScroller = ({
     bindProps,
     delegateEvents,
 }) => {
-    const { animatePin, svgLeft, svgRight } = getState();
+    const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
-    onMount(({ element }) => {
+    onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
         const titles = element.querySelectorAll('.js-title h1');
         const { destroy } = horizontalScrollerAnimation({
+            rootRef: refs.js_root,
             indicators,
             titles,
             nav,
             ...getState(),
             setState,
         });
+
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', prevRoute);
+        setStateById(quicknavId, 'nextRoute', nextRoute);
 
         /**
          * Prevent landing at bottom of the page.
@@ -127,6 +133,9 @@ export const HorizontalScroller = ({
 
         return () => {
             destroy();
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
         };
     });
 
@@ -177,7 +186,7 @@ export const HorizontalScroller = ({
             })}
         >
         </code-button>
-        <ul class="l-h-scroller__nav js-nav">
+        <ul class="l-h-scroller__nav js-nav" ref="js_nav">
             ${getNav({
                 numOfCol: 10,
                 setState,
@@ -186,9 +195,12 @@ export const HorizontalScroller = ({
                 delegateEvents,
             })}
         </ul>
-        <div class="l-h-scroller__root js-root">
-            <div class="l-h-scroller__container js-container">
-                <div class="l-h-scroller__row js-row">
+        <div class="l-h-scroller__root js-root" ref="js_root">
+            <div
+                class="l-h-scroller__container js-container"
+                ref="js_container"
+            >
+                <div class="l-h-scroller__row js-row" ref="js_row">
                     ${getColumns({
                         numOfCol: 10,
                         pinIsVisible: !animatePin,
@@ -196,9 +208,13 @@ export const HorizontalScroller = ({
                     })}
                     <section
                         class="l-h-scroller__fakeColumn js-column"
+                        ref="js_column"
                     ></section>
                 </div>
-                <div class="l-h-scroller__trigger js-trigger"></div>
+                <div
+                    class="l-h-scroller__trigger js-trigger"
+                    ref="js_trigger"
+                ></div>
             </div>
         </div>
         <div class="l-h-scroller__bottom">scroll up</div>

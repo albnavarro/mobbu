@@ -7,6 +7,8 @@ export const horizontalScrollerDef = createComponent({
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+        'nextRoute',
+        'prevRoute',
         'currentId',
         'currentIdFromScroll',
         'animatePin',
@@ -14,6 +16,14 @@ export const horizontalScrollerDef = createComponent({
         'svgRight',
     ],
     state: {
+        nextRoute: () => ({
+            value: '',
+            type: String,
+        }),
+        prevRoute: () => ({
+            value: '',
+            type: String,
+        }),
         svgLeft: () => ({
             value: 0,
             type: '',

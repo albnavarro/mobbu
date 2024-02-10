@@ -13,11 +13,5 @@ export const mv1 = async () => {
     return html`<div>
         <animation-title ${staticProps({ title: 'Mv1' })}></animation-title>
         <mv1-component ${staticProps({ logo, sideShape })}></mv1-component>
-        <quick-nav
-            ${staticProps({
-                prevRoute: '#child',
-                nextRoute: '',
-            })}
-        ></quick-nav>
     </div>`;
 };

@@ -8,6 +8,8 @@ import { scrollerN0Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
+    const { prevRoute, nextRoute } = getState();
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -16,6 +18,11 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
          */
         const scrollLabelId = getIdByInstanceName('scroll_down_label');
         setStateById(scrollLabelId, 'active', true);
+
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', prevRoute);
+        setStateById(quicknavId, 'nextRoute', nextRoute);
 
         /**
          * Refs
@@ -44,6 +51,9 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
              * Hide scroll down label.
              */
             setStateById(scrollLabelId, 'active', false);
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
         };
     });
 

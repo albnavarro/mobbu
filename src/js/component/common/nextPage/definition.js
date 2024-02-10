@@ -4,8 +4,12 @@ import { QuickNav } from './nextPage';
 export const quickNavDef = createComponent({
     name: 'quick-nav',
     component: QuickNav,
-    exportState: ['prevRoute', 'nextRoute'],
+    exportState: ['active', 'prevRoute', 'nextRoute'],
     state: {
+        active: () => ({
+            value: false,
+            type: Boolean,
+        }),
         prevRoute: () => ({
             value: '',
             type: String,

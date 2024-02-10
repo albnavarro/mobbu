@@ -1,5 +1,6 @@
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
+import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN0Animation } from './animation/animation';
 
@@ -7,9 +8,16 @@ import { animatedPatternN0Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
+    const { prevRoute, nextRoute } = getState();
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
         const { wrap, canvas } = refs;
+
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'prevRoute', prevRoute);
+        setStateById(quicknavId, 'nextRoute', nextRoute);
 
         const destroyAnimation = animatedPatternN0Animation({
             canvas,
@@ -22,6 +30,9 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
 
         return () => {
             destroyAnimation();
+            setStateById(quicknavId, 'active', false);
+            setStateById(quicknavId, 'prevRoute', '');
+            setStateById(quicknavId, 'nextRoute', '');
         };
     });
 
