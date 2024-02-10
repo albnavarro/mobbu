@@ -83,8 +83,8 @@ mobCore.useLoad(() => {
             pages,
             index: 'home',
             pageNotFound: 'pageNotFound',
-            // beforePageTransition,
-            // pageTransition,
+            beforePageTransition,
+            pageTransition,
             afterInit: async () => {
                 await loaderTween.goTo({ opacity: 0, scale: 0.9 });
                 jsMainLoader?.remove();

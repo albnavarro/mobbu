@@ -117,28 +117,28 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
                     })}
                 >
                 </code-button>
-                <ul class="c-canvas__controls">
-                    ${getControls({ buttons })}
-                    <li class="c-canvas__controls__item">
-                        <label class="c-canvas__controls__label">
-                            change rotation:
-                            <span class="js-range-value" ref="rangeValue"
-                                >${rotationDefault}</span
-                            >
-                        </label>
-                        <div class="c-canvas__controls__range">
-                            <input
-                                type="range"
-                                min="0"
-                                max="720"
-                                value="${rotationDefault}"
-                                step="1"
-                                ref="rotationButton"
-                            />
-                        </div>
-                    </li>
-                </ul>
                 <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
+                    <ul class="c-canvas__controls">
+                        ${getControls({ buttons })}
+                        <li class="c-canvas__controls__item">
+                            <label class="c-canvas__controls__label">
+                                change rotation:
+                                <span class="js-range-value" ref="rangeValue"
+                                    >${rotationDefault}</span
+                                >
+                            </label>
+                            <div class="c-canvas__controls__range">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="720"
+                                    value="${rotationDefault}"
+                                    step="1"
+                                    ref="rotationButton"
+                                />
+                            </div>
+                        </li>
+                    </ul>
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
