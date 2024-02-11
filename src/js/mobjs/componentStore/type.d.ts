@@ -42,7 +42,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
 }
 
 export interface componentStoreReturnType {
-    getState: function;
+    getState: (arg0: string) => any;
     setState: (arg0: string, arg2: any, arg3: boolean) => void;
     emit: (arg0: string) => void;
     emitAsync: (arg0: string) => Promise;

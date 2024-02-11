@@ -111,7 +111,7 @@ export interface componentType {
      *
      * ```
      */
-    computed(prop: string, keys: string[], callback: Function): void;
+    computed(prop: string, keys: string[], callback: () => void): void;
 
     /**
      * @description
@@ -128,7 +128,7 @@ export interface componentType {
      * ```
      *
      */
-    watch(prop: String, callback: Function): void;
+    watch(prop: String, callback: () => void): void;
 
     /**
      * @description
@@ -145,7 +145,7 @@ export interface componentType {
      * ```
      *
      */
-    watchSync(prop: string, callback: function): void;
+    watchSync(prop: string, callback: () => void): void;
 
     /**
      * @description
@@ -225,7 +225,7 @@ export interface componentType {
      *
      * ```
      */
-    watchParent(prop: string, callback: function): void;
+    watchParent(prop: string, callback: () => void): void;
 
     /**
      *
@@ -445,7 +445,7 @@ export interface componentType {
         arg0: (arg1: {
             element: HTMLElement;
             refs: { [key: string]: HTMLElement | HTMLElement[] };
-        }) => function
+        }) => () => void
     ): void;
 
     /**
@@ -676,7 +676,7 @@ export interface componentType {
 
 export interface createComponentType {
     name: string;
-    component: function;
+    component: () => void;
     exportState: string[];
 
     /**
@@ -713,19 +713,19 @@ export interface createComponentType {
         context: Object;
         data: {
             componentId: string;
-            emit: function;
-            emitAsync: function;
-            freezeProp: function;
-            getChildren: function;
-            getParentId: function;
-            getState: function;
-            remove: function;
-            setState: function;
-            unBind: function;
-            unFreezeProp: function;
-            watch: function;
-            watchSync: function;
-            watchParent: function;
+            emit: (arg0: string) => void;
+            emitAsync: () => void;
+            freezeProp: () => void;
+            getChildren: () => void;
+            getParentId: () => void;
+            getState: () => void;
+            remove: () => void;
+            setState: () => void;
+            unBind: () => void;
+            unFreezeProp: () => void;
+            watch: () => void;
+            watchSync: () => void;
+            watchParent: () => void;
         };
     };
     attributeToObserve?: string[];
@@ -786,12 +786,12 @@ export type pageTransition = (arg0: {
 
 export interface inizializeApp {
     rootId: string;
-    wrapper: function;
+    wrapper: () => Promise<any>;
     contentId: string;
     components: {
         [key: string]:
             | {
-                  componentFunction: function;
+                  componentFunction: () => void;
                   props: {};
                   state: {};
               }[]
@@ -802,7 +802,7 @@ export interface inizializeApp {
               [key: string]: () => string;
           }
         | {};
-    afterInit: function;
+    afterInit: () => void;
     index: string;
     pageNotFound: string;
     beforePageTransition?: beforePageTransition;

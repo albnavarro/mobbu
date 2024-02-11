@@ -16,7 +16,7 @@ export interface repeaterType {
         container: HTMLElement;
         childrenId: Array<string>;
     }): void;
-    getChildren: function;
+    getChildren: () => void;
     id: string;
     clean: boolean;
     key: string | undefined;
@@ -31,6 +31,6 @@ export interface repeaterType {
         propierties: string,
         callback: simpleStoreWatchCallbackType
     ) => void;
-    emit: function;
-    render: function;
+    emit: (arg0: string) => void;
+    render: (arg0: { sync: Object; html: (arg0: String) => String }) => String;
 }
