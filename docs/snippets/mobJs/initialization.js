@@ -2,6 +2,7 @@ import { inizializeApp } from './mobjs';
 import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { wrapper } from './wrapper';
+import { beforePageTransition, pageTransition } from './pageTransition';
 
 inizializeApp({
     /**
@@ -35,6 +36,18 @@ inizializeApp({
      * Index route.
      */
     index: 'home',
+
+    /**
+     * Optional function used for page-tranition
+     * ( after node clone, before append cloned node ).
+     */
+    beforePageTransition,
+
+    /**
+     * Optional function used for page-tranition
+     * Here it is possible animate old and new node.
+     */
+    pageTransition,
 
     /**
      * 404 route.

@@ -1,23 +1,4 @@
-import { mainStore } from '../mobjs';
-import { motionCore, timeline, tween } from '../mobMotion';
-
-let scrollY = 0;
-
-mainStore.watch('beforeRouteChange', () => {
-    scrollY = window.scrollY;
-});
-
-export const beforePageTransition = async ({ oldNode }) => {
-    oldNode.classList.add('fake-content');
-    oldNode.style.position = 'fixed';
-    oldNode.style.zIndex = 10;
-    oldNode.style.top = 'var(--header-height)';
-    oldNode.style.left = '0';
-    oldNode.style.width = '100vw';
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight =
-        'calc(100vh - var(--header-height) - var(--footer-height))';
-};
+import { timeline, tween } from '../mobMotion';
 
 export const pageTransition = async ({
     oldNode,
@@ -25,10 +6,11 @@ export const pageTransition = async ({
     oldRoute,
     newRoute,
 }) => {
-    if (motionCore.mq('max', 'desktop') || oldRoute === newRoute) return;
-
     newNode.style.opacity = 0;
 
+    /**
+     * Transition example.
+     */
     const oldNodeTween = tween.createTween({
         data: { opacity: 1 },
         duration: 300,
