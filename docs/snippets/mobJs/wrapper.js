@@ -7,7 +7,11 @@
  */
 import { staticProps, html } from '../mobjs';
 
-export const wrapper = () => {
+export const wrapper = async () => {
+    /**
+     * Here it is possibile run a async function.
+     */
+
     return html`
         <my-header></my-header>
         <main class="main">

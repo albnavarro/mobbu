@@ -184,6 +184,13 @@
             "content": "The general wrapper that will host the pages.<br/>Here the node in which to load the individual pages/routes is defined.<br/> It is already possible to use components by passing them static props, it is not possible to use reactive props in the wrapper as this module is not a component."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The wrapper function can be async"
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/wrapper.js",
