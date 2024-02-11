@@ -6,6 +6,7 @@ export const animatedPatternN0Def = createComponent({
     name: 'animatedpattern-n0',
     component: AnimatedPatternN0,
     exportState: [
+        'title',
         'nextRoute',
         'prevRoute',
         'numberOfRow',
@@ -19,6 +20,10 @@ export const animatedPatternN0Def = createComponent({
         'disableOffcanvas',
     ],
     state: {
+        title: () => ({
+            value: '',
+            type: String,
+        }),
         nextRoute: () => ({
             value: '',
             type: String,

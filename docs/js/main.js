@@ -1,4 +1,9 @@
 (() => {
+    new EventSource('/esbuild').addEventListener('change', () =>
+        location.reload()
+    );
+})();
+(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -24490,7 +24495,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
   var AnimatedPatternN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
-    const { prevRoute, nextRoute } = getState();
+    const { prevRoute, nextRoute, title } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -24502,7 +24507,7 @@ Loading snippet ...</pre
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "AnimatedPatternN0");
+      setStateById(titleId, "title", title);
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -24562,6 +24567,7 @@ Loading snippet ...</pre
     name: "animatedpattern-n0",
     component: AnimatedPatternN0,
     exportState: [
+      "title",
       "nextRoute",
       "prevRoute",
       "numberOfRow",
@@ -24575,6 +24581,10 @@ Loading snippet ...</pre
       "disableOffcanvas"
     ],
     state: {
+      title: () => ({
+        value: "",
+        type: String
+      }),
       nextRoute: () => ({
         value: "",
         type: String
@@ -26778,7 +26788,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
   var ScrollerN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
-    const { prevRoute, nextRoute } = getState();
+    const { prevRoute, nextRoute, title } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -26791,7 +26801,7 @@ Loading snippet ...</pre
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "ScrollerN0");
+      setStateById(titleId, "title", title);
       const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -26860,6 +26870,7 @@ Loading snippet ...</pre
     isolateOnMount: true,
     isolateCreation: true,
     exportState: [
+      "title",
       "nextRoute",
       "prevRoute",
       "numberOfRow",
@@ -26873,6 +26884,10 @@ Loading snippet ...</pre
       "disableOffcanvas"
     ],
     state: {
+      title: () => ({
+        value: "",
+        type: String
+      }),
       nextRoute: () => ({
         value: "",
         type: String
@@ -27127,7 +27142,7 @@ Loading snippet ...</pre
       setStateById(scrollLabelId, "active", true);
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "nextRoute", "#caterpillarN1");
+      setStateById(quicknavId, "nextRoute", "");
       setStateById(
         quicknavId,
         "prevRoute",
@@ -27136,7 +27151,7 @@ Loading snippet ...</pre
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N1");
+      setStateById(titleId, "title", "Scroller N1");
       const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -27200,7 +27215,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/scroller/ScrollerN1/definition.js
   var scrollerN1Def = createComponent({
-    name: "caterpillar-n3",
+    name: "scroller-n1",
     component: ScrollerN1,
     isolateOnMount: true,
     isolateCreation: true,
@@ -28629,7 +28644,8 @@ Loading snippet ...</pre
             ${staticProps({
       ...props.animation,
       prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute
+      nextRoute: props.nav.nextRoute,
+      title: props.title
     })}
         ></animatedpattern-n0>
     </div>`;
@@ -28857,7 +28873,8 @@ Loading snippet ...</pre
             ${staticProps({
       ...props.animation,
       prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute
+      nextRoute: props.nav.nextRoute,
+      title: props.title
     })}
         ></scroller-n0>
     </div>`;
@@ -28866,7 +28883,7 @@ Loading snippet ...</pre
   // src/js/pages/canvas/scrollerN1/index.js
   var scrollerN1 = () => {
     return renderHtml`<div class="l-padding">
-        <caterpillar-n3></caterpillar-n3>
+        <scroller-n1></scroller-n1>
     </div>`;
   };
 

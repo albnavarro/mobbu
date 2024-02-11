@@ -3,7 +3,7 @@ import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { ScrollerN1 } from './scrollerN1';
 
 export const scrollerN1Def = createComponent({
-    name: 'caterpillar-n3',
+    name: 'scroller-n1',
     component: ScrollerN1,
     isolateOnMount: true,
     isolateCreation: true,

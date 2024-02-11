@@ -23,7 +23,7 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
          */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
-        setStateById(quicknavId, 'nextRoute', '#caterpillarN1');
+        setStateById(quicknavId, 'nextRoute', '');
         setStateById(
             quicknavId,
             'prevRoute',
@@ -36,7 +36,7 @@ export const ScrollerN1 = ({ onMount, html, getState, staticProps }) => {
         const titleId = getIdByInstanceName('animation_title');
         setStateById(titleId, 'align', 'left');
         setStateById(titleId, 'color', 'white');
-        setStateById(titleId, 'title', 'Caterpillar N1');
+        setStateById(titleId, 'title', 'Scroller N1');
 
         /**
          * Refs

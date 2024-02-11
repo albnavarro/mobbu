@@ -8,7 +8,7 @@ import { scrollerN0Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
-    const { prevRoute, nextRoute } = getState();
+    const { prevRoute, nextRoute, title } = getState();
 
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -33,7 +33,7 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
         const titleId = getIdByInstanceName('animation_title');
         setStateById(titleId, 'align', 'left');
         setStateById(titleId, 'color', 'white');
-        setStateById(titleId, 'title', 'ScrollerN0');
+        setStateById(titleId, 'title', title);
 
         /**
          * Refs
