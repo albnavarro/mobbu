@@ -38,9 +38,9 @@ export const simpleIntroAnimation = ({ refs }) => {
         });
 
     return {
-        playIntro: () => introTl.play(),
+        playIntro: () => introTl?.play(),
         playSvg: () => {
-            loopTimeline.play();
+            loopTimeline?.play();
         },
         destroy: () => {
             introTween.destroy();
