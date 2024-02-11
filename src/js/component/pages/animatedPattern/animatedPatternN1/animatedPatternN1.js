@@ -13,6 +13,9 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
 
         const { wrap, canvas } = refs;
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(
@@ -25,6 +28,14 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
             'nextRoute',
             '#scrollerN0?version=0&activeId=0'
         );
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'Caterpillar N1');
 
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
@@ -39,6 +50,8 @@ export const AnimatedPatternN1 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
             destroyAnimation();
         };
     });

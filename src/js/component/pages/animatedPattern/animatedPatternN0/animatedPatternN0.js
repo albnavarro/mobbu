@@ -14,10 +14,21 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
         if (motionCore.mq('max', 'desktop')) return;
         const { wrap, canvas } = refs;
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'AnimatedPatternN0');
 
         const destroyAnimation = animatedPatternN0Animation({
             canvas,
@@ -33,6 +44,8 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
         };
     });
 

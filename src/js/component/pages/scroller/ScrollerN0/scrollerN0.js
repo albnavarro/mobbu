@@ -19,10 +19,21 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
         const scrollLabelId = getIdByInstanceName('scroll_down_label');
         setStateById(scrollLabelId, 'active', true);
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'ScrollerN0');
 
         /**
          * Refs
@@ -54,6 +65,8 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
         };
     });
 

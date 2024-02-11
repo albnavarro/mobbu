@@ -2498,13 +2498,13 @@ code {
   height: 2rem;
 }
 .c-animation-title {
-  position: absolute;
-  z-index: 10;
-  top: 3.3333333333rem;
+  position: fixed;
+  z-index: 2;
+  top: calc(var(--header-height) + 3.3333333333rem);
   overflow: hidden;
 }
 .c-animation-title.is-left {
-  left: calc((var(--header-height) / 2) + 1.3333333333rem);
+  left: calc(var(--header-height) + 1.3333333333rem);
 }
 .c-animation-title.is-right {
   right: calc(var(--header-height) / 2);

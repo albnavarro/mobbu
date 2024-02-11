@@ -32,6 +32,9 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
         if (motionCore.mq('max', 'desktop')) return;
         const { wrap, canvas, rangeValue, rotationButton } = refs;
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', '#caterpillarN1');
@@ -40,6 +43,14 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
             'nextRoute',
             '#animatedPatternN0?version=0&activeId=0'
         );
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'Caterpillar N2');
 
         /**
          * Inizializa animation and get anima methods.
@@ -80,6 +91,8 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
             destroy();
         };
     });

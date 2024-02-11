@@ -31,9 +31,20 @@ export const SvgChild = ({ onMount, html, getState }) => {
 
     const { svg, star } = isDesktop ? getState() : '';
 
+    /**
+     * Quicknav
+     */
     const quicknavId = getIdByInstanceName('quick_nav');
     setStateById(quicknavId, 'active', true);
     setStateById(quicknavId, 'nextRoute', '#mv1');
+
+    /**
+     * Title.
+     */
+    const titleId = getIdByInstanceName('animation_title');
+    setStateById(titleId, 'align', 'left');
+    setStateById(titleId, 'color', 'white');
+    setStateById(titleId, 'title', 'Child');
 
     onMount(({ refs }) => {
         if (!isDesktop) return;
@@ -75,6 +86,8 @@ export const SvgChild = ({ onMount, html, getState }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
             destroy();
         };
     });

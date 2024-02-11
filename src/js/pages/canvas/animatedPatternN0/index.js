@@ -13,9 +13,6 @@ export const animatedPatternN0 = ({ params }) => {
         ];
 
     return html`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: props.title })}
-        ></animation-title>
         <animatedpattern-n0
             ${staticProps({
                 ...props.animation,
@@ -23,6 +20,5 @@ export const animatedPatternN0 = ({ params }) => {
                 nextRoute: props.nav.nextRoute,
             })}
         ></animatedpattern-n0>
-        <quick-nav></quick-nav>
     </div>`;
 };

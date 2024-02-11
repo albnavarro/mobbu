@@ -14,10 +14,24 @@ export const CaterpillarN0 = ({ onMount, html, getState, staticProps }) => {
 
         const { wrap, canvas } = refs;
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'nextRoute', '#caterpillarN1');
 
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'Caterpillar N0');
+
+        /**
+         * Animation.
+         */
         const destroyAnimation = caterpillarN0Animation({
             canvas,
             ...getState(),
@@ -32,6 +46,8 @@ export const CaterpillarN0 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
         };
     });
 

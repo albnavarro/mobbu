@@ -84,10 +84,21 @@ export const HorizontalScroller = ({
             setState,
         });
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'right');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'HorizontalScroller');
 
         /**
          * Prevent landing at bottom of the page.
@@ -135,6 +146,8 @@ export const HorizontalScroller = ({
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
         };
     });
 

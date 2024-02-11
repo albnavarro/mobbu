@@ -17,9 +17,20 @@ export const Mv1Component = ({ html, onMount, getState }) => {
     onMount(({ element, refs }) => {
         if (!isDesktop) return;
 
+        /**
+         * Quicknav
+         */
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', '#child');
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'Mv1');
 
         const {
             block1,
@@ -58,6 +69,8 @@ export const Mv1Component = ({ html, onMount, getState }) => {
             setStateById(quicknavId, 'active', false);
             setStateById(quicknavId, 'prevRoute', '');
             setStateById(quicknavId, 'nextRoute', '');
+            setStateById(titleId, 'align', '');
+            setStateById(titleId, 'title', '');
             destroySvg();
         };
     });

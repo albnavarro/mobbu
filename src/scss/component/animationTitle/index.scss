@@ -2,13 +2,13 @@
 @use '../../abstract' as *;
 
 .c-animation-title {
-    position: absolute;
-    z-index: 10;
-    top: rem(50);
+    position: fixed;
+    z-index: 2;
+    top: calc(var(--header-height) + #{rem(50)});
     overflow: hidden;
 
     &.is-left {
-        left: calc((var(--header-height) / 2) + #{rem(20)});
+        left: calc(var(--header-height) + #{rem(20)});
     }
 
     &.is-right {

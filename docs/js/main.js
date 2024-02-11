@@ -23243,18 +23243,29 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitle = ({ getState, html, onMount }) => {
-    const { title, align, color } = getState();
-    const alignClass = `is-${align}`;
-    const colorClass = `is-${color}`;
-    onMount(({ refs }) => {
+  var AnimationTitle = ({ html, onMount, watchSync }) => {
+    onMount(({ element, refs }) => {
       const { titleEl } = refs;
+      watchSync("align", (value) => {
+        element.classList.remove("is-left");
+        element.classList.remove("is-right");
+        element.classList.add(`is-${value}`);
+      });
+      watchSync("title", (value) => {
+        titleEl.innerHTML = value;
+      });
+      watchSync("color", (value) => {
+        titleEl.classList.remove("is-white");
+        titleEl.classList.remove("is-black");
+        titleEl.classList.remove("is-green");
+        titleEl.classList.add(`is-${value}`);
+      });
       mobCore.useFrame(() => {
         titleEl.classList.add("visible");
       });
     });
-    return html`<div class="c-animation-title ${alignClass}">
-        <h4 ref="titleEl" class="${colorClass}">${title}</h4>
+    return html`<div class="c-animation-title">
+        <h4 ref="titleEl"></h4>
     </div>`;
   };
 
@@ -24488,6 +24499,10 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "AnimatedPatternN0");
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -24500,6 +24515,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     const { animatedPatternN0: animatedPatternN02 } = getLegendData();
@@ -24829,6 +24846,10 @@ Loading snippet ...</pre
         "nextRoute",
         "#scrollerN0?version=0&activeId=0"
       );
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N1");
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -24840,6 +24861,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
         destroyAnimation();
       };
     });
@@ -25131,6 +25154,10 @@ Loading snippet ...</pre
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "nextRoute", "#caterpillarN1");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N0");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -25143,6 +25170,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     const { caterpillarN0: caterpillarN02 } = getLegendData();
@@ -25448,6 +25477,10 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", "#caterpillarN0");
       setStateById(quicknavId, "nextRoute", "#caterpillarN2");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N1");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -25460,6 +25493,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     const { caterpillarN1: caterpillarN12 } = getLegendData();
@@ -25764,6 +25799,10 @@ Loading snippet ...</pre
         "nextRoute",
         "#animatedPatternN0?version=0&activeId=0"
       );
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N2");
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -25786,6 +25825,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
         destroy();
       };
     });
@@ -26311,6 +26352,10 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "right");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "HorizontalScroller");
       window.scrollTo(0, 0);
       watch("currentId", (id2) => {
         if (id2 === -1)
@@ -26335,6 +26380,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     if (motionCore.mq("max", "desktop"))
@@ -26741,6 +26788,10 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "ScrollerN0");
       const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -26757,6 +26808,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     const { scrollerN0: scrollerN02 } = getLegendData();
@@ -27080,6 +27133,10 @@ Loading snippet ...</pre
         "prevRoute",
         "#scrollerN0?version=4&activeId=4"
       );
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N1");
       const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -27095,6 +27152,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
       };
     });
     const { scrollerN1: scrollerN12 } = getLegendData();
@@ -28056,6 +28115,10 @@ Loading snippet ...</pre
     const quicknavId = getIdByInstanceName("quick_nav");
     setStateById(quicknavId, "active", true);
     setStateById(quicknavId, "nextRoute", "#mv1");
+    const titleId = getIdByInstanceName("animation_title");
+    setStateById(titleId, "align", "left");
+    setStateById(titleId, "color", "white");
+    setStateById(titleId, "title", "Child");
     onMount(({ refs }) => {
       if (!isDesktop)
         return;
@@ -28093,6 +28156,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
         destroy();
       };
     });
@@ -28234,6 +28299,10 @@ Loading snippet ...</pre
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", "#child");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Mv1");
       const {
         block1,
         block2,
@@ -28268,6 +28337,8 @@ Loading snippet ...</pre
         setStateById(quicknavId, "active", false);
         setStateById(quicknavId, "prevRoute", "");
         setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
         destroySvg();
       };
     });
@@ -28554,9 +28625,6 @@ Loading snippet ...</pre
       Math.min(Number(version), animatedPatternN0Params.length - 1)
     )];
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: props.title })}
-        ></animation-title>
         <animatedpattern-n0
             ${staticProps({
       ...props.animation,
@@ -28564,51 +28632,34 @@ Loading snippet ...</pre
       nextRoute: props.nav.nextRoute
     })}
         ></animatedpattern-n0>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
   // src/js/pages/canvas/animatedPatternN1/index.js
   var animatedPatternN1 = () => {
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: "Animated pattern N.1" })}
-        ></animation-title>
         <animatedpattern-n1></animatedpattern-n1>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
   // src/js/pages/canvas/caterpillarN0/index.js
   var caterpillarN0 = () => {
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: "Caterpillar N.0" })}
-        ></animation-title>
         <caterpillar-n0></caterpillar-n0>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
   // src/js/pages/canvas/caterpillarN1/index.js
   var caterpillarN1 = () => {
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: "Caterpillar N.1" })}
-        ></animation-title>
         <caterpillar-n1></caterpillar-n1>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
   // src/js/pages/canvas/caterpillarN2/index.js
   var caterpillarN2 = () => {
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: "Caterpillar N.2" })}
-        ></animation-title>
         <caterpillar-n2></caterpillar-n2>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -28691,12 +28742,6 @@ Loading snippet ...</pre
       source: "./asset/svg/footer_shape_right.svg"
     });
     return renderHtml`<div>
-        <animation-title
-            ${staticProps({
-      title: props.title,
-      align: "right"
-    })}
-        ></animation-title>
         <horizontal-scroller
             ${staticProps({
       animatePin: props.animatePin,
@@ -28808,9 +28853,6 @@ Loading snippet ...</pre
     const { version } = params;
     const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
     return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: props.title })}
-        ></animation-title>
         <scroller-n0
             ${staticProps({
       ...props.animation,
@@ -28818,18 +28860,13 @@ Loading snippet ...</pre
       nextRoute: props.nav.nextRoute
     })}
         ></scroller-n0>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
   // src/js/pages/canvas/scrollerN1/index.js
   var scrollerN1 = () => {
     return renderHtml`<div class="l-padding">
-        <animation-title
-            ${staticProps({ title: "Scroller N.1" })}
-        ></animation-title>
         <caterpillar-n3></caterpillar-n3>
-        <quick-nav></quick-nav>
     </div>`;
   };
 
@@ -29992,9 +30029,6 @@ Loading snippet ...</pre
       source: "./asset/svg/star.svg"
     });
     return renderHtml`<div>
-        <animation-title
-            ${staticProps({ title: "Child svg" })}
-        ></animation-title>
         <svg-child ${staticProps({ svg, star })}></svg-child>
     </div>`;
   };
@@ -30008,7 +30042,6 @@ Loading snippet ...</pre
       source: "./asset/svg/piece-arrow.svg"
     });
     return renderHtml`<div>
-        <animation-title ${staticProps({ title: "Mv1" })}></animation-title>
         <mv1-component ${staticProps({ logo, sideShape })}></mv1-component>
     </div>`;
   };
@@ -30043,6 +30076,7 @@ Loading snippet ...</pre
         </mob-footer>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
+        <animation-title name="animation_title"></animation-title>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
         <scroll-down-label name="scroll_down_label" />
     `;
