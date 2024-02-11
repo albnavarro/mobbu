@@ -4,8 +4,3 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
-
-## wrapper
-- doc - aggiungere async option.
-
-

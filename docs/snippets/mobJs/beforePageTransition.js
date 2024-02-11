@@ -11,6 +11,10 @@ mainStore.watch('beforeRouteChange', () => {
 /**
  * Add fixed style and moore to old node.
  */
+
+/**
+ * @type {import('../mobjs/type').beforePageTransition}
+ */
 export const beforePageTransition = async ({ oldNode, oldRoute, newRoute }) => {
     oldNode.style.position = 'fixed';
     oldNode.style.zIndex = 10;

@@ -22,17 +22,7 @@ import { router } from './router';
 import { debugRoute } from './test';
 
 /**
- * @param {Object} obj
- * @param {String} obj.rootId
- * @param {Function} obj.wrapper
- * @param {String} obj.contentId
- * @param {{ string:{componentFunction:function,props:Object,state:Object} }|{}} obj.components
- * @param {{string:function():string}|{}} obj.pages
- * @param {Function} obj.afterInit
- * @param {String} obj.index
- * @param {String} obj.pageNotFound
- * @param {((arg0:{oldNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.beforePageTransition ]
- * @param {((arg0:{oldNode:HTMLElement,newNode:HTMLElement,oldRoute:string,newRoute:string}) => Promise<any>|undefined)} [ obj.pageTransition ]
+ * @type {( arg0: import('../type').inizializeApp) => Promise<void>}
  *
  * @description
  * Inizializa default route.

@@ -7,6 +7,9 @@ mainStore.watch('beforeRouteChange', () => {
     scrollY = window.scrollY;
 });
 
+/**
+ * @type {import('../mobjs/type').beforePageTransition}
+ */
 export const beforePageTransition = async ({ oldNode }) => {
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
@@ -19,6 +22,9 @@ export const beforePageTransition = async ({ oldNode }) => {
         'calc(100vh - var(--header-height) - var(--footer-height))';
 };
 
+/**
+ * @type {import('../mobjs/type').pageTransition}
+ */
 export const pageTransition = async ({
     oldNode,
     newNode,

@@ -690,7 +690,7 @@ export interface createComponentType {
     /**
      * @description
      * Add DOM element in a dedicated request animation Frame.
-     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css trasition working ).
+     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css transition working ).
      * `default = false`.
      */
     isolateCreation?: boolean;
@@ -769,4 +769,42 @@ export interface defaultComponent {
      * Add data-mobjs="<id>" to each component
      */
     debug?: boolean;
+}
+
+export type beforePageTransition = (arg0: {
+    oldNode: HTMLElement;
+    oldRoute: string;
+    newRoute: string;
+}) => Promise<any>;
+
+export type pageTransition = (arg0: {
+    oldNode: HTMLElement;
+    newNode: HTMLElement;
+    oldRoute: string;
+    newRoute: string;
+}) => Promise<any>;
+
+export interface inizializeApp {
+    rootId: string;
+    wrapper: function;
+    contentId: string;
+    components: {
+        [key: string]:
+            | {
+                  componentFunction: function;
+                  props: {};
+                  state: {};
+              }[]
+            | {};
+    };
+    pages:
+        | {
+              [key: string]: () => string;
+          }
+        | {};
+    afterInit: function;
+    index: string;
+    pageNotFound: string;
+    beforePageTransition?: beforePageTransition;
+    pageTransition?: pageTransition;
 }
