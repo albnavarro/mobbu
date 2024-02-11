@@ -18523,7 +18523,12 @@ Loading snippet ...</pre
           toValProcessed: value,
           fromValue: value,
           currentValue: value,
-          settled: false
+          settled: false,
+          /**
+           * Only for type check.
+           */
+          fromFn: () => 0,
+          toFn: () => 0
         };
       });
       return this;

@@ -227,6 +227,12 @@ export default class ParallaxTween {
                 fromValue: value,
                 currentValue: value,
                 settled: false,
+
+                /**
+                 * Only for type check.
+                 */
+                fromFn: () => 0,
+                toFn: () => 0,
             };
         });
 

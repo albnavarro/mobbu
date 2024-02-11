@@ -401,14 +401,14 @@ export interface parallaxTweenType {
 }
 
 export interface parallaxTweenValue {
-    currentValue: number | function;
+    currentValue: number | (() => number);
     prop: string;
     settled: boolean;
-    fromFn?: number | function;
-    fromIsFn?: number | function;
-    toFn?: number | function;
+    fromFn: () => number;
+    fromIsFn?: boolean;
+    toFn: () => number;
     toIsFn?: boolean;
-    toValProcessed: number | func;
-    toValue: number | function;
-    fromValue: number | function;
+    toValProcessed: number | (() => number);
+    toValue: number;
+    fromValue: number;
 }
