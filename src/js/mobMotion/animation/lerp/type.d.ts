@@ -29,15 +29,15 @@ export interface lerpDefault {
 
 export interface lerpInitialData {
     prop: string;
-    toValue: number | function;
-    fromValue: number | function;
-    currentValue: number | function;
+    toValue: number;
+    fromValue: number;
+    currentValue: number;
 }
 
 export interface lerpValues extends lerpInitialData {
-    fromFn: function;
+    fromFn: () => number;
     fromIsFn: boolean;
-    toFn: function;
+    toFn: () => number;
     toIsFn: boolean;
     settled: boolean;
 }

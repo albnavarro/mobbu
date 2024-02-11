@@ -155,7 +155,7 @@ export default class HandleLerp {
 
         /**
          * @private
-         * @type {import('./type.js').lerpValues[]}
+         * @type {import('./type.js').lerpValues[]|[]}
          */
         this.values = [];
 
@@ -355,7 +355,7 @@ export default class HandleLerp {
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
-            item.currentValue = Number.parseFloat(item.fromValue);
+            item.currentValue = item.fromValue;
         });
 
         this.draw(time, fps, res);
@@ -526,9 +526,9 @@ export default class HandleLerp {
                 toValue: value,
                 fromValue: value,
                 currentValue: value,
-                fromFn: () => {},
+                fromFn: () => 0,
                 fromIsFn: false,
-                toFn: () => {},
+                toFn: () => 0,
                 toIsFn: false,
                 settled: false,
             };

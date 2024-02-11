@@ -544,7 +544,7 @@ export default class HandleTween {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -569,9 +569,9 @@ export default class HandleTween {
                 fromValue: value,
                 currentValue: value,
                 shouldUpdate: false,
-                fromFn: () => {},
+                fromFn: () => 0,
                 fromIsFn: false,
-                toFn: () => {},
+                toFn: () => 0,
                 toIsFn: false,
                 settled: false, // not used, only for uniformity with lerp and spring
             };
@@ -584,9 +584,9 @@ export default class HandleTween {
                 fromValue: item.fromValue,
                 currentValue: item.currentValue,
                 shouldUpdate: false,
-                fromFn: () => {},
+                fromFn: () => 0,
                 fromIsFn: false,
-                toFn: () => {},
+                toFn: () => 0,
                 toIsFn: false,
                 settled: false, // not used, only for uniformity with lerp and spring
             };

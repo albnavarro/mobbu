@@ -164,7 +164,7 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type {import('./type.js').springValues[]}
+         * @type {import('./type.js').springValues[]|[]}
          */
         this.values = [];
 
@@ -293,8 +293,10 @@ export default class HandleSpring {
             const isDisplacement =
                 tension === 0
                     ? true
-                    : Math.abs(item.toValue - item.currentValue.toFixed(4)) <=
-                      precision;
+                    : Math.abs(
+                          item.toValue -
+                              Math.round(item.currentValue * 1e2) / 1e2
+                      ) <= precision;
 
             item.settled = isVelocity && isDisplacement;
         });
@@ -547,7 +549,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {Object.<string, number|function>} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -570,9 +572,9 @@ export default class HandleSpring {
                 fromValue: value,
                 velocity: this.configProps.velocity,
                 currentValue: value,
-                fromFn: () => {},
+                fromFn: () => 0,
                 fromIsFn: false,
-                toFn: () => {},
+                toFn: () => 0,
                 toIsFn: false,
                 settled: false,
             };

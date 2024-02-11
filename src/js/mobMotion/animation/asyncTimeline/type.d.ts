@@ -1,5 +1,5 @@
 import { springChoiceConfig, springProps } from '../spring/type';
-import { easeTypes } from '../tween/type';
+import { easeTypes, tweenCommonProps } from '../tween/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface asyncTimelineType {
@@ -50,18 +50,18 @@ export interface asyncTimelineTypeSpecialProps {
 }
 
 export interface asyncTimelineTween {
-    getId: function;
-    set: function;
-    goTo: function;
-    goFromTo: function;
-    getToNativeType: function;
-    destroy: function;
-    onStartInPause: function;
-    resetData: function;
-    getInitialData: function;
-    stop: function;
-    pause?: function;
-    resume?: function;
+    getId: () => string;
+    set: (arg0: valueToparseType, ar1?: tweenCommonProps) => Promise<any>;
+    goTo: () => Promise<any>;
+    goFromTo: () => Promise<any>;
+    getToNativeType: () => any;
+    destroy: () => void;
+    onStartInPause: () => void;
+    resetData: () => void;
+    getInitialData: () => any;
+    stop: (arg0: { clearCache: boolean }) => any;
+    pause?: () => void;
+    resume?: () => void;
 }
 
 export interface asyncTimelineRowData {
@@ -77,7 +77,7 @@ export interface asyncTimelineRowData {
         from: asyncTimelineTween;
         to: asyncTimelineTween;
     };
-    tween: asyncTimelineTween | function;
+    tween: any;
     tweenProps: asyncTimelineTypeSpecialProps;
     valuesFrom: valueToparseType;
     valuesTo: valueToparseType;
@@ -106,12 +106,12 @@ export interface asyncTimelineLabelState {
 }
 
 export interface asyncTimelineStarterFunction {
-    fn: function;
+    fn: () => any;
     active: boolean;
 }
 
 export interface asyncTimelineAfterReject {
-    fn: function;
+    fn: () => any;
     active: boolean;
 }
 

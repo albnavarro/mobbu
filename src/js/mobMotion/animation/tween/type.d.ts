@@ -68,18 +68,18 @@ export interface tweenStopProps {
 
 export interface tweenInitialData {
     prop: string;
-    toValue: number | function;
-    fromValue: number | function;
-    currentValue: number | function;
+    toValue: number;
+    fromValue: number;
+    currentValue: number;
     shouldUpdate: boolean;
-    fromFn: function;
+    fromFn: () => number;
     fromIsFn: boolean;
-    toFn: function;
+    toFn: () => number;
     toIsFn: boolean;
     settled: boolean;
 }
 
 export interface tweenStoreData extends tweenInitialData {
-    toValueOnPause: number | function;
-    toValProcessed: number | function;
+    toValueOnPause: number | (() => number);
+    toValProcessed: number | (() => number);
 }

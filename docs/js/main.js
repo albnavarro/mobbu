@@ -10229,7 +10229,7 @@
      **/
     onReuqestAnim(time2, fps2, res) {
       this.values.forEach((item) => {
-        item.currentValue = Number.parseFloat(item.fromValue);
+        item.currentValue = item.fromValue;
       });
       this.draw(time2, fps2, res);
     }
@@ -10375,11 +10375,9 @@
           toValue: value,
           fromValue: value,
           currentValue: value,
-          fromFn: () => {
-          },
+          fromFn: () => 0,
           fromIsFn: false,
-          toFn: () => {
-          },
+          toFn: () => 0,
           toIsFn: false,
           settled: false
         };
@@ -11046,7 +11044,9 @@
         item.currentValue = item.currentValue + item.velocity * 1 / fps2;
         item.currentValue = getRoundedValue(item.currentValue);
         const isVelocity = Math.abs(item.velocity) <= 0.1;
-        const isDisplacement = tension === 0 ? true : Math.abs(item.toValue - item.currentValue.toFixed(4)) <= precision;
+        const isDisplacement = tension === 0 ? true : Math.abs(
+          item.toValue - Math.round(item.currentValue * 100) / 100
+        ) <= precision;
         item.settled = isVelocity && isDisplacement;
       });
       const callBackObject = getValueObj(this.values, "currentValue");
@@ -11238,7 +11238,7 @@
       }
     }
     /**
-     * @param {Object.<string, number|function>} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -11261,11 +11261,9 @@
           fromValue: value,
           velocity: this.configProps.velocity,
           currentValue: value,
-          fromFn: () => {
-          },
+          fromFn: () => 0,
           fromIsFn: false,
-          toFn: () => {
-          },
+          toFn: () => 0,
           toIsFn: false,
           settled: false
         };
@@ -12710,7 +12708,7 @@
       this.comeFromResume = true;
     }
     /**
-     * @param {Object.<string, number|function>} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -12735,11 +12733,9 @@
           fromValue: value,
           currentValue: value,
           shouldUpdate: false,
-          fromFn: () => {
-          },
+          fromFn: () => 0,
           fromIsFn: false,
-          toFn: () => {
-          },
+          toFn: () => 0,
           toIsFn: false,
           settled: false
           // not used, only for uniformity with lerp and spring
@@ -12752,11 +12748,9 @@
           fromValue: item.fromValue,
           currentValue: item.currentValue,
           shouldUpdate: false,
-          fromFn: () => {
-          },
+          fromFn: () => 0,
           fromIsFn: false,
-          toFn: () => {
-          },
+          toFn: () => 0,
           toIsFn: false,
           settled: false
           // not used, only for uniformity with lerp and spring
@@ -20209,14 +20203,10 @@ Loading snippet ...</pre
         groupProps: {},
         syncProp: {
           to: {
-            getId: () => {
-            },
-            set: () => {
-            },
-            goTo: () => {
-            },
-            goFromTo: () => {
-            },
+            getId: () => "",
+            set: () => Promise.resolve(),
+            goTo: () => Promise.resolve(),
+            goFromTo: () => Promise.resolve(),
             getToNativeType: () => {
             },
             destroy: () => {
@@ -20235,14 +20225,10 @@ Loading snippet ...</pre
             }
           },
           from: {
-            getId: () => {
-            },
-            set: () => {
-            },
-            goTo: () => {
-            },
-            goFromTo: () => {
-            },
+            getId: () => "",
+            set: () => Promise.resolve(),
+            goTo: () => Promise.resolve(),
+            goFromTo: () => Promise.resolve(),
             getToNativeType: () => {
             },
             destroy: () => {

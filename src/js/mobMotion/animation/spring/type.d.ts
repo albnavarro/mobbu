@@ -61,16 +61,16 @@ export interface springDefault {
 
 export interface springInitialData {
     prop: string;
-    toValue: number | function;
-    fromValue: number | function;
-    currentValue: number | function;
+    toValue: number;
+    fromValue: number;
+    currentValue: number;
 }
 
 export interface springValues extends springInitialData {
     velocity: number;
-    fromFn: function;
+    fromFn: () => number;
     fromIsFn: boolean;
-    toFn: function;
+    toFn: () => number;
     toIsFn: boolean;
     settled: boolean;
 }
