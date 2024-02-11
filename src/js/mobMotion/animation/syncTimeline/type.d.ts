@@ -5,14 +5,19 @@ export interface syncTimelineType {
 }
 
 export interface syncTimelineSequencers {
-    draw: function;
-    getLabels: function;
-    inzializeStagger: function;
-    disableStagger: function;
-    cleanCachedId: function;
-    resetLastValue: function;
-    destroy: function;
-    setStretchFactor: function;
+    draw: (arg0: {
+        partial: number;
+        isLastDraw: boolean;
+        useFrame: boolean;
+        direction: string;
+    }) => void;
+    getLabels: () => { name: string; time: number }[];
+    inzializeStagger: () => void;
+    disableStagger: () => void;
+    cleanCachedId: () => void;
+    resetLastValue: () => void;
+    destroy: () => void;
+    setStretchFactor: (arg0: number) => void;
 }
 
 export interface syncTimelineEventType {

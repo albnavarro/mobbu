@@ -15,7 +15,7 @@ export interface componentType {
      *
      * ```
      */
-    getState(): Object;
+    getState(arg0: string): any;
 
     /**
      * @example
