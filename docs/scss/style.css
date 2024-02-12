@@ -355,7 +355,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  background-color: #2a2c3d;
+  background-color: #2e3045;
   overflow-x: hidden;
 }
 #content {
@@ -2121,7 +2121,7 @@ code {
 }
 .html-content a {
   transition: opacity 0.35s;
-  color: #9ece6a;
+  color: #fff;
 }
 .html-content a:hover {
   opacity: 0.5;
