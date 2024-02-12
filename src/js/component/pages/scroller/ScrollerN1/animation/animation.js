@@ -1,6 +1,7 @@
 import { tween, scroller } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
+    canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
@@ -137,7 +138,7 @@ export const scrollerN1Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#1a1b26';
+        context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         stemData.forEach(({ width, height, opacity, rotate, index }) => {

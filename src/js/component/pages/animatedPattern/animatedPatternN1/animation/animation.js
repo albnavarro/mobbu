@@ -2,6 +2,7 @@ import { timeline, tween } from '../../../../../mobMotion';
 import { clamp } from '../../../../../mobMotion/animation/utils/animationUtils';
 import { mainStore } from '../../../../../mobjs';
 import {
+    canvasBackground,
     copyCanvasBitmap,
     createGrid,
     getCanvasContext,
@@ -134,7 +135,7 @@ export const animatedPatternN1Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#1a1b26';
+        context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(

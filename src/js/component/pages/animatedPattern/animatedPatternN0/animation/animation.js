@@ -1,6 +1,7 @@
 import { timeline, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
+    canvasBackground,
     copyCanvasBitmap,
     createGrid,
     getCanvasContext,
@@ -63,7 +64,7 @@ export const animatedPatternN0Animation = ({
 
     /**
      * Add props to transform.
-     * Order byy hasFill, so is linke z-index: -1.
+     * Order byy hasFill, so is like z-index: -1.
      */
     data = reorder
         ? gridData
@@ -122,7 +123,7 @@ export const animatedPatternN0Animation = ({
         /**
          * Clear rpevious render.
          */
-        context.fillStyle = '#1a1b26';
+        context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         data.forEach(

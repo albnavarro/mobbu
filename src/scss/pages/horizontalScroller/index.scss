@@ -8,7 +8,6 @@
     &__top,
     &__bottom {
         height: calc(100vh - var(--header-height));
-        background: $dark-green;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -18,10 +17,6 @@
         font-size: rem(25);
         font-weight: 400;
         transition: background 0.55s;
-
-        @include when-inside('.shift') {
-            background: $dark-green;
-        }
     }
 
     &__top {

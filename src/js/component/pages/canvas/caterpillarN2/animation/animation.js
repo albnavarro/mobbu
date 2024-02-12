@@ -1,6 +1,7 @@
 import { timeline, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {
+    canvasBackground,
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
@@ -153,7 +154,7 @@ export const caterpillarN2Animation = ({
 
         const context = useOffscreen ? offScreenCtx : ctx;
 
-        context.fillStyle = '#1a1b26';
+        context.fillStyle = canvasBackground;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         squareData.forEach(
