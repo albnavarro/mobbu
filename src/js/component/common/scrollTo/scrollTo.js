@@ -1,25 +1,36 @@
-import { mobCore } from '../../../mobCore';
 import { offset } from '../../../mobCore/utils';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { anchorStore } from './scrollToStore';
 
+let disableObservereffect = false;
+
 function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
     return html`<li>
         <scroll-to-button
             ${delegateEvents({
-                click: (_e, { current, index }) => {
-                    const { id: scroll, element } = current;
+                click: async (_e, { current }) => {
+                    const { id: scroll, label, element } = current;
                     const offsetTop =
                         scroll === 'start' ? 0 : offset(element).top - 50;
-                    bodyScroll.to(offsetTop);
-                    setState('activeId', index);
+
+                    /**
+                     * Disable spacerAnchor observer effect during scroll.
+                     */
+                    disableObservereffect = true;
+                    setState('activeLabel', label);
+                    await bodyScroll.to(offsetTop);
+
+                    /**
+                     * back to enable spacerAnchor observer.
+                     */
+                    disableObservereffect = false;
                 },
             })}
             ${bindProps({
-                bind: ['activeId'],
-                props: ({ activeId, _current, _index }) => ({
-                    active: activeId === _index,
+                bind: ['activeLabel'],
+                props: ({ activeLabel, _current }) => ({
+                    active: activeLabel === _current.label,
                     label: _current.label,
                 }),
             })}
@@ -45,20 +56,25 @@ export const ScrollTo = ({
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
 
-        const unWatchStore = anchorStore.watch('computedItems', (val) => {
-            setState('anchorItems', val.reverse());
-        });
+        const unWatchStoreComputed = anchorStore.watch(
+            'computedItems',
+            (val) => {
+                setState('anchorItems', val.reverse());
+            }
+        );
 
-        /**
-         * Remove active anchore when user scroll.
-         */
-        const unsubscribeMouseWheel = mobCore.useMouseWheel(() => {
-            setState('activeId', -1);
-        });
+        const unWatchStoreActive = anchorStore.watch(
+            'activeLabelFromObeserver',
+            (label) => {
+                if (disableObservereffect) return;
+
+                setState('activeLabel', label);
+            }
+        );
 
         return () => {
-            unsubscribeMouseWheel();
-            unWatchStore();
+            unWatchStoreComputed();
+            unWatchStoreActive();
         };
     });
 

@@ -6,9 +6,9 @@ export const scrollToDef = createComponent({
     component: ScrollTo,
     exportState: ['activeId'],
     state: {
-        activeId: () => ({
-            value: 0,
-            type: Number,
+        activeLabel: () => ({
+            value: '',
+            type: String,
         }),
         anchorItems: () => ({
             value: [],

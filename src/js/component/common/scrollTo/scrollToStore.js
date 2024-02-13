@@ -10,6 +10,10 @@ export const anchorStore = mobCore.createStore({
         value: [],
         type: Array,
     }),
+    activeLabelFromObeserver: () => ({
+        value: '',
+        type: String,
+    }),
 });
 
 /**
