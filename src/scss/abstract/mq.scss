@@ -13,61 +13,6 @@ $breakpoints: (
     'xxxlarge': 2140px,
 );
 
-/*
-size: size of font for specific breakpoint.
-es: 12px.
-
-unit: unit of value: px || vw,
-The default ratio of vw is the related brackpoint. 
-es: px || vw.
-
-ratio: if used the vw falue is calculated with this ratio.
-Generally the ratio value is the next brackpoint.
-es: 1200.
-
-default: Default brackpoint for rem/em conversion.
-es: true.
-*/
-$font-map: (
-    'xsmall': (
-        size: 12px,
-        unit: px,
-        ratio: null,
-    ),
-    'small': (
-        size: 12px,
-    ),
-    'medium': (
-        size: 14px,
-        unit: px,
-        ratio: null,
-    ),
-    'tablet': (
-        size: 14px,
-    ),
-    'desktop': (
-        size: 15px,
-        unit: px,
-        default: true,
-    ),
-    'large': (
-        size: 15px,
-    ),
-    'xlarge': (
-        size: 15px,
-    ),
-    'xxlarge': (
-        size: 16px,
-        unit: px,
-        ratio: null,
-    ),
-    'xxxlarge': (
-        size: 17px,
-        unit: px,
-        ratio: null,
-    ),
-);
-
 /* 
 Apply custom breakpoints to sass-mq.
 */
