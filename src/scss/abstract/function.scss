@@ -1,4 +1,5 @@
-@use '../sass_mq' as *;
+@use './grid' as *;
+@use './mq' as *;
 
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass functions.

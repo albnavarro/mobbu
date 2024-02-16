@@ -5,7 +5,8 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
-@use '../sass_mq' as *;
+@use './mq' as *;
+@use './grid' as *;
 @use './function' as *;
 
 /// Event wrapper
