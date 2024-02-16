@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 [data-component='footer'] {

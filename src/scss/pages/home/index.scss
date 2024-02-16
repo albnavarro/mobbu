@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .l-index {
@@ -17,7 +17,7 @@
         transform: translate(-50%, -20%);
         z-index: 1;
 
-        @include mq.mq('tablet') {
+        @include mq('tablet') {
             transform: translate(-50%, -55%);
         }
 
@@ -26,7 +26,7 @@
             width: rem(1200, xsmall);
             height: rem(400, xsmall);
 
-            @include mq.mq('large') {
+            @include mq('large') {
                 width: rem(1700);
                 height: rem(800);
             }
@@ -56,7 +56,7 @@
         padding-left: rem(50, small);
         padding-top: rem(50, small);
 
-        @include mq.mq('large') {
+        @include mq('large') {
             padding-left: rem(70);
             padding-top: rem(70);
         }

@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .c-btn-debug {
@@ -14,7 +14,7 @@
     display: none;
     opacity: 0.3;
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         display: block;
     }
 

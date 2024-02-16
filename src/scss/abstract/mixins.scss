@@ -2,7 +2,6 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
-@use 'sass-mq/mq';
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
@@ -75,7 +74,7 @@
             }
 
             html {
-                @include mq.mq($key) {
+                @include mq($key) {
                     font-size: $font-size;
                 }
             }
@@ -125,7 +124,7 @@
             */
             --scrollbar-with: 15px;
 
-            @include mq.mq($key) {
+            @include mq($key) {
                 @if $spread == 'narrow' {
                     --col-size: calc(#{$max-with-unit} + #{$gap-unit});
                 }
@@ -163,7 +162,7 @@
     }
 
     @each $key, $value in $grid-container-size {
-        @include mq.mq($key) {
+        @include mq($key) {
             max-width: get-container-with($grid-unit-misure, $key, $value);
         }
     }
@@ -184,7 +183,7 @@
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);
 
-        @include mq.mq($key) {
+        @include mq($key) {
             grid-template-columns: repeat($col-number, 1fr);
         }
     }

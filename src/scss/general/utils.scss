@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../sass_mq' as *;
 @use '../abstract' as *;
 
 .component {
@@ -31,7 +31,7 @@
 }
 
 .is-mobile {
-    @include mq.mq('large') {
+    @include mq('large') {
         display: none;
     }
 }

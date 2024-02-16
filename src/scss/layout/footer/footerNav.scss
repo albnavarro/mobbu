@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .footer-nav {
@@ -6,7 +6,7 @@
     margin: 0;
     display: none;
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         display: block;
     }
 

@@ -1,8 +1,7 @@
-@use 'sass_mq';
-@use 'highlight.js/scss/github-dark';
-@use './vendor/normalize';
-@use './general';
-@use './layout';
-@use './pages';
-@use './component';
-@use './test';
+@forward 'highlight.js/scss/github-dark';
+@forward './vendor/normalize';
+@forward './general';
+@forward './layout';
+@forward './pages';
+@forward './component';
+@forward './test';

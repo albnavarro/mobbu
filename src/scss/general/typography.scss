@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../sass_mq' as *;
 @use '../abstract' as *;
 @import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap';
 
@@ -37,7 +37,7 @@ h1 {
     font-size: rem(30px, xsmall);
     line-height: line-height(30, 37);
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         font-size: rem(40px);
         line-height: line-height(40, 55);
     }
@@ -111,7 +111,7 @@ pre,
 code {
     font-size: rem(15);
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         font-size: rem(16);
     }
 }

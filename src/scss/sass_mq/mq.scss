@@ -71,7 +71,7 @@ $font-map: (
 /* 
 Apply custom breakpoints to sass-mq.
 */
-@use 'sass-mq/mq' with (
+@forward 'sass-mq/mq' with (
     $breakpoints: $breakpoints,
     // $show-breakpoints: (
     //     xsmall,

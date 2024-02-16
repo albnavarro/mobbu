@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .c-code-btn {
@@ -13,7 +13,7 @@
     transition: transform 0.55s, background 0.55s, opacity 0.55s;
     display: none;
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         display: block;
     }
 

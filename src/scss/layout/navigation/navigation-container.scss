@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 [data-component='navigation_container'] {
@@ -22,7 +22,7 @@
         transform: translateX(0);
     }
 
-    @include mq.mq(tablet) {
+    @include mq(tablet) {
         padding-top: var(--header-navinfo);
     }
 
@@ -32,13 +32,13 @@
         overflow: auto;
         height: calc(100vh - var(--header-height));
 
-        @include mq.mq($until: tablet) {
+        @include mq($until: tablet) {
             &::-webkit-scrollbar {
                 display: none;
             }
         }
 
-        @include mq.mq(tablet) {
+        @include mq(tablet) {
             max-width: none;
             overflow: hidden;
         }
@@ -47,7 +47,7 @@
     &__scroll {
         padding-bottom: 20vh;
 
-        @include mq.mq(tablet) {
+        @include mq(tablet) {
             padding-bottom: 50vh;
         }
     }
@@ -61,7 +61,7 @@
         display: none;
         background: rgba($black, 0.25);
 
-        @include mq.mq(desktop) {
+        @include mq(desktop) {
             display: block;
         }
     }
@@ -109,7 +109,7 @@
         transition: transform 0.55s;
         display: none;
 
-        @include mq.mq(tablet) {
+        @include mq(tablet) {
             display: block;
         }
     }

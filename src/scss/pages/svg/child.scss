@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .svg-child-container {
@@ -20,12 +20,12 @@
         width: rem(1200, xsmall);
         height: rem(600, xsmall);
 
-        @include mq.mq('desktop') {
+        @include mq('desktop') {
             width: rem(1980);
             height: rem(1000);
         }
 
-        @include mq.mq('xxxlarge') {
+        @include mq('xxxlarge') {
             width: rem(2500);
             height: rem(1500);
         }

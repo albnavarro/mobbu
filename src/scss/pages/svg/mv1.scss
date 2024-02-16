@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .mv1 {
@@ -30,7 +30,7 @@
             height: max(375px, calc((375 * 100) / 1920 * 1vw));
             overflow: visible;
 
-            @include mq.mq('tablet') {
+            @include mq('tablet') {
                 width: max(800px, calc((800 * 100) / 1920 * 1vw));
                 height: max(700px, calc((700 * 100) / 1920 * 1vw));
             }
@@ -47,7 +47,7 @@
         top: 0;
         right: 0;
 
-        @include mq.mq('desktop') {
+        @include mq('desktop') {
             transform: translate(60%, -10%) rotate(33deg);
         }
 
@@ -56,7 +56,7 @@
             height: max(375px, calc((375 * 100) / 1920 * 1vw));
             overflow: visible;
 
-            @include mq.mq('tablet') {
+            @include mq('tablet') {
                 width: max(800px, calc((800 * 100) / 1920 * 1vw));
                 height: max(700px, calc((700 * 100) / 1920 * 1vw));
             }
@@ -74,7 +74,7 @@
         transform: translate(-50%, -30%);
         z-index: 1;
 
-        @include mq.mq('tablet') {
+        @include mq('tablet') {
             transform: translate(-55%, -60%);
         }
 
@@ -83,12 +83,12 @@
             width: max(500px, calc((500 * 100) / 375 * 1vw));
             height: max(300px, calc((300 * 100) / 375 * 1vw));
 
-            @include mq.mq('desktop') {
+            @include mq('desktop') {
                 width: max(600px, calc((600 * 100) / 1024 * 1vw));
                 height: max(400px, calc((400 * 100) / 1024 * 1vw));
             }
 
-            @include mq.mq('large') {
+            @include mq('large') {
                 width: max(1200px, calc((1200 * 100) / 1920 * 1vw));
                 height: max(700px, calc((700 * 100) / 1920 * 1vw));
             }

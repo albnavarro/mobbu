@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../sass_mq' as *;
 @use '../abstract' as *;
 
 /**
@@ -22,13 +22,13 @@
     --default-padding: #{rem(100)};
     --snippet-rem-value: #{strip-unit(rem(14))};
 
-    @include mq.mq(desktop) {
+    @include mq(desktop) {
         @media screen and (height <= 700px) {
             --footer-height: #{rem(50)};
         }
     }
 
-    @include mq.mq(tablet) {
+    @include mq(tablet) {
         --nav-width: #{rem(340)};
     }
 }
@@ -82,7 +82,7 @@ main {
 .container {
     margin: auto;
 
-    @include mq.mq('desktop') {
+    @include mq('desktop') {
         padding-left: rem(40);
 
         &--padding {

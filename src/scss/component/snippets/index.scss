@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .snippet {
@@ -7,13 +7,13 @@
         position: relative;
         width: 100%;
 
-        @include mq.mq('desktop') {
+        @include mq('desktop') {
             width: auto;
             min-width: rem(600);
         }
 
         &.is-full {
-            @include mq.mq('desktop') {
+            @include mq('desktop') {
                 width: 100%;
                 min-width: auto;
             }
@@ -25,7 +25,7 @@
             border-radius: rem(30);
             background-color: transparent;
 
-            @include mq.mq('desktop') {
+            @include mq('desktop') {
                 padding: rem(30);
             }
         }
@@ -42,11 +42,11 @@
             overflow: hidden;
         }
 
-        @include mq.mq('desktop') {
+        @include mq('desktop') {
             padding: rem(30);
 
             &.is-full {
-                @include mq.mq('desktop') {
+                @include mq('desktop') {
                     padding: 0;
                     margin: 0;
                 }

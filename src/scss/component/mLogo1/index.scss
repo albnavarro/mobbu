@@ -1,11 +1,11 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .m-logo-1 {
     display: none;
     pointer-events: none;
 
-    @include mq.mq(large) {
+    @include mq(large) {
         display: block;
         opacity: 0;
         visibility: hidden;
@@ -27,7 +27,7 @@
         z-index: 10;
         overflow: visible;
 
-        @include mq.mq(xlarge) {
+        @include mq(xlarge) {
             transform: translateX(30%);
             width: rem(1000);
             height: rem(500);

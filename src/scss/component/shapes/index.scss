@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 .shape-v1 {
@@ -15,7 +15,7 @@
         opacity: 1;
     }
 
-    @include mq.mq(desktop) {
+    @include mq(desktop) {
         display: block;
     }
 

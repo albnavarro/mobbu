@@ -1,4 +1,4 @@
-@use 'sass-mq/mq';
+@use '../../sass_mq' as *;
 @use '../../abstract' as *;
 
 [data-component='header'] {
@@ -63,7 +63,7 @@
             }
         }
 
-        @include mq.mq(tablet) {
+        @include mq(tablet) {
             display: flex;
         }
     }
@@ -140,7 +140,7 @@
             background: transparent;
             border: 0;
 
-            @include mq.mq(desktop) {
+            @include mq(desktop) {
                 margin: 0 rem(10);
             }
         }
