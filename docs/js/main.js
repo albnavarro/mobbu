@@ -5120,11 +5120,11 @@
   var decrementTickQueuque = () => {
     queuqe -= 1;
   };
-  function awaiytNextLoop() {
+  function awaitNextLoop() {
     return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
   }
   var tick = async (res) => {
-    await awaiytNextLoop();
+    await awaitNextLoop();
     return new Promise((resolve) => {
       if (queuqe === 0) {
         if (res) {

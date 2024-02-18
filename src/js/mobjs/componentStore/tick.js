@@ -31,7 +31,7 @@ export const getTickQueque = () => queuqe;
  *
  * @returns {Promise<void>}
  */
-function awaiytNextLoop() {
+function awaitNextLoop() {
     return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
 }
 
@@ -43,7 +43,7 @@ function awaiytNextLoop() {
  * @returns {Promise<void>}
  */
 export const tick = async (res) => {
-    await awaiytNextLoop();
+    await awaitNextLoop();
 
     return new Promise((resolve) => {
         if (queuqe === 0) {
