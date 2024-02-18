@@ -5,9 +5,9 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
-@use './mq' as *;
-@use './grid' as *;
-@use './font' as *;
+@use './mq-map' as *;
+@use './grid-map' as *;
+@use './font-map' as *;
 @use './function' as *;
 
 /// Event wrapper
