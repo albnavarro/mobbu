@@ -28,11 +28,12 @@
             "content": "The repeat function allows you to keep updated a list of components whose display depends on an array of any type. If you use an array of objects it will be possible to use a key to maintain the order of the elements at each update."
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-list",
             "props": {
-                "style": "medium"
-            },
-            "content": "<a href='./#dynamic_list'>example</a>"
+                "tag": "h3",
+                "dots": false,
+                "items": ["<a href='./#dynamic_list'>example</a>"]
+            }
         },
         {
             "component": "mob-spacer",

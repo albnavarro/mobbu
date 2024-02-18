@@ -84,7 +84,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Explore:"
+            "content": "Explore MobJs main features:"
         },
         {
             "component": "mob-list",
@@ -103,6 +103,86 @@
                     "<a href='./#mobJs_utils'>Utils</a>",
                     "<a href='./#mobJs_debug'>Debug</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Component params in depth:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Primary:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs_html'>html</a>",
+                    "<a href='./#mobJs_onMount'>onMount/Destroy</a>",
+                    "<a href='./#mobJs_getState'>getState</a>",
+                    "<a href='./#mobJs_setState'>setState</a>",
+                    "<a href='./#mobJs_watch'>watch</a>",
+                    "<a href='./#mobJs_watchSync'>watchSync</a>",
+                    "<a href='./#mobJs_staticProps'>staticProps</a>",
+                    "<a href='./#mobJs_bindProps'>bindProps</a>",
+                    "<a href='./#mobJs_bindEvents'>bindEvents</a>",
+                    "<a href='./#mobJs_delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs_repeat'>reactive list (repeat)</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Secondary:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs_unBind'>unBind</a>",
+                    "<a href='./#mobJs_emit'>emit</a>",
+                    "<a href='./#mobJs_emitAsync'>emitAsync</a>",
+                    "<a href='./#mobJs_computed'>computed</a>",
+                    "<a href='./#mobJs_remove'>remove</a>",
+                    "<a href='./#mobJs_removeDom'>removeDOM</a>",
+                    "<a href='./#mobJs_getChildren'>getChildren</a>",
+                    "<a href='./#mobJs_freezeProp'>freezeProp</a>",
+                    "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>",
+                    "<a href='./#mobJs_getParentId'>getParentId</a>",
+                    "<a href='./#mobJs_watchParent'>watchParent</a>",
+                    "<a href='./#mobJs_syncParent'>syncParent</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]
