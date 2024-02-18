@@ -3,7 +3,7 @@ import { tick } from '../mobjs';
 /**
  * @param {import("../mobjs/type").componentType}
  */
-export const MyComponent = ({ html, bindEvents, setState }) => {
+export const MyComponent = ({ html, bindEvents, bindProps, setState }) => {
     return html`
         <div>
             <my-child-component
@@ -13,6 +13,14 @@ export const MyComponent = ({ html, bindEvents, setState }) => {
                         await tick();
 
                         // All app is updated.
+                    },
+                })}
+                ${bindProps({
+                    bind: ['counter'],
+                    props: ({ counter }) => {
+                        return {
+                            childProp: counter,
+                        };
                     },
                 })}
             ></my-child-component>

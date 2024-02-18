@@ -347,6 +347,11 @@
             "url": "mobJs_instanceName"
         },
         {
+            "label": "tick",
+            "scrollToSection": "mobJs",
+            "url": "mobJs_tick"
+        },
+        {
             "label": "Utils",
             "scrollToSection": "mobJs",
             "url": "mobJs_utils"

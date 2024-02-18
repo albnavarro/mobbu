@@ -28,6 +28,13 @@
             "content": "Asynchronous function that waits until all reactive props ( bindProps ) and all repeaters of the entire app have been computed."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Generally the tick is used following a setState() to track the end of the update of all the app props."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/tick.js",
