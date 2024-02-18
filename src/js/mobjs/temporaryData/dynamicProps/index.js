@@ -6,6 +6,10 @@ import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
+import {
+    decrementTickQueuque,
+    incrementTickQueuque,
+} from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
 
 /**
@@ -246,6 +250,11 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                 if (watchIsRunning) return;
 
                 /**
+                 * Add watcher to active queuqe operation.
+                 */
+                incrementTickQueuque();
+
+                /**
                  * Fire watch only once if multiple props change.
                  * Wait the end of current block.
                  */
@@ -259,6 +268,11 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                         fireCallback: true,
                     });
                     watchIsRunning = false;
+
+                    /**
+                     * Remove watcher to active queuqe operation.
+                     */
+                    decrementTickQueuque();
                 });
             });
         });

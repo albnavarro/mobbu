@@ -23,3 +23,4 @@ export { getChildrenIdByName } from './componentStore/action/children';
 export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { staticProps } from './utils';
+export { tick } from './componentStore/tick';

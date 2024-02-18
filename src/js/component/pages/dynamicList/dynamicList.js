@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../data';
-import { html } from '../../../mobjs';
+import { html, tick } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -48,9 +48,12 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                 <dynamic-list-button
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
-                        click: () => {
+                        click: async () => {
                             setState('data', data);
                             setState('activeSample', index);
+
+                            await tick();
+                            console.log('resolve list update');
                         },
                     })}
                     ${bindProps({
@@ -123,8 +126,11 @@ export const DynamicList = async ({
                     <dynamic-list-button
                         ${staticProps({ label: 'increase counter' })}
                         ${delegateEvents({
-                            click: () => {
+                            click: async () => {
                                 setState('counter', (prev) => (prev += 1));
+                                await tick();
+
+                                console.log('resolve increment');
                             },
                         })}
                     ></dynamic-list-button>

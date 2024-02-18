@@ -9,7 +9,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 /**
  * @param {Element} root
  * @param {String} repeatId
- * @returns {Array<HTMLElement>|null}
+ * @returns {HTMLElement|null}
  */
 function selectAll(root, repeatId) {
     for (const node of walkPreOrder(root)) {
@@ -23,7 +23,7 @@ function selectAll(root, repeatId) {
 /**
  * @param {Element} node
  * @param {String} repeatId
- * @returns {Array<Element>|null}
+ * @returns {Element|null}
  */
 export const querySecificRepeater = (node, repeatId) => {
     const root = node || document.body;

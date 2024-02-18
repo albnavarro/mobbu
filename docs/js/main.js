@@ -5112,6 +5112,32 @@
     return state?.watch(prop, cb);
   };
 
+  // src/js/mobjs/componentStore/tick.js
+  var queuqe = 0;
+  var incrementTickQueuque = () => {
+    queuqe += 1;
+  };
+  var decrementTickQueuque = () => {
+    queuqe -= 1;
+  };
+  function awaiytNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+  }
+  var tick = async (res) => {
+    await awaiytNextLoop();
+    return new Promise((resolve) => {
+      if (queuqe === 0) {
+        if (res) {
+          res();
+          return;
+        }
+        resolve();
+        return;
+      }
+      tick(res ?? resolve);
+    });
+  };
+
   // src/js/mobjs/temporaryData/dynamicProps/index.js
   var dynamicPropsMap = /* @__PURE__ */ new Map();
   var setBindProps = (propsObj) => {
@@ -5217,6 +5243,7 @@
         return watchById(currentParentId, state, () => {
           if (watchIsRunning)
             return;
+          incrementTickQueuque();
           watchIsRunning = true;
           mobCore.useNextLoop(() => {
             setDynamicProp({
@@ -5227,6 +5254,7 @@
               fireCallback: true
             });
             watchIsRunning = false;
+            decrementTickQueuque();
           });
         });
       });
@@ -6490,10 +6518,7 @@
     },
     watch = () => {
     },
-    props = {},
-    bindEvents = [],
     clean: clean2 = false,
-    dynamicProps,
     beforeUpdate = () => {
     },
     afterUpdate = () => {
@@ -6516,6 +6541,7 @@
       async (current, previous) => {
         if (!mobCore.checkType(Array, current))
           return;
+        incrementTickQueuque();
         freezePropById({ id: id2, prop: state });
         const repeatIsRunning = getActiveRepeater({
           id: id2,
@@ -6525,6 +6551,7 @@
         if (repeatIsRunning) {
           unFreezePropById({ id: id2, prop: state });
           setState(state, previous, false);
+          decrementTickQueuque();
           return;
         }
         const targetComponentBeforeParse = getRepeaterComponentTarget({
@@ -6542,15 +6569,17 @@
           containerList.textContent = "";
         }
         addActiveRepeat({ id: id2, state, container: containerList });
-        beforeUpdate({
-          element: mainComponent,
-          container: containerList,
-          childrenId: getChildrenInsideElement({
-            component: targetComponentBeforeParse,
-            getChildren,
-            element: containerList
-          })
-        });
+        if (mainComponent) {
+          beforeUpdate({
+            element: mainComponent,
+            container: containerList,
+            childrenId: getChildrenInsideElement({
+              component: targetComponentBeforeParse,
+              getChildren,
+              element: containerList
+            })
+          });
+        }
         const currentUnivoque = await updateChildren({
           state,
           containerList,
@@ -6559,9 +6588,6 @@
           previous: clean2 || forceRepeater ? [] : previous,
           getChildren,
           key,
-          props,
-          dynamicProps,
-          bindEvents,
           id: id2,
           render: render2,
           repeatId
@@ -6582,11 +6608,13 @@
           setCurrentListValueById({ id: id3, value: { current: current2, index } });
         });
         mobCore.useNextLoop(async () => {
-          afterUpdate({
-            element: mainComponent,
-            container: containerList,
-            childrenId: childrenFiltered
-          });
+          if (mainComponent) {
+            afterUpdate({
+              element: mainComponent,
+              container: containerList,
+              childrenId: childrenFiltered
+            });
+          }
           removeActiveRepeat({
             id: id2,
             state,
@@ -6594,6 +6622,7 @@
           });
           unFreezePropById({ id: id2, prop: state });
           setState(state, currentUnivoque, false);
+          decrementTickQueuque();
         });
       }
     );
@@ -22926,8 +22955,10 @@ Loading snippet ...</pre
         return;
       const unWatchStoreComputed = anchorStore.watch(
         "computedItems",
-        (val2) => {
+        async (val2) => {
           setState("anchorItems", val2.reverse());
+          await tick();
+          console.log("resolve sctollto tick");
         }
       );
       const unWatchStoreActive = anchorStore.watch(
@@ -27434,9 +27465,11 @@ Loading snippet ...</pre
                 <dynamic-list-button
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
-        click: () => {
+        click: async () => {
           setState("data", data3);
           setState("activeSample", index);
+          await tick();
+          console.log("resolve list update");
         }
       })}
                     ${bindProps({
@@ -27497,8 +27530,10 @@ Loading snippet ...</pre
                     <dynamic-list-button
                         ${staticProps2({ label: "increase counter" })}
                         ${delegateEvents({
-      click: () => {
+      click: async () => {
         setState("counter", (prev2) => prev2 += 1);
+        await tick();
+        console.log("resolve increment");
       }
     })}
                     ></dynamic-list-button>

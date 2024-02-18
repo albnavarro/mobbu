@@ -1,4 +1,4 @@
-// @ts-checc
+// @ts-check
 
 import { mobCore } from '../../mobCore';
 import { setCurrentListValueById } from '../componentStore/action/currentListValue';
@@ -8,6 +8,10 @@ import {
     unFreezePropById,
 } from '../componentStore/action/freeze';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
+import {
+    decrementTickQueuque,
+    incrementTickQueuque,
+} from '../componentStore/tick';
 import { querySecificRepeater } from '../query/querySecificRepeater';
 import {
     addActiveRepeat,
@@ -25,18 +29,15 @@ import { getChildrenInsideElement } from './utils';
  */
 
 /**
- * @param {import('../temporaryData/repeater/type').repeaterType & watchListType}
- * @return {() => Function}
+ * @param {import('../temporaryData/repeater/type').repeaterType & watchListType} param
+ * @return {() => void}
  */
 export const watchList = ({
     state = '',
     setState = () => {},
     emit = () => {},
     watch = () => {},
-    props = {},
-    bindEvents = [],
     clean = false,
-    dynamicProps,
     beforeUpdate = () => {},
     afterUpdate = () => {},
     getChildren = () => {},
@@ -51,6 +52,7 @@ export const watchList = ({
      */
     const repeaterEl = querySecificRepeater(containerList, repeatId);
     repeaterEl?.remove();
+    // @ts-ignore
     repeaterEl?.removeCustomComponent();
 
     const mainComponent = getElementById({ id });
@@ -69,6 +71,11 @@ export const watchList = ({
         state,
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
             if (!mobCore.checkType(Array, current)) return;
+
+            /**
+             * Add watcher to active queuqe operation.
+             */
+            incrementTickQueuque();
 
             /**
              * Secure step 1.
@@ -97,6 +104,11 @@ export const watchList = ({
                  */
                 unFreezePropById({ id, prop: state });
                 setState(state, previous, false);
+
+                /**
+                 * Remove watcher to active queuqe operation.
+                 */
+                decrementTickQueuque();
                 return;
             }
 
@@ -133,15 +145,17 @@ export const watchList = ({
             /**
              * Execute beforeUpdate function
              */
-            beforeUpdate({
-                element: mainComponent,
-                container: containerList,
-                childrenId: getChildrenInsideElement({
-                    component: targetComponentBeforeParse,
-                    getChildren,
-                    element: containerList,
-                }),
-            });
+            if (mainComponent) {
+                beforeUpdate({
+                    element: mainComponent,
+                    container: containerList,
+                    childrenId: getChildrenInsideElement({
+                        component: targetComponentBeforeParse,
+                        getChildren,
+                        element: containerList,
+                    }),
+                });
+            }
 
             /**
              * Start main update list function
@@ -154,9 +168,6 @@ export const watchList = ({
                 previous: clean || forceRepeater ? [] : previous,
                 getChildren,
                 key,
-                props,
-                dynamicProps,
-                bindEvents,
                 id,
                 render,
                 repeatId,
@@ -205,11 +216,13 @@ export const watchList = ({
                 /**
                  * Execute afterUpdate function
                  */
-                afterUpdate({
-                    element: mainComponent,
-                    container: containerList,
-                    childrenId: childrenFiltered,
-                });
+                if (mainComponent) {
+                    afterUpdate({
+                        element: mainComponent,
+                        container: containerList,
+                        childrenId: childrenFiltered,
+                    });
+                }
 
                 /**
                  * Remove active repeater after all so avoid multiple
@@ -230,6 +243,11 @@ export const watchList = ({
                  * If key is used duplicated item is removed.
                  */
                 setState(state, currentUnivoque, false);
+
+                /**
+                 * Remove watcher to active queuqe operation.
+                 */
+                decrementTickQueuque();
             });
         }
     );

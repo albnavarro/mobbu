@@ -1,4 +1,5 @@
 import { offset } from '../../../mobCore/utils';
+import { tick } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { anchorStore } from './scrollToStore';
@@ -58,8 +59,11 @@ export const ScrollTo = ({
 
         const unWatchStoreComputed = anchorStore.watch(
             'computedItems',
-            (val) => {
+            async (val) => {
                 setState('anchorItems', val.reverse());
+                await tick();
+
+                console.log('resolve sctollto tick');
             }
         );
 
