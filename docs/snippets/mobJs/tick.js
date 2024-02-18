@@ -8,7 +8,7 @@ export const MyComponent = ({ html, bindEvents, bindProps, setState }) => {
         <div>
             <my-child-component
                 ${bindEvents({
-                    click: async (e, { current, index }) => {
+                    click: async () => {
                         setState('counter', (value) => (value += 1));
                         await tick();
 
