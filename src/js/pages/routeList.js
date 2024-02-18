@@ -46,6 +46,7 @@ export * from './mobJs/webComponent';
 export * from './mobJs/debug';
 export * from './mobJs/runtime';
 export * from './mobJs/instanceName';
+export * from './mobJs/tick';
 export * from './mobCore/overview';
 export * from './mobCore/events';
 export * from './mobCore/store';

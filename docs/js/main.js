@@ -28516,6 +28516,7 @@ Loading snippet ...</pre
     mobJs_slot: () => mobJs_slot,
     mobJs_staticProps: () => mobJs_staticProps,
     mobJs_syncParent: () => mobJs_syncParent,
+    mobJs_tick: () => mobJs_tick,
     mobJs_unBind: () => mobJs_unBind,
     mobJs_unFreezeProp: () => mobJs_unFreezeProp,
     mobJs_utils: () => mobJs_utils,
@@ -29771,6 +29772,27 @@ Loading snippet ...</pre
         </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">InstanceName</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/tick/index.js
+  var mobJs_tick = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/tick.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>tick</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Tick</doc-title>
     </doc-container>`;
   };
 
