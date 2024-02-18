@@ -35,7 +35,7 @@ export const NavigationSubmenu = ({
     setState,
     staticProps,
     bindProps,
-    watch,
+    watchSync,
 }) => {
     const { children, headerButton, callback } = getState();
     const { label, url, activeId } = headerButton;
@@ -49,7 +49,7 @@ export const NavigationSubmenu = ({
         slide.subscribe(content);
         slide.reset(content);
 
-        watch('isOpen', async (isOpen) => {
+        watchSync('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
 
             await slide[action](content);
