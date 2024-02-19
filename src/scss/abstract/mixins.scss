@@ -47,40 +47,42 @@
     $html-font-size: filter-nested-map($font-map, size);
     $html-font-unit: filter-nested-map($font-map, unit);
     $html-vw-ratio: filter-nested-map($font-map, ratio);
+    $last-value: '';
 
     @each $key, $value in $html-font-size {
-        $unit-misure: map.get($html-font-unit, $key);
+        $unit-misure: map.get($html-font-unit, $key) or 'px';
         $ratio: map.get($html-vw-ratio, $key);
         $font-size: 0;
 
-        @if $unit-misure {
-            /*
+        /*
             Pixel html font size
             */
-            @if $unit-misure == 'px' {
-                $font-size: $value;
-            }
+        @if $unit-misure == 'px' {
+            $font-size: $value;
+        }
 
-            /*
+        /*
             vw html font-size on brackpoint ratio.
             */
-            @if $unit-misure == 'vw' {
-                $breakpoint: strip-unit(map.get($breakpoints, $key));
+        @if $unit-misure == 'vw' {
+            $breakpoint: strip-unit(map.get($breakpoints, $key));
 
-                @if $ratio {
-                    $breakpoint: strip-unit($ratio);
-                }
-
-                $font-size: math.div((strip-unit($value) * 100), $breakpoint) *
-                    1vw;
+            @if $ratio {
+                $breakpoint: strip-unit($ratio);
             }
 
+            $font-size: math.div((strip-unit($value) * 100), $breakpoint) * 1vw;
+        }
+
+        @if $last-value != $font-size {
             html {
                 @include mq($key) {
                     font-size: $font-size;
                 }
             }
         }
+
+        $last-value: $font-size;
     }
 }
 

@@ -12,22 +12,10 @@ $grid-map: (
         gap: 10,
     ),
     'desktop': (
-        size: 100,
-        unit: vw,
-        column: 8,
-        gap: 15,
-    ),
-    'large': (
-        size: 1200,
+        size: 1600,
         unit: px,
         column: 10,
         gap: 20,
-    ),
-    'xlarge': (
-        size: 1600,
-        unit: px,
-        column: 12,
-        gap: 25,
     ),
 );
 

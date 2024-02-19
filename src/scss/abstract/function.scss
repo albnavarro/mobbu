@@ -19,44 +19,6 @@
 }
 
 /**
-* Calc REM in houses at the lowest average media query
-* 
-* @param {String} $pixel - current value in pixel
-* @param {String} $mq - reference brackpoint
-* 
-* @return {String}
-*/
-@function rem($pixels, $mq: '') {
-    $html-font-size: filter-nested-map($font-map, size);
-
-    /*
-    Get default font size;
-    */
-    $default-map: filter-nested-map($font-map, default);
-    $defult-key: null;
-
-    /*
-    TODO: get first or last value in map.
-    We expect only one default value.
-    */
-    @each $key, $value in $default-map {
-        $defult-key: $key;
-    }
-
-    @if unitless($pixels) {
-        $pixels: $pixels * 1px;
-    }
-
-    @if $mq == '' {
-        $mq: map.get($html-font-size, $defult-key);
-    } @else {
-        $mq: map.get($html-font-size, $mq);
-    }
-
-    @return math.div($pixels, $mq) * 1rem;
-}
-
-/**
 * Calc EM in houses at the lowest average media query
 * 
 * @param {String} $pixel - current value in pixel
@@ -64,7 +26,7 @@
 * 
 * @return {String}
 */
-@function em($pixels, $mq: '') {
+@function rem-or-em($pixels, $mq: null, $multiplier: 1rem) {
     $html-font-size: filter-nested-map($font-map, size);
 
     /*
@@ -73,25 +35,52 @@
     $default-map: filter-nested-map($font-map, default);
     $defult-key: null;
 
-    /*
-    TODO: get first or last value in map.
-    We expect only one default value.
-    */
     @each $key, $value in $default-map {
         $defult-key: $key;
     }
 
+    /*
+    Check if default value exist.
+    */
+    @if not $defult-key {
+        @debug ("Error: default key in font-map doesn't exist");
+        @return $multiplier;
+    }
+
+    /*
+    Get input key or default.
+    */
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
     }
 
-    @if $mq == '' {
-        $mq: map.get($html-font-size, $default-font-size);
-    } @else {
-        $mq: map.get($html-font-size, $mq);
+    /*
+    Check if key exist in font-map.
+    */
+    $map-has-key: map.has-key($html-font-size, $mq);
+
+    /*
+    If user key doesn't exist alert.
+    */
+    @if not $map-has-key and $mq {
+        @debug ($mq, "doesn't exist in font-map");
     }
 
-    @return math.div($pixels, $mq) * 1em;
+    @if $map-has-key {
+        $mq: map.get($html-font-size, $mq);
+    } @else {
+        $mq: map.get($html-font-size, $defult-key);
+    }
+
+    @return math.div($pixels, $mq) * $multiplier;
+}
+
+@function rem($pixels, $mq: null) {
+    @return rem-or-em($pixels, $mq, 1rem);
+}
+
+@function em($pixels, $mq: null) {
+    @return rem-or-em($pixels, $mq, 1em);
 }
 
 @function line-height($font-size, $line-height) {
@@ -110,6 +99,15 @@
 @function get-container-with($unit-map, $key, $value) {
     $unit-misure: map.get($unit-map, $key);
     $max-width: 0;
+
+    /*
+    Check if font-exist for grid calculation
+    */
+    $html-font-size: filter-nested-map($font-map, size);
+
+    @if not map.has-key($html-font-size, $key) {
+        @debug ('grid/container', $key, "font-size doesn't exist, is required");
+    }
 
     @if $unit-misure == 'px' {
         $max-width: min(rem($value, $key), calc(100vw - var(--scrollbar-with)));
