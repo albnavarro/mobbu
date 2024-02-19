@@ -47,9 +47,6 @@
         @return $multiplier;
     }
 
-    /*
-    Get input key or default.
-    */
     @if unitless($pixels) {
         $pixels: $pixels * 1px;
     }
