@@ -4,18 +4,21 @@ $grid-map: (
         unit: vw,
         column: 3,
         gap: 10,
+        extraside: 20,
     ),
     'medium': (
         size: 600,
         unit: px,
         column: 4,
         gap: 10,
+        extraside: 30,
     ),
     'desktop': (
         size: 1600,
         unit: px,
         column: 10,
         gap: 20,
+        extraside: 150,
     ),
 );
 
@@ -24,4 +27,4 @@ TODO: non abbigatorie value.
 Add a gutter on grid/container side.
 Value: 'wide' or 'wider' or 'narrow';
 */
-$spread: 'wide';
+$spread: 'wider';
