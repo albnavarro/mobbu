@@ -100,6 +100,7 @@
     $grid-container-size: filter-nested-map($grid-map, size);
     $grid-gap-size: filter-nested-map($grid-map, gap);
     $grid-col-count: filter-nested-map($grid-map, column);
+    $extra-side-map: filter-nested-map($grid-map, extraside);
 
     @each $key, $value in $grid-container-size {
         $col-number: map.get($grid-col-count, $key);
@@ -120,6 +121,12 @@
         */
         $max-with-unit: list.slash($max-width, $col-number);
         $gap-unit: math.div($gap-to-rem, $col-number);
+
+        /*
+        Add etra side gap.
+        */
+        $extra-side-gutter: map.get($extra-side-map, $key) or 0;
+        $extra-side-gutter-to-rem: rem($extra-side-gutter, $key);
 
         :root {
             /*
@@ -142,6 +149,7 @@
                 }
 
                 --gap-size: #{$gap-to-rem};
+                --extra-side-gutter: #{$extra-side-gutter-to-rem};
             }
         }
     }
@@ -153,21 +161,36 @@
 @mixin container() {
     $grid-unit-misure: filter-nested-map($grid-map, unit);
     $grid-container-size: filter-nested-map($grid-map, size);
+    $max-width: 0;
 
-    max-width: 100%;
+    width: 100%;
     margin: auto;
 
+    @if $spread == 'narrow' {
+        padding-inline: var(--extra-side-gutter);
+    }
+
     @if $spread == 'wide' {
-        padding-inline: calc(var(--gap-size) / 2);
+        padding-inline: calc((var(--gap-size) / 2) + var(--extra-side-gutter));
     }
 
     @if $spread == 'wider' {
-        padding-inline: calc(var(--gap-size));
+        padding-inline: calc(var(--gap-size) + var(--extra-side-gutter));
     }
 
     @each $key, $value in $grid-container-size {
         @include mq($key) {
-            max-width: get-container-with($grid-unit-misure, $key, $value);
+            $unit-misure: map.get($grid-unit-misure, $key);
+
+            @if $unit-misure == 'px' {
+                $max-width: min(rem($value, $key));
+            }
+
+            @if $unit-misure == 'vw' {
+                $max-width: $value * 1%;
+            }
+
+            max-width: $max-width;
         }
     }
 }

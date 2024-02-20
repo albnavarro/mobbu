@@ -107,31 +107,17 @@
         @debug ('grid/container', $key, "font-size doesn't exist, is required");
     }
 
-    /*
-    Add etra side gap.
-    */
-    $extra-side-map: filter-nested-map($grid-map, extraside);
-    $extra-side-gutter: map.get($extra-side-map, $key) or 0;
-
     @if $unit-misure == 'px' {
         $max-width: min(
-            rem($value, $key),
-            calc(
-                100vw -
-                    var(--scrollbar-with) -
-                    rem($extra-side-gutter * 2, $key)
-            )
+            calc(#{rem($value, $key)} - (var(--extra-side-gutter) * 2)),
+            calc(100vw - var(--scrollbar-with) - (var(--extra-side-gutter) * 2))
         );
     }
 
     @if $unit-misure == 'vw' {
         $max-width: min(
             ($value * 1vw),
-            calc(
-                100vw -
-                    var(--scrollbar-with) -
-                    rem($extra-side-gutter * 2, $key)
-            )
+            calc(100vw - var(--scrollbar-with) - (var(--extra-side-gutter) * 2))
         );
     }
 
