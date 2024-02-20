@@ -183,18 +183,19 @@
             $unit-misure: map.get($grid-unit-misure, $key);
 
             @if $unit-misure == 'px' {
-                $max-width: min(rem($value, $key));
+                max-width: min(rem($value, $key));
             }
 
+            /*
+            In case of % use only with: 100%;
+            */
             @if $unit-misure == '%' {
                 @if $value != 100 {
                     @debug ('container: with % value only 100 is availbale');
                 }
 
-                $max-width: $value * 1%;
+                max-width: none;
             }
-
-            max-width: $max-width;
         }
     }
 }

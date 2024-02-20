@@ -64,13 +64,18 @@
         @debug ($mq, "doesn't exist in font-map");
     }
 
+    /*
+    Get user value or default.
+    */
+    $value: 1rem;
+
     @if $map-has-key {
-        $mq: map.get($html-font-size, $mq);
+        $value: map.get($html-font-size, $mq);
     } @else {
-        $mq: map.get($html-font-size, $defult-key);
+        $value: map.get($html-font-size, $defult-key);
     }
 
-    @return math.div($pixels, $mq) * $multiplier;
+    @return math.div($pixels, $value) * $multiplier;
 }
 
 @function rem($pixels, $mq: null) {
@@ -114,10 +119,13 @@
         );
     }
 
+    /*
+    In case of % use only  100%;
+    No min() is required.
+    */
     @if $unit-misure == '%' {
-        $max-width: min(
-            ($value * 1vw),
-            calc(100vw - var(--scrollbar-with) - (var(--extra-side-gutter) * 2))
+        $max-width: calc(
+            100vw - var(--scrollbar-with) - (var(--extra-side-gutter) * 2)
         );
     }
 
