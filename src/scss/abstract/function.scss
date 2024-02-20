@@ -114,7 +114,7 @@
         );
     }
 
-    @if $unit-misure == 'vw' {
+    @if $unit-misure == '%' {
         $max-width: min(
             ($value * 1vw),
             calc(100vw - var(--scrollbar-with) - (var(--extra-side-gutter) * 2))

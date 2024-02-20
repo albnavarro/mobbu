@@ -1,7 +1,10 @@
+/*
+With vw only value 100 is available.
+*/
 $grid-map: (
     'xsmall': (
         size: 100,
-        unit: vw,
+        unit: '%',
         column: 3,
         gap: 10,
         extraside: 20,

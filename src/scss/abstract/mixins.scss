@@ -186,7 +186,11 @@
                 $max-width: min(rem($value, $key));
             }
 
-            @if $unit-misure == 'vw' {
+            @if $unit-misure == '%' {
+                @if $value != 100 {
+                    @debug ('container: with % value only 100 is availbale');
+                }
+
                 $max-width: $value * 1%;
             }
 
