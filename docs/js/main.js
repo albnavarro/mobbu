@@ -27482,7 +27482,7 @@ Loading snippet ...</pre
         click: async () => {
           setState("data", data3);
           setState("activeSample", index);
-          await tick({ debug: true });
+          await tick();
           console.log("resolve list update");
         }
       })}
