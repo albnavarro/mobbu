@@ -8,10 +8,8 @@ import {
     unFreezePropById,
 } from '../componentStore/action/freeze';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import {
-    decrementTickQueuque,
-    incrementTickQueuque,
-} from '../componentStore/tick';
+import { incrementTickQueuque } from '../componentStore/tick';
+import { QUEQUE_TYPE_REPEATER } from '../constant';
 import { querySecificRepeater } from '../query/querySecificRepeater';
 import {
     addActiveRepeat,
@@ -75,7 +73,11 @@ export const watchList = ({
             /**
              * Add watcher to active queuqe operation.
              */
-            incrementTickQueuque();
+            const descrementQueue = incrementTickQueuque({
+                state,
+                id,
+                type: QUEQUE_TYPE_REPEATER,
+            });
 
             /**
              * Secure step 1.
@@ -108,7 +110,7 @@ export const watchList = ({
                 /**
                  * Remove watcher to active queuqe operation.
                  */
-                decrementTickQueuque();
+                descrementQueue();
                 return;
             }
 
@@ -247,7 +249,7 @@ export const watchList = ({
                 /**
                  * Remove watcher to active queuqe operation.
                  */
-                decrementTickQueuque();
+                descrementQueue();
             });
         }
     );

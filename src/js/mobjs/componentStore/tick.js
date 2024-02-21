@@ -3,28 +3,20 @@
 import { mobCore } from '../../mobCore';
 
 /**
- * @type {number}
+ * @type {Map<string,string>}
  */
-let queuqe = 0;
+const queuqe = new Map();
 
 /**
- * @returns {void}
+ * @param {any} props
+ * @returns {() => {}}
  */
-export const incrementTickQueuque = () => {
-    queuqe += 1;
+export const incrementTickQueuque = (props) => {
+    const id = mobCore.getUnivoqueId();
+    queuqe.set(id, props);
+
+    return () => queuqe.delete(id);
 };
-
-/**
- * @returns {void}
- */
-export const decrementTickQueuque = () => {
-    queuqe -= 1;
-};
-
-/**
- * @returns {number}
- */
-export const getTickQueque = () => queuqe;
 
 /**
  * @description
@@ -39,23 +31,31 @@ function awaitNextLoop() {
  * @description
  * Await that all bind props is completed
  *
- * @param {(value: void | PromiseLike<void>) => void} res
+ * @param {object} params
+ * @param {boolean} [ params.debug ]
+ * @param {(value: void | PromiseLike<void>) => void} [ params.previousResolve ]
  * @returns {Promise<void>}
  */
-export const tick = async (res) => {
+export const tick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
 
-    return new Promise((resolve) => {
-        if (queuqe === 0) {
-            if (res) {
-                res();
-                return;
-            }
+    if (debug) {
+        queuqe.forEach((value) => {
+            console.log(value);
+        });
+    }
 
+    if (queuqe.size === 0 && previousResolve) {
+        previousResolve();
+        return;
+    }
+
+    return new Promise((resolve) => {
+        if (queuqe.size === 0) {
             resolve();
             return;
         }
 
-        tick(res ?? resolve);
+        tick({ debug, previousResolve: previousResolve ?? resolve });
     });
 };

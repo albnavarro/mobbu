@@ -6,11 +6,9 @@ import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
-import {
-    decrementTickQueuque,
-    incrementTickQueuque,
-} from '../../componentStore/tick';
+import { incrementTickQueuque } from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
+import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 
 /**
  * @type {Map<String,{'bind':Array<String>,'parentId':String|undefined,'componentId':String,'propsId':String,'props':Object}>}
@@ -252,7 +250,11 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                 /**
                  * Add watcher to active queuqe operation.
                  */
-                incrementTickQueuque();
+                const decrementQueue = incrementTickQueuque({
+                    state,
+                    id: componentId,
+                    type: QUEQUE_TYPE_BINDPROPS,
+                });
 
                 /**
                  * Fire watch only once if multiple props change.
@@ -272,7 +274,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                     /**
                      * Remove watcher to active queuqe operation.
                      */
-                    decrementTickQueuque();
+                    decrementQueue();
                 });
             });
         });

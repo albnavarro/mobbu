@@ -85,4 +85,17 @@ export const frameDelayAfterParse = 5;
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 
+/**
+ * @type {String};
+ */
 export const UNSET = 'UNSET';
+
+/**
+ * @type {String};
+ */
+export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
+
+/**
+ * @type {String};
+ */
+export const QUEQUE_TYPE_REPEATER = 'QUEQUE_REPEATER';

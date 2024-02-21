@@ -52,7 +52,7 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                             setState('data', data);
                             setState('activeSample', index);
 
-                            await tick();
+                            await tick({ debug: true });
                             console.log('resolve list update');
                         },
                     })}
