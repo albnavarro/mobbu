@@ -1,9 +1,9 @@
-import { mainStore } from '../mobjs';
+import { mainStore, MAIN_STORE_BEFORE_ROUTE_CHANGE } from '../mobjs';
 import { motionCore, timeline, tween } from '../mobMotion';
 
 let scrollY = 0;
 
-mainStore.watch('beforeRouteChange', () => {
+mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
     scrollY = window.scrollY;
 });
 

@@ -1,70 +1,87 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
+import {
+    MAIN_STORE_ACTIVE_PARAMS,
+    MAIN_STORE_ACTIVE_ROUTE,
+    MAIN_STORE_AFTER_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_PAGE_TRANSITION,
+    MAIN_STORE_BEFORE_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_ROUTE_LEAVES,
+    MAIN_STORE_COMPONENT_LIST,
+    MAIN_STORE_CONTENT_ID,
+    MAIN_STORE_INDEX_PAGE,
+    MAIN_STORE_PAGE_NOT_FOUND,
+    MAIN_STORE_PAGE_TRANSITION,
+    MAIN_STORE_REPEATER_PARSER_ROOT,
+    MAIN_STORE_ROOT_ELEMENT,
+    MAIN_STORE_ROUTE_IS_LOADING,
+    MAIN_STORE_ROUTE_LIST,
+} from './constant';
 
 export const mainStore = mobCore.createStore({
-    contentId: () => ({
+    [MAIN_STORE_CONTENT_ID]: () => ({
         value: '',
         type: String,
     }),
-    rootElement: () => ({
+    [MAIN_STORE_ROOT_ELEMENT]: () => ({
         value: document.createElement('div'),
         type: HTMLElement,
     }),
-    index: () => ({
+    [MAIN_STORE_INDEX_PAGE]: () => ({
         value: '',
         type: String,
     }),
-    pageNotFound: () => ({
+    [MAIN_STORE_PAGE_NOT_FOUND]: () => ({
         value: '',
         type: String,
     }),
-    componentList: () => ({
+    [MAIN_STORE_COMPONENT_LIST]: () => ({
         value: {},
         type: 'any',
     }),
-    routeList: () => ({
+    [MAIN_STORE_ROUTE_LIST]: () => ({
         value: {},
         type: 'any',
     }),
-    activeRoute: () => ({
+    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
         value: '',
         type: String,
         skipEqual: false,
     }),
-    activeParams: () => ({
+    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
         value: {},
         type: 'any',
         skipEqual: false,
     }),
-    beforeRouteLeave: () => ({
+    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
         value: '',
         type: String,
         skipEqual: false,
     }),
-    beforeRouteChange: () => ({
+    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
         value: '',
         type: String,
         skipEqual: false,
     }),
-    atfterRouteChange: () => ({
+    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
         value: '',
         type: String,
         skipEqual: false,
     }),
-    routeIsLoading: () => ({
+    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
         value: false,
         type: Boolean,
     }),
-    repeaterParserRoot: () => ({
+    [MAIN_STORE_REPEATER_PARSER_ROOT]: () => ({
         value: document.createElement('div'),
         type: HTMLElement,
     }),
-    beforePageTransition: () => ({
+    [MAIN_STORE_BEFORE_PAGE_TRANSITION]: () => ({
         value: undefined,
         type: 'Any',
     }),
-    pageTransition: () => ({
+    [MAIN_STORE_PAGE_TRANSITION]: () => ({
         value: undefined,
         type: 'Any',
     }),

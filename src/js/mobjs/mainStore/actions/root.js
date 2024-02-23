@@ -1,5 +1,11 @@
 // @ts-check
 
+import {
+    MAIN_STORE_BEFORE_PAGE_TRANSITION,
+    MAIN_STORE_CONTENT_ID,
+    MAIN_STORE_PAGE_TRANSITION,
+    MAIN_STORE_ROOT_ELEMENT,
+} from '../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -12,7 +18,7 @@ import { mainStore } from '../mainStore';
  * Set root app.
  */
 export const setContentId = ({ contentId = '' }) => {
-    mainStore.set('contentId', contentId);
+    mainStore.set(MAIN_STORE_CONTENT_ID, contentId);
 };
 
 /**
@@ -47,7 +53,7 @@ export const getRoot = () => {
  * Set root app.
  */
 export const setRoot = ({ element }) => {
-    mainStore.set('rootElement', element);
+    mainStore.set(MAIN_STORE_ROOT_ELEMENT, element);
 };
 
 /**
@@ -61,7 +67,7 @@ export const setRoot = ({ element }) => {
 export const setBeforePageTransition = ({ fn }) => {
     if (!fn) return;
 
-    mainStore.set('beforePageTransition', fn);
+    mainStore.set(MAIN_STORE_BEFORE_PAGE_TRANSITION, fn);
 };
 
 /**
@@ -85,7 +91,7 @@ export const getBeforePageTransition = () => {
 export const setPageTransition = ({ fn }) => {
     if (!fn) return;
 
-    mainStore.set('pageTransition', fn);
+    mainStore.set(MAIN_STORE_PAGE_TRANSITION, fn);
 };
 
 /**

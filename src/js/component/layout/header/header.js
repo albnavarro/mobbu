@@ -1,5 +1,9 @@
 import { mobCore } from '../../../mobCore';
-import { loadUrl, mainStore } from '../../../mobjs';
+import {
+    loadUrl,
+    mainStore,
+    MAIN_STORE_BEFORE_ROUTE_CHANGE,
+} from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
 function openInfo({ navInfo }) {
@@ -32,7 +36,7 @@ export const Header = ({ html, onMount, delegateEvents }) => {
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
 
-        mainStore.watch('beforeRouteChange', (route) => {
+        mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
             title.classList.toggle('visible', route !== 'home');
             beta.classList.toggle('visible', route !== 'home');
         });

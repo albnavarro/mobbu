@@ -1,6 +1,12 @@
 import { overlayScroller } from './animation/overlayScroller';
 import copyIcon from '../../../../svg/icon-copy.svg';
-import { html, mainStore, parseDom, staticProps } from '../../../mobjs';
+import {
+    html,
+    mainStore,
+    MAIN_STORE_BEFORE_ROUTE_LEAVES,
+    parseDom,
+    staticProps,
+} from '../../../mobjs';
 
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
@@ -114,7 +120,7 @@ export const CodeOverlay = ({
             move(scrollbar.value);
         });
 
-        mainStore.watch('beforeRouteLeave', () => {
+        mainStore.watch(MAIN_STORE_BEFORE_ROUTE_LEAVES, () => {
             setState('urls', []);
         });
 

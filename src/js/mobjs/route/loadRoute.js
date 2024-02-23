@@ -8,6 +8,14 @@ import {
     getPageTransition,
 } from '../mainStore/actions/root';
 import { getRouteList } from '../mainStore/actions/routeList';
+import {
+    MAIN_STORE_ACTIVE_PARAMS,
+    MAIN_STORE_ACTIVE_ROUTE,
+    MAIN_STORE_AFTER_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_ROUTE_LEAVES,
+    MAIN_STORE_ROUTE_IS_LOADING,
+} from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { parseComponents } from '../parseComponent/componentParse';
 
@@ -20,7 +28,7 @@ import { parseComponents } from '../parseComponent/componentParse';
  * Load new route.
  */
 export const loadRoute = async ({ route = '', params = {} }) => {
-    mainStore.set('routeIsLoading', true);
+    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
 
     /**
      *
@@ -33,12 +41,12 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * Set before Route leave.
      */
     const { activeRoute } = mainStore.get();
-    mainStore.set('beforeRouteLeave', activeRoute);
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, activeRoute);
 
     /**
      * Set before Change props
      */
-    mainStore.set('beforeRouteChange', route);
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, route);
 
     /**
      * If another route change during loading current route
@@ -46,9 +54,12 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * skip fire after route change event
      */
     let skip = false;
-    const unWatchRouteChange = mainStore.watch('beforeRouteChange', () => {
-        skip = true;
-    });
+    const unWatchRouteChange = mainStore.watch(
+        MAIN_STORE_BEFORE_ROUTE_CHANGE,
+        () => {
+            skip = true;
+        }
+    );
 
     /**
      * Clean DOM
@@ -60,8 +71,8 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     /**
      * Set new active route.
      */
-    mainStore.set('activeRoute', route);
-    mainStore.set('activeParams', params);
+    mainStore.set(MAIN_STORE_ACTIVE_ROUTE, route);
+    mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
     const content = await getRouteList()?.[route]?.({ params });
 
     /**
@@ -96,7 +107,7 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     /**
      * SKit after route change if another route is called.
      */
-    if (!skip) mainStore.set('atfterRouteChange', route);
+    if (!skip) mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, route);
 
     /**
      * Animate pgae teansition.
@@ -128,5 +139,5 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      */
     unWatchRouteChange?.();
 
-    mainStore.set('routeIsLoading', false);
+    mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
 };

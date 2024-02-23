@@ -24,3 +24,11 @@ export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { staticProps } from './utils';
 export { tick } from './componentStore/tick';
+export {
+    MAIN_STORE_ACTIVE_PARAMS,
+    MAIN_STORE_ACTIVE_ROUTE,
+    MAIN_STORE_AFTER_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_ROUTE_CHANGE,
+    MAIN_STORE_BEFORE_ROUTE_LEAVES,
+    MAIN_STORE_ROUTE_IS_LOADING,
+} from './mainStore/constant';

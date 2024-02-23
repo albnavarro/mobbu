@@ -1,5 +1,10 @@
 // @ts-check
 
+import {
+    MAIN_STORE_INDEX_PAGE,
+    MAIN_STORE_PAGE_NOT_FOUND,
+    MAIN_STORE_ROUTE_LIST,
+} from '../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -15,7 +20,7 @@ export const setRouteList = (list) => {
         return { ...previous, [key]: value };
     }, {});
 
-    mainStore.set('routeList', listParsed);
+    mainStore.set(MAIN_STORE_ROUTE_LIST, listParsed);
 };
 
 /**
@@ -38,7 +43,7 @@ export const getRouteList = () => {
  * Set index route.
  */
 export const setIndex = ({ routeName = '' }) => {
-    mainStore.set('index', routeName);
+    mainStore.set(MAIN_STORE_INDEX_PAGE, routeName);
 };
 
 /**
@@ -61,7 +66,7 @@ export const getIndex = () => {
  * Set pageNotFound route.
  */
 export const setPageNotFound = ({ routeName = '' }) => {
-    mainStore.set('pageNotFound', routeName);
+    mainStore.set(MAIN_STORE_PAGE_NOT_FOUND, routeName);
 };
 
 /**

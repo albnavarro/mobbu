@@ -1,5 +1,5 @@
 import { mobCore } from '../../../mobCore';
-import { loadUrl, mainStore } from '../../../mobjs';
+import { loadUrl, mainStore, MAIN_STORE_ACTIVE_ROUTE } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
@@ -36,7 +36,7 @@ export const NavigationButton = ({
         /**
          * Is a link button.
          */
-        mainStore.watch('activeRoute', (current) => {
+        mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, (current) => {
             mobCore.useFrame(() => {
                 const urlParsed = url.split('?');
 

@@ -3,6 +3,7 @@
 import { defineRepeaterComponent } from '../../webComponent/repeater';
 import { defineSlotComponent } from '../../webComponent/slot';
 import { defineUserComponent } from '../../webComponent/userComponent';
+import { MAIN_STORE_COMPONENT_LIST } from '../constant';
 import { mainStore } from '../mainStore';
 
 /**
@@ -16,7 +17,7 @@ export const setComponentList = (list = {}) => {
         {}
     );
 
-    mainStore.set('componentList', componentList);
+    mainStore.set(MAIN_STORE_COMPONENT_LIST, componentList);
 
     /**
      * Register custom HTML tag component.

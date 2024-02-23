@@ -1,5 +1,5 @@
 import { mobCore } from '../../../mobCore';
-import { mainStore } from '../../../mobjs';
+import { mainStore, MAIN_STORE_BEFORE_ROUTE_CHANGE } from '../../../mobjs';
 
 export const anchorStore = mobCore.createStore({
     items: () => ({
@@ -27,6 +27,6 @@ anchorStore.computed('computedItems', ['items'], (val) => {
 /**
  * Clean anchor on route change.
  */
-mainStore.watch('beforeRouteChange', () => {
+mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
     anchorStore.set('items', []);
 });

@@ -1,5 +1,6 @@
 // @ts-check
 
+import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
 import { parseComponentsRecursive } from './parseComponentRecursive';
@@ -30,7 +31,7 @@ export const parseComponents = async ({ element, isCancellable = true }) => {
  * @returns {void}
  */
 export const initParseWatcher = () => {
-    mainStore.watch('repeaterParserRoot', async (element) => {
+    mainStore.watch(MAIN_STORE_REPEATER_PARSER_ROOT, async (element) => {
         await parseComponents({
             element,
         });

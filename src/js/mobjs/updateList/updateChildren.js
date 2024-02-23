@@ -1,6 +1,7 @@
 // @ts-check
 
 import { updateChildrenOrder } from '../componentStore/action/children';
+import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { addWithKey } from './addWithKey';
 import { addWithoutKey } from './addWithoutKey';
@@ -66,8 +67,8 @@ export const updateChildren = async ({
      * Parse current HTMLDom to create inner component.
      * Scan and await the end of possible noew component creation.
      */
-    mainStore.set('repeaterParserRoot', containerList, false);
-    await mainStore.emitAsync('repeaterParserRoot');
+    mainStore.set(MAIN_STORE_REPEATER_PARSER_ROOT, containerList, false);
+    await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
 
     updateChildrenOrder({
         id,
