@@ -1,6 +1,6 @@
 export const MAIN_STORE_CONTENT_ID = 'contentId';
 export const MAIN_STORE_ROOT_ELEMENT = 'rootElement';
-export const MAIN_STORE_INDEX_PAGE = 'index_page';
+export const MAIN_STORE_INDEX_PAGE = 'index';
 export const MAIN_STORE_PAGE_NOT_FOUND = 'pageNotFound';
 export const MAIN_STORE_COMPONENT_LIST = 'componentList';
 export const MAIN_STORE_ROUTE_LIST = 'routeList';
