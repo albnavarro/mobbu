@@ -187,8 +187,8 @@ export const parseComponentsRecursive = async ({
     /**
      * Get all repeat placeholder to check the parent div for each list.
      */
-    const placeholdreList = queryGenericRepeater(newElement);
-    const placeholderListObj = [...placeholdreList].map((placeholder) => {
+    const repeaterNodeList = queryGenericRepeater(newElement);
+    const repeatersParents = [...repeaterNodeList].map((placeholder) => {
         return {
             parent: /** @type {HTMLElement} */ (placeholder.parentNode),
             // @ts-ignore
@@ -203,7 +203,7 @@ export const parseComponentsRecursive = async ({
     const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
         return inizializeRepeat({
             repeatId,
-            placeholderListObj,
+            repeatersParents,
         });
     });
 
