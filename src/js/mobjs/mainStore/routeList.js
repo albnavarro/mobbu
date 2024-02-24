@@ -1,14 +1,22 @@
 // @ts-check
 
-import {
-    MAIN_STORE_INDEX_PAGE,
-    MAIN_STORE_PAGE_NOT_FOUND,
-    MAIN_STORE_ROUTE_LIST,
-} from './constant';
-import { mainStore } from './mainStore';
+/**
+ * @type {{[key:string]: () => Promise.<string>}}
+ */
+let routeList = {};
 
 /**
- * @param {{string:function():string}|{}} list
+ * @type {string}
+ */
+let indexPage = '';
+
+/**
+ * @type {string}
+ */
+let pageNotFound = '';
+
+/**
+ * @param {{[key:string]: () => Promise.<string>}} list
  * @returns void
  *
  * @description
@@ -20,19 +28,16 @@ export const setRouteList = (list) => {
         return { ...previous, [key]: value };
     }, {});
 
-    mainStore.set(MAIN_STORE_ROUTE_LIST, listParsed);
+    routeList = listParsed;
 };
 
 /**
- * @returns {{string:function():string}|{}} list
+ * @returns {{[key:string]: () => Promise.<string>}} list
  *
  * @description
  * Get route list to store.
  */
-export const getRouteList = () => {
-    const { routeList } = mainStore.get();
-    return routeList;
-};
+export const getRouteList = () => routeList;
 
 /**
  * @param {Object} obj
@@ -43,7 +48,7 @@ export const getRouteList = () => {
  * Set index route.
  */
 export const setIndex = ({ routeName = '' }) => {
-    mainStore.set(MAIN_STORE_INDEX_PAGE, routeName);
+    indexPage = routeName;
 };
 
 /**
@@ -52,10 +57,7 @@ export const setIndex = ({ routeName = '' }) => {
  * @description
  * Get index route.
  */
-export const getIndex = () => {
-    const { index } = mainStore.get();
-    return index;
-};
+export const getIndex = () => indexPage;
 
 /**
  * @param {Object} obj
@@ -66,7 +68,7 @@ export const getIndex = () => {
  * Set pageNotFound route.
  */
 export const setPageNotFound = ({ routeName = '' }) => {
-    mainStore.set(MAIN_STORE_PAGE_NOT_FOUND, routeName);
+    pageNotFound = routeName;
 };
 
 /**
@@ -75,7 +77,4 @@ export const setPageNotFound = ({ routeName = '' }) => {
  * @description
  * Get pageNotFound route.
  */
-export const getPageNotFound = () => {
-    const { pageNotFound } = mainStore.get();
-    return pageNotFound;
-};
+export const getPageNotFound = () => pageNotFound;

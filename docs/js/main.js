@@ -5794,24 +5794,9 @@
   var MAIN_STORE_AFTER_ROUTE_CHANGE = "atfterRouteChange";
   var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
   var MAIN_STORE_REPEATER_PARSER_ROOT = "repeaterParserRoot";
-  var MAIN_STORE_INDEX_PAGE = "index";
-  var MAIN_STORE_PAGE_NOT_FOUND = "pageNotFound";
-  var MAIN_STORE_ROUTE_LIST = "routeList";
 
   // src/js/mobjs/mainStore/mainStore.js
   var mainStore = mobCore.createStore({
-    [MAIN_STORE_INDEX_PAGE]: () => ({
-      value: "",
-      type: String
-    }),
-    [MAIN_STORE_PAGE_NOT_FOUND]: () => ({
-      value: "",
-      type: String
-    }),
-    [MAIN_STORE_ROUTE_LIST]: () => ({
-      value: {},
-      type: "any"
-    }),
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({
       value: "",
       type: String,
@@ -7060,23 +7045,25 @@
   };
 
   // src/js/mobjs/mainStore/routeList.js
+  var routeList = {};
+  var indexPage = "";
+  var pageNotFound = "";
   var setRouteList = (list) => {
     const listParsed = Object.entries(list).reduce((previous, current) => {
       const [key, value] = current;
       return { ...previous, [key]: value };
     }, {});
-    mainStore.set(MAIN_STORE_ROUTE_LIST, listParsed);
+    routeList = listParsed;
   };
-  var getRouteList = () => {
-    const { routeList } = mainStore.get();
-    return routeList;
-  };
+  var getRouteList = () => routeList;
   var setIndex = ({ routeName = "" }) => {
-    mainStore.set(MAIN_STORE_INDEX_PAGE, routeName);
+    indexPage = routeName;
   };
+  var getIndex = () => indexPage;
   var setPageNotFound = ({ routeName = "" }) => {
-    mainStore.set(MAIN_STORE_PAGE_NOT_FOUND, routeName);
+    pageNotFound = routeName;
   };
+  var getPageNotFound = () => pageNotFound;
 
   // src/js/mobjs/mainStore/contendId.js
   var domContentID = "";
@@ -7157,10 +7144,11 @@
 
   // src/js/mobjs/route/utils.js
   var getRouteModule = ({ url = "" }) => {
-    const { index, pageNotFound: pageNotFound2 } = mainStore.get();
+    const index = getIndex();
+    const pageNotFound3 = getPageNotFound();
     if (url === "")
       return index;
-    return url in getRouteList() ? url : pageNotFound2;
+    return url in getRouteList() ? url : pageNotFound3;
   };
 
   // src/js/mobjs/route/router.js
@@ -7250,7 +7238,7 @@
     afterInit = () => {
     },
     index = "home",
-    pageNotFound: pageNotFound2 = "pageNotFound",
+    pageNotFound: pageNotFound3 = "pageNotFound",
     beforePageTransition: beforePageTransition3,
     pageTransition: pageTransition3
   }) => {
@@ -7269,7 +7257,7 @@
     setComponentList(components);
     setRouteList(pages);
     setIndex({ routeName: index });
-    setPageNotFound({ routeName: pageNotFound2 });
+    setPageNotFound({ routeName: pageNotFound3 });
     rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
     await parseComponents({ element: rootEl, isCancellable: false });
     mobCore.useFrameIndex(() => {
@@ -28546,7 +28534,7 @@ Loading snippet ...</pre
     mobMotion_sync_timeline: () => mobMotion_sync_timeline,
     mobMotion_tween_spring_lerp: () => mobMotion_tween_spring_lerp,
     mv1: () => mv1,
-    pageNotFound: () => pageNotFound,
+    pageNotFound: () => pageNotFound2,
     plugin_overview: () => plugin_overview,
     scrollerN0: () => scrollerN0,
     scrollerN1: () => scrollerN1,
@@ -28554,7 +28542,7 @@ Loading snippet ...</pre
   });
 
   // src/js/pages/404/index.js
-  var pageNotFound = () => {
+  var pageNotFound2 = () => {
     return renderHtml`
         <div class="page-not-found">
             <mob-title ${staticProps({ tag: "h3", color: "green" })}>

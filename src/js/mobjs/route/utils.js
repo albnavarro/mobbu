@@ -1,7 +1,10 @@
 // @ts-check
 
-import { getRouteList } from '../mainStore/routeList';
-import { mainStore } from '../mainStore/mainStore';
+import {
+    getIndex,
+    getPageNotFound,
+    getRouteList,
+} from '../mainStore/routeList';
 
 /**
  * @param {Object} obj
@@ -12,7 +15,8 @@ import { mainStore } from '../mainStore/mainStore';
  * Validate url, in not exist return pageNotFound.
  */
 export const getRouteModule = ({ url = '' }) => {
-    const { index, pageNotFound } = mainStore.get();
+    const index = getIndex();
+    const pageNotFound = getPageNotFound();
 
     if (url === '') return index;
     return url in getRouteList() ? url : pageNotFound;
