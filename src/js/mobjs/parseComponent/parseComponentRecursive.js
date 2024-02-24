@@ -199,7 +199,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Execute repeat List function
      */
-    const repeatIdArray = componentData?.repeatId;
+    const repeatIdArray = componentData?.repeatIdArray;
     const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
         return inizializeRepeat({
             repeatId,

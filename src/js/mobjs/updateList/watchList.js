@@ -21,13 +21,7 @@ import { updateChildren } from './updateChildren';
 import { getChildrenInsideElement } from './utils';
 
 /**
- * @typedef {Object} watchListType
- * @property { HTMLElement } containerList
- * @property { String } repeatId
- */
-
-/**
- * @param {import('../temporaryData/repeater/type').repeaterType & watchListType} param
+ * @param {import('../temporaryData/repeater/type').watchListType} param
  * @return {() => void}
  */
 export const watchList = ({

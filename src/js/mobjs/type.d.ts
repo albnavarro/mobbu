@@ -670,8 +670,9 @@ export interface componentType {
     /**
      * @description
      * Internal use.
+     * List if repeater id inside a single component
      */
-    repeatId: string[];
+    repeatIdArray: string[];
 }
 
 export interface createComponentType {

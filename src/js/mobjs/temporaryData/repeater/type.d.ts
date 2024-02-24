@@ -34,3 +34,8 @@ export interface repeaterType {
     emit: (arg0: string) => void;
     render: (arg0: { sync: Object; html: (arg0: String) => String }) => String;
 }
+
+export interface watchListType extends repeaterType {
+    containerList: HTMLElement;
+    repeatId: string;
+}

@@ -12,7 +12,7 @@ export const repeatMap = new Map();
  *
  * @description
  * Add new repeater id and props.
- * Tehe repeater will execute after component render.
+ * The repeater will execute after component render.
  */
 export const addRepeat = ({ repeatId, obj }) => {
     repeatMap.set(repeatId, obj);

@@ -104,7 +104,7 @@ export const registerComponent = ({
      */
     addSelfToParentComponent({ id });
 
-    const repeatId = [];
+    const repeatIdArray = [];
     const getChildren = (/** @type {String} */ component) =>
         getChildrenIdByName({ id, component });
 
@@ -140,7 +140,7 @@ export const registerComponent = ({
         emitAsync,
         computed,
         watch,
-        repeatId,
+        repeatIdArray,
         getChildren,
         watchSync: (state, callback) => {
             const unsubscribe = watch(state, callback);
@@ -197,7 +197,7 @@ export const registerComponent = ({
             render,
         }) => {
             const currentRepeatId = mobCore.getUnivoqueId();
-            repeatId.push(currentRepeatId);
+            repeatIdArray.push(currentRepeatId);
 
             addRepeat({
                 repeatId: currentRepeatId,
