@@ -1,10 +1,13 @@
 // @ts-check
 
-import { defineRepeaterComponent } from '../../webComponent/repeater';
-import { defineSlotComponent } from '../../webComponent/slot';
-import { defineUserComponent } from '../../webComponent/userComponent';
-import { MAIN_STORE_COMPONENT_LIST } from '../constant';
-import { mainStore } from '../mainStore';
+import { defineRepeaterComponent } from '../webComponent/repeater';
+import { defineSlotComponent } from '../webComponent/slot';
+import { defineUserComponent } from '../webComponent/userComponent';
+
+/**
+ * @type {{[key:string]:{componentFunction:function,componentParams:Object}}}
+ */
+let componentListMap = {};
 
 /**
  * @description
@@ -17,7 +20,7 @@ export const setComponentList = (list = {}) => {
         {}
     );
 
-    mainStore.set(MAIN_STORE_COMPONENT_LIST, componentList);
+    componentListMap = componentList;
 
     /**
      * Register custom HTML tag component.
@@ -35,6 +38,5 @@ export const setComponentList = (list = {}) => {
  * @returns {Object} Object with all component definition.
  */
 export const getComponentList = () => {
-    const { componentList } = mainStore.get();
-    return componentList;
+    return componentListMap;
 };

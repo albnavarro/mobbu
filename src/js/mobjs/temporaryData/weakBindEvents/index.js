@@ -8,7 +8,7 @@ import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
-import { getRoot } from '../../mainStore/actions/root';
+import { getRoot } from '../../mainStore/root';
 
 /**
  * @type {Map<String,Array<Object<string,Function>>>}

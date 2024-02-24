@@ -2,12 +2,7 @@ import {
     removeCancellableComponent,
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
-import {
-    getBeforePageTransition,
-    getContentId,
-    getPageTransition,
-} from '../mainStore/actions/root';
-import { getRouteList } from '../mainStore/actions/routeList';
+import { getRouteList } from '../mainStore/routeList';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -16,7 +11,12 @@ import {
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from '../mainStore/constant';
+import { getContentId } from '../mainStore/contendId';
 import { mainStore } from '../mainStore/mainStore';
+import {
+    getBeforePageTransition,
+    getPageTransition,
+} from '../mainStore/pageTransition';
 import { parseComponents } from '../parseComponent/componentParse';
 
 /**

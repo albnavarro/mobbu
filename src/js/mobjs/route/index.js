@@ -1,25 +1,25 @@
-// @ts-check
+// @ o-check
 
 import { mobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';
-import { setComponentList } from '../mainStore/actions/componentList';
-import {
-    setBeforePageTransition,
-    setContentId,
-    setPageTransition,
-    setRoot,
-} from '../mainStore/actions/root';
+import { setComponentList } from '../mainStore/componentList';
 import {
     setIndex,
     setPageNotFound,
     setRouteList,
-} from '../mainStore/actions/routeList';
+} from '../mainStore/routeList';
 import {
     initParseWatcher,
     parseComponents,
 } from '../parseComponent/componentParse';
 import { router } from './router';
 import { debugRoute } from './test';
+import { setContentId } from '../mainStore/contendId';
+import { setRoot } from '../mainStore/root';
+import {
+    setBeforePageTransition,
+    setPageTransition,
+} from '../mainStore/pageTransition';
 
 /**
  * @type {( arg0: import('../type').inizializeApp) => Promise<void>}

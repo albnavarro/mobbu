@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getRouteList } from '../mainStore/actions/routeList';
+import { getRouteList } from '../mainStore/routeList';
 import { mainStore } from '../mainStore/mainStore';
 
 /**

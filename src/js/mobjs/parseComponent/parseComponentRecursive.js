@@ -3,7 +3,7 @@
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { UNSET } from '../constant';
-import { getComponentList } from '../mainStore/actions/componentList';
+import { getComponentList } from '../mainStore/componentList';
 // import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';

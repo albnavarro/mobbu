@@ -4,8 +4,8 @@ import {
     MAIN_STORE_INDEX_PAGE,
     MAIN_STORE_PAGE_NOT_FOUND,
     MAIN_STORE_ROUTE_LIST,
-} from '../constant';
-import { mainStore } from '../mainStore';
+} from './constant';
+import { mainStore } from './mainStore';
 
 /**
  * @param {{string:function():string}|{}} list

@@ -1,10 +1,10 @@
 // @ts-check
 
-import { mainStore } from '../../mainStore/mainStore';
+import { getComponentList } from '../componentList';
 
 /**
- * @param {Object} obj
- * @param {String} obj.componentName
+ * @param {object} obj
+ * @param {string} obj.componentName
  * @param {{string:any}|{}} obj.currentProps
  * @returns {{string:any}|{}}
  */
@@ -12,10 +12,10 @@ export const filterExportableStateFromObject = ({
     componentName,
     currentProps = {},
 }) => {
-    const { componentList } = mainStore.get();
+    const componentList = getComponentList();
 
     /**
-     * @type {Array<String>}
+     * @type {string[]}
      */
     const exportableState =
         componentList?.[componentName]?.componentParams?.exportState ?? [];
@@ -31,13 +31,13 @@ export const filterExportableStateFromObject = ({
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.componentName
- * @param {String} obj.propName
- * @returns {Boolean}
+ * @param {object} obj
+ * @param {string} obj.componentName
+ * @param {string} obj.propName
+ * @returns {boolean}
  */
 export const checkIfStateIsExportable = ({ componentName, propName }) => {
-    const { componentList } = mainStore.get();
+    const componentList = getComponentList();
 
     const exportableState =
         componentList?.[componentName]?.componentParams?.exportState ?? [];

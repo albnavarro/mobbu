@@ -1,7 +1,7 @@
 // @ts-check
 
 import { ATTR_PROPS } from './constant';
-import { getComponentList } from './mainStore/actions/componentList';
+import { getComponentList } from './mainStore/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
 
 /**
