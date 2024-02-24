@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { getComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 
@@ -66,8 +66,10 @@ export const getComponentData = ({ component }) => {
      * @type {String|undefined}
      */
     // @ts-ignore
-    const currentListValue = component.getCurrentListValueId();
-    const currentListValueReal = getCurrentValueList(currentListValue);
+    const currentRepeaterValueId = component.getRepeatValueById();
+    const currentRepeatValue = getComponentRepeaterState(
+        currentRepeaterValueId
+    );
 
     /**
      * @type {String}
@@ -136,7 +138,7 @@ export const getComponentData = ({ component }) => {
         dynamicPropsId,
         dynamicPropsIdFromSlot,
         bindEventsId,
-        currentListValueReal,
+        currentRepeatValue,
         parentId,
     };
 };

@@ -2,7 +2,7 @@
 
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
-import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
+import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { getIdByElement } from '../../componentStore/action/element';
 import {
     ATTR_WEAK_BIND_EVENTS,
@@ -112,7 +112,7 @@ function handleAction(eventKey, event) {
     // @ts-ignore
     const componentId = getIdByElement({ element: targetParsed });
     const currentRepeaterState = componentId
-        ? getCurrentListValueById({
+        ? getRepeaterStateById({
               id: componentId,
           })
         : DEFAULT_CURRENT_REPEATER_STATE;

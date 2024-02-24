@@ -9,5 +9,5 @@ export interface componentDataType {
     dynamicPropsIdFromSlot: string | undefined;
     bindEventsId: string | undefined;
     parentId: string | undefined;
-    currentListValueReal: any;
+    currentRepeatValue: any;
 }

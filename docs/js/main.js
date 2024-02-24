@@ -4492,8 +4492,8 @@
   // src/js/mobjs/componentStore/store.js
   var componentMap = /* @__PURE__ */ new Map();
 
-  // src/js/mobjs/componentStore/action/currentListValue.js
-  var setCurrentListValueById = ({ id: id2 = "", value }) => {
+  // src/js/mobjs/componentStore/action/currentRepeatValue.js
+  var setRepeaterStateById = ({ id: id2 = "", value }) => {
     if (!id2 || id2 === "")
       return;
     const item = componentMap.get(id2);
@@ -4505,7 +4505,7 @@
       isRepeater: true
     });
   };
-  var getCurrentListValueById = ({ id: id2 = "" }) => {
+  var getRepeaterStateById = ({ id: id2 = "" }) => {
     if (!id2 || id2 === "")
       return false;
     const item = componentMap.get(id2);
@@ -4735,7 +4735,7 @@
       return;
     const { callback: callback2 } = currentEvent;
     const componentId = getIdByElement({ element: targetParsed });
-    const currentRepeaterState = componentId ? getCurrentListValueById({
+    const currentRepeaterState = componentId ? getRepeaterStateById({
       id: componentId
     }) : DEFAULT_CURRENT_REPEATER_STATE;
     Object.defineProperty(event, "target", { value: targetParsed });
@@ -4868,7 +4868,7 @@
       if (!eventName || !callback2)
         return;
       element.addEventListener(eventName, (e) => {
-        const currentRepeaterState = getCurrentListValueById({
+        const currentRepeaterState = getRepeaterStateById({
           id: componentId
         });
         callback2(e, currentRepeaterState);
@@ -5202,7 +5202,9 @@
     const componentExist = componentMap.has(componentId);
     if (!componentExist)
       return;
-    const currentRepeaterState = getCurrentListValueById({ id: componentId });
+    const currentRepeaterState = getRepeaterStateById({
+      id: componentId
+    });
     const newProps = props?.({
       ...values,
       _current: currentRepeaterState.current,
@@ -5782,7 +5784,7 @@
           /**
            * @type {String}
            */
-          #currentListValueId;
+          #currentRepeatValueId;
           /**
            * @type {String}
            */
@@ -5847,7 +5849,7 @@
             this.#bindEventsId = "";
             this.#dynamicPropsFromSlotId = "";
             this.#propsFromSlotId = "";
-            this.#currentListValueId = "";
+            this.#currentRepeatValueId = "";
             this.#slotPosition = "";
             this.#currentKey = "";
             this.#parentId = "";
@@ -5859,7 +5861,7 @@
             this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
             this.#currentKey = host.getAttribute(ATTR_KEY);
             this.#bindEventsId = host.getAttribute(ATTR_BIND_EVENTS);
-            this.#currentListValueId = host.getAttribute(
+            this.#currentRepeatValueId = host.getAttribute(
               ATTR_CURRENT_LIST_VALUE
             );
             this.#slotPosition = host.getAttribute(ATTR_SLOT);
@@ -5946,8 +5948,8 @@
           getPropsFromSlotId() {
             return this.#propsFromSlotId;
           }
-          getCurrentListValueId() {
-            return this.#currentListValueId;
+          getRepeatValueById() {
+            return this.#currentRepeatValueId;
           }
           getSlotPosition() {
             return this.#slotPosition;
@@ -6294,15 +6296,15 @@
   };
 
   // src/js/mobjs/temporaryData/currentRepeaterItemValue/index.js
-  var currentListValueMap = /* @__PURE__ */ new Map();
-  var setCurrentValueList = (current) => {
+  var currentRepeaterValueMap = /* @__PURE__ */ new Map();
+  var setComponentRepeaterState = (current) => {
     const id2 = mobCore.getUnivoqueId();
-    currentListValueMap.set(id2, current);
+    currentRepeaterValueMap.set(id2, current);
     return id2;
   };
-  var getCurrentValueList = (id2 = "") => {
-    const value = currentListValueMap.get(id2);
-    currentListValueMap.delete(id2);
+  var getComponentRepeaterState = (id2 = "") => {
+    const value = currentRepeaterValueMap.get(id2);
+    currentRepeaterValueMap.delete(id2);
     return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
@@ -6321,7 +6323,7 @@
     const sync = (
       /* HTML */
       ` ${ATTR_KEY}="${key}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
         current: currentValue,
         index
       })}"
@@ -6455,7 +6457,7 @@
         const currentIndex = index + previousLenght;
         const sync = (
           /* HTML */
-          `${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+          `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
             {
               current: currentValue,
               index: currentIndex
@@ -6636,7 +6638,7 @@
           const current2 = currentUnivoque?.[index];
           if (!current2)
             return;
-          setCurrentListValueById({ id: id3, value: { current: current2, index } });
+          setRepeaterStateById({ id: id3, value: { current: current2, index } });
         });
         mobCore.useNextLoop(async () => {
           if (mainComponent) {
@@ -6749,8 +6751,10 @@
     const bindEventsId = component.getBindEventsId();
     const dynamicPropsIdFromSlot = component.getDynamicPropsFromSlotId();
     const propsSlot = component.getPropsFromSlotId();
-    const currentListValue = component.getCurrentListValueId();
-    const currentListValueReal = getCurrentValueList(currentListValue);
+    const currentRepeaterValueId = component.getRepeatValueById();
+    const currentRepeatValue = getComponentRepeaterState(
+      currentRepeaterValueId
+    );
     const key = component.getCurrentKey() ?? "";
     const componentName = component.getComponentName();
     const cleanProsId = propsId?.split(" ").join("");
@@ -6781,7 +6785,7 @@
       dynamicPropsId,
       dynamicPropsIdFromSlot,
       bindEventsId,
-      currentListValueReal,
+      currentRepeatValue,
       parentId
     };
   };
@@ -6801,7 +6805,7 @@
       key,
       dynamicPropsId,
       dynamicPropsIdFromSlot,
-      currentListValueReal,
+      currentRepeatValue,
       bindEventsId,
       parentId
     } = getComponentData({
@@ -6825,8 +6829,8 @@
     addSelfToParentComponent({ id: id2 });
     const repeatIdArray = [];
     const getChildren = (component2) => getChildrenIdByName({ id: id2, component: component2 });
-    if (currentListValueReal?.index !== -1)
-      setCurrentListValueById({ id: id2, value: currentListValueReal });
+    if (currentRepeatValue?.index !== -1)
+      setRepeaterStateById({ id: id2, value: currentRepeatValue });
     addCurrentIdToDynamicProps({
       propsId: dynamicPropsId,
       componentId: id2
@@ -17082,7 +17086,7 @@
         console.log(mainStore);
         console.log(componentMap);
         console.log("bindEventMap", bindEventMap);
-        console.log("currentListValueMap", currentListValueMap);
+        console.log("currentListValueMap", currentRepeaterValueMap);
         console.log("activeRepeatMap", activeRepeatMap);
         console.log("repeatMap", repeatMap);
         console.log("onMountCallbackMap", onMountCallbackMap);

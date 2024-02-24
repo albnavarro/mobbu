@@ -12,7 +12,7 @@ import { componentMap } from '../store.js';
  * @description
  * Update element root from generic to real after conversion.
  */
-export const setCurrentListValueById = ({ id = '', value }) => {
+export const setRepeaterStateById = ({ id = '', value }) => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
@@ -34,7 +34,7 @@ export const setCurrentListValueById = ({ id = '', value }) => {
  * @description
  * Update element root from generic to real after conversion.
  */
-export const getCurrentListValueById = ({ id = '' }) => {
+export const getRepeaterStateById = ({ id = '' }) => {
     if (!id || id === '') return false;
 
     const item = componentMap.get(id);

@@ -5,7 +5,7 @@ import {
     tempDelegateEventMap,
 } from '../../../mobjs';
 import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
-import { currentListValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
+import { currentRepeaterValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
 import { dynamicPropsMap } from '../../../mobjs/temporaryData/dynamicProps';
 import { onMountCallbackMap } from '../../../mobjs/temporaryData/onMount';
 import { repeatMap } from '../../../mobjs/temporaryData/repeater/add';
@@ -27,7 +27,7 @@ export const DebugButton = ({ html, delegateEvents }) => {
                     console.log(mainStore);
                     console.log(componentMap);
                     console.log('bindEventMap', bindEventMap);
-                    console.log('currentListValueMap', currentListValueMap);
+                    console.log('currentListValueMap', currentRepeaterValueMap);
                     console.log('activeRepeatMap', activeRepeatMap);
                     console.log('repeatMap', repeatMap);
                     console.log('onMountCallbackMap', onMountCallbackMap);

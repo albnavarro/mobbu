@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { setCurrentListValueById } from '../componentStore/action/currentListValue';
+import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
 import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
@@ -202,7 +202,7 @@ export const watchList = ({
                  * Store current value in store
                  * to use in dynamicrops
                  */
-                setCurrentListValueById({ id, value: { current, index } });
+                setRepeaterStateById({ id, value: { current, index } });
             });
 
             /**

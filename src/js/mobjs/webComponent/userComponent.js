@@ -141,7 +141,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {String}
                  */
-                #currentListValueId;
+                #currentRepeatValueId;
 
                 /**
                  * @type {String}
@@ -201,7 +201,7 @@ export const defineUserComponent = (componentList) => {
                     this.#bindEventsId = '';
                     this.#dynamicPropsFromSlotId = '';
                     this.#propsFromSlotId = '';
-                    this.#currentListValueId = '';
+                    this.#currentRepeatValueId = '';
                     this.#slotPosition = '';
                     this.#currentKey = '';
                     this.#parentId = '';
@@ -216,7 +216,7 @@ export const defineUserComponent = (componentList) => {
                     this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
                     this.#currentKey = host.getAttribute(ATTR_KEY);
                     this.#bindEventsId = host.getAttribute(ATTR_BIND_EVENTS);
-                    this.#currentListValueId = host.getAttribute(
+                    this.#currentRepeatValueId = host.getAttribute(
                         ATTR_CURRENT_LIST_VALUE
                     );
                     this.#slotPosition = host.getAttribute(ATTR_SLOT);
@@ -341,8 +341,8 @@ export const defineUserComponent = (componentList) => {
                     return this.#propsFromSlotId;
                 }
 
-                getCurrentListValueId() {
-                    return this.#currentListValueId;
+                getRepeatValueById() {
+                    return this.#currentRepeatValueId;
                 }
 
                 getSlotPosition() {

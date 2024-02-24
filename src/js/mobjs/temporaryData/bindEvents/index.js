@@ -2,7 +2,7 @@
 
 import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/storeType';
-import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
+import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 
 /**
  * @type {Map<String,Array<Object<string,Function>>>}
@@ -56,7 +56,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
             /**
              * Add current repeate list for dynamic list.
              */
-            const currentRepeaterState = getCurrentListValueById({
+            const currentRepeaterState = getRepeaterStateById({
                 id: componentId,
             });
 

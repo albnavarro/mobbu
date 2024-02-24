@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
-import { getCurrentListValueById } from '../../componentStore/action/currentListValue';
+import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
@@ -111,7 +111,9 @@ const setDynamicProp = ({
      *
      */
 
-    const currentRepeaterState = getCurrentListValueById({ id: componentId });
+    const currentRepeaterState = getRepeaterStateById({
+        id: componentId,
+    });
     const newProps = props?.({
         ...values,
         _current: currentRepeaterState.current,

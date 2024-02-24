@@ -8,7 +8,7 @@ import {
 } from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
-import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
 
 /**
@@ -63,7 +63,7 @@ export const addWithoutKey = ({
             const currentValue = current?.[index + previousLenght];
             const currentIndex = index + previousLenght;
 
-            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList(
+            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
                 {
                     current: currentValue,
                     index: currentIndex,

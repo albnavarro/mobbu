@@ -19,7 +19,7 @@ import {
 } from '../componentStore/action/element';
 import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { setCurrentValueList } from '../temporaryData/currentRepeaterItemValue';
+import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
 
 const BEFORE = 'beforebegin';
@@ -55,7 +55,7 @@ function getPartialsComponentList({
     const currentValue = currentUnique?.[index];
 
     const sync = /* HTML */ ` ${ATTR_KEY}="${key}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setCurrentValueList({
+    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
         current: currentValue,
         index,
     })}"

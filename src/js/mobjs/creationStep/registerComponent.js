@@ -2,7 +2,7 @@
 
 import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
-import { setCurrentListValueById } from '../componentStore/action/currentListValue';
+import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
 import {
     freezePropById,
     unFreezePropById,
@@ -69,7 +69,7 @@ export const registerComponent = ({
         key,
         dynamicPropsId,
         dynamicPropsIdFromSlot,
-        currentListValueReal,
+        currentRepeatValue,
         bindEventsId,
         parentId,
     } = getComponentData({
@@ -112,8 +112,8 @@ export const registerComponent = ({
      * Set initial repate list current value to pass to dynamicProps.
      * When component is created.
      */
-    if (currentListValueReal?.index !== -1)
-        setCurrentListValueById({ id, value: currentListValueReal });
+    if (currentRepeatValue?.index !== -1)
+        setRepeaterStateById({ id, value: currentRepeatValue });
 
     /**
      * Initialize dynamic props and
