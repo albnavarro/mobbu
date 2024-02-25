@@ -2,7 +2,9 @@
 
 <br/>
 
-## src/js/mobjs/creationStep/registerComponent.js
+## 1- STEP1
+### LOGICA NELL FASE DI CREAZIONE DEL COMPONENTE:
+<br/>
 
 - **repeatIdArray**: Raccoglie tutti gli id univoci legati ai singoli repeater.
 - **repeatId**: Singolo id che verra usato come attributo per il custom html-elment
@@ -53,7 +55,9 @@ export const addRepeat = ({ repeatId, obj }) => {
 
 <br/><br/><br/>
 
-## FASE DI RENDERING DEL COMPONENTE.
+## 2- STEP2:
+### LOGICA NELLA FASE DI RENDERING DEL COMPONENTE.
+<br/>
 
 1. Recupero dei custom-htmlelment  `<mobjs-repeater/>` all'interno del componente dove verrá recuperato l' `id` e il div `parent` di ogni repeater.
 
@@ -96,3 +100,64 @@ for (const item of functionToFireAtTheEnd.reverse()) {
     fireFirstRepeat();
 }
 ```
+
+## 3- STEP3:
+### LOGICA DI INIZIALIZZAZONE/AGGIORNAMENTO DEI COMPONENTI FIGLI.
+<br/>
+
+1. Creazione da un nuovo componente:<br/>
+La constante `sync` resituita dalla funzione `render` del repeater contiene i riferimenti ( attributi ) a:
+
+```
+key="start"
+currentlistvalue="_6rofyuf"
+repeaterchild="_c9lznhd"
+parentid="_hegws76"
+```
+
+- `key`: chiave univoca dell'array osservato.
+    <br/>
+    <br/>
+- `currentlistvalue`: current & index per l'elemento corrente relativi allo stato/array osservato dal repeater.
+    - tramite la funzione `setComponentRepeaterState()` viene aggiunto ad una specifica mappa.
+    - Viene poi recuperato dirante l'esecuzione di `getComponentData()` (`getComponentData.js`) durate la fase di creazione del componente.
+    ```
+    const currentRepeaterValueId = component.getRepeatValue();
+    const currentRepeatValue = getComponentRepeaterState(
+        currentRepeaterValueId
+    );
+    ```
+    - In `registerComponent` viene poi aggiunto all propietá (`currentRepeaterState`) dello store del componente tramite la funzione `setRepeaterStateById()`
+    - Ora il dato potra essere preso direttamante dallo store componenti e usato dalla funzione `bindProps({})`, che ritornerá i due valori insieme ai valori di stato specifici.
+    <br/>
+    <br/>
+- `repeaterchild`: Viene usato per abbianare il tag del componente ( es: my-component ) al repeater.
+    - Viene letto dal web-component nella fase di inizializzazione.
+    - Viene aggiunto a una mappa tramite la funzione `addRepeatTargetComponent`.<br/>
+    ```
+    addRepeatTargetComponent({
+        repeatId: this.#isChildOfRepeatId,
+        targetComponent: this.#componentname,
+
+        // Usato nella fase di destroy. Si rimuove dalla mappa quando viene distrutto. ?
+        repeaterParentId: this.#parentId,
+    });
+    ```
+    - `repeatId & targetComponent ( tag )` vengono usati nella funzione `watchList` per sapere quale é il tipo di componente usato nel repeater (`getRepeaterComponentTarget`).<br/>
+    Questo permette di filtrare i componenti `child` di `containerList` con un determinato `tag`
+    - `repeaterParentId`: Usato nella fase di destroy del componente che ospita il repeater. da questo dato il parente eliminrá i riferimenti nella mappa `repeaterTargetComponentMap` dei repeater che ospita al suo interno.
+    - La mappa come chiave ha l'id del repeater.
+    <br/>
+    <br/>
+- `parentid`: parent id ( il componente in cui il repeater viene usato ).<br/> Utilizzato per tutte le operazioni di ruotine nella creazione dei componenti.
+<br/>
+<br/>
+
+#### UDPATE _CURRENT/_INDEX
+Ora che sappiamo il `tag` dei componenti presenti nel repeater e il suo `Element` parente  dalla funzione  `watch` ( `watchList.js` ) possiamo:
+- filtrarli con la funzione `getChildrenInsideElement()`
+- Aggiornare le propietá presenti in `currentRepeaterState` (`current/index`) nello store generale ( come fatto precedentemente ) e rendere i dati aggiornati per quando saranno usato dalla funzione `bindProps()`
+- Questa operazione viene effettuata dopo l'aggiornamento del repeater per fare un update dei componenti persistenti:
+  - Repeater con chiave: componenti persistenti.
+  - Repeater senza chiave: componenti che hanno cambiato posizione.
+

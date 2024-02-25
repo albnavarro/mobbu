@@ -66,7 +66,7 @@ export const getComponentData = ({ component }) => {
      * @type {String|undefined}
      */
     // @ts-ignore
-    const currentRepeaterValueId = component.getRepeatValueById();
+    const currentRepeaterValueId = component.getRepeatValue();
     const currentRepeatValue = getComponentRepeaterState(
         currentRepeaterValueId
     );

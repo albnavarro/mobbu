@@ -341,7 +341,7 @@ export const defineUserComponent = (componentList) => {
                     return this.#propsFromSlotId;
                 }
 
-                getRepeatValueById() {
+                getRepeatValue() {
                     return this.#currentRepeatValueId;
                 }
 
