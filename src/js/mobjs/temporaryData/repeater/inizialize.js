@@ -1,6 +1,6 @@
 // @ts-check
 
-import { watchList } from '../../updateList/watchList';
+import { watchList } from '../../repeater/watchList';
 import { repeatMap } from './add';
 
 /**
