@@ -35,14 +35,14 @@ export const watchList = ({
     getChildren = () => {},
     key = '',
     id = '',
-    containerList,
+    repeaterParentElement,
     repeatId = '',
     render,
 }) => {
     /**
      * Remove repeater placeholder
      */
-    const repeaterEl = querySecificRepeater(containerList, repeatId);
+    const repeaterEl = querySecificRepeater(repeaterParentElement, repeatId);
     repeaterEl?.remove();
     // @ts-ignore
     repeaterEl?.removeCustomComponent();
@@ -90,7 +90,7 @@ export const watchList = ({
             const repeatIsRunning = getActiveRepeater({
                 id,
                 state,
-                container: containerList,
+                container: repeaterParentElement,
             });
 
             if (repeatIsRunning) {
@@ -119,7 +119,7 @@ export const watchList = ({
                 const currentChildern = getChildrenInsideElement({
                     component: targetComponentBeforeParse,
                     getChildren,
-                    element: containerList,
+                    element: repeaterParentElement,
                 });
 
                 currentChildern.forEach((id) => {
@@ -130,13 +130,13 @@ export const watchList = ({
                  * Web component trick.
                  * Sure to delete host element.
                  */
-                containerList.textContent = '';
+                repeaterParentElement.textContent = '';
             }
 
             /**
              * Set current active repeater in mainStore.
              */
-            addActiveRepeat({ id, state, container: containerList });
+            addActiveRepeat({ id, state, container: repeaterParentElement });
 
             /**
              * Execute beforeUpdate function
@@ -144,11 +144,11 @@ export const watchList = ({
             if (mainComponent) {
                 beforeUpdate({
                     element: mainComponent,
-                    container: containerList,
+                    container: repeaterParentElement,
                     childrenId: getChildrenInsideElement({
                         component: targetComponentBeforeParse,
                         getChildren,
-                        element: containerList,
+                        element: repeaterParentElement,
                     }),
                 });
             }
@@ -158,7 +158,7 @@ export const watchList = ({
              */
             const currentUnivoque = await updateChildren({
                 state,
-                containerList,
+                repeaterParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
@@ -179,12 +179,12 @@ export const watchList = ({
             });
 
             /**
-             * Filter children inside containerList
+             * Filter children inside repeaterParentElement
              */
             const childrenFiltered = getChildrenInsideElement({
                 component: targetComponentAfterParse,
                 getChildren,
-                element: containerList,
+                element: repeaterParentElement,
             });
 
             /**
@@ -215,7 +215,7 @@ export const watchList = ({
                 if (mainComponent) {
                     afterUpdate({
                         element: mainComponent,
-                        container: containerList,
+                        container: repeaterParentElement,
                         childrenId: childrenFiltered,
                     });
                 }
@@ -229,7 +229,7 @@ export const watchList = ({
                 removeActiveRepeat({
                     id,
                     state,
-                    container: containerList,
+                    container: repeaterParentElement,
                 });
 
                 unFreezePropById({ id, prop: state });

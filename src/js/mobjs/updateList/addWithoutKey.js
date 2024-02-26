@@ -15,7 +15,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {Object} obj
  * @param {Array} obj.current
  * @param {Array} obj.previous
- * @param {HTMLElement} obj.containerList
+ * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {function} obj.render
@@ -30,7 +30,7 @@ import { renderHtml } from '../creationStep/utils';
 export const addWithoutKey = ({
     current = [],
     previous = [],
-    containerList = document.createElement('div'),
+    repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     getChildren = () => {},
     render,
@@ -86,7 +86,7 @@ export const addWithoutKey = ({
          * So add simple, mix to simplest solution and efficence.
          */
         elementToAdd.forEach((element) => {
-            containerList.insertAdjacentHTML('beforeend', element);
+            repeaterParentElement.insertAdjacentHTML('beforeend', element);
         });
     }
 
@@ -96,12 +96,12 @@ export const addWithoutKey = ({
 
     if (diff < 0) {
         /**
-         * Filter children inside containerList
+         * Filter children inside repeaterParentElement
          */
         const childrenFilteredToRemove = getChildrenInsideElement({
             component: targetComponent,
             getChildren,
-            element: containerList,
+            element: repeaterParentElement,
         });
 
         /**
@@ -127,7 +127,7 @@ export const addWithoutKey = ({
          * Web Component trick p1.
          * Sure to remove host element.
          */
-        containerList.textContent = '';
+        repeaterParentElement.textContent = '';
 
         /**
          * Destroy
@@ -142,7 +142,7 @@ export const addWithoutKey = ({
          */
         childrenPersistent.forEach((childId) => {
             const element = getElementById({ id: childId });
-            if (element) containerList.append(element);
+            if (element) repeaterParentElement.append(element);
         });
     }
 

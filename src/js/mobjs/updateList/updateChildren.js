@@ -10,7 +10,7 @@ import { listKeyExist } from './utils';
 /**
  * @param {Object} obj
  * @param {String} obj.state
- * @param {HTMLElement} obj.containerList
+ * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {Array} obj.current
  * @param {Array} obj.previous
@@ -25,7 +25,7 @@ import { listKeyExist } from './utils';
  * Update repater list.
  */
 export const updateChildren = async ({
-    containerList = document.createElement('div'),
+    repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     current = [],
     previous = [],
@@ -52,7 +52,7 @@ export const updateChildren = async ({
     const currentUnivoque = fn({
         current,
         previous,
-        containerList,
+        repeaterParentElement,
         targetComponent,
         getChildren,
         key,
@@ -67,7 +67,11 @@ export const updateChildren = async ({
      * Parse current HTMLDom to create inner component.
      * Scan and await the end of possible noew component creation.
      */
-    mainStore.set(MAIN_STORE_REPEATER_PARSER_ROOT, containerList, false);
+    mainStore.set(
+        MAIN_STORE_REPEATER_PARSER_ROOT,
+        repeaterParentElement,
+        false
+    );
     await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
 
     updateChildrenOrder({

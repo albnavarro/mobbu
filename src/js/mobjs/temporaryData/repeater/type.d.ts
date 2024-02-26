@@ -36,6 +36,6 @@ export interface repeaterType {
 }
 
 export interface watchListType extends repeaterType {
-    containerList: HTMLElement;
+    repeaterParentElement: HTMLElement;
     repeatId: string;
 }

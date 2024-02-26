@@ -203,7 +203,9 @@ export const parseComponentsRecursive = async ({
     const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
         return inizializeRepeat({
             repeatId,
-            repeatersParents,
+            repeaterParent: repeatersParents.find(({ id }) => {
+                return id === repeatId;
+            }),
         });
     });
 

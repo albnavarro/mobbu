@@ -74,7 +74,7 @@ function getPartialsComponentList({
  * @param {Object} obj
  * @param {Array} obj.current
  * @param {Array} obj.previous
- * @param {HTMLElement} obj.containerList
+ * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {string} obj.key
@@ -89,7 +89,7 @@ function getPartialsComponentList({
 export const addWithKey = ({
     current = [],
     previous = [],
-    containerList = document.createElement('div'),
+    repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     getChildren = () => {},
     key = '',
@@ -112,7 +112,7 @@ export const addWithKey = ({
         return getElementByKeyInContainer({
             key: keyValue,
             parentId: id,
-            container: containerList,
+            container: repeaterParentElement,
         });
     });
 
@@ -141,7 +141,7 @@ export const addWithKey = ({
             return getElementByKeyInContainer({
                 key: item.key,
                 parentId: id,
-                container: containerList,
+                container: repeaterParentElement,
             });
         });
 
@@ -152,7 +152,8 @@ export const addWithKey = ({
      * get parent element to reorder.
      */
     // @ts-ignore
-    const parent = newPersistentElementOrder[0]?.parentNode ?? containerList;
+    const parent =
+        newPersistentElementOrder[0]?.parentNode ?? repeaterParentElement;
 
     /**
      * Remove the node and reinsert the old pers element in right position.
@@ -178,12 +179,12 @@ export const addWithKey = ({
     });
 
     /**
-     * Filter children inside containerList
+     * Filter children inside repeaterParentElement
      */
     const childrenFiltered = getChildrenInsideElement({
         component: targetComponent,
         getChildren,
-        element: containerList,
+        element: repeaterParentElement,
     });
 
     /**
@@ -237,7 +238,7 @@ export const addWithKey = ({
             : getElementByKeyInContainer({
                   key: item[0]?.key,
                   parentId: id,
-                  container: containerList,
+                  container: repeaterParentElement,
               });
 
         /**
@@ -273,7 +274,10 @@ export const addWithKey = ({
                 componentToAppend
             );
         } else {
-            containerList.insertAdjacentHTML('afterbegin', componentToAppend);
+            repeaterParentElement.insertAdjacentHTML(
+                'afterbegin',
+                componentToAppend
+            );
         }
     });
 

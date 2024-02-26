@@ -14,9 +14,9 @@
 
 1. La funzione `registerComponent()` ritona un oggetto tra cui é presente la funzione `repeat()`.
 
-2. La funzione `repeat()` resituita al DOM del componente salverá in una apposita mappa ( `repeatMap` ) l'id (`currentRepeatId`) e l'oggetto  con tutti i riferimenti del repeater corrente usando la funzione `addRepeat`:
+2. La funzione `repeat()` oltre che ha tornare il web-component `<mobjs-repeater>`  salverá in una apposita mappa ( `repeatMap` ) l'id (`currentRepeatId`) e l'oggetto  con tutti i riferimenti del repeater corrente usando la funzione `addRepeat()`:
 
-3. La stessa ritorna il custom-html `<mobjs-repeater>`. Il componente in fase di rendernig (`parseComponentRecursive.js`) lancera un parser custom per cercare i `<mobjs-repeater>` presenti nel suo interno e capire quale repeater usare. Lo scopo principale si `<mobjs-repeater>` e quello di recuperare il riferimento al suo diretto `Element` parente durante il rendering del componente.
+3. La stessa ritornerá il web-component `<mobjs-repeater>`. Il componente che ospita i/il repeater in fase di rendernig (`parseComponentRecursive.js`) userá un parser custom per cercare i `<mobjs-repeater>` presenti nel suo interno. Lo scopo principale si `<mobjs-repeater>` e quello di recuperare il riferimento al suo diretto `Element` parente durante il rendering del componente.
 
 ```
 src/js/mobjs/creationStep/registerComponent.js
@@ -51,7 +51,7 @@ export const addRepeat = ({ repeatId, obj }) => {
 ```
 
 #### Ritorno dell'array di id tutti gli definiti nel componente:
-- La funzione `registerComponent()` ritona anche un oggetto tra cui é presente l'array `repeatIdArray[]` con tutti i `currentRepeatId`, tale funzione sara poi usata della funziona priconipale de `parseComponentsRecursive`.
+- La funzione `registerComponent()` nell'oggetto di ritorno restituisce l'array `repeatIdArray[]` che racoglie tutti i `currentRepeatId`, tale funzione sara poi usata della funziona priconipale `parseComponentsRecursive` per identificare tutti i repeater da inizializzare.
 
 <br/><br/><br/>
 
@@ -59,7 +59,7 @@ export const addRepeat = ({ repeatId, obj }) => {
 ### LOGICA NELLA FASE DI RENDERING DEL COMPONENTE.
 <br/>
 
-1. Recupero dei custom-htmlelment  `<mobjs-repeater/>` all'interno del componente dove verrá recuperato l' `id` e il div `parent` di ogni repeater.
+1. Recupero dei web-component `<mobjs-repeater/>` all'interno del componente dove verrá recuperato l' `id` e il div `parent` di ogni repeater.
 
 ```
 src/js/mobjs/parseComponent/parseComponentRecursive.js
@@ -74,7 +74,7 @@ const repeatersParents = [...repeaterNodeList].map((placeholder) => {
 });
 ```
 
-2. Inzializzazione della funzione `watchList` per ogni singolo repeater. `inizializeRepeat` restuirá l' `emit()` per lanciara il primo rendering dei repeater.
+2. `inizializeRepeat` inizializzará la funzione `watchList()` per ogni singolo repeater che a sua volta restuirá l' `emit()` per lanciara il primo rendering dei repeater.
 
 ```
 src/js/mobjs/parseComponent/parseComponentRecursive.js
@@ -83,7 +83,9 @@ const repeatIdArray = componentData?.repeatIdArray;
 const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
     return inizializeRepeat({
         repeatId,
-        repeatersParents,
+        repeaterParent: repeatersParents.find(({ id }) => {
+            return id === repeatId;
+        }),
     });
 });
 ```
@@ -127,13 +129,15 @@ parentid="_hegws76"
         currentRepeaterValueId
     );
     ```
-    - In `registerComponent` viene poi aggiunto all propietá (`currentRepeaterState`) dello store del componente tramite la funzione `setRepeaterStateById()`
+    - In `registerComponent.js` viene poi aggiunto alla propietá (`currentRepeaterState`) della mappa degli elementi (`componentMap`) tramite la funzione `setRepeaterStateById()`
     - Ora il dato potra essere preso direttamante dallo store componenti e usato dalla funzione `bindProps({})`, che ritornerá i due valori insieme ai valori di stato specifici.
     <br/>
     <br/>
 - `repeaterchild`: Viene usato per abbianare il tag del componente ( es: my-component ) al repeater.
-    - Viene letto dal web-component nella fase di inizializzazione.
+    - Viene letto dal web-component (`userComponent.js`) nella fase di inizializzazione.
     - Viene aggiunto a una mappa tramite la funzione `addRepeatTargetComponent`.<br/>
+    Tutti i componenti che compogono il repeater proveranno ad aggiungere il riferimento del propio `tag`, in reltá basta un solo risultato in quanto il repeater ospiterá solo un tipo di componente nel primo livello ( sara poi possibile innestare al suo interno diversi componenti ).<br/>
+    Nel nostro caso solo il promo componente passara il check e aggiornerá la mappa.
     ```
     addRepeatTargetComponent({
         repeatId: this.#isChildOfRepeatId,
@@ -144,9 +148,14 @@ parentid="_hegws76"
     });
     ```
     - `repeatId & targetComponent ( tag )` vengono usati nella funzione `watchList` per sapere quale é il tipo di componente usato nel repeater (`getRepeaterComponentTarget`).<br/>
-    Questo permette di filtrare i componenti `child` di `containerList` con un determinato `tag`
+    Questo permette di filtrare i componenti `child` di `repeaterParentElement` con un determinato `tag`
     - `repeaterParentId`: Usato nella fase di destroy del componente che ospita il repeater. da questo dato il parente eliminrá i riferimenti nella mappa `repeaterTargetComponentMap` dei repeater che ospita al suo interno.
     - La mappa come chiave ha l'id del repeater.
+        ```
+        const targetComponentBeforeParse = getRepeaterComponentTarget({
+            id: repeatId,
+        });
+        ```
     <br/>
     <br/>
 - `parentid`: parent id ( il componente in cui il repeater viene usato ).<br/> Utilizzato per tutte le operazioni di ruotine nella creazione dei componenti.
@@ -154,7 +163,7 @@ parentid="_hegws76"
 <br/>
 
 #### UDPATE _CURRENT/_INDEX
-Ora che sappiamo il `tag` dei componenti presenti nel repeater e il suo `Element` parente  dalla funzione  `watch` ( `watchList.js` ) possiamo:
+Ora che sappiamo il `tag` dei componenti presenti nel repeater e il suo `Element` parente (`repeaterParentElement`)  dalla funzione  `watch` ( `watchList.js` ) possiamo:
 - filtrarli con la funzione `getChildrenInsideElement()`
 - Aggiornare le propietá presenti in `currentRepeaterState` (`current/index`) nello store generale ( come fatto precedentemente ) e rendere i dati aggiornati per quando saranno usato dalla funzione `bindProps()`
 - Questa operazione viene effettuata dopo l'aggiornamento del repeater per fare un update dei componenti persistenti:
