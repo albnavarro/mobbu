@@ -17,7 +17,7 @@ export const listContentDef = createComponent({
             type: Boolean,
         }),
         color: () => ({
-            value: 'grey',
+            value: 'white',
             type: String,
             validate: (val) => {
                 return ['white', 'grey', 'hightlight'].includes(val);

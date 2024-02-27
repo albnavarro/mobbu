@@ -37,7 +37,12 @@ html {
 }
 
 body {
-    background-color: $background;
+    background: radial-gradient(
+        circle at bottom center,
+        $background 15px,
+        $grey-medium
+    );
+    background-attachment: fixed;
     overflow-x: hidden;
 }
 
