@@ -80,7 +80,7 @@
 
             &:hover {
                 button {
-                    background: $hightlight;
+                    border-bottom: 5px $black solid;
                 }
             }
         }
@@ -97,7 +97,7 @@
             position: relative;
 
             &.active {
-                border-top: 5px $hightlight solid;
+                border-bottom: 5px $black solid;
             }
         }
     }
