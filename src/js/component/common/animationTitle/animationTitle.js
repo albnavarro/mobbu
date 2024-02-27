@@ -20,7 +20,7 @@ export const AnimationTitle = ({ html, onMount, watchSync }) => {
         watchSync('color', (value) => {
             titleEl.classList.remove('is-white');
             titleEl.classList.remove('is-black');
-            titleEl.classList.remove('is-green');
+            titleEl.classList.remove('is-highlight');
             titleEl.classList.add(`is-${value}`);
         });
 

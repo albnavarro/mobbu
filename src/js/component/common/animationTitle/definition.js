@@ -21,7 +21,7 @@ export const animationTitleDef = createComponent({
             value: 'white',
             type: String,
             validate: (value) => {
-                return ['white', 'black', 'green'].includes(value);
+                return ['white', 'black', 'highlight'].includes(value);
             },
         }),
     },

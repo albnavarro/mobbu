@@ -39,7 +39,7 @@
         left: 0;
         width: var(--nav-width);
         display: none;
-        background: $dark-green;
+        background: $black;
         color: $white;
         padding: 0 rem(20);
         transform: translateX(-100%);
@@ -110,7 +110,7 @@
         }
 
         span {
-            color: $green;
+            color: $hightlight;
         }
     }
 
@@ -128,7 +128,7 @@
 
             &:hover {
                 svg {
-                    fill: $green;
+                    fill: $hightlight;
                     transform: scale(1.1);
                 }
             }

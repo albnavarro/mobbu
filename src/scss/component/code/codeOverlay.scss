@@ -113,7 +113,7 @@
             left: 0;
             width: 100%;
             height: rem(2);
-            background: $medium-green;
+            background: $hightlight;
         }
     }
 
@@ -135,7 +135,7 @@
             height: 2px;
             top: 50%;
             left: 50%;
-            background: $green;
+            background: $hightlight;
         }
 
         &::before {
@@ -158,7 +158,7 @@
         background: transparent;
 
         svg {
-            fill: $green;
+            fill: $hightlight;
             width: rem(20);
             height: rem(20);
         }
@@ -172,7 +172,7 @@
         background: $white;
         border: 0;
         border-right: 1px $grey solid;
-        color: $dark-green;
+        color: $black;
         transition: background 0.35s, color 0.35s;
         text-transform: uppercase;
         position: relative;
@@ -185,7 +185,7 @@
             left: 0;
             width: 100%;
             height: rem(15);
-            background: $green;
+            background: $hightlight;
             transform: translateY(100%);
             transition: transform 0.35s;
         }
@@ -210,8 +210,8 @@
     &__content {
         width: 100%;
         height: calc(100vh - var(--header-height));
-        border: 1px $dark-green solid;
-        background: $grey-blue-medium;
+        border: 1px $black solid;
+        background: $background;
         color: $white;
         line-height: 1.4;
         font-size: rem(15);

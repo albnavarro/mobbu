@@ -16,7 +16,7 @@ export const paragraphContentDef = createComponent({
             value: 'grey',
             type: String,
             validate: (val) => {
-                return ['white', 'grey', 'green'].includes(val);
+                return ['white', 'grey', 'highlight'].includes(val);
             },
         }),
     },

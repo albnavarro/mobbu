@@ -3,17 +3,17 @@
 .c-doc-title-small {
     margin-top: rem(15);
     padding-left: rem(40);
-    color: $green;
+    color: $white;
     margin-bottom: rem(20);
     font-size: rem(18);
     font-weight: 500;
 
     a {
-        color: $green;
+        color: $white;
         transition: opacity 0.35s;
 
         &:hover {
-            opacity: 0.3;
+            color: $black;
         }
     }
 

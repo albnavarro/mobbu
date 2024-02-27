@@ -31,7 +31,7 @@
     }
 
     &__row {
-        background-color: $medium-green;
+        background-color: $hightlight;
     }
 
     &__column {
@@ -52,7 +52,7 @@
     }
 
     &__wrap {
-        border: 1px $dark-green solid;
+        border: 1px $black solid;
         height: 100%;
         position: relative;
     }
@@ -80,7 +80,7 @@
 
             &:hover {
                 button {
-                    background: $green;
+                    background: $hightlight;
                 }
             }
         }
@@ -97,7 +97,7 @@
             position: relative;
 
             &.active {
-                border-top: 5px $green solid;
+                border-top: 5px $hightlight solid;
             }
         }
     }
@@ -136,7 +136,7 @@
         }
 
         span {
-            background: $dark-green;
+            background: $black;
             display: block;
             width: rem(60);
             height: rem(10);
@@ -148,7 +148,7 @@
         }
 
         &:hover {
-            background: $dark-green;
+            background: $black;
         }
     }
 }

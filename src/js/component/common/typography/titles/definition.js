@@ -14,7 +14,7 @@ export const titleContentDef = createComponent({
             value: 'white',
             type: String,
             validate: (val) => {
-                return ['white', 'green'].includes(val);
+                return ['white', 'hightlight'].includes(val);
             },
         }),
         isBold: () => ({

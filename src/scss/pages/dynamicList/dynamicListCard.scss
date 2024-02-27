@@ -45,7 +45,7 @@
     &.is-selected {
         &:not(.is-full) {
             #{$self}__container {
-                background: $medium-green;
+                background: $hightlight;
                 color: $white;
             }
         }

@@ -20,7 +20,7 @@ export const listContentDef = createComponent({
             value: 'grey',
             type: String,
             validate: (val) => {
-                return ['white', 'grey', 'green'].includes(val);
+                return ['white', 'grey', 'hightlight'].includes(val);
             },
         }),
         items: () => ({
