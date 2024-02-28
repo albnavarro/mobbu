@@ -10,7 +10,7 @@
     @include mq('xxlarge') {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
 
         // padding-left: calc(var(--header-height) * 0.5);

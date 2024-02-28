@@ -9,7 +9,13 @@
 
     &__content {
         flex: auto;
-        background-color: rgba($black, 0.1);
+        background: radial-gradient(
+            circle at bottom center,
+            transparent 100px,
+            rgba($black, 0.2)
+        );
+        background-attachment: fixed;
+        transition: background 0.2s;
 
         @include mq('large') {
             width: auto;
@@ -19,6 +25,14 @@
         @include mq('xlarge') {
             max-width: rem(1100, xlarge);
             padding-right: rem(100, xlarge);
+        }
+
+        @include when-inside('.fake-content') {
+            background: radial-gradient(
+                circle at bottom center,
+                transparent 100px,
+                transparent
+            );
         }
     }
 

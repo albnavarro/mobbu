@@ -11,6 +11,7 @@ mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
  * @type {import('../mobjs/type').beforePageTransition}
  */
 export const beforePageTransition = async ({ oldNode }) => {
+    oldNode.classList.remove('current-route');
     oldNode.classList.add('fake-content');
     oldNode.style.position = 'fixed';
     oldNode.style.zIndex = 10;
@@ -66,4 +67,5 @@ export const pageTransition = async ({
     tl = null;
 
     newNode.style.removeProperty('opacity');
+    newNode.classList.add('current-route');
 };

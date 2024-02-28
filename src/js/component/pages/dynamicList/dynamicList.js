@@ -104,7 +104,6 @@ export const DynamicList = async ({
 }) => {
     onMount(({ refs }) => {
         const { counterEl } = refs;
-
         watchSync('counter', (value) => {
             counterEl.textContent = value;
         });
@@ -115,6 +114,7 @@ export const DynamicList = async ({
 
     return html`
         <div class="c-dynamic-list">
+            <only-desktop></only-desktop>
             <div class="c-dynamic-list__header">
                 <div class="c-dynamic-list__top">
                     ${getButton({

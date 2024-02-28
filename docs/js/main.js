@@ -27524,6 +27524,7 @@ Loading snippet ...</pre
     const { source } = repeater;
     return html`
         <div class="c-dynamic-list">
+            <only-desktop></only-desktop>
             <div class="c-dynamic-list__header">
                 <div class="c-dynamic-list__top">
                     ${getButton({
@@ -30202,6 +30203,7 @@ Loading snippet ...</pre
     scrollY = window.scrollY;
   });
   var beforePageTransition2 = async ({ oldNode }) => {
+    oldNode.classList.remove("current-route");
     oldNode.classList.add("fake-content");
     oldNode.style.position = "fixed";
     oldNode.style.zIndex = 10;
@@ -30239,6 +30241,7 @@ Loading snippet ...</pre
     tl.destroy();
     tl = null;
     newNode.style.removeProperty("opacity");
+    newNode.classList.add("current-route");
   };
 
   // src/js/main.js

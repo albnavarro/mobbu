@@ -8,7 +8,7 @@
     &__header {
         position: sticky;
         top: var(--header-height);
-        background: $black;
+        background: rgba($black, 0.8);
         padding: rem(20);
         z-index: 10;
     }

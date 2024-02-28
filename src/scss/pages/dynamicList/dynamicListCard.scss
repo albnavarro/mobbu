@@ -3,7 +3,7 @@
 .c-dynamic-card {
     $self: &;
 
-    flex: 0 0 50%;
+    flex: 0 0 100%;
     padding: rem(10);
     text-align: left;
     font-size: rem(14);
@@ -15,6 +15,10 @@
     color: rgba($white, 0.3);
     box-sizing: border-box;
     cursor: pointer;
+
+    @include mq(large) {
+        flex: 0 0 50%;
+    }
 
     &.active {
         opacity: 1;
@@ -37,17 +41,13 @@
     }
 
     &:hover {
-        &:not(.is-full) {
-            transform: scale(0.95);
-        }
+        transform: scale(0.95);
     }
 
     &.is-selected {
-        &:not(.is-full) {
-            #{$self}__container {
-                background: $hightlight;
-                color: $white;
-            }
+        #{$self}__container {
+            background: rgba($black, 0.6);
+            color: $grey-medium;
         }
     }
 }

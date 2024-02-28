@@ -52,7 +52,7 @@
     }
 
     &__wrap {
-        border: 1px $black solid;
+        border: 1px $white solid;
         height: 100%;
         position: relative;
     }
@@ -80,7 +80,7 @@
 
             &:hover {
                 button {
-                    border-bottom: 5px $black solid;
+                    border-bottom: 5px $white solid;
                 }
             }
         }
@@ -97,7 +97,7 @@
             position: relative;
 
             &.active {
-                border-bottom: 5px $black solid;
+                border-bottom: 5px $white solid;
             }
         }
     }
@@ -114,6 +114,7 @@
         h1 {
             font-size: rem(200);
             font-weight: 600;
+            color: $white;
         }
     }
 
@@ -136,7 +137,7 @@
         }
 
         span {
-            background: $black;
+            background: $white;
             display: block;
             width: rem(60);
             height: rem(10);
@@ -148,7 +149,7 @@
         }
 
         &:hover {
-            background: $black;
+            background: $white;
         }
     }
 }
