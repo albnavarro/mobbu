@@ -37,6 +37,7 @@ export const SvgChild = ({ onMount, html, getState }) => {
     const quicknavId = getIdByInstanceName('quick_nav');
     setStateById(quicknavId, 'active', true);
     setStateById(quicknavId, 'nextRoute', '#mv1');
+    setStateById(quicknavId, 'color', 'black');
 
     /**
      * Title.

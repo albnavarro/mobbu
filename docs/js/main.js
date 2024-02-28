@@ -23276,6 +23276,18 @@ Loading snippet ...</pre
         prev2.classList.toggle("is-disable", !route);
         prev2.href = route;
       });
+      watchSync("color", (color) => {
+        if (color === "white") {
+          element.classList.remove("fill-black");
+          element.classList.add("fill-white");
+          return;
+        }
+        if (color === "black") {
+          element.classList.remove("fill-white");
+          element.classList.add("fill-black");
+          return;
+        }
+      });
     });
     return html`<div class="c-quick-nav-container ${activeClass}">
         <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
@@ -23287,8 +23299,15 @@ Loading snippet ...</pre
   var quickNavDef = createComponent({
     name: "quick-nav",
     component: QuickNav,
-    exportState: ["active", "prevRoute", "nextRoute"],
+    exportState: ["color", "active", "prevRoute", "nextRoute"],
     state: {
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (value) => {
+          return ["white", "black"].includes(value);
+        }
+      }),
       active: () => ({
         value: false,
         type: Boolean
@@ -24279,7 +24298,7 @@ Loading snippet ...</pre
   });
 
   // src/js/utils/canvasUtils.js
-  var canvasBackground = "#95a1b7";
+  var canvasBackground = "#a4a4b3";
   var getCanvasContext = ({ disableOffcanvas }) => {
     const useOffscreen = "OffscreenCanvas" in window && !disableOffcanvas;
     const context = useOffscreen ? "bitmaprenderer" : "2d";
@@ -24564,6 +24583,7 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -24916,6 +24936,7 @@ Loading snippet ...</pre
         "nextRoute",
         "#scrollerN0?version=0&activeId=0"
       );
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25224,6 +25245,7 @@ Loading snippet ...</pre
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "nextRoute", "#caterpillarN1");
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25547,6 +25569,7 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", "#caterpillarN0");
       setStateById(quicknavId, "nextRoute", "#caterpillarN2");
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25869,6 +25892,7 @@ Loading snippet ...</pre
         "nextRoute",
         "#animatedPatternN0?version=0&activeId=0"
       );
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -26422,6 +26446,7 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
+      setStateById(quicknavId, "color", "white");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "right");
       setStateById(titleId, "color", "white");
@@ -26452,6 +26477,7 @@ Loading snippet ...</pre
         setStateById(quicknavId, "nextRoute", "");
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
+        setStateById(quicknavId, "color", "black");
       };
     });
     if (motionCore.mq("max", "desktop"))
@@ -28195,6 +28221,7 @@ Loading snippet ...</pre
     const quicknavId = getIdByInstanceName("quick_nav");
     setStateById(quicknavId, "active", true);
     setStateById(quicknavId, "nextRoute", "#mv1");
+    setStateById(quicknavId, "color", "black");
     const titleId = getIdByInstanceName("animation_title");
     setStateById(titleId, "align", "left");
     setStateById(titleId, "color", "white");
@@ -28379,6 +28406,7 @@ Loading snippet ...</pre
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", "#child");
+      setStateById(quicknavId, "color", "black");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");

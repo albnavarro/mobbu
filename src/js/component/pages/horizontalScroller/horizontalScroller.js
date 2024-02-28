@@ -91,6 +91,7 @@ export const HorizontalScroller = ({
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
+        setStateById(quicknavId, 'color', 'white');
 
         /**
          * Title.
@@ -148,6 +149,7 @@ export const HorizontalScroller = ({
             setStateById(quicknavId, 'nextRoute', '');
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
+            setStateById(quicknavId, 'color', 'black');
         };
     });
 

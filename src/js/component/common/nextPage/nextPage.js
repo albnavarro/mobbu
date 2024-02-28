@@ -26,6 +26,20 @@ export const QuickNav = ({ getState, onMount, html, watchSync }) => {
             prev.classList.toggle('is-disable', !route);
             prev.href = route;
         });
+
+        watchSync('color', (color) => {
+            if (color === 'white') {
+                element.classList.remove('fill-black');
+                element.classList.add('fill-white');
+                return;
+            }
+
+            if (color === 'black') {
+                element.classList.remove('fill-white');
+                element.classList.add('fill-black');
+                return;
+            }
+        });
     });
 
     return html`<div class="c-quick-nav-container ${activeClass}">

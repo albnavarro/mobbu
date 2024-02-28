@@ -11,6 +11,18 @@
         visibility: visible;
         pointer-events: all;
     }
+
+    &.fill-white {
+        svg {
+            fill: $white;
+        }
+    }
+
+    &.fill-black {
+        svg {
+            fill: $black;
+        }
+    }
 }
 
 .c-quick-nav {
@@ -41,7 +53,7 @@
     }
 
     svg {
-        fill: $white;
+        fill: $black;
         width: 2rem;
         height: 2rem;
     }

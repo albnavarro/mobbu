@@ -13,7 +13,7 @@
         transition: opacity 0.35s;
         position: relative;
 
-        &:after {
+        &::after {
             content: '';
             left: 0;
             height: 2px;
@@ -28,7 +28,7 @@
         &:hover {
             color: $black;
 
-            &:after {
+            &::after {
                 opacity: 1;
             }
         }

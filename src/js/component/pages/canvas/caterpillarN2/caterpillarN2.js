@@ -43,6 +43,7 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
             'nextRoute',
             '#animatedPatternN0?version=0&activeId=0'
         );
+        setStateById(quicknavId, 'color', 'black');
 
         /**
          * Title.

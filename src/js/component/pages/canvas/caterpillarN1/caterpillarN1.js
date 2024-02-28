@@ -21,6 +21,7 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', '#caterpillarN0');
         setStateById(quicknavId, 'nextRoute', '#caterpillarN2');
+        setStateById(quicknavId, 'color', 'black');
 
         /**
          * Title.

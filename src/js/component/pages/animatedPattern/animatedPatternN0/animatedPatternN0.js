@@ -21,6 +21,7 @@ export const AnimatedPatternN0 = ({ onMount, html, getState, staticProps }) => {
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
+        setStateById(quicknavId, 'color', 'black');
 
         /**
          * Title.

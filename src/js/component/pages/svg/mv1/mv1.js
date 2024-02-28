@@ -23,6 +23,7 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', '#child');
+        setStateById(quicknavId, 'color', 'black');
 
         /**
          * Title.
