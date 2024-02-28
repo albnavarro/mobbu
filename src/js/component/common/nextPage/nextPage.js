@@ -1,4 +1,5 @@
 import arrow from '../../../../svg/scroll_arrow.svg';
+import { motionCore } from '../../../mobMotion';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
@@ -8,6 +9,8 @@ export const QuickNav = ({ getState, onMount, html, watchSync }) => {
     const activeClass = active ? 'active' : '';
 
     onMount(({ element, refs }) => {
+        if (motionCore.mq('max', 'desktop')) return;
+
         const { prev, next } = refs;
 
         watchSync('active', (isActive) => {

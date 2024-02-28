@@ -1,10 +1,13 @@
 import { mobCore } from '../../../mobCore';
+import { motionCore } from '../../../mobMotion';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const AnimationTitle = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
+        if (motionCore.mq('max', 'desktop')) return;
+
         const { titleEl } = refs;
 
         watchSync('align', (value) => {

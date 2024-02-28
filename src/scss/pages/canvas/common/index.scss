@@ -55,7 +55,8 @@
         flex-direction: column;
         margin: 0;
         padding: 0;
-        background: rgba($black, 0.2);
+        background: $white;
+        z-index: 0;
 
         &__item {
             display: block;
@@ -63,6 +64,10 @@
             border-bottom: 1px rgba($black, 0.05) solid;
             width: 100%;
             text-align: center;
+
+            &:last-of-type {
+                border-bottom: 0;
+            }
         }
 
         &__btn,
@@ -70,7 +75,7 @@
             min-width: var(--header-height);
             border: 0;
             background: transparent;
-            color: rgba($white, 0.4);
+            color: $hightlight;
             padding: rem(5) rem(20);
             transition: background 0.2s;
             width: 100%;
@@ -92,9 +97,9 @@
                 position: absolute;
                 top: 50%;
                 left: rem(20);
-                right: rem(20);
+                width: rem(220);
                 height: 1px;
-                background: rgba($white, 0.2);
+                background: rgba($hightlight, 0.5);
                 z-index: 1;
             }
 
@@ -114,7 +119,7 @@
                     height: rem(15);
                     width: rem(15);
                     border-radius: 100%;
-                    background: $white;
+                    background: $hightlight;
                     cursor: pointer;
                 }
 
@@ -124,7 +129,7 @@
                     height: rem(15);
                     width: rem(15);
                     border-radius: 100%;
-                    background: $white;
+                    background: $hightlight;
                     cursor: pointer;
                 }
             }

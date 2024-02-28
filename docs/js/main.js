@@ -23262,6 +23262,8 @@ Loading snippet ...</pre
     const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element, refs }) => {
+      if (motionCore.mq("max", "desktop"))
+        return;
       const { prev: prev2, next } = refs;
       watchSync("active", (isActive) => {
         element.classList.toggle("active", isActive);
@@ -23305,6 +23307,8 @@ Loading snippet ...</pre
   // src/js/component/common/animationTitle/animationTitle.js
   var AnimationTitle = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
+      if (motionCore.mq("max", "desktop"))
+        return;
       const { titleEl } = refs;
       watchSync("align", (value) => {
         element.classList.remove("is-left");

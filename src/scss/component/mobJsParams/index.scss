@@ -13,6 +13,20 @@
     a {
         transition: color 0.35s;
         display: block;
+        position: relative;
+
+        &::after {
+            content: '';
+            top: 50%;
+            transform: translateY(-50%);
+            left: calc(#{rem(20)} * -1);
+            height: em(15);
+            width: 4px;
+            background: $white;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
 
         @media screen and (height >= 200px) and (height <= 750px) {
             font-size: 11px;
@@ -25,11 +39,15 @@
         }
 
         &:hover {
-            color: $black;
+            &::after {
+                opacity: 1;
+            }
         }
     }
 
     .current {
-        color: $black;
+        &::after {
+            opacity: 1;
+        }
     }
 }

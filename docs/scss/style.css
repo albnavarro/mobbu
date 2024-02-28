@@ -1267,7 +1267,8 @@ code {
   flex-direction: column;
   margin: 0;
   padding: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: #fff;
+  z-index: 0;
 }
 .c-canvas__controls__item {
   display: block;
@@ -1276,12 +1277,15 @@ code {
   width: 100%;
   text-align: center;
 }
+.c-canvas__controls__item:last-of-type {
+  border-bottom: 0;
+}
 .c-canvas__controls__btn,
 .c-canvas__controls__label {
   min-width: var(--header-height);
   border: 0;
   background: transparent;
-  color: rgba(255, 255, 255, 0.4);
+  color: #8387a2;
   padding: 0.3333333333rem 1.3333333333rem;
   transition: background 0.2s;
   width: 100%;
@@ -1302,9 +1306,9 @@ code {
   position: absolute;
   top: 50%;
   left: 1.3333333333rem;
-  right: 1.3333333333rem;
+  width: 14.6666666667rem;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(131, 135, 162, 0.5);
   z-index: 1;
 }
 .c-canvas__controls__range input {
@@ -1323,7 +1327,7 @@ code {
   height: 1rem;
   width: 1rem;
   border-radius: 100%;
-  background: #fff;
+  background: #8387a2;
   cursor: pointer;
 }
 .c-canvas__controls__range input::-moz-range-thumb {
@@ -1332,7 +1336,7 @@ code {
   height: 1rem;
   width: 1rem;
   border-radius: 100%;
-  background: #fff;
+  background: #8387a2;
   cursor: pointer;
 }
 .c-canvas canvas {
@@ -2482,20 +2486,35 @@ code {
 .c-doc-title-small {
   margin-top: 1rem;
   padding-left: 2.6666666667rem;
-  color: #fff;
+  color: #000;
   margin-bottom: 1.3333333333rem;
   font-size: 1.2rem;
   font-weight: 500;
 }
 .c-doc-title-small a {
-  color: #fff;
+  color: #000;
+  transition: opacity 0.35s;
+  position: relative;
+}
+.c-doc-title-small a:after {
+  content: "";
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #000;
+  position: absolute;
+  bottom: calc(0.2666666667rem * -1);
+  opacity: 0.2;
   transition: opacity 0.35s;
 }
 .c-doc-title-small a:hover {
   color: #000;
 }
+.c-doc-title-small a:hover:after {
+  opacity: 1;
+}
 .c-doc-title-small span {
-  color: #fff;
+  color: #000;
 }
 .c-doc-scroll {
   position: absolute;
@@ -2534,6 +2553,18 @@ code {
   display: block;
   padding: 0;
 }
+.c-scroll-to button::after {
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(1.3333333333rem * -1);
+  height: 1em;
+  width: 4px;
+  background: #fff;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
 .c-scroll-to button span {
   transition: transform 0.55s;
   display: block;
@@ -2550,9 +2581,9 @@ code {
     line-height: 1.7;
   }
 }
-.c-scroll-to button:hover,
-.c-scroll-to button.active {
-  color: #000;
+.c-scroll-to button:hover::after,
+.c-scroll-to button.active::after {
+  opacity: 1;
 }
 .c-params-mobjs ul {
   list-style: none;
@@ -2566,6 +2597,19 @@ code {
 .c-params-mobjs a {
   transition: color 0.35s;
   display: block;
+  position: relative;
+}
+.c-params-mobjs a::after {
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(1.3333333333rem * -1);
+  height: 1em;
+  width: 4px;
+  background: #fff;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.35s;
 }
 @media screen and (height >= 200px) and (height <= 750px) {
   .c-params-mobjs a {
@@ -2579,11 +2623,11 @@ code {
     line-height: 1.7;
   }
 }
-.c-params-mobjs a:hover {
-  color: #000;
+.c-params-mobjs a:hover::after {
+  opacity: 1;
 }
-.c-params-mobjs .current {
-  color: #000;
+.c-params-mobjs .current::after {
+  opacity: 1;
 }
 .shape-v1 {
   position: fixed;
