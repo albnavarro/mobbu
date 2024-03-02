@@ -1,10 +1,10 @@
 // @ts-check
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {{bind:Array<String>, props: Function}|undefined} obj.dynamicProps
- * @param {String|undefined} obj.stateToWatch
- * @returns {{bind:Array<String>, props: Function}|undefined}
+ * @param {string|undefined} obj.stateToWatch
+ * @returns {{bind:Array<string>, props: function}|undefined}
  *
  * @description
  * Remove watch state from bind.

@@ -4,7 +4,7 @@ import { componentMap } from '../store.js';
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.prop
  * @return { void }
@@ -30,7 +30,7 @@ export const freezePropById = ({ id = '', prop }) => {
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.prop
  * @return { void }

@@ -7,7 +7,7 @@ import {
 } from '../mainStore/routeList';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.url
  * @returns {String}
  *

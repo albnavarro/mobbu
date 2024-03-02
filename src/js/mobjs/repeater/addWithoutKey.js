@@ -12,16 +12,16 @@ import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemV
 import { renderHtml } from '../creationStep/utils';
 
 /**
- * @param {Object} obj
- * @param {Array} obj.current
- * @param {Array} obj.previous
+ * @param {object} obj
+ * @param {array} obj.current
+ * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {function} obj.render
- * @param {String} obj.id
- * @param {String} obj.repeatId
- * @return {Array}
+ * @param {string} obj.id
+ * @param {string} obj.repeatId
+ * @return {array}
  *
  * @description
  * Add new children.

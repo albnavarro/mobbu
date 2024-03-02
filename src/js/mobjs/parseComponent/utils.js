@@ -3,7 +3,7 @@
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {Element} obj.element
  * @param {Array<Element>} obj.currentSelectors
  * @return {{componentToParse:Element, parseSourceArray:Array<Element> }}

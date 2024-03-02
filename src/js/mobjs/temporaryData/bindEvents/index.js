@@ -5,12 +5,12 @@ import { checkType } from '../../../mobCore/store/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 
 /**
- * @type {Map<String,Array<Object<string,Function>>>}
+ * @type {Map<String,Array<{[key:string]: (arg0: object, arg1: object) => {}}>>}
  */
 export const bindEventMap = new Map();
 
 /**
- * @param {Array<String,function>|Object<String,function>} [ eventsData ]
+ * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
  * @return {String} props id in store.
  *
  * @description
@@ -26,6 +26,7 @@ export const setBindEvents = (eventsData = []) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
+    // @ts-ignore
     bindEventMap.set(id, eventsDataParsed);
 
     return id;

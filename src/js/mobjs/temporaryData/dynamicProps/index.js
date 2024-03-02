@@ -11,12 +11,12 @@ import { componentMap } from '../../componentStore/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 
 /**
- * @type {Map<String,{'bind':Array<String>,'parentId':String|undefined,'componentId':String,'propsId':String,'props':Object}>}
+ * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
  */
 export const dynamicPropsMap = new Map();
 
 /**
- * @param {{'bind':Array<string>,'parentId':string|undefined,'props':Object, forceParent:[Boolean]}} propsObj
+ * @param {{'bind':Array<string>,'parentId':string|undefined,'props':object, forceParent:[boolean]}} propsObj
  * @return {String|undefined} props id in store.
  *
  * @description
@@ -55,12 +55,12 @@ export const setBindProps = (propsObj) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.componentId
+ * @param {object} obj
+ * @param {string} obj.componentId
  * @param {Array<String>} obj.bind
- * @param {(args0: Object)=>Object} obj.props
- * @param {String} obj.currentParentId
- * @param {Boolean} obj.fireCallback
+ * @param {(args0: object) => object} obj.props
+ * @param {string} obj.currentParentId
+ * @param {boolean} obj.fireCallback
  * @return void
  *
  * @description
@@ -128,9 +128,9 @@ const setDynamicProp = ({
 };
 
 /**
- * @param {Object} obj
- * @param {String|undefined} obj.propsId
- * @param {String} obj.componentId
+ * @param {object} obj
+ * @param {string|undefined} obj.propsId
+ * @param {string} obj.componentId
  * @return void
  *
  * @description
@@ -150,8 +150,8 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.componentId
+ * @param {object} obj
+ * @param {string} obj.componentId
  * @return void
  *
  * @description
@@ -170,8 +170,8 @@ export const removeCurrentIdToDynamicProps = ({ componentId }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.propsId
+ * @param {object} obj
+ * @param {string} obj.propsId
  * @return void
  *
  * @description
@@ -185,9 +185,9 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.componentId
- * @param {Boolean} obj.inizilizeWatcher
+ * @param {object} obj
+ * @param {string} obj.componentId
+ * @param {boolean} obj.inizilizeWatcher
  * @return void
  *
  * @description

@@ -8,18 +8,18 @@ import { addWithoutKey } from './addWithoutKey';
 import { listKeyExist } from './utils';
 
 /**
- * @param {Object} obj
- * @param {String} obj.state
+ * @param {object} obj
+ * @param {string} obj.state
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {Array} obj.current
- * @param {Array} obj.previous
+ * @param {array} obj.current
+ * @param {array} obj.previous
  * @param {function} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {Function} obj.render
- * @return {Promise.<Array.<Object>>}
+ * @param {function} obj.render
+ * @return {Promise.<Array.<object>>}
  *
  * @description
  * Update repater list.

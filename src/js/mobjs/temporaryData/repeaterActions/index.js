@@ -6,9 +6,9 @@
 export const activeRepeatMap = new Set();
 
 /**
- * @param {Object} obj
- * @param {String} obj.id
- * @param {String} obj.state
+ * @param {object} obj
+ * @param {string} obj.id
+ * @param {string} obj.state
  * @param {HTMLElement} obj.container
  * @return void
  *
@@ -20,9 +20,9 @@ export const addActiveRepeat = ({ id, state, container }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.id
- * @param {String} obj.state
+ * @param {object} obj
+ * @param {string} obj.id
+ * @param {string} obj.state
  * @param {HTMLElement} obj.container
  * @return void
  *
@@ -42,11 +42,11 @@ export const removeActiveRepeat = ({ id, state, container }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.id
- * @param {String} obj.state
+ * @param {object} obj
+ * @param {string} obj.id
+ * @param {string} obj.state
  * @param {HTMLElement} obj.container
- * @return {Boolean}
+ * @return {boolean}
  *
  * @description
  * Get active repeat

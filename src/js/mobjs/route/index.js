@@ -1,4 +1,4 @@
-// @ o-check
+// @ts-check
 
 import { mobCore } from '../../mobCore';
 import { frameDelayAfterParse } from '../constant';

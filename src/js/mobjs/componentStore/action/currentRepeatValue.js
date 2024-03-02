@@ -4,7 +4,7 @@ import { componentMap } from '../store.js';
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {any} obj.value
  * @return { void }
@@ -27,7 +27,7 @@ export const setRepeaterStateById = ({ id = '', value }) => {
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return { any }
  *

@@ -32,7 +32,7 @@ export const setRouteList = (list) => {
 };
 
 /**
- * @returns {{[key:string]: () => Promise.<string>}} list
+ * @returns {{[key:string]: (arg0: {[key:string]: any}) => Promise.<string>}} list
  *
  * @description
  * Get route list to store.
@@ -40,8 +40,8 @@ export const setRouteList = (list) => {
 export const getRouteList = () => routeList;
 
 /**
- * @param {Object} obj
- * @param {String} obj.routeName
+ * @param {object} obj
+ * @param {string} obj.routeName
  * @returns void
  *
  * @description
@@ -60,8 +60,8 @@ export const setIndex = ({ routeName = '' }) => {
 export const getIndex = () => indexPage;
 
 /**
- * @param {Object} obj
- * @param {String} obj.routeName
+ * @param {object} obj
+ * @param {string} obj.routeName
  * @returns void
  *
  * @description

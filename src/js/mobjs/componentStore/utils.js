@@ -54,10 +54,10 @@ export const removeChildFromChildrenArray = ({
 };
 
 /**
- * @param {Object} obj
- * @param {Object} obj.props
- * @param {Object} obj.store - SimpleStore instance
- * @returns {Object}
+ * @param {object} obj
+ * @param {object} obj.props
+ * @param {object} obj.store - SimpleStore instance
+ * @returns {object}
  */
 export const addPropsToState = ({ props, store }) => {
     Object.entries(props).forEach(([key, value]) => {

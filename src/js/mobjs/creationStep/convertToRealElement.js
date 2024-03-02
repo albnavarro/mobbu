@@ -11,9 +11,9 @@ import { removeCurrentToDynamicPropsByPropsId } from '../temporaryData/dynamicPr
 import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.componentParsed
- * @param {String} obj.content
+ * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
  * @description
@@ -31,7 +31,7 @@ const getNewElement = ({ componentParsed, content }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.element
  * @returns void
  *
@@ -68,7 +68,7 @@ const removeOrphanSlot = ({ element }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.element
  * @returns void
  *
@@ -138,9 +138,9 @@ const addToSlot = ({ element }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.componentParsed
- * @param {String} obj.content
+ * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
  *
@@ -205,10 +205,10 @@ const executeConversion = ({ componentParsed, content }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.componentParsed
- * @param {String} obj.content
- * @param {Boolean|'UNSET'} obj.isolateCreation
+ * @param {string} obj.content
+ * @param {boolean|'UNSET'} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description

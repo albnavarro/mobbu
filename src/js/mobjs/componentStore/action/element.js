@@ -4,7 +4,7 @@ import { componentMap } from '../store';
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {HTMLElement} obj.newElement
  * @return { void }
@@ -26,7 +26,7 @@ export const setElementById = ({
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return {HTMLElement|undefined}
  *
@@ -43,7 +43,7 @@ export const getElementById = ({ id = '' }) => {
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement|undefined} obj.element
  * @return {String|undefined}
  *
@@ -61,7 +61,7 @@ export const getIdByElement = ({ element }) => {
 
 /**
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.key
  * @param {string} obj.parentId
  * @param {HTMLElement} obj.container

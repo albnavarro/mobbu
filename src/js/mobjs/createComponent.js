@@ -10,7 +10,7 @@ let defaultComponent = {
 
 /**
  * @param {import('./type').defaultComponent} obj
- * @returns Object
+ * @returns object
  *
  * @description
  */
@@ -25,7 +25,7 @@ export const getDefaultComponent = () => defaultComponent;
 
 /**
  * @param {import('./type').createComponentType} param
- * @returns Object<string:{componentFunction:function,componentParams:Object}>
+ * @returns object<string:{componentFunction:function,componentParams:Object}>
  *
  * @description
  * Format component definition in object key: value.

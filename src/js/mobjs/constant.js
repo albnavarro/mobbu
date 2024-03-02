@@ -81,7 +81,7 @@ export const ATTR_REFS = 'ref';
 export const frameDelayAfterParse = 5;
 
 /**
- * @type {{current:Object, index: Number}};
+ * @type {{current:object, index: Number}};
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 

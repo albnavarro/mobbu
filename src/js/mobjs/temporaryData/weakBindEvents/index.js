@@ -11,27 +11,27 @@ import {
 import { getRoot } from '../../mainStore/root';
 
 /**
- * @type {Map<String,Array<Object<string,Function>>>}
+ * @type {Map<string,Array<{[key:string]: function}>>}
  */
 export const tempDelegateEventMap = new Map();
 
 /**
- * @type {WeakMap<Object,Array<String,function>|Object<String,function>>}
+ * @type {WeakMap<object,import('./type').weakBindEventsDataArray | undefined>}
  */
 export const eventDelegationMap = new WeakMap();
 
 /**
- * @type {Array<string>}
+ * @type {string[]}
  */
 const eventToAdd = [];
 
 /**
- * @type {Array<string>}
+ * @type {string[]}
  */
 const eventRegistered = [];
 
 /**
- * @param {Array<String,function>|Object<String,function>} [ eventsData ]
+ * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
  * @return {String} props id in store.
  *
  * @description
@@ -47,14 +47,15 @@ export const setDelegateBindEvent = (eventsData = []) => {
      * @type {String}
      */
     const id = mobCore.getUnivoqueId();
+    // @ts-ignore
     tempDelegateEventMap.set(id, eventsDataParsed);
 
     return id;
 };
 
 /**
- * @param {EventTarget|null} target
- * @returns {{ target:EventTarget|null,data:Array<String,function>|Object<String,function> }}
+ * @param {EventTarget|undefined} target
+ * @returns {{ target:EventTarget|undefined,data:import('./type').weakBindEventsDataArray | undefined}}
  */
 const findParentElementInMap = (target) => {
     // @ts-ignore
@@ -66,16 +67,15 @@ const findParentElementInMap = (target) => {
         parent = parent?.parentNode;
     }
 
-    return { target: null, data: null };
+    return { target: undefined, data: undefined };
 };
 
 /**
- * @param {EventTarget|null} target
- * @returns {{ target:EventTarget|null,data:Array<String,function>|Object<String,function> }}
+ * @param {EventTarget} target
+ * @returns {{ target:EventTarget|undefined,data:import('./type').weakBindEventsDataArray | undefined}}
  */
 const getItemFromTarget = (target) => {
     const data = eventDelegationMap.get(target);
-
     if (data) return { target, data: eventDelegationMap.get(target) };
 
     /**
@@ -91,7 +91,8 @@ const getItemFromTarget = (target) => {
  * @returns {void}
  */
 function handleAction(eventKey, event) {
-    const target = event.target;
+    const target = event?.target;
+    if (!target) return;
 
     const { target: targetParsed, data } = getItemFromTarget(target);
 

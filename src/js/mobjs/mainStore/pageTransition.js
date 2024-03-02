@@ -11,7 +11,7 @@ let pageTransition = () => {};
 let beforePageTransition = () => {};
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {import("../type").beforePageTransition} [ obj.fn ]
  * returns void
  *
@@ -25,7 +25,7 @@ export const setBeforePageTransition = ({ fn }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {(import("../type").pageTransition)} [ obj.fn ]
  * returns void
  *

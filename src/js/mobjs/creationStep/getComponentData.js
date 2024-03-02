@@ -5,7 +5,7 @@ import { getPropsFromParent } from '../temporaryData/staticProps';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.component
  * @returns {import('./type').componentDataType}
  *
@@ -98,17 +98,17 @@ export const getComponentData = ({ component }) => {
     const cleanProsFromSlot = propsSlot?.split(' ').join('');
 
     /**
-     * @type {Object}
+     * @type {object}
      */
     const propsFromParent = getPropsFromParent(cleanProsId);
 
     /**
-     * @type {Object}
+     * @type {object}
      */
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
 
     /**
-     * @type {Object}
+     * @type {object}
      *
      * @description
      * Set props.

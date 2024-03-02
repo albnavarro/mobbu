@@ -42,10 +42,10 @@ import { renderHtml } from './utils';
 // JSDOC usare inferred type quando possible.
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.component
- * @param {Object} obj.state
- * @param {Boolean} obj.isCancellable
+ * @param {object} obj.state
+ * @param {boolean} obj.isCancellable
  * @returns {import('../type').componentType}
  *
  * @description

@@ -391,7 +391,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {Object} data
+                 * @param {object} data
                  */
                 inizializeCustomComponent(data) {
                     if (this.active) return;

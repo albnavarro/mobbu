@@ -25,7 +25,7 @@ import { removeChildFromChildrenArray } from '../utils';
 // };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return void
  *
@@ -168,9 +168,9 @@ export const removeOrphanComponent = () => {
 };
 
 /**
- * @param {Object} obj
- * @param {Object} [ obj.cb ] destroy callback function
- * @param {Object} [ obj.id ] component id
+ * @param {object} obj
+ * @param {object} [ obj.cb ] destroy callback function
+ * @param {object} [ obj.id ] component id
  *
  * @description
  * Update deestroy call back by id.

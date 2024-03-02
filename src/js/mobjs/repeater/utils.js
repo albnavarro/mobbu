@@ -40,26 +40,26 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
 };
 
 /**
- * @param {Object} obj
- * @param {Array} obj.arr
- * @param {String} obj.key
- * @return {Boolean}
+ * @param {object} obj
+ * @param {array} obj.arr
+ * @param {string} obj.key
+ * @return {boolean}
  *
  * @description
  * Check if all new item in list has key.
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
-    return arr.every((/** @type {Object} */ item) => {
+    return arr.every((/** @type {object} */ item) => {
         return item?.[key];
     });
 };
 
 /**
- * @param {Object} obj
- * @param {Array} obj.current
- * @param {Array} obj.previous
- * @param {String} obj.key
- * @return {Boolean}
+ * @param {object} obj
+ * @param {array} obj.current
+ * @param {array} obj.previous
+ * @param {string} obj.key
+ * @return {boolean}
  *
  * @description
  * Check if current and previous array has key.
@@ -72,10 +72,10 @@ export const listKeyExist = ({ current, previous, key }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {Array} obj.data
+ * @param {object} obj
+ * @param {array} obj.data
  * @param {string} obj.key
- * @return {Array}
+ * @return {array}
  *
  * @description
  * Get univique array by key.
@@ -87,7 +87,7 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.component
  * @param {function} obj.getChildren
  * @param {HTMLElement} obj.element

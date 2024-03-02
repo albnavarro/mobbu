@@ -6,8 +6,8 @@
 let domContentID = '';
 
 /**
- * @param {Object} obj
- * @param {String} obj.contentId
+ * @param {object} obj
+ * @param {string} obj.contentId
  * returns void
  *
  *

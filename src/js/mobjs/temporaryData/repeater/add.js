@@ -6,9 +6,9 @@
 export const repeatMap = new Map();
 
 /**
- * @param { Object } mainObject
- * @param { String } mainObject.repeatId
- * @param { import("./type").repeaterType } mainObject.obj
+ * @param {object} mainObject
+ * @param {string} mainObject.repeatId
+ * @param {import("./type").repeaterType} mainObject.obj
  *
  * @description
  * Add new repeater id and props.

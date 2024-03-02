@@ -16,7 +16,7 @@ export const setDynamicPropsWatch = ({ id = '', unWatchArray = [] }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return void
  *

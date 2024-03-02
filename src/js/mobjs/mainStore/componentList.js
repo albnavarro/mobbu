@@ -5,7 +5,7 @@ import { defineSlotComponent } from '../webComponent/slot';
 import { defineUserComponent } from '../webComponent/userComponent';
 
 /**
- * @type {{[key:string]:{componentFunction:function,componentParams:Object}}}
+ * @type {{[key:string]:{componentFunction:function,componentParams:object}}}
  */
 let componentListMap = {};
 
@@ -35,7 +35,7 @@ export const setComponentList = (list = {}) => {
 /**
  * @description
  *
- * @returns {Object} Object with all component definition.
+ * @returns {object} Object with all component definition.
  */
 export const getComponentList = () => {
     return componentListMap;

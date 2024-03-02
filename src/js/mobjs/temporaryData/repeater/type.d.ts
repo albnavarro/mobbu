@@ -32,7 +32,7 @@ export interface repeaterType {
         callback: simpleStoreWatchCallbackType
     ) => void;
     emit: (arg0: string) => void;
-    render: (arg0: { sync: Object; html: (arg0: String) => String }) => String;
+    render: (arg0: { sync: object; html: (arg0: string) => string }) => string;
 }
 
 export interface watchListType extends repeaterType {

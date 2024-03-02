@@ -26,16 +26,16 @@ const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.targetComponent
  * @param {string} obj.key
  * @param {string} obj.repeatId
- * @param {Array} obj.currentUnique
+ * @param {array} obj.currentUnique
  * @param {number} obj.index
- * @param {Function} obj.render
- * @param {String} obj.id
+ * @param {function} obj.render
+ * @param {string} obj.id
  *
- * @return {String}
+ * @return {string}
  *
  * @description
  * Get partial list to add from chunked array of components.
@@ -71,17 +71,17 @@ function getPartialsComponentList({
 }
 
 /**
- * @param {Object} obj
- * @param {Array} obj.current
- * @param {Array} obj.previous
+ * @param {object} obj
+ * @param {array} obj.current
+ * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {function} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
- * @param {Function} obj.render
+ * @param {function} obj.render
  * @param {string} obj.repeatId
- * @return {Array}
+ * @return {array}
  *
  * @description
  * Add new children by key.

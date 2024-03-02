@@ -6,9 +6,9 @@ import { incrementParserCounter } from '../temporaryData/parser/parser';
 import { parseComponentsRecursive } from './parseComponentRecursive';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {Boolean} [ obj.isCancellable ]
+ * @param {boolean} [ obj.isCancellable ]
  * @return {Promise<void>} A promise to the token.
  *
  * @description

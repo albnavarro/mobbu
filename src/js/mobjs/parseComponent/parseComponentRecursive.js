@@ -19,11 +19,11 @@ import { getRefs } from '../temporaryData/refs';
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {Boolean} [ obj.isCancellable ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:Function}>} [ obj.functionToFireAtTheEnd ]
- * @param {Number} [ obj.currentIterationCounter ]
+ * @param {boolean} [ obj.isCancellable ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<Element>} [ obj.currentSelectors ]
  * @return {Promise<void>}
  *

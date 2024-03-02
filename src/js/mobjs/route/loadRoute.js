@@ -1,3 +1,5 @@
+// @ts-check
+
 import {
     removeCancellableComponent,
     removeOrphanComponent,
@@ -20,8 +22,8 @@ import {
 import { parseComponents } from '../parseComponent/componentParse';
 
 /**
- * @param {Object} obj
- * @param {String} obj.route
+ * @param {object} obj
+ * @param {string} obj.route
  * @param {{[key:string]: any}} obj.params
  *
  * @description
@@ -34,10 +36,15 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      *
      */
     const contentId = getContentId();
-    const contentEl = document?.querySelector(contentId);
 
     /**
-     * @type {{ activeRoute:String }}
+     * @type {HTMLElement|null}
+     */
+    const contentEl = document?.querySelector(contentId);
+    if (!contentEl) return;
+
+    /**
+     * @type {{ [x: string]: string; }}
      * Set before Route leave.
      */
     const { activeRoute } = mainStore.get();
@@ -80,15 +87,20 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      * Execute function to manipulate old Node.
      */
     const beforePageTransition = getBeforePageTransition();
-    let clone = contentEl.cloneNode(true);
 
-    if (beforePageTransition) {
+    /**
+     * @type {Node|null}
+     */
+    let clone = contentEl?.cloneNode(true);
+
+    if (beforePageTransition && clone) {
         await beforePageTransition({
+            // @ts-ignore
             oldNode: clone,
             oldRoute: activeRoute,
             newRoute: route,
         });
-        contentEl.parentNode.insertBefore(clone, contentEl);
+        contentEl?.parentNode?.insertBefore(clone, contentEl);
     }
 
     /**
@@ -121,6 +133,7 @@ export const loadRoute = async ({ route = '', params = {} }) => {
             oldRoute: activeRoute,
             newRoute: route,
         });
+        // @ts-ignore
         clone.remove();
     }
 

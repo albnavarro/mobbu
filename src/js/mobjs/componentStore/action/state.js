@@ -6,7 +6,7 @@ import { getFreezePropStatus } from './freeze';
 
 /**
  * @param {string} id
- * @return Object
+ * @return object
  *
  * @description
  * Get state

@@ -4,10 +4,10 @@ import { componentMap } from '../store';
 import { getElementById } from './element';
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.component
- * @returns {Array.<String>}
+ * @returns {Array.<string>}
  *
  * @description
  * Get children id.
@@ -27,7 +27,7 @@ export const getChildrenIdByName = ({ id = '', component = '' }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @param {string} obj.component
  * @param {Array<HTMLElement|undefined>} [ obj.filterBy ]

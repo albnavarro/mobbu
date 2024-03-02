@@ -5,7 +5,7 @@ import { getComponentList } from './mainStore/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
 
 /**
- * @return {Object} Return Object with
+ * @return {object} Return Object with
  * key: component name in uppercase.
  * value: component name original
  *

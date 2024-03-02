@@ -3,14 +3,14 @@
 import { mobCore } from '../../../mobCore';
 
 /**
- * @type {Map<String,Object>}
+ * @type {Map<string,object>}
  */
 export const staticPropsMap = new Map();
 
 /**
  *
- * @param {Object} [ props ]
- * @return {String} props id in store.
+ * @param {object} [ props ]
+ * @return {string} props id in store.
  *
  * @description
  * Store props and return a unique identifier
@@ -36,9 +36,9 @@ export const setStaticProps = (props = {}) => {
 };
 
 /**
- * @property {String} id
+ * @property {string} id
  *
- * @return {Object}
+ * @return {object}
  *
  * @description
  * Return props by id
@@ -51,8 +51,8 @@ export const getPropsFromParent = (id = '') => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.propsId
+ * @param {object} obj
+ * @param {string} obj.propsId
  * @return void
  *
  * @description

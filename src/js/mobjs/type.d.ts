@@ -245,7 +245,7 @@ export interface componentType {
      * ></MyComponent>
      * ```
      */
-    staticProps(arg0: { [key: string]: any }): Object;
+    staticProps(arg0: { [key: string]: any }): string;
 
     /**
      *
@@ -314,8 +314,8 @@ export interface componentType {
     bindProps(arg0: {
         bind: Array<string>;
         forceParent: [boolean];
-        props(arg0: { [key: string]: any }): Object;
-    }): Object;
+        props(arg0: { [key: string]: any }): object;
+    }): string;
 
     /**
      * @description
@@ -350,8 +350,8 @@ export interface componentType {
      */
     bindEvents(
         arg0:
-            | { [key: string]: (arg0: Object) => {} }
-            | [{ [key: string]: (arg0: Object) => {} }]
+            | { [key: string]: (arg0: object) => {} }
+            | [{ [key: string]: (arg0: object) => {} }]
     ): void;
 
     /**
@@ -389,8 +389,8 @@ export interface componentType {
      */
     delegateEvents(
         arg0:
-            | { [key: string]: (arg0: Object) => {} }
-            | [{ [key: string]: (arg0: Object) => {} }]
+            | { [key: string]: (arg0: object) => {} }
+            | [{ [key: string]: (arg0: object) => {} }]
     ): void;
 
     /**
@@ -650,9 +650,9 @@ export interface componentType {
          * ```
          */
         render: (arg0: {
-            sync: Object;
-            html: (arg0: String) => String;
-        }) => String;
+            sync: object;
+            html: (arg0: string) => string;
+        }) => string;
     }): string;
 
     /**
@@ -711,7 +711,7 @@ export interface createComponentType {
         name: string;
         oldValue: string;
         newValue: string;
-        context: Object;
+        context: object;
         data: {
             componentId: string;
             emit: (arg0: string) => void;
@@ -779,8 +779,8 @@ export type beforePageTransition = (arg0: {
 }) => Promise<any>;
 
 export type pageTransition = (arg0: {
-    oldNode: HTMLElement;
-    newNode: HTMLElement;
+    oldNode: HTMLElement | node;
+    newNode: HTMLElement | node;
     oldRoute: string;
     newRoute: string;
 }) => Promise<any>;

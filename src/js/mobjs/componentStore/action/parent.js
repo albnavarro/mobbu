@@ -27,7 +27,7 @@ export const getParentIdById = (id = '') => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  *
  * @description

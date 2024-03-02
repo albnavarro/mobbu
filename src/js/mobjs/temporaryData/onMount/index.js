@@ -25,8 +25,8 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.id - component id
+ * @param {object} obj
+ * @param {string} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  *
@@ -60,8 +60,8 @@ export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {String} obj.id - random Id
+ * @param {object} obj
+ * @param {string} obj.id - random Id
  * @return void
  *
  * @description
@@ -72,9 +72,9 @@ export const removeOnMountCallbackReference = ({ id }) => {
 };
 
 /**
- * @param {Object} obj
- * @param {Boolean|'UNSET'} obj.isolateOnMount
- * @param {String} obj.id - component id
+ * @param {object} obj
+ * @param {boolean|'UNSET'} obj.isolateOnMount
+ * @param {string} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  * @returns Function

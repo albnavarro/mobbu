@@ -5,10 +5,10 @@
 export const repeaterTargetComponentMap = new Map();
 
 /**
- * @param { Object } mainObject
- * @param { String } mainObject.repeatId
- * @param { String } mainObject.repeaterParentId
- * @param { String } mainObject.targetComponent
+ * @param {object} mainObject
+ * @param {string} mainObject.repeatId
+ * @param {string} mainObject.repeaterParentId
+ * @param {string} mainObject.targetComponent
  *
  * @description
  * Add repeater target component.
@@ -42,7 +42,7 @@ export const addRepeatTargetComponent = ({
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return void
  *
@@ -58,7 +58,7 @@ export const getRepeaterComponentTarget = ({ id }) => {
 };
 
 /**
- * @param {Object} obj
+ * @param {object} obj
  * @param {string} obj.id
  * @return void
  *
