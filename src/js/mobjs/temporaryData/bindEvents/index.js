@@ -5,13 +5,13 @@ import { checkType } from '../../../mobCore/store/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 
 /**
- * @type {Map<String,Array<{[key:string]: (arg0: object, arg1: object) => {}}>>}
+ * @type {Map<string,Array<{[key:string]: (arg0: object, arg1: object) => {}}>>}
  */
 export const bindEventMap = new Map();
 
 /**
  * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
- * @return {String} props id in store.
+ * @return {string} props id in store.
  *
  * @description
  * Store props and return a unique identifier
@@ -23,7 +23,7 @@ export const setBindEvents = (eventsData = []) => {
         : eventsData;
 
     /**
-     * @type {String}
+     * @type {string}
      */
     const id = mobCore.getUnivoqueId();
     // @ts-ignore
@@ -35,8 +35,8 @@ export const setBindEvents = (eventsData = []) => {
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {String} obj.componentId
- * @param {String} obj.bindEventsId
+ * @param {string} obj.componentId
+ * @param {string} obj.bindEventsId
  * @return {void}
  *
  * @description

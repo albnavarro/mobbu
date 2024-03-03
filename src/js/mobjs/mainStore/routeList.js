@@ -52,7 +52,7 @@ export const setIndex = ({ routeName = '' }) => {
 };
 
 /**
- * @returns  String
+ * @returns  string
  *
  * @description
  * Get index route.
@@ -72,7 +72,7 @@ export const setPageNotFound = ({ routeName = '' }) => {
 };
 
 /**
- * @returns  String
+ * @returns  string
  *
  * @description
  * Get pageNotFound route.

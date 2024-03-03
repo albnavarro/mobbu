@@ -2,7 +2,7 @@
 
 /**
  * @param {object} obj
- * @param {{bind:Array<String>, props: Function}|undefined} obj.dynamicProps
+ * @param {{bind:Array<string>, props: Function}|undefined} obj.dynamicProps
  * @param {string|undefined} obj.stateToWatch
  * @returns {{bind:Array<string>, props: function}|undefined}
  *
@@ -15,7 +15,7 @@ export const removeWatchFromDynamicProps = ({ dynamicProps, stateToWatch }) => {
 
     const { bind } = dynamicProps;
     const newBind = bind.filter(
-        (/** @type{String} */ state) => state !== stateToWatch
+        (/** @type{string} */ state) => state !== stateToWatch
     );
 
     return { ...dynamicProps, bind: newBind };

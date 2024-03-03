@@ -114,7 +114,7 @@ const addToSlot = ({ element }) => {
         if (!slot) return;
 
         /**
-         * @type {String|undefined}
+         * @type {string|undefined}
          *
          * @description
          * Set props id from slot to component.
@@ -147,7 +147,7 @@ const addToSlot = ({ element }) => {
  */
 const executeConversion = ({ componentParsed, content }) => {
     /**
-     * @type {String}
+     * @type {string}
      *
      * @description
      * Add real content from render function

@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {Set<{'id':String,'state':String,'container':HTMLElement}>}
+ * @type {Set<{'id':string,'state':string,'container':HTMLElement}>}
  */
 export const activeRepeatMap = new Set();
 

@@ -6,8 +6,8 @@ import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
 /**
- * @param {String} id
- * @returns {String|undefined}
+ * @param {string} id
+ * @returns {string|undefined}
  *
  * @description
  * Get parent id By id

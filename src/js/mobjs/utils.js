@@ -26,8 +26,8 @@ export const getComponentsReference = () => {
 };
 
 /**
- * @param {{String:any}|{}} props
- * @returns {String}
+ * @param {{string:any}|{}} props
+ * @returns {string}
  *
  * @description
  * Set static props

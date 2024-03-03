@@ -14,56 +14,56 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
  */
 export const getComponentData = ({ component }) => {
     /**
-     * @type {String}
+     * @type {string}
      *
      */
     // @ts-ignore
     const id = component.getId();
 
     /**
-     * @type {String}
+     * @type {string}
      */
     // @ts-ignore
     const instanceName = component.getInstanceName();
 
     /**
-     * @type {String}
+     * @type {string}
      */
     // @ts-ignore
     const parentId = component.getParentId();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const propsId = component.getStaticPropsId();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const dynamicPropsId = component.getDynamicPropsid();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const bindEventsId = component.getBindEventsId();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const dynamicPropsIdFromSlot = component.getDynamicPropsFromSlotId();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const propsSlot = component.getPropsFromSlotId();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     // @ts-ignore
     const currentRepeaterValueId = component.getRepeatValue();
@@ -72,14 +72,14 @@ export const getComponentData = ({ component }) => {
     );
 
     /**
-     * @type {String}
+     * @type {string}
      *
      */
     // @ts-ignore
     const key = component.getCurrentKey() ?? '';
 
     /**
-     * @type {String}
+     * @type {string}
      *
      * @description
      * Set props.
@@ -88,12 +88,12 @@ export const getComponentData = ({ component }) => {
     const componentName = component.getComponentName();
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     const cleanProsId = propsId?.split(' ').join('');
 
     /**
-     * @type {String|undefined}
+     * @type {string|undefined}
      */
     const cleanProsFromSlot = propsSlot?.split(' ').join('');
 

@@ -2,6 +2,6 @@
 
 /**
  * Description
- * @type {Map<String,import("./type").componentStoreTypes>}
+ * @type {Map<string,import("./type").componentStoreTypes>}
  */
 export const componentMap = new Map();

@@ -92,7 +92,7 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
  * @param {function} obj.getChildren
  * @param {HTMLElement} obj.element
  *
- * @return {Array.<String>}
+ * @return {Array.<string>}
  *
  * @description
  * Get children of component inside a element

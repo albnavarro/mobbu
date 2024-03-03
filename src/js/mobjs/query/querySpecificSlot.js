@@ -8,7 +8,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 
 /**
  * @param {Element} root
- * @param {String} slotName
+ * @param {string} slotName
  * @returns {HTMLElement|null}
  */
 function selectAll(root, slotName) {
@@ -22,7 +22,7 @@ function selectAll(root, slotName) {
 
 /**
  * @param {Element} node
- * @param {String} slotName
+ * @param {string} slotName
  * @returns {HTMLElement|null}
  */
 export const querySecificSlot = (node, slotName) => {

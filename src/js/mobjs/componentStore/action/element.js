@@ -45,7 +45,7 @@ export const getElementById = ({ id = '' }) => {
  *
  * @param {object} obj
  * @param {HTMLElement|undefined} obj.element
- * @return {String|undefined}
+ * @return {string|undefined}
  *
  * @description
  * Get element by id

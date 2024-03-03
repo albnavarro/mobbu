@@ -5,7 +5,7 @@ export const defineRepeaterComponent = () => {
         'mobjs-repeater',
         class extends HTMLElement {
             /**
-             * @type {String}
+             * @type {string}
              */
             #repeatId;
 

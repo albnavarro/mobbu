@@ -9,7 +9,7 @@ import {
 /**
  * @param {object} obj
  * @param {string} obj.url
- * @returns {String}
+ * @returns {string}
  *
  * @description
  * Validate url, in not exist return pageNotFound.

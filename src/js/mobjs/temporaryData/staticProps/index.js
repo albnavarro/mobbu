@@ -27,7 +27,7 @@ export const staticPropsMap = new Map();
  */
 export const setStaticProps = (props = {}) => {
     /**
-     * @type {String}
+     * @type {string}
      */
     const id = mobCore.getUnivoqueId();
     staticPropsMap.set(id, props);

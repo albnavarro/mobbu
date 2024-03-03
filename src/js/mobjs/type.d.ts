@@ -3,8 +3,8 @@
 import { simpleStoreBaseData } from '../mobCore/store/type';
 
 export interface componentType {
-    key: String;
-    id: String;
+    key: string;
+    id: string;
 
     /**
      * @example
@@ -128,7 +128,7 @@ export interface componentType {
      * ```
      *
      */
-    watch(prop: String, callback: () => void): void;
+    watch(prop: string, callback: () => void): void;
 
     /**
      * @description
@@ -182,7 +182,7 @@ export interface componentType {
      *
      * ```
      */
-    getChildren(componentName: String): Array<String>;
+    getChildren(componentName: string): Array<string>;
 
     /**
      * @example
@@ -275,7 +275,7 @@ export interface componentType {
      * Detach binbProps.
      * Note: The function will be active as soon as the whole route is rendered.
      */
-    unBind: (arg0: { id: String }) => void;
+    unBind: (arg0: { id: string }) => void;
 
     /**
      * @description

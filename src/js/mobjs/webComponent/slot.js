@@ -5,17 +5,17 @@ export const defineSlotComponent = () => {
         'mobjs-slot',
         class extends HTMLElement {
             /**
-             * @type {String}
+             * @type {string}
              */
             #slotName;
 
             /**
-             * @type {String}
+             * @type {string}
              */
             #staticProps;
 
             /**
-             * @type {String}
+             * @type {string}
              */
             #dynamicProps;
 

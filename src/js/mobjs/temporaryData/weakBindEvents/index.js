@@ -32,7 +32,7 @@ const eventRegistered = [];
 
 /**
  * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
- * @return {String} props id in store.
+ * @return {string} props id in store.
  *
  * @description
  * Store props and return a unique identifier
@@ -44,7 +44,7 @@ export const setDelegateBindEvent = (eventsData = []) => {
         : eventsData;
 
     /**
-     * @type {String}
+     * @type {string}
      */
     const id = mobCore.getUnivoqueId();
     // @ts-ignore

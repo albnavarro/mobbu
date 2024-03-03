@@ -17,7 +17,7 @@ export const dynamicPropsMap = new Map();
 
 /**
  * @param {{'bind':Array<string>,'parentId':string|undefined,'props':object, forceParent:[boolean]}} propsObj
- * @return {String|undefined} props id in store.
+ * @return {string|undefined} props id in store.
  *
  * @description
  * Store props and return a unique identifier
@@ -46,7 +46,7 @@ export const setBindProps = (propsObj) => {
     }
 
     /**
-     * @type {String}
+     * @type {string}
      */
     const id = mobCore.getUnivoqueId();
     dynamicPropsMap.set(id, { ...propsObj, componentId: '', propsId: id });
@@ -57,7 +57,7 @@ export const setBindProps = (propsObj) => {
 /**
  * @param {object} obj
  * @param {string} obj.componentId
- * @param {Array<String>} obj.bind
+ * @param {Array<string>} obj.bind
  * @param {(args0: object) => object} obj.props
  * @param {string} obj.currentParentId
  * @param {boolean} obj.fireCallback
@@ -245,7 +245,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
          */
         let watchIsRunning = false;
 
-        const unWatchArray = bind.map((/** @type{String} */ state) => {
+        const unWatchArray = bind.map((/** @type{string} */ state) => {
             return watchById(currentParentId, state, () => {
                 if (watchIsRunning) return;
 

@@ -86,16 +86,16 @@ export const frameDelayAfterParse = 5;
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 
 /**
- * @type {String};
+ * @type {string};
  */
 export const UNSET = 'UNSET';
 
 /**
- * @type {String};
+ * @type {string};
  */
 export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
 
 /**
- * @type {String};
+ * @type {string};
  */
 export const QUEQUE_TYPE_REPEATER = 'QUEQUE_REPEATER';

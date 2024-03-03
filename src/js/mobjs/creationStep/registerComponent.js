@@ -105,7 +105,7 @@ export const registerComponent = ({
     addSelfToParentComponent({ id });
 
     const repeatIdArray = [];
-    const getChildren = (/** @type {String} */ component) =>
+    const getChildren = (/** @type {string} */ component) =>
         getChildrenIdByName({ id, component });
 
     /**

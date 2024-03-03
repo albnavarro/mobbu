@@ -7,7 +7,7 @@ import { getDefaultComponent } from '../../createComponent';
 import { parseRefs } from '../refs';
 
 /**
- * @type {Map<String,Function>}
+ * @type {Map<string,Function>}
  */
 export const onMountCallbackMap = new Map();
 

@@ -29,12 +29,12 @@ export const defineUserComponent = (componentList) => {
             key,
             class extends HTMLElement {
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #componentname;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #componentId;
 
@@ -109,62 +109,62 @@ export const defineUserComponent = (componentList) => {
                 #isPlaceholder;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #name;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #staticPropsId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #dynamicPropsId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #bindEventsId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #dynamicPropsFromSlotId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #propsFromSlotId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #currentRepeatValueId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #slotPosition;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #currentKey;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #parentId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #isChildOfRepeatId;
 
                 /**
-                 * @type {String}
+                 * @type {string}
                  */
                 #delegateEventId;
 
@@ -274,7 +274,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param { String } value
+                 * @param { string } value
                  */
                 setId(value) {
                     this.#componentId = value;
@@ -289,7 +289,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param { String } value
+                 * @param { string } value
                  */
                 setParentId(id) {
                     this.#parentId = id;
@@ -320,7 +320,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {String} value
+                 * @param {string} value
                  */
                 setDynamicPropsFromSlotId(value) {
                     this.#dynamicPropsFromSlotId = value;
@@ -331,7 +331,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {String} value
+                 * @param {string} value
                  */
                 setPropsFromSlotId(value) {
                     this.#propsFromSlotId = value;
@@ -448,7 +448,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param {String} name
+                 * @param {string} name
                  * @param {any} oldValue
                  * @param {any} newValue
                  */

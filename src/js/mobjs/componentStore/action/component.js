@@ -3,7 +3,7 @@
 import { componentMap } from '../store';
 
 /**
- * @param {String} id
+ * @param {string} id
  *
  * @description
  * get component name By id
@@ -23,7 +23,7 @@ export const getComponentNameById = (id = '') => {
 };
 
 /**
- * @param {String} name
+ * @param {string} name
  * @returns {string|undefined}
  *
  * @description

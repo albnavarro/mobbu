@@ -10,11 +10,11 @@ export const currentRepeaterValueMap = new Map();
 
 /**
  * @param {{ current:object, index:number}} current
- * @returns String
+ * @returns string
  */
 export const setComponentRepeaterState = (current) => {
     /**
-     * @type {String}
+     * @type {string}
      */
     const id = mobCore.getUnivoqueId();
     currentRepeaterValueMap.set(id, current);
