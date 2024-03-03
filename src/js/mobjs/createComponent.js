@@ -1,5 +1,3 @@
-import { UNSET } from './constant';
-
 let defaultComponent = {
     isolateCreation: false,
     isolateOnMount: false,
@@ -36,9 +34,9 @@ export const createComponent = ({
     component = () => {},
     state = {},
     exportState = [],
-    isolateCreation = UNSET,
-    isolateOnMount = UNSET,
-    scoped = UNSET,
+    isolateCreation,
+    isolateOnMount,
+    scoped,
     constructorCallback = () => {},
     connectedCallback = () => {},
     disconnectedCallback = () => {},

@@ -2,6 +2,12 @@
 
 import { simpleStoreBaseData } from '../mobCore/store/type';
 
+export interface componentReturnType {
+    id: string;
+    content: string;
+    componentParsed: HTMLElement;
+}
+
 export interface componentType {
     key: string;
     id: string;
@@ -407,14 +413,7 @@ export interface componentType {
      *
      * ```
      */
-    html(
-        strings: string[],
-        ...values: string[]
-    ): {
-        id: string;
-        content: string;
-        componentParsed: HTMLElement;
-    };
+    html(strings: string[], ...values: string[]): componentReturn;
 
     /**
      *
@@ -675,9 +674,7 @@ export interface componentType {
     repeatIdArray: string[];
 }
 
-export interface createComponentType {
-    name: string;
-    component: () => void;
+export interface componentParsedType {
     exportState: string[];
 
     /**
@@ -732,6 +729,11 @@ export interface createComponentType {
     attributeToObserve?: string[];
     style?: string;
     state: simpleStoreBaseData;
+}
+
+export interface createComponentType extends componentParsedType {
+    name: string;
+    component: () => void;
 }
 
 export interface defaultComponent {

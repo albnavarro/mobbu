@@ -88,11 +88,6 @@ export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 /**
  * @type {string};
  */
-export const UNSET = 'UNSET';
-
-/**
- * @type {string};
- */
 export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
 
 /**

@@ -2,7 +2,6 @@
 
 import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
-import { UNSET } from '../../constant';
 import { getDefaultComponent } from '../../createComponent';
 import { parseRefs } from '../refs';
 
@@ -73,7 +72,7 @@ export const removeOnMountCallbackReference = ({ id }) => {
 
 /**
  * @param {object} obj
- * @param {boolean|'UNSET'} obj.isolateOnMount
+ * @param {boolean|'UNSET'|undefined} obj.isolateOnMount
  * @param {string} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
@@ -89,9 +88,7 @@ export const executeFireOnMountCallBack = ({
     refsCollection,
 }) => {
     const isolateOnMountParsed =
-        isolateOnMount === UNSET
-            ? getDefaultComponent().isolateOnMount
-            : isolateOnMount;
+        isolateOnMount ?? getDefaultComponent().isolateOnMount;
 
     return isolateOnMountParsed
         ? /**

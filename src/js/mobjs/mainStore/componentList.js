@@ -5,7 +5,7 @@ import { defineSlotComponent } from '../webComponent/slot';
 import { defineUserComponent } from '../webComponent/userComponent';
 
 /**
- * @type {{[key:string]:{componentFunction:function,componentParams:object}}}
+ * @type {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<import('../type').componentReturnType>,componentParams:import('../type').componentParsedType }}}
  */
 let componentListMap = {};
 
@@ -35,7 +35,7 @@ export const setComponentList = (list = {}) => {
 /**
  * @description
  *
- * @returns {object} Object with all component definition.
+ * @returns {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<import('../type').componentReturnType>,componentParams:import('../type').componentParsedType }}}
  */
 export const getComponentList = () => {
     return componentListMap;

@@ -4575,7 +4575,6 @@
   var ATTR_REFS = "ref";
   var frameDelayAfterParse = 5;
   var DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
-  var UNSET = "UNSET";
   var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
 
@@ -4702,9 +4701,9 @@
     },
     state = {},
     exportState = [],
-    isolateCreation = UNSET,
-    isolateOnMount = UNSET,
-    scoped = UNSET,
+    isolateCreation,
+    isolateOnMount,
+    scoped,
     constructorCallback = () => {
     },
     connectedCallback = () => {
@@ -6006,7 +6005,7 @@
     content: content2,
     isolateCreation
   }) => {
-    const isolateCreationParsed = isolateCreation === UNSET ? getDefaultComponent().isolateCreation : isolateCreation;
+    const isolateCreationParsed = isolateCreation ?? getDefaultComponent().isolateCreation;
     return isolateCreationParsed ? new Promise((resolve) => {
       mobCore.useFrame(() => {
         const newElement = executeConversion({
@@ -6079,7 +6078,7 @@
     element,
     refsCollection
   }) => {
-    const isolateOnMountParsed = isolateOnMount === UNSET ? getDefaultComponent().isolateOnMount : isolateOnMount;
+    const isolateOnMountParsed = isolateOnMount ?? getDefaultComponent().isolateOnMount;
     return isolateOnMountParsed ? (
       /**
        * With heavy onMount function fire next one frame after.
@@ -6941,6 +6940,7 @@
       return;
     }
     const objectFromComponentFunction = registerComponent({
+      // @ts-ignore
       component: componentToParse,
       ...componentParams,
       isCancellable
@@ -6990,7 +6990,7 @@
         bindEventsId
       });
     }
-    const scopedParsed = scoped === UNSET ? getDefaultComponent().scoped : scoped;
+    const scopedParsed = scoped ?? getDefaultComponent().scoped;
     if (scopedParsed) {
       await executeFireOnMountCallBack({
         isolateOnMount,

@@ -2,7 +2,6 @@
 
 import { setElementById } from '../componentStore/action/element';
 import { convertToRealElement } from '../creationStep/convertToRealElement';
-import { UNSET } from '../constant';
 import { getComponentList } from '../mainStore/componentList';
 // import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
@@ -132,6 +131,7 @@ export const parseComponentsRecursive = async ({
      * 3 - Return methods and props for userFunctionComponent (componentData)
      */
     const objectFromComponentFunction = registerComponent({
+        // @ts-ignore
         component: componentToParse,
         ...componentParams,
         isCancellable,
@@ -223,8 +223,7 @@ export const parseComponentsRecursive = async ({
      * Child is ignored.
      */
 
-    const scopedParsed =
-        scoped === UNSET ? getDefaultComponent().scoped : scoped;
+    const scopedParsed = scoped ?? getDefaultComponent().scoped;
 
     if (scopedParsed) {
         await executeFireOnMountCallBack({

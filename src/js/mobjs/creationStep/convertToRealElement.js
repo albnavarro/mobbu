@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { ATTR_IS_COMPONENT, ATTR_WEAK_BIND_EVENTS, UNSET } from '../constant';
+import { ATTR_IS_COMPONENT, ATTR_WEAK_BIND_EVENTS } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
 import { queryGenericSlot } from '../query/queryGenericSlot';
@@ -208,7 +208,7 @@ const executeConversion = ({ componentParsed, content }) => {
  * @param {object} obj
  * @param {HTMLElement} obj.componentParsed
  * @param {string} obj.content
- * @param {boolean|'UNSET'} obj.isolateCreation
+ * @param {boolean|'UNSET'|undefined} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
@@ -222,9 +222,7 @@ export const convertToRealElement = ({
     isolateCreation,
 }) => {
     const isolateCreationParsed =
-        isolateCreation === UNSET
-            ? getDefaultComponent().isolateCreation
-            : isolateCreation;
+        isolateCreation ?? getDefaultComponent().isolateCreation;
 
     return isolateCreationParsed
         ? new Promise((resolve) => {
