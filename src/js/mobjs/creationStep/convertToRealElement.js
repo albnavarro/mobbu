@@ -208,7 +208,7 @@ const executeConversion = ({ componentParsed, content }) => {
  * @param {object} obj
  * @param {HTMLElement} obj.componentParsed
  * @param {string} obj.content
- * @param {boolean|'UNSET'|undefined} obj.isolateCreation
+ * @param {boolean|undefined} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description

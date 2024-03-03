@@ -72,7 +72,7 @@ export const removeOnMountCallbackReference = ({ id }) => {
 
 /**
  * @param {object} obj
- * @param {boolean|'UNSET'|undefined} obj.isolateOnMount
+ * @param {boolean|undefined} obj.isolateOnMount
  * @param {string} obj.id - component id
  * @param {HTMLElement} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
