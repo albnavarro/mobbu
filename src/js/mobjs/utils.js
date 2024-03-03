@@ -1,32 +1,10 @@
 // @ts-check
 
 import { ATTR_PROPS } from './constant';
-import { getComponentList } from './mainStore/componentList';
 import { setStaticProps } from './temporaryData/staticProps';
 
 /**
- * @return {object} Return Object with
- * key: component name in uppercase.
- * value: component name original
- *
- * @description
- * Get component Object with name in uppercase and the value is the original name.
- * Name in uppercase is necessary for element.tagName
- */
-export const getComponentsReference = () => {
-    const componentList = getComponentList();
-
-    return Object.keys(componentList)
-        .map((key) => ({
-            [key.toUpperCase()]: key,
-        }))
-        .reduce((previous, current) => {
-            return { ...previous, ...current };
-        }, {});
-};
-
-/**
- * @param {{string:any}|{}} props
+ * @param {{[key:string]:any}} props
  * @returns {string}
  *
  * @description
