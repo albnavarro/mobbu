@@ -131,7 +131,7 @@ export const parseComponentsRecursive = async ({
      * 2 - Register component to store
      * 3 - Return methods and props for userFunctionComponent (componentData)
      */
-    const componentData = registerComponent({
+    const objectFromComponentFunction = registerComponent({
         component: componentToParse,
         ...componentParams,
         isCancellable,
@@ -142,7 +142,7 @@ export const parseComponentsRecursive = async ({
      * to add to component.
      */
     const { content, componentParsed, id } = await userFunctionComponent(
-        componentData
+        objectFromComponentFunction
     );
 
     /**
@@ -199,7 +199,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Execute repeat List function
      */
-    const repeatIdArray = componentData?.repeatIdArray;
+    const repeatIdArray = objectFromComponentFunction?.repeatIdArray;
     const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
         return inizializeRepeat({
             repeatId,
@@ -209,7 +209,7 @@ export const parseComponentsRecursive = async ({
         });
     });
 
-    const bindEventsId = componentData?.bindEventsId;
+    const bindEventsId = objectFromComponentFunction?.bindEventsId;
     if (bindEventsId) {
         applyBindEvents({
             element: newElement,
@@ -239,7 +239,7 @@ export const parseComponentsRecursive = async ({
      * Initialize custom component.
      */
     // @ts-ignore
-    newElement?.inizializeCustomComponent?.(componentData);
+    newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
 
     /**
      * Store onMount callback.
