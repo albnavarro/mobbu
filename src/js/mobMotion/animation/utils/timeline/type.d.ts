@@ -18,5 +18,5 @@ export interface directionTypeObjectUpdate extends directionTypeObject {
 }
 
 export interface directionTypeAsync extends directionTypeObjectLoop {
-    resolve: function;
+    resolve: Function;
 }

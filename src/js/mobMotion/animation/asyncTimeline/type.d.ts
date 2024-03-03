@@ -41,7 +41,7 @@ export interface asyncTimelineTypeSpecialProps {
     config?: springChoiceConfig;
     configProp?: springProps;
     precision?: number;
-    velocity?: ?number;
+    velocity?: number;
     reverse?: boolean;
     relative?: boolean;
     delay?: number;
@@ -51,7 +51,7 @@ export interface asyncTimelineTypeSpecialProps {
 
 export interface asyncTimelineTween {
     getId: () => string;
-    set: (arg0: valueToparseType, ar1?: tweenCommonProps) => Promise<any>;
+    set: (arg0: valueToparseType<any>, ar1?: tweenCommonProps) => Promise<any>;
     goTo: () => Promise<any>;
     goFromTo: () => Promise<any>;
     getToNativeType: () => any;
@@ -72,15 +72,15 @@ export interface asyncTimelineRowData {
     id: number;
     labelProps: { name?: string };
     prevValueSettled: boolean;
-    prevValueTo: valueToparseType;
+    prevValueTo: valueToparseType<any>;
     syncProp: {
         from: asyncTimelineTween;
         to: asyncTimelineTween;
     };
     tween: any;
     tweenProps: asyncTimelineTypeSpecialProps;
-    valuesFrom: valueToparseType;
-    valuesTo: valueToparseType;
+    valuesFrom: valueToparseType<any>;
+    valuesTo: valueToparseType<any>;
 }
 
 export interface asyncTimelineTweenItem {

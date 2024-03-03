@@ -22,5 +22,5 @@ export interface syncTimelineSequencers {
 
 export interface syncTimelineEventType {
     id: number;
-    cb: function;
+    cb: Function;
 }

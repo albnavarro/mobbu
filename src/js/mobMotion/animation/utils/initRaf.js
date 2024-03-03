@@ -3,7 +3,7 @@
 import { mobCore } from '../../../mobCore';
 
 /**
- * @param {Array.<{cb:function,id:number,index:Number,frame:Number}>} callbackPauseArray
+ * @param {import('./callbacks/type').callbackObject[]} callbackPauseArray
  * @param {Function} rafFunction
  * @param {Function} pauseFunction
  * @param {(function(any):void)} resolve

@@ -10,6 +10,8 @@ module.exports = {
         'plugin:import/typescript',
         'plugin:unicorn/recommended',
     ],
+    ignorePatterns: ['**/*.d.ts', '**/*.cjs'],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',

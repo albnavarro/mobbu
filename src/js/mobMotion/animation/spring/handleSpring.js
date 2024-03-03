@@ -176,25 +176,25 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
          */
         this.callback = [];
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<number>[]}
          */
         this.callbackCache = [];
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
          */
         this.callbackOnComplete = [];
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
          */
         this.callbackStartInPause = [];
 
@@ -1153,7 +1153,7 @@ export default class HandleSpring {
     }
 
     /**
-     * @param {('Object'|'HTMLElement')} item
+     * @param {(Object|HTMLElement)} item
      * @param {function(any):void} fn - callback function.
      * @return {Function} unsubscribe callback
      *

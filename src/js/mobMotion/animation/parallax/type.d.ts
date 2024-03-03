@@ -393,8 +393,8 @@ export interface parallaxMoveType {
 }
 
 export interface parallaxTweenType {
-    from: valueToparseType;
-    to: valueToparseType;
+    from: valueToparseType<any>;
+    to: valueToparseType<any>;
     stagger?: staggerObjectOptional;
     ease?: easeTypes;
     duration?: number;

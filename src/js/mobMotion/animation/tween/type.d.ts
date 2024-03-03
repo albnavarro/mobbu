@@ -35,7 +35,7 @@ export type easeTypes =
     | 'easeInOutBounce';
 
 export interface tweenProps {
-    data: valueToparseType;
+    data: valueToparseType<any>;
     duration?: number;
     relative?: boolean;
     stagger?: staggerObjectOptional;

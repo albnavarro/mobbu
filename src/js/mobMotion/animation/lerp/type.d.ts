@@ -2,7 +2,7 @@ import { staggerObjectOptional } from '../utils/stagger/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface lerpTweenProps {
-    data: valueToparseType;
+    data: valueToparseType<any>;
     relative?: boolean;
     stagger?: staggerObjectOptional;
     precision?: number;

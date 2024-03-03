@@ -83,19 +83,19 @@ export default class ParallaxTween {
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject[]}
+         * @type{import('../utils/callbacks/type.js').callbackObject<Function>[]}
          */
         this.callbackOnStop = [];
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject[]}
+         * @type{import('../utils/callbacks/type.js').callbackObject<Function>[]}
          */
         this.callback = [];
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject[]}
+         * @type{import('../utils/callbacks/type.js').callbackObject<number>[]}
          */
         this.callbackCache = [];
 
@@ -370,7 +370,7 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {('Object'|'HTMLElement')} item
+     * @param {(Object|HTMLElement)} item
      * @param {function(any):void} fn - callback function.
      * @return {Function} unsubscribe callback
      *

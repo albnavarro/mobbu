@@ -16,11 +16,11 @@ export type simpleStoreTypeNative =
     | Number
     | Object
     | Function
-    | Array
+    | Array<any>
     | Boolean
     | Element
-    | Map
-    | Set
+    | Map<any, any>
+    | Set<any>
     | NodeList;
 
 export type simpleStoreCustomValue = () => {

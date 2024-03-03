@@ -3,7 +3,7 @@ import { staggerObjectOptional } from '../utils/stagger/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface sequencerProps {
-    data: valueToparseType;
+    data: valueToparseType<any>;
     duration?: number;
     stagger?: staggerObjectOptional;
     ease?: easeTypes;
@@ -25,7 +25,7 @@ export interface sequencerAction {
 export interface sequencerValue {
     active: boolean;
     currentValue: number;
-    ease: function;
+    ease: Function;
     fromValue: number;
     prop: string;
     settled: boolean;
@@ -51,21 +51,21 @@ export interface labelType {
 }
 
 export interface addType {
-    fn: function;
+    fn: Function;
     time: number;
 }
 
 export interface masterSequencerItem {
-    draw: function;
-    inzializeStagger: function;
-    setDuration: function;
-    getDuration: function;
-    setStretchFactor: function;
-    getLabels: function;
-    disableStagger: function;
-    resetLastValue: function;
-    cleanCachedId: function;
-    destroy: function;
+    draw: Function;
+    inzializeStagger: Function;
+    setDuration: Function;
+    getDuration: Function;
+    setStretchFactor: Function;
+    getLabels: Function;
+    disableStagger: Function;
+    resetLastValue: Function;
+    cleanCachedId: Function;
+    destroy: Function;
 }
 
 export interface createSequencerType {

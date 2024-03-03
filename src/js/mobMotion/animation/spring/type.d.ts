@@ -18,7 +18,6 @@ export interface springPropsOptional {
 }
 
 export interface springPresentConfigType {
-    default?: springProps;
     gentle?: springProps;
     wobbly?: springProps;
     bounce?: springProps;
@@ -35,7 +34,7 @@ export type springChoiceConfig =
     | 'scroller';
 
 export interface springTweenProps {
-    data: valueToparseType;
+    data: valueToparseType<any>;
     relative?: boolean;
     stagger?: staggerObjectOptional;
     config?: springChoiceConfig;

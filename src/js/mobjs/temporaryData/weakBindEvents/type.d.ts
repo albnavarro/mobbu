@@ -1,6 +1,6 @@
 export interface weakBindEventsData {
     event: string;
-    callback: function;
+    callback: Function;
 }
 
 export type weakBindEventsDataArray = weakBindEventsData[];

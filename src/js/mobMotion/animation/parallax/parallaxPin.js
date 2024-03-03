@@ -472,22 +472,19 @@ export class ParallaxPin {
     }
 
     setPinSize() {
-        const cb = () => {
-            if (!this.pin || !this.wrapper) return;
-            const height = this.wrapper.offsetHeight;
-            const width = this.wrapper.offsetWidth;
-            this.wrapper.style.height = `${height}px`;
-            this.wrapper.style.width = `${width}px`;
-            this.pin.style.height = `${height}px`;
-            this.pin.style.width = `${width}px`;
-        };
-
         /*
         Firse time ww don't use raf to apply basic
         misureimmediatly on component creation
         Otherwise we can have some wrong calculation after
         */
-        cb();
+
+        if (!this.pin || !this.wrapper) return;
+        const height = this.wrapper.offsetHeight;
+        const width = this.wrapper.offsetWidth;
+        this.wrapper.style.height = `${height}px`;
+        this.wrapper.style.width = `${width}px`;
+        this.pin.style.height = `${height}px`;
+        this.pin.style.width = `${width}px`;
     }
 
     /**
@@ -667,13 +664,11 @@ export class ParallaxPin {
      * @param {number} gap
      */
     tween(gap) {
-        const cb = () => {
+        mobCore.useFrame(() => {
             if (!this.pin || !this.collisionStyleProp) return;
 
             this.pin.style[this.collisionStyleProp] = `${this.startFromTop}px`;
-        };
-
-        mobCore.useFrame(() => cb());
+        });
 
         if (this.animatePin && !this.firstTime && this.pin) {
             this.spring
@@ -689,14 +684,10 @@ export class ParallaxPin {
      * @returns {void}
      */
     resetPinTransform() {
-        const cb = () => {
+        mobCore.useFrame(() => {
             if (!this.pin) return;
 
             this.pin.style.transform = `translate(0px, 0px)`;
-        };
-
-        mobCore.useFrame(() => {
-            cb();
         });
     }
 
@@ -705,17 +696,14 @@ export class ParallaxPin {
      */
     resetStyleWhenUnder() {
         this.resetSpring();
-        const cb = () => {
+
+        mobCore.useFrame(() => {
             if (!this.pin) return;
 
             this.pin.style.transition = '';
             this.pin.style.position = 'relative';
             this.pin.style.top = ``;
             this.pin.style.left = ``;
-        };
-
-        mobCore.useFrame(() => {
-            cb();
         });
     }
 
@@ -725,7 +713,7 @@ export class ParallaxPin {
     resetStyleWhenOver() {
         this.resetSpring();
 
-        const cb = () => {
+        mobCore.useFrame(() => {
             if (!this.pin) return;
 
             this.pin.style.transition = '';
@@ -738,10 +726,6 @@ export class ParallaxPin {
                 this.pin.style.top = ``;
                 this.pin.style.left = `${this.compesateValue}px`;
             }
-        };
-
-        mobCore.useFrame(() => {
-            cb();
         });
     }
 
@@ -853,16 +837,12 @@ export class ParallaxPin {
     deactivateTrasponder() {
         if (!this.shoulTranspond || !this.item || !this.wrapper) return;
 
-        const cb = () => {
+        mobCore.useFrame(() => {
             if (!this.pin) return;
 
             // @ts-ignore
             Object.assign(this.item.style, this.removeStyleToItem());
             this.wrapper?.append(this.pin);
-        };
-
-        mobCore.useFrame(() => {
-            cb();
         });
 
         this.trasponderActive = false;

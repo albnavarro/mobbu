@@ -413,7 +413,7 @@ export interface componentType {
      *
      * ```
      */
-    html(strings: string[], ...values: string[]): componentReturn;
+    html(strings: string[], ...values: string[]): componentReturnType;
 
     /**
      *
@@ -700,10 +700,10 @@ export interface componentParsedType {
      * `default = false`.
      */
     scoped?: boolean;
-    constructorCallback?: ({ context: object }) => void;
-    connectedCallback?: ({ context: object, data: object }) => void;
-    disconnectedCallback?: ({ context: object, data: object }) => void;
-    adoptedCallback?: ({ context: object, data: object }) => void;
+    constructorCallback?: ({ context: {} }) => void;
+    connectedCallback?: ({ context: {}, data: {} }) => void;
+    disconnectedCallback?: ({ context: {}, data: {} }) => void;
+    adoptedCallback?: ({ context: {}, data: {} }) => void;
     attributeChangedCallback?: {
         name: string;
         oldValue: string;
@@ -781,8 +781,8 @@ export type beforePageTransition = (arg0: {
 }) => Promise<any>;
 
 export type pageTransition = (arg0: {
-    oldNode: HTMLElement | node;
-    newNode: HTMLElement | node;
+    oldNode: HTMLElement | Node;
+    newNode: HTMLElement | Node;
     oldRoute: string;
     newRoute: string;
 }) => Promise<any>;

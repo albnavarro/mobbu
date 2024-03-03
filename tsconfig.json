@@ -1,0 +1,7 @@
+// https://github.com/Artxe2/jsdoc-subpkg-example
+
+{
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "noEmit": true
+}

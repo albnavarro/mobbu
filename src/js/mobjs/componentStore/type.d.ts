@@ -12,7 +12,7 @@ export interface componentCommonTypes {
         index: number;
     };
     isRepeater?: boolean;
-    parentPropsWatcher?: function[];
+    parentPropsWatcher?: Function[];
     destroy: () => void;
     freezedPros?: string[];
     isCancellable: boolean;
@@ -45,7 +45,7 @@ export interface componentStoreReturnType {
     getState: (arg0: string) => any;
     setState: (arg0: string, arg2: any, arg3: boolean) => void;
     emit: (arg0: string) => void;
-    emitAsync: (arg0: string) => Promise;
+    emitAsync: (arg0: string) => Promise<any>;
     computed: (
         prop: string,
         keys: string[],

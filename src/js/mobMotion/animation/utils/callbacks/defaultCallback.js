@@ -5,8 +5,8 @@ import { mobCore } from '../../../../mobCore/index.js';
 /**
  * @param {Object} obj
  * @param {import('../stagger/type.js').staggerObject} obj.stagger
- * @param {Array.<import('./type.js').callbackObject>} obj.callback
- * @param {Array.<import('./type.js').callbackObject>} obj.callbackCache
+ * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callback
+ * @param {Array.<import('./type.js').callbackObject<Number>>} obj.callbackCache
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.callBackObject
  * @param {Boolean} obj.useStagger
  *
@@ -64,13 +64,13 @@ export const defaultCallback = ({
  * @param {Object} obj
  * @param {Function} obj.onComplete
  * @param {import('../stagger/type.js').staggerObject} obj.stagger
- * @param {Array.<import('./type.js').callbackObject>} obj.callback
- * @param {Array.<import('./type.js').callbackObject>} obj.callbackCache
- * @param {Array.<import('./type.js').callbackObject>} obj.callbackOnComplete
+ * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callback
+ * @param {Array.<import('./type.js').callbackObject<number>>} obj.callbackCache
+ * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callbackOnComplete
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.callBackObject
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.slowlestStagger
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.fastestStagger
- * @param {Boolean} obj.useStagger
+ * @param {boolean} obj.useStagger
  *
  * @description
  *Callback on complete
