@@ -49,8 +49,8 @@ export interface componentType {
     setState(
         prop: string,
         newValue: any,
-        fireCallback?: Boolean,
-        clone?: Boolean
+        fireCallback?: boolean,
+        clone?: boolean
     ): void;
 
     /**

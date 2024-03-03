@@ -104,7 +104,7 @@ export const defineUserComponent = (componentList) => {
                 #watchParent;
 
                 /**
-                 * @type {Boolean}
+                 * @type {boolean}
                  */
                 #isPlaceholder;
 

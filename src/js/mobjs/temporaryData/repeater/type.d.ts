@@ -24,8 +24,8 @@ export interface repeaterType {
     setState(
         prop: string,
         newValue: any,
-        fireCallback?: Boolean,
-        clone?: Boolean
+        fireCallback?: boolean,
+        clone?: boolean
     ): void;
     watch: (
         propierties: string,

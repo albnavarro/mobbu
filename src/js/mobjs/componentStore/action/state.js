@@ -23,7 +23,7 @@ export const getStateById = (id = '') => {
  * @param {string} id
  * @param {string} prop
  * @param {any} value
- * @param {Boolean} fire
+ * @param {boolean} fire
  * @returns void
  *
  * @description
