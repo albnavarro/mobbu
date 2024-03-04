@@ -32,7 +32,7 @@ const AFTER = 'afterend';
  * @param {string} obj.repeatId
  * @param {array} obj.currentUnique
  * @param {number} obj.index
- * @param {function} obj.render
+ * @param {Function} obj.render
  * @param {string} obj.id
  *
  * @return {string}
@@ -76,10 +76,10 @@ function getPartialsComponentList({
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {function} obj.getChildren
+ * @param {Function} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
- * @param {function} obj.render
+ * @param {Function} obj.render
  * @param {string} obj.repeatId
  * @return {array}
  *

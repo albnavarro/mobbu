@@ -14,11 +14,11 @@ import { listKeyExist } from './utils';
  * @param {string} obj.targetComponent
  * @param {array} obj.current
  * @param {array} obj.previous
- * @param {function} obj.getChildren
+ * @param {Function} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.repeatId
- * @param {function} obj.render
+ * @param {Function} obj.render
  * @return {Promise.<Array.<object>>}
  *
  * @description

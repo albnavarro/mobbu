@@ -3,8 +3,8 @@
 import { mobCore } from '../../../mobCore';
 
 /**
- * @param {function} rafFunction
- * @param {function} resolveFunction
+ * @param {Function} rafFunction
+ * @param {Function} resolveFunction
  */
 export const resume = (rafFunction, resolveFunction) => {
     mobCore.useFrame(() => {

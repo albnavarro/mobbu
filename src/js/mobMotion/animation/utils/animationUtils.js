@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore';
 
 /**
  * @param {any} x
- * @returns {Number}
+ * @returns {number}
  *
  * @description
  * Sanitize Number in case is in calculator enutation.
@@ -33,18 +33,18 @@ export const getRoundedValue = (x) => {
 };
 
 /**
- * @param {Number} num
- * @param {Number} min
- * @param {Number} max
+ * @param {number} num
+ * @param {number} min
+ * @param {number} max
  */
 export const clamp = (num, min, max) => {
     return Math.min(Math.max(num, min), max);
 };
 
 /**
- * @param {Number} start
- * @param {Number} end
- * @param {Number} amt
+ * @param {number} start
+ * @param {number} end
+ * @param {number} amt
  */
 export const lerp = (start, end, amt) => {
     return (1 - amt) * start + amt * end;
@@ -53,7 +53,7 @@ export const lerp = (start, end, amt) => {
 /**
  * @param {Object} a
  * @param {Object} b
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if all keys of object is equal to another.
@@ -71,7 +71,7 @@ export const compareKeys = (a, b) => {
 
 /**
  * @param {Array} arr
- * @param {Number} chunkSize
+ * @param {number} chunkSize
  *
  * @description
  * Subdivide array into chunks
@@ -87,7 +87,7 @@ export const sliceIntoChunks = (arr, chunkSize) => {
 
 /**
  * @param {Array} arr
- * @param {Number} n
+ * @param {number} n
  *
  * @description
  * Subdivide array into columns

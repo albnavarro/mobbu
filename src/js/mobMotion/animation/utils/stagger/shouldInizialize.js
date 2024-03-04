@@ -4,8 +4,8 @@ import { mobCore } from '../../../../mobCore';
 import { staggerEachWarning } from '../warning';
 
 /**
- * @param {Number} each
- * @param {Boolean} firstRun
+ * @param {number} each
+ * @param {boolean} firstRun
  * @param {Array.<import('../callbacks/type').callbackObject>} arrayToCompare1
  * @param {Array.<import('../callbacks/type').callbackObject>} arrayToCompare2
  */

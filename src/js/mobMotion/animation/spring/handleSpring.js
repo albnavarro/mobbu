@@ -152,7 +152,7 @@ export default class HandleSpring {
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentReject = undefined;
 
@@ -267,7 +267,7 @@ export default class HandleSpring {
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {function} res
+     * @param {Function} res
      * @param {number} tension
      * @param {number} friction
      * @param {number} mass
@@ -386,7 +386,7 @@ export default class HandleSpring {
      *
      * @param {number} time current global time
      * @param {number} fps current FPS
-     * @param {function} res current promise resolve
+     * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
         this.values.forEach((item) => {
@@ -465,7 +465,7 @@ export default class HandleSpring {
     /**
      * @private
      * @param {function(any):void} res
-     * @param {function} reject
+     * @param {Function} reject
      *
      * @returns {Promise}
      */
@@ -1087,8 +1087,8 @@ export default class HandleSpring {
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {function} cb cal function
-     * @return {function} unsubscribe callback
+     * @param  {Function} cb cal function
+     * @return {Function} unsubscribe callback
      *
      */
     onStartInPause(cb) {

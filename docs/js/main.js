@@ -2098,7 +2098,7 @@
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
       const functionResult = storeType.isFunction(value) ? (
-        /** @type {function} */
+        /** @type {Function} */
         value()
       ) : {};
       if (storeType.isObject(value) && shouldRecursive) {
@@ -2121,7 +2121,7 @@
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
       const functionResult = storeType.isFunction(value) ? (
-        /** @type{function} */
+        /** @type{Function} */
         value()
       ) : {};
       if (storeType.isObject(value) && shouldRecursive) {
@@ -2417,7 +2417,7 @@
       }
     }
     /**
-     * @param {String} prop - propierties or object to update
+     * @param {string} prop - propierties or object to update
      * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
      * If the type of value used is a function, only the new function can be passed
      * @param {boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
@@ -2806,7 +2806,7 @@
       console.log(this.validationStatusObject);
     }
     /**
-     * @param {String} string
+     * @param {string} string
      * @returns void
      *
      * @description
@@ -3858,7 +3858,7 @@
       return new SimpleStore(data3);
     },
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get fps detect on page load.
@@ -3869,7 +3869,7 @@
       return eventStore.getProp("instantFps");
     },
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get current fps value.
@@ -3878,7 +3878,7 @@
       return handleFrame.getFps();
     },
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * When useScaleFps is on, get the frame status related to fpsScalePercent object:
@@ -4398,7 +4398,7 @@
     /**
      * @param {any} type
      * @param {any} value
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * Check type of variable.
@@ -4408,7 +4408,7 @@
     },
     /**
      * @param {any} type
-     * @returns {String}
+     * @returns {string}
      *
      * @description
      * Get type in String format.
@@ -4417,7 +4417,7 @@
       return getTypeName(type);
     },
     /**
-     * @returns {String}
+     * @returns {string}
      *
      * @description
      * Generate univoque string id
@@ -4426,7 +4426,7 @@
       return getUnivoqueId();
     },
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get current time.
@@ -4435,7 +4435,7 @@
       return getTime();
     },
     /**
-     * @param {function} fn
+     * @param {Function} fn
      * @returns {void}
      *
      * @description
@@ -8117,7 +8117,7 @@
      */
     EASE_LERP: "lerp",
     /**
-     * @type {Number}
+     * @type {number}
      */
     EASE_PRECISION: 1e-3,
     /**
@@ -9032,7 +9032,7 @@
     const isValid = mobCore.checkType(Number, value);
     if (!isValid && value !== void 0 && value !== null)
       asyncTimelineDelayWarning();
-    return isValid ? value : null;
+    return isValid ? value : void 0;
   };
   var asyncTimelineTweenIsValid = (instance) => {
     const isValid = instance?.getType?.() && (instance.getType() === "LERP" || instance.getType() === "SPRING" || instance.getType() === "TWEEN");
@@ -10195,7 +10195,7 @@
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {function} res
+     * @param {Function} res
      *
      * @returns {void}
      */
@@ -10264,7 +10264,7 @@
      *
      * @param {number} time current global time
      * @param {number} fps current FPS
-     * @param {function} res current promise resolve
+     * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
       this.values.forEach((item) => {
@@ -10320,7 +10320,7 @@
     /**
      * @private
      * @param {function(any):void} res
-     * @param {function} reject
+     * @param {Function} reject
      *
      * @returns {Promise}
      */
@@ -10783,7 +10783,7 @@
       return this.uniqueId;
     }
     /**
-     * @param  {Number} velocity - New velocity value
+     * @param  {number} velocity - New velocity value
      *
      * @example
      * ```javascript
@@ -10804,7 +10804,7 @@
       });
     }
     /**
-     * @param  {Number} precision - New velocity value
+     * @param  {number} precision - New velocity value
      *
      * @example
      * ```javascript
@@ -10863,8 +10863,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {function} cb cal function
-     * @return {function} unsubscribe callback
+     * @param  {Function} cb cal function
+     * @return {Function} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -10876,7 +10876,7 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-         * @param {function} cb - callback function.
+         * @param {Function} cb - callback function.
          * @return {Function} unsubscribe callback.
          *
          * @example
@@ -11064,7 +11064,7 @@
     /**
      * @param {number} _time
      * @param {number} fps
-     * @param {function} res
+     * @param {Function} res
      * @param {number} tension
      * @param {number} friction
      * @param {number} mass
@@ -11144,7 +11144,7 @@
      *
      * @param {number} time current global time
      * @param {number} fps current FPS
-     * @param {function} res current promise resolve
+     * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
       this.values.forEach((item) => {
@@ -11204,7 +11204,7 @@
     /**
      * @private
      * @param {function(any):void} res
-     * @param {function} reject
+     * @param {Function} reject
      *
      * @returns {Promise}
      */
@@ -11773,8 +11773,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {function} cb cal function
-     * @return {function} unsubscribe callback
+     * @param  {Function} cb cal function
+     * @return {Function} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -12307,7 +12307,7 @@
      * @description
      * Move scroller
      *
-     * @prop {Number} new position in percent, from 0 to 100
+     * @prop {number} new position in percent, from 0 to 100
      *
      * @example
      * myInstance.move(val);
@@ -12326,7 +12326,7 @@
      * @description
      * Move scroller immediatr
      *
-     * @prop {Number} new position in percent, from 0 to 100
+     * @prop {number} new position in percent, from 0 to 100
      *
      * @example
      * myInstance.set(val);
@@ -12544,7 +12544,7 @@
     }
     /**
      * @param {number} time
-     * @param {function} res
+     * @param {Function} res
      *
      * @returns {void}
      */
@@ -12621,8 +12621,8 @@
     }
     /**
      * @private
-     * @param {Number} time current global time
-     * @param {Boolean} _fps current FPS
+     * @param {number} time current global time
+     * @param {boolean} _fps current FPS
      * @param {Function} res current promise resolve
      *
      * @returns {void}
@@ -12679,7 +12679,7 @@
     /**
      * @private
      * @param {function(any):void} res
-     * @param {function} reject
+     * @param {Function} reject
      *
      * @returns {Promise}
      */
@@ -13185,7 +13185,7 @@
     }
     /**
      * @param {function(any):void} cb - callback function.
-     * @return {function} unsubscribe callback.
+     * @return {Function} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -13222,8 +13222,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {function} cb cal function
-     * @return {function} unsubscribe callback
+     * @param  {Function} cb cal function
+     * @return {Function} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -18354,7 +18354,7 @@ Loading snippet ...</pre
      * @param {import('./utils/type.js').mqActionMethods} action
      * @param {import('./utils/type.js').mqValues} breakpoint
      *
-     * @return {(Boolean|Number)} Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric value if it is equal to 'get'
+     * @return {(boolean|number)} Returns a boolean value if the action value is equal to 'min' or 'max', returns a numeric value if it is equal to 'get'
      *
      * @description
      *
@@ -18512,8 +18512,8 @@ Loading snippet ...</pre
     }
     /**
      * @param {object} obj
-     * @param {Number} obj.partial - render at specific partial between 0 and duration
-     * @param {Boolean} obj.isLastDraw - use the callback defined by the onStop method
+     * @param {number} obj.partial - render at specific partial between 0 and duration
+     * @param {boolean} obj.isLastDraw - use the callback defined by the onStop method
      *
      * @example
      * ```js
@@ -18734,7 +18734,7 @@ Loading snippet ...</pre
     /**
      * @description
      * Get duration
-     * @return {Number}
+     * @return {number}
      */
     getDuration() {
       return this.duration;
@@ -19620,7 +19620,7 @@ Loading snippet ...</pre
     /**
      * @description
      * Get duration
-     * @return {Number}
+     * @return {number}
      */
     getDuration() {
       return this.duration;
@@ -19628,7 +19628,7 @@ Loading snippet ...</pre
     /**
      * @description
      * Set duration
-     * @param {Number} val
+     * @param {number} val
      */
     setDuration(val2 = 0) {
       this.duration = val2;
@@ -21119,7 +21119,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {Object} [ groupProps ]
-     * @param {Boolean} [ groupProps.waitComplete ]
+     * @param {boolean} [ groupProps.waitComplete ]
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -21186,7 +21186,7 @@ Loading snippet ...</pre
       return this;
     }
     /**
-     * @param { function():Boolean } fn - callback function
+     * @param { function():boolean } fn - callback function
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -21299,7 +21299,7 @@ Loading snippet ...</pre
       });
     }
     /**
-     * @param {String} label
+     * @param {string} label
      * @param {Array} items
      * @returns {Promise} Return a promise which is resolved when tween is settled
      *
@@ -21464,7 +21464,7 @@ Loading snippet ...</pre
       this.run();
     }
     /**
-     * @param {String} label
+     * @param {string} label
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -21496,7 +21496,7 @@ Loading snippet ...</pre
       });
     }
     /**
-     * @param {String} label
+     * @param {string} label
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -21530,8 +21530,8 @@ Loading snippet ...</pre
     /**
      * @param {object} obj
      * @param {boolean} [ obj.forceYoYo ]
-     * @param {function|null} [ obj.resolve ]
-     * @param {function|null} [ obj.reject ]
+     * @param {Function|null} [ obj.resolve ]
+     * @param {Function|null} [ obj.reject ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -21598,7 +21598,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {object} obj
-     * @param {Boolean} [ obj.clearCache ]
+     * @param {boolean} [ obj.clearCache ]
      *
      * @example
      * ```javascript
@@ -21710,7 +21710,7 @@ Loading snippet ...</pre
       return this.currentTween;
     }
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is active
+     * @return {boolean} Returns a boolean value indicating whether the timeline is active
      * @example
      * ```javascript
      * const isActive = myTimeline.isActive();
@@ -21724,7 +21724,7 @@ Loading snippet ...</pre
       return !this.isStopped;
     }
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is in pause
+     * @return {boolean} Returns a boolean value indicating whether the timeline is in pause
      * @example
      * ```javascript
      * const isPaused = myTimeline.isPaused():
@@ -21738,7 +21738,7 @@ Loading snippet ...</pre
       return this.isInPause;
     }
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is suspended
+     * @return {boolean} Returns a boolean value indicating whether the timeline is suspended
      * @example
      * ```javascript
      * const isSuspended = myTimeline.isSuspended();
@@ -22073,7 +22073,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {Object} props
-     * @param {Boolean} [ props.useCurrent ]
+     * @param {boolean} [ props.useCurrent ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -22110,7 +22110,7 @@ Loading snippet ...</pre
       });
     }
     /**
-         * @param {Number|String} value
+         * @param {number|string} value
          * @return {Promise} - The promise launched at the end of the animation
          *
          * @example
@@ -22157,7 +22157,7 @@ Loading snippet ...</pre
       this.startAnimation(time2);
     }
     /**
-         * @param {Number|String} value
+         * @param {number|string} value
          * @return {Promise} - The promise launched at the end of the animation
          *
          * @example
@@ -22191,7 +22191,7 @@ Loading snippet ...</pre
     }
     /**
          * @param {Object} props
-         * @param {Boolean} [ props.useCurrent ]
+         * @param {boolean} [ props.useCurrent ]
          * @return {Promise} - The promise launched at the end of the animation
          *
          * @example
@@ -22350,7 +22350,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {Object} obj
-     * @param {Boolean} [ obj.clearCache ]
+     * @param {boolean} [ obj.clearCache ]
      * @returns {this|undefined} The instance on which this method was called.
      *
      * @example
@@ -22419,7 +22419,7 @@ Loading snippet ...</pre
       this.sequencers.forEach((item) => item.resetLastValue());
     }
     /**
-     * @return {Boolean} Active status
+     * @return {boolean} Active status
      *
      * @example
      * ```javascript
@@ -22435,7 +22435,7 @@ Loading snippet ...</pre
       return !this.isStopped;
     }
     /**
-     * @return {Boolean} Pause status
+     * @return {boolean} Pause status
      *
      * @example
      * ```javascript
@@ -22469,7 +22469,7 @@ Loading snippet ...</pre
       return this.isReverse ? directionConstant.BACKWARD : directionConstant.FORWARD;
     }
     /**
-     * @returns {Number} Current time
+     * @returns {number} Current time
      *
      * @example
      * ```javascript

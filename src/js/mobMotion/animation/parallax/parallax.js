@@ -253,31 +253,31 @@ export default class ParallaxClass {
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeResize = () => {};
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeScroll = () => {};
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeScrollStart = () => {};
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeScrollEnd = () => {};
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeMarker = () => {};
 
@@ -367,13 +367,13 @@ export default class ParallaxClass {
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeMotion = () => {};
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.unsubscribeOnComplete = () => {};
 
@@ -489,7 +489,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.dynamicRange = parallaxDynamicRangeIsValid(data?.dynamicRange);
 
@@ -505,7 +505,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.onEnter = functionIsValidAndReturnDefault(
             data?.onEnter,
@@ -515,7 +515,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.onEnterBack = functionIsValidAndReturnDefault(
             data?.onEnterBack,
@@ -525,7 +525,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.onLeave = functionIsValidAndReturnDefault(
             data?.onLeave,
@@ -535,7 +535,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.onLeaveBack = functionIsValidAndReturnDefault(
             data?.onLeaveBack,
@@ -545,7 +545,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {function}
+         * @type {Function}
          */
         this.onTickCallback = functionIsValidAndReturnDefault(
             data?.onTick,

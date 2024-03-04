@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @param {function} fn
+ * @param {Function} fn
  * @returns {void}
  */
 export const useNextLoop = (fn) => {

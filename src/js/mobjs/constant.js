@@ -76,12 +76,12 @@ export const ATTR_PARENT_ID = 'parentid';
 export const ATTR_REFS = 'ref';
 
 /**
- * @type {Number};
+ * @type {number};
  */
 export const frameDelayAfterParse = 5;
 
 /**
- * @type {{current:object, index: Number}};
+ * @type {{current:object, index: number}};
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 

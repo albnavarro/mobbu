@@ -85,7 +85,7 @@ import { mobCore } from '../../../../mobCore';
 /**
  *
  * @param {(Number|Function)} val
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if new prop value to update is valid
@@ -99,9 +99,9 @@ export const dataTweenValueIsValid = (val) => {
 
 /**
  * @param {Object|undefined} myObj
- * @param {Number|undefined} myObj.start
- * @param {Number|undefined} myObj.end
- * @returns {Boolean}
+ * @param {number|undefined} myObj.start
+ * @param {number|undefined} myObj.end
+ * @returns {boolean}
  *
  * @description
  * Check if sequencer start && end value is valid
@@ -116,8 +116,8 @@ export const sequencerRangeValidate = ({ start, end }) => {
 
 /**
  *
- * @param {Number|undefined} duration
- * @returns {Number}
+ * @param {number|undefined} duration
+ * @returns {number}
  *
  * @description
  * Check if new duration value is Valid
@@ -132,8 +132,8 @@ export const durationIsValid = (duration) => {
 
 /**
  *
- * @param {Number|undefined} repeat
- * @returns {Number}
+ * @param {number|undefined} repeat
+ * @returns {number}
  *
  * @description
  * Check if repeat definition is valid
@@ -148,7 +148,7 @@ export const repeatIsValid = (repeat) => {
 
 /**
  *
- * @param {String|undefined} ease
+ * @param {string|undefined} ease
  * @returns {import('../../tween/type').easeTypes}
  *
  * @description
@@ -164,7 +164,7 @@ export const easeIsValid = (ease) => {
 /**
  *
  * @param {import('../../tween/type').easeTypes|undefined} ease
- * @returns {function}
+ * @returns {Function}
  *
  * @description
  * Check if ease definition is valid
@@ -179,9 +179,9 @@ export const easeParallaxTweenIsValid = (ease) => {
 };
 
 /**
- * @param {String|undefined} prop
- * @param {Number|undefined} value
- * @returns {Boolean}
+ * @param {string|undefined} prop
+ * @param {number|undefined} value
+ * @returns {boolean}
  *
  * @description
  * Check if new tween prop is valid
@@ -197,8 +197,8 @@ export const initialDataPropValidate = (prop, value) => {
 };
 
 /**
- * @param {Number|undefined} each
- * @returns {Boolean}
+ * @param {number|undefined} each
+ * @returns {boolean}
  *
  * @description
  **/
@@ -212,7 +212,7 @@ export const validateStaggerEach = (each) => {
 
 /**
  * @param {('start'|'end'|'center'|'edges'|'random'|{x:number,y:number}|number)}  from
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  **/
@@ -238,8 +238,8 @@ export const validateStaggerFrom = (from) => {
 };
 
 /**
- * @param {Number|undefined} val
- * @returns {Boolean}
+ * @param {number|undefined} val
+ * @returns {boolean}
  *
  * @description
  **/
@@ -253,7 +253,7 @@ export const validateStaggerColRow = (val) => {
 
 /**
  * @param {('row'|'col'|'radial')} direction
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  **/
@@ -269,8 +269,8 @@ export const validateStaggerDirection = (direction) => {
 };
 
 /**
- * @param {Boolean|undefined} waitComplete
- * @returns {Boolean}
+ * @param {boolean|undefined} waitComplete
+ * @returns {boolean}
  *
  * @description
  **/
@@ -332,8 +332,8 @@ export const validateStaggerType = (type) => {
 
 /**
  *
- * @param {Number|undefined} tween duration
- * @returns {Number}
+ * @param {number|undefined} tween duration
+ * @returns {number}
  *
  * @description
  * Check if new tween duration value is Valid
@@ -348,9 +348,9 @@ export const durationTweenIsValid = (duration) => {
 
 /**
  *
- * @param {Boolean|undefined} val  relative prop
+ * @param {boolean|undefined} val  relative prop
  * @param {('tween'|'spring'|'lerp')} tweenType relative prop
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if new relative value is Valid
@@ -365,7 +365,7 @@ export const relativeIsValid = (val, tweenType) => {
 
 /**
  *
- * @param {String|undefined} ease
+ * @param {string|undefined} ease
  * @returns {Function}
  *
  * @description
@@ -382,8 +382,8 @@ export const easeTweenIsValidGetFunction = (ease) => {
 
 /**
  *
- * @param {String|undefined} ease
- * @returns {String}
+ * @param {string|undefined} ease
+ * @returns {string}
  *
  * @description
  * Check if ease definition is valid
@@ -397,7 +397,7 @@ export const easeTweenIsValid = (ease) => {
 
 /**
  *
- * @param {String} spring config
+ * @param {string} spring config
  * @returns {Object}
  *
  * @description
@@ -446,8 +446,8 @@ export const springConfigIsValidAndGetNew = (config) => {
 
 /**
  *
- * @param {String} spring config
- * @returns {String}
+ * @param {string} spring config
+ * @returns {string}
  *
  * @description
  * Check if spring config is valid
@@ -463,7 +463,7 @@ export const springConfigIsValid = (config) => {
 
 /**
  *
- * @param {String} spring config
+ * @param {string} spring config
  * @returns {import('../../spring/type').springPropsOptional}
  *
  * @description
@@ -485,7 +485,7 @@ export const springConfigPropIsValid = (obj) => {
 /**
  *
  * @param {(Number|Function|undefined)} duration
- * @returns {Number}
+ * @returns {number}
  *
  * @description
  * Check if duration definition is valid
@@ -502,8 +502,8 @@ export const durationIsNumberOrFunctionIsValid = (duration) => {
 
 /**
  *
- * @param {Boolean} value
- * @param {String} label
+ * @param {boolean} value
+ * @param {string} label
  *
  * @description
  * Check if value is Boolan and true
@@ -518,10 +518,10 @@ export const valueIsBooleanAndTrue = (value, label) => {
 
 /**
  *
- * @param {Boolean|undefined} value
- * @param {String} label
- * @param {Boolean} defaultValue
- * @returns {Boolean}
+ * @param {boolean|undefined} value
+ * @param {string} label
+ * @param {boolean} defaultValue
+ * @returns {boolean}
  *
  * @description
  * Check if value is Boolan and reteurn Default
@@ -536,8 +536,8 @@ export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if value is String and return default
@@ -552,8 +552,8 @@ export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
 
 /**
  *
- * @param {Number|undefined} value
- * @returns {Number}
+ * @param {number|undefined} value
+ * @returns {number}
  *
  * @description
  * Check if value is Number and return default
@@ -584,8 +584,8 @@ export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
 
 /**
  *
- * @param {Number|undefined} velocity
- * @returns {Number}
+ * @param {number|undefined} velocity
+ * @returns {number}
  *
  * @description
  * Check if velocity is valid
@@ -600,8 +600,8 @@ export const lerpVelocityIsValid = (value) => {
 
 /**
  *
- * @param {Number|undefined} velocity
- * @returns {Number}
+ * @param {number|undefined} velocity
+ * @returns {number}
  *
  * @description
  * Check if precision is valid
@@ -616,9 +616,9 @@ export const lerpPrecisionIsValid = (value) => {
 
 /**
  *
- * @param {String|undefined} value
- * @param {String} label
- * @returns {Boolean}
+ * @param {string|undefined} value
+ * @param {string} label
+ * @returns {boolean}
  *
  * @description
  * Check if value is a string.
@@ -633,8 +633,8 @@ export const valueStringIsValid = (value, label) => {
 
 /**
  *
- * @param {Number|undefined} value
- * @returns {NUmber|null}
+ * @param {number|undefined} value
+ * @returns {number|undefined}
  *
  * @description
  * Check if Delay is a Number and return Number || null.
@@ -644,13 +644,13 @@ export const asyncTimelineDelayIsValid = (value) => {
     if (!isValid && value !== undefined && value !== null)
         asyncTimelineDelayWarning();
 
-    return isValid ? value : null;
+    return isValid ? value : undefined;
 };
 
 /**
  *
  * @param {Object|undefined} value
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if tween is lerp|spring|tween
@@ -671,7 +671,7 @@ export const asyncTimelineTweenIsValid = (instance) => {
 /**
  *
  * @param {string|Number|null} index
- * @param {String|null} label
+ * @param {string|null} label
  *
  * @description
  * Check if label is found
@@ -731,7 +731,7 @@ export const timelineSetTweenArrayIsValid = (arr) => {
 
 /**
  *
- * @param {String|undefined} label
+ * @param {string|undefined} label
  *
  * @description
  * Check if value is an string
@@ -769,7 +769,7 @@ export const domNodeIsValidAndReturnElOrWin = (
 
 /**
  *
- * @param {(String|HTMLElement|undefined)} element
+ * @param {(string|HTMLElement|undefined)} element
  * @returns {HTMLElement|null}
  *
  * @description
@@ -788,7 +788,7 @@ export const domNodeIsValidAndReturnNull = (element) => {
 
 /**
  *
- * @param {String|undefined} label
+ * @param {string|undefined} label
  * @returns {string}
  *
  * @description
@@ -886,8 +886,8 @@ export const parallaxTweenIsValid = (instance) => {
 
 /**
  *
- * @param {( String|Number|undefined )} value
- * @returns {( String|Number )} ALign value
+ * @param {( string|Number|undefined )} value
+ * @returns {( string|Number )} ALign value
  *
  * @description
  * Check if Align value is valid
@@ -915,8 +915,8 @@ export const parallaxAlignIsValid = (value) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String} ALign value
+ * @param {string|undefined} value
+ * @returns {string} ALign value
  *
  * @description
  * Check if unSwitch value is valid
@@ -939,8 +939,8 @@ export const parallaxOnSwitchIsValid = (value) => {
 
 /**
  *
- * @param {Number|undefined} value
- * @returns {Number}
+ * @param {number|undefined} value
+ * @returns {number}
  *
  * @description
  * Check if value is Number and return default
@@ -955,8 +955,8 @@ export const parallaxOpacityIsValid = (value, label, defaultValue) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if type propierties is valid
@@ -980,7 +980,7 @@ export const parallaxTypeIsValid = (value) => {
 /**
  *
  * @param {string|number|undefined} value
- * @returns {String}
+ * @returns {string}
  *
  * @description
  * Check if range propierties is valid
@@ -1015,8 +1015,8 @@ export const parallaxRangeIsValid = (value, type) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if breakpoint prop is valid
@@ -1035,8 +1035,8 @@ export const breakpointIsValid = (mq, label, component) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if queryType prop is valid
@@ -1054,8 +1054,8 @@ export const breakpointTypeIsValid = (type, label, component) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if propierties prop is valid
@@ -1133,8 +1133,8 @@ export const parallaxPropiertiesIsValid = (
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if easeType is valid
@@ -1178,8 +1178,8 @@ export const genericEaseTypeIsValid = (value, component) => {
 
 /**
  *
- * @param {String|undefined} value
- * @returns {String}
+ * @param {string|undefined} value
+ * @returns {string}
  *
  * @description
  * Check if springConfig is valid
@@ -1202,8 +1202,8 @@ export const parallaxSpringConfigIsValid = (config, type) => {
 
 /**
  *
- * @param {Number|undefined} value
- * @returns {Number}
+ * @param {number|undefined} value
+ * @returns {number}
  *
  * @description
  * Check if lerpConfig is valid

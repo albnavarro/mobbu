@@ -5,7 +5,7 @@ import { ARRAY, MAP, SET, TYPE_IS_ANY } from './storeType';
 /**
  * @param {Map} m1
  * @param {Map} m2
- * @returns {Boolean}
+ * @returns {boolean}
  */
 const mapsAreEqual = (m1, m2) =>
     m1.size === m2.size &&
@@ -14,7 +14,7 @@ const mapsAreEqual = (m1, m2) =>
 /**
  * @param {Set} a
  * @param {Set} b
- * @returns {Boolean}
+ * @returns {boolean}
  */
 const setsAreEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value));
@@ -22,7 +22,7 @@ const setsAreEqual = (a, b) =>
 /**
  * @param {Array} a
  * @param {Array} b
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * A function to compare if two arrays have the same elements regardless of their order
@@ -41,7 +41,7 @@ const arrayAreEquals = (a, b) => {
 /**
  * @param {Object} obj1
  * @param {Object} obj2
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  */
@@ -101,7 +101,7 @@ const objectAreEqual = (obj1, obj2, checkDataOrder = false) => {
  * @param {any} type
  * @param {any} oldValue
  * @param {any} newValue
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  */

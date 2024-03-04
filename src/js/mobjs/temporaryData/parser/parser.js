@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let parserCounter = 0;
 
@@ -16,7 +16,7 @@ export const incrementParserCounter = () => {
 };
 
 /**
- * @return Number - how many parser is active.
+ * @return number - how many parser is active.
  *
  * @description
  * Decrement the number of parser active.

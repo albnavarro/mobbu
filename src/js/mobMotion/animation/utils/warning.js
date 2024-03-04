@@ -88,7 +88,7 @@ export const relativePropInsideTimelineWarning = () => {
 };
 
 /**
- * @param {function} val
+ * @param {Function} val
  *
  * @returns void
  */

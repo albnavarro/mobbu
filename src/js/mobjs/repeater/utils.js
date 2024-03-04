@@ -89,7 +89,7 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
 /**
  * @param {object} obj
  * @param {string} obj.component
- * @param {function} obj.getChildren
+ * @param {Function} obj.getChildren
  * @param {HTMLElement} obj.element
  *
  * @return {Array.<string>}

@@ -59,7 +59,7 @@ export default class ParallaxTween {
     constructor(data) {
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.ease = easeParallaxTweenIsValid(data?.ease);
 
@@ -160,8 +160,8 @@ export default class ParallaxTween {
 
     /**
      * @param {object} obj
-     * @param {Number} obj.partial - render at specific partial between 0 and duration
-     * @param {Boolean} obj.isLastDraw - use the callback defined by the onStop method
+     * @param {number} obj.partial - render at specific partial between 0 and duration
+     * @param {boolean} obj.isLastDraw - use the callback defined by the onStop method
      *
      * @example
      * ```js
@@ -406,7 +406,7 @@ export default class ParallaxTween {
     /**
      * @description
      * Get duration
-     * @return {Number}
+     * @return {number}
      */
     getDuration() {
         return this.duration;

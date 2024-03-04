@@ -423,7 +423,7 @@ export class SimpleStore {
     }
 
     /**
-     * @param {String} prop - propierties or object to update
+     * @param {string} prop - propierties or object to update
      * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
      * If the type of value used is a function, only the new function can be passed
      * @param {boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
@@ -972,7 +972,7 @@ export class SimpleStore {
     }
 
     /**
-     * @param {String} string
+     * @param {string} string
      * @returns void
      *
      * @description

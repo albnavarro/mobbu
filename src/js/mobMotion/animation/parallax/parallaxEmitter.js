@@ -7,10 +7,10 @@ import { parallaxConstant } from './parallaxConstant.js';
  * @param {number} obj.prevValue
  * @param {number} obj.value
  * @param {number} obj.maxVal
- * @param {function} obj.onEnter
- * @param {function} obj.onEnterBack
- * @param {function} obj.onLeave
- * @param {function} obj.onLeaveBack
+ * @param {Function} obj.onEnter
+ * @param {Function} obj.onEnterBack
+ * @param {Function} obj.onLeave
+ * @param {Function} obj.onLeaveBack
  *
  * @returns void
  *

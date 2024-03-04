@@ -4,7 +4,7 @@ import { getUnivoqueId } from '../../utils';
 import { eventStore } from '../eventStore';
 
 /**
- * @type {Number}
+ * @type {number}
  *
  * @description
  * Increment and decrement when we add or fire a item.
@@ -60,7 +60,7 @@ const add = (el = {}, fn = () => {}) => {
  * @param {Object} obj
  * @param {string} obj.id
  * @param {Object} obj.callBackObject
- * @param {Number} obj.frame
+ * @param {number} obj.frame
  * @returns void
  *
  * @description
@@ -124,8 +124,8 @@ const get = (id) => {
 };
 
 /**
- * @param {Number} frameCounter - frame to render.
- * @param {Boolean} shouldRender - should render.
+ * @param {number} frameCounter - frame to render.
+ * @param {boolean} shouldRender - should render.
  * @returns void
  *
  * @description
@@ -169,7 +169,7 @@ const fireObject = ({ id, obj = {} }) => {
 };
 
 /**
- * @returns {Number}
+ * @returns {number}
  *
  * @description
  * Get current number of frame to render.
@@ -177,7 +177,7 @@ const fireObject = ({ id, obj = {} }) => {
 const getCacheCounter = () => cacheCoutner;
 
 /**
- * @param {Number} maxFramecounter
+ * @param {number} maxFramecounter
  *
  * @description
  * When frameCounter become too big reset and recalculate all the frame values.

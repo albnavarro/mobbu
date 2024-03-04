@@ -6,9 +6,9 @@ import { mobCore } from '../../../../mobCore/index.js';
  * @param {Object} obj
  * @param {import('../stagger/type.js').staggerObject} obj.stagger
  * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callback
- * @param {Array.<import('./type.js').callbackObject<Number>>} obj.callbackCache
+ * @param {Array.<import('./type.js').callbackObject<number>>} obj.callbackCache
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.callBackObject
- * @param {Boolean} obj.useStagger
+ * @param {boolean} obj.useStagger
  *
  * @description
  * Fire callback while Running

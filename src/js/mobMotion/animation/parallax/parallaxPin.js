@@ -136,7 +136,7 @@ export class ParallaxPin {
          * @description
          * Item style applied to pin wrapper
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.itemRequireStyleToWrapper = [
             'flex',
@@ -160,7 +160,7 @@ export class ParallaxPin {
          * @description
          * Item style get and applied itself when transpond
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.itemRequireStyleWhenTraspond = [
             'font-size',
@@ -174,7 +174,7 @@ export class ParallaxPin {
          * @description
          * Paerent style to applied to pin
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.parentRequireStyle = ['text-align'];
 
@@ -182,7 +182,7 @@ export class ParallaxPin {
          * @description
          * Item style applied to pin
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.itemRequireStyleToPin = ['z-index', 'pointer-events'];
 
@@ -190,7 +190,7 @@ export class ParallaxPin {
          * @description
          * Parent style that activate transpond
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.styleToTranspond = [
             'transform',
@@ -204,7 +204,7 @@ export class ParallaxPin {
          * @description
          * Skip parent style to activate transpond above with this value
          *
-         * @type {Array<String>}
+         * @type {Array<string>}
          */
         this.nonRelevantRule = ['none', 'static'];
 

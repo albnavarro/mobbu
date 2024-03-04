@@ -8,12 +8,12 @@ import { eventStore } from '../eventStore.js';
 const indexCallbackObject = {};
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let amountOfFrameToFire = 0;
 
 /**
- * @param {Number} currentFrameLimit
+ * @param {number} currentFrameLimit
  *
  * @description
  * Update each callback's frame when handleFrame resets its index to avoid too large numbers>
@@ -28,11 +28,11 @@ const updateKeys = (currentFrameLimit) => {
 };
 
 /**
- * @param { Object } obj
- * @param {Number} obj.currentFrame
- * @param {Number} obj.time
- * @param {Number} obj.fps
- * @param {Boolean} obj.shouldRender
+ * @param {Object} obj
+ * @param {number} obj.currentFrame
+ * @param {number} obj.time
+ * @param {number} obj.fps
+ * @param {boolean} obj.shouldRender
  * @return void
  *
  * @description
@@ -83,7 +83,7 @@ const fire = ({ currentFrame, time, fps, shouldRender }) => {
  */
 const add = (callback, index) => {
     /**
-     * @type {Number}
+     * @type {number}
      */
     const frameIndex = index + eventStore.getProp('currentFrame');
 

@@ -3,12 +3,12 @@
 import { eventStore } from '../eventStore';
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let id = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  *
  * @description
  * Increment and decrement when we add or fire a item.
@@ -18,14 +18,14 @@ let id = 0;
 let cacheCoutner = 0;
 
 /**
- * @type {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
+ * @type {Object.<number, { el: (Object|HTMLElement), fn: function, data: Object.<number, Object> }>}
  */
 const subscriber = {};
 
 /**
  * @param {Object|HTMLElement} el
  * @param {Function} fn
- * @returns {{id:Number,unsubscribe:function():void}}
+ * @returns {{id:number,unsubscribe:function():void}}
  *
  * @description
  * Add new item to cache.
@@ -38,7 +38,7 @@ const add = (el = {}, fn = () => {}) => {
     };
 
     /**
-     * @type {Number}
+     * @type {number}
      */
     const prevId = id;
     id++;
@@ -63,9 +63,9 @@ const add = (el = {}, fn = () => {}) => {
 
 /**
  * @param {Object} obj
- * @param {Number} obj.id
+ * @param {number} obj.id
  * @param {Object} obj.callBackObject
- * @param {Number} obj.frame
+ * @param {number} obj.frame
  * @returns void
  *
  * @description
@@ -83,7 +83,7 @@ const update = ({ id, callBackObject, frame }) => {
 
 /**
  * @memberof module:handleCache
- * @param {Number} id
+ * @param {number} id
  * @returns void
  *
  * @description
@@ -94,7 +94,7 @@ const remove = (id) => {
 };
 
 /**
- * @param {Number} id
+ * @param {number} id
  * @returns void
  *
  * @description
@@ -115,7 +115,7 @@ const clean = (id) => {
 
 /**
  * @memberof module:handleCache
- * @param {Number} id
+ * @param {number} id
  * @returns {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
  *
  * @description
@@ -126,8 +126,8 @@ const get = (id) => {
 };
 
 /**
- * @param {Number} frameCounter - frame to render.
- * @param {Boolean} shouldRender - should render.
+ * @param {number} frameCounter - frame to render.
+ * @param {boolean} shouldRender - should render.
  * @returns void
  *
  * @description
@@ -151,7 +151,7 @@ const fire = (frameCounter, shouldRender) => {
 
 /**
  * @param {Object} obj
- * @param {Number} obj.id
+ * @param {number} obj.id
  * @param {Object} obj.obj
  * @returns void
  *
@@ -166,7 +166,7 @@ const fireObject = ({ id, obj = {} }) => {
 };
 
 /**
- * @returns {Number}
+ * @returns {number}
  *
  * @description
  * Get current number of frame to render.
@@ -174,7 +174,7 @@ const fireObject = ({ id, obj = {} }) => {
 const getCacheCounter = () => cacheCoutner;
 
 /**
- * @param {Number} maxFramecounter
+ * @param {number} maxFramecounter
  *
  * @description
  * When frameCounter become too big reset and recalculate all the frame values.

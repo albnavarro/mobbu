@@ -205,13 +205,13 @@ export default class HandleSyncTimeline {
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentReject = undefined;
     }
@@ -463,7 +463,7 @@ export default class HandleSyncTimeline {
 
     /**
      * @param {Object} props
-     * @param {Boolean} [ props.useCurrent ]
+     * @param {boolean} [ props.useCurrent ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -505,7 +505,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {Number|String} value
+     * @param {number|string} value
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -570,7 +570,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @param {Number|String} value
+     * @param {number|string} value
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -608,7 +608,7 @@ export default class HandleSyncTimeline {
 
     /**
      * @param {Object} props
-     * @param {Boolean} [ props.useCurrent ]
+     * @param {boolean} [ props.useCurrent ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -795,7 +795,7 @@ export default class HandleSyncTimeline {
 
     /**
      * @param {Object} obj
-     * @param {Boolean} [ obj.clearCache ]
+     * @param {boolean} [ obj.clearCache ]
      * @returns {this|undefined} The instance on which this method was called.
      *
      * @example
@@ -881,7 +881,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @return {Boolean} Active status
+     * @return {boolean} Active status
      *
      * @example
      * ```javascript
@@ -898,7 +898,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @return {Boolean} Pause status
+     * @return {boolean} Pause status
      *
      * @example
      * ```javascript
@@ -936,7 +936,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @returns {Number} Current time
+     * @returns {number} Current time
      *
      * @example
      * ```javascript

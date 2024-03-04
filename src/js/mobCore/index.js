@@ -130,7 +130,7 @@ export const mobCore = {
     },
 
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get fps detect on page load.
@@ -142,7 +142,7 @@ export const mobCore = {
     },
 
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get current fps value.
@@ -152,7 +152,7 @@ export const mobCore = {
     },
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * When useScaleFps is on, get the frame status related to fpsScalePercent object:
@@ -676,7 +676,7 @@ export const mobCore = {
     /**
      * @param {any} type
      * @param {any} value
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * Check type of variable.
@@ -687,7 +687,7 @@ export const mobCore = {
 
     /**
      * @param {any} type
-     * @returns {String}
+     * @returns {string}
      *
      * @description
      * Get type in String format.
@@ -697,7 +697,7 @@ export const mobCore = {
     },
 
     /**
-     * @returns {String}
+     * @returns {string}
      *
      * @description
      * Generate univoque string id
@@ -707,7 +707,7 @@ export const mobCore = {
     },
 
     /**
-     * @returns {Number}
+     * @returns {number}
      *
      * @description
      * Get current time.
@@ -717,7 +717,7 @@ export const mobCore = {
     },
 
     /**
-     * @param {function} fn
+     * @param {Function} fn
      * @returns {void}
      *
      * @description

@@ -1,67 +1,67 @@
 // @ts-check
 
 /**
- * @type {String}
+ * @type {string}
  */
 export const TYPE_IS_ANY = 'ANY';
 
 /**
- * @type {String}
+ * @type {string}
  */
 export const UNTYPED = 'UNTYPED';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const STRING = 'STRING';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const NUMBER = 'NUMBER';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const OBJECT = 'OBJECT';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const FUNCTION = 'FUNCTION';
 
 /**
- * @type {String}
+ * @type {string}
  */
 export const ARRAY = 'ARRAY';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const BOOLEAN = 'BOOLEAN';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const ELEMENT = 'ELEMENT';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const HTMLELEMENT = 'HTMLELEMENT';
 
 /**
- * @type {String}
+ * @type {string}
  */
 const NODELIST = 'NODELIST';
 
 /**
- * @type {String}
+ * @type {string}
  */
 export const SET = 'SET';
 
 /**
- * @type {String}
+ * @type {string}
  */
 export const MAP = 'MAP';
 
@@ -90,7 +90,7 @@ export const storeType = {
 
 /**
  * @param {any} type
- * @returns {String}
+ * @returns {string}
  */
 export const getTypeName = (type) => {
     switch (type) {
@@ -162,7 +162,7 @@ export const getTypeName = (type) => {
 /**
  * @param {any} type
  * @param {any} value
- * @returns {Boolean}
+ * @returns {boolean}
  */
 export const checkType = (type, value) => {
     switch (type) {

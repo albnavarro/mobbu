@@ -253,7 +253,7 @@ export const parallaxConstant = {
     EASE_LERP: 'lerp',
 
     /**
-     * @type {Number}
+     * @type {number}
      */
     EASE_PRECISION: 0.001,
 

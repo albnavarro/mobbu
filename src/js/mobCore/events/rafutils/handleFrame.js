@@ -23,12 +23,12 @@ loadFps();
 const currentFrameLimit = 10_000_000;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 const firstRunDuration = 2000;
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let frameIsRuning = false;
 
@@ -38,42 +38,42 @@ let frameIsRuning = false;
 let callback = [];
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let time = getTime();
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let startTime = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let rawTime = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let timeElapsed = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let lastTime = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let timeLost = 0;
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let isStopped = false;
 
 /**
- * @type {Number}
+ * @type {number}
  *
  * @description
  * Stable fps
@@ -81,22 +81,22 @@ let isStopped = false;
 let fps = 60;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let maxFps = fps;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let frames = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let fpsPrevTime = 0;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let currentFrame = 0;
 
@@ -107,7 +107,7 @@ let currentFrame = 0;
 let dropFrameCounter = -1;
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let shouldRender = true;
 
@@ -117,22 +117,22 @@ let shouldRender = true;
 let fpsScalePercent = eventStore.getProp('fpsScalePercent');
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let useScaleFpsf = eventStore.getProp('useScaleFps');
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let mustMakeSomethingIsActive = false;
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let shouldMakeSomethingIsActive = false;
 
 /**
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if frame dropped a lot.
@@ -140,7 +140,7 @@ let shouldMakeSomethingIsActive = false;
 const mustMakeSomethingCheck = () => fps < (maxFps / 5) * 3;
 
 /**
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * Check if frame dropped medium.
  */
@@ -193,7 +193,7 @@ eventStore.watch('requestFrame', () => {
 });
 
 /**
- * @returns {Boolean}
+ * @returns {boolean}
  *
  * @description
  * Check if animation is renderable in current frame
@@ -277,7 +277,7 @@ const nextTickFn = () => {
 };
 
 /**
- * @param {Number} timestamp
+ * @param {number} timestamp
  * @returns void
  */
 const render = (timestamp) => {
@@ -439,7 +439,7 @@ export const handleFrame = (() => {
     const getFps = () => fps;
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * Return the mustMakeSomethingIsActive status.
@@ -448,7 +448,7 @@ export const handleFrame = (() => {
     const mustMakeSomething = () => mustMakeSomethingIsActive;
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * Return the mustMakeSomethingIsActive status.
@@ -457,7 +457,7 @@ export const handleFrame = (() => {
     const shouldMakeSomething = () => shouldMakeSomethingIsActive;
 
     /**
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @description
      * Get drop frame status.

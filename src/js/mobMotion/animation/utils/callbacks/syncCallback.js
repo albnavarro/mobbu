@@ -4,13 +4,13 @@ import { mobCore } from '../../../../mobCore';
 
 /**
  * @param {Object} obj
- * @param {Number} obj.each
- * @param {Boolean} obj.useStagger
- * @param {Boolean} obj.isLastDraw
+ * @param {number} obj.each
+ * @param {boolean} obj.useStagger
+ * @param {boolean} obj.isLastDraw
  * @param {import('../stagger/type').staggerDefaultIndex} obj.callBackObject
- * @param {Array.<import('./type').callbackObject>} obj.callback
- * @param {Array.<import('./type').callbackObject>} obj.callbackCache
- * @param {Array.<import('./type').callbackObject>} obj.callbackOnStop
+ * @param {Array.<import('./type').callbackObject<Function>>} obj.callback
+ * @param {Array.<import('./type').callbackObject<number>>} obj.callbackCache
+ * @param {Array.<import('./type').callbackObject<Function>>} obj.callbackOnStop
  * @returns void
  *
  * @description

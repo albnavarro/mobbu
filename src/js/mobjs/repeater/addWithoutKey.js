@@ -17,8 +17,8 @@ import { renderHtml } from '../creationStep/utils';
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {function} obj.getChildren
- * @param {function} obj.render
+ * @param {Function} obj.getChildren
+ * @param {Function} obj.render
  * @param {string} obj.id
  * @param {string} obj.repeatId
  * @return {array}

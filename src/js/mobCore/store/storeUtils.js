@@ -5,7 +5,7 @@ import { storeDepthWarning } from './storeWarining.js';
 
 /**
  * @param {Object} object
- * @returns {Number}
+ * @returns {number}
  *
  * @description Get depth of Object
  */
@@ -20,7 +20,7 @@ export const maxDepth = (object) => {
 
 /**
  * @param {import('./type.js').simpleStoreBaseData} data
- * @param {Boolean} shouldRecursive - max 1 level of recurisivity.
+ * @param {boolean} shouldRecursive - max 1 level of recurisivity.
  * @returns {Object<string,(Object<string,any>|any)>}
  *
  * @description
@@ -38,7 +38,7 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
     return Object.entries(data).reduce((p, c) => {
         const [key, value] = c;
         const functionResult = storeType.isFunction(value)
-            ? /** @type {function} */ (value)()
+            ? /** @type {Function} */ (value)()
             : {};
 
         /**
@@ -81,9 +81,9 @@ export const getDataRecursive = (data, shouldRecursive = true) => {
 
 /**
  * @param {import('./type.js').simpleStoreBaseData} data
- * @param {String} prop
+ * @param {string} prop
  * @param {any} fallback
- * @param {Boolean} shouldRecursive - max 1 level of recursivity
+ * @param {boolean} shouldRecursive - max 1 level of recursivity
  * @returns {Object<string,(Object<string,any>|any)>}
  *
  * @description
@@ -98,7 +98,7 @@ export const getPropRecursive = (
     return Object.entries(data).reduce((p, c) => {
         const [key, value] = c;
         const functionResult = storeType.isFunction(value)
-            ? /** @type{function} */ (value)()
+            ? /** @type{Function} */ (value)()
             : {};
 
         /**
@@ -146,8 +146,8 @@ export const getPropRecursive = (
 /**
  * @param {Object} obj
  * @param {import('./type.js').simpleStoreBaseData} obj.data
- * @param {Number} obj.depth
- * @param {String} obj.logStyle
+ * @param {number} obj.depth
+ * @param {string} obj.logStyle
  * @returns {Object<string,(Object<string,any>|any)>}
  */
 export const inizializeStoreData = ({ data, depth, logStyle }) => {
@@ -162,9 +162,9 @@ export const inizializeStoreData = ({ data, depth, logStyle }) => {
 /**
  * @param {Object} obj
  * @param {import('./type.js').simpleStoreBaseData} obj.data
- * @param {String} obj.prop
- * @param {Number} obj.depth
- * @param {String} obj.logStyle
+ * @param {string} obj.prop
+ * @param {number} obj.depth
+ * @param {string} obj.logStyle
  * @param {any} obj.fallback
  * @returns {Object<string,(Object<string,any>|any)>}
  */

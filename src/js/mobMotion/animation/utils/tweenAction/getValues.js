@@ -1,6 +1,6 @@
 /**
  * @param {Array} arr
- * @param {String} key
+ * @param {string} key
  * @returns {Object}
  *
  * @description

@@ -26,22 +26,22 @@ import {
     Defines the scroll direction
  * @prop {('spring'|'lerp')} [ easeType = 'lerp']
     Defines the type of easing. The default is `lerp`.
- * @prop {( String|Element )} scroller
+ * @prop {( string|Element )} scroller
    The node that will have to scroll
- * @prop {( String|Element )} [ screen ]
+ * @prop {( string|Element )} [ screen ]
     The scroller container.
     The default value is `document.documentElement`.
- * @prop {Boolean} scopedEvent
+ * @prop {boolean} scopedEvent
    Use event ( scroll,wheel,etc.. ) on scroller or on document.
    If the events are used on the scroller they will have the passive property set to true (better performance).
    Otherwise, based on the general value of the passive property, the listener attached to the document will use the `preventDefault()` function.
    This will prevent the page from scrolling in turn when scrolling over the component.
    To set the global passive property use:
    `core.setDefault({ usePassive: true|false })`;
- * @prop {Number} speed
+ * @prop {number} speed
    You can adjust the speed of the wheel event.
    The default value is `60`.
- * @prop {Boolean} drag
+ * @prop {boolean} drag
    It is possible to enable and disable the drag functionality.
    The default value is `false`.
  * @prop {function({value:number, percent:number, parentIsMoving:boolean}):void} [ onTick = null ]
@@ -756,7 +756,7 @@ export default class SmoothScroller {
      * @description
      * Move scroller
      *
-     * @prop {Number} new position in percent, from 0 to 100
+     * @prop {number} new position in percent, from 0 to 100
      *
      * @example
      * myInstance.move(val);
@@ -775,7 +775,7 @@ export default class SmoothScroller {
      * @description
      * Move scroller immediatr
      *
-     * @prop {Number} new position in percent, from 0 to 100
+     * @prop {number} new position in percent, from 0 to 100
      *
      * @example
      * myInstance.set(val);

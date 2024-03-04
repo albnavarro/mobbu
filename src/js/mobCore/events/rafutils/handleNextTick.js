@@ -10,7 +10,7 @@ const callbacks = [];
  * Add callback
  *
  * @param {import('./type.js').handleFrameCallbakType} cb - callback function
- * @param {Number} [ priority ]
+ * @param {number} [ priority ]
  *
  * @example
  * ```javascript

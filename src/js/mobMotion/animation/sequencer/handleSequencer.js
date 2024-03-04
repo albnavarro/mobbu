@@ -936,7 +936,7 @@ export default class HandleSequencer {
     /**
      * @description
      * Get duration
-     * @return {Number}
+     * @return {number}
      */
     getDuration() {
         return this.duration;
@@ -945,7 +945,7 @@ export default class HandleSequencer {
     /**
      * @description
      * Set duration
-     * @param {Number} val
+     * @param {number} val
      */
     setDuration(val = 0) {
         this.duration = val;

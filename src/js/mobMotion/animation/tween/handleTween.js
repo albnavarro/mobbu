@@ -103,7 +103,7 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type {function}
+         * @type {Function}
          */
         this.ease = easeTweenIsValidGetFunction(data?.ease);
 
@@ -145,7 +145,7 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentReject = undefined;
 
@@ -299,7 +299,7 @@ export default class HandleTween {
 
     /**
      * @param {number} time
-     * @param {function} res
+     * @param {Function} res
      *
      * @returns {void}
      */
@@ -393,8 +393,8 @@ export default class HandleTween {
 
     /**
      * @private
-     * @param {Number} time current global time
-     * @param {Boolean} _fps current FPS
+     * @param {number} time current global time
+     * @param {boolean} _fps current FPS
      * @param {Function} res current promise resolve
      *
      * @returns {void}
@@ -465,7 +465,7 @@ export default class HandleTween {
     /**
      * @private
      * @param {function(any):void} res
-     * @param {function} reject
+     * @param {Function} reject
      *
      * @returns {Promise}
      */
@@ -1008,7 +1008,7 @@ export default class HandleTween {
 
     /**
      * @param {function(any):void} cb - callback function.
-     * @return {function} unsubscribe callback.
+     * @return {Function} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -1047,8 +1047,8 @@ export default class HandleTween {
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {function} cb cal function
-     * @return {function} unsubscribe callback
+     * @param  {Function} cb cal function
+     * @return {Function} unsubscribe callback
      *
      */
     onStartInPause(cb) {

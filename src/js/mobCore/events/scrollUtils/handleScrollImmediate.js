@@ -3,24 +3,24 @@
 import { getUnivoqueId } from '../../utils';
 
 /**
- * @type {Boolean}
+ * @type {boolean}
  */
 let initialized = false;
 
 /**
- * @type {Map<String,Function>}
+ * @type {Map<string,function>}
  */
 const callbacks = new Map();
 const UP = 'UP';
 const DOWN = 'DOWN';
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let prev = window.pageYOffset;
 
 /**
- * @type {Number}
+ * @type {number}
  */
 let val = window.pageYOffset;
 

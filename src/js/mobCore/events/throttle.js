@@ -5,7 +5,7 @@ import { getTime } from './rafutils/time';
 
 /**
  * @param {Function} func
- * @param {Number} limit
+ * @param {number} limit
  * @returns {Function}
  *
  * @description

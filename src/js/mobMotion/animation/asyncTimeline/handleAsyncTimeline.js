@@ -384,13 +384,13 @@ export default class HandleAsyncTimeline {
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentResolve = undefined;
 
         /**
          * @private
-         * @type{function|undefined}
+         * @type{Function|undefined}
          */
         this.currentReject = undefined;
     }
@@ -1446,7 +1446,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {Object} [ groupProps ]
-     * @param {Boolean} [ groupProps.waitComplete ]
+     * @param {boolean} [ groupProps.waitComplete ]
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -1525,7 +1525,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param { function():Boolean } fn - callback function
+     * @param { function():boolean } fn - callback function
      * @returns {this} The instance on which this method was called.
      *
      * @example
@@ -1668,7 +1668,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {String} label
+     * @param {string} label
      * @param {Array} items
      * @returns {Promise} Return a promise which is resolved when tween is settled
      *
@@ -1898,7 +1898,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {String} label
+     * @param {string} label
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -1939,7 +1939,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @param {String} label
+     * @param {string} label
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -1982,8 +1982,8 @@ export default class HandleAsyncTimeline {
     /**
      * @param {object} obj
      * @param {boolean} [ obj.forceYoYo ]
-     * @param {function|null} [ obj.resolve ]
-     * @param {function|null} [ obj.reject ]
+     * @param {Function|null} [ obj.resolve ]
+     * @param {Function|null} [ obj.reject ]
      * @return {Promise} - The promise launched at the end of the animation
      *
      * @example
@@ -2083,7 +2083,7 @@ export default class HandleAsyncTimeline {
 
     /**
      * @param {object} obj
-     * @param {Boolean} [ obj.clearCache ]
+     * @param {boolean} [ obj.clearCache ]
      *
      * @example
      * ```javascript
@@ -2217,7 +2217,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is active
+     * @return {boolean} Returns a boolean value indicating whether the timeline is active
      * @example
      * ```javascript
      * const isActive = myTimeline.isActive();
@@ -2232,7 +2232,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is in pause
+     * @return {boolean} Returns a boolean value indicating whether the timeline is in pause
      * @example
      * ```javascript
      * const isPaused = myTimeline.isPaused():
@@ -2247,7 +2247,7 @@ export default class HandleAsyncTimeline {
     }
 
     /**
-     * @return {Boolean} Returns a boolean value indicating whether the timeline is suspended
+     * @return {boolean} Returns a boolean value indicating whether the timeline is suspended
      * @example
      * ```javascript
      * const isSuspended = myTimeline.isSuspended();
