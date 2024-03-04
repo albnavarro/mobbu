@@ -68,9 +68,12 @@ export const getStaggerFromProps = (props) => {
 };
 
 /**
- * @param {Array} arr1
- * @param {Array} arr2
+ * @param {import('../callbacks/type.js').callbackObject<number>[]} callbackCache
+ * @param {import('../callbacks/type.js').callbackObject<Function>[]} callbackDefault
+ * @returns {import('../callbacks/type.js').callbackObject<(number|Function)>[]}
  */
-export const getStaggerArray = (arr1, arr2) => {
-    return arr1.length > arr2.length ? arr1 : arr2;
+export const getStaggerArray = (callbackCache, callbackDefault) => {
+    return callbackCache.length > callbackDefault.length
+        ? callbackCache
+        : callbackDefault;
 };
