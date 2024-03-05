@@ -1,7 +1,7 @@
 /**
  * @param {Array} arr
  * @param {string} key
- * @returns {Object}
+ * @returns {{[key:string], number}}
  *
  * @description
  * Get value of specific key from an array
@@ -15,7 +15,7 @@ export const getValueObj = (arr, key) => {
 
 /**
  * @param {Array} arr
- * @returns {Object}
+ * @returns {{[key:string], (number|Function)}}
  *
  * @description
  * Get toValue of specific key from an array ( function or number )
@@ -32,7 +32,7 @@ export const getValueObjToNative = (arr) => {
 
 /**
  * @param {Array} arr
- * @returns {Object}
+ * @returns {{[key:string], (number|Function)}}
  *
  * @description
  * Get fromValue of specific key from an array ( function or number )

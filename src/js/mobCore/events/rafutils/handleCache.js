@@ -64,7 +64,7 @@ const add = (el = {}, fn = () => {}) => {
 /**
  * @param {Object} obj
  * @param {number} obj.id
- * @param {Object} obj.callBackObject
+ * @param {{[key:string]:number}} obj.callBackObject
  * @param {number} obj.frame
  * @returns void
  *
@@ -152,7 +152,7 @@ const fire = (frameCounter, shouldRender) => {
 /**
  * @param {Object} obj
  * @param {number} obj.id
- * @param {Object} obj.obj
+ * @param {{[key:string]: number}} obj.obj
  * @returns void
  *
  * @description

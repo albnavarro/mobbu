@@ -7,7 +7,7 @@ import { mobCore } from '../../../../mobCore/index.js';
  * @param {import('../stagger/type.js').staggerObject} obj.stagger
  * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callback
  * @param {Array.<import('./type.js').callbackObject<number>>} obj.callbackCache
- * @param {import('../stagger/type.js').staggerDefaultIndex} obj.callBackObject
+ * @param {{[key:string]:number}} obj.callBackObject
  * @param {boolean} obj.useStagger
  *
  * @description
@@ -67,7 +67,7 @@ export const defaultCallback = ({
  * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callback
  * @param {Array.<import('./type.js').callbackObject<number>>} obj.callbackCache
  * @param {Array.<import('./type.js').callbackObject<Function>>} obj.callbackOnComplete
- * @param {import('../stagger/type.js').staggerDefaultIndex} obj.callBackObject
+ * @param {{[key:string]:number}} obj.callBackObject
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.slowlestStagger
  * @param {import('../stagger/type.js').staggerDefaultIndex} obj.fastestStagger
  * @param {boolean} obj.useStagger
