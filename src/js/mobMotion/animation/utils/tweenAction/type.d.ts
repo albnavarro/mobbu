@@ -1,5 +1,5 @@
-export interface valueToparseType<Type> {
-    [key: string]: Type;
+export interface valueToparseType<T> {
+    [key: string]: T;
 }
 
 export interface goToParamsType {
@@ -30,6 +30,8 @@ export interface goFromToType {
     currentValue: number;
     settled: boolean;
 }
+
+export type allActionType = goToParamsType | goFromType | goFromToType;
 
 export interface tweenParam {
     currentValue: number;

@@ -62,6 +62,15 @@ export interface tweenAction {
     ease?: easeTypes;
 }
 
+export interface tweenDefault {
+    duration: number;
+    ease: string;
+    relative: boolean;
+    reverse: boolean;
+    immediate: boolean;
+    immediateNoPromise: boolean;
+}
+
 export interface tweenStopProps {
     clearCache?: boolean;
 }

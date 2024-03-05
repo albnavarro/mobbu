@@ -10392,7 +10392,7 @@
       }
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -10446,7 +10446,7 @@
      * Merge special props with default props
      *
      * @param  {import('./type.js').lerpActions} props
-     * @return {Object} props merged
+     * @return {import('./type.js').lerpDefault} props merged
      *
      */
     mergeProps(props) {
@@ -10458,7 +10458,7 @@
       return newProps;
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -10500,7 +10500,7 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
      * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -10541,8 +10541,8 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} toObj to Values
      * @param {import('./type.js').lerpActions } props special props
      * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
@@ -10587,7 +10587,7 @@
       return this.doAction(data3, props, fromObj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -10621,9 +10621,9 @@
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
+     * @param {( import('../utils/tweenAction/type.js').goToParamsType|import('../utils/tweenAction/type.js').goFromType|import('../utils/tweenAction/type.js').goFromToType )[]} data Updated data
      * @param {import('./type.js').lerpActions} props special props
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
@@ -10658,7 +10658,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} current value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} current value obj.
      *
      * @example
      * ```javascript
@@ -10674,7 +10674,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} initial value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} initial value obj.
      *
      * @example
      * ```javascript
@@ -10690,7 +10690,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} from value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} from value obj.
      *
      * @example
      * ```javascript
@@ -11277,7 +11277,7 @@
       }
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -11332,7 +11332,7 @@
      * Merge special props with default props
      *
      * @param  {import('./type.js').springActions} props
-     * @return {Object} props merged
+     * @return {import('./type.js').springDefault} props merged
      *
      */
     mergeProps(props) {
@@ -11355,7 +11355,7 @@
       return newProps;
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('./type.js').springActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -11402,7 +11402,7 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
      * @param {import('./type.js').springActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -11449,8 +11449,8 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} toObj to Values
      * @param {import('./type.js').springActions } props special props
      * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
@@ -11501,7 +11501,7 @@
       return this.doAction(data3, props, fromObj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -11535,9 +11535,9 @@
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
+     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
      * @param {import('./type.js').springActions} props special props
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
@@ -11572,7 +11572,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} current value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} current value obj.
      *
      * @example
      * ```javascript
@@ -11588,7 +11588,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} initial value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} initial value obj.
      *
      * @example
      * ```javascript
@@ -11604,7 +11604,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} from value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} from value obj.
      *
      * @example
      * ```javascript
@@ -12747,7 +12747,7 @@
       this.comeFromResume = true;
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -12831,8 +12831,8 @@
      * @description
      * Merge special props with default props
      *
-     * @param  {Object} props
-     * @return {Object} props merged
+     * @param  {import('./type.js').tweenAction} props
+     * @return {import('./type.js').tweenDefault} props merged
      *
      */
     mergeProps(props) {
@@ -12844,7 +12844,7 @@
       return newProps;
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -12885,7 +12885,7 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -12926,8 +12926,8 @@
       return this.doAction(data3, props, obj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} toObj to Values
      * @param {import('./type.js').tweenAction} props special props
      * @returns {Promise|void|null} Return a promise which is resolved when tween is over
      *
@@ -12973,7 +12973,7 @@
       return this.doAction(data3, props, fromObj);
     }
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('./type.js').tweenCommonPropsTween } props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -13008,9 +13008,9 @@
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
+     * @param {import('../utils/tweenAction/type.js').allActionType[]} data Updated data
      * @param {import('./type.js').tweenAction} props special props
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
@@ -13047,7 +13047,7 @@
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} current value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} current value obj.
      *
      * @example
      * ```javascript
@@ -13063,7 +13063,7 @@
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} initial value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} initial value obj.
      *
      * @example
      * ```javascript
@@ -13079,7 +13079,7 @@
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} from value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} from value obj.
      *
      * @example
      * ```javascript
@@ -18555,7 +18555,7 @@ Loading snippet ...</pre
     }
     /**
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data Object
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data Object
      * @returns {this} The instance on which this method was called.
      */
     setData(obj) {
@@ -18583,7 +18583,7 @@ Loading snippet ...</pre
      *
      * Return the new array maeged with main array created in setData
      *
-     * @param  {import('./type.js').parallaxTweenValue[]} newData new datato merge
+     * @param  {import('../utils/tweenAction/type.js').goToParamsType[]} newData new datato merge
      * @return {void}
      */
     mergeData(newData) {
@@ -18597,7 +18597,7 @@ Loading snippet ...</pre
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to values
      * @returns {this} The instance on which this method was called.
      *
      * @example

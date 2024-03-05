@@ -5,8 +5,8 @@ import { dataTweenValueIsValid } from './tweenValidation.js';
 import { dataTweenValueIsNotValidWarning } from '../warning.js';
 
 /**
- * @param {import('./type.js').valueToparseType} obj
- * @return {Object}
+ * @param {import('./type.js').valueToparseType<any>} obj
+ * @returns {import('./type.js').goToParamsType[]}
  *
  * @description
  * Set goTo value, used by spring and lerp
@@ -42,7 +42,7 @@ export const goToUtils = (obj) => {
 
 /**
  * @param {import('./type.js').valueToparseType} obj
- * @return {Object}
+ * @return {import('./type.js').goFromType[]}
  *
  * @description
  * Set goFrom value, used by spring and lerp
@@ -80,7 +80,7 @@ export const goFromUtils = (obj) => {
 /**
  * @param {import('./type.js').valueToparseType} fromObj
  * @param {import('./type.js').valueToparseType} toObj
- * @return {Object}
+ * @return {import('./type.js').goFromToType[]}
  *
  * @description
  * Set goFromTo value, used by spring and lerp
@@ -134,7 +134,7 @@ export const goFromToUtils = (fromObj, toObj) => {
 
 /**
  * @param {import('./type.js').valueToparseType} obj
- * @returns {Object}
+ * @returns {import('./type.js').goFromToType[]}
  *
  * @description
  * Set set value, used by spring and lerp

@@ -212,7 +212,7 @@ export default class ParallaxTween {
 
     /**
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data Object
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data Object
      * @returns {this} The instance on which this method was called.
      */
     setData(obj) {
@@ -244,7 +244,7 @@ export default class ParallaxTween {
      *
      * Return the new array maeged with main array created in setData
      *
-     * @param  {import('./type.js').parallaxTweenValue[]} newData new datato merge
+     * @param  {import('../utils/tweenAction/type.js').goToParamsType[]} newData new datato merge
      * @return {void}
      */
     mergeData(newData) {
@@ -261,7 +261,7 @@ export default class ParallaxTween {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to values
      * @returns {this} The instance on which this method was called.
      *
      * @example

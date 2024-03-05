@@ -504,7 +504,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj Initial data structure
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<number>} obj Initial data structure
      * @returns {void}
      *
      * @description
@@ -561,7 +561,7 @@ export default class HandleLerp {
      * Merge special props with default props
      *
      * @param  {import('./type.js').lerpActions} props
-     * @return {Object} props merged
+     * @return {import('./type.js').lerpDefault} props merged
      *
      */
     mergeProps(props) {
@@ -575,7 +575,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -617,7 +617,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
      * @param {import('./type.js').lerpActions} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -658,8 +658,8 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} fromObj from Values
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} toObj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} toObj to Values
      * @param {import('./type.js').lerpActions } props special props
      * @returns {Promise|null|void} Return a promise which is resolved when tween is over
      *
@@ -708,7 +708,7 @@ export default class HandleLerp {
     }
 
     /**
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj to Values
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
      * @param {import('../tween/type.js').tweenCommonProps} props special props
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
@@ -742,9 +742,9 @@ export default class HandleLerp {
     /**
      * @private
      *
-     * @param {import('../utils/tweenAction/type.js').valueToparseType[]} data Updated data
+     * @param {( import('../utils/tweenAction/type.js').goToParamsType|import('../utils/tweenAction/type.js').goFromType|import('../utils/tweenAction/type.js').goFromToType )[]} data Updated data
      * @param {import('./type.js').lerpActions} props special props
-     * @param {import('../utils/tweenAction/type.js').valueToparseType} obj new data obj come from set/goTo/goFrom/goFromTo
+     * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj new data obj come from set/goTo/goFrom/goFromTo
      * @returns {Promise|void} Return a promise which is resolved when tween is over
      *
      * @description
@@ -786,7 +786,7 @@ export default class HandleLerp {
      * @description
      * Get current values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} current value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} current value obj.
      *
      * @example
      * ```javascript
@@ -803,7 +803,7 @@ export default class HandleLerp {
      * @description
      * Get initial values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} initial value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} initial value obj.
      *
      * @example
      * ```javascript
@@ -820,7 +820,7 @@ export default class HandleLerp {
      * @description
      * Get from values, If the single value is a function it returns the result of the function.
      *
-     * @return {Object} from value obj.
+     * @return {import('../utils/tweenAction/type.js').valueToparseType} from value obj.
      *
      * @example
      * ```javascript
