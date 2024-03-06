@@ -441,8 +441,8 @@ export default class HandleSpring {
                 fastestStagger,
                 slowlestStagger,
             } = setStagger({
-                arr: cb,
-                endArr: this.callbackOnComplete,
+                arrayDefault: cb,
+                arrayOnStop: this.callbackOnComplete,
                 stagger: this.stagger,
                 slowlestStagger: this.slowlestStagger,
                 fastestStagger: this.fastestStagger,

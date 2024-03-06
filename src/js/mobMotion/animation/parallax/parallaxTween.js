@@ -142,8 +142,8 @@ export default class ParallaxTween {
             }
 
             const { staggerArray, staggerArrayOnComplete } = setStagger({
-                arr: cb,
-                endArr: this.callbackOnStop,
+                arrayDefault: cb,
+                arrayOnStop: this.callbackOnStop,
                 stagger: this.stagger,
                 slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
                 fastestStagger: STAGGER_DEFAULT_INDEX_OBJ, //sequencer doesn't support fastestStagger
