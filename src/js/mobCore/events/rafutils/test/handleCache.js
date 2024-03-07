@@ -1,7 +1,11 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../utils';
-import { eventStore } from '../eventStore';
+import { eventStore } from '../../eventStore';
+
+/**
+ * @type {number}
+ */
+let id = 0;
 
 /**
  * @type {number}
@@ -14,43 +18,44 @@ import { eventStore } from '../eventStore';
 let cacheCoutner = 0;
 
 /**
- * @type {Map.<string, { el: (Object|HTMLElement), fn: Function, data: Map.<number, Object> }>}
+ * @type {Object.<number, { el: (Object|HTMLElement), fn: function, data: Object.<number, Object> }>}
  */
-const subscriberMap = new Map();
+const subscriber = {};
 
 /**
  * @param {Object|HTMLElement} el
  * @param {Function} fn
- * @returns {{id:string,unsubscribe:function():void}}
+ * @returns {{id:number,unsubscribe:function():void}}
  *
  * @description
  * Add new item to cache.
  */
 const add = (el = {}, fn = () => {}) => {
-    const id = getUnivoqueId();
-
-    subscriberMap.set(id, {
+    subscriber[id] = {
         el,
         fn,
-        data: new Map(),
-    });
+        data: {},
+    };
+
+    /**
+     * @type {number}
+     */
+    const prevId = id;
+    id++;
 
     return {
-        id,
+        id: prevId,
         unsubscribe: () => {
-            if (subscriberMap.has(id)) {
+            if (subscriber?.[prevId]) {
                 /*
                  * When we remove some items before fired we have to update the
                  * cachecounter so handleFrame can stop
                  */
-                const item = subscriberMap.get(id);
-                if (!item) return;
-
-                const frameToSubstract = item.data.size;
-                subscriberMap.delete(id);
-                if (!frameToSubstract) return;
-
+                const frameToSubstract = Object.keys(
+                    subscriber[prevId].data
+                ).length;
                 cacheCoutner = cacheCoutner - frameToSubstract;
+                delete subscriber[prevId];
             }
         },
     };
@@ -58,8 +63,8 @@ const add = (el = {}, fn = () => {}) => {
 
 /**
  * @param {Object} obj
- * @param {string} obj.id
- * @param {Object} obj.callBackObject
+ * @param {number} obj.id
+ * @param {{[key:string]:number}} obj.callBackObject
  * @param {number} obj.frame
  * @returns void
  *
@@ -67,60 +72,57 @@ const add = (el = {}, fn = () => {}) => {
  * Add new data on existing id in a specific frame.
  */
 const update = ({ id, callBackObject, frame }) => {
-    if (!subscriberMap.has(id)) return;
+    if (!subscriber[id]) return;
 
     const { currentFrame } = eventStore.get();
-    const item = subscriberMap.get(id);
-
-    if (!item?.data) return;
-    const { data } = item;
-
-    data.set(frame + currentFrame, callBackObject);
+    const { data } = subscriber[id];
+    if (data[frame + currentFrame]) return;
+    data[frame + currentFrame] = callBackObject;
     cacheCoutner++;
 };
 
 /**
  * @memberof module:handleCache
- * @param {string} id
+ * @param {number} id
  * @returns void
  *
  * @description
  * Remove item from cache.
  */
 const remove = (id) => {
-    if (subscriberMap.has(id)) subscriberMap.delete(id);
+    if (id in subscriber) delete subscriber[id];
 };
 
 /**
- * @param {string} id
+ * @param {number} id
  * @returns void
  *
  * @description
  * Reset item data
  */
 const clean = (id) => {
-    const el = subscriberMap.get(id);
+    const el = subscriber?.[id];
     if (!el) return;
 
     /*
      * When we remove some items before fired we have to update the
      * cachecounter so handleFrame can stop
      */
-    const frameToSubstract = el.data.size;
+    const frameToSubstract = Object.keys(el.data).length;
     cacheCoutner = cacheCoutner - frameToSubstract;
-    el.data.clear();
+    el.data = {};
 };
 
 /**
  * @memberof module:handleCache
- * @param {string} id
+ * @param {number} id
  * @returns {Object.<number, { el: (Object|HTMLElement), fn: Function, data: Object.<number, Object> }>}
  *
  * @description
  * Get item object
  */
 const get = (id) => {
-    return subscriberMap.get(id) ?? {};
+    return subscriber?.[id] ?? {};
 };
 
 /**
@@ -132,39 +134,34 @@ const get = (id) => {
  * Render obj on specific frame and delete rendered object.
  */
 const fire = (frameCounter, shouldRender) => {
-    for (const value of subscriberMap.values()) {
-        const { data, fn, el } = value;
-        const callBackObject = data.get(frameCounter);
+    Object.values(subscriber).forEach(({ data, fn, el }) => {
+        const callBackObject = data?.[frameCounter];
 
         if (callBackObject) {
             if (shouldRender) {
                 fn(callBackObject, el);
             }
 
-            data.delete(frameCounter);
+            data[frameCounter] = null;
+            delete data[frameCounter];
             cacheCoutner--;
         }
-    }
-
-    console.log(subscriberMap.size);
+    });
 };
 
 /**
  * @param {Object} obj
- * @param {string} obj.id
- * @param {Object} obj.obj
+ * @param {number} obj.id
+ * @param {{[key:string]: number}} obj.obj
  * @returns void
  *
  * @description
  * Render immediately obj using existing id/function
  */
 const fireObject = ({ id, obj = {} }) => {
-    if (!subscriberMap.has(id)) return;
+    if (!subscriber?.[id]) return;
 
-    const item = subscriberMap.get(id);
-    if (!item) return;
-
-    const { el, fn } = item;
+    const { el, fn } = subscriber[id];
     fn(obj, el);
 };
 
@@ -183,17 +180,13 @@ const getCacheCounter = () => cacheCoutner;
  * When frameCounter become too big reset and recalculate all the frame values.
  */
 const updateFrameId = (maxFramecounter) => {
-    for (const [key, value] of subscriberMap) {
-        const { data, fn, el } = value;
-
-        const newMap = new Map();
-        for (const [frame, object] of data) {
-            newMap.set(frame - maxFramecounter, object);
-            data.delete(frame);
-        }
-
-        subscriberMap.set(key, { data: newMap, fn, el });
-    }
+    Object.values(subscriber).forEach(({ data }) => {
+        Object.keys(data).forEach((key) => {
+            delete Object.assign(data, {
+                [`${Number.parseInt(key) - maxFramecounter}`]: data[key],
+            })[key];
+        });
+    });
 };
 
 /**
