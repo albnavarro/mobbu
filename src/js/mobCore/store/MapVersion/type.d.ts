@@ -48,6 +48,7 @@ export interface storeMapValue {
 
 export interface storePublicMethods {
     get: (arg0: string) => any;
+    getProp: (arg0: string) => any;
     set: (
         prop: string,
         value: any | ((arg0: any) => any),

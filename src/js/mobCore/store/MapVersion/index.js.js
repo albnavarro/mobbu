@@ -13,7 +13,7 @@ import { inizializeValidation } from './initialValidation';
 import { getLogStyle } from './logStyle';
 import { storeWatchAction } from './watch';
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
-import { storeEmitWarning } from './storeWarining';
+import { storeEmitWarning, storeGetPropWarning } from './storeWarining';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -87,6 +87,16 @@ export const mobStore = (data = {}) => {
             const { store } = getFormMainMap(instanceId);
             console.log(getFormMainMap(instanceId));
             return store;
+        },
+        getProp: (prop) => {
+            const { store } = getFormMainMap(instanceId);
+
+            if (prop in store) {
+                return store[prop];
+            } else {
+                storeGetPropWarning(prop, getLogStyle());
+                return;
+            }
         },
         set: (prop, value, fireCallback = true, clone = false) => {
             const state = getFormMainMap(instanceId);

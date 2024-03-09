@@ -30515,6 +30515,12 @@ Loading snippet ...</pre
       style
     );
   };
+  var storeGetPropWarning2 = (prop, style) => {
+    console.warn(
+      `%c trying to execute get data method: store.${prop} not exist`,
+      style
+    );
+  };
   var storeEmitWarning2 = (prop, style) => {
     console.warn(
       `%c trying to execute set data method: store.${prop} not exist`,
@@ -30911,6 +30917,15 @@ Loading snippet ...</pre
         console.log(getFormMainMap(instanceId));
         return store;
       },
+      getProp: (prop) => {
+        const { store } = getFormMainMap(instanceId);
+        if (prop in store) {
+          return store[prop];
+        } else {
+          storeGetPropWarning2(prop, getLogStyle());
+          return;
+        }
+      },
       set: (prop, value, fireCallback = true, clone = false) => {
         const state = getFormMainMap(instanceId);
         const newState = storeSetAction({
@@ -31011,6 +31026,8 @@ Loading snippet ...</pre
     const { prop1: prop12 } = test.get();
     console.log(prop12);
     test.emit("prop1");
+    const pippo = test.getProp("prop1");
+    console.log("pippo", pippo);
     test.set("prop2", "testtttt", false);
     await test.emitAsync("prop2");
     console.log("after async");

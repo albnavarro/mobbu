@@ -42,6 +42,8 @@ export const initTestMapStore = async () => {
     console.log(prop12);
 
     test.emit('prop1');
+    const pippo = test.getProp('prop1');
+    console.log('pippo', pippo);
 
     test.set('prop2', 'testtttt', false);
     await test.emitAsync('prop2');
