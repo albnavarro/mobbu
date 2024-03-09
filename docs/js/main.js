@@ -17565,7 +17565,7 @@
     const decimalDigits = "[0-9](_?[0-9])*";
     const frac = `\\.(${decimalDigits})`;
     const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
-    const NUMBER2 = {
+    const NUMBER3 = {
       className: "number",
       variants: [
         // DecimalLiteral
@@ -17695,7 +17695,7 @@
       TEMPLATE_STRING,
       // Skip numbers when they are part of a variable name
       { match: /\$\d+/ },
-      NUMBER2
+      NUMBER3
       // This is intentional:
       // See https://github.com/highlightjs/highlight.js/issues/3288
       // hljs.REGEXP_MODE
@@ -17915,7 +17915,7 @@
         COMMENT,
         // Skip numbers when they are part of a variable name
         { match: /\$\d+/ },
-        NUMBER2,
+        NUMBER3,
         CLASS_REFERENCE,
         {
           className: "attr",
@@ -30278,25 +30278,24 @@ Loading snippet ...</pre
     newNode.classList.add("current-route");
   };
 
-  // src/js/mobCore/store/MapVersion/storeSet.js
-  var storeSetAction = ({
-    state,
-    propsId,
-    value,
-    fireCallback = true,
-    clone = false
-  }) => {
-    console.log(state, propsId, value, fireCallback, clone);
-    return state;
-  };
-
-  // src/js/mobCore/store/MapVersion/storeMap.js
-  var storeMap = /* @__PURE__ */ new Map();
-  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
-  var updateMainMap = (id, state) => storeMap.set(id, state);
+  // src/js/mobCore/store/MapVersion/logStyle.js
+  var logStyle = "padding: 10px;";
+  var getLogStyle = () => logStyle;
 
   // src/js/mobCore/store/MapVersion/storeType.js
+  var TYPE_IS_ANY2 = "ANY";
   var UNTYPED2 = "UNTYPED";
+  var STRING2 = "STRING";
+  var NUMBER2 = "NUMBER";
+  var OBJECT2 = "OBJECT";
+  var FUNCTION2 = "FUNCTION";
+  var ARRAY2 = "ARRAY";
+  var BOOLEAN2 = "BOOLEAN";
+  var ELEMENT2 = "ELEMENT";
+  var HTMLELEMENT2 = "HTMLELEMENT";
+  var NODELIST2 = "NODELIST";
+  var SET2 = "SET";
+  var MAP2 = "MAP";
   var storeType2 = {
     isString: (value) => Object.prototype.toString.call(value) === "[object String]",
     isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
@@ -30310,11 +30309,189 @@ Loading snippet ...</pre
     isMap: (value) => value instanceof Map,
     isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
   };
+  var getTypeName2 = (type) => {
+    switch (type) {
+      case String:
+      case STRING2: {
+        return "String";
+      }
+      case Number:
+      case NUMBER2: {
+        return "Number";
+      }
+      case Object:
+      case OBJECT2: {
+        return "Object";
+      }
+      case Function:
+      case FUNCTION2: {
+        return "Function";
+      }
+      case Array:
+      case ARRAY2: {
+        return "Array";
+      }
+      case Boolean:
+      case BOOLEAN2: {
+        return "Boolean";
+      }
+      case Element:
+      case ELEMENT2: {
+        return "Element";
+      }
+      case HTMLElement:
+      case HTMLELEMENT2: {
+        return "HTMLElement";
+      }
+      case NodeList:
+      case NODELIST2: {
+        return "NodeList";
+      }
+      case Set:
+      case SET2: {
+        return "Set";
+      }
+      case Map:
+      case MAP2: {
+        return "Map";
+      }
+      case TYPE_IS_ANY2: {
+        return TYPE_IS_ANY2;
+      }
+      default: {
+        return UNTYPED2;
+      }
+    }
+  };
+  var checkType2 = (type, value) => {
+    switch (type) {
+      case String:
+      case STRING2: {
+        return storeType2.isString(value);
+      }
+      case Number:
+      case NUMBER2: {
+        return storeType2.isNumber(value);
+      }
+      case Object:
+      case OBJECT2: {
+        return storeType2.isObject(value);
+      }
+      case Function:
+      case FUNCTION2: {
+        return storeType2.isFunction(value);
+      }
+      case Array:
+      case ARRAY2: {
+        return storeType2.isArray(value);
+      }
+      case Boolean:
+      case BOOLEAN2: {
+        return storeType2.isBoolean(value);
+      }
+      case Element:
+      case ELEMENT2: {
+        return storeType2.isElement(value);
+      }
+      case HTMLElement:
+      case HTMLELEMENT2: {
+        return storeType2.isHTMLElement(value);
+      }
+      case NodeList:
+      case NODELIST2: {
+        return storeType2.isNodeList(value);
+      }
+      case Set:
+      case SET2: {
+        return storeType2.isSet(value);
+      }
+      case Map:
+      case MAP2: {
+        return storeType2.isMap(value);
+      }
+      case TYPE_IS_ANY2: {
+        return true;
+      }
+      default: {
+        return true;
+      }
+    }
+  };
 
   // src/js/mobCore/store/MapVersion/storeWarining.js
   var storeDepthWarning2 = (data3, style) => {
     console.warn(
       `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data3} level`,
+      style
+    );
+  };
+  var storeSetWarning2 = (prop, style) => {
+    console.warn(
+      `%c SimpleStore, trying to execute set() method: store.${prop} not exist`,
+      style
+    );
+  };
+  var storeSetPropValWarning2 = (prop, val2, style) => {
+    console.warn(
+      `%c trying to execute setProp method on '${prop}' propierties: setProp methods doesn't allow objects as value, ${JSON.stringify(
+        val2
+      )} is an Object`,
+      style
+    );
+  };
+  var storeSetPropPropWarning2 = (prop, style) => {
+    console.warn(
+      `%c trying to execute setProp method on '${prop}' propierties: '${JSON.stringify(
+        prop
+      )}' is an objects`,
+      style
+    );
+  };
+  var storeSetPropTypeWarning2 = (prop, val2, type, style) => {
+    console.warn(
+      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName2(
+        type
+      )}`,
+      style
+    );
+  };
+  var storeSetObjectValWarning2 = (prop, val2, style) => {
+    console.warn(
+      `%c trying to execute setObj method on '${prop}' propierties: setObj methods allow only objects as value, ${val2} is not an Object`,
+      style
+    );
+  };
+  var storeSetObjectPropWarning2 = (prop, style) => {
+    console.warn(
+      `%c trying to execute setObj data method on '${prop}' propierties: store propierties '${prop}' is not an object`,
+      style
+    );
+  };
+  var storeSetObjKeysWarning2 = (key, prop, style) => {
+    console.warn(
+      `%c trying to execute setObj data method: one of these keys '${key}' not exist in store.${prop}`,
+      style
+    );
+  };
+  var storeSetObjDepthWarning2 = (prop, val2, style) => {
+    console.warn(
+      `%c trying to execute setObj data method on '${prop}' propierties: '${JSON.stringify(
+        val2
+      )}' have a depth > 1, nested obj is not allowed`,
+      style
+    );
+  };
+  var storeSetObjTypeWarning2 = (prop, subProp, subVal, type, style) => {
+    console.warn(
+      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName2(
+        type
+      )}`,
+      style
+    );
+  };
+  var storeObjectIsNotAnyWarning2 = (style, CUSTOM_OBJECT) => {
+    console.warn(
+      `%c Validation Object error: validation function return undefined or have you used Object instead '${CUSTOM_OBJECT}' ?`,
       style
     );
   };
@@ -30397,6 +30574,190 @@ Loading snippet ...</pre
     }
     return getPropRecursive2(data3, prop, fallback);
   };
+  var cloneValueOrGet2 = ({ value }) => {
+    if (checkType2(Map, value)) {
+      return new Map(value);
+    }
+    if (checkType2(Set, value)) {
+      return new Set(value);
+    }
+    if (checkType2(Object, value)) {
+      return { ...value };
+    }
+    if (checkType2(Array, value)) {
+      return [...value];
+    }
+    return value;
+  };
+
+  // src/js/mobCore/store/MapVersion/storeSet.js
+  var setProp = (state, prop, val2, fireCallback = true) => {
+    const {
+      type,
+      store,
+      fnValidate,
+      strict,
+      validationStatusObject,
+      skipEqual
+    } = state;
+    const logStyle2 = getLogStyle();
+    const isCustomObject = type[prop] === TYPE_IS_ANY2;
+    if (storeType2.isObject(val2) && !isCustomObject) {
+      storeSetPropValWarning2(prop, val2, logStyle2);
+      return;
+    }
+    if (storeType2.isObject(store[prop]) && !isCustomObject) {
+      storeSetPropPropWarning2(prop, logStyle2);
+      return;
+    }
+    const isValidType = checkType2(type[prop], val2);
+    if (!isValidType) {
+      storeSetPropTypeWarning2(prop, val2, type[prop], logStyle2);
+      return;
+    }
+    const oldVal = store[prop];
+    const isValidated = (
+      /** @type {Object<string,function>} */
+      fnValidate[prop]?.(val2, oldVal)
+    );
+    if (strict[prop] && !isValidated)
+      return;
+    validationStatusObject[prop] = isValidated;
+    const isEqual = skipEqual[prop] ? checkEquality(type[prop], oldVal, val2) : false;
+    if (isEqual)
+      return;
+    store[prop] = val2;
+    if (fireCallback) {
+    }
+    return {
+      ...state,
+      store,
+      validationStatusObject
+    };
+  };
+  var setObj = (state, prop, val2, fireCallback = true) => {
+    const {
+      store,
+      type,
+      strict,
+      fnValidate,
+      validationStatusObject,
+      skipEqual
+    } = state;
+    const logStyle2 = getLogStyle();
+    if (!storeType2.isObject(val2)) {
+      storeSetObjectValWarning2(prop, val2, logStyle2);
+      return;
+    }
+    if (!storeType2.isObject(store[prop])) {
+      storeSetObjectPropWarning2(prop, logStyle2);
+      return;
+    }
+    const valKeys = Object.keys(val2);
+    const propKeys = Object.keys(store[prop]);
+    const hasKeys = valKeys.every((item) => propKeys.includes(item));
+    if (!hasKeys) {
+      storeSetObjKeysWarning2(valKeys, prop, logStyle2);
+      return;
+    }
+    const isValidType = Object.entries(val2).map((item) => {
+      const [subProp, subVal] = item;
+      const typeResponse = checkType2(type[prop][subProp], subVal);
+      if (!typeResponse) {
+        storeSetObjTypeWarning2(
+          prop,
+          subProp,
+          subVal,
+          type[prop][subProp],
+          logStyle2
+        );
+      }
+      return typeResponse;
+    }).every((item) => item === true);
+    if (!isValidType) {
+      return;
+    }
+    const strictObjectResult = Object.entries(val2).map((item) => {
+      const [subProp, subVal] = item;
+      const subValOld = store[prop][subProp];
+      return strict[prop][subProp] ? {
+        strictCheck: fnValidate[prop][subProp]?.(
+          subVal,
+          subValOld
+        ),
+        item
+      } : { strictCheck: true, item };
+    }).filter(({ strictCheck }) => strictCheck === true);
+    const allStrictFail = strictObjectResult.length === 0;
+    if (allStrictFail)
+      return;
+    const newValParsedByStrict = Object.fromEntries(
+      strictObjectResult.map(({ item }) => item).map(([key, val3]) => [key, val3])
+    );
+    Object.entries(newValParsedByStrict).forEach((item) => {
+      const [subProp, subVal] = item;
+      const subValOld = store[prop][subProp];
+      const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
+      if (validateResult === void 0) {
+        storeObjectIsNotAnyWarning2(logStyle2, TYPE_IS_ANY2);
+      }
+      validationStatusObject[prop][subProp] = validateResult;
+    });
+    const oldObjectValues = store[prop];
+    const newObjectValues = {
+      ...store[prop],
+      ...newValParsedByStrict
+    };
+    const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
+      (subProp) => skipEqual[prop][subProp] === true
+    );
+    const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
+      const isCustomObject = type[prop][key] === TYPE_IS_ANY2;
+      const dataDepth = maxDepth2(value);
+      if (dataDepth > 1 && !isCustomObject) {
+        storeSetObjDepthWarning2(prop, val2, logStyle2);
+        return;
+      }
+      return checkEquality(
+        type[prop][key],
+        oldObjectValues[key],
+        value
+      );
+    }) : false;
+    if (prevValueIsEqualNew)
+      return;
+    store[prop] = newObjectValues;
+    if (fireCallback) {
+    }
+    return {
+      ...state,
+      store,
+      validationStatusObject
+    };
+  };
+  var storeSetAction = ({
+    state,
+    propsId,
+    value,
+    fireCallback = true,
+    clone = false
+  }) => {
+    const { store, type } = state;
+    const logStyle2 = getLogStyle();
+    if (!(propsId in store)) {
+      storeSetWarning2(propsId, logStyle2);
+      return;
+    }
+    const previousValue = clone ? cloneValueOrGet2({ value: store[propsId] }) : store[propsId];
+    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[propsId] !== Function ? value(previousValue) : value;
+    const isCustomObject = type[propsId] === TYPE_IS_ANY2;
+    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(state, propsId, valueParsed, fireCallback) : setProp(state, propsId, valueParsed, fireCallback);
+  };
+
+  // src/js/mobCore/store/MapVersion/storeMap.js
+  var storeMap = /* @__PURE__ */ new Map();
+  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
+  var updateMainMap = (id, state) => storeMap.set(id, state);
 
   // src/js/mobCore/store/MapVersion/initialValidation.js
   var inizializeValidation = (instanceId, initialState) => {
@@ -30416,12 +30777,13 @@ Loading snippet ...</pre
         value,
         fireCallback: false
       });
+      if (!newState)
+        return;
       updateMainMap(instanceId, newState);
     });
   };
 
   // src/js/mobCore/store/MapVersion/index.js.js
-  var logStyle = "padding: 10px;";
   var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
     const dataDepth = maxDepth2(data3);
@@ -30436,41 +30798,45 @@ Loading snippet ...</pre
       store: inizializeStoreData2({
         data: data3,
         depth: dataDepth,
-        logStyle
+        logStyle: getLogStyle()
       }),
       type: inizializeSpecificProp2({
         data: data3,
         prop: "type",
         depth: dataDepth,
-        logStyle,
+        logStyle: getLogStyle(),
         fallback: UNTYPED2
       }),
       fnValidate: inizializeSpecificProp2({
         data: data3,
         prop: "validate",
         depth: dataDepth,
-        logStyle,
+        logStyle: getLogStyle(),
         fallback: () => true
       }),
       strict: inizializeSpecificProp2({
         data: data3,
         prop: "strict",
         depth: dataDepth,
-        logStyle,
+        logStyle: getLogStyle(),
         fallback: false
       }),
       skipEqual: inizializeSpecificProp2({
         data: data3,
         prop: "skipEqual",
         depth: dataDepth,
-        logStyle,
+        logStyle: getLogStyle(),
         fallback: true
       })
     };
     storeMap.set(instanceId, instanceParams);
     inizializeValidation(instanceId, instanceParams);
     return {
-      get: () => getFormMainMap(instanceId),
+      get: () => {
+        const { store } = getFormMainMap(instanceId);
+        console.log(getFormMainMap(instanceId));
+        return store;
+      },
       set: (propsId, value, fireCallback = true, clone = false) => {
         const state = getFormMainMap(instanceId);
         const newState = storeSetAction({
@@ -30480,6 +30846,8 @@ Loading snippet ...</pre
           fireCallback,
           clone
         });
+        if (!newState)
+          return;
         updateMainMap(instanceId, newState);
       }
     };
@@ -30488,38 +30856,22 @@ Loading snippet ...</pre
   // src/js/test/mapStore.js
   var initTestMapStore = () => {
     const test = mobStore({
-      test: () => ({
+      prop1: () => ({
         value: 30,
         type: Number,
-        skipEqual: false
+        skipEqual: false,
+        validate: (val2) => {
+          return val2 > 100;
+        },
+        strict: false
       })
     });
-    test.get();
-    test.set();
-    const test2 = mobStore({
-      myObject: {
-        test: () => ({
-          value: "ffff",
-          type: String,
-          skipEqual: false,
-          strict: true,
-          validate: (val2) => {
-            val2 === "ffff";
-          }
-        }),
-        pippo: 3
-      },
-      myObject2: {
-        test: () => ({
-          value: "ffff",
-          type: String,
-          skipEqual: false
-        })
-      },
-      pluto: 2
-    });
-    test2.get();
-    test2.set();
+    test.set("prop1", 20);
+    const { prop1 } = test.get();
+    console.log(prop1);
+    test.set("prop1", 30);
+    const { prop1: prop12 } = test.get();
+    console.log(prop12);
   };
 
   // src/js/main.js

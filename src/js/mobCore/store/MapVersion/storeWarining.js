@@ -71,7 +71,7 @@ export const storeSetPropPropWarning = (prop, style) => {
 /**
  * @param {string} prop
  * @param {any} val
- * @param {string} type
+ * @param {any} type
  * @param {string} style
  * @returns void
  */

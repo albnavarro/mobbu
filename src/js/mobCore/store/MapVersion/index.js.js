@@ -10,8 +10,7 @@ import {
 } from './storeUtils';
 import { UNTYPED } from './storeType';
 import { inizializeValidation } from './initialValidation';
-
-const logStyle = 'padding: 10px;';
+import { getLogStyle } from './logStyle';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -42,34 +41,34 @@ export const mobStore = (data = {}) => {
         store: inizializeStoreData({
             data,
             depth: dataDepth,
-            logStyle: logStyle,
+            logStyle: getLogStyle(),
         }),
         type: inizializeSpecificProp({
             data,
             prop: 'type',
             depth: dataDepth,
-            logStyle: logStyle,
+            logStyle: getLogStyle(),
             fallback: UNTYPED,
         }),
         fnValidate: inizializeSpecificProp({
             data,
             prop: 'validate',
             depth: dataDepth,
-            logStyle: logStyle,
+            logStyle: getLogStyle(),
             fallback: () => true,
         }),
         strict: inizializeSpecificProp({
             data,
             prop: 'strict',
             depth: dataDepth,
-            logStyle: logStyle,
+            logStyle: getLogStyle(),
             fallback: false,
         }),
         skipEqual: inizializeSpecificProp({
             data,
             prop: 'skipEqual',
             depth: dataDepth,
-            logStyle: logStyle,
+            logStyle: getLogStyle(),
             fallback: true,
         }),
     };
@@ -81,7 +80,11 @@ export const mobStore = (data = {}) => {
     inizializeValidation(instanceId, instanceParams);
 
     return {
-        get: () => getFormMainMap(instanceId),
+        get: () => {
+            const { store } = getFormMainMap(instanceId);
+            console.log(getFormMainMap(instanceId));
+            return store;
+        },
         set: (propsId, value, fireCallback = true, clone = false) => {
             const state = getFormMainMap(instanceId);
             const newState = storeSetAction({
@@ -92,6 +95,7 @@ export const mobStore = (data = {}) => {
                 clone,
             });
 
+            if (!newState) return;
             updateMainMap(instanceId, newState);
         },
     };

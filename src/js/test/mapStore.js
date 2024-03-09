@@ -2,37 +2,21 @@ import { mobStore } from '../mobCore/store/MapVersion/index.js';
 
 export const initTestMapStore = () => {
     const test = mobStore({
-        test: () => ({
+        prop1: () => ({
             value: 30,
             type: Number,
             skipEqual: false,
+            validate: (val) => {
+                return val > 100;
+            },
+            strict: false,
         }),
     });
-    test.get();
-    test.set();
 
-    const test2 = mobStore({
-        myObject: {
-            test: () => ({
-                value: 'ffff',
-                type: String,
-                skipEqual: false,
-                strict: true,
-                validate: (val) => {
-                    val === 'ffff';
-                },
-            }),
-            pippo: 3,
-        },
-        myObject2: {
-            test: () => ({
-                value: 'ffff',
-                type: String,
-                skipEqual: false,
-            }),
-        },
-        pluto: 2,
-    });
-    test2.get();
-    test2.set();
+    test.set('prop1', 20);
+    const { prop1 } = test.get();
+    console.log(prop1);
+    test.set('prop1', 30);
+    const { prop1: prop12 } = test.get();
+    console.log(prop12);
 };

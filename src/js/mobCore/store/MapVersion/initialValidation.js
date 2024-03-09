@@ -43,6 +43,8 @@ export const inizializeValidation = (instanceId, initialState) => {
             fireCallback: false,
         });
 
+        if (!newState) return;
+
         /**
          * Update main store state
          */
