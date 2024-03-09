@@ -1,4 +1,9 @@
 (() => {
+    new EventSource('/esbuild').addEventListener('change', () =>
+        location.reload()
+    );
+})();
+(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -31089,7 +31094,22 @@ Loading snippet ...</pre
       computedProp: () => ({
         value: "ddddd",
         type: String
-      })
+      }),
+      myObject: {
+        prop1: () => ({
+          value: 1,
+          type: Number,
+          validate: (val2) => {
+            return val2 < 10;
+          },
+          skipEqual: true
+          // strict: true,
+        }),
+        prop2: () => ({
+          value: 3,
+          type: "any"
+        })
+      }
     });
     test.computed("computedProp", ["prop1", "prop2"], (prop13, prop2) => {
       return `${prop13}_${prop2}`;
@@ -31105,6 +31125,9 @@ Loading snippet ...</pre
         }, 2e3);
       });
     });
+    const unsubscribe32 = test.watch("myObject", (val2, old, validate) => {
+      console.log("myObject", val2, old, validate);
+    });
     test.set("prop1", 20);
     const { prop1 } = test.get();
     console.log(prop1);
@@ -31117,6 +31140,17 @@ Loading snippet ...</pre
     test.set("prop2", "testtttt", false);
     await test.emitAsync("prop2");
     console.log("after async");
+    test.set("myObject", { prop1: 100, prop2: 3 });
+    test.set("myObject", { prop1: 100, prop2: 3 });
+    test.set("myObject", { prop1: 100, prop2: 3 });
+    test.set("myObject", { prop1: 100, prop2: 3 });
+    test.set("myObject", {
+      prop1: 100,
+      prop2: { pippo: 3, pluto: { paperino: 100 } }
+    });
+    const { myObject } = test.get();
+    console.log(myObject);
+    console.log(test.debugValidate());
   };
 
   // src/js/main.js

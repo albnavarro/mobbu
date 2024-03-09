@@ -19,6 +19,21 @@ export const initTestMapStore = async () => {
             value: 'ddddd',
             type: String,
         }),
+        myObject: {
+            prop1: () => ({
+                value: 1,
+                type: Number,
+                validate: (val) => {
+                    return val < 10;
+                },
+                skipEqual: true,
+                // strict: true,
+            }),
+            prop2: () => ({
+                value: 3,
+                type: 'any',
+            }),
+        },
     });
 
     test.computed('computedProp', ['prop1', 'prop2'], (prop1, prop2) => {
@@ -36,6 +51,10 @@ export const initTestMapStore = async () => {
                 resolve();
             }, 2000);
         });
+    });
+
+    const unsubscribe3 = test.watch('myObject', (val, old, validate) => {
+        console.log('myObject', val, old, validate);
     });
 
     // unsubscribe();
@@ -56,4 +75,16 @@ export const initTestMapStore = async () => {
     test.set('prop2', 'testtttt', false);
     await test.emitAsync('prop2');
     console.log('after async');
+
+    test.set('myObject', { prop1: 100, prop2: 3 });
+    test.set('myObject', { prop1: 100, prop2: 3 });
+    test.set('myObject', { prop1: 100, prop2: 3 });
+    test.set('myObject', { prop1: 100, prop2: 3 });
+    test.set('myObject', {
+        prop1: 100,
+        prop2: { pippo: 3, pluto: { paperino: 100 } },
+    });
+    const { myObject } = test.get();
+    console.log(myObject);
+    console.log(test.debugValidate());
 };
