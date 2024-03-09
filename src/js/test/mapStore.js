@@ -15,6 +15,14 @@ export const initTestMapStore = async () => {
             value: 'init prop2',
             type: String,
         }),
+        computedProp: () => ({
+            value: 'ddddd',
+            type: String,
+        }),
+    });
+
+    test.computed('computedProp', ['prop1', 'prop2'], (prop1, prop2) => {
+        return `${prop1}_${prop2}`;
     });
 
     const unsubscribe = test.watch('prop1', (val, old, validate) => {

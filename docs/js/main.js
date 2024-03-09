@@ -30527,6 +30527,12 @@ Loading snippet ...</pre
       style
     );
   };
+  var storeComputedKeyUsedWarning2 = (keys, style) => {
+    console.warn(
+      `%c one of the keys [${keys}] is already used as a computed target, or one of the keys coincides with the prop to be changed.`,
+      style
+    );
+  };
   var storeWatchWarning2 = (prop, style) => {
     console.warn(
       `%c SimpleStore error: the property ${prop} to watch doesn't exist in store`,
@@ -30866,6 +30872,29 @@ Loading snippet ...</pre
     };
   };
 
+  // src/js/mobCore/store/MapVersion/computed.js
+  var storeComputedAction = ({ state, prop, keys, fn }) => {
+    const { callBackComputed } = state;
+    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
+    const propList = tempComputedArray.flatMap((item) => item.prop);
+    const keysIsusedInSomeComputed = propList.some(
+      (item) => keys.includes(item)
+    );
+    if (keysIsusedInSomeComputed) {
+      storeComputedKeyUsedWarning2(keys, getLogStyle());
+      return;
+    }
+    callBackComputed.add({
+      prop,
+      keys,
+      fn
+    });
+    return {
+      ...state,
+      callBackComputed
+    };
+  };
+
   // src/js/mobCore/store/MapVersion/index.js.js
   var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
@@ -30966,6 +30995,21 @@ Loading snippet ...</pre
           updateMainMap(instanceId, { ...state4, callBackWatcher });
         };
       },
+      computed: (prop, keys, callback2) => {
+        const state = getFormMainMap(instanceId);
+        if (!state)
+          return () => {
+          };
+        const newState = storeComputedAction({
+          state,
+          prop,
+          keys,
+          fn: callback2
+        });
+        if (!newState)
+          return;
+        updateMainMap(instanceId, newState);
+      },
       emit: (prop) => {
         const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
         if (!store)
@@ -31033,7 +31077,14 @@ Loading snippet ...</pre
       prop2: () => ({
         value: "init prop2",
         type: String
+      }),
+      computedProp: () => ({
+        value: "ddddd",
+        type: String
       })
+    });
+    test.computed("computedProp", ["prop1", "prop2"], (prop13, prop2) => {
+      return `${prop13}_${prop2}`;
     });
     const unsubscribe3 = test.watch("prop1", (val2, old, validate) => {
       console.log("sync", val2, old, validate);

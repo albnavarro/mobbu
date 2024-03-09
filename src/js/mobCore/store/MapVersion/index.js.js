@@ -19,6 +19,7 @@ import { getLogStyle } from './logStyle';
 import { storeWatchAction } from './watch';
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { storeEmitWarning, storeGetPropWarning } from './storeWarining';
+import { storeComputedAction } from './computed';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -137,6 +138,20 @@ export const mobStore = (data = {}) => {
                 callBackWatcher.delete(unsubscribeId);
                 updateMainMap(instanceId, { ...state, callBackWatcher });
             };
+        },
+        computed: (prop, keys, callback) => {
+            const state = getFormMainMap(instanceId);
+            if (!state) return () => {};
+
+            const newState = storeComputedAction({
+                state,
+                prop,
+                keys,
+                fn: callback,
+            });
+
+            if (!newState) return;
+            updateMainMap(instanceId, newState);
         },
         emit: (prop) => {
             const { store, callBackWatcher, validationStatusObject } =

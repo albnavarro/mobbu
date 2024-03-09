@@ -56,6 +56,7 @@ export interface storePublicMethods {
         clone?: boolean
     ) => any;
     watch: (prop: string, callback: () => void) => () => void;
+    computed: (prop: string, keys: string[], callback: () => void) => void;
     emit: (props: string) => void;
     emitAsync: (props: string) => Promise<{ success: boolean }>;
     getValidation: () => Object;
@@ -112,6 +113,16 @@ export interface storeWatchAction extends storeWatch {
 export interface storeWatchReturnObject {
     state: storeMapValue | undefined;
     unsubscribeId: string;
+}
+
+export interface storeComputed {
+    prop: string;
+    keys: string[];
+    fn: () => void;
+}
+
+export interface storeComputedAction extends storeComputed {
+    state: storeMapValue;
 }
 
 export interface callbackQueue {
