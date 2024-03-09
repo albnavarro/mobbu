@@ -30278,6 +30278,20 @@ Loading snippet ...</pre
     newNode.classList.add("current-route");
   };
 
+  // src/js/mobCore/store/MapVersion/fireQueque.js
+  var runCallbackQueqe = ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        fn(newValue, oldValue, validationValue);
+    }
+  };
+
   // src/js/mobCore/store/MapVersion/logStyle.js
   var logStyle = "padding: 10px;";
   var getLogStyle = () => logStyle;
@@ -30604,7 +30618,8 @@ Loading snippet ...</pre
       fnValidate,
       strict,
       validationStatusObject,
-      skipEqual
+      skipEqual,
+      callBackWatcher
     } = state;
     const logStyle2 = getLogStyle();
     const isCustomObject = type[prop] === TYPE_IS_ANY2;
@@ -30634,6 +30649,13 @@ Loading snippet ...</pre
       return;
     store[prop] = val2;
     if (fireCallback) {
+      runCallbackQueqe({
+        callBackWatcher,
+        prop,
+        newValue: val2,
+        oldValue: oldVal,
+        validationValue: validationStatusObject[prop]
+      });
     }
     return {
       ...state,
@@ -30648,7 +30670,8 @@ Loading snippet ...</pre
       strict,
       fnValidate,
       validationStatusObject,
-      skipEqual
+      skipEqual,
+      callBackWatcher
     } = state;
     const logStyle2 = getLogStyle();
     if (!storeType2.isObject(val2)) {
@@ -30734,6 +30757,13 @@ Loading snippet ...</pre
       return;
     store[prop] = newObjectValues;
     if (fireCallback) {
+      runCallbackQueqe({
+        callBackWatcher,
+        prop,
+        newValue: store[prop],
+        oldValue: oldObjectValues,
+        validationValue: validationStatusObject[prop]
+      });
     }
     return {
       ...state,
@@ -30911,13 +30941,13 @@ Loading snippet ...</pre
         strict: false
       })
     });
-    const unsubscribe3 = test.watch("prop1", (val2) => {
-      console.log(val2);
+    const unsubscribe3 = test.watch("prop1", (val2, old, validate) => {
+      console.log("callBackWatcher", val2, old, validate);
     });
     test.set("prop1", 20);
     const { prop1 } = test.get();
     console.log(prop1);
-    test.set("prop1", 30);
+    test.set("prop1", 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
   };

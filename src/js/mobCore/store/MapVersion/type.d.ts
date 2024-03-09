@@ -107,6 +107,14 @@ export interface storeWatchReturnObject {
     unsubscribeId: string;
 }
 
+export interface callbackQueue {
+    callBackWatcher: Map<string, { prop: string; fn: Function }>;
+    prop: string;
+    newValue: any;
+    oldValue: any;
+    validationValue: boolean | { [key: string]: boolean };
+}
+
 export type simpleStoreCustomValue = () => {
     /**
      * @description

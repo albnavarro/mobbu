@@ -13,8 +13,8 @@ export const initTestMapStore = () => {
         }),
     });
 
-    const unsubscribe = test.watch('prop1', (val) => {
-        console.log(val);
+    const unsubscribe = test.watch('prop1', (val, old, validate) => {
+        console.log('callBackWatcher', val, old, validate);
     });
 
     // unsubscribe();
@@ -23,7 +23,7 @@ export const initTestMapStore = () => {
     const { prop1 } = test.get();
     console.log(prop1);
 
-    test.set('prop1', 30);
+    test.set('prop1', 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
 };

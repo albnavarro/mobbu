@@ -1,6 +1,7 @@
 // @ts-check
 
 import { checkEquality } from '../checkEquality';
+import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
 import { checkType, storeType, TYPE_IS_ANY } from './storeType';
 import { cloneValueOrGet, maxDepth } from './storeUtils';
@@ -32,6 +33,7 @@ const setProp = (state, prop, val, fireCallback = true) => {
         strict,
         validationStatusObject,
         skipEqual,
+        callBackWatcher,
     } = state;
     const logStyle = getLogStyle();
 
@@ -96,12 +98,13 @@ const setProp = (state, prop, val, fireCallback = true) => {
     store[prop] = val;
 
     if (fireCallback) {
-        // this.runCallbackQueqe({
-        //     prop,
-        //     newValue: val,
-        //     oldValue: oldVal,
-        //     validationValue: this.validationStatusObject[prop],
-        // });
+        runCallbackQueqe({
+            callBackWatcher,
+            prop,
+            newValue: val,
+            oldValue: oldVal,
+            validationValue: validationStatusObject[prop],
+        });
     }
 
     // this.addToComputedWaitLsit(prop);
@@ -128,6 +131,7 @@ const setObj = (state, prop, val, fireCallback = true) => {
         fnValidate,
         validationStatusObject,
         skipEqual,
+        callBackWatcher,
     } = state;
     const logStyle = getLogStyle();
 
@@ -292,12 +296,13 @@ const setObj = (state, prop, val, fireCallback = true) => {
     store[prop] = newObjectValues;
 
     if (fireCallback) {
-        // this.runCallbackQueqe({
-        //     prop,
-        //     newValue: this.store[prop],
-        //     oldValue: oldObjectValues,
-        //     validationValue: this.validationStatusObject[prop],
-        // });
+        runCallbackQueqe({
+            callBackWatcher,
+            prop,
+            newValue: store[prop],
+            oldValue: oldObjectValues,
+            validationValue: validationStatusObject[prop],
+        });
     }
 
     // this.addToComputedWaitLsit(prop);
