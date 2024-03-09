@@ -1,57 +1,59 @@
 // @ts-check
 
-export type storeMap = Map<
-    string,
-    {
-        callBackWatcher: Map<string, { prop: string; fn: Function }>;
-        callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
-        computedPropFired: Set<string>;
-        computedWaitList: Set<string>;
-        validationStatusObject: {
-            [key: string]: boolean | { [key: string]: boolean };
-        };
-        dataDepth: number;
-        computedRunning: boolean;
-        store: {
-            [key: string]: any | { [key: string]: any };
-        };
-        type: {
-            [key: string]:
-                | simpleStoreTypeNative
-                | simpleStoreTypeAlias
-                | {
-                      [key: string]:
-                          | simpleStoreTypeNative
-                          | simpleStoreTypeAlias;
-                  };
-        };
-        fnValidate: {
-            [key: string]:
-                | Function
-                | {
-                      [key: string]: Function;
-                  };
-        };
-        strict: {
-            [key: string]:
-                | boolean
-                | {
-                      [key: string]: boolean;
-                  };
-        };
-        skipEqual: {
-            [key: string]:
-                | boolean
-                | {
-                      [key: string]: boolean;
-                  };
-        };
-    }
->;
+export type storeMap = Map<string, storeMapValue>;
+
+export interface storeMapValue {
+    callBackWatcher: Map<string, { prop: string; fn: Function }>;
+    callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
+    computedPropFired: Set<string>;
+    computedWaitList: Set<string>;
+    validationStatusObject: {
+        [key: string]: boolean | { [key: string]: boolean };
+    };
+    dataDepth: number;
+    computedRunning: boolean;
+    store: {
+        [key: string]: any | { [key: string]: any };
+    };
+    type: {
+        [key: string]:
+            | simpleStoreTypeNative
+            | simpleStoreTypeAlias
+            | {
+                  [key: string]: simpleStoreTypeNative | simpleStoreTypeAlias;
+              };
+    };
+    fnValidate: {
+        [key: string]:
+            | Function
+            | {
+                  [key: string]: Function;
+              };
+    };
+    strict: {
+        [key: string]:
+            | boolean
+            | {
+                  [key: string]: boolean;
+              };
+    };
+    skipEqual: {
+        [key: string]:
+            | boolean
+            | {
+                  [key: string]: boolean;
+              };
+    };
+}
 
 export interface storePublicMethods {
-    get(arg0: string): any;
-    set(arg0: string): any;
+    get: (arg0: string) => any;
+    set: (
+        propsId: string,
+        value: any | ((arg0: any) => any),
+        fireCallback?: boolean,
+        clone?: boolean
+    ) => any;
 }
 
 export type simpleStoreTypeAlias =
@@ -78,6 +80,17 @@ export type simpleStoreTypeNative =
     | Map<any, any>
     | Set<any>
     | NodeList;
+
+export interface storeSet {
+    propsId: string;
+    value: any | ((arg0: any) => any);
+    fireCallback?: boolean;
+    clone?: boolean;
+}
+
+export interface storeSetAction extends storeSet {
+    state: storeMapValue;
+}
 
 export type simpleStoreCustomValue = () => {
     /**
@@ -129,10 +142,6 @@ export interface simpleStoreBaseData {
         | simpleStoreBaseData;
 }
 
-/**
- * @description
- * Callback Function, fired on prop value change
- */
 export type simpleStoreWatchCallbackType = (
     newValue: any,
     oldValue: any,

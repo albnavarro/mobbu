@@ -6491,7 +6491,7 @@
   // src/js/mobjs/repeater/watchList.js
   var watchList = ({
     state = "",
-    setState: setState2 = () => {
+    setState = () => {
     },
     emit = () => {
     },
@@ -6533,7 +6533,7 @@
         });
         if (repeatIsRunning) {
           unFreezePropById({ id, prop: state });
-          setState2(state, previous, false);
+          setState(state, previous, false);
           descrementQueue();
           return;
         }
@@ -6604,7 +6604,7 @@
             container: repeaterParentElement
           });
           unFreezePropById({ id, prop: state });
-          setState2(state, currentUnivoque, false);
+          setState(state, currentUnivoque, false);
           descrementQueue();
         });
       }
@@ -6758,7 +6758,7 @@
     } = getComponentData({
       component
     });
-    const { getState: getState2, setState: setState2, emit, emitAsync, computed, watch } = addComponentToStore({
+    const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
       component,
       componentParsed,
       props: propsUpdated,
@@ -6791,8 +6791,8 @@
       key,
       id,
       componentParsed,
-      getState: getState2,
-      setState: setState2,
+      getState,
+      setState,
       emit,
       emitAsync,
       computed,
@@ -6861,7 +6861,7 @@
           repeatId: currentRepeatId,
           obj: {
             state: stateToWatch,
-            setState: setState2,
+            setState,
             emit,
             watch,
             clean: clean2,
@@ -7313,8 +7313,8 @@
   var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/codeButton/codeButton.js
-  var CodeButton = ({ getState: getState2, onMount, html }) => {
-    const { style, drawers, color } = getState2();
+  var CodeButton = ({ getState, onMount, html }) => {
+    const { style, drawers, color } = getState();
     onMount(({ element }) => {
       element.addEventListener("click", () => {
         const codeOverlayId = getIdByInstanceName("codeOverlay");
@@ -16784,11 +16784,11 @@
   var icon_copy_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 466.726 466.722" width="466.726pt" height="466.722pt"><defs><clipPath id="_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA"><rect width="466.726" height="466.722"/></clipPath></defs><g clip-path="url(#_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA)"><path d=" M 64.164 0 C 28.918 0 0 28.918 0 64.164 L 0 306.614 C 0 341.86 28.918 370.778 64.164 370.778 L 306.614 370.778 C 341.86 370.778 370.778 341.86 370.778 306.614 L 370.778 64.164 C 370.778 28.918 341.86 0 306.614 0 L 64.164 0 Z  M 64.164 34.969 L 306.614 34.969 C 323.075 34.969 335.723 47.703 335.723 64.164 L 335.723 306.614 C 335.723 323.075 323.075 335.723 306.614 335.723 L 64.164 335.723 C 47.703 335.723 34.969 323.075 34.969 306.614 L 34.969 64.164 C 34.969 47.703 47.703 34.969 64.164 34.969 Z " fill-rule="evenodd" /><path d=" M 353.214 95.945 C 348.577 95.949 344.132 97.793 340.855 101.07 C 337.578 104.347 335.734 108.793 335.73 113.429 C 335.734 118.062 337.578 122.507 340.855 125.784 C 344.132 129.061 348.578 130.905 353.214 130.913 L 402.566 130.913 C 418.882 130.913 431.675 143.792 431.675 160.108 L 431.675 402.558 C 431.675 418.874 418.882 431.667 402.566 431.667 L 160.116 431.667 C 143.8 431.667 130.921 418.874 130.921 402.558 L 130.917 353.292 C 130.937 348.643 129.105 344.175 125.823 340.878 C 122.542 337.581 118.085 335.726 113.432 335.722 C 108.78 335.726 104.323 337.581 101.045 340.878 C 97.764 344.175 95.928 348.643 95.948 353.292 L 95.948 402.558 C 95.948 437.792 124.882 466.722 160.112 466.722 L 402.562 466.722 C 437.796 466.722 466.726 437.788 466.726 402.558 L 466.726 160.108 C 466.726 124.874 437.792 95.944 402.562 95.944 L 353.214 95.945 Z " /></g></svg>\n';
 
   // src/js/component/common/codeOverlay/codeOverlay.js
-  var copyToClipboard = ({ getState: getState2 }) => {
-    const { rawContent } = getState2();
+  var copyToClipboard = ({ getState }) => {
+    const { rawContent } = getState();
     navigator.clipboard.writeText(rawContent);
   };
-  function getRepeaterCard({ sync, bindProps, setState: setState2, delegateEvents }) {
+  function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
     return renderHtml`
         <code-overlay-button
             ${sync}
@@ -16806,7 +16806,7 @@
             ${delegateEvents({
       click: (_e, { current }) => {
         const { label } = current;
-        setState2("activeContent", label);
+        setState("activeContent", label);
       }
     })}
         >
@@ -16814,15 +16814,15 @@
     `;
   }
   var printContent = async ({
-    setState: setState2,
-    getState: getState2,
+    setState,
+    getState,
     codeEl,
     currentKey,
     updateScroller,
     goToTop,
     syncParent
   }) => {
-    const { urls } = getState2();
+    const { urls } = getState();
     const currentItem = urls.find(({ label }) => {
       return label === currentKey;
     });
@@ -16835,7 +16835,7 @@
     ></html-content>`;
     codeEl.insertAdjacentHTML("afterbegin", htmlComponent);
     await parseDom(codeEl);
-    setState2(
+    setState(
       "rawContent",
       /* HTML */
       codeEl.textContent
@@ -16851,8 +16851,8 @@
   };
   var CodeOverlay = ({
     onMount,
-    setState: setState2,
-    getState: getState2,
+    setState,
+    getState,
     repeat,
     html,
     bindProps,
@@ -16874,7 +16874,7 @@
         move(scrollbar.value);
       });
       mainStore.watch(MAIN_STORE_BEFORE_ROUTE_LEAVES, () => {
-        setState2("urls", []);
+        setState("urls", []);
       });
       computed(
         "currentButtonState",
@@ -16888,7 +16888,7 @@
             element.classList.remove("active");
             document.body.style.overflow = "";
             cleanDom({ codeEl, removeDOM });
-            setState2("activeContent", "");
+            setState("activeContent", "");
             goToTop();
           }
           return activeContent;
@@ -16897,8 +16897,8 @@
       const unWatchActiveContent = watch("activeContent", (currentKey) => {
         cleanDom({ codeEl, removeDOM });
         printContent({
-          setState: setState2,
-          getState: getState2,
+          setState,
+          getState,
           codeEl,
           currentKey,
           updateScroller,
@@ -16917,7 +16917,7 @@
                 class="c-code-overlay__background"
                 ${delegateEvents({
       click: () => {
-        setState2("urls", []);
+        setState("urls", []);
       }
     })}
             ></span>
@@ -16927,7 +16927,7 @@
                     class="c-code-overlay__close"
                     ${delegateEvents({
       click: () => {
-        setState2("urls", []);
+        setState("urls", []);
       }
     })}
                 ></button>
@@ -16936,7 +16936,7 @@
                     class="c-code-overlay__copy"
                     ${delegateEvents({
       click: () => {
-        copyToClipboard({ getState: getState2 });
+        copyToClipboard({ getState });
       }
     })}
                 >
@@ -16951,7 +16951,7 @@
           sync,
           bindProps,
           delegateEvents,
-          setState: setState2
+          setState
         });
       }
     })}
@@ -16981,8 +16981,8 @@
   };
 
   // src/js/component/common/codeOverlay/codeOverlayButton.js
-  var CodeOverlayButton = ({ onMount, watch, getState: getState2, html }) => {
-    const { key, disable } = getState2();
+  var CodeOverlayButton = ({ onMount, watch, getState, html }) => {
+    const { key, disable } = getState();
     onMount(({ element }) => {
       const unwatchSelected = watch("selected", (selected) => {
         element.classList.toggle("selected", selected);
@@ -17184,19 +17184,19 @@
   };
   var HtmlContent = async ({
     html,
-    getState: getState2,
-    setState: setState2,
+    getState,
+    setState,
     staticProps: staticProps2,
     bindProps,
     onMount
   }) => {
-    const { source, data: data3 } = getState2();
+    const { source, data: data3 } = getState();
     const currentData = await getData2({ source, data: data3 });
-    const { useMinHeight, useMaxWidth } = getState2();
+    const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
     const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
     onMount(async ({ element }) => {
-      setState2("contentIsLoaded", true);
+      setState("contentIsLoaded", true);
       mobCore.useFrame(() => {
         element.classList.add("active");
       });
@@ -17239,8 +17239,8 @@
   });
 
   // src/js/component/common/typography/titles/title.js
-  var Title = ({ html, getState: getState2 }) => {
-    const { tag, color, isBold } = getState2();
+  var Title = ({ html, getState }) => {
+    const { tag, color, isBold } = getState();
     const colorClass = `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
     return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
@@ -17273,8 +17273,8 @@
   });
 
   // src/js/component/common/typography/paragraph/paragraph.js
-  var Paragraph = ({ html, getState: getState2 }) => {
-    const { style, color } = getState2();
+  var Paragraph = ({ html, getState }) => {
+    const { style, color } = getState();
     const colorClass = `is-${color}`;
     return html`<p class="p p--${style} ${colorClass}">
         <mobjs-slot />
@@ -17307,8 +17307,8 @@
   var getList = ({ items: items2 }) => {
     return items2.map((item) => renderHtml` <li>${item}</li> `).join("");
   };
-  var List = ({ html, getState: getState2 }) => {
-    const { style, color, items: items2, dots } = getState2();
+  var List = ({ html, getState }) => {
+    const { style, color, items: items2, dots } = getState();
     const colorClass = `is-${color}`;
     const dotsClass = dots ? "" : `hide-dots`;
     return html`<ul class="ul ul--${style} ${colorClass} ${dotsClass}">
@@ -18059,8 +18059,8 @@
     core_default.highlightElement(ref, { language: "javascript" });
     ref.style.minHeight = "";
   };
-  var Snippet = ({ html, onMount, getState: getState2 }) => {
-    const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } = getState2();
+  var Snippet = ({ html, onMount, getState }) => {
+    const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } = getState();
     const isFullClass = isFull ? "is-full" : "";
     const hasBorderClass = hasBorder ? "has-border" : "";
     const hasOverflowClass = hasOverflow ? "has-overflow" : "";
@@ -18165,8 +18165,8 @@ Loading snippet ...</pre
     rootMargin: "0% 0% -100% 0%",
     threshold: 0.5
   };
-  var SpacerAnchor = async ({ html, getState: getState2, onMount }) => {
-    const { style, line, id, label } = getState2();
+  var SpacerAnchor = async ({ html, getState, onMount }) => {
+    const { style, line, id, label } = getState();
     const lineClass = line ? "spacer--line" : "";
     onMount(({ element }) => {
       const shouldAddToAnchor = hasAnchor({ id });
@@ -22871,8 +22871,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/loader/loader.js
-  var Loader = ({ onMount, html, watch, remove: remove2, getState: getState2 }) => {
-    const { position: position2 } = getState2();
+  var Loader = ({ onMount, html, watch, remove: remove2, getState }) => {
+    const { position: position2 } = getState();
     onMount(({ element }) => {
       let tweenOut = tween.createTween({
         data: { opacity: 1, scale: 1 },
@@ -22922,7 +22922,7 @@ Loading snippet ...</pre
 
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
-  function addScrollButton({ html, delegateEvents, sync, setState: setState2, bindProps }) {
+  function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
     return html`<li>
         <scroll-to-button
             ${delegateEvents({
@@ -22930,7 +22930,7 @@ Loading snippet ...</pre
         const { id: scroll, label, element } = current;
         const offsetTop = scroll === "start" ? 0 : offset(element).top - 50;
         disableObservereffect = true;
-        setState2("activeLabel", label);
+        setState("activeLabel", label);
         await bodyScroll.to(offsetTop);
         disableObservereffect = false;
       }
@@ -22954,7 +22954,7 @@ Loading snippet ...</pre
     syncParent,
     staticProps: staticProps2,
     bindProps,
-    setState: setState2,
+    setState,
     repeat
   }) => {
     onMount(() => {
@@ -22963,7 +22963,7 @@ Loading snippet ...</pre
       const unWatchStoreComputed = anchorStore.watch(
         "computedItems",
         async (val2) => {
-          setState2("anchorItems", val2.reverse());
+          setState("anchorItems", val2.reverse());
           await tick();
           console.log("resolve sctollto tick");
         }
@@ -22973,7 +22973,7 @@ Loading snippet ...</pre
         (label) => {
           if (disableObservereffect)
             return;
-          setState2("activeLabel", label);
+          setState("activeLabel", label);
         }
       );
       return () => {
@@ -22995,7 +22995,7 @@ Loading snippet ...</pre
           syncParent,
           staticProps: staticProps2,
           bindProps,
-          setState: setState2,
+          setState,
           sync
         });
       }
@@ -23023,8 +23023,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/scrollTo/button/scrollToButton.js
-  var ScrollToButton = ({ html, getState: getState2, onMount, watchSync }) => {
-    const { label } = getState2();
+  var ScrollToButton = ({ html, getState, onMount, watchSync }) => {
+    const { label } = getState();
     onMount(({ element }) => {
       watchSync("active", (val2) => {
         element.classList.toggle("active", val2);
@@ -23167,8 +23167,8 @@ Loading snippet ...</pre
             </li>`;
     }).join("");
   };
-  var linksMobJs = ({ html, staticProps: staticProps2, getState: getState2 }) => {
-    const { section } = getState2();
+  var linksMobJs = ({ html, staticProps: staticProps2, getState }) => {
+    const { section } = getState();
     return html`<div class="c-params-mobjs">
         <ul>
             ${getItems({ staticProps: staticProps2, data: data?.[section] ?? [] })}
@@ -23177,8 +23177,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var linksMobJsButton = ({ html, getState: getState2 }) => {
-    const { label, url } = getState2();
+  var linksMobJsButton = ({ html, getState }) => {
+    const { label, url } = getState();
     const { activeRoute } = mainStore.get();
     const currentClass = activeRoute === url ? "current" : "";
     return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
@@ -23260,8 +23260,8 @@ Loading snippet ...</pre
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/nextPage/nextPage.js
-  var QuickNav = ({ getState: getState2, onMount, html, watchSync }) => {
-    const { active } = getState2();
+  var QuickNav = ({ getState, onMount, html, watchSync }) => {
+    const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
@@ -23382,8 +23382,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabel = ({ html, onMount, getState: getState2, watchSync }) => {
-    const { active } = getState2();
+  var ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
+    const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element }) => {
       watchSync("active", (isActive) => {
@@ -23455,8 +23455,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/layout/footer/footerNav/footerButton.js
-  var FooterNavButton = ({ html, onMount, getState: getState2 }) => {
-    const { label, section } = getState2();
+  var FooterNavButton = ({ html, onMount, getState }) => {
+    const { label, section } = getState();
     onMount(({ element }) => {
       navigationStore.watch("activeSection", (current) => {
         const isActiveSection = current === section;
@@ -23862,7 +23862,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/navigation.js
-  function getItems3({ data: data3, staticProps: staticProps2, setState: setState2, bindProps, bindEvents }) {
+  function getItems3({ data: data3, staticProps: staticProps2, setState, bindProps, bindEvents }) {
     return data3.map((item, index) => {
       const {
         label,
@@ -23888,7 +23888,7 @@ Loading snippet ...</pre
           url
         },
         children,
-        callback: () => setState2("currentAccordionId", index)
+        callback: () => setState("currentAccordionId", index)
       })}
                           ${bindProps({
         bind: ["currentAccordionId"],
@@ -23921,13 +23921,13 @@ Loading snippet ...</pre
   var Navigation = ({
     html,
     staticProps: staticProps2,
-    setState: setState2,
+    setState,
     bindProps,
     bindEvents
   }) => {
     const { navigation: data3 } = getCommonData();
     navigationStore.watch("closeAllAccordion", () => {
-      setState2("currentAccordionId", -1);
+      setState("currentAccordionId", -1);
     });
     return html`
         <nav class="l-navigation">
@@ -23935,7 +23935,7 @@ Loading snippet ...</pre
                 ${getItems3({
       data: data3,
       staticProps: staticProps2,
-      setState: setState2,
+      setState,
       bindProps,
       bindEvents
     })}
@@ -23946,7 +23946,7 @@ Loading snippet ...</pre
 
   // src/js/component/layout/navigation/navigationButton.js
   var NavigationButton = ({
-    getState: getState2,
+    getState,
     html,
     onMount,
     watch,
@@ -23961,7 +23961,7 @@ Loading snippet ...</pre
       callback: callback2,
       scrollToSection,
       activeId
-    } = getState2();
+    } = getState();
     onMount(({ element }) => {
       watch("isOpen", (isOpen) => {
         mobCore.useFrame(() => {
@@ -24006,8 +24006,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/navigationLabel.js
-  var NavigationLabel = ({ getState: getState2, html }) => {
-    const { label, sectioName } = getState2();
+  var NavigationLabel = ({ getState, html }) => {
+    const { label, sectioName } = getState();
     return html`
         <div class="l-navigation__label" data-sectionname="${sectioName}">
             ${label}
@@ -24038,13 +24038,13 @@ Loading snippet ...</pre
   var NavigationSubmenu = ({
     onMount,
     html,
-    getState: getState2,
-    setState: setState2,
+    getState,
+    setState,
     staticProps: staticProps2,
     bindProps,
     watchSync
   }) => {
-    const { children, headerButton, callback: callback2 } = getState2();
+    const { children, headerButton, callback: callback2 } = getState();
     const { label, url, activeId } = headerButton;
     onMount(({ refs }) => {
       const { content: content2 } = refs;
@@ -24072,8 +24072,8 @@ Loading snippet ...</pre
       fireRoute: false,
       activeId: activeId ?? -1,
       callback: () => {
-        setState2("isOpen", (prev2) => !prev2);
-        const { isOpen } = getState2("isOpen");
+        setState("isOpen", (prev2) => !prev2);
+        const { isOpen } = getState("isOpen");
         if (isOpen)
           callback2();
       }
@@ -24271,8 +24271,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/shapes/footerShapeV1.js
-  var FooterShaperV1 = ({ html, onMount, getState: getState2 }) => {
-    const { svg, position: position2 } = getState2();
+  var FooterShaperV1 = ({ html, onMount, getState }) => {
+    const { svg, position: position2 } = getState();
     const positionClass = `shape-v1--${position2}`;
     onMount(({ element }) => {
       mobCore.useFrame(() => {
@@ -24575,8 +24575,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
-  var AnimatedPatternN0 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
-    const { prevRoute, nextRoute, title } = getState2();
+  var AnimatedPatternN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
+    const { prevRoute, nextRoute, title } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -24592,7 +24592,7 @@ Loading snippet ...</pre
       setStateById(titleId, "title", title);
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -24921,7 +24921,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
-  var AnimatedPatternN1 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
+  var AnimatedPatternN1 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -24945,7 +24945,7 @@ Loading snippet ...</pre
       setStateById(titleId, "title", "Caterpillar N1");
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -25239,7 +25239,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
-  var CaterpillarN0 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
+  var CaterpillarN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25254,7 +25254,7 @@ Loading snippet ...</pre
       setStateById(titleId, "title", "Caterpillar N0");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -25562,7 +25562,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
-  var CaterpillarN1 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
+  var CaterpillarN1 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25578,7 +25578,7 @@ Loading snippet ...</pre
       setStateById(titleId, "title", "Caterpillar N1");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -25880,8 +25880,8 @@ Loading snippet ...</pre
             </li>`;
     }).join("");
   }
-  var CaterpillarN2 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
-    const { buttons: buttons3, rotationDefault } = getState2();
+  var CaterpillarN2 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
+    const { buttons: buttons3, rotationDefault } = getState();
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25901,7 +25901,7 @@ Loading snippet ...</pre
       setStateById(titleId, "title", "Caterpillar N2");
       const animationMethods = caterpillarN2Animation({
         canvas,
-        ...getState2()
+        ...getState()
       });
       const { destroy, setRotation } = animationMethods;
       Object.entries(buttons3).forEach(([className, value]) => {
@@ -26145,8 +26145,8 @@ Loading snippet ...</pre
     await playIntro();
     playSvg();
   };
-  var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState: getState2 }) => {
-    const { svg } = getState2();
+  var HomeComponent = ({ html, onMount, staticProps: staticProps2, getState }) => {
+    const { svg } = getState();
     onMount(async ({ refs }) => {
       const { textStagger, svg_group } = refs;
       const { destroy, playIntro, playSvg } = simpleIntroAnimation({
@@ -26250,7 +26250,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/horizontalScroller/animation/animation.js
   var sideWidth = 0;
-  var createPins = ({ indicators, setState: setState2 }) => {
+  var createPins = ({ indicators, setState }) => {
     return [...indicators].map((button, i) => {
       return scroller.createScrollTrigger({
         item: button,
@@ -26273,11 +26273,11 @@ Loading snippet ...</pre
           }
         },
         onEnter: () => {
-          setState2("currentId", -1);
-          setState2("currentIdFromScroll", i);
+          setState("currentId", -1);
+          setState("currentIdFromScroll", i);
         },
         onLeaveBack: () => {
-          setState2("currentIdFromScroll", i - 1);
+          setState("currentIdFromScroll", i - 1);
         }
       });
     });
@@ -26314,10 +26314,10 @@ Loading snippet ...</pre
     titles,
     nav,
     animatePin,
-    setState: setState2,
+    setState,
     rootRef
   }) => {
-    let pins = createPins({ indicators, setState: setState2 });
+    let pins = createPins({ indicators, setState });
     let titlesParallax = createParallax({ titles });
     const side = document.querySelector(".l-navcontainer__side");
     sideWidth = outerWidth(side) / 2;
@@ -26393,7 +26393,7 @@ Loading snippet ...</pre
   };
   var getNav = ({
     numOfCol,
-    setState: setState2,
+    setState,
     bindProps,
     staticProps: staticProps2,
     delegateEvents
@@ -26405,7 +26405,7 @@ Loading snippet ...</pre
         id: i
       })}
                     ${delegateEvents({
-        click: () => setState2("currentId", i)
+        click: () => setState("currentId", i)
       })}
                     ${bindProps({
         bind: ["currentId", "currentIdFromScroll"],
@@ -26422,14 +26422,14 @@ Loading snippet ...</pre
   var HorizontalScroller2 = ({
     onMount,
     html,
-    getState: getState2,
-    setState: setState2,
+    getState,
+    setState,
     watch,
     staticProps: staticProps2,
     bindProps,
     delegateEvents
   }) => {
-    const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState2();
+    const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -26441,8 +26441,8 @@ Loading snippet ...</pre
         indicators,
         titles,
         nav,
-        ...getState2(),
-        setState: setState2
+        ...getState(),
+        setState
       });
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -26490,7 +26490,7 @@ Loading snippet ...</pre
         <ul class="l-h-scroller__nav js-nav" ref="js_nav">
             ${getNav({
       numOfCol: 10,
-      setState: setState2,
+      setState,
       bindProps,
       staticProps: staticProps2,
       delegateEvents
@@ -26578,12 +26578,12 @@ Loading snippet ...</pre
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/horizontalScrollerButton.js
   var HorizontalScrollerButton = ({
-    getState: getState2,
+    getState,
     watch,
     html,
     onMount
   }) => {
-    const { id } = getState2();
+    const { id } = getState();
     onMount(({ element }) => {
       const btn = element.querySelector(".js-nav-button");
       watch("active", (active) => {
@@ -26623,8 +26623,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerSection/horizontalScrollerSection.js
-  var horizontalScrollerSection = ({ html, getState: getState2 }) => {
-    const { id, pinClass } = getState2();
+  var horizontalScrollerSection = ({ html, getState }) => {
+    const { id, pinClass } = getState();
     return html`
         <section
             class="l-h-scroller__column js-column"
@@ -26875,8 +26875,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
-  var ScrollerN0 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
-    const { prevRoute, nextRoute, title } = getState2();
+  var ScrollerN0 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
+    const { prevRoute, nextRoute, title } = getState();
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -26895,7 +26895,7 @@ Loading snippet ...</pre
       const destroyAnimation = scrollerN0Animation({
         canvas,
         canvasScroller,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -27222,7 +27222,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN1/scrollerN1.js
-  var ScrollerN1 = ({ onMount, html, getState: getState2, staticProps: staticProps2 }) => {
+  var ScrollerN1 = ({ onMount, html, getState, staticProps: staticProps2 }) => {
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -27244,7 +27244,7 @@ Loading snippet ...</pre
       const destroyAnimation = scrollerN1Animation({
         canvas,
         canvasScroller,
-        ...getState2()
+        ...getState()
       });
       mobCore.useFrame(() => {
         wrap.classList.add("active");
@@ -27495,7 +27495,7 @@ Loading snippet ...</pre
       clean: true
     }
   ];
-  function getButton({ setState: setState2, staticProps: staticProps2, delegateEvents, bindProps }) {
+  function getButton({ setState, staticProps: staticProps2, delegateEvents, bindProps }) {
     return buttons2.map((column, index) => {
       const { data: data3, buttonLabel } = column;
       return renderHtml`
@@ -27503,8 +27503,8 @@ Loading snippet ...</pre
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: async () => {
-          setState2("data", data3);
-          setState2("activeSample", index);
+          setState("data", data3);
+          setState("activeSample", index);
           await tick();
           console.log("resolve list update");
         }
@@ -27538,7 +27538,7 @@ Loading snippet ...</pre
     }).join("");
   }
   var DynamicList = async ({
-    setState: setState2,
+    setState,
     html,
     onMount,
     staticProps: staticProps2,
@@ -27560,7 +27560,7 @@ Loading snippet ...</pre
             <div class="c-dynamic-list__header">
                 <div class="c-dynamic-list__top">
                     ${getButton({
-      setState: setState2,
+      setState,
       delegateEvents,
       staticProps: staticProps2,
       bindProps
@@ -27569,7 +27569,7 @@ Loading snippet ...</pre
                         ${staticProps2({ label: "increase counter" })}
                         ${delegateEvents({
       click: async () => {
-        setState2("counter", (prev2) => prev2 += 1);
+        setState("counter", (prev2) => prev2 += 1);
         await tick();
         console.log("resolve increment");
       }
@@ -27654,7 +27654,7 @@ Loading snippet ...</pre
     return `${label}: ${val2}`;
   }
   var DynamicListCard = async ({
-    getState: getState2,
+    getState,
     html,
     onMount,
     key,
@@ -27663,7 +27663,7 @@ Loading snippet ...</pre
     watch,
     id
   }) => {
-    const { isFull, parentListId, index, label, counter } = getState2();
+    const { isFull, parentListId, index, label, counter } = getState();
     onMount(({ element, refs }) => {
       const { indexEl, labelEl, counterEl } = refs;
       element.addEventListener("click", () => {
@@ -27710,7 +27710,7 @@ Loading snippet ...</pre
       props: () => {
         return {
           parentState: `${JSON.stringify(
-            getState2(),
+            getState(),
             null,
             4
           )}`
@@ -27770,8 +27770,8 @@ Loading snippet ...</pre
   function getPreValue(value) {
     return renderHtml`<pre>${value}</pre>`;
   }
-  var DynamicListSlot = ({ getState: getState2, html, onMount, watchSync }) => {
-    const { staticFromSlot, staticFromComponent } = getState2();
+  var DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
+    const { staticFromSlot, staticFromComponent } = getState();
     onMount(({ refs }) => {
       const { tEl, t2El } = refs;
       watchSync("parentParentState", (val2) => {
@@ -27849,9 +27849,9 @@ Loading snippet ...</pre
     watch,
     onMount,
     html,
-    getState: getState2
+    getState
   }) => {
-    const { parentListId, counter } = getState2();
+    const { parentListId, counter } = getState();
     onMount(({ refs }) => {
       const { counterValueEl } = refs;
       watch("counter", (value) => {
@@ -27884,8 +27884,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/button/dynamicListButton.js
-  var DynamicListButton = ({ html, getState: getState2, onMount, watchSync }) => {
-    const { label } = getState2();
+  var DynamicListButton = ({ html, getState, onMount, watchSync }) => {
+    const { label } = getState();
     onMount(({ element }) => {
       watchSync("active", (value) => {
         element.classList.toggle("active", value);
@@ -27966,14 +27966,14 @@ Loading snippet ...</pre
     newElement.insertAdjacentHTML("afterbegin", updateNewElement(childrenId));
   }
   var DynamicListRepeater = ({
-    getState: getState2,
+    getState,
     html,
     repeat,
     staticProps: staticProps2,
     bindProps,
     delegateEvents
   }) => {
-    const { listId, key, clean: clean2, label } = getState2();
+    const { listId, key, clean: clean2, label } = getState();
     const keyParsed = key.length > 0 ? key : null;
     return html`
         <div class="c-dynamic-list-repeater">
@@ -28055,9 +28055,9 @@ Loading snippet ...</pre
     html,
     onMount,
     watch,
-    getState: getState2
+    getState
   }) => {
-    const { label } = getState2();
+    const { label } = getState();
     onMount(({ refs }) => {
       const { contentEl } = refs;
       watch("label", (value) => {
@@ -28217,9 +28217,9 @@ Loading snippet ...</pre
             `;
     }).join("");
   };
-  var SvgChild = ({ onMount, html, getState: getState2 }) => {
+  var SvgChild = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq("min", "desktop");
-    const { svg, star } = isDesktop ? getState2() : "";
+    const { svg, star } = isDesktop ? getState() : "";
     const quicknavId = getIdByInstanceName("quick_nav");
     setStateById(quicknavId, "active", true);
     setStateById(quicknavId, "nextRoute", "#mv1");
@@ -28399,9 +28399,9 @@ Loading snippet ...</pre
     await playIntro();
     playSvg();
   };
-  var Mv1Component = ({ html, onMount, getState: getState2 }) => {
+  var Mv1Component = ({ html, onMount, getState }) => {
     const isDesktop = motionCore.mq("min", "desktop");
-    const { logo, sideShape } = isDesktop ? getState2() : "";
+    const { logo, sideShape } = isDesktop ? getState() : "";
     onMount(({ element, refs }) => {
       if (!isDesktop)
         return;
@@ -28478,8 +28478,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/mLogo1/mLogo1.js
-  var Mlogo1 = ({ html, onMount, getState: getState2, watchSync }) => {
-    const { svg, active } = getState2();
+  var Mlogo1 = ({ html, onMount, getState, watchSync }) => {
+    const { svg, active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ refs }) => {
       const { logo } = refs;
@@ -30279,15 +30279,21 @@ Loading snippet ...</pre
   };
 
   // src/js/mobCore/store/MapVersion/storeSet.js
-  var storeSetAction = ({ state, propsId }) => {
-    console.log(state, propsId);
+  var storeSetAction = ({
+    state,
+    propsId,
+    value,
+    fireCallback = true,
+    clone = false
+  }) => {
+    console.log(state, propsId, value, fireCallback, clone);
     return state;
   };
 
   // src/js/mobCore/store/MapVersion/storeMap.js
   var storeMap = /* @__PURE__ */ new Map();
-  var getState = (id) => ({ ...storeMap.get(id) });
-  var setState = (id, state) => storeMap.set(id, state);
+  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
+  var updateMainMap = (id, state) => storeMap.set(id, state);
 
   // src/js/mobCore/store/MapVersion/storeType.js
   var UNTYPED2 = "UNTYPED";
@@ -30392,12 +30398,33 @@ Loading snippet ...</pre
     return getPropRecursive2(data3, prop, fallback);
   };
 
+  // src/js/mobCore/store/MapVersion/initialValidation.js
+  var inizializeValidation = (instanceId, state) => {
+    const { store, validationStatusObject } = state;
+    for (const key in store) {
+      if (storeType2.isObject(store[key])) {
+        validationStatusObject[key] = {};
+        updateMainMap(instanceId, { ...state, validationStatusObject });
+      }
+    }
+    Object.entries(store).forEach((item) => {
+      const [key, value] = item;
+      const newState = storeSetAction({
+        state,
+        propsId: key,
+        value,
+        fireCallback: false
+      });
+      updateMainMap(instanceId, newState);
+    });
+  };
+
   // src/js/mobCore/store/MapVersion/index.js.js
   var logStyle = "padding: 10px;";
   var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
     const dataDepth = maxDepth2(data3);
-    storeMap.set(instanceId, {
+    const instanceParams = {
       callBackWatcher: /* @__PURE__ */ new Map(),
       callBackComputed: /* @__PURE__ */ new Set(),
       computedPropFired: /* @__PURE__ */ new Set(),
@@ -30438,13 +30465,21 @@ Loading snippet ...</pre
         logStyle,
         fallback: true
       })
-    });
+    };
+    storeMap.set(instanceId, instanceParams);
+    inizializeValidation(instanceId, instanceParams);
     return {
-      get: () => getState(instanceId),
-      set: (propsId) => {
-        const state = getState(instanceId);
-        const newState = storeSetAction({ state, propsId });
-        setState(instanceId, newState);
+      get: () => getFormMainMap(instanceId),
+      set: (propsId, value, fireCallback = true, clone = false) => {
+        const state = getFormMainMap(instanceId);
+        const newState = storeSetAction({
+          state,
+          propsId,
+          value,
+          fireCallback,
+          clone
+        });
+        updateMainMap(instanceId, newState);
       }
     };
   };

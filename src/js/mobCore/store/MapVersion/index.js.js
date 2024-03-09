@@ -2,13 +2,14 @@
 
 import { getUnivoqueId } from '../../utils';
 import { storeSetAction } from './storeSet';
-import { getState, setState, storeMap } from './storeMap';
+import { getFormMainMap, updateMainMap, storeMap } from './storeMap';
 import {
     inizializeSpecificProp,
     inizializeStoreData,
     maxDepth,
 } from './storeUtils';
 import { UNTYPED } from './storeType';
+import { inizializeValidation } from './initialValidation';
 
 const logStyle = 'padding: 10px;';
 
@@ -28,9 +29,9 @@ export const mobStore = (data = {}) => {
     const dataDepth = maxDepth(data);
 
     /**
-     * Add new store to main Map.
+     * Initialize
      */
-    storeMap.set(instanceId, {
+    const instanceParams = {
         callBackWatcher: new Map(),
         callBackComputed: new Set(),
         computedPropFired: new Set(),
@@ -71,14 +72,27 @@ export const mobStore = (data = {}) => {
             logStyle: logStyle,
             fallback: true,
         }),
-    });
+    };
+
+    /**
+     * Add new store to main Map.
+     */
+    storeMap.set(instanceId, instanceParams);
+    inizializeValidation(instanceId, instanceParams);
 
     return {
-        get: () => getState(instanceId),
-        set: (propsId) => {
-            const state = getState(instanceId);
-            const newState = storeSetAction({ state, propsId });
-            setState(instanceId, newState);
+        get: () => getFormMainMap(instanceId),
+        set: (propsId, value, fireCallback = true, clone = false) => {
+            const state = getFormMainMap(instanceId);
+            const newState = storeSetAction({
+                state,
+                propsId,
+                value,
+                fireCallback,
+                clone,
+            });
+
+            updateMainMap(instanceId, newState);
         },
     };
 };
