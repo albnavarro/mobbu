@@ -30399,16 +30399,17 @@ Loading snippet ...</pre
   };
 
   // src/js/mobCore/store/MapVersion/initialValidation.js
-  var inizializeValidation = (instanceId, state) => {
-    const { store, validationStatusObject } = state;
+  var inizializeValidation = (instanceId, initialState) => {
+    const { store, validationStatusObject } = initialState;
     for (const key in store) {
       if (storeType2.isObject(store[key])) {
         validationStatusObject[key] = {};
-        updateMainMap(instanceId, { ...state, validationStatusObject });
       }
     }
+    updateMainMap(instanceId, { ...initialState, validationStatusObject });
     Object.entries(store).forEach((item) => {
       const [key, value] = item;
+      const state = getFormMainMap(instanceId);
       const newState = storeSetAction({
         state,
         propsId: key,
@@ -30486,10 +30487,37 @@ Loading snippet ...</pre
 
   // src/js/test/mapStore.js
   var initTestMapStore = () => {
-    const test = mobStore({ test: 2, pippo: 3 });
+    const test = mobStore({
+      test: () => ({
+        value: 30,
+        type: Number,
+        skipEqual: false
+      })
+    });
     test.get();
     test.set();
-    const test2 = mobStore({ test: 20 });
+    const test2 = mobStore({
+      myObject: {
+        test: () => ({
+          value: "ffff",
+          type: String,
+          skipEqual: false,
+          strict: true,
+          validate: (val2) => {
+            val2 === "ffff";
+          }
+        }),
+        pippo: 3
+      },
+      myObject2: {
+        test: () => ({
+          value: "ffff",
+          type: String,
+          skipEqual: false
+        })
+      },
+      pluto: 2
+    });
     test2.get();
     test2.set();
   };
