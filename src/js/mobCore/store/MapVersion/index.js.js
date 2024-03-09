@@ -1,7 +1,7 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../utils';
-import { storeSetEntryPoint } from './storeSet';
+import { storeQuickSetEntrypoint, storeSetEntryPoint } from './storeSet';
 import { storeMap, removeFromMainMap } from './storeMap';
 import { inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
@@ -51,7 +51,7 @@ export const mobStore = (data = {}) => {
             return storeGetPropEntryPoint({ instanceId, prop });
         },
         set: (prop, value, fireCallback = true, clone = false) => {
-            return storeSetEntryPoint({
+            storeSetEntryPoint({
                 instanceId,
                 prop,
                 value,
@@ -59,11 +59,14 @@ export const mobStore = (data = {}) => {
                 clone,
             });
         },
+        quickSetProp: (prop, value) => {
+            storeQuickSetEntrypoint({ instanceId, prop, value });
+        },
         watch: (prop, callback) => {
             return watchEntryPoint({ instanceId, prop, callback });
         },
         computed: (prop, keys, callback) => {
-            return storeComputedEntryPoint({
+            storeComputedEntryPoint({
                 instanceId,
                 prop,
                 keys,
@@ -71,7 +74,7 @@ export const mobStore = (data = {}) => {
             });
         },
         emit: (prop) => {
-            return storeEmitEntryPoint({ instanceId, prop });
+            storeEmitEntryPoint({ instanceId, prop });
         },
         emitAsync: async (prop) => {
             return storeEmitAsyncEntryPoint({ instanceId, prop });

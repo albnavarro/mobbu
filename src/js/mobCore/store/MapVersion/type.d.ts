@@ -61,6 +61,7 @@ export interface storePublicMethods {
         fireCallback?: boolean,
         clone?: boolean
     ) => any;
+    quickSetProp: (prop: string, value: any) => void;
     watch: (
         prop: string,
         callback: (current: any, previous: any, validate: boolean) => void
@@ -116,6 +117,12 @@ export interface storeSetEntryPoint {
 
 export interface storeSetAction extends storeSet {
     state: storeMapValue;
+}
+
+export interface storeQuickSetEntryPoint {
+    instanceId: string;
+    prop: string;
+    value: any | ((arg0: any) => any);
 }
 
 export interface storeWatch {

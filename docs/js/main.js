@@ -30853,6 +30853,22 @@ Loading snippet ...</pre
       return;
     updateMainMap(instanceId, newState);
   };
+  var storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return;
+    const { store, callBackWatcher } = state;
+    const oldVal = store[prop];
+    store[prop] = value;
+    runCallbackQueqe({
+      callBackWatcher,
+      prop,
+      newValue: value,
+      oldValue: oldVal,
+      validationValue: true
+    });
+    updateMainMap(instanceId, { ...state, store });
+  };
 
   // src/js/mobCore/store/MapVersion/initialValidation.js
   var inizializeValidation = (instanceId, initialState) => {
@@ -31091,7 +31107,7 @@ Loading snippet ...</pre
         return storeGetPropEntryPoint({ instanceId, prop });
       },
       set: (prop, value, fireCallback = true, clone = false) => {
-        return storeSetEntryPoint({
+        storeSetEntryPoint({
           instanceId,
           prop,
           value,
@@ -31099,11 +31115,14 @@ Loading snippet ...</pre
           clone
         });
       },
+      quickSetProp: (prop, value) => {
+        storeQuickSetEntrypoint({ instanceId, prop, value });
+      },
       watch: (prop, callback2) => {
         return watchEntryPoint({ instanceId, prop, callback: callback2 });
       },
       computed: (prop, keys, callback2) => {
-        return storeComputedEntryPoint({
+        storeComputedEntryPoint({
           instanceId,
           prop,
           keys,
@@ -31111,7 +31130,7 @@ Loading snippet ...</pre
         });
       },
       emit: (prop) => {
-        return storeEmitEntryPoint({ instanceId, prop });
+        storeEmitEntryPoint({ instanceId, prop });
       },
       emitAsync: async (prop) => {
         return storeEmitAsyncEntryPoint({ instanceId, prop });
@@ -31207,6 +31226,9 @@ Loading snippet ...</pre
     const { myObject } = test.get();
     console.log(myObject);
     console.log(test.debugValidate());
+    test.quickSetProp("prop1", 3);
+    test.quickSetProp("prop1", 30);
+    test.quickSetProp("prop1", 130);
   };
 
   // src/js/main.js

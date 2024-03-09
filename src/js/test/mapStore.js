@@ -87,4 +87,8 @@ export const initTestMapStore = async () => {
     const { myObject } = test.get();
     console.log(myObject);
     console.log(test.debugValidate());
+
+    test.quickSetProp('prop1', 3);
+    test.quickSetProp('prop1', 30);
+    test.quickSetProp('prop1', 130);
 };

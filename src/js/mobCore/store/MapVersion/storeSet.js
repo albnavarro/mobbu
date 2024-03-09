@@ -393,3 +393,34 @@ export const storeSetEntryPoint = ({
     if (!newState) return;
     updateMainMap(instanceId, newState);
 };
+
+/**
+ * @param {import('./type').storeQuickSetEntryPoint} param
+ * @returns {void}
+ */
+export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state) return;
+
+    const { store, callBackWatcher } = state;
+
+    /**
+     * Update value and fire callback associated
+     */
+    const oldVal = store[prop];
+
+    /**
+     * Finally set new value
+     */
+    store[prop] = value;
+
+    runCallbackQueqe({
+        callBackWatcher,
+        prop,
+        newValue: value,
+        oldValue: oldVal,
+        validationValue: true,
+    });
+
+    updateMainMap(instanceId, { ...state, store });
+};
