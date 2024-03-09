@@ -55,6 +55,8 @@ export interface storePublicMethods {
         clone?: boolean
     ) => any;
     watch: (prop: string, callback: () => void) => () => void;
+    emit: (props: string) => void;
+    emitAsync: (props: string) => Promise<{ success: boolean }>;
 }
 
 export type simpleStoreTypeAlias =

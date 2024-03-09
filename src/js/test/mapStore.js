@@ -1,6 +1,6 @@
 import { mobStore } from '../mobCore/store/MapVersion/index.js';
 
-export const initTestMapStore = () => {
+export const initTestMapStore = async () => {
     const test = mobStore({
         prop1: () => ({
             value: 30,
@@ -11,13 +11,27 @@ export const initTestMapStore = () => {
             },
             strict: false,
         }),
+        prop2: () => ({
+            value: 'init prop2',
+            type: String,
+        }),
     });
 
     const unsubscribe = test.watch('prop1', (val, old, validate) => {
-        console.log('callBackWatcher', val, old, validate);
+        console.log('sync', val, old, validate);
+    });
+
+    const unsubscribe2 = test.watch('prop2', async (val, old, validate) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('async', val, old, validate);
+                resolve();
+            }, 2000);
+        });
     });
 
     // unsubscribe();
+    // unsubscribe2();
 
     test.set('prop1', 20);
     const { prop1 } = test.get();
@@ -26,4 +40,10 @@ export const initTestMapStore = () => {
     test.set('prop1', 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
+
+    test.emit('prop1');
+
+    test.set('prop2', 'testtttt', false);
+    await test.emitAsync('prop2');
+    console.log('after async');
 };

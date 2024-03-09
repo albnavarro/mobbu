@@ -17,15 +17,17 @@ export const runCallbackQueqe = ({
 };
 
 /**
- * @param {Object} obj
- * @param {string} obj.prop
- * @param {any} obj.newValue
- * @param {any} obj.oldValue
- * @param {boolean|Object<string,boolean>} obj.validationValue
+ * @param {import("./type").callbackQueue} param
+ * @returns {Promise<any>}
  */
-// export const  runCallbackQueqeAsync = async({ prop, newValue, oldValue, validationValue }) {
-//     for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
-//         if (currentProp === prop)
-//             await fn(newValue, oldValue, validationValue);
-//     }
-// }
+export const runCallbackQueqeAsync = async ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue,
+}) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+        if (currentProp === prop) await fn(newValue, oldValue, validationValue);
+    }
+};

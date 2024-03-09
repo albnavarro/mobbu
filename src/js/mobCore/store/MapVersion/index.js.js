@@ -12,6 +12,8 @@ import { UNTYPED } from './storeType';
 import { inizializeValidation } from './initialValidation';
 import { getLogStyle } from './logStyle';
 import { storeWatchAction } from './watch';
+import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
+import { storeEmitWarning } from './storeWarining';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -117,6 +119,41 @@ export const mobStore = (data = {}) => {
                 console.log(getFormMainMap(instanceId));
                 updateMainMap(instanceId, { ...state, callBackWatcher });
             };
+        },
+        emit: (prop) => {
+            const { store, callBackWatcher, validationStatusObject } =
+                getFormMainMap(instanceId);
+
+            if (prop in store) {
+                runCallbackQueqe({
+                    callBackWatcher,
+                    prop,
+                    newValue: store[prop],
+                    oldValue: store[prop],
+                    validationValue: validationStatusObject[prop],
+                });
+            } else {
+                storeEmitWarning(prop, getLogStyle());
+            }
+        },
+        emitAsync: async (prop) => {
+            const { store, callBackWatcher, validationStatusObject } =
+                getFormMainMap(instanceId);
+
+            if (prop in store) {
+                await runCallbackQueqeAsync({
+                    callBackWatcher,
+                    prop,
+                    newValue: store[prop],
+                    oldValue: store[prop],
+                    validationValue: validationStatusObject[prop],
+                });
+
+                return { success: true };
+            } else {
+                storeEmitWarning(prop, getLogStyle());
+                return { success: false };
+            }
         },
     };
 };

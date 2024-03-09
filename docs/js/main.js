@@ -30291,6 +30291,18 @@ Loading snippet ...</pre
         fn(newValue, oldValue, validationValue);
     }
   };
+  var runCallbackQueqeAsync = async ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        await fn(newValue, oldValue, validationValue);
+    }
+  };
 
   // src/js/mobCore/store/MapVersion/logStyle.js
   var logStyle = "padding: 10px;";
@@ -30500,6 +30512,12 @@ Loading snippet ...</pre
       `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName2(
         type
       )}`,
+      style
+    );
+  };
+  var storeEmitWarning2 = (prop, style) => {
+    console.warn(
+      `%c trying to execute set data method: store.${prop} not exist`,
       style
     );
   };
@@ -30924,12 +30942,42 @@ Loading snippet ...</pre
           console.log(getFormMainMap(instanceId));
           updateMainMap(instanceId, { ...state4, callBackWatcher });
         };
+      },
+      emit: (prop) => {
+        const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+        if (prop in store) {
+          runCallbackQueqe({
+            callBackWatcher,
+            prop,
+            newValue: store[prop],
+            oldValue: store[prop],
+            validationValue: validationStatusObject[prop]
+          });
+        } else {
+          storeEmitWarning2(prop, getLogStyle());
+        }
+      },
+      emitAsync: async (prop) => {
+        const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+        if (prop in store) {
+          await runCallbackQueqeAsync({
+            callBackWatcher,
+            prop,
+            newValue: store[prop],
+            oldValue: store[prop],
+            validationValue: validationStatusObject[prop]
+          });
+          return { success: true };
+        } else {
+          storeEmitWarning2(prop, getLogStyle());
+          return { success: false };
+        }
       }
     };
   };
 
   // src/js/test/mapStore.js
-  var initTestMapStore = () => {
+  var initTestMapStore = async () => {
     const test = mobStore({
       prop1: () => ({
         value: 30,
@@ -30939,10 +30987,22 @@ Loading snippet ...</pre
           return val2 > 100;
         },
         strict: false
+      }),
+      prop2: () => ({
+        value: "init prop2",
+        type: String
       })
     });
     const unsubscribe3 = test.watch("prop1", (val2, old, validate) => {
-      console.log("callBackWatcher", val2, old, validate);
+      console.log("sync", val2, old, validate);
+    });
+    const unsubscribe22 = test.watch("prop2", async (val2, old, validate) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          console.log("async", val2, old, validate);
+          resolve();
+        }, 2e3);
+      });
     });
     test.set("prop1", 20);
     const { prop1 } = test.get();
@@ -30950,6 +31010,10 @@ Loading snippet ...</pre
     test.set("prop1", 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
+    test.emit("prop1");
+    test.set("prop2", "testtttt", false);
+    await test.emitAsync("prop2");
+    console.log("after async");
   };
 
   // src/js/main.js
