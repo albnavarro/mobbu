@@ -30871,6 +30871,12 @@ Loading snippet ...</pre
       unsubscribeId: id
     };
   };
+  var unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
+    const state = getFormMainMap(instanceId);
+    const { callBackWatcher } = state;
+    callBackWatcher.delete(unsubscribeId);
+    updateMainMap(instanceId, { ...state, callBackWatcher });
+  };
 
   // src/js/mobCore/store/MapVersion/computed.js
   var storeComputedAction = ({ state, prop, keys, fn }) => {
@@ -30895,11 +30901,10 @@ Loading snippet ...</pre
     };
   };
 
-  // src/js/mobCore/store/MapVersion/index.js.js
-  var mobStore = (data3 = {}) => {
-    const instanceId = getUnivoqueId();
+  // src/js/mobCore/store/MapVersion/inizializeInstance.js
+  var inizializeInstance = (data3) => {
     const dataDepth = maxDepth2(data3);
-    const instanceParams = {
+    return {
       callBackWatcher: /* @__PURE__ */ new Map(),
       callBackComputed: /* @__PURE__ */ new Set(),
       computedPropFired: /* @__PURE__ */ new Set(),
@@ -30917,7 +30922,7 @@ Loading snippet ...</pre
         prop: "type",
         depth: dataDepth,
         logStyle: getLogStyle(),
-        fallback: UNTYPED2
+        fallback: UNTYPED
       }),
       fnValidate: inizializeSpecificProp2({
         data: data3,
@@ -30941,6 +30946,12 @@ Loading snippet ...</pre
         fallback: true
       })
     };
+  };
+
+  // src/js/mobCore/store/MapVersion/index.js.js
+  var mobStore = (data3 = {}) => {
+    const instanceId = getUnivoqueId();
+    const instanceParams = inizializeInstance(data3);
     storeMap.set(instanceId, instanceParams);
     inizializeValidation(instanceId, instanceParams);
     return {
@@ -30989,10 +31000,7 @@ Loading snippet ...</pre
           };
         updateMainMap(instanceId, newState);
         return () => {
-          const state4 = getFormMainMap(instanceId);
-          const { callBackWatcher } = state4;
-          callBackWatcher.delete(unsubscribeId);
-          updateMainMap(instanceId, { ...state4, callBackWatcher });
+          unsubScribeWatch({ instanceId, unsubscribeId });
         };
       },
       computed: (prop, keys, callback2) => {

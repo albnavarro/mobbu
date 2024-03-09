@@ -8,18 +8,13 @@ import {
     storeMap,
     removeFromMainMap,
 } from './storeMap';
-import {
-    inizializeSpecificProp,
-    inizializeStoreData,
-    maxDepth,
-} from './storeUtils';
-import { UNTYPED } from './storeType';
 import { inizializeValidation } from './initialValidation';
 import { getLogStyle } from './logStyle';
-import { storeWatchAction } from './watch';
+import { storeWatchAction, unsubScribeWatch } from './watch';
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { storeEmitWarning, storeGetPropWarning } from './storeWarining';
 import { storeComputedAction } from './computed';
+import { inizializeInstance } from './inizializeInstance';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -32,62 +27,23 @@ export const mobStore = (data = {}) => {
     const instanceId = getUnivoqueId();
 
     /**
-     * @type {number}
-     */
-    const dataDepth = maxDepth(data);
-
-    /**
      * Initialize
      */
-    const instanceParams = {
-        callBackWatcher: new Map(),
-        callBackComputed: new Set(),
-        computedPropFired: new Set(),
-        computedWaitList: new Set(),
-        validationStatusObject: {},
-        dataDepth,
-        computedRunning: false,
-        store: inizializeStoreData({
-            data,
-            depth: dataDepth,
-            logStyle: getLogStyle(),
-        }),
-        type: inizializeSpecificProp({
-            data,
-            prop: 'type',
-            depth: dataDepth,
-            logStyle: getLogStyle(),
-            fallback: UNTYPED,
-        }),
-        fnValidate: inizializeSpecificProp({
-            data,
-            prop: 'validate',
-            depth: dataDepth,
-            logStyle: getLogStyle(),
-            fallback: () => true,
-        }),
-        strict: inizializeSpecificProp({
-            data,
-            prop: 'strict',
-            depth: dataDepth,
-            logStyle: getLogStyle(),
-            fallback: false,
-        }),
-        skipEqual: inizializeSpecificProp({
-            data,
-            prop: 'skipEqual',
-            depth: dataDepth,
-            logStyle: getLogStyle(),
-            fallback: true,
-        }),
-    };
+    const instanceParams = inizializeInstance(data);
 
     /**
      * Add new store to main Map.
      */
     storeMap.set(instanceId, instanceParams);
+
+    /**
+     * First validation
+     */
     inizializeValidation(instanceId, instanceParams);
 
+    /**
+     * Methods
+     */
     return {
         get: () => {
             const { store } = getFormMainMap(instanceId);
@@ -133,10 +89,7 @@ export const mobStore = (data = {}) => {
             updateMainMap(instanceId, newState);
 
             return () => {
-                const state = getFormMainMap(instanceId);
-                const { callBackWatcher } = state;
-                callBackWatcher.delete(unsubscribeId);
-                updateMainMap(instanceId, { ...state, callBackWatcher });
+                unsubScribeWatch({ instanceId, unsubscribeId });
             };
         },
         computed: (prop, keys, callback) => {
