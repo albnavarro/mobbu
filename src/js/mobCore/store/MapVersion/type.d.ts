@@ -97,6 +97,14 @@ export interface storeSet {
     clone?: boolean;
 }
 
+export interface storeSetEntryPoint {
+    instanceId: string;
+    prop: string;
+    value: any | ((arg0: any) => any);
+    fireCallback?: boolean;
+    clone?: boolean;
+}
+
 export interface storeSetAction extends storeSet {
     state: storeMapValue;
 }

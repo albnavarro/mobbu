@@ -1,6 +1,7 @@
 // @ts-check
 
 import { getLogStyle } from './logStyle';
+import { getFormMainMap, updateMainMap } from './storeMap';
 import { storeComputedKeyUsedWarning } from './storeWarining';
 
 /**
@@ -42,4 +43,32 @@ export const storeComputedAction = ({ state, prop, keys, fn }) => {
         ...state,
         callBackComputed,
     };
+};
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {string[]} param.keys
+ * @param {string} param.prop
+ * @param {() => void} param.callback
+ * @returns {void}
+ */
+export const storeComputedEntryPoint = ({
+    instanceId,
+    prop,
+    keys,
+    callback,
+}) => {
+    const state = getFormMainMap(instanceId);
+    if (!state) return;
+
+    const newState = storeComputedAction({
+        state,
+        prop,
+        keys,
+        fn: callback,
+    });
+
+    if (!newState) return;
+    updateMainMap(instanceId, newState);
 };

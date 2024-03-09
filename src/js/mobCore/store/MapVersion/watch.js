@@ -42,3 +42,28 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
 };
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {string} param.prop
+ * @param {() => void} param.callback
+ * @returns {() => void}
+ */
+export const watchEntryPoint = ({ instanceId, prop, callback }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state) return () => {};
+
+    const { state: newState, unsubscribeId } = storeWatchAction({
+        state,
+        prop,
+        callback,
+    });
+
+    if (!newState) return () => {};
+    updateMainMap(instanceId, newState);
+
+    return () => {
+        unsubScribeWatch({ instanceId, unsubscribeId });
+    };
+};

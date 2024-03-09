@@ -3,6 +3,7 @@
 import { checkEquality } from '../checkEquality';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
+import { getFormMainMap, updateMainMap } from './storeMap';
 import { checkType, storeType, TYPE_IS_ANY } from './storeType';
 import { cloneValueOrGet, maxDepth } from './storeUtils';
 import {
@@ -365,4 +366,30 @@ export const storeSetAction = ({
     return storeType.isObject(previousValue) && !isCustomObject
         ? setObj(state, prop, valueParsed, fireCallback)
         : setProp(state, prop, valueParsed, fireCallback);
+};
+
+/**
+ * @param {import('./type').storeSetEntryPoint} param
+ * @returns {void}
+ */
+export const storeSetEntryPoint = ({
+    instanceId,
+    prop,
+    value,
+    fireCallback,
+    clone,
+}) => {
+    const state = getFormMainMap(instanceId);
+    if (!state) return;
+
+    const newState = storeSetAction({
+        state,
+        prop,
+        value,
+        fireCallback,
+        clone,
+    });
+
+    if (!newState) return;
+    updateMainMap(instanceId, newState);
 };

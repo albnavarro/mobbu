@@ -1,20 +1,19 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../utils';
-import { storeSetAction } from './storeSet';
-import {
-    getFormMainMap,
-    updateMainMap,
-    storeMap,
-    removeFromMainMap,
-} from './storeMap';
+import { storeSetEntryPoint } from './storeSet';
+import { storeMap, removeFromMainMap } from './storeMap';
 import { inizializeValidation } from './initialValidation';
-import { getLogStyle } from './logStyle';
-import { storeWatchAction, unsubScribeWatch } from './watch';
-import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
-import { storeEmitWarning, storeGetPropWarning } from './storeWarining';
-import { storeComputedAction } from './computed';
+import { watchEntryPoint } from './watch';
+import { storeComputedEntryPoint } from './computed';
 import { inizializeInstance } from './inizializeInstance';
+import { storeGetEntryPoint, storeGetPropEntryPoint } from './storeGet';
+import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './storeEmit';
+import {
+    storeDebugStoreEntryPoint,
+    storeDebugValidateEntryPoint,
+    storeGetValidationEntryPoint,
+} from './storeDebug';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -46,116 +45,45 @@ export const mobStore = (data = {}) => {
      */
     return {
         get: () => {
-            const { store } = getFormMainMap(instanceId);
-            return store;
+            return storeGetEntryPoint(instanceId);
         },
         getProp: (prop) => {
-            const { store } = getFormMainMap(instanceId);
-            if (!store) return;
-
-            if (prop in store) {
-                return store[prop];
-            } else {
-                storeGetPropWarning(prop, getLogStyle());
-                return;
-            }
+            return storeGetPropEntryPoint({ instanceId, prop });
         },
         set: (prop, value, fireCallback = true, clone = false) => {
-            const state = getFormMainMap(instanceId);
-            if (!state) return;
-
-            const newState = storeSetAction({
-                state,
+            return storeSetEntryPoint({
+                instanceId,
                 prop,
                 value,
                 fireCallback,
                 clone,
             });
-
-            if (!newState) return;
-            updateMainMap(instanceId, newState);
         },
         watch: (prop, callback) => {
-            const state = getFormMainMap(instanceId);
-            if (!state) return () => {};
-
-            const { state: newState, unsubscribeId } = storeWatchAction({
-                state,
-                prop,
-                callback,
-            });
-
-            if (!newState) return () => {};
-            updateMainMap(instanceId, newState);
-
-            return () => {
-                unsubScribeWatch({ instanceId, unsubscribeId });
-            };
+            return watchEntryPoint({ instanceId, prop, callback });
         },
         computed: (prop, keys, callback) => {
-            const state = getFormMainMap(instanceId);
-            if (!state) return () => {};
-
-            const newState = storeComputedAction({
-                state,
+            return storeComputedEntryPoint({
+                instanceId,
                 prop,
                 keys,
-                fn: callback,
+                callback,
             });
-
-            if (!newState) return;
-            updateMainMap(instanceId, newState);
         },
         emit: (prop) => {
-            const { store, callBackWatcher, validationStatusObject } =
-                getFormMainMap(instanceId);
-
-            if (!store) return;
-
-            if (prop in store) {
-                runCallbackQueqe({
-                    callBackWatcher,
-                    prop,
-                    newValue: store[prop],
-                    oldValue: store[prop],
-                    validationValue: validationStatusObject[prop],
-                });
-            } else {
-                storeEmitWarning(prop, getLogStyle());
-            }
+            return storeEmitEntryPoint({ instanceId, prop });
         },
         emitAsync: async (prop) => {
-            const { store, callBackWatcher, validationStatusObject } =
-                getFormMainMap(instanceId);
-
-            if (!store) return { success: false };
-
-            if (prop in store) {
-                await runCallbackQueqeAsync({
-                    callBackWatcher,
-                    prop,
-                    newValue: store[prop],
-                    oldValue: store[prop],
-                    validationValue: validationStatusObject[prop],
-                });
-
-                return { success: true };
-            } else {
-                storeEmitWarning(prop, getLogStyle());
-                return { success: false };
-            }
+            return storeEmitAsyncEntryPoint({ instanceId, prop });
         },
         getValidation: () => {
-            const { validationStatusObject } = getFormMainMap(instanceId);
-            return validationStatusObject;
+            return storeGetValidationEntryPoint({ instanceId });
         },
         debugStore: () => {
-            const { store } = getFormMainMap(instanceId);
-            console.log(store);
+            storeDebugStoreEntryPoint({ instanceId });
         },
         debugValidate: () => {
-            const { validationStatusObject } = getFormMainMap(instanceId);
-            console.log(validationStatusObject);
+            storeDebugValidateEntryPoint({ instanceId });
         },
         destroy: () => {
             removeFromMainMap(instanceId);
