@@ -13,9 +13,16 @@ export const initTestMapStore = () => {
         }),
     });
 
+    const unsubscribe = test.watch('prop1', (val) => {
+        console.log(val);
+    });
+
+    // unsubscribe();
+
     test.set('prop1', 20);
     const { prop1 } = test.get();
     console.log(prop1);
+
     test.set('prop1', 30);
     const { prop1: prop12 } = test.get();
     console.log(prop12);

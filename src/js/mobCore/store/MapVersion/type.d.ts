@@ -49,11 +49,12 @@ export interface storeMapValue {
 export interface storePublicMethods {
     get: (arg0: string) => any;
     set: (
-        propsId: string,
+        prop: string,
         value: any | ((arg0: any) => any),
         fireCallback?: boolean,
         clone?: boolean
     ) => any;
+    watch: (prop: string, callback: () => void) => () => void;
 }
 
 export type simpleStoreTypeAlias =
@@ -82,7 +83,7 @@ export type simpleStoreTypeNative =
     | NodeList;
 
 export interface storeSet {
-    propsId: string;
+    prop: string;
     value: any | ((arg0: any) => any);
     fireCallback?: boolean;
     clone?: boolean;
@@ -90,6 +91,20 @@ export interface storeSet {
 
 export interface storeSetAction extends storeSet {
     state: storeMapValue;
+}
+
+export interface storeWatch {
+    prop: string;
+    callback: () => void;
+}
+
+export interface storeWatchAction extends storeWatch {
+    state: storeMapValue;
+}
+
+export interface storeWatchReturnObject {
+    state: storeMapValue | undefined;
+    unsubscribeId: string;
 }
 
 export type simpleStoreCustomValue = () => {

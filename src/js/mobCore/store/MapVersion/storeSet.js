@@ -315,7 +315,7 @@ const setObj = (state, prop, val, fireCallback = true) => {
  */
 export const storeSetAction = ({
     state,
-    propsId,
+    prop,
     value,
     fireCallback = true,
     clone = false,
@@ -326,8 +326,8 @@ export const storeSetAction = ({
     /**
      * Check if prop exist in store
      */
-    if (!(propsId in store)) {
-        storeSetWarning(propsId, logStyle);
+    if (!(prop in store)) {
+        storeSetWarning(prop, logStyle);
         return;
     }
 
@@ -336,8 +336,8 @@ export const storeSetAction = ({
      * This is mutable promitives, if it passed by reference mutate the original.
      */
     const previousValue = clone
-        ? cloneValueOrGet({ value: store[propsId] })
-        : store[propsId];
+        ? cloneValueOrGet({ value: store[prop] })
+        : store[prop];
 
     /**
      * Check if newValue is a param or function.
@@ -346,16 +346,16 @@ export const storeSetAction = ({
     const valueParsed =
         checkType(Function, value) &&
         !checkType(Function, previousValue) &&
-        type[propsId] !== Function
+        type[prop] !== Function
             ? value(previousValue)
             : value;
 
     /**
      * Check if is an Object to stringyFy ( default is max depth === 2 )
      */
-    const isCustomObject = type[propsId] === TYPE_IS_ANY;
+    const isCustomObject = type[prop] === TYPE_IS_ANY;
 
     return storeType.isObject(previousValue) && !isCustomObject
-        ? setObj(state, propsId, valueParsed, fireCallback)
-        : setProp(state, propsId, valueParsed, fireCallback);
+        ? setObj(state, prop, valueParsed, fireCallback)
+        : setProp(state, prop, valueParsed, fireCallback);
 };

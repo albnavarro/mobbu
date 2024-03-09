@@ -30,7 +30,7 @@ export const inizializeValidation = (instanceId, initialState) => {
      * First run execute each propierites to check validation without fire event
      */
     Object.entries(store).forEach((item) => {
-        const [key, value] = item;
+        const [prop, value] = item;
 
         /**
          * Get last updated state.
@@ -38,7 +38,7 @@ export const inizializeValidation = (instanceId, initialState) => {
         const state = getFormMainMap(instanceId);
         const newState = storeSetAction({
             state,
-            propsId: key,
+            prop,
             value,
             fireCallback: false,
         });

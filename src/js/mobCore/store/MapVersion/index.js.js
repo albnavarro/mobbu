@@ -11,6 +11,7 @@ import {
 import { UNTYPED } from './storeType';
 import { inizializeValidation } from './initialValidation';
 import { getLogStyle } from './logStyle';
+import { storeWatchAction } from './watch';
 
 /**
  * @param {import('./type').simpleStoreBaseData} data
@@ -85,11 +86,11 @@ export const mobStore = (data = {}) => {
             console.log(getFormMainMap(instanceId));
             return store;
         },
-        set: (propsId, value, fireCallback = true, clone = false) => {
+        set: (prop, value, fireCallback = true, clone = false) => {
             const state = getFormMainMap(instanceId);
             const newState = storeSetAction({
                 state,
-                propsId,
+                prop,
                 value,
                 fireCallback,
                 clone,
@@ -97,6 +98,25 @@ export const mobStore = (data = {}) => {
 
             if (!newState) return;
             updateMainMap(instanceId, newState);
+        },
+        watch: (prop, callback) => {
+            const state = getFormMainMap(instanceId);
+            const { state: newState, unsubscribeId } = storeWatchAction({
+                state,
+                prop,
+                callback,
+            });
+
+            if (!newState) return () => {};
+            updateMainMap(instanceId, newState);
+
+            return () => {
+                const state = getFormMainMap(instanceId);
+                const { callBackWatcher } = state;
+                callBackWatcher.delete(unsubscribeId);
+                console.log(getFormMainMap(instanceId));
+                updateMainMap(instanceId, { ...state, callBackWatcher });
+            };
         },
     };
 };

@@ -30489,6 +30489,12 @@ Loading snippet ...</pre
       style
     );
   };
+  var storeWatchWarning2 = (prop, style) => {
+    console.warn(
+      `%c SimpleStore error: the property ${prop} to watch doesn't exist in store`,
+      style
+    );
+  };
   var storeObjectIsNotAnyWarning2 = (style, CUSTOM_OBJECT) => {
     console.warn(
       `%c Validation Object error: validation function return undefined or have you used Object instead '${CUSTOM_OBJECT}' ?`,
@@ -30737,21 +30743,21 @@ Loading snippet ...</pre
   };
   var storeSetAction = ({
     state,
-    propsId,
+    prop,
     value,
     fireCallback = true,
     clone = false
   }) => {
     const { store, type } = state;
     const logStyle2 = getLogStyle();
-    if (!(propsId in store)) {
-      storeSetWarning2(propsId, logStyle2);
+    if (!(prop in store)) {
+      storeSetWarning2(prop, logStyle2);
       return;
     }
-    const previousValue = clone ? cloneValueOrGet2({ value: store[propsId] }) : store[propsId];
-    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[propsId] !== Function ? value(previousValue) : value;
-    const isCustomObject = type[propsId] === TYPE_IS_ANY2;
-    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(state, propsId, valueParsed, fireCallback) : setProp(state, propsId, valueParsed, fireCallback);
+    const previousValue = clone ? cloneValueOrGet2({ value: store[prop] }) : store[prop];
+    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[prop] !== Function ? value(previousValue) : value;
+    const isCustomObject = type[prop] === TYPE_IS_ANY2;
+    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(state, prop, valueParsed, fireCallback) : setProp(state, prop, valueParsed, fireCallback);
   };
 
   // src/js/mobCore/store/MapVersion/storeMap.js
@@ -30769,11 +30775,11 @@ Loading snippet ...</pre
     }
     updateMainMap(instanceId, { ...initialState, validationStatusObject });
     Object.entries(store).forEach((item) => {
-      const [key, value] = item;
+      const [prop, value] = item;
       const state = getFormMainMap(instanceId);
       const newState = storeSetAction({
         state,
-        propsId: key,
+        prop,
         value,
         fireCallback: false
       });
@@ -30781,6 +30787,26 @@ Loading snippet ...</pre
         return;
       updateMainMap(instanceId, newState);
     });
+  };
+
+  // src/js/mobCore/store/MapVersion/watch.js
+  var storeWatchAction = ({ state, prop, callback: callback2 = () => {
+  } }) => {
+    const { store, callBackWatcher } = state;
+    const logStyle2 = getLogStyle();
+    if (!(prop in store)) {
+      storeWatchWarning2(prop, logStyle2);
+      return {
+        state: void 0,
+        unsubscribeId: ""
+      };
+    }
+    const id = getUnivoqueId();
+    callBackWatcher.set(id, { fn: callback2, prop });
+    return {
+      state: { ...state, callBackWatcher },
+      unsubscribeId: id
+    };
   };
 
   // src/js/mobCore/store/MapVersion/index.js.js
@@ -30837,11 +30863,11 @@ Loading snippet ...</pre
         console.log(getFormMainMap(instanceId));
         return store;
       },
-      set: (propsId, value, fireCallback = true, clone = false) => {
+      set: (prop, value, fireCallback = true, clone = false) => {
         const state = getFormMainMap(instanceId);
         const newState = storeSetAction({
           state,
-          propsId,
+          prop,
           value,
           fireCallback,
           clone
@@ -30849,6 +30875,25 @@ Loading snippet ...</pre
         if (!newState)
           return;
         updateMainMap(instanceId, newState);
+      },
+      watch: (prop, callback2) => {
+        const state = getFormMainMap(instanceId);
+        const { state: newState, unsubscribeId } = storeWatchAction({
+          state,
+          prop,
+          callback: callback2
+        });
+        if (!newState)
+          return () => {
+          };
+        updateMainMap(instanceId, newState);
+        return () => {
+          const state4 = getFormMainMap(instanceId);
+          const { callBackWatcher } = state4;
+          callBackWatcher.delete(unsubscribeId);
+          console.log(getFormMainMap(instanceId));
+          updateMainMap(instanceId, { ...state4, callBackWatcher });
+        };
       }
     };
   };
@@ -30865,6 +30910,9 @@ Loading snippet ...</pre
         },
         strict: false
       })
+    });
+    const unsubscribe3 = test.watch("prop1", (val2) => {
+      console.log(val2);
     });
     test.set("prop1", 20);
     const { prop1 } = test.get();
