@@ -9,7 +9,7 @@ import { storeWatchWarning } from './storeWarining';
  * @param {import("./type").storeWatchAction} param
  * @returns {import('./type').storeWatchReturnObject}
  */
-export const storeWatchAction = ({ state, prop, callback = () => {} }) => {
+export const storeWatchAction = ({ state, prop, callback }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
@@ -47,7 +47,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
- * @param {() => void} param.callback
+ * @param {(current: any, previous: any, validate: boolean) => void} param.callback
  * @returns {() => void}
  */
 export const watchEntryPoint = ({ instanceId, prop, callback }) => {

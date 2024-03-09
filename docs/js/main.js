@@ -30879,8 +30879,7 @@ Loading snippet ...</pre
   };
 
   // src/js/mobCore/store/MapVersion/watch.js
-  var storeWatchAction = ({ state, prop, callback: callback2 = () => {
-  } }) => {
+  var storeWatchAction = ({ state, prop, callback: callback2 }) => {
     const { store, callBackWatcher } = state;
     const logStyle2 = getLogStyle();
     if (!(prop in store)) {

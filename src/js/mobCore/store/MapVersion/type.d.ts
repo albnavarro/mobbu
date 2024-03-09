@@ -3,7 +3,13 @@
 export type storeMap = Map<string, storeMapValue>;
 
 export interface storeMapValue {
-    callBackWatcher: Map<string, { prop: string; fn: Function }>;
+    callBackWatcher: Map<
+        string,
+        {
+            prop: string;
+            fn: (current: any, previous: any, validate: boolean) => void;
+        }
+    >;
     callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
     computedPropFired: Set<string>;
     computedWaitList: Set<string>;
@@ -55,7 +61,10 @@ export interface storePublicMethods {
         fireCallback?: boolean,
         clone?: boolean
     ) => any;
-    watch: (prop: string, callback: () => void) => () => void;
+    watch: (
+        prop: string,
+        callback: (current: any, previous: any, validate: boolean) => void
+    ) => void;
     computed: (prop: string, keys: string[], callback: () => void) => void;
     emit: (props: string) => void;
     emitAsync: (props: string) => Promise<{ success: boolean }>;
@@ -111,7 +120,7 @@ export interface storeSetAction extends storeSet {
 
 export interface storeWatch {
     prop: string;
-    callback: () => void;
+    callback: (current: any, previous: any, validate: boolean) => void;
 }
 
 export interface storeWatchAction extends storeWatch {
@@ -190,11 +199,3 @@ export interface simpleStoreBaseData {
         | object
         | simpleStoreBaseData;
 }
-
-export type simpleStoreWatchCallbackType = (
-    newValue: any,
-    oldValue: any,
-    validationValue: boolean | { [key: string]: boolean }
-) => void;
-
-export type simpleStoreComputedCallback = (arg0: any, arg1: any) => void;
