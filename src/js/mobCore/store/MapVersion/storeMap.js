@@ -1,5 +1,5 @@
 /**
- * @type {Map<string, any>}
+ * @type {import("./type").storeMap}
  */
 export const storeMap = new Map();
 export const getState = (id) => ({ ...storeMap.get(id) });

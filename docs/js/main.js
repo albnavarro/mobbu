@@ -2143,9 +2143,9 @@
       return { ...p, [key]: fallback };
     }, {});
   };
-  var inizializeStoreData = ({ data: data3, depth, logStyle }) => {
+  var inizializeStoreData = ({ data: data3, depth, logStyle: logStyle2 }) => {
     if (depth > 2) {
-      storeDepthWarning(depth, logStyle);
+      storeDepthWarning(depth, logStyle2);
       return {};
     }
     return getDataRecursive(data3);
@@ -2154,11 +2154,11 @@
     data: data3,
     prop,
     depth,
-    logStyle,
+    logStyle: logStyle2,
     fallback
   }) => {
     if (depth > 2) {
-      storeDepthWarning(depth, logStyle);
+      storeDepthWarning(depth, logStyle2);
       return {};
     }
     return getPropRecursive(data3, prop, fallback);
@@ -30289,10 +30289,156 @@ Loading snippet ...</pre
   var getState = (id) => ({ ...storeMap.get(id) });
   var setState = (id, state) => storeMap.set(id, state);
 
+  // src/js/mobCore/store/MapVersion/storeType.js
+  var UNTYPED2 = "UNTYPED";
+  var storeType2 = {
+    isString: (value) => Object.prototype.toString.call(value) === "[object String]",
+    isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
+    isObject: (value) => Object.prototype.toString.call(value) === "[object Object]",
+    isFunction: (value) => Object.prototype.toString.call(value) === "[object Function]",
+    isArray: (value) => Object.prototype.toString.call(value) === "[object Array]",
+    isBoolean: (value) => Object.prototype.toString.call(value) === "[object Boolean]",
+    isElement: (value) => value instanceof Element || value instanceof Document,
+    isHTMLElement: (value) => value instanceof HTMLElement,
+    isSet: (value) => value instanceof Set,
+    isMap: (value) => value instanceof Map,
+    isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
+  };
+
+  // src/js/mobCore/store/MapVersion/storeWarining.js
+  var storeDepthWarning2 = (data3, style) => {
+    console.warn(
+      `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data3} level`,
+      style
+    );
+  };
+
+  // src/js/mobCore/store/MapVersion/storeUtils.js
+  var maxDepth2 = (object) => {
+    if (!storeType2.isObject(object))
+      return 0;
+    const values = Object.values(object);
+    if (values.length === 0)
+      return 1;
+    return Math.max(...values.map((value) => maxDepth2(value))) + 1;
+  };
+  var getDataRecursive2 = (data3, shouldRecursive = true) => {
+    return Object.entries(data3).reduce((p, c) => {
+      const [key, value] = c;
+      const functionResult = storeType2.isFunction(value) ? (
+        /** @type {Function} */
+        value()
+      ) : {};
+      if (storeType2.isObject(value) && shouldRecursive) {
+        return {
+          ...p,
+          [key]: getDataRecursive2(
+            /** @type {import('./type.js').simpleStoreBaseData} */
+            value,
+            false
+          )
+        };
+      }
+      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
+        return { ...p, [key]: functionResult.value };
+      }
+      return { ...p, [key]: value };
+    }, {});
+  };
+  var getPropRecursive2 = (data3, prop, fallback, shouldRecursive = true) => {
+    return Object.entries(data3).reduce((p, c) => {
+      const [key, value] = c;
+      const functionResult = storeType2.isFunction(value) ? (
+        /** @type{Function} */
+        value()
+      ) : {};
+      if (storeType2.isObject(value) && shouldRecursive) {
+        return {
+          ...p,
+          [key]: getPropRecursive2(
+            /** @type{import('./type.js').simpleStoreBaseData} */
+            value,
+            prop,
+            fallback,
+            false
+          )
+        };
+      }
+      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
+        const propParsed = storeType2.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
+        return { ...p, [key]: propParsed };
+      }
+      return { ...p, [key]: fallback };
+    }, {});
+  };
+  var inizializeStoreData2 = ({ data: data3, depth, logStyle: logStyle2 }) => {
+    if (depth > 2) {
+      storeDepthWarning2(depth, logStyle2);
+      return {};
+    }
+    return getDataRecursive2(data3);
+  };
+  var inizializeSpecificProp2 = ({
+    data: data3,
+    prop,
+    depth,
+    logStyle: logStyle2,
+    fallback
+  }) => {
+    if (depth > 2) {
+      storeDepthWarning2(depth, logStyle2);
+      return {};
+    }
+    return getPropRecursive2(data3, prop, fallback);
+  };
+
   // src/js/mobCore/store/MapVersion/index.js.js
-  var mobStore = (test) => {
+  var logStyle = "padding: 10px;";
+  var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
-    storeMap.set(instanceId, { test });
+    const dataDepth = maxDepth2(data3);
+    storeMap.set(instanceId, {
+      callBackWatcher: /* @__PURE__ */ new Map(),
+      callBackComputed: /* @__PURE__ */ new Set(),
+      computedPropFired: /* @__PURE__ */ new Set(),
+      computedWaitList: /* @__PURE__ */ new Set(),
+      validationStatusObject: {},
+      dataDepth,
+      computedRunning: false,
+      store: inizializeStoreData2({
+        data: data3,
+        depth: dataDepth,
+        logStyle
+      }),
+      type: inizializeSpecificProp2({
+        data: data3,
+        prop: "type",
+        depth: dataDepth,
+        logStyle,
+        fallback: UNTYPED2
+      }),
+      fnValidate: inizializeSpecificProp2({
+        data: data3,
+        prop: "validate",
+        depth: dataDepth,
+        logStyle,
+        fallback: () => true
+      }),
+      strict: inizializeSpecificProp2({
+        data: data3,
+        prop: "strict",
+        depth: dataDepth,
+        logStyle,
+        fallback: false
+      }),
+      skipEqual: inizializeSpecificProp2({
+        data: data3,
+        prop: "skipEqual",
+        depth: dataDepth,
+        logStyle,
+        fallback: true
+      })
+    });
     return {
       get: () => getState(instanceId),
       set: (propsId) => {
