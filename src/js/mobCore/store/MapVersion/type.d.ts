@@ -58,6 +58,10 @@ export interface storePublicMethods {
     watch: (prop: string, callback: () => void) => () => void;
     emit: (props: string) => void;
     emitAsync: (props: string) => Promise<{ success: boolean }>;
+    getValidation: () => Object;
+    debugStore: () => void;
+    debugValidate: () => void;
+    destroy: () => void;
 }
 
 export type simpleStoreTypeAlias =

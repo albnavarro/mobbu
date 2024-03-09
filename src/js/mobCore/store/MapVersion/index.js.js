@@ -2,7 +2,12 @@
 
 import { getUnivoqueId } from '../../utils';
 import { storeSetAction } from './storeSet';
-import { getFormMainMap, updateMainMap, storeMap } from './storeMap';
+import {
+    getFormMainMap,
+    updateMainMap,
+    storeMap,
+    removeFromMainMap,
+} from './storeMap';
 import {
     inizializeSpecificProp,
     inizializeStoreData,
@@ -85,11 +90,11 @@ export const mobStore = (data = {}) => {
     return {
         get: () => {
             const { store } = getFormMainMap(instanceId);
-            console.log(getFormMainMap(instanceId));
             return store;
         },
         getProp: (prop) => {
             const { store } = getFormMainMap(instanceId);
+            if (!store) return;
 
             if (prop in store) {
                 return store[prop];
@@ -100,6 +105,8 @@ export const mobStore = (data = {}) => {
         },
         set: (prop, value, fireCallback = true, clone = false) => {
             const state = getFormMainMap(instanceId);
+            if (!state) return;
+
             const newState = storeSetAction({
                 state,
                 prop,
@@ -113,6 +120,8 @@ export const mobStore = (data = {}) => {
         },
         watch: (prop, callback) => {
             const state = getFormMainMap(instanceId);
+            if (!state) return () => {};
+
             const { state: newState, unsubscribeId } = storeWatchAction({
                 state,
                 prop,
@@ -126,13 +135,14 @@ export const mobStore = (data = {}) => {
                 const state = getFormMainMap(instanceId);
                 const { callBackWatcher } = state;
                 callBackWatcher.delete(unsubscribeId);
-                console.log(getFormMainMap(instanceId));
                 updateMainMap(instanceId, { ...state, callBackWatcher });
             };
         },
         emit: (prop) => {
             const { store, callBackWatcher, validationStatusObject } =
                 getFormMainMap(instanceId);
+
+            if (!store) return;
 
             if (prop in store) {
                 runCallbackQueqe({
@@ -150,6 +160,8 @@ export const mobStore = (data = {}) => {
             const { store, callBackWatcher, validationStatusObject } =
                 getFormMainMap(instanceId);
 
+            if (!store) return { success: false };
+
             if (prop in store) {
                 await runCallbackQueqeAsync({
                     callBackWatcher,
@@ -164,6 +176,21 @@ export const mobStore = (data = {}) => {
                 storeEmitWarning(prop, getLogStyle());
                 return { success: false };
             }
+        },
+        getValidation: () => {
+            const { validationStatusObject } = getFormMainMap(instanceId);
+            return validationStatusObject;
+        },
+        debugStore: () => {
+            const { store } = getFormMainMap(instanceId);
+            console.log(store);
+        },
+        debugValidate: () => {
+            const { validationStatusObject } = getFormMainMap(instanceId);
+            console.log(validationStatusObject);
+        },
+        destroy: () => {
+            removeFromMainMap(instanceId);
         },
     };
 };

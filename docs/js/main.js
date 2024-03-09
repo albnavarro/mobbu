@@ -30803,6 +30803,8 @@ Loading snippet ...</pre
     clone = false
   }) => {
     const { store, type } = state;
+    if (!store)
+      return;
     const logStyle2 = getLogStyle();
     if (!(prop in store)) {
       storeSetWarning2(prop, logStyle2);
@@ -30818,6 +30820,7 @@ Loading snippet ...</pre
   var storeMap = /* @__PURE__ */ new Map();
   var getFormMainMap = (id) => ({ ...storeMap.get(id) });
   var updateMainMap = (id, state) => storeMap.set(id, state);
+  var removeFromMainMap = (id) => storeMap.delete(id);
 
   // src/js/mobCore/store/MapVersion/initialValidation.js
   var inizializeValidation = (instanceId, initialState) => {
@@ -30914,11 +30917,12 @@ Loading snippet ...</pre
     return {
       get: () => {
         const { store } = getFormMainMap(instanceId);
-        console.log(getFormMainMap(instanceId));
         return store;
       },
       getProp: (prop) => {
         const { store } = getFormMainMap(instanceId);
+        if (!store)
+          return;
         if (prop in store) {
           return store[prop];
         } else {
@@ -30928,6 +30932,8 @@ Loading snippet ...</pre
       },
       set: (prop, value, fireCallback = true, clone = false) => {
         const state = getFormMainMap(instanceId);
+        if (!state)
+          return;
         const newState = storeSetAction({
           state,
           prop,
@@ -30941,6 +30947,9 @@ Loading snippet ...</pre
       },
       watch: (prop, callback2) => {
         const state = getFormMainMap(instanceId);
+        if (!state)
+          return () => {
+          };
         const { state: newState, unsubscribeId } = storeWatchAction({
           state,
           prop,
@@ -30954,12 +30963,13 @@ Loading snippet ...</pre
           const state4 = getFormMainMap(instanceId);
           const { callBackWatcher } = state4;
           callBackWatcher.delete(unsubscribeId);
-          console.log(getFormMainMap(instanceId));
           updateMainMap(instanceId, { ...state4, callBackWatcher });
         };
       },
       emit: (prop) => {
         const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+        if (!store)
+          return;
         if (prop in store) {
           runCallbackQueqe({
             callBackWatcher,
@@ -30974,6 +30984,8 @@ Loading snippet ...</pre
       },
       emitAsync: async (prop) => {
         const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+        if (!store)
+          return { success: false };
         if (prop in store) {
           await runCallbackQueqeAsync({
             callBackWatcher,
@@ -30987,6 +30999,21 @@ Loading snippet ...</pre
           storeEmitWarning2(prop, getLogStyle());
           return { success: false };
         }
+      },
+      getValidation: () => {
+        const { validationStatusObject } = getFormMainMap(instanceId);
+        return validationStatusObject;
+      },
+      debugStore: () => {
+        const { store } = getFormMainMap(instanceId);
+        console.log(store);
+      },
+      debugValidate: () => {
+        const { validationStatusObject } = getFormMainMap(instanceId);
+        console.log(validationStatusObject);
+      },
+      destroy: () => {
+        removeFromMainMap(instanceId);
       }
     };
   };

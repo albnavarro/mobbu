@@ -326,6 +326,8 @@ export const storeSetAction = ({
     clone = false,
 }) => {
     const { store, type } = state;
+    if (!store) return;
+
     const logStyle = getLogStyle();
 
     /**

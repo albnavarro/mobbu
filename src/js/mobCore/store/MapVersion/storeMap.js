@@ -15,3 +15,9 @@ export const getFormMainMap = (id) => ({ ...storeMap.get(id) });
  * @returns {void}
  */
 export const updateMainMap = (id, state) => storeMap.set(id, state);
+
+/**
+ * @param {string} id
+ * @returns {void}
+ */
+export const removeFromMainMap = (id) => storeMap.delete(id);
