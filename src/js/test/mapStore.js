@@ -45,8 +45,8 @@ export const initTestMapStore = async () => {
         return `${prop1}_${prop2}`;
     });
 
-    test.computed('computedProp2', ['prop1', 'prop2'], (prop1, prop2) => {
-        return `${prop1}_${prop2}`;
+    test.computed('computedProp2', ['myObject'], (myObject) => {
+        return `${myObject.prop1}_`;
     });
 
     const unsubscribeC0 = test.watch('computedProp1', (val, old, validate) => {
@@ -75,11 +75,11 @@ export const initTestMapStore = async () => {
         console.log('myObject', val, old, validate);
     });
 
-    unsubscribeC0();
-    unsubscribeC1();
-    unsubscribe();
-    unsubscribe2();
-    unsubscribe3();
+    // unsubscribeC0();
+    // unsubscribeC1();
+    // unsubscribe();
+    // unsubscribe2();
+    // unsubscribe3();
 
     test.set('prop1', 20);
     const { prop1 } = test.get();
@@ -88,6 +88,8 @@ export const initTestMapStore = async () => {
     test.set('prop1', 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
+
+    test.set('myObject', { prop1: 100, prop2: 3 });
 
     test.set('prop1', 230);
 
@@ -104,7 +106,7 @@ export const initTestMapStore = async () => {
     test.set('myObject', { prop1: 100, prop2: 3 });
     test.set('myObject', { prop1: 100, prop2: 3 });
     test.set('myObject', {
-        prop1: 100,
+        prop1: 200,
         prop2: { pippo: 3, pluto: { paperino: 100 } },
     });
     const { myObject } = test.get();
@@ -117,5 +119,7 @@ export const initTestMapStore = async () => {
 
     setTimeout(() => {
         console.log(test.debug());
+        test.set('prop1', 1230);
+        test.set('prop1', 11_230);
     });
 };

@@ -9,7 +9,6 @@ import { checkType, storeType, TYPE_IS_ANY } from './storeType';
 import { cloneValueOrGet, maxDepth } from './storeUtils';
 import {
     storeComputedKeyUsedWarning,
-    storeComputedWarning,
     storeObjectIsNotAnyWarning,
     storeSetObjDepthWarning,
     storeSetObjectPropWarning,
@@ -366,7 +365,8 @@ export const storeSetAction = ({
     const valueParsed =
         checkType(Function, value) &&
         !checkType(Function, previousValue) &&
-        type[prop] !== Function
+        type[prop] !== Function &&
+        type[prop] !== 'Function'
             ? value(previousValue)
             : value;
 
@@ -452,72 +452,40 @@ const fireComputed = (instanceId) => {
      * Get fresh data.
      */
     const state = getStateFromMainMap(instanceId);
-    const { computedWaitList, callBackComputed, store, computedPropFired } =
-        state;
+    const { lastestPropsChanged, callBackComputed, store } = state;
 
-    computedWaitList.forEach((propChanged) => {
-        callBackComputed.forEach((item) => {
-            const {
-                prop: propToUpdate,
-                keys: propsShouldChange,
-                fn: computedFn,
-            } = item;
+    /**
+     * Filter computed callback that has some prop changed as dependencies.
+     */
+    const computedFiltered = [...callBackComputed].filter(({ keys }) => {
+        return [...lastestPropsChanged].find((current) => {
+            return keys.includes(current);
+        });
+    });
 
-            /**
-             * I'm getting the list of all the store keys
-             */
-            const storeKeys = Object.keys(store);
+    /**
+     * Loop and fire computed with changed value
+     */
+    computedFiltered.forEach(({ prop, keys, fn }) => {
+        /**
+         * Get dependencies current state;
+         */
+        const propValues = keys.map((item) => {
+            return store[item];
+        });
 
-            /**
-             * I check that all keys to monitor in computed exist in the store*
-             */
-            const propsShouldChangeIsInStore = propsShouldChange.every((item) =>
-                storeKeys.includes(item)
-            );
+        /**
+         * Fire callback computed
+         */
+        const computedValue = fn(...propValues);
 
-            /**
-             * If one of the keys to monitor does not exist in the store, I interrupt.
-             */
-            if (!propsShouldChangeIsInStore) {
-                storeComputedWarning(
-                    propsShouldChange,
-                    propToUpdate,
-                    getLogStyle()
-                );
-                return;
-            }
-
-            /**
-             * I check that the incoming prop is a computed dependency
-             * It is the key control that triggers the computed
-             */
-            const propChangedIsDependency =
-                propsShouldChange.includes(propChanged);
-
-            if (!propChangedIsDependency) return;
-
-            /**
-             * I take the value of each property given the key
-             */
-            const propValues = propsShouldChange.map((item) => {
-                return store[item];
-            });
-
-            /**
-             * I generate the value from the callback function to pass to the
-             * setters to update the prop
-             */
-            const shouldFire = !computedPropFired.has(propToUpdate);
-
-            if (shouldFire) {
-                const computedValue = computedFn(...propValues);
-                storeSetEntryPoint({
-                    instanceId,
-                    prop: propToUpdate,
-                    value: computedValue,
-                });
-                computedPropFired.add(propToUpdate);
-            }
+        /**
+         * Set the result value to computed prop
+         */
+        storeSetEntryPoint({
+            instanceId,
+            prop,
+            value: computedValue,
         });
     });
 
@@ -531,8 +499,7 @@ const fireComputed = (instanceId) => {
      */
     updateMainMap(instanceId, {
         ...stateAfterComputed,
-        computedPropFired: new Set(),
-        computedWaitList: new Set(),
+        lastestPropsChanged: new Set(),
         computedRunning: false,
     });
 };
@@ -545,15 +512,18 @@ const fireComputed = (instanceId) => {
  */
 export const addToComputedWaitLsit = ({ instanceId, prop }) => {
     const state = getStateFromMainMap(instanceId);
-    const { callBackComputed, computedWaitList, computedRunning } = state;
+    const { callBackComputed, lastestPropsChanged, computedRunning } = state;
 
     if (!callBackComputed || callBackComputed.size === 0) return;
 
     /**
-     * Update computedWaitList.
+     * Update lastestPropsChanged.
      */
-    computedWaitList.add(prop);
-    updateMainMap(instanceId, { ...state, computedWaitList });
+    lastestPropsChanged.add(prop);
+    updateMainMap(instanceId, {
+        ...state,
+        lastestPropsChanged,
+    });
 
     if (!computedRunning) {
         const state = getStateFromMainMap(instanceId);

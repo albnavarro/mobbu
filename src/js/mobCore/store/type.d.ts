@@ -11,8 +11,7 @@ export interface storeMapValue {
         }
     >;
     callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
-    computedPropFired: Set<string>;
-    computedWaitList: Set<string>;
+    lastestPropsChanged: Set<string>;
     validationStatusObject: {
         [key: string]: boolean | { [key: string]: boolean };
     };
