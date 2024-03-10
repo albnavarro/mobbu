@@ -116,6 +116,7 @@ export interface storeSetEntryPoint {
 }
 
 export interface storeSetAction extends storeSet {
+    instanceId: string;
     state: storeMapValue;
 }
 

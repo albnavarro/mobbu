@@ -1,9 +1,4 @@
 (() => {
-    new EventSource('/esbuild').addEventListener('change', () =>
-        location.reload()
-    );
-})();
-(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -30283,32 +30278,6 @@ Loading snippet ...</pre
     newNode.classList.add("current-route");
   };
 
-  // src/js/mobCore/store/MapVersion/fireQueque.js
-  var runCallbackQueqe = ({
-    callBackWatcher,
-    prop,
-    newValue,
-    oldValue,
-    validationValue
-  }) => {
-    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
-      if (currentProp === prop)
-        fn(newValue, oldValue, validationValue);
-    }
-  };
-  var runCallbackQueqeAsync = async ({
-    callBackWatcher,
-    prop,
-    newValue,
-    oldValue,
-    validationValue
-  }) => {
-    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
-      if (currentProp === prop)
-        await fn(newValue, oldValue, validationValue);
-    }
-  };
-
   // src/js/mobCore/store/MapVersion/logStyle.js
   var logStyle = "padding: 10px;";
   var getLogStyle = () => logStyle;
@@ -30462,6 +30431,12 @@ Loading snippet ...</pre
       style
     );
   };
+  var storeComputedWarning2 = (keys, prop, style) => {
+    console.warn(
+      `%c one of this key ${keys} defined in computed method of prop to monitor '${prop}' prop not exist`,
+      style
+    );
+  };
   var storeSetWarning2 = (prop, style) => {
     console.warn(
       `%c SimpleStore, trying to execute set() method: store.${prop} not exist`,
@@ -30555,6 +30530,135 @@ Loading snippet ...</pre
       `%c Validation Object error: validation function return undefined or have you used Object instead '${CUSTOM_OBJECT}' ?`,
       style
     );
+  };
+
+  // src/js/mobCore/store/MapVersion/computed.js
+  var fireComputed = (instanceId) => {
+    const state = getFormMainMap(instanceId);
+    const { computedWaitList, callBackComputed, store, computedPropFired } = state;
+    computedWaitList.forEach((propChanged) => {
+      callBackComputed.forEach((item) => {
+        const {
+          prop: propToUpdate,
+          keys: propsShouldChange,
+          fn: computedFn
+        } = item;
+        const storeKeys = Object.keys(store);
+        const propsShouldChangeIsInStore = propsShouldChange.every(
+          (item2) => storeKeys.includes(item2)
+        );
+        if (!propsShouldChangeIsInStore) {
+          storeComputedWarning2(
+            propsShouldChange,
+            propToUpdate,
+            getLogStyle()
+          );
+          return;
+        }
+        const propChangedIsDependency = propsShouldChange.includes(propChanged);
+        if (!propChangedIsDependency)
+          return;
+        const propValues = propsShouldChange.map((item2) => {
+          return store[item2];
+        });
+        const shouldFire = !computedPropFired.has(propToUpdate);
+        if (shouldFire) {
+          const computedValue = computedFn(...propValues);
+          storeSetEntryPoint({
+            instanceId,
+            prop: propToUpdate,
+            value: computedValue
+          });
+          computedPropFired.add(propToUpdate);
+        }
+      });
+    });
+    const stateAfterComputed = getFormMainMap(instanceId);
+    updateMainMap(instanceId, {
+      ...stateAfterComputed,
+      computedPropFired: /* @__PURE__ */ new Set(),
+      computedWaitList: /* @__PURE__ */ new Set(),
+      computedRunning: false
+    });
+  };
+  var addToComputedWaitLsit = ({ instanceId, prop }) => {
+    const state = getFormMainMap(instanceId);
+    const { callBackComputed, computedWaitList, computedRunning } = state;
+    if (!callBackComputed || callBackComputed.size === 0)
+      return;
+    computedWaitList.add(prop);
+    updateMainMap(instanceId, { ...state, computedWaitList });
+    if (!computedRunning) {
+      const state4 = getFormMainMap(instanceId);
+      updateMainMap(instanceId, { ...state4, computedRunning: true });
+      useNextLoop(() => fireComputed(instanceId));
+    }
+  };
+  var storeComputedAction = ({ state, prop, keys, fn }) => {
+    const { callBackComputed } = state;
+    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
+    const propList = tempComputedArray.flatMap((item) => item.prop);
+    const keysIsusedInSomeComputed = propList.some(
+      (item) => keys.includes(item)
+    );
+    if (keysIsusedInSomeComputed) {
+      storeComputedKeyUsedWarning2(keys, getLogStyle());
+      return;
+    }
+    callBackComputed.add({
+      prop,
+      keys,
+      fn
+    });
+    return {
+      ...state,
+      callBackComputed
+    };
+  };
+  var storeComputedEntryPoint = ({
+    instanceId,
+    prop,
+    keys,
+    callback: callback2
+  }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return;
+    const newState = storeComputedAction({
+      state,
+      prop,
+      keys,
+      fn: callback2
+    });
+    if (!newState)
+      return;
+    updateMainMap(instanceId, newState);
+  };
+
+  // src/js/mobCore/store/MapVersion/fireQueque.js
+  var runCallbackQueqe = ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        fn(newValue, oldValue, validationValue);
+    }
+  };
+  var runCallbackQueqeAsync = async ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        await fn(newValue, oldValue, validationValue);
+    }
   };
 
   // src/js/mobCore/store/MapVersion/storeUtils.js
@@ -30652,7 +30756,7 @@ Loading snippet ...</pre
   };
 
   // src/js/mobCore/store/MapVersion/storeSet.js
-  var setProp = (state, prop, val2, fireCallback = true) => {
+  var setProp = (instanceId, state, prop, val2, fireCallback = true) => {
     const {
       type,
       store,
@@ -30698,13 +30802,14 @@ Loading snippet ...</pre
         validationValue: validationStatusObject[prop]
       });
     }
+    addToComputedWaitLsit({ instanceId, prop });
     return {
       ...state,
       store,
       validationStatusObject
     };
   };
-  var setObj = (state, prop, val2, fireCallback = true) => {
+  var setObj = (instanceId, state, prop, val2, fireCallback = true) => {
     const {
       store,
       type,
@@ -30806,6 +30911,7 @@ Loading snippet ...</pre
         validationValue: validationStatusObject[prop]
       });
     }
+    addToComputedWaitLsit({ instanceId, prop });
     return {
       ...state,
       store,
@@ -30813,6 +30919,7 @@ Loading snippet ...</pre
     };
   };
   var storeSetAction = ({
+    instanceId,
     state,
     prop,
     value,
@@ -30830,7 +30937,7 @@ Loading snippet ...</pre
     const previousValue = clone ? cloneValueOrGet2({ value: store[prop] }) : store[prop];
     const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[prop] !== Function ? value(previousValue) : value;
     const isCustomObject = type[prop] === TYPE_IS_ANY2;
-    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(state, prop, valueParsed, fireCallback) : setProp(state, prop, valueParsed, fireCallback);
+    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(instanceId, state, prop, valueParsed, fireCallback) : setProp(instanceId, state, prop, valueParsed, fireCallback);
   };
   var storeSetEntryPoint = ({
     instanceId,
@@ -30843,6 +30950,7 @@ Loading snippet ...</pre
     if (!state)
       return;
     const newState = storeSetAction({
+      instanceId,
       state,
       prop,
       value,
@@ -30935,48 +31043,6 @@ Loading snippet ...</pre
     return () => {
       unsubScribeWatch({ instanceId, unsubscribeId });
     };
-  };
-
-  // src/js/mobCore/store/MapVersion/computed.js
-  var storeComputedAction = ({ state, prop, keys, fn }) => {
-    const { callBackComputed } = state;
-    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
-    const propList = tempComputedArray.flatMap((item) => item.prop);
-    const keysIsusedInSomeComputed = propList.some(
-      (item) => keys.includes(item)
-    );
-    if (keysIsusedInSomeComputed) {
-      storeComputedKeyUsedWarning2(keys, getLogStyle());
-      return;
-    }
-    callBackComputed.add({
-      prop,
-      keys,
-      fn
-    });
-    return {
-      ...state,
-      callBackComputed
-    };
-  };
-  var storeComputedEntryPoint = ({
-    instanceId,
-    prop,
-    keys,
-    callback: callback2
-  }) => {
-    const state = getFormMainMap(instanceId);
-    if (!state)
-      return;
-    const newState = storeComputedAction({
-      state,
-      prop,
-      keys,
-      fn: callback2
-    });
-    if (!newState)
-      return;
-    updateMainMap(instanceId, newState);
   };
 
   // src/js/mobCore/store/MapVersion/inizializeInstance.js
@@ -31189,6 +31255,9 @@ Loading snippet ...</pre
     test.computed("computedProp", ["prop1", "prop2"], (prop13, prop2) => {
       return `${prop13}_${prop2}`;
     });
+    const unsubscribe0 = test.watch("computedProp", (val2, old, validate) => {
+      console.log("computedProp", val2, old, validate);
+    });
     const unsubscribe3 = test.watch("prop1", (val2, old, validate) => {
       console.log("sync", val2, old, validate);
     });
@@ -31209,6 +31278,7 @@ Loading snippet ...</pre
     test.set("prop1", 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
+    test.set("prop1", 230);
     test.emit("prop1");
     const pippo = test.getProp("prop1");
     console.log("pippo", pippo);

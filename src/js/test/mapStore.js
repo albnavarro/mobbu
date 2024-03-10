@@ -40,6 +40,10 @@ export const initTestMapStore = async () => {
         return `${prop1}_${prop2}`;
     });
 
+    const unsubscribe0 = test.watch('computedProp', (val, old, validate) => {
+        console.log('computedProp', val, old, validate);
+    });
+
     const unsubscribe = test.watch('prop1', (val, old, validate) => {
         console.log('sync', val, old, validate);
     });
@@ -57,6 +61,7 @@ export const initTestMapStore = async () => {
         console.log('myObject', val, old, validate);
     });
 
+    // unsubscribe0();
     // unsubscribe();
     // unsubscribe2();
 
@@ -67,6 +72,8 @@ export const initTestMapStore = async () => {
     test.set('prop1', 130);
     const { prop1: prop12 } = test.get();
     console.log(prop12);
+
+    test.set('prop1', 230);
 
     test.emit('prop1');
     const pippo = test.getProp('prop1');

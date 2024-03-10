@@ -1,6 +1,7 @@
 // @ts-check
 
 import { checkEquality } from '../checkEquality';
+import { addToComputedWaitLsit } from './computed';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
 import { getFormMainMap, updateMainMap } from './storeMap';
@@ -20,13 +21,14 @@ import {
 } from './storeWarining';
 
 /**
+ * @param {string} instanceId
  * @param {import("./type").storeMapValue} state
  * @param {string} prop
  * @param {any} val
  * @param {boolean} fireCallback
  * @returns {import("./type").storeMapValue|undefined}
  */
-const setProp = (state, prop, val, fireCallback = true) => {
+const setProp = (instanceId, state, prop, val, fireCallback = true) => {
     const {
         type,
         store,
@@ -108,7 +110,7 @@ const setProp = (state, prop, val, fireCallback = true) => {
         });
     }
 
-    // this.addToComputedWaitLsit(prop);
+    addToComputedWaitLsit({ instanceId, prop });
 
     return {
         ...state,
@@ -118,13 +120,14 @@ const setProp = (state, prop, val, fireCallback = true) => {
 };
 
 /**
+ * @param {string} instanceId
  * @param {import("./type").storeMapValue} state
  * @param {string} prop
  * @param {any} val
  * @param {boolean} fireCallback
  * @returns {import("./type").storeMapValue|undefined}
  */
-const setObj = (state, prop, val, fireCallback = true) => {
+const setObj = (instanceId, state, prop, val, fireCallback = true) => {
     const {
         store,
         type,
@@ -306,7 +309,7 @@ const setObj = (state, prop, val, fireCallback = true) => {
         });
     }
 
-    // this.addToComputedWaitLsit(prop);
+    addToComputedWaitLsit({ instanceId, prop });
 
     return {
         ...state,
@@ -320,6 +323,7 @@ const setObj = (state, prop, val, fireCallback = true) => {
  * @returns {import("./type").storeMapValue|undefined}
  */
 export const storeSetAction = ({
+    instanceId,
     state,
     prop,
     value,
@@ -364,8 +368,8 @@ export const storeSetAction = ({
     const isCustomObject = type[prop] === TYPE_IS_ANY;
 
     return storeType.isObject(previousValue) && !isCustomObject
-        ? setObj(state, prop, valueParsed, fireCallback)
-        : setProp(state, prop, valueParsed, fireCallback);
+        ? setObj(instanceId, state, prop, valueParsed, fireCallback)
+        : setProp(instanceId, state, prop, valueParsed, fireCallback);
 };
 
 /**
@@ -383,6 +387,7 @@ export const storeSetEntryPoint = ({
     if (!state) return;
 
     const newState = storeSetAction({
+        instanceId,
         state,
         prop,
         value,
