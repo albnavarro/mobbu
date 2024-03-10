@@ -52,6 +52,7 @@ export const initTestMapStore = async () => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 console.log('async', val, old, validate);
+                test.set('prop1', 330);
                 resolve();
             }, 2000);
         });

@@ -1,11 +1,14 @@
 // @ts-check
 
 import { getUnivoqueId } from '../../utils';
-import { storeQuickSetEntrypoint, storeSetEntryPoint } from './storeSet';
+import {
+    storeComputedEntryPoint,
+    storeQuickSetEntrypoint,
+    storeSetEntryPoint,
+} from './storeSet';
 import { storeMap, removeFromMainMap } from './storeMap';
 import { inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
-import { storeComputedEntryPoint } from './computed';
 import { inizializeInstance } from './inizializeInstance';
 import { storeGetEntryPoint, storeGetPropEntryPoint } from './storeGet';
 import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './storeEmit';
