@@ -2856,6 +2856,10 @@
     const { validationStatusObject } = getStateFromMainMap(instanceId);
     console.log(validationStatusObject);
   };
+  var storeDebugEntryPoint = ({ instanceId }) => {
+    const state = getStateFromMainMap(instanceId);
+    console.log(state);
+  };
 
   // src/js/mobCore/store/index.js
   var mobStore = (data3 = {}) => {
@@ -2901,6 +2905,9 @@
       },
       getValidation: () => {
         return storeGetValidationEntryPoint({ instanceId });
+      },
+      debug: () => {
+        storeDebugEntryPoint({ instanceId });
       },
       debugStore: () => {
         storeDebugStoreEntryPoint({ instanceId });
@@ -30371,6 +30378,7 @@ Loading snippet ...</pre
     unsubscribeC1();
     unsubscribe3();
     unsubscribe22();
+    unsubscribe32();
     test.set("prop1", 20);
     const { prop1 } = test.get();
     console.log(prop1);
@@ -30398,6 +30406,9 @@ Loading snippet ...</pre
     test.quickSetProp("prop1", 3);
     test.quickSetProp("prop1", 30);
     test.quickSetProp("prop1", 130);
+    setTimeout(() => {
+      console.log(test.debug());
+    });
   };
 
   // src/js/main.js

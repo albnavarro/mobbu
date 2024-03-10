@@ -79,6 +79,7 @@ export const initTestMapStore = async () => {
     unsubscribeC1();
     unsubscribe();
     unsubscribe2();
+    unsubscribe3();
 
     test.set('prop1', 20);
     const { prop1 } = test.get();
@@ -113,4 +114,8 @@ export const initTestMapStore = async () => {
     test.quickSetProp('prop1', 3);
     test.quickSetProp('prop1', 30);
     test.quickSetProp('prop1', 130);
+
+    setTimeout(() => {
+        console.log(test.debug());
+    });
 };
