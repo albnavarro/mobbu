@@ -31230,8 +31230,12 @@ Loading snippet ...</pre
         value: "init prop2",
         type: String
       }),
-      computedProp: () => ({
-        value: "ddddd",
+      computedProp1: () => ({
+        value: "computed1 initial",
+        type: String
+      }),
+      computedProp2: () => ({
+        value: "computed2 initial",
         type: String
       }),
       myObject: {
@@ -31250,11 +31254,17 @@ Loading snippet ...</pre
         })
       }
     });
-    test.computed("computedProp", ["prop1", "prop2"], (prop13, prop2) => {
+    test.computed("computedProp1", ["prop1", "prop2"], (prop13, prop2) => {
       return `${prop13}_${prop2}`;
     });
-    const unsubscribe0 = test.watch("computedProp", (val2, old, validate) => {
-      console.log("computedProp", val2, old, validate);
+    test.computed("computedProp2", ["prop1", "prop2"], (prop13, prop2) => {
+      return `${prop13}_${prop2}`;
+    });
+    const unsubscribeC0 = test.watch("computedProp1", (val2, old, validate) => {
+      console.log("computedProp 1", val2, old, validate);
+    });
+    const unsubscribeC1 = test.watch("computedProp2", (val2, old, validate) => {
+      console.log("computedProp 2", val2, old, validate);
     });
     const unsubscribe3 = test.watch("prop1", (val2, old, validate) => {
       console.log("sync", val2, old, validate);

@@ -15,8 +15,12 @@ export const initTestMapStore = async () => {
             value: 'init prop2',
             type: String,
         }),
-        computedProp: () => ({
-            value: 'ddddd',
+        computedProp1: () => ({
+            value: 'computed1 initial',
+            type: String,
+        }),
+        computedProp2: () => ({
+            value: 'computed2 initial',
             type: String,
         }),
         myObject: {
@@ -36,12 +40,20 @@ export const initTestMapStore = async () => {
         },
     });
 
-    test.computed('computedProp', ['prop1', 'prop2'], (prop1, prop2) => {
+    test.computed('computedProp1', ['prop1', 'prop2'], (prop1, prop2) => {
         return `${prop1}_${prop2}`;
     });
 
-    const unsubscribe0 = test.watch('computedProp', (val, old, validate) => {
-        console.log('computedProp', val, old, validate);
+    test.computed('computedProp2', ['prop1', 'prop2'], (prop1, prop2) => {
+        return `${prop1}_${prop2}`;
+    });
+
+    const unsubscribeC0 = test.watch('computedProp1', (val, old, validate) => {
+        console.log('computedProp 1', val, old, validate);
+    });
+
+    const unsubscribeC1 = test.watch('computedProp2', (val, old, validate) => {
+        console.log('computedProp 2', val, old, validate);
     });
 
     const unsubscribe = test.watch('prop1', (val, old, validate) => {
@@ -62,7 +74,8 @@ export const initTestMapStore = async () => {
         console.log('myObject', val, old, validate);
     });
 
-    // unsubscribe0();
+    // unsubscribeC0();
+    // unsubscribeC1();
     // unsubscribe();
     // unsubscribe2();
 
