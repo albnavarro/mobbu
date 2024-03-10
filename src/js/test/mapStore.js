@@ -106,13 +106,14 @@ export const initTestMapStore = async () => {
     test.set('myObject', { prop1: 100, prop2: 3 });
     test.set('myObject', { prop1: 100, prop2: 3 });
     test.set('myObject', {
-        prop1: 200,
+        prop1: 700,
         prop2: { pippo: 3, pluto: { paperino: 100 } },
     });
     const { myObject } = test.get();
     console.log(myObject);
     console.log(test.debugValidate());
 
+    test.set('prop2', 'uuu');
     test.quickSetProp('prop1', 3);
     test.quickSetProp('prop1', 30);
     test.quickSetProp('prop1', 130);

@@ -10,7 +10,7 @@ import { mobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
 import { getScrollbarWith } from './utils/scrollbarWith';
 import { beforePageTransition, pageTransition } from './pageTransition';
-import { initTestMapStore } from './test/mapStore';
+// import { initTestMapStore } from './test/mapStore';
 // import { storeTest } from './test/storeTest';
 
 /**
@@ -98,7 +98,7 @@ mobCore.useLoad(() => {
     };
 
     init();
-    // storeTest();
 
-    initTestMapStore();
+    // storeTest();
+    // initTestMapStore();
 });
