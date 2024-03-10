@@ -6,7 +6,7 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { storeMap, removeFromMainMap } from './storeMap';
+import { storeMap, removeStateFromMainMap } from './storeMap';
 import { inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
@@ -92,7 +92,7 @@ export const mobStore = (data = {}) => {
             storeDebugValidateEntryPoint({ instanceId });
         },
         destroy: () => {
-            removeFromMainMap(instanceId);
+            removeStateFromMainMap(instanceId);
         },
     };
 };

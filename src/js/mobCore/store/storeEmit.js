@@ -2,7 +2,7 @@
 
 import { runCallbackQueqe, runCallbackQueqeAsync } from './fireQueque';
 import { getLogStyle } from './logStyle';
-import { getFormMainMap } from './storeMap';
+import { getStateFromMainMap } from './storeMap';
 import { storeEmitWarning } from './storeWarining';
 
 /**
@@ -13,7 +13,7 @@ import { storeEmitWarning } from './storeWarining';
  */
 export const storeEmitEntryPoint = ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } =
-        getFormMainMap(instanceId);
+        getStateFromMainMap(instanceId);
 
     if (!store) return;
 
@@ -38,7 +38,7 @@ export const storeEmitEntryPoint = ({ instanceId, prop }) => {
  */
 export const storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
     const { store, callBackWatcher, validationStatusObject } =
-        getFormMainMap(instanceId);
+        getStateFromMainMap(instanceId);
 
     if (!store) return { success: false };
 

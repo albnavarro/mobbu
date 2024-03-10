@@ -2,7 +2,7 @@
 
 import { getUnivoqueId } from '../utils';
 import { getLogStyle } from './logStyle';
-import { getFormMainMap, updateMainMap } from './storeMap';
+import { getStateFromMainMap, updateMainMap } from './storeMap';
 import { storeWatchWarning } from './storeWarining';
 
 /**
@@ -37,7 +37,7 @@ export const storeWatchAction = ({ state, prop, callback }) => {
  * @param {string} param.unsubscribeId
  */
 export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { callBackWatcher } = state;
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
@@ -51,7 +51,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @returns {() => any}
  */
 export const watchEntryPoint = ({ instanceId, prop, callback }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state) return () => {};
 
     const { state: newState, unsubscribeId } = storeWatchAction({

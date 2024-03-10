@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getFormMainMap, updateMainMap } from './storeMap';
+import { getStateFromMainMap, updateMainMap } from './storeMap';
 import { storeSetAction } from './storeSet';
 import { storeType } from './storeType';
 
@@ -35,7 +35,7 @@ export const inizializeValidation = (instanceId, initialState) => {
         /**
          * Get last updated state.
          */
-        const state = getFormMainMap(instanceId);
+        const state = getStateFromMainMap(instanceId);
         const newState = storeSetAction({
             instanceId,
             state,

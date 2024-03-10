@@ -7,7 +7,7 @@ export const storeMap = new Map();
  * @param {string} id
  * @returns {import("./type").storeMapValue}
  */
-export const getFormMainMap = (id) => ({ ...storeMap.get(id) });
+export const getStateFromMainMap = (id) => ({ ...storeMap.get(id) });
 
 /**
  * @param {string} id
@@ -20,4 +20,4 @@ export const updateMainMap = (id, state) => storeMap.set(id, state);
  * @param {string} id
  * @returns {void}
  */
-export const removeFromMainMap = (id) => storeMap.delete(id);
+export const removeStateFromMainMap = (id) => storeMap.delete(id);

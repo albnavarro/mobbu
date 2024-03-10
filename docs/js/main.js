@@ -2009,9 +2009,9 @@
 
   // src/js/mobCore/store/storeMap.js
   var storeMap = /* @__PURE__ */ new Map();
-  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
+  var getStateFromMainMap = (id) => ({ ...storeMap.get(id) });
   var updateMainMap = (id, state) => storeMap.set(id, state);
-  var removeFromMainMap = (id) => storeMap.delete(id);
+  var removeStateFromMainMap = (id) => storeMap.delete(id);
 
   // src/js/mobCore/store/storeType.js
   var TYPE_IS_ANY2 = "ANY";
@@ -2542,7 +2542,7 @@
     fireCallback,
     clone
   }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state)
       return;
     const newState = storeSetAction({
@@ -2558,7 +2558,7 @@
     updateMainMap(instanceId, newState);
   };
   var storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state)
       return;
     const { store, callBackWatcher } = state;
@@ -2574,7 +2574,7 @@
     updateMainMap(instanceId, { ...state, store });
   };
   var fireComputed = (instanceId) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { computedWaitList, callBackComputed, store, computedPropFired } = state;
     computedWaitList.forEach((propChanged) => {
       callBackComputed.forEach((item) => {
@@ -2613,7 +2613,7 @@
         }
       });
     });
-    const stateAfterComputed = getFormMainMap(instanceId);
+    const stateAfterComputed = getStateFromMainMap(instanceId);
     updateMainMap(instanceId, {
       ...stateAfterComputed,
       computedPropFired: /* @__PURE__ */ new Set(),
@@ -2622,14 +2622,14 @@
     });
   };
   var addToComputedWaitLsit = ({ instanceId, prop }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { callBackComputed, computedWaitList, computedRunning } = state;
     if (!callBackComputed || callBackComputed.size === 0)
       return;
     computedWaitList.add(prop);
     updateMainMap(instanceId, { ...state, computedWaitList });
     if (!computedRunning) {
-      const state4 = getFormMainMap(instanceId);
+      const state4 = getStateFromMainMap(instanceId);
       updateMainMap(instanceId, { ...state4, computedRunning: true });
       useNextLoop(() => fireComputed(instanceId));
     }
@@ -2661,7 +2661,7 @@
     keys,
     callback: callback2
   }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state)
       return;
     const newState = storeComputedAction({
@@ -2686,7 +2686,7 @@
     updateMainMap(instanceId, { ...initialState, validationStatusObject });
     Object.entries(store).forEach((item) => {
       const [prop, value] = item;
-      const state = getFormMainMap(instanceId);
+      const state = getStateFromMainMap(instanceId);
       const newState = storeSetAction({
         instanceId,
         state,
@@ -2719,13 +2719,13 @@
     };
   };
   var unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { callBackWatcher } = state;
     callBackWatcher.delete(unsubscribeId);
     updateMainMap(instanceId, { ...state, callBackWatcher });
   };
   var watchEntryPoint = ({ instanceId, prop, callback: callback2 }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state)
       return () => {
       };
@@ -2792,11 +2792,11 @@
 
   // src/js/mobCore/store/storeGet.js
   var storeGetEntryPoint = (instanceId) => {
-    const { store } = getFormMainMap(instanceId);
+    const { store } = getStateFromMainMap(instanceId);
     return store;
   };
   var storeGetPropEntryPoint = ({ instanceId, prop }) => {
-    const { store } = getFormMainMap(instanceId);
+    const { store } = getStateFromMainMap(instanceId);
     if (!store)
       return;
     if (prop in store) {
@@ -2809,7 +2809,7 @@
 
   // src/js/mobCore/store/storeEmit.js
   var storeEmitEntryPoint = ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+    const { store, callBackWatcher, validationStatusObject } = getStateFromMainMap(instanceId);
     if (!store)
       return;
     if (prop in store) {
@@ -2825,7 +2825,7 @@
     }
   };
   var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+    const { store, callBackWatcher, validationStatusObject } = getStateFromMainMap(instanceId);
     if (!store)
       return { success: false };
     if (prop in store) {
@@ -2845,19 +2845,19 @@
 
   // src/js/mobCore/store/storeDebug.js
   var storeGetValidationEntryPoint = ({ instanceId }) => {
-    const { validationStatusObject } = getFormMainMap(instanceId);
+    const { validationStatusObject } = getStateFromMainMap(instanceId);
     return validationStatusObject;
   };
   var storeDebugStoreEntryPoint = ({ instanceId }) => {
-    const { store } = getFormMainMap(instanceId);
+    const { store } = getStateFromMainMap(instanceId);
     console.log(store);
   };
   var storeDebugValidateEntryPoint = ({ instanceId }) => {
-    const { validationStatusObject } = getFormMainMap(instanceId);
+    const { validationStatusObject } = getStateFromMainMap(instanceId);
     console.log(validationStatusObject);
   };
 
-  // src/js/mobCore/store/index.js.js
+  // src/js/mobCore/store/index.js
   var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
     const instanceParams = inizializeInstance(data3);
@@ -2909,7 +2909,7 @@
         storeDebugValidateEntryPoint({ instanceId });
       },
       destroy: () => {
-        removeFromMainMap(instanceId);
+        removeStateFromMainMap(instanceId);
       }
     };
   };
@@ -30367,6 +30367,10 @@ Loading snippet ...</pre
     const unsubscribe32 = test.watch("myObject", (val2, old, validate) => {
       console.log("myObject", val2, old, validate);
     });
+    unsubscribeC0();
+    unsubscribeC1();
+    unsubscribe3();
+    unsubscribe22();
     test.set("prop1", 20);
     const { prop1 } = test.get();
     console.log(prop1);

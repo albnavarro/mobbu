@@ -1,7 +1,7 @@
 // @ts-check
 
 import { getLogStyle } from './logStyle';
-import { getFormMainMap } from './storeMap';
+import { getStateFromMainMap } from './storeMap';
 import { storeGetPropWarning } from './storeWarining';
 
 /**
@@ -9,7 +9,7 @@ import { storeGetPropWarning } from './storeWarining';
  * @returns {{[key: string]: any|{ [key: string]: any }}}
  */
 export const storeGetEntryPoint = (instanceId) => {
-    const { store } = getFormMainMap(instanceId);
+    const { store } = getStateFromMainMap(instanceId);
     return store;
 };
 
@@ -20,7 +20,7 @@ export const storeGetEntryPoint = (instanceId) => {
  * @returns {any}
  */
 export const storeGetPropEntryPoint = ({ instanceId, prop }) => {
-    const { store } = getFormMainMap(instanceId);
+    const { store } = getStateFromMainMap(instanceId);
     if (!store) return;
 
     if (prop in store) {

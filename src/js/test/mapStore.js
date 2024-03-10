@@ -1,4 +1,5 @@
 import { mobStore } from '../mobCore/store/index.js';
+import { storeMap } from '../mobCore/store/storeMap.js';
 
 export const initTestMapStore = async () => {
     const test = mobStore({
@@ -74,10 +75,10 @@ export const initTestMapStore = async () => {
         console.log('myObject', val, old, validate);
     });
 
-    // unsubscribeC0();
-    // unsubscribeC1();
-    // unsubscribe();
-    // unsubscribe2();
+    unsubscribeC0();
+    unsubscribeC1();
+    unsubscribe();
+    unsubscribe2();
 
     test.set('prop1', 20);
     const { prop1 } = test.get();

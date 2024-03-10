@@ -4,7 +4,7 @@ import { useNextLoop } from '../utils/nextTick';
 import { checkEquality } from './classVersion/checkEquality';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
-import { getFormMainMap, updateMainMap } from './storeMap';
+import { getStateFromMainMap, updateMainMap } from './storeMap';
 import { checkType, storeType, TYPE_IS_ANY } from './storeType';
 import { cloneValueOrGet, maxDepth } from './storeUtils';
 import {
@@ -391,7 +391,7 @@ export const storeSetEntryPoint = ({
     fireCallback,
     clone,
 }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
     const newState = storeSetAction({
@@ -412,7 +412,7 @@ export const storeSetEntryPoint = ({
  * @returns {void}
  */
 export const storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
     const { store, callBackWatcher } = state;
@@ -451,7 +451,7 @@ const fireComputed = (instanceId) => {
     /**
      * Get fresh data.
      */
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { computedWaitList, callBackComputed, store, computedPropFired } =
         state;
 
@@ -524,7 +524,7 @@ const fireComputed = (instanceId) => {
     /**
      * Get last state after new value is settled from computed.
      */
-    const stateAfterComputed = getFormMainMap(instanceId);
+    const stateAfterComputed = getStateFromMainMap(instanceId);
 
     /**
      * Update all
@@ -544,7 +544,7 @@ const fireComputed = (instanceId) => {
  * @returns {void}
  */
 export const addToComputedWaitLsit = ({ instanceId, prop }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     const { callBackComputed, computedWaitList, computedRunning } = state;
 
     if (!callBackComputed || callBackComputed.size === 0) return;
@@ -556,7 +556,7 @@ export const addToComputedWaitLsit = ({ instanceId, prop }) => {
     updateMainMap(instanceId, { ...state, computedWaitList });
 
     if (!computedRunning) {
-        const state = getFormMainMap(instanceId);
+        const state = getStateFromMainMap(instanceId);
         updateMainMap(instanceId, { ...state, computedRunning: true });
         useNextLoop(() => fireComputed(instanceId));
     }
@@ -617,7 +617,7 @@ export const storeComputedEntryPoint = ({
     keys,
     callback,
 }) => {
-    const state = getFormMainMap(instanceId);
+    const state = getStateFromMainMap(instanceId);
     if (!state) return;
 
     const newState = storeComputedAction({
