@@ -2277,7 +2277,7 @@
         return {
           ...p,
           [key]: getDataRecursive(
-            /** @type {import('./type.js').simpleStoreBaseData} */
+            /** @type {import('./type.js').mobStoreBaseData} */
             value,
             false
           )
@@ -2300,7 +2300,7 @@
         return {
           ...p,
           [key]: getPropRecursive(
-            /** @type{import('./type.js').simpleStoreBaseData} */
+            /** @type{import('./type.js').mobStoreBaseData} */
             value,
             prop,
             fallback,
@@ -3827,7 +3827,7 @@
      *  The default value is `true`.
      *
      *
-     * @param {import('./store/type.js').simpleStoreBaseData} data
+     * @param {import('./store/type.js').mobStoreBaseData} data
      *
      * @example
      *

@@ -1,4 +1,4 @@
-import { simpleStoreBaseData } from '../../mobCore/store/type';
+import { mobStoreBaseData } from '../../mobCore/store/type';
 import { storePublicMethods } from '../../mobCore/store/type';
 
 export interface componentCommonTypes {
@@ -33,7 +33,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     componentName: string;
     componentParsed: HTMLElement;
     instanceName: string;
-    state: simpleStoreBaseData;
+    state: mobStoreBaseData;
     props: object;
 }
 

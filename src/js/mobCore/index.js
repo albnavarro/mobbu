@@ -29,7 +29,6 @@ import {
 } from './events/scrollUtils/handleScrollUtils';
 import { handleVisibilityChange } from './events/visibilityChange/handleVisibilityChange.js';
 import { mobStore } from './store/index.js.js';
-// import { SimpleStore } from './store/simpleStore.js';
 import { checkType, getTypeName } from './store/classVersion/storeType.js';
 import { getUnivoqueId } from './utils/index.js';
 import { useNextLoop } from './utils/nextTick.js';
@@ -68,7 +67,7 @@ export const mobCore = {
      *  The default value is `true`.
      *
      *
-     * @param {import('./store/type.js').simpleStoreBaseData} data
+     * @param {import('./store/type.js').mobStoreBaseData} data
      *
      * @example
      *
@@ -127,7 +126,6 @@ export const mobCore = {
      * ```
      */
     createStore(data = {}) {
-        // return new SimpleStore(data);
         return mobStore(data);
     },
 

@@ -19,7 +19,7 @@ import {
 } from './storeDebug';
 
 /**
- * @param {import('./type').simpleStoreBaseData} data
+ * @param {import('./type').mobStoreBaseData} data
  * @returns {import('./type').storePublicMethods}
  */
 export const mobStore = (data = {}) => {

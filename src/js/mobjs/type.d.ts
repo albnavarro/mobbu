@@ -1,6 +1,6 @@
 // @ts-check
 
-import { simpleStoreBaseData } from '../mobCore/store/type';
+import { mobStoreBaseData } from '../mobCore/store/type';
 
 export interface componentReturnType {
     id: string;
@@ -728,7 +728,7 @@ export interface componentParsedType {
     };
     attributeToObserve?: string[];
     style?: string;
-    state: simpleStoreBaseData;
+    state: mobStoreBaseData;
 }
 
 export interface createComponentType extends componentParsedType {

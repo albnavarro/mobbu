@@ -9,7 +9,7 @@ import {
 } from './storeUtils';
 
 /**
- * @param {import('./type').simpleStoreBaseData} data
+ * @param {import('./type').mobStoreBaseData} data
  * @returns {import('./type').storeMapValue}
  */
 export const inizializeInstance = (data) => {

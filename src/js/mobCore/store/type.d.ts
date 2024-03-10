@@ -23,10 +23,10 @@ export interface storeMapValue {
     };
     type: {
         [key: string]:
-            | simpleStoreTypeNative
-            | simpleStoreTypeAlias
+            | mobStoreTypeNative
+            | mobStoreTypeAlias
             | {
-                  [key: string]: simpleStoreTypeNative | simpleStoreTypeAlias;
+                  [key: string]: mobStoreTypeNative | mobStoreTypeAlias;
               };
     };
     fnValidate: {
@@ -75,7 +75,7 @@ export interface storePublicMethods {
     destroy: () => void;
 }
 
-export type simpleStoreTypeAlias =
+export type mobStoreTypeAlias =
     | 'String'
     | 'Number'
     | 'Object'
@@ -88,7 +88,7 @@ export type simpleStoreTypeAlias =
     | 'NodeList'
     | 'Any';
 
-export type simpleStoreTypeNative =
+export type mobStoreTypeNative =
     | String
     | Number
     | Object
@@ -199,11 +199,11 @@ export type simpleStoreCustomValue = () => {
     skipEqual?: boolean;
 };
 
-export interface simpleStoreBaseData {
+export interface mobStoreBaseData {
     [key: string]:
         | simpleStoreCustomValue
         | number
         | string
         | object
-        | simpleStoreBaseData;
+        | mobStoreBaseData;
 }
