@@ -13,6 +13,7 @@ import { inizializeInstance } from './inizializeInstance';
 import { storeGetEntryPoint, storeGetPropEntryPoint } from './storeGet';
 import { storeEmitAsyncEntryPoint, storeEmitEntryPoint } from './storeEmit';
 import {
+    storeDebugEntryPoint,
     storeDebugStoreEntryPoint,
     storeDebugValidateEntryPoint,
     storeGetValidationEntryPoint,
@@ -84,6 +85,9 @@ export const mobStore = (data = {}) => {
         },
         getValidation: () => {
             return storeGetValidationEntryPoint({ instanceId });
+        },
+        debug: () => {
+            storeDebugEntryPoint({ instanceId });
         },
         debugStore: () => {
             storeDebugStoreEntryPoint({ instanceId });

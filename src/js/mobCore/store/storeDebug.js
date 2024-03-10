@@ -26,3 +26,12 @@ export const storeDebugValidateEntryPoint = ({ instanceId }) => {
     const { validationStatusObject } = getStateFromMainMap(instanceId);
     console.log(validationStatusObject);
 };
+
+/**
+ * @param {Object} param
+ * @param {string} param.instanceId
+ */
+export const storeDebugEntryPoint = ({ instanceId }) => {
+    const state = getStateFromMainMap(instanceId);
+    console.log(state);
+};

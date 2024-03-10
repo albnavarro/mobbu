@@ -70,6 +70,7 @@ export interface storePublicMethods {
     emit: (props: string) => void;
     emitAsync: (props: string) => Promise<{ success: boolean }>;
     getValidation: () => Object;
+    debug: () => void;
     debugStore: () => void;
     debugValidate: () => void;
     destroy: () => void;
