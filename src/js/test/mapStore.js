@@ -119,7 +119,6 @@ export const initTestMapStore = async () => {
 
     setTimeout(() => {
         console.log(test.debug());
-        test.set('prop1', 1230);
-        test.set('prop1', 11_230);
+        test.set('prop1', (val) => (val += 1000), true, true);
     });
 };

@@ -2391,8 +2391,8 @@
         oldValue: oldVal,
         validationValue: validationStatusObject[prop]
       });
+      addToComputedWaitLsit({ instanceId, prop });
     }
-    addToComputedWaitLsit({ instanceId, prop });
     return {
       ...state,
       store,
@@ -2500,8 +2500,8 @@
         oldValue: oldObjectValues,
         validationValue: validationStatusObject[prop]
       });
+      addToComputedWaitLsit({ instanceId, prop });
     }
-    addToComputedWaitLsit({ instanceId, prop });
     return {
       ...state,
       store,
@@ -30378,8 +30378,7 @@ Loading snippet ...</pre
     test.quickSetProp("prop1", 130);
     setTimeout(() => {
       console.log(test.debug());
-      test.set("prop1", 1230);
-      test.set("prop1", 11230);
+      test.set("prop1", (val2) => val2 += 1e3, true, true);
     });
   };
 

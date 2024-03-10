@@ -115,9 +115,9 @@ const setProp = (instanceId, state, prop, val, fireCallback = true) => {
             oldValue: oldVal,
             validationValue: validationStatusObject[prop],
         });
-    }
 
-    addToComputedWaitLsit({ instanceId, prop });
+        addToComputedWaitLsit({ instanceId, prop });
+    }
 
     return {
         ...state,
@@ -314,9 +314,9 @@ const setObj = (instanceId, state, prop, val, fireCallback = true) => {
             oldValue: oldObjectValues,
             validationValue: validationStatusObject[prop],
         });
-    }
 
-    addToComputedWaitLsit({ instanceId, prop });
+        addToComputedWaitLsit({ instanceId, prop });
+    }
 
     return {
         ...state,
