@@ -1,7 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../mobCore';
-import { checkType } from '../../../mobCore/store/storeType';
+import { checkType } from '../../../mobCore/store/classVersion/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { getIdByElement } from '../../componentStore/action/element';
 import {

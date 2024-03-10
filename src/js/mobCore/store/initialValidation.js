@@ -37,6 +37,7 @@ export const inizializeValidation = (instanceId, initialState) => {
          */
         const state = getFormMainMap(instanceId);
         const newState = storeSetAction({
+            instanceId,
             state,
             prop,
             value,

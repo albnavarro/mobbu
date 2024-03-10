@@ -1,6 +1,7 @@
-import { SimpleStore } from '../store/simpleStore';
+// import { SimpleStore } from '../store/classVersion/simpleStore';
+import { mobStore } from '../store/index.js';
 
-export const eventStore = new SimpleStore({
+export const eventStore = mobStore({
     /**
      * Mouse event
      */

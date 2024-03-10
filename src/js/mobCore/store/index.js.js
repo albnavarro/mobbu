@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../utils';
+import { getUnivoqueId } from '../utils';
 import {
     storeComputedEntryPoint,
     storeQuickSetEntrypoint,

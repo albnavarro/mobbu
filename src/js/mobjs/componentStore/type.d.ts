@@ -1,9 +1,5 @@
-import { SimpleStore } from '../../mobCore/store/simpleStore';
-import {
-    simpleStoreBaseData,
-    simpleStoreComputedCallback,
-    simpleStoreWatchCallbackType,
-} from '../../mobCore/store/type';
+import { simpleStoreBaseData } from '../../mobCore/store/type';
+import { storePublicMethods } from '../../mobCore/store/type';
 
 export interface componentCommonTypes {
     key: string;
@@ -29,7 +25,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     element: HTMLElement;
     component: string;
     instanceName: string;
-    state: SimpleStore;
+    state: storePublicMethods;
 }
 
 export interface componentStoreInputTypes extends componentCommonTypes {
@@ -46,13 +42,9 @@ export interface componentStoreReturnType {
     setState: (arg0: string, arg2: any, arg3: boolean) => void;
     emit: (arg0: string) => void;
     emitAsync: (arg0: string) => Promise<any>;
-    computed: (
-        prop: string,
-        keys: string[],
-        callback: simpleStoreComputedCallback
-    ) => void;
+    computed: (prop: string, keys: string[], callback: () => void) => void;
     watch: (
         propierties: string,
-        callback: simpleStoreWatchCallbackType
+        callback: (current: any, previous: any, validate: boolean) => void
     ) => void;
 }

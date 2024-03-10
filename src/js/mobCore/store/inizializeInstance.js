@@ -1,6 +1,6 @@
 // @ts-check
 
-import { UNTYPED } from '../storeType';
+import { UNTYPED } from './classVersion/storeType';
 import { getLogStyle } from './logStyle';
 import {
     inizializeSpecificProp,

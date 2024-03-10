@@ -1,5 +1,3 @@
-import { simpleStoreWatchCallbackType } from '../../../mobCore/store/type';
-
 /**
  * @description
  * Add new repeater id and props.
@@ -28,8 +26,8 @@ export interface repeaterType {
         clone?: boolean
     ): void;
     watch: (
-        propierties: string,
-        callback: simpleStoreWatchCallbackType
+        prop: string,
+        callback: (current: any, previous: any, validate: boolean) => void
     ) => void;
     emit: (arg0: string) => void;
     render: (arg0: { sync: object; html: (arg0: string) => string }) => string;

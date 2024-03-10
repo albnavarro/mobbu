@@ -1,7 +1,7 @@
 // @ts-check
 
-import { useNextLoop } from '../../utils/nextTick';
-import { checkEquality } from '../checkEquality';
+import { useNextLoop } from '../utils/nextTick';
+import { checkEquality } from './classVersion/checkEquality';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
 import { getFormMainMap, updateMainMap } from './storeMap';

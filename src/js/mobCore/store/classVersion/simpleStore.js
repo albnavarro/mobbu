@@ -1,7 +1,7 @@
 // @ts-check
 
-import { getUnivoqueId } from '../utils/index.js';
-import { useNextLoop } from '../utils/nextTick.js';
+import { getUnivoqueId } from '../../utils/index.js';
+import { useNextLoop } from '../../utils/nextTick.js';
 import { checkEquality } from './checkEquality.js';
 import { checkType, TYPE_IS_ANY, storeType, UNTYPED } from './storeType.js';
 import {

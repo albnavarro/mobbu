@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getUnivoqueId } from '../../utils';
+import { getUnivoqueId } from '../utils';
 import { getLogStyle } from './logStyle';
 import { getFormMainMap, updateMainMap } from './storeMap';
 import { storeWatchWarning } from './storeWarining';

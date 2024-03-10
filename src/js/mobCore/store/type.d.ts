@@ -1,3 +1,80 @@
+// @ts-check
+
+export type storeMap = Map<string, storeMapValue>;
+
+export interface storeMapValue {
+    callBackWatcher: Map<
+        string,
+        {
+            prop: string;
+            fn: (current: any, previous: any, validate: boolean) => void;
+        }
+    >;
+    callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
+    computedPropFired: Set<string>;
+    computedWaitList: Set<string>;
+    validationStatusObject: {
+        [key: string]: boolean | { [key: string]: boolean };
+    };
+    dataDepth: number;
+    computedRunning: boolean;
+    store: {
+        [key: string]: any | { [key: string]: any };
+    };
+    type: {
+        [key: string]:
+            | simpleStoreTypeNative
+            | simpleStoreTypeAlias
+            | {
+                  [key: string]: simpleStoreTypeNative | simpleStoreTypeAlias;
+              };
+    };
+    fnValidate: {
+        [key: string]:
+            | Function
+            | {
+                  [key: string]: Function;
+              };
+    };
+    strict: {
+        [key: string]:
+            | boolean
+            | {
+                  [key: string]: boolean;
+              };
+    };
+    skipEqual: {
+        [key: string]:
+            | boolean
+            | {
+                  [key: string]: boolean;
+              };
+    };
+}
+
+export interface storePublicMethods {
+    get: () => any;
+    getProp: (arg0: string) => any;
+    set: (
+        prop: string,
+        value: any | ((arg0: any) => any),
+        fireCallback?: boolean,
+        clone?: boolean
+    ) => any;
+    quickSetProp: (prop: string, value: any) => void;
+    watch: (
+        prop: string,
+        callback: (current: any, previous: any, validate: boolean) => void
+    ) => void;
+    computed: (prop: string, keys: string[], callback: () => void) => void;
+    emit: (props: string) => void;
+    emitAsync: (props: string) => Promise<{ success: boolean }>;
+    getValidation: () => Object;
+    debugStore: () => void;
+    debugValidate: () => void;
+    destroy: () => void;
+}
+
 export type simpleStoreTypeAlias =
     | 'String'
     | 'Number'
@@ -22,6 +99,64 @@ export type simpleStoreTypeNative =
     | Map<any, any>
     | Set<any>
     | NodeList;
+
+export interface storeSet {
+    prop: string;
+    value: any | ((arg0: any) => any);
+    fireCallback?: boolean;
+    clone?: boolean;
+}
+
+export interface storeSetEntryPoint {
+    instanceId: string;
+    prop: string;
+    value: any | ((arg0: any) => any);
+    fireCallback?: boolean;
+    clone?: boolean;
+}
+
+export interface storeSetAction extends storeSet {
+    instanceId: string;
+    state: storeMapValue;
+}
+
+export interface storeQuickSetEntryPoint {
+    instanceId: string;
+    prop: string;
+    value: any | ((arg0: any) => any);
+}
+
+export interface storeWatch {
+    prop: string;
+    callback: (current: any, previous: any, validate: boolean) => void;
+}
+
+export interface storeWatchAction extends storeWatch {
+    state: storeMapValue;
+}
+
+export interface storeWatchReturnObject {
+    state: storeMapValue | undefined;
+    unsubscribeId: string;
+}
+
+export interface storeComputed {
+    prop: string;
+    keys: string[];
+    fn: () => void;
+}
+
+export interface storeComputedAction extends storeComputed {
+    state: storeMapValue;
+}
+
+export interface callbackQueue {
+    callBackWatcher: Map<string, { prop: string; fn: Function }>;
+    prop: string;
+    newValue: any;
+    oldValue: any;
+    validationValue: boolean | { [key: string]: boolean };
+}
 
 export type simpleStoreCustomValue = () => {
     /**
@@ -72,15 +207,3 @@ export interface simpleStoreBaseData {
         | object
         | simpleStoreBaseData;
 }
-
-/**
- * @description
- * Callback Function, fired on prop value change
- */
-export type simpleStoreWatchCallbackType = (
-    newValue: any,
-    oldValue: any,
-    validationValue: boolean | { [key: string]: boolean }
-) => void;
-
-export type simpleStoreComputedCallback = (arg0: any, arg1: any) => void;

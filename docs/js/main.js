@@ -1758,7 +1758,7 @@
     setTimeout(() => fn());
   };
 
-  // src/js/mobCore/store/storeType.js
+  // src/js/mobCore/store/classVersion/storeType.js
   var TYPE_IS_ANY = "ANY";
   var UNTYPED = "UNTYPED";
   var STRING = "STRING";
@@ -1894,7 +1894,7 @@
     }
   };
 
-  // src/js/mobCore/store/checkEquality.js
+  // src/js/mobCore/store/classVersion/checkEquality.js
   var mapsAreEqual = (m1, m2) => m1.size === m2.size && [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
   var setsAreEqual = (a, b) => a.size === b.size && [...a].every((value) => b.has(value));
   var arrayAreEquals = (a, b) => {
@@ -1977,6 +1977,178 @@
     }
   };
 
+  // src/js/mobCore/store/fireQueque.js
+  var runCallbackQueqe = ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        fn(newValue, oldValue, validationValue);
+    }
+  };
+  var runCallbackQueqeAsync = async ({
+    callBackWatcher,
+    prop,
+    newValue,
+    oldValue,
+    validationValue
+  }) => {
+    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
+      if (currentProp === prop)
+        await fn(newValue, oldValue, validationValue);
+    }
+  };
+
+  // src/js/mobCore/store/logStyle.js
+  var logStyle = "padding: 10px;";
+  var getLogStyle = () => logStyle;
+
+  // src/js/mobCore/store/storeMap.js
+  var storeMap = /* @__PURE__ */ new Map();
+  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
+  var updateMainMap = (id, state) => storeMap.set(id, state);
+  var removeFromMainMap = (id) => storeMap.delete(id);
+
+  // src/js/mobCore/store/storeType.js
+  var TYPE_IS_ANY2 = "ANY";
+  var UNTYPED2 = "UNTYPED";
+  var STRING2 = "STRING";
+  var NUMBER2 = "NUMBER";
+  var OBJECT2 = "OBJECT";
+  var FUNCTION2 = "FUNCTION";
+  var ARRAY2 = "ARRAY";
+  var BOOLEAN2 = "BOOLEAN";
+  var ELEMENT2 = "ELEMENT";
+  var HTMLELEMENT2 = "HTMLELEMENT";
+  var NODELIST2 = "NODELIST";
+  var SET2 = "SET";
+  var MAP2 = "MAP";
+  var storeType2 = {
+    isString: (value) => Object.prototype.toString.call(value) === "[object String]",
+    isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
+    isObject: (value) => Object.prototype.toString.call(value) === "[object Object]",
+    isFunction: (value) => Object.prototype.toString.call(value) === "[object Function]",
+    isArray: (value) => Object.prototype.toString.call(value) === "[object Array]",
+    isBoolean: (value) => Object.prototype.toString.call(value) === "[object Boolean]",
+    isElement: (value) => value instanceof Element || value instanceof Document,
+    isHTMLElement: (value) => value instanceof HTMLElement,
+    isSet: (value) => value instanceof Set,
+    isMap: (value) => value instanceof Map,
+    isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
+  };
+  var getTypeName2 = (type) => {
+    switch (type) {
+      case String:
+      case STRING2: {
+        return "String";
+      }
+      case Number:
+      case NUMBER2: {
+        return "Number";
+      }
+      case Object:
+      case OBJECT2: {
+        return "Object";
+      }
+      case Function:
+      case FUNCTION2: {
+        return "Function";
+      }
+      case Array:
+      case ARRAY2: {
+        return "Array";
+      }
+      case Boolean:
+      case BOOLEAN2: {
+        return "Boolean";
+      }
+      case Element:
+      case ELEMENT2: {
+        return "Element";
+      }
+      case HTMLElement:
+      case HTMLELEMENT2: {
+        return "HTMLElement";
+      }
+      case NodeList:
+      case NODELIST2: {
+        return "NodeList";
+      }
+      case Set:
+      case SET2: {
+        return "Set";
+      }
+      case Map:
+      case MAP2: {
+        return "Map";
+      }
+      case TYPE_IS_ANY2: {
+        return TYPE_IS_ANY2;
+      }
+      default: {
+        return UNTYPED2;
+      }
+    }
+  };
+  var checkType2 = (type, value) => {
+    switch (type) {
+      case String:
+      case STRING2: {
+        return storeType2.isString(value);
+      }
+      case Number:
+      case NUMBER2: {
+        return storeType2.isNumber(value);
+      }
+      case Object:
+      case OBJECT2: {
+        return storeType2.isObject(value);
+      }
+      case Function:
+      case FUNCTION2: {
+        return storeType2.isFunction(value);
+      }
+      case Array:
+      case ARRAY2: {
+        return storeType2.isArray(value);
+      }
+      case Boolean:
+      case BOOLEAN2: {
+        return storeType2.isBoolean(value);
+      }
+      case Element:
+      case ELEMENT2: {
+        return storeType2.isElement(value);
+      }
+      case HTMLElement:
+      case HTMLELEMENT2: {
+        return storeType2.isHTMLElement(value);
+      }
+      case NodeList:
+      case NODELIST2: {
+        return storeType2.isNodeList(value);
+      }
+      case Set:
+      case SET2: {
+        return storeType2.isSet(value);
+      }
+      case Map:
+      case MAP2: {
+        return storeType2.isMap(value);
+      }
+      case TYPE_IS_ANY2: {
+        return true;
+      }
+      default: {
+        return true;
+      }
+    }
+  };
+
   // src/js/mobCore/store/storeWarining.js
   var storeDepthWarning = (data3, style) => {
     console.warn(
@@ -2014,7 +2186,7 @@
   };
   var storeSetPropTypeWarning = (prop, val2, type, style) => {
     console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName(
+      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName2(
         type
       )}`,
       style
@@ -2048,7 +2220,7 @@
   };
   var storeSetObjTypeWarning = (prop, subProp, subVal, type, style) => {
     console.warn(
-      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName(
+      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName2(
         type
       )}`,
       style
@@ -2087,7 +2259,7 @@
 
   // src/js/mobCore/store/storeUtils.js
   var maxDepth = (object) => {
-    if (!storeType.isObject(object))
+    if (!storeType2.isObject(object))
       return 0;
     const values = Object.values(object);
     if (values.length === 0)
@@ -2097,11 +2269,11 @@
   var getDataRecursive = (data3, shouldRecursive = true) => {
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
-      const functionResult = storeType.isFunction(value) ? (
+      const functionResult = storeType2.isFunction(value) ? (
         /** @type {Function} */
         value()
       ) : {};
-      if (storeType.isObject(value) && shouldRecursive) {
+      if (storeType2.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getDataRecursive(
@@ -2111,7 +2283,7 @@
           )
         };
       }
-      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
+      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
         return { ...p, [key]: functionResult.value };
       }
       return { ...p, [key]: value };
@@ -2120,11 +2292,11 @@
   var getPropRecursive = (data3, prop, fallback, shouldRecursive = true) => {
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
-      const functionResult = storeType.isFunction(value) ? (
+      const functionResult = storeType2.isFunction(value) ? (
         /** @type{Function} */
         value()
       ) : {};
-      if (storeType.isObject(value) && shouldRecursive) {
+      if (storeType2.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getPropRecursive(
@@ -2136,8 +2308,8 @@
           )
         };
       }
-      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
-        const propParsed = storeType.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
+      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
+        const propParsed = storeType2.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
         return { ...p, [key]: propParsed };
       }
       return { ...p, [key]: fallback };
@@ -2164,736 +2336,586 @@
     return getPropRecursive(data3, prop, fallback);
   };
   var cloneValueOrGet = ({ value }) => {
-    if (checkType(Map, value)) {
+    if (checkType2(Map, value)) {
       return new Map(value);
     }
-    if (checkType(Set, value)) {
+    if (checkType2(Set, value)) {
       return new Set(value);
     }
-    if (checkType(Object, value)) {
+    if (checkType2(Object, value)) {
       return { ...value };
     }
-    if (checkType(Array, value)) {
+    if (checkType2(Array, value)) {
       return [...value];
     }
     return value;
   };
 
-  // src/js/mobCore/store/simpleStore.js
-  var SimpleStore = class {
-    /**
-     * @param {import('./type.js').simpleStoreBaseData} data
-     *
-     * @description
-     * SimpleStore initialization.
-     * The store accepts single properties or objects
-     * Each individual property can be initialized with a simple value or via a more complex setup.
-     * A complex set-up is created through a function that must return an object with the property `value` and at least one of the following properties:
-     * `type` || `validation` || `skipEqual` || `strict`
-     *
-     * `value`:
-     * Initial value.
-     *
-     *`type`:
-     * Supported types:
-     *`String|Number|Object|Function|Array|Boolean|Element|HTMLElement|Map|Set|NodeList|"Any"`.
-     * The property will not be updated if it doesn't match, you will have a warning.
-     * For custom Object use 'Any'.
-     * Support Constructor || String.
-     * Es: type: Number || type: 'Number'
-     *
-     * `validation`:
-     * Validation function to parse value.
-     * This function will have the current value and old value as input parameter and will return a boolean value.
-     * The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
-     *
-     * `strict`:
-     * If set to true, the validation function will become blocking and the property will be updated only if the validation function is successful.
-     * THe default value is `false`.
-     *
-     * `skipEqual`:
-     * If the value is equal to the previous one, the property will not be updated. The watches will not be executed and the property will have no effect on the computed related to it.
-     * The default value is `true`.
-     *
-     *
-     *
-     * @example
-     * ```javascript
-     *
-     * const myStore = new SimpleStore({
-     *     prop1: 0,
-     *     prop2: 0
-     * });
-     *
-     *
-     * const myStore = new SimpleStore({
-     *     myProp: () => ({
-     *         value: 10,
-     *         type: Number,
-     *         validate: (val, oldVal) => val < 10,
-     *         strict: true,
-     *         skipEqual: false,
-     *     }),
-     *     myPropWithObject: () => ({
-     *         value: { prop: { prop1: 1}},
-     *         type: 'Any',
-     *     }),
-     *     myObject: {
-     *         prop1: () => ({
-     *             value: 0,
-     *             type: Number,
-     *             validate: (val, oldVal) => val < 10,
-     *             strict: true,
-     *             skipEqual: true,
-     *         }),
-     *         prop2: () => ({
-     *             value: document.createElement('div'),
-     *             type: Element,
-     *         }),
-     *     }
-     * });
-     *
-     *
-     * Available methods:
-     * myStore.set();
-     * myStore.computed();
-     * myStore.get();
-     * myStore.getProp();
-     * myStore.getValidation();
-     * myStore.watch();
-     * myStore.emit();
-     * myStore.emitAsync();
-     * myStore.debugStore();
-     * myStore.debugValidate();
-     * myStore.setStyle();
-     * myStore.destroy();
-     * ```
-     */
-    constructor(data3 = {}) {
-      this.logStyle = "padding: 10px;";
-      this.callBackWatcher = /* @__PURE__ */ new Map();
-      this.callBackComputed = /* @__PURE__ */ new Set();
-      this.computedPropFired = /* @__PURE__ */ new Set();
-      this.computedWaitList = /* @__PURE__ */ new Set();
-      this.validationStatusObject = {};
-      this.dataDepth = maxDepth(data3);
-      this.computedRunning = false;
-      this.store = inizializeStoreData({
-        data: data3,
-        depth: this.dataDepth,
-        logStyle: this.logStyle
-      });
-      this.type = inizializeSpecificProp({
-        data: data3,
-        prop: "type",
-        depth: this.dataDepth,
-        logStyle: this.logStyle,
-        fallback: UNTYPED
-      });
-      this.fnValidate = inizializeSpecificProp({
-        data: data3,
-        prop: "validate",
-        depth: this.dataDepth,
-        logStyle: this.logStyle,
-        fallback: () => true
-      });
-      this.strict = inizializeSpecificProp({
-        data: data3,
-        prop: "strict",
-        depth: this.dataDepth,
-        logStyle: this.logStyle,
-        fallback: false
-      });
-      this.skipEqual = inizializeSpecificProp({
-        data: data3,
-        prop: "skipEqual",
-        depth: this.dataDepth,
-        logStyle: this.logStyle,
-        fallback: true
-      });
-      this.inizializeValidation();
+  // src/js/mobCore/store/storeSet.js
+  var setProp = (instanceId, state, prop, val2, fireCallback = true) => {
+    const {
+      type,
+      store,
+      fnValidate,
+      strict,
+      validationStatusObject,
+      skipEqual,
+      callBackWatcher
+    } = state;
+    const logStyle2 = getLogStyle();
+    const isCustomObject = type[prop] === TYPE_IS_ANY2;
+    if (storeType2.isObject(val2) && !isCustomObject) {
+      storeSetPropValWarning(prop, val2, logStyle2);
+      return;
     }
-    /**
-     * @private
-     *
-     * @description
-     * Initialize validation status for each prop.
-     */
-    inizializeValidation() {
-      for (const key in this.store) {
-        if (storeType.isObject(this.store[key]))
-          this.validationStatusObject[key] = {};
-      }
-      Object.entries(this.store).forEach((item) => {
-        const [key, value] = item;
-        this.set(key, value, false);
-      });
+    if (storeType2.isObject(store[prop]) && !isCustomObject) {
+      storeSetPropPropWarning(prop, logStyle2);
+      return;
     }
-    /**
-     * @param {Object} obj
-     * @param {string} obj.prop
-     * @param {any} obj.newValue
-     * @param {any} obj.oldValue
-     * @param {boolean|Object<string,boolean>} obj.validationValue
-     */
-    runCallbackQueqe({ prop, newValue, oldValue, validationValue }) {
-      for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
-        if (currentProp === prop)
-          fn(newValue, oldValue, validationValue);
-      }
+    const isValidType = checkType2(type[prop], val2);
+    if (!isValidType) {
+      storeSetPropTypeWarning(prop, val2, type[prop], logStyle2);
+      return;
     }
-    /**
-     * @param {Object} obj
-     * @param {string} obj.prop
-     * @param {any} obj.newValue
-     * @param {any} obj.oldValue
-     * @param {boolean|Object<string,boolean>} obj.validationValue
-     */
-    async runCallbackQueqeAsync({ prop, newValue, oldValue, validationValue }) {
-      for (const { prop: currentProp, fn } of this.callBackWatcher.values()) {
-        if (currentProp === prop)
-          await fn(newValue, oldValue, validationValue);
-      }
-    }
-    /**
-     * @private
-     * @description
-     * Update prop target of computed.
-     */
-    fireComputed() {
-      this.computedWaitList.forEach((propChanged) => {
-        this.callBackComputed.forEach((item) => {
-          const {
-            prop: propToUpdate,
-            keys: propsShouldChange,
-            fn: computedFn
-          } = item;
-          const storeKeys = Object.keys(this.store);
-          const propsShouldChangeIsInStore = propsShouldChange.every(
-            (item2) => storeKeys.includes(item2)
-          );
-          if (!propsShouldChangeIsInStore) {
-            storeComputedWarning(
-              propsShouldChange,
-              propToUpdate,
-              this.logStyle
-            );
-            return;
-          }
-          const propChangedIsDependency = propsShouldChange.includes(propChanged);
-          if (!propChangedIsDependency)
-            return;
-          const propValues = propsShouldChange.map((item2) => {
-            return this.store[item2];
-          });
-          const shouldFire = !this.computedPropFired.has(propToUpdate);
-          if (shouldFire) {
-            const computedValue = computedFn(...propValues);
-            this.set(propToUpdate, computedValue);
-            this.computedPropFired.add(propToUpdate);
-          }
-        });
-      });
-      this.computedPropFired.clear();
-      this.computedWaitList.clear();
-      this.computedRunning = false;
-    }
-    /**
-     * @private
-     * @param {string} prop - prop chenages by set() method.
-     *
-     * @description
-     * Store all prop changes and wait next tick.
-     * If several properties related to the same computed change at the same time
-     * the callback related to the computed will be fired only once.
-     */
-    addToComputedWaitLsit(prop) {
-      if (this.callBackComputed.size === 0)
-        return;
-      this.computedWaitList.add(prop);
-      if (!this.computedRunning) {
-        this.computedRunning = true;
-        useNextLoop(() => this.fireComputed());
-      }
-    }
-    /**
-     * @param {string} prop - propierties or object to update
-     * @param {(any|function(any):any)} newValue - It is possible to pass the direct value or a function which takes as parameter the current value and which returns the new value
-     * If the type of value used is a function, only the new function can be passed
-     * @param {boolean} [ fireCallback ] - fire watcher callback on update,  default value is `true`
-     * @param {boolean} [ clone ] - Return a clone of original object for Map,Set,Onject and Array,
-     *  Useful for Map and Set because with this constructor doesn't support spread
-     *  Default value is `false`.
-     * @returns void
-     *
-     * @description
-     * Update object and non-objects propierties.
-     *
-     * @example
-     * ```javascript
-     * //Direct value:
-     * myStore.set('myProp', newValue, true);
-     * myStore.set('myPropObject', { myProp: newValue, ... });
-     *
-     * //Function that return a value:
-     * myStore.set('myProp', (currentValue) => currentValue + 1);
-     *
-     * //Use spread to return a new data without mutate original
-     * myStore.set('myArray', (arr) => [...arr, 1]);
-     * myStore.set('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
-     *
-     * // Use a Map and clone original data.
-     * myStore.set('mySet', (set) => {
-     *     set.add(<val>)
-     *     return set
-     *  }, true, true);
-     *
-     * ```
-     */
-    set(prop, newValue, fireCallback = true, clone = false) {
-      if (!(prop in this.store)) {
-        storeSetWarning(prop, this.logStyle);
-        return;
-      }
-      const previousValue = clone ? cloneValueOrGet({ value: this.store[prop] }) : this.store[prop];
-      const value = checkType(Function, newValue) && !checkType(Function, previousValue) && this.type[prop] !== Function ? newValue(previousValue) : newValue;
-      const isCustomObject = this.type[prop] === TYPE_IS_ANY;
-      if (storeType.isObject(previousValue) && !isCustomObject) {
-        this.setObj(prop, value, fireCallback);
-      } else {
-        this.setProp(prop, value, fireCallback);
-      }
-    }
-    /**
-     * @private
-     *
-     * @param {string} prop - propierties to update
-     * @param {any} val - new value
-     * @param {boolean} fireCallback - fire watcher callback on update,  default value is `true`
-     *
-     * @description
-     * Update non-object propierties
-     *
-     * @example
-     * ```javascript
-     * myStore.setProp('myProp', newValue, true);
-     *
-     * ```
-     */
-    setProp(prop, val2, fireCallback = true) {
-      const isCustomObject = this.type[prop] === TYPE_IS_ANY;
-      if (storeType.isObject(val2) && !isCustomObject) {
-        storeSetPropValWarning(prop, val2, this.logStyle);
-        return;
-      }
-      if (storeType.isObject(this.store[prop]) && !isCustomObject) {
-        storeSetPropPropWarning(prop, this.logStyle);
-        return;
-      }
-      const isValidType = checkType(this.type[prop], val2);
-      if (!isValidType) {
-        storeSetPropTypeWarning(prop, val2, this.type[prop], this.logStyle);
-        return;
-      }
-      const oldVal = this.store[prop];
-      const isValidated = (
-        /** @type {Object<string,function>} */
-        this.fnValidate[prop]?.(val2, oldVal)
-      );
-      if (this.strict[prop] && !isValidated)
-        return;
-      this.validationStatusObject[prop] = isValidated;
-      const isEqual = this.skipEqual[prop] ? checkEquality(this.type[prop], oldVal, val2) : false;
-      if (isEqual)
-        return;
-      this.store[prop] = val2;
-      if (fireCallback) {
-        this.runCallbackQueqe({
-          prop,
-          newValue: val2,
-          oldValue: oldVal,
-          validationValue: this.validationStatusObject[prop]
-        });
-      }
-      this.addToComputedWaitLsit(prop);
-    }
-    /**
-     * @private
-     *
-     * @param {string} prop - propierties to update
-     * @param {any} val - new value
-     * @param {boolean} fireCallback - fire watcher callback on update,  default value is `true`
-     *
-     * @description
-     * Update object propierties
-     *
-     * @example
-     * ```javascript
-     * myStore.set('myPropObject', { myProp: newValue, ... }, true);
-     *
-     * ```
-     */
-    setObj(prop, val2, fireCallback = true) {
-      if (!storeType.isObject(val2)) {
-        storeSetObjectValWarning(prop, val2, this.logStyle);
-        return;
-      }
-      if (!storeType.isObject(this.store[prop])) {
-        storeSetObjectPropWarning(prop, this.logStyle);
-        return;
-      }
-      const valKeys = Object.keys(val2);
-      const propKeys = Object.keys(this.store[prop]);
-      const hasKeys = valKeys.every((item) => propKeys.includes(item));
-      if (!hasKeys) {
-        storeSetObjKeysWarning(valKeys, prop, this.logStyle);
-        return;
-      }
-      const isValidType = Object.entries(val2).map((item) => {
-        const [subProp, subVal] = item;
-        const typeResponse = checkType(
-          this.type[prop][subProp],
-          subVal
-        );
-        if (!typeResponse) {
-          storeSetObjTypeWarning(
-            prop,
-            subProp,
-            subVal,
-            this.type[prop][subProp],
-            this.logStyle
-          );
-        }
-        return typeResponse;
-      }).every((item) => item === true);
-      if (!isValidType) {
-        return;
-      }
-      const strictObjectResult = Object.entries(val2).map((item) => {
-        const [subProp, subVal] = item;
-        const subValOld = this.store[prop][subProp];
-        return this.strict[prop][subProp] ? {
-          strictCheck: this.fnValidate[prop][subProp]?.(
-            subVal,
-            subValOld
-          ),
-          item
-        } : { strictCheck: true, item };
-      }).filter(({ strictCheck }) => strictCheck === true);
-      const allStrictFail = strictObjectResult.length === 0;
-      if (allStrictFail)
-        return;
-      const newValParsedByStrict = Object.fromEntries(
-        strictObjectResult.map(({ item }) => item).map(([key, val3]) => [key, val3])
-      );
-      Object.entries(newValParsedByStrict).forEach((item) => {
-        const [subProp, subVal] = item;
-        const subValOld = this.store[prop][subProp];
-        const validateResult = this.fnValidate[prop][subProp]?.(
-          subVal,
-          subValOld
-        );
-        if (validateResult === void 0) {
-          storeObjectIsNotAnyWarning(this.logStyle, TYPE_IS_ANY);
-        }
-        this.validationStatusObject[prop][subProp] = validateResult;
-      });
-      const oldObjectValues = this.store[prop];
-      const newObjectValues = {
-        ...this.store[prop],
-        ...newValParsedByStrict
-      };
-      const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
-        (subProp) => this.skipEqual[prop][subProp] === true
-      );
-      const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
-        const isCustomObject = this.type[prop][key] === TYPE_IS_ANY;
-        const dataDepth = maxDepth(value);
-        if (dataDepth > 1 && !isCustomObject) {
-          storeSetObjDepthWarning(prop, val2, this.logStyle);
-          return;
-        }
-        return checkEquality(
-          this.type[prop][key],
-          oldObjectValues[key],
-          value
-        );
-      }) : false;
-      if (prevValueIsEqualNew)
-        return;
-      this.store[prop] = newObjectValues;
-      if (fireCallback) {
-        this.runCallbackQueqe({
-          prop,
-          newValue: this.store[prop],
-          oldValue: oldObjectValues,
-          validationValue: this.validationStatusObject[prop]
-        });
-      }
-      this.addToComputedWaitLsit(prop);
-    }
-    /**
-     * @param {string} prop - propierties to update
-     * @param {any} val - new value
-     *
-     * @description
-     * Update a parameter omitting any type of control, method for internal use for maximum responsiveness.et prop without
-     */
-    quickSetProp(prop, val2) {
-      const oldVal = this.store[prop];
-      this.store[prop] = val2;
-      this.runCallbackQueqe({
+    const oldVal = store[prop];
+    const isValidated = (
+      /** @type {Object<string,function>} */
+      fnValidate[prop]?.(val2, oldVal)
+    );
+    if (strict[prop] && !isValidated)
+      return;
+    validationStatusObject[prop] = isValidated;
+    const isEqual = skipEqual[prop] ? checkEquality(type[prop], oldVal, val2) : false;
+    if (isEqual)
+      return;
+    store[prop] = val2;
+    if (fireCallback) {
+      runCallbackQueqe({
+        callBackWatcher,
         prop,
         newValue: val2,
         oldValue: oldVal,
-        validationValue: true
+        validationValue: validationStatusObject[prop]
       });
     }
-    /**
-     * @description
-     * Get store object
-     *
-     * @example
-     * ```javascript
-     * const storeObject = myStore.get();
-     * const { myProp } = myStore.get();
-     *
-     * ```
-     *
-     */
-    get() {
-      return this.store;
+    addToComputedWaitLsit({ instanceId, prop });
+    return {
+      ...state,
+      store,
+      validationStatusObject
+    };
+  };
+  var setObj = (instanceId, state, prop, val2, fireCallback = true) => {
+    const {
+      store,
+      type,
+      strict,
+      fnValidate,
+      validationStatusObject,
+      skipEqual,
+      callBackWatcher
+    } = state;
+    const logStyle2 = getLogStyle();
+    if (!storeType2.isObject(val2)) {
+      storeSetObjectValWarning(prop, val2, logStyle2);
+      return;
     }
-    /**
-     * @param {string} prop - propierites forms store.
-     * @returns {any} property value
-     *
-     * @description
-     * Get specific prop from store.
-     *
-     * @example
-     * ```javascript
-     * const myProp = myStore.getProp('myProp');
-     *
-     * ```
-     */
-    getProp(prop) {
-      if (prop in this.store) {
-        return this.store[prop];
-      } else {
-        storeGetPropWarning(prop, this.logStyle);
-      }
+    if (!storeType2.isObject(store[prop])) {
+      storeSetObjectPropWarning(prop, logStyle2);
+      return;
     }
-    /**
-     * @returns {Object} Object validation.
-     *
-     * @description
-     * Get validation object status
-     *
-     * @example
-     * ```javascript
-     * const storeValidationObject = myStore.getValidation();
-     * const { myProp } = myStore.getValidation();
-     *
-     * ```
-     *
-     */
-    getValidation() {
-      return this.validationStatusObject;
+    const valKeys = Object.keys(val2);
+    const propKeys = Object.keys(store[prop]);
+    const hasKeys = valKeys.every((item) => propKeys.includes(item));
+    if (!hasKeys) {
+      storeSetObjKeysWarning(valKeys, prop, logStyle2);
+      return;
     }
-    /**
-     * @param {string} prop - property to watch.
-     * @param {import('./type.js').simpleStoreWatchCallbackType} callback
-     * @returns {function():void} unsubscribe function
-     *
-     * @description
-     * Watch property mutation
-     *
-     * @example
-     * ```javascript
-     *
-     * const unsubscribe =  myStore.watch('myProp', (newVal, oldVal, validate) => {
-     *      // code
-     * })
-     * unsubscribe();
-     *
-     *
-     * ```
-     */
-    watch(prop, callback2 = () => {
-    }) {
-      if (!(prop in this.store)) {
-        storeWatchWarning(prop, this.logStyle);
-        return () => {
-        };
-      }
-      const id = getUnivoqueId();
-      this.callBackWatcher.set(id, { fn: callback2, prop });
-      return () => this.callBackWatcher.delete(id);
-    }
-    /**
-     * @description
-     * Fire callback related to specific property.
-     *
-     * @param {string} prop
-     *
-     * @example
-     * ```javascript
-     * myStore.emit('myProp');
-     * ```
-     */
-    emit(prop) {
-      if (prop in this.store) {
-        this.runCallbackQueqe({
+    const isValidType = Object.entries(val2).map((item) => {
+      const [subProp, subVal] = item;
+      const typeResponse = checkType2(type[prop][subProp], subVal);
+      if (!typeResponse) {
+        storeSetObjTypeWarning(
           prop,
-          newValue: this.store[prop],
-          oldValue: this.store[prop],
-          validationValue: this.validationStatusObject[prop]
-        });
-      } else {
-        storeEmitWarning(prop, this.logStyle);
+          subProp,
+          subVal,
+          type[prop][subProp],
+          logStyle2
+        );
       }
+      return typeResponse;
+    }).every((item) => item === true);
+    if (!isValidType) {
+      return;
     }
-    /**
-     * @description
-     * Fire async callback related to specific property.
-     *
-     * @param {string} prop
-     * @returns Promise.<{success:boolean}>
-     *
-     * @example
-     * ```javascript
-     *
-     * // Module1.
-     * myStore.watch('myProp', async (value) => {
-     *     await myAsyncFunction(value);
-     * });
-     *
-     * // Module2.
-     * // Set prop without execute related callBack.
-     * myStore.set('myProp', value, false);
-     *
-     * // Fire related async callBack.
-     * await myStore.emitAsync('myProp');
-     * ```
-     */
-    async emitAsync(prop) {
-      if (prop in this.store) {
-        await this.runCallbackQueqeAsync({
-          prop,
-          newValue: this.store[prop],
-          oldValue: this.store[prop],
-          validationValue: this.validationStatusObject[prop]
-        });
-        return { success: true };
-      } else {
-        storeEmitWarning(prop, this.logStyle);
-        return { success: false };
+    const strictObjectResult = Object.entries(val2).map((item) => {
+      const [subProp, subVal] = item;
+      const subValOld = store[prop][subProp];
+      return strict[prop][subProp] ? {
+        strictCheck: fnValidate[prop][subProp]?.(
+          subVal,
+          subValOld
+        ),
+        item
+      } : { strictCheck: true, item };
+    }).filter(({ strictCheck }) => strictCheck === true);
+    const allStrictFail = strictObjectResult.length === 0;
+    if (allStrictFail)
+      return;
+    const newValParsedByStrict = Object.fromEntries(
+      strictObjectResult.map(({ item }) => item).map(([key, val3]) => [key, val3])
+    );
+    Object.entries(newValParsedByStrict).forEach((item) => {
+      const [subProp, subVal] = item;
+      const subValOld = store[prop][subProp];
+      const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
+      if (validateResult === void 0) {
+        storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY2);
       }
-    }
-    /**
-     * @description
-     * Run a console.log() of store object.
-     */
-    debugStore() {
-      console.log(this.store);
-    }
-    /**
-     * @description
-     * Run a console.log() of validation object
-     */
-    debugValidate() {
-      console.log(this.validationStatusObject);
-    }
-    /**
-     * @param {string} string
-     * @returns void
-     *
-     * @description
-     * Modify style of warning.
-     * Utils to have a different style for each store.
-     *
-     * @example
-     * Store.setStyle('color:#ccc;');
-     */
-    setStyle(string) {
-      this.logStyle = string;
-    }
-    /**
-     * @param  {string} prop - Property in store to update
-     * @param  {Array.<String>} keys - Array of property to watch.
-     * @param {import('./type.js').simpleStoreComputedCallback} fn - Callback function launched when one of the properties of the array changes, the result of the function will be the new value of the property. The parameters of the function are the current values of the properties specified in the array.
-     *
-     * @description
-     * Update propierties value if some dependency change.
-     * Computed functions are resolved on the nextTick.
-     * If multiple dependencies change at the same time, the computed will be resolved only once.
-     *
-     *
-     * @example
-     * ```javascript
-     * Prop target is not an object, and dependency is not an object:
-     * myStore.computed('prop', ['prop1', 'prop2'], (val1, val2) => {
-     *     return val1 + val2;
-     * });
-     *
-     * Prop target is not an object and dependency is an object.
-     * myStore.computed('prop', ['objectProp'], (obj) => {
-     *      return obj.val1 + obj.val2;
-     * })
-     *
-     * Prop target is an object and dependency is not an object.
-     * When target is on object the result will be mergerd with original object.
-     * myStore.computed('objectProp', ['prop1', 'prop2'], (val1, val2) => {
-     *     return { sum: val1 + val2 };
-     * });
-     *
-     * Prop target is an object, and dependency is an object.
-     * When target is on object the result will be mergerd with original object.
-     * myStore.computed('objectProp', ['objectProp1'], (obj) => {
-     *     return { sum: obj.val1 + obj.val2 };
-     * });
-     * ```
-     */
-    computed(prop, keys, fn) {
-      const tempComputedArray = [
-        ...this.callBackComputed,
-        { prop, keys, fn }
-      ];
-      const propList = tempComputedArray.flatMap((item) => item.prop);
-      const keysIsusedInSomeComputed = propList.some(
-        (item) => keys.includes(item)
-      );
-      if (keysIsusedInSomeComputed) {
-        storeComputedKeyUsedWarning(keys, this.logStyle);
+      validationStatusObject[prop][subProp] = validateResult;
+    });
+    const oldObjectValues = store[prop];
+    const newObjectValues = {
+      ...store[prop],
+      ...newValParsedByStrict
+    };
+    const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
+      (subProp) => skipEqual[prop][subProp] === true
+    );
+    const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
+      const isCustomObject = type[prop][key] === TYPE_IS_ANY2;
+      const dataDepth = maxDepth(value);
+      if (dataDepth > 1 && !isCustomObject) {
+        storeSetObjDepthWarning(prop, val2, logStyle2);
         return;
       }
-      this.callBackComputed.add({
+      return checkEquality(
+        type[prop][key],
+        oldObjectValues[key],
+        value
+      );
+    }) : false;
+    if (prevValueIsEqualNew)
+      return;
+    store[prop] = newObjectValues;
+    if (fireCallback) {
+      runCallbackQueqe({
+        callBackWatcher,
         prop,
-        keys,
-        fn
+        newValue: store[prop],
+        oldValue: oldObjectValues,
+        validationValue: validationStatusObject[prop]
       });
     }
-    /**
-     * @description
-     * Delete all data inside store.
-     */
-    destroy() {
-      this.callBackWatcher.clear();
-      this.callBackComputed.clear();
-      this.computedPropFired.clear();
-      this.computedWaitList.clear();
-      this.validationStatusObject = {};
-      this.store = {};
-      this.type = {};
-      this.fnValidate = {};
-      this.strict = {};
-      this.skipEqual = {};
+    addToComputedWaitLsit({ instanceId, prop });
+    return {
+      ...state,
+      store,
+      validationStatusObject
+    };
+  };
+  var storeSetAction = ({
+    instanceId,
+    state,
+    prop,
+    value,
+    fireCallback = true,
+    clone = false
+  }) => {
+    const { store, type } = state;
+    if (!store)
+      return;
+    const logStyle2 = getLogStyle();
+    if (!(prop in store)) {
+      storeSetWarning(prop, logStyle2);
+      return;
+    }
+    const previousValue = clone ? cloneValueOrGet({ value: store[prop] }) : store[prop];
+    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[prop] !== Function ? value(previousValue) : value;
+    const isCustomObject = type[prop] === TYPE_IS_ANY2;
+    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(instanceId, state, prop, valueParsed, fireCallback) : setProp(instanceId, state, prop, valueParsed, fireCallback);
+  };
+  var storeSetEntryPoint = ({
+    instanceId,
+    prop,
+    value,
+    fireCallback,
+    clone
+  }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return;
+    const newState = storeSetAction({
+      instanceId,
+      state,
+      prop,
+      value,
+      fireCallback,
+      clone
+    });
+    if (!newState)
+      return;
+    updateMainMap(instanceId, newState);
+  };
+  var storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return;
+    const { store, callBackWatcher } = state;
+    const oldVal = store[prop];
+    store[prop] = value;
+    runCallbackQueqe({
+      callBackWatcher,
+      prop,
+      newValue: value,
+      oldValue: oldVal,
+      validationValue: true
+    });
+    updateMainMap(instanceId, { ...state, store });
+  };
+  var fireComputed = (instanceId) => {
+    const state = getFormMainMap(instanceId);
+    const { computedWaitList, callBackComputed, store, computedPropFired } = state;
+    computedWaitList.forEach((propChanged) => {
+      callBackComputed.forEach((item) => {
+        const {
+          prop: propToUpdate,
+          keys: propsShouldChange,
+          fn: computedFn
+        } = item;
+        const storeKeys = Object.keys(store);
+        const propsShouldChangeIsInStore = propsShouldChange.every(
+          (item2) => storeKeys.includes(item2)
+        );
+        if (!propsShouldChangeIsInStore) {
+          storeComputedWarning(
+            propsShouldChange,
+            propToUpdate,
+            getLogStyle()
+          );
+          return;
+        }
+        const propChangedIsDependency = propsShouldChange.includes(propChanged);
+        if (!propChangedIsDependency)
+          return;
+        const propValues = propsShouldChange.map((item2) => {
+          return store[item2];
+        });
+        const shouldFire = !computedPropFired.has(propToUpdate);
+        if (shouldFire) {
+          const computedValue = computedFn(...propValues);
+          storeSetEntryPoint({
+            instanceId,
+            prop: propToUpdate,
+            value: computedValue
+          });
+          computedPropFired.add(propToUpdate);
+        }
+      });
+    });
+    const stateAfterComputed = getFormMainMap(instanceId);
+    updateMainMap(instanceId, {
+      ...stateAfterComputed,
+      computedPropFired: /* @__PURE__ */ new Set(),
+      computedWaitList: /* @__PURE__ */ new Set(),
+      computedRunning: false
+    });
+  };
+  var addToComputedWaitLsit = ({ instanceId, prop }) => {
+    const state = getFormMainMap(instanceId);
+    const { callBackComputed, computedWaitList, computedRunning } = state;
+    if (!callBackComputed || callBackComputed.size === 0)
+      return;
+    computedWaitList.add(prop);
+    updateMainMap(instanceId, { ...state, computedWaitList });
+    if (!computedRunning) {
+      const state4 = getFormMainMap(instanceId);
+      updateMainMap(instanceId, { ...state4, computedRunning: true });
+      useNextLoop(() => fireComputed(instanceId));
+    }
+  };
+  var storeComputedAction = ({ state, prop, keys, fn }) => {
+    const { callBackComputed } = state;
+    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
+    const propList = tempComputedArray.flatMap((item) => item.prop);
+    const keysIsusedInSomeComputed = propList.some(
+      (item) => keys.includes(item)
+    );
+    if (keysIsusedInSomeComputed) {
+      storeComputedKeyUsedWarning(keys, getLogStyle());
+      return;
+    }
+    callBackComputed.add({
+      prop,
+      keys,
+      fn
+    });
+    return {
+      ...state,
+      callBackComputed
+    };
+  };
+  var storeComputedEntryPoint = ({
+    instanceId,
+    prop,
+    keys,
+    callback: callback2
+  }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return;
+    const newState = storeComputedAction({
+      state,
+      prop,
+      keys,
+      fn: callback2
+    });
+    if (!newState)
+      return;
+    updateMainMap(instanceId, newState);
+  };
+
+  // src/js/mobCore/store/initialValidation.js
+  var inizializeValidation = (instanceId, initialState) => {
+    const { store, validationStatusObject } = initialState;
+    for (const key in store) {
+      if (storeType2.isObject(store[key])) {
+        validationStatusObject[key] = {};
+      }
+    }
+    updateMainMap(instanceId, { ...initialState, validationStatusObject });
+    Object.entries(store).forEach((item) => {
+      const [prop, value] = item;
+      const state = getFormMainMap(instanceId);
+      const newState = storeSetAction({
+        instanceId,
+        state,
+        prop,
+        value,
+        fireCallback: false
+      });
+      if (!newState)
+        return;
+      updateMainMap(instanceId, newState);
+    });
+  };
+
+  // src/js/mobCore/store/watch.js
+  var storeWatchAction = ({ state, prop, callback: callback2 }) => {
+    const { store, callBackWatcher } = state;
+    const logStyle2 = getLogStyle();
+    if (!(prop in store)) {
+      storeWatchWarning(prop, logStyle2);
+      return {
+        state: void 0,
+        unsubscribeId: ""
+      };
+    }
+    const id = getUnivoqueId();
+    callBackWatcher.set(id, { fn: callback2, prop });
+    return {
+      state: { ...state, callBackWatcher },
+      unsubscribeId: id
+    };
+  };
+  var unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
+    const state = getFormMainMap(instanceId);
+    const { callBackWatcher } = state;
+    callBackWatcher.delete(unsubscribeId);
+    updateMainMap(instanceId, { ...state, callBackWatcher });
+  };
+  var watchEntryPoint = ({ instanceId, prop, callback: callback2 }) => {
+    const state = getFormMainMap(instanceId);
+    if (!state)
+      return () => {
+      };
+    const { state: newState, unsubscribeId } = storeWatchAction({
+      state,
+      prop,
+      callback: callback2
+    });
+    if (!newState)
+      return () => {
+      };
+    updateMainMap(instanceId, newState);
+    return () => {
+      unsubScribeWatch({ instanceId, unsubscribeId });
+    };
+  };
+
+  // src/js/mobCore/store/inizializeInstance.js
+  var inizializeInstance = (data3) => {
+    const dataDepth = maxDepth(data3);
+    return {
+      callBackWatcher: /* @__PURE__ */ new Map(),
+      callBackComputed: /* @__PURE__ */ new Set(),
+      computedPropFired: /* @__PURE__ */ new Set(),
+      computedWaitList: /* @__PURE__ */ new Set(),
+      validationStatusObject: {},
+      dataDepth,
+      computedRunning: false,
+      store: inizializeStoreData({
+        data: data3,
+        depth: dataDepth,
+        logStyle: getLogStyle()
+      }),
+      type: inizializeSpecificProp({
+        data: data3,
+        prop: "type",
+        depth: dataDepth,
+        logStyle: getLogStyle(),
+        fallback: UNTYPED
+      }),
+      fnValidate: inizializeSpecificProp({
+        data: data3,
+        prop: "validate",
+        depth: dataDepth,
+        logStyle: getLogStyle(),
+        fallback: () => true
+      }),
+      strict: inizializeSpecificProp({
+        data: data3,
+        prop: "strict",
+        depth: dataDepth,
+        logStyle: getLogStyle(),
+        fallback: false
+      }),
+      skipEqual: inizializeSpecificProp({
+        data: data3,
+        prop: "skipEqual",
+        depth: dataDepth,
+        logStyle: getLogStyle(),
+        fallback: true
+      })
+    };
+  };
+
+  // src/js/mobCore/store/storeGet.js
+  var storeGetEntryPoint = (instanceId) => {
+    const { store } = getFormMainMap(instanceId);
+    return store;
+  };
+  var storeGetPropEntryPoint = ({ instanceId, prop }) => {
+    const { store } = getFormMainMap(instanceId);
+    if (!store)
+      return;
+    if (prop in store) {
+      return store[prop];
+    } else {
+      storeGetPropWarning(prop, getLogStyle());
+      return;
     }
   };
 
+  // src/js/mobCore/store/storeEmit.js
+  var storeEmitEntryPoint = ({ instanceId, prop }) => {
+    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+    if (!store)
+      return;
+    if (prop in store) {
+      runCallbackQueqe({
+        callBackWatcher,
+        prop,
+        newValue: store[prop],
+        oldValue: store[prop],
+        validationValue: validationStatusObject[prop]
+      });
+    } else {
+      storeEmitWarning(prop, getLogStyle());
+    }
+  };
+  var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
+    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
+    if (!store)
+      return { success: false };
+    if (prop in store) {
+      await runCallbackQueqeAsync({
+        callBackWatcher,
+        prop,
+        newValue: store[prop],
+        oldValue: store[prop],
+        validationValue: validationStatusObject[prop]
+      });
+      return { success: true };
+    } else {
+      storeEmitWarning(prop, getLogStyle());
+      return { success: false };
+    }
+  };
+
+  // src/js/mobCore/store/storeDebug.js
+  var storeGetValidationEntryPoint = ({ instanceId }) => {
+    const { validationStatusObject } = getFormMainMap(instanceId);
+    return validationStatusObject;
+  };
+  var storeDebugStoreEntryPoint = ({ instanceId }) => {
+    const { store } = getFormMainMap(instanceId);
+    console.log(store);
+  };
+  var storeDebugValidateEntryPoint = ({ instanceId }) => {
+    const { validationStatusObject } = getFormMainMap(instanceId);
+    console.log(validationStatusObject);
+  };
+
+  // src/js/mobCore/store/index.js.js
+  var mobStore = (data3 = {}) => {
+    const instanceId = getUnivoqueId();
+    const instanceParams = inizializeInstance(data3);
+    storeMap.set(instanceId, instanceParams);
+    inizializeValidation(instanceId, instanceParams);
+    return {
+      get: () => {
+        return storeGetEntryPoint(instanceId);
+      },
+      getProp: (prop) => {
+        return storeGetPropEntryPoint({ instanceId, prop });
+      },
+      set: (prop, value, fireCallback = true, clone = false) => {
+        storeSetEntryPoint({
+          instanceId,
+          prop,
+          value,
+          fireCallback,
+          clone
+        });
+      },
+      quickSetProp: (prop, value) => {
+        storeQuickSetEntrypoint({ instanceId, prop, value });
+      },
+      watch: (prop, callback2) => {
+        return watchEntryPoint({ instanceId, prop, callback: callback2 });
+      },
+      computed: (prop, keys, callback2) => {
+        storeComputedEntryPoint({
+          instanceId,
+          prop,
+          keys,
+          callback: callback2
+        });
+      },
+      emit: (prop) => {
+        storeEmitEntryPoint({ instanceId, prop });
+      },
+      emitAsync: async (prop) => {
+        return storeEmitAsyncEntryPoint({ instanceId, prop });
+      },
+      getValidation: () => {
+        return storeGetValidationEntryPoint({ instanceId });
+      },
+      debugStore: () => {
+        storeDebugStoreEntryPoint({ instanceId });
+      },
+      debugValidate: () => {
+        storeDebugValidateEntryPoint({ instanceId });
+      },
+      destroy: () => {
+        removeFromMainMap(instanceId);
+      }
+    };
+  };
+
   // src/js/mobCore/events/eventStore.js
-  var eventStore = new SimpleStore({
+  var eventStore = mobStore({
     /**
      * Mouse event
      */
@@ -3864,7 +3886,7 @@
      * ```
      */
     createStore(data3 = {}) {
-      return new SimpleStore(data3);
+      return mobStore(data3);
     },
     /**
      * @returns {number}
@@ -9441,7 +9463,7 @@
         };
       })();
     }
-    if (from && checkType(Number, from)) {
+    if (from && checkType2(Number, from)) {
       const half = from >= arraylenght ? arraylenght - 1 : from;
       return (() => {
         if (index > half) {
@@ -30276,942 +30298,6 @@ Loading snippet ...</pre
     tl = null;
     newNode.style.removeProperty("opacity");
     newNode.classList.add("current-route");
-  };
-
-  // src/js/mobCore/store/MapVersion/fireQueque.js
-  var runCallbackQueqe = ({
-    callBackWatcher,
-    prop,
-    newValue,
-    oldValue,
-    validationValue
-  }) => {
-    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
-      if (currentProp === prop)
-        fn(newValue, oldValue, validationValue);
-    }
-  };
-  var runCallbackQueqeAsync = async ({
-    callBackWatcher,
-    prop,
-    newValue,
-    oldValue,
-    validationValue
-  }) => {
-    for (const { prop: currentProp, fn } of callBackWatcher.values()) {
-      if (currentProp === prop)
-        await fn(newValue, oldValue, validationValue);
-    }
-  };
-
-  // src/js/mobCore/store/MapVersion/logStyle.js
-  var logStyle = "padding: 10px;";
-  var getLogStyle = () => logStyle;
-
-  // src/js/mobCore/store/MapVersion/storeMap.js
-  var storeMap = /* @__PURE__ */ new Map();
-  var getFormMainMap = (id) => ({ ...storeMap.get(id) });
-  var updateMainMap = (id, state) => storeMap.set(id, state);
-  var removeFromMainMap = (id) => storeMap.delete(id);
-
-  // src/js/mobCore/store/MapVersion/storeType.js
-  var TYPE_IS_ANY2 = "ANY";
-  var UNTYPED2 = "UNTYPED";
-  var STRING2 = "STRING";
-  var NUMBER2 = "NUMBER";
-  var OBJECT2 = "OBJECT";
-  var FUNCTION2 = "FUNCTION";
-  var ARRAY2 = "ARRAY";
-  var BOOLEAN2 = "BOOLEAN";
-  var ELEMENT2 = "ELEMENT";
-  var HTMLELEMENT2 = "HTMLELEMENT";
-  var NODELIST2 = "NODELIST";
-  var SET2 = "SET";
-  var MAP2 = "MAP";
-  var storeType2 = {
-    isString: (value) => Object.prototype.toString.call(value) === "[object String]",
-    isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
-    isObject: (value) => Object.prototype.toString.call(value) === "[object Object]",
-    isFunction: (value) => Object.prototype.toString.call(value) === "[object Function]",
-    isArray: (value) => Object.prototype.toString.call(value) === "[object Array]",
-    isBoolean: (value) => Object.prototype.toString.call(value) === "[object Boolean]",
-    isElement: (value) => value instanceof Element || value instanceof Document,
-    isHTMLElement: (value) => value instanceof HTMLElement,
-    isSet: (value) => value instanceof Set,
-    isMap: (value) => value instanceof Map,
-    isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
-  };
-  var getTypeName2 = (type) => {
-    switch (type) {
-      case String:
-      case STRING2: {
-        return "String";
-      }
-      case Number:
-      case NUMBER2: {
-        return "Number";
-      }
-      case Object:
-      case OBJECT2: {
-        return "Object";
-      }
-      case Function:
-      case FUNCTION2: {
-        return "Function";
-      }
-      case Array:
-      case ARRAY2: {
-        return "Array";
-      }
-      case Boolean:
-      case BOOLEAN2: {
-        return "Boolean";
-      }
-      case Element:
-      case ELEMENT2: {
-        return "Element";
-      }
-      case HTMLElement:
-      case HTMLELEMENT2: {
-        return "HTMLElement";
-      }
-      case NodeList:
-      case NODELIST2: {
-        return "NodeList";
-      }
-      case Set:
-      case SET2: {
-        return "Set";
-      }
-      case Map:
-      case MAP2: {
-        return "Map";
-      }
-      case TYPE_IS_ANY2: {
-        return TYPE_IS_ANY2;
-      }
-      default: {
-        return UNTYPED2;
-      }
-    }
-  };
-  var checkType2 = (type, value) => {
-    switch (type) {
-      case String:
-      case STRING2: {
-        return storeType2.isString(value);
-      }
-      case Number:
-      case NUMBER2: {
-        return storeType2.isNumber(value);
-      }
-      case Object:
-      case OBJECT2: {
-        return storeType2.isObject(value);
-      }
-      case Function:
-      case FUNCTION2: {
-        return storeType2.isFunction(value);
-      }
-      case Array:
-      case ARRAY2: {
-        return storeType2.isArray(value);
-      }
-      case Boolean:
-      case BOOLEAN2: {
-        return storeType2.isBoolean(value);
-      }
-      case Element:
-      case ELEMENT2: {
-        return storeType2.isElement(value);
-      }
-      case HTMLElement:
-      case HTMLELEMENT2: {
-        return storeType2.isHTMLElement(value);
-      }
-      case NodeList:
-      case NODELIST2: {
-        return storeType2.isNodeList(value);
-      }
-      case Set:
-      case SET2: {
-        return storeType2.isSet(value);
-      }
-      case Map:
-      case MAP2: {
-        return storeType2.isMap(value);
-      }
-      case TYPE_IS_ANY2: {
-        return true;
-      }
-      default: {
-        return true;
-      }
-    }
-  };
-
-  // src/js/mobCore/store/MapVersion/storeWarining.js
-  var storeDepthWarning2 = (data3, style) => {
-    console.warn(
-      `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data3} level`,
-      style
-    );
-  };
-  var storeComputedWarning2 = (keys, prop, style) => {
-    console.warn(
-      `%c one of this key ${keys} defined in computed method of prop to monitor '${prop}' prop not exist`,
-      style
-    );
-  };
-  var storeSetWarning2 = (prop, style) => {
-    console.warn(
-      `%c SimpleStore, trying to execute set() method: store.${prop} not exist`,
-      style
-    );
-  };
-  var storeSetPropValWarning2 = (prop, val2, style) => {
-    console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: setProp methods doesn't allow objects as value, ${JSON.stringify(
-        val2
-      )} is an Object`,
-      style
-    );
-  };
-  var storeSetPropPropWarning2 = (prop, style) => {
-    console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: '${JSON.stringify(
-        prop
-      )}' is an objects`,
-      style
-    );
-  };
-  var storeSetPropTypeWarning2 = (prop, val2, type, style) => {
-    console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName2(
-        type
-      )}`,
-      style
-    );
-  };
-  var storeSetObjectValWarning2 = (prop, val2, style) => {
-    console.warn(
-      `%c trying to execute setObj method on '${prop}' propierties: setObj methods allow only objects as value, ${val2} is not an Object`,
-      style
-    );
-  };
-  var storeSetObjectPropWarning2 = (prop, style) => {
-    console.warn(
-      `%c trying to execute setObj data method on '${prop}' propierties: store propierties '${prop}' is not an object`,
-      style
-    );
-  };
-  var storeSetObjKeysWarning2 = (key, prop, style) => {
-    console.warn(
-      `%c trying to execute setObj data method: one of these keys '${key}' not exist in store.${prop}`,
-      style
-    );
-  };
-  var storeSetObjDepthWarning2 = (prop, val2, style) => {
-    console.warn(
-      `%c trying to execute setObj data method on '${prop}' propierties: '${JSON.stringify(
-        val2
-      )}' have a depth > 1, nested obj is not allowed`,
-      style
-    );
-  };
-  var storeSetObjTypeWarning2 = (prop, subProp, subVal, type, style) => {
-    console.warn(
-      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName2(
-        type
-      )}`,
-      style
-    );
-  };
-  var storeGetPropWarning2 = (prop, style) => {
-    console.warn(
-      `%c trying to execute get data method: store.${prop} not exist`,
-      style
-    );
-  };
-  var storeEmitWarning2 = (prop, style) => {
-    console.warn(
-      `%c trying to execute set data method: store.${prop} not exist`,
-      style
-    );
-  };
-  var storeComputedKeyUsedWarning2 = (keys, style) => {
-    console.warn(
-      `%c one of the keys [${keys}] is already used as a computed target, or one of the keys coincides with the prop to be changed.`,
-      style
-    );
-  };
-  var storeWatchWarning2 = (prop, style) => {
-    console.warn(
-      `%c SimpleStore error: the property ${prop} to watch doesn't exist in store`,
-      style
-    );
-  };
-  var storeObjectIsNotAnyWarning2 = (style, CUSTOM_OBJECT) => {
-    console.warn(
-      `%c Validation Object error: validation function return undefined or have you used Object instead '${CUSTOM_OBJECT}' ?`,
-      style
-    );
-  };
-
-  // src/js/mobCore/store/MapVersion/storeUtils.js
-  var maxDepth2 = (object) => {
-    if (!storeType2.isObject(object))
-      return 0;
-    const values = Object.values(object);
-    if (values.length === 0)
-      return 1;
-    return Math.max(...values.map((value) => maxDepth2(value))) + 1;
-  };
-  var getDataRecursive2 = (data3, shouldRecursive = true) => {
-    return Object.entries(data3).reduce((p, c) => {
-      const [key, value] = c;
-      const functionResult = storeType2.isFunction(value) ? (
-        /** @type {Function} */
-        value()
-      ) : {};
-      if (storeType2.isObject(value) && shouldRecursive) {
-        return {
-          ...p,
-          [key]: getDataRecursive2(
-            /** @type {import('./type.js').simpleStoreBaseData} */
-            value,
-            false
-          )
-        };
-      }
-      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
-        return { ...p, [key]: functionResult.value };
-      }
-      return { ...p, [key]: value };
-    }, {});
-  };
-  var getPropRecursive2 = (data3, prop, fallback, shouldRecursive = true) => {
-    return Object.entries(data3).reduce((p, c) => {
-      const [key, value] = c;
-      const functionResult = storeType2.isFunction(value) ? (
-        /** @type{Function} */
-        value()
-      ) : {};
-      if (storeType2.isObject(value) && shouldRecursive) {
-        return {
-          ...p,
-          [key]: getPropRecursive2(
-            /** @type{import('./type.js').simpleStoreBaseData} */
-            value,
-            prop,
-            fallback,
-            false
-          )
-        };
-      }
-      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
-        const propParsed = storeType2.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
-        return { ...p, [key]: propParsed };
-      }
-      return { ...p, [key]: fallback };
-    }, {});
-  };
-  var inizializeStoreData2 = ({ data: data3, depth, logStyle: logStyle2 }) => {
-    if (depth > 2) {
-      storeDepthWarning2(depth, logStyle2);
-      return {};
-    }
-    return getDataRecursive2(data3);
-  };
-  var inizializeSpecificProp2 = ({
-    data: data3,
-    prop,
-    depth,
-    logStyle: logStyle2,
-    fallback
-  }) => {
-    if (depth > 2) {
-      storeDepthWarning2(depth, logStyle2);
-      return {};
-    }
-    return getPropRecursive2(data3, prop, fallback);
-  };
-  var cloneValueOrGet2 = ({ value }) => {
-    if (checkType2(Map, value)) {
-      return new Map(value);
-    }
-    if (checkType2(Set, value)) {
-      return new Set(value);
-    }
-    if (checkType2(Object, value)) {
-      return { ...value };
-    }
-    if (checkType2(Array, value)) {
-      return [...value];
-    }
-    return value;
-  };
-
-  // src/js/mobCore/store/MapVersion/storeSet.js
-  var setProp = (instanceId, state, prop, val2, fireCallback = true) => {
-    const {
-      type,
-      store,
-      fnValidate,
-      strict,
-      validationStatusObject,
-      skipEqual,
-      callBackWatcher
-    } = state;
-    const logStyle2 = getLogStyle();
-    const isCustomObject = type[prop] === TYPE_IS_ANY2;
-    if (storeType2.isObject(val2) && !isCustomObject) {
-      storeSetPropValWarning2(prop, val2, logStyle2);
-      return;
-    }
-    if (storeType2.isObject(store[prop]) && !isCustomObject) {
-      storeSetPropPropWarning2(prop, logStyle2);
-      return;
-    }
-    const isValidType = checkType2(type[prop], val2);
-    if (!isValidType) {
-      storeSetPropTypeWarning2(prop, val2, type[prop], logStyle2);
-      return;
-    }
-    const oldVal = store[prop];
-    const isValidated = (
-      /** @type {Object<string,function>} */
-      fnValidate[prop]?.(val2, oldVal)
-    );
-    if (strict[prop] && !isValidated)
-      return;
-    validationStatusObject[prop] = isValidated;
-    const isEqual = skipEqual[prop] ? checkEquality(type[prop], oldVal, val2) : false;
-    if (isEqual)
-      return;
-    store[prop] = val2;
-    if (fireCallback) {
-      runCallbackQueqe({
-        callBackWatcher,
-        prop,
-        newValue: val2,
-        oldValue: oldVal,
-        validationValue: validationStatusObject[prop]
-      });
-    }
-    addToComputedWaitLsit({ instanceId, prop });
-    return {
-      ...state,
-      store,
-      validationStatusObject
-    };
-  };
-  var setObj = (instanceId, state, prop, val2, fireCallback = true) => {
-    const {
-      store,
-      type,
-      strict,
-      fnValidate,
-      validationStatusObject,
-      skipEqual,
-      callBackWatcher
-    } = state;
-    const logStyle2 = getLogStyle();
-    if (!storeType2.isObject(val2)) {
-      storeSetObjectValWarning2(prop, val2, logStyle2);
-      return;
-    }
-    if (!storeType2.isObject(store[prop])) {
-      storeSetObjectPropWarning2(prop, logStyle2);
-      return;
-    }
-    const valKeys = Object.keys(val2);
-    const propKeys = Object.keys(store[prop]);
-    const hasKeys = valKeys.every((item) => propKeys.includes(item));
-    if (!hasKeys) {
-      storeSetObjKeysWarning2(valKeys, prop, logStyle2);
-      return;
-    }
-    const isValidType = Object.entries(val2).map((item) => {
-      const [subProp, subVal] = item;
-      const typeResponse = checkType2(type[prop][subProp], subVal);
-      if (!typeResponse) {
-        storeSetObjTypeWarning2(
-          prop,
-          subProp,
-          subVal,
-          type[prop][subProp],
-          logStyle2
-        );
-      }
-      return typeResponse;
-    }).every((item) => item === true);
-    if (!isValidType) {
-      return;
-    }
-    const strictObjectResult = Object.entries(val2).map((item) => {
-      const [subProp, subVal] = item;
-      const subValOld = store[prop][subProp];
-      return strict[prop][subProp] ? {
-        strictCheck: fnValidate[prop][subProp]?.(
-          subVal,
-          subValOld
-        ),
-        item
-      } : { strictCheck: true, item };
-    }).filter(({ strictCheck }) => strictCheck === true);
-    const allStrictFail = strictObjectResult.length === 0;
-    if (allStrictFail)
-      return;
-    const newValParsedByStrict = Object.fromEntries(
-      strictObjectResult.map(({ item }) => item).map(([key, val3]) => [key, val3])
-    );
-    Object.entries(newValParsedByStrict).forEach((item) => {
-      const [subProp, subVal] = item;
-      const subValOld = store[prop][subProp];
-      const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
-      if (validateResult === void 0) {
-        storeObjectIsNotAnyWarning2(logStyle2, TYPE_IS_ANY2);
-      }
-      validationStatusObject[prop][subProp] = validateResult;
-    });
-    const oldObjectValues = store[prop];
-    const newObjectValues = {
-      ...store[prop],
-      ...newValParsedByStrict
-    };
-    const shouldSkipEqual = Object.keys(newValParsedByStrict).every(
-      (subProp) => skipEqual[prop][subProp] === true
-    );
-    const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
-      const isCustomObject = type[prop][key] === TYPE_IS_ANY2;
-      const dataDepth = maxDepth2(value);
-      if (dataDepth > 1 && !isCustomObject) {
-        storeSetObjDepthWarning2(prop, val2, logStyle2);
-        return;
-      }
-      return checkEquality(
-        type[prop][key],
-        oldObjectValues[key],
-        value
-      );
-    }) : false;
-    if (prevValueIsEqualNew)
-      return;
-    store[prop] = newObjectValues;
-    if (fireCallback) {
-      runCallbackQueqe({
-        callBackWatcher,
-        prop,
-        newValue: store[prop],
-        oldValue: oldObjectValues,
-        validationValue: validationStatusObject[prop]
-      });
-    }
-    addToComputedWaitLsit({ instanceId, prop });
-    return {
-      ...state,
-      store,
-      validationStatusObject
-    };
-  };
-  var storeSetAction = ({
-    instanceId,
-    state,
-    prop,
-    value,
-    fireCallback = true,
-    clone = false
-  }) => {
-    const { store, type } = state;
-    if (!store)
-      return;
-    const logStyle2 = getLogStyle();
-    if (!(prop in store)) {
-      storeSetWarning2(prop, logStyle2);
-      return;
-    }
-    const previousValue = clone ? cloneValueOrGet2({ value: store[prop] }) : store[prop];
-    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[prop] !== Function ? value(previousValue) : value;
-    const isCustomObject = type[prop] === TYPE_IS_ANY2;
-    return storeType2.isObject(previousValue) && !isCustomObject ? setObj(instanceId, state, prop, valueParsed, fireCallback) : setProp(instanceId, state, prop, valueParsed, fireCallback);
-  };
-  var storeSetEntryPoint = ({
-    instanceId,
-    prop,
-    value,
-    fireCallback,
-    clone
-  }) => {
-    const state = getFormMainMap(instanceId);
-    if (!state)
-      return;
-    const newState = storeSetAction({
-      instanceId,
-      state,
-      prop,
-      value,
-      fireCallback,
-      clone
-    });
-    if (!newState)
-      return;
-    updateMainMap(instanceId, newState);
-  };
-  var storeQuickSetEntrypoint = ({ instanceId, prop, value }) => {
-    const state = getFormMainMap(instanceId);
-    if (!state)
-      return;
-    const { store, callBackWatcher } = state;
-    const oldVal = store[prop];
-    store[prop] = value;
-    runCallbackQueqe({
-      callBackWatcher,
-      prop,
-      newValue: value,
-      oldValue: oldVal,
-      validationValue: true
-    });
-    updateMainMap(instanceId, { ...state, store });
-  };
-  var fireComputed = (instanceId) => {
-    const state = getFormMainMap(instanceId);
-    const { computedWaitList, callBackComputed, store, computedPropFired } = state;
-    computedWaitList.forEach((propChanged) => {
-      callBackComputed.forEach((item) => {
-        const {
-          prop: propToUpdate,
-          keys: propsShouldChange,
-          fn: computedFn
-        } = item;
-        const storeKeys = Object.keys(store);
-        const propsShouldChangeIsInStore = propsShouldChange.every(
-          (item2) => storeKeys.includes(item2)
-        );
-        if (!propsShouldChangeIsInStore) {
-          storeComputedWarning2(
-            propsShouldChange,
-            propToUpdate,
-            getLogStyle()
-          );
-          return;
-        }
-        const propChangedIsDependency = propsShouldChange.includes(propChanged);
-        if (!propChangedIsDependency)
-          return;
-        const propValues = propsShouldChange.map((item2) => {
-          return store[item2];
-        });
-        const shouldFire = !computedPropFired.has(propToUpdate);
-        if (shouldFire) {
-          const computedValue = computedFn(...propValues);
-          storeSetEntryPoint({
-            instanceId,
-            prop: propToUpdate,
-            value: computedValue
-          });
-          computedPropFired.add(propToUpdate);
-        }
-      });
-    });
-    const stateAfterComputed = getFormMainMap(instanceId);
-    updateMainMap(instanceId, {
-      ...stateAfterComputed,
-      computedPropFired: /* @__PURE__ */ new Set(),
-      computedWaitList: /* @__PURE__ */ new Set(),
-      computedRunning: false
-    });
-  };
-  var addToComputedWaitLsit = ({ instanceId, prop }) => {
-    const state = getFormMainMap(instanceId);
-    const { callBackComputed, computedWaitList, computedRunning } = state;
-    if (!callBackComputed || callBackComputed.size === 0)
-      return;
-    computedWaitList.add(prop);
-    updateMainMap(instanceId, { ...state, computedWaitList });
-    if (!computedRunning) {
-      const state4 = getFormMainMap(instanceId);
-      updateMainMap(instanceId, { ...state4, computedRunning: true });
-      useNextLoop(() => fireComputed(instanceId));
-    }
-  };
-  var storeComputedAction = ({ state, prop, keys, fn }) => {
-    const { callBackComputed } = state;
-    const tempComputedArray = [...callBackComputed, { prop, keys, fn }];
-    const propList = tempComputedArray.flatMap((item) => item.prop);
-    const keysIsusedInSomeComputed = propList.some(
-      (item) => keys.includes(item)
-    );
-    if (keysIsusedInSomeComputed) {
-      storeComputedKeyUsedWarning2(keys, getLogStyle());
-      return;
-    }
-    callBackComputed.add({
-      prop,
-      keys,
-      fn
-    });
-    return {
-      ...state,
-      callBackComputed
-    };
-  };
-  var storeComputedEntryPoint = ({
-    instanceId,
-    prop,
-    keys,
-    callback: callback2
-  }) => {
-    const state = getFormMainMap(instanceId);
-    if (!state)
-      return;
-    const newState = storeComputedAction({
-      state,
-      prop,
-      keys,
-      fn: callback2
-    });
-    if (!newState)
-      return;
-    updateMainMap(instanceId, newState);
-  };
-
-  // src/js/mobCore/store/MapVersion/initialValidation.js
-  var inizializeValidation = (instanceId, initialState) => {
-    const { store, validationStatusObject } = initialState;
-    for (const key in store) {
-      if (storeType2.isObject(store[key])) {
-        validationStatusObject[key] = {};
-      }
-    }
-    updateMainMap(instanceId, { ...initialState, validationStatusObject });
-    Object.entries(store).forEach((item) => {
-      const [prop, value] = item;
-      const state = getFormMainMap(instanceId);
-      const newState = storeSetAction({
-        state,
-        prop,
-        value,
-        fireCallback: false
-      });
-      if (!newState)
-        return;
-      updateMainMap(instanceId, newState);
-    });
-  };
-
-  // src/js/mobCore/store/MapVersion/watch.js
-  var storeWatchAction = ({ state, prop, callback: callback2 }) => {
-    const { store, callBackWatcher } = state;
-    const logStyle2 = getLogStyle();
-    if (!(prop in store)) {
-      storeWatchWarning2(prop, logStyle2);
-      return {
-        state: void 0,
-        unsubscribeId: ""
-      };
-    }
-    const id = getUnivoqueId();
-    callBackWatcher.set(id, { fn: callback2, prop });
-    return {
-      state: { ...state, callBackWatcher },
-      unsubscribeId: id
-    };
-  };
-  var unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
-    const state = getFormMainMap(instanceId);
-    const { callBackWatcher } = state;
-    callBackWatcher.delete(unsubscribeId);
-    updateMainMap(instanceId, { ...state, callBackWatcher });
-  };
-  var watchEntryPoint = ({ instanceId, prop, callback: callback2 }) => {
-    const state = getFormMainMap(instanceId);
-    if (!state)
-      return () => {
-      };
-    const { state: newState, unsubscribeId } = storeWatchAction({
-      state,
-      prop,
-      callback: callback2
-    });
-    if (!newState)
-      return () => {
-      };
-    updateMainMap(instanceId, newState);
-    return () => {
-      unsubScribeWatch({ instanceId, unsubscribeId });
-    };
-  };
-
-  // src/js/mobCore/store/MapVersion/inizializeInstance.js
-  var inizializeInstance = (data3) => {
-    const dataDepth = maxDepth2(data3);
-    return {
-      callBackWatcher: /* @__PURE__ */ new Map(),
-      callBackComputed: /* @__PURE__ */ new Set(),
-      computedPropFired: /* @__PURE__ */ new Set(),
-      computedWaitList: /* @__PURE__ */ new Set(),
-      validationStatusObject: {},
-      dataDepth,
-      computedRunning: false,
-      store: inizializeStoreData2({
-        data: data3,
-        depth: dataDepth,
-        logStyle: getLogStyle()
-      }),
-      type: inizializeSpecificProp2({
-        data: data3,
-        prop: "type",
-        depth: dataDepth,
-        logStyle: getLogStyle(),
-        fallback: UNTYPED
-      }),
-      fnValidate: inizializeSpecificProp2({
-        data: data3,
-        prop: "validate",
-        depth: dataDepth,
-        logStyle: getLogStyle(),
-        fallback: () => true
-      }),
-      strict: inizializeSpecificProp2({
-        data: data3,
-        prop: "strict",
-        depth: dataDepth,
-        logStyle: getLogStyle(),
-        fallback: false
-      }),
-      skipEqual: inizializeSpecificProp2({
-        data: data3,
-        prop: "skipEqual",
-        depth: dataDepth,
-        logStyle: getLogStyle(),
-        fallback: true
-      })
-    };
-  };
-
-  // src/js/mobCore/store/MapVersion/storeGet.js
-  var storeGetEntryPoint = (instanceId) => {
-    const { store } = getFormMainMap(instanceId);
-    return store;
-  };
-  var storeGetPropEntryPoint = ({ instanceId, prop }) => {
-    const { store } = getFormMainMap(instanceId);
-    if (!store)
-      return;
-    if (prop in store) {
-      return store[prop];
-    } else {
-      storeGetPropWarning2(prop, getLogStyle());
-      return;
-    }
-  };
-
-  // src/js/mobCore/store/MapVersion/storeEmit.js
-  var storeEmitEntryPoint = ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
-    if (!store)
-      return;
-    if (prop in store) {
-      runCallbackQueqe({
-        callBackWatcher,
-        prop,
-        newValue: store[prop],
-        oldValue: store[prop],
-        validationValue: validationStatusObject[prop]
-      });
-    } else {
-      storeEmitWarning2(prop, getLogStyle());
-    }
-  };
-  var storeEmitAsyncEntryPoint = async ({ instanceId, prop }) => {
-    const { store, callBackWatcher, validationStatusObject } = getFormMainMap(instanceId);
-    if (!store)
-      return { success: false };
-    if (prop in store) {
-      await runCallbackQueqeAsync({
-        callBackWatcher,
-        prop,
-        newValue: store[prop],
-        oldValue: store[prop],
-        validationValue: validationStatusObject[prop]
-      });
-      return { success: true };
-    } else {
-      storeEmitWarning2(prop, getLogStyle());
-      return { success: false };
-    }
-  };
-
-  // src/js/mobCore/store/MapVersion/storeDebug.js
-  var storeGetValidationEntryPoint = ({ instanceId }) => {
-    const { validationStatusObject } = getFormMainMap(instanceId);
-    return validationStatusObject;
-  };
-  var storeDebugStoreEntryPoint = ({ instanceId }) => {
-    const { store } = getFormMainMap(instanceId);
-    console.log(store);
-  };
-  var storeDebugValidateEntryPoint = ({ instanceId }) => {
-    const { validationStatusObject } = getFormMainMap(instanceId);
-    console.log(validationStatusObject);
-  };
-
-  // src/js/mobCore/store/MapVersion/index.js.js
-  var mobStore = (data3 = {}) => {
-    const instanceId = getUnivoqueId();
-    const instanceParams = inizializeInstance(data3);
-    storeMap.set(instanceId, instanceParams);
-    inizializeValidation(instanceId, instanceParams);
-    return {
-      get: () => {
-        return storeGetEntryPoint(instanceId);
-      },
-      getProp: (prop) => {
-        return storeGetPropEntryPoint({ instanceId, prop });
-      },
-      set: (prop, value, fireCallback = true, clone = false) => {
-        storeSetEntryPoint({
-          instanceId,
-          prop,
-          value,
-          fireCallback,
-          clone
-        });
-      },
-      quickSetProp: (prop, value) => {
-        storeQuickSetEntrypoint({ instanceId, prop, value });
-      },
-      watch: (prop, callback2) => {
-        return watchEntryPoint({ instanceId, prop, callback: callback2 });
-      },
-      computed: (prop, keys, callback2) => {
-        storeComputedEntryPoint({
-          instanceId,
-          prop,
-          keys,
-          callback: callback2
-        });
-      },
-      emit: (prop) => {
-        storeEmitEntryPoint({ instanceId, prop });
-      },
-      emitAsync: async (prop) => {
-        return storeEmitAsyncEntryPoint({ instanceId, prop });
-      },
-      getValidation: () => {
-        return storeGetValidationEntryPoint({ instanceId });
-      },
-      debugStore: () => {
-        storeDebugStoreEntryPoint({ instanceId });
-      },
-      debugValidate: () => {
-        storeDebugValidateEntryPoint({ instanceId });
-      },
-      destroy: () => {
-        removeFromMainMap(instanceId);
-      }
-    };
   };
 
   // src/js/test/mapStore.js
