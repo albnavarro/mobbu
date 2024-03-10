@@ -45,7 +45,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
 /**
  * @param {(Object|HTMLElement)} item
  * @param {function(Object.<string, number>):void} currentCallback
- * @param {Array.<import('./type').callbackObject<number>>} arrayOfCallback
+ * @param {Array.<import('./type').callbackObject<string>>} arrayOfCallback
  * @param {Array.<function>} unsubscribeCacheArray - unsubscribe function of handleCache.
  *
  * @returns {import('./type').setCallbackCacheReturnObject}
@@ -89,7 +89,7 @@ export const setCallBackCache = (
 
             // Disable single stagger without modify staggers order
             return arrayOfCallback.map(({ id, cb, index, frame }) => {
-                if (id === prevId) cb = -1;
+                if (id === prevId) cb = '';
                 return { id, cb, index, frame };
             });
         },

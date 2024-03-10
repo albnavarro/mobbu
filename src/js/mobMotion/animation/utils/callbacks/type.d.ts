@@ -13,7 +13,7 @@ export interface setCallbackReturnObject {
 }
 
 export interface setCallbackCacheReturnObject {
-    arrayOfCallbackUpdated: callbackObject<number>[];
+    arrayOfCallbackUpdated: callbackObject<string>[];
     unsubscribeCache: Function[];
-    unsubscribeCb: (arg0: callbackObject<number>[]) => callbackObject<number>[];
+    unsubscribeCb: (arg0: callbackObject<string>[]) => callbackObject<string>[];
 }

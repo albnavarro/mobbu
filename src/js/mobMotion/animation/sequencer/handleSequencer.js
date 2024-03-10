@@ -111,7 +111,7 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<number>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<string>[]}
          */
         this.callbackCache = [];
 

@@ -9,7 +9,7 @@ import { mobCore } from '../../../../mobCore';
  * @param {boolean} obj.isLastDraw
  * @param {{[key:string]: number}} obj.callBackObject
  * @param {Array.<import('./type').callbackObject<Function>>} obj.callback
- * @param {Array.<import('./type').callbackObject<number>>} obj.callbackCache
+ * @param {Array.<import('./type').callbackObject<string>>} obj.callbackCache
  * @param {Array.<import('./type').callbackObject<Function>>} obj.callbackOnStop
  * @returns void
  *

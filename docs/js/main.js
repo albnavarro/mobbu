@@ -9945,7 +9945,7 @@
         unsubscribe3();
         return arrayOfCallback2.map(({ id: id2, cb, index, frame }) => {
           if (id2 === prevId)
-            cb = -1;
+            cb = "";
           return { id: id2, cb, index, frame };
         });
       }
