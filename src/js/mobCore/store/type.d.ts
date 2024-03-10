@@ -65,7 +65,7 @@ export interface storePublicMethods {
     watch: (
         prop: string,
         callback: (current: any, previous: any, validate: boolean) => void
-    ) => void;
+    ) => () => {};
     computed: (prop: string, keys: string[], callback: () => void) => void;
     emit: (props: string) => void;
     emitAsync: (props: string) => Promise<{ success: boolean }>;

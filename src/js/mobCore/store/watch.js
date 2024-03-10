@@ -48,7 +48,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {string} param.instanceId
  * @param {string} param.prop
  * @param {(current: any, previous: any, validate: boolean) => void} param.callback
- * @returns {() => void}
+ * @returns {() => any}
  */
 export const watchEntryPoint = ({ instanceId, prop, callback }) => {
     const state = getFormMainMap(instanceId);
