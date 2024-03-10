@@ -1,4 +1,4 @@
-import { mobStore } from '../mobCore/store/index.js';
+import { mobStore } from '../mobCore/store/mobStore.js';
 import { storeMap } from '../mobCore/store/storeMap.js';
 
 export const initTestMapStore = async () => {

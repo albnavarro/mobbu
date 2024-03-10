@@ -2861,7 +2861,7 @@
     console.log(state);
   };
 
-  // src/js/mobCore/store/index.js
+  // src/js/mobCore/store/mobStore.js
   var mobStore = (data3 = {}) => {
     const instanceId = getUnivoqueId();
     const instanceParams = inizializeInstance(data3);

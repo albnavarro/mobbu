@@ -1,5 +1,5 @@
 // import { SimpleStore } from '../store/classVersion/simpleStore';
-import { mobStore } from '../store/index.js';
+import { mobStore } from '../store/mobStore.js';
 
 export const eventStore = mobStore({
     /**
