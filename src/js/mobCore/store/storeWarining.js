@@ -49,7 +49,7 @@ export const storeSetPropValWarning = (prop, val, style) => {
     console.warn(
         `%c trying to execute setProp method on '${prop}' propierties: setProp methods doesn't allow objects as value, ${JSON.stringify(
             val
-        )} is an Object`,
+        )} is an Object, use 'Any' type for custom object`,
         style
     );
 };

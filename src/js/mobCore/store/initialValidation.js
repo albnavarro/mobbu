@@ -9,17 +9,22 @@ import { storeType } from './storeType';
  * @returns {import('./type').storeMapValue}
  */
 export const inizializeValidation = (initialState) => {
-    const { store, validationStatusObject } = initialState;
+    const { store } = initialState;
 
     /**
      * Initialize empty Object if prop is an object.
+     * Need to avois error on validation assignment ( key in object doesn't exist ).
      * No collision with any, any is used with complete declaration ( type etc.. )
      */
-    for (const key in store) {
-        if (storeType.isObject(store[key])) {
-            validationStatusObject[key] = {};
-        }
-    }
+    const validationStatusObject = Object.entries(store).reduce(
+        (previous, current) => {
+            const [key, value] = current;
+            return storeType.isObject(value)
+                ? { ...previous, [key]: {} }
+                : previous;
+        },
+        {}
+    );
 
     return { ...initialState, validationStatusObject };
 };
