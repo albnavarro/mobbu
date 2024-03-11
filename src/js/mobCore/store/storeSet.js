@@ -28,14 +28,23 @@ import {
  */
 
 /**
- * @param {string} instanceId
- * @param {import("./type").storeMapValue} state
- * @param {string} prop
- * @param {any} val
- * @param {boolean} fireCallback
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {import("./type").storeMapValue} param.state
+ * @param {string} param.prop
+ * @param {any} param.val
+ * @param {boolean} param.fireCallback
+ * @param {boolean} param.useStrict
  * @returns {import("./type").storeMapValue|undefined}
  */
-const setProp = (instanceId, state, prop, val, fireCallback = true) => {
+const setProp = ({
+    instanceId,
+    state,
+    prop,
+    val,
+    fireCallback = true,
+    useStrict = true,
+}) => {
     const {
         type,
         store,
@@ -86,7 +95,7 @@ const setProp = (instanceId, state, prop, val, fireCallback = true) => {
     /**
      * In strict mode return is prop is not valid
      */
-    if (strict[prop] && !isValidated) return;
+    if (strict[prop] && !isValidated && useStrict) return;
 
     /**
      * Update validation array.
@@ -127,14 +136,23 @@ const setProp = (instanceId, state, prop, val, fireCallback = true) => {
 };
 
 /**
- * @param {string} instanceId
- * @param {import("./type").storeMapValue} state
- * @param {string} prop
- * @param {any} val
- * @param {boolean} fireCallback
+ * @param {Object} param
+ * @param {string} param.instanceId
+ * @param {import("./type").storeMapValue} param.state
+ * @param {string} param.prop
+ * @param {any} param.val
+ * @param {boolean} param.fireCallback
+ * @param {boolean} param.useStrict
  * @returns {import("./type").storeMapValue|undefined}
  */
-const setObj = (instanceId, state, prop, val, fireCallback = true) => {
+const setObj = ({
+    instanceId,
+    state,
+    prop,
+    val,
+    fireCallback = true,
+    useStrict = true,
+}) => {
     const {
         store,
         type,
@@ -205,7 +223,7 @@ const setObj = (instanceId, state, prop, val, fireCallback = true) => {
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
 
-            return strict[prop][subProp]
+            return strict[prop][subProp] && useStrict
                 ? {
                       strictCheck: fnValidate[prop][subProp]?.(
                           subVal,
@@ -336,6 +354,7 @@ export const storeSetAction = ({
     value,
     fireCallback = true,
     clone = false,
+    useStrict = true,
 }) => {
     const { store, type } = state;
     if (!store) return;
@@ -376,8 +395,22 @@ export const storeSetAction = ({
     const isCustomObject = type[prop] === TYPE_IS_ANY;
 
     return storeType.isObject(previousValue) && !isCustomObject
-        ? setObj(instanceId, state, prop, valueParsed, fireCallback)
-        : setProp(instanceId, state, prop, valueParsed, fireCallback);
+        ? setObj({
+              instanceId,
+              state,
+              prop,
+              val: valueParsed,
+              fireCallback,
+              useStrict,
+          })
+        : setProp({
+              instanceId,
+              state,
+              prop,
+              val: valueParsed,
+              fireCallback,
+              useStrict,
+          });
 };
 
 /**

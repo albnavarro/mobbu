@@ -6,8 +6,8 @@ import {
     storeQuickSetEntrypoint,
     storeSetEntryPoint,
 } from './storeSet';
-import { storeMap, removeStateFromMainMap } from './storeMap';
-import { inizializeValidation } from './initialValidation';
+import { removeStateFromMainMap, updateMainMap } from './storeMap';
+import { inizializeAllProps, inizializeValidation } from './initialValidation';
 import { watchEntryPoint } from './watch';
 import { inizializeInstance } from './inizializeInstance';
 import { storeGetEntryPoint, storeGetPropEntryPoint } from './storeGet';
@@ -32,17 +32,20 @@ export const mobStore = (data = {}) => {
     /**
      * Initialize
      */
-    const instanceParams = inizializeInstance(data);
+    const initialState = inizializeInstance(data);
 
     /**
-     * Add new store to main Map.
+     * Create validation object
      */
-    storeMap.set(instanceId, instanceParams);
+    const stateUpdated = inizializeValidation(initialState);
+    updateMainMap(instanceId, stateUpdated);
 
     /**
-     * First validation
+     * Validate all props
+     * Perform a set() on all props, and update state
+     * First time strict has no effect
      */
-    inizializeValidation(instanceId, instanceParams);
+    inizializeAllProps(instanceId, initialState);
 
     /**
      * Methods

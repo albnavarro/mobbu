@@ -5,15 +5,15 @@ import { storeSetAction } from './storeSet';
 import { storeType } from './storeType';
 
 /**
- * @param {string} instanceId
  * @param {import('./type').storeMapValue} initialState
- * @returns {void}
+ * @returns {import('./type').storeMapValue}
  */
-export const inizializeValidation = (instanceId, initialState) => {
+export const inizializeValidation = (initialState) => {
     const { store, validationStatusObject } = initialState;
 
     /**
      * Initialize empty Object if prop is an object.
+     * No collision with any, any is used with complete declaration ( type etc.. )
      */
     for (const key in store) {
         if (storeType.isObject(store[key])) {
@@ -21,10 +21,16 @@ export const inizializeValidation = (instanceId, initialState) => {
         }
     }
 
-    /**
-     * Update main store state once.
-     */
-    updateMainMap(instanceId, { ...initialState, validationStatusObject });
+    return { ...initialState, validationStatusObject };
+};
+
+/**
+ * @param {string} instanceId
+ * @param {import('./type').storeMapValue} initialState
+ * @returns {void}
+ */
+export const inizializeAllProps = (instanceId, initialState) => {
+    const { store } = initialState;
 
     /**
      * First run execute each propierites to check validation without fire event
@@ -42,6 +48,7 @@ export const inizializeValidation = (instanceId, initialState) => {
             prop,
             value,
             fireCallback: false,
+            useStrict: false,
         });
 
         if (!newState) return;
