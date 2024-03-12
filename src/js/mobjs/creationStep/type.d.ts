@@ -1,7 +1,7 @@
 import { componentStoreReturnType } from '../componentStore/type';
 
 export interface componentDataType {
-    component: HTMLElement;
+    element: HTMLElement;
     props: object;
     id: string;
     componentName: string;
@@ -15,7 +15,6 @@ export interface componentDataType {
 }
 
 export interface getParamsForComponent extends componentStoreReturnType {
-    component: HTMLElement;
     id: string;
     key: string;
     dynamicPropsId: string | undefined;

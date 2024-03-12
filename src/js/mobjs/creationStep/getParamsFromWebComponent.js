@@ -6,67 +6,67 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.component
+ * @param {HTMLElement} obj.element
  * @returns {import('./type').componentDataType}
  *
  * @description
  * Create base DOM component from component tag.
  */
-export const getParamsFromWebComponent = ({ component }) => {
+export const getParamsFromWebComponent = ({ element }) => {
     /**
      * @type {string}
      *
      */
     // @ts-ignore
-    const id = component.getId();
+    const id = element.getId();
 
     /**
      * @type {string}
      */
     // @ts-ignore
-    const instanceName = component.getInstanceName();
+    const instanceName = element.getInstanceName();
 
     /**
      * @type {string}
      */
     // @ts-ignore
-    const parentId = component.getParentId();
+    const parentId = element.getParentId();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const propsId = component.getStaticPropsId();
+    const propsId = element.getStaticPropsId();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const dynamicPropsId = component.getDynamicPropsid();
+    const dynamicPropsId = element.getDynamicPropsid();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const bindEventsId = component.getBindEventsId();
+    const bindEventsId = element.getBindEventsId();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const dynamicPropsIdFromSlot = component.getDynamicPropsFromSlotId();
+    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const propsSlot = component.getPropsFromSlotId();
+    const propsSlot = element.getPropsFromSlotId();
 
     /**
      * @type {string|undefined}
      */
     // @ts-ignore
-    const currentRepeaterValueId = component.getRepeatValue();
+    const currentRepeaterValueId = element.getRepeatValue();
     const currentRepeatValue = getComponentRepeaterState(
         currentRepeaterValueId
     );
@@ -76,7 +76,7 @@ export const getParamsFromWebComponent = ({ component }) => {
      *
      */
     // @ts-ignore
-    const key = component.getCurrentKey() ?? '';
+    const key = element.getCurrentKey() ?? '';
 
     /**
      * @type {string}
@@ -85,7 +85,7 @@ export const getParamsFromWebComponent = ({ component }) => {
      * Set props.
      */
     // @ts-ignore
-    const componentName = component.getComponentName();
+    const componentName = element.getComponentName();
 
     /**
      * @type {string|undefined}
@@ -113,10 +113,10 @@ export const getParamsFromWebComponent = ({ component }) => {
      * @description
      * Set props.
      */
-    const baseProps = { ...component.dataset };
+    const baseProps = { ...element.dataset };
 
     return {
-        component,
+        element,
         props: {
             ...filterExportableStateFromObject({
                 componentName,

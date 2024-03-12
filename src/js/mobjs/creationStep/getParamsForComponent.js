@@ -54,7 +54,6 @@ export const getParamsForComponentFunction = ({
     emitAsync,
     computed,
     watch,
-    component,
     id,
     key,
     dynamicPropsId,
@@ -73,8 +72,8 @@ export const getParamsForComponentFunction = ({
     addSelfToParentComponent({ id });
 
     const repeatIdArray = [];
-    const getChildren = (/** @type {string} */ component) =>
-        getChildrenIdByName({ id, component });
+    const getChildren = (/** @type {string} */ componentName) =>
+        getChildrenIdByName({ id, componentName });
 
     /**
      * Set initial repate list current value to pass to dynamicProps.
@@ -101,7 +100,6 @@ export const getParamsForComponentFunction = ({
         bindEventsId,
         key,
         id,
-        component,
         getState,
         setState,
         emit,
@@ -140,11 +138,7 @@ export const getParamsForComponentFunction = ({
             setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
         },
         html: (strings, ...values) => {
-            return {
-                id,
-                content: renderHtml(strings, ...values),
-                component,
-            };
+            return renderHtml(strings, ...values);
         },
 
         onMount: (cb) => addOnMoutCallback({ id, cb }),

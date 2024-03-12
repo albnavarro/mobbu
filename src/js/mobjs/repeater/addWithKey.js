@@ -174,7 +174,7 @@ export const addWithKey = ({
      */
     updateChildrenOrder({
         id,
-        component: targetComponent,
+        componentName: targetComponent,
         filterBy: newPersistentElementOrder,
     });
 

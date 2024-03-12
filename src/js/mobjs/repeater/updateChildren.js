@@ -76,7 +76,7 @@ export const updateChildren = async ({
 
     updateChildrenOrder({
         id,
-        component: targetComponent,
+        componentName: targetComponent,
     });
 
     /**

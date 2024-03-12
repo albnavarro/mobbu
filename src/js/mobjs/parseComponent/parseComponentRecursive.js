@@ -145,7 +145,7 @@ export const parseComponentsRecursive = async ({
         parentId,
     } = getParamsFromWebComponent({
         // @ts-ignore
-        component: componentToParse,
+        element: componentToParse,
     });
 
     /**
@@ -159,7 +159,7 @@ export const parseComponentsRecursive = async ({
     const { getState, setState, emit, emitAsync, computed, watch } =
         addComponentToStore({
             // @ts-ignore
-            component: componentToParse,
+            element: componentToParse,
             props,
             state,
             id,
@@ -180,8 +180,6 @@ export const parseComponentsRecursive = async ({
         emitAsync,
         computed,
         watch,
-        // @ts-ignore
-        component: componentToParse,
         id,
         key,
         dynamicPropsId,
@@ -194,9 +192,7 @@ export const parseComponentsRecursive = async ({
      * Launch userFunctionComponent and wait for render function with custom DOM
      * to add to component.
      */
-    const { content } = await userFunctionComponent(
-        objectFromComponentFunction
-    );
+    const content = await userFunctionComponent(objectFromComponentFunction);
 
     /**
      * Add custom DOM to basic component
@@ -204,7 +200,7 @@ export const parseComponentsRecursive = async ({
     const { newElement } = await convertToRealElement({
         content,
         // @ts-ignore
-        component: componentToParse,
+        element: componentToParse,
         isolateCreation,
     });
 

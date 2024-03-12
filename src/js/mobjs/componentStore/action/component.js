@@ -12,7 +12,7 @@ export const getComponentNameById = (id = '') => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
-    const component = item?.component;
+    const component = item?.componentName;
 
     if (!component) {
         console.warn(`getComponentNameById failed no id found`);

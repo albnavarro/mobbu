@@ -38,7 +38,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
 
     const instances = [...componentMap.values()];
 
-    const { component: componentName, element } =
+    const { componentName, element } =
         instances.find(({ id: currentId }) => {
             return currentId === id;
         }) || {};

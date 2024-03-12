@@ -6,13 +6,13 @@ import { getElementById } from './element';
 /**
  * @param {object} obj
  * @param {string} obj.id
- * @param {string} obj.component
+ * @param {string} obj.componentName
  * @returns {Array.<string>}
  *
  * @description
  * Get children id.
  */
-export const getChildrenIdByName = ({ id = '', component = '' }) => {
+export const getChildrenIdByName = ({ id = '', componentName = '' }) => {
     if (!id || id === '') return [];
 
     const item = componentMap.get(id);
@@ -23,13 +23,13 @@ export const getChildrenIdByName = ({ id = '', component = '' }) => {
         return [];
     }
 
-    return child?.[component] ?? [];
+    return child?.[componentName] ?? [];
 };
 
 /**
  * @param {object} obj
  * @param {string} obj.id
- * @param {string} obj.component
+ * @param {string} obj.componentName
  * @param {Array<HTMLElement|undefined>} [ obj.filterBy ]
  * @return void
  *
@@ -37,14 +37,14 @@ export const getChildrenIdByName = ({ id = '', component = '' }) => {
  * @description
  * Update children order of a component
  */
-export const updateChildrenOrder = ({ id, component, filterBy = [] }) => {
+export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
     /*
      * Get element
      */
     const element = getElementById({ id });
     if (!element) return;
 
-    const components = getChildrenIdByName({ id, component });
+    const components = getChildrenIdByName({ id, componentName });
     const componentsIdFiltered = components
         .map((id) => {
             return { id, element: getElementById({ id }) };
@@ -72,7 +72,7 @@ export const updateChildrenOrder = ({ id, component, filterBy = [] }) => {
         ...item,
         child: {
             ...child,
-            [component]: componentsIdFiltered,
+            [componentName]: componentsIdFiltered,
         },
     });
 };

@@ -4890,7 +4890,7 @@
       return;
     const item = componentMap.get(id);
     const parentId = item?.parentId;
-    const componentName = item?.component ?? "";
+    const componentName = item?.componentName ?? "";
     if (!parentId)
       return;
     for (const [key, value] of componentMap) {
@@ -5560,7 +5560,7 @@
     }
     const item = componentMap.get(id);
     const state = item?.state;
-    const componentName = item?.component ?? "";
+    const componentName = item?.componentName ?? "";
     const stateIsExportable = checkIfStateIsExportable({
       componentName,
       propName: prop
@@ -5764,7 +5764,7 @@
     if (!id || id === "")
       return;
     const instances = [...componentMap.values()];
-    const { component: componentName, element } = instances.find(({ id: currentId }) => {
+    const { componentName, element } = instances.find(({ id: currentId }) => {
       return currentId === id;
     }) || {};
     if (!element || !componentName)
@@ -5968,12 +5968,12 @@
   };
 
   // src/js/mobjs/creationStep/convertToRealElement.js
-  var getNewElement = ({ component, content: content2 }) => {
-    if (component.parentNode) {
-      component.insertAdjacentHTML("afterend", content2);
+  var getNewElement = ({ element, content: content2 }) => {
+    if (element.parentNode) {
+      element.insertAdjacentHTML("afterend", content2);
       return (
         /** @type {HTMLElement} */
-        component.nextElementSibling
+        element.nextElementSibling
       );
     }
     return;
@@ -6024,12 +6024,12 @@
       slot?.remove();
     });
   };
-  var executeConversion = ({ component, content: content2 }) => {
-    const prevContent = component.innerHTML;
-    const newElement = getNewElement({ component, content: content2 });
+  var executeConversion = ({ element, content: content2 }) => {
+    const prevContent = element.innerHTML;
+    const newElement = getNewElement({ element, content: content2 });
     if (newElement) {
-      const id = component.getId();
-      const delegateEventId = component.getDelegateEventId();
+      const id = element.getId();
+      const delegateEventId = element.getDelegateEventId();
       const unNamedSlot = queryUnNamedSlot(newElement);
       if (unNamedSlot) {
         unNamedSlot.insertAdjacentHTML("afterend", prevContent);
@@ -6045,19 +6045,15 @@
       if (debug)
         newElement.setAttribute(ATTR_IS_COMPONENT, id ?? "");
     }
-    component.remove();
+    element.remove();
     return newElement;
   };
-  var convertToRealElement = ({
-    component,
-    content: content2,
-    isolateCreation
-  }) => {
+  var convertToRealElement = ({ element, content: content2, isolateCreation }) => {
     const isolateCreationParsed = isolateCreation ?? getDefaultComponent().isolateCreation;
     return isolateCreationParsed ? new Promise((resolve) => {
       mobCore.useFrame(() => {
         const newElement = executeConversion({
-          component,
+          element,
           content: content2
         });
         mobCore.useNextTick(() => {
@@ -6066,7 +6062,7 @@
       });
     }) : new Promise((resolve) => {
       const newElement = executeConversion({
-        component,
+        element,
         content: content2
       });
       resolve({ newElement });
@@ -6193,7 +6189,7 @@
   };
 
   // src/js/mobjs/componentStore/action/children.js
-  var getChildrenIdByName = ({ id = "", component = "" }) => {
+  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
     if (!id || id === "")
       return [];
     const item = componentMap.get(id);
@@ -6202,13 +6198,13 @@
       console.warn(`getChildIdById failed no id found`);
       return [];
     }
-    return child2?.[component] ?? [];
+    return child2?.[componentName] ?? [];
   };
-  var updateChildrenOrder = ({ id, component, filterBy = [] }) => {
+  var updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
     const element = getElementById({ id });
     if (!element)
       return;
-    const components = getChildrenIdByName({ id, component });
+    const components = getChildrenIdByName({ id, componentName });
     const componentsIdFiltered = components.map((id2) => {
       return { id: id2, element: getElementById({ id: id2 }) };
     }).filter(({ element: element2 }) => {
@@ -6231,7 +6227,7 @@
       ...item,
       child: {
         ...child2,
-        [component]: componentsIdFiltered
+        [componentName]: componentsIdFiltered
       }
     });
   };
@@ -6359,7 +6355,7 @@
     });
     updateChildrenOrder({
       id,
-      component: targetComponent,
+      componentName: targetComponent,
       filterBy: newPersistentElementOrder
     });
     const childrenFiltered = getChildrenInsideElement({
@@ -6522,7 +6518,7 @@
     await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
     updateChildrenOrder({
       id,
-      component: targetComponent
+      componentName: targetComponent
     });
     return currentUnivoque;
   };
@@ -6681,7 +6677,6 @@
     emitAsync,
     computed,
     watch,
-    component,
     id,
     key,
     dynamicPropsId,
@@ -6692,7 +6687,7 @@
     setParentsComponent({ componentId: id });
     addSelfToParentComponent({ id });
     const repeatIdArray = [];
-    const getChildren = (component2) => getChildrenIdByName({ id, component: component2 });
+    const getChildren = (componentName) => getChildrenIdByName({ id, componentName });
     if (currentRepeatValue?.index !== -1)
       setRepeaterStateById({ id, value: currentRepeatValue });
     addCurrentIdToDynamicProps({
@@ -6707,7 +6702,6 @@
       bindEventsId,
       key,
       id,
-      component,
       getState,
       setState,
       emit,
@@ -6746,11 +6740,7 @@
         setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
       },
       html: (strings, ...values) => {
-        return {
-          id,
-          content: renderHtml(strings, ...values),
-          component
-        };
+        return renderHtml(strings, ...values);
       },
       onMount: (cb) => addOnMoutCallback({ id, cb }),
       bindEvents: (eventsData) => {
@@ -6815,28 +6805,28 @@
   };
 
   // src/js/mobjs/creationStep/getParamsFromWebComponent.js
-  var getParamsFromWebComponent = ({ component }) => {
-    const id = component.getId();
-    const instanceName = component.getInstanceName();
-    const parentId = component.getParentId();
-    const propsId = component.getStaticPropsId();
-    const dynamicPropsId = component.getDynamicPropsid();
-    const bindEventsId = component.getBindEventsId();
-    const dynamicPropsIdFromSlot = component.getDynamicPropsFromSlotId();
-    const propsSlot = component.getPropsFromSlotId();
-    const currentRepeaterValueId = component.getRepeatValue();
+  var getParamsFromWebComponent = ({ element }) => {
+    const id = element.getId();
+    const instanceName = element.getInstanceName();
+    const parentId = element.getParentId();
+    const propsId = element.getStaticPropsId();
+    const dynamicPropsId = element.getDynamicPropsid();
+    const bindEventsId = element.getBindEventsId();
+    const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
+    const propsSlot = element.getPropsFromSlotId();
+    const currentRepeaterValueId = element.getRepeatValue();
     const currentRepeatValue = getComponentRepeaterState(
       currentRepeaterValueId
     );
-    const key = component.getCurrentKey() ?? "";
-    const componentName = component.getComponentName();
+    const key = element.getCurrentKey() ?? "";
+    const componentName = element.getComponentName();
     const cleanProsId = propsId?.split(" ").join("");
     const cleanProsFromSlot = propsSlot?.split(" ").join("");
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
-    const baseProps = { ...component.dataset };
+    const baseProps = { ...element.dataset };
     return {
-      component,
+      element,
       props: {
         ...filterExportableStateFromObject({
           componentName,
@@ -6865,7 +6855,7 @@
 
   // src/js/mobjs/componentStore/addComponentToStore.js
   var addComponentToStore = ({
-    component,
+    element,
     instanceName = "",
     props = {},
     state = {},
@@ -6885,8 +6875,8 @@
     const store = mobCore.createStore(state);
     addPropsToState({ props, store });
     componentMap.set(id, {
-      element: component,
-      component: componentName,
+      element,
+      componentName,
       instanceName,
       destroy,
       parentPropsWatcher,
@@ -6981,12 +6971,12 @@
       parentId
     } = getParamsFromWebComponent({
       // @ts-ignore
-      component: componentToParse
+      element: componentToParse
     });
     const { state } = componentParams;
     const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
       // @ts-ignore
-      component: componentToParse,
+      element: componentToParse,
       props,
       state,
       id,
@@ -7003,8 +6993,6 @@
       emitAsync,
       computed,
       watch,
-      // @ts-ignore
-      component: componentToParse,
       id,
       key,
       dynamicPropsId,
@@ -7012,13 +7000,11 @@
       currentRepeatValue,
       bindEventsId
     });
-    const { content: content2 } = await userFunctionComponent(
-      objectFromComponentFunction
-    );
+    const content2 = await userFunctionComponent(objectFromComponentFunction);
     const { newElement } = await convertToRealElement({
       content: content2,
       // @ts-ignore
-      component: componentToParse,
+      element: componentToParse,
       isolateCreation
     });
     const refsCollection = newElement ? getRefs(newElement) : {};

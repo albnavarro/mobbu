@@ -39,7 +39,7 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
 
     const item = componentMap.get(id);
     const state = item?.state;
-    const componentName = item?.component ?? '';
+    const componentName = item?.componentName ?? '';
 
     const stateIsExportable = checkIfStateIsExportable({
         componentName,

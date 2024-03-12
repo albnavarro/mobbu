@@ -3,9 +3,7 @@
 import { mobStoreBaseData } from '../mobCore/store/type';
 
 export interface componentReturnType {
-    id: string;
     content: string;
-    component: HTMLElement;
 }
 
 export interface componentType {
@@ -413,7 +411,7 @@ export interface componentType {
      *
      * ```
      */
-    html(strings: string[], ...values: string[]): componentReturnType;
+    html(strings: string[], ...values: string[]): string;
 
     /**
      *
@@ -659,12 +657,6 @@ export interface componentType {
      * Internal use.
      */
     bindEventsId: string | undefined;
-
-    /**
-     * @description
-     * Internal use.
-     */
-    component: HTMLElement;
 
     /**
      * @description

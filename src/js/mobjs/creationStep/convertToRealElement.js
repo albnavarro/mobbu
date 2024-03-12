@@ -12,7 +12,7 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.component
+ * @param {HTMLElement} obj.element
  * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
@@ -21,10 +21,10 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
  * Prevent accidentally return of element or component deleted runtime.
  * Check parentNode to insertAdjacentHTML possible error.
  */
-const getNewElement = ({ component, content }) => {
-    if (component.parentNode) {
-        component.insertAdjacentHTML('afterend', content);
-        return /** @type {HTMLElement} */ (component.nextElementSibling);
+const getNewElement = ({ element, content }) => {
+    if (element.parentNode) {
+        element.insertAdjacentHTML('afterend', content);
+        return /** @type {HTMLElement} */ (element.nextElementSibling);
     }
 
     return;
@@ -139,30 +139,30 @@ const addToSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.component
+ * @param {HTMLElement} obj.element
  * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
  *
  */
-const executeConversion = ({ component, content }) => {
+const executeConversion = ({ element, content }) => {
     /**
      * @type {string}
      *
      * @description
      * Add real content from render function
      */
-    const prevContent = component.innerHTML;
-    const newElement = getNewElement({ component, content });
+    const prevContent = element.innerHTML;
+    const newElement = getNewElement({ element, content });
 
     /**
      * Get inner content and copy data from provvisory component
      */
     if (newElement) {
         // @ts-ignore
-        const id = component.getId();
+        const id = element.getId();
         // @ts-ignore
-        const delegateEventId = component.getDelegateEventId();
+        const delegateEventId = element.getDelegateEventId();
 
         /**
          * @description
@@ -199,14 +199,14 @@ const executeConversion = ({ component, content }) => {
     /**
      * Delete provvisory component and add real component.
      */
-    component.remove();
+    element.remove();
 
     return newElement;
 };
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.component
+ * @param {HTMLElement} obj.element
  * @param {string} obj.content
  * @param {boolean|undefined} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
@@ -216,11 +216,7 @@ const executeConversion = ({ component, content }) => {
 
  *
  */
-export const convertToRealElement = ({
-    component,
-    content,
-    isolateCreation,
-}) => {
+export const convertToRealElement = ({ element, content, isolateCreation }) => {
     const isolateCreationParsed =
         isolateCreation ?? getDefaultComponent().isolateCreation;
 
@@ -228,7 +224,7 @@ export const convertToRealElement = ({
         ? new Promise((resolve) => {
               mobCore.useFrame(() => {
                   const newElement = executeConversion({
-                      component,
+                      element,
                       content,
                   });
 
@@ -239,7 +235,7 @@ export const convertToRealElement = ({
           })
         : new Promise((resolve) => {
               const newElement = executeConversion({
-                  component,
+                  element,
                   content,
               });
 

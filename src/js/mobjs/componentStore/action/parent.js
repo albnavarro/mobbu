@@ -39,7 +39,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
 
     const item = componentMap.get(id);
     const parentId = item?.parentId;
-    const componentName = item?.component ?? '';
+    const componentName = item?.componentName ?? '';
     if (!parentId) return;
 
     for (const [key, value] of componentMap) {
