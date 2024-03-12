@@ -11,11 +11,13 @@ import { applyBindEvents } from '../temporaryData/bindEvents';
 import { applyDynamicProps } from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
 import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
-import { registerComponent } from '../creationStep/registerComponent';
+import { getParamsForComponentFunction } from '../creationStep/getParamsForComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import { addSelfIdToFutureComponent } from '../componentStore/action/parent';
 import { getRefs } from '../temporaryData/refs';
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
+import { getParamsFromWebComponent } from '../creationStep/getParamsFromWebComponent';
+import { addComponentToStore } from '../componentStore/addComponentToStore';
 
 /**
  * @param {object} obj
@@ -102,16 +104,18 @@ export const parseComponentsRecursive = async ({
      * Get component params from list definition.
      */
     // @ts-ignore
-    const key = componentToParse?.getComponentName();
-    const userFunctionComponent = componentList?.[key]?.componentFunction;
-    const componentParams = componentList?.[key]?.componentParams;
+    const componentToParseName = componentToParse?.getComponentName();
+    const userFunctionComponent =
+        componentList?.[componentToParseName]?.componentFunction;
+    const componentParams =
+        componentList?.[componentToParseName]?.componentParams;
     const { isolateOnMount, isolateCreation, scoped } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
      */
     if (!userFunctionComponent) {
-        console.warn(`${key} component is not registered.`);
+        console.warn(`${componentToParseName} component is not registered.`);
 
         componentToParse.remove();
         await parseComponentsRecursive({
@@ -126,22 +130,71 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * 1 - Create basic DOM element
-     * 2 - Register component to store
-     * 3 - Return methods and props for userFunctionComponent (componentData)
+     * Get all data from placeholder
      */
-    const objectFromComponentFunction = registerComponent({
+    const {
+        props,
+        id,
+        componentName,
+        instanceName,
+        key,
+        dynamicPropsId,
+        dynamicPropsIdFromSlot,
+        currentRepeatValue,
+        bindEventsId,
+        parentId,
+    } = getParamsFromWebComponent({
         // @ts-ignore
         component: componentToParse,
-        ...componentParams,
-        isCancellable,
+    });
+
+    /**
+     * Get state from componentParams
+     */
+    const { state } = componentParams;
+
+    /**
+     * Add component to store
+     */
+    const { getState, setState, emit, emitAsync, computed, watch } =
+        addComponentToStore({
+            // @ts-ignore
+            component: componentToParse,
+            props,
+            state,
+            id,
+            componentName,
+            instanceName,
+            key,
+            isCancellable,
+            parentId,
+        });
+
+    /**
+     * Prepare params for component function
+     */
+    const objectFromComponentFunction = getParamsForComponentFunction({
+        getState,
+        setState,
+        emit,
+        emitAsync,
+        computed,
+        watch,
+        // @ts-ignore
+        component: componentToParse,
+        id,
+        key,
+        dynamicPropsId,
+        dynamicPropsIdFromSlot,
+        currentRepeatValue,
+        bindEventsId,
     });
 
     /**
      * Launch userFunctionComponent and wait for render function with custom DOM
      * to add to component.
      */
-    const { content, componentParsed, id } = await userFunctionComponent(
+    const { content } = await userFunctionComponent(
         objectFromComponentFunction
     );
 
@@ -150,7 +203,8 @@ export const parseComponentsRecursive = async ({
      */
     const { newElement } = await convertToRealElement({
         content,
-        componentParsed,
+        // @ts-ignore
+        component: componentToParse,
         isolateCreation,
     });
 
@@ -209,7 +263,7 @@ export const parseComponentsRecursive = async ({
         });
     });
 
-    const bindEventsId = objectFromComponentFunction?.bindEventsId;
+    // const bindEventsId = objectFromComponentFunction?.bindEventsId;
     if (bindEventsId) {
         applyBindEvents({
             element: newElement,

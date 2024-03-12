@@ -1,3 +1,5 @@
+import { componentStoreReturnType } from '../componentStore/type';
+
 export interface componentDataType {
     component: HTMLElement;
     props: object;
@@ -10,4 +12,14 @@ export interface componentDataType {
     bindEventsId: string | undefined;
     parentId: string | undefined;
     currentRepeatValue: any;
+}
+
+export interface getParamsForComponent extends componentStoreReturnType {
+    component: HTMLElement;
+    id: string;
+    key: string;
+    dynamicPropsId: string | undefined;
+    dynamicPropsIdFromSlot: string | undefined;
+    currentRepeatValue: any;
+    bindEventsId: string | undefined;
 }

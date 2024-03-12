@@ -15,7 +15,7 @@ import { addPropsToState } from './utils';
  * Add component to store.
  */
 export const addComponentToStore = ({
-    componentParsed,
+    component,
     instanceName = '',
     props = {},
     state = {},
@@ -35,7 +35,7 @@ export const addComponentToStore = ({
     addPropsToState({ props, store });
 
     componentMap.set(id, {
-        element: componentParsed,
+        element: component,
         component: componentName,
         instanceName,
         destroy,

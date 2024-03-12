@@ -29,9 +29,8 @@ export interface componentStoreTypes extends componentCommonTypes {
 }
 
 export interface componentStoreInputTypes extends componentCommonTypes {
-    component: HTMLElement;
     componentName: string;
-    componentParsed: HTMLElement;
+    component: HTMLElement;
     instanceName: string;
     state: mobStoreBaseData;
     props: object;

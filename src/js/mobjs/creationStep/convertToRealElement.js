@@ -12,19 +12,19 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.componentParsed
+ * @param {HTMLElement} obj.component
  * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
  * @description
  * Get new element from content ( render ).
- * Prevent accidentally return of element or componentParsed deleted runtime.
+ * Prevent accidentally return of element or component deleted runtime.
  * Check parentNode to insertAdjacentHTML possible error.
  */
-const getNewElement = ({ componentParsed, content }) => {
-    if (componentParsed.parentNode) {
-        componentParsed.insertAdjacentHTML('afterend', content);
-        return /** @type {HTMLElement} */ (componentParsed.nextElementSibling);
+const getNewElement = ({ component, content }) => {
+    if (component.parentNode) {
+        component.insertAdjacentHTML('afterend', content);
+        return /** @type {HTMLElement} */ (component.nextElementSibling);
     }
 
     return;
@@ -139,30 +139,30 @@ const addToSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.componentParsed
+ * @param {HTMLElement} obj.component
  * @param {string} obj.content
  * @returns {HTMLElement|undefined}
  *
  *
  */
-const executeConversion = ({ componentParsed, content }) => {
+const executeConversion = ({ component, content }) => {
     /**
      * @type {string}
      *
      * @description
      * Add real content from render function
      */
-    const prevContent = componentParsed.innerHTML;
-    const newElement = getNewElement({ componentParsed, content });
+    const prevContent = component.innerHTML;
+    const newElement = getNewElement({ component, content });
 
     /**
      * Get inner content and copy data from provvisory component
      */
     if (newElement) {
         // @ts-ignore
-        const id = componentParsed.getId();
+        const id = component.getId();
         // @ts-ignore
-        const delegateEventId = componentParsed.getDelegateEventId();
+        const delegateEventId = component.getDelegateEventId();
 
         /**
          * @description
@@ -199,14 +199,14 @@ const executeConversion = ({ componentParsed, content }) => {
     /**
      * Delete provvisory component and add real component.
      */
-    componentParsed.remove();
+    component.remove();
 
     return newElement;
 };
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.componentParsed
+ * @param {HTMLElement} obj.component
  * @param {string} obj.content
  * @param {boolean|undefined} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
@@ -217,7 +217,7 @@ const executeConversion = ({ componentParsed, content }) => {
  *
  */
 export const convertToRealElement = ({
-    componentParsed,
+    component,
     content,
     isolateCreation,
 }) => {
@@ -228,7 +228,7 @@ export const convertToRealElement = ({
         ? new Promise((resolve) => {
               mobCore.useFrame(() => {
                   const newElement = executeConversion({
-                      componentParsed,
+                      component,
                       content,
                   });
 
@@ -239,7 +239,7 @@ export const convertToRealElement = ({
           })
         : new Promise((resolve) => {
               const newElement = executeConversion({
-                  componentParsed,
+                  component,
                   content,
               });
 

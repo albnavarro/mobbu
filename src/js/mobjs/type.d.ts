@@ -5,7 +5,7 @@ import { mobStoreBaseData } from '../mobCore/store/type';
 export interface componentReturnType {
     id: string;
     content: string;
-    componentParsed: HTMLElement;
+    component: HTMLElement;
 }
 
 export interface componentType {
@@ -664,7 +664,7 @@ export interface componentType {
      * @description
      * Internal use.
      */
-    componentParsed: HTMLElement;
+    component: HTMLElement;
 
     /**
      * @description

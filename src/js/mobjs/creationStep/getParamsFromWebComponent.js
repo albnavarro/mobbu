@@ -12,7 +12,7 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
  * @description
  * Create base DOM component from component tag.
  */
-export const getComponentData = ({ component }) => {
+export const getParamsFromWebComponent = ({ component }) => {
     /**
      * @type {string}
      *

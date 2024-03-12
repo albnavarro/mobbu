@@ -18,7 +18,6 @@ import {
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
-import { addComponentToStore } from '../componentStore/registerComponent';
 import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
@@ -36,64 +35,33 @@ import { addOnMoutCallback } from '../temporaryData/onMount';
 import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
-import { getComponentData } from './getComponentData';
 import { renderHtml } from './utils';
 
 // JSDOC usare inferred type quando possible.
 
 /**
- * @param {object} obj
- * @param {HTMLElement} obj.component
- * @param {object} obj.state
- * @param {boolean} obj.isCancellable
+ * @param {import('./type').getParamsForComponent} obj.state
  * @returns {import('../type').componentType}
  *
  * @description
  * Create component
  * Reuturn all prosps/method for user function.
  */
-export const registerComponent = ({
+export const getParamsForComponentFunction = ({
+    getState,
+    setState,
+    emit,
+    emitAsync,
+    computed,
+    watch,
     component,
-    state = {},
-    isCancellable = true,
+    id,
+    key,
+    dynamicPropsId,
+    dynamicPropsIdFromSlot,
+    currentRepeatValue,
+    bindEventsId,
 }) => {
-    /**
-     * Create basic DOM element
-     */
-    const {
-        component: componentParsed,
-        props: propsUpdated,
-        id,
-        componentName,
-        instanceName,
-        key,
-        dynamicPropsId,
-        dynamicPropsIdFromSlot,
-        currentRepeatValue,
-        bindEventsId,
-        parentId,
-    } = getComponentData({
-        component,
-    });
-
-    /**
-     * Register component to store
-     */
-    const { getState, setState, emit, emitAsync, computed, watch } =
-        addComponentToStore({
-            component,
-            componentParsed,
-            props: propsUpdated,
-            state,
-            destroy: () => {},
-            id,
-            componentName,
-            instanceName,
-            key,
-            isCancellable,
-            parentId,
-        });
-
     /**
      * Update Parent id before render, do child can use immediately parentId.
      */
@@ -133,7 +101,7 @@ export const registerComponent = ({
         bindEventsId,
         key,
         id,
-        componentParsed,
+        component,
         getState,
         setState,
         emit,
@@ -175,7 +143,7 @@ export const registerComponent = ({
             return {
                 id,
                 content: renderHtml(strings, ...values),
-                componentParsed,
+                component,
             };
         },
 
