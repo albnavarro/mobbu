@@ -11,18 +11,33 @@ import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 
 /**
- * @param {HTMLElement} parent
- * @return void
- *
- *
- * @description
- * Remove component to store and destroy it.
+ * @param {Object} param
+ * @param {string|undefined} param.id
+ * @param {string|undefined} param.parentId
+ * @param {string} param.componentName
  */
-// const removeAllChildNodes = (parent) => {
-//     while (parent.firstChild) {
-//         parent.firstChild.remove();
-//     }
-// };
+const removeItselfFromParent = ({ id, parentId, componentName }) => {
+    if (!id) return;
+
+    const value = componentMap.get(parentId ?? '');
+    if (!value) return;
+
+    const { child } = value;
+    if (!parentId || !child) return;
+
+    componentMap.set(parentId, {
+        ...value,
+
+        child: {
+            ...child,
+            ...removeChildFromChildrenArray({
+                currentChild: child,
+                id,
+                componentName,
+            }),
+        },
+    });
+};
 
 /**
  * @param {object} obj
@@ -36,89 +51,47 @@ import { removeChildFromChildrenArray } from '../utils';
 export const removeAndDestroyById = ({ id = '' }) => {
     if (!id || id === '') return;
 
-    const instances = [...componentMap.values()];
+    const instanceValue = componentMap.get(id);
+    if (!instanceValue) return;
 
-    const { componentName, element } =
-        instances.find(({ id: currentId }) => {
-            return currentId === id;
-        }) || {};
-
-    if (!element || !componentName) return;
+    const {
+        parentId,
+        componentName,
+        child,
+        element,
+        state,
+        destroy,
+        parentPropsWatcher,
+    } = instanceValue;
 
     /**
-     * Remove children.
+     * Destroy children.
      */
-    const item = componentMap.get(id);
-    const child = item?.child ?? {};
-    Object.values(child)
+    Object.values(child ?? {})
         .flat()
         .forEach((childId) => {
             removeAndDestroyById({ id: childId });
         });
 
     /**
-     * -------------
-     * Remove id from parent child array.
-     * -------------
+     * Remove itself from parent.
      */
+    removeItselfFromParent({ id, parentId, componentName });
 
     /**
-     * get parent instance filtered by componentName
+     * Destroy
      */
-    const parentInstance = instances.find(({ child }) => {
-        const parentComponentArray = child?.[componentName] ?? [];
-        return parentComponentArray.includes(id);
-    });
+    destroy();
+    state.destroy();
+
+    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+    removeRepeaterComponentTargetByParentId({ id });
 
     /**
-     * get parentId, and remove id from parent
+     * Secure check: remove orphas reference from mainStore
      */
-    const parentId = parentInstance?.id;
-
-    for (const [key, value] of componentMap) {
-        const { child } = value;
-        if (!child) break;
-
-        if (key === parentId) {
-            componentMap.set(key, {
-                ...value,
-
-                child: {
-                    ...child,
-                    ...removeChildFromChildrenArray({
-                        currentChild: child,
-                        id,
-                        componentName,
-                    }),
-                },
-            });
-        }
-
-        if (key === id) {
-            const { state, destroy, parentPropsWatcher } = value;
-
-            destroy();
-            state.destroy();
-            if (parentPropsWatcher)
-                parentPropsWatcher.forEach((unwatch) => unwatch());
-            removeRepeaterComponentTargetByParentId({ id: key });
-
-            /**
-             * Secure check: remove orphas reference from mainStore
-             */
-            removeCurrentIdToDynamicProps({ componentId: key });
-        }
-    }
-
+    removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
-
-    /**
-     * Remove all inner node before remove element.
-     * here we remove event handlers.
-     * Prevent memory leaks.
-     * Should not necessary on modern browser.
-     */
-    // removeAllChildNodes(element);
 
     /**
      * Remove component from dom

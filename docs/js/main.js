@@ -5759,52 +5759,52 @@
   };
 
   // src/js/mobjs/componentStore/action/removeAndDestroy.js
+  var removeItselfFromParent = ({ id, parentId, componentName }) => {
+    if (!id)
+      return;
+    const value = componentMap.get(parentId ?? "");
+    if (!value)
+      return;
+    const { child: child2 } = value;
+    if (!parentId || !child2)
+      return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...removeChildFromChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
+      }
+    });
+  };
   var removeAndDestroyById = ({ id = "" }) => {
     if (!id || id === "")
       return;
-    const instances = [...componentMap.values()];
-    const { componentName, element } = instances.find(({ id: currentId }) => {
-      return currentId === id;
-    }) || {};
-    if (!element || !componentName)
+    const instanceValue = componentMap.get(id);
+    if (!instanceValue)
       return;
-    const item = componentMap.get(id);
-    const child2 = item?.child ?? {};
-    Object.values(child2).flat().forEach((childId) => {
+    const {
+      parentId,
+      componentName,
+      child: child2,
+      element,
+      state,
+      destroy,
+      parentPropsWatcher
+    } = instanceValue;
+    Object.values(child2 ?? {}).flat().forEach((childId) => {
       removeAndDestroyById({ id: childId });
     });
-    const parentInstance = instances.find(({ child: child3 }) => {
-      const parentComponentArray = child3?.[componentName] ?? [];
-      return parentComponentArray.includes(id);
-    });
-    const parentId = parentInstance?.id;
-    for (const [key, value] of componentMap) {
-      const { child: child3 } = value;
-      if (!child3)
-        break;
-      if (key === parentId) {
-        componentMap.set(key, {
-          ...value,
-          child: {
-            ...child3,
-            ...removeChildFromChildrenArray({
-              currentChild: child3,
-              id,
-              componentName
-            })
-          }
-        });
-      }
-      if (key === id) {
-        const { state, destroy, parentPropsWatcher } = value;
-        destroy();
-        state.destroy();
-        if (parentPropsWatcher)
-          parentPropsWatcher.forEach((unwatch) => unwatch());
-        removeRepeaterComponentTargetByParentId({ id: key });
-        removeCurrentIdToDynamicProps({ componentId: key });
-      }
-    }
+    removeItselfFromParent({ id, parentId, componentName });
+    destroy();
+    state.destroy();
+    if (parentPropsWatcher)
+      parentPropsWatcher.forEach((unwatch) => unwatch());
+    removeRepeaterComponentTargetByParentId({ id });
+    removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
     element?.remove();
