@@ -8,16 +8,24 @@ import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';
 import { executeFireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
-import { applyDynamicProps } from '../temporaryData/dynamicProps';
+import {
+    addCurrentIdToDynamicProps,
+    applyDynamicProps,
+} from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
 import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { getParamsForComponentFunction } from '../creationStep/getParamsForComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
-import { addSelfIdToFutureComponent } from '../componentStore/action/parent';
+import {
+    addSelfIdToFutureComponent,
+    addSelfToParentComponent,
+    setParentsComponent,
+} from '../componentStore/action/parent';
 import { getRefs } from '../temporaryData/refs';
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 import { getParamsFromWebComponent } from '../creationStep/getParamsFromWebComponent';
 import { addComponentToStore } from '../componentStore/addComponentToStore';
+import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
 
 /**
  * @param {object} obj
@@ -171,6 +179,37 @@ export const parseComponentsRecursive = async ({
         });
 
     /**
+     * Update Parent id before render, do child can use immediately parentId.
+     */
+    setParentsComponent({ componentId: id });
+
+    /**
+     * Update to parent component child array.
+     */
+    addSelfToParentComponent({ id });
+
+    /**
+     * Set initial repate list current value to pass to dynamicProps.
+     * When component is created.
+     */
+    if (currentRepeatValue?.index !== -1)
+        setRepeaterStateById({ id, value: currentRepeatValue });
+
+    /**
+     * Initialize dynamic props and
+     * set initial state.
+     */
+    addCurrentIdToDynamicProps({
+        propsId: dynamicPropsId,
+        componentId: id,
+    });
+
+    addCurrentIdToDynamicProps({
+        propsId: dynamicPropsIdFromSlot,
+        componentId: id,
+    });
+
+    /**
      * Prepare params for component function
      */
     const objectFromComponentFunction = getParamsForComponentFunction({
@@ -182,9 +221,6 @@ export const parseComponentsRecursive = async ({
         watch,
         id,
         key,
-        dynamicPropsId,
-        dynamicPropsIdFromSlot,
-        currentRepeatValue,
         bindEventsId,
     });
 

@@ -2,16 +2,11 @@
 
 import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
-import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
 import {
     freezePropById,
     unFreezePropById,
 } from '../componentStore/action/freeze';
-import {
-    addSelfToParentComponent,
-    getParentIdById,
-    setParentsComponent,
-} from '../componentStore/action/parent';
+import { getParentIdById } from '../componentStore/action/parent';
 import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
 import {
     removeAndDestroyById,
@@ -27,17 +22,12 @@ import {
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { setBindEvents } from '../temporaryData/bindEvents';
-import {
-    addCurrentIdToDynamicProps,
-    setBindProps,
-} from '../temporaryData/dynamicProps';
+import { setBindProps } from '../temporaryData/dynamicProps';
 import { addOnMoutCallback } from '../temporaryData/onMount';
 import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
 import { renderHtml } from './utils';
-
-// JSDOC usare inferred type quando possible.
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -56,45 +46,12 @@ export const getParamsForComponentFunction = ({
     watch,
     id,
     key,
-    dynamicPropsId,
-    dynamicPropsIdFromSlot,
-    currentRepeatValue,
     bindEventsId,
 }) => {
     /**
-     * Update Parent id before render, do child can use immediately parentId.
+     * Initialize repeatId collector.
      */
-    setParentsComponent({ componentId: id });
-
-    /**
-     * Update to parent component child array.
-     */
-    addSelfToParentComponent({ id });
-
     const repeatIdArray = [];
-    const getChildren = (/** @type {string} */ componentName) =>
-        getChildrenIdByName({ id, componentName });
-
-    /**
-     * Set initial repate list current value to pass to dynamicProps.
-     * When component is created.
-     */
-    if (currentRepeatValue?.index !== -1)
-        setRepeaterStateById({ id, value: currentRepeatValue });
-
-    /**
-     * Initialize dynamic props and
-     * set initial state.
-     */
-    addCurrentIdToDynamicProps({
-        propsId: dynamicPropsId,
-        componentId: id,
-    });
-
-    addCurrentIdToDynamicProps({
-        propsId: dynamicPropsIdFromSlot,
-        componentId: id,
-    });
 
     return {
         bindEventsId,
@@ -107,7 +64,9 @@ export const getParamsForComponentFunction = ({
         computed,
         watch,
         repeatIdArray,
-        getChildren,
+        getChildren: (/** @type{string} */ componentName) => {
+            return getChildrenIdByName({ id, componentName });
+        },
         watchSync: (state, callback) => {
             const unsubscribe = watch(state, callback);
             emit(state);
@@ -171,7 +130,9 @@ export const getParamsForComponentFunction = ({
                     clean,
                     beforeUpdate,
                     afterUpdate,
-                    getChildren,
+                    getChildren: (/** @type{string} */ componentName) => {
+                        return getChildrenIdByName({ id, componentName });
+                    },
                     key,
                     id,
                     render,

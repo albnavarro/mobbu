@@ -6679,25 +6679,9 @@
     watch,
     id,
     key,
-    dynamicPropsId,
-    dynamicPropsIdFromSlot,
-    currentRepeatValue,
     bindEventsId
   }) => {
-    setParentsComponent({ componentId: id });
-    addSelfToParentComponent({ id });
     const repeatIdArray = [];
-    const getChildren = (componentName) => getChildrenIdByName({ id, componentName });
-    if (currentRepeatValue?.index !== -1)
-      setRepeaterStateById({ id, value: currentRepeatValue });
-    addCurrentIdToDynamicProps({
-      propsId: dynamicPropsId,
-      componentId: id
-    });
-    addCurrentIdToDynamicProps({
-      propsId: dynamicPropsIdFromSlot,
-      componentId: id
-    });
     return {
       bindEventsId,
       key,
@@ -6709,7 +6693,9 @@
       computed,
       watch,
       repeatIdArray,
-      getChildren,
+      getChildren: (componentName) => {
+        return getChildrenIdByName({ id, componentName });
+      },
       watchSync: (state, callback2) => {
         const unsubscribe3 = watch(state, callback2);
         emit(state);
@@ -6774,7 +6760,9 @@
             clean: clean2,
             beforeUpdate,
             afterUpdate,
-            getChildren,
+            getChildren: (componentName) => {
+              return getChildrenIdByName({ id, componentName });
+            },
             key: key2,
             id,
             render: render2
@@ -6986,6 +6974,18 @@
       isCancellable,
       parentId
     });
+    setParentsComponent({ componentId: id });
+    addSelfToParentComponent({ id });
+    if (currentRepeatValue?.index !== -1)
+      setRepeaterStateById({ id, value: currentRepeatValue });
+    addCurrentIdToDynamicProps({
+      propsId: dynamicPropsId,
+      componentId: id
+    });
+    addCurrentIdToDynamicProps({
+      propsId: dynamicPropsIdFromSlot,
+      componentId: id
+    });
     const objectFromComponentFunction = getParamsForComponentFunction({
       getState,
       setState,
@@ -6995,9 +6995,6 @@
       watch,
       id,
       key,
-      dynamicPropsId,
-      dynamicPropsIdFromSlot,
-      currentRepeatValue,
       bindEventsId
     });
     const content2 = await userFunctionComponent(objectFromComponentFunction);

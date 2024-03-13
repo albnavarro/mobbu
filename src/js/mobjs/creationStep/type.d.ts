@@ -17,8 +17,5 @@ export interface componentDataType {
 export interface getParamsForComponent extends componentStoreReturnType {
     id: string;
     key: string;
-    dynamicPropsId: string | undefined;
-    dynamicPropsIdFromSlot: string | undefined;
-    currentRepeatValue: any;
     bindEventsId: string | undefined;
 }
