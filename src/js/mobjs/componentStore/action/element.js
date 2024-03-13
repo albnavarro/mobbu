@@ -78,14 +78,36 @@ export const getElementByKeyInContainer = ({
 }) => {
     if (!key || key === '') return;
 
-    const instance = [...componentMap.values()].find(
-        ({ key: currentKey, parentId: currentParentId, element }) =>
-            currentKey === key &&
-            currentParentId === parentId &&
-            container.contains(element)
-    );
+    const value = componentMap.get(parentId ?? '');
+    if (!value) return;
 
-    const element = instance?.element;
+    const { child } = value;
+    if (!child) return;
+
+    /**
+     * Search in parent component a component that:
+     * - is inside container
+     * - has specific key.
+     */
+    const targetId =
+        Object.values(child ?? {})
+            .flat()
+            .find((id) => {
+                const value = componentMap.get(id);
+                if (!value) return;
+
+                const { element, key: currentKey } = value;
+                return container.contains(element) && currentKey === key;
+            }) ?? '';
+
+    /**
+     * Get HTMLElement
+     */
+    const targetValue = componentMap.get(targetId);
+    if (!targetValue) return;
+
+    const { element } = targetValue;
+
     if (!element) {
         console.warn(`getElementByKey failed no element found`);
         return;

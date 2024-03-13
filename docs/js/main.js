@@ -4594,10 +4594,23 @@
   }) => {
     if (!key || key === "")
       return;
-    const instance = [...componentMap.values()].find(
-      ({ key: currentKey, parentId: currentParentId, element: element2 }) => currentKey === key && currentParentId === parentId && container.contains(element2)
-    );
-    const element = instance?.element;
+    const value = componentMap.get(parentId ?? "");
+    if (!value)
+      return;
+    const { child: child2 } = value;
+    if (!child2)
+      return;
+    const targetId = Object.values(child2 ?? {}).flat().find((id) => {
+      const value2 = componentMap.get(id);
+      if (!value2)
+        return;
+      const { element: element2, key: currentKey } = value2;
+      return container.contains(element2) && currentKey === key;
+    }) ?? "";
+    const targetValue = componentMap.get(targetId);
+    if (!targetValue)
+      return;
+    const { element } = targetValue;
     if (!element) {
       console.warn(`getElementByKey failed no element found`);
       return;
