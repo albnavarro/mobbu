@@ -34,33 +34,32 @@ export const getParentIdById = (id = '') => {
  * Update child id.
  * From current component id get parentID and then add to parent child id
  */
-export const addSelfToParentComponent = ({ id = '' }) => {
+export const addSelfIdToParentComponent = ({ id = '' }) => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
     const parentId = item?.parentId;
+
     const componentName = item?.componentName ?? '';
     if (!parentId) return;
 
-    for (const [key, value] of componentMap) {
-        const { child } = value;
-        if (!child) break;
+    const value = componentMap.get(parentId);
+    if (!value) return;
 
-        if (key === parentId) {
-            componentMap.set(key, {
-                ...value,
+    const { child } = value;
+    if (!child) return;
 
-                child: {
-                    ...child,
-                    ...updateChildrenArray({
-                        currentChild: child,
-                        id,
-                        componentName,
-                    }),
-                },
-            });
-        }
-    }
+    componentMap.set(parentId, {
+        ...value,
+        child: {
+            ...child,
+            ...updateChildrenArray({
+                currentChild: child,
+                id,
+                componentName,
+            }),
+        },
+    });
 };
 
 /**
@@ -69,7 +68,7 @@ export const addSelfToParentComponent = ({ id = '' }) => {
  * @description
  * Set a reference to parent component id for each component.
  */
-export const setParentsComponent = ({ componentId }) => {
+export const setParentsIdFallback = ({ componentId }) => {
     const item = componentMap.get(componentId);
     if (!item) return;
 

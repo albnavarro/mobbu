@@ -4885,7 +4885,7 @@
     }
     return parentId;
   };
-  var addSelfToParentComponent = ({ id = "" }) => {
+  var addSelfIdToParentComponent = ({ id = "" }) => {
     if (!id || id === "")
       return;
     const item = componentMap.get(id);
@@ -4893,26 +4893,25 @@
     const componentName = item?.componentName ?? "";
     if (!parentId)
       return;
-    for (const [key, value] of componentMap) {
-      const { child: child2 } = value;
-      if (!child2)
-        break;
-      if (key === parentId) {
-        componentMap.set(key, {
-          ...value,
-          child: {
-            ...child2,
-            ...updateChildrenArray({
-              currentChild: child2,
-              id,
-              componentName
-            })
-          }
-        });
+    const value = componentMap.get(parentId);
+    if (!value)
+      return;
+    const { child: child2 } = value;
+    if (!child2)
+      return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...updateChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
       }
-    }
+    });
   };
-  var setParentsComponent = ({ componentId }) => {
+  var setParentsIdFallback = ({ componentId }) => {
     const item = componentMap.get(componentId);
     if (!item)
       return;
@@ -6974,8 +6973,8 @@
       isCancellable,
       parentId
     });
-    setParentsComponent({ componentId: id });
-    addSelfToParentComponent({ id });
+    setParentsIdFallback({ componentId: id });
+    addSelfIdToParentComponent({ id });
     if (currentRepeatValue?.index !== -1)
       setRepeaterStateById({ id, value: currentRepeatValue });
     addCurrentIdToDynamicProps({

@@ -18,8 +18,8 @@ import { getParamsForComponentFunction } from '../creationStep/getParamsForCompo
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import {
     addSelfIdToFutureComponent,
-    addSelfToParentComponent,
-    setParentsComponent,
+    addSelfIdToParentComponent,
+    setParentsIdFallback,
 } from '../componentStore/action/parent';
 import { getRefs } from '../temporaryData/refs';
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
@@ -186,12 +186,12 @@ export const parseComponentsRecursive = async ({
      *
      *  This is only a fallback.
      */
-    setParentsComponent({ componentId: id });
+    setParentsIdFallback({ componentId: id });
 
     /**
      * Update to parent component child array.
      */
-    addSelfToParentComponent({ id });
+    addSelfIdToParentComponent({ id });
 
     /**
      * Set initial repate list current value to pass to dynamicProps.
