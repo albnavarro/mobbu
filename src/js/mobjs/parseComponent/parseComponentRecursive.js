@@ -180,6 +180,11 @@ export const parseComponentsRecursive = async ({
 
     /**
      * Update Parent id before render, do child can use immediately parentId.
+     * This step is necessary only if component come without parentId
+     * - In normal mode ( no repeat ) addSelfIdToFutureComponent() assign parent id before render
+     * - Repeater coem with parentId 'precompiled'
+     *
+     *  This is only a fallback.
      */
     setParentsComponent({ componentId: id });
 
@@ -246,8 +251,9 @@ export const parseComponentsRecursive = async ({
     const refsCollection = newElement ? getRefs(newElement) : {};
 
     /**
+     * Set parentId to component inside current.
      * Add self id to future component.
-     * If id is assigned to component nested in next cycle will be override.
+     * If id is assigned to component nested in next cycle will be override by current component.
      */
     addSelfIdToFutureComponent({ element: newElement, id });
 
