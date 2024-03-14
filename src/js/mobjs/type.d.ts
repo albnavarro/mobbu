@@ -666,6 +666,28 @@ export interface componentType {
     repeatIdArray: string[];
 }
 
+interface webComponentParmas {
+    componentId: string;
+    emit(prop: string): void;
+    emitAsync(prop: string): Promise<{ success: boolean }>;
+    freezeProp(prop: string): void;
+    getChildren(componentName: string): Array<string>;
+    getParentId(): string | undefined;
+    getState(arg0: string): any;
+    remove: () => void;
+    setState(
+        prop: string,
+        newValue: any,
+        fireCallback?: boolean,
+        clone?: boolean
+    ): void;
+    unBind: (arg0: { id: string }) => void;
+    unFreezeProp(prop: string): void;
+    watch(prop: string, callback: () => void): void;
+    watchSync(prop: string, callback: () => void): void;
+    watchParent(prop: string, callback: () => void): void;
+}
+
 export interface componentParsedType {
     exportState: string[];
 
@@ -692,32 +714,23 @@ export interface componentParsedType {
      * `default = false`.
      */
     scoped?: boolean;
-    constructorCallback?: ({ context: {} }) => void;
-    connectedCallback?: ({ context: {}, data: {} }) => void;
-    disconnectedCallback?: ({ context: {}, data: {} }) => void;
-    adoptedCallback?: ({ context: {}, data: {} }) => void;
-    attributeChangedCallback?: {
+    constructorCallback?: (arg0: { context: {} }) => void;
+    connectedCallback?: (arg0: {
+        context: {};
+        data: webComponentParmas;
+    }) => void;
+    disconnectedCallback?: (arg0: {
+        context: {};
+        data: webComponentParmas;
+    }) => void;
+    adoptedCallback?: (arg0: { context: {}; data: webComponentParmas }) => void;
+    attributeChangedCallback?: (arg0: {
         name: string;
         oldValue: string;
         newValue: string;
         context: object;
-        data: {
-            componentId: string;
-            emit: (arg0: string) => void;
-            emitAsync: () => void;
-            freezeProp: () => void;
-            getChildren: () => void;
-            getParentId: () => void;
-            getState: () => void;
-            remove: () => void;
-            setState: () => void;
-            unBind: () => void;
-            unFreezeProp: () => void;
-            watch: () => void;
-            watchSync: () => void;
-            watchParent: () => void;
-        };
-    };
+        data: webComponentParmas;
+    }) => void;
     attributeToObserve?: string[];
     style?: string;
     state: mobStoreBaseData;
