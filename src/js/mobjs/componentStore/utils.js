@@ -20,8 +20,8 @@ export const updateChildrenArray = ({
     id = '',
     componentName = '',
 }) => {
-    const arr = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...arr, id];
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = [...childGroupByName, id];
     return currentChild;
 };
 
@@ -44,8 +44,8 @@ export const removeChildFromChildrenArray = ({
     id = '',
     componentName = '',
 }) => {
-    const arr = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = arr.filter(
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = childGroupByName.filter(
         (/** @type {string} */ currentId) => {
             return id !== currentId;
         }
