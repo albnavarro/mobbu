@@ -1,6 +1,7 @@
 import {
     componentMap,
     eventDelegationMap,
+    getTree,
     mainStore,
     tempDelegateEventMap,
 } from '../../../mobjs';
@@ -24,8 +25,8 @@ export const DebugButton = ({ html, delegateEvents }) => {
             ${delegateEvents({
                 click: () => {
                     mainStore.debugStore();
-                    console.log(mainStore);
-                    console.log(componentMap);
+                    console.log('componentMap', componentMap);
+                    console.log('Tree structure:', getTree());
                     console.log('bindEventMap', bindEventMap);
                     console.log('currentListValueMap', currentRepeaterValueMap);
                     console.log('activeRepeatMap', activeRepeatMap);

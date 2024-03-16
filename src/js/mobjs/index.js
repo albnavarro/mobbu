@@ -24,6 +24,7 @@ export { getComponentNameById } from './componentStore/action/component';
 export { getParentIdById } from './componentStore/action/parent';
 export { staticProps } from './utils';
 export { tick } from './componentStore/tick';
+export { getTree } from './componentStore/action/getTree';
 export {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
