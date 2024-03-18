@@ -2,6 +2,7 @@
 
 import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
+import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
     unFreezePropById,
@@ -16,11 +17,12 @@ import { watchById } from '../componentStore/action/watch';
 import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
-    ATTR_PARENT_ID,
     ATTR_PROPS,
     ATTR_REPEATID,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
+import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
+import { mainStore } from '../mainStore/mainStore';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setBindProps } from '../temporaryData/dynamicProps';
 import { addOnMoutCallback } from '../temporaryData/onMount';
@@ -64,6 +66,16 @@ export const getParamsForComponentFunction = ({
         computed,
         watch,
         repeatIdArray,
+        parseDom: async (element) => {
+            const elementToParse = element ?? getElementById({ id });
+
+            mainStore.set(
+                MAIN_STORE_REPEATER_PARSER_ROOT,
+                { element: elementToParse, parentId: id },
+                false
+            );
+            return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+        },
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });
         },
@@ -82,7 +94,6 @@ export const getParamsForComponentFunction = ({
             })}" `;
         },
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
-        syncParent: ` ${ATTR_PARENT_ID}="${id}" `,
         remove: () => {
             removeAndDestroyById({ id });
             removeOrphanComponent();

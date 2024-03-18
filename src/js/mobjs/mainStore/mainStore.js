@@ -41,8 +41,16 @@ export const mainStore = mobCore.createStore({
         value: false,
         type: Boolean,
     }),
-    [MAIN_STORE_REPEATER_PARSER_ROOT]: () => ({
-        value: document.createElement('div'),
-        type: HTMLElement,
-    }),
+    [MAIN_STORE_REPEATER_PARSER_ROOT]: {
+        element: () => ({
+            value: document.createElement('div'),
+            type: HTMLElement,
+            skipEqual: false,
+        }),
+        parentId: () => ({
+            value: '',
+            type: String,
+            skipEqual: false,
+        }),
+    },
 });

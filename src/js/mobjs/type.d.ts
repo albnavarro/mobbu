@@ -252,24 +252,6 @@ export interface componentType {
     staticProps(arg0: { [key: string]: any }): string;
 
     /**
-     *
-     * @description
-     * Add to runtime component added manually parentId
-     * Necessary to use bindProps.
-     *
-     * @example
-     * ```javascript
-     * const myRuntimeComponent = html`<MyComponent
-     *     ${syncParent}
-     * ></MyComponent>`
-     *
-     * parentEl.insertAdjacentHTML('afterbegin', myRuntimeComponent);
-     * await parseDom(descriptionEl);
-     * ```
-     */
-    syncParent: string;
-
-    /**
      * @example
      * ```javascript
      * unBind()
@@ -664,6 +646,13 @@ export interface componentType {
      * List if repeater id inside a single component
      */
     repeatIdArray: string[];
+
+    /**
+     * @description
+     * Parse node with component to render.
+     * The function receives as an argument the root element to be parsed, if no element is supplied the root of the component will be used.
+     */
+    parseDom: (arg0?: HTMLElement) => Promise<any>;
 }
 
 interface webComponentParmas {

@@ -373,8 +373,7 @@
                     "<a href='./#mobJs_freezeProp'>freezeProp</a>",
                     "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>",
                     "<a href='./#mobJs_getParentId'>getParentId</a>",
-                    "<a href='./#mobJs_watchParent'>watchParent</a>",
-                    "<a href='./#mobJs_syncParent'>syncParent</a>"
+                    "<a href='./#mobJs_watchParent'>watchParent</a>"
                 ]
             }
         },

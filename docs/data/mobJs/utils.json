@@ -374,28 +374,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
-                "id": "parseDom",
-                "label": "parseDom"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "parseDom"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Render component inside a node."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "style": "small"
             }
         },

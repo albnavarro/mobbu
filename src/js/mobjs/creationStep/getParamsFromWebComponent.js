@@ -7,12 +7,13 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
+ * @param {string|undefined} obj.parentIdForced
  * @returns {import('./type').componentDataType}
  *
  * @description
  * Create base DOM component from component tag.
  */
-export const getParamsFromWebComponent = ({ element }) => {
+export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     /**
      * @type {string}
      *
@@ -30,7 +31,12 @@ export const getParamsFromWebComponent = ({ element }) => {
      * @type {string}
      */
     // @ts-ignore
-    const parentId = element.getParentId();
+    // const parentId = element.getParentId();
+    const parentId =
+        parentIdForced && parentIdForced.length > 0
+            ? parentIdForced
+            : // @ts-ignore
+              element.getParentId();
 
     /**
      * @type {string|undefined}

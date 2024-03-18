@@ -308,11 +308,6 @@
                     "label": "watchParent",
                     "scrollToSection": "mobJs",
                     "url": "mobJs_watchParent"
-                },
-                {
-                    "label": "syncParent",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs_syncParent"
                 }
             ]
         },

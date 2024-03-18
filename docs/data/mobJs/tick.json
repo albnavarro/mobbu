@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Asynchronous function that waits until all reactive props ( bindProps ) and all repeaters of the entire app have been computed."
+            "content": "Asynchronous function that waits until all reactive props ( bindProps ), all repeaters and runtime component of the entire app have been computed."
         },
         {
             "component": "mob-paragraph",

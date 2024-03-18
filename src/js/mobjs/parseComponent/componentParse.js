@@ -1,5 +1,7 @@
 // @ts-check
 
+import { incrementTickQueuque } from '../componentStore/tick';
+import { QUEQUE_TYPE_PARSE_WATCH_ASYNC } from '../constant';
 import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
@@ -9,17 +11,23 @@ import { parseComponentsRecursive } from './parseComponentRecursive';
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
+ * @param {string} [ obj.parentIdForced ]
  * @return {Promise<void>} A promise to the token.
  *
  * @description
  */
-export const parseComponents = async ({ element, isCancellable = true }) => {
+export const parseComponents = async ({
+    element,
+    isCancellable = true,
+    parentIdForced,
+}) => {
     incrementParserCounter();
 
     await parseComponentsRecursive({
         element,
         isCancellable,
         currentIterationCounter: 0,
+        parentIdForced,
     });
 };
 
@@ -31,11 +39,22 @@ export const parseComponents = async ({ element, isCancellable = true }) => {
  * @returns {void}
  */
 export const initParseWatcher = () => {
-    mainStore.watch(MAIN_STORE_REPEATER_PARSER_ROOT, async (element) => {
-        await parseComponents({
-            element,
-        });
-    });
+    mainStore.watch(
+        MAIN_STORE_REPEATER_PARSER_ROOT,
+        async ({ element, parentId }) => {
+            const decrementQueqe = incrementTickQueuque({
+                element,
+                type: QUEQUE_TYPE_PARSE_WATCH_ASYNC,
+            });
+
+            await parseComponents({
+                element,
+                parentIdForced: parentId,
+            });
+
+            decrementQueqe();
+        }
+    );
 };
 
 /**

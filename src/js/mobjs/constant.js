@@ -94,3 +94,8 @@ export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
  * @type {string};
  */
 export const QUEQUE_TYPE_REPEATER = 'QUEQUE_REPEATER';
+
+/**
+ * @type {string};
+ */
+export const QUEQUE_TYPE_PARSE_WATCH_ASYNC = 'PARSE_WATCH_ASYNC';

@@ -7,6 +7,7 @@ import { componentMap } from '../store';
  * @param {[string, import('../type').componentStoreTypes][]} param.chunk
  */
 const getTreeRecursive = ({ chunk }) => {
+    // @ts-ignore
     return chunk.reduce((previous, current) => {
         const [key, value] = current;
         const { child, componentName, instanceName } = value;

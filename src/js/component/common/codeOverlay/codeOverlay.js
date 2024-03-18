@@ -4,8 +4,8 @@ import {
     html,
     mainStore,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
-    parseDom,
     staticProps,
+    tick,
 } from '../../../mobjs';
 
 const copyToClipboard = ({ getState }) => {
@@ -18,13 +18,14 @@ function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
         <code-overlay-button
             ${sync}
             ${bindProps({
-                bind: ['currentButtonState'],
-                props: ({ currentButtonState, _current }) => {
+                bind: ['activeContent'],
+                props: ({ activeContent, _current }) => {
                     const { label, source } = _current;
+
                     return {
                         key: label,
                         disable: !source || source.length === 0,
-                        selected: label === currentButtonState,
+                        selected: label === activeContent,
                     };
                 },
             })}
@@ -46,7 +47,7 @@ const printContent = async ({
     currentKey,
     updateScroller,
     goToTop,
-    syncParent,
+    parseDom,
 }) => {
     const { urls } = getState();
     const currentItem = urls.find(({ label }) => {
@@ -63,10 +64,9 @@ const printContent = async ({
 
     const htmlComponent = html`<html-content
         ${staticProps({ source, useMinHeight: true })}
-        ${syncParent}
     ></html-content>`;
     codeEl.insertAdjacentHTML('afterbegin', htmlComponent);
-    await parseDom(codeEl);
+    await parseDom();
 
     /**
      * Save raw data.
@@ -81,7 +81,6 @@ const printContent = async ({
  * Clean content DOM
  */
 const cleanDom = ({ codeEl, removeDOM }) => {
-    codeEl.textContent = '';
     const descriptionElChild = codeEl.firstElementChild;
 
     /**
@@ -102,10 +101,9 @@ export const CodeOverlay = ({
     bindProps,
     delegateEvents,
     staticProps,
-    computed,
     watch,
     removeDOM,
-    syncParent,
+    parseDom,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
@@ -125,43 +123,9 @@ export const CodeOverlay = ({
         });
 
         /**
-         * Update button active state when after mutation of
-         * urls and activeContent.
-         * Is necessary or first selected.
-         * ( urls and and activeContent canghe together ).
-         */
-        computed(
-            'currentButtonState',
-            ['urls', 'activeContent'],
-            (urls, activeContent) => {
-                /**
-                 * Open/Close overlay.
-                 */
-                const shouldOpen = urls.length > 0;
-
-                if (shouldOpen) {
-                    element.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    element.classList.remove('active');
-                    document.body.style.overflow = '';
-                    cleanDom({ codeEl, removeDOM });
-
-                    /**
-                     * Reset buttons state on overlay close.
-                     */
-                    setState('activeContent', '');
-                    goToTop();
-                }
-
-                return activeContent;
-            }
-        );
-
-        /**
          * Update current content.
          */
-        const unWatchActiveContent = watch('activeContent', (currentKey) => {
+        watch('activeContent', (currentKey) => {
             cleanDom({ codeEl, removeDOM });
 
             printContent({
@@ -172,13 +136,49 @@ export const CodeOverlay = ({
                 updateScroller,
                 goToTop,
                 staticProps,
-                syncParent,
+                parseDom,
             });
         });
 
-        return () => {
-            unWatchActiveContent();
-        };
+        /**
+         * Open/Close overlay when the database change.
+         */
+        watch('urls', async (urls) => {
+            /**
+             * Await repeater completed the parse than update active content with first item.
+             */
+            await tick();
+
+            /**
+             * Check if should open or close
+             */
+            const shouldOpen = urls.length > 0;
+
+            if (shouldOpen) {
+                element.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                /**
+                 * Get first active item.
+                 */
+                const firstActiveItem = urls?.[0]?.label;
+                if (!firstActiveItem) return;
+
+                setState('activeContent', firstActiveItem);
+                return;
+            }
+
+            element.classList.remove('active');
+            document.body.style.overflow = '';
+
+            /**
+             * Reset buttons state on overlay close.
+             */
+            setState('activeContent', '');
+            goToTop();
+        });
+
+        return () => {};
     });
 
     return html`

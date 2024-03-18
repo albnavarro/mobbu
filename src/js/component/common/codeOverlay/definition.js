@@ -26,11 +26,6 @@ export const codeOverlayDef = createComponent({
             value: '',
             type: String,
         }),
-        currentButtonState: () => ({
-            value: String,
-            type: '',
-            skipEqual: true,
-        }),
     },
 });
 

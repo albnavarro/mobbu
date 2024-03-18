@@ -34,6 +34,7 @@ import { setRepeaterStateById } from '../componentStore/action/currentRepeatValu
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<Element>} [ obj.currentSelectors ]
+ * @param {string} [ obj.parentIdForced ]
  * @return {Promise<void>}
  *
  * @description
@@ -45,6 +46,7 @@ export const parseComponentsRecursive = async ({
     isCancellable = true,
     currentIterationCounter = 0,
     currentSelectors = [],
+    parentIdForced,
 }) => {
     if (!element) return;
 
@@ -154,6 +156,7 @@ export const parseComponentsRecursive = async ({
     } = getParamsFromWebComponent({
         // @ts-ignore
         element: componentToParse,
+        parentIdForced,
     });
 
     /**

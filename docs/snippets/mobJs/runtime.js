@@ -1,14 +1,12 @@
-import { parseDom } from '../mobjs';
-
 /**
  * @param {import("../mobjs/type").componentType}
  */
 export const MyComponent = ({
     html,
     onMount,
-    syncParent,
     bindProps,
     removeDOM,
+    parseDom,
 }) => {
     onMount(async ({ refs }) => {
         const { container, button } = refs;
@@ -25,7 +23,6 @@ export const MyComponent = ({
                     };
                 },
             })}
-            ${syncParent}
         ></runtime-component>`;
 
         container.insertAdjacentHTML('afterbegin', runTimeComponent);

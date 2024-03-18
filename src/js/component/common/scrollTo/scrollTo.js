@@ -48,7 +48,6 @@ export const ScrollTo = ({
     html,
     onMount,
     delegateEvents,
-    syncParent,
     staticProps,
     bindProps,
     setState,
@@ -93,7 +92,6 @@ export const ScrollTo = ({
                         return addScrollButton({
                             html,
                             delegateEvents,
-                            syncParent,
                             staticProps,
                             bindProps,
                             setState,

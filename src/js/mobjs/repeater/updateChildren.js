@@ -69,7 +69,7 @@ export const updateChildren = async ({
      */
     mainStore.set(
         MAIN_STORE_REPEATER_PARSER_ROOT,
-        repeaterParentElement,
+        { element: repeaterParentElement, parentId: id },
         false
     );
     await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
