@@ -114,7 +114,6 @@ La constante `sync` resituita dalla funzione `render` del repeater contiene i ri
 key="start"
 currentlistvalue="_6rofyuf"
 repeaterchild="_c9lznhd"
-parentid="_hegws76"
 ```
 
 - `key`: chiave univoca dell'array osservato.
@@ -156,9 +155,6 @@ parentid="_hegws76"
             id: repeatId,
         });
         ```
-    <br/>
-    <br/>
-- `parentid`: parent id ( il componente in cui il repeater viene usato ).<br/> Utilizzato per tutte le operazioni di ruotine nella creazione dei componenti.
 <br/>
 <br/>
 

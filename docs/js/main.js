@@ -4638,6 +4638,7 @@
   var DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
   var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
+  var QUEQUE_TYPE_PARSE_WATCH_ASYNC = "PARSE_WATCH_ASYNC";
 
   // src/js/mobjs/mainStore/root.js
   var root = document.createElement("div");
@@ -7175,10 +7176,15 @@
     mainStore.watch(
       MAIN_STORE_REPEATER_PARSER_ROOT,
       async ({ element, parentId }) => {
+        const decrementQueqe = incrementTickQueuque({
+          element,
+          type: QUEQUE_TYPE_PARSE_WATCH_ASYNC
+        });
         await parseComponents({
           element,
           parentIdForced: parentId
         });
+        decrementQueqe();
       }
     );
   };
@@ -16947,7 +16953,6 @@
     goToTop();
   };
   var cleanDom = ({ codeEl, removeDOM }) => {
-    codeEl.textContent = "";
     const descriptionElChild = codeEl.firstElementChild;
     if (descriptionElChild)
       removeDOM(descriptionElChild);
@@ -16992,21 +16997,21 @@
         });
       });
       watch("urls", async (urls) => {
+        await tick();
         const shouldOpen = urls.length > 0;
         if (shouldOpen) {
           element.classList.add("active");
           document.body.style.overflow = "hidden";
-          await tick();
           const firstActiveItem = urls?.[0]?.label;
           if (!firstActiveItem)
             return;
           setState("activeContent", firstActiveItem);
-        } else {
-          element.classList.remove("active");
-          document.body.style.overflow = "";
-          setState("activeContent", "");
-          goToTop();
+          return;
         }
+        element.classList.remove("active");
+        document.body.style.overflow = "";
+        setState("activeContent", "");
+        goToTop();
       });
       return () => {
       };
