@@ -1,12 +1,20 @@
+renderComponent: (arg0: {
+    attachTo: HTMLElement;
+    component: string;
+    position?: 'afterbegin' | 'beforeend';
+    clean?: boolean;
+}) => Promise<any>;
+
+
 /**
- * @param {import("../mobjs/type").componentType}
+ * @param {import("../../../src/js/mobjs/type").componentType}
  */
 export const MyComponent = ({
     html,
     onMount,
     bindProps,
     removeDOM,
-    parseDom,
+    renderComponent,
 }) => {
     onMount(async ({ refs }) => {
         const { container, button } = refs;
@@ -25,12 +33,15 @@ export const MyComponent = ({
             })}
         ></runtime-component>`;
 
-        container.insertAdjacentHTML('afterbegin', runTimeComponent);
-
         /**
          * Parse container node, and render all component inside. ( async )
          */
-        await parseDom(container);
+        await renderComponent({
+            attachTo: container,
+            component: runTimeComponent,
+            position: 'afterbegin',
+            clean: true,
+        });
 
         /**
          * Remove new component added.

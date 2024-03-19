@@ -30431,7 +30431,7 @@ Loading snippet ...</pre
         isolateOnMount: false,
         scoped: false,
         maxParseIteration: 1e3,
-        debug: false
+        debug: true
       });
       inizializeApp({
         rootId: "#root",
