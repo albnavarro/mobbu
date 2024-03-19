@@ -17,7 +17,7 @@ import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { getParamsForComponentFunction } from '../creationStep/getParamsForComponent';
 import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import {
-    addSelfIdToFutureComponent,
+    addParentIdToFutureComponent,
     addSelfIdToParentComponent,
     setParentsIdFallback,
 } from '../componentStore/action/parent';
@@ -46,7 +46,7 @@ export const parseComponentsRecursive = async ({
     isCancellable = true,
     currentIterationCounter = 0,
     currentSelectors = [],
-    parentIdForced,
+    parentIdForced = '',
 }) => {
     if (!element) return;
 
@@ -134,6 +134,7 @@ export const parseComponentsRecursive = async ({
             isCancellable,
             currentIterationCounter: (currentIterationCounter += 1),
             currentSelectors: parseSourceArray,
+            parentIdForced,
         });
 
         return;
@@ -258,7 +259,7 @@ export const parseComponentsRecursive = async ({
      * Add self id to future component.
      * If id is assigned to component nested in next cycle will be override by current component.
      */
-    addSelfIdToFutureComponent({ element: newElement, id });
+    addParentIdToFutureComponent({ element: newElement, id });
 
     /**
      * If element wad destroyed during parse
@@ -376,5 +377,6 @@ export const parseComponentsRecursive = async ({
         isCancellable,
         currentIterationCounter: (currentIterationCounter += 1),
         currentSelectors: parseSourceArray,
+        parentIdForced,
     });
 };

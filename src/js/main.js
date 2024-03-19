@@ -73,7 +73,7 @@ mobCore.useLoad(() => {
             isolateOnMount: false,
             scoped: false,
             maxParseIteration: 1000,
-            debug: true,
+            debug: false,
         });
 
         inizializeApp({

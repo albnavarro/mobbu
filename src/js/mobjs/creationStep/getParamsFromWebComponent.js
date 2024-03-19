@@ -31,12 +31,21 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
      * @type {string}
      */
     // @ts-ignore
-    // const parentId = element.getParentId();
+    const parentIdFromWebComponent = element.getParentId();
+
+    /**
+     * First choice is parentId passed directly in webComponent
+     * Second choice is parentId passed to initParseWatcher
+     *
+     * After first level of Node will render, all childrn has the right parentID:
+     * `addParentIdToFutureComponent({ element: newElement, id });`
+     *
+     * So after first level of node tree parentIdFromWebComponent always win.
+     */
     const parentId =
-        parentIdForced && parentIdForced.length > 0
-            ? parentIdForced
-            : // @ts-ignore
-              element.getParentId();
+        parentIdFromWebComponent && parentIdFromWebComponent.length > 0
+            ? parentIdFromWebComponent
+            : parentIdForced;
 
     /**
      * @type {string|undefined}

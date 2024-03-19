@@ -652,7 +652,14 @@ export interface componentType {
      * Parse node with component to render.
      * The function receives as an argument the root element to be parsed, if no element is supplied the root of the component will be used.
      */
-    parseDom: (arg0?: HTMLElement) => Promise<any>;
+    // parseDom: (arg0?: HTMLElement) => Promise<any>;
+
+    renderComponent: (arg0: {
+        attachTo: HTMLElement;
+        component: string;
+        position?: 'afterbegin' | 'beforeend';
+        clean?: boolean;
+    }) => Promise<any>;
 }
 
 interface webComponentParmas {

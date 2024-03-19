@@ -2,7 +2,6 @@
 
 import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
-import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
     unFreezePropById,
@@ -66,12 +65,18 @@ export const getParamsForComponentFunction = ({
         computed,
         watch,
         repeatIdArray,
-        parseDom: async (element) => {
-            const elementToParse = element ?? getElementById({ id });
+        renderComponent: async ({
+            attachTo,
+            component,
+            position = 'afterbegin',
+            clean = true,
+        }) => {
+            if (clean) attachTo.textContent = '';
+            attachTo.insertAdjacentHTML(position, component);
 
             mainStore.set(
                 MAIN_STORE_REPEATER_PARSER_ROOT,
-                { element: elementToParse, parentId: id },
+                { element: attachTo, parentId: id },
                 false
             );
             return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);

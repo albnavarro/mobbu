@@ -109,7 +109,7 @@ export const setParentsIdFallback = ({ componentId }) => {
  * Add self id to future component.
  * If id is assigned to component nested in next cycle will be override.
  */
-export const addSelfIdToFutureComponent = ({ element, id }) => {
+export const addParentIdToFutureComponent = ({ element, id }) => {
     const children = queryAllFutureComponent(element, false);
     children.forEach((child) => {
         // @ts-ignore

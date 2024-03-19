@@ -19,7 +19,7 @@ import { parseComponentsRecursive } from './parseComponentRecursive';
 export const parseComponents = async ({
     element,
     isCancellable = true,
-    parentIdForced,
+    parentIdForced = '',
 }) => {
     incrementParserCounter();
 
@@ -49,7 +49,7 @@ export const initParseWatcher = () => {
 
             await parseComponents({
                 element,
-                parentIdForced: parentId,
+                parentIdForced: parentId ?? '',
             });
 
             decrementQueqe();

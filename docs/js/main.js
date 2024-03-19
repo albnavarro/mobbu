@@ -4946,7 +4946,7 @@
     } : item;
     componentMap.set(componentId, newItem);
   };
-  var addSelfIdToFutureComponent = ({ element, id }) => {
+  var addParentIdToFutureComponent = ({ element, id }) => {
     const children = queryAllFutureComponent(element, false);
     children.forEach((child2) => {
       child2.setParentId(id);
@@ -6758,11 +6758,18 @@
       computed,
       watch,
       repeatIdArray,
-      parseDom: async (element) => {
-        const elementToParse = element ?? getElementById({ id });
+      renderComponent: async ({
+        attachTo,
+        component,
+        position: position2 = "afterbegin",
+        clean: clean2 = true
+      }) => {
+        if (clean2)
+          attachTo.textContent = "";
+        attachTo.insertAdjacentHTML(position2, component);
         mainStore.set(
           MAIN_STORE_REPEATER_PARSER_ROOT,
-          { element: elementToParse, parentId: id },
+          { element: attachTo, parentId: id },
           false
         );
         return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
@@ -6869,10 +6876,8 @@
   var getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const id = element.getId();
     const instanceName = element.getInstanceName();
-    const parentId = parentIdForced && parentIdForced.length > 0 ? parentIdForced : (
-      // @ts-ignore
-      element.getParentId()
-    );
+    const parentIdFromWebComponent = element.getParentId();
+    const parentId = parentIdFromWebComponent && parentIdFromWebComponent.length > 0 ? parentIdFromWebComponent : parentIdForced;
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
@@ -6978,7 +6983,7 @@
     isCancellable = true,
     currentIterationCounter = 0,
     currentSelectors = [],
-    parentIdForced
+    parentIdForced = ""
   }) => {
     if (!element)
       return;
@@ -7019,7 +7024,8 @@
         functionToFireAtTheEnd,
         isCancellable,
         currentIterationCounter: currentIterationCounter += 1,
-        currentSelectors: parseSourceArray
+        currentSelectors: parseSourceArray,
+        parentIdForced
       });
       return;
     }
@@ -7083,7 +7089,7 @@
       isolateCreation
     });
     const refsCollection = newElement ? getRefs(newElement) : {};
-    addSelfIdToFutureComponent({ element: newElement, id });
+    addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();
       if (!activeParser) {
@@ -7154,7 +7160,8 @@
       functionToFireAtTheEnd,
       isCancellable,
       currentIterationCounter: currentIterationCounter += 1,
-      currentSelectors: parseSourceArray
+      currentSelectors: parseSourceArray,
+      parentIdForced
     });
   };
 
@@ -7162,7 +7169,7 @@
   var parseComponents = async ({
     element,
     isCancellable = true,
-    parentIdForced
+    parentIdForced = ""
   }) => {
     incrementParserCounter();
     await parseComponentsRecursive({
@@ -7182,7 +7189,7 @@
         });
         await parseComponents({
           element,
-          parentIdForced: parentId
+          parentIdForced: parentId ?? ""
         });
         decrementQueqe();
       }
@@ -16930,7 +16937,7 @@
     currentKey,
     updateScroller,
     goToTop,
-    parseDom
+    renderComponent
   }) => {
     const { urls } = getState();
     const currentItem = urls.find(({ label }) => {
@@ -16939,11 +16946,13 @@
     const source = currentItem?.source;
     if (!source?.length)
       return;
-    const htmlComponent = renderHtml`<html-content
+    const htmlContent = renderHtml`<html-content
         ${staticProps({ source, useMinHeight: true })}
     ></html-content>`;
-    codeEl.insertAdjacentHTML("afterbegin", htmlComponent);
-    await parseDom();
+    await renderComponent({
+      attachTo: codeEl,
+      component: htmlContent
+    });
     setState(
       "rawContent",
       /* HTML */
@@ -16968,7 +16977,7 @@
     staticProps: staticProps2,
     watch,
     removeDOM,
-    parseDom
+    renderComponent
   }) => {
     onMount(({ element, refs }) => {
       const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
@@ -16993,11 +17002,10 @@
           updateScroller,
           goToTop,
           staticProps: staticProps2,
-          parseDom
+          renderComponent
         });
       });
       watch("urls", async (urls) => {
-        await tick();
         const shouldOpen = urls.length > 0;
         if (shouldOpen) {
           element.classList.add("active");
@@ -30423,7 +30431,7 @@ Loading snippet ...</pre
         isolateOnMount: false,
         scoped: false,
         maxParseIteration: 1e3,
-        debug: true
+        debug: false
       });
       inizializeApp({
         rootId: "#root",

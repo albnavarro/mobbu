@@ -47,7 +47,7 @@ const printContent = async ({
     currentKey,
     updateScroller,
     goToTop,
-    parseDom,
+    renderComponent,
 }) => {
     const { urls } = getState();
     const currentItem = urls.find(({ label }) => {
@@ -62,11 +62,17 @@ const printContent = async ({
      */
     if (!source?.length) return;
 
-    const htmlComponent = html`<html-content
+    const htmlContent = html`<html-content
         ${staticProps({ source, useMinHeight: true })}
     ></html-content>`;
-    codeEl.insertAdjacentHTML('afterbegin', htmlComponent);
-    await parseDom();
+
+    /**
+     * Render component.
+     */
+    await renderComponent({
+        attachTo: codeEl,
+        component: htmlContent,
+    });
 
     /**
      * Save raw data.
@@ -103,7 +109,7 @@ export const CodeOverlay = ({
     staticProps,
     watch,
     removeDOM,
-    parseDom,
+    renderComponent,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
@@ -136,7 +142,7 @@ export const CodeOverlay = ({
                 updateScroller,
                 goToTop,
                 staticProps,
-                parseDom,
+                renderComponent,
             });
         });
 
@@ -144,11 +150,6 @@ export const CodeOverlay = ({
          * Open/Close overlay when the database change.
          */
         watch('urls', async (urls) => {
-            /**
-             * Await repeater completed the parse than update active content with first item.
-             */
-            await tick();
-
             /**
              * Check if should open or close
              */
