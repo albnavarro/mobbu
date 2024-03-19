@@ -1,7 +1,11 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { ATTR_CHILD_REPEATID, ATTR_CURRENT_LIST_VALUE } from '../constant';
+import {
+    ATTR_CHILD_REPEATID,
+    ATTR_CURRENT_LIST_VALUE,
+    ATTR_PARENT_ID,
+} from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
@@ -15,6 +19,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {string} obj.targetComponent
  * @param {Function} obj.getChildren
  * @param {Function} obj.render
+ * @param {string} obj.id
  * @param {string} obj.repeatId
  * @return {array}
  *
@@ -29,6 +34,7 @@ export const addWithoutKey = ({
     targetComponent = '',
     getChildren = () => {},
     render,
+    id,
     repeatId,
 }) => {
     /**
@@ -63,7 +69,7 @@ export const addWithoutKey = ({
                     index: currentIndex,
                 }
             )}"
-            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+            ${ATTR_CHILD_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
 
             return render({
                 sync,

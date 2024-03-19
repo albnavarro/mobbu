@@ -114,6 +114,7 @@ La constante `sync` resituita dalla funzione `render` del repeater contiene i ri
 key="start"
 currentlistvalue="_6rofyuf"
 repeaterchild="_c9lznhd"
+parentid="_hegws76"
 ```
 
 - `key`: chiave univoca dell'array osservato.
@@ -142,7 +143,7 @@ repeaterchild="_c9lznhd"
         repeatId: this.#isChildOfRepeatId,
         targetComponent: this.#componentname,
 
-        // Usato nella fase di destroy. Si rimuove dalla mappa quando viene distrutto. ?
+        // Usato nella fase di destroy. Si rimuove dalla mappa quando viene distrutto.
         repeaterParentId: this.#parentId,
     });
     ```
@@ -155,6 +156,9 @@ repeaterchild="_c9lznhd"
             id: repeatId,
         });
         ```
+    <br/>
+    <br/>
+- `parentid`: parent id ( il componente in cui il repeater viene usato ).<br/> Utilizzato per tutte le operazioni di ruotine nella creazione dei componenti.
 <br/>
 <br/>
 
@@ -165,4 +169,3 @@ Ora che sappiamo il `tag` dei componenti presenti nel repeater e il suo `Element
 - Questa operazione viene effettuata dopo l'aggiornamento del repeater per fare un update dei componenti persistenti:
   - Repeater con chiave: componenti persistenti.
   - Repeater senza chiave: componenti che hanno cambiato posizione.
-

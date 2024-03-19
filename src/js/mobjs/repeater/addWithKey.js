@@ -10,6 +10,7 @@ import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_KEY,
+    ATTR_PARENT_ID,
 } from '../constant';
 import {
     getElementById,
@@ -44,6 +45,7 @@ function getPartialsComponentList({
     currentUnique,
     index,
     render,
+    id,
     repeatId,
 }) {
     /**
@@ -57,7 +59,7 @@ function getPartialsComponentList({
         current: currentValue,
         index,
     })}"
-    ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+    ${ATTR_CHILD_REPEATID}="${repeatId}" ${ATTR_PARENT_ID}="${id}"`;
 
     return render({
         sync,
