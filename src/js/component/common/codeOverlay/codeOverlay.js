@@ -5,7 +5,6 @@ import {
     mainStore,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     staticProps,
-    tick,
 } from '../../../mobjs';
 
 const copyToClipboard = ({ getState }) => {
@@ -84,18 +83,6 @@ const printContent = async ({
 };
 
 /**
- * Clean content DOM
- */
-const cleanDom = ({ codeEl, removeDOM }) => {
-    const descriptionElChild = codeEl.firstElementChild;
-
-    /**
-     * Clean HTML component.
-     */
-    if (descriptionElChild) removeDOM(descriptionElChild);
-};
-
-/**
  * @param {import('../../../mobjs/type').componentType}
  */
 export const CodeOverlay = ({
@@ -108,8 +95,8 @@ export const CodeOverlay = ({
     delegateEvents,
     staticProps,
     watch,
-    removeDOM,
     renderComponent,
+    removeDOM,
 }) => {
     onMount(({ element, refs }) => {
         const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
@@ -132,8 +119,6 @@ export const CodeOverlay = ({
          * Update current content.
          */
         watch('activeContent', (currentKey) => {
-            cleanDom({ codeEl, removeDOM });
-
             printContent({
                 setState,
                 getState,
@@ -176,6 +161,7 @@ export const CodeOverlay = ({
              * Reset buttons state on overlay close.
              */
             setState('activeContent', '');
+            removeDOM(codeEl);
             goToTop();
         });
 

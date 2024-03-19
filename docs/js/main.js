@@ -5823,6 +5823,20 @@
     element?.removeCustomComponent?.();
     element?.remove();
   };
+  var destroyComponentInsideNodeById = ({ id, container }) => {
+    const instanceValue = componentMap.get(id);
+    const child2 = instanceValue?.child;
+    if (!child2)
+      return;
+    const allChild = Object.values(child2 ?? {}).flat();
+    allChild.forEach((id2) => {
+      const state = componentMap.get(id2);
+      const element = state?.element;
+      if (element && container.contains(element)) {
+        removeAndDestroyById({ id: id2 });
+      }
+    });
+  };
   var removeCancellableComponent = () => {
     const cancellableComponents2 = [...componentMap.values()].filter(
       ({ isCancellable }) => isCancellable
@@ -6764,8 +6778,10 @@
         position: position2 = "afterbegin",
         clean: clean2 = true
       }) => {
-        if (clean2)
+        if (clean2) {
+          destroyComponentInsideNodeById({ id, container: attachTo });
           attachTo.textContent = "";
+        }
         attachTo.insertAdjacentHTML(position2, component);
         mainStore.set(
           MAIN_STORE_REPEATER_PARSER_ROOT,
@@ -6794,11 +6810,10 @@
       staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
       remove: () => {
         removeAndDestroyById({ id });
-        removeOrphanComponent();
       },
       removeDOM: (element) => {
-        element.remove();
-        removeOrphanComponent();
+        destroyComponentInsideNodeById({ id, container: element });
+        element.textContent = "";
       },
       getParentId: () => getParentIdById(id),
       watchParent: (prop, cb) => {
@@ -16961,11 +16976,6 @@
     updateScroller();
     goToTop();
   };
-  var cleanDom = ({ codeEl, removeDOM }) => {
-    const descriptionElChild = codeEl.firstElementChild;
-    if (descriptionElChild)
-      removeDOM(descriptionElChild);
-  };
   var CodeOverlay = ({
     onMount,
     setState,
@@ -16976,8 +16986,8 @@
     delegateEvents,
     staticProps: staticProps2,
     watch,
-    removeDOM,
-    renderComponent
+    renderComponent,
+    removeDOM
   }) => {
     onMount(({ element, refs }) => {
       const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
@@ -16993,7 +17003,6 @@
         setState("urls", []);
       });
       watch("activeContent", (currentKey) => {
-        cleanDom({ codeEl, removeDOM });
         printContent({
           setState,
           getState,
@@ -17019,6 +17028,7 @@
         element.classList.remove("active");
         document.body.style.overflow = "";
         setState("activeContent", "");
+        removeDOM(codeEl);
         goToTop();
       });
       return () => {

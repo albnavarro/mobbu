@@ -9,8 +9,8 @@ import {
 import { getParentIdById } from '../componentStore/action/parent';
 import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
 import {
+    destroyComponentInsideNodeById,
     removeAndDestroyById,
-    removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
 import { watchById } from '../componentStore/action/watch';
 import {
@@ -71,9 +71,23 @@ export const getParamsForComponentFunction = ({
             position = 'afterbegin',
             clean = true,
         }) => {
-            if (clean) attachTo.textContent = '';
+            /**
+             * Remove all children inside attachTo.
+             * If needed.
+             */
+            if (clean) {
+                destroyComponentInsideNodeById({ id, container: attachTo });
+                attachTo.textContent = '';
+            }
+
+            /**
+             * Attach new component
+             */
             attachTo.insertAdjacentHTML(position, component);
 
+            /**
+             * Render
+             */
             mainStore.set(
                 MAIN_STORE_REPEATER_PARSER_ROOT,
                 { element: attachTo, parentId: id },
@@ -101,11 +115,10 @@ export const getParamsForComponentFunction = ({
         staticProps: (obj) => ` ${ATTR_PROPS}="${setStaticProps(obj)}" `,
         remove: () => {
             removeAndDestroyById({ id });
-            removeOrphanComponent();
         },
         removeDOM: (element) => {
-            element.remove();
-            removeOrphanComponent();
+            destroyComponentInsideNodeById({ id, container: element });
+            element.textContent = '';
         },
         getParentId: () => getParentIdById(id),
         watchParent: (prop, cb) => {
