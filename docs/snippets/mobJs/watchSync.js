@@ -1,3 +1,6 @@
+watchSync(prop: string, callback: () => void): void;
+
+
 /**
  * @param {import("../../../src/js/mobjs/type").componentType}
  */

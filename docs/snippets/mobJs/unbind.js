@@ -1,3 +1,6 @@
+unBind: (arg0: { id: string }) => void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

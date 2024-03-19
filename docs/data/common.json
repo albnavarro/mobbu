@@ -275,14 +275,19 @@
                     "url": "mobJs_computed"
                 },
                 {
-                    "label": "remove",
+                    "label": "renderComponent",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_remove"
+                    "url": "mobJs_renderComponent"
                 },
                 {
                     "label": "removeDom",
                     "scrollToSection": "mobJs",
                     "url": "mobJs_removeDom"
+                },
+                {
+                    "label": "remove",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs_remove"
                 },
                 {
                     "label": "getChildren",

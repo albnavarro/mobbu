@@ -1,3 +1,6 @@
+getParentId(): string | undefined;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

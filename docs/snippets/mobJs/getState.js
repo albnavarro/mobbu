@@ -1,3 +1,5 @@
+getState(arg0: string): any;
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

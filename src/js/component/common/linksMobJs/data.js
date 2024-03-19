@@ -60,12 +60,16 @@ export const items = [
         url: 'mobJs_computed',
     },
     {
-        label: 'remove',
-        url: 'mobJs_remove',
+        label: 'renderComponent',
+        url: 'mobJs_renderComponent',
     },
     {
         label: 'removeDOM',
         url: 'mobJs_removeDom',
+    },
+    {
+        label: 'remove',
+        url: 'mobJs_remove',
     },
     {
         label: 'getChildren',
@@ -86,9 +90,5 @@ export const items = [
     {
         label: 'watchParent',
         url: 'mobJs_watchParent',
-    },
-    {
-        label: 'syncParent',
-        url: 'mobJs_syncParent',
     },
 ];

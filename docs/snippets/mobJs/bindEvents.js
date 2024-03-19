@@ -1,3 +1,10 @@
+bindEvents(
+    arg0:
+        | { [key: string]: (arg0: object) => {} }
+        | [{ [key: string]: (arg0: object) => {} }]
+): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

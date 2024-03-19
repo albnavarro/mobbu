@@ -1,3 +1,6 @@
+emit(prop: string): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

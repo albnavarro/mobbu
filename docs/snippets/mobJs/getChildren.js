@@ -1,3 +1,6 @@
+getChildren(componentName: string): Array<string>;
+
+
 import { setStateById } from '../../../src/js/mobjs';
 
 /**

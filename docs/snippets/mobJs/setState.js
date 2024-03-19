@@ -1,3 +1,11 @@
+setState(
+    prop: string,
+    newValue: any,
+    fireCallback?: boolean,
+    clone?: boolean
+): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

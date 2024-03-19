@@ -25,6 +25,7 @@ export * from './mobJs/emitAsync';
 export * from './mobJs/computed';
 export * from './mobJs/watch';
 export * from './mobJs/watchSync';
+export * from './mobJs/renderComponent';
 export * from './mobJs/remove';
 export * from './mobJs/removeDom';
 export * from './mobJs/getChildren';

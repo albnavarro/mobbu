@@ -1,3 +1,6 @@
+remove(): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

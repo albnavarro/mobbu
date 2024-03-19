@@ -1,3 +1,6 @@
+staticProps(arg0: { [key: string]: any }): string;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

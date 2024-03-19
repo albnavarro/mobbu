@@ -1,3 +1,19 @@
+repeat(arg0: {
+    clean: boolean;
+    watch: string;
+    key?: string | undefined;
+    beforeUpdate(arg0: {
+        element: HTMLElement;
+        container: HTMLElement;
+        childrenId: string[];
+    }): void;
+    afterUpdate(arg0: {
+        element: HTMLElement;
+        container: HTMLElement;
+        childrenId: string[];
+    }): void;
+
+
 import { html } from '../mobjs';
 
 function getItems({ sync, bindProps, delegateEvents }) {

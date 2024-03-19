@@ -1,3 +1,6 @@
+emitAsync(prop: string): Promise<{ success: boolean }>;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

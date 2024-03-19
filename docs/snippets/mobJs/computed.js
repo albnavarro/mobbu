@@ -1,3 +1,7 @@
+computed(prop: string, keys: string[], callback: () => void): void;
+
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

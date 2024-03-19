@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "removeDom"
+            "content": "renderComponent"
         },
         {
             "component": "mob-spacer",
@@ -30,7 +30,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/removeDom.js",
+                "source": "./snippets/mobJs/renderComponent.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

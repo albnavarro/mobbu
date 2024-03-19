@@ -1,3 +1,11 @@
+onMount(
+    arg0: (arg1: {
+        element: HTMLElement;
+        refs: { [key: string]: HTMLElement | HTMLElement[] };
+    }) => () => void
+): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

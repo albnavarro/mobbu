@@ -23223,12 +23223,16 @@ Loading snippet ...</pre
       url: "mobJs_computed"
     },
     {
-      label: "remove",
-      url: "mobJs_remove"
+      label: "renderComponent",
+      url: "mobJs_renderComponent"
     },
     {
       label: "removeDOM",
       url: "mobJs_removeDom"
+    },
+    {
+      label: "remove",
+      url: "mobJs_remove"
     },
     {
       label: "getChildren",
@@ -23249,10 +23253,6 @@ Loading snippet ...</pre
     {
       label: "watchParent",
       url: "mobJs_watchParent"
-    },
-    {
-      label: "syncParent",
-      url: "mobJs_syncParent"
     }
   ];
 
@@ -28655,6 +28655,7 @@ Loading snippet ...</pre
     mobJs_refs: () => mobJs_refs,
     mobJs_remove: () => mobJs_remove,
     mobJs_removeDom: () => mobJs_removeDom,
+    mobJs_renderComponent: () => mobJs_renderComponent,
     mobJs_repeat: () => mobJs_repeat,
     mobJs_routing: () => mobJs_routing,
     mobJs_runtime: () => mobJs_runtime,
@@ -29407,6 +29408,32 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">watchSync</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/renderComponent/index.js
+  var mobJs_renderComponent = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/renderDom.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>renderDom</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">renderDom</doc-title>
     </doc-container>`;
   };
 

@@ -1,3 +1,6 @@
+watchParent(prop: string, callback: () => void): void;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */

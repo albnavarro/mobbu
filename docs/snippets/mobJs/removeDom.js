@@ -1,3 +1,6 @@
+removeDOM(element: HTMLElement): void;
+
+
 /**
  * @param {import("../../../src/js/mobjs/type").componentType}
  */

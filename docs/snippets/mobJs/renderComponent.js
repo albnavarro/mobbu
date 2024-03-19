@@ -13,7 +13,6 @@ export const MyComponent = ({
     html,
     onMount,
     bindProps,
-    removeDOM,
     renderComponent,
 }) => {
     onMount(async ({ refs }) => {
@@ -42,22 +41,10 @@ export const MyComponent = ({
             position: 'afterbegin',
             clean: true,
         });
-
-        /**
-         * Remove new component added.
-         */
-        button.addEventListener('click', () => {
-            /**
-             * Remove firstChild of container node and all component reference inside.
-             */
-            const componentToRemove = container.firstElementChild;
-            removeDOM(componentToRemove);
-        });
     });
 
     return html`
         <div>
-            <button type="button" ref="button">Remove component</button>
             <div ref="container"></div>
         </div>
     `;

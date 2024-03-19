@@ -1,3 +1,10 @@
+bindProps(arg0: {
+    bind: Array<string>;
+    forceParent: [boolean];
+    props(arg0: { [key: string]: any }): object;
+}): string;
+
+
 /**
  * @param {import("../mobjs/type").componentType}
  */
