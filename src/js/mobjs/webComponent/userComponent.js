@@ -161,7 +161,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {string}
                  */
-                #isChildOfRepeatId;
+                #componentRepeatId;
 
                 /**
                  * @type {string}
@@ -205,7 +205,7 @@ export const defineUserComponent = (componentList) => {
                     this.#slotPosition = '';
                     this.#currentKey = '';
                     this.#parentId = '';
-                    this.#isChildOfRepeatId = '';
+                    this.#componentRepeatId = '';
 
                     //
                     this.isUserComponent = true;
@@ -221,7 +221,7 @@ export const defineUserComponent = (componentList) => {
                     );
                     this.#slotPosition = host.getAttribute(ATTR_SLOT);
                     this.#parentId = host.getAttribute(ATTR_PARENT_ID) ?? '';
-                    this.#isChildOfRepeatId =
+                    this.#componentRepeatId =
                         host.getAttribute(ATTR_CHILD_REPEATID);
 
                     this.#delegateEventId = host.getAttribute(
@@ -234,22 +234,6 @@ export const defineUserComponent = (componentList) => {
                      */
                     if (this.#slotPosition && !this.active) {
                         this.style.visibility = 'hidden';
-                    }
-
-                    /**
-                     * Add component type to repeaterTargetComponentMap
-                     * So in watch callback of repeater will be filter the right child component.
-                     * Use the component name of the first repeater child.
-                     */
-                    if (
-                        this.#isChildOfRepeatId &&
-                        this.#isChildOfRepeatId !== ''
-                    ) {
-                        addRepeatTargetComponent({
-                            repeatId: this.#isChildOfRepeatId,
-                            repeaterParentId: this.#parentId,
-                            targetComponent: this.#componentname,
-                        });
                     }
 
                     if (this.shadowRoot) {
@@ -351,6 +335,10 @@ export const defineUserComponent = (componentList) => {
 
                 getDelegateEventId() {
                     return this.#delegateEventId;
+                }
+
+                getComponentRepeatId() {
+                    return this.#componentRepeatId;
                 }
 
                 #getData() {

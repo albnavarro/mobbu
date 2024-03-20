@@ -86,6 +86,9 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         currentRepeaterValueId
     );
 
+    // @ts-ignore
+    const componentRepeatId = element.getComponentRepeatId();
+
     /**
      * @type {string}
      *
@@ -155,5 +158,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         bindEventsId,
         currentRepeatValue,
         parentId,
+        componentRepeatId,
     };
 };

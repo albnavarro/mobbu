@@ -12,6 +12,7 @@ export interface componentDataType {
     bindEventsId: string | undefined;
     parentId: string | undefined;
     currentRepeatValue: any;
+    componentRepeatId: string;
 }
 
 export interface getParamsForComponent extends componentStoreReturnType {

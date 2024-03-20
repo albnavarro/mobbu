@@ -139,13 +139,17 @@ parentid="_hegws76"
     Tutti i componenti che compogono il repeater proveranno ad aggiungere il riferimento del propio `tag`, in reltá basta un solo risultato in quanto il repeater ospiterá solo un tipo di componente nel primo livello ( sara poi possibile innestare al suo interno diversi componenti ).<br/>
     Nel nostro caso solo il promo componente passara il check e aggiornerá la mappa.
     ```
-    addRepeatTargetComponent({
-        repeatId: this.#isChildOfRepeatId,
-        targetComponent: this.#componentname,
+    parseComponentRecursive.js
 
-        // Usato nella fase di destroy. Si rimuove dalla mappa quando viene distrutto.
-        repeaterParentId: this.#parentId,
-    });
+    if (componentRepeatId && componentRepeatId !== '') {
+        addRepeatTargetComponent({
+            repeatId: componentRepeatId,
+            repeaterParentId: parentId ?? '',
+
+            // Usato nella fase di destroy. Si rimuove dalla mappa quando viene distrutto.
+            targetComponent: componentName,
+        });
+    }
     ```
     - `repeatId & targetComponent ( tag )` vengono usati nella funzione `watchList` per sapere quale é il tipo di componente usato nel repeater (`getRepeaterComponentTarget`).<br/>
     Questo permette di filtrare i componenti `child` di `repeaterParentElement` con un determinato `tag`

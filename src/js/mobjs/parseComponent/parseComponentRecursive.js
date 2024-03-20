@@ -26,6 +26,7 @@ import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 import { getParamsFromWebComponent } from '../creationStep/getParamsFromWebComponent';
 import { addComponentToStore } from '../componentStore/addComponentToStore';
 import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
+import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
 /**
  * @param {object} obj
@@ -154,6 +155,7 @@ export const parseComponentsRecursive = async ({
         currentRepeatValue,
         bindEventsId,
         parentId,
+        componentRepeatId,
     } = getParamsFromWebComponent({
         // @ts-ignore
         element: componentToParse,
@@ -196,6 +198,19 @@ export const parseComponentsRecursive = async ({
      * Update to parent component child array.
      */
     addSelfIdToParentComponent({ id });
+
+    /**
+     * Add component type to repeaterTargetComponentMap
+     * So in watch callback of repeater will be filter the right child component.
+     * Use the component name of the first repeater child.
+     */
+    if (componentRepeatId && componentRepeatId !== '') {
+        addRepeatTargetComponent({
+            repeatId: componentRepeatId,
+            repeaterParentId: parentId ?? '',
+            targetComponent: componentName,
+        });
+    }
 
     /**
      * Set initial repate list current value to pass to dynamicProps.
