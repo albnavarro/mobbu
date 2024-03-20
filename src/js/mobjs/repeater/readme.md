@@ -110,31 +110,77 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 1. Creazione da un nuovo componente:<br/>
 La constante `sync` resituita dalla funzione `render` del repeater contiene i riferimenti ( attributi ) a:
 
-```
-key="start"
-currentlistvalue="_6rofyuf"
-repeaterchild="_c9lznhd"
-parentid="_hegws76"
-```
+    ```
+    key="start"
+    currentlistvalue="_6rofyuf"
+    repeaterchild="_c9lznhd"
+    ```
 
-- `key`: chiave univoca dell'array osservato.
+- #### `key`
+    chiave univoca dell'array osservato.
+    <br/>
+- #### `currentlistvalue`:
+    current & index per l'elemento corrente relativi allo stato/array osservato dal repeater.
+    - ##### gestione del dato di passaggio ( temporaneo ):
+
+        - tramite la funzione `setComponentRepeaterState()` viene aggiunto ad una specifica mappa.
+            - `repeater/addWithKey.js`
+            - `repeater/addWithoutKey.js`
+            <br/>
+            <br/>
+        - Viene poi recuperato durante l'esecuzione di `getParamsFromWebComponent()`  durate la fase di creazione del componente,
+        in modo da poi poter essere passato all mappa generale dei componenti.
+            <br/>
+
+            ```
+            parseComponentRecursive.js
+
+            const currentRepeaterValueId = component.getRepeatValue();
+            const currentRepeatValue = getComponentRepeaterState(
+                currentRepeaterValueId
+            );
+            ```
+
+    - ##### applicazione del dato al componente:
+        - In `parseComponentRecursive.js` viene poi aggiunto ( `inizializzato` ) alla propietá (`currentRepeaterState`) della mappa degli elementi (`componentMap`).
+            <br/>
+            <br/>
+            ```
+            parseComponentRecursive.js
+
+            /**
+             * Set initial repate list current value to pass to dynamicProps.
+             * When component is created.
+             */
+            if (currentRepeatValue?.index !== -1)
+                setRepeaterStateById({ id, value: currentRepeatValue });
+            ```
+            <br/>
+            <br/>
+        - E poi aggiornato da:
+            ```
+            repeater/watchList.js
+
+            [...childrenFiltered].forEach((id, index) => {
+                const current = currentUnivoque?.[index];
+                if (!current) return;
+
+                /**
+                 * Store current value in store
+                 * to use in dynamicrops
+                 */
+                setRepeaterStateById({ id, value: { current, index } });
+            });
+            ```
+        - Ora il dato potra essere preso direttamante dallo store componenti e usato a richiesta da:
+            - `src/js/mobjs/temporaryData/bindEvents/index.js`
+            - `src/js/mobjs/temporaryData/dynamicProps/index.js`
+            - `src/js/mobjs/temporaryData/weakBindEvents/index.js`
+
     <br/>
     <br/>
-- `currentlistvalue`: current & index per l'elemento corrente relativi allo stato/array osservato dal repeater.
-    - tramite la funzione `setComponentRepeaterState()` viene aggiunto ad una specifica mappa.
-    - Viene poi recuperato dirante l'esecuzione di `getComponentData()` (`getComponentData.js`) durate la fase di creazione del componente.
-    ```
-    const currentRepeaterValueId = component.getRepeatValue();
-    const currentRepeatValue = getComponentRepeaterState(
-        currentRepeaterValueId
-    );
-    ```
-    - In `registerComponent.js` viene poi aggiunto alla propietá (`currentRepeaterState`) della mappa degli elementi (`componentMap`) tramite la funzione `setRepeaterStateById()`
-    - Ora il dato potra essere preso direttamante dallo store componenti e usato dalla funzione `bindProps({})`, che ritornerá i due valori insieme ai valori di stato specifici.
-    <br/>
-    <br/>
-- `repeaterchild`: Viene usato per abbianare il tag del componente ( es: my-component ) al repeater.
-    - Viene letto dal web-component (`userComponent.js`) nella fase di inizializzazione.
+- #### `repeaterchild`:
+    Viene usato per abbianare il tag del componente ( es: my-component ) al repeater.
     - Viene aggiunto a una mappa tramite la funzione `addRepeatTargetComponent`.<br/>
     Tutti i componenti che compogono il repeater proveranno ad aggiungere il riferimento del propio `tag`, in reltá basta un solo risultato in quanto il repeater ospiterá solo un tipo di componente nel primo livello ( sara poi possibile innestare al suo interno diversi componenti ).<br/>
     Nel nostro caso solo il promo componente passara il check e aggiornerá la mappa.
@@ -162,7 +208,6 @@ parentid="_hegws76"
         ```
     <br/>
     <br/>
-- `parentid`: parent id ( il componente in cui il repeater viene usato ).<br/> Utilizzato per tutte le operazioni di ruotine nella creazione dei componenti.
 <br/>
 <br/>
 
