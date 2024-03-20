@@ -11,7 +11,6 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
