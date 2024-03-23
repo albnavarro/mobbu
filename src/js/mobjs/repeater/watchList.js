@@ -32,7 +32,7 @@ export const watchList = ({
     clean = false,
     beforeUpdate = () => {},
     afterUpdate = () => {},
-    getChildren = () => {},
+    getChildren,
     key = '',
     id = '',
     repeaterParentElement,

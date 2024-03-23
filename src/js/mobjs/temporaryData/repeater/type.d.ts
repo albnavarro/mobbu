@@ -14,7 +14,7 @@ export interface repeaterType {
         container: HTMLElement;
         childrenId: Array<string>;
     }): void;
-    getChildren: () => void;
+    getChildren: (arg0: string) => string[];
     id: string;
     clean: boolean;
     key: string | undefined;

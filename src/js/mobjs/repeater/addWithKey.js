@@ -74,7 +74,7 @@ function getPartialsComponentList({
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {Function} obj.getChildren
+ * @param {(arg0: string)=> string[]} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {Function} obj.render
@@ -89,7 +89,7 @@ export const addWithKey = ({
     previous = [],
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
-    getChildren = () => {},
+    getChildren,
     key = '',
     id = '',
     render,

@@ -14,7 +14,7 @@ import { listKeyExist } from './utils';
  * @param {string} obj.targetComponent
  * @param {array} obj.current
  * @param {array} obj.previous
- * @param {Function} obj.getChildren
+ * @param {(arg0: string)=> string[]} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {string} obj.repeatId
@@ -29,7 +29,7 @@ export const updateChildren = async ({
     targetComponent = '',
     current = [],
     previous = [],
-    getChildren = () => {},
+    getChildren,
     key = '',
     id,
     render,

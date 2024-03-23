@@ -13,7 +13,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {Function} obj.getChildren
+ * @param {(arg0: string)=> string[]} obj.getChildren
  * @param {Function} obj.render
  * @param {string} obj.id
  * @param {string} obj.repeatId
@@ -28,7 +28,7 @@ export const addWithoutKey = ({
     previous = [],
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
-    getChildren = () => {},
+    getChildren,
     render,
     repeatId,
 }) => {
