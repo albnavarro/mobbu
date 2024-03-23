@@ -12,14 +12,15 @@
 
 #### Ritorno della funzione repeat()
 
-1. La funzione `registerComponent()` ritona un oggetto tra cui é presente la funzione `repeat()`.
+1. La funzione `getParamsForComponentFunction()` ritona un oggetto tra cui é presente la funzione `repeat()`.
 
-2. La funzione `repeat()` oltre che ha tornare il web-component `<mobjs-repeater>`  salverá in una apposita mappa ( `repeatMap` ) l'id (`currentRepeatId`) e l'oggetto  con tutti i riferimenti del repeater corrente usando la funzione `addRepeat()`:
-
-3. La stessa ritornerá il web-component `<mobjs-repeater>`. Il componente che ospita i/il repeater in fase di rendernig (`parseComponentRecursive.js`) userá un parser custom per cercare i `<mobjs-repeater>` presenti nel suo interno. Lo scopo principale si `<mobjs-repeater>` e quello di recuperare il riferimento al suo diretto `Element` parente durante il rendering del componente.
+2. La funzione `repeat()` si occpua di:
+    - ritornare il webComponent `<mobjs-repeater><mobjs-repeater/>`.
+    - salvare l'id del repater corrente `repeatId`.
+    - salvare l'oggetto con tutti i paramtri che serviranno al repeater.
 
 ```
-src/js/mobjs/creationStep/registerComponent.js
+src/js/mobjs/creationStep/getParamsForComponent.js
 
 addRepeat({
     repeatId: currentRepeatId,
@@ -49,9 +50,16 @@ export const addRepeat = ({ repeatId, obj }) => {
     repeatMap.set(repeatId, obj);
 };
 ```
+##### mobjs-repeater
+`<mobjs-repeater></mobjs-repeater>`.<br/>
+Il componente che ospita i/il repeater in fase di rendernig (`parseComponentRecursive.js`) userá un parser custom per cercare i `<mobjs-repeater>` presenti nel suo interno.<br/>
+Lo scopo principale si `<mobjs-repeater>` e quello di recuperare il riferimento al suo diretto `Element` parente durante il rendering del componente.
 
 #### Ritorno dell'array di id tutti gli definiti nel componente:
-- La funzione `registerComponent()` nell'oggetto di ritorno restituisce l'array `repeatIdArray[]` che racoglie tutti i `currentRepeatId`, tale funzione sara poi usata della funziona priconipale `parseComponentsRecursive` per identificare tutti i repeater da inizializzare.
+- La funzione `getParamsForComponentFunction()` nell'oggetto di ritorno restituisce l'array `repeatIdArray[]` che racoglie tutti i `currentRepeatId`, tale funzione sara poi usata della funziona priconipale `parseComponentsRecursive` per identificare tutti i repeater da inizializzare.<br/><br/>
+Vedere lo <strong>step2</strong>.
+
+
 
 <br/><br/><br/>
 
@@ -104,7 +112,7 @@ for (const item of functionToFireAtTheEnd.reverse()) {
 ```
 
 ## 3- STEP3:
-### LOGICA DI INIZIALIZZAZONE/AGGIORNAMENTO DEI COMPONENTI FIGLI.
+### LOGICA DI INIZIALIZZAZONE/AGGIORNAMENTO DELLO STATO DEI COMPONENTI FIGLI.
 <br/>
 
 1. Creazione da un nuovo componente:<br/>
@@ -117,7 +125,7 @@ La constante `sync` resituita dalla funzione `render` del repeater contiene i ri
     ```
 
 - #### `key`
-    chiave univoca dell'array osservato.
+    chiave univoca dell'array osservato. ( se usata )
     <br/>
 - #### `currentlistvalue`:
     current & index per l'elemento corrente relativi allo stato/array osservato dal repeater.

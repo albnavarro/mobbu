@@ -6852,7 +6852,7 @@
             render: render2
           }
         });
-        return `<mobjs-repeater ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"/>`;
+        return `<mobjs-repeater ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"></mobjs-repeater>`;
       }
     };
   };
