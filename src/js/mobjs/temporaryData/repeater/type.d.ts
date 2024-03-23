@@ -1,3 +1,5 @@
+import { emitType, setType, watchType } from '../../../mobCore/store/type';
+
 /**
  * @description
  * Add new repeater id and props.
@@ -19,17 +21,9 @@ export interface repeaterType {
     clean: boolean;
     key: string | undefined;
     state: string | undefined;
-    setState(
-        prop: string,
-        newValue: any,
-        fireCallback?: boolean,
-        clone?: boolean
-    ): void;
-    watch: (
-        prop: string,
-        callback: (current: any, previous: any, validate: boolean) => void
-    ) => void;
-    emit: (arg0: string) => void;
+    setState: setType;
+    watch: watchType;
+    emit: emitType;
     render: (arg0: { sync: object; html: (arg0: string) => string }) => string;
 }
 

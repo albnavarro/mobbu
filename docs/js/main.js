@@ -6598,12 +6598,9 @@
   // src/js/mobjs/repeater/watchList.js
   var watchList = ({
     state = "",
-    setState = () => {
-    },
-    emit = () => {
-    },
-    watch = () => {
-    },
+    setState,
+    emit,
+    watch,
     clean: clean2 = false,
     beforeUpdate = () => {
     },

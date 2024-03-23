@@ -52,28 +52,48 @@ export interface storeMapValue {
 }
 
 export interface storePublicMethods {
-    get: () => any;
-    getProp: (arg0: string) => any;
-    set: (
-        prop: string,
-        value: any | ((arg0: any) => any),
-        fireCallback?: boolean,
-        clone?: boolean
-    ) => any;
-    quickSetProp: (prop: string, value: any) => void;
-    watch: (
-        prop: string,
-        callback: (current: any, previous: any, validate: boolean) => void
-    ) => () => {};
-    computed: (prop: string, keys: string[], callback: () => void) => void;
-    emit: (props: string) => void;
-    emitAsync: (props: string) => Promise<{ success: boolean }>;
+    get: getType;
+    getProp: getPropType;
+    set: setType;
+    quickSetProp: quickSetPropType;
+    watch: watchType;
+    computed: computedType;
+    emit: emitType;
+    emitAsync: emitAsyncType;
     getValidation: () => Object;
     debug: () => void;
     debugStore: () => void;
     debugValidate: () => void;
     destroy: () => void;
 }
+
+export type getType = () => any;
+
+export type getPropType = (arg0: string) => any;
+
+export type setType = (
+    prop: string,
+    value: any | ((arg0: any) => any),
+    fireCallback?: boolean,
+    clone?: boolean
+) => any;
+
+export type quickSetPropType = (prop: string, value: any) => void;
+
+export type watchType = (
+    prop: string,
+    callback: (current: any, previous: any, validate: boolean) => void
+) => () => {};
+
+export type computedType = (
+    prop: string,
+    keys: string[],
+    callback: () => void
+) => void;
+
+export type emitType = (props: string) => void;
+
+export type emitAsyncType = (props: string) => Promise<{ success: boolean }>;
 
 export type mobStoreTypeAlias =
     | 'String'

@@ -26,9 +26,9 @@ import { getChildrenInsideElement } from './utils';
  */
 export const watchList = ({
     state = '',
-    setState = () => {},
-    emit = () => {},
-    watch = () => {},
+    setState,
+    emit,
+    watch,
     clean = false,
     beforeUpdate = () => {},
     afterUpdate = () => {},

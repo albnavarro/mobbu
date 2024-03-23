@@ -1,4 +1,12 @@
-import { mobStoreBaseData } from '../../mobCore/store/type';
+import {
+    computedType,
+    emitAsyncType,
+    emitType,
+    getType,
+    mobStoreBaseData,
+    setType,
+    watchType,
+} from '../../mobCore/store/type';
 import { storePublicMethods } from '../../mobCore/store/type';
 
 export interface componentCommonTypes {
@@ -37,13 +45,10 @@ export interface componentStoreInputTypes extends componentCommonTypes {
 }
 
 export interface componentStoreReturnType {
-    getState: (arg0: string) => any;
-    setState: (arg0: string, arg2: any, arg3: boolean) => void;
-    emit: (arg0: string) => void;
-    emitAsync: (arg0: string) => Promise<any>;
-    computed: (prop: string, keys: string[], callback: () => void) => void;
-    watch: (
-        propierties: string,
-        callback: (current: any, previous: any, validate: boolean) => void
-    ) => void;
+    getState: getType;
+    setState: setType;
+    emit: emitType;
+    emitAsync: emitAsyncType;
+    computed: computedType;
+    watch: watchType;
 }
