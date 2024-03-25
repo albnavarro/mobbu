@@ -40,7 +40,7 @@ export const animatedPatternN1Animation = ({
     let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = '#000';
+    const defaultFill = '#505269';
     const highlightFill = '#fff';
     const { activeRoute } = mainStore.get();
 

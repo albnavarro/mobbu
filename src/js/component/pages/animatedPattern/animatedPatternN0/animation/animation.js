@@ -38,7 +38,7 @@ export const animatedPatternN0Animation = ({
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = '#000';
+    const defaultFill = '#505269';
     const highlightFill = '#fff';
     const { activeRoute } = mainStore.get();
 

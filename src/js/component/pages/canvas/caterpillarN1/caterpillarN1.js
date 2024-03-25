@@ -8,6 +8,8 @@ import { caterpillarN1Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const CaterpillarN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = '#000000';
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -20,7 +22,7 @@ export const CaterpillarN1 = ({ onMount, html, getState }) => {
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', '#caterpillarN0');
         setStateById(quicknavId, 'nextRoute', '#caterpillarN2');
-        setStateById(quicknavId, 'color', 'black');
+        setStateById(quicknavId, 'color', 'white');
 
         /**
          * Title.
@@ -54,7 +56,7 @@ export const CaterpillarN1 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         const destroyAnimation = caterpillarN1Animation({
             canvas,
@@ -73,6 +75,7 @@ export const CaterpillarN1 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
         };
     });
 

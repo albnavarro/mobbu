@@ -1,4 +1,4 @@
-export const canvasBackground = '#a4a4b3';
+export const canvasBackground = '#000000';
 
 export const getCanvasContext = ({ disableOffcanvas }) => {
     const useOffscreen = 'OffscreenCanvas' in window && !disableOffcanvas;

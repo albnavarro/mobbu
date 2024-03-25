@@ -8,6 +8,8 @@ import { animatedPatternN1Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = '#000000';
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -28,7 +30,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
             'nextRoute',
             '#scrollerN0?version=0&activeId=0'
         );
-        setStateById(quicknavId, 'color', 'black');
+        setStateById(quicknavId, 'color', 'white');
 
         /**
          * Title.
@@ -62,7 +64,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         const destroyAnimation = animatedPatternN1Animation({
             canvas,
@@ -80,6 +82,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
             destroyAnimation();
         };
     });
@@ -88,7 +91,7 @@ export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

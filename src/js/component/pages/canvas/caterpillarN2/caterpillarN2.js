@@ -26,6 +26,7 @@ function getControls({ buttons }) {
  */
 export const CaterpillarN2 = ({ onMount, html, getState }) => {
     const { buttons, rotationDefault } = getState();
+    document.body.style.background = '#000000';
 
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -76,7 +77,7 @@ export const CaterpillarN2 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         /**
          * Inizializa animation and get anima methods.
@@ -120,6 +121,7 @@ export const CaterpillarN2 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
             destroy();
         };
     });

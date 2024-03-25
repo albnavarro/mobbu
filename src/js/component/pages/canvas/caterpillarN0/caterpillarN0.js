@@ -8,6 +8,8 @@ import { caterpillarN0Animation } from './animation/animation';
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const CaterpillarN0 = ({ onMount, html, getState }) => {
+    document.body.style.background = '#000000';
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -19,7 +21,7 @@ export const CaterpillarN0 = ({ onMount, html, getState }) => {
         const quicknavId = getIdByInstanceName('quick_nav');
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'nextRoute', '#caterpillarN1');
-        setStateById(quicknavId, 'color', 'black');
+        setStateById(quicknavId, 'color', 'white');
 
         /**
          * Title.
@@ -53,7 +55,7 @@ export const CaterpillarN0 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         /**
          * Animation.
@@ -75,6 +77,7 @@ export const CaterpillarN0 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
         };
     });
 

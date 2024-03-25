@@ -9,6 +9,7 @@ import { animatedPatternN0Animation } from './animation/animation';
  */
 export const AnimatedPatternN0 = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
+    document.body.style.background = '#000000';
 
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -21,7 +22,7 @@ export const AnimatedPatternN0 = ({ onMount, html, getState }) => {
         setStateById(quicknavId, 'active', true);
         setStateById(quicknavId, 'prevRoute', prevRoute);
         setStateById(quicknavId, 'nextRoute', nextRoute);
-        setStateById(quicknavId, 'color', 'black');
+        setStateById(quicknavId, 'color', 'white');
 
         /**
          * Title.
@@ -55,7 +56,7 @@ export const AnimatedPatternN0 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         const destroyAnimation = animatedPatternN0Animation({
             canvas,
@@ -74,6 +75,7 @@ export const AnimatedPatternN0 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
         };
     });
 

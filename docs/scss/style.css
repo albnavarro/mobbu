@@ -1087,7 +1087,7 @@ code {
   top: 0;
   height: calc(100vh - var(--header-height) - var(--footer-height));
   display: none;
-  background: rgba(0, 0, 0, 0.25);
+  background: #000;
 }
 @media (min-width: 62em) {
   .l-navcontainer__side {
@@ -1247,7 +1247,7 @@ code {
   .c-canvas__wrap--wrapped {
     max-width: 1920px;
     max-height: 769px;
-    border: 1px #000 solid;
+    border: 1px #fff solid;
   }
 }
 .c-canvas__controls {
@@ -1867,6 +1867,12 @@ code {
 }
 .c-code-btn--black svg {
   fill: #fff;
+}
+.c-code-btn--white {
+  background: #fff;
+}
+.c-code-btn--white svg {
+  fill: #000;
 }
 .c-code-btn:hover {
   opacity: 0.5;

@@ -47,6 +47,14 @@
         }
     }
 
+    &--white {
+        background: $white;
+
+        svg {
+            fill: $black;
+        }
+    }
+
     &:hover {
         opacity: 0.5;
     }

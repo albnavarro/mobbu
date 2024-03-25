@@ -2,13 +2,14 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
-import { detectSafari } from '../../../../utils/utils';
 import { scrollerN1Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
 export const ScrollerN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = '#000000';
+
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -62,7 +63,7 @@ export const ScrollerN1 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         /**
          * Refs
@@ -92,10 +93,9 @@ export const ScrollerN1 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
         };
     });
-
-    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 
     /**
      * Skip mobile.
@@ -110,7 +110,7 @@ export const ScrollerN1 = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

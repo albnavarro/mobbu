@@ -24435,7 +24435,7 @@ Loading snippet ...</pre
   });
 
   // src/js/utils/canvasUtils.js
-  var canvasBackground = "#a4a4b3";
+  var canvasBackground = "#000000";
   var getCanvasContext = ({ disableOffcanvas }) => {
     const useOffscreen = "OffscreenCanvas" in window && !disableOffcanvas;
     const context = useOffscreen ? "bitmaprenderer" : "2d";
@@ -24553,7 +24553,7 @@ Loading snippet ...</pre
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = "#000";
+    const defaultFill = "#505269";
     const highlightFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -24712,6 +24712,7 @@ Loading snippet ...</pre
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
   var AnimatedPatternN0 = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -24720,7 +24721,7 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", prevRoute);
       setStateById(quicknavId, "nextRoute", nextRoute);
-      setStateById(quicknavId, "color", "black");
+      setStateById(quicknavId, "color", "white");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -24746,7 +24747,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -24762,6 +24763,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
     return html`
@@ -24867,7 +24869,7 @@ Loading snippet ...</pre
     let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = "#000";
+    const defaultFill = "#505269";
     const highlightFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -25054,6 +25056,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
   var AnimatedPatternN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25070,7 +25073,7 @@ Loading snippet ...</pre
         "nextRoute",
         "#scrollerN0?version=0&activeId=0"
       );
-      setStateById(quicknavId, "color", "black");
+      setStateById(quicknavId, "color", "white");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25096,7 +25099,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -25111,6 +25114,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
         destroyAnimation();
       };
     });
@@ -25118,7 +25122,7 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -25369,6 +25373,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
   var CaterpillarN0 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25376,7 +25381,7 @@ Loading snippet ...</pre
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "nextRoute", "#caterpillarN1");
-      setStateById(quicknavId, "color", "black");
+      setStateById(quicknavId, "color", "white");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25402,7 +25407,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -25418,6 +25423,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
     return html`
@@ -25688,6 +25694,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
   var CaterpillarN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -25696,7 +25703,7 @@ Loading snippet ...</pre
       setStateById(quicknavId, "active", true);
       setStateById(quicknavId, "prevRoute", "#caterpillarN0");
       setStateById(quicknavId, "nextRoute", "#caterpillarN2");
-      setStateById(quicknavId, "color", "black");
+      setStateById(quicknavId, "color", "white");
       const titleId = getIdByInstanceName("animation_title");
       setStateById(titleId, "align", "left");
       setStateById(titleId, "color", "white");
@@ -25722,7 +25729,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -25738,6 +25745,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
     return html`
@@ -26003,6 +26011,7 @@ Loading snippet ...</pre
   }
   var CaterpillarN2 = ({ onMount, html, getState }) => {
     const { buttons: buttons3, rotationDefault } = getState();
+    document.body.style.background = "#000000";
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -26041,7 +26050,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const animationMethods = caterpillarN2Animation({
         canvas,
         ...getState()
@@ -26067,6 +26076,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
         destroy();
       };
     });
@@ -26793,7 +26803,7 @@ Loading snippet ...</pre
     let data3 = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = "#000";
+    const defaultFill = "#505269";
     const highlightFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
@@ -26991,6 +27001,7 @@ Loading snippet ...</pre
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
   var ScrollerN0 = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -27025,7 +27036,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const { wrap, canvas, canvasScroller } = refs;
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
@@ -27045,6 +27056,7 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
     if (motionCore.mq("max", "desktop"))
@@ -27053,7 +27065,7 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -27334,6 +27346,7 @@ Loading snippet ...</pre
 
   // src/js/component/pages/scroller/ScrollerN1/scrollerN1.js
   var ScrollerN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop"))
         return;
@@ -27372,7 +27385,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "black");
+      setStateById(codeButtonId, "color", "white");
       const { wrap, canvas, canvasScroller } = refs;
       const destroyAnimation = scrollerN1Animation({
         canvas,
@@ -27391,16 +27404,16 @@ Loading snippet ...</pre
         setStateById(titleId, "align", "");
         setStateById(titleId, "title", "");
         setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
-    const canvasStyle = detectSafari() ? "c-canvas__wrap--wrapped" : "";
     if (motionCore.mq("max", "desktop"))
       return html`<div><only-desktop></only-desktop></div>`;
     return html`
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

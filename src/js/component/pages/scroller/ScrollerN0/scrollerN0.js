@@ -9,6 +9,7 @@ import { scrollerN0Animation } from './animation/animation';
  */
 export const ScrollerN0 = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
+    document.body.style.background = '#000000';
 
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -59,7 +60,7 @@ export const ScrollerN0 = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateById(codeButtonId, 'color', 'white');
 
         /**
          * Refs
@@ -94,6 +95,7 @@ export const ScrollerN0 = ({ onMount, html, getState }) => {
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(codeButtonId, 'drawers', []);
+            document.body.style.background = '';
         };
     });
 
@@ -110,7 +112,7 @@ export const ScrollerN0 = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

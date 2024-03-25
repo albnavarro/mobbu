@@ -41,7 +41,7 @@ export const scrollerN0Animation = ({
     let data = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
-    const defaultFill = '#000';
+    const defaultFill = '#505269';
     const highlightFill = '#fff';
     const { activeRoute } = mainStore.get();
 
