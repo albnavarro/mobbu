@@ -2,7 +2,6 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
-import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN2Animation } from './animation/animation';
 
 function getControls({ buttons }) {
@@ -25,7 +24,7 @@ function getControls({ buttons }) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
+export const CaterpillarN2 = ({ onMount, html, getState }) => {
     const { buttons, rotationDefault } = getState();
 
     onMount(({ element, refs }) => {
@@ -52,6 +51,32 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
         setStateById(titleId, 'align', 'left');
         setStateById(titleId, 'color', 'white');
         setStateById(titleId, 'title', 'Caterpillar N2');
+
+        /**
+         * Code button
+         */
+        const { caterpillarN2 } = getLegendData();
+        const { source } = caterpillarN2;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'component',
+                source: source.component,
+            },
+            {
+                label: 'animation',
+                source: source.animation,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'black');
 
         /**
          * Inizializa animation and get anima methods.
@@ -94,44 +119,16 @@ export const CaterpillarN2 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'nextRoute', '');
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
+            setStateById(codeButtonId, 'drawers', []);
             destroy();
         };
     });
-
-    const { caterpillarN2 } = getLegendData();
-    const { source } = caterpillarN2;
-
-    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 
     return html`
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <code-button
-                    ${staticProps({
-                        drawers: [
-                            {
-                                label: 'description',
-                                source: source.description,
-                            },
-                            {
-                                label: 'definition',
-                                source: source.definition,
-                            },
-                            {
-                                label: 'component',
-                                source: source.component,
-                            },
-                            {
-                                label: 'animation',
-                                source: source.animation,
-                            },
-                        ],
-                        style: 'legend',
-                    })}
-                >
-                </code-button>
-                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <ul class="c-canvas__controls">
                         ${getControls({ buttons })}
                         <li class="c-canvas__controls__item">

@@ -1,5 +1,5 @@
 import { getLegendData } from '../../../data';
-import { html, tick } from '../../../mobjs';
+import { getIdByInstanceName, html, setStateById, tick } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -104,13 +104,53 @@ export const DynamicList = async ({
 }) => {
     onMount(({ refs }) => {
         const { counterEl } = refs;
+
+        /**
+         * Code button
+         */
+        const { repeater } = getLegendData();
+        const { source } = repeater;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'main',
+                source: source.mainComponent,
+            },
+            {
+                label: 'repeater',
+                source: source.repeaters,
+            },
+            {
+                label: 'buttons',
+                source: source.buttons,
+            },
+            {
+                label: 'cards',
+                source: source.cards,
+            },
+            {
+                label: 'data',
+                source: source.data,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'black');
+
         watchSync('counter', (value) => {
             counterEl.textContent = value;
         });
-    });
 
-    const { repeater } = getLegendData();
-    const { source } = repeater;
+        return () => {
+            setStateById(codeButtonId, 'drawers', []);
+        };
+    });
 
     return html`
         <div class="c-dynamic-list">
@@ -147,43 +187,6 @@ export const DynamicList = async ({
                     ${getRepeaters({ bindProps, staticProps })}
                 </div>
             </div>
-
-            <code-button
-                ${staticProps({
-                    drawers: [
-                        {
-                            label: 'description',
-                            source: source.description,
-                        },
-                        {
-                            label: 'definition',
-                            source: source.definition,
-                        },
-                        {
-                            label: 'main',
-                            source: source.mainComponent,
-                        },
-                        {
-                            label: 'repeater',
-                            source: source.repeaters,
-                        },
-                        {
-                            label: 'buttons',
-                            source: source.buttons,
-                        },
-                        {
-                            label: 'cards',
-                            source: source.cards,
-                        },
-                        {
-                            label: 'data',
-                            source: source.data,
-                        },
-                    ],
-                    style: 'legend',
-                })}
-            >
-            </code-button>
         </div>
     `;
 };

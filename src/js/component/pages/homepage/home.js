@@ -1,4 +1,5 @@
 import { getLegendData } from '../../../data';
+import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 import { homeTextAnimation } from './animation/text';
 
@@ -11,7 +12,7 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
+export const HomeComponent = ({ html, onMount, getState }) => {
     const { svg } = getState();
 
     onMount(async ({ refs }) => {
@@ -27,44 +28,44 @@ export const HomeComponent = ({ html, onMount, staticProps, getState }) => {
 
         playAnimation({ playIntro, playText, playSvg });
 
+        /**
+         * Code button
+         */
+        const { home } = getLegendData();
+        const { source } = home;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'component',
+                source: source.component,
+            },
+            {
+                label: 'Logo animation',
+                source: source.logoAnimation,
+            },
+            {
+                label: 'text animation',
+                source: source.textAnimation,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'black');
+
         return () => {
             destroy();
             destroyText();
+            setStateById(codeButtonId, 'drawers', []);
         };
     });
 
-    const { home } = getLegendData();
-    const { source } = home;
-
     return html`<div>
-        <code-button
-            ${staticProps({
-                drawers: [
-                    {
-                        label: 'description',
-                        source: source.description,
-                    },
-                    {
-                        label: 'definition',
-                        source: source.definition,
-                    },
-                    {
-                        label: 'component',
-                        source: source.component,
-                    },
-                    {
-                        label: 'Logo animation',
-                        source: source.logoAnimation,
-                    },
-                    {
-                        label: 'text animation',
-                        source: source.textAnimation,
-                    },
-                ],
-                style: 'legend',
-            })}
-        >
-        </code-button>
         <div class="l-index__content">
             <a class="l-index__item" href="./#mobCore_overview">
                 <div class="l-index__inner-content">

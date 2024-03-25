@@ -7,7 +7,7 @@ import { scrollerN0Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
+export const ScrollerN0 = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
 
     onMount(({ refs }) => {
@@ -34,6 +34,32 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
         setStateById(titleId, 'align', 'left');
         setStateById(titleId, 'color', 'white');
         setStateById(titleId, 'title', title);
+
+        /**
+         * Code button
+         */
+        const { scrollerN0 } = getLegendData();
+        const { source } = scrollerN0;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'component',
+                source: source.component,
+            },
+            {
+                label: 'animation',
+                source: source.animation,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'black');
 
         /**
          * Refs
@@ -67,11 +93,9 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'nextRoute', '');
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
+            setStateById(codeButtonId, 'drawers', []);
         };
     });
-
-    const { scrollerN0 } = getLegendData();
-    const { source } = scrollerN0;
 
     /**
      * Skip mobile.
@@ -86,30 +110,6 @@ export const ScrollerN0 = ({ onMount, html, getState, staticProps }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <code-button
-                    ${staticProps({
-                        drawers: [
-                            {
-                                label: 'description',
-                                source: source.description,
-                            },
-                            {
-                                label: 'definition',
-                                source: source.definition,
-                            },
-                            {
-                                label: 'component',
-                                source: source.component,
-                            },
-                            {
-                                label: 'animation',
-                                source: source.animation,
-                            },
-                        ],
-                        style: 'legend',
-                    })}
-                >
-                </code-button>
                 <div class="c-canvas__wrap" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>

@@ -33,6 +33,7 @@ export const wrapper = async () => {
         <route-loader></route-loader>
         <animation-title name="animation_title"></animation-title>
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
-        <scroll-down-label name="scroll_down_label" />
+        <scroll-down-label name="scroll_down_label"></scroll-down-label>
+        <code-button name="global-code-button"></code-button>
     `;
 };

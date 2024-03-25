@@ -2,13 +2,12 @@ import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
-import { detectSafari } from '../../../../utils/utils';
 import { caterpillarN1Animation } from './animation/animation';
 
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
+export const CaterpillarN1 = ({ onMount, html, getState }) => {
     onMount(({ refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -31,6 +30,32 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
         setStateById(titleId, 'color', 'white');
         setStateById(titleId, 'title', 'Caterpillar N1');
 
+        /**
+         * Code button
+         */
+        const { caterpillarN1 } = getLegendData();
+        const { source } = caterpillarN1;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'component',
+                source: source.component,
+            },
+            {
+                label: 'animation',
+                source: source.animation,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'black');
+
         const destroyAnimation = caterpillarN1Animation({
             canvas,
             ...getState(),
@@ -47,43 +72,15 @@ export const CaterpillarN1 = ({ onMount, html, getState, staticProps }) => {
             setStateById(quicknavId, 'nextRoute', '');
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
+            setStateById(codeButtonId, 'drawers', []);
         };
     });
-
-    const { caterpillarN1 } = getLegendData();
-    const { source } = caterpillarN1;
-
-    const canvasStyle = detectSafari() ? 'c-canvas__wrap--wrapped' : '';
 
     return html`
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <code-button
-                    ${staticProps({
-                        drawers: [
-                            {
-                                label: 'description',
-                                source: source.description,
-                            },
-                            {
-                                label: 'definition',
-                                source: source.definition,
-                            },
-                            {
-                                label: 'component',
-                                source: source.component,
-                            },
-                            {
-                                label: 'animation',
-                                source: source.animation,
-                            },
-                        ],
-                        style: 'legend',
-                    })}
-                >
-                </code-button>
-                <div class="c-canvas__wrap ${canvasStyle}" ref="wrap">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
