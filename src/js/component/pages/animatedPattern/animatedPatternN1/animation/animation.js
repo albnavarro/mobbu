@@ -40,8 +40,6 @@ export const animatedPatternN1Animation = ({
     let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
-    const highlightFill = '#505269';
-    const defaultFill = '#fff';
 
     const { activeRoute } = mainStore.get();
 
@@ -217,8 +215,13 @@ export const animatedPatternN1Animation = ({
                     height
                 );
 
-                context.fillStyle = hasFill ? highlightFill : defaultFill;
-                context.fill();
+                if (hasFill) {
+                    context.fillStyle = '#fff';
+                    context.fill();
+                } else {
+                    context.fillStyle = '#000';
+                    context.fill();
+                }
 
                 /**
                  * Reset all transform instead save() restore().

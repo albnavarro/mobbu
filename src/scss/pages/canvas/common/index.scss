@@ -31,6 +31,9 @@
             &--wrapped {
                 max-width: 1920px;
                 max-height: 769px;
+            }
+
+            &--border {
                 border: 1px $white solid;
             }
         }

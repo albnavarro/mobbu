@@ -41,8 +41,6 @@ export const scrollerN0Animation = ({
     let data = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
-    const highlightFill = '#505269';
-    const defaultFill = '#fff';
     const { activeRoute } = mainStore.get();
 
     /**
@@ -198,8 +196,16 @@ export const scrollerN0Animation = ({
                         height
                     );
                 }
-                context.fillStyle = hasFill ? highlightFill : defaultFill;
-                context.fill();
+
+                if (hasFill) {
+                    context.fillStyle = '#fff';
+                    context.fill();
+                } else {
+                    context.fillStyle = '#000';
+                    context.fill();
+                    context.strokeStyle = '#333';
+                    context.stroke();
+                }
 
                 /**
                  * Reset all transform instead save() restore().

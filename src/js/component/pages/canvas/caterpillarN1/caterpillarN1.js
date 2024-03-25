@@ -83,7 +83,10 @@ export const CaterpillarN1 = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    ref="wrap"
+                >
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>

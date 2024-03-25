@@ -24567,8 +24567,6 @@ Loading snippet ...</pre
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
-    const highlightFill = "#505269";
-    const defaultFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     canvas.width = canvas.clientWidth;
@@ -24650,8 +24648,15 @@ Loading snippet ...</pre
             width,
             height
           );
-          context2.fillStyle = hasFill ? highlightFill : defaultFill;
-          context2.fill();
+          if (hasFill) {
+            context2.fillStyle = "#fff";
+            context2.fill();
+          } else {
+            context2.fillStyle = "#000";
+            context2.fill();
+            context2.strokeStyle = "#333";
+            context2.stroke();
+          }
           context2.setTransform(1, 0, 0, 1, 0, 0);
         }
       );
@@ -24883,8 +24888,6 @@ Loading snippet ...</pre
     let gridTimeline = {};
     let { top, left } = offset(canvas);
     let ctx = canvas.getContext(context, { alpha: false });
-    const highlightFill = "#505269";
-    const defaultFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     canvas.width = canvas.clientWidth;
@@ -24981,8 +24984,13 @@ Loading snippet ...</pre
             width,
             height
           );
-          context2.fillStyle = hasFill ? highlightFill : defaultFill;
-          context2.fill();
+          if (hasFill) {
+            context2.fillStyle = "#fff";
+            context2.fill();
+          } else {
+            context2.fillStyle = "#000";
+            context2.fill();
+          }
           context2.setTransform(1, 0, 0, 1, 0, 0);
         }
       );
@@ -25444,7 +25452,10 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    ref="wrap"
+                >
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -25766,7 +25777,10 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    ref="wrap"
+                >
                     <canvas ref="canvas"></canvas>
                 </div>
             </div>
@@ -26817,8 +26831,6 @@ Loading snippet ...</pre
     let data3 = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
-    const highlightFill = "#505269";
-    const defaultFill = "#fff";
     const { activeRoute } = mainStore.get();
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
     let wichContext = useOffscreen ? offScreenCtx : ctx;
@@ -26923,8 +26935,15 @@ Loading snippet ...</pre
               height
             );
           }
-          context2.fillStyle = hasFill ? highlightFill : defaultFill;
-          context2.fill();
+          if (hasFill) {
+            context2.fillStyle = "#fff";
+            context2.fill();
+          } else {
+            context2.fillStyle = "#000";
+            context2.fill();
+            context2.strokeStyle = "#333";
+            context2.stroke();
+          }
           context2.setTransform(1, 0, 0, 1, 0, 0);
         }
       );
