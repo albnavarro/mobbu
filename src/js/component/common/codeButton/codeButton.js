@@ -1,5 +1,6 @@
 import codeIcon from '../../../../svg/icon-code.svg';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { navigationStore } from '../../layout/navigation/store/navStore';
 
 /**
  * @param {import('../../../mobjs/type').componentType}
@@ -29,7 +30,23 @@ export const CodeButton = ({
             element.classList.toggle('active', isActive);
         });
 
+        const unsubscribeOpenNav = navigationStore.watch(
+            'openNavigation',
+            () => {
+                element.classList.remove('active');
+            }
+        );
+
+        const unsubscribeCloseNav = navigationStore.watch(
+            'closeNavigation',
+            () => {
+                element.classList.add('active');
+            }
+        );
+
         return () => {
+            unsubscribeCloseNav();
+            unsubscribeOpenNav();
             element.remove();
         };
     });
