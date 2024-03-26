@@ -67,7 +67,7 @@ export const caterpillarN2Def = createComponent({
         'disableOffcanvas',
     ],
     state: {
-        numItems: detectFirefox() || detectSafari() ? 20 : 30,
+        numItems: 20,
         width: 80,
         height: 80,
         radius: 0,

@@ -5,11 +5,11 @@ import {
     copyCanvasBitmap,
     getCanvasContext,
     getOffsetCanvas,
-    roundRectIsSupported,
+    // roundRectIsSupported,
 } from '../../../../../utils/canvasUtils';
 import { navigationStore } from '../../../../layout/navigation/store/navStore';
 import { mobCore } from '../../../../../mobCore';
-import { detectSafari } from '../../../../../utils/utils';
+// import { detectSafari } from '../../../../../utils/utils';
 
 const logAddMethods = ({ value, direction, isForced }) => {
     if (isForced) return;
@@ -49,9 +49,11 @@ export const caterpillarN2Animation = ({
      * If offscreen is supported use.
      */
     let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    let wichContext = useOffscreen ? offScreenCtx : ctx;
-    const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
-    wichContext = null;
+    // let wichContext = useOffscreen ? offScreenCtx : ctx;
+    // const useRadius = roundRectIsSupported(wichContext) && !detectSafari();
+    // wichContext = null;
+
+    const useRadius = false;
 
     /**
      *
