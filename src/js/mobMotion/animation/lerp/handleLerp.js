@@ -50,7 +50,7 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
-import { calcValuesOnDraw } from './lerpUtils.js';
+import { calcValuesOnDraw } from './lerpCalcValuesOnDraw.js';
 
 export default class HandleLerp {
     /**
