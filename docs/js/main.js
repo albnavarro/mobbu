@@ -12710,6 +12710,33 @@
     }
   };
 
+  // src/js/mobMotion/animation/tween/tweenCalcValueOnDraw.js
+  var tweenCalcValueOnDraw = ({
+    values,
+    timeElapsed: timeElapsed2,
+    duration: duration2,
+    ease
+  }) => {
+    return values.map((item) => {
+      if (item.shouldUpdate) {
+        const rawCurrentValue = ease(
+          timeElapsed2,
+          item.fromValue,
+          item.toValProcessed,
+          duration2
+        );
+        return {
+          ...item,
+          currentValue: getRoundedValue(rawCurrentValue)
+        };
+      }
+      return {
+        ...item,
+        currentValue: item.fromValue
+      };
+    });
+  };
+
   // src/js/mobMotion/animation/tween/handleTween.js
   var HandleTween = class {
     /**
@@ -12813,18 +12840,11 @@
       if (this.isRunning && Math.round(this.timeElapsed) >= this.duration) {
         this.timeElapsed = this.duration;
       }
-      this.values.forEach((item) => {
-        if (item.shouldUpdate) {
-          item.currentValue = this.ease(
-            this.timeElapsed,
-            item.fromValue,
-            item.toValProcessed,
-            this.duration
-          );
-          item.currentValue = getRoundedValue(item.currentValue);
-        } else {
-          item.currentValue = item.fromValue;
-        }
+      this.values = tweenCalcValueOnDraw({
+        values: this.values,
+        timeElapsed: this.timeElapsed,
+        duration: this.duration,
+        ease: this.ease
       });
       const isSettled = Math.round(this.timeElapsed) === this.duration;
       const callBackObject = getValueObj(this.values, "currentValue");
@@ -12841,11 +12861,14 @@
           this.isActive = false;
           this.isRunning = false;
           this.pauseTime = 0;
-          this.values.forEach((item) => {
-            if (item.shouldUpdate) {
-              item.toValue = item.currentValue;
-              item.fromValue = item.currentValue;
-            }
+          this.values = [...this.values].map((item) => {
+            if (!item.shouldUpdate)
+              return item;
+            return {
+              ...item,
+              toValue: item.currentValue,
+              fromValue: item.currentValue
+            };
           });
           if (!this.pauseStatus) {
             res();
@@ -12865,14 +12888,14 @@
           fastestStagger: this.fastestStagger,
           useStagger: this.useStagger
         });
-      } else {
-        mobCore.useFrame(() => {
-          mobCore.useNextTick(({ time: time3 }) => {
-            if (this.isActive)
-              this.draw(time3, res);
-          });
-        });
+        return;
       }
+      mobCore.useFrame(() => {
+        mobCore.useNextTick(({ time: time3 }) => {
+          if (this.isActive)
+            this.draw(time3, res);
+        });
+      });
     }
     /**
      * @private
@@ -13074,10 +13097,13 @@
         this.currentReject(mobCore.ANIMATION_STOP_REJECT);
         this.promise = void 0;
       }
-      this.values.forEach((item) => {
-        if (item.shouldUpdate) {
-          item.fromValue = item.currentValue;
-        }
+      this.values = [...this.values].map((item) => {
+        if (!item.shouldUpdate)
+          return item;
+        return {
+          ...item,
+          fromValue: item.currentValue
+        };
       });
     }
     /**

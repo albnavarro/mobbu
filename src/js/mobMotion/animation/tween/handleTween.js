@@ -1,6 +1,6 @@
 // @ts-check
 
-import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
+import { compareKeys } from '../utils/animationUtils.js';
 import {
     setFromCurrentByTo,
     setFromToByCurrent,
@@ -49,6 +49,7 @@ import {
     getValueObjFromNative,
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
+import { tweenCalcValueOnDraw } from './tweenCalcValueOnDraw.js';
 
 export default class HandleTween {
     /**
@@ -315,18 +316,11 @@ export default class HandleTween {
             this.timeElapsed = this.duration;
         }
 
-        this.values.forEach((item) => {
-            if (item.shouldUpdate) {
-                item.currentValue = this.ease(
-                    this.timeElapsed,
-                    item.fromValue,
-                    item.toValProcessed,
-                    this.duration
-                );
-                item.currentValue = getRoundedValue(item.currentValue);
-            } else {
-                item.currentValue = item.fromValue;
-            }
+        this.values = tweenCalcValueOnDraw({
+            values: this.values,
+            timeElapsed: this.timeElapsed,
+            duration: this.duration,
+            ease: this.ease,
         });
 
         const isSettled = Math.round(this.timeElapsed) === this.duration;
@@ -350,14 +344,19 @@ export default class HandleTween {
                 this.isRunning = false;
                 this.pauseTime = 0;
 
-                // End of animation
-                // Set fromValue with ended value
-                // At the next call fromValue become the start value
-                this.values.forEach((item) => {
-                    if (item.shouldUpdate) {
-                        item.toValue = item.currentValue;
-                        item.fromValue = item.currentValue;
-                    }
+                /**
+                 * End of animation
+                 * Set fromValue with ended value
+                 * At the next call fromValue become the start value
+                 */
+                this.values = [...this.values].map((item) => {
+                    if (!item.shouldUpdate) return item;
+
+                    return {
+                        ...item,
+                        toValue: item.currentValue,
+                        fromValue: item.currentValue,
+                    };
                 });
 
                 // On complete
@@ -382,13 +381,15 @@ export default class HandleTween {
                 fastestStagger: this.fastestStagger,
                 useStagger: this.useStagger,
             });
-        } else {
-            mobCore.useFrame(() => {
-                mobCore.useNextTick(({ time }) => {
-                    if (this.isActive) this.draw(time, res);
-                });
-            });
+
+            return;
         }
+
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(({ time }) => {
+                if (this.isActive) this.draw(time, res);
+            });
+        });
     }
 
     /**
@@ -620,10 +621,13 @@ export default class HandleTween {
             this.promise = undefined;
         }
 
-        this.values.forEach((item) => {
-            if (item.shouldUpdate) {
-                item.fromValue = item.currentValue;
-            }
+        this.values = [...this.values].map((item) => {
+            if (!item.shouldUpdate) return item;
+
+            return {
+                ...item,
+                fromValue: item.currentValue,
+            };
         });
     }
 
