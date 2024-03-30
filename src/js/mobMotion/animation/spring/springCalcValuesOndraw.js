@@ -35,8 +35,7 @@ export const springCalcValuesOndraw = ({
         const isDisplacement =
             tension === 0
                 ? true
-                : Math.abs(toValue - Math.round(newCurrentValue * 1e2) / 1e2) <=
-                  precision;
+                : Math.abs(toValue - newCurrentValue) <= precision;
 
         const settled = isVelocity && isDisplacement;
 

@@ -11208,7 +11208,7 @@
       const rawCurrentValue = currentValue + newVelocity * 1 / fps2;
       const newCurrentValue = getRoundedValue(rawCurrentValue);
       const isVelocity = Math.abs(newVelocity) <= 0.1;
-      const isDisplacement = tension === 0 ? true : Math.abs(toValue - Math.round(newCurrentValue * 100) / 100) <= precision;
+      const isDisplacement = tension === 0 ? true : Math.abs(toValue - newCurrentValue) <= precision;
       const settled = isVelocity && isDisplacement;
       if (settled) {
         return {
