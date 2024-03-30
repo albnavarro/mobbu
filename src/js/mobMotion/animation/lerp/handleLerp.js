@@ -1,6 +1,6 @@
 // @ts-check
 
-import { lerp, compareKeys, getRoundedValue } from '../utils/animationUtils.js';
+import { compareKeys } from '../utils/animationUtils.js';
 import {
     setFromByCurrent,
     setFromCurrentByTo,
@@ -50,6 +50,7 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
+import { calcValuesOnDraw } from './lerpUtils.js';
 
 export default class HandleLerp {
     /**
@@ -267,27 +268,15 @@ export default class HandleLerp {
     draw(_time, fps, res = () => {}) {
         this.isActive = true;
 
-        this.values.forEach((item) => {
-            if (item.settled) return;
-
-            item.currentValue = lerp(
-                item.currentValue,
-                item.toValue,
-                (this.velocity / fps) * 60
-            );
-
-            item.currentValue = getRoundedValue(item.currentValue);
-
-            item.settled =
-                Number(Math.abs(item.toValue - item.currentValue).toFixed(4)) <=
-                this.precision;
-
-            if (item.settled) {
-                item.currentValue = item.toValue;
-            }
+        // Update values.
+        this.values = calcValuesOnDraw({
+            values: this.values,
+            fps,
+            velocity: this.velocity,
+            precision: this.precision,
         });
 
-        // Prepare an obj to pass to the callback
+        // Prepare an obj to pass to the callback.
         const callBackObject = getValueObj(this.values, 'currentValue');
 
         defaultCallback({
@@ -298,18 +287,20 @@ export default class HandleLerp {
             useStagger: this.useStagger,
         });
 
-        // Check if all values is completed
+        // Check if all values is completed.
         const allSettled = this.values.every((item) => item.settled === true);
 
         if (allSettled) {
             const onComplete = () => {
                 this.isActive = false;
 
-                // End of animation
-                // Set fromValue with ended value
-                // At the next call fromValue become the start value
-                this.values.forEach((item) => {
-                    item.fromValue = item.toValue;
+                /**
+                 * End of animation
+                 * Set fromValue with ended value
+                 * At the next call fromValue become the start value
+                 */
+                this.values = [...this.values].map((item) => {
+                    return { ...item, fromValue: item.toValue };
                 });
 
                 // On complete
@@ -337,13 +328,15 @@ export default class HandleLerp {
                 fastestStagger: this.fastestStagger,
                 useStagger: this.useStagger,
             });
-        } else {
-            mobCore.useFrame(() => {
-                mobCore.useNextTick(({ time, fps }) => {
-                    if (this.isActive) this.draw(time, fps, res);
-                });
-            });
+
+            return;
         }
+
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(({ time, fps }) => {
+                if (this.isActive) this.draw(time, fps, res);
+            });
+        });
     }
 
     /**
@@ -354,8 +347,8 @@ export default class HandleLerp {
      * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
-        this.values.forEach((item) => {
-            item.currentValue = item.fromValue;
+        this.values = [...this.values].map((item) => {
+            return { ...item, currentValue: item.fromValue };
         });
 
         this.draw(time, fps, res);
