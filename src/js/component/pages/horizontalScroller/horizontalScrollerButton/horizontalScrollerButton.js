@@ -9,11 +9,11 @@ export const HorizontalScrollerButton = ({
 }) => {
     const { id } = getState();
 
-    onMount(({ element }) => {
-        const btn = element.querySelector('.js-nav-button');
+    onMount(({ refs }) => {
+        const { button } = refs;
 
         watch('active', (active) => {
-            btn.classList.toggle('active', active);
+            button.classList.toggle('active', active);
         });
 
         return () => {};
@@ -24,7 +24,8 @@ export const HorizontalScrollerButton = ({
             <button
                 type="button"
                 data-id="${id}"
-                class="l-h-scroller__nav__btn js-nav-button"
+                class="l-h-scroller__nav__btn"
+                ref="button"
             >
                 ${id}
             </button>

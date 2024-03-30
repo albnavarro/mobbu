@@ -74,5 +74,15 @@
             "cards": "./codeExample/repeater/cards.json",
             "data": "./codeExample/repeater/data.json"
         }
+    },
+    "horizontalScroller": {
+        "source": {
+            "description": "./codeExample/horizontalScroller/description.json",
+            "definition": "./codeExample/horizontalScroller/definition.json",
+            "scroller": "./codeExample/horizontalScroller/scroller.json",
+            "section": "./codeExample/horizontalScroller/section.json",
+            "buttons": "./codeExample/horizontalScroller/buttons.json",
+            "animation": "./codeExample/horizontalScroller/animation.json"
+        }
     }
 }

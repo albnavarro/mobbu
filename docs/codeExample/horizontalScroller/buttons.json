@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Navigation button component"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "https://raw.githubusercontent.com/albnavarro/mobbu/main/src/js/component/pages/horizontalScroller/horizontalScrollerButton/horizontalScrollerButton.js",
+                "isFull": true,
+                "loadOnMount": true
+            }
+        }
+    ]
+}

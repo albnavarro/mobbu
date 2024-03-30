@@ -1,3 +1,4 @@
+import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -102,6 +103,40 @@ export const HorizontalScroller = ({
         setStateById(titleId, 'title', 'HorizontalScroller');
 
         /**
+         * Code button
+         */
+        const { horizontalScroller } = getLegendData();
+        const { source } = horizontalScroller;
+        const codeButtonId = getIdByInstanceName('global-code-button');
+        setStateById(codeButtonId, 'drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'scroller',
+                source: source.scroller,
+            },
+            {
+                label: 'section',
+                source: source.section,
+            },
+            {
+                label: 'buttons',
+                source: source.buttons,
+            },
+            {
+                label: 'animation',
+                source: source.animation,
+            },
+        ]);
+        setStateById(codeButtonId, 'color', 'white');
+
+        /**
          * Prevent landing at bottom of the page.
          */
         window.scrollTo(0, 0);
@@ -150,6 +185,7 @@ export const HorizontalScroller = ({
             setStateById(titleId, 'align', '');
             setStateById(titleId, 'title', '');
             setStateById(quicknavId, 'color', 'black');
+            setStateById(codeButtonId, 'drawers', []);
         };
     });
 
