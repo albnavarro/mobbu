@@ -10311,7 +10311,7 @@
   };
 
   // src/js/mobMotion/animation/lerp/lerpCalcValuesOnDraw.js
-  var calcValuesOnDraw = ({ values, fps: fps2, velocity, precision }) => {
+  var lerpCalcValuesOnDraw = ({ values, fps: fps2, velocity, precision }) => {
     return values.map((item) => {
       if (item.settled)
         return item;
@@ -10427,7 +10427,7 @@
     draw(_time, fps2, res = () => {
     }) {
       this.isActive = true;
-      this.values = calcValuesOnDraw({
+      this.values = lerpCalcValuesOnDraw({
         values: this.values,
         fps: fps2,
         velocity: this.velocity,
@@ -11190,6 +11190,43 @@
     }
   };
 
+  // src/js/mobMotion/animation/spring/springCalcValuesOndraw.js
+  var springCalcValuesOndraw = ({
+    values,
+    tension,
+    friction,
+    mass,
+    precision,
+    fps: fps2
+  }) => {
+    return values.map((item) => {
+      const { currentValue, toValue, velocity } = item;
+      const tensionForce = -tension * (currentValue - toValue);
+      const dampingForce = -friction * velocity;
+      const acceleration = (tensionForce + dampingForce) / mass;
+      const newVelocity = velocity + acceleration * 1 / fps2;
+      const rawCurrentValue = currentValue + newVelocity * 1 / fps2;
+      const newCurrentValue = getRoundedValue(rawCurrentValue);
+      const isVelocity = Math.abs(newVelocity) <= 0.1;
+      const isDisplacement = tension === 0 ? true : Math.abs(toValue - Math.round(newCurrentValue * 100) / 100) <= precision;
+      const settled = isVelocity && isDisplacement;
+      if (settled) {
+        return {
+          ...item,
+          currentValue: toValue,
+          velocity: newVelocity,
+          settled: true
+        };
+      }
+      return {
+        ...item,
+        currentValue: newCurrentValue,
+        velocity: newVelocity,
+        settled: false
+      };
+    });
+  };
+
   // src/js/mobMotion/animation/spring/handleSpring.js
   var HandleSpring = class {
     /**
@@ -11292,18 +11329,13 @@
     draw(_time, fps2, res = () => {
     }, tension, friction, mass, precision) {
       this.isActive = true;
-      this.values.forEach((item) => {
-        const tensionForce = -tension * (item.currentValue - item.toValue);
-        const dampingForce = -friction * item.velocity;
-        const acceleration = (tensionForce + dampingForce) / mass;
-        item.velocity = item.velocity + acceleration * 1 / fps2;
-        item.currentValue = item.currentValue + item.velocity * 1 / fps2;
-        item.currentValue = getRoundedValue(item.currentValue);
-        const isVelocity = Math.abs(item.velocity) <= 0.1;
-        const isDisplacement = tension === 0 ? true : Math.abs(
-          item.toValue - Math.round(item.currentValue * 100) / 100
-        ) <= precision;
-        item.settled = isVelocity && isDisplacement;
+      this.values = springCalcValuesOndraw({
+        values: this.values,
+        tension,
+        friction,
+        mass,
+        precision,
+        fps: fps2
       });
       const callBackObject = getValueObj(this.values, "currentValue");
       defaultCallback({
@@ -11317,8 +11349,11 @@
       if (allSettled) {
         const onComplete = () => {
           this.isActive = false;
-          this.values.forEach((item) => {
-            item.fromValue = item.toValue;
+          this.values = [...this.values].map((item) => {
+            return {
+              ...item,
+              fromValue: item.toValue
+            };
           });
           if (!this.pauseStatus) {
             res();
@@ -11339,22 +11374,22 @@
           fastestStagger: this.fastestStagger,
           useStagger: this.useStagger
         });
-      } else {
-        mobCore.useFrame(() => {
-          mobCore.useNextTick(({ time: time2, fps: fps3 }) => {
-            if (this.isActive)
-              this.draw(
-                time2,
-                fps3,
-                res,
-                tension,
-                friction,
-                mass,
-                precision
-              );
-          });
-        });
+        return;
       }
+      mobCore.useFrame(() => {
+        mobCore.useNextTick(({ time: time2, fps: fps3 }) => {
+          if (this.isActive)
+            this.draw(
+              time2,
+              fps3,
+              res,
+              tension,
+              friction,
+              mass,
+              precision
+            );
+        });
+      });
     }
     /**
      * @private
@@ -11364,8 +11399,11 @@
      * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time2, fps2, res) {
-      this.values.forEach((item) => {
-        item.velocity = Math.trunc(this.configProps.velocity);
+      this.values = [...this.values].map((item) => {
+        return {
+          ...item,
+          velocity: Math.trunc(this.configProps.velocity)
+        };
       });
       const tension = this.configProps.tension;
       const friction = this.configProps.friction;

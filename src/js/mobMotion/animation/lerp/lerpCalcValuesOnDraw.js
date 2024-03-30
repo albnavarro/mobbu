@@ -9,7 +9,7 @@ import { getRoundedValue, lerp } from '../utils/animationUtils';
  * @param {number} param.precision
  * @return {import('./type').lerpValues[]}
  */
-export const calcValuesOnDraw = ({ values, fps, velocity, precision }) => {
+export const lerpCalcValuesOnDraw = ({ values, fps, velocity, precision }) => {
     return values.map((item) => {
         if (item.settled) return item;
 

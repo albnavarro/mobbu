@@ -1,6 +1,6 @@
 // @ts-check
 
-import { compareKeys, getRoundedValue } from '../utils/animationUtils.js';
+import { compareKeys } from '../utils/animationUtils.js';
 import {
     setFromByCurrent,
     setFromCurrentByTo,
@@ -52,6 +52,7 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
+import { springCalcValuesOndraw } from './springCalcValuesOndraw.js';
 
 export default class HandleSpring {
     /**
@@ -278,27 +279,13 @@ export default class HandleSpring {
     draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
         this.isActive = true;
 
-        this.values.forEach((item) => {
-            const tensionForce = -tension * (item.currentValue - item.toValue);
-            const dampingForce = -friction * item.velocity;
-            const acceleration = (tensionForce + dampingForce) / mass;
-
-            item.velocity = item.velocity + (acceleration * 1) / fps;
-            item.currentValue = item.currentValue + (item.velocity * 1) / fps;
-
-            item.currentValue = getRoundedValue(item.currentValue);
-
-            const isVelocity = Math.abs(item.velocity) <= 0.1;
-
-            const isDisplacement =
-                tension === 0
-                    ? true
-                    : Math.abs(
-                          item.toValue -
-                              Math.round(item.currentValue * 1e2) / 1e2
-                      ) <= precision;
-
-            item.settled = isVelocity && isDisplacement;
+        this.values = springCalcValuesOndraw({
+            values: this.values,
+            tension,
+            friction,
+            mass,
+            precision,
+            fps,
         });
 
         /**
@@ -328,8 +315,11 @@ export default class HandleSpring {
                  * Set fromValue with ended value
                  * At the next call fromValue become the start value
                  */
-                this.values.forEach((item) => {
-                    item.fromValue = item.toValue;
+                this.values = [...this.values].map((item) => {
+                    return {
+                        ...item,
+                        fromValue: item.toValue,
+                    };
                 });
 
                 /**
@@ -363,22 +353,24 @@ export default class HandleSpring {
                 fastestStagger: this.fastestStagger,
                 useStagger: this.useStagger,
             });
-        } else {
-            mobCore.useFrame(() => {
-                mobCore.useNextTick(({ time, fps }) => {
-                    if (this.isActive)
-                        this.draw(
-                            time,
-                            fps,
-                            res,
-                            tension,
-                            friction,
-                            mass,
-                            precision
-                        );
-                });
-            });
+
+            return;
         }
+
+        mobCore.useFrame(() => {
+            mobCore.useNextTick(({ time, fps }) => {
+                if (this.isActive)
+                    this.draw(
+                        time,
+                        fps,
+                        res,
+                        tension,
+                        friction,
+                        mass,
+                        precision
+                    );
+            });
+        });
     }
 
     /**
@@ -389,8 +381,11 @@ export default class HandleSpring {
      * @param {Function} res current promise resolve
      **/
     onReuqestAnim(time, fps, res) {
-        this.values.forEach((item) => {
-            item.velocity = Math.trunc(this.configProps.velocity);
+        this.values = [...this.values].map((item) => {
+            return {
+                ...item,
+                velocity: Math.trunc(this.configProps.velocity),
+            };
         });
 
         /**
