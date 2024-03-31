@@ -19199,12 +19199,14 @@ Loading snippet ...</pre
     }
   };
   var getFirstValidValueBack = (arr, index, prop, propToFind) => {
-    return arr.slice(0, index).reduceRight((p, { values: valuesForward }) => {
-      const result = valuesForward.find(({ prop: propToCompare, active }) => {
-        return active && propToCompare === prop;
-      });
-      return result && p === null ? result[propToSet[propToFind].get] : p;
-    }, null);
+    return arr.slice(0, index).reduceRight((previous, { values: valuesForward }) => {
+      const result = valuesForward.find(
+        ({ prop: propToCompare, active }) => {
+          return active && propToCompare === prop;
+        }
+      );
+      return result && !previous ? result[propToSet[propToFind].get] : previous;
+    }, void 0);
   };
   var checkIsLastUsableProp = (arr, index, prop, partial) => {
     return arr.slice(index + 1, arr.length).reduce((p, { start, values }) => {
