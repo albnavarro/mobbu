@@ -569,11 +569,17 @@ export default class HandleSequencer {
      * @param  {string} propToFind first ancestor prop <toValue> || <fromValue>
      */
     setPropFromAncestor(propToFind) {
-        this.timeline.forEach(({ values }, i) => {
-            values.forEach(({ prop, active }, iValues) => {
-                if (!active) return;
+        this.timeline = [...this.timeline].map((item, i) => {
+            const { values } = item;
 
-                // Goback into the array
+            const newValues = values.map((valueItem) => {
+                const { prop, active } = valueItem;
+
+                if (!active) return valueItem;
+
+                /**
+                 * Goback into the array
+                 */
                 const previousValidValue = getFirstValidValueBack(
                     this.timeline,
                     i,
@@ -581,12 +587,23 @@ export default class HandleSequencer {
                     propToFind
                 );
 
-                // If we found a value apply it
-                if (previousValidValue !== null) {
-                    values[iValues][propToSet[propToFind].set] =
-                        previousValidValue;
+                // If we doesn't found a value skip
+                if (!previousValidValue) {
+                    return valueItem;
                 }
+
+                const newValueItem = {
+                    ...valueItem,
+                    [propToSet[propToFind].set]: previousValidValue,
+                };
+
+                return newValueItem;
             });
+
+            return {
+                ...item,
+                values: newValues,
+            };
         });
     }
 

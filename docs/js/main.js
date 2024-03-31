@@ -19616,20 +19616,31 @@ Loading snippet ...</pre
      * @param  {string} propToFind first ancestor prop <toValue> || <fromValue>
      */
     setPropFromAncestor(propToFind) {
-      this.timeline.forEach(({ values }, i) => {
-        values.forEach(({ prop, active }, iValues) => {
+      this.timeline = [...this.timeline].map((item, i) => {
+        const { values } = item;
+        const newValues = values.map((valueItem) => {
+          const { prop, active } = valueItem;
           if (!active)
-            return;
+            return valueItem;
           const previousValidValue = getFirstValidValueBack(
             this.timeline,
             i,
             prop,
             propToFind
           );
-          if (previousValidValue !== null) {
-            values[iValues][propToSet[propToFind].set] = previousValidValue;
+          if (!previousValidValue) {
+            return valueItem;
           }
+          const newValueItem = {
+            ...valueItem,
+            [propToSet[propToFind].set]: previousValidValue
+          };
+          return newValueItem;
         });
+        return {
+          ...item,
+          values: newValues
+        };
       });
     }
     /**
