@@ -28,11 +28,18 @@ export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
                     ({ prop }) => prop === valueItem.prop
                 );
 
-                if (!currentValuesItem || Object.keys(previous).length > 0)
+                /**
+                 * Check if item is settled or not active or previous value was funded.
+                 */
+                if (
+                    !currentValuesItem ||
+                    !currentValuesItem?.active ||
+                    Object.keys(previous).length > 0 ||
+                    valueItem.settled
+                )
                     return previous;
 
-                const { prop, active, toValue, fromValue, ease } =
-                    currentValuesItem;
+                const { prop, toValue, fromValue, ease } = currentValuesItem;
 
                 /**
                  * Check if in the next step of timeline the same prop is active an start before partial
@@ -48,8 +55,7 @@ export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
                  * Id the prop is settled or is inactive skip
                  * Check if in the next step of timeline the same prop is active an start before partial
                  */
-                if (valueItem.settled || !active || !isLastUsableProp)
-                    return previous;
+                if (!isLastUsableProp) return previous;
 
                 return {
                     toValue,

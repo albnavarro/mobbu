@@ -269,77 +269,104 @@ export default class HandleSequencer {
         useFrame = false,
         direction = directionConstant.NONE,
     }) {
-        const mainFn = () => {
-            /*
-             * First time run or atfer reset lasValue
-             * all the last value is null so get the current value
-             */
-            if (this.firstRun) {
-                this.lastPartial = partial;
-                this.actionAtFirstRender(partial);
-            }
-
-            /**
-             * Inside a timeline the direction is controlled by timeline and pass the value
-             * because timeline know the loop state and direction is stable
-             * Inside a parallax we have a fallback, but we don't have a loop
-             *
-             * On first run check is jumped
-             */
-            if (
-                !this.firstRun &&
-                this.lastPartial &&
-                (!direction || direction === directionConstant.NONE)
-            ) {
-                this.direction =
-                    partial >= this.lastPartial
-                        ? directionConstant.FORWARD
-                        : directionConstant.BACKWARD;
-            }
-
-            if (
-                !this.firstRun &&
-                (direction === directionConstant.BACKWARD ||
-                    direction === directionConstant.FORWARD)
-            ) {
-                this.direction = direction;
-            }
-
-            this.values.forEach((item) => {
-                item.settled = false;
-            });
-
-            this.values = sequencerGetValusOnDraw({
-                timeline: this.timeline,
-                valuesState: this.values,
-                partial,
-            });
-
-            const callBackObject = getValueObj(this.values, 'currentValue');
-
-            syncCallback({
-                each: this.stagger.each,
-                useStagger: this.useStagger,
-                isLastDraw,
-                callBackObject,
-                callback: this.callback,
-                callbackCache: this.callbackCache,
-                callbackOnStop: this.callbackOnStop,
-            });
-
-            this.fireAddCallBack(partial);
-
-            this.useStagger = true;
-            this.lastPartial = partial;
-            this.lastDirection = this.direction;
-            this.firstRun = false;
-        };
-
         if (useFrame) {
-            mainFn();
-        } else {
-            mobCore.useNextTick(() => mainFn());
+            this.onDraw({
+                partial,
+                isLastDraw,
+                direction,
+            });
+            return;
         }
+
+        mobCore.useNextTick(() =>
+            this.onDraw({
+                partial,
+                isLastDraw,
+                direction,
+            })
+        );
+    }
+
+    /**
+     * @private
+     */
+    onDraw({
+        partial = 0,
+        isLastDraw = false,
+        direction = directionConstant.NONE,
+    }) {
+        /*
+         * First time run or atfer reset lasValue
+         * all the last value is null so get the current value
+         */
+        if (this.firstRun) {
+            this.lastPartial = partial;
+            this.actionAtFirstRender(partial);
+        }
+
+        /**
+         * Inside a timeline the direction is controlled by timeline and pass the value
+         * because timeline know the loop state and direction is stable
+         * Inside a parallax we have a fallback, but we don't have a loop
+         *
+         * On first run check is jumped
+         */
+        if (
+            !this.firstRun &&
+            this.lastPartial &&
+            (!direction || direction === directionConstant.NONE)
+        ) {
+            this.direction =
+                partial >= this.lastPartial
+                    ? directionConstant.FORWARD
+                    : directionConstant.BACKWARD;
+        }
+
+        if (
+            !this.firstRun &&
+            (direction === directionConstant.BACKWARD ||
+                direction === directionConstant.FORWARD)
+        ) {
+            this.direction = direction;
+        }
+
+        /**
+         * Reset settled status
+         */
+        this.values = [...this.values].map((item) => {
+            return {
+                ...item,
+                settled: false,
+            };
+        });
+
+        /**
+         * Get new values
+         */
+        this.values = sequencerGetValusOnDraw({
+            timeline: this.timeline,
+            valuesState: this.values,
+            partial,
+        });
+
+        const callBackObject = getValueObj(this.values, 'currentValue');
+
+        syncCallback({
+            each: this.stagger.each,
+            useStagger: this.useStagger,
+            isLastDraw,
+            callBackObject,
+            callback: this.callback,
+            callbackCache: this.callbackCache,
+            callbackOnStop: this.callbackOnStop,
+        });
+
+        this.fireAddCallBack(partial);
+
+        this.useStagger = true;
+        this.lastPartial = partial;
+        this.lastDirection = this.direction;
+        this.firstRun = false;
     }
 
     /**

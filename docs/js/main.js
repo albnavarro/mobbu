@@ -19230,16 +19230,16 @@ Loading snippet ...</pre
           const currentValuesItem = values.find(
             ({ prop: prop2 }) => prop2 === valueItem.prop
           );
-          if (!currentValuesItem || Object.keys(previous).length > 0)
+          if (!currentValuesItem || !currentValuesItem?.active || Object.keys(previous).length > 0 || valueItem.settled)
             return previous;
-          const { prop, active, toValue: toValue2, fromValue: fromValue2, ease: ease2 } = currentValuesItem;
+          const { prop, toValue: toValue2, fromValue: fromValue2, ease: ease2 } = currentValuesItem;
           const isLastUsableProp = checkIsLastUsableProp(
             timeline2,
             index,
             prop,
             partial
           );
-          if (valueItem.settled || !active || !isLastUsableProp)
+          if (!isLastUsableProp)
             return previous;
           return {
             toValue: toValue2,
@@ -19403,46 +19403,66 @@ Loading snippet ...</pre
       useFrame = false,
       direction: direction2 = directionConstant.NONE
     }) {
-      const mainFn = () => {
-        if (this.firstRun) {
-          this.lastPartial = partial;
-          this.actionAtFirstRender(partial);
-        }
-        if (!this.firstRun && this.lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
-          this.direction = partial >= this.lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
-        }
-        if (!this.firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
-          this.direction = direction2;
-        }
-        this.values.forEach((item) => {
-          item.settled = false;
-        });
-        this.values = sequencerGetValusOnDraw({
-          timeline: this.timeline,
-          valuesState: this.values,
-          partial
-        });
-        const callBackObject = getValueObj(this.values, "currentValue");
-        syncCallback({
-          each: this.stagger.each,
-          useStagger: this.useStagger,
-          isLastDraw,
-          callBackObject,
-          callback: this.callback,
-          callbackCache: this.callbackCache,
-          callbackOnStop: this.callbackOnStop
-        });
-        this.fireAddCallBack(partial);
-        this.useStagger = true;
-        this.lastPartial = partial;
-        this.lastDirection = this.direction;
-        this.firstRun = false;
-      };
       if (useFrame) {
-        mainFn();
-      } else {
-        mobCore.useNextTick(() => mainFn());
+        this.onDraw({
+          partial,
+          isLastDraw,
+          direction: direction2
+        });
+        return;
       }
+      mobCore.useNextTick(
+        () => this.onDraw({
+          partial,
+          isLastDraw,
+          direction: direction2
+        })
+      );
+    }
+    /**
+     * @private
+     */
+    onDraw({
+      partial = 0,
+      isLastDraw = false,
+      direction: direction2 = directionConstant.NONE
+    }) {
+      if (this.firstRun) {
+        this.lastPartial = partial;
+        this.actionAtFirstRender(partial);
+      }
+      if (!this.firstRun && this.lastPartial && (!direction2 || direction2 === directionConstant.NONE)) {
+        this.direction = partial >= this.lastPartial ? directionConstant.FORWARD : directionConstant.BACKWARD;
+      }
+      if (!this.firstRun && (direction2 === directionConstant.BACKWARD || direction2 === directionConstant.FORWARD)) {
+        this.direction = direction2;
+      }
+      this.values = [...this.values].map((item) => {
+        return {
+          ...item,
+          settled: false
+        };
+      });
+      this.values = sequencerGetValusOnDraw({
+        timeline: this.timeline,
+        valuesState: this.values,
+        partial
+      });
+      const callBackObject = getValueObj(this.values, "currentValue");
+      syncCallback({
+        each: this.stagger.each,
+        useStagger: this.useStagger,
+        isLastDraw,
+        callBackObject,
+        callback: this.callback,
+        callbackCache: this.callbackCache,
+        callbackOnStop: this.callbackOnStop
+      });
+      this.fireAddCallBack(partial);
+      this.useStagger = true;
+      this.lastPartial = partial;
+      this.lastDirection = this.direction;
+      this.firstRun = false;
     }
     /**
      * @description
