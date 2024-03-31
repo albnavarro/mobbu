@@ -49,7 +49,7 @@ import {
     getValueObjFromNative,
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
-import { tweenCalcValueOnDraw } from './tweenCalcValueOnDraw.js';
+import { tweenGetValueOnDraw } from './getValuesOnDraw.js';
 
 export default class HandleTween {
     /**
@@ -316,7 +316,7 @@ export default class HandleTween {
             this.timeElapsed = this.duration;
         }
 
-        this.values = tweenCalcValueOnDraw({
+        this.values = tweenGetValueOnDraw({
             values: this.values,
             timeElapsed: this.timeElapsed,
             duration: this.duration,

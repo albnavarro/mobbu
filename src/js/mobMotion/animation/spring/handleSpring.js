@@ -52,7 +52,7 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
-import { springCalcValuesOndraw } from './springCalcValuesOndraw.js';
+import { springGetValuesOndraw } from './getValuesOndraw.js';
 
 export default class HandleSpring {
     /**
@@ -279,7 +279,7 @@ export default class HandleSpring {
     draw(_time, fps, res = () => {}, tension, friction, mass, precision) {
         this.isActive = true;
 
-        this.values = springCalcValuesOndraw({
+        this.values = springGetValuesOndraw({
             values: this.values,
             tension,
             friction,

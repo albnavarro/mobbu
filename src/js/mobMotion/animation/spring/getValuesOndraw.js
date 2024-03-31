@@ -12,7 +12,7 @@ import { getRoundedValue } from '../utils/animationUtils';
  * @param {number} param.fps
  * @return {import('./type').springValues[]}
  */
-export const springCalcValuesOndraw = ({
+export const springGetValuesOndraw = ({
     values,
     tension,
     friction,

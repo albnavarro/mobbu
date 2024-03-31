@@ -50,7 +50,7 @@ import {
     getValueObjToNative,
 } from '../utils/tweenAction/getValues.js';
 import { mergeArray } from '../utils/tweenAction/mergeArray.js';
-import { lerpCalcValuesOnDraw } from './lerpCalcValuesOnDraw.js';
+import { lerpGetValuesOnDraw } from './getValuesOnDraw.js';
 
 export default class HandleLerp {
     /**
@@ -269,7 +269,7 @@ export default class HandleLerp {
         this.isActive = true;
 
         // Update values.
-        this.values = lerpCalcValuesOnDraw({
+        this.values = lerpGetValuesOnDraw({
             values: this.values,
             fps,
             velocity: this.velocity,

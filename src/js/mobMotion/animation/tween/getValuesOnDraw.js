@@ -10,7 +10,7 @@ import { getRoundedValue } from '../utils/animationUtils';
  * @param {Function} param.ease
  * @return {import('./type').tweenStoreData[]}
  */
-export const tweenCalcValueOnDraw = ({
+export const tweenGetValueOnDraw = ({
     values,
     timeElapsed,
     duration,
