@@ -508,6 +508,11 @@ export default class HandleSequencer {
             };
         });
 
+        /**
+         * First time add a set with initial data.
+         * We create a value for ancestor/reduce mechenism
+         */
+        this.goTo(obj, { start: 0, end: 0 });
         return this;
     }
 
@@ -527,15 +532,13 @@ export default class HandleSequencer {
                 return newItem.prop === item.prop;
             });
 
-            const inactiveItem = {
-                prop: item.prop,
-                active: false,
-            };
-
             // If exist merge
             return itemToMerge
                 ? { ...item, ...itemToMerge, active: true }
-                : inactiveItem;
+                : {
+                      prop: item.prop,
+                      active: false,
+                  };
         });
     }
 
@@ -567,15 +570,16 @@ export default class HandleSequencer {
      *  we take the the first usable toValue and use we it as current fromValue
      *
      * @param  {string} propToFind first ancestor prop <toValue> || <fromValue>
+     * @param  {string[]} activeProp first ancestor prop <toValue> || <fromValue>
      */
-    setPropFromAncestor(propToFind) {
+    setPropFromAncestor(propToFind, activeProp) {
         this.timeline = [...this.timeline].map((item, i) => {
             const { values } = item;
 
             const newValues = values.map((valueItem) => {
                 const { prop, active } = valueItem;
 
-                if (!active) return valueItem;
+                if (!active || !activeProp.includes(prop)) return valueItem;
 
                 /**
                  * Goback into the array
@@ -634,14 +638,19 @@ export default class HandleSequencer {
 
         const data = goToSyncUtils(obj, ease);
         const newValues = this.mergeArray(data, this.values);
+
         this.timeline.push({
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
         });
 
+        /**
+         * Select active keys to get only chenaged value in setPropFromAncestor()
+         */
+        const activeProp = Object.keys(obj);
         this.timeline = this.orderByStart(this.timeline);
-        this.setPropFromAncestor('fromValue');
+        this.setPropFromAncestor('fromValue', activeProp);
         return this;
     }
 
@@ -678,8 +687,9 @@ export default class HandleSequencer {
             end: end ?? this.duration,
         });
 
+        const activeProp = Object.keys(obj);
         this.timeline = this.orderByStart(this.timeline);
-        this.setPropFromAncestor('toValue');
+        this.setPropFromAncestor('toValue', activeProp);
         return this;
     }
 
@@ -711,7 +721,7 @@ export default class HandleSequencer {
         if (!sequencerRangeValidate({ start, end })) return this;
 
         if (!compareKeys(fromObj, toObj)) {
-            compareKeysWarning('lerp goFromTo:', fromObj, toObj);
+            compareKeysWarning('sequencer goFromTo:', fromObj, toObj);
             return;
         }
 
