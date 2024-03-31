@@ -19222,6 +19222,63 @@ Loading snippet ...</pre
     NONE: "none"
   };
 
+  // src/js/mobMotion/animation/sequencer/getValuesOnDraw.js
+  var sequencerGetValusOnDraw = ({ timeline: timeline2, valuesState, partial }) => {
+    return valuesState.map((valueItem) => {
+      const item = timeline2.reduce(
+        (previous, { start: start2, end: end2, values }, index) => {
+          const currentValuesItem = values.find(
+            ({ prop: prop2 }) => prop2 === valueItem.prop
+          );
+          if (!currentValuesItem || Object.keys(previous).length > 0)
+            return previous;
+          const { prop, active, toValue: toValue2, fromValue: fromValue2, ease: ease2 } = currentValuesItem;
+          const isLastUsableProp = checkIsLastUsableProp(
+            timeline2,
+            index,
+            prop,
+            partial
+          );
+          if (valueItem.settled || !active || !isLastUsableProp)
+            return previous;
+          return {
+            toValue: toValue2,
+            fromValue: fromValue2,
+            start: start2,
+            end: end2,
+            ease: ease2
+          };
+        },
+        {}
+      );
+      if (Object.keys(item).length === 0)
+        return valueItem;
+      const { start, end, toValue, fromValue, ease } = item;
+      const newToValue = mobCore.checkType(Number, toValue) ? toValue : (
+        // @ts-ignore
+        toValue()
+      );
+      const newFromValue = mobCore.checkType(Number, fromValue) ? fromValue : (
+        // @ts-ignore
+        fromValue()
+      );
+      const duration2 = end - start;
+      const inactivePosition = partial < end ? newFromValue : newToValue;
+      const newCurrentValue = partial >= start && partial <= end ? ease(
+        partial - start,
+        newFromValue,
+        newToValue - newFromValue,
+        duration2
+      ) : inactivePosition;
+      const currentValueRoudned = getRoundedValue(newCurrentValue);
+      return {
+        ...valueItem,
+        currentValue: currentValueRoudned,
+        settled: true
+      };
+    });
+  };
+
   // src/js/mobMotion/animation/sequencer/handleSequencer.js
   var HandleSequencer = class {
     /**
@@ -19360,43 +19417,10 @@ Loading snippet ...</pre
         this.values.forEach((item) => {
           item.settled = false;
         });
-        this.timeline.forEach(({ start, end, values }, i) => {
-          values.forEach((item) => {
-            const currentEl = this.values.find(
-              ({ prop }) => prop === item.prop
-            );
-            if (!currentEl)
-              return;
-            if (currentEl.settled || !item.active)
-              return;
-            const isLastUsableProp = checkIsLastUsableProp(
-              this.timeline,
-              i,
-              item.prop,
-              partial
-            );
-            if (!isLastUsableProp)
-              return;
-            const toValue = mobCore.checkType(Number, item.toValue) ? item.toValue : (
-              // @ts-ignore
-              item.toValue()
-            );
-            const fromValue = mobCore.checkType(Number, item.fromValue) ? item.fromValue : (
-              // @ts-ignore
-              item.fromValue()
-            );
-            const duration2 = end - start;
-            const inactivePosition = partial < end ? fromValue : toValue;
-            item.currentValue = partial >= start && partial <= end ? item.ease(
-              partial - start,
-              fromValue,
-              toValue - fromValue,
-              duration2
-            ) : inactivePosition;
-            item.currentValue = getRoundedValue(item.currentValue);
-            currentEl.currentValue = item.currentValue;
-            currentEl.settled = true;
-          });
+        this.values = sequencerGetValusOnDraw({
+          timeline: this.timeline,
+          valuesState: this.values,
+          partial
         });
         const callBackObject = getValueObj(this.values, "currentValue");
         syncCallback({

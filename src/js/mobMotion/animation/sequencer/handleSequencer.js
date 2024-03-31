@@ -23,11 +23,7 @@ import {
     goFromSyncUtils,
     goFromToSyncUtils,
 } from './syncActions.js';
-import {
-    propToSet,
-    getFirstValidValueBack,
-    checkIsLastUsableProp,
-} from './reduceFunction.js';
+import { propToSet, getFirstValidValueBack } from './reduceFunction.js';
 import {
     durationIsValid,
     easeIsValid,
@@ -39,6 +35,7 @@ import { mobCore } from '../../../mobCore/index.js';
 import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
+import { sequencerGetValusOnDraw } from './getValuesOnDraw.js';
 
 export default class HandleSequencer {
     /**
@@ -312,65 +309,10 @@ export default class HandleSequencer {
                 item.settled = false;
             });
 
-            this.timeline.forEach(({ start, end, values }, i) => {
-                values.forEach((item) => {
-                    const currentEl = this.values.find(
-                        ({ prop }) => prop === item.prop
-                    );
-
-                    if (!currentEl) return;
-
-                    /**
-                     * Id the prop is settled or is inactive skip
-                     */
-                    if (currentEl.settled || !item.active) return;
-
-                    /**
-                     * Check if in the next step of timeline the same prop is active an start before partial
-                     */
-                    const isLastUsableProp = checkIsLastUsableProp(
-                        this.timeline,
-                        i,
-                        item.prop,
-                        partial
-                    );
-
-                    /**
-                     * If in the next step the same props is active and start before partial skip
-                     */
-                    if (!isLastUsableProp) return;
-
-                    const toValue = mobCore.checkType(Number, item.toValue)
-                        ? item.toValue
-                        : // @ts-ignore
-                          item.toValue();
-
-                    const fromValue = mobCore.checkType(Number, item.fromValue)
-                        ? item.fromValue
-                        : // @ts-ignore
-                          item.fromValue();
-
-                    /**
-                     * At least we get the current value
-                     */
-                    const duration = end - start;
-                    const inactivePosition =
-                        partial < end ? fromValue : toValue;
-
-                    item.currentValue =
-                        partial >= start && partial <= end
-                            ? item.ease(
-                                  partial - start,
-                                  fromValue,
-                                  toValue - fromValue,
-                                  duration
-                              )
-                            : inactivePosition;
-
-                    item.currentValue = getRoundedValue(item.currentValue);
-                    currentEl.currentValue = item.currentValue;
-                    currentEl.settled = true;
-                });
+            this.values = sequencerGetValusOnDraw({
+                timeline: this.timeline,
+                valuesState: this.values,
+                partial,
             });
 
             const callBackObject = getValueObj(this.values, 'currentValue');
