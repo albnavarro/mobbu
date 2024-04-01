@@ -19194,7 +19194,7 @@ Loading snippet ...</pre
       set: "fromValue"
     },
     toValue: {
-      get: "fromValue",
+      get: "toValue",
       set: "toValue"
     }
   };
