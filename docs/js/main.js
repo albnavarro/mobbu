@@ -19344,6 +19344,7 @@ Loading snippet ...</pre
       this.stagger = getStaggerFromProps(data3);
       this.useStagger = true;
       this.staggerIsReady = false;
+      this.currentPriority = 1;
       const props = data3?.data || null;
       if (props)
         this.setData(props);
@@ -19565,7 +19566,9 @@ Loading snippet ...</pre
           ease: getTweenFn(handleSetUp.get("sequencer").ease)
         };
       });
+      this.currentPriority = 0;
       this.goTo(obj, { start: 0, end: 0 });
+      this.currentPriority = 1;
       return this;
     }
     /**
@@ -19593,14 +19596,15 @@ Loading snippet ...</pre
      * @private
      *
      * @param {import('./type.js').sequencerRow[]} arr
+     * @param {string} prop
      * @returns {import('./type.js').sequencerRow[]} arr
      *
      * @description
      * Sorts the array by the lowest start value
      */
-    orderByStart(arr) {
+    orderByProp(arr, prop) {
       return arr.sort((a, b) => {
-        return a.start - b.start;
+        return a?.[prop] - b?.[prop];
       });
     }
     /**
@@ -19675,10 +19679,12 @@ Loading snippet ...</pre
       this.timeline.push({
         values: newValues,
         start: start ?? 0,
-        end: end ?? this.duration
+        end: end ?? this.duration,
+        priority: this.currentPriority
       });
       const activeProp = Object.keys(obj);
-      this.timeline = this.orderByStart(this.timeline);
+      this.timeline = this.orderByProp(this.timeline, "start");
+      this.timeline = this.orderByProp(this.timeline, "priority");
       this.setPropFromAncestor("fromValue", activeProp);
       return this;
     }
@@ -19711,10 +19717,12 @@ Loading snippet ...</pre
       this.timeline.push({
         values: newValues,
         start: start ?? 0,
-        end: end ?? this.duration
+        end: end ?? this.duration,
+        priority: this.currentPriority
       });
       const activeProp = Object.keys(obj);
-      this.timeline = this.orderByStart(this.timeline);
+      this.timeline = this.orderByProp(this.timeline, "start");
+      this.timeline = this.orderByProp(this.timeline, "priority");
       this.setPropFromAncestor("toValue", activeProp);
       return this;
     }
@@ -19753,9 +19761,11 @@ Loading snippet ...</pre
       this.timeline.push({
         values: newValues,
         start: start ?? 0,
-        end: end ?? this.duration
+        end: end ?? this.duration,
+        priority: this.currentPriority
       });
-      this.timeline = this.orderByStart(this.timeline);
+      this.timeline = this.orderByProp(this.timeline, "start");
+      this.timeline = this.orderByProp(this.timeline, "priority");
       return this;
     }
     /**
