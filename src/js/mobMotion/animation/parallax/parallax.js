@@ -1315,7 +1315,7 @@ export default class ParallaxClass {
      * @private
      */
     calcOffset() {
-        const el = this.trigger === null ? this.item : this.trigger;
+        const el = this.trigger ?? this.item;
 
         if (!el) return;
 
@@ -1349,7 +1349,7 @@ export default class ParallaxClass {
                       Math.trunc(offset(el).left) - offset(this.scroller).left;
         }
 
-        if (this.screen !== window) {
+        if (this.screen && this.screen !== window) {
             this.direction === parallaxConstant.DIRECTION_VERTICAL
                 ? // @ts-ignore
                   (this.offset -= Math.trunc(offset(this.screen).top))
@@ -1366,7 +1366,7 @@ export default class ParallaxClass {
      * @private
      */
     calcScreenPosition() {
-        if (this.screen === window) return;
+        if (this.screen === window || !this.screen) return;
 
         /**
          * @ts-ignore all element is not window ( check the if statement ).
@@ -1383,7 +1383,8 @@ export default class ParallaxClass {
      * @private
      */
     calcHeight() {
-        const el = this.trigger === null ? this.item : this.trigger;
+        const el = this.trigger ?? this.item;
+
         if (!el) return;
 
         this.height =
@@ -1396,7 +1397,8 @@ export default class ParallaxClass {
      * @private
      */
     calcWidth() {
-        const el = this.trigger === null ? this.item : this.trigger;
+        const el = this.trigger ?? this.item;
+
         if (!el) return;
 
         this.width =
@@ -1409,9 +1411,7 @@ export default class ParallaxClass {
      * @private
      */
     getScrollerOffset() {
-        /**
-         * @ts-ignore all element is not window ( check the if statement ).
-         */
+        if (!this.scroller) return;
 
         if (this.scroller === window) {
             this.scrollerScroll =
@@ -1432,6 +1432,8 @@ export default class ParallaxClass {
      * @private
      */
     getScreenHeight() {
+        if (!this.screen) return;
+
         this.windowInnerWidth = window.innerWidth;
         this.windowInnerHeight = window.innerHeight;
 
