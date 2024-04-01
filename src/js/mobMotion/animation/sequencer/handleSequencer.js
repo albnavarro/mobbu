@@ -199,12 +199,6 @@ export default class HandleSequencer {
         this.staggerIsReady = false;
 
         /**
-         * @private
-         * @type {number}
-         */
-        this.currentPriority = 1;
-
-        /**
          * Set initial store data if defined in constructor props
          * If not use setData methods
          */
@@ -517,10 +511,9 @@ export default class HandleSequencer {
         /**
          * First time add a set with initial data.
          * We create a value for ancestor/reduce mechenism
+         * This row has priority 0, so we are sure that is the first row of timeline array.
          */
-        this.currentPriority = 0;
         this.goTo(obj, { start: 0, end: 0 });
-        this.currentPriority = 1;
         return this;
     }
 
@@ -652,7 +645,7 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
-            priority: this.currentPriority,
+            priority: this.timeline.length === 0 ? 0 : 1,
         });
 
         /**
@@ -696,7 +689,7 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
-            priority: this.currentPriority,
+            priority: this.timeline.length === 0 ? 0 : 1,
         });
 
         const activeProp = Object.keys(obj);
@@ -744,7 +737,7 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
-            priority: this.currentPriority,
+            priority: this.timeline.length === 0 ? 0 : 1,
         });
 
         this.timeline = this.orderByProp(this.timeline, 'start');
