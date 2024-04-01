@@ -35,6 +35,7 @@ export interface sequencerValue {
 export interface sequencerRow {
     start: number;
     end: number;
+    priority: number;
     values: sequencerValue[];
 }
 

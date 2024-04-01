@@ -199,6 +199,12 @@ export default class HandleSequencer {
         this.staggerIsReady = false;
 
         /**
+         * @private
+         * @type {number}
+         */
+        this.currentPriority = 1;
+
+        /**
          * Set initial store data if defined in constructor props
          * If not use setData methods
          */
@@ -512,7 +518,9 @@ export default class HandleSequencer {
          * First time add a set with initial data.
          * We create a value for ancestor/reduce mechenism
          */
+        this.currentPriority = 0;
         this.goTo(obj, { start: 0, end: 0 });
+        this.currentPriority = 1;
         return this;
     }
 
@@ -546,14 +554,15 @@ export default class HandleSequencer {
      * @private
      *
      * @param {import('./type.js').sequencerRow[]} arr
+     * @param {string} prop
      * @returns {import('./type.js').sequencerRow[]} arr
      *
      * @description
      * Sorts the array by the lowest start value
      */
-    orderByStart(arr) {
+    orderByProp(arr, prop) {
         return arr.sort((a, b) => {
-            return a.start - b.start;
+            return a?.[prop] - b?.[prop];
         });
     }
 
@@ -643,13 +652,15 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
+            priority: this.currentPriority,
         });
 
         /**
          * Select active keys to get only chenaged value in setPropFromAncestor()
          */
         const activeProp = Object.keys(obj);
-        this.timeline = this.orderByStart(this.timeline);
+        this.timeline = this.orderByProp(this.timeline, 'start');
+        this.timeline = this.orderByProp(this.timeline, 'priority');
         this.setPropFromAncestor('fromValue', activeProp);
         return this;
     }
@@ -685,10 +696,12 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
+            priority: this.currentPriority,
         });
 
         const activeProp = Object.keys(obj);
-        this.timeline = this.orderByStart(this.timeline);
+        this.timeline = this.orderByProp(this.timeline, 'start');
+        this.timeline = this.orderByProp(this.timeline, 'priority');
         this.setPropFromAncestor('toValue', activeProp);
         return this;
     }
@@ -731,9 +744,11 @@ export default class HandleSequencer {
             values: newValues,
             start: start ?? 0,
             end: end ?? this.duration,
+            priority: this.currentPriority,
         });
 
-        this.timeline = this.orderByStart(this.timeline);
+        this.timeline = this.orderByProp(this.timeline, 'start');
+        this.timeline = this.orderByProp(this.timeline, 'priority');
         return this;
     }
 

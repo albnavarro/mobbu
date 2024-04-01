@@ -9,7 +9,7 @@ export const propToSet = {
         set: 'fromValue',
     },
     toValue: {
-        get: 'fromValue',
+        get: 'toValue',
         set: 'toValue',
     },
 };
