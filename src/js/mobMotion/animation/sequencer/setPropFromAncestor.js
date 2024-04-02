@@ -12,17 +12,22 @@ import { getFirstValidValueBack, propToSet } from './reduceFunction';
  *
  * @param  {Object} param
  * @param  {import("./type").sequencerRow[]} param.timeline
- * @param  {string} param.propToFind first ancestor prop <toValue> || <fromValue>
  * @param  {string[]} param.activeProp current props to update
  */
-export const setPropFromAncestor = ({ timeline, propToFind, activeProp }) => {
+export const setPropFromAncestor = ({ timeline, activeProp }) => {
     return timeline.map((item, index) => {
-        const { values } = item;
+        const { values, propToFind } = item;
 
         const newValues = values.map((valueItem) => {
             const { prop, active } = valueItem;
 
-            if (!active || !activeProp.includes(prop)) return valueItem;
+            if (
+                !active ||
+                !activeProp.includes(prop) ||
+                !propToFind ||
+                propToFind.length === 0
+            )
+                return valueItem;
 
             /**
              * Goback into the array

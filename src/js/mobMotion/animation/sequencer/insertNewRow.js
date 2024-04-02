@@ -12,9 +12,17 @@ import { orderByProp } from './orderRow';
  * @param {number} param.start
  * @param {number} param.end
  * @param {number} param.duration
+ * @param {string} param.propToFind
  * @return {import('./type').sequencerRow[]}
  */
-export const insertNewRow = ({ timeline, values, start, end, duration }) => {
+export const insertNewRow = ({
+    timeline,
+    values,
+    start,
+    end,
+    duration,
+    propToFind,
+}) => {
     const priority = timeline.length === 0 ? 0 : 1;
 
     /**
@@ -27,6 +35,7 @@ export const insertNewRow = ({ timeline, values, start, end, duration }) => {
             start: start ?? 0,
             end: end ?? duration,
             priority,
+            propToFind,
         },
     ];
 

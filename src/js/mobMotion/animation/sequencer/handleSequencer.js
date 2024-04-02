@@ -557,6 +557,7 @@ export default class HandleSequencer {
             start,
             end,
             duration: this.duration,
+            propToFind: 'fromValue',
         });
 
         /**
@@ -564,7 +565,6 @@ export default class HandleSequencer {
          */
         this.timeline = setPropFromAncestor({
             timeline: newTimeline,
-            propToFind: 'fromValue',
             activeProp,
         });
 
@@ -609,6 +609,7 @@ export default class HandleSequencer {
             start,
             end,
             duration: this.duration,
+            propToFind: 'toValue',
         });
 
         /**
@@ -616,7 +617,6 @@ export default class HandleSequencer {
          */
         this.timeline = setPropFromAncestor({
             timeline: newTimeline,
-            propToFind: 'toValue',
             activeProp,
         });
 
@@ -667,6 +667,7 @@ export default class HandleSequencer {
             start,
             end,
             duration: this.duration,
+            propToFind: '',
         });
 
         return this;

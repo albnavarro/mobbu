@@ -37,6 +37,7 @@ export interface sequencerRow {
     end: number;
     priority: number;
     values: sequencerValue[];
+    propToFind: string;
 }
 
 export interface createStagger {
