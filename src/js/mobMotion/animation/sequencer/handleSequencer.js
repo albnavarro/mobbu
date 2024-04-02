@@ -23,7 +23,6 @@ import {
     goFromSyncUtils,
     goFromToSyncUtils,
 } from './syncActions.js';
-import { propToSet, getFirstValidValueBack } from './reduceFunction.js';
 import {
     durationIsValid,
     easeIsValid,
@@ -36,6 +35,9 @@ import { directionConstant } from '../utils/timeline/timelineConstant.js';
 import { getValueObj } from '../utils/tweenAction/getValues.js';
 import { STAGGER_DEFAULT_INDEX_OBJ } from '../utils/stagger/staggerCostant.js';
 import { sequencerGetValusOnDraw } from './getValuesOnDraw.js';
+import { setPropFromAncestor } from './setPropFromAncestor.js';
+import { insertNewRow } from './insertNewRow.js';
+import { mergeNewValues } from './mergeNewValues.js';
 
 export default class HandleSequencer {
     /**
@@ -518,102 +520,6 @@ export default class HandleSequencer {
     }
 
     /**
-     * Return the new array maeged with main array created in setData
-     *
-     * @private
-     *
-     * @param  {Array} newData new datato merge
-     * @param {import('./type.js').sequencerValue[]} data
-     *
-     * @return {import('./type.js').sequencerValue[]}
-     */
-    mergeArray(newData, data) {
-        return data.map((item) => {
-            const itemToMerge = newData.find((newItem) => {
-                return newItem.prop === item.prop;
-            });
-
-            // If exist merge
-            return itemToMerge
-                ? { ...item, ...itemToMerge, active: true }
-                : {
-                      prop: item.prop,
-                      active: false,
-                  };
-        });
-    }
-
-    /**
-     * @private
-     *
-     * @param {import('./type.js').sequencerRow[]} arr
-     * @param {string} prop
-     * @returns {import('./type.js').sequencerRow[]} arr
-     *
-     * @description
-     * Sorts the array by the lowest start value
-     */
-    orderByProp(arr, prop) {
-        return arr.sort((a, b) => {
-            return a?.[prop] - b?.[prop];
-        });
-    }
-
-    /**
-     * @private
-     *
-     * @description
-     * setPropFromAncestor
-     * - Example when we come from goTo methods:
-     *
-     *  When we define the toValue we have to associate the right fromValue value
-     *  ( ease methods need fromValue and toValue to calculate current value)
-     *  we search back into the array until we found an active item with the same prop ( for example: rotate )
-     *  we take the the first usable toValue and use we it as current fromValue
-     *
-     * @param  {string} propToFind first ancestor prop <toValue> || <fromValue>
-     * @param  {string[]} activeProp first ancestor prop <toValue> || <fromValue>
-     */
-    setPropFromAncestor(propToFind, activeProp) {
-        this.timeline = [...this.timeline].map((item, i) => {
-            const { values } = item;
-
-            const newValues = values.map((valueItem) => {
-                const { prop, active } = valueItem;
-
-                if (!active || !activeProp.includes(prop)) return valueItem;
-
-                /**
-                 * Goback into the array
-                 */
-                const previousValidValue = getFirstValidValueBack(
-                    this.timeline,
-                    i,
-                    prop,
-                    propToFind
-                );
-
-                // If we doesn't found a value skip
-                if (!previousValidValue) {
-                    return valueItem;
-                }
-
-                const newValueItem = {
-                    ...valueItem,
-                    [propToSet[propToFind].set]: previousValidValue,
-                };
-
-                return newValueItem;
-            });
-
-            return {
-                ...item,
-                values: newValues,
-            };
-        });
-    }
-
-    /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType} obj  to values
      * @param {import('./type.js').sequencerAction} props special properties
      * @returns {this} The instance on which this method was called.
@@ -639,22 +545,29 @@ export default class HandleSequencer {
         if (!sequencerRangeValidate({ start, end })) return this;
 
         const data = goToSyncUtils(obj, ease);
-        const newValues = this.mergeArray(data, this.values);
+        const newValues = mergeNewValues({ data, values: this.values });
+        const activeProp = Object.keys(obj);
 
-        this.timeline.push({
+        /**
+         * Update timeline and order by start value and priority.
+         */
+        const newTimeline = insertNewRow({
+            timeline: this.timeline,
             values: newValues,
-            start: start ?? 0,
-            end: end ?? this.duration,
-            priority: this.timeline.length === 0 ? 0 : 1,
+            start,
+            end,
+            duration: this.duration,
         });
 
         /**
-         * Select active keys to get only chenaged value in setPropFromAncestor()
+         * Update to formValue with fist usable formValue in previous row.is
          */
-        const activeProp = Object.keys(obj);
-        this.timeline = this.orderByProp(this.timeline, 'start');
-        this.timeline = this.orderByProp(this.timeline, 'priority');
-        this.setPropFromAncestor('fromValue', activeProp);
+        this.timeline = setPropFromAncestor({
+            timeline: newTimeline,
+            propToFind: 'fromValue',
+            activeProp,
+        });
+
         return this;
     }
 
@@ -684,18 +597,29 @@ export default class HandleSequencer {
         if (!sequencerRangeValidate({ start, end })) return this;
 
         const data = goFromSyncUtils(obj, ease);
-        const newValues = this.mergeArray(data, this.values);
-        this.timeline.push({
+        const newValues = mergeNewValues({ data, values: this.values });
+        const activeProp = Object.keys(obj);
+
+        /**
+         * Update timeline and order by start value and priority.
+         */
+        const newTimeline = insertNewRow({
+            timeline: this.timeline,
             values: newValues,
-            start: start ?? 0,
-            end: end ?? this.duration,
-            priority: this.timeline.length === 0 ? 0 : 1,
+            start,
+            end,
+            duration: this.duration,
         });
 
-        const activeProp = Object.keys(obj);
-        this.timeline = this.orderByProp(this.timeline, 'start');
-        this.timeline = this.orderByProp(this.timeline, 'priority');
-        this.setPropFromAncestor('toValue', activeProp);
+        /**
+         * Update to formValue with fist usable formValue in previous row.is
+         */
+        this.timeline = setPropFromAncestor({
+            timeline: newTimeline,
+            propToFind: 'toValue',
+            activeProp,
+        });
+
         return this;
     }
 
@@ -732,16 +656,19 @@ export default class HandleSequencer {
         }
 
         const data = goFromToSyncUtils(fromObj, toObj, ease);
-        const newValues = this.mergeArray(data, this.values);
-        this.timeline.push({
+        const newValues = mergeNewValues({ data, values: this.values });
+
+        /**
+         * Update timeline and order by start value and priority.
+         */
+        this.timeline = insertNewRow({
+            timeline: this.timeline,
             values: newValues,
-            start: start ?? 0,
-            end: end ?? this.duration,
-            priority: this.timeline.length === 0 ? 0 : 1,
+            start,
+            end,
+            duration: this.duration,
         });
 
-        this.timeline = this.orderByProp(this.timeline, 'start');
-        this.timeline = this.orderByProp(this.timeline, 'priority');
         return this;
     }
 
