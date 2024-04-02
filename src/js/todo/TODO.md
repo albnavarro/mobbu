@@ -28,3 +28,4 @@
 
 ### Sequencer
 - Set stretch factor: form forEach to map.
+- sequencerUtils.js => createStagger.js
