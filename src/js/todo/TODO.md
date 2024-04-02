@@ -26,3 +26,5 @@
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
 
+### Sequencer
+- Set stretch factor: form forEach to map.
