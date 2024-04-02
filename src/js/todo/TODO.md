@@ -9,6 +9,10 @@
 
 ## tick ?
 - Tutti i bindProps dovrebbero partire quando i repeater sono stati completati. Vedi codeOverlay component quando si usa await tick().
+    - se il type é QUEQUE_TYPE_REPEATER alimentare una mappa parallela.
+    - tickRepeater() ?
+
+- await tick() al cambio rotta.
 
 #### docs
 - Aggiungere parseDom nella lista dei paramtri della funzione.
@@ -20,4 +24,5 @@
 - Possibilita di loppare tra label-start e label-end.
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
+
 
