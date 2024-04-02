@@ -7499,6 +7499,9 @@
       const unsubscribeCloseNav = navigationStore.watch(
         "closeNavigation",
         () => {
+          const { drawers } = getState();
+          if (drawers.length === 0)
+            return;
           element.classList.add("active");
         }
       );
