@@ -3,21 +3,26 @@ import { getFirstValidValueBack, propToSet } from './reduceFunction';
 /**
  * @description
  * setPropFromAncestor
- * - Example when we come from goTo methods:
+ * Add/Update toValue/fromValue (propTofind) in case a new row of type goTo/goFrom is inserted.
+ * Update only active item in row.
+ * After reorder the timeline (start/priority) update each value with the nearest previous value.
  *
- *  When we define the toValue we have to associate the right fromValue value
- *  ( ease methods need fromValue and toValue to calculate current value)
- *  we search back into the array until we found an active item with the same prop ( for example: rotate )
- *  we take the the first usable toValue and use we it as current fromValue
+ * goFromTo has both toValue and fromValue, so skip
  *
  * @param  {Object} param
  * @param  {import("./type").sequencerRow[]} param.timeline
  * @param  {string[]} param.activeProp current props to update
  */
 export const setPropFromAncestor = ({ timeline, activeProp }) => {
+    /**
+     * For each row.
+     */
     return timeline.map((item, index) => {
         const { values, propToFind } = item;
 
+        /**
+         * Update each active prop used in current row.
+         */
         const newValues = values.map((valueItem) => {
             const { prop, active } = valueItem;
 
@@ -30,7 +35,7 @@ export const setPropFromAncestor = ({ timeline, activeProp }) => {
                 return valueItem;
 
             /**
-             * Goback into the array
+             * Goback into the array and find ancestor value.
              */
             const previousValidValue = getFirstValidValueBack(
                 timeline,

@@ -474,17 +474,32 @@ export default class HandleSequencer {
     setStretchFactor(duration = 0) {
         const stretchFactor = duration / this.duration;
 
-        this.timeline.forEach(({ start, end }, i) => {
-            this.timeline[i].start = getRoundedValue(start * stretchFactor);
-            this.timeline[i].end = getRoundedValue(end * stretchFactor);
+        this.timeline = [...this.timeline].map((item) => {
+            const { start, end } = item;
+
+            return {
+                ...item,
+                start: getRoundedValue(start * stretchFactor),
+                end: getRoundedValue(end * stretchFactor),
+            };
         });
 
-        this.labels.forEach(({ time }, i) => {
-            this.labels[i].time = getRoundedValue(time * stretchFactor);
+        this.labels = [...this.labels].map((item) => {
+            const { time } = item;
+
+            return {
+                ...item,
+                time: getRoundedValue(time * stretchFactor),
+            };
         });
 
-        this.callbackAdd.forEach(({ time }, i) => {
-            this.callbackAdd[i].time = getRoundedValue(time * stretchFactor);
+        this.callbackAdd = [...this.callbackAdd].map((item) => {
+            const { time } = item;
+
+            return {
+                ...item,
+                time: getRoundedValue(time * stretchFactor),
+            };
         });
     }
 

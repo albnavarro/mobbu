@@ -1,8 +1,5 @@
 // @ts-check
 
-/**
- * @type{Object}
- */
 export const propToSet = {
     fromValue: {
         get: 'toValue',
@@ -18,7 +15,7 @@ export const propToSet = {
  * @param {import("./type").sequencerRow[]} arr
  * @param {number} index
  * @param {string} prop
- * @param {string} propToFind
+ * @param {import("./type").propToFind} propToFind
  *
  * @returns {import("./type").sequencerRow[]|undefined}
  */
