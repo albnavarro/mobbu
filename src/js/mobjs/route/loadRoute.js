@@ -20,6 +20,7 @@ import {
     getPageTransition,
 } from '../mainStore/pageTransition';
 import { parseComponents } from '../parseComponent/componentParse';
+import { tick } from '../componentStore/tick';
 
 /**
  * @param {object} obj
@@ -31,6 +32,11 @@ import { parseComponents } from '../parseComponent/componentParse';
  */
 export const loadRoute = async ({ route = '', params = {} }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
+
+    /**
+     * Await that all operation is completed before load next route
+     */
+    await tick();
 
     /**
      *
