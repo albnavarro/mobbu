@@ -5,17 +5,29 @@ import { mobCore } from '../../mobCore';
 /**
  * @type {Map<string,string>}
  */
-const queuqe = new Map();
+const queque = new Map();
+
+/**
+ * Limit queque size.
+ * Prevent possible side effect
+ */
+const maxQueuqueSize = 1000;
 
 /**
  * @param {any} props
- * @returns {() => {}}
+ * @returns {() => void}
  */
 export const incrementTickQueuque = (props) => {
-    const id = mobCore.getUnivoqueId();
-    queuqe.set(id, props);
+    if (queque.size >= maxQueuqueSize) {
+        console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
 
-    return () => queuqe.delete(id);
+        return () => {};
+    }
+
+    const id = mobCore.getUnivoqueId();
+    queque.set(id, props);
+
+    return () => queque.delete(id);
 };
 
 /**
@@ -26,6 +38,15 @@ export const incrementTickQueuque = (props) => {
 function awaitNextLoop() {
     return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
 }
+
+/**
+ * @description
+ *
+ * @returns {boolean}
+ */
+const queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+};
 
 /**
  * @description
@@ -40,18 +61,18 @@ export const tick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
 
     if (debug) {
-        queuqe.forEach((value) => {
+        queque.forEach((value) => {
             console.log(value);
         });
     }
 
-    if (queuqe.size === 0 && previousResolve) {
+    if (queueIsResolved() && previousResolve) {
         previousResolve();
         return;
     }
 
     return new Promise((resolve) => {
-        if (queuqe.size === 0) {
+        if (queueIsResolved()) {
             resolve();
             return;
         }

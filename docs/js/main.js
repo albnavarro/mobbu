@@ -5568,28 +5568,37 @@
   };
 
   // src/js/mobjs/componentStore/tick.js
-  var queuqe = /* @__PURE__ */ new Map();
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize = 1e3;
   var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
     const id = mobCore.getUnivoqueId();
-    queuqe.set(id, props);
-    return () => queuqe.delete(id);
+    queque.set(id, props);
+    return () => queque.delete(id);
   };
   function awaitNextLoop() {
     return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
   }
+  var queueIsResolved = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  };
   var tick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      queuqe.forEach((value) => {
+      queque.forEach((value) => {
         console.log(value);
       });
     }
-    if (queuqe.size === 0 && previousResolve) {
+    if (queueIsResolved() && previousResolve) {
       previousResolve();
       return;
     }
     return new Promise((resolve) => {
-      if (queuqe.size === 0) {
+      if (queueIsResolved()) {
         resolve();
         return;
       }

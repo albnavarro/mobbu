@@ -12,8 +12,6 @@
     - se il type é QUEQUE_TYPE_REPEATER alimentare una mappa parallela.
     - tickRepeater() ?
 
-- await tick() al cambio rotta.
-
 #### docs
 - Aggiungere parseDom nella lista dei paramtri della funzione.
 
@@ -27,5 +25,4 @@
 
 
 ### Sequencer
-- Set stretch factor: form forEach to map.
 - sequencerUtils.js => createStagger.js
