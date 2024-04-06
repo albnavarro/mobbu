@@ -30663,97 +30663,6 @@ Loading snippet ...</pre
     newNode.classList.add("current-route");
   };
 
-  // src/js/test/mapTest/uilts.js
-  var updateStateByKey = ({ key, map, update: update2, set }) => {
-    const state = map.get(key);
-    if (!state)
-      return;
-    const stateUpdated = update2({ key, map, state });
-    set({ key, state: stateUpdated });
-    return { ...stateUpdated };
-  };
-  var updateStateByProp = ({
-    prop,
-    value,
-    exlcludeKey,
-    map,
-    update: update2,
-    set
-  }) => {
-    const items2 = [...map.entries()].filter(
-      ([currentKey, currentValue]) => currentValue?.[prop] === value && currentKey !== exlcludeKey
-    );
-    items2.forEach(([key, currentValue]) => {
-      const stateUpdated = update2({ key, map, state: currentValue });
-      set({ key, state: stateUpdated });
-    });
-  };
-  var updateAll = ({ map, update: update2, set }) => {
-    [...map.entries()].forEach(([key, state]) => {
-      const stateUpdated = update2({ key, map, state });
-      set({ key, state: stateUpdated });
-    });
-  };
-
-  // src/js/test/mapTest/mapTest.js
-  var stateTest = () => {
-    const myMap = /* @__PURE__ */ new Map();
-    myMap.set(0, { value: "zero", active: false });
-    myMap.set(1, { value: "one", active: false });
-    myMap.set(2, { value: "two", active: false });
-    myMap.set(3, { value: "three", active: false });
-    myMap.set(4, { value: "three", active: false });
-    myMap.set(5, { value: "three", active: false });
-    myMap.set(6, { value: "three", active: false });
-    document.body.addEventListener("click", () => {
-      const newState = updateStateByKey({
-        key: 1,
-        map: myMap,
-        update: ({ state }) => {
-          const { active } = state;
-          return {
-            ...state,
-            active: !active
-          };
-        },
-        set: ({ key, state }) => {
-          myMap.set(key, state);
-        }
-      });
-      console.log([...myMap], newState);
-      updateStateByProp({
-        prop: "value",
-        value: "three",
-        exlcludeKey: 5,
-        map: myMap,
-        update: ({ state }) => {
-          const { active } = state;
-          return {
-            ...state,
-            active: !active
-          };
-        },
-        set: ({ key, state }) => {
-          myMap.set(key, state);
-        }
-      });
-      console.log([...myMap]);
-      updateAll({
-        map: myMap,
-        update: ({ state }) => {
-          return {
-            ...state,
-            value: "test"
-          };
-        },
-        set: ({ key, state }) => {
-          myMap.set(key, state);
-        }
-      });
-      console.log([...myMap]);
-    });
-  };
-
   // src/js/main.js
   mobCore.useLoad(() => {
     setBrowserClass();
@@ -30823,7 +30732,6 @@ Loading snippet ...</pre
       });
     };
     init7();
-    stateTest();
   });
 })();
 //# sourceMappingURL=main.js.map

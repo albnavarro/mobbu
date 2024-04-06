@@ -9,7 +9,7 @@ export type updateStateByProp = <T, K>(arg0: {
     prop: string;
     value: any;
     map: Map<T, K>;
-    exlcludeKey?: T;
+    exlcludeKey?: T[];
     update: (arg0: { key: T; map: Map<T, K>; state: K }) => K;
     set: (arg0: { key: T; state: K }) => void;
 }) => void;
