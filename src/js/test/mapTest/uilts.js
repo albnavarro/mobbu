@@ -3,12 +3,12 @@
 /**
  * @type {import("./type").updateState}
  */
-export const updateStateByKey = ({ key, map, update }) => {
+export const updateStateByKey = ({ key, map, update, set }) => {
     const state = map.get(key);
     if (!state) return;
 
     const stateUpdated = update({ key, map, state });
-    map.set(key, stateUpdated);
+    set({ key, state: stateUpdated });
     return { ...stateUpdated };
 };
 
@@ -18,25 +18,29 @@ export const updateStateByKey = ({ key, map, update }) => {
 export const updateStateByProp = ({
     prop,
     value,
-    exlcludeKey,
+    exlclude,
     map,
     update,
+    set,
 }) => {
-    const items = [...map.entries()].filter(
-        ([currentKey, currentValue]) =>
-            currentValue?.[prop] === value && currentKey !== exlcludeKey
-    );
+    const items = [...map.entries()].filter(([currentKey, currentValue]) => {
+        const keyToExclude = exlclude ?? [];
+        const keyIsValid = !keyToExclude.includes(currentKey);
+        return currentValue?.[prop] === value && keyIsValid;
+    });
 
     items.forEach(([key, currentValue]) => {
-        map.set(key, update({ key, map, state: currentValue }));
+        const stateUpdated = update({ key, map, state: currentValue });
+        set({ key, state: stateUpdated });
     });
 };
 
 /**
  * @type {import("./type").updateAll}
  */
-export const updateAll = ({ map, update }) => {
+export const updateAll = ({ map, update, set }) => {
     [...map.entries()].forEach(([key, state]) => {
-        map.set(key, update({ key, map, state }));
+        const stateUpdated = update({ key, map, state });
+        set({ key, state: stateUpdated });
     });
 };

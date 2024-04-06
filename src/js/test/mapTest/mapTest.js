@@ -27,13 +27,16 @@ export const stateTest = () => {
                     active: !active,
                 };
             },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
+            },
         });
         console.log([...myMap], newState);
 
         updateStateByProp({
             prop: 'value',
             value: 'three',
-            exlcludeKey: 5,
+            exlclude: [4, 5],
             map: myMap,
             update: ({ state }) => {
                 const { active } = state;
@@ -42,6 +45,9 @@ export const stateTest = () => {
                     ...state,
                     active: !active,
                 };
+            },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
             },
         });
         console.log([...myMap]);
@@ -53,6 +59,9 @@ export const stateTest = () => {
                     ...state,
                     value: 'test',
                 };
+            },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
             },
         });
         console.log([...myMap]);
