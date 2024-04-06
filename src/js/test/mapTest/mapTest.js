@@ -27,6 +27,9 @@ export const stateTest = () => {
                     active: !active,
                 };
             },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
+            },
         });
         console.log([...myMap], newState);
 
@@ -43,6 +46,9 @@ export const stateTest = () => {
                     active: !active,
                 };
             },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
+            },
         });
         console.log([...myMap]);
 
@@ -53,6 +59,9 @@ export const stateTest = () => {
                     ...state,
                     value: 'test',
                 };
+            },
+            set: ({ key, state }) => {
+                myMap.set(key, state);
             },
         });
         console.log([...myMap]);
