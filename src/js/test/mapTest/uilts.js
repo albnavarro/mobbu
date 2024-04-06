@@ -18,13 +18,13 @@ export const updateStateByKey = ({ key, map, update, set }) => {
 export const updateStateByProp = ({
     prop,
     value,
-    exlclude,
+    exclude,
     map,
     update,
     set,
 }) => {
     const items = [...map.entries()].filter(([currentKey, currentValue]) => {
-        const keyToExclude = exlclude ?? [];
+        const keyToExclude = exclude ?? [];
         const keyIsValid = !keyToExclude.includes(currentKey);
         return currentValue?.[prop] === value && keyIsValid;
     });

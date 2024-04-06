@@ -36,7 +36,7 @@ export const stateTest = () => {
         updateStateByProp({
             prop: 'value',
             value: 'three',
-            exlclude: [4, 5],
+            exclude: [4, 5],
             map: myMap,
             update: ({ state }) => {
                 const { active } = state;
