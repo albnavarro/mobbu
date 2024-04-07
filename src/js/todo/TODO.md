@@ -26,3 +26,6 @@
 
 ### Sequencer
 - sequencerUtils.js => createStagger.js
+
+### ScrollTrigger
+- Propierties opzionale, poter usare scrollTrigger solo per il detect deglie venti enter/enterBack etc...
