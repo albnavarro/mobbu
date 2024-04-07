@@ -23,5 +23,3 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
-### ScrollTrigger
-- Propierties opzionale, poter usare scrollTrigger solo per il detect deglie venti enter/enterBack etc...

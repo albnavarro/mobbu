@@ -11,7 +11,6 @@ const createPins = ({ indicators, setState }) => {
             item: button,
             pin: true,
             animateAtStart: false,
-            range: '0.1px', // Necessary to use onENter etc..
             animatePin: true,
             dynamicStart: {
                 position: 'right',

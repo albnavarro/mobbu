@@ -708,12 +708,6 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {string|number}
-         */
-        this.range = parallaxRangeIsValid(data?.range, this.type);
-
-        /**
-         * @description
          * @type {number}
          */
         this.perspective = valueIsNumberAndReturnDefault(
@@ -747,14 +741,38 @@ export default class ParallaxClass {
          * Get properties, check if there is sequencer inside a Parallax,
          * In case return y propierties
          *
+         * In case of scrollTrigger if no propierties is specified skip render.
+         * Use scrollTrigger only for check events.
+         */
+        const { propierties, shouldTrackOnlyEvents } =
+            parallaxPropiertiesIsValid(
+                data?.propierties,
+                this.type,
+                tweenIsParallaxTween,
+                tweenIsSequencer
+            );
+
+        /**
          * @type {string}
          */
-        this.propierties = parallaxPropiertiesIsValid(
-            data?.propierties,
-            this.type,
-            tweenIsParallaxTween,
-            tweenIsSequencer
-        );
+        this.propierties = propierties;
+
+        /**
+         * @description
+         * Skip render and set a default 100px value for
+         * trigger the events.
+         *
+         * @type {boolean}
+         */
+        this.shouldTrackOnlyEvents = shouldTrackOnlyEvents;
+
+        /**
+         * @description
+         * @type {string|number}
+         */
+        this.range = shouldTrackOnlyEvents
+            ? '100px'
+            : parallaxRangeIsValid(data?.range, this.type);
 
         /**
          * @description
@@ -2022,6 +2040,8 @@ export default class ParallaxClass {
      * @param {number} value
      */
     getStyle(value) {
+        if (this.shouldTrackOnlyEvents) return;
+
         const force3DStyle = this.force3D ? 'translate3D(0px, 0px, 0px)' : '';
 
         /**
@@ -2147,6 +2167,8 @@ export default class ParallaxClass {
      * Reset default style
      */
     getResetStyle() {
+        if (this.shouldTrackOnlyEvents) return;
+
         switch (this.propierties) {
             case parallaxConstant.PROP_VERTICAL:
             case parallaxConstant.PROP_HORIZONTAL:

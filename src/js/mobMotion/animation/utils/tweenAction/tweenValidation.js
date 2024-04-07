@@ -1053,19 +1053,25 @@ export const breakpointTypeIsValid = (type, label, component) => {
 };
 
 /**
- *
- * @param {string|undefined} value
- * @returns {string}
- *
  * @description
  * Check if propierties prop is valid
- **/
+ *
+ * @param {string|undefined} value
+ * @returns {{ propierties:string, shouldTrackOnlyEvents:boolean }}
+ */
 export const parallaxPropiertiesIsValid = (
     value,
     type,
     tweenIsParallaxTween,
     tweenIsSequencer
 ) => {
+    /**
+     * Skip render if no propierties is given.
+     * Use scrollTrigger only for track events.
+     */
+    const shouldTrackOnlyEvents =
+        type === parallaxConstant.TYPE_SCROLLTRIGGER && !value;
+
     /**
      * Support suggestion for console.warn();
      */
@@ -1128,7 +1134,12 @@ export const parallaxPropiertiesIsValid = (
      */
     const valueFromConstant = getPropiertiesValueFromConstant(valueParsed);
 
-    return isValid ? valueFromConstant : parallaxConstant.PROP_VERTICAL;
+    return {
+        propierties: isValid
+            ? valueFromConstant
+            : parallaxConstant.PROP_VERTICAL,
+        shouldTrackOnlyEvents,
+    };
 };
 
 /**

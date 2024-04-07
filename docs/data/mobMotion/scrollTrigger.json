@@ -296,6 +296,13 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<strong>if no property is specified scrollTrigger can only be used to track onEnter/onEnterBack/onLeave/onLeaveBack events</strong>"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
