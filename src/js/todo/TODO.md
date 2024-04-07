@@ -23,3 +23,6 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
+### tweenValidation.
+- src/js/mobMotion/animation/utils/tweenAction/tweenValidation.js
+- Fare tutti i tipi, e roba molto vecchia ed é tutto sballato.

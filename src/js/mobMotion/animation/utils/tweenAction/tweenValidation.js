@@ -124,8 +124,7 @@ export const sequencerRangeValidate = ({ start, end }) => {
  **/
 export const durationIsValid = (duration) => {
     const isValid = mobCore.checkType(Number, duration);
-    if (!isValid && duration !== undefined && duration !== null)
-        durationWarining(duration);
+    if (!isValid && duration) durationWarining(duration);
 
     return isValid ? duration : handleSetUp.get('sequencer').duration;
 };
@@ -140,8 +139,7 @@ export const durationIsValid = (duration) => {
  **/
 export const repeatIsValid = (repeat) => {
     const isValid = mobCore.checkType(Number, repeat);
-    if (!isValid && repeat !== undefined && repeat !== null)
-        repeatWarining(repeat);
+    if (!isValid && repeat) repeatWarining(repeat);
 
     return isValid ? repeat : 1;
 };
@@ -156,7 +154,7 @@ export const repeatIsValid = (repeat) => {
  **/
 export const easeIsValid = (ease) => {
     const isValid = ease in tweenConfig;
-    if (!isValid && ease !== undefined && ease !== null) tweenEaseWarning(ease);
+    if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid ? ease : handleSetUp.get('sequencer').ease;
 };
@@ -171,7 +169,7 @@ export const easeIsValid = (ease) => {
  **/
 export const easeParallaxTweenIsValid = (ease) => {
     const isValid = ease in tweenConfig;
-    if (!isValid && ease !== undefined && ease !== null) tweenEaseWarning(ease);
+    if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid
         ? getTweenFn(ease)
@@ -340,8 +338,7 @@ export const validateStaggerType = (type) => {
  **/
 export const durationTweenIsValid = (duration) => {
     const isValid = mobCore.checkType(Number, duration);
-    if (!isValid && duration !== undefined && duration !== null)
-        durationWarining(duration);
+    if (!isValid && duration) durationWarining(duration);
 
     return isValid ? duration : handleSetUp.get('tween').duration;
 };
@@ -357,8 +354,7 @@ export const durationTweenIsValid = (duration) => {
  **/
 export const relativeIsValid = (val, tweenType) => {
     const isValid = mobCore.checkType(Boolean, val);
-    if (!isValid && val !== undefined && val !== null)
-        relativeWarining(val, tweenType);
+    if (!isValid && val) relativeWarining(val, tweenType);
 
     return isValid ? val : handleSetUp.get(tweenType).relative;
 };
@@ -373,7 +369,7 @@ export const relativeIsValid = (val, tweenType) => {
  **/
 export const easeTweenIsValidGetFunction = (ease) => {
     const isValid = ease in tweenConfig;
-    if (!isValid && ease !== undefined && ease !== null) tweenEaseWarning(ease);
+    if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid
         ? getTweenFn(ease)
@@ -390,7 +386,7 @@ export const easeTweenIsValidGetFunction = (ease) => {
  **/
 export const easeTweenIsValid = (ease) => {
     const isValid = ease in tweenConfig;
-    if (!isValid && ease !== undefined && ease !== null) tweenEaseWarning(ease);
+    if (!isValid && ease) tweenEaseWarning(ease);
 
     return isValid ? ease : handleSetUp.get('tween').ease;
 };
@@ -434,8 +430,7 @@ export const springConfigIsValidAndGetNew = (config) => {
         : null;
 
     // warning gif config don't exist
-    if (!isInConfig && config !== undefined && config !== null)
-        springPresetWarning(config);
+    if (!isInConfig && config) springPresetWarning(config);
 
     // warning if config props is not valid
     if (!isValidPropsValue && isInConfig)
@@ -455,8 +450,7 @@ export const springConfigIsValidAndGetNew = (config) => {
 export const springConfigIsValid = (config) => {
     const { config: allConfig } = handleSetUp.get('spring');
     const isValid = config in allConfig;
-    if (!isValid && config !== undefined && config !== null)
-        springPresetWarning(config);
+    if (!isValid && config) springPresetWarning(config);
 
     return isValid;
 };
@@ -476,8 +470,7 @@ export const springConfigPropIsValid = (obj) => {
             return mobCore.checkType(Number, prop) && prop >= 0;
         });
 
-    if (!isValid && obj !== undefined && obj !== null)
-        springConfigPropWarning();
+    if (!isValid && obj) springConfigPropWarning();
 
     return isValid ? obj : {};
 };
@@ -494,8 +487,7 @@ export const durationIsNumberOrFunctionIsValid = (duration) => {
     const durationIsFn = mobCore.checkType(Function, duration);
     const durationResult = durationIsFn ? duration() : duration;
     const isValid = mobCore.checkType(Number, durationResult);
-    if (!isValid && duration !== undefined && duration !== null)
-        durationNumberOrFunctionWarining(duration);
+    if (!isValid && duration) durationNumberOrFunctionWarining(duration);
 
     return isValid ? durationResult : handleSetUp.get('tween').duration;
 };
@@ -510,8 +502,7 @@ export const durationIsNumberOrFunctionIsValid = (duration) => {
  **/
 export const valueIsBooleanAndTrue = (value, label) => {
     const isValid = mobCore.checkType(Boolean, value);
-    if (!isValid && value !== undefined && value !== null)
-        booleanWarning(value, label);
+    if (!isValid && value) booleanWarning(value, label);
 
     return isValid && value === true;
 };
@@ -528,8 +519,7 @@ export const valueIsBooleanAndTrue = (value, label) => {
  **/
 export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Boolean, value);
-    if (!isValid && value !== undefined && value !== null)
-        booleanWarning(value, label);
+    if (!isValid && value) booleanWarning(value, label);
 
     return isValid ? value : defaultValue;
 };
@@ -544,8 +534,7 @@ export const valueIsBooleanAndReturnDefault = (value, label, defaultValue) => {
  **/
 export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(String, value);
-    if (!isValid && value !== undefined && value !== null)
-        stringWarning(value, label);
+    if (!isValid && value) stringWarning(value, label);
 
     return isValid ? value : defaultValue;
 };
@@ -560,8 +549,7 @@ export const valueIsStringAndReturnDefault = (value, label, defaultValue) => {
  **/
 export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Number, Number.parseFloat(value));
-    if (!isValid && value !== undefined && value !== null)
-        naumberWarning(value, label);
+    if (!isValid && value) naumberWarning(value, label);
 
     return isValid ? value : defaultValue;
 };
@@ -576,8 +564,7 @@ export const valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
  **/
 export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Function, value);
-    if (!isValid && value !== undefined && value !== null)
-        functionWarning(value, label);
+    if (!isValid && value) functionWarning(value, label);
 
     return isValid ? value : defaultValue;
 };
@@ -592,8 +579,7 @@ export const valueIsFunctionAndReturnDefault = (value, label, defaultValue) => {
  **/
 export const lerpVelocityIsValid = (value) => {
     const isValid = mobCore.checkType(Number, value) && value > 0 && value <= 1;
-    if (!isValid && value !== undefined && value !== null)
-        lerpVelocityWarining();
+    if (!isValid && value) lerpVelocityWarining();
 
     return isValid ? value : handleSetUp.get('lerp').velocity;
 };
@@ -608,8 +594,7 @@ export const lerpVelocityIsValid = (value) => {
  **/
 export const lerpPrecisionIsValid = (value) => {
     const isValid = mobCore.checkType(Number, value);
-    if (!isValid && value !== undefined && value !== null)
-        lerpPrecisionWarining();
+    if (!isValid && value) lerpPrecisionWarining();
 
     return isValid ? value : handleSetUp.get('lerp').precision;
 };
@@ -625,8 +610,7 @@ export const lerpPrecisionIsValid = (value) => {
  **/
 export const valueStringIsValid = (value, label) => {
     const isValid = mobCore.checkType(String, value);
-    if (!isValid && value !== undefined && value !== null)
-        valueStringWarning(label);
+    if (!isValid && value) valueStringWarning(label);
 
     return isValid;
 };
@@ -641,8 +625,7 @@ export const valueStringIsValid = (value, label) => {
  **/
 export const asyncTimelineDelayIsValid = (value) => {
     const isValid = mobCore.checkType(Number, value);
-    if (!isValid && value !== undefined && value !== null)
-        asyncTimelineDelayWarning();
+    if (!isValid && value) asyncTimelineDelayWarning();
 
     return isValid ? value : undefined;
 };
@@ -662,8 +645,7 @@ export const asyncTimelineTweenIsValid = (instance) => {
             instance.getType() === 'SPRING' ||
             instance.getType() === 'TWEEN');
 
-    if (!isValid && instance !== undefined && instance !== null)
-        asyncTimelineTweenWaring();
+    if (!isValid && instance) asyncTimelineTweenWaring();
 
     return isValid;
 };
@@ -689,8 +671,7 @@ export const playLabelIsValid = (index, label) => {
  **/
 export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
     const isValid = mobCore.checkType(Function, fn);
-    if (!isValid && fn !== undefined && fn !== null)
-        functionIsValidAndReturnDefaultWarining(label, fn);
+    if (!isValid && fn) functionIsValidAndReturnDefaultWarining(label, fn);
 
     return isValid ? fn : defaultValue;
 };
@@ -704,8 +685,7 @@ export const functionIsValidAndReturnDefault = (fn, defaultValue, label) => {
  **/
 export const addAsyncFunctionIsValid = (fn) => {
     const isValid = mobCore.checkType(Function, fn);
-    if (!isValid && fn !== undefined && fn !== null)
-        addAsyncFunctionWarining(fn);
+    if (!isValid && fn) addAsyncFunctionWarining(fn);
 
     return isValid
         ? fn
@@ -723,8 +703,7 @@ export const addAsyncFunctionIsValid = (fn) => {
  **/
 export const timelineSetTweenArrayIsValid = (arr) => {
     const isValid = mobCore.checkType(Array, arr);
-    if (!isValid && arr !== undefined && arr !== null)
-        timelineSetTweenArrayWarining(arr);
+    if (!isValid && arr) timelineSetTweenArrayWarining(arr);
 
     return isValid;
 };
@@ -738,8 +717,7 @@ export const timelineSetTweenArrayIsValid = (arr) => {
  **/
 export const timelineSetTweenLabelIsValid = (label) => {
     const isValid = mobCore.checkType(String, label);
-    if (!isValid && label !== undefined && label !== null)
-        timelineSetTweenLabelWarining(label);
+    if (!isValid && label) timelineSetTweenLabelWarining(label);
 
     return isValid;
 };
@@ -758,13 +736,10 @@ export const domNodeIsValidAndReturnElOrWin = (
 ) => {
     const isNode = mobCore.checkType(Element, element);
     const realEl = isNode ? element : document.querySelector(element);
-    const isValid = realEl && realEl !== undefined && realEl !== null;
 
-    if (returnWindow) {
-        return isValid ? realEl : window;
-    } else {
-        return isValid ? realEl : document.createElement('div');
-    }
+    return returnWindow
+        ? realEl ?? window
+        : realEl ?? document.createElement('div');
 };
 
 /**
@@ -778,8 +753,7 @@ export const domNodeIsValidAndReturnElOrWin = (
 export const domNodeIsValidAndReturnNull = (element) => {
     const isNode = mobCore.checkType(Element, element);
     const realEl = isNode ? element : document.querySelector(element);
-    const isValid = realEl && realEl !== undefined && realEl !== null;
-    return isValid ? realEl : null;
+    return realEl ?? null;
 };
 
 /**
@@ -801,8 +775,7 @@ export const directionIsValid = (direction, component) => {
     ];
 
     const isValid = choice.includes(direction);
-    if (!isValid && direction !== undefined && direction !== null)
-        parallaxDirectionWarining(direction, component);
+    if (!isValid && direction) parallaxDirectionWarining(direction, component);
 
     return isValid ? direction : parallaxConstant.DIRECTION_VERTICAL;
 };
@@ -858,8 +831,7 @@ export const parallaxDynamicRangeIsValid = (fn) => {
     const isValid =
         mobCore.checkType(Function, fn) && mobCore.checkType(Number, fn());
 
-    if (!isValid && fn !== undefined && fn !== null)
-        parallaxDynmicRangeValueWarining();
+    if (!isValid && fn) parallaxDynmicRangeValueWarining();
 
     return isValid ? fn : null;
 };
@@ -878,8 +850,7 @@ export const parallaxTweenIsValid = (instance) => {
         (instance.getType() === parallaxConstant.TWEEN_TWEEN ||
             instance.getType() === parallaxConstant.TWEEN_TIMELINE);
 
-    if (!isValid && instance !== undefined && instance !== null)
-        parallaxTweenWarning();
+    if (!isValid && instance) parallaxTweenWarning();
 
     return isValid ? instance : {};
 };
@@ -907,8 +878,7 @@ export const parallaxAlignIsValid = (value) => {
         choice.includes(value) ||
         mobCore.checkType(Number, Number.parseFloat(value));
 
-    if (!isValid && value !== undefined && value !== null)
-        parallaxAlignWarining(value, choice);
+    if (!isValid && value) parallaxAlignWarining(value, choice);
 
     return isValid ? value : parallaxConstant.ALIGN_CENTER;
 };
@@ -931,8 +901,7 @@ export const parallaxOnSwitchIsValid = (value) => {
 
     const isValid = choice.includes(value);
 
-    if (!isValid && value !== undefined && value !== null)
-        parallaxOnSwitchWarining(value, choice);
+    if (!isValid && value) parallaxOnSwitchWarining(value, choice);
 
     return isValid ? value : false;
 };
@@ -947,8 +916,7 @@ export const parallaxOnSwitchIsValid = (value) => {
  **/
 export const parallaxOpacityIsValid = (value, label, defaultValue) => {
     const isValid = mobCore.checkType(Number, Number.parseFloat(value));
-    if (!isValid && value !== undefined && value !== null)
-        parallaxOpacityWarning(value, label);
+    if (!isValid && value) parallaxOpacityWarning(value, label);
 
     return isValid ? value : defaultValue;
 };
@@ -970,9 +938,7 @@ export const parallaxTypeIsValid = (value) => {
     ];
 
     const isValid = choice.includes(valueParsed);
-
-    if (!isValid && valueParsed !== undefined && valueParsed !== null)
-        parallaxTypeWarining(valueParsed, choice);
+    if (!isValid && valueParsed) parallaxTypeWarining(valueParsed, choice);
 
     return isValid ? valueParsed : parallaxConstant.TYPE_PARALLAX;
 };
@@ -995,16 +961,14 @@ export const parallaxRangeIsValid = (value, type) => {
                 value >= 0 &&
                 value < 10;
 
-            if (!isValid && value !== undefined && value !== null)
-                parallaxRangeNumberWarning(value);
+            if (!isValid && value) parallaxRangeNumberWarning(value);
 
             return isValid
                 ? 10 - value
                 : 10 - handleSetUp.get('parallax').defaultRange;
         } else {
             const isValid = mobCore.checkType(String, value);
-            if (!isValid && value !== undefined && value !== null)
-                parallaxRangeStringWarning(value);
+            if (!isValid && value) parallaxRangeStringWarning(value);
 
             return isValid ? value : '0px';
         }
@@ -1027,8 +991,7 @@ export const breakpointIsValid = (mq, label, component) => {
     const choice = Object.keys(mqObj);
 
     const isValid = mobCore.checkType(String, mq) && choice.includes(mq);
-    if (!isValid && mq !== undefined && mq !== null)
-        breakpointWarning(mq, choice, label, component);
+    if (!isValid && mq) breakpointWarning(mq, choice, label, component);
 
     return isValid ? mq : defaultMq;
 };
@@ -1046,8 +1009,7 @@ export const breakpointTypeIsValid = (type, label, component) => {
     const choice = [MQ_MAX, MQ_MIN];
 
     const isValid = mobCore.checkType(String, type) && choice.includes(type);
-    if (!isValid && type !== undefined && type !== null)
-        breakpointWarning(type, choice, label, component);
+    if (!isValid && type) breakpointWarning(type, choice, label, component);
 
     return isValid ? type : defaultType;
 };
@@ -1093,8 +1055,7 @@ export const parallaxPropiertiesIsValid = (
      * Check if is a string, custom css propierties is allowed
      */
     const isValid = mobCore.checkType(String, value);
-    if (!isValid && value !== undefined && value !== null)
-        parallaxPropiertiesWarining(value, choice);
+    if (!isValid && value) parallaxPropiertiesWarining(value, choice);
 
     /**
      * Inside Parallax sequencer is not allowed
@@ -1162,8 +1123,7 @@ export const parallaxEaseTypeIsValid = (
         value === parallaxConstant.EASE_SPRING;
 
     const isValid = choice.includes(value);
-    if (!isValid && value !== undefined && value !== null)
-        parallaxEaseTypeWarining(value, choice);
+    if (!isValid && value) parallaxEaseTypeWarining(value, choice);
 
     /**
      * Sequencer can not use spring
@@ -1181,8 +1141,7 @@ export const genericEaseTypeIsValid = (value, component) => {
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
 
     const isValid = choice.includes(value);
-    if (!isValid && value !== undefined && value !== null)
-        genericEaseTypeWarining(value, choice, component);
+    if (!isValid && value) genericEaseTypeWarining(value, choice, component);
 
     return isValid ? value : parallaxConstant.EASE_LERP;
 };
@@ -1205,8 +1164,7 @@ export const parallaxSpringConfigIsValid = (config, type) => {
             : handleSetUp.get('scrollTrigger').springConfig;
 
     const isValid = choice.includes(config);
-    if (!isValid && config !== undefined && config !== null)
-        parallaxSpringCongifWarining(config, choice);
+    if (!isValid && config) parallaxSpringCongifWarining(config, choice);
 
     return isValid ? config : defaultConfig;
 };
@@ -1224,8 +1182,7 @@ export const parallaxLerpConfigIsValid = (value, type) => {
         mobCore.checkType(Number, Number.parseFloat(value)) &&
         value > 0 &&
         value <= 1;
-    if (!isValid && value !== undefined && value !== null)
-        parallaxLerpConfigWarning();
+    if (!isValid && value) parallaxLerpConfigWarning();
 
     const defaultConfig =
         type === parallaxConstant.TYPE_PARALLAX
