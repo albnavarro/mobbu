@@ -6,7 +6,7 @@ import HandleMasterSequencer from './animation/sequencer/handleMasterSequencer.j
 import HandleSequencer from './animation/sequencer/handleSequencer.js';
 import HandleSpring from './animation/spring/handleSpring.js';
 import HandleTween from './animation/tween/handleTween.js';
-import { createStaggers } from './animation/sequencer/sequencerUtils.js';
+import { createStaggers } from './animation/sequencer/createStagger.js';
 
 export const tween = {
     /**
