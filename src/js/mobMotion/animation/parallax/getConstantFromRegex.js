@@ -11,12 +11,12 @@ import {
  * Support function for parallaxPropiertiesIsValid
  * Get exact prop name from constant ( resolve sensitive typing )
  *
- * @param {string} value
+ * @param {string|undefined} value
  * @returns string
  */
 export const getPropiertiesValueFromConstant = (value) => {
     /**
-     * If null provent regex error
+     * If null prevent regex error
      */
     if (!value) return value;
 

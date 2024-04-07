@@ -468,7 +468,8 @@ export default class ParallaxClass {
         this.marker = valueIsStringAndReturnDefault(
             data?.marker,
             'Scrolltrigger marker propierties error:',
-            null
+            // eslint-disable-next-line unicorn/no-useless-undefined
+            undefined
         );
 
         /**
@@ -489,7 +490,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {Function}
+         * @type {Function|undefined}
          */
         this.dynamicRange = parallaxDynamicRangeIsValid(data?.dynamicRange);
 
@@ -561,7 +562,7 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {string}
+         * @type {string|boolean}
          */
         this.onSwitch = parallaxOnSwitchIsValid(data?.onSwitch);
 
@@ -660,13 +661,13 @@ export default class ParallaxClass {
 
         /**
          * @description
-         * @type {HTMLElement|null|null}
+         * @type {HTMLElement|null|undefined}
          */
         this.trigger = domNodeIsValidAndReturnNull(data?.trigger);
 
         /**
          * @description
-         * @type {HTMLElement|null}
+         * @type {HTMLElement|null|undefined}
          */
         this.applyTo = domNodeIsValidAndReturnNull(data?.applyTo);
 
@@ -1189,6 +1190,7 @@ export default class ParallaxClass {
              * Extract number forms string
              */
             this.numericRange =
+                // @ts-ignore
                 Number.parseFloat(strParsed.replaceAll(/^\D+/g, '')) *
                 isNegative;
 

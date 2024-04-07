@@ -9014,7 +9014,8 @@
 
   // src/js/mobMotion/animation/utils/tweenAction/tweenValidation.js
   var dataTweenValueIsValid = (val2) => {
-    return mobCore.checkType(Number, val2) || mobCore.checkType(Function, val2) && mobCore.checkType(Number, val2());
+    return mobCore.checkType(Number, val2) || // @ts-ignore
+    mobCore.checkType(Function, val2) && mobCore.checkType(Number, val2());
   };
   var sequencerRangeValidate = ({ start, end }) => {
     const startIsValid = mobCore.checkType(Number, start);
@@ -9035,16 +9036,16 @@
     const isValid = mobCore.checkType(Number, repeat);
     if (!isValid && repeat)
       repeatWarining(repeat);
-    return isValid ? repeat : 1;
+    return isValid && repeat ? repeat : 1;
   };
   var easeIsValid = (ease) => {
-    const isValid = ease in tweenConfig;
+    const isValid = ease && ease in tweenConfig;
     if (!isValid && ease)
       tweenEaseWarning(ease);
     return isValid ? ease : handleSetUp.get("sequencer").ease;
   };
   var easeParallaxTweenIsValid = (ease) => {
-    const isValid = ease in tweenConfig;
+    const isValid = ease && ease in tweenConfig;
     if (!isValid && ease)
       tweenEaseWarning(ease);
     return isValid ? getTweenFn(ease) : getTweenFn(handleSetUp.get("parallaxTween").ease);
@@ -9060,7 +9061,7 @@
   };
   var validateStaggerEach = (each) => {
     if (!each)
-      return null;
+      return;
     const eachIsValid = mobCore.checkType(Number, each);
     if (!eachIsValid)
       staggerEachWarning();
@@ -9068,7 +9069,7 @@
   };
   var validateStaggerFrom = (from) => {
     if (!from)
-      return null;
+      return;
     const fromList = [
       STAGGER_START,
       STAGGER_END,
@@ -9086,7 +9087,7 @@
   };
   var validateStaggerColRow = (val2) => {
     if (!val2)
-      return null;
+      return;
     const valIsValid = mobCore.checkType(Number, val2);
     if (!valIsValid)
       staggerRowColGenericWarining(val2);
@@ -9094,19 +9095,19 @@
   };
   var validateStaggerDirection = (direction2) => {
     if (!direction2)
-      return null;
+      return;
     const directionList = [DIRECTION_RADIAL, DIRECTION_ROW, DIRECTION_COL];
     const directionisValid = directionList.includes(direction2);
     if (!directionisValid)
-      staggerGridDirectionWarning(direction2);
+      staggerGridDirectionWarning();
     return directionisValid;
   };
   var validateStaggerWaitComplete = (waitComplete) => {
     if (!waitComplete)
-      return null;
+      return;
     const valIsValid = mobCore.checkType(Boolean, waitComplete);
     if (!valIsValid)
-      staggerWaitCompleteWarning(waitComplete);
+      staggerWaitCompleteWarning();
     return valIsValid;
   };
   var validateStaggerItems = (arr = []) => {
@@ -9121,7 +9122,7 @@
   };
   var validateStaggerType = (type) => {
     if (!type)
-      return null;
+      return;
     const stagerTypeList = [
       STAGGER_TYPE_EQUAL,
       STAGGER_TYPE_START,
@@ -9129,8 +9130,10 @@
       STAGGER_TYPE_CENTER
     ];
     const isValid = stagerTypeList.includes(type);
-    if (!isValid)
-      return createStaggerTypeWarning();
+    if (!isValid) {
+      createStaggerTypeWarning();
+      return;
+    }
     return isValid;
   };
   var relativeIsValid = (val2, tweenType) => {
@@ -9140,20 +9143,20 @@
     return isValid ? val2 : handleSetUp.get(tweenType).relative;
   };
   var easeTweenIsValidGetFunction = (ease) => {
-    const isValid = ease in tweenConfig;
+    const isValid = ease && ease in tweenConfig;
     if (!isValid && ease)
       tweenEaseWarning(ease);
     return isValid ? getTweenFn(ease) : getTweenFn(handleSetUp.get("tween").ease);
   };
   var easeTweenIsValid = (ease) => {
-    const isValid = ease in tweenConfig;
+    const isValid = ease && ease in tweenConfig;
     if (!isValid && ease)
       tweenEaseWarning(ease);
     return isValid ? ease : handleSetUp.get("tween").ease;
   };
   var springConfigIsValidAndGetNew = (config) => {
     const { config: allConfig } = handleSetUp.get("spring");
-    const isInConfig = config in allConfig;
+    const isInConfig = config && config in allConfig;
     const obj = isInConfig ? allConfig[config] : {};
     const isValidPropsKey = isInConfig ? (() => {
       return mobCore.checkType(Object, obj) && "tension" in obj && "mass" in obj && "friction" in obj && "velocity" in obj && "precision" in obj;
@@ -9169,13 +9172,14 @@
   };
   var springConfigIsValid = (config) => {
     const { config: allConfig } = handleSetUp.get("spring");
-    const isValid = config in allConfig;
+    const isValid = config && config in allConfig;
     if (!isValid && config)
       springPresetWarning(config);
     return isValid;
   };
   var springConfigPropIsValid = (obj) => {
-    const isValid = mobCore.checkType(Object, obj) && Object.values(obj).every((prop) => {
+    const isValid = mobCore.checkType(Object, obj) && // @ts-ignore
+    Object.values(obj).every((prop) => {
       return mobCore.checkType(Number, prop) && prop >= 0;
     });
     if (!isValid && obj)
@@ -9209,7 +9213,7 @@
     return isValid ? value : defaultValue;
   };
   var valueIsNumberAndReturnDefault = (value, label, defaultValue) => {
-    const isValid = mobCore.checkType(Number, Number.parseFloat(value));
+    const isValid = mobCore.checkType(Number, value);
     if (!isValid && value)
       naumberWarning(value, label);
     return isValid ? value : defaultValue;
@@ -9288,9 +9292,11 @@
   var domNodeIsValidAndReturnNull = (element) => {
     const isNode2 = mobCore.checkType(Element, element);
     const realEl = isNode2 ? element : document.querySelector(element);
-    return realEl ?? null;
+    return realEl;
   };
   var directionIsValid = (direction2, component) => {
+    if (!direction2)
+      return parallaxConstant.DIRECTION_VERTICAL;
     const choice = [
       parallaxConstant.DIRECTION_VERTICAL,
       parallaxConstant.DIRECTION_HORIZONTAL
@@ -9316,10 +9322,10 @@
     return isValid ? obj : null;
   };
   var parallaxDynamicRangeIsValid = (fn) => {
-    const isValid = mobCore.checkType(Function, fn) && mobCore.checkType(Number, fn());
+    const isValid = mobCore.checkType(Function, fn) && mobCore.checkType(Number, fn?.());
     if (!isValid && fn)
       parallaxDynmicRangeValueWarining();
-    return isValid ? fn : null;
+    return isValid ? fn : void 0;
   };
   var parallaxTweenIsValid = (instance) => {
     const isValid = instance?.getType?.() && (instance.getType() === parallaxConstant.TWEEN_TWEEN || instance.getType() === parallaxConstant.TWEEN_TIMELINE);
@@ -9328,6 +9334,8 @@
     return isValid ? instance : {};
   };
   var parallaxAlignIsValid = (value) => {
+    if (!value)
+      return parallaxConstant.ALIGN_CENTER;
     const choice = [
       parallaxConstant.ALIGN_START,
       parallaxConstant.ALIGN_TOP,
@@ -9337,12 +9345,14 @@
       parallaxConstant.ALIGN_LEFT,
       parallaxConstant.ALIGN_END
     ];
-    const isValid = choice.includes(value) || mobCore.checkType(Number, Number.parseFloat(value));
+    const isValid = choice.includes(value) || mobCore.checkType(Number, value);
     if (!isValid && value)
       parallaxAlignWarining(value, choice);
     return isValid ? value : parallaxConstant.ALIGN_CENTER;
   };
   var parallaxOnSwitchIsValid = (value) => {
+    if (!value)
+      return false;
     const choice = [
       parallaxConstant.IN_BACK,
       parallaxConstant.IN_STOP,
@@ -9355,30 +9365,39 @@
     return isValid ? value : false;
   };
   var parallaxOpacityIsValid = (value, label, defaultValue) => {
-    const isValid = mobCore.checkType(Number, Number.parseFloat(value));
+    if (!value)
+      return defaultValue;
+    const isValid = mobCore.checkType(Number, value);
     if (!isValid && value)
       parallaxOpacityWarning(value, label);
     return isValid ? value : defaultValue;
   };
   var parallaxTypeIsValid = (value) => {
-    const valueParsed = value ? value.toLowerCase() : null;
+    if (!value)
+      return parallaxConstant.TYPE_PARALLAX;
+    const valueLowerCase = value?.toLowerCase();
     const choice = [
       parallaxConstant.TYPE_PARALLAX,
       parallaxConstant.TYPE_SCROLLTRIGGER
     ];
-    const isValid = choice.includes(valueParsed);
-    if (!isValid && valueParsed)
-      parallaxTypeWarining(valueParsed, choice);
-    return isValid ? valueParsed : parallaxConstant.TYPE_PARALLAX;
+    const isValid = choice.includes(valueLowerCase);
+    if (!isValid && valueLowerCase)
+      parallaxTypeWarining(valueLowerCase, choice);
+    return isValid ? valueLowerCase : parallaxConstant.TYPE_PARALLAX;
   };
   var parallaxRangeIsValid = (value, type) => {
     const parsedValue = () => {
       if (type === parallaxConstant.TYPE_PARALLAX) {
         const isOnlyNumber = checkIfIsOnlyNumber(value);
-        const isValid = mobCore.checkType(Number, Number.parseFloat(value)) && isOnlyNumber && value >= 0 && value < 10;
+        const isValid = mobCore.checkType(Number, Number(value)) && isOnlyNumber && // @ts-ignore
+        value >= 0 && // @ts-ignore
+        value < 10;
         if (!isValid && value)
           parallaxRangeNumberWarning(value);
-        return isValid ? 10 - value : 10 - handleSetUp.get("parallax").defaultRange;
+        return isValid ? (
+          // @ts-ignore
+          10 - value
+        ) : 10 - handleSetUp.get("parallax").defaultRange;
       } else {
         const isValid = mobCore.checkType(String, value);
         if (!isValid && value)
@@ -9389,8 +9408,10 @@
     return parsedValue();
   };
   var breakpointIsValid = (mq2, label, component) => {
-    const mqObj = handleSetUp.get("mq");
     const defaultMq = handleSetUp.get("defaultMq").value;
+    if (!mq2)
+      return defaultMq;
+    const mqObj = handleSetUp.get("mq");
     const choice = Object.keys(mqObj);
     const isValid = mobCore.checkType(String, mq2) && choice.includes(mq2);
     if (!isValid && mq2)
@@ -9399,6 +9420,8 @@
   };
   var breakpointTypeIsValid = (type, label, component) => {
     const defaultType = handleSetUp.get("defaultMq").type;
+    if (!type)
+      return defaultType;
     const choice = [MQ_MAX, MQ_MIN];
     const isValid = mobCore.checkType(String, type) && choice.includes(type);
     if (!isValid && type)
@@ -9406,6 +9429,16 @@
     return isValid ? type : defaultType;
   };
   var parallaxPropiertiesIsValid = (value, type, tweenIsParallaxTween, tweenIsSequencer) => {
+    if (!value && tweenIsSequencer)
+      return {
+        propierties: parallaxConstant.PROP_VERTICAL,
+        shouldTrackOnlyEvents: true
+      };
+    if (!value && tweenIsParallaxTween)
+      return {
+        propierties: parallaxConstant.PROP_VERTICAL,
+        shouldTrackOnlyEvents: false
+      };
     const shouldTrackOnlyEvents = type === parallaxConstant.TYPE_SCROLLTRIGGER && !value;
     const choice = [
       parallaxConstant.PROP_VERTICAL,
@@ -9433,15 +9466,17 @@
     const valueParsed = notParallaxTweenInsideParallax ? parallaxConstant.PROP_VERTICAL : value;
     const valueFromConstant = getPropiertiesValueFromConstant(valueParsed);
     return {
-      propierties: isValid ? valueFromConstant : parallaxConstant.PROP_VERTICAL,
+      propierties: isValid ? valueFromConstant ?? parallaxConstant.PROP_VERTICAL : parallaxConstant.PROP_VERTICAL,
       shouldTrackOnlyEvents
     };
   };
   var parallaxEaseTypeIsValid = (value, isSequencer, isScrollTtrigger) => {
+    if (!value)
+      return parallaxConstant.EASE_LERP;
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
     const sequencerUseSpringInsideScrolltrigger = isSequencer && isScrollTtrigger && value === parallaxConstant.EASE_SPRING;
     const isValid = choice.includes(value);
-    if (!isValid && value)
+    if (!isValid)
       parallaxEaseTypeWarining(value, choice);
     if (sequencerUseSpringInsideScrolltrigger)
       parallaxEaseTypeSpringWarining();
@@ -9457,22 +9492,27 @@
     return isValid ? value : parallaxConstant.EASE_LERP;
   };
   var parallaxSpringConfigIsValid = (config, type) => {
+    const defaultConfig = type === parallaxConstant.TYPE_PARALLAX ? handleSetUp.get("parallax").springConfig : handleSetUp.get("scrollTrigger").springConfig;
+    if (!config)
+      return defaultConfig;
     const springDefaultConfig = handleSetUp.get("spring").config;
     const choice = Object.keys(springDefaultConfig);
-    const defaultConfig = type === parallaxConstant.TYPE_PARALLAX ? handleSetUp.get("parallax").springConfig : handleSetUp.get("scrollTrigger").springConfig;
     const isValid = choice.includes(config);
     if (!isValid && config)
       parallaxSpringCongifWarining(config, choice);
     return isValid ? config : defaultConfig;
   };
   var parallaxLerpConfigIsValid = (value, type) => {
-    const isValid = mobCore.checkType(Number, Number.parseFloat(value)) && value > 0 && value <= 1;
+    const isValid = (
+      // @ts-ignore
+      mobCore.checkType(Number, Number(value)) && value > 0 && value <= 1
+    );
     if (!isValid && value)
       parallaxLerpConfigWarning();
     const defaultConfig = type === parallaxConstant.TYPE_PARALLAX ? handleSetUp.get("parallax").lerpConfig : handleSetUp.get("scrollTrigger").lerpConfig;
-    return isValid ? Number.parseFloat(value) : defaultConfig;
+    return isValid ? value : defaultConfig;
   };
-  var checkStringRangeOnPropierties = (string, properties) => {
+  var checkStringRangeOnPropierties = (value, properties) => {
     const parallalxXYRangeChoice = [
       parallaxConstant.PX,
       parallaxConstant.VW,
@@ -9483,37 +9523,37 @@
     if (properties === parallaxConstant.PROP_VERTICAL || properties === parallaxConstant.PROP_HORIZONTAL) {
       const isValid2 = exactMatchInsesitiveNumberPropArray(
         parallalxXYRangeChoice,
-        string
+        value
       );
       if (!isValid2)
         scrollTriggerRangeWarning(
-          string,
+          value,
           properties,
           parallalxXYRangeChoice
         );
-      return isValid2 ? string : "0px";
+      return isValid2 ? value : "0px";
     }
     if (properties === parallaxConstant.PROP_ROTATE || properties === parallaxConstant.PROP_ROTATEX || properties === parallaxConstant.PROP_ROTATEY || properties === parallaxConstant.PROP_ROTATEZ) {
       const isValid2 = exactMatchInsesitiveNumberPropArray(
         [parallaxConstant.DEGREE],
-        string
+        value
       );
       if (!isValid2)
-        scrollTriggerRangeWarning(string, properties, [
+        scrollTriggerRangeWarning(value, properties, [
           parallaxConstant.DEGREE
         ]);
-      return isValid2 ? string : "0";
+      return isValid2 ? value : "0";
     }
     if (properties === parallaxConstant.PROP_SCALE || properties === parallaxConstant.PROP_SCALE_X || properties === parallaxConstant.PROP_SCALE_Y) {
-      const isValid2 = checkIfIsOnlyNumberPositiveNegative(string);
+      const isValid2 = checkIfIsOnlyNumberPositiveNegative(value);
       if (!isValid2)
-        scrollTriggerRangeScaleWarning(string, properties);
-      return isValid2 ? string : "0";
+        scrollTriggerRangeScaleWarning(value, properties);
+      return isValid2 ? value : "0";
     }
-    const isValid = checkIfIsOnlyNumberPositiveNegative(string);
+    const isValid = checkIfIsOnlyNumberPositiveNegative(value);
     if (!isValid)
       scrollTriggerCustomRangeWarning(properties);
-    return isValid ? string : "0";
+    return isValid ? value : "0";
   };
 
   // src/js/mobMotion/animation/utils/stagger/staggerUtils.js
@@ -15072,7 +15112,8 @@
       this.marker = valueIsStringAndReturnDefault(
         data3?.marker,
         "Scrolltrigger marker propierties error:",
-        null
+        // eslint-disable-next-line unicorn/no-useless-undefined
+        void 0
       );
       this.dynamicStart = data3?.dynamicStart ? parallaxDynamicValueIsValid(data3.dynamicStart, "dynamicStart") : null;
       this.dynamicEnd = data3?.dynamicEnd ? parallaxDynamicValueIsValid(data3.dynamicEnd, "dynamicEnd") : null;
@@ -15440,7 +15481,8 @@
           str,
           this.propierties
         );
-        this.numericRange = Number.parseFloat(strParsed.replaceAll(/^\D+/g, "")) * isNegative;
+        this.numericRange = // @ts-ignore
+        Number.parseFloat(strParsed.replaceAll(/^\D+/g, "")) * isNegative;
         this.unitMisure = getRangeUnitMisure(strParsed);
       }
     }

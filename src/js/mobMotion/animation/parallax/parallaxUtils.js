@@ -422,7 +422,7 @@ export const processFixedLimit = (value, stringValue, height, width) => {
 
 /**
  * @param {object} obj
- * @param {string} obj.switchPropierties
+ * @param {string|boolean} obj.switchPropierties
  * @param {boolean} obj.isReverse
  * @param {number} obj.value
  *
