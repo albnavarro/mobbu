@@ -46,6 +46,7 @@ import {
     getValueOnSwitch,
     detectViewPortInterception,
     processFixedLimit,
+    getScrollFunction,
 } from './parallaxUtils.js';
 
 export default class ParallaxClass {
@@ -893,30 +894,6 @@ export default class ParallaxClass {
         }
 
         /**
-         * @description
-         * If use pin we have to get fresh value on scroll
-         * Otherwise we can optimize and fire scroll callback after requerst animationFrame
-         *
-         * @param {function():void} cb
-         */
-        const getScrollfucuntion = (cb) => {
-            if (this.pin) {
-                this.unsubscribeScroll = mobCore.useScrollImmediate(cb);
-                return mobCore.useScrollImmediate;
-            } else {
-                (() => {
-                    if (this.ease && this.useThrottle) {
-                        this.unsubscribeScroll = mobCore.useScrollThrottle(cb);
-                        return mobCore.useScrollThrottle;
-                    } else {
-                        this.unsubscribeScroll = mobCore.useScroll(cb);
-                        return mobCore.useScroll;
-                    }
-                })();
-            }
-        };
-
-        /**
          * If scroller is !== window the instance is controlled by another component
          * Use move() methods to control children
          */
@@ -942,18 +919,23 @@ export default class ParallaxClass {
             });
 
             if (this.scroller === window) {
-                getScrollfucuntion(() => {
-                    /**
-                     * Unde handleFrame module operation to skip scroll
-                     * when performance drop down.
-                     * FIrst render is always done
-                     */
-                    if (!mobCore.getShouldRender() && !this.firstScroll) {
-                        return;
-                    }
+                this.unsubscribeScroll = getScrollFunction({
+                    pin: this.pin,
+                    ease: this.ease,
+                    useThrottle: this.useThrottle,
+                    callback: () => {
+                        /**
+                         * Use handleFrame module operation to skip scroll
+                         * when performance drop down.
+                         * FIrst render is always done
+                         */
+                        if (!mobCore.getShouldRender() && !this.firstScroll) {
+                            return;
+                        }
 
-                    this.firstScroll = false;
-                    this.smoothParallaxJs();
+                        this.firstScroll = false;
+                        this.smoothParallaxJs();
+                    },
                 });
             }
 
@@ -963,9 +945,14 @@ export default class ParallaxClass {
             this.smoothParallaxJs();
         } else {
             if (this.scroller === window) {
-                getScrollfucuntion(() => {
-                    this.computeValue();
-                    this.noEasingRender();
+                this.unsubscribeScroll = getScrollFunction({
+                    pin: this.pin,
+                    ease: this.ease,
+                    useThrottle: this.useThrottle,
+                    callback: () => {
+                        this.computeValue();
+                        this.noEasingRender();
+                    },
                 });
             }
 
