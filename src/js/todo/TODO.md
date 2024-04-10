@@ -24,3 +24,4 @@
 ## ScrollTrigger
 
 - parallaxEmitter: elminare closure.
+- parallaxPin: elminare closure.
