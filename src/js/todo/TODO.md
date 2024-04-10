@@ -21,3 +21,6 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
+## ScrollTrigger
+
+- parallaxEmitter: elminare closure.

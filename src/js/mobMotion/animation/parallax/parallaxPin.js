@@ -320,13 +320,9 @@ export class ParallaxPin {
             if (!this.isInizialized) return;
 
             if (this.screen !== window && this.isInner && this.pin) {
-                const cb = () => {
+                mobCore.useFrame(() => {
                     if (this.pin)
                         this.pin.style.transition = `transform .85s cubic-bezier(0, 0.68, 0.45, 1.1)`;
-                };
-
-                mobCore.useFrame(() => {
-                    cb();
                 });
             }
         });
@@ -745,7 +741,7 @@ export class ParallaxPin {
                 ? 'left'
                 : 'top';
 
-        const cb = () => {
+        mobCore.useFrame(() => {
             if (!this.pin) return;
 
             this.pin.style.position = 'fixed';
@@ -758,10 +754,6 @@ export class ParallaxPin {
              */
             this.justPinned = true;
             this.afterJustPinned = true;
-        };
-
-        mobCore.useFrame(() => {
-            cb();
         });
     }
 
@@ -810,7 +802,7 @@ export class ParallaxPin {
             const pinStyleFromItem = this.addPinStyleFromItem();
             const styleToAdd = this.addStyleToItem();
 
-            const cb = () => {
+            mobCore.useFrame(() => {
                 if (!this.pin) return;
 
                 Object.assign(this.pin.style, {
@@ -821,10 +813,6 @@ export class ParallaxPin {
                 if (this.item) Object.assign(this.item.style, styleToAdd);
 
                 document.body.append(this.pin);
-            };
-
-            mobCore.useFrame(() => {
-                cb();
             });
 
             this.trasponderActive = true;
