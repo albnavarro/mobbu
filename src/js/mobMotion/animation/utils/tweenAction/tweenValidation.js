@@ -1176,38 +1176,22 @@ export const parallaxPropiertiesIsValid = (
 /**
  *
  * @param {string|undefined} value
- * @param {boolean} isSequencer
- * @param {boolean} isScrollTtrigger
  * @returns {string}
  *
  * @description
  * Check if easeType is valid
  **/
-export const parallaxEaseTypeIsValid = (
-    value,
-    isSequencer,
-    isScrollTtrigger
-) => {
+export const parallaxEaseTypeIsValid = (value) => {
     if (!value) return parallaxConstant.EASE_LERP;
 
     const choice = [parallaxConstant.EASE_SPRING, parallaxConstant.EASE_LERP];
-    const sequencerUseSpringInsideScrolltrigger =
-        isSequencer &&
-        isScrollTtrigger &&
-        value === parallaxConstant.EASE_SPRING;
-
     const isValid = choice.includes(value);
     if (!isValid) parallaxEaseTypeWarining(value, choice);
 
     /**
      * Sequencer can not use spring
      */
-    if (sequencerUseSpringInsideScrolltrigger) parallaxEaseTypeSpringWarining();
-    const fallbackIfIsValid = isValid ? value : parallaxConstant.EASE_LERP;
-    const fallback = sequencerUseSpringInsideScrolltrigger
-        ? parallaxConstant.EASE_LERP
-        : fallbackIfIsValid;
-
+    const fallback = isValid ? value : parallaxConstant.EASE_LERP;
     return isValid ? value : fallback;
 };
 

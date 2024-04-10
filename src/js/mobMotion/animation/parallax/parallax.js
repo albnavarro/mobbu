@@ -48,6 +48,7 @@ import {
     processFixedLimit,
     getScrollFunction,
 } from './parallaxUtils.js';
+import { parallaxEaseTypeSpringWarining } from '../utils/warning.js';
 
 export default class ParallaxClass {
     /**
@@ -790,17 +791,22 @@ export default class ParallaxClass {
         );
 
         /**
+         * Check if ease is spring and tween is a sequencer.
+         * Not allowed.
+         */
+        if (tweenIsSequencer && data?.easeType === parallaxConstant.EASE_SPRING)
+            parallaxEaseTypeSpringWarining();
+
+        /**
          * @description
          * Get easeType properties, Check if a sequencer is used inside a scrollTrigger
          * In case return a lerp
          *
          * @type {string}
          */
-        this.easeType = parallaxEaseTypeIsValid(
-            data?.easeType,
-            tweenIsSequencer,
-            this.type === parallaxConstant.TYPE_SCROLLTRIGGER
-        );
+        this.easeType = tweenIsSequencer
+            ? parallaxConstant.EASE_LERP
+            : parallaxEaseTypeIsValid(data?.easeType);
 
         /**
          * @description
@@ -843,19 +849,10 @@ export default class ParallaxClass {
          *
          * @type {object}
          */
-        this.motion = (() => {
-            if (tweenIsSequencer) {
-                this.easeType = parallaxConstant.EASE_LERP;
-                // Force lerp motion parameters if tween is a sequencer
-                this.motionParameters = {
-                    precision: parallaxConstant.EASE_PRECISION,
-                };
-            }
-
-            return this.easeType === parallaxConstant.EASE_SPRING
+        this.motion =
+            this.easeType === parallaxConstant.EASE_SPRING
                 ? new HandleSpring()
                 : new HandleLerp();
-        })();
     }
 
     /**
@@ -2204,7 +2201,6 @@ export default class ParallaxClass {
         if (this.pin && this.pinInstance) this.pinInstance?.destroy?.();
         if (this.startMarker) this.startMarker?.remove?.();
         if (this.endMarker) this.endMarker?.remove?.();
-        this.motion = null;
         this.startMarker = undefined;
         this.endMarker = undefined;
         this.pinInstance = null;
