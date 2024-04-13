@@ -996,11 +996,30 @@ export default class ParallaxClass {
             if (mq[this.queryType](this.breakpoint)) {
                 mobCore.useNextTick(() => {
                     this.getScrollerOffset();
-                    this.pinInstance?.init({ instance: this });
+                    this.pinInstance?.init(this.getPinParams());
                     this.pinInstance?.onScroll(this.scrollerScroll);
                 });
             }
         }
+    }
+
+    getPinParams() {
+        return {
+            item: this.item,
+            marker: this.marker,
+            trigger: this.trigger,
+            scroller: this.scroller,
+            screen: this.screen,
+            animatePin: this.animatePin,
+            anticipatePinOnLoad: this.anticipatePinOnLoad,
+            forceTranspond: this.forceTranspond,
+            invertSide: this.invertSide,
+            direction: this.direction,
+            scrollerHeight: this.scrollerHeight,
+            getStart: () => this.startPoint,
+            getEnd: () => this.endPoint,
+            instance: this,
+        };
     }
 
     /**
@@ -1481,7 +1500,7 @@ export default class ParallaxClass {
                 this.pinInstance &&
                 mq[this.queryType](this.breakpoint)
             ) {
-                this.pinInstance.init({ instance: this });
+                this.pinInstance?.init(this.getPinParams());
             }
         }
         //
