@@ -27,6 +27,7 @@ import {
 } from '../utils/warning.js';
 import { asyncReduceData } from './asyncReduceData.js';
 import { asyncReduceTween } from './asyncReduceTween.js';
+import { resolveMainPromise } from './loopCallback.js';
 
 export default class HandleAsyncTimeline {
     /**
@@ -611,107 +612,42 @@ export default class HandleAsyncTimeline {
             return new Promise((res, reject) => {
                 // Get delay
                 const delay = isImmediate ? false : tweenProps?.delay;
-                const sessionId = this.sessionId;
-
-                const cb = () => {
-                    /*
-                     * IF:
-                     * --
-                     * this.isStopped: Timelie is stopped
-                     * --
-                     * this.startOnDelay: play() etc.. is firedin delay
-                     * --
-                     * sessionId: another tween is fired and this tween is in a
-                     * { waitComplete: false }, so the promise is resolved but
-                     * this tween is in delay status, if antther session start
-                     * the value of this.sessionId change,
-                     * in this case isStopped doesn't work because next
-                     * session set it to true
-                     * --
-                     */
-                    if (
-                        this.isStopped ||
-                        this.startOnDelay ||
-                        sessionId !== this.sessionId
-                    ) {
-                        reject();
-                        return;
-                    }
-
-                    /*
-                     * Add tween to active stack
-                     */
-                    const unsubscribeActiveTween = this.addToActiveTween(tween);
-
-                    /*
-                     * Add tween to active stack, if timelienstatus is in pause
-                     * onStartInPause methods trigger pause status inside
-                     */
-                    const unsubscribeTweenStartInPause =
-                        tween && tween?.onStartInPause
-                            ? tween.onStartInPause(() => {
-                                  return this.isInPause;
-                              })
-                            : NOOP;
-
-                    fn[action]()
-                        .then(() => res({ resolve: true }))
-                        .catch(() => {})
-                        .finally(() => {
-                            unsubscribeActiveTween();
-                            unsubscribeTweenStartInPause();
-                        });
-                };
+                const previousSessionId = this.sessionId;
 
                 if (delay) {
                     const start = mobCore.getTime();
                     this.delayIsRunning = true;
-                    let deltaTimeOnpause = 0;
 
-                    /*
-                     * Delay loop
-                     */
-                    const loop = () => {
-                        const current = mobCore.getTime();
-                        let delta = current - start;
+                    requestAnimationFrame(() => {
+                        this.loopOnDelay({
+                            start,
+                            deltaTimeOnpause: 0,
+                            delay,
+                            reject,
+                            res,
+                            previousSessionId,
+                            tween,
+                            fn,
+                            action,
+                        });
+                    });
 
-                        /*
-                         * Update delata value on pause to compensate delta velue
-                         */
-                        if (this.isInPause)
-                            deltaTimeOnpause = current - this.timeOnPause;
-
-                        /*
-                         * If play, resume, playFromLabel is fired with
-                         * another tween in delay
-                         * fire this tween immediately, so avoid problem
-                         * with much delay in same group
-                         *
-                         * ! when stop the timeline manually ( es timeline.stop() )
-                         * It will not activate
-                         */
-                        if (this.actionAfterReject.active) {
-                            deltaTimeOnpause = 0;
-                            delta = delay;
-                        }
-
-                        // Start after dealy or immediate in caso of stop or reverse Next
-                        if (
-                            delta - deltaTimeOnpause >= delay ||
-                            this.isStopped ||
-                            this.isReverseNext
-                        ) {
-                            this.delayIsRunning = false;
-                            cb();
-                            return;
-                        }
-
-                        requestAnimationFrame(loop);
-                    };
-                    requestAnimationFrame(loop);
-                } else {
-                    cb();
+                    return;
                 }
+
+                resolveMainPromise({
+                    reject,
+                    res,
+                    isStopped: this.isStopped,
+                    startOnDelay: this.startOnDelay,
+                    isInPause: this.isInPause,
+                    addToActiveTween: (tween) => this.addToActiveTween(tween),
+                    currentSessionId: this.sessionId,
+                    previousSessionId,
+                    tween,
+                    fn,
+                    action,
+                });
             });
         });
 
@@ -804,28 +740,6 @@ export default class HandleAsyncTimeline {
                  * End of timeline, check repeat
                  **/
                 if (this.loopCounter < this.repeat || this.repeat === -1) {
-                    const cb = () => {
-                        /*
-                         * Fire callbackLoop
-                         */
-                        if (this.loopCounter > 0) {
-                            const direction = this.getDirection();
-                            this.callbackLoop.forEach(({ cb }) =>
-                                cb({
-                                    direction,
-                                    loop: this.loopCounter,
-                                })
-                            );
-                        }
-
-                        this.loopCounter++;
-                        this.currentIndex = 0;
-                        this.disableLabel();
-                        if (this.yoyo || this.forceYoyo) this.revertTween();
-                        this.forceYoyo = false;
-                        this.run();
-                    };
-
                     /*
                      * Start timeline in reverse mode here
                      * set all tween to end position and go
@@ -853,7 +767,7 @@ export default class HandleAsyncTimeline {
                         );
                         Promise.all(tweenPromise)
                             .then(() => {
-                                cb();
+                                this.onRepeat();
                             })
                             .catch(() => {});
                         return;
@@ -862,7 +776,7 @@ export default class HandleAsyncTimeline {
                     /*
                      * Go default
                      */
-                    cb();
+                    this.onRepeat();
                     return;
                 }
 
@@ -899,6 +813,106 @@ export default class HandleAsyncTimeline {
                 */
                 this.addAsyncIsActive = false;
             });
+    }
+
+    loopOnDelay({
+        start,
+        deltaTimeOnpause,
+        delay,
+        reject,
+        res,
+        previousSessionId,
+        tween,
+        fn,
+        action,
+    }) {
+        const current = mobCore.getTime();
+        let delta = current - start;
+
+        /*
+         * Update delata value on pause to compensate delta velue
+         */
+        if (this.isInPause) deltaTimeOnpause = current - this.timeOnPause;
+
+        /*
+         * If play, resume, playFromLabel is fired with
+         * another tween in delay
+         * fire this tween immediately, so avoid problem
+         * with much delay in same group
+         *
+         * ! when stop the timeline manually ( es timeline.stop() )
+         * It will not activate
+         */
+        if (this.actionAfterReject.active) {
+            deltaTimeOnpause = 0;
+            delta = delay;
+        }
+
+        // Start after dealy or immediate in caso of stop or reverse Next
+        if (
+            delta - deltaTimeOnpause >= delay ||
+            this.isStopped ||
+            this.isReverseNext
+        ) {
+            this.delayIsRunning = false;
+
+            resolveMainPromise({
+                reject,
+                res,
+                isStopped: this.isStopped,
+                startOnDelay: this.startOnDelay,
+                isInPause: this.isInPause,
+                addToActiveTween: (tween) => {
+                    return this.addToActiveTween(tween);
+                },
+                currentSessionId: this.sessionId,
+                previousSessionId,
+                tween,
+                fn,
+                action,
+            });
+
+            return;
+        }
+
+        requestAnimationFrame(() => {
+            this.loopOnDelay({
+                start,
+                deltaTimeOnpause,
+                delay,
+                reject,
+                res,
+                previousSessionId,
+                tween,
+                fn,
+                action,
+            });
+        });
+    }
+
+    /**
+     * @private
+     */
+    onRepeat() {
+        /*
+         * Fire callbackLoop
+         */
+        if (this.loopCounter > 0) {
+            const direction = this.getDirection();
+            this.callbackLoop.forEach(({ cb }) =>
+                cb({
+                    direction,
+                    loop: this.loopCounter,
+                })
+            );
+        }
+
+        this.loopCounter++;
+        this.currentIndex = 0;
+        this.disableLabel();
+        if (this.yoyo || this.forceYoyo) this.revertTween();
+        this.forceYoyo = false;
+        this.run();
     }
 
     /**
@@ -1819,7 +1833,7 @@ export default class HandleAsyncTimeline {
                         this.run();
                     }, 1);
                 } else {
-                    const cb = () => {
+                    this.starterFunction.fn = () => {
                         /**
                          * need to reset current data after reverse() of tween so use stop()
                          */
@@ -1852,7 +1866,6 @@ export default class HandleAsyncTimeline {
                             .catch(() => {});
                     };
 
-                    this.starterFunction.fn = () => cb();
                     this.starterFunction.active = true;
 
                     /**
