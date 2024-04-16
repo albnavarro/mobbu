@@ -20874,14 +20874,14 @@ Loading snippet ...</pre
             return new Promise((res) => {
               if (isImmediate) {
                 res({ resolve: true });
-              } else {
-                const direction2 = this.getDirection();
-                tween2({
-                  direction: direction2,
-                  loop: this.loopCounter
-                });
-                res({ resolve: true });
+                return;
               }
+              const direction2 = this.getDirection();
+              tween2({
+                direction: direction2,
+                loop: this.loopCounter
+              });
+              res({ resolve: true });
             });
           },
           addAsync: () => {
@@ -20893,20 +20893,20 @@ Loading snippet ...</pre
             return new Promise((res, reject) => {
               if (isImmediate) {
                 res({ resolve: true });
-              } else {
-                const direction2 = this.getDirection();
-                tween2({
-                  direction: direction2,
-                  loop: this.loopCounter,
-                  resolve: () => {
-                    if (sessionId === this.sessionId) {
-                      res({ resolve: true });
-                    } else {
-                      reject();
-                    }
-                  }
-                });
+                return;
               }
+              const direction2 = this.getDirection();
+              tween2({
+                direction: direction2,
+                loop: this.loopCounter,
+                resolve: () => {
+                  if (sessionId === this.sessionId) {
+                    res({ resolve: true });
+                    return;
+                  }
+                  reject();
+                }
+              });
             });
           },
           createGroup: () => {
@@ -21211,9 +21211,9 @@ Loading snippet ...</pre
       });
       if (rowIndex >= 0) {
         this.tweenList[rowIndex].push({ group: this.groupId, data: obj });
-      } else {
-        this.tweenList.push([{ group: this.groupId, data: obj }]);
+        return;
       }
+      this.tweenList.push([{ group: this.groupId, data: obj }]);
     }
     /**
      * @private
@@ -21914,28 +21914,26 @@ Loading snippet ...</pre
               this.currentResolve = resolve;
               this.run();
             }, 1);
-          } else {
-            this.starterFunction.fn = () => {
-              this.stop();
-              this.isStopped = false;
-              const tweenPromise = this.tweenStore.map(
-                ({ tween: tween2 }) => {
-                  const data3 = tween2.getInitialData();
-                  return new Promise((resolve2, reject2) => {
-                    tween2.set(data3).then(() => resolve2({ resolve: true })).catch(() => reject2());
-                  });
-                }
-              );
-              Promise.all(tweenPromise).then(() => {
-                this.currentReject = reject;
-                this.currentResolve = resolve;
-                this.run();
-              }).catch(() => {
-              });
-            };
-            this.starterFunction.active = true;
-            this.playReverse({ forceYoYo: true });
+            return;
           }
+          this.starterFunction.fn = () => {
+            this.stop();
+            this.isStopped = false;
+            const tweenPromise = this.tweenStore.map(({ tween: tween2 }) => {
+              const data3 = tween2.getInitialData();
+              return new Promise((resolve2, reject2) => {
+                tween2.set(data3).then(() => resolve2({ resolve: true })).catch(() => reject2());
+              });
+            });
+            Promise.all(tweenPromise).then(() => {
+              this.currentReject = reject;
+              this.currentResolve = resolve;
+              this.run();
+            }).catch(() => {
+            });
+          };
+          this.starterFunction.active = true;
+          this.playReverse({ forceYoYo: true });
         });
       });
     }
