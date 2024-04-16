@@ -532,15 +532,16 @@ export default class HandleAsyncTimeline {
                     return new Promise((res) => {
                         if (isImmediate) {
                             res({ resolve: true });
-                        } else {
-                            // Custom function
-                            const direction = this.getDirection();
-                            tween({
-                                direction,
-                                loop: this.loopCounter,
-                            });
-                            res({ resolve: true });
+                            return;
                         }
+
+                        // Custom function
+                        const direction = this.getDirection();
+                        tween({
+                            direction,
+                            loop: this.loopCounter,
+                        });
+                        res({ resolve: true });
                     });
                 },
                 addAsync: () => {
@@ -559,21 +560,23 @@ export default class HandleAsyncTimeline {
                     return new Promise((res, reject) => {
                         if (isImmediate) {
                             res({ resolve: true });
-                        } else {
-                            const direction = this.getDirection();
-
-                            tween({
-                                direction,
-                                loop: this.loopCounter,
-                                resolve: () => {
-                                    if (sessionId === this.sessionId) {
-                                        res({ resolve: true });
-                                    } else {
-                                        reject();
-                                    }
-                                },
-                            });
+                            return;
                         }
+
+                        const direction = this.getDirection();
+
+                        tween({
+                            direction,
+                            loop: this.loopCounter,
+                            resolve: () => {
+                                if (sessionId === this.sessionId) {
+                                    res({ resolve: true });
+                                    return;
+                                }
+
+                                reject();
+                            },
+                        });
                     });
                 },
                 createGroup: () => {
@@ -1018,9 +1021,10 @@ export default class HandleAsyncTimeline {
          */
         if (rowIndex >= 0) {
             this.tweenList[rowIndex].push({ group: this.groupId, data: obj });
-        } else {
-            this.tweenList.push([{ group: this.groupId, data: obj }]);
+            return;
         }
+
+        this.tweenList.push([{ group: this.groupId, data: obj }]);
     }
 
     /**
@@ -1832,49 +1836,49 @@ export default class HandleAsyncTimeline {
                         this.currentResolve = resolve;
                         this.run();
                     }, 1);
-                } else {
-                    this.starterFunction.fn = () => {
-                        /**
-                         * need to reset current data after reverse() of tween so use stop()
-                         */
-                        this.stop();
-                        this.isStopped = false;
 
-                        /*
-                         * When start form play in default mode ( no freeMode )
-                         * an automatic set method is Executed with initial data
-                         */
-                        const tweenPromise = this.tweenStore.map(
-                            ({ tween }) => {
-                                const data = tween.getInitialData();
-
-                                return new Promise((resolve, reject) => {
-                                    tween
-                                        .set(data)
-                                        .then(() => resolve({ resolve: true }))
-                                        .catch(() => reject());
-                                });
-                            }
-                        );
-                        Promise.all(tweenPromise)
-                            .then(() => {
-                                // Set current promise action after stop so is not fired in stop method
-                                this.currentReject = reject;
-                                this.currentResolve = resolve;
-                                this.run();
-                            })
-                            .catch(() => {});
-                    };
-
-                    this.starterFunction.active = true;
-
-                    /**
-                     * First loop reverse at the end start function fired
-                     * reverse set label.active at true
-                     * so label.active && starterFunction.active is necessary to fire cb
-                     */
-                    this.playReverse({ forceYoYo: true });
+                    return;
                 }
+
+                this.starterFunction.fn = () => {
+                    /**
+                     * need to reset current data after reverse() of tween so use stop()
+                     */
+                    this.stop();
+                    this.isStopped = false;
+
+                    /*
+                     * When start form play in default mode ( no freeMode )
+                     * an automatic set method is Executed with initial data
+                     */
+                    const tweenPromise = this.tweenStore.map(({ tween }) => {
+                        const data = tween.getInitialData();
+
+                        return new Promise((resolve, reject) => {
+                            tween
+                                .set(data)
+                                .then(() => resolve({ resolve: true }))
+                                .catch(() => reject());
+                        });
+                    });
+                    Promise.all(tweenPromise)
+                        .then(() => {
+                            // Set current promise action after stop so is not fired in stop method
+                            this.currentReject = reject;
+                            this.currentResolve = resolve;
+                            this.run();
+                        })
+                        .catch(() => {});
+                };
+
+                this.starterFunction.active = true;
+
+                /**
+                 * First loop reverse at the end start function fired
+                 * reverse set label.active at true
+                 * so label.active && starterFunction.active is necessary to fire cb
+                 */
+                this.playReverse({ forceYoYo: true });
             });
         });
     }
