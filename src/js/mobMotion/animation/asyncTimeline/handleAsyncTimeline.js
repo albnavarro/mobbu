@@ -27,7 +27,7 @@ import {
 } from '../utils/warning.js';
 import { asyncReduceData } from './asyncReduceData.js';
 import { asyncReduceTween } from './asyncReduceTween.js';
-import { resolveMainPromise } from './loopCallback.js';
+import { resolveTweenPromise } from './loopCallback.js';
 
 export default class HandleAsyncTimeline {
     /**
@@ -638,7 +638,7 @@ export default class HandleAsyncTimeline {
                     return;
                 }
 
-                resolveMainPromise({
+                resolveTweenPromise({
                     reject,
                     res,
                     isStopped: this.isStopped,
@@ -859,7 +859,7 @@ export default class HandleAsyncTimeline {
         ) {
             this.delayIsRunning = false;
 
-            resolveMainPromise({
+            resolveTweenPromise({
                 reject,
                 res,
                 isStopped: this.isStopped,

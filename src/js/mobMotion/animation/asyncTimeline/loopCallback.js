@@ -16,7 +16,7 @@ import { NOOP } from '../../utils/functionsUtils';
  * @param {Object} param.fn
  * @param {string} param.action
  */
-export const resolveMainPromise = ({
+export const resolveTweenPromise = ({
     reject,
     res,
     isStopped,
