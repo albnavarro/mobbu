@@ -175,26 +175,30 @@ export default class ParallaxTween {
      * @description
      */
     draw({ partial, isLastDraw }) {
-        const mainFn = () => {
-            this.values.forEach((item) => {
-                const toValue = item.toIsFn ? item.toFn() : item.toValue;
-                const fromValue = item.fromIsFn
-                    ? item.fromFn()
-                    : item.fromValue;
-                const toValProcessed = toValue - fromValue;
+        this.values = [...this.values].map((item) => {
+            const { toIsFn, toFn, toValue, fromIsFn, fromFn, fromValue } = item;
 
-                item.currentValue = this.ease(
-                    partial,
-                    fromValue,
-                    toValProcessed,
-                    this.duration
-                );
-                item.currentValue = getRoundedValue(item.currentValue);
-            });
+            const toValueParsed = toIsFn ? toFn() : toValue;
+            const fromValueParsed = fromIsFn ? fromFn() : fromValue;
+            const toValFinal = toValueParsed - fromValueParsed;
 
-            // Prepare an obj to pass to the callback
-            const callBackObject = getValueObj(this.values, 'currentValue');
+            const currentValue = this.ease(
+                partial,
+                fromValueParsed,
+                toValFinal,
+                this.duration
+            );
 
+            return {
+                ...item,
+                currentValue: getRoundedValue(currentValue),
+            };
+        });
+
+        // Prepare an obj to pass to the callback
+        const callBackObject = getValueObj(this.values, 'currentValue');
+
+        mobCore.useNextTick(() => {
             // Fire callback
             syncCallback({
                 each: this.stagger.each,
@@ -205,9 +209,7 @@ export default class ParallaxTween {
                 callbackCache: this.callbackCache,
                 callbackOnStop: this.callbackOnStop,
             });
-        };
-
-        mobCore.useNextTick(() => mainFn());
+        });
     }
 
     /**
