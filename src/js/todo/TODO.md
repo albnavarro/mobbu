@@ -1,3 +1,10 @@
+## MobCore
+
+### handleFrameIndex
+- Passare da oggetto a Map.
+
+
+
 # MobJs
 
 ### App:
@@ -21,6 +28,3 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
-## ScrollTrigger
-
-- parallaxPin: elminare closure.
