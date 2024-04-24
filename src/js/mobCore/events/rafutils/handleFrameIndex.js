@@ -27,7 +27,6 @@ const updateKeys = (currentFrameLimit) => {
  * @param {number} obj.currentFrame
  * @param {number} obj.time
  * @param {number} obj.fps
- * @param {boolean} obj.shouldRender
  * @return void
  *
  * @description
@@ -36,10 +35,10 @@ const updateKeys = (currentFrameLimit) => {
  * @examples
  *
  * ```javascript
- * handleFrameIndex.fire(({ currentFrame, fps, shouldRender, time });      *
+ * handleFrameIndex.fire(({ currentFrame, fps,  time });      *
  * ```
  */
-const fire = ({ currentFrame, time, fps, shouldRender }) => {
+const fire = ({ currentFrame, time, fps }) => {
     /**
      * @type {Array.<Function>}
      *
@@ -50,7 +49,7 @@ const fire = ({ currentFrame, time, fps, shouldRender }) => {
     const callabacks = indexCallbackMap.get(currentFrame) ?? [];
     if (!callabacks || callabacks.length === 0) return;
 
-    callabacks.forEach((item) => item({ time, fps, shouldRender }));
+    callabacks.forEach((item) => item({ time, fps }));
     indexCallbackMap.delete(currentFrame);
 };
 
@@ -64,7 +63,7 @@ const fire = ({ currentFrame, time, fps, shouldRender }) => {
  *
  * @example
  * ```javascript
- * handleFrameIndex.add(({ fps, shouldRender, time }) => {
+ * handleFrameIndex.add(({ fps,  time }) => {
  *     // code ...
  * }, 5);
  *

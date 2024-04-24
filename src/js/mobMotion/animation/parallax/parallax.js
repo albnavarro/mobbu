@@ -921,15 +921,6 @@ export default class ParallaxClass {
                     ease: this.ease,
                     useThrottle: this.useThrottle,
                     callback: () => {
-                        /**
-                         * Use handleFrame module operation to skip scroll
-                         * when performance drop down.
-                         * FIrst render is always done
-                         */
-                        if (!mobCore.getShouldRender() && !this.firstScroll) {
-                            return;
-                        }
-
                         this.firstScroll = false;
                         this.smoothParallaxJs();
                     },

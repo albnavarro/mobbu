@@ -152,19 +152,6 @@ export const mobCore = {
     },
 
     /**
-     * @returns {boolean}
-     *
-     * @description
-     * When useScaleFps is on, get the frame status related to fpsScalePercent object:
-     * This methods get the standalone value.
-     *
-     * Note: created for mobMotion internal use.
-     */
-    getShouldRender() {
-        return handleFrame.getShouldRender();
-    },
-
-    /**
      * @description
      * If the current FPS drops below `2/5` of its maximum value the methods return true.
      * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
@@ -215,7 +202,7 @@ export const mobCore = {
      * @example
      * ```javascript
      * mobCore.useFrame(() => {
-     *     mobCore.useNextTick(({ fps, shouldRender, time }) => {
+     *     mobCore.useNextTick(({ fps, time }) => {
      *         // code
      *     });
      * });
@@ -253,7 +240,7 @@ export const mobCore = {
      * @example
      * ```javascript
      * const loop = () => {
-     *     mobCore.useNextFrame(({ fps, shouldRender, time }) => {
+     *     mobCore.useNextFrame(({ fps, time }) => {
      *         // code
      *         loop();
      *     });
@@ -276,7 +263,7 @@ export const mobCore = {
      *
      * @example
      * ```javascript
-     * mobCore.useFrameIndex(({ fps, shouldRender, time }) => {
+     * mobCore.useFrameIndex(({ fps, time }) => {
      *     // code ...
      * }, 5);
      *
