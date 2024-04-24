@@ -24,7 +24,6 @@ mobCore.useLoad(() => {
 
     motionCore.setDefault({
         deferredNextTick: true,
-        useScaleFps: true,
         usePassive: true,
         mq: {
             desktop: 1024,

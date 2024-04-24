@@ -132,21 +132,18 @@ const get = (id) => {
 
 /**
  * @param {number} frameCounter - frame to render.
- * @param {boolean} shouldRender - should render.
  * @returns void
  *
  * @description
  * Render obj on specific frame and delete rendered object.
  */
-const fire = (frameCounter, shouldRender) => {
+const fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
         const { data, fn, el } = value;
         const callBackObject = data.get(frameCounter);
 
         if (callBackObject) {
-            if (shouldRender) {
-                fn(callBackObject, el);
-            }
+            fn(callBackObject, el);
 
             data.delete(frameCounter);
             cacheCoutner--;

@@ -62,7 +62,6 @@
             "props": {
                 "items": [
                     "fps: current fps value: number",
-                    "shouldRender: Indicates a possible loss of frames compared to the optimal value: boolean",
                     "time: current time: number"
                 ]
             }

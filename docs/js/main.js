@@ -2944,11 +2944,6 @@
     instantFps: 60,
     requestFrame: () => {
     },
-    fpsScalePercent: () => ({
-      value: { 0: 1, 30: 2, 50: 3 },
-      type: "Any"
-    }),
-    useScaleFps: true,
     deferredNextTick: true,
     /**
      * Scroll
@@ -3171,14 +3166,12 @@
   var get = (id) => {
     return subscriberMap.get(id) ?? {};
   };
-  var fire = (frameCounter, shouldRender2) => {
+  var fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
       const { data: data3, fn, el } = value;
       const callBackObject = data3.get(frameCounter);
       if (callBackObject) {
-        if (shouldRender2) {
-          fn(callBackObject, el);
-        }
+        fn(callBackObject, el);
         data3.delete(frameCounter);
         cacheCoutner--;
       }
@@ -3259,11 +3252,11 @@
   }, priority = 100) => {
     callbacks3.push({ cb, priority });
   };
-  var fire2 = ({ time: time2, fps: fps2, shouldRender: shouldRender2 }) => {
+  var fire2 = ({ time: time2, fps: fps2 }) => {
     if (callbacks3.length === 0)
       return;
     callbacks3.sort((a, b) => a.priority - b.priority);
-    callbacks3.forEach(({ cb }) => cb({ time: time2, fps: fps2, shouldRender: shouldRender2 }));
+    callbacks3.forEach(({ cb }) => cb({ time: time2, fps: fps2 }));
     callbacks3.length = 0;
   };
   var handleNextTick = /* @__PURE__ */ (() => {
@@ -3293,11 +3286,11 @@
       indexCallbackMap.set(index - currentFrameLimit2, value);
     });
   };
-  var fire3 = ({ currentFrame: currentFrame2, time: time2, fps: fps2, shouldRender: shouldRender2 }) => {
+  var fire3 = ({ currentFrame: currentFrame2, time: time2, fps: fps2 }) => {
     const callabacks = indexCallbackMap.get(currentFrame2) ?? [];
     if (!callabacks || callabacks.length === 0)
       return;
-    callabacks.forEach((item) => item({ time: time2, fps: fps2, shouldRender: shouldRender2 }));
+    callabacks.forEach((item) => item({ time: time2, fps: fps2 }));
     indexCallbackMap.delete(currentFrame2);
   };
   var add4 = (callback2, index) => {
@@ -3385,10 +3378,6 @@
   var frames = 0;
   var fpsPrevTime = 0;
   var currentFrame = 0;
-  var dropFrameCounter = -1;
-  var shouldRender = true;
-  var fpsScalePercent = eventStore.getProp("fpsScalePercent");
-  var useScaleFpsf = eventStore.getProp("useScaleFps");
   var mustMakeSomethingIsActive = false;
   var shouldMakeSomethingIsActive = false;
   var mustMakeSomethingCheck = () => fps < maxFps / 5 * 3;
@@ -3416,21 +3405,6 @@
   eventStore.watch("requestFrame", () => {
     initFrame();
   });
-  var getRenderStatus = () => {
-    if (!useScaleFpsf)
-      return true;
-    const activeModule = Object.entries(fpsScalePercent).reduce(
-      (acc, [fpsValue, fpsModule]) => {
-        const delta = Math.abs(maxFps - fps);
-        const deltaPercent = Math.round(delta * 100 / maxFps);
-        const isOutOfRange = deltaPercent > Number.parseInt(fpsValue);
-        return isOutOfRange ? fpsModule : acc;
-      },
-      1
-    );
-    dropFrameCounter = (dropFrameCounter + 1) % activeModule;
-    return dropFrameCounter === 0;
-  };
   var nextTickFn = () => {
     if (currentFrame === currentFrameLimit) {
       currentFrame = 0;
@@ -3438,7 +3412,7 @@
       handleFrameIndex.updateKeys(currentFrameLimit);
       handleCache.updateFrameId(currentFrameLimit);
     }
-    handleNextTick.fire({ time, fps, shouldRender });
+    handleNextTick.fire({ time, fps });
     callback = [...callback, ...handleNextFrame.get()];
     frameIsRuning = false;
     if (callback.length > 0 || handleFrameIndex.getAmountOfFrameToFire() > 0 || handleCache.getCacheCounter() > 0 || time < firstRunDuration) {
@@ -3474,17 +3448,14 @@
       fpsPrevTime = time;
       frames = 0;
       fps = fps < 30 ? eventStore.getProp("instantFps") : fps;
-      fpsScalePercent = eventStore.getProp("fpsScalePercent");
-      useScaleFpsf = eventStore.getProp("useScaleFps");
     }
     if (fps > maxFps)
       maxFps = fps;
-    shouldRender = getRenderStatus();
     mustMakeSomethingStart();
     shouldMakeSomethingStart();
-    callback.forEach((item) => item({ time, fps, shouldRender }));
-    handleFrameIndex.fire({ currentFrame, time, fps, shouldRender });
-    handleCache.fire(currentFrame, shouldRender);
+    callback.forEach((item) => item({ time, fps }));
+    handleFrameIndex.fire({ currentFrame, time, fps });
+    handleCache.fire(currentFrame);
     currentFrame++;
     eventStore.quickSetProp("currentFrame", currentFrame);
     callback.length = 0;
@@ -3510,7 +3481,6 @@
     const getFps = () => fps;
     const mustMakeSomething = () => mustMakeSomethingIsActive;
     const shouldMakeSomething = () => shouldMakeSomethingIsActive;
-    const getShouldRender = () => shouldRender;
     const add5 = (cb) => {
       callback.push(cb);
       initFrame();
@@ -3524,8 +3494,7 @@
       addMultiple,
       getFps,
       mustMakeSomething,
-      shouldMakeSomething,
-      getShouldRender
+      shouldMakeSomething
     };
   })();
 
@@ -3919,18 +3888,6 @@
       return handleFrame.getFps();
     },
     /**
-     * @returns {boolean}
-     *
-     * @description
-     * When useScaleFps is on, get the frame status related to fpsScalePercent object:
-     * This methods get the standalone value.
-     *
-     * Note: created for mobMotion internal use.
-     */
-    getShouldRender() {
-      return handleFrame.getShouldRender();
-    },
-    /**
      * @description
      * If the current FPS drops below `2/5` of its maximum value the methods return true.
      * The value will remain frozen for 4 seconds in order to have time to take the right countermeasures.
@@ -3979,7 +3936,7 @@
      * @example
      * ```javascript
      * mobCore.useFrame(() => {
-     *     mobCore.useNextTick(({ fps, shouldRender, time }) => {
+     *     mobCore.useNextTick(({ fps, time }) => {
      *         // code
      *     });
      * });
@@ -4017,7 +3974,7 @@
      * @example
      * ```javascript
      * const loop = () => {
-     *     mobCore.useNextFrame(({ fps, shouldRender, time }) => {
+     *     mobCore.useNextFrame(({ fps, time }) => {
      *         // code
      *         loop();
      *     });
@@ -4040,7 +3997,7 @@
      *
      * @example
      * ```javascript
-     * mobCore.useFrameIndex(({ fps, shouldRender, time }) => {
+     * mobCore.useFrameIndex(({ fps, time }) => {
      *     // code ...
      * }, 5);
      *
@@ -7812,18 +7769,6 @@
   var lerpPrecisionDefault = 0.01;
   var lerpVelocityDefault = 0.06;
   var setupValidation = (obj) => {
-    const fpsScalePercent2 = checkSetUpType({
-      prop: "fpsScalePercent",
-      value: obj?.fpsScalePercent,
-      defaultValue: mobCore.store.getProp("fpsScalePercent"),
-      type: Object
-    });
-    const useScaleFps = checkSetUpType({
-      prop: "useScaleFps",
-      value: obj?.useScaleFps,
-      defaultValue: mobCore.store.getProp("useScaleFps"),
-      type: Boolean
-    });
     const deferredNextTick = checkSetUpType({
       prop: "deferredNextTick",
       value: obj?.deferredNextTick,
@@ -7952,8 +7897,6 @@
       type: Number
     });
     const result = {
-      fpsScalePercent: fpsScalePercent2,
-      useScaleFps,
       deferredNextTick,
       throttle: throttle2,
       usePassive,
@@ -8035,8 +7978,6 @@
   // src/js/mobMotion/setup.js
   function getData() {
     return {
-      fpsScalePercent: mobCore.store.getProp("fpsScalePercent"),
-      useScaleFps: mobCore.store.getProp("useScaleFps"),
       deferredNextTick: mobCore.store.getProp("deferredNextTick"),
       throttle: mobCore.store.getProp("throttle"),
       usePassive: mobCore.store.getProp("usePassive"),
@@ -8088,10 +8029,6 @@
       data3 = setupValidation(mergeDeep(getData(), obj));
       if ("usePassive" in obj)
         mobCore.store.set("usePassive", data3.usePassive);
-      if ("fpsScalePercent" in obj)
-        mobCore.store.set("fpsScalePercent", data3.fpsScalePercent);
-      if ("useScaleFps" in obj)
-        mobCore.store.set("useScaleFps", data3.useScaleFps);
       if ("deferredNextTick" in obj)
         mobCore.store.set("deferredNextTick", data3.deferredNextTick);
       if ("throttle" in obj)
@@ -15290,9 +15227,6 @@
             ease: this.ease,
             useThrottle: this.useThrottle,
             callback: () => {
-              if (!mobCore.getShouldRender() && !this.firstScroll) {
-                return;
-              }
               this.firstScroll = false;
               this.smoothParallaxJs();
             }
@@ -18557,13 +18491,6 @@ Loading snippet ...</pre
      *
      * core.setDefault.set({
      *     startFps: 60,
-     *     fpsScalePercent: {
-     *         0: 1,
-     *         15: 2,
-     *         30: 3,
-     *         45: 4,
-     *     },
-     *     useScaleFps: true,
      *     deferredNextTick: false,
      *     throttle: 100,
      *     usePassive: true
@@ -30796,7 +30723,6 @@ Loading snippet ...</pre
     mobCore.store.set("fpsScalePercent", { 0: 1, 50: 2, 70: 3 });
     motionCore.setDefault({
       deferredNextTick: true,
-      useScaleFps: true,
       usePassive: true,
       mq: {
         desktop: 1024
