@@ -1,7 +1,5 @@
 interface deafults {
     usePassive?: boolean;
-    fpsScalePercent?: { [key: string]: number };
-    useScaleFps?: boolean;
     deferredNextTick?: boolean;
     throttle?: number;
     mq?: { [key: string]: number };

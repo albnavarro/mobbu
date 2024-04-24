@@ -2,7 +2,6 @@ import { motionCore } from '../../../src/js/mobMotion';
 
 motionCore.setDefault({
     deferredNextTick: true,
-    useScaleFps: true,
     usePassive: true,
     mq: {
         desktop: 1024,
