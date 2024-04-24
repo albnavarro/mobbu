@@ -102,7 +102,11 @@ export const sequencerGetValusOnDraw = ({ timeline, valuesState, partial }) => {
                   )
                 : inactivePosition;
 
-        const currentValueRoudned = getRoundedValue(newCurrentValue);
+        const newCurrentValueSanitize = Number.isNaN(newCurrentValue)
+            ? inactivePosition
+            : newCurrentValue;
+
+        const currentValueRoudned = getRoundedValue(newCurrentValueSanitize);
 
         return {
             ...valueItem,
