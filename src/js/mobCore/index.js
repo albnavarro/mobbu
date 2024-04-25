@@ -722,16 +722,14 @@ export const mobCore = {
      * Props:
      * - usePassive: true
      * - instantFps: 60
-     * - fpsScalePercent: { 0: 1, 30: 2, 50: 3 }
-     * - useScaleFps:true
      * - deferredNextTick: true
      * - throttle: 60
      *
      *
      * @example
      * ``` javascript
-     * mobCore.store.set('fpsScalePercent', { 1: 10 });
-     * const { useScaleFps } = mobCore.store.get();
+     * mobCore.store.set('throttle', 300);
+     * const { throttle } = mobCore.store.get();
      * ....
      *
      * ```

@@ -20,8 +20,6 @@ import { beforePageTransition, pageTransition } from './pageTransition';
 mobCore.useLoad(() => {
     setBrowserClass();
 
-    mobCore.store.set('fpsScalePercent', { 0: 1, 50: 2, 70: 3 });
-
     motionCore.setDefault({
         deferredNextTick: true,
         usePassive: true,
