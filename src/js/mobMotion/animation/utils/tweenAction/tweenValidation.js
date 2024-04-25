@@ -40,7 +40,6 @@ import {
     parallaxDirectionWarining,
     parallaxDynmicRangeValueWarining,
     parallaxDynmicValueWarining,
-    parallaxEaseTypeSpringWarining,
     parallaxEaseTypeWarining,
     parallaxLerpConfigWarning,
     parallaxNoTweenDefinedWarning,
