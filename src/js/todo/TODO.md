@@ -1,9 +1,5 @@
-## MobCore
-
-### handleFrameIndex
-- Passare da oggetto a Map.
-
-
+# MobCore
+- Spostare mq da mobMotion a mobCore.
 
 # MobJs
 
@@ -28,5 +24,16 @@
 - Vedi index animation.
 - Into animation poi il loop avviene solo sulla parte di timeline che scala.
 
+### Sequencer
+- default `start`: ultimo `end` in ordine di inserimento.
+- Aggiungere span:<br/>
 
-# test
+```
+    mySequencer
+        .goTo( { x:10 }, { start: 2, end: 4}); // 1
+        .goTo( { x:20 }, { span: 2 }); // 3
+        .goTo( { y:20 }, { start: 2, span: 2 }); // 3
+```
+- 1: parte da 2 e finisce a 4. ( logica corrente ).
+- 2: parte da 4 e finisce a 6.
+- 3: parte da 2 e finisce a 4.
