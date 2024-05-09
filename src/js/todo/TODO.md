@@ -1,3 +1,6 @@
+# General
+- Portare tutti i tipi da jsDoc a d.ts
+
 # MobCore
 
 ### Default:
