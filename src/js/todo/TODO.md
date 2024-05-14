@@ -5,13 +5,9 @@
 
 ### Default:
 - Spostare mq da mobMotion a mobCore.
-- Aggiungere typecheck allo store ( type, strict, validate, etc.. )
 
 
 # Mob motion
-
-### Default:
-- Aggiungere typecheck allo store ( type, strict, validate, etc.. )
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
