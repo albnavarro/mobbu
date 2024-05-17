@@ -676,12 +676,18 @@ export default class HandleAsyncTimeline {
                     this.starterFunction;
 
                 /*
-                 * End virtual loop to get prevValueTo
-                 * We have reach the end of timeline and we we fire
-                 * play ( !this.freeMode ) || playFrom || playFromReverse (this.starterFunction)
+                 * End virtual loop ( first loop of playReverse) to get prevValueTo
+                 * We have reach the end of timeline and we we fire starterFunction
+                 * play ( !this.freeMode ) || playFrom || playFromReverse use this.starterFunction
                  *
-                 * With this.starterFunctionIsActive active this.labelState
-                 * is equal the timeline length
+                 * - playFromLabel (playFrom/playFromReverse call it) use playReverse first loop
+                 * - playReverse first loop is executed in forward direction.
+                 * This is useful to store prevValueTo value needed in backward direction ( revertTween ).
+                 *
+                 * At the end of playReverse first loop starterFunction is fired
+                 *
+                 * Inside  of playReverse first loop and starterFunction loop when
+                 * currentindex is minus labelIndex a immediate methods of tween is used.
                  *
                  * Because we doesn't reach the repeat condition down
                  * we manually increment loopCounter
@@ -1946,9 +1952,14 @@ export default class HandleAsyncTimeline {
                 this.starterFunction.active = true;
 
                 /**
-                 * First loop reverse at the end start function fired
-                 * reverse set label.active at true
-                 * so label.active && starterFunction.active is necessary to fire cb
+                 * In playReverse first run is executed in forward direction.
+                 * This is useful to store the value needed in backward direction ( revertTween ).
+                 *
+                 * After this 'test' loop starterFunction function is fired.
+                 * playFromLabel method set the right direction.
+                 *
+                 * playFromLabel set label.active at true
+                 * So label.active && starterFunction.active is necessary to fire starterFunction
                  */
                 this.playReverse({ forceYoYo: false, resolve, reject });
             });
