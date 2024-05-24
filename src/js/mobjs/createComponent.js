@@ -1,3 +1,5 @@
+// @ts-check
+
 let defaultComponent = {
     isolateCreation: false,
     isolateOnMount: false,
