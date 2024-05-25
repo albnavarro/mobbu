@@ -1,23 +1,19 @@
-// @ts-check
-
 export type storeMap = Map<string, storeMapValue>;
+
+export type validateState = boolean | { [key: string]: boolean };
 
 export interface storeMapValue {
     callBackWatcher: Map<
         string,
         {
             prop: string;
-            fn: (
-                current: any,
-                previous: any,
-                validate: boolean | { [key: string]: boolean }
-            ) => void;
+            fn: (current: any, previous: any, validate: validateState) => void;
         }
     >;
     callBackComputed: Set<{ prop: string; fn: () => void; keys: string[] }>;
     lastestPropsChanged: Set<string>;
     validationStatusObject: {
-        [key: string]: boolean | { [key: string]: boolean };
+        [key: string]: validateState;
     };
     dataDepth: number;
     computedRunning: boolean;
@@ -86,11 +82,7 @@ export type quickSetPropType = (prop: string, value: any) => void;
 
 export type watchType = (
     prop: string,
-    callback: (
-        current: any,
-        previous: any,
-        validate: boolean | { [key: string]: boolean }
-    ) => void
+    callback: (current: any, previous: any, validate: validateState) => void
 ) => () => void;
 
 export type computedType = (
@@ -157,11 +149,7 @@ export interface storeQuickSetEntryPoint {
 
 export interface storeWatch {
     prop: string;
-    callback: (
-        current: any,
-        previous: any,
-        validate: boolean | { [key: string]: boolean }
-    ) => void;
+    callback: (current: any, previous: any, validate: validateState) => void;
 }
 
 export interface storeWatchAction extends storeWatch {
