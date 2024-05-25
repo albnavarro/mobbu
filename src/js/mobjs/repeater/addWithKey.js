@@ -187,7 +187,7 @@ export const addWithKey = ({
 
     /**
      * --------------------------
-     * ADD NEW LEMENT
+     * ADD NEW ELEMENT
      * --------------------------
      */
 

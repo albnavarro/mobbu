@@ -16,7 +16,7 @@ export interface componentCommonTypes {
         index: number;
     };
     isRepeater?: boolean;
-    parentPropsWatcher?: Function[];
+    parentPropsWatcher?: (() => void)[];
     destroy: () => void;
     freezedPros?: string[];
     isCancellable: boolean;
@@ -24,7 +24,7 @@ export interface componentCommonTypes {
         | {
               string: string[];
           }
-        | {};
+        | object;
     parentId: string | undefined;
     id: string;
 }

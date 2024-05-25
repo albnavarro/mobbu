@@ -22,7 +22,7 @@ export const addComponentToStore = ({
     key = '',
     currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
     isRepeater = false,
-    parentPropsWatcher = [],
+    parentPropsWatcher = [() => {}],
     destroy = () => {},
     freezedPros = [],
     isCancellable = true,

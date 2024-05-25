@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {{[key:string]: () => Promise.<string>}}
+ * @type {{[key:string]: (() => Promise.<string> )|(() => string)}} list
  */
 let routeList = {};
 
@@ -16,7 +16,7 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
- * @param {{[key:string]: () => Promise.<string>}} list
+ * @param {{[key:string]: (() => Promise.<string> )|(() => string)}} list
  * @returns void
  *
  * @description
@@ -32,7 +32,7 @@ export const setRouteList = (list) => {
 };
 
 /**
- * @returns {{[key:string]: (arg0: {[key:string]: any}) => Promise.<string>}} list
+ * @returns {{[key:string]: (arg0: {[key:string]: any}) => Promise.<string>|string}} list
  *
  * @description
  * Get route list to store.

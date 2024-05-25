@@ -11,7 +11,7 @@ import {
 import { getRoot } from '../../mainStore/root';
 
 /**
- * @type {Map<string,Array<{[key:string]: function}>>}
+ * @type {Map<string,Array<{[key:string]: () => void}>>}
  */
 export const tempDelegateEventMap = new Map();
 

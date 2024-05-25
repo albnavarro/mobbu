@@ -1,5 +1,3 @@
-// @ts-check
-
 import { mobStoreBaseData } from '../mobCore/store/type';
 
 export interface componentReturnType {
@@ -336,8 +334,8 @@ export interface componentType {
      */
     bindEvents(
         arg0:
-            | { [key: string]: (arg0: object) => {} }
-            | [{ [key: string]: (arg0: object) => {} }]
+            | { [key: string]: (arg0: object) => object }
+            | [{ [key: string]: (arg0: object) => object }]
     ): void;
 
     /**
@@ -375,8 +373,8 @@ export interface componentType {
      */
     delegateEvents(
         arg0:
-            | { [key: string]: (arg0: object) => {} }
-            | [{ [key: string]: (arg0: object) => {} }]
+            | { [key: string]: (arg0: object) => object }
+            | [{ [key: string]: (arg0: object) => object }]
     ): void;
 
     /**
@@ -710,16 +708,19 @@ export interface componentParsedType {
      * `default = false`.
      */
     scoped?: boolean;
-    constructorCallback?: (arg0: { context: {} }) => void;
+    constructorCallback?: (arg0: { context: object }) => void;
     connectedCallback?: (arg0: {
-        context: {};
+        context: object;
         data: webComponentParmas;
     }) => void;
     disconnectedCallback?: (arg0: {
-        context: {};
+        context: object;
         data: webComponentParmas;
     }) => void;
-    adoptedCallback?: (arg0: { context: {}; data: webComponentParmas }) => void;
+    adoptedCallback?: (arg0: {
+        context: object;
+        data: webComponentParmas;
+    }) => void;
     attributeChangedCallback?: (arg0: {
         name: string;
         oldValue: string;
@@ -796,16 +797,14 @@ export interface inizializeApp {
         [key: string]:
             | {
                   componentFunction: () => void;
-                  props: {};
-                  state: {};
+                  props: object;
+                  state: object;
               }[]
-            | {};
+            | object;
     };
-    pages:
-        | {
-              [key: string]: () => string;
-          }
-        | {};
+    pages: {
+        [key: string]: (() => Promise<string>) | (() => string);
+    };
     afterInit: () => void;
     index: string;
     pageNotFound: string;
