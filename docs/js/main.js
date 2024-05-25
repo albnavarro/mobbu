@@ -3470,7 +3470,7 @@
     previousWindowHeight = windowsHeight;
     previousWindowWidth = windowsWidth;
     const resizeData = {
-      scrollY: window.pageYOffset,
+      scrollY: window.scrollY,
       windowsHeight,
       windowsWidth,
       documentHeight: document.documentElement.scrollHeight,
@@ -3504,8 +3504,8 @@
   var callbacks6 = /* @__PURE__ */ new Map();
   var UP = "UP";
   var DOWN = "DOWN";
-  var prev = window.pageYOffset;
-  var val = window.pageYOffset;
+  var prev = window.scrollY;
+  var val = window.scrollY;
   var direction = DOWN;
   var scrollData = {
     scrollY: val,
@@ -3590,12 +3590,15 @@
       const args = arguments;
       if (lastRan) {
         clearTimeout(lastFunc);
-        lastFunc = setTimeout(function() {
-          if (getTime() - lastRan >= limit) {
-            func.apply(context, args);
-            lastRan = getTime();
-          }
-        }, limit - (getTime() - lastRan));
+        lastFunc = setTimeout(
+          function() {
+            if (getTime() - lastRan >= limit) {
+              func.apply(context, args);
+              lastRan = getTime();
+            }
+          },
+          limit - (getTime() - lastRan)
+        );
       } else {
         func.apply(context, args);
         lastRan = getTime();
@@ -3666,7 +3669,7 @@
       handleFrame.add(() => {
         handleNextTick.add(() => {
           const scrollData2 = {
-            scrollY: window.pageYOffset
+            scrollY: window.scrollY
           };
           if (type === "END") {
             for (const value of callbacks9.values()) {

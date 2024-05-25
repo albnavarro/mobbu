@@ -65,7 +65,7 @@ function handleScrollUtils(type) {
             handleNextTick.add(() => {
                 // Prepare data to callback
                 const scrollData = {
-                    scrollY: window.pageYOffset,
+                    scrollY: window.scrollY,
                 };
 
                 // Fire end of scroll

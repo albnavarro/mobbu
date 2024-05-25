@@ -77,7 +77,7 @@ function handler() {
 
     // Prepare data to callback
     const resizeData = {
-        scrollY: window.pageYOffset,
+        scrollY: window.scrollY,
         windowsHeight,
         windowsWidth,
         documentHeight: document.documentElement.scrollHeight,

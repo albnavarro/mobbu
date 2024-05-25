@@ -17,12 +17,12 @@ const DOWN = 'DOWN';
 /**
  * @type {number}
  */
-let prev = window.pageYOffset;
+let prev = window.scrollY;
 
 /**
  * @type {number}
  */
-let val = window.pageYOffset;
+let val = window.scrollY;
 
 /**
  * @type {import('./type').scrollDirection}
