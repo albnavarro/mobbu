@@ -47,7 +47,7 @@ export const unsubScribeWatch = ({ instanceId, unsubscribeId }) => {
  * @param {Object} param
  * @param {string} param.instanceId
  * @param {string} param.prop
- * @param {(current: any, previous: any, validate: boolean) => void} param.callback
+ * @param {(current: any, previous: any, validate: boolean | { [key: string]: boolean }) => void} param.callback
  * @returns {() => any}
  */
 export const watchEntryPoint = ({ instanceId, prop, callback }) => {

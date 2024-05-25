@@ -510,6 +510,7 @@ const fireComputed = (instanceId) => {
         /**
          * Fire callback computed
          */
+        // @ts-ignore
         const computedValue = fn(...propValues);
 
         /**

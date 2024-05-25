@@ -7,10 +7,14 @@ export interface storeMapValue {
         string,
         {
             prop: string;
-            fn: (current: any, previous: any, validate: boolean) => void;
+            fn: (
+                current: any,
+                previous: any,
+                validate: boolean | { [key: string]: boolean }
+            ) => void;
         }
     >;
-    callBackComputed: Set<{ prop: string; fn: Function; keys: string[] }>;
+    callBackComputed: Set<{ prop: string; fn: () => void; keys: string[] }>;
     lastestPropsChanged: Set<string>;
     validationStatusObject: {
         [key: string]: boolean | { [key: string]: boolean };
@@ -30,9 +34,9 @@ export interface storeMapValue {
     };
     fnValidate: {
         [key: string]:
-            | Function
+            | (() => boolean)
             | {
-                  [key: string]: Function;
+                  [key: string]: () => boolean;
               };
     };
     strict: {
@@ -60,7 +64,7 @@ export interface storePublicMethods {
     computed: computedType;
     emit: emitType;
     emitAsync: emitAsyncType;
-    getValidation: () => Object;
+    getValidation: () => object;
     debug: () => void;
     debugStore: () => void;
     debugValidate: () => void;
@@ -82,8 +86,12 @@ export type quickSetPropType = (prop: string, value: any) => void;
 
 export type watchType = (
     prop: string,
-    callback: (current: any, previous: any, validate: boolean) => void
-) => () => {};
+    callback: (
+        current: any,
+        previous: any,
+        validate: boolean | { [key: string]: boolean }
+    ) => void
+) => () => void;
 
 export type computedType = (
     prop: string,
@@ -109,12 +117,12 @@ export type mobStoreTypeAlias =
     | 'Any';
 
 export type mobStoreTypeNative =
-    | String
-    | Number
-    | Object
-    | Function
+    | string
+    | number
+    | object
+    | (() => void)
     | Array<any>
-    | Boolean
+    | boolean
     | Element
     | Map<any, any>
     | Set<any>
@@ -149,7 +157,11 @@ export interface storeQuickSetEntryPoint {
 
 export interface storeWatch {
     prop: string;
-    callback: (current: any, previous: any, validate: boolean) => void;
+    callback: (
+        current: any,
+        previous: any,
+        validate: boolean | { [key: string]: boolean }
+    ) => void;
 }
 
 export interface storeWatchAction extends storeWatch {
@@ -172,7 +184,17 @@ export interface storeComputedAction extends storeComputed {
 }
 
 export interface callbackQueue {
-    callBackWatcher: Map<string, { prop: string; fn: Function }>;
+    callBackWatcher: Map<
+        string,
+        {
+            prop: string;
+            fn: (
+                arg0: any,
+                arg1: any,
+                arg2: boolean | { [key: string]: boolean }
+            ) => void | Promise<void>;
+        }
+    >;
     prop: string;
     newValue: any;
     oldValue: any;
