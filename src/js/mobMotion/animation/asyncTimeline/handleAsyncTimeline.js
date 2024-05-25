@@ -471,8 +471,12 @@ export default class HandleAsyncTimeline {
             const { active: labelIsActive, index: labelIndex } =
                 this.labelState;
 
-            const isImmediate =
-                labelIsActive && labelIndex && this.currentIndex < labelIndex;
+            const isImmediate = Number.isNaN(labelIndex)
+                ? false
+                : labelIsActive &&
+                  labelIndex &&
+                  // @ts-ignore
+                  this.currentIndex < labelIndex;
 
             if (isImmediate) newTweenProps.immediate = true;
 

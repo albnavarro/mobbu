@@ -180,9 +180,11 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
     if (from && checkType(Number, from)) {
         // Secure check from must be a value in array length
 
+        // @ts-ignore
         const half = from >= arraylenght ? arraylenght - 1 : from;
 
         return (() => {
+            // @ts-ignore
             if (index > half) {
                 // From 0 half
                 return {
@@ -192,6 +194,7 @@ const getStaggerIndex = (index, arraylenght, stagger, randomChoice = []) => {
                 };
             }
 
+            // @ts-ignore
             if (index < half) {
                 // From half to end half
                 return {

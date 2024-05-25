@@ -4,8 +4,8 @@ import { mobCore } from '../../../../mobCore';
 import { callBackStore } from './callBackStore';
 
 /**
- * @param {Function} currentCallback - callback to execute.
- * @param {Array.<import('./type').callbackObject<Function>>} arrayOfCallback
+ * @param {() => void} currentCallback - callback to execute.
+ * @param {Array.<import('./type').callbackObject<() => void>>} arrayOfCallback
  * @returns {import('./type').setCallbackReturnObject}
  *
  * @description
@@ -46,7 +46,7 @@ export const setCallBack = (currentCallback, arrayOfCallback) => {
  * @param {(Object|HTMLElement)} item
  * @param {function(Object.<string, number>):void} currentCallback
  * @param {Array.<import('./type').callbackObject<string>>} arrayOfCallback
- * @param {Array.<function>} unsubscribeCacheArray - unsubscribe function of handleCache.
+ * @param {Array.<() => void>} unsubscribeCacheArray - unsubscribe function of handleCache.
  *
  * @returns {import('./type').setCallbackCacheReturnObject}
  */

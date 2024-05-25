@@ -6,14 +6,14 @@ export interface callbackObject<T> {
 }
 
 export interface setCallbackReturnObject {
-    arrayOfCallbackUpdated: callbackObject<Function>[];
+    arrayOfCallbackUpdated: callbackObject<() => void>[];
     unsubscribeCb: (
-        arg0: callbackObject<Function>[]
-    ) => callbackObject<Function>[];
+        arg0: callbackObject<() => void>[]
+    ) => callbackObject<() => void>[];
 }
 
 export interface setCallbackCacheReturnObject {
     arrayOfCallbackUpdated: callbackObject<string>[];
-    unsubscribeCache: Function[];
+    unsubscribeCache: (() => void)[];
     unsubscribeCb: (arg0: callbackObject<string>[]) => callbackObject<string>[];
 }

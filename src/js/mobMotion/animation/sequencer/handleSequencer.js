@@ -104,7 +104,7 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callback = [];
 
@@ -116,7 +116,7 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callbackOnStop = [];
 
@@ -128,7 +128,7 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {Array<function>}
+         * @type {Array<() => void>}
          */
         this.unsubscribeCache = [];
 
@@ -166,9 +166,9 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {string|undefined}
+         * @type {import('../utils/timeline/type.js').directionType}
          */
-        this.direction = undefined;
+        this.direction = 'none';
 
         /**
          * @private
@@ -178,9 +178,9 @@ export default class HandleSequencer {
 
         /**
          * @private
-         * @type {string|undefined}
+         * @type {import('../utils/timeline/type.js').directionType}
          */
-        this.lastDirection = undefined;
+        this.lastDirection = 'none';
 
         /**
          * @private
@@ -250,7 +250,7 @@ export default class HandleSequencer {
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {boolean} obj.useFrame
-     * @param {string} obj.direction
+     * @param {import('../utils/timeline/type.js').directionType} obj.direction
      *
      * @example
      * ```javascript
@@ -291,6 +291,12 @@ export default class HandleSequencer {
 
     /**
      * @private
+     *
+     * @param {object} obj
+     * @param {number} obj.partial
+     * @param {boolean} obj.isLastDraw
+     * @param {import('../utils/timeline/type.js').directionType} obj.direction
+     *
      */
     onDraw({
         partial = 0,
@@ -379,7 +385,7 @@ export default class HandleSequencer {
     resetLastValue() {
         this.firstRun = true;
         this.lastPartial = 0;
-        this.lastDirection = undefined;
+        this.lastDirection = directionConstant.NONE;
     }
 
     /**
@@ -760,8 +766,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -796,8 +802,8 @@ export default class HandleSequencer {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript

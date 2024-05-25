@@ -37,7 +37,7 @@ export interface parallaxCommonType {
      * @description
      * Instance of ParallaxTween | HandleSequencer
      */
-    tween?: Object;
+    tween?: object;
 
     /**
      * @description

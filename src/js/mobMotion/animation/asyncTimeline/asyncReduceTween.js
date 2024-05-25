@@ -33,7 +33,7 @@ export const asyncReduceTween = (tweenList, tween, index) => {
             const syncProp = currentFirstData?.syncProp;
 
             const from = {
-                tween: syncProp.from,
+                // tween: syncProp.from,
                 id: syncProp.from?.getId?.(),
             };
             const to = {

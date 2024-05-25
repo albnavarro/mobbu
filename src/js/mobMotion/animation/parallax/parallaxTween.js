@@ -83,13 +83,13 @@ export default class ParallaxTween {
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type{import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callbackOnStop = [];
 
         /**
          * @private
-         * @type{import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type{import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callback = [];
 
@@ -101,7 +101,7 @@ export default class ParallaxTween {
 
         /**
          * @private
-         * @type {Array<function>}
+         * @type {Array<() => void>}
          */
         this.unsubscribeCache = [];
 
@@ -285,8 +285,8 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```js
@@ -321,8 +321,8 @@ export default class ParallaxTween {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```js

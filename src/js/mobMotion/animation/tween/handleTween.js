@@ -170,7 +170,7 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callback = [];
 
@@ -182,19 +182,19 @@ export default class HandleTween {
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callbackOnComplete = [];
 
         /**
          * @private
-         * @type {import('../utils/callbacks/type.js').callbackObject<Function>[]}
+         * @type {import('../utils/callbacks/type.js').callbackObject<() => void>[]}
          */
         this.callbackStartInPause = [];
 
         /**
          * @private
-         * @type {Array<function>}
+         * @type {Array<() => void>}
          */
         this.unsubscribeCache = [];
 
@@ -1011,8 +1011,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -1051,8 +1051,8 @@ export default class HandleTween {
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {Function} cb cal function
-     * @return {Function} unsubscribe callback
+     * @param  {() => void} cb cal function
+     * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -1066,8 +1066,8 @@ export default class HandleTween {
     }
 
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript

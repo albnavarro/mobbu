@@ -20,7 +20,7 @@ export interface syncTimelineSequencers {
     setStretchFactor: (arg0: number) => void;
 }
 
-export interface syncTimelineEventType {
+export interface syncTimelineEventType<T> {
     id: number;
-    cb: Function;
+    cb: (arg0?: T) => void;
 }

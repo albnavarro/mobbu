@@ -1,5 +1,6 @@
 import { easeTypes } from '../tween/type';
 import { staggerObjectOptional } from '../utils/stagger/type';
+import { directionType } from '../utils/timeline/type';
 import { valueToparseType } from '../utils/tweenAction/type';
 
 export interface sequencerProps {
@@ -25,7 +26,7 @@ export interface sequencerAction {
 export interface sequencerValue {
     active: boolean;
     currentValue: number;
-    ease: Function;
+    ease: () => void;
     fromValue: number;
     prop: string;
     settled: boolean;
@@ -55,24 +56,32 @@ export interface labelType {
 }
 
 export interface addType {
-    fn: Function;
+    fn: (arg0: {
+        direction: directionType;
+        value: number;
+        isForced: boolean;
+    }) => void;
     time: number;
 }
 
 export interface masterSequencerItem {
-    draw: Function;
-    inzializeStagger: Function;
-    setDuration: Function;
-    getDuration: Function;
-    setStretchFactor: Function;
-    getLabels: Function;
-    disableStagger: Function;
-    resetLastValue: Function;
-    cleanCachedId: Function;
-    destroy: Function;
+    draw: (arg0: {
+        partial: number;
+        isLastDraw: boolean;
+        useFrame: boolean;
+    }) => void;
+    inzializeStagger: () => void;
+    setDuration: (arg0: number) => void;
+    getDuration: () => number;
+    setStretchFactor: (arg0: number) => void;
+    getLabels: () => string;
+    disableStagger: () => void;
+    resetLastValue: () => void;
+    cleanCachedId: () => void;
+    destroy: () => void;
 }
 
 export interface createSequencerType {
-    items: Array<HTMLElement | Object>;
+    items: Array<HTMLElement | object>;
     duration?: number;
 }

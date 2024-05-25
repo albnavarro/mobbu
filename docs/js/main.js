@@ -10762,8 +10762,8 @@
       });
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -10800,8 +10800,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {Function} cb cal function
-     * @return {Function} unsubscribe callback
+     * @param  {() => void} cb cal function
+     * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -10813,8 +10813,8 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-         * @param {Function} cb - callback function.
-         * @return {Function} unsubscribe callback.
+         * @param {() => void} cb - callback function.
+         * @return {() => void} unsubscribe callback.
          *
          * @example
          * ```javascript
@@ -11698,8 +11698,8 @@
       });
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -11736,8 +11736,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {Function} cb cal function
-     * @return {Function} unsubscribe callback
+     * @param  {() => void} cb cal function
+     * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -11749,8 +11749,8 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -13151,8 +13151,8 @@
       });
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -13189,8 +13189,8 @@
      * Callback to manage the departure of tweens in a timeline. If a delay is applied to the tween and before the delay ends the timeline pauses the tween at the end of the delay will automatically pause.
      * Add callback to start in pause to stack
      *
-     * @param  {Function} cb cal function
-     * @return {Function} unsubscribe callback
+     * @param  {() => void} cb cal function
+     * @return {() => void} unsubscribe callback
      *
      */
     onStartInPause(cb) {
@@ -13202,8 +13202,8 @@
       return () => this.callbackStartInPause = [];
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -15598,7 +15598,8 @@
      * @private
      */
     getIsNaNValue() {
-      const rangeNumber = Number(this.range) ?? 0;
+      const valuetoNumber = Number(this.range);
+      const rangeNumber = Number.isNaN(valuetoNumber) ? 0 : valuetoNumber;
       const documentHeight = this.direction === parallaxConstant.DIRECTION_VERTICAL ? document.documentElement.scrollHeight : document.documentElement.scrollWidth;
       switch (this.align) {
         case parallaxConstant.ALIGN_START: {
@@ -18494,8 +18495,8 @@ Loading snippet ...</pre
       return this;
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```js
@@ -18528,8 +18529,8 @@ Loading snippet ...</pre
       return () => this.callback = unsubscribeCb(this.callback);
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```js
@@ -18680,7 +18681,7 @@ Loading snippet ...</pre
       });
     }
     /**
-     * @returns {void}
+     * @returns {number}
      */
     getDuration() {
       return this.children.length > 0 ? this.children[0].getDuration() : 0;
@@ -19020,9 +19021,9 @@ Loading snippet ...</pre
       };
       this.firstRun = true;
       this.forceAddFnAtFirstRun = true;
-      this.direction = void 0;
+      this.direction = "none";
       this.lastPartial = 0;
-      this.lastDirection = void 0;
+      this.lastDirection = "none";
       this.stagger = getStaggerFromProps(data3);
       this.useStagger = true;
       this.staggerIsReady = false;
@@ -19064,7 +19065,7 @@ Loading snippet ...</pre
      * @param {number} obj.partial
      * @param {boolean} obj.isLastDraw
      * @param {boolean} obj.useFrame
-     * @param {string} obj.direction
+     * @param {import('../utils/timeline/type.js').directionType} obj.direction
      *
      * @example
      * ```javascript
@@ -19103,6 +19104,12 @@ Loading snippet ...</pre
     }
     /**
      * @private
+     *
+     * @param {object} obj
+     * @param {number} obj.partial
+     * @param {boolean} obj.isLastDraw
+     * @param {import('../utils/timeline/type.js').directionType} obj.direction
+     *
      */
     onDraw({
       partial = 0,
@@ -19154,7 +19161,7 @@ Loading snippet ...</pre
     resetLastValue() {
       this.firstRun = true;
       this.lastPartial = 0;
-      this.lastDirection = void 0;
+      this.lastDirection = directionConstant.NONE;
     }
     /**
      * @private
@@ -19446,8 +19453,8 @@ Loading snippet ...</pre
       return this;
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -19481,8 +19488,8 @@ Loading snippet ...</pre
       return () => this.callback = unsubscribeCb(this.callback);
     }
     /**
-     * @param {function(any):void} cb - callback function.
-     * @return {Function} unsubscribe callback.
+     * @param {() => void} cb - callback function.
+     * @return {() => void} unsubscribe callback.
      *
      * @example
      * ```javascript
@@ -20084,7 +20091,7 @@ Loading snippet ...</pre
       if (action2 === "sync") {
         const syncProp = currentFirstData?.syncProp;
         const from = {
-          tween: syncProp.from,
+          // tween: syncProp.from,
           id: syncProp.from?.getId?.()
         };
         const to = {
@@ -20352,7 +20359,8 @@ Loading snippet ...</pre
         const newTweenProps = { ...tweenProps };
         delete newTweenProps.delay;
         const { active: labelIsActive, index: labelIndex } = this.labelState;
-        const isImmediate = labelIsActive && labelIndex && this.currentIndex < labelIndex;
+        const isImmediate = Number.isNaN(labelIndex) ? false : labelIsActive && labelIndex && // @ts-ignore
+        this.currentIndex < labelIndex;
         if (isImmediate) newTweenProps.immediate = true;
         if (tweenProps && "relative" in tweenProps && tweenProps.relative) {
           tweenProps.relative = false;
@@ -22457,7 +22465,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {function(import('../utils/timeline/type.js').directionTypeObjectLoop ):void } cb - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -22484,7 +22492,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {function():void } cb - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript
@@ -22511,7 +22519,7 @@ Loading snippet ...</pre
     }
     /**
      * @param {function(import('../utils/timeline/type.js').directionTypeObjectUpdate ):void } cb - callback function
-     * @return {Function} unsubscribe callback
+     * @return {() => void} unsubscribe callback
      *
      * @example
      *```javascript

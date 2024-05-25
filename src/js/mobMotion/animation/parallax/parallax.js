@@ -1949,7 +1949,8 @@ export default class ParallaxClass {
      * @private
      */
     getIsNaNValue() {
-        const rangeNumber = Number(this.range) ?? 0;
+        const valuetoNumber = Number(this.range);
+        const rangeNumber = Number.isNaN(valuetoNumber) ? 0 : valuetoNumber;
 
         const documentHeight =
             this.direction === parallaxConstant.DIRECTION_VERTICAL
