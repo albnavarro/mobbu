@@ -5635,7 +5635,7 @@
       removeAndDestroyById({ id: childId });
     });
     removeItselfFromParent({ id, parentId, componentName });
-    destroy();
+    destroy?.();
     state.destroy();
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });

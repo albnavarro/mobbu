@@ -81,7 +81,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Destroy
      */
-    destroy();
+    destroy?.();
     state.destroy();
 
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());

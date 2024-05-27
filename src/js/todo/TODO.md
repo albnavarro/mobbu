@@ -36,6 +36,10 @@
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
 
+### WebComponent type definition
+- Applicare il nuovo tipo `userComponent` ad ora solo abbozzato all' elemento `componentToParse` all' interno di `parseComponentRecursive` e funzioni accessorie. Cosi da avere controllo su tutti i metodi del webcomponent. <br/>
+src/js/mobjs/webComponent/type.d.ts
+
 ### parentId
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
 - FallBack se i vari tentativi di precompilare/resuperare il parentId falliscono dovrebbe evitare di usare qualsiasi tipo di querySelector ( setParentsIdFallback ).
