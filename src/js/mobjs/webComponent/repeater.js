@@ -1,3 +1,5 @@
+//@ts-check
+
 import { ATTR_REPEATID } from '../constant';
 
 export const defineRepeaterComponent = () => {
@@ -5,7 +7,7 @@ export const defineRepeaterComponent = () => {
         'mobjs-repeater',
         class extends HTMLElement {
             /**
-             * @type {string}
+             * @type {string|undefined|null}
              */
             #repeatId;
 

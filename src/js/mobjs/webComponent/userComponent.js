@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../mobCore';
 import {
     ATTR_BIND_EVENTS,
@@ -12,6 +14,9 @@ import {
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 
+/**
+ * @param {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<string>,componentParams:import('../type').componentParsedType }}} componentList
+ */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
         const {
@@ -38,67 +43,67 @@ export const defineUserComponent = (componentList) => {
                 #componentId;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string) => void}
                  */
                 #emit;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string) => Promise<{ success: boolean }>}
                  */
                 #emitAsync;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string) => void}
                  */
                 #freezeProp;
 
                 /**
-                 * @type {Function}
+                 * @type {(componentName: string) => Array<string>}
                  */
                 #getChildren;
 
                 /**
-                 * @type {Function}
+                 * @type {() => string|undefined}
                  */
                 #getParentId;
 
                 /**
-                 * @type {Function}
+                 * @type {(arg0: string) => any}
                  */
                 #getState;
 
                 /**
-                 * @type {Function}
+                 * @type {() => void}
                  */
                 #remove;
 
                 /**
-                 * @type {Function}
+                 * @type {( prop: string, newValue: any, fireCallback?: boolean, clone?: boolean ) => void}
                  */
                 #setState;
 
                 /**
-                 * @type {Function}
+                 * @type {(arg0: { id: string }) => void}
                  */
                 #unBind;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string) => void}
                  */
                 #unFreezeProp;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string, callback: () => void) => void}
                  */
                 #watch;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string, callback: () => void) => void}
                  */
                 #watchSync;
 
                 /**
-                 * @type {Function}
+                 * @type {(prop: string, callback: () => void) => void}
                  */
                 #watchParent;
 
@@ -108,22 +113,22 @@ export const defineUserComponent = (componentList) => {
                 #isPlaceholder;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #name;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #staticPropsId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #dynamicPropsId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #bindEventsId;
 
@@ -138,17 +143,17 @@ export const defineUserComponent = (componentList) => {
                 #propsFromSlotId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #currentRepeatValueId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #slotPosition;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #currentKey;
 
@@ -158,12 +163,12 @@ export const defineUserComponent = (componentList) => {
                 #parentId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #componentRepeatId;
 
                 /**
-                 * @type {string}
+                 * @type {string|undefined|null}
                  */
                 #delegateEventId;
 
@@ -177,11 +182,11 @@ export const defineUserComponent = (componentList) => {
                     this.active = false;
                     this.#componentId = mobCore.getUnivoqueId();
                     this.#emit = () => {};
-                    this.#emitAsync = () => {};
+                    this.#emitAsync = () => Promise.resolve({ success: true });
                     this.#freezeProp = () => {};
                     this.#freezeProp = () => {};
-                    this.#getChildren = () => {};
-                    this.#getParentId = () => {};
+                    this.#getChildren = () => [''];
+                    this.#getParentId = () => '';
                     this.#getState = () => {};
                     this.#remove = () => {};
                     this.#setState = () => {};
@@ -209,7 +214,9 @@ export const defineUserComponent = (componentList) => {
                     //
                     this.isUserComponent = true;
 
-                    const host = this.shadowRoot.host;
+                    const host = this.shadowRoot?.host;
+                    if (!host) return;
+
                     this.#name = host.getAttribute(ATTR_INSTANCENAME);
                     this.#staticPropsId = host.getAttribute(ATTR_PROPS);
                     this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
@@ -235,7 +242,9 @@ export const defineUserComponent = (componentList) => {
                         this.style.visibility = 'hidden';
                     }
 
-                    if (this.shadowRoot) {
+                    if (!this.shadowRoot) return;
+
+                    if (styleSlot) {
                         const style = document.createElement('style');
                         style.textContent = styleSlot;
                         this.shadowRoot.append(style);
@@ -245,11 +254,11 @@ export const defineUserComponent = (componentList) => {
                          */
                         const slot = document.createElement('slot');
                         this.shadowRoot.append(slot);
-
-                        _constructorCallback({
-                            context: this,
-                        });
                     }
+
+                    _constructorCallback?.({
+                        context: this,
+                    });
                 }
 
                 getComponentName() {
@@ -272,7 +281,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 /**
-                 * @param { string } value
+                 * @param { string } id
                  */
                 setParentId(id) {
                     this.#parentId = id;
@@ -363,10 +372,10 @@ export const defineUserComponent = (componentList) => {
                     this.active = false;
                     this.#componentId = '';
                     this.#emit = () => {};
-                    this.#emitAsync = () => {};
+                    this.#emitAsync = () => Promise.resolve({ success: true });
                     this.#freezeProp = () => {};
-                    this.#getChildren = () => {};
-                    this.#getParentId = () => {};
+                    this.#getChildren = () => [''];
+                    this.#getParentId = () => '';
                     this.#getState = () => {};
                     this.#remove = () => {};
                     this.#setState = () => {};
@@ -399,7 +408,7 @@ export const defineUserComponent = (componentList) => {
                     this.#watchSync = data.watchSync;
                     this.#watchParent = data.watchParent;
 
-                    _connectedCallBack({
+                    _connectedCallBack?.({
                         context: this,
                         data: this.#getData(),
                     });
@@ -410,7 +419,7 @@ export const defineUserComponent = (componentList) => {
                 disconnectedCallback() {
                     if (!this.shadowRoot || !this.active) return;
 
-                    _disconnectedCallback({
+                    _disconnectedCallback?.({
                         context: this,
                         data: this.#getData(),
                     });
@@ -428,7 +437,7 @@ export const defineUserComponent = (componentList) => {
                 adoptedCallback() {
                     if (!this.shadowRoot || !this.active) return;
 
-                    _adoptedCallback({
+                    _adoptedCallback?.({
                         context: this,
                         data: this.#getData(),
                     });
@@ -445,7 +454,7 @@ export const defineUserComponent = (componentList) => {
                     /**
                      * Fire custom attribute change ( not id )
                      */
-                    _attributeChangedCallback({
+                    _attributeChangedCallback?.({
                         name,
                         oldValue,
                         newValue,

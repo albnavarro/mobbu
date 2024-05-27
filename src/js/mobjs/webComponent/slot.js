@@ -1,3 +1,5 @@
+//@ts-check
+
 import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
 
 export const defineSlotComponent = () => {
@@ -5,17 +7,17 @@ export const defineSlotComponent = () => {
         'mobjs-slot',
         class extends HTMLElement {
             /**
-             * @type {string}
+             * @type {string|undefined|null}
              */
             #slotName;
 
             /**
-             * @type {string}
+             * @type {string|undefined|null}
              */
             #staticProps;
 
             /**
-             * @type {string}
+             * @type {string|undefined|null}
              */
             #dynamicProps;
 

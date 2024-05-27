@@ -45,6 +45,10 @@
     - se il type é QUEQUE_TYPE_REPEATER alimentare una mappa parallela.
     - tickRepeater() ?
 
+## src/js/mobjs/webComponent/
+Le propieta private dell classe possono essere null|undefined.
+Controllare che tutti i gatter quando vengono usati abbiano un fallback o uno skip in caso di unfdefined.
+
 
 
 
