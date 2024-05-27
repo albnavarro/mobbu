@@ -25,7 +25,7 @@ export const defineUserComponent = (componentList) => {
             disconnectedCallback: _disconnectedCallback,
             adoptedCallback: _adoptedCallback,
             attributeChangedCallback: _attributeChangedCallback,
-            styleSlot,
+            style,
             attributeToObserve,
         } = value.componentParams;
 
@@ -244,10 +244,10 @@ export const defineUserComponent = (componentList) => {
 
                     if (!this.shadowRoot) return;
 
-                    if (styleSlot) {
-                        const style = document.createElement('style');
-                        style.textContent = styleSlot;
-                        this.shadowRoot.append(style);
+                    if (style) {
+                        const styleTag = document.createElement('style');
+                        styleTag.textContent = style;
+                        this.shadowRoot.append(styleTag);
 
                         /**
                          * Slot content is accessible by external javascript.

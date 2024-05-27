@@ -62,7 +62,7 @@ export const createComponent = ({
                 adoptedCallback,
                 attributeToObserve,
                 attributeChangedCallback,
-                styleSlot: style,
+                style,
             },
         },
     };

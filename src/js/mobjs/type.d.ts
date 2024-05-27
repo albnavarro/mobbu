@@ -730,7 +730,6 @@ export interface componentParsedType {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    styleSlot?: string;
     state: mobStoreBaseData;
 }
 
