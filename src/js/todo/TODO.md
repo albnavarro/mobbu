@@ -38,7 +38,9 @@
 
 ### WebComponent type definition
 - Applicare il nuovo tipo `userComponent` ad ora solo abbozzato all' elemento `componentToParse` all' interno di `parseComponentRecursive` e funzioni accessorie. Cosi da avere controllo su tutti i metodi del webcomponent. <br/>
-src/js/mobjs/webComponent/type.d.ts
+src/js/mobjs/webComponent/type.d.ts<br/>
+- componentToParse => sará sempre un userComponent
+- newElement => puó essere un userComponent | Element
 
 ### parentId
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
