@@ -8,6 +8,7 @@ import {
     watchType,
 } from '../../mobCore/store/type';
 import { storePublicMethods } from '../../mobCore/store/type';
+import { userComponent } from '../webComponent/type';
 
 export interface componentCommonTypes {
     key: string;
@@ -17,7 +18,7 @@ export interface componentCommonTypes {
     };
     isRepeater?: boolean;
     parentPropsWatcher?: (() => void)[];
-    destroy: () => void;
+    destroy?: () => void;
     freezedPros?: string[];
     isCancellable: boolean;
     child?:
@@ -30,7 +31,7 @@ export interface componentCommonTypes {
 }
 
 export interface componentStoreTypes extends componentCommonTypes {
-    element: HTMLElement;
+    element: HTMLElement | userComponent;
     componentName: string;
     instanceName: string;
     state: storePublicMethods;
@@ -38,7 +39,7 @@ export interface componentStoreTypes extends componentCommonTypes {
 
 export interface componentStoreInputTypes extends componentCommonTypes {
     componentName: string;
-    element: HTMLElement;
+    element: HTMLElement | userComponent;
     instanceName: string;
     state: mobStoreBaseData;
     props: object;

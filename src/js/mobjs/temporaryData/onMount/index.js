@@ -26,7 +26,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 /**
  * @param {object} obj
  * @param {string} obj.id - component id
- * @param {HTMLElement} obj.element - root component HTMLElement.
+ * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  *
  * @description
@@ -74,7 +74,7 @@ export const removeOnMountCallbackReference = ({ id }) => {
  * @param {object} obj
  * @param {boolean|undefined} obj.isolateOnMount
  * @param {string} obj.id - component id
- * @param {HTMLElement} obj.element - root component HTMLElement.
+ * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  * @returns Function
  *

@@ -6,7 +6,7 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.element
+ * @param {import("../webComponent/type").userComponent} obj.element
  * @param {string|undefined} obj.parentIdForced
  * @returns {import('./type').componentDataType}
  *
@@ -14,28 +14,13 @@ import { filterExportableStateFromObject } from '../mainStore/actions/exportStat
  * Create base DOM component from component tag.
  */
 export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
-    /**
-     * @type {string}
-     *
-     */
-    // @ts-ignore
     const id = element.getId();
-
-    /**
-     * @type {string}
-     */
-    // @ts-ignore
     const instanceName = element.getInstanceName();
-
-    /**
-     * @type {string}
-     */
-    // @ts-ignore
     const parentIdFromWebComponent = element.getParentId();
 
     /**
      * First choice is parentId passed directly in webComponent
-     * Second choice is parentId passed to initParseWatcher
+     * Second choice is parentId passed to initParseWatcher ( renderComponent: render component runtime ).
      *
      * After first level of Node will render, all childrn has the right parentID:
      * `addParentIdToFutureComponent({ element: newElement, id });`
@@ -47,90 +32,22 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
             ? parentIdFromWebComponent
             : parentIdForced;
 
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const propsId = element.getStaticPropsId();
-
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const dynamicPropsId = element.getDynamicPropsid();
-
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const bindEventsId = element.getBindEventsId();
-
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
-
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const propsSlot = element.getPropsFromSlotId();
-
-    /**
-     * @type {string|undefined}
-     */
-    // @ts-ignore
     const currentRepeaterValueId = element.getRepeatValue();
     const currentRepeatValue = getComponentRepeaterState(
         currentRepeaterValueId
     );
-
-    // @ts-ignore
     const componentRepeatId = element.getComponentRepeatId();
-
-    /**
-     * @type {string}
-     *
-     */
-    // @ts-ignore
     const key = element.getCurrentKey() ?? '';
-
-    /**
-     * @type {string}
-     *
-     * @description
-     * Set props.
-     */
-    // @ts-ignore
     const componentName = element.getComponentName();
-
-    /**
-     * @type {string|undefined}
-     */
     const cleanProsId = propsId?.split(' ').join('');
-
-    /**
-     * @type {string|undefined}
-     */
     const cleanProsFromSlot = propsSlot?.split(' ').join('');
-
-    /**
-     * @type {object}
-     */
     const propsFromParent = getPropsFromParent(cleanProsId);
-
-    /**
-     * @type {object}
-     */
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
-
-    /**
-     * @type {object}
-     *
-     * @description
-     * Set props.
-     */
     const baseProps = { ...element.dataset };
 
     return {

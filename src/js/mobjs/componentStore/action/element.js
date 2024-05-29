@@ -6,7 +6,7 @@ import { componentMap } from '../store';
  *
  * @param {object} obj
  * @param {string} obj.id
- * @param {HTMLElement} obj.newElement
+ * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.newElement
  * @return { void }
  *
  * @description

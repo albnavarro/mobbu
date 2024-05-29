@@ -5,8 +5,8 @@ import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
 /**
  * @param {object} obj
  * @param {Element} obj.element
- * @param {Array<Element>} obj.currentSelectors
- * @return {{componentToParse:Element, parseSourceArray:Array<Element> }}
+ * @param {Array<import("../webComponent/type").userComponent>} obj.currentSelectors
+ * @return {{componentToParse:import("../webComponent/type").userComponent, parseSourceArray:Array<import("../webComponent/type").userComponent> }}
  */
 export const getParseSourceArray = ({ element, currentSelectors }) => {
     if (currentSelectors.length > 0) {

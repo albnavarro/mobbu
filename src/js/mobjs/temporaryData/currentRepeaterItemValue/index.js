@@ -23,10 +23,12 @@ export const setComponentRepeaterState = (current) => {
 };
 
 /**
- * @param string
+ * @param {( string | undefined )} id
  * @return {{ current:object, index:number}}
  */
 export const getComponentRepeaterState = (id = '') => {
+    if (!id) return DEFAULT_CURRENT_REPEATER_STATE;
+
     const value = currentRepeaterValueMap.get(id);
     currentRepeaterValueMap.delete(id);
 

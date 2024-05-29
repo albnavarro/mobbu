@@ -2,7 +2,7 @@ import { ATTR_REFS } from '../../constant';
 
 /**
  * @param {HTMLElement} element
- * @returns {{ [key: string ]: HTMLElement[] }}>}
+ * @returns {{ [key: string ]: ( HTMLElement|import("../webComponent/type").userComponent )[] }}>}
  */
 export const getRefs = (element) => {
     const refs = element.querySelectorAll(`[${ATTR_REFS}]`);

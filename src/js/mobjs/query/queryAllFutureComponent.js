@@ -44,7 +44,7 @@ function selectAll(root, oneDepth) {
 /**
  * @param {Element} node
  * @param {boolean} oneDepth
- * @returns {Array<Element>}
+ * @returns {Array<import("../webComponent/type").userComponent>}
  */
 export const queryAllFutureComponent = (node, oneDepth = true) => {
     let result = [];

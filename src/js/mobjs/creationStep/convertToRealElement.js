@@ -206,10 +206,10 @@ const executeConversion = ({ element, content }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.element
+ * @param {HTMLElement|import("../webComponent/type").userComponent} obj.element
  * @param {string} obj.content
  * @param {boolean|undefined} obj.isolateCreation
- * @returns { Promise<{newElement:( HTMLElement|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
+ * @returns { Promise<{newElement:( HTMLElement|import("../webComponent/type").userComponent|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
  * Add content to component

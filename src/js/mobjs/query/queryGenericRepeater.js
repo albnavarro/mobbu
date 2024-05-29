@@ -21,7 +21,7 @@ function selectAll(root) {
 }
 
 /**
- * @param {Element} node
+ * @param {Element|import("../webComponent/type").userComponent} node
  * @returns {Array<Element>}
  */
 export const queryGenericRepeater = (node) => {

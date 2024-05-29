@@ -34,7 +34,7 @@ import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetCompone
  * @param {boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
- * @param {Array<Element>} [ obj.currentSelectors ]
+ * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
  * @return {Promise<void>}
  *
@@ -114,7 +114,6 @@ export const parseComponentsRecursive = async ({
     /**
      * Get component params from list definition.
      */
-    // @ts-ignore
     const componentToParseName = componentToParse?.getComponentName();
     const userFunctionComponent =
         componentList?.[componentToParseName]?.componentFunction;
@@ -157,7 +156,6 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
     } = getParamsFromWebComponent({
-        // @ts-ignore
         element: componentToParse,
         parentIdForced,
     });
@@ -172,7 +170,6 @@ export const parseComponentsRecursive = async ({
      */
     const { getState, setState, emit, emitAsync, computed, watch } =
         addComponentToStore({
-            // @ts-ignore
             element: componentToParse,
             props,
             state,
