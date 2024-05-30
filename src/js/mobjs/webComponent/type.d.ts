@@ -19,3 +19,15 @@ export class userComponent extends HTMLElement {
     getDelegateEventId: () => string | undefined;
     getComponentRepeatId: () => string | undefined;
 }
+
+export class repeaterComponent extends HTMLElement {
+    removeCustomComponent: () => void;
+    getRepeatId: () => string | undefined;
+}
+
+export class slotComponent extends HTMLElement {
+    removeCustomComponent: () => void;
+    getSlotName: () => string | undefined;
+    getStaticProps: () => string | undefined;
+    getDynamicProps: () => string | undefined;
+}

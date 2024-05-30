@@ -248,13 +248,13 @@ export const defineUserComponent = (componentList) => {
                         const styleTag = document.createElement('style');
                         styleTag.textContent = style;
                         this.shadowRoot.append(styleTag);
-
-                        /**
-                         * Slot content is accessible by external javascript.
-                         */
-                        const slot = document.createElement('slot');
-                        this.shadowRoot.append(slot);
                     }
+
+                    /**
+                     * Slot content is accessible by external javascript.
+                     */
+                    const slot = document.createElement('slot');
+                    this.shadowRoot.append(slot);
 
                     _constructorCallback?.({
                         context: this,

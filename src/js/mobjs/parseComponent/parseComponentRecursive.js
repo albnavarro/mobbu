@@ -114,7 +114,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Get component params from list definition.
      */
-    const componentToParseName = componentToParse?.getComponentName();
+    const componentToParseName = componentToParse.getComponentName();
     const userFunctionComponent =
         componentList?.[componentToParseName]?.componentFunction;
     const componentParams =

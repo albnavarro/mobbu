@@ -112,7 +112,6 @@ export const setParentsIdFallback = ({ componentId }) => {
 export const addParentIdToFutureComponent = ({ element, id }) => {
     const children = queryAllFutureComponent(element, false);
     children.forEach((child) => {
-        // @ts-ignore
         child.setParentId(id);
     });
 };

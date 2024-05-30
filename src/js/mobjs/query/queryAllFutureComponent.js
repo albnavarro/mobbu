@@ -23,7 +23,7 @@ export function* walkPreOrder(node) {
 /**
  * @param {Element} root
  * @param {boolean} oneDepth
- * @returns {Array<HTMLElement>}
+ * @returns {import("../webComponent/type").userComponent[]}
  */
 function selectAll(root, oneDepth) {
     const result = [];

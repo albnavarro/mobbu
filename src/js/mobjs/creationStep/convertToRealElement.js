@@ -12,9 +12,9 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.element
+ * @param {import("../webComponent/type").userComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|undefined}
+ * @returns {HTMLElement|import("../webComponent/type").userComponent|undefined}
  *
  * @description
  * Get new element from content ( render ).
@@ -44,9 +44,8 @@ const removeOrphanSlot = ({ element }) => {
     const slots = queryGenericSlot(element);
 
     slots.forEach((slot) => {
-        // @ts-ignore
         const dynamicPropsIdFromSlot = slot.getDynamicProps();
-        if (dynamicPropsIdFromSlot !== '') {
+        if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== '') {
             removeCurrentToDynamicPropsByPropsId({
                 propsId: dynamicPropsIdFromSlot,
             });
@@ -55,13 +54,11 @@ const removeOrphanSlot = ({ element }) => {
         /**
          * If slot is not used remove id reference orphans from store.
          */
-        // @ts-ignore
         const staticPropsIdFromSlot = slot.getStaticProps();
-        if (staticPropsIdFromSlot !== '') {
+        if (staticPropsIdFromSlot && staticPropsIdFromSlot !== '') {
             removeCurrentToPropsByPropsId({ propsId: staticPropsIdFromSlot });
         }
 
-        // @ts-ignore
         slot?.removeCustomComponent();
         slot?.remove();
     });
@@ -85,10 +82,7 @@ const addToSlot = ({ element }) => {
         const slotName = component?.getSlotPosition();
 
         /**
-         * @description
          * Find slot used by component.
-         *
-         * @type {HTMLElement|null}
          */
         const slot = querySecificSlot(element, slotName);
 
@@ -104,12 +98,11 @@ const addToSlot = ({ element }) => {
         const elementMoved = /** @type {HTMLElement} */ (slot.previousSibling);
 
         return { slot, elementMoved };
-
-        /**
-         * Delete slot.
-         */
     });
 
+    /**
+     * Delete slot.
+     */
     slots.forEach(({ slot, elementMoved }) => {
         if (!slot) return;
 
@@ -131,7 +124,6 @@ const addToSlot = ({ element }) => {
             // @ts-ignore
             elementMoved?.setDynamicPropsFromSlotId?.(bindPropsIdFromSlot);
 
-        // @ts-ignore
         slot?.removeCustomComponent();
         slot?.remove();
     });
@@ -139,17 +131,12 @@ const addToSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement} obj.element
+ * @param {import("../webComponent/type").userComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|undefined}
- *
- *
+ * @returns {HTMLElement|import("../webComponent/type").userComponent|undefined}
  */
 const executeConversion = ({ element, content }) => {
     /**
-     * @type {string}
-     *
-     * @description
      * Add real content from render function
      */
     const prevContent = element.innerHTML;
@@ -165,11 +152,8 @@ const executeConversion = ({ element, content }) => {
         const delegateEventId = element.getDelegateEventId();
 
         /**
-         * @description
          * if unNamedSlot is used.
          * Replace un-named slot with previous content.
-         *
-         * @type {HTMLElement|null}
          */
         const unNamedSlot = queryUnNamedSlot(newElement);
 

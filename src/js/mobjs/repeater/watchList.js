@@ -44,7 +44,6 @@ export const watchList = ({
      */
     const repeaterEl = querySecificRepeater(repeaterParentElement, repeatId);
     repeaterEl?.remove();
-    // @ts-ignore
     repeaterEl?.removeCustomComponent();
 
     const mainComponent = getElementById({ id });
