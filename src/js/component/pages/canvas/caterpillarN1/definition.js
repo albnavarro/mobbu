@@ -5,8 +5,6 @@ import { CaterpillarN1 } from './caterpillarN1';
 export const caterpillarN1Def = createComponent({
     name: 'caterpillar-n1',
     component: CaterpillarN1,
-    isolateCreation: true,
-    isolateOnMount: true,
     exportState: [
         'numItems',
         'width',

@@ -687,22 +687,6 @@ export interface componentParsedType {
 
     /**
      * @description
-     * Wait one frame after execute onMount function.( for havly onMount function ).
-     *   - Less stress for big script fired inside onMont function.
-     *  `default = false`.
-     */
-    isolateOnMount?: boolean;
-
-    /**
-     * @description
-     * Add DOM element in a dedicated request animation Frame.
-     * - If is settled to `false` use a request animation frame to apply class/style inside onMount function ( to have css transition working ).
-     * `default = false`.
-     */
-    isolateCreation?: boolean;
-
-    /**
-     * @description
      * Fire onMount callback immediately, normally onMount is fired at the end of current parse.
      * This means that if `scoped:true` every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component.
      * `default = false`.
@@ -739,14 +723,6 @@ export interface createComponentType extends componentParsedType {
 }
 
 export interface defaultComponent {
-    /**
-     * @description
-     * Wait one frame after execute onMount function.( for havly onMount function ).
-     *   - Less stress for big script fired inside onMount function.
-     *  `default = false`.
-     */
-    isolateOnMount?: boolean;
-
     /**
      * @description
      * Add DOM element in a dedicated request animation Frame.

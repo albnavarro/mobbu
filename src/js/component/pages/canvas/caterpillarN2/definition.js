@@ -50,8 +50,6 @@ const buttons = {
 export const caterpillarN2Def = createComponent({
     name: 'caterpillar-n2',
     component: CaterpillarN2,
-    isolateCreation: true,
-    isolateOnMount: true,
     exportState: [
         'numItems',
         'width',

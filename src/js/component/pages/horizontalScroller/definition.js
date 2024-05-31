@@ -4,8 +4,6 @@ import { HorizontalScroller } from './horizontalScroller';
 export const horizontalScrollerDef = createComponent({
     name: 'horizontal-scroller',
     component: HorizontalScroller,
-    isolateOnMount: true,
-    isolateCreation: true,
     exportState: [
         'nextRoute',
         'prevRoute',

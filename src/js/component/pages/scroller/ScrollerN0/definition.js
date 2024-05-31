@@ -5,8 +5,6 @@ import { ScrollerN0 } from './scrollerN0';
 export const scrollerN0Def = createComponent({
     name: 'scroller-n0',
     component: ScrollerN0,
-    isolateOnMount: true,
-    isolateCreation: true,
     exportState: [
         'title',
         'nextRoute',

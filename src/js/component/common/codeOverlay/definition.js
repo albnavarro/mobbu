@@ -8,8 +8,6 @@ import { CodeOverlayButton } from './codeOverlayButton';
 export const codeOverlayDef = createComponent({
     name: 'code-overlay',
     component: CodeOverlay,
-    isolateOnMount: true,
-    isolateCreation: true,
     exportState: ['urls', 'activeContent'],
     state: {
         urls: () => ({

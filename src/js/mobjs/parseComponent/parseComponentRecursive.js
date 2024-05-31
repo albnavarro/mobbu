@@ -119,7 +119,7 @@ export const parseComponentsRecursive = async ({
         componentList?.[componentToParseName]?.componentFunction;
     const componentParams =
         componentList?.[componentToParseName]?.componentParams;
-    const { isolateOnMount, isolateCreation, scoped } = componentParams;
+    const { scoped } = componentParams;
 
     /**
      * If componentToParse is not in list remove div component
@@ -258,7 +258,6 @@ export const parseComponentsRecursive = async ({
         content,
         // @ts-ignore
         element: componentToParse,
-        isolateCreation,
     });
 
     /**
@@ -330,12 +329,10 @@ export const parseComponentsRecursive = async ({
      * Fire immediately onMount callback, scoped to current component DOM.
      * Child is ignored.
      */
+    const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
 
-    const scopedParsed = scoped ?? getDefaultComponent().scoped;
-
-    if (scopedParsed) {
+    if (shoulBeScoped) {
         await executeFireOnMountCallBack({
-            isolateOnMount,
             id,
             element: newElement,
             refsCollection,
@@ -357,13 +354,12 @@ export const parseComponentsRecursive = async ({
      */
     functionToFireAtTheEnd.push({
         onMount: async () => {
-            if (scopedParsed) return;
+            if (shoulBeScoped) return;
 
             /**
              * Fire onMount callback at the end of current parse.
              */
             await executeFireOnMountCallBack({
-                isolateOnMount,
                 id,
                 element: newElement,
                 refsCollection,

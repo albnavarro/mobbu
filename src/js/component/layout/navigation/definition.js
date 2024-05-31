@@ -8,8 +8,6 @@ import { NavigationSubmenu } from './navigationSubmenu';
 export const navigationComponentDef = createComponent({
     name: 'mob-navigation-container',
     component: NavigationContainer,
-    isolateOnMount: true,
-    isolateCreation: true,
 });
 
 export const navigationDef = createComponent({
@@ -28,8 +26,6 @@ export const navigationDef = createComponent({
 export const navigationSubmenuDef = createComponent({
     name: 'mob-navigation-submenu',
     component: NavigationSubmenu,
-    isolateOnMount: true,
-    isolateCreation: true,
     exportState: ['children', 'headerButton', 'isOpen', 'callback'],
     state: {
         callback: () => ({

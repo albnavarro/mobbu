@@ -1,8 +1,6 @@
 // @ts-check
 
-import { mobCore } from '../../../mobCore';
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
-import { getDefaultComponent } from '../../createComponent';
 import { parseRefs } from '../refs';
 
 /**
@@ -72,48 +70,18 @@ export const removeOnMountCallbackReference = ({ id }) => {
 
 /**
  * @param {object} obj
- * @param {boolean|undefined} obj.isolateOnMount
  * @param {string} obj.id - component id
  * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
  * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
- * @returns Function
+ * @returns {Promise<any>}
  *
  * @description
  * Fire onMount callback.
  */
-export const executeFireOnMountCallBack = ({
-    isolateOnMount,
-    id,
-    element,
-    refsCollection,
-}) => {
-    const isolateOnMountParsed =
-        isolateOnMount ?? getDefaultComponent().isolateOnMount;
-
-    return isolateOnMountParsed
-        ? /**
-           * With heavy onMount function fire next one frame after.
-           */
-          (async () => {
-              await fireOnMountCallBack({
-                  id,
-                  element,
-                  refsCollection,
-              });
-
-              return new Promise((resolve) => {
-                  mobCore.useNextLoop(() => {
-                      mobCore.useFrame(() => {
-                          mobCore.useNextTick(() => {
-                              resolve({ success: true });
-                          });
-                      });
-                  });
-              });
-          })()
-        : fireOnMountCallBack({
-              id,
-              element,
-              refsCollection,
-          });
+export const executeFireOnMountCallBack = ({ id, element, refsCollection }) => {
+    return fireOnMountCallBack({
+        id,
+        element,
+        refsCollection,
+    });
 };

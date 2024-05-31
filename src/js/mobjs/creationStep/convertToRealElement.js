@@ -192,37 +192,19 @@ const executeConversion = ({ element, content }) => {
  * @param {object} obj
  * @param {HTMLElement|import("../webComponent/type").userComponent} obj.element
  * @param {string} obj.content
- * @param {boolean|undefined} obj.isolateCreation
  * @returns { Promise<{newElement:( HTMLElement|import("../webComponent/type").userComponent|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
  *
  * @description
  * Add content to component
-
  *
  */
-export const convertToRealElement = ({ element, content, isolateCreation }) => {
-    const isolateCreationParsed =
-        isolateCreation ?? getDefaultComponent().isolateCreation;
+export const convertToRealElement = ({ element, content }) => {
+    return new Promise((resolve) => {
+        const newElement = executeConversion({
+            element,
+            content,
+        });
 
-    return isolateCreationParsed
-        ? new Promise((resolve) => {
-              mobCore.useFrame(() => {
-                  const newElement = executeConversion({
-                      element,
-                      content,
-                  });
-
-                  mobCore.useNextTick(() => {
-                      resolve({ newElement });
-                  });
-              });
-          })
-        : new Promise((resolve) => {
-              const newElement = executeConversion({
-                  element,
-                  content,
-              });
-
-              resolve({ newElement });
-          });
+        resolve({ newElement });
+    });
 };

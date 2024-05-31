@@ -1,8 +1,6 @@
 // @ts-check
 
 let defaultComponent = {
-    isolateCreation: false,
-    isolateOnMount: false,
     scoped: false,
     maxParseIteration: 5000,
     debug: false,
@@ -36,8 +34,6 @@ export const createComponent = ({
     component = () => {},
     state = {},
     exportState = [],
-    isolateCreation,
-    isolateOnMount,
     scoped,
     constructorCallback = () => {},
     connectedCallback = () => {},
@@ -52,8 +48,6 @@ export const createComponent = ({
             componentFunction: component,
             componentParams: {
                 exportState,
-                isolateCreation,
-                isolateOnMount,
                 scoped,
                 state,
                 constructorCallback,
