@@ -14,10 +14,14 @@ export const getStateFromMainMap = (id) => ({ ...storeMap.get(id) });
  * @param {import("./type").storeMapValue} state
  * @returns {void}
  */
-export const updateMainMap = (id, state) => storeMap.set(id, state);
+export const updateMainMap = (id, state) => {
+    storeMap.set(id, state);
+};
 
 /**
  * @param {string} id
  * @returns {void}
  */
-export const removeStateFromMainMap = (id) => storeMap.delete(id);
+export const removeStateFromMainMap = (id) => {
+    storeMap.delete(id);
+};

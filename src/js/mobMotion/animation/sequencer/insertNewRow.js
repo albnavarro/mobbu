@@ -12,7 +12,7 @@ import { orderByProp } from './orderRow';
  * @param {number} param.start
  * @param {number} param.end
  * @param {number} param.duration
- * @param {string} param.propToFind
+ * @param {import('./type').propToFind} param.propToFind
  * @return {import('./type').sequencerRow[]}
  */
 export const insertNewRow = ({

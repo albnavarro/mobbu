@@ -1,7 +1,22 @@
 // https://github.com/Artxe2/jsdoc-subpkg-example
 
 {
-    "module": "ES6",
-    "moduleResolution": "Node",
-    "noEmit": true
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "checkJs": true,
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "noEmit": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "target": "ESNext"
+    },
+    "ts-node": { "esm": true },
+    "include": ["src/js/mobjs", "src/js/mobMotion", "src/js/mobCore"],
+    "exclude": [
+        "src/js/mobMotion/plugin",
+        "src/js/mobCore/events/rafutils/old/"
+    ]
 }
