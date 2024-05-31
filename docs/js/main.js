@@ -27504,7 +27504,7 @@ Loading snippet ...</pre
   function updateContent(label, val2) {
     return `${label}: ${val2}`;
   }
-  var DynamicListCard = async ({
+  var DynamicListCard = ({
     getState,
     html,
     onMount,

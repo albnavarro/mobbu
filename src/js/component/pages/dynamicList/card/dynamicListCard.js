@@ -1,5 +1,13 @@
 import { mobCore } from '../../../../mobCore';
 
+// function wait() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve();
+//         }, 1000);
+//     });
+// }
+
 function updateContent(label, val) {
     return `${label}: ${val}`;
 }
@@ -7,7 +15,7 @@ function updateContent(label, val) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const DynamicListCard = async ({
+export const DynamicListCard = ({
     getState,
     html,
     onMount,
