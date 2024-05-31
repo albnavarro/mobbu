@@ -1,6 +1,5 @@
 // @ts-check
 
-import { mobCore } from '../../mobCore';
 import { ATTR_IS_COMPONENT, ATTR_WEAK_BIND_EVENTS } from '../constant';
 import { getDefaultComponent } from '../createComponent';
 import { queryComponentUseSlot } from '../query/queryComponentUseSlot';
