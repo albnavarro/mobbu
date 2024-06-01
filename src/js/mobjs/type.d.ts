@@ -717,8 +717,10 @@ export interface componentParsedType {
     style?: string;
     state: mobStoreBaseData;
     child: {
-        componentFunction: componentFunctionType;
-        componentParams: componentParsedType;
+        [key: string]: {
+            componentFunction: import('./mainStore/type').componentFunctionType;
+            componentParams: import('./type').componentParsedType;
+        };
     }[];
 }
 

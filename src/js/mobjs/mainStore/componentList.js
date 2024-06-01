@@ -10,7 +10,7 @@ import { defineUserComponent } from '../webComponent/userComponent';
 let componentListMap = {};
 
 /**
- * @type {Set<import('./type').componentListMapType>}
+ * @type {Set<{[key:string]:import('./type').componentListMapType }>}
  */
 const availableComponent = new Set();
 
@@ -49,9 +49,10 @@ export const getComponentList = () => {
 };
 
 /**
- * @param {{componentFunction:import('./type').componentFunctionType,componentParams:import('../type').componentParsedType}[]} components
+ * @param {{[key:string]: {componentFunction:import('./type').componentFunctionType,componentParams:import('../type').componentParsedType}}[]} components
  */
 export const useComponent = (components) => {
+    console.log(components);
     components.forEach((component) => {
         availableComponent.add(component);
     });

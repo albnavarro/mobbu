@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { HorizontalScroller } from './horizontalScroller';
 import { horizontalScrollerButtonDef } from './horizontalScrollerButton/definition';

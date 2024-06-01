@@ -5107,6 +5107,7 @@
     return componentListMap;
   };
   var useComponent = (components) => {
+    console.log(components);
     components.forEach((component) => {
       availableComponent.add(component);
     });
