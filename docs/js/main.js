@@ -26595,24 +26595,6 @@ Loading snippet ...</pre
                 </div>
                 <div class="key">key: ${key.length > 0 ? key : "no-key"}</div>
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
-                <mobjs-slot
-                    name="card-slot"
-                    ${staticProps2({
-      staticFromSlot: `static prop from card`
-    })}
-                    ${bindProps({
-      bind: ["counter", "label", "index"],
-      props: () => {
-        return {
-          parentState: `${JSON.stringify(
-            getState(),
-            null,
-            4
-          )}`
-        };
-      }
-    })}
-                ></mobjs-slot>
                 <dynamic-list-empty>
                     <dynamic-list-counter
                         slot="empty-slot"

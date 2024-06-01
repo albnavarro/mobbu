@@ -33,7 +33,6 @@
 # MobJs
 
 ### Load component:
-- nel nuovo task `useComponent` Mi son perso 2 componenti per strada: da 57 ne ritrovo 55.
 - migliorare la nomenclatura dei componenti:
 
 ```js
