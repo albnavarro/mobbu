@@ -41,6 +41,8 @@
 - def: `linksMobjs` `-` diventa camelCase
 - function: `linksMobjsFunction`
 
+Update docs con il nuovo `useComponent` && `child`
+
 
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
