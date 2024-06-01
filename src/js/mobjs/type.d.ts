@@ -684,7 +684,7 @@ interface webComponentParmas {
 }
 
 export interface componentParsedType {
-    exportState: string[];
+    exportState?: string[];
 
     /**
      * @description
@@ -715,8 +715,8 @@ export interface componentParsedType {
     }) => void;
     attributeToObserve?: string[];
     style?: string;
-    state: mobStoreBaseData;
-    child: {
+    state?: mobStoreBaseData;
+    child?: {
         [key: string]: {
             componentFunction: import('./mainStore/type').componentFunctionType;
             componentParams: import('./type').componentParsedType;

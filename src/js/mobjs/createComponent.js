@@ -33,7 +33,7 @@ export const getDefaultComponent = () => defaultComponent;
  */
 export const createComponent = ({
     name = '',
-    component,
+    component = () => '',
     state = {},
     exportState = [],
     scoped,

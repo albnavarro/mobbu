@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { NavigationContainer } from './navContainer';
 import { Navigation } from './navigation';
@@ -7,7 +9,6 @@ import { NavigationSubmenu } from './navigationSubmenu';
 
 export const navigationButtonDef = createComponent({
     name: 'mob-navigation-button',
-    type: 'button',
     component: NavigationButton,
     exportState: [
         'label',

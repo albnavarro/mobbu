@@ -5125,7 +5125,7 @@
   var getDefaultComponent = () => defaultComponent;
   var createComponent = ({
     name = "",
-    component,
+    component = () => "",
     state = {},
     exportState = [],
     scoped,
@@ -30156,7 +30156,6 @@ Loading snippet ...</pre
   // src/js/component/layout/navigation/definition.js
   var navigationButtonDef = createComponent({
     name: "mob-navigation-button",
-    type: "button",
     component: NavigationButton,
     exportState: [
       "label",
