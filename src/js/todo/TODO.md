@@ -6,7 +6,6 @@
 ### Default:
 - Spostare mq da mobMotion a mobCore.
 
-
 # Mob motion
 
 ### AsyncTimeline
@@ -33,11 +32,16 @@
 
 # MobJs
 
+### Load component:
+- caricare le rotte cosi come sono ora.
+```js
+- aggiungere useComponent([comp1, comp2, ...])
+```
+- `useComponent` aggingera le definizioni dei componenti ad un `new Map`
+- Tutte le rotte e tutti i componenti usearnno la nuova funzione per poter caricare i componenti prima che parta l'applicazione.
+
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
-
-### WebComponent type definition
-- Il lavoro fatto per `userComponent` portarlo anche a `repeater` e `slot`
 
 ### parentId
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
