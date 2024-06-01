@@ -61,10 +61,7 @@ function getPartialsComponentList({
 
     return render({
         sync,
-        html: (
-            /** @type{string[]} */ strings,
-            /** @type{string[]} */ ...values
-        ) => renderHtml(strings, ...values),
+        html: renderHtml,
     });
 }
 

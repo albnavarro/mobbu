@@ -4627,7 +4627,7 @@
   };
 
   // src/js/mobjs/creationStep/utils.js
-  var renderHtml = (strings, ...values) => String.raw({ raw: strings }, ...values);
+  var renderHtml = String.raw;
 
   // src/js/mobjs/webComponent/repeater.js
   var defineRepeaterComponent = () => {
@@ -6173,7 +6173,7 @@
     );
     return render2({
       sync,
-      html: (strings, ...values) => renderHtml(strings, ...values)
+      html: renderHtml
     });
   }
   var addWithKey = ({
@@ -6305,7 +6305,7 @@
         );
         return render2({
           sync,
-          html: (strings, ...values) => renderHtml(strings, ...values)
+          html: renderHtml
         });
       });
       elementToAdd.forEach((element) => {

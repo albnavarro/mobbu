@@ -68,10 +68,7 @@ export const addWithoutKey = ({
 
             return render({
                 sync,
-                html: (
-                    /** @type{string[]} */ strings,
-                    /** @type{any} */ ...values
-                ) => renderHtml(strings, ...values),
+                html: renderHtml,
             });
         });
 

@@ -31,7 +31,7 @@ const eventToAdd = [];
 const eventRegistered = [];
 
 /**
- * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
+ * @param {( import('./type').delegateEventObject|import('./type').delegateEventObject[] )} [ eventsData ]
  * @return {string} props id in store.
  *
  * @description

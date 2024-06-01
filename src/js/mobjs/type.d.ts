@@ -1,5 +1,6 @@
 import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
+import { delegateEventObject } from './temporaryData/weakBindEvents/type';
 
 export interface componentReturnType {
     content: string;
@@ -372,11 +373,7 @@ export interface componentType {
      * ></MyComponent>
      * ```
      */
-    delegateEvents(
-        arg0:
-            | { [key: string]: (arg0: object) => object }
-            | [{ [key: string]: (arg0: object) => object }]
-    ): void;
+    delegateEvents(arg0: delegateEventObject[] | delegateEventObject): void;
 
     /**
      *
@@ -392,7 +389,7 @@ export interface componentType {
      *
      * ```
      */
-    html(strings: string[], ...values: string[]): string;
+    html(string: TemplateStringsArray, ...values: any[]): string;
 
     /**
      *
@@ -423,7 +420,7 @@ export interface componentType {
         arg0: (arg1: {
             element: HTMLElement;
             refs: { [key: string]: HTMLElement | HTMLElement[] };
-        }) => () => (() => void) | Promise<() => void>
+        }) => (() => void) | Promise<() => void> | void
     ): void;
 
     /**
@@ -504,7 +501,7 @@ export interface componentType {
          * @description
          * Clean previous item.
          */
-        clean: boolean;
+        clean?: boolean;
 
         /**
          * @description
@@ -530,7 +527,7 @@ export interface componentType {
          *     },
          * })}
          */
-        beforeUpdate(arg0: {
+        beforeUpdate?(arg0: {
             /**
              * @description
              * Main component
@@ -562,7 +559,7 @@ export interface componentType {
          *     },
          * })}
          */
-        afterUpdate(arg0: {
+        afterUpdate?(arg0: {
             /**
              * @description
              * Main component
