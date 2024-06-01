@@ -73,7 +73,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @param {import('../../../mobjs/type').componentType} param
  */
 export const Navigation = ({
     html,

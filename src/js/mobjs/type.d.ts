@@ -1,5 +1,6 @@
 import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
+import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
 
 export interface componentReturnType {
@@ -19,7 +20,7 @@ export interface componentType {
      *
      * ```
      */
-    getState(arg0: string): any;
+    getState(): any;
 
     /**
      * @example
@@ -334,11 +335,7 @@ export interface componentType {
      * ></MyComponent>
      * ```
      */
-    bindEvents(
-        arg0:
-            | { [key: string]: (arg0: object) => object }
-            | [{ [key: string]: (arg0: object) => object }]
-    ): void;
+    bindEvents(arg0: bindEventsObject | bindEventsObject[]): void;
 
     /**
      * @description

@@ -10,7 +10,7 @@ import { getRepeaterStateById } from '../../componentStore/action/currentRepeatV
 export const bindEventMap = new Map();
 
 /**
- * @param {Array<{[key:string]: (arg0: object) => {}}>|{[key:string]: (arg0: object) => {}}} [ eventsData ]
+ * @param {( import('./type').bindEventsObject|import('./type').bindEventsObject[] )} [ eventsData ]
  * @return {string} props id in store.
  *
  * @description
