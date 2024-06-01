@@ -49,6 +49,7 @@ export const getComponentList = () => {
 
 /**
  * @param {import('../type').createComponentReturnType[]} components
+ * @returns {void}
  */
 export const useComponent = (components) => {
     components.forEach((component) => {

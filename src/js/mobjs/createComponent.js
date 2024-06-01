@@ -10,7 +10,7 @@ let defaultComponent = {
 
 /**
  * @param {import('./type').defaultComponent} obj
- * @returns object
+ * @returns {void}
  *
  * @description
  */
