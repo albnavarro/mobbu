@@ -1,6 +1,7 @@
 import { animationTitleDef } from '../component/common/animationTitle/definition';
 import { codeButtonComponentDef } from '../component/common/codeButton/definition';
 import { codeOverlayDef } from '../component/common/codeOverlay/definition';
+import { debugButtonComponentDef } from '../component/common/debug/definition';
 import { mLogo1SvgDef } from '../component/common/mLogo1/definition';
 import { quickNavDef } from '../component/common/nextPage/definition';
 import { routeLoaderDef } from '../component/common/routeLoader/definition';
@@ -22,6 +23,7 @@ useComponent([
     mLogo1SvgDef,
     scrollDownLabelDef,
     codeButtonComponentDef,
+    debugButtonComponentDef,
 ]);
 
 export const wrapper = async () => {

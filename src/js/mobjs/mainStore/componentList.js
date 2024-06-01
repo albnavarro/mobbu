@@ -26,8 +26,7 @@ export const setComponentList = () => {
         {}
     );
 
-    console.log(componentListMap);
-    console.log(Object.keys(componentListMap).length);
+    console.log(`component loaded:${Object.keys(componentListMap).length}`);
 
     /**
      * Register custom HTML tag component.
@@ -52,7 +51,6 @@ export const getComponentList = () => {
  * @param {import('../type').createComponentReturnType[]} components
  */
 export const useComponent = (components) => {
-    console.log(components);
     components.forEach((component) => {
         availableComponent.add(component);
     });

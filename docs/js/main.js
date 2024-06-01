@@ -5097,8 +5097,7 @@
       (previous, current) => ({ ...previous, ...current }),
       {}
     );
-    console.log(componentListMap);
-    console.log(Object.keys(componentListMap).length);
+    console.log(`component loaded:${Object.keys(componentListMap).length}`);
     defineUserComponent(componentListMap);
     defineRepeaterComponent();
     defineSlotComponent();
@@ -5107,7 +5106,6 @@
     return componentListMap;
   };
   var useComponent = (components) => {
-    console.log(components);
     components.forEach((component) => {
       availableComponent.add(component);
     });
@@ -7178,6 +7176,35 @@
   // src/js/mobjs/utils.js
   var staticProps = (props = {}) => {
     return `${ATTR_PROPS}="${setStaticProps(props)}"`;
+  };
+
+  // src/js/mobjs/componentStore/action/getTree.js
+  var getTreeRecursive = ({ chunk }) => {
+    return chunk.reduce((previous, current) => {
+      const [key, value] = current;
+      const { child: child2, componentName, instanceName } = value;
+      const childrenId = new Set(Object.values(child2 ?? {}).flat());
+      const childrenChunk = [...componentMap.entries()].filter(
+        ([key2]) => childrenId.has(key2)
+      );
+      return [
+        ...previous,
+        {
+          id: key,
+          componentName,
+          instanceName,
+          children: getTreeRecursive({
+            chunk: childrenChunk
+          })
+        }
+      ];
+    }, []);
+  };
+  var getTree = () => {
+    const chunk = [...componentMap.entries()].filter(
+      ([, value]) => !value?.parentId || value?.parentId === ""
+    );
+    return getTreeRecursive({ chunk });
   };
 
   // src/js/component/common/typography/titles/title.js
@@ -29335,6 +29362,44 @@ Loading snippet ...</pre
     child: [codeOverlayButtonDef, htmlContentDef]
   });
 
+  // src/js/component/common/debug/debugButton.js
+  var DebugButton = ({ html, delegateEvents }) => {
+    return html`
+        <button
+            type="button"
+            class="c-btn-debug"
+            ${delegateEvents({
+      click: () => {
+        mainStore.debugStore();
+        console.log("componentMap", componentMap);
+        console.log("Tree structure:", getTree());
+        console.log("bindEventMap", bindEventMap);
+        console.log("currentListValueMap", currentRepeaterValueMap);
+        console.log("activeRepeatMap", activeRepeatMap);
+        console.log("repeatMap", repeatMap);
+        console.log("onMountCallbackMap", onMountCallbackMap);
+        console.log("staticPropsMap", staticPropsMap);
+        console.log("dynamicPropsMap", dynamicPropsMap);
+        console.log(
+          "repeaterTargetComponent",
+          repeaterTargetComponentMap
+        );
+        console.log("eventDelegationMap", eventDelegationMap);
+        console.log("tempDelegateEventMap", tempDelegateEventMap);
+      }
+    })}
+        >
+            Debug
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var debugButtonComponentDef = createComponent({
+    name: "debug-button",
+    component: DebugButton
+  });
+
   // src/js/component/common/mLogo1/mLogo1.js
   var Mlogo1 = ({ html, onMount, getState, watchSync }) => {
     const { svg, active } = getState();
@@ -30278,7 +30343,8 @@ Loading snippet ...</pre
     animationTitleDef,
     mLogo1SvgDef,
     scrollDownLabelDef,
-    codeButtonComponentDef
+    codeButtonComponentDef,
+    debugButtonComponentDef
   ]);
   var wrapper = async () => {
     const { data: svg } = await loadTextContent({
