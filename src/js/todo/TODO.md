@@ -33,12 +33,8 @@
 # MobJs
 
 ### Load component:
-- caricare le rotte cosi come sono ora.
-```js
-- aggiungere useComponent([comp1, comp2, ...])
-```
-- `useComponent` aggingera le definizioni dei componenti ad un `new Map`
-- Tutte le rotte e tutti i componenti usearnno la nuova funzione per poter caricare i componenti prima che parta l'applicazione.
+- nel nuovo task `useComponent` Mi son perso 3 componenti per strada: da 57 ne ritrovo 54.
+
 
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
