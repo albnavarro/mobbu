@@ -32,3 +32,4 @@ export {
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './mainStore/constant';
+export { useComponent } from './mainStore/componentList';

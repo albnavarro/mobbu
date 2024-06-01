@@ -5,29 +5,33 @@ import { defineSlotComponent } from '../webComponent/slot';
 import { defineUserComponent } from '../webComponent/userComponent';
 
 /**
- * @type {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<string>,componentParams:import('../type').componentParsedType }}}
+ * @type {{[key:string]:import('./type').componentListMapType}}
  */
 let componentListMap = {};
 
 /**
+ * @type {Set<import('./type').componentListMapType>}
+ */
+const availableComponent = new Set();
+
+/**
  * @description
+ * Inizalize components
  *
  * @returns void
  */
-export const setComponentList = (list = {}) => {
-    const componentList = Object.values(list).reduce(
+export const setComponentList = () => {
+    componentListMap = [...availableComponent.values()].reduce(
         (previous, current) => ({ ...previous, ...current }),
         {}
     );
-
-    componentListMap = componentList;
 
     /**
      * Register custom HTML tag component.
      * Thios custom TAG will be converted in native DOM element during parse.
      */
 
-    defineUserComponent(componentList);
+    defineUserComponent(componentListMap);
     defineRepeaterComponent();
     defineSlotComponent();
 };
@@ -35,8 +39,17 @@ export const setComponentList = (list = {}) => {
 /**
  * @description
  *
- * @returns {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<string>,componentParams:import('../type').componentParsedType }}}
+ * @returns {{[key:string]:import('./type').componentListMapType}}
  */
 export const getComponentList = () => {
     return componentListMap;
+};
+
+/**
+ * @param {{componentFunction:import('./type').componentFunctionType,componentParams:import('../type').componentParsedType}[]} components
+ */
+export const useComponent = (components) => {
+    components.forEach((component) => {
+        availableComponent.add(component);
+    });
 };

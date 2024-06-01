@@ -1,6 +1,5 @@
 // @ts-check
 
-import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { loadData } from './data';
 import { motionCore, tween } from './mobMotion';
@@ -76,7 +75,6 @@ mobCore.useLoad(() => {
             rootId: '#root',
             contentId: '#content',
             wrapper,
-            components,
             pages,
             index: 'home',
             pageNotFound: 'pageNotFound',

@@ -769,15 +769,6 @@ export interface inizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
     contentId: string;
-    components: {
-        [key: string]:
-            | {
-                  componentFunction: () => void;
-                  props: object;
-                  state: object;
-              }[]
-            | object;
-    };
     pages: {
         [key: string]: (() => Promise<string>) | (() => string);
     };

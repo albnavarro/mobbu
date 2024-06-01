@@ -31,7 +31,6 @@ export const inizializeApp = async ({
     rootId,
     wrapper,
     contentId,
-    components = {},
     pages = {},
     afterInit = () => {},
     index = 'home',
@@ -67,7 +66,7 @@ export const inizializeApp = async ({
     /**
      *
      */
-    setComponentList(components);
+    setComponentList();
 
     /**
      *
