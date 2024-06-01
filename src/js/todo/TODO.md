@@ -43,6 +43,10 @@
 
 Update docs con il nuovo `useComponent` && `child`
 
+### Type
+- i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
+- indicare nella docs il tipo di ogni parametro
+
 
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
