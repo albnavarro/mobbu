@@ -24859,6 +24859,35 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/common/shapes/footerShapeV1.js
+  var FooterShaperV1 = ({ html, onMount, getState }) => {
+    const { svg, position: position2 } = getState();
+    const positionClass = `shape-v1--${position2}`;
+    onMount(({ element }) => {
+      mobCore.useFrame(() => {
+        element.classList.add("active");
+      });
+    });
+    return html` <div class="shape-v1 ${positionClass}">${svg}</div> `;
+  };
+
+  // src/js/component/common/shapes/definition.js
+  var footerShaperV1Def = createComponent({
+    name: "footer-shape-v1",
+    component: FooterShaperV1,
+    exportState: ["position", "svg"],
+    state: {
+      position: () => ({
+        value: "left",
+        type: String
+      }),
+      svg: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
   // src/js/component/pages/horizontalScroller/animation/animation.js
   var sideWidth = 0;
   var createPins = ({ indicators, setState }) => {
@@ -25294,7 +25323,11 @@ Loading snippet ...</pre
         type: Boolean
       })
     },
-    child: [horizontalScrollerButtonDef, horizontalScrollerSectionDef]
+    child: [
+      horizontalScrollerButtonDef,
+      horizontalScrollerSectionDef,
+      footerShaperV1Def
+    ]
   });
 
   // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
