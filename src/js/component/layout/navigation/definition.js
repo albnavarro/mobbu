@@ -5,48 +5,6 @@ import { NavigationButton } from './navigationButton';
 import { NavigationLabel } from './navigationLabel';
 import { NavigationSubmenu } from './navigationSubmenu';
 
-export const navigationComponentDef = createComponent({
-    name: 'mob-navigation-container',
-    component: NavigationContainer,
-});
-
-export const navigationDef = createComponent({
-    name: 'mob-navigation',
-    component: Navigation,
-    exportState: ['currentAccordionId'],
-    state: {
-        currentAccordionId: () => ({
-            value: -1,
-            type: Number,
-            skipEqual: false,
-        }),
-    },
-});
-
-export const navigationSubmenuDef = createComponent({
-    name: 'mob-navigation-submenu',
-    component: NavigationSubmenu,
-    exportState: ['children', 'headerButton', 'isOpen', 'callback'],
-    state: {
-        callback: () => ({
-            value: () => {},
-            type: Function,
-        }),
-        headerButton: () => ({
-            value: {},
-            type: 'Any',
-        }),
-        children: () => ({
-            value: [],
-            type: Array,
-        }),
-        isOpen: () => ({
-            value: false,
-            type: Boolean,
-        }),
-    },
-});
-
 export const navigationButtonDef = createComponent({
     name: 'mob-navigation-button',
     type: 'button',
@@ -116,4 +74,49 @@ export const navigationLabelDef = createComponent({
             type: String,
         }),
     },
+});
+
+export const navigationSubmenuDef = createComponent({
+    name: 'mob-navigation-submenu',
+    component: NavigationSubmenu,
+    exportState: ['children', 'headerButton', 'isOpen', 'callback'],
+    state: {
+        callback: () => ({
+            value: () => {},
+            type: Function,
+        }),
+        headerButton: () => ({
+            value: {},
+            type: 'Any',
+        }),
+        children: () => ({
+            value: [],
+            type: Array,
+        }),
+        isOpen: () => ({
+            value: false,
+            type: Boolean,
+        }),
+    },
+    child: [navigationButtonDef],
+});
+
+export const navigationDef = createComponent({
+    name: 'mob-navigation',
+    component: Navigation,
+    exportState: ['currentAccordionId'],
+    state: {
+        currentAccordionId: () => ({
+            value: -1,
+            type: Number,
+            skipEqual: false,
+        }),
+    },
+    child: [navigationLabelDef, navigationSubmenuDef, navigationButtonDef],
+});
+
+export const navigationComponentDef = createComponent({
+    name: 'mob-navigation-container',
+    component: NavigationContainer,
+    child: [navigationDef],
 });

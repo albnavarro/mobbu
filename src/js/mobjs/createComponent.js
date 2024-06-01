@@ -1,5 +1,7 @@
 // @ts-check
 
+import { useComponent } from './mainStore/componentList';
+
 let defaultComponent = {
     scoped: false,
     maxParseIteration: 5000,
@@ -42,7 +44,10 @@ export const createComponent = ({
     attributeToObserve = [],
     attributeChangedCallback = () => {},
     style = '',
+    child = [],
 }) => {
+    useComponent(child);
+
     return {
         [name]: {
             componentFunction: component,

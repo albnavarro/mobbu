@@ -1,4 +1,5 @@
 import { mobStoreBaseData } from '../mobCore/store/type';
+import { componentFunctionType } from './mainStore/type';
 
 export interface componentReturnType {
     content: string;
@@ -715,6 +716,10 @@ export interface componentParsedType {
     attributeToObserve?: string[];
     style?: string;
     state: mobStoreBaseData;
+    child: {
+        componentFunction: componentFunctionType;
+        componentParams: componentParsedType;
+    }[];
 }
 
 export interface createComponentType extends componentParsedType {

@@ -26,6 +26,9 @@ export const setComponentList = () => {
         {}
     );
 
+    console.log(componentListMap);
+    console.log(Object.keys(componentListMap).length);
+
     /**
      * Register custom HTML tag component.
      * Thios custom TAG will be converted in native DOM element during parse.

@@ -1,9 +1,4 @@
-import {
-    getIdByInstanceName,
-    html,
-    loadUrl,
-    setStateById,
-} from '../../../../mobjs';
+import { html, loadUrl } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 
 const data = [

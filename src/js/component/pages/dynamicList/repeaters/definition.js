@@ -1,4 +1,6 @@
 import { createComponent } from '../../../../mobjs';
+import { dynamicListCardDef } from '../card/definition';
+import { dynamicListLabelDef } from '../slottedLabel/definition';
 import { DynamicListRepeater } from './dynamicListRepeater';
 
 export const dynamicListRepeaterDef = createComponent({
@@ -39,4 +41,5 @@ export const dynamicListRepeaterDef = createComponent({
             type: String,
         }),
     },
+    child: [dynamicListCardDef, dynamicListLabelDef],
 });

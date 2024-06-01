@@ -1,5 +1,18 @@
-import { html, staticProps } from '../../../mobjs';
+import { docsContainerComponentDef } from '../../../component/common/docsContainer/definition';
+import { docsTitleComponentDef } from '../../../component/common/doctitle/definition';
+import { docsTitleSmallComponentDef } from '../../../component/common/doctitleSmall/definition';
+import { htmlContentDef } from '../../../component/common/htmlContent/definition';
+import { scrollToDef } from '../../../component/common/scrollTo/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
+
+useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef,
+]);
 
 export const mobJs_utils = async () => {
     const { data } = await loadJsonContent({

@@ -12,6 +12,7 @@ export const paramsMobJsDef = createComponent({
             type: String,
         }),
     },
+    child: [paramsMobJsButtonDef],
 });
 
 export const paramsMobJsButtonDef = createComponent({

@@ -1,4 +1,10 @@
 import { createComponent } from '../../../mobjs';
+import { loaderDef } from '../loader/definition';
+import { snippetContentDef } from '../snippet/definition';
+import { spacerContentDef } from '../spacerAnchor/definition';
+import { listContentDef } from '../typography/list/definition';
+import { paragraphContentDef } from '../typography/paragraph/definition';
+import { titleContentDef } from '../typography/titles/definition';
 import { HtmlContent } from './htmlContent';
 
 export const htmlContentDef = createComponent({
@@ -27,4 +33,12 @@ export const htmlContentDef = createComponent({
             type: Boolean,
         }),
     },
+    child: [
+        listContentDef,
+        paragraphContentDef,
+        titleContentDef,
+        loaderDef,
+        snippetContentDef,
+        spacerContentDef,
+    ],
 });

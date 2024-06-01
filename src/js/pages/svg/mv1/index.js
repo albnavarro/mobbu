@@ -1,5 +1,8 @@
-import { html, staticProps } from '../../../mobjs';
+import { Mv1Def } from '../../../component/pages/svg/mv1/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
+
+useComponent([Mv1Def]);
 
 export const mv1 = async () => {
     const { data: logo } = await loadTextContent({

@@ -1,4 +1,5 @@
 import { createComponent } from '../../../mobjs';
+import { scrollToButtonDef } from './button/definition';
 import { ScrollTo } from './scrollTo';
 
 export const scrollToDef = createComponent({
@@ -15,4 +16,5 @@ export const scrollToDef = createComponent({
             type: Array,
         }),
     },
+    child: [scrollToButtonDef],
 });

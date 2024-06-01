@@ -1,5 +1,8 @@
-import { html, staticProps } from '../../../mobjs';
+import { svgChild } from '../../../component/pages/svg/child/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
+
+useComponent([svgChild]);
 
 export const child = async () => {
     const { data: svg } = await loadTextContent({

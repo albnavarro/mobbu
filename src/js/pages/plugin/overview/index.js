@@ -1,11 +1,29 @@
-import { html, staticProps } from '../../../mobjs';
+import { docsContainerComponentDef } from '../../../component/common/docsContainer/definition';
+import { docsTitleComponentDef } from '../../../component/common/doctitle/definition';
+import { docsTitleSmallComponentDef } from '../../../component/common/doctitleSmall/definition';
+import { htmlContentDef } from '../../../component/common/htmlContent/definition';
+import { scrollToDef } from '../../../component/common/scrollTo/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
+import { loadJsonContent } from '../../../utils/utils';
+
+useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef,
+]);
 
 export const plugin_overview = async () => {
+    const { data } = await loadJsonContent({
+        source: './data/plugin/overview.json',
+    });
+
     return html` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-                source: './data/plugin/overview.json',
+                data: data.data,
                 useMaxWidth: true,
             })}
         ></html-content>

@@ -4629,217 +4629,6 @@
   // src/js/mobjs/creationStep/utils.js
   var renderHtml = (strings, ...values) => String.raw({ raw: strings }, ...values);
 
-  // src/js/mobjs/createComponent.js
-  var defaultComponent = {
-    scoped: false,
-    maxParseIteration: 5e3,
-    debug: false
-  };
-  var setDefaultComponent = (obj) => {
-    defaultComponent = { ...defaultComponent, ...obj };
-  };
-  var getDefaultComponent = () => defaultComponent;
-  var createComponent = ({
-    name = "",
-    component = () => {
-    },
-    state = {},
-    exportState = [],
-    scoped,
-    constructorCallback = () => {
-    },
-    connectedCallback = () => {
-    },
-    disconnectedCallback = () => {
-    },
-    adoptedCallback = () => {
-    },
-    attributeToObserve = [],
-    attributeChangedCallback = () => {
-    },
-    style = ""
-  }) => {
-    return {
-      [name]: {
-        componentFunction: component,
-        componentParams: {
-          exportState,
-          scoped,
-          state,
-          constructorCallback,
-          connectedCallback,
-          disconnectedCallback,
-          adoptedCallback,
-          attributeToObserve,
-          attributeChangedCallback,
-          style
-        }
-      }
-    };
-  };
-
-  // src/js/mobjs/temporaryData/bindEvents/index.js
-  var bindEventMap = /* @__PURE__ */ new Map();
-  var setBindEvents = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
-    const id = mobCore.getUnivoqueId();
-    bindEventMap.set(id, eventsDataParsed);
-    return id;
-  };
-  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
-    const eventArray = bindEventMap.get(bindEventsId);
-    if (!eventArray) return;
-    eventArray.forEach((event) => {
-      const [eventName] = Object.keys(event);
-      const [callback2] = Object.values(event);
-      if (!eventName || !callback2) return;
-      element.addEventListener(eventName, (e) => {
-        const currentRepeaterState = getRepeaterStateById({
-          id: componentId
-        });
-        callback2(e, currentRepeaterState);
-      });
-    });
-    bindEventMap.delete(bindEventsId);
-  };
-  var removeOrphansBindEvent = () => {
-    bindEventMap.clear();
-  };
-
-  // src/js/mobjs/query/queryAllFutureComponent.js
-  function* walkPreOrder(node) {
-    if (!node) return;
-    yield node;
-    for (const child2 of node.children) {
-      yield* walkPreOrder(child2);
-    }
-  }
-  function selectAll(root2, oneDepth) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (result.length > 0 && oneDepth) break;
-      if (node?.getIsPlaceholder?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryAllFutureComponent = (node, oneDepth = true) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll(child2, oneDepth)];
-    }
-    return result;
-  };
-
-  // src/js/mobjs/componentStore/utils.js
-  var updateChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...childGroupByName, id];
-    return currentChild;
-  };
-  var removeChildFromChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = childGroupByName.filter(
-      (currentId) => {
-        return id !== currentId;
-      }
-    );
-    return currentChild;
-  };
-  var addPropsToState = ({ props, store }) => {
-    Object.entries(props).forEach(([key, value]) => {
-      store.set(key, value);
-    });
-  };
-
-  // src/js/mobjs/componentStore/action/parent.js
-  var getParentIdById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    if (!parentId) {
-      return;
-    }
-    return parentId;
-  };
-  var addSelfIdToParentComponent = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    const componentName = item?.componentName ?? "";
-    if (!parentId) return;
-    const value = componentMap.get(parentId);
-    if (!value) return;
-    const { child: child2 } = value;
-    if (!child2) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child2,
-        ...updateChildrenArray({
-          currentChild: child2,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-  var setParentsIdFallback = ({ componentId }) => {
-    const item = componentMap.get(componentId);
-    if (!item) return;
-    const { element, parentId } = item;
-    if (parentId && parentId.length > 0) return;
-    const parentNode = (
-      /** @type {HTMLElement|undefined} */
-      element?.parentNode
-    );
-    const parent = (
-      /** @type {HTMLElement|undefined} */
-      parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
-    );
-    const newItem = parent && (!parentId || parentId === "") ? {
-      ...item,
-      parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? ""
-    } : item;
-    componentMap.set(componentId, newItem);
-  };
-  var addParentIdToFutureComponent = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
-    children.forEach((child2) => {
-      child2.setParentId(id);
-    });
-  };
-
-  // src/js/mobjs/componentStore/action/props.js
-  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { parentPropsWatcher } = item;
-    if (!parentPropsWatcher) return;
-    componentMap.set(id, {
-      ...item,
-      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
-    });
-  };
-  var unBind = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
-    parentPropsWatcher.forEach((unwatch) => {
-      unwatch();
-    });
-  };
-
   // src/js/mobjs/webComponent/repeater.js
   var defineRepeaterComponent = () => {
     customElements.define(
@@ -5308,6 +5097,8 @@
       (previous, current) => ({ ...previous, ...current }),
       {}
     );
+    console.log(componentListMap);
+    console.log(Object.keys(componentListMap).length);
     defineUserComponent(componentListMap);
     defineRepeaterComponent();
     defineSlotComponent();
@@ -5318,6 +5109,219 @@
   var useComponent = (components) => {
     components.forEach((component) => {
       availableComponent.add(component);
+    });
+  };
+
+  // src/js/mobjs/createComponent.js
+  var defaultComponent = {
+    scoped: false,
+    maxParseIteration: 5e3,
+    debug: false
+  };
+  var setDefaultComponent = (obj) => {
+    defaultComponent = { ...defaultComponent, ...obj };
+  };
+  var getDefaultComponent = () => defaultComponent;
+  var createComponent = ({
+    name = "",
+    component = () => {
+    },
+    state = {},
+    exportState = [],
+    scoped,
+    constructorCallback = () => {
+    },
+    connectedCallback = () => {
+    },
+    disconnectedCallback = () => {
+    },
+    adoptedCallback = () => {
+    },
+    attributeToObserve = [],
+    attributeChangedCallback = () => {
+    },
+    style = "",
+    child: child2 = []
+  }) => {
+    useComponent(child2);
+    return {
+      [name]: {
+        componentFunction: component,
+        componentParams: {
+          exportState,
+          scoped,
+          state,
+          constructorCallback,
+          connectedCallback,
+          disconnectedCallback,
+          adoptedCallback,
+          attributeToObserve,
+          attributeChangedCallback,
+          style
+        }
+      }
+    };
+  };
+
+  // src/js/mobjs/temporaryData/bindEvents/index.js
+  var bindEventMap = /* @__PURE__ */ new Map();
+  var setBindEvents = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
+    const id = mobCore.getUnivoqueId();
+    bindEventMap.set(id, eventsDataParsed);
+    return id;
+  };
+  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
+    const eventArray = bindEventMap.get(bindEventsId);
+    if (!eventArray) return;
+    eventArray.forEach((event) => {
+      const [eventName] = Object.keys(event);
+      const [callback2] = Object.values(event);
+      if (!eventName || !callback2) return;
+      element.addEventListener(eventName, (e) => {
+        const currentRepeaterState = getRepeaterStateById({
+          id: componentId
+        });
+        callback2(e, currentRepeaterState);
+      });
+    });
+    bindEventMap.delete(bindEventsId);
+  };
+  var removeOrphansBindEvent = () => {
+    bindEventMap.clear();
+  };
+
+  // src/js/mobjs/query/queryAllFutureComponent.js
+  function* walkPreOrder(node) {
+    if (!node) return;
+    yield node;
+    for (const child2 of node.children) {
+      yield* walkPreOrder(child2);
+    }
+  }
+  function selectAll(root2, oneDepth) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (result.length > 0 && oneDepth) break;
+      if (node?.getIsPlaceholder?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryAllFutureComponent = (node, oneDepth = true) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child2 of root2.children) {
+      result = [...result, ...selectAll(child2, oneDepth)];
+    }
+    return result;
+  };
+
+  // src/js/mobjs/componentStore/utils.js
+  var updateChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = [...childGroupByName, id];
+    return currentChild;
+  };
+  var removeChildFromChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = childGroupByName.filter(
+      (currentId) => {
+        return id !== currentId;
+      }
+    );
+    return currentChild;
+  };
+  var addPropsToState = ({ props, store }) => {
+    Object.entries(props).forEach(([key, value]) => {
+      store.set(key, value);
+    });
+  };
+
+  // src/js/mobjs/componentStore/action/parent.js
+  var getParentIdById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    if (!parentId) {
+      return;
+    }
+    return parentId;
+  };
+  var addSelfIdToParentComponent = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    const componentName = item?.componentName ?? "";
+    if (!parentId) return;
+    const value = componentMap.get(parentId);
+    if (!value) return;
+    const { child: child2 } = value;
+    if (!child2) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...updateChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+  var setParentsIdFallback = ({ componentId }) => {
+    const item = componentMap.get(componentId);
+    if (!item) return;
+    const { element, parentId } = item;
+    if (parentId && parentId.length > 0) return;
+    const parentNode = (
+      /** @type {HTMLElement|undefined} */
+      element?.parentNode
+    );
+    const parent = (
+      /** @type {HTMLElement|undefined} */
+      parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
+    );
+    const newItem = parent && (!parentId || parentId === "") ? {
+      ...item,
+      parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? ""
+    } : item;
+    componentMap.set(componentId, newItem);
+  };
+  var addParentIdToFutureComponent = ({ element, id }) => {
+    const children = queryAllFutureComponent(element, false);
+    children.forEach((child2) => {
+      child2.setParentId(id);
+    });
+  };
+
+  // src/js/mobjs/componentStore/action/props.js
+  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { parentPropsWatcher } = item;
+    if (!parentPropsWatcher) return;
+    componentMap.set(id, {
+      ...item,
+      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
+    });
+  };
+  var unBind = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
+    parentPropsWatcher.forEach((unwatch) => {
+      unwatch();
     });
   };
 
@@ -7175,36 +7179,42 @@
     return `${ATTR_PROPS}="${setStaticProps(props)}"`;
   };
 
-  // src/js/mobjs/componentStore/action/getTree.js
-  var getTreeRecursive = ({ chunk }) => {
-    return chunk.reduce((previous, current) => {
-      const [key, value] = current;
-      const { child: child2, componentName, instanceName } = value;
-      const childrenId = new Set(Object.values(child2 ?? {}).flat());
-      const childrenChunk = [...componentMap.entries()].filter(
-        ([key2]) => childrenId.has(key2)
-      );
-      return [
-        ...previous,
-        {
-          id: key,
-          componentName,
-          instanceName,
-          children: getTreeRecursive({
-            chunk: childrenChunk
-          })
-        }
-      ];
-    }, []);
-  };
-  var getTree = () => {
-    const chunk = [...componentMap.entries()].filter(
-      ([, value]) => !value?.parentId || value?.parentId === ""
-    );
-    return getTreeRecursive({ chunk });
+  // src/js/component/common/typography/titles/title.js
+  var Title = ({ html, getState }) => {
+    const { tag, color, isBold } = getState();
+    const colorClass = `is-${color}`;
+    const boldClass = isBold ? `is-bold` : "";
+    return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
+        <mobjs-slot/>
+    </${tag}>`;
   };
 
+  // src/js/component/common/typography/titles/definition.js
+  var titleContentDef = createComponent({
+    name: "mob-title",
+    component: Title,
+    exportState: ["tag", "color", "isBold"],
+    state: {
+      tag: () => ({
+        value: "h1",
+        type: String
+      }),
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (val2) => {
+          return ["white", "hightlight"].includes(val2);
+        }
+      }),
+      isBold: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
   // src/js/pages/404/index.js
+  useComponent([titleContentDef]);
   var pageNotFound2 = () => {
     return renderHtml`
         <div class="page-not-found">
@@ -7214,187 +7224,6 @@
             <a href="./#home">back to home</a>
         </div>
     `;
-  };
-
-  // src/js/pages/canvas/animatedPatternN0/animatedPatternN0Params.js
-  var animatedPatternN0Params = [
-    {
-      title: "Animated pattern N.0 v0",
-      animation: {},
-      nav: {
-        prevRoute: "#caterpillarN2",
-        nextRoute: "#animatedPatternN0?version=1&activeId=1"
-      }
-    },
-    {
-      title: "Animated pattern N.0 v1",
-      animation: {
-        fill: [
-          0,
-          13,
-          20,
-          45,
-          65,
-          71,
-          72,
-          73,
-          74,
-          75,
-          76,
-          77,
-          83,
-          92,
-          96,
-          113,
-          117,
-          134,
-          138,
-          155,
-          156,
-          157,
-          158,
-          159,
-          189,
-          209
-        ],
-        gutter: 1,
-        numberOfColumn: 20,
-        numberOfRow: 10,
-        cellWidth: 50,
-        cellHeight: 50,
-        stagger: {
-          each: 2,
-          from: "random",
-          waitComplete: false
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#animatedPatternN0?version=0&activeId=0",
-        nextRoute: "#animatedPatternN0?version=2&activeId=2"
-      }
-    },
-    {
-      title: "Animated pattern N.0 v2",
-      animation: {
-        fill: [
-          0,
-          13,
-          20,
-          45,
-          65,
-          71,
-          72,
-          73,
-          74,
-          75,
-          76,
-          77,
-          83,
-          92,
-          96,
-          113,
-          117,
-          134,
-          138,
-          155,
-          156,
-          157,
-          158,
-          159,
-          189,
-          209
-        ],
-        gutter: 1,
-        numberOfColumn: 10,
-        numberOfRow: 10,
-        cellWidth: 50,
-        cellHeight: 50,
-        stagger: {
-          each: 10,
-          from: "edges",
-          waitComplete: false
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#animatedPatternN0?version=1&activeId=1",
-        nextRoute: "#animatedPatternN0?version=3&activeId=3"
-      }
-    },
-    {
-      title: "Animated pattern N.0 v3",
-      animation: {
-        fill: [],
-        gutter: 1,
-        numberOfColumn: 12,
-        numberOfRow: 13,
-        cellWidth: 50,
-        cellHeight: 50,
-        stagger: {
-          each: 20,
-          from: { x: 6, y: 6 },
-          grid: {
-            col: 13,
-            row: 13,
-            direction: "radial"
-          },
-          waitComplete: false
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#animatedPatternN0?version=2&activeId=2",
-        nextRoute: "#animatedPatternN1"
-      }
-    }
-  ];
-
-  // src/js/pages/canvas/animatedPatternN0/index.js
-  var animatedPatternN0 = ({ params }) => {
-    const { version } = params;
-    const props = animatedPatternN0Params[Math.max(
-      0,
-      Math.min(Number(version), animatedPatternN0Params.length - 1)
-    )];
-    return renderHtml`<div class="l-padding">
-        <animatedpattern-n0
-            ${staticProps({
-      ...props.animation,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      title: props.title
-    })}
-        ></animatedpattern-n0>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/animatedPatternN1/index.js
-  var animatedPatternN1 = () => {
-    return renderHtml`<div class="l-padding">
-        <animatedpattern-n1></animatedpattern-n1>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/caterpillarN0/index.js
-  var caterpillarN0 = () => {
-    return renderHtml`<div class="l-padding">
-        <caterpillar-n0></caterpillar-n0>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/caterpillarN1/index.js
-  var caterpillarN1 = () => {
-    return renderHtml`<div class="l-padding">
-        <caterpillar-n1></caterpillar-n1>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/caterpillarN2/index.js
-  var caterpillarN2 = () => {
-    return renderHtml`<div class="l-padding">
-        <caterpillar-n2></caterpillar-n2>
-    </div>`;
   };
 
   // src/js/utils/utils.js
@@ -7461,1447 +7290,6 @@
       success: true,
       data: data3
     };
-  };
-
-  // src/js/pages/home/index.js
-  var home = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/ms.svg"
-    });
-    return renderHtml`<div class="l-index">
-        <home-component ${staticProps({ svg })}></home-component>
-    </div>`;
-  };
-
-  // src/js/pages/about/index.js
-  var about = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/about.json"
-    });
-    return renderHtml`<doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">About </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">About</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/plugin/overview/index.js
-  var plugin_overview = async () => {
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      source: "./data/plugin/overview.json",
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">Plugin </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Plugin</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
-  var horizontalScrollerParams = [
-    {
-      title: "horizontalScroller with fixed pin",
-      animatePin: false,
-      nav: {
-        prevRoute: "",
-        nextRoute: "#horizontalScroller?version=1&activeId=1"
-      }
-    },
-    {
-      title: "horizontalScroller with animated pin",
-      animatePin: true,
-      nav: {
-        prevRoute: "#horizontalScroller?version=0&activeId=0",
-        nextRoute: ""
-      }
-    }
-  ];
-
-  // src/js/pages/plugin/horizontalScroller/index.js
-  var horizontalScroller = async ({ params }) => {
-    const { version } = params;
-    const props = horizontalScrollerParams[Math.max(
-      0,
-      Math.min(Number(version), horizontalScrollerParams.length - 1)
-    )];
-    const { data: data_left } = await loadTextContent({
-      source: "./asset/svg/footer_shape_left.svg"
-    });
-    const { data: data_right } = await loadTextContent({
-      source: "./asset/svg/footer_shape_right.svg"
-    });
-    return renderHtml`<div>
-        <horizontal-scroller
-            ${staticProps({
-      animatePin: props.animatePin,
-      svgLeft: data_left,
-      svgRight: data_right,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute
-    })}
-        ></horizontal-scroller>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/overview/index.js
-  var canvas_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/canvas/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">Canvas </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Canvas</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/canvas/scroller/scrollerParams.js
-  var scrollerParams = [
-    {
-      title: "Scroller N.0 v0",
-      animation: {},
-      nav: {
-        prevRoute: "#animatedPatternN1",
-        nextRoute: "#scrollerN0?version=1&activeId=1"
-      }
-    },
-    {
-      title: "Scroller N.0 v1",
-      animation: {
-        stagger: {
-          type: "end",
-          each: 1,
-          from: { x: 0, y: 0 },
-          grid: { col: 11, row: 10, direction: "radial" }
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=0&activeId=0",
-        nextRoute: "#scrollerN0?version=2&activeId=2"
-      }
-    },
-    {
-      title: "Scroller N.0 v2",
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 7,
-          from: "center",
-          grid: { col: 11, row: 10, direction: "col" }
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=1&activeId=1",
-        nextRoute: "#scrollerN0?version=3&activeId=3"
-      }
-    },
-    {
-      title: "Scroller N.0 v3",
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 3,
-          from: "end",
-          grid: { col: 11, row: 10, direction: "row" }
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=2&activeId=2",
-        nextRoute: "#scrollerN0?version=4&activeId=4"
-      }
-    },
-    {
-      title: "Scroller N.0 v4",
-      animation: {
-        stagger: {
-          type: "equal",
-          each: 2,
-          from: "end"
-        },
-        reorder: false
-      },
-      nav: {
-        prevRoute: "#scrollerN0?version=3&activeId=3",
-        nextRoute: "#scrollerN1"
-      }
-    }
-  ];
-
-  // src/js/pages/canvas/scroller/index.js
-  var scrollerN0 = ({ params }) => {
-    const { version } = params;
-    const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
-    return renderHtml`<div>
-        <scroller-n0
-            ${staticProps({
-      ...props.animation,
-      prevRoute: props.nav.prevRoute,
-      nextRoute: props.nav.nextRoute,
-      title: props.title
-    })}
-        ></scroller-n0>
-    </div>`;
-  };
-
-  // src/js/pages/canvas/scrollerN1/index.js
-  var scrollerN1 = () => {
-    return renderHtml`<div class="l-padding">
-        <scroller-n1></scroller-n1>
-    </div>`;
-  };
-
-  // src/js/pages/dynamicList/index.js
-  var dynamic_list = () => {
-    return renderHtml` <dynamic-list> </dynamic-list> `;
-  };
-
-  // src/js/pages/mobJs/overview/index.js
-  var mobJs_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobjs </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobJs</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/initialization/index.js
-  var mobJs_initialization = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/initialization.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>initialization</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Initialization</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/routing/index.js
-  var mobJs_routing = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/routing.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>routing</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">routing</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/component/index.js
-  var mobJs_component = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/component.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>component</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Component</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/html/index.js
-  var mobJs_html = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/html.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>html</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">HTML</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/onMount/index.js
-  var mobJs_onMount = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/onMount.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>onMount</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">onMount</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/getState/index.js
-  var mobJs_getState = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getState.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getState</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getState</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/setState/index.js
-  var mobJs_setState = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/setState.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>setState</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">setState</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/emit/index.js
-  var mobJs_emit = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/emit.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>emit</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">emit</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/emitAsync/index.js
-  var mobJs_emitAsync = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/emitAsync.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>emitAsync</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">emitAsync</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/computed/index.js
-  var mobJs_computed = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/computed.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>computed</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">computed</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/watch/index.js
-  var mobJs_watch = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watch.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watch</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watch</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/watchSync/index.js
-  var mobJs_watchSync = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watchSync.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watchSync</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watchSync</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/renderComponent/index.js
-  var mobJs_renderComponent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/renderDom.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>renderDom</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">renderDom</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/remove/index.js
-  var mobJs_remove = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/remove.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>remove</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">remove</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/removeDom/index.js
-  var mobJs_removeDom = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/removeDom.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>removeDom</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">removeDom</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/getChildren/index.js
-  var mobJs_getChildren = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getChildren.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getChildren</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getChildren</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/freezeProp/index.js
-  var mobJs_freezeProp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/freezeProp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>freezeProp</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">freezeProp</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/unFreezeProp/index.js
-  var mobJs_unFreezeProp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/unFreezeProp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>unFreezeProp</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">unFreezeProp</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/getParentId/index.js
-  var mobJs_getParentId = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getParentId.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getParentId</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getParentId</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/watchParent/index.js
-  var mobJs_watchParent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watchParent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watchParent</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watchParent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/staticProps/index.js
-  var mobJs_staticProps = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/staticProps.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>staticProps</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">staticProps</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/bindProps/index.js
-  var mobJs_bindProps = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/bindProps.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>bindProps</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">bindProps</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/unBind/index.js
-  var mobJs_unBind = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/unBind.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>unBind</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">unBind</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/syncParent/index.js
-  var mobJs_syncParent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/syncParent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>syncParent</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">syncParent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/bindEvents/index.js
-  var mobJs_bindEvents = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/bindEvents.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>bindEvents</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">bindEvents</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/delegateEvents/index.js
-  var mobJs_delegateEvents = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/delegateEvents.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>delegateEvents</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">delegateEvents</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/repeat/index.js
-  var mobJs_repeat = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/repeat.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>repeat</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">repeat</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/refs/index.js
-  var mobJs_refs = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/refs.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>refs</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">refs</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/slot/index.js
-  var mobJs_slot = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/slot.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>slot</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">slot</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/utils/index.js
-  var mobJs_utils = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/utils.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>utils</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Utils</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/webComponent/index.js
-  var mobJs_web_component = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/webComponent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>webComponent</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">WebComponent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/debug/index.js
-  var mobJs_debug = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/debug.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>debug</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Debug</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/runtime/index.js
-  var mobJs_runtime = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/runtime.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>runtime</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Runtime</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/instanceName/index.js
-  var mobJs_instanceName = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/instanceName.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>instanceName</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">InstanceName</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/tick/index.js
-  var mobJs_tick = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/tick.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>tick</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Tick</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/overview/index.js
-  var mobCore_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobCore </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobCore</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/events/index.js
-  var mobCore_events = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/events.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Events</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Events</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/store/index.js
-  var mobCore_store = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/store.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Store</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Store</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/defaults/index.js
-  var mobCore_defaults = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/defaults.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Defaults</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/asyncTimeline/index.js
-  var mobMotion_async_timeline = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/asyncTimeline.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Async timeline</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Async timeline</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/createStagger/index.js
-  var mobMotion_create_stagger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/createStagger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>CreateStagger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">CreateStagger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/overview/index.js
-  var mobMotion_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobMotion </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobMotion</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/parallax/index.js
-  var mobMotion_parallax = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/parallax.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Parallax</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Parallax</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/scrollTrigger/index.js
-  var mobMotion_scrolltrigger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/scrollTrigger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>ScrollTrigger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">ScrollTrigger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/sequencer/index.js
-  var mobMotion_sequencer = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/sequencer.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Sequencer</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Sequencer</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/stagger/index.js
-  var mobMotion_stagger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/stagger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Stagger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Stagger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/syncTimeline/index.js
-  var mobMotion_sync_timeline = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/syncTimeline.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Sync timeline</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Sync timeline</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/tweenSpringLerp/index.js
-  var mobMotion_tween_spring_lerp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/tweenSpringLerp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Tween Spring Lerp</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Tweens</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/defaults/index.js
-  var mobMotion_defaults = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/defaults.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Defaults</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Defaults</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/svg/overview/index.js
-  var svg_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/svg/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">Svg</doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Svg</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/svg/child/index.js
-  var child = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/child.svg"
-    });
-    const { data: star } = await loadTextContent({
-      source: "./asset/svg/star.svg"
-    });
-    return renderHtml`<div>
-        <svg-child ${staticProps({ svg, star })}></svg-child>
-    </div>`;
-  };
-
-  // src/js/pages/svg/mv1/index.js
-  var mv1 = async () => {
-    const { data: logo } = await loadTextContent({
-      source: "./asset/svg/logo-color.svg"
-    });
-    const { data: sideShape } = await loadTextContent({
-      source: "./asset/svg/piece-arrow.svg"
-    });
-    return renderHtml`<div>
-        <mv1-component ${staticProps({ logo, sideShape })}></mv1-component>
-    </div>`;
-  };
-
-  // src/js/data/index.js
-  var commonData = {};
-  var legendData = {};
-  var getCommonData = () => commonData;
-  var getLegendData = () => legendData;
-  var loadData = async () => {
-    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
-    legendData = await fetch(`./data/legend.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
   };
 
   // src/js/mobMotion/animation/spring/springConfig.js
@@ -21377,8 +19765,142 @@
     }
   };
 
-  // src/svg/icon-code.svg
-  var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
+  // src/js/component/common/onlyDesktop/onlyDesktop.js
+  var content = renderHtml`
+    <div class="only-desktop">
+        <h3>This content is available only on desktop</h3>
+        <h4>Need page reload on a screen size up to 1024px</h4>
+    </div>
+`;
+  var onResize = ({ element }) => {
+    element.textContent = "";
+    if (motionCore.mq("min", "desktop")) return;
+    element.textContent = "";
+    element.insertAdjacentHTML("afterbegin", content);
+  };
+  var OnlyDesktop = ({ html, onMount }) => {
+    onMount(({ element }) => {
+      onResize({ element });
+      mobCore.useResize(() => {
+        onResize({ element });
+      });
+    });
+    return html` <div class="only-desktop-container" ref="container"></div> `;
+  };
+
+  // src/js/component/common/onlyDesktop/definition.js
+  var onlyDesktopDef = createComponent({
+    name: "only-desktop",
+    component: OnlyDesktop,
+    state: {}
+  });
+
+  // src/js/data/index.js
+  var commonData = {};
+  var legendData = {};
+  var getCommonData = () => commonData;
+  var getLegendData = () => legendData;
+  var loadData = async () => {
+    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
+    legendData = await fetch(`./data/legend.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
+  };
+
+  // src/js/utils/canvasUtils.js
+  var canvasBackground = "#000000";
+  var getCanvasContext = ({ disableOffcanvas }) => {
+    const useOffscreen = "OffscreenCanvas" in window && !disableOffcanvas;
+    const context = useOffscreen ? "bitmaprenderer" : "2d";
+    return { useOffscreen, context };
+  };
+  var getOffsetCanvas = ({ useOffscreen, canvas }) => {
+    const offscreen = useOffscreen ? new OffscreenCanvas(canvas.width, canvas.height) : null;
+    const offScreenCtx = useOffscreen ? offscreen.getContext("2d") : null;
+    return { offscreen, offScreenCtx };
+  };
+  var copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
+    if (useOffscreen) {
+      const bitmap = offscreen.transferToImageBitmap();
+      ctx.transferFromImageBitmap(bitmap);
+    }
+  };
+  var roundRectIsSupported = (ctx) => "roundRect" in ctx;
+  var roundRectCustom = (ctx, x, y, w, h, r) => {
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  };
+  var createGrid = ({
+    canvas,
+    numberOfRow,
+    numberOfColumn,
+    cellWidth,
+    cellHeight,
+    gutter
+  }) => {
+    return [
+      ...new Array(numberOfRow * numberOfColumn + numberOfRow).keys()
+    ].reduce(
+      (previous) => {
+        const { row, col, items: previousItems } = previous;
+        const newCol = col < numberOfColumn ? col + 1 : 0;
+        const newRow = newCol === 0 ? row + 1 : row;
+        const x = (cellWidth + gutter) * newCol;
+        const y = (cellHeight + gutter) * newRow;
+        return {
+          row: newRow,
+          col: newCol,
+          items: [
+            ...previousItems,
+            {
+              width: cellWidth,
+              height: cellHeight,
+              x,
+              y,
+              centerX: x + cellWidth / 2,
+              centerY: y + cellHeight / 2,
+              offsetXCenter: getOffsetXCenter({
+                canvasWidth: canvas.width,
+                width: cellWidth,
+                gutter,
+                numberOfColumn
+              }),
+              offsetYCenter: getOffsetYCenter({
+                canvasHeight: canvas.height,
+                height: cellHeight,
+                gutter,
+                numberOfRow
+              }),
+              gutter,
+              numberOfColumn
+            }
+          ]
+        };
+      },
+      { row: 0, col: -1, items: [] }
+    );
+  };
+  var getOffsetXCenter = ({
+    canvasWidth,
+    width,
+    gutter,
+    numberOfColumn
+  }) => {
+    return canvasWidth / 2 - (width + gutter) * numberOfColumn / 2 - width / 2;
+  };
+  var getOffsetYCenter = ({
+    canvasHeight,
+    height,
+    gutter,
+    numberOfRow
+  }) => {
+    return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2 - height / 2;
+  };
 
   // src/js/component/layout/navigation/store/navStore.js
   var navigationStore = mobCore.createStore({
@@ -21403,78 +19925,3209 @@
     })
   });
 
-  // src/js/component/common/codeButton/codeButton.js
-  var CodeButton = ({
-    getState,
-    watchSync,
-    onMount,
-    html,
-    delegateEvents
+  // src/js/component/pages/animatedPattern/animatedPatternN0/animation/animation.js
+  var animatedPatternN0Animation = ({
+    canvas,
+    numberOfRow,
+    numberOfColumn,
+    cellWidth,
+    cellHeight,
+    gutter,
+    fill,
+    disableOffcanvas,
+    stagger,
+    reorder
   }) => {
-    onMount(({ element }) => {
-      watchSync("color", (value) => {
-        if (value === "black") {
-          element.classList.remove("c-code-btn--white");
-          element.classList.add("c-code-btn--black");
-        }
-        if (value === "white") {
-          element.classList.add("c-code-btn--white");
-          element.classList.remove("c-code-btn--black");
-        }
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let isActive = true;
+    let gridData = [];
+    let data3 = [];
+    let gridTween = {};
+    let gridTimeline = {};
+    let ctx = canvas.getContext(context, { alpha: false });
+    const { activeRoute } = mainStore.get();
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    gridData = createGrid({
+      canvas,
+      numberOfRow,
+      numberOfColumn,
+      cellWidth,
+      cellHeight,
+      gutter
+    }).items;
+    data3 = reorder ? gridData.map((item, i) => {
+      return {
+        ...item,
+        scale: 1,
+        rotate: 0,
+        hasFill: fill.includes(i)
+      };
+    }).sort((value) => value.hasFill ? -1 : 1).reverse() : gridData.map((item, i) => {
+      const hasFill = fill.includes(i);
+      return {
+        ...item,
+        scale: 1,
+        rotate: 0,
+        hasFill
+      };
+    });
+    gridTween = tween.createTween({
+      ease: "easeInOutQuad",
+      stagger,
+      data: { scale: 1, rotate: 0 }
+    });
+    data3.forEach((item) => {
+      gridTween.subscribeCache(item, ({ scale, rotate }) => {
+        item.rotate = rotate;
+        item.scale = scale;
       });
-      watchSync("drawers", (value) => {
-        const isActive = value.length > 0;
-        element.classList.toggle("active", isActive);
-      });
-      const unsubscribeOpenNav = navigationStore.watch(
-        "openNavigation",
-        () => {
-          element.classList.remove("active");
+    });
+    const draw = () => {
+      if (!ctx) return;
+      if (useOffscreen) {
+        offscreen.width = canvas.width;
+        offscreen.height = canvas.height;
+      }
+      const context2 = useOffscreen ? offScreenCtx : ctx;
+      context2.fillStyle = canvasBackground;
+      context2.fillRect(0, 0, canvas.width, canvas.height);
+      data3.forEach(
+        ({
+          x,
+          y,
+          centerX,
+          centerY,
+          width,
+          height,
+          rotate,
+          scale,
+          hasFill,
+          offsetXCenter,
+          offsetYCenter
+        }) => {
+          const rotation = Math.PI / 180 * rotate;
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            Math.round(centerX + offsetXCenter),
+            Math.round(centerY + offsetYCenter)
+          );
+          context2.beginPath();
+          context2.rect(
+            Math.round(-centerX + x),
+            Math.round(-centerY + y),
+            width,
+            height
+          );
+          if (hasFill) {
+            context2.fillStyle = "#fff";
+            context2.fill();
+          } else {
+            context2.fillStyle = "#000";
+            context2.fill();
+            context2.strokeStyle = "#333";
+            context2.stroke();
+          }
+          context2.setTransform(1, 0, 0, 1, 0, 0);
         }
       );
-      const unsubscribeCloseNav = navigationStore.watch(
-        "closeNavigation",
-        () => {
-          const { drawers } = getState();
-          if (drawers.length === 0) return;
-          element.classList.add("active");
+      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
+    };
+    gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).label({ name: "label1" }).goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1e3 }).goTo(gridTween, { scale: 0.5 }, { duration: 500 }).goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(gridTween, { scale: 1.3 }, { duration: 500 }).goTo(gridTween, { scale: 1 }, { duration: 1200 });
+    gridTimeline.onLoopEnd(({ direction: direction2, loop: loop2 }) => {
+      console.log(`loop end: ${direction2}, ${loop2}`);
+    });
+    gridTimeline.play();
+    const loop = () => {
+      draw();
+      if (!isActive) return;
+      mobCore.useNextFrame(() => loop());
+    };
+    mobCore.useFrame(({ time: time2 }) => {
+      loop({ time: time2 });
+    });
+    const unsubscribeResize = mobCore.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      data3.forEach((item) => {
+        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
+        item.offsetXCenter = getOffsetXCenter({
+          canvasWidth: canvas.width,
+          width,
+          gutter: gutter2,
+          numberOfColumn: numberOfColumn2
+        });
+        item.offsetYCenter = getOffsetYCenter({
+          canvasHeight: canvas.height,
+          height,
+          gutter: gutter2,
+          numberOfRow
+        });
+      });
+      mobCore.useFrame(() => draw());
+    });
+    const unWatchPause = navigationStore.watch("openNavigation", () => {
+      gridTimeline?.stop();
+      isActive = false;
+    });
+    const unWatchResume = navigationStore.watch(
+      "closeNavigation",
+      () => setTimeout(async () => {
+        isActive = true;
+        const { activeRoute: currentRoute } = mainStore.get();
+        if (currentRoute !== activeRoute) return;
+        gridTimeline?.play();
+        mobCore.useFrame(() => loop());
+      }, 500)
+    );
+    return () => {
+      gridTween.destroy();
+      gridTimeline.destroy();
+      unsubscribeResize();
+      unWatchResume();
+      unWatchPause();
+      gridTween = null;
+      gridTimeline = null;
+      ctx = null;
+      offscreen = null;
+      offScreenCtx = null;
+      gridData = [];
+      data3 = [];
+      isActive = false;
+    };
+  };
+
+  // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
+  var AnimatedPatternN0 = ({ onMount, html, getState }) => {
+    const { prevRoute, nextRoute, title } = getState();
+    document.body.style.background = "#000000";
+    onMount(({ refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", prevRoute);
+      setStateById(quicknavId, "nextRoute", nextRoute);
+      setStateById(quicknavId, "color", "white");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", title);
+      const { animatedPatternN0: animatedPatternN02 } = getLegendData();
+      const { source } = animatedPatternN02;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
         }
-      );
+      ]);
+      setStateById(codeButtonId, "color", "white");
+      const destroyAnimation = animatedPatternN0Animation({
+        canvas,
+        ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
+      });
       return () => {
-        unsubscribeCloseNav();
-        unsubscribeOpenNav();
-        element.remove();
+        destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
+        setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
       };
     });
     return html`
-        <button
-            class="c-code-btn"
-            ${delegateEvents({
-      click: () => {
-        const { drawers } = getState();
-        const codeOverlayId = getIdByInstanceName("codeOverlay");
-        setStateById(codeOverlayId, "urls", drawers);
+        <div>
+            <only-desktop></only-desktop>
+            <div class="c-canvas">
+                <div class="c-canvas__wrap" ref="wrap">
+                    <canvas ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/animatedPattern/animatedPatternN0/definition.js
+  var animatedPatternN0Def = createComponent({
+    name: "animatedpattern-n0",
+    component: AnimatedPatternN0,
+    exportState: [
+      "title",
+      "nextRoute",
+      "prevRoute",
+      "numberOfRow",
+      "numberOfColumn",
+      "cellWidth",
+      "cellHeight",
+      "gutter",
+      "fill",
+      "stagger",
+      "reorder",
+      "disableOffcanvas"
+    ],
+    state: {
+      title: () => ({
+        value: "",
+        type: String
+      }),
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
+      numberOfRow: () => ({
+        value: 10,
+        type: Number
+      }),
+      numberOfColumn: () => ({
+        value: 10,
+        type: Number
+      }),
+      cellWidth: () => ({
+        value: 65,
+        type: Number
+      }),
+      cellHeight: () => ({
+        value: 65,
+        type: Number
+      }),
+      gutter: () => ({
+        value: 1,
+        type: Number
+      }),
+      fill: () => ({
+        value: [16, 27, 38, 49, 60, 71, 82, 93],
+        type: Array
+      }),
+      stagger: () => ({
+        value: {
+          each: 5,
+          grid: { col: 11, row: 11, direction: "row" },
+          waitComplete: false
+        },
+        type: "any"
+      }),
+      reorder: () => ({
+        value: true,
+        type: Boolean
+      }),
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/animatedPatternN0/animatedPatternN0Params.js
+  var animatedPatternN0Params = [
+    {
+      title: "Animated pattern N.0 v0",
+      animation: {},
+      nav: {
+        prevRoute: "#caterpillarN2",
+        nextRoute: "#animatedPatternN0?version=1&activeId=1"
+      }
+    },
+    {
+      title: "Animated pattern N.0 v1",
+      animation: {
+        fill: [
+          0,
+          13,
+          20,
+          45,
+          65,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          83,
+          92,
+          96,
+          113,
+          117,
+          134,
+          138,
+          155,
+          156,
+          157,
+          158,
+          159,
+          189,
+          209
+        ],
+        gutter: 1,
+        numberOfColumn: 20,
+        numberOfRow: 10,
+        cellWidth: 50,
+        cellHeight: 50,
+        stagger: {
+          each: 2,
+          from: "random",
+          waitComplete: false
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#animatedPatternN0?version=0&activeId=0",
+        nextRoute: "#animatedPatternN0?version=2&activeId=2"
+      }
+    },
+    {
+      title: "Animated pattern N.0 v2",
+      animation: {
+        fill: [
+          0,
+          13,
+          20,
+          45,
+          65,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          83,
+          92,
+          96,
+          113,
+          117,
+          134,
+          138,
+          155,
+          156,
+          157,
+          158,
+          159,
+          189,
+          209
+        ],
+        gutter: 1,
+        numberOfColumn: 10,
+        numberOfRow: 10,
+        cellWidth: 50,
+        cellHeight: 50,
+        stagger: {
+          each: 10,
+          from: "edges",
+          waitComplete: false
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#animatedPatternN0?version=1&activeId=1",
+        nextRoute: "#animatedPatternN0?version=3&activeId=3"
+      }
+    },
+    {
+      title: "Animated pattern N.0 v3",
+      animation: {
+        fill: [],
+        gutter: 1,
+        numberOfColumn: 12,
+        numberOfRow: 13,
+        cellWidth: 50,
+        cellHeight: 50,
+        stagger: {
+          each: 20,
+          from: { x: 6, y: 6 },
+          grid: {
+            col: 13,
+            row: 13,
+            direction: "radial"
+          },
+          waitComplete: false
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#animatedPatternN0?version=2&activeId=2",
+        nextRoute: "#animatedPatternN1"
+      }
+    }
+  ];
+
+  // src/js/pages/canvas/animatedPatternN0/index.js
+  useComponent([animatedPatternN0Def]);
+  var animatedPatternN0 = ({ params }) => {
+    const { version } = params;
+    const props = animatedPatternN0Params[Math.max(
+      0,
+      Math.min(Number(version), animatedPatternN0Params.length - 1)
+    )];
+    return renderHtml`<div class="l-padding">
+        <animatedpattern-n0
+            ${staticProps({
+      ...props.animation,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute,
+      title: props.title
+    })}
+        ></animatedpattern-n0>
+    </div>`;
+  };
+
+  // src/js/component/pages/animatedPattern/animatedPatternN1/animation/animation.js
+  var animatedPatternN1Animation = ({
+    canvas,
+    numberOfRow,
+    numberOfColumn,
+    cellWidth,
+    cellHeight,
+    gutter,
+    fill,
+    disableOffcanvas
+  }) => {
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let isActive = true;
+    let gridData = [];
+    let data3 = [];
+    let centerTween = {};
+    let gridTween = {};
+    let gridTimeline = {};
+    let { top, left } = offset(canvas);
+    let ctx = canvas.getContext(context, { alpha: false });
+    const { activeRoute } = mainStore.get();
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    gridData = createGrid({
+      canvas,
+      numberOfRow,
+      numberOfColumn,
+      cellWidth,
+      cellHeight,
+      gutter
+    }).items;
+    data3 = gridData.map((item, i) => {
+      return {
+        ...item,
+        scale: 0,
+        mouseX: 0,
+        mouseY: 0,
+        hasFill: fill.includes(i)
+      };
+    }).sort((value) => value.hasFill ? -1 : 1);
+    centerTween = tween.createLerp({
+      data: { mouseX: 0, mouseY: 0 }
+    });
+    data3.forEach((item) => {
+      centerTween.subscribeCache(item, ({ mouseX, mouseY }) => {
+        item.mouseX = mouseX;
+        item.mouseY = mouseY;
+      });
+    });
+    gridTween = tween.createTween({
+      ease: "easeInOutSine",
+      stagger: {
+        each: 5,
+        from: "center",
+        // grid: { col: 15, row: 7, direction: 'row' },
+        waitComplete: false
+      },
+      data: { scale: 0 }
+    });
+    data3.forEach((item) => {
+      gridTween.subscribeCache(item, ({ scale }) => {
+        item.scale = scale;
+      });
+    });
+    const draw = () => {
+      if (!ctx) return;
+      if (useOffscreen) {
+        offscreen.width = canvas.width;
+        offscreen.height = canvas.height;
+      }
+      const context2 = useOffscreen ? offScreenCtx : ctx;
+      context2.fillStyle = canvasBackground;
+      context2.fillRect(0, 0, canvas.width, canvas.height);
+      data3.forEach(
+        ({
+          x,
+          y,
+          centerX,
+          centerY,
+          width,
+          height,
+          mouseX,
+          mouseY,
+          scale,
+          hasFill,
+          offsetXCenter,
+          offsetYCenter
+        }) => {
+          const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
+          const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
+          const xScale = (x - mouseXparsed) / 250;
+          const yScale = (y - mouseYparsed) / 250;
+          const delta = Math.sqrt(
+            Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
+          );
+          const scaleFactor = clamp(Math.abs(delta), 0, 2);
+          const rotation = 0;
+          const xx = Math.cos(rotation) * (scaleFactor + scale);
+          const xy = Math.sin(rotation) * (scaleFactor + scale);
+          context2.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            Math.round(centerX + offsetXCenter),
+            Math.round(centerY + offsetYCenter)
+          );
+          context2.beginPath();
+          context2.rect(
+            Math.round(-centerX + x),
+            Math.round(-centerY + y),
+            width,
+            height
+          );
+          if (hasFill) {
+            context2.fillStyle = "#fff";
+            context2.fill();
+          } else {
+            context2.fillStyle = "#000";
+            context2.fill();
+          }
+          context2.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      );
+      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
+    };
+    gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
+    gridTimeline.play();
+    const move = ({ x, y }) => {
+      centerTween.goTo({ mouseX: x - left, mouseY: y - top });
+    };
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+      const { x, y } = client;
+      move({ x, y });
+    });
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+      const { x, y } = client;
+      move({ x, y });
+    });
+    const loop = () => {
+      draw();
+      if (!isActive) return;
+      mobCore.useNextFrame(() => loop());
+    };
+    mobCore.useFrame(({ time: time2 }) => {
+      loop({ time: time2 });
+    });
+    const unsubscribeResize = mobCore.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      top = offset(canvas).top;
+      left = offset(canvas).left;
+      data3.forEach((item) => {
+        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
+        item.offsetXCenter = getOffsetXCenter({
+          canvasWidth: canvas.width,
+          width,
+          gutter: gutter2,
+          numberOfColumn: numberOfColumn2
+        });
+        item.offsetYCenter = getOffsetYCenter({
+          canvasHeight: canvas.height,
+          height,
+          gutter: gutter2,
+          numberOfRow
+        });
+      });
+      mobCore.useFrame(() => draw());
+    });
+    const unWatchPause = navigationStore.watch("openNavigation", () => {
+      gridTimeline?.stop();
+      isActive = false;
+    });
+    const unWatchResume = navigationStore.watch(
+      "closeNavigation",
+      () => setTimeout(async () => {
+        isActive = true;
+        const { activeRoute: currentRoute } = mainStore.get();
+        if (currentRoute !== activeRoute) return;
+        gridTimeline?.play();
+        mobCore.useFrame(() => loop());
+      }, 500)
+    );
+    return () => {
+      gridTween.destroy();
+      gridTimeline.destroy();
+      centerTween.destroy();
+      unsubscribeResize();
+      unsubscribeMouseMove();
+      unsubscribeTouchMove();
+      unWatchResume();
+      unWatchPause();
+      gridTween = null;
+      gridTimeline = null;
+      centerTween = null;
+      ctx = null;
+      offscreen = null;
+      offScreenCtx = null;
+      gridData = [];
+      data3 = [];
+      isActive = false;
+    };
+  };
+
+  // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
+  var AnimatedPatternN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
+    onMount(({ refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(
+        quicknavId,
+        "prevRoute",
+        "#animatedPatternN0?version=3&activeId=3"
+      );
+      setStateById(
+        quicknavId,
+        "nextRoute",
+        "#scrollerN0?version=0&activeId=0"
+      );
+      setStateById(quicknavId, "color", "white");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N1");
+      const { animatedPatternN1: animatedPatternN12 } = getLegendData();
+      const { source } = animatedPatternN12;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ]);
+      setStateById(codeButtonId, "color", "white");
+      const destroyAnimation = animatedPatternN1Animation({
+        canvas,
+        ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
+      });
+      return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
+        setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
+        destroyAnimation();
+      };
+    });
+    return html`
+        <div>
+            <only-desktop></only-desktop>
+            <div class="c-canvas">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                    <canvas ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/animatedPattern/animatedPatternN1/definition.js
+  var animatedPatternN1Def = createComponent({
+    name: "animatedpattern-n1",
+    component: AnimatedPatternN1,
+    exportState: [
+      "numberOfRow",
+      "numberOfColumn",
+      "cellWidth",
+      "cellHeight",
+      "gutter",
+      "fill",
+      "disableOffcanvas"
+    ],
+    state: {
+      numberOfRow: 7,
+      numberOfColumn: 15,
+      cellWidth: 70,
+      cellHeight: 70,
+      gutter: 10,
+      fill: [
+        2,
+        18,
+        10,
+        27,
+        21,
+        22,
+        23,
+        24,
+        25,
+        25,
+        26,
+        37,
+        42,
+        53,
+        58,
+        69,
+        74,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        44,
+        60,
+        65,
+        66
+      ],
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/animatedPatternN1/index.js
+  useComponent([animatedPatternN1Def]);
+  var animatedPatternN1 = () => {
+    return renderHtml`<div class="l-padding">
+        <animatedpattern-n1></animatedpattern-n1>
+    </div>`;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN0/animation/animation.js
+  function getWithRounded({ width, relativeIndex, amountOfPath }) {
+    return Math.sqrt(
+      Math.pow(width * relativeIndex, 2) - Math.pow(
+        width * relativeIndex / amountOfPath * relativeIndex,
+        2
+      )
+    ) * 2;
+  }
+  function getHeightRounded({ height, relativeIndex, amountOfPath }) {
+    return Math.sqrt(
+      Math.pow(height * relativeIndex, 2) - Math.pow(
+        height * relativeIndex / amountOfPath * relativeIndex,
+        2
+      )
+    ) * 2;
+  }
+  var caterpillarN0Animation = ({
+    canvas,
+    amountOfPath,
+    width,
+    height,
+    fill,
+    stroke,
+    opacity,
+    spacerY,
+    intialRotation,
+    perpetualRatio,
+    mouseMoveRatio,
+    disableOffcanvas
+  }) => {
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let isActive = true;
+    let ctx = canvas.getContext(context, { alpha: false });
+    let stemData = [];
+    let steamDataReorded = [];
+    let mainTween = {};
+    let { left } = offset(canvas);
+    const { activeRoute } = mainStore.get();
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    const useRadius = false;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
+      const count = i;
+      const index = count < amountOfPath / 2 ? amountOfPath - count : count;
+      const relativeIndex = index - (amountOfPath - index);
+      return {
+        width: Math.floor(
+          getWithRounded({ width, relativeIndex, amountOfPath })
+        ),
+        height: Math.floor(
+          getHeightRounded({ height, relativeIndex, amountOfPath })
+        ),
+        fill,
+        stroke,
+        opacity: relativeIndex * opacity,
+        rotate: 0,
+        y: 0,
+        relativeIndex,
+        index: i
+      };
+    });
+    steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
+    mainTween = tween.createSpring({
+      data: { rotate: 0, y: 0 },
+      stagger: { each: 5, from: "center" }
+    });
+    [...steamDataReorded].forEach((item) => {
+      mainTween.subscribeCache(item, ({ rotate }) => {
+        item.rotate = rotate;
+      });
+    });
+    const draw = ({ time: time2 = 0 }) => {
+      if (!ctx) return;
+      if (useOffscreen) {
+        offscreen.width = canvas.width;
+        offscreen.height = canvas.height;
+      }
+      const context2 = useOffscreen ? offScreenCtx : ctx;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      context2.fillStyle = canvasBackground;
+      context2.fillRect(0, 0, canvas.width, canvas.height);
+      steamDataReorded.forEach(
+        ({ width: width2, height: height2, opacity: opacity2, rotate, relativeIndex, index: i }) => {
+          const offset2 = Math.sin(time2 / 1e3) * perpetualRatio * relativeIndex;
+          const offsetInverse = i < amountOfPath / 2 ? offset2 + 15 * relativeIndex / 2 : -offset2 - 15 * relativeIndex / 2;
+          const centerDirection = i < amountOfPath / 2 ? -1 : 1;
+          const scale = 1;
+          const rotation = Math.PI / 180 * (rotate - intialRotation);
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            centerX,
+            centerY + height2 / 2
+          );
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              -(width2 * centerDirection) / 2,
+              -height2 / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
+              width2,
+              height2,
+              [200, 0]
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              -(width2 * centerDirection) / 2,
+              -height2 / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
+              width2,
+              height2
+            );
+          }
+          context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
+          context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
+          context2.stroke();
+          context2.fill();
+          context2.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      );
+      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
+    };
+    const loop = ({ time: time2 = 0 }) => {
+      draw({ time: time2 });
+      if (!isActive) return;
+      mobCore.useNextFrame(({ time: time3 }) => loop({ time: time3 }));
+    };
+    mobCore.useFrame(({ time: time2 }) => {
+      loop({ time: time2 });
+    });
+    const unsubscribeResize = mobCore.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      left = offset(canvas).left;
+      mobCore.useFrame(({ time: time2 }) => {
+        draw({ time: time2 });
+      });
+    });
+    const move = ({ x }) => {
+      const xCenter = x - canvas.width / 2 - left;
+      mainTween.goTo({
+        rotate: xCenter / mouseMoveRatio
+      });
+    };
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+      const { x } = client;
+      move({ x });
+    });
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+      const { x } = client;
+      move({ x });
+    });
+    const unWatchPause = navigationStore.watch("openNavigation", () => {
+      isActive = false;
+    });
+    const unWatchResume = navigationStore.watch("closeNavigation", () => {
+      setTimeout(() => {
+        isActive = true;
+        const { activeRoute: currentRoute } = mainStore.get();
+        if (currentRoute !== activeRoute) return;
+        mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
+      }, 500);
+    });
+    return () => {
+      mainTween.destroy();
+      unsubscribeResize();
+      unsubscribeMouseMove();
+      unsubscribeTouchMove();
+      unWatchResume();
+      unWatchPause();
+      ctx = null;
+      offscreen = null;
+      offScreenCtx = null;
+      mainTween = null;
+      steamDataReorded = [];
+      stemData = [];
+      isActive = false;
+    };
+  };
+
+  // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
+  var CaterpillarN0 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
+    onMount(({ refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "nextRoute", "#caterpillarN1");
+      setStateById(quicknavId, "color", "white");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N0");
+      const { caterpillarN0: caterpillarN02 } = getLegendData();
+      const { source } = caterpillarN02;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ]);
+      setStateById(codeButtonId, "color", "white");
+      const destroyAnimation = caterpillarN0Animation({
+        canvas,
+        ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
+      });
+      return () => {
+        destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
+        setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
+      };
+    });
+    return html`
+        <div>
+            <only-desktop></only-desktop>
+            <div class="c-canvas">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    ref="wrap"
+                >
+                    <canvas ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN0/definition.js
+  var caterpillarN0Def = createComponent({
+    name: "caterpillar-n0",
+    component: CaterpillarN0,
+    exportState: [
+      "nextRoute",
+      "prevRoute",
+      "amountOfPath",
+      "width",
+      "height",
+      "radius",
+      "fill",
+      "stroke",
+      "opacity",
+      "spacerY",
+      "intialRotation",
+      "perpetualRatio",
+      "mouseMoveRatio",
+      "disableOffcanvas"
+    ],
+    state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
+      amountOfPath: 17,
+      width: 30,
+      height: 30,
+      radius: 0,
+      fill: "",
+      stroke: "#fff",
+      opacity: 0.05,
+      spacerY: (condition) => condition ? 300 : -400,
+      intialRotation: 33,
+      perpetualRatio: 6,
+      mouseMoveRatio: 10,
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/caterpillarN0/index.js
+  useComponent([caterpillarN0Def]);
+  var caterpillarN0 = () => {
+    return renderHtml`<div class="l-padding">
+        <caterpillar-n0></caterpillar-n0>
+    </div>`;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN1/animation/animation.js
+  var caterpillarN1Animation = ({
+    canvas,
+    numItems,
+    width,
+    height,
+    fill,
+    opacity,
+    radius,
+    rotationDuration,
+    rotationEach,
+    centerEach,
+    disableOffcanvas
+  }) => {
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let isActive = true;
+    let ctx = canvas.getContext(context, { alpha: false });
+    let squareData = [];
+    let rotationTween = {};
+    let centerTween = {};
+    let rectTimeline = {};
+    let { top, left } = offset(canvas);
+    const { activeRoute } = mainStore.get();
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    const useRadius = false;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+      const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
+      return {
+        width: relativeIndex * width,
+        height: relativeIndex * height,
+        x: 0,
+        y: 0,
+        hasFill: fill.includes(i),
+        opacity: opacityVal,
+        radius,
+        rotate: 0,
+        relativeIndex
+      };
+    });
+    rotationTween = tween.createTween({
+      data: { rotate: 0 },
+      stagger: { each: rotationEach, from: "center" },
+      ease: "easeLinear",
+      relative: true
+    });
+    [...squareData].forEach((item) => {
+      rotationTween.subscribeCache(item, ({ rotate }) => {
+        item.rotate = rotate;
+      });
+    });
+    centerTween = tween.createSpring({
+      data: { x: 0, y: 0 },
+      stagger: { each: centerEach, from: "end" }
+    });
+    [...squareData].forEach((item) => {
+      centerTween.subscribeCache(item, ({ x, y }) => {
+        item.x = x;
+        item.y = y;
+      });
+    });
+    const draw = () => {
+      if (!ctx) return;
+      if (useOffscreen) {
+        offscreen.width = canvas.width;
+        offscreen.height = canvas.height;
+      }
+      const context2 = useOffscreen ? offScreenCtx : ctx;
+      context2.fillStyle = canvasBackground;
+      context2.fillRect(0, 0, canvas.width, canvas.height);
+      squareData.forEach(
+        ({ width: width2, height: height2, x, y, opacity: opacity2, rotate, hasFill }, i) => {
+          const unitInverse = squareData.length - i;
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const scale = 1;
+          const rotation = Math.PI / 180 * rotate;
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(
+            xx,
+            xy,
+            -xy,
+            xx,
+            centerX + x + unitInverse * x / 20,
+            centerY + y + unitInverse * y / 20
+          );
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              Number.parseInt(-width2 / 2),
+              Number.parseInt(-height2 / 2),
+              width2,
+              height2,
+              [200, 0]
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              Number.parseInt(-width2 / 2),
+              Number.parseInt(-height2 / 2),
+              width2,
+              height2
+            );
+          }
+          if (hasFill) {
+            context2.fillStyle = `rgba(255, 255, 255, 1)`;
+          } else {
+            context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
+            context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
+            context2.stroke();
+          }
+          context2.fill();
+          context2.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      );
+      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
+    };
+    rectTimeline = timeline.createAsyncTimeline({
+      repeat: -1,
+      yoyo: false
+    });
+    rectTimeline.goTo(
+      rotationTween,
+      { rotate: 360 },
+      { duration: rotationDuration }
+    );
+    rectTimeline.play();
+    const loop = () => {
+      draw();
+      if (!isActive) return;
+      mobCore.useNextFrame(() => loop());
+    };
+    mobCore.useFrame(() => loop());
+    const unsubscribeResize = mobCore.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      top = offset(canvas).top;
+      left = offset(canvas).left;
+      draw();
+    });
+    const move = ({ x, y }) => {
+      const winWidth = window.innerWidth;
+      const winHeight = window.innerHeight;
+      const xCenter = x - canvas.width / 2 - left;
+      const yCenter = y - canvas.height / 2 - top;
+      centerTween.goTo({
+        x: clamp(
+          xCenter,
+          -winWidth / 2 + 400 + left,
+          winWidth / 2 - 400 - left
+        ),
+        y: clamp(
+          yCenter,
+          -winHeight / 2 + 200 + top,
+          winHeight / 2 - 200 - top
+        )
+      });
+    };
+    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
+      const { x, y } = client;
+      move({ x, y });
+    });
+    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
+      const { x, y } = client;
+      move({ x, y });
+    });
+    const unWatchPause = navigationStore.watch("openNavigation", () => {
+      isActive = false;
+      rectTimeline?.pause();
+    });
+    const unWatchResume = navigationStore.watch(
+      "closeNavigation",
+      () => setTimeout(() => {
+        isActive = true;
+        const { activeRoute: currentRoute } = mainStore.get();
+        if (currentRoute !== activeRoute) return;
+        rectTimeline?.resume();
+        mobCore.useFrame(() => loop());
+      }, 500)
+    );
+    return () => {
+      rotationTween.destroy();
+      centerTween.destroy();
+      rectTimeline.destroy();
+      unsubscribeResize();
+      unsubscribeMouseMove();
+      unsubscribeTouchMove();
+      unWatchPause();
+      unWatchResume();
+      rotationTween = null;
+      centerTween = null;
+      rectTimeline = null;
+      ctx = null;
+      offscreen = null;
+      offScreenCtx = null;
+      squareData = [];
+      isActive = false;
+    };
+  };
+
+  // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
+  var CaterpillarN1 = ({ onMount, html, getState }) => {
+    document.body.style.background = "#000000";
+    onMount(({ refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { wrap, canvas } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", "#caterpillarN0");
+      setStateById(quicknavId, "nextRoute", "#caterpillarN2");
+      setStateById(quicknavId, "color", "white");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N1");
+      const { caterpillarN1: caterpillarN12 } = getLegendData();
+      const { source } = caterpillarN12;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ]);
+      setStateById(codeButtonId, "color", "white");
+      const destroyAnimation = caterpillarN1Animation({
+        canvas,
+        ...getState()
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
+      });
+      return () => {
+        destroyAnimation();
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
+        setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
+      };
+    });
+    return html`
+        <div>
+            <only-desktop></only-desktop>
+            <div class="c-canvas">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
+                    ref="wrap"
+                >
+                    <canvas ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN1/definition.js
+  var caterpillarN1Def = createComponent({
+    name: "caterpillar-n1",
+    component: CaterpillarN1,
+    exportState: [
+      "numItems",
+      "width",
+      "height",
+      "fill",
+      "opacity",
+      "radius",
+      "rotationEach",
+      "centerEach",
+      "rotationDuration",
+      "disableOffcanvas"
+    ],
+    state: {
+      numItems: 20,
+      width: 40,
+      height: 40,
+      fill: [14],
+      opacity: 0.05,
+      radius: 0,
+      rotationEach: 15,
+      centerEach: 3,
+      rotationDuration: 5e3,
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/caterpillarN1/index.js
+  useComponent([caterpillarN1Def]);
+  var caterpillarN1 = () => {
+    return renderHtml`<div class="l-padding">
+        <caterpillar-n1></caterpillar-n1>
+    </div>`;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN2/animation/animation.js
+  var logAddMethods = ({ value, direction: direction2, isForced }) => {
+    if (isForced) return;
+    console.log(`current: ${value}, direction: ${direction2}`);
+  };
+  var caterpillarN2Animation = ({
+    canvas,
+    numItems,
+    width,
+    height,
+    radius,
+    fill,
+    opacity,
+    xAmplitude,
+    yAmplitude,
+    duration: duration2,
+    friction,
+    rotationDefault,
+    disableOffcanvas
+  }) => {
+    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
+    let isActive = true;
+    let ctx = canvas.getContext(context, { alpha: false });
+    let squareData = [];
+    let userRotation = rotationDefault;
+    const { activeRoute } = mainStore.get();
+    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
+    const useRadius = false;
+    squareData = [...new Array(numItems).keys()].map((_item, i) => {
+      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
+      const itemWidth = width + width / 3 * relativeIndex;
+      const itemHeight = height + height / 3 * relativeIndex;
+      const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
+      return {
+        width: itemWidth,
+        height: itemHeight,
+        x: 0,
+        y: 0,
+        hasFill: fill.includes(i),
+        opacity: opacityVal,
+        radius,
+        rotate: 0
+      };
+    });
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    const infiniteTween = tween.createSequencer({
+      stagger: { each: 6 },
+      data: { x: duration2 / 4, rotate: 0 },
+      duration: duration2
+    }).goTo(
+      { x: duration2 + duration2 / 4 },
+      { start: 0, end: duration2, ease: "easeLinear" }
+    ).goTo(
+      { rotate: () => -userRotation },
+      { start: 0, end: 5, ease: "easeInOutBack" }
+    ).goTo({ rotate: 0 }, { start: 5, end: duration2, ease: "easeInOutBack" }).label("mylabel", 2).add(({ isForced, direction: direction2 }) => {
+      logAddMethods({ isForced, direction: direction2, value: 1 });
+    }, 1).add(({ isForced, direction: direction2 }) => {
+      logAddMethods({ isForced, direction: direction2, value: 5 });
+    }, 5).add(({ isForced, direction: direction2 }) => {
+      logAddMethods({ isForced, direction: direction2, value: 9 });
+    }, 9);
+    squareData.forEach((item) => {
+      infiniteTween.subscribeCache(item, ({ x, rotate }) => {
+        const val2 = x / friction;
+        const factor = 2 / (3 - Math.cos(2 * val2));
+        const xr = factor * Math.cos(val2) * xAmplitude;
+        const yr = factor * Math.sin(2 * val2) / 2 * yAmplitude;
+        item.x = xr;
+        item.y = yr;
+        item.rotate = rotate;
+      });
+    });
+    const syncTimeline = timeline.createSyncTimeline({
+      repeat: -1,
+      yoyo: false,
+      duration: 4e3
+    }).add(infiniteTween);
+    syncTimeline.onLoopEnd(({ loop: loop2, direction: direction2 }) => {
+      console.log(`loop end: ${loop2} , ${direction2}`);
+    });
+    const draw = () => {
+      if (!ctx) return;
+      if (useOffscreen) {
+        offscreen.width = canvas.width;
+        offscreen.height = canvas.height;
+      }
+      const context2 = useOffscreen ? offScreenCtx : ctx;
+      context2.fillStyle = canvasBackground;
+      context2.fillRect(0, 0, canvas.width, canvas.height);
+      squareData.forEach(
+        ({ width: width2, height: height2, x, y, radius: radius2, rotate, hasFill, opacity: opacity2 }) => {
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const scale = 1;
+          const rotation = Math.PI / 180 * rotate;
+          const xx = Math.cos(rotation) * scale;
+          const xy = Math.sin(rotation) * scale;
+          context2.setTransform(xx, xy, -xy, xx, centerX + x, centerY + y);
+          if (useRadius) {
+            context2.beginPath();
+            context2.roundRect(
+              Number.parseInt(-width2 / 2),
+              Number.parseInt(-height2 / 2),
+              width2,
+              height2,
+              [150, 0]
+            );
+          } else {
+            context2.beginPath();
+            context2.rect(
+              Number.parseInt(-width2 / 2),
+              Number.parseInt(-height2 / 2),
+              width2,
+              height2,
+              radius2
+            );
+          }
+          if (hasFill) {
+            context2.fillStyle = `rgba(255, 255, 255, 1)`;
+          } else {
+            context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
+            context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
+            context2.stroke();
+          }
+          context2.fill();
+          context2.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      );
+      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
+    };
+    const loop = () => {
+      draw();
+      if (!isActive) return;
+      mobCore.useNextFrame(() => loop());
+    };
+    mobCore.useFrame(() => loop());
+    syncTimeline.play();
+    const unsubscribeResize = mobCore.useResize(() => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      draw();
+    });
+    const unWatchPause = navigationStore.watch("openNavigation", () => {
+      isActive = false;
+      syncTimeline?.pause();
+    });
+    const unWatchResume = navigationStore.watch(
+      "closeNavigation",
+      () => setTimeout(() => {
+        isActive = true;
+        const { activeRoute: currentRoute } = mainStore.get();
+        if (currentRoute !== activeRoute) return;
+        syncTimeline?.resume();
+        mobCore.useFrame(() => loop());
+      }, 500)
+    );
+    return {
+      destroy: () => {
+        isActive = false;
+        unsubscribeResize();
+        unWatchPause();
+        unWatchResume();
+        infiniteTween.destroy();
+        syncTimeline.destroy();
+        ctx = null;
+        offscreen = null;
+        offScreenCtx = null;
+        squareData = [];
+      },
+      play: () => {
+        syncTimeline.stop();
+        syncTimeline.play();
+      },
+      playReverse: () => {
+        syncTimeline.stop();
+        syncTimeline.playReverse();
+      },
+      playUseCurrent: () => syncTimeline.play({ useCurrent: true }),
+      playReverseUseCurrent: () => syncTimeline.playReverse({ useCurrent: true }),
+      playFromLabel: () => {
+        syncTimeline.stop();
+        syncTimeline.playFrom("mylabel");
+      },
+      plaFromLabelReverse: () => {
+        syncTimeline.stop();
+        syncTimeline.playFromReverse("mylabel");
+      },
+      stop: () => syncTimeline.stop(),
+      pause: () => syncTimeline.pause(),
+      resume: () => syncTimeline.resume(),
+      reverse: () => syncTimeline.reverse(),
+      setRotation: (value) => userRotation = value
+    };
+  };
+
+  // src/js/component/pages/canvas/caterpillarN2/caterpillarN2.js
+  function getControls({ buttons: buttons3 }) {
+    return Object.entries(buttons3).map(([className, value]) => {
+      const { label } = value;
+      return renderHtml` <li class="c-canvas__controls__item">
+                <button
+                    type="button"
+                    class="c-canvas__controls__btn ${className}"
+                >
+                    ${label}
+                </button>
+            </li>`;
+    }).join("");
+  }
+  var CaterpillarN2 = ({ onMount, html, getState }) => {
+    const { buttons: buttons3, rotationDefault } = getState();
+    document.body.style.background = "#000000";
+    onMount(({ element, refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { wrap, canvas, rangeValue, rotationButton } = refs;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "prevRoute", "#caterpillarN1");
+      setStateById(
+        quicknavId,
+        "nextRoute",
+        "#animatedPatternN0?version=0&activeId=0"
+      );
+      setStateById(quicknavId, "color", "black");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Caterpillar N2");
+      const { caterpillarN2: caterpillarN22 } = getLegendData();
+      const { source } = caterpillarN22;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "animation",
+          source: source.animation
+        }
+      ]);
+      setStateById(codeButtonId, "color", "white");
+      const animationMethods = caterpillarN2Animation({
+        canvas,
+        ...getState()
+      });
+      const { destroy, setRotation } = animationMethods;
+      Object.entries(buttons3).forEach(([className, value]) => {
+        const { method } = value;
+        const btn = element.querySelector(`.${className}`);
+        btn.addEventListener("click", () => animationMethods?.[method]());
+      });
+      rotationButton.addEventListener("change", () => {
+        const value = rotationButton.value;
+        setRotation(value);
+        rangeValue.textContent = value;
+      });
+      mobCore.useFrame(() => {
+        wrap.classList.add("active");
+      });
+      return () => {
+        setStateById(quicknavId, "active", false);
+        setStateById(quicknavId, "prevRoute", "");
+        setStateById(quicknavId, "nextRoute", "");
+        setStateById(titleId, "align", "");
+        setStateById(titleId, "title", "");
+        setStateById(codeButtonId, "drawers", []);
+        document.body.style.background = "";
+        destroy();
+      };
+    });
+    return html`
+        <div>
+            <only-desktop></only-desktop>
+            <div class="c-canvas">
+                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                    <ul class="c-canvas__controls">
+                        ${getControls({ buttons: buttons3 })}
+                        <li class="c-canvas__controls__item">
+                            <label class="c-canvas__controls__label">
+                                change rotation:
+                                <span class="js-range-value" ref="rangeValue"
+                                    >${rotationDefault}</span
+                                >
+                            </label>
+                            <div class="c-canvas__controls__range">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="720"
+                                    value="${rotationDefault}"
+                                    step="1"
+                                    ref="rotationButton"
+                                />
+                            </div>
+                        </li>
+                    </ul>
+                    <canvas ref="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/pages/canvas/caterpillarN2/definition.js
+  var duration = 10;
+  var buttons = {
+    "js-CN2-play": {
+      label: "play",
+      method: "play"
+    },
+    "js-CN2-playReverse": {
+      label: "play reverse",
+      method: "playReverse"
+    },
+    "js-CN2-play-current": {
+      label: "go forward if is backward",
+      method: "playUseCurrent"
+    },
+    "js-CN2-playReverse-current": {
+      label: "go backward if is forward",
+      method: "playReverseUseCurrent"
+    },
+    "js-CN2-play-label": {
+      label: "play from label",
+      method: "playFromLabel"
+    },
+    "js-CN2-playReverse-label": {
+      label: "play from label reverse",
+      method: "plaFromLabelReverse"
+    },
+    "js-CN2-reverse": {
+      label: "reverse",
+      method: "reverse"
+    },
+    "js-CN2-stop": {
+      label: "stop",
+      method: "stop"
+    },
+    "js-CN2-pause": {
+      label: "pause",
+      method: "pause"
+    },
+    "js-CN2-resume": {
+      label: "resume",
+      method: "resume"
+    }
+  };
+  var caterpillarN2Def = createComponent({
+    name: "caterpillar-n2",
+    component: CaterpillarN2,
+    exportState: [
+      "numItems",
+      "width",
+      "height",
+      "radius",
+      "fill",
+      "opacity",
+      "xAmplitude",
+      "yAmplitude",
+      "duration",
+      "rotationDefault",
+      "friction",
+      "disableOffcanvas"
+    ],
+    state: {
+      numItems: 20,
+      width: 80,
+      height: 80,
+      radius: 0,
+      fill: [2],
+      opacity: 0.02,
+      xAmplitude: 500,
+      yAmplitude: 400,
+      duration: 10,
+      rotationDefault: 360,
+      friction: duration / 2 / Math.PI,
+      disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+      buttons: () => ({
+        value: buttons,
+        type: "Any"
+      })
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/caterpillarN2/index.js
+  useComponent([caterpillarN2Def]);
+  var caterpillarN2 = () => {
+    return renderHtml`<div class="l-padding">
+        <caterpillar-n2></caterpillar-n2>
+    </div>`;
+  };
+
+  // src/js/component/lib/animation/simpleIntro.js
+  var simpleIntroAnimation = ({ refs }) => {
+    let introTween = tween.createTween({
+      data: { opacity: 0, scale: 0.5 },
+      duration: 2e3,
+      ease: "easeOutQuart",
+      stagger: { each: 8, from: "end" }
+    });
+    let loopTween = tween.createTween({
+      data: { scale: 1 },
+      duration: 6e3,
+      ease: "easeInOutQuad",
+      stagger: { each: 12, from: "end" }
+    });
+    refs.forEach((item) => {
+      introTween.subscribeCache(item, ({ scale, opacity }) => {
+        item.style.scale = `${scale}`;
+        item.style.opacity = opacity;
+      });
+      loopTween.subscribe(({ scale }) => {
+        item.style.scale = `${scale}`;
+      });
+    });
+    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
+      opacity: 1,
+      scale: 1
+    });
+    let loopTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
+      scale: 1.1
+    });
+    return {
+      playIntro: () => introTl?.play(),
+      playSvg: () => {
+        loopTimeline?.play();
+      },
+      destroy: () => {
+        introTween.destroy();
+        introTween = null;
+        introTl.destroy();
+        introTl = null;
+        loopTween.destroy();
+        loopTween = null;
+        loopTimeline.destroy();
+        loopTimeline = null;
+      }
+    };
+  };
+
+  // src/js/component/pages/homepage/animation/text.js
+  var homeTextAnimation = ({ refs }) => {
+    let textTween = tween.createTween({
+      data: { y: 100 },
+      duration: 500,
+      ease: "easeOutCubic",
+      stagger: { each: 10 }
+    });
+    refs.forEach((item) => {
+      textTween.subscribe(({ y }) => {
+        item.style.translate = `0px ${y}%`;
+      });
+    });
+    return {
+      playText: () => textTween.goTo({ y: 0 }),
+      destroyText: () => {
+        textTween.destroy();
+        textTween = null;
+      }
+    };
+  };
+
+  // src/js/component/pages/homepage/home.js
+  var playAnimation = async ({ playIntro, playText, playSvg }) => {
+    playText();
+    await playIntro();
+    playSvg();
+  };
+  var HomeComponent = ({ html, onMount, getState }) => {
+    const { svg } = getState();
+    onMount(async ({ refs }) => {
+      const { textStagger, svg_group } = refs;
+      const { destroy, playIntro, playSvg } = simpleIntroAnimation({
+        refs: svg_group
+      });
+      const { playText, destroyText } = homeTextAnimation({
+        refs: textStagger
+      });
+      playAnimation({ playIntro, playText, playSvg });
+      const { home: home2 } = getLegendData();
+      const { source } = home2;
+      const codeButtonId = getIdByInstanceName("global-code-button");
+      setStateById(codeButtonId, "drawers", [
+        {
+          label: "description",
+          source: source.description
+        },
+        {
+          label: "definition",
+          source: source.definition
+        },
+        {
+          label: "component",
+          source: source.component
+        },
+        {
+          label: "Logo animation",
+          source: source.logoAnimation
+        },
+        {
+          label: "text animation",
+          source: source.textAnimation
+        }
+      ]);
+      setStateById(codeButtonId, "color", "black");
+      return () => {
+        destroy();
+        destroyText();
+        setStateById(codeButtonId, "drawers", []);
+      };
+    });
+    return html`<div>
+        <div class="l-index__content">
+            <a class="l-index__item" href="./#mobCore_overview">
+                <div class="l-index__inner-content">
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Core
+                    </h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        store & window events
+                    </h2>
+                </div>
+            </a>
+            <a class="l-index__item" href="./#mobJs_overview">
+                <div class="l-index__inner-content">
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Js
+                    </h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        js component library
+                    </h2>
+                </div>
+            </a>
+            <a class="l-index__item" href="./#mobMotion_overview">
+                <div class="l-index__inner-content">
+                    <h1 class="l-index__stagger" ref="textStagger">
+                        <span>Mob</span>Motion
+                    </h1>
+                </div>
+                <div class="l-index__inner-content">
+                    <h2 class="l-index__stagger" ref="textStagger">
+                        js animation library
+                    </h2>
+                </div>
+            </a>
+        </div>
+
+        <div class="l-index__logo">${svg}</div>
+    </div>`;
+  };
+
+  // src/js/component/pages/homepage/definition.js
+  var homePageComponentDef = createComponent({
+    name: "home-component",
+    component: HomeComponent,
+    exportState: ["svg"],
+    state: {
+      svg: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/pages/home/index.js
+  useComponent([homePageComponentDef]);
+  var home = async () => {
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/ms.svg"
+    });
+    return renderHtml`<div class="l-index">
+        <home-component ${staticProps({ svg })}></home-component>
+    </div>`;
+  };
+
+  // src/js/component/common/docsContainer/docContainer.js
+  var DocContainer = ({ html, onMount }) => {
+    onMount(() => {
+      window.scrollTo(0, 0);
+      const logoM1Id = getIdByInstanceName("m1_logo");
+      setStateById(logoM1Id, "active", true);
+      return () => {
+        setStateById(logoM1Id, "active", false);
+      };
+    });
+    return html`
+        <div class="c-doc-container">
+            <div class="c-doc-container__content">
+                <mobjs-slot name="docs"></mobjs-slot>
+            </div>
+            <div class="c-doc-container__side">
+                <mobjs-slot name="section-title-small"></mobjs-slot>
+                <mobjs-slot name="section-title"></mobjs-slot>
+                <mobjs-slot name="section-links"></mobjs-slot>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/docsContainer/definition.js
+  var docsContainerComponentDef = createComponent({
+    name: "doc-container",
+    component: DocContainer
+  });
+
+  // src/js/component/common/doctitle/docSide.js
+  var DocTitle = ({ html }) => {
+    return html`
+        <div class="c-doc-title">
+            <h2><mobjs-slot /></h2>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/doctitle/definition.js
+  var docsTitleComponentDef = createComponent({
+    name: "doc-title",
+    component: DocTitle,
+    state: {}
+  });
+
+  // src/js/component/common/doctitleSmall/docSide.js
+  var DocTitleSmall = ({ html }) => {
+    return html`
+        <div class="c-doc-title-small">
+            <mobjs-slot />
+        </div>
+    `;
+  };
+
+  // src/js/component/common/doctitleSmall/definition.js
+  var docsTitleSmallComponentDef = createComponent({
+    name: "doc-title-small",
+    component: DocTitleSmall,
+    state: {}
+  });
+
+  // src/js/component/common/loader/loader.js
+  var Loader = ({ onMount, html, watch, remove: remove2, getState }) => {
+    const { position: position2 } = getState();
+    onMount(({ element }) => {
+      let tweenOut = tween.createTween({
+        data: { opacity: 1, scale: 1 },
+        duration: 500
+      });
+      tweenOut.subscribe(({ opacity, scale }) => {
+        element.style.opacity = opacity;
+        element.style.transform = `scale(${scale})`;
+      });
+      watch("shouldRemove", async (shouldRemove) => {
+        if (!shouldRemove) return;
+        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        remove2();
+      });
+      return () => {
+        tweenOut.destroy();
+        tweenOut = null;
+      };
+    });
+    return html`
+        <div class="c-loader ${position2}">
+            <span class="c-loader__inner"></span>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/loader/definition.js
+  var loaderDef = createComponent({
+    name: "mob-loader",
+    component: Loader,
+    exportState: ["position", "shouldRemove"],
+    state: {
+      shouldRemove: () => ({
+        value: false,
+        type: Boolean
+      }),
+      position: () => ({
+        value: "center-viewport",
+        type: String,
+        validate: (val2) => {
+          return ["center-viewport", "center-component"].includes(val2);
+        }
+      })
+    }
+  });
+
+  // node_modules/highlight.js/es/core.js
+  var import_core2 = __toESM(require_core(), 1);
+  var core_default = import_core2.default;
+
+  // node_modules/highlight.js/es/languages/javascript.js
+  var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
+  var KEYWORDS = [
+    "as",
+    // for exports
+    "in",
+    "of",
+    "if",
+    "for",
+    "while",
+    "finally",
+    "var",
+    "new",
+    "function",
+    "do",
+    "return",
+    "void",
+    "else",
+    "break",
+    "catch",
+    "instanceof",
+    "with",
+    "throw",
+    "case",
+    "default",
+    "try",
+    "switch",
+    "continue",
+    "typeof",
+    "delete",
+    "let",
+    "yield",
+    "const",
+    "class",
+    // JS handles these with a special rule
+    // "get",
+    // "set",
+    "debugger",
+    "async",
+    "await",
+    "static",
+    "import",
+    "from",
+    "export",
+    "extends"
+  ];
+  var LITERALS = [
+    "true",
+    "false",
+    "null",
+    "undefined",
+    "NaN",
+    "Infinity"
+  ];
+  var TYPES = [
+    // Fundamental objects
+    "Object",
+    "Function",
+    "Boolean",
+    "Symbol",
+    // numbers and dates
+    "Math",
+    "Date",
+    "Number",
+    "BigInt",
+    // text
+    "String",
+    "RegExp",
+    // Indexed collections
+    "Array",
+    "Float32Array",
+    "Float64Array",
+    "Int8Array",
+    "Uint8Array",
+    "Uint8ClampedArray",
+    "Int16Array",
+    "Int32Array",
+    "Uint16Array",
+    "Uint32Array",
+    "BigInt64Array",
+    "BigUint64Array",
+    // Keyed collections
+    "Set",
+    "Map",
+    "WeakSet",
+    "WeakMap",
+    // Structured data
+    "ArrayBuffer",
+    "SharedArrayBuffer",
+    "Atomics",
+    "DataView",
+    "JSON",
+    // Control abstraction objects
+    "Promise",
+    "Generator",
+    "GeneratorFunction",
+    "AsyncFunction",
+    // Reflection
+    "Reflect",
+    "Proxy",
+    // Internationalization
+    "Intl",
+    // WebAssembly
+    "WebAssembly"
+  ];
+  var ERROR_TYPES = [
+    "Error",
+    "EvalError",
+    "InternalError",
+    "RangeError",
+    "ReferenceError",
+    "SyntaxError",
+    "TypeError",
+    "URIError"
+  ];
+  var BUILT_IN_GLOBALS = [
+    "setInterval",
+    "setTimeout",
+    "clearInterval",
+    "clearTimeout",
+    "require",
+    "exports",
+    "eval",
+    "isFinite",
+    "isNaN",
+    "parseFloat",
+    "parseInt",
+    "decodeURI",
+    "decodeURIComponent",
+    "encodeURI",
+    "encodeURIComponent",
+    "escape",
+    "unescape"
+  ];
+  var BUILT_IN_VARIABLES = [
+    "arguments",
+    "this",
+    "super",
+    "console",
+    "window",
+    "document",
+    "localStorage",
+    "sessionStorage",
+    "module",
+    "global"
+    // Node.js
+  ];
+  var BUILT_INS = [].concat(
+    BUILT_IN_GLOBALS,
+    TYPES,
+    ERROR_TYPES
+  );
+  function javascript(hljs) {
+    const regex = hljs.regex;
+    const hasClosingTag = (match, { after }) => {
+      const tag = "</" + match[0].slice(1);
+      const pos = match.input.indexOf(tag, after);
+      return pos !== -1;
+    };
+    const IDENT_RE$1 = IDENT_RE;
+    const FRAGMENT = {
+      begin: "<>",
+      end: "</>"
+    };
+    const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
+    const XML_TAG = {
+      begin: /<[A-Za-z0-9\\._:-]+/,
+      end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
+      /**
+       * @param {RegExpMatchArray} match
+       * @param {CallbackResponse} response
+       */
+      isTrulyOpeningTag: (match, response) => {
+        const afterMatchIndex = match[0].length + match.index;
+        const nextChar = match.input[afterMatchIndex];
+        if (
+          // HTML should not include another raw `<` inside a tag
+          // nested type?
+          // `<Array<Array<number>>`, etc.
+          nextChar === "<" || // the , gives away that this is not HTML
+          // `<T, A extends keyof T, V>`
+          nextChar === ","
+        ) {
+          response.ignoreMatch();
+          return;
+        }
+        if (nextChar === ">") {
+          if (!hasClosingTag(match, { after: afterMatchIndex })) {
+            response.ignoreMatch();
+          }
+        }
+        let m;
+        const afterMatch = match.input.substring(afterMatchIndex);
+        if (m = afterMatch.match(/^\s*=/)) {
+          response.ignoreMatch();
+          return;
+        }
+        if (m = afterMatch.match(/^\s+extends\s+/)) {
+          if (m.index === 0) {
+            response.ignoreMatch();
+            return;
+          }
+        }
+      }
+    };
+    const KEYWORDS$1 = {
+      $pattern: IDENT_RE,
+      keyword: KEYWORDS,
+      literal: LITERALS,
+      built_in: BUILT_INS,
+      "variable.language": BUILT_IN_VARIABLES
+    };
+    const decimalDigits = "[0-9](_?[0-9])*";
+    const frac = `\\.(${decimalDigits})`;
+    const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
+    const NUMBER3 = {
+      className: "number",
+      variants: [
+        // DecimalLiteral
+        { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
+        { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
+        // DecimalBigIntegerLiteral
+        { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
+        // NonDecimalIntegerLiteral
+        { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
+        { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
+        { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
+        // LegacyOctalIntegerLiteral (does not include underscore separators)
+        // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
+        { begin: "\\b0[0-7]+n?\\b" }
+      ],
+      relevance: 0
+    };
+    const SUBST = {
+      className: "subst",
+      begin: "\\$\\{",
+      end: "\\}",
+      keywords: KEYWORDS$1,
+      contains: []
+      // defined later
+    };
+    const HTML_TEMPLATE = {
+      begin: "html`",
+      end: "",
+      starts: {
+        end: "`",
+        returnEnd: false,
+        contains: [
+          hljs.BACKSLASH_ESCAPE,
+          SUBST
+        ],
+        subLanguage: "xml"
+      }
+    };
+    const CSS_TEMPLATE = {
+      begin: "css`",
+      end: "",
+      starts: {
+        end: "`",
+        returnEnd: false,
+        contains: [
+          hljs.BACKSLASH_ESCAPE,
+          SUBST
+        ],
+        subLanguage: "css"
+      }
+    };
+    const GRAPHQL_TEMPLATE = {
+      begin: "gql`",
+      end: "",
+      starts: {
+        end: "`",
+        returnEnd: false,
+        contains: [
+          hljs.BACKSLASH_ESCAPE,
+          SUBST
+        ],
+        subLanguage: "graphql"
+      }
+    };
+    const TEMPLATE_STRING = {
+      className: "string",
+      begin: "`",
+      end: "`",
+      contains: [
+        hljs.BACKSLASH_ESCAPE,
+        SUBST
+      ]
+    };
+    const JSDOC_COMMENT = hljs.COMMENT(
+      /\/\*\*(?!\/)/,
+      "\\*/",
+      {
+        relevance: 0,
+        contains: [
+          {
+            begin: "(?=@[A-Za-z]+)",
+            relevance: 0,
+            contains: [
+              {
+                className: "doctag",
+                begin: "@[A-Za-z]+"
+              },
+              {
+                className: "type",
+                begin: "\\{",
+                end: "\\}",
+                excludeEnd: true,
+                excludeBegin: true,
+                relevance: 0
+              },
+              {
+                className: "variable",
+                begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
+                endsParent: true,
+                relevance: 0
+              },
+              // eat spaces (not newlines) so we can find
+              // types or variables
+              {
+                begin: /(?=[^\n])\s/,
+                relevance: 0
+              }
+            ]
+          }
+        ]
+      }
+    );
+    const COMMENT = {
+      className: "comment",
+      variants: [
+        JSDOC_COMMENT,
+        hljs.C_BLOCK_COMMENT_MODE,
+        hljs.C_LINE_COMMENT_MODE
+      ]
+    };
+    const SUBST_INTERNALS = [
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      HTML_TEMPLATE,
+      CSS_TEMPLATE,
+      GRAPHQL_TEMPLATE,
+      TEMPLATE_STRING,
+      // Skip numbers when they are part of a variable name
+      { match: /\$\d+/ },
+      NUMBER3
+      // This is intentional:
+      // See https://github.com/highlightjs/highlight.js/issues/3288
+      // hljs.REGEXP_MODE
+    ];
+    SUBST.contains = SUBST_INTERNALS.concat({
+      // we need to pair up {} inside our subst to prevent
+      // it from ending too early by matching another }
+      begin: /\{/,
+      end: /\}/,
+      keywords: KEYWORDS$1,
+      contains: [
+        "self"
+      ].concat(SUBST_INTERNALS)
+    });
+    const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
+    const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
+      // eat recursive parens in sub expressions
+      {
+        begin: /\(/,
+        end: /\)/,
+        keywords: KEYWORDS$1,
+        contains: ["self"].concat(SUBST_AND_COMMENTS)
+      }
+    ]);
+    const PARAMS = {
+      className: "params",
+      begin: /\(/,
+      end: /\)/,
+      excludeBegin: true,
+      excludeEnd: true,
+      keywords: KEYWORDS$1,
+      contains: PARAMS_CONTAINS
+    };
+    const CLASS_OR_EXTENDS = {
+      variants: [
+        // class Car extends vehicle
+        {
+          match: [
+            /class/,
+            /\s+/,
+            IDENT_RE$1,
+            /\s+/,
+            /extends/,
+            /\s+/,
+            regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
+          ],
+          scope: {
+            1: "keyword",
+            3: "title.class",
+            5: "keyword",
+            7: "title.class.inherited"
+          }
+        },
+        // class Car
+        {
+          match: [
+            /class/,
+            /\s+/,
+            IDENT_RE$1
+          ],
+          scope: {
+            1: "keyword",
+            3: "title.class"
+          }
+        }
+      ]
+    };
+    const CLASS_REFERENCE = {
+      relevance: 0,
+      match: regex.either(
+        // Hard coded exceptions
+        /\bJSON/,
+        // Float32Array, OutT
+        /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
+        // CSSFactory, CSSFactoryT
+        /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
+        // FPs, FPsT
+        /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
+        // P
+        // single letters are not highlighted
+        // BLAH
+        // this will be flagged as a UPPER_CASE_CONSTANT instead
+      ),
+      className: "title.class",
+      keywords: {
+        _: [
+          // se we still get relevance credit for JS library classes
+          ...TYPES,
+          ...ERROR_TYPES
+        ]
+      }
+    };
+    const USE_STRICT = {
+      label: "use_strict",
+      className: "meta",
+      relevance: 10,
+      begin: /^\s*['"]use (strict|asm)['"]/
+    };
+    const FUNCTION_DEFINITION = {
+      variants: [
+        {
+          match: [
+            /function/,
+            /\s+/,
+            IDENT_RE$1,
+            /(?=\s*\()/
+          ]
+        },
+        // anonymous function
+        {
+          match: [
+            /function/,
+            /\s*(?=\()/
+          ]
+        }
+      ],
+      className: {
+        1: "keyword",
+        3: "title.function"
+      },
+      label: "func.def",
+      contains: [PARAMS],
+      illegal: /%/
+    };
+    const UPPER_CASE_CONSTANT = {
+      relevance: 0,
+      match: /\b[A-Z][A-Z_0-9]+\b/,
+      className: "variable.constant"
+    };
+    function noneOf(list) {
+      return regex.concat("(?!", list.join("|"), ")");
+    }
+    const FUNCTION_CALL = {
+      match: regex.concat(
+        /\b/,
+        noneOf([
+          ...BUILT_IN_GLOBALS,
+          "super",
+          "import"
+        ]),
+        IDENT_RE$1,
+        regex.lookahead(/\(/)
+      ),
+      className: "title.function",
+      relevance: 0
+    };
+    const PROPERTY_ACCESS = {
+      begin: regex.concat(/\./, regex.lookahead(
+        regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
+      )),
+      end: IDENT_RE$1,
+      excludeBegin: true,
+      keywords: "prototype",
+      className: "property",
+      relevance: 0
+    };
+    const GETTER_OR_SETTER = {
+      match: [
+        /get|set/,
+        /\s+/,
+        IDENT_RE$1,
+        /(?=\()/
+      ],
+      className: {
+        1: "keyword",
+        3: "title.function"
+      },
+      contains: [
+        {
+          // eat to avoid empty params
+          begin: /\(\)/
+        },
+        PARAMS
+      ]
+    };
+    const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs.UNDERSCORE_IDENT_RE + ")\\s*=>";
+    const FUNCTION_VARIABLE = {
+      match: [
+        /const|var|let/,
+        /\s+/,
+        IDENT_RE$1,
+        /\s*/,
+        /=\s*/,
+        /(async\s*)?/,
+        // async is optional
+        regex.lookahead(FUNC_LEAD_IN_RE)
+      ],
+      keywords: "async",
+      className: {
+        1: "keyword",
+        3: "title.function"
+      },
+      contains: [
+        PARAMS
+      ]
+    };
+    return {
+      name: "JavaScript",
+      aliases: ["js", "jsx", "mjs", "cjs"],
+      keywords: KEYWORDS$1,
+      // this will be extended by TypeScript
+      exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
+      illegal: /#(?![$_A-z])/,
+      contains: [
+        hljs.SHEBANG({
+          label: "shebang",
+          binary: "node",
+          relevance: 5
+        }),
+        USE_STRICT,
+        hljs.APOS_STRING_MODE,
+        hljs.QUOTE_STRING_MODE,
+        HTML_TEMPLATE,
+        CSS_TEMPLATE,
+        GRAPHQL_TEMPLATE,
+        TEMPLATE_STRING,
+        COMMENT,
+        // Skip numbers when they are part of a variable name
+        { match: /\$\d+/ },
+        NUMBER3,
+        CLASS_REFERENCE,
+        {
+          className: "attr",
+          begin: IDENT_RE$1 + regex.lookahead(":"),
+          relevance: 0
+        },
+        FUNCTION_VARIABLE,
+        {
+          // "value" container
+          begin: "(" + hljs.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
+          keywords: "return throw case",
+          relevance: 0,
+          contains: [
+            COMMENT,
+            hljs.REGEXP_MODE,
+            {
+              className: "function",
+              // we have to count the parens to make sure we actually have the
+              // correct bounding ( ) before the =>.  There could be any number of
+              // sub-expressions inside also surrounded by parens.
+              begin: FUNC_LEAD_IN_RE,
+              returnBegin: true,
+              end: "\\s*=>",
+              contains: [
+                {
+                  className: "params",
+                  variants: [
+                    {
+                      begin: hljs.UNDERSCORE_IDENT_RE,
+                      relevance: 0
+                    },
+                    {
+                      className: null,
+                      begin: /\(\s*\)/,
+                      skip: true
+                    },
+                    {
+                      begin: /\(/,
+                      end: /\)/,
+                      excludeBegin: true,
+                      excludeEnd: true,
+                      keywords: KEYWORDS$1,
+                      contains: PARAMS_CONTAINS
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // could be a comma delimited list of params to a function call
+              begin: /,/,
+              relevance: 0
+            },
+            {
+              match: /\s+/,
+              relevance: 0
+            },
+            {
+              // JSX
+              variants: [
+                { begin: FRAGMENT.begin, end: FRAGMENT.end },
+                { match: XML_SELF_CLOSING },
+                {
+                  begin: XML_TAG.begin,
+                  // we carefully check the opening tag to see if it truly
+                  // is a tag and not a false positive
+                  "on:begin": XML_TAG.isTrulyOpeningTag,
+                  end: XML_TAG.end
+                }
+              ],
+              subLanguage: "xml",
+              contains: [
+                {
+                  begin: XML_TAG.begin,
+                  end: XML_TAG.end,
+                  skip: true,
+                  contains: ["self"]
+                }
+              ]
+            }
+          ]
+        },
+        FUNCTION_DEFINITION,
+        {
+          // prevent this from getting swallowed up by function
+          // since they appear "function like"
+          beginKeywords: "while if switch catch for"
+        },
+        {
+          // we have to count the parens to make sure we actually have the correct
+          // bounding ( ).  There could be any number of sub-expressions inside
+          // also surrounded by parens.
+          begin: "\\b(?!function)" + hljs.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
+          // end parens
+          returnBegin: true,
+          label: "func.def",
+          contains: [
+            PARAMS,
+            hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
+          ]
+        },
+        // catch ... so it won't trigger the property rule below
+        {
+          match: /\.\.\./,
+          relevance: 0
+        },
+        PROPERTY_ACCESS,
+        // hack: prevents detection of keywords in some circumstances
+        // .keyword()
+        // $keyword = x
+        {
+          match: "\\$" + IDENT_RE$1,
+          relevance: 0
+        },
+        {
+          match: [/\bconstructor(?=\s*\()/],
+          className: { 1: "title.function" },
+          contains: [PARAMS]
+        },
+        FUNCTION_CALL,
+        UPPER_CASE_CONSTANT,
+        CLASS_OR_EXTENDS,
+        GETTER_OR_SETTER,
+        {
+          match: /\$[(.]/
+          // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
+        }
+      ]
+    };
+  }
+
+  // src/js/component/common/snippet/snippet.js
+  core_default.registerLanguage("javascript", javascript);
+  var loadSnippet = async ({ ref, source }) => {
+    const { success, data: data3 } = await loadTextContent({ source });
+    if (!success) {
+      ref.textContent = `something went wrong`;
+      return;
+    }
+    ref.textContent = data3;
+    core_default.highlightElement(ref, { language: "javascript" });
+    ref.style.minHeight = "";
+  };
+  var Snippet = ({ html, onMount, getState }) => {
+    const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } = getState();
+    const isFullClass = isFull ? "is-full" : "";
+    const hasBorderClass = hasBorder ? "has-border" : "";
+    const hasOverflowClass = hasOverflow ? "has-overflow" : "";
+    const remValue = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--snippet-rem-value");
+    onMount(async ({ refs }) => {
+      const { codeEl } = refs;
+      if (loadOnMount) {
+        await loadSnippet({ ref: codeEl, source });
+      } else {
+        loadSnippet({ ref: codeEl, source });
+      }
+      return () => {
+      };
+    });
+    return html`<div class="snippet">
+        <code class="${isFullClass} ${hasBorderClass}">
+            <pre
+                class="${isFullClass} ${hasOverflowClass}"
+                ref="codeEl"
+                style="min-height:${numLines * remValue}rem;"
+            >
+Loading snippet ...</pre
+            >
+        </code>
+    </div>`;
+  };
+
+  // src/js/component/common/snippet/definition.js
+  var snippetContentDef = createComponent({
+    name: "mob-snippet",
+    component: Snippet,
+    exportState: [
+      "source",
+      "isFull",
+      "hasOverflow",
+      "hasBorder",
+      "numLines",
+      "loadOnMount"
+    ],
+    state: {
+      source: () => ({
+        value: "",
+        type: String
+      }),
+      contentIsLoaded: () => ({
+        value: false,
+        type: Boolean
+      }),
+      isFull: () => ({
+        value: false,
+        type: Boolean
+      }),
+      hasOverflow: () => ({
+        value: true,
+        type: Boolean
+      }),
+      hasBorder: () => ({
+        value: false,
+        type: Boolean
+      }),
+      numLines: () => ({
+        value: 1,
+        type: Number
+      }),
+      loadOnMount: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
+  // src/js/component/common/scrollTo/scrollToStore.js
+  var anchorStore = mobCore.createStore({
+    items: () => ({
+      value: [],
+      type: Array
+    }),
+    computedItems: () => ({
+      value: [],
+      type: Array
+    }),
+    activeLabelFromObeserver: () => ({
+      value: "",
+      type: String
+    })
+  });
+  anchorStore.computed("computedItems", ["items"], (val2) => {
+    return val2;
+  });
+  mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
+    anchorStore.set("items", []);
+  });
+
+  // src/js/component/common/spacerAnchor/spacerAnchor.js
+  function hasAnchor({ id }) {
+    return id && id.length > 0;
+  }
+  var options = {
+    root: null,
+    rootMargin: "0% 0% -100% 0%",
+    threshold: 0.5
+  };
+  var SpacerAnchor = async ({ html, getState, onMount }) => {
+    const { style, line, id, label } = getState();
+    const lineClass = line ? "spacer--line" : "";
+    onMount(({ element }) => {
+      const shouldAddToAnchor = hasAnchor({ id });
+      if (!shouldAddToAnchor) return;
+      anchorStore.set("items", (val2) => {
+        return [...val2, { id, label, element }];
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.map((entry) => {
+          if (entry.isIntersecting) {
+            anchorStore.set("activeLabelFromObeserver", label);
+          }
+        });
+      });
+      observer.observe(element, options);
+      return () => {
+        observer.unobserve(element);
+      };
+    });
+    return html`<div class="spacer spacer--${style} ${lineClass}">
+        <span></span>
+    </div>`;
+  };
+
+  // src/js/component/common/spacerAnchor/definition.js
+  var spacerContentDef = createComponent({
+    name: "mob-spacer",
+    component: SpacerAnchor,
+    exportState: ["style", "line", "id", "label"],
+    state: {
+      style: () => ({
+        value: "medium",
+        type: String,
+        validate: (val2) => ["small", "medium", "big"].includes(val2),
+        strict: true
+      }),
+      line: () => ({
+        value: false,
+        type: Boolean
+      }),
+      id: () => ({
+        value: "",
+        type: String
+      }),
+      label: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/component/common/typography/list/list.js
+  var getList = ({ items: items2 }) => {
+    return items2.map((item) => renderHtml` <li>${item}</li> `).join("");
+  };
+  var List = ({ html, getState }) => {
+    const { style, color, items: items2, dots } = getState();
+    const colorClass = `is-${color}`;
+    const dotsClass = dots ? "" : `hide-dots`;
+    return html`<ul class="ul ul--${style} ${colorClass} ${dotsClass}">
+        ${getList({ items: items2 })}
+    </ul>`;
+  };
+
+  // src/js/component/common/typography/list/definition.js
+  var listContentDef = createComponent({
+    name: "mob-list",
+    component: List,
+    exportState: ["style", "color", "items", "dots"],
+    state: {
+      style: () => ({
+        value: "medium",
+        type: String,
+        validate: (val2) => ["small", "medium", "big"].includes(val2),
+        strict: true
+      }),
+      dots: () => ({
+        value: true,
+        type: Boolean
+      }),
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (val2) => {
+          return ["white", "grey", "hightlight"].includes(val2);
+        }
+      }),
+      items: () => ({
+        value: [],
+        type: Array
+      })
+    }
+  });
+
+  // src/js/component/common/typography/paragraph/paragraph.js
+  var Paragraph = ({ html, getState }) => {
+    const { style, color } = getState();
+    const colorClass = `is-${color}`;
+    return html`<p class="p p--${style} ${colorClass}">
+        <mobjs-slot />
+    </p>`;
+  };
+
+  // src/js/component/common/typography/paragraph/definition.js
+  var paragraphContentDef = createComponent({
+    name: "mob-paragraph",
+    component: Paragraph,
+    exportState: ["style", "color"],
+    state: {
+      style: () => ({
+        value: "medium",
+        type: String,
+        validate: (val2) => ["small", "medium", "big"].includes(val2),
+        strict: true
+      }),
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (val2) => {
+          return ["white", "grey", "highlight"].includes(val2);
+        }
+      })
+    }
+  });
+
+  // src/js/component/common/htmlContent/htmlContent.js
+  var getComponents = ({ data: data3, staticProps: staticProps2 }) => {
+    return data3.map((item) => {
+      const { component, props, content: content2 } = item;
+      return renderHtml`
+                <${component} ${staticProps2(props)}>
+                    ${content2 ?? ""}
+                </${component}>
+            `;
+    }).join("");
+  };
+  var getData2 = async ({ source, data: data3 }) => {
+    if (data3 && data3.length > 0) return data3;
+    const { success, data: currentData } = await loadJsonContent({ source });
+    if (!success) return [];
+    return currentData.data;
+  };
+  var getLoader = ({ data: data3, bindProps }) => {
+    if (data3 && data3.length > 0) return "";
+    return renderHtml`
+        <mob-loader
+            ${bindProps({
+      bind: ["contentIsLoaded"],
+      props: ({ contentIsLoaded }) => {
+        return { shouldRemove: contentIsLoaded };
       }
     })}
-        >
-            <span class="c-code-btn__icon">${icon_code_default}</span>
+        ></mob-loader>
+    `;
+  };
+  var HtmlContent = async ({
+    html,
+    getState,
+    setState,
+    staticProps: staticProps2,
+    bindProps,
+    onMount
+  }) => {
+    const { source, data: data3 } = getState();
+    const currentData = await getData2({ source, data: data3 });
+    const { useMinHeight, useMaxWidth } = getState();
+    const useMinHeightClass = useMinHeight ? "is-min-100" : "";
+    const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
+    onMount(async ({ element }) => {
+      setState("contentIsLoaded", true);
+      mobCore.useFrame(() => {
+        element.classList.add("active");
+      });
+    });
+    return html`
+        <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
+            ${getLoader({ data: data3, bindProps })}
+            ${getComponents({ data: currentData, staticProps: staticProps2 })}
+        </section>
+    `;
+  };
+
+  // src/js/component/common/htmlContent/definition.js
+  var htmlContentDef = createComponent({
+    name: "html-content",
+    component: HtmlContent,
+    exportState: ["source", "useMinHeight", "useMaxWidth", "data"],
+    state: {
+      source: () => ({
+        value: "",
+        type: String
+      }),
+      data: () => ({
+        value: [],
+        type: Array
+      }),
+      contentIsLoaded: () => ({
+        value: false,
+        type: Boolean
+      }),
+      useMinHeight: () => ({
+        value: false,
+        type: Boolean
+      }),
+      useMaxWidth: () => ({
+        value: false,
+        type: Boolean
+      })
+    },
+    child: [
+      listContentDef,
+      paragraphContentDef,
+      titleContentDef,
+      loaderDef,
+      snippetContentDef,
+      spacerContentDef
+    ]
+  });
+
+  // src/js/component/common/scrollTo/button/scrollToButton.js
+  var ScrollToButton = ({ html, getState, onMount, watchSync }) => {
+    const { label } = getState();
+    onMount(({ element }) => {
+      watchSync("active", (val2) => {
+        element.classList.toggle("active", val2);
+      });
+    });
+    return html`
+        <button type="button">
+            <span> ${label} </span>
         </button>
     `;
   };
 
-  // src/js/component/common/codeButton/definition.js
-  var codeButtonComponentDef = createComponent({
-    name: "code-button",
-    component: CodeButton,
-    exportState: ["drawers", "color"],
+  // src/js/component/common/scrollTo/button/definition.js
+  var scrollToButtonDef = createComponent({
+    name: "scroll-to-button",
+    component: ScrollToButton,
+    exportState: ["label", "active"],
     state: {
-      drawers: () => ({
-        value: [],
-        type: Array
-      }),
-      color: () => ({
-        value: "black",
+      label: () => ({
+        value: "",
         type: String
+      }),
+      active: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -23027,1462 +24680,6 @@
     }
   };
 
-  // src/js/component/common/codeOverlay/animation/overlayScroller.js
-  var overlayScroller = ({ screen, scroller: scroller2, scrollbar }) => {
-    const instance = new SmoothScroller({
-      screen,
-      scroller: scroller2,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: true,
-      breakpoint: "xSmall",
-      onTick: ({ percent }) => {
-        scrollbar.value = percent;
-      }
-    });
-    instance.init();
-    return {
-      updateScroller: () => {
-        const scrollerHeight = outerHeight(scroller2);
-        const screenHeight = outerHeight(screen);
-        const scrollBarHeight = outerWidth(scrollbar);
-        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
-        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
-        instance.refresh();
-      },
-      move: (val2) => instance.move(val2),
-      goToTop: () => instance.set(0)
-    };
-  };
-
-  // src/svg/icon-copy.svg
-  var icon_copy_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 466.726 466.722" width="466.726pt" height="466.722pt"><defs><clipPath id="_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA"><rect width="466.726" height="466.722"/></clipPath></defs><g clip-path="url(#_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA)"><path d=" M 64.164 0 C 28.918 0 0 28.918 0 64.164 L 0 306.614 C 0 341.86 28.918 370.778 64.164 370.778 L 306.614 370.778 C 341.86 370.778 370.778 341.86 370.778 306.614 L 370.778 64.164 C 370.778 28.918 341.86 0 306.614 0 L 64.164 0 Z  M 64.164 34.969 L 306.614 34.969 C 323.075 34.969 335.723 47.703 335.723 64.164 L 335.723 306.614 C 335.723 323.075 323.075 335.723 306.614 335.723 L 64.164 335.723 C 47.703 335.723 34.969 323.075 34.969 306.614 L 34.969 64.164 C 34.969 47.703 47.703 34.969 64.164 34.969 Z " fill-rule="evenodd" /><path d=" M 353.214 95.945 C 348.577 95.949 344.132 97.793 340.855 101.07 C 337.578 104.347 335.734 108.793 335.73 113.429 C 335.734 118.062 337.578 122.507 340.855 125.784 C 344.132 129.061 348.578 130.905 353.214 130.913 L 402.566 130.913 C 418.882 130.913 431.675 143.792 431.675 160.108 L 431.675 402.558 C 431.675 418.874 418.882 431.667 402.566 431.667 L 160.116 431.667 C 143.8 431.667 130.921 418.874 130.921 402.558 L 130.917 353.292 C 130.937 348.643 129.105 344.175 125.823 340.878 C 122.542 337.581 118.085 335.726 113.432 335.722 C 108.78 335.726 104.323 337.581 101.045 340.878 C 97.764 344.175 95.928 348.643 95.948 353.292 L 95.948 402.558 C 95.948 437.792 124.882 466.722 160.112 466.722 L 402.562 466.722 C 437.796 466.722 466.726 437.788 466.726 402.558 L 466.726 160.108 C 466.726 124.874 437.792 95.944 402.562 95.944 L 353.214 95.945 Z " /></g></svg>\n';
-
-  // src/js/component/common/codeOverlay/codeOverlay.js
-  var copyToClipboard = ({ getState }) => {
-    const { rawContent } = getState();
-    navigator.clipboard.writeText(rawContent);
-  };
-  function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
-    return renderHtml`
-        <code-overlay-button
-            ${sync}
-            ${bindProps({
-      bind: ["activeContent"],
-      props: ({ activeContent, _current }) => {
-        const { label, source } = _current;
-        return {
-          key: label,
-          disable: !source || source.length === 0,
-          selected: label === activeContent
-        };
-      }
-    })}
-            ${delegateEvents({
-      click: (_e, { current }) => {
-        const { label } = current;
-        setState("activeContent", label);
-      }
-    })}
-        >
-        </code-overlay-button>
-    `;
-  }
-  var printContent = async ({
-    setState,
-    getState,
-    codeEl,
-    currentKey,
-    updateScroller,
-    goToTop,
-    renderComponent
-  }) => {
-    const { urls } = getState();
-    const currentItem = urls.find(({ label }) => {
-      return label === currentKey;
-    });
-    const source = currentItem?.source;
-    if (!source?.length) return;
-    const htmlContent = renderHtml`<html-content
-        ${staticProps({ source, useMinHeight: true })}
-    ></html-content>`;
-    await renderComponent({
-      attachTo: codeEl,
-      component: htmlContent
-    });
-    setState(
-      "rawContent",
-      /* HTML */
-      codeEl.textContent
-    );
-    updateScroller();
-    goToTop();
-  };
-  var CodeOverlay = ({
-    onMount,
-    setState,
-    getState,
-    repeat,
-    html,
-    bindProps,
-    delegateEvents,
-    staticProps: staticProps2,
-    watch,
-    renderComponent,
-    removeDOM
-  }) => {
-    onMount(({ element, refs }) => {
-      const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
-      const { updateScroller, move, goToTop } = overlayScroller({
-        screen: screenEl,
-        scroller: scrollerEl,
-        scrollbar
-      });
-      scrollbar.addEventListener("input", () => {
-        move(scrollbar.value);
-      });
-      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_LEAVES, () => {
-        setState("urls", []);
-      });
-      watch("activeContent", (currentKey) => {
-        printContent({
-          setState,
-          getState,
-          codeEl,
-          currentKey,
-          updateScroller,
-          goToTop,
-          staticProps: staticProps2,
-          renderComponent
-        });
-      });
-      watch("urls", async (urls) => {
-        const shouldOpen = urls.length > 0;
-        if (shouldOpen) {
-          element.classList.add("active");
-          document.body.style.overflow = "hidden";
-          const firstActiveItem = urls?.[0]?.label;
-          if (!firstActiveItem) return;
-          setState("activeContent", firstActiveItem);
-          return;
-        }
-        element.classList.remove("active");
-        document.body.style.overflow = "";
-        setState("activeContent", "");
-        removeDOM(codeEl);
-        goToTop();
-      });
-      return () => {
-      };
-    });
-    return html`
-        <div class="c-code-overlay js-overlay">
-            <span
-                class="c-code-overlay__background"
-                ${delegateEvents({
-      click: () => {
-        setState("urls", []);
-      }
-    })}
-            ></span>
-            <div class="c-code-overlay__wrap js-overlay-wrap">
-                <button
-                    type="button"
-                    class="c-code-overlay__close"
-                    ${delegateEvents({
-      click: () => {
-        setState("urls", []);
-      }
-    })}
-                ></button>
-                <button
-                    type="button"
-                    class="c-code-overlay__copy"
-                    ${delegateEvents({
-      click: () => {
-        copyToClipboard({ getState });
-      }
-    })}
-                >
-                    ${icon_copy_default}
-                </button>
-                <div class="c-code-overlay__header">
-                    ${repeat({
-      clean: true,
-      watch: "urls",
-      render: ({ sync }) => {
-        return getRepeaterCard({
-          sync,
-          bindProps,
-          delegateEvents,
-          setState
-        });
-      }
-    })}
-                </div>
-                <input
-                    type="range"
-                    id="test"
-                    name="test"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step=".5"
-                    ref="scrollbar"
-                    class="c-code-overlay__scrollbar"
-                />
-                <div class="c-code-overlay__content" ref="screenEl">
-                    <div ref="scrollerEl">
-                        <div
-                            class="c-code-overlay__content__description"
-                            ref="codeEl"
-                        ></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/codeOverlay/codeOverlayButton.js
-  var CodeOverlayButton = ({ onMount, watch, getState, html }) => {
-    const { key, disable } = getState();
-    onMount(({ element }) => {
-      const unwatchSelected = watch("selected", (selected) => {
-        element.classList.toggle("selected", selected);
-      });
-      return () => {
-        unwatchSelected();
-      };
-    });
-    const isDisable = disable ? "disable" : "";
-    return html`
-        <button class="c-code-overlay__button ${isDisable}">${key}</button>
-    `;
-  };
-
-  // src/js/component/common/codeOverlay/definition.js
-  var codeOverlayDef = createComponent({
-    name: "code-overlay",
-    component: CodeOverlay,
-    exportState: ["urls", "activeContent"],
-    state: {
-      urls: () => ({
-        value: [],
-        type: Array,
-        skipEqual: false
-      }),
-      activeContent: () => ({
-        value: "",
-        type: String,
-        skipEqual: true
-      }),
-      rawContent: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-  var codeOverlayButtonDef = createComponent({
-    name: "code-overlay-button",
-    component: CodeOverlayButton,
-    exportState: ["key", "selected", "disable"],
-    state: {
-      key: "",
-      selected: () => ({
-        value: false,
-        type: Boolean
-      }),
-      disable: () => ({
-        value: true,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/debug/debugButton.js
-  var DebugButton = ({ html, delegateEvents }) => {
-    return html`
-        <button
-            type="button"
-            class="c-btn-debug"
-            ${delegateEvents({
-      click: () => {
-        mainStore.debugStore();
-        console.log("componentMap", componentMap);
-        console.log("Tree structure:", getTree());
-        console.log("bindEventMap", bindEventMap);
-        console.log("currentListValueMap", currentRepeaterValueMap);
-        console.log("activeRepeatMap", activeRepeatMap);
-        console.log("repeatMap", repeatMap);
-        console.log("onMountCallbackMap", onMountCallbackMap);
-        console.log("staticPropsMap", staticPropsMap);
-        console.log("dynamicPropsMap", dynamicPropsMap);
-        console.log(
-          "repeaterTargetComponent",
-          repeaterTargetComponentMap
-        );
-        console.log("eventDelegationMap", eventDelegationMap);
-        console.log("tempDelegateEventMap", tempDelegateEventMap);
-      }
-    })}
-        >
-            Debug
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var degubButtonComponentDef = createComponent({
-    name: "debug-button",
-    component: DebugButton
-  });
-
-  // src/js/component/common/htmlContent/htmlContent.js
-  var getComponents = ({ data: data3, staticProps: staticProps2 }) => {
-    return data3.map((item) => {
-      const { component, props, content: content2 } = item;
-      return renderHtml`
-                <${component} ${staticProps2(props)}>
-                    ${content2 ?? ""}
-                </${component}>
-            `;
-    }).join("");
-  };
-  var getData2 = async ({ source, data: data3 }) => {
-    if (data3 && data3.length > 0) return data3;
-    const { success, data: currentData } = await loadJsonContent({ source });
-    if (!success) return [];
-    return currentData.data;
-  };
-  var getLoader = ({ data: data3, bindProps }) => {
-    if (data3 && data3.length > 0) return "";
-    return renderHtml`
-        <mob-loader
-            ${bindProps({
-      bind: ["contentIsLoaded"],
-      props: ({ contentIsLoaded }) => {
-        return { shouldRemove: contentIsLoaded };
-      }
-    })}
-        ></mob-loader>
-    `;
-  };
-  var HtmlContent = async ({
-    html,
-    getState,
-    setState,
-    staticProps: staticProps2,
-    bindProps,
-    onMount
-  }) => {
-    const { source, data: data3 } = getState();
-    const currentData = await getData2({ source, data: data3 });
-    const { useMinHeight, useMaxWidth } = getState();
-    const useMinHeightClass = useMinHeight ? "is-min-100" : "";
-    const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
-    onMount(async ({ element }) => {
-      setState("contentIsLoaded", true);
-      mobCore.useFrame(() => {
-        element.classList.add("active");
-      });
-    });
-    return html`
-        <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
-            ${getLoader({ data: data3, bindProps })}
-            ${getComponents({ data: currentData, staticProps: staticProps2 })}
-        </section>
-    `;
-  };
-
-  // src/js/component/common/htmlContent/definition.js
-  var htmlContentDef = createComponent({
-    name: "html-content",
-    component: HtmlContent,
-    exportState: ["source", "useMinHeight", "useMaxWidth", "data"],
-    state: {
-      source: () => ({
-        value: "",
-        type: String
-      }),
-      data: () => ({
-        value: [],
-        type: Array
-      }),
-      contentIsLoaded: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useMinHeight: () => ({
-        value: false,
-        type: Boolean
-      }),
-      useMaxWidth: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/typography/titles/title.js
-  var Title = ({ html, getState }) => {
-    const { tag, color, isBold } = getState();
-    const colorClass = `is-${color}`;
-    const boldClass = isBold ? `is-bold` : "";
-    return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <mobjs-slot/>
-    </${tag}>`;
-  };
-
-  // src/js/component/common/typography/titles/definition.js
-  var titleContentDef = createComponent({
-    name: "mob-title",
-    component: Title,
-    exportState: ["tag", "color", "isBold"],
-    state: {
-      tag: () => ({
-        value: "h1",
-        type: String
-      }),
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (val2) => {
-          return ["white", "hightlight"].includes(val2);
-        }
-      }),
-      isBold: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/typography/paragraph/paragraph.js
-  var Paragraph = ({ html, getState }) => {
-    const { style, color } = getState();
-    const colorClass = `is-${color}`;
-    return html`<p class="p p--${style} ${colorClass}">
-        <mobjs-slot />
-    </p>`;
-  };
-
-  // src/js/component/common/typography/paragraph/definition.js
-  var paragraphContentDef = createComponent({
-    name: "mob-paragraph",
-    component: Paragraph,
-    exportState: ["style", "color"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (val2) => {
-          return ["white", "grey", "highlight"].includes(val2);
-        }
-      })
-    }
-  });
-
-  // src/js/component/common/typography/list/list.js
-  var getList = ({ items: items2 }) => {
-    return items2.map((item) => renderHtml` <li>${item}</li> `).join("");
-  };
-  var List = ({ html, getState }) => {
-    const { style, color, items: items2, dots } = getState();
-    const colorClass = `is-${color}`;
-    const dotsClass = dots ? "" : `hide-dots`;
-    return html`<ul class="ul ul--${style} ${colorClass} ${dotsClass}">
-        ${getList({ items: items2 })}
-    </ul>`;
-  };
-
-  // src/js/component/common/typography/list/definition.js
-  var listContentDef = createComponent({
-    name: "mob-list",
-    component: List,
-    exportState: ["style", "color", "items", "dots"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      dots: () => ({
-        value: true,
-        type: Boolean
-      }),
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (val2) => {
-          return ["white", "grey", "hightlight"].includes(val2);
-        }
-      }),
-      items: () => ({
-        value: [],
-        type: Array
-      })
-    }
-  });
-
-  // node_modules/highlight.js/es/core.js
-  var import_core2 = __toESM(require_core(), 1);
-  var core_default = import_core2.default;
-
-  // node_modules/highlight.js/es/languages/javascript.js
-  var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
-  var KEYWORDS = [
-    "as",
-    // for exports
-    "in",
-    "of",
-    "if",
-    "for",
-    "while",
-    "finally",
-    "var",
-    "new",
-    "function",
-    "do",
-    "return",
-    "void",
-    "else",
-    "break",
-    "catch",
-    "instanceof",
-    "with",
-    "throw",
-    "case",
-    "default",
-    "try",
-    "switch",
-    "continue",
-    "typeof",
-    "delete",
-    "let",
-    "yield",
-    "const",
-    "class",
-    // JS handles these with a special rule
-    // "get",
-    // "set",
-    "debugger",
-    "async",
-    "await",
-    "static",
-    "import",
-    "from",
-    "export",
-    "extends"
-  ];
-  var LITERALS = [
-    "true",
-    "false",
-    "null",
-    "undefined",
-    "NaN",
-    "Infinity"
-  ];
-  var TYPES = [
-    // Fundamental objects
-    "Object",
-    "Function",
-    "Boolean",
-    "Symbol",
-    // numbers and dates
-    "Math",
-    "Date",
-    "Number",
-    "BigInt",
-    // text
-    "String",
-    "RegExp",
-    // Indexed collections
-    "Array",
-    "Float32Array",
-    "Float64Array",
-    "Int8Array",
-    "Uint8Array",
-    "Uint8ClampedArray",
-    "Int16Array",
-    "Int32Array",
-    "Uint16Array",
-    "Uint32Array",
-    "BigInt64Array",
-    "BigUint64Array",
-    // Keyed collections
-    "Set",
-    "Map",
-    "WeakSet",
-    "WeakMap",
-    // Structured data
-    "ArrayBuffer",
-    "SharedArrayBuffer",
-    "Atomics",
-    "DataView",
-    "JSON",
-    // Control abstraction objects
-    "Promise",
-    "Generator",
-    "GeneratorFunction",
-    "AsyncFunction",
-    // Reflection
-    "Reflect",
-    "Proxy",
-    // Internationalization
-    "Intl",
-    // WebAssembly
-    "WebAssembly"
-  ];
-  var ERROR_TYPES = [
-    "Error",
-    "EvalError",
-    "InternalError",
-    "RangeError",
-    "ReferenceError",
-    "SyntaxError",
-    "TypeError",
-    "URIError"
-  ];
-  var BUILT_IN_GLOBALS = [
-    "setInterval",
-    "setTimeout",
-    "clearInterval",
-    "clearTimeout",
-    "require",
-    "exports",
-    "eval",
-    "isFinite",
-    "isNaN",
-    "parseFloat",
-    "parseInt",
-    "decodeURI",
-    "decodeURIComponent",
-    "encodeURI",
-    "encodeURIComponent",
-    "escape",
-    "unescape"
-  ];
-  var BUILT_IN_VARIABLES = [
-    "arguments",
-    "this",
-    "super",
-    "console",
-    "window",
-    "document",
-    "localStorage",
-    "sessionStorage",
-    "module",
-    "global"
-    // Node.js
-  ];
-  var BUILT_INS = [].concat(
-    BUILT_IN_GLOBALS,
-    TYPES,
-    ERROR_TYPES
-  );
-  function javascript(hljs) {
-    const regex = hljs.regex;
-    const hasClosingTag = (match, { after }) => {
-      const tag = "</" + match[0].slice(1);
-      const pos = match.input.indexOf(tag, after);
-      return pos !== -1;
-    };
-    const IDENT_RE$1 = IDENT_RE;
-    const FRAGMENT = {
-      begin: "<>",
-      end: "</>"
-    };
-    const XML_SELF_CLOSING = /<[A-Za-z0-9\\._:-]+\s*\/>/;
-    const XML_TAG = {
-      begin: /<[A-Za-z0-9\\._:-]+/,
-      end: /\/[A-Za-z0-9\\._:-]+>|\/>/,
-      /**
-       * @param {RegExpMatchArray} match
-       * @param {CallbackResponse} response
-       */
-      isTrulyOpeningTag: (match, response) => {
-        const afterMatchIndex = match[0].length + match.index;
-        const nextChar = match.input[afterMatchIndex];
-        if (
-          // HTML should not include another raw `<` inside a tag
-          // nested type?
-          // `<Array<Array<number>>`, etc.
-          nextChar === "<" || // the , gives away that this is not HTML
-          // `<T, A extends keyof T, V>`
-          nextChar === ","
-        ) {
-          response.ignoreMatch();
-          return;
-        }
-        if (nextChar === ">") {
-          if (!hasClosingTag(match, { after: afterMatchIndex })) {
-            response.ignoreMatch();
-          }
-        }
-        let m;
-        const afterMatch = match.input.substring(afterMatchIndex);
-        if (m = afterMatch.match(/^\s*=/)) {
-          response.ignoreMatch();
-          return;
-        }
-        if (m = afterMatch.match(/^\s+extends\s+/)) {
-          if (m.index === 0) {
-            response.ignoreMatch();
-            return;
-          }
-        }
-      }
-    };
-    const KEYWORDS$1 = {
-      $pattern: IDENT_RE,
-      keyword: KEYWORDS,
-      literal: LITERALS,
-      built_in: BUILT_INS,
-      "variable.language": BUILT_IN_VARIABLES
-    };
-    const decimalDigits = "[0-9](_?[0-9])*";
-    const frac = `\\.(${decimalDigits})`;
-    const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
-    const NUMBER3 = {
-      className: "number",
-      variants: [
-        // DecimalLiteral
-        { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))[eE][+-]?(${decimalDigits})\\b` },
-        { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
-        // DecimalBigIntegerLiteral
-        { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
-        // NonDecimalIntegerLiteral
-        { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
-        { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
-        { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
-        // LegacyOctalIntegerLiteral (does not include underscore separators)
-        // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
-        { begin: "\\b0[0-7]+n?\\b" }
-      ],
-      relevance: 0
-    };
-    const SUBST = {
-      className: "subst",
-      begin: "\\$\\{",
-      end: "\\}",
-      keywords: KEYWORDS$1,
-      contains: []
-      // defined later
-    };
-    const HTML_TEMPLATE = {
-      begin: "html`",
-      end: "",
-      starts: {
-        end: "`",
-        returnEnd: false,
-        contains: [
-          hljs.BACKSLASH_ESCAPE,
-          SUBST
-        ],
-        subLanguage: "xml"
-      }
-    };
-    const CSS_TEMPLATE = {
-      begin: "css`",
-      end: "",
-      starts: {
-        end: "`",
-        returnEnd: false,
-        contains: [
-          hljs.BACKSLASH_ESCAPE,
-          SUBST
-        ],
-        subLanguage: "css"
-      }
-    };
-    const GRAPHQL_TEMPLATE = {
-      begin: "gql`",
-      end: "",
-      starts: {
-        end: "`",
-        returnEnd: false,
-        contains: [
-          hljs.BACKSLASH_ESCAPE,
-          SUBST
-        ],
-        subLanguage: "graphql"
-      }
-    };
-    const TEMPLATE_STRING = {
-      className: "string",
-      begin: "`",
-      end: "`",
-      contains: [
-        hljs.BACKSLASH_ESCAPE,
-        SUBST
-      ]
-    };
-    const JSDOC_COMMENT = hljs.COMMENT(
-      /\/\*\*(?!\/)/,
-      "\\*/",
-      {
-        relevance: 0,
-        contains: [
-          {
-            begin: "(?=@[A-Za-z]+)",
-            relevance: 0,
-            contains: [
-              {
-                className: "doctag",
-                begin: "@[A-Za-z]+"
-              },
-              {
-                className: "type",
-                begin: "\\{",
-                end: "\\}",
-                excludeEnd: true,
-                excludeBegin: true,
-                relevance: 0
-              },
-              {
-                className: "variable",
-                begin: IDENT_RE$1 + "(?=\\s*(-)|$)",
-                endsParent: true,
-                relevance: 0
-              },
-              // eat spaces (not newlines) so we can find
-              // types or variables
-              {
-                begin: /(?=[^\n])\s/,
-                relevance: 0
-              }
-            ]
-          }
-        ]
-      }
-    );
-    const COMMENT = {
-      className: "comment",
-      variants: [
-        JSDOC_COMMENT,
-        hljs.C_BLOCK_COMMENT_MODE,
-        hljs.C_LINE_COMMENT_MODE
-      ]
-    };
-    const SUBST_INTERNALS = [
-      hljs.APOS_STRING_MODE,
-      hljs.QUOTE_STRING_MODE,
-      HTML_TEMPLATE,
-      CSS_TEMPLATE,
-      GRAPHQL_TEMPLATE,
-      TEMPLATE_STRING,
-      // Skip numbers when they are part of a variable name
-      { match: /\$\d+/ },
-      NUMBER3
-      // This is intentional:
-      // See https://github.com/highlightjs/highlight.js/issues/3288
-      // hljs.REGEXP_MODE
-    ];
-    SUBST.contains = SUBST_INTERNALS.concat({
-      // we need to pair up {} inside our subst to prevent
-      // it from ending too early by matching another }
-      begin: /\{/,
-      end: /\}/,
-      keywords: KEYWORDS$1,
-      contains: [
-        "self"
-      ].concat(SUBST_INTERNALS)
-    });
-    const SUBST_AND_COMMENTS = [].concat(COMMENT, SUBST.contains);
-    const PARAMS_CONTAINS = SUBST_AND_COMMENTS.concat([
-      // eat recursive parens in sub expressions
-      {
-        begin: /\(/,
-        end: /\)/,
-        keywords: KEYWORDS$1,
-        contains: ["self"].concat(SUBST_AND_COMMENTS)
-      }
-    ]);
-    const PARAMS = {
-      className: "params",
-      begin: /\(/,
-      end: /\)/,
-      excludeBegin: true,
-      excludeEnd: true,
-      keywords: KEYWORDS$1,
-      contains: PARAMS_CONTAINS
-    };
-    const CLASS_OR_EXTENDS = {
-      variants: [
-        // class Car extends vehicle
-        {
-          match: [
-            /class/,
-            /\s+/,
-            IDENT_RE$1,
-            /\s+/,
-            /extends/,
-            /\s+/,
-            regex.concat(IDENT_RE$1, "(", regex.concat(/\./, IDENT_RE$1), ")*")
-          ],
-          scope: {
-            1: "keyword",
-            3: "title.class",
-            5: "keyword",
-            7: "title.class.inherited"
-          }
-        },
-        // class Car
-        {
-          match: [
-            /class/,
-            /\s+/,
-            IDENT_RE$1
-          ],
-          scope: {
-            1: "keyword",
-            3: "title.class"
-          }
-        }
-      ]
-    };
-    const CLASS_REFERENCE = {
-      relevance: 0,
-      match: regex.either(
-        // Hard coded exceptions
-        /\bJSON/,
-        // Float32Array, OutT
-        /\b[A-Z][a-z]+([A-Z][a-z]*|\d)*/,
-        // CSSFactory, CSSFactoryT
-        /\b[A-Z]{2,}([A-Z][a-z]+|\d)+([A-Z][a-z]*)*/,
-        // FPs, FPsT
-        /\b[A-Z]{2,}[a-z]+([A-Z][a-z]+|\d)*([A-Z][a-z]*)*/
-        // P
-        // single letters are not highlighted
-        // BLAH
-        // this will be flagged as a UPPER_CASE_CONSTANT instead
-      ),
-      className: "title.class",
-      keywords: {
-        _: [
-          // se we still get relevance credit for JS library classes
-          ...TYPES,
-          ...ERROR_TYPES
-        ]
-      }
-    };
-    const USE_STRICT = {
-      label: "use_strict",
-      className: "meta",
-      relevance: 10,
-      begin: /^\s*['"]use (strict|asm)['"]/
-    };
-    const FUNCTION_DEFINITION = {
-      variants: [
-        {
-          match: [
-            /function/,
-            /\s+/,
-            IDENT_RE$1,
-            /(?=\s*\()/
-          ]
-        },
-        // anonymous function
-        {
-          match: [
-            /function/,
-            /\s*(?=\()/
-          ]
-        }
-      ],
-      className: {
-        1: "keyword",
-        3: "title.function"
-      },
-      label: "func.def",
-      contains: [PARAMS],
-      illegal: /%/
-    };
-    const UPPER_CASE_CONSTANT = {
-      relevance: 0,
-      match: /\b[A-Z][A-Z_0-9]+\b/,
-      className: "variable.constant"
-    };
-    function noneOf(list) {
-      return regex.concat("(?!", list.join("|"), ")");
-    }
-    const FUNCTION_CALL = {
-      match: regex.concat(
-        /\b/,
-        noneOf([
-          ...BUILT_IN_GLOBALS,
-          "super",
-          "import"
-        ]),
-        IDENT_RE$1,
-        regex.lookahead(/\(/)
-      ),
-      className: "title.function",
-      relevance: 0
-    };
-    const PROPERTY_ACCESS = {
-      begin: regex.concat(/\./, regex.lookahead(
-        regex.concat(IDENT_RE$1, /(?![0-9A-Za-z$_(])/)
-      )),
-      end: IDENT_RE$1,
-      excludeBegin: true,
-      keywords: "prototype",
-      className: "property",
-      relevance: 0
-    };
-    const GETTER_OR_SETTER = {
-      match: [
-        /get|set/,
-        /\s+/,
-        IDENT_RE$1,
-        /(?=\()/
-      ],
-      className: {
-        1: "keyword",
-        3: "title.function"
-      },
-      contains: [
-        {
-          // eat to avoid empty params
-          begin: /\(\)/
-        },
-        PARAMS
-      ]
-    };
-    const FUNC_LEAD_IN_RE = "(\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)|" + hljs.UNDERSCORE_IDENT_RE + ")\\s*=>";
-    const FUNCTION_VARIABLE = {
-      match: [
-        /const|var|let/,
-        /\s+/,
-        IDENT_RE$1,
-        /\s*/,
-        /=\s*/,
-        /(async\s*)?/,
-        // async is optional
-        regex.lookahead(FUNC_LEAD_IN_RE)
-      ],
-      keywords: "async",
-      className: {
-        1: "keyword",
-        3: "title.function"
-      },
-      contains: [
-        PARAMS
-      ]
-    };
-    return {
-      name: "JavaScript",
-      aliases: ["js", "jsx", "mjs", "cjs"],
-      keywords: KEYWORDS$1,
-      // this will be extended by TypeScript
-      exports: { PARAMS_CONTAINS, CLASS_REFERENCE },
-      illegal: /#(?![$_A-z])/,
-      contains: [
-        hljs.SHEBANG({
-          label: "shebang",
-          binary: "node",
-          relevance: 5
-        }),
-        USE_STRICT,
-        hljs.APOS_STRING_MODE,
-        hljs.QUOTE_STRING_MODE,
-        HTML_TEMPLATE,
-        CSS_TEMPLATE,
-        GRAPHQL_TEMPLATE,
-        TEMPLATE_STRING,
-        COMMENT,
-        // Skip numbers when they are part of a variable name
-        { match: /\$\d+/ },
-        NUMBER3,
-        CLASS_REFERENCE,
-        {
-          className: "attr",
-          begin: IDENT_RE$1 + regex.lookahead(":"),
-          relevance: 0
-        },
-        FUNCTION_VARIABLE,
-        {
-          // "value" container
-          begin: "(" + hljs.RE_STARTERS_RE + "|\\b(case|return|throw)\\b)\\s*",
-          keywords: "return throw case",
-          relevance: 0,
-          contains: [
-            COMMENT,
-            hljs.REGEXP_MODE,
-            {
-              className: "function",
-              // we have to count the parens to make sure we actually have the
-              // correct bounding ( ) before the =>.  There could be any number of
-              // sub-expressions inside also surrounded by parens.
-              begin: FUNC_LEAD_IN_RE,
-              returnBegin: true,
-              end: "\\s*=>",
-              contains: [
-                {
-                  className: "params",
-                  variants: [
-                    {
-                      begin: hljs.UNDERSCORE_IDENT_RE,
-                      relevance: 0
-                    },
-                    {
-                      className: null,
-                      begin: /\(\s*\)/,
-                      skip: true
-                    },
-                    {
-                      begin: /\(/,
-                      end: /\)/,
-                      excludeBegin: true,
-                      excludeEnd: true,
-                      keywords: KEYWORDS$1,
-                      contains: PARAMS_CONTAINS
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              // could be a comma delimited list of params to a function call
-              begin: /,/,
-              relevance: 0
-            },
-            {
-              match: /\s+/,
-              relevance: 0
-            },
-            {
-              // JSX
-              variants: [
-                { begin: FRAGMENT.begin, end: FRAGMENT.end },
-                { match: XML_SELF_CLOSING },
-                {
-                  begin: XML_TAG.begin,
-                  // we carefully check the opening tag to see if it truly
-                  // is a tag and not a false positive
-                  "on:begin": XML_TAG.isTrulyOpeningTag,
-                  end: XML_TAG.end
-                }
-              ],
-              subLanguage: "xml",
-              contains: [
-                {
-                  begin: XML_TAG.begin,
-                  end: XML_TAG.end,
-                  skip: true,
-                  contains: ["self"]
-                }
-              ]
-            }
-          ]
-        },
-        FUNCTION_DEFINITION,
-        {
-          // prevent this from getting swallowed up by function
-          // since they appear "function like"
-          beginKeywords: "while if switch catch for"
-        },
-        {
-          // we have to count the parens to make sure we actually have the correct
-          // bounding ( ).  There could be any number of sub-expressions inside
-          // also surrounded by parens.
-          begin: "\\b(?!function)" + hljs.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
-          // end parens
-          returnBegin: true,
-          label: "func.def",
-          contains: [
-            PARAMS,
-            hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1, className: "title.function" })
-          ]
-        },
-        // catch ... so it won't trigger the property rule below
-        {
-          match: /\.\.\./,
-          relevance: 0
-        },
-        PROPERTY_ACCESS,
-        // hack: prevents detection of keywords in some circumstances
-        // .keyword()
-        // $keyword = x
-        {
-          match: "\\$" + IDENT_RE$1,
-          relevance: 0
-        },
-        {
-          match: [/\bconstructor(?=\s*\()/],
-          className: { 1: "title.function" },
-          contains: [PARAMS]
-        },
-        FUNCTION_CALL,
-        UPPER_CASE_CONSTANT,
-        CLASS_OR_EXTENDS,
-        GETTER_OR_SETTER,
-        {
-          match: /\$[(.]/
-          // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
-        }
-      ]
-    };
-  }
-
-  // src/js/component/common/snippet/snippet.js
-  core_default.registerLanguage("javascript", javascript);
-  var loadSnippet = async ({ ref, source }) => {
-    const { success, data: data3 } = await loadTextContent({ source });
-    if (!success) {
-      ref.textContent = `something went wrong`;
-      return;
-    }
-    ref.textContent = data3;
-    core_default.highlightElement(ref, { language: "javascript" });
-    ref.style.minHeight = "";
-  };
-  var Snippet = ({ html, onMount, getState }) => {
-    const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } = getState();
-    const isFullClass = isFull ? "is-full" : "";
-    const hasBorderClass = hasBorder ? "has-border" : "";
-    const hasOverflowClass = hasOverflow ? "has-overflow" : "";
-    const remValue = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--snippet-rem-value");
-    onMount(async ({ refs }) => {
-      const { codeEl } = refs;
-      if (loadOnMount) {
-        await loadSnippet({ ref: codeEl, source });
-      } else {
-        loadSnippet({ ref: codeEl, source });
-      }
-      return () => {
-      };
-    });
-    return html`<div class="snippet">
-        <code class="${isFullClass} ${hasBorderClass}">
-            <pre
-                class="${isFullClass} ${hasOverflowClass}"
-                ref="codeEl"
-                style="min-height:${numLines * remValue}rem;"
-            >
-Loading snippet ...</pre
-            >
-        </code>
-    </div>`;
-  };
-
-  // src/js/component/common/snippet/definition.js
-  var snippetContentDef = createComponent({
-    name: "mob-snippet",
-    component: Snippet,
-    exportState: [
-      "source",
-      "isFull",
-      "hasOverflow",
-      "hasBorder",
-      "numLines",
-      "loadOnMount"
-    ],
-    state: {
-      source: () => ({
-        value: "",
-        type: String
-      }),
-      contentIsLoaded: () => ({
-        value: false,
-        type: Boolean
-      }),
-      isFull: () => ({
-        value: false,
-        type: Boolean
-      }),
-      hasOverflow: () => ({
-        value: true,
-        type: Boolean
-      }),
-      hasBorder: () => ({
-        value: false,
-        type: Boolean
-      }),
-      numLines: () => ({
-        value: 1,
-        type: Number
-      }),
-      loadOnMount: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/scrollTo/scrollToStore.js
-  var anchorStore = mobCore.createStore({
-    items: () => ({
-      value: [],
-      type: Array
-    }),
-    computedItems: () => ({
-      value: [],
-      type: Array
-    }),
-    activeLabelFromObeserver: () => ({
-      value: "",
-      type: String
-    })
-  });
-  anchorStore.computed("computedItems", ["items"], (val2) => {
-    return val2;
-  });
-  mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
-    anchorStore.set("items", []);
-  });
-
-  // src/js/component/common/spacerAnchor/spacerAnchor.js
-  function hasAnchor({ id }) {
-    return id && id.length > 0;
-  }
-  var options = {
-    root: null,
-    rootMargin: "0% 0% -100% 0%",
-    threshold: 0.5
-  };
-  var SpacerAnchor = async ({ html, getState, onMount }) => {
-    const { style, line, id, label } = getState();
-    const lineClass = line ? "spacer--line" : "";
-    onMount(({ element }) => {
-      const shouldAddToAnchor = hasAnchor({ id });
-      if (!shouldAddToAnchor) return;
-      anchorStore.set("items", (val2) => {
-        return [...val2, { id, label, element }];
-      });
-      const observer = new IntersectionObserver((entries) => {
-        entries.map((entry) => {
-          if (entry.isIntersecting) {
-            anchorStore.set("activeLabelFromObeserver", label);
-          }
-        });
-      });
-      observer.observe(element, options);
-      return () => {
-        observer.unobserve(element);
-      };
-    });
-    return html`<div class="spacer spacer--${style} ${lineClass}">
-        <span></span>
-    </div>`;
-  };
-
-  // src/js/component/common/spacerAnchor/definition.js
-  var spacerContentDef = createComponent({
-    name: "mob-spacer",
-    component: SpacerAnchor,
-    exportState: ["style", "line", "id", "label"],
-    state: {
-      style: () => ({
-        value: "medium",
-        type: String,
-        validate: (val2) => ["small", "medium", "big"].includes(val2),
-        strict: true
-      }),
-      line: () => ({
-        value: false,
-        type: Boolean
-      }),
-      id: () => ({
-        value: "",
-        type: String
-      }),
-      label: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/component/common/onlyDesktop/onlyDesktop.js
-  var content = renderHtml`
-    <div class="only-desktop">
-        <h3>This content is available only on desktop</h3>
-        <h4>Need page reload on a screen size up to 1024px</h4>
-    </div>
-`;
-  var onResize = ({ element }) => {
-    element.textContent = "";
-    if (motionCore.mq("min", "desktop")) return;
-    element.textContent = "";
-    element.insertAdjacentHTML("afterbegin", content);
-  };
-  var OnlyDesktop = ({ html, onMount }) => {
-    onMount(({ element }) => {
-      onResize({ element });
-      mobCore.useResize(() => {
-        onResize({ element });
-      });
-    });
-    return html` <div class="only-desktop-container" ref="container"></div> `;
-  };
-
-  // src/js/component/common/onlyDesktop/definition.js
-  var onlyDesktopDef = createComponent({
-    name: "only-desktop",
-    component: OnlyDesktop,
-    state: {}
-  });
-
-  // src/js/component/common/loader/loader.js
-  var Loader = ({ onMount, html, watch, remove: remove2, getState }) => {
-    const { position: position2 } = getState();
-    onMount(({ element }) => {
-      let tweenOut = tween.createTween({
-        data: { opacity: 1, scale: 1 },
-        duration: 500
-      });
-      tweenOut.subscribe(({ opacity, scale }) => {
-        element.style.opacity = opacity;
-        element.style.transform = `scale(${scale})`;
-      });
-      watch("shouldRemove", async (shouldRemove) => {
-        if (!shouldRemove) return;
-        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-        remove2();
-      });
-      return () => {
-        tweenOut.destroy();
-        tweenOut = null;
-      };
-    });
-    return html`
-        <div class="c-loader ${position2}">
-            <span class="c-loader__inner"></span>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/loader/definition.js
-  var loaderDef = createComponent({
-    name: "mob-loader",
-    component: Loader,
-    exportState: ["position", "shouldRemove"],
-    state: {
-      shouldRemove: () => ({
-        value: false,
-        type: Boolean
-      }),
-      position: () => ({
-        value: "center-viewport",
-        type: String,
-        validate: (val2) => {
-          return ["center-viewport", "center-component"].includes(val2);
-        }
-      })
-    }
-  });
-
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
   function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
@@ -24578,3156 +24775,61 @@ Loading snippet ...</pre
         value: [],
         type: Array
       })
-    }
+    },
+    child: [scrollToButtonDef]
   });
 
-  // src/js/component/common/scrollTo/button/scrollToButton.js
-  var ScrollToButton = ({ html, getState, onMount, watchSync }) => {
-    const { label } = getState();
-    onMount(({ element }) => {
-      watchSync("active", (val2) => {
-        element.classList.toggle("active", val2);
-      });
+  // src/js/pages/about/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var about = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/about.json"
     });
-    return html`
-        <button type="button">
-            <span> ${label} </span>
-        </button>
-    `;
-  };
-
-  // src/js/component/common/scrollTo/button/definition.js
-  var scrollToButtonDef = createComponent({
-    name: "scroll-to-button",
-    component: ScrollToButton,
-    exportState: ["label", "active"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/common/linksMobJs/data.js
-  var items = [
-    {
-      label: "html",
-      url: "mobJs_html"
-    },
-    {
-      label: "onMount",
-      url: "mobJs_onMount"
-    },
-    {
-      label: "getState",
-      url: "mobJs_getState"
-    },
-    {
-      label: "setState",
-      url: "mobJs_setState"
-    },
-    {
-      label: "watch",
-      url: "mobJs_watch"
-    },
-    {
-      label: "watchSync",
-      url: "mobJs_watchSync"
-    },
-    {
-      label: "staticProps",
-      url: "mobJs_staticProps"
-    },
-    {
-      label: "bindProps",
-      url: "mobJs_bindProps"
-    },
-    {
-      label: "bindEvents",
-      url: "mobJs_bindEvents"
-    },
-    {
-      label: "delegateEvents",
-      url: "mobJs_delegateEvents"
-    },
-    {
-      label: "reactive list: (repeat)",
-      url: "mobJs_repeat"
-    },
-    {
-      label: "unBind",
-      url: "mobJs_unBind"
-    },
-    {
-      label: "emit",
-      url: "mobJs_emit"
-    },
-    {
-      label: "emitAsync",
-      url: "mobJs_emitAsync"
-    },
-    {
-      label: "computed",
-      url: "mobJs_computed"
-    },
-    {
-      label: "renderComponent",
-      url: "mobJs_renderComponent"
-    },
-    {
-      label: "removeDOM",
-      url: "mobJs_removeDom"
-    },
-    {
-      label: "remove",
-      url: "mobJs_remove"
-    },
-    {
-      label: "getChildren",
-      url: "mobJs_getChildren"
-    },
-    {
-      label: "freezeProp",
-      url: "mobJs_freezeProp"
-    },
-    {
-      label: "unFreezeProp",
-      url: "mobJs_unFreezeProp"
-    },
-    {
-      label: "getParentId",
-      url: "mobJs_getParentId"
-    },
-    {
-      label: "watchParent",
-      url: "mobJs_watchParent"
-    }
-  ];
-
-  // src/js/component/common/linksMobJs/linksMobJs.js
-  var data = {
-    mobjs: items
-  };
-  var getItems = ({ data: data3, staticProps: staticProps2 }) => {
-    return data3.map((item) => {
-      const { label, url } = item;
-      return renderHtml`<li>
-                <links-mobjs-button
-                    ${staticProps2({
-        label,
-        url
-      })}
-                ></links-mobjs-button>
-            </li>`;
-    }).join("");
-  };
-  var linksMobJs = ({ html, staticProps: staticProps2, getState }) => {
-    const { section } = getState();
-    return html`<div class="c-params-mobjs">
-        <ul>
-            ${getItems({ staticProps: staticProps2, data: data?.[section] ?? [] })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var linksMobJsButton = ({ html, getState }) => {
-    const { label, url } = getState();
-    const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute === url ? "current" : "";
-    return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
-  };
-
-  // src/js/component/common/linksMobJs/definition.js
-  var paramsMobJsDef = createComponent({
-    name: "links-mobjs",
-    component: linksMobJs,
-    exportState: ["section"],
-    state: {
-      section: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-  var paramsMobJsButtonDef = createComponent({
-    name: "links-mobjs-button",
-    component: linksMobJsButton,
-    exportState: ["label", "url"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/component/common/routeLoader/routeLoader.js
-  var RouteLoader = ({ html, onMount }) => {
-    onMount(({ element }) => {
-      element.classList.add("disable");
-      let tweenOut = tween.createTween({
-        data: { opacity: 1, scale: 1 },
-        duration: 500
-      });
-      tweenOut.subscribe(({ opacity, scale }) => {
-        element.style.opacity = opacity;
-        element.style.transform = `scale(${scale})`;
-      });
-      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
-        element.classList.remove("disable");
-        tweenOut.goTo({ opacity: 1, scale: 1 });
-      });
-      mainStore.watch(MAIN_STORE_AFTER_ROUTE_CHANGE, async () => {
-        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
-        element.classList.add("disable");
-      });
-      return () => {
-        tweenOut.destroy();
-        tweenOut = null;
-      };
-    });
-    return html`
-        <div class="c-loader center-viewport">
-            <span class="c-loader__inner"></span>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/routeLoader/definition.js
-  var routeLoaderDef = createComponent({
-    name: "route-loader",
-    component: RouteLoader,
-    state: {
-      isLoading: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/svg/scroll_arrow.svg
-  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
-
-  // src/js/component/common/nextPage/nextPage.js
-  var QuickNav = ({ getState, onMount, html, watchSync }) => {
-    const { active } = getState();
-    const activeClass = active ? "active" : "";
-    onMount(({ element, refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { prev: prev2, next } = refs;
-      watchSync("active", (isActive) => {
-        element.classList.toggle("active", isActive);
-      });
-      watchSync("nextRoute", (route) => {
-        next.classList.toggle("is-disable", !route);
-        next.href = route;
-      });
-      watchSync("prevRoute", (route) => {
-        prev2.classList.toggle("is-disable", !route);
-        prev2.href = route;
-      });
-      watchSync("color", (color) => {
-        if (color === "white") {
-          element.classList.remove("fill-black");
-          element.classList.add("fill-white");
-          return;
-        }
-        if (color === "black") {
-          element.classList.remove("fill-white");
-          element.classList.add("fill-black");
-          return;
-        }
-      });
-    });
-    return html`<div class="c-quick-nav-container ${activeClass}">
-        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
-        <a class="c-quick-nav c-quick-nav--next" ref="next">${scroll_arrow_default}</a>
-    </div>`;
-  };
-
-  // src/js/component/common/nextPage/definition.js
-  var quickNavDef = createComponent({
-    name: "quick-nav",
-    component: QuickNav,
-    exportState: ["color", "active", "prevRoute", "nextRoute"],
-    state: {
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (value) => {
-          return ["white", "black"].includes(value);
-        }
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      nextRoute: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitle = ({ html, onMount, watchSync }) => {
-    onMount(({ element, refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { titleEl } = refs;
-      watchSync("align", (value) => {
-        element.classList.remove("is-left");
-        element.classList.remove("is-right");
-        element.classList.add(`is-${value}`);
-      });
-      watchSync("title", (value) => {
-        titleEl.innerHTML = value;
-      });
-      watchSync("color", (value) => {
-        titleEl.classList.remove("is-white");
-        titleEl.classList.remove("is-black");
-        titleEl.classList.remove("is-highlight");
-        titleEl.classList.add(`is-${value}`);
-      });
-      mobCore.useFrame(() => {
-        titleEl.classList.add("visible");
-      });
-    });
-    return html`<div class="c-animation-title">
-        <h4 ref="titleEl"></h4>
-    </div>`;
-  };
-
-  // src/js/component/common/animationTitle/definition.js
-  var animationTitleDef = createComponent({
-    name: "animation-title",
-    component: AnimationTitle,
-    exportState: ["title", "align", "color"],
-    state: {
-      title: () => ({
-        value: "",
-        type: String
-      }),
-      align: () => ({
-        value: "left",
-        type: String,
-        validate: (value) => {
-          return ["left", "right"].includes(value);
-        }
-      }),
-      color: () => ({
-        value: "white",
-        type: String,
-        validate: (value) => {
-          return ["white", "black", "highlight"].includes(value);
-        }
-      })
-    }
-  });
-
-  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
-    const { active } = getState();
-    const activeClass = active ? "active" : "";
-    onMount(({ element }) => {
-      watchSync("active", (isActive) => {
-        element.classList.toggle("active", isActive);
-      });
-      return () => {
-      };
-    });
-    return html`
-        <div class="c-scroller-down-label ${activeClass}">
-            <h1>Scroll down</h1>
-            ${scroll_arrow_default}
-        </div>
-    `;
-  };
-
-  // src/js/component/common/scrolldownLabel/definition.js
-  var scrollDownLabelDef = createComponent({
-    name: "scroll-down-label",
-    component: ScrollDownLabel,
-    exportState: ["active"],
-    state: {
-      active: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
-  // src/js/component/layout/footer/footer.js
-  var Footer = ({ html }) => {
-    return html`
-        <footer class="l-footer">
-            <div class="l-footer__container">
-                <footer-nav></footer-nav>
-                <mobjs-slot name="debug"></mobjs-slot>
-            </div>
-        </footer>
-    `;
-  };
-
-  // src/js/component/layout/footer/definition.js
-  var footerComponentDef = createComponent({
-    name: "mob-footer",
-    component: Footer
-  });
-
-  // src/js/component/layout/footer/footerNav/footerButton.js
-  var FooterNavButton = ({ html, onMount, getState }) => {
-    const { label, section } = getState();
-    onMount(({ element }) => {
-      navigationStore.watch("activeSection", (current) => {
-        const isActiveSection = current === section;
-        element.classList.toggle("current", isActiveSection);
-      });
-    });
-    return html`
-        <button type="button" class="footer-nav__button">${label}</button>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/footerNav.js
-  var data2 = [
-    {
-      label: "About",
-      url: "about",
-      section: "about"
-    },
-    {
-      label: "Canvas 2d",
-      url: "canvas_overview",
-      section: "canvas"
-    },
-    {
-      label: "Illustration",
-      url: "svg_overview",
-      section: "svg"
-    },
-    {
-      label: "MobCore",
-      url: "mobCore_overview",
-      section: "mobCore"
-    },
-    {
-      label: "MobJs",
-      url: "mobJs_overview",
-      section: "mobJs"
-    },
-    {
-      label: "MobMotion",
-      url: "mobMotion_overview",
-      section: "mobMotion"
-    },
-    {
-      label: "Plugin",
-      url: "plugin_overview",
-      section: "plugin"
-    }
-  ];
-  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
-    return data2.map(({ label, url, section }) => {
-      return renderHtml`<li class="footer-nav__item">
-                <footer-nav-button
-                    ${delegateEvents({
-        click: () => {
-          loadUrl({ url });
-        }
-      })}
-                    ${staticProps2({
-        label,
-        section
-      })}
-                ></footer-nav-button>
-            </li> `;
-    }).join("");
-  };
-  var FooterNav = ({ html, delegateEvents, staticProps: staticProps2 }) => {
-    if (motionCore.mq("max", "desktop")) return html` <span></span> `;
-    return html`
-        <ul class="footer-nav">
-            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/footer/footerNav/definition.js
-  var footerNavDef = createComponent({
-    name: "footer-nav",
-    component: FooterNav
-  });
-  var footerNavButtonDef = createComponent({
-    name: "footer-nav-button",
-    component: FooterNavButton,
-    exportState: ["label", "section"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      section: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/component/layout/header/header.js
-  function openInfo({ navInfo }) {
-    mobCore.useFrame(() => {
-      navInfo.classList.add("open");
-    });
-  }
-  function closeInfo({ navInfo }) {
-    mobCore.useFrame(() => {
-      navInfo.classList.remove("open");
-    });
-  }
-  function titleHandler() {
-    loadUrl({ url: "#home" });
-    navigationStore.set("navigationIsOpen", false);
-    navigationStore.emit("closeNavigation");
-    navigationStore.emit("closeAllAccordion");
-    navigationStore.emit("goToTop");
-  }
-  var Header = ({ html, onMount, delegateEvents }) => {
-    onMount(({ refs }) => {
-      const { navInfo, title, beta } = refs;
-      navigationStore.watch("openNavigation", () => openInfo({ navInfo }));
-      navigationStore.watch("closeNavigation", () => closeInfo({ navInfo }));
-      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
-        title.classList.toggle("visible", route !== "home");
-        beta.classList.toggle("visible", route !== "home");
-      });
-      return () => {
-      };
-    });
-    return html`
-        <header class="l-header">
-            <div class="l-header__container">
-                <div class="l-header__grid">
-                    <div class="l-header__toggle">
-                        <mob-header-toggle></mob-header-toggle>
-                    </div>
-                    <button
-                        type="button"
-                        class="l-header__title"
-                        ref="titleLink"
-                        ${delegateEvents({
-      click: () => {
-        titleHandler();
-      }
+    return renderHtml`<doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
     })}
-                    >
-                        <div class="l-header__title-container">
-                            <h3 ref="title"><span>Mob</span>Project</h3>
-                            <h5 ref="beta">beta 0.0.1</h5>
-                        </div>
-                    </button>
-                    <div class="l-header__utils">
-                        <mob-header-nav></mob-header-nav>
-                    </div>
-                </div>
-                <div class="l-header__navinfo" ref="navInfo">
-                    <p class="p--small"></p>
-                </div>
-            </div>
-        </header>
-    `;
+        ></html-content>
+        <doc-title-small slot="section-title-small">About </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">About</doc-title>
+    </doc-container>`;
   };
 
-  // src/svg/icon-github.svg
-  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
-
-  // src/js/component/layout/header/headernav.js
-  var icon = {
-    github: icon_github_default
-  };
-  var onClick = ({ event }) => {
-    const button = event.target;
-    console.log(button);
-    const { url } = button.dataset;
-    loadUrl({ url });
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) return;
-    navigationStore.set("navigationIsOpen", false);
-    navigationStore.emit("closeNavigation");
-  };
-  function additems({ delegateEvents }) {
-    const { header } = getCommonData();
-    const { links } = header;
-    return links.map((link) => {
-      const { svg, url, internal } = link;
-      return renderHtml`<li class="l-header__sidenav__item">
-                ${internal ? renderHtml`
-                          <button
-                              type="button"
-                              data-url="${url}"
-                              class="l-header__sidenav__link"
-                              ${delegateEvents({
-        click: (event) => {
-          console.log("click");
-          onClick({ event });
-        }
-      })}
-                          >
-                              ${icon[svg]}
-                          </button>
-                      ` : renderHtml`
-                          <a
-                              href="${url}"
-                              target="_blank"
-                              class="l-header__sidenav__link"
-                          >
-                              ${icon[svg]}
-                          </a>
-                      `}
-            </li>`;
-    }).join("");
-  }
-  var Headernav = ({ html, delegateEvents }) => {
-    return html`
-        <ul class="l-header__sidenav">
-            ${additems({ delegateEvents })}
-        </ul>
-    `;
-  };
-
-  // src/js/component/layout/header/headerToggle.js
-  var hanburgerHandler = () => {
-    const { navigationIsOpen } = navigationStore.get("navigationIsOpen");
-    navigationStore.set("navigationIsOpen", (state) => !state);
-    if (navigationIsOpen) {
-      navigationStore.emit("closeNavigation");
-      return;
-    }
-    navigationStore.emit("openNavigation");
-  };
-  var HeaderToggle = ({ onMount, html, delegateEvents }) => {
-    onMount(({ element }) => {
-      navigationStore.watch("closeNavigation", () => {
-        mobCore.useFrame(() => {
-          element.classList.remove("is-open");
-        });
-      });
-      navigationStore.watch("openNavigation", () => {
-        mobCore.useFrame(() => {
-          element.classList.add("is-open");
-        });
-      });
+  // src/js/pages/plugin/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var plugin_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/plugin/overview.json"
     });
-    return html`
-        <button
-            class="hamburger hamburger--squeeze"
-            type="button"
-            ${delegateEvents({
-      click: () => hanburgerHandler()
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
     })}
-        >
-            <div class="hamburger-box">
-                <div class="hamburger-inner"></div>
-            </div>
-        </button>
-    `;
+        ></html-content>
+        <doc-title-small slot="section-title-small">Plugin </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Plugin</doc-title>
+    </doc-container>`;
   };
-
-  // src/js/component/layout/header/definition.js
-  var headerComponentDef = createComponent({
-    name: "mob-header",
-    component: Header
-  });
-  var headerNavComponentDef = createComponent({
-    name: "mob-header-nav",
-    component: Headernav
-  });
-  var headerToggleComponentDef = createComponent({
-    name: "mob-header-toggle",
-    component: HeaderToggle
-  });
-
-  // src/js/component/layout/navigation/animation/navScroller.js
-  var currentPercent = 0;
-  var initNavigationScoller = ({ root: root2 }) => {
-    const screenEl = root2.querySelector(".l-navcontainer__wrap");
-    const scrollerEl = root2.querySelector(".l-navcontainer__scroll");
-    const percentEl = root2.querySelector(".l-navcontainer__percent");
-    const setDelay = 200;
-    const navScroller = new SmoothScroller({
-      screen: screenEl,
-      scroller: scrollerEl,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: true,
-      breakpoint: "tablet",
-      onUpdate: ({ percent }) => {
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) return;
-        currentPercent = Number.parseInt(percent) / 100;
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-      }
-    });
-    navScroller.init();
-    navigationStore.watch("activeSection", (section) => {
-      const currentSection = document.querySelector(
-        `[data-sectionname='${section}']`
-      );
-      if (!currentSection) return;
-      const header = document.querySelector(".l-header");
-      const navHeight = outerHeight(scrollerEl);
-      const headerHeight = outerHeight(header);
-      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
-      const maxValue = Math.min(percent, 100);
-      navScroller.move(maxValue);
-    });
-    navigationStore.watch("refreshScroller", () => navScroller.refresh());
-    navigationStore.watch("closeNavigation", () => {
-      percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
-    navigationStore.watch("openNavigation", () => {
-      percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
-    });
-    navigationStore.watch("goToTop", () => {
-      setTimeout(() => {
-        navScroller.move(0);
-        navigationStore.set("activeSection", "no-section");
-      }, setDelay);
-    });
-  };
-
-  // src/js/component/layout/navigation/navContainer.js
-  function closeNavigation({ element, main }) {
-    mobCore.useFrame(() => {
-      document.body.style.overflow = "";
-      element.classList.remove("active");
-      main.classList.remove("shift");
-    });
-  }
-  function openNavigation({ element, main }) {
-    navigationStore.emit("refreshScroller");
-    mobCore.useFrame(() => {
-      document.body.style.overflow = "hidden";
-      element.classList.add("active");
-      main.classList.add("shift");
-    });
-  }
-  function addHandler({ main, toTopBtn }) {
-    main.addEventListener("click", () => {
-      const { navigationIsOpen } = navigationStore.get();
-      if (!navigationIsOpen) return;
-      navigationStore.set("navigationIsOpen", false);
-      navigationStore.emit("closeNavigation");
-    });
-    toTopBtn.addEventListener("click", () => {
-      navigationStore.emit("closeAllAccordion");
-      navigationStore.emit("goToTop");
-      const { navigationIsOpen } = navigationStore.get();
-      if (!navigationIsOpen) bodyScroll.to(0);
-    });
-  }
-  var NavigationContainer = ({ html, onMount }) => {
-    onMount(({ element, refs }) => {
-      const main = document.querySelector("main.main");
-      let lastMq = "";
-      const { toTopBtn, wrap } = refs;
-      navigationStore.watch(
-        "openNavigation",
-        () => openNavigation({ element, main })
-      );
-      navigationStore.watch(
-        "closeNavigation",
-        () => closeNavigation({ element, main })
-      );
-      mobCore.useResize(() => {
-        const isDesktop = motionCore.mq("max", "desktop");
-        const currentMq = isDesktop ? "desk" : "mob";
-        if (currentMq !== lastMq) wrap.scrollTo(0, 0);
-        lastMq = currentMq;
-      });
-      addHandler({ main, toTopBtn });
-      initNavigationScoller({ root: element });
-      return () => {
-      };
-    });
-    return html`
-        <div class="l-navcontainer">
-            <div class="l-navcontainer__side">
-                <div class="l-navcontainer__percent"></div>
-                <button class="l-navcontainer__totop" ref="toTopBtn"></button>
-            </div>
-            <div class="l-navcontainer__wrap" ref="wrap">
-                <div class="l-navcontainer__scroll">
-                    <mob-navigation name="main_navigation"></mob-navigation>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigation.js
-  function getItems3({ data: data3, staticProps: staticProps2, setState, bindProps, bindEvents }) {
-    return data3.map((item, index) => {
-      const {
-        label,
-        url,
-        activeId,
-        children,
-        section,
-        sectioName,
-        scrollToSection
-      } = item;
-      if (section) {
-        return renderHtml`
-                    <mob-navigation-label
-                        ${staticProps2({ label, sectioName })}
-                    ></mob-navigation-label>
-                `;
-      }
-      return children ? renderHtml`
-                      <mob-navigation-submenu
-                          ${staticProps2({
-        headerButton: {
-          label,
-          url
-        },
-        children,
-        callback: () => setState("currentAccordionId", index)
-      })}
-                          ${bindProps({
-        bind: ["currentAccordionId"],
-        props: ({ currentAccordionId }) => {
-          return {
-            isOpen: currentAccordionId === index
-          };
-        }
-      })}
-                      >
-                      </mob-navigation-submenu>
-                  ` : renderHtml`
-                      <li class="l-navigation__item">
-                          <mob-navigation-button
-                              ${bindEvents({
-        click: () => {
-        }
-      })}
-                              ${staticProps2({
-        label,
-        url,
-        scrollToSection: scrollToSection ?? "no-scroll",
-        activeId: activeId ?? -1
-      })}
-                          ></mob-navigation-button>
-                      </li>
-                  `;
-    }).join("");
-  }
-  var Navigation = ({
-    html,
-    staticProps: staticProps2,
-    setState,
-    bindProps,
-    bindEvents
-  }) => {
-    const { navigation: data3 } = getCommonData();
-    navigationStore.watch("closeAllAccordion", () => {
-      setState("currentAccordionId", -1);
-    });
-    return html`
-        <nav class="l-navigation">
-            <ul class="l-navigation__list">
-                ${getItems3({
-      data: data3,
-      staticProps: staticProps2,
-      setState,
-      bindProps,
-      bindEvents
-    })}
-            </ul>
-        </nav>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationButton.js
-  var NavigationButton = ({
-    getState,
-    html,
-    onMount,
-    watch,
-    delegateEvents
-  }) => {
-    const {
-      label,
-      url,
-      arrowClass,
-      subMenuClass,
-      fireRoute,
-      callback: callback2,
-      scrollToSection,
-      activeId
-    } = getState();
-    onMount(({ element }) => {
-      watch("isOpen", (isOpen) => {
-        mobCore.useFrame(() => {
-          element.classList.toggle("active", isOpen);
-        });
-      });
-      mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, (current) => {
-        mobCore.useFrame(() => {
-          const urlParsed = url.split("?");
-          const hash = urlParsed?.[0] ?? "";
-          const { activeParams } = mainStore.get();
-          const paramsMatch = activeId === -1 || activeParams?.activeId == activeId;
-          const isActiveRoute = current === hash && paramsMatch;
-          element.classList.toggle("current", isActiveRoute);
-          if (isActiveRoute && fireRoute) {
-            callback2();
-            navigationStore.set("activeSection", scrollToSection);
-          }
-        });
-      });
-      return () => {
-      };
-    });
-    return html`
-        <button
-            type="button"
-            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
-            ${delegateEvents({
-      click: () => {
-        callback2();
-        if (!fireRoute) return;
-        loadUrl({ url });
-        navigationStore.set("navigationIsOpen", false);
-        navigationStore.emit("closeNavigation");
-      }
-    })}
-        >
-            ${label}
-        </button>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationLabel.js
-  var NavigationLabel = ({ getState, html }) => {
-    const { label, sectioName } = getState();
-    return html`
-        <div class="l-navigation__label" data-sectionname="${sectioName}">
-            ${label}
-        </div>
-    `;
-  };
-
-  // src/js/component/layout/navigation/navigationSubmenu.js
-  function getSubmenu({ children, staticProps: staticProps2, callback: callback2 }) {
-    return children.map((child2) => {
-      const { label, url, scrollToSection, activeId } = child2;
-      return renderHtml`
-                <li class="l-navigation__submenu__item">
-                    <mob-navigation-button
-                        ${staticProps2({
-        callback: callback2,
-        label,
-        url,
-        subMenuClass: "l-navigation__link--submenu",
-        scrollToSection,
-        activeId: activeId ?? -1
-      })}
-                    ></mob-navigation-button>
-                </li>
-            `;
-    }).join("");
-  }
-  var NavigationSubmenu = ({
-    onMount,
-    html,
-    getState,
-    setState,
-    staticProps: staticProps2,
-    bindProps,
-    watchSync
-  }) => {
-    const { children, headerButton, callback: callback2 } = getState();
-    const { label, url, activeId } = headerButton;
-    onMount(({ refs }) => {
-      const { content: content2 } = refs;
-      slide.subscribe(content2);
-      slide.reset(content2);
-      watchSync("isOpen", async (isOpen) => {
-        const action2 = isOpen ? "down" : "up";
-        await slide[action2](content2);
-        navigationStore.emit("refreshScroller");
-        if (!isOpen) {
-          const navId = getIdByInstanceName("main_navigation");
-          setStateById(navId, "currentAccordionId", -1, false);
-        }
-      });
-      return () => {
-      };
-    });
-    return html`
-        <li class="l-navigation__item has-child">
-            <mob-navigation-button
-                ${staticProps2({
-      label,
-      url,
-      arrowClass: "l-navigation__link--arrow",
-      fireRoute: false,
-      activeId: activeId ?? -1,
-      callback: () => {
-        setState("isOpen", (prev2) => !prev2);
-        const { isOpen } = getState("isOpen");
-        if (isOpen) callback2();
-      }
-    })}
-                ${bindProps({
-      bind: ["isOpen"],
-      props: ({ isOpen }) => {
-        return { isOpen };
-      }
-    })}
-            ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ref="content">
-                ${getSubmenu({ children, staticProps: staticProps2, callback: callback2 })}
-            </ul>
-        </li>
-    `;
-  };
-
-  // src/js/component/layout/navigation/definition.js
-  var navigationComponentDef = createComponent({
-    name: "mob-navigation-container",
-    component: NavigationContainer
-  });
-  var navigationDef = createComponent({
-    name: "mob-navigation",
-    component: Navigation,
-    exportState: ["currentAccordionId"],
-    state: {
-      currentAccordionId: () => ({
-        value: -1,
-        type: Number,
-        skipEqual: false
-      })
-    }
-  });
-  var navigationSubmenuDef = createComponent({
-    name: "mob-navigation-submenu",
-    component: NavigationSubmenu,
-    exportState: ["children", "headerButton", "isOpen", "callback"],
-    state: {
-      callback: () => ({
-        value: () => {
-        },
-        type: Function
-      }),
-      headerButton: () => ({
-        value: {},
-        type: "Any"
-      }),
-      children: () => ({
-        value: [],
-        type: Array
-      }),
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-  var navigationButtonDef = createComponent({
-    name: "mob-navigation-button",
-    type: "button",
-    component: NavigationButton,
-    exportState: [
-      "label",
-      "url",
-      "arrowClass",
-      "subMenuClass",
-      "fireRoute",
-      "callback",
-      "isOpen",
-      "scrollToSection",
-      "activeId"
-    ],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      }),
-      activeId: () => ({
-        value: -1,
-        type: Number
-      }),
-      scrollToSection: () => ({
-        value: "",
-        type: String
-      }),
-      arrowClass: () => ({
-        value: "",
-        type: String
-      }),
-      subMenuClass: () => ({
-        value: "",
-        type: String
-      }),
-      fireRoute: () => ({
-        value: true,
-        type: Boolean
-      }),
-      callback: () => ({
-        value: () => {
-        },
-        type: Function
-      }),
-      isOpen: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-  var navigationLabelDef = createComponent({
-    name: "mob-navigation-label",
-    component: NavigationLabel,
-    exportState: ["label", "sectioName"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      sectioName: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/component/common/docsContainer/docContainer.js
-  var DocContainer = ({ html, onMount }) => {
-    onMount(() => {
-      window.scrollTo(0, 0);
-      const logoM1Id = getIdByInstanceName("m1_logo");
-      setStateById(logoM1Id, "active", true);
-      return () => {
-        setStateById(logoM1Id, "active", false);
-      };
-    });
-    return html`
-        <div class="c-doc-container">
-            <div class="c-doc-container__content">
-                <mobjs-slot name="docs"></mobjs-slot>
-            </div>
-            <div class="c-doc-container__side">
-                <mobjs-slot name="section-title-small"></mobjs-slot>
-                <mobjs-slot name="section-title"></mobjs-slot>
-                <mobjs-slot name="section-links"></mobjs-slot>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/docsContainer/definition.js
-  var docsContainerComponentDef = createComponent({
-    name: "doc-container",
-    component: DocContainer
-  });
-
-  // src/js/component/common/doctitle/docSide.js
-  var DocTitle = ({ html }) => {
-    return html`
-        <div class="c-doc-title">
-            <h2><mobjs-slot /></h2>
-        </div>
-    `;
-  };
-
-  // src/js/component/common/doctitle/definition.js
-  var docsTitleComponentDef = createComponent({
-    name: "doc-title",
-    component: DocTitle,
-    state: {}
-  });
-
-  // src/js/component/common/doctitleSmall/docSide.js
-  var DocTitleSmall = ({ html }) => {
-    return html`
-        <div class="c-doc-title-small">
-            <mobjs-slot />
-        </div>
-    `;
-  };
-
-  // src/js/component/common/doctitleSmall/definition.js
-  var docsTitleSmallComponentDef = createComponent({
-    name: "doc-title-small",
-    component: DocTitleSmall,
-    state: {}
-  });
-
-  // src/js/component/common/shapes/footerShapeV1.js
-  var FooterShaperV1 = ({ html, onMount, getState }) => {
-    const { svg, position: position2 } = getState();
-    const positionClass = `shape-v1--${position2}`;
-    onMount(({ element }) => {
-      mobCore.useFrame(() => {
-        element.classList.add("active");
-      });
-    });
-    return html` <div class="shape-v1 ${positionClass}">${svg}</div> `;
-  };
-
-  // src/js/component/common/shapes/definition.js
-  var footerShaperV1Def = createComponent({
-    name: "footer-shape-v1",
-    component: FooterShaperV1,
-    exportState: ["position", "svg"],
-    state: {
-      position: () => ({
-        value: "left",
-        type: String
-      }),
-      svg: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-
-  // src/js/utils/canvasUtils.js
-  var canvasBackground = "#000000";
-  var getCanvasContext = ({ disableOffcanvas }) => {
-    const useOffscreen = "OffscreenCanvas" in window && !disableOffcanvas;
-    const context = useOffscreen ? "bitmaprenderer" : "2d";
-    return { useOffscreen, context };
-  };
-  var getOffsetCanvas = ({ useOffscreen, canvas }) => {
-    const offscreen = useOffscreen ? new OffscreenCanvas(canvas.width, canvas.height) : null;
-    const offScreenCtx = useOffscreen ? offscreen.getContext("2d") : null;
-    return { offscreen, offScreenCtx };
-  };
-  var copyCanvasBitmap = ({ useOffscreen, offscreen, ctx }) => {
-    if (useOffscreen) {
-      const bitmap = offscreen.transferToImageBitmap();
-      ctx.transferFromImageBitmap(bitmap);
-    }
-  };
-  var roundRectIsSupported = (ctx) => "roundRect" in ctx;
-  var roundRectCustom = (ctx, x, y, w, h, r) => {
-    if (w < 2 * r) r = w / 2;
-    if (h < 2 * r) r = h / 2;
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
-    ctx.closePath();
-  };
-  var createGrid = ({
-    canvas,
-    numberOfRow,
-    numberOfColumn,
-    cellWidth,
-    cellHeight,
-    gutter
-  }) => {
-    return [
-      ...new Array(numberOfRow * numberOfColumn + numberOfRow).keys()
-    ].reduce(
-      (previous) => {
-        const { row, col, items: previousItems } = previous;
-        const newCol = col < numberOfColumn ? col + 1 : 0;
-        const newRow = newCol === 0 ? row + 1 : row;
-        const x = (cellWidth + gutter) * newCol;
-        const y = (cellHeight + gutter) * newRow;
-        return {
-          row: newRow,
-          col: newCol,
-          items: [
-            ...previousItems,
-            {
-              width: cellWidth,
-              height: cellHeight,
-              x,
-              y,
-              centerX: x + cellWidth / 2,
-              centerY: y + cellHeight / 2,
-              offsetXCenter: getOffsetXCenter({
-                canvasWidth: canvas.width,
-                width: cellWidth,
-                gutter,
-                numberOfColumn
-              }),
-              offsetYCenter: getOffsetYCenter({
-                canvasHeight: canvas.height,
-                height: cellHeight,
-                gutter,
-                numberOfRow
-              }),
-              gutter,
-              numberOfColumn
-            }
-          ]
-        };
-      },
-      { row: 0, col: -1, items: [] }
-    );
-  };
-  var getOffsetXCenter = ({
-    canvasWidth,
-    width,
-    gutter,
-    numberOfColumn
-  }) => {
-    return canvasWidth / 2 - (width + gutter) * numberOfColumn / 2 - width / 2;
-  };
-  var getOffsetYCenter = ({
-    canvasHeight,
-    height,
-    gutter,
-    numberOfRow
-  }) => {
-    return canvasHeight / 2 - (height + gutter) * (numberOfRow + 1) / 2 - height / 2;
-  };
-
-  // src/js/component/pages/animatedPattern/animatedPatternN0/animation/animation.js
-  var animatedPatternN0Animation = ({
-    canvas,
-    numberOfRow,
-    numberOfColumn,
-    cellWidth,
-    cellHeight,
-    gutter,
-    fill,
-    disableOffcanvas,
-    stagger,
-    reorder
-  }) => {
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
-    let gridData = [];
-    let data3 = [];
-    let gridTween = {};
-    let gridTimeline = {};
-    let ctx = canvas.getContext(context, { alpha: false });
-    const { activeRoute } = mainStore.get();
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    gridData = createGrid({
-      canvas,
-      numberOfRow,
-      numberOfColumn,
-      cellWidth,
-      cellHeight,
-      gutter
-    }).items;
-    data3 = reorder ? gridData.map((item, i) => {
-      return {
-        ...item,
-        scale: 1,
-        rotate: 0,
-        hasFill: fill.includes(i)
-      };
-    }).sort((value) => value.hasFill ? -1 : 1).reverse() : gridData.map((item, i) => {
-      const hasFill = fill.includes(i);
-      return {
-        ...item,
-        scale: 1,
-        rotate: 0,
-        hasFill
-      };
-    });
-    gridTween = tween.createTween({
-      ease: "easeInOutQuad",
-      stagger,
-      data: { scale: 1, rotate: 0 }
-    });
-    data3.forEach((item) => {
-      gridTween.subscribeCache(item, ({ scale, rotate }) => {
-        item.rotate = rotate;
-        item.scale = scale;
-      });
-    });
-    const draw = () => {
-      if (!ctx) return;
-      if (useOffscreen) {
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
-      }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
-      context2.fillStyle = canvasBackground;
-      context2.fillRect(0, 0, canvas.width, canvas.height);
-      data3.forEach(
-        ({
-          x,
-          y,
-          centerX,
-          centerY,
-          width,
-          height,
-          rotate,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
-          );
-          context2.beginPath();
-          context2.rect(
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
-            width,
-            height
-          );
-          if (hasFill) {
-            context2.fillStyle = "#fff";
-            context2.fill();
-          } else {
-            context2.fillStyle = "#000";
-            context2.fill();
-            context2.strokeStyle = "#333";
-            context2.stroke();
-          }
-          context2.setTransform(1, 0, 0, 1, 0, 0);
-        }
-      );
-      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-    gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).label({ name: "label1" }).goTo(gridTween, { scale: 1.5, rotate: 90 }, { duration: 1e3 }).goTo(gridTween, { scale: 0.5 }, { duration: 500 }).goTo(gridTween, { rotate: 180, scale: 1.2 }, { duration: 500 }).goTo(gridTween, { scale: 1.3 }, { duration: 500 }).goTo(gridTween, { scale: 1 }, { duration: 1200 });
-    gridTimeline.onLoopEnd(({ direction: direction2, loop: loop2 }) => {
-      console.log(`loop end: ${direction2}, ${loop2}`);
-    });
-    gridTimeline.play();
-    const loop = () => {
-      draw();
-      if (!isActive) return;
-      mobCore.useNextFrame(() => loop());
-    };
-    mobCore.useFrame(({ time: time2 }) => {
-      loop({ time: time2 });
-    });
-    const unsubscribeResize = mobCore.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      data3.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      mobCore.useFrame(() => draw());
-    });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      gridTimeline?.stop();
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(async () => {
-        isActive = true;
-        const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
-        gridTimeline?.play();
-        mobCore.useFrame(() => loop());
-      }, 500)
-    );
-    return () => {
-      gridTween.destroy();
-      gridTimeline.destroy();
-      unsubscribeResize();
-      unWatchResume();
-      unWatchPause();
-      gridTween = null;
-      gridTimeline = null;
-      ctx = null;
-      offscreen = null;
-      offScreenCtx = null;
-      gridData = [];
-      data3 = [];
-      isActive = false;
-    };
-  };
-
-  // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
-  var AnimatedPatternN0 = ({ onMount, html, getState }) => {
-    const { prevRoute, nextRoute, title } = getState();
-    document.body.style.background = "#000000";
-    onMount(({ refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { wrap, canvas } = refs;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "prevRoute", prevRoute);
-      setStateById(quicknavId, "nextRoute", nextRoute);
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", title);
-      const { animatedPatternN0: animatedPatternN02 } = getLegendData();
-      const { source } = animatedPatternN02;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "white");
-      const destroyAnimation = animatedPatternN0Animation({
-        canvas,
-        ...getState()
-      });
-      mobCore.useFrame(() => {
-        wrap.classList.add("active");
-      });
-      return () => {
-        destroyAnimation();
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
-        document.body.style.background = "";
-      };
-    });
-    return html`
-        <div>
-            <only-desktop></only-desktop>
-            <div class="c-canvas">
-                <div class="c-canvas__wrap" ref="wrap">
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/animatedPattern/animatedPatternN0/definition.js
-  var animatedPatternN0Def = createComponent({
-    name: "animatedpattern-n0",
-    component: AnimatedPatternN0,
-    exportState: [
-      "title",
-      "nextRoute",
-      "prevRoute",
-      "numberOfRow",
-      "numberOfColumn",
-      "cellWidth",
-      "cellHeight",
-      "gutter",
-      "fill",
-      "stagger",
-      "reorder",
-      "disableOffcanvas"
-    ],
-    state: {
-      title: () => ({
-        value: "",
-        type: String
-      }),
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      numberOfRow: () => ({
-        value: 10,
-        type: Number
-      }),
-      numberOfColumn: () => ({
-        value: 10,
-        type: Number
-      }),
-      cellWidth: () => ({
-        value: 65,
-        type: Number
-      }),
-      cellHeight: () => ({
-        value: 65,
-        type: Number
-      }),
-      gutter: () => ({
-        value: 1,
-        type: Number
-      }),
-      fill: () => ({
-        value: [16, 27, 38, 49, 60, 71, 82, 93],
-        type: Array
-      }),
-      stagger: () => ({
-        value: {
-          each: 5,
-          grid: { col: 11, row: 11, direction: "row" },
-          waitComplete: false
-        },
-        type: "any"
-      }),
-      reorder: () => ({
-        value: true,
-        type: Boolean
-      }),
-      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
-    }
-  });
-
-  // src/js/component/pages/animatedPattern/animatedPatternN1/animation/animation.js
-  var animatedPatternN1Animation = ({
-    canvas,
-    numberOfRow,
-    numberOfColumn,
-    cellWidth,
-    cellHeight,
-    gutter,
-    fill,
-    disableOffcanvas
-  }) => {
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
-    let gridData = [];
-    let data3 = [];
-    let centerTween = {};
-    let gridTween = {};
-    let gridTimeline = {};
-    let { top, left } = offset(canvas);
-    let ctx = canvas.getContext(context, { alpha: false });
-    const { activeRoute } = mainStore.get();
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    gridData = createGrid({
-      canvas,
-      numberOfRow,
-      numberOfColumn,
-      cellWidth,
-      cellHeight,
-      gutter
-    }).items;
-    data3 = gridData.map((item, i) => {
-      return {
-        ...item,
-        scale: 0,
-        mouseX: 0,
-        mouseY: 0,
-        hasFill: fill.includes(i)
-      };
-    }).sort((value) => value.hasFill ? -1 : 1);
-    centerTween = tween.createLerp({
-      data: { mouseX: 0, mouseY: 0 }
-    });
-    data3.forEach((item) => {
-      centerTween.subscribeCache(item, ({ mouseX, mouseY }) => {
-        item.mouseX = mouseX;
-        item.mouseY = mouseY;
-      });
-    });
-    gridTween = tween.createTween({
-      ease: "easeInOutSine",
-      stagger: {
-        each: 5,
-        from: "center",
-        // grid: { col: 15, row: 7, direction: 'row' },
-        waitComplete: false
-      },
-      data: { scale: 0 }
-    });
-    data3.forEach((item) => {
-      gridTween.subscribeCache(item, ({ scale }) => {
-        item.scale = scale;
-      });
-    });
-    const draw = () => {
-      if (!ctx) return;
-      if (useOffscreen) {
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
-      }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
-      context2.fillStyle = canvasBackground;
-      context2.fillRect(0, 0, canvas.width, canvas.height);
-      data3.forEach(
-        ({
-          x,
-          y,
-          centerX,
-          centerY,
-          width,
-          height,
-          mouseX,
-          mouseY,
-          scale,
-          hasFill,
-          offsetXCenter,
-          offsetYCenter
-        }) => {
-          const mouseXparsed = mouseX - (canvas.width - (width + gutter) * numberOfColumn) / 2;
-          const mouseYparsed = mouseY - (canvas.height - (height + gutter) * numberOfRow) / 2;
-          const xScale = (x - mouseXparsed) / 250;
-          const yScale = (y - mouseYparsed) / 250;
-          const delta = Math.sqrt(
-            Math.pow(Math.abs(xScale), 2) + Math.pow(Math.abs(yScale), 2)
-          );
-          const scaleFactor = clamp(Math.abs(delta), 0, 2);
-          const rotation = 0;
-          const xx = Math.cos(rotation) * (scaleFactor + scale);
-          const xy = Math.sin(rotation) * (scaleFactor + scale);
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            Math.round(centerX + offsetXCenter),
-            Math.round(centerY + offsetYCenter)
-          );
-          context2.beginPath();
-          context2.rect(
-            Math.round(-centerX + x),
-            Math.round(-centerY + y),
-            width,
-            height
-          );
-          if (hasFill) {
-            context2.fillStyle = "#fff";
-            context2.fill();
-          } else {
-            context2.fillStyle = "#000";
-            context2.fill();
-          }
-          context2.setTransform(1, 0, 0, 1, 0, 0);
-        }
-      );
-      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-    gridTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(gridTween, { scale: 0.3 }, { duration: 1e3 });
-    gridTimeline.play();
-    const move = ({ x, y }) => {
-      centerTween.goTo({ mouseX: x - left, mouseY: y - top });
-    };
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
-      const { x, y } = client;
-      move({ x, y });
-    });
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
-      const { x, y } = client;
-      move({ x, y });
-    });
-    const loop = () => {
-      draw();
-      if (!isActive) return;
-      mobCore.useNextFrame(() => loop());
-    };
-    mobCore.useFrame(({ time: time2 }) => {
-      loop({ time: time2 });
-    });
-    const unsubscribeResize = mobCore.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      top = offset(canvas).top;
-      left = offset(canvas).left;
-      data3.forEach((item) => {
-        const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
-        item.offsetXCenter = getOffsetXCenter({
-          canvasWidth: canvas.width,
-          width,
-          gutter: gutter2,
-          numberOfColumn: numberOfColumn2
-        });
-        item.offsetYCenter = getOffsetYCenter({
-          canvasHeight: canvas.height,
-          height,
-          gutter: gutter2,
-          numberOfRow
-        });
-      });
-      mobCore.useFrame(() => draw());
-    });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      gridTimeline?.stop();
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(async () => {
-        isActive = true;
-        const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
-        gridTimeline?.play();
-        mobCore.useFrame(() => loop());
-      }, 500)
-    );
-    return () => {
-      gridTween.destroy();
-      gridTimeline.destroy();
-      centerTween.destroy();
-      unsubscribeResize();
-      unsubscribeMouseMove();
-      unsubscribeTouchMove();
-      unWatchResume();
-      unWatchPause();
-      gridTween = null;
-      gridTimeline = null;
-      centerTween = null;
-      ctx = null;
-      offscreen = null;
-      offScreenCtx = null;
-      gridData = [];
-      data3 = [];
-      isActive = false;
-    };
-  };
-
-  // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
-  var AnimatedPatternN1 = ({ onMount, html, getState }) => {
-    document.body.style.background = "#000000";
-    onMount(({ refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { wrap, canvas } = refs;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(
-        quicknavId,
-        "prevRoute",
-        "#animatedPatternN0?version=3&activeId=3"
-      );
-      setStateById(
-        quicknavId,
-        "nextRoute",
-        "#scrollerN0?version=0&activeId=0"
-      );
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N1");
-      const { animatedPatternN1: animatedPatternN12 } = getLegendData();
-      const { source } = animatedPatternN12;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "white");
-      const destroyAnimation = animatedPatternN1Animation({
-        canvas,
-        ...getState()
-      });
-      mobCore.useFrame(() => {
-        wrap.classList.add("active");
-      });
-      return () => {
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
-        document.body.style.background = "";
-        destroyAnimation();
-      };
-    });
-    return html`
-        <div>
-            <only-desktop></only-desktop>
-            <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/animatedPattern/animatedPatternN1/definition.js
-  var animatedPatternN1Def = createComponent({
-    name: "animatedpattern-n1",
-    component: AnimatedPatternN1,
-    exportState: [
-      "numberOfRow",
-      "numberOfColumn",
-      "cellWidth",
-      "cellHeight",
-      "gutter",
-      "fill",
-      "disableOffcanvas"
-    ],
-    state: {
-      numberOfRow: 7,
-      numberOfColumn: 15,
-      cellWidth: 70,
-      cellHeight: 70,
-      gutter: 10,
-      fill: [
-        2,
-        18,
-        10,
-        27,
-        21,
-        22,
-        23,
-        24,
-        25,
-        25,
-        26,
-        37,
-        42,
-        53,
-        58,
-        69,
-        74,
-        85,
-        86,
-        87,
-        88,
-        89,
-        90,
-        44,
-        60,
-        65,
-        66
-      ],
-      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
-    }
-  });
-
-  // src/js/component/pages/canvas/caterpillarN0/animation/animation.js
-  function getWithRounded({ width, relativeIndex, amountOfPath }) {
-    return Math.sqrt(
-      Math.pow(width * relativeIndex, 2) - Math.pow(
-        width * relativeIndex / amountOfPath * relativeIndex,
-        2
-      )
-    ) * 2;
-  }
-  function getHeightRounded({ height, relativeIndex, amountOfPath }) {
-    return Math.sqrt(
-      Math.pow(height * relativeIndex, 2) - Math.pow(
-        height * relativeIndex / amountOfPath * relativeIndex,
-        2
-      )
-    ) * 2;
-  }
-  var caterpillarN0Animation = ({
-    canvas,
-    amountOfPath,
-    width,
-    height,
-    fill,
-    stroke,
-    opacity,
-    spacerY,
-    intialRotation,
-    perpetualRatio,
-    mouseMoveRatio,
-    disableOffcanvas
-  }) => {
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
-    let stemData = [];
-    let steamDataReorded = [];
-    let mainTween = {};
-    let { left } = offset(canvas);
-    const { activeRoute } = mainStore.get();
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = false;
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    stemData = [...new Array(amountOfPath).keys()].map((_item, i) => {
-      const count = i;
-      const index = count < amountOfPath / 2 ? amountOfPath - count : count;
-      const relativeIndex = index - (amountOfPath - index);
-      return {
-        width: Math.floor(
-          getWithRounded({ width, relativeIndex, amountOfPath })
-        ),
-        height: Math.floor(
-          getHeightRounded({ height, relativeIndex, amountOfPath })
-        ),
-        fill,
-        stroke,
-        opacity: relativeIndex * opacity,
-        rotate: 0,
-        y: 0,
-        relativeIndex,
-        index: i
-      };
-    });
-    steamDataReorded = stemData.splice(0, stemData.length / 2).concat(stemData.reverse());
-    mainTween = tween.createSpring({
-      data: { rotate: 0, y: 0 },
-      stagger: { each: 5, from: "center" }
-    });
-    [...steamDataReorded].forEach((item) => {
-      mainTween.subscribeCache(item, ({ rotate }) => {
-        item.rotate = rotate;
-      });
-    });
-    const draw = ({ time: time2 = 0 }) => {
-      if (!ctx) return;
-      if (useOffscreen) {
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
-      }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      context2.fillStyle = canvasBackground;
-      context2.fillRect(0, 0, canvas.width, canvas.height);
-      steamDataReorded.forEach(
-        ({ width: width2, height: height2, opacity: opacity2, rotate, relativeIndex, index: i }) => {
-          const offset2 = Math.sin(time2 / 1e3) * perpetualRatio * relativeIndex;
-          const offsetInverse = i < amountOfPath / 2 ? offset2 + 15 * relativeIndex / 2 : -offset2 - 15 * relativeIndex / 2;
-          const centerDirection = i < amountOfPath / 2 ? -1 : 1;
-          const scale = 1;
-          const rotation = Math.PI / 180 * (rotate - intialRotation);
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            centerX,
-            centerY + height2 / 2
-          );
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              -(width2 * centerDirection) / 2,
-              -height2 / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
-              width2,
-              height2,
-              [200, 0]
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              -(width2 * centerDirection) / 2,
-              -height2 / 2 + offsetInverse + spacerY(i < amountOfPath / 2),
-              width2,
-              height2
-            );
-          }
-          context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
-          context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
-          context2.stroke();
-          context2.fill();
-          context2.setTransform(1, 0, 0, 1, 0, 0);
-        }
-      );
-      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-    const loop = ({ time: time2 = 0 }) => {
-      draw({ time: time2 });
-      if (!isActive) return;
-      mobCore.useNextFrame(({ time: time3 }) => loop({ time: time3 }));
-    };
-    mobCore.useFrame(({ time: time2 }) => {
-      loop({ time: time2 });
-    });
-    const unsubscribeResize = mobCore.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      left = offset(canvas).left;
-      mobCore.useFrame(({ time: time2 }) => {
-        draw({ time: time2 });
-      });
-    });
-    const move = ({ x }) => {
-      const xCenter = x - canvas.width / 2 - left;
-      mainTween.goTo({
-        rotate: xCenter / mouseMoveRatio
-      });
-    };
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
-      const { x } = client;
-      move({ x });
-    });
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
-      const { x } = client;
-      move({ x });
-    });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch("closeNavigation", () => {
-      setTimeout(() => {
-        isActive = true;
-        const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
-        mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
-      }, 500);
-    });
-    return () => {
-      mainTween.destroy();
-      unsubscribeResize();
-      unsubscribeMouseMove();
-      unsubscribeTouchMove();
-      unWatchResume();
-      unWatchPause();
-      ctx = null;
-      offscreen = null;
-      offScreenCtx = null;
-      mainTween = null;
-      steamDataReorded = [];
-      stemData = [];
-      isActive = false;
-    };
-  };
-
-  // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
-  var CaterpillarN0 = ({ onMount, html, getState }) => {
-    document.body.style.background = "#000000";
-    onMount(({ refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { wrap, canvas } = refs;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "nextRoute", "#caterpillarN1");
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N0");
-      const { caterpillarN0: caterpillarN02 } = getLegendData();
-      const { source } = caterpillarN02;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "white");
-      const destroyAnimation = caterpillarN0Animation({
-        canvas,
-        ...getState()
-      });
-      mobCore.useFrame(() => {
-        wrap.classList.add("active");
-      });
-      return () => {
-        destroyAnimation();
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
-        document.body.style.background = "";
-      };
-    });
-    return html`
-        <div>
-            <only-desktop></only-desktop>
-            <div class="c-canvas">
-                <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ref="wrap"
-                >
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/canvas/caterpillarN0/definition.js
-  var caterpillarN0Def = createComponent({
-    name: "caterpillar-n0",
-    component: CaterpillarN0,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "amountOfPath",
-      "width",
-      "height",
-      "radius",
-      "fill",
-      "stroke",
-      "opacity",
-      "spacerY",
-      "intialRotation",
-      "perpetualRatio",
-      "mouseMoveRatio",
-      "disableOffcanvas"
-    ],
-    state: {
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      amountOfPath: 17,
-      width: 30,
-      height: 30,
-      radius: 0,
-      fill: "",
-      stroke: "#fff",
-      opacity: 0.05,
-      spacerY: (condition) => condition ? 300 : -400,
-      intialRotation: 33,
-      perpetualRatio: 6,
-      mouseMoveRatio: 10,
-      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
-    }
-  });
-
-  // src/js/component/pages/canvas/caterpillarN1/animation/animation.js
-  var caterpillarN1Animation = ({
-    canvas,
-    numItems,
-    width,
-    height,
-    fill,
-    opacity,
-    radius,
-    rotationDuration,
-    rotationEach,
-    centerEach,
-    disableOffcanvas
-  }) => {
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
-    let rotationTween = {};
-    let centerTween = {};
-    let rectTimeline = {};
-    let { top, left } = offset(canvas);
-    const { activeRoute } = mainStore.get();
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = false;
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
-      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
-      const opacityVal = fill.includes(i) ? 1 : relativeIndex * opacity;
-      return {
-        width: relativeIndex * width,
-        height: relativeIndex * height,
-        x: 0,
-        y: 0,
-        hasFill: fill.includes(i),
-        opacity: opacityVal,
-        radius,
-        rotate: 0,
-        relativeIndex
-      };
-    });
-    rotationTween = tween.createTween({
-      data: { rotate: 0 },
-      stagger: { each: rotationEach, from: "center" },
-      ease: "easeLinear",
-      relative: true
-    });
-    [...squareData].forEach((item) => {
-      rotationTween.subscribeCache(item, ({ rotate }) => {
-        item.rotate = rotate;
-      });
-    });
-    centerTween = tween.createSpring({
-      data: { x: 0, y: 0 },
-      stagger: { each: centerEach, from: "end" }
-    });
-    [...squareData].forEach((item) => {
-      centerTween.subscribeCache(item, ({ x, y }) => {
-        item.x = x;
-        item.y = y;
-      });
-    });
-    const draw = () => {
-      if (!ctx) return;
-      if (useOffscreen) {
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
-      }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
-      context2.fillStyle = canvasBackground;
-      context2.fillRect(0, 0, canvas.width, canvas.height);
-      squareData.forEach(
-        ({ width: width2, height: height2, x, y, opacity: opacity2, rotate, hasFill }, i) => {
-          const unitInverse = squareData.length - i;
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const scale = 1;
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(
-            xx,
-            xy,
-            -xy,
-            xx,
-            centerX + x + unitInverse * x / 20,
-            centerY + y + unitInverse * y / 20
-          );
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
-              width2,
-              height2,
-              [200, 0]
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
-              width2,
-              height2
-            );
-          }
-          if (hasFill) {
-            context2.fillStyle = `rgba(255, 255, 255, 1)`;
-          } else {
-            context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
-            context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
-            context2.stroke();
-          }
-          context2.fill();
-          context2.setTransform(1, 0, 0, 1, 0, 0);
-        }
-      );
-      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-    rectTimeline = timeline.createAsyncTimeline({
-      repeat: -1,
-      yoyo: false
-    });
-    rectTimeline.goTo(
-      rotationTween,
-      { rotate: 360 },
-      { duration: rotationDuration }
-    );
-    rectTimeline.play();
-    const loop = () => {
-      draw();
-      if (!isActive) return;
-      mobCore.useNextFrame(() => loop());
-    };
-    mobCore.useFrame(() => loop());
-    const unsubscribeResize = mobCore.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      top = offset(canvas).top;
-      left = offset(canvas).left;
-      draw();
-    });
-    const move = ({ x, y }) => {
-      const winWidth = window.innerWidth;
-      const winHeight = window.innerHeight;
-      const xCenter = x - canvas.width / 2 - left;
-      const yCenter = y - canvas.height / 2 - top;
-      centerTween.goTo({
-        x: clamp(
-          xCenter,
-          -winWidth / 2 + 400 + left,
-          winWidth / 2 - 400 - left
-        ),
-        y: clamp(
-          yCenter,
-          -winHeight / 2 + 200 + top,
-          winHeight / 2 - 200 - top
-        )
-      });
-    };
-    const unsubscribeMouseMove = mobCore.useMouseMove(({ client }) => {
-      const { x, y } = client;
-      move({ x, y });
-    });
-    const unsubscribeTouchMove = mobCore.useTouchMove(({ client }) => {
-      const { x, y } = client;
-      move({ x, y });
-    });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-      rectTimeline?.pause();
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(() => {
-        isActive = true;
-        const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
-        rectTimeline?.resume();
-        mobCore.useFrame(() => loop());
-      }, 500)
-    );
-    return () => {
-      rotationTween.destroy();
-      centerTween.destroy();
-      rectTimeline.destroy();
-      unsubscribeResize();
-      unsubscribeMouseMove();
-      unsubscribeTouchMove();
-      unWatchPause();
-      unWatchResume();
-      rotationTween = null;
-      centerTween = null;
-      rectTimeline = null;
-      ctx = null;
-      offscreen = null;
-      offScreenCtx = null;
-      squareData = [];
-      isActive = false;
-    };
-  };
-
-  // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
-  var CaterpillarN1 = ({ onMount, html, getState }) => {
-    document.body.style.background = "#000000";
-    onMount(({ refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { wrap, canvas } = refs;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "prevRoute", "#caterpillarN0");
-      setStateById(quicknavId, "nextRoute", "#caterpillarN2");
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N1");
-      const { caterpillarN1: caterpillarN12 } = getLegendData();
-      const { source } = caterpillarN12;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "white");
-      const destroyAnimation = caterpillarN1Animation({
-        canvas,
-        ...getState()
-      });
-      mobCore.useFrame(() => {
-        wrap.classList.add("active");
-      });
-      return () => {
-        destroyAnimation();
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
-        document.body.style.background = "";
-      };
-    });
-    return html`
-        <div>
-            <only-desktop></only-desktop>
-            <div class="c-canvas">
-                <div
-                    class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ref="wrap"
-                >
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/canvas/caterpillarN1/definition.js
-  var caterpillarN1Def = createComponent({
-    name: "caterpillar-n1",
-    component: CaterpillarN1,
-    exportState: [
-      "numItems",
-      "width",
-      "height",
-      "fill",
-      "opacity",
-      "radius",
-      "rotationEach",
-      "centerEach",
-      "rotationDuration",
-      "disableOffcanvas"
-    ],
-    state: {
-      numItems: 20,
-      width: 40,
-      height: 40,
-      fill: [14],
-      opacity: 0.05,
-      radius: 0,
-      rotationEach: 15,
-      centerEach: 3,
-      rotationDuration: 5e3,
-      disableOffcanvas: detectFirefox() || detectSafari() ? true : false
-    }
-  });
-
-  // src/js/component/pages/canvas/caterpillarN2/animation/animation.js
-  var logAddMethods = ({ value, direction: direction2, isForced }) => {
-    if (isForced) return;
-    console.log(`current: ${value}, direction: ${direction2}`);
-  };
-  var caterpillarN2Animation = ({
-    canvas,
-    numItems,
-    width,
-    height,
-    radius,
-    fill,
-    opacity,
-    xAmplitude,
-    yAmplitude,
-    duration: duration2,
-    friction,
-    rotationDefault,
-    disableOffcanvas
-  }) => {
-    const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
-    let isActive = true;
-    let ctx = canvas.getContext(context, { alpha: false });
-    let squareData = [];
-    let userRotation = rotationDefault;
-    const { activeRoute } = mainStore.get();
-    let { offscreen, offScreenCtx } = getOffsetCanvas({ useOffscreen, canvas });
-    const useRadius = false;
-    squareData = [...new Array(numItems).keys()].map((_item, i) => {
-      const relativeIndex = i >= numItems / 2 ? numItems / 2 + (numItems / 2 - i) : i;
-      const itemWidth = width + width / 3 * relativeIndex;
-      const itemHeight = height + height / 3 * relativeIndex;
-      const opacityVal = fill.includes(i) ? 1 : (numItems - i) * opacity;
-      return {
-        width: itemWidth,
-        height: itemHeight,
-        x: 0,
-        y: 0,
-        hasFill: fill.includes(i),
-        opacity: opacityVal,
-        radius,
-        rotate: 0
-      };
-    });
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    const infiniteTween = tween.createSequencer({
-      stagger: { each: 6 },
-      data: { x: duration2 / 4, rotate: 0 },
-      duration: duration2
-    }).goTo(
-      { x: duration2 + duration2 / 4 },
-      { start: 0, end: duration2, ease: "easeLinear" }
-    ).goTo(
-      { rotate: () => -userRotation },
-      { start: 0, end: 5, ease: "easeInOutBack" }
-    ).goTo({ rotate: 0 }, { start: 5, end: duration2, ease: "easeInOutBack" }).label("mylabel", 2).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 1 });
-    }, 1).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 5 });
-    }, 5).add(({ isForced, direction: direction2 }) => {
-      logAddMethods({ isForced, direction: direction2, value: 9 });
-    }, 9);
-    squareData.forEach((item) => {
-      infiniteTween.subscribeCache(item, ({ x, rotate }) => {
-        const val2 = x / friction;
-        const factor = 2 / (3 - Math.cos(2 * val2));
-        const xr = factor * Math.cos(val2) * xAmplitude;
-        const yr = factor * Math.sin(2 * val2) / 2 * yAmplitude;
-        item.x = xr;
-        item.y = yr;
-        item.rotate = rotate;
-      });
-    });
-    const syncTimeline = timeline.createSyncTimeline({
-      repeat: -1,
-      yoyo: false,
-      duration: 4e3
-    }).add(infiniteTween);
-    syncTimeline.onLoopEnd(({ loop: loop2, direction: direction2 }) => {
-      console.log(`loop end: ${loop2} , ${direction2}`);
-    });
-    const draw = () => {
-      if (!ctx) return;
-      if (useOffscreen) {
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
-      }
-      const context2 = useOffscreen ? offScreenCtx : ctx;
-      context2.fillStyle = canvasBackground;
-      context2.fillRect(0, 0, canvas.width, canvas.height);
-      squareData.forEach(
-        ({ width: width2, height: height2, x, y, radius: radius2, rotate, hasFill, opacity: opacity2 }) => {
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const scale = 1;
-          const rotation = Math.PI / 180 * rotate;
-          const xx = Math.cos(rotation) * scale;
-          const xy = Math.sin(rotation) * scale;
-          context2.setTransform(xx, xy, -xy, xx, centerX + x, centerY + y);
-          if (useRadius) {
-            context2.beginPath();
-            context2.roundRect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
-              width2,
-              height2,
-              [150, 0]
-            );
-          } else {
-            context2.beginPath();
-            context2.rect(
-              Number.parseInt(-width2 / 2),
-              Number.parseInt(-height2 / 2),
-              width2,
-              height2,
-              radius2
-            );
-          }
-          if (hasFill) {
-            context2.fillStyle = `rgba(255, 255, 255, 1)`;
-          } else {
-            context2.fillStyle = `rgba(26, 27, 38, ${opacity2})`;
-            context2.strokeStyle = `rgba(255, 255, 255, ${opacity2})`;
-            context2.stroke();
-          }
-          context2.fill();
-          context2.setTransform(1, 0, 0, 1, 0, 0);
-        }
-      );
-      copyCanvasBitmap({ useOffscreen, offscreen, ctx });
-    };
-    const loop = () => {
-      draw();
-      if (!isActive) return;
-      mobCore.useNextFrame(() => loop());
-    };
-    mobCore.useFrame(() => loop());
-    syncTimeline.play();
-    const unsubscribeResize = mobCore.useResize(() => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      draw();
-    });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-      syncTimeline?.pause();
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(() => {
-        isActive = true;
-        const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
-        syncTimeline?.resume();
-        mobCore.useFrame(() => loop());
-      }, 500)
-    );
-    return {
-      destroy: () => {
-        isActive = false;
-        unsubscribeResize();
-        unWatchPause();
-        unWatchResume();
-        infiniteTween.destroy();
-        syncTimeline.destroy();
-        ctx = null;
-        offscreen = null;
-        offScreenCtx = null;
-        squareData = [];
-      },
-      play: () => {
-        syncTimeline.stop();
-        syncTimeline.play();
-      },
-      playReverse: () => {
-        syncTimeline.stop();
-        syncTimeline.playReverse();
-      },
-      playUseCurrent: () => syncTimeline.play({ useCurrent: true }),
-      playReverseUseCurrent: () => syncTimeline.playReverse({ useCurrent: true }),
-      playFromLabel: () => {
-        syncTimeline.stop();
-        syncTimeline.playFrom("mylabel");
-      },
-      plaFromLabelReverse: () => {
-        syncTimeline.stop();
-        syncTimeline.playFromReverse("mylabel");
-      },
-      stop: () => syncTimeline.stop(),
-      pause: () => syncTimeline.pause(),
-      resume: () => syncTimeline.resume(),
-      reverse: () => syncTimeline.reverse(),
-      setRotation: (value) => userRotation = value
-    };
-  };
-
-  // src/js/component/pages/canvas/caterpillarN2/caterpillarN2.js
-  function getControls({ buttons: buttons3 }) {
-    return Object.entries(buttons3).map(([className, value]) => {
-      const { label } = value;
-      return renderHtml` <li class="c-canvas__controls__item">
-                <button
-                    type="button"
-                    class="c-canvas__controls__btn ${className}"
-                >
-                    ${label}
-                </button>
-            </li>`;
-    }).join("");
-  }
-  var CaterpillarN2 = ({ onMount, html, getState }) => {
-    const { buttons: buttons3, rotationDefault } = getState();
-    document.body.style.background = "#000000";
-    onMount(({ element, refs }) => {
-      if (motionCore.mq("max", "desktop")) return;
-      const { wrap, canvas, rangeValue, rotationButton } = refs;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "prevRoute", "#caterpillarN1");
-      setStateById(
-        quicknavId,
-        "nextRoute",
-        "#animatedPatternN0?version=0&activeId=0"
-      );
-      setStateById(quicknavId, "color", "black");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N2");
-      const { caterpillarN2: caterpillarN22 } = getLegendData();
-      const { source } = caterpillarN22;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "animation",
-          source: source.animation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "white");
-      const animationMethods = caterpillarN2Animation({
-        canvas,
-        ...getState()
-      });
-      const { destroy, setRotation } = animationMethods;
-      Object.entries(buttons3).forEach(([className, value]) => {
-        const { method } = value;
-        const btn = element.querySelector(`.${className}`);
-        btn.addEventListener("click", () => animationMethods?.[method]());
-      });
-      rotationButton.addEventListener("change", () => {
-        const value = rotationButton.value;
-        setRotation(value);
-        rangeValue.textContent = value;
-      });
-      mobCore.useFrame(() => {
-        wrap.classList.add("active");
-      });
-      return () => {
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
-        document.body.style.background = "";
-        destroy();
-      };
-    });
-    return html`
-        <div>
-            <only-desktop></only-desktop>
-            <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <ul class="c-canvas__controls">
-                        ${getControls({ buttons: buttons3 })}
-                        <li class="c-canvas__controls__item">
-                            <label class="c-canvas__controls__label">
-                                change rotation:
-                                <span class="js-range-value" ref="rangeValue"
-                                    >${rotationDefault}</span
-                                >
-                            </label>
-                            <div class="c-canvas__controls__range">
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="720"
-                                    value="${rotationDefault}"
-                                    step="1"
-                                    ref="rotationButton"
-                                />
-                            </div>
-                        </li>
-                    </ul>
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/canvas/caterpillarN2/definition.js
-  var duration = 10;
-  var buttons = {
-    "js-CN2-play": {
-      label: "play",
-      method: "play"
-    },
-    "js-CN2-playReverse": {
-      label: "play reverse",
-      method: "playReverse"
-    },
-    "js-CN2-play-current": {
-      label: "go forward if is backward",
-      method: "playUseCurrent"
-    },
-    "js-CN2-playReverse-current": {
-      label: "go backward if is forward",
-      method: "playReverseUseCurrent"
-    },
-    "js-CN2-play-label": {
-      label: "play from label",
-      method: "playFromLabel"
-    },
-    "js-CN2-playReverse-label": {
-      label: "play from label reverse",
-      method: "plaFromLabelReverse"
-    },
-    "js-CN2-reverse": {
-      label: "reverse",
-      method: "reverse"
-    },
-    "js-CN2-stop": {
-      label: "stop",
-      method: "stop"
-    },
-    "js-CN2-pause": {
-      label: "pause",
-      method: "pause"
-    },
-    "js-CN2-resume": {
-      label: "resume",
-      method: "resume"
-    }
-  };
-  var caterpillarN2Def = createComponent({
-    name: "caterpillar-n2",
-    component: CaterpillarN2,
-    exportState: [
-      "numItems",
-      "width",
-      "height",
-      "radius",
-      "fill",
-      "opacity",
-      "xAmplitude",
-      "yAmplitude",
-      "duration",
-      "rotationDefault",
-      "friction",
-      "disableOffcanvas"
-    ],
-    state: {
-      numItems: 20,
-      width: 80,
-      height: 80,
-      radius: 0,
-      fill: [2],
-      opacity: 0.02,
-      xAmplitude: 500,
-      yAmplitude: 400,
-      duration: 10,
-      rotationDefault: 360,
-      friction: duration / 2 / Math.PI,
-      disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
-      buttons: () => ({
-        value: buttons,
-        type: "Any"
-      })
-    }
-  });
-
-  // src/js/component/lib/animation/simpleIntro.js
-  var simpleIntroAnimation = ({ refs }) => {
-    let introTween = tween.createTween({
-      data: { opacity: 0, scale: 0.5 },
-      duration: 2e3,
-      ease: "easeOutQuart",
-      stagger: { each: 8, from: "end" }
-    });
-    let loopTween = tween.createTween({
-      data: { scale: 1 },
-      duration: 6e3,
-      ease: "easeInOutQuad",
-      stagger: { each: 12, from: "end" }
-    });
-    refs.forEach((item) => {
-      introTween.subscribeCache(item, ({ scale, opacity }) => {
-        item.style.scale = `${scale}`;
-        item.style.opacity = opacity;
-      });
-      loopTween.subscribe(({ scale }) => {
-        item.style.scale = `${scale}`;
-      });
-    });
-    let introTl = timeline.createAsyncTimeline({ repeat: 1 }).goTo(introTween, {
-      opacity: 1,
-      scale: 1
-    });
-    let loopTimeline = timeline.createAsyncTimeline({ repeat: -1, yoyo: true }).goTo(loopTween, {
-      scale: 1.1
-    });
-    return {
-      playIntro: () => introTl?.play(),
-      playSvg: () => {
-        loopTimeline?.play();
-      },
-      destroy: () => {
-        introTween.destroy();
-        introTween = null;
-        introTl.destroy();
-        introTl = null;
-        loopTween.destroy();
-        loopTween = null;
-        loopTimeline.destroy();
-        loopTimeline = null;
-      }
-    };
-  };
-
-  // src/js/component/pages/homepage/animation/text.js
-  var homeTextAnimation = ({ refs }) => {
-    let textTween = tween.createTween({
-      data: { y: 100 },
-      duration: 500,
-      ease: "easeOutCubic",
-      stagger: { each: 10 }
-    });
-    refs.forEach((item) => {
-      textTween.subscribe(({ y }) => {
-        item.style.translate = `0px ${y}%`;
-      });
-    });
-    return {
-      playText: () => textTween.goTo({ y: 0 }),
-      destroyText: () => {
-        textTween.destroy();
-        textTween = null;
-      }
-    };
-  };
-
-  // src/js/component/pages/homepage/home.js
-  var playAnimation = async ({ playIntro, playText, playSvg }) => {
-    playText();
-    await playIntro();
-    playSvg();
-  };
-  var HomeComponent = ({ html, onMount, getState }) => {
-    const { svg } = getState();
-    onMount(async ({ refs }) => {
-      const { textStagger, svg_group } = refs;
-      const { destroy, playIntro, playSvg } = simpleIntroAnimation({
-        refs: svg_group
-      });
-      const { playText, destroyText } = homeTextAnimation({
-        refs: textStagger
-      });
-      playAnimation({ playIntro, playText, playSvg });
-      const { home: home2 } = getLegendData();
-      const { source } = home2;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
-        {
-          label: "description",
-          source: source.description
-        },
-        {
-          label: "definition",
-          source: source.definition
-        },
-        {
-          label: "component",
-          source: source.component
-        },
-        {
-          label: "Logo animation",
-          source: source.logoAnimation
-        },
-        {
-          label: "text animation",
-          source: source.textAnimation
-        }
-      ]);
-      setStateById(codeButtonId, "color", "black");
-      return () => {
-        destroy();
-        destroyText();
-        setStateById(codeButtonId, "drawers", []);
-      };
-    });
-    return html`<div>
-        <div class="l-index__content">
-            <a class="l-index__item" href="./#mobCore_overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
-                        <span>Mob</span>Core
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
-                        store & window events
-                    </h2>
-                </div>
-            </a>
-            <a class="l-index__item" href="./#mobJs_overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
-                        <span>Mob</span>Js
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
-                        js component library
-                    </h2>
-                </div>
-            </a>
-            <a class="l-index__item" href="./#mobMotion_overview">
-                <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
-                        <span>Mob</span>Motion
-                    </h1>
-                </div>
-                <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
-                        js animation library
-                    </h2>
-                </div>
-            </a>
-        </div>
-
-        <div class="l-index__logo">${svg}</div>
-    </div>`;
-  };
-
-  // src/js/component/pages/homepage/definition.js
-  var homePageComponentDef = createComponent({
-    name: "home-component",
-    component: HomeComponent,
-    exportState: ["svg"],
-    state: {
-      svg: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
 
   // src/js/component/pages/horizontalScroller/animation/animation.js
   var sideWidth = 0;
@@ -28037,51 +25139,6 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/pages/horizontalScroller/definition.js
-  var horizontalScrollerDef = createComponent({
-    name: "horizontal-scroller",
-    component: HorizontalScroller2,
-    exportState: [
-      "nextRoute",
-      "prevRoute",
-      "currentId",
-      "currentIdFromScroll",
-      "animatePin",
-      "svgLeft",
-      "svgRight"
-    ],
-    state: {
-      nextRoute: () => ({
-        value: "",
-        type: String
-      }),
-      prevRoute: () => ({
-        value: "",
-        type: String
-      }),
-      svgLeft: () => ({
-        value: 0,
-        type: ""
-      }),
-      svgRight: () => ({
-        value: 0,
-        type: ""
-      }),
-      currentId: () => ({
-        value: 0,
-        type: Number
-      }),
-      currentIdFromScroll: () => ({
-        value: 0,
-        type: Number
-      }),
-      animatePin: () => ({
-        value: false,
-        type: Boolean
-      })
-    }
-  });
-
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/horizontalScrollerButton.js
   var HorizontalScrollerButton = ({
     getState,
@@ -28165,6 +25222,125 @@ Loading snippet ...</pre
       })
     }
   });
+
+  // src/js/component/pages/horizontalScroller/definition.js
+  var horizontalScrollerDef = createComponent({
+    name: "horizontal-scroller",
+    component: HorizontalScroller2,
+    exportState: [
+      "nextRoute",
+      "prevRoute",
+      "currentId",
+      "currentIdFromScroll",
+      "animatePin",
+      "svgLeft",
+      "svgRight"
+    ],
+    state: {
+      nextRoute: () => ({
+        value: "",
+        type: String
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
+      svgLeft: () => ({
+        value: 0,
+        type: ""
+      }),
+      svgRight: () => ({
+        value: 0,
+        type: ""
+      }),
+      currentId: () => ({
+        value: 0,
+        type: Number
+      }),
+      currentIdFromScroll: () => ({
+        value: 0,
+        type: Number
+      }),
+      animatePin: () => ({
+        value: false,
+        type: Boolean
+      })
+    },
+    child: [horizontalScrollerButtonDef, horizontalScrollerSectionDef]
+  });
+
+  // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
+  var horizontalScrollerParams = [
+    {
+      title: "horizontalScroller with fixed pin",
+      animatePin: false,
+      nav: {
+        prevRoute: "",
+        nextRoute: "#horizontalScroller?version=1&activeId=1"
+      }
+    },
+    {
+      title: "horizontalScroller with animated pin",
+      animatePin: true,
+      nav: {
+        prevRoute: "#horizontalScroller?version=0&activeId=0",
+        nextRoute: ""
+      }
+    }
+  ];
+
+  // src/js/pages/plugin/horizontalScroller/index.js
+  useComponent([horizontalScrollerDef]);
+  var horizontalScroller = async ({ params }) => {
+    const { version } = params;
+    const props = horizontalScrollerParams[Math.max(
+      0,
+      Math.min(Number(version), horizontalScrollerParams.length - 1)
+    )];
+    const { data: data_left } = await loadTextContent({
+      source: "./asset/svg/footer_shape_left.svg"
+    });
+    const { data: data_right } = await loadTextContent({
+      source: "./asset/svg/footer_shape_right.svg"
+    });
+    return renderHtml`<div>
+        <horizontal-scroller
+            ${staticProps({
+      animatePin: props.animatePin,
+      svgLeft: data_left,
+      svgRight: data_right,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute
+    })}
+        ></horizontal-scroller>
+    </div>`;
+  };
+
+  // src/js/pages/canvas/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var canvas_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/canvas/overview.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small">Canvas </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Canvas</doc-title>
+    </doc-container>`;
+  };
 
   // src/js/component/pages/scroller/ScrollerN0/animation/animation.js
   var scrollerN0Animation = ({
@@ -28543,8 +25719,101 @@ Loading snippet ...</pre
         type: Boolean
       }),
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
-    }
+    },
+    child: [onlyDesktopDef]
   });
+
+  // src/js/pages/canvas/scroller/scrollerParams.js
+  var scrollerParams = [
+    {
+      title: "Scroller N.0 v0",
+      animation: {},
+      nav: {
+        prevRoute: "#animatedPatternN1",
+        nextRoute: "#scrollerN0?version=1&activeId=1"
+      }
+    },
+    {
+      title: "Scroller N.0 v1",
+      animation: {
+        stagger: {
+          type: "end",
+          each: 1,
+          from: { x: 0, y: 0 },
+          grid: { col: 11, row: 10, direction: "radial" }
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=0&activeId=0",
+        nextRoute: "#scrollerN0?version=2&activeId=2"
+      }
+    },
+    {
+      title: "Scroller N.0 v2",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 7,
+          from: "center",
+          grid: { col: 11, row: 10, direction: "col" }
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=1&activeId=1",
+        nextRoute: "#scrollerN0?version=3&activeId=3"
+      }
+    },
+    {
+      title: "Scroller N.0 v3",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 3,
+          from: "end",
+          grid: { col: 11, row: 10, direction: "row" }
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=2&activeId=2",
+        nextRoute: "#scrollerN0?version=4&activeId=4"
+      }
+    },
+    {
+      title: "Scroller N.0 v4",
+      animation: {
+        stagger: {
+          type: "equal",
+          each: 2,
+          from: "end"
+        },
+        reorder: false
+      },
+      nav: {
+        prevRoute: "#scrollerN0?version=3&activeId=3",
+        nextRoute: "#scrollerN1"
+      }
+    }
+  ];
+
+  // src/js/pages/canvas/scroller/index.js
+  useComponent([scrollerN0Def]);
+  var scrollerN0 = ({ params }) => {
+    const { version } = params;
+    const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
+    return renderHtml`<div>
+        <scroller-n0
+            ${staticProps({
+      ...props.animation,
+      prevRoute: props.nav.prevRoute,
+      nextRoute: props.nav.nextRoute,
+      title: props.title
+    })}
+        ></scroller-n0>
+    </div>`;
+  };
 
   // src/js/component/pages/scroller/ScrollerN1/animation/animation.js
   function getWithRounded2({ width, relativeIndex, amountOfPath }) {
@@ -28821,6 +26090,45 @@ Loading snippet ...</pre
       intialRotation: 33,
       endRotation: 720,
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/canvas/scrollerN1/index.js
+  useComponent([scrollerN1Def]);
+  var scrollerN1 = () => {
+    return renderHtml`<div class="l-padding">
+        <scroller-n1></scroller-n1>
+    </div>`;
+  };
+
+  // src/js/component/pages/dynamicList/button/dynamicListButton.js
+  var DynamicListButton = ({ html, getState, onMount, watchSync }) => {
+    const { label } = getState();
+    onMount(({ element }) => {
+      watchSync("active", (value) => {
+        element.classList.toggle("active", value);
+      });
+    });
+    return html`
+        <button type="button" class="c-dynamic-list-button">${label}</button>
+    `;
+  };
+
+  // src/js/component/pages/dynamicList/button/definition.js
+  var dynamicListButtonDef = createComponent({
+    name: "dynamic-list-button",
+    component: DynamicListButton,
+    exportState: ["active", "label"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      active: () => ({
+        value: false,
+        type: Boolean
+      })
     }
   });
 
@@ -29122,24 +26430,57 @@ Loading snippet ...</pre
     `;
   };
 
-  // src/js/component/pages/dynamicList/definition.js
-  var dynamicListDef = createComponent({
-    name: "dynamic-list",
-    component: DynamicList,
+  // src/js/component/pages/dynamicList/counter/dynamicListCounter.js
+  var DynamicListCounter = async ({
+    watch,
+    onMount,
+    html,
+    getState
+  }) => {
+    const { parentListId, counter } = getState();
+    onMount(({ refs }) => {
+      const { counterValueEl } = refs;
+      watch("counter", (value) => {
+        counterValueEl.textContent = value;
+      });
+    });
+    return html`<div class="dynamic-counter">
+        <p class="c-dynamic-counter__title">Nested:</p>
+        <p class="c-dynamic-counter__subtitle">(slotted)</p>
+        <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
+        <span ref="counterValueEl">${counter}</span>
+    </div>`;
+  };
+
+  // src/js/component/pages/dynamicList/counter/definition.js
+  var dynamicCounterDef = createComponent({
+    name: "dynamic-list-counter",
+    component: DynamicListCounter,
+    exportState: ["counter", "parentListId"],
     state: {
+      parentListId: () => ({
+        value: -1,
+        type: Number
+      }),
       counter: () => ({
         value: 0,
         type: Number
-      }),
-      data: () => ({
-        value: startData,
-        type: Array
-      }),
-      activeSample: () => ({
-        value: 3,
-        type: Number
       })
     }
+  });
+
+  // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
+  var DynamicListEmpty = async ({ html }) => {
+    return html`<div class="c-dynamic-list-empty">
+        <p>empty comp</p>
+        <mobjs-slot name="empty-slot"></mobjs-slot>
+    </div>`;
+  };
+
+  // src/js/component/pages/dynamicList/empty/definition.js
+  var dynamicListEmptyDef = createComponent({
+    name: "dynamic-list-empty",
+    component: DynamicListEmpty
   });
 
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
@@ -29256,158 +26597,47 @@ Loading snippet ...</pre
         value: 0,
         type: Number
       })
-    }
+    },
+    child: [dynamicCounterDef, dynamicListEmptyDef]
   });
 
-  // src/js/component/pages/dynamicList/slot/dynamicListSlot.js
-  function getPreValue(value) {
-    return renderHtml`<pre>${value}</pre>`;
+  // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js
+  function setContent(value) {
+    return `slotted: ${value}`;
   }
-  var DynamicListSlot = ({ getState, html, onMount, watchSync }) => {
-    const { staticFromSlot, staticFromComponent } = getState();
-    onMount(({ refs }) => {
-      const { tEl, t2El } = refs;
-      watchSync("parentParentState", (val2) => {
-        tEl.textContent = "";
-        tEl.insertAdjacentHTML("afterbegin", getPreValue(val2));
-      });
-      watchSync("parentState", (val2) => {
-        t2El.textContent = "";
-        t2El.insertAdjacentHTML("afterbegin", getPreValue(val2));
-      });
-    });
-    return html`
-        <div class="c-dynamic-slot">
-            <h3 class="c-dynamic-slot__label">Component inside slot</h3>
-            <div>${staticFromSlot}</div>
-            <div>${staticFromComponent}</div>
-            <h3 class="c-dynamic-slot__label">
-                Reactive state from parent component scope (dynamicList):
-            </h3>
-            <div ref="tEl"></div>
-            <h3 class="c-dynamic-slot__label">
-                Reactive state from parent slot scope (dynamicCard):
-            </h3>
-            <div ref="t2El"></div>
-        </div>
-    `;
-  };
-
-  // src/js/component/pages/dynamicList/slot/definition.js
-  var dynamicListSlotDef = createComponent({
-    name: "dynamic-list-slot",
-    component: DynamicListSlot,
-    exportState: [
-      "staticFromSlot",
-      "staticFromComponent",
-      "parentParentState",
-      "parentState"
-    ],
-    state: {
-      staticFromSlot: () => ({
-        value: "",
-        type: "any"
-      }),
-      staticFromComponent: () => ({
-        value: "",
-        type: "any"
-      }),
-      parentParentState: () => ({
-        value: "",
-        type: "any"
-      }),
-      parentState: () => ({
-        value: "",
-        type: "any"
-      })
-    }
-  });
-
-  // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
-  var DynamicListEmpty = async ({ html }) => {
-    return html`<div class="c-dynamic-list-empty">
-        <p>empty comp</p>
-        <mobjs-slot name="empty-slot"></mobjs-slot>
-    </div>`;
-  };
-
-  // src/js/component/pages/dynamicList/empty/definition.js
-  var dynamicListEmptyDef = createComponent({
-    name: "dynamic-list-empty",
-    component: DynamicListEmpty
-  });
-
-  // src/js/component/pages/dynamicList/counter/dynamicListCounter.js
-  var DynamicListCounter = async ({
-    watch,
-    onMount,
+  var DynamicListSlottedLabel = async ({
     html,
+    onMount,
+    watch,
     getState
   }) => {
-    const { parentListId, counter } = getState();
+    const { label } = getState();
     onMount(({ refs }) => {
-      const { counterValueEl } = refs;
-      watch("counter", (value) => {
-        counterValueEl.textContent = value;
+      const { contentEl } = refs;
+      watch("label", (value) => {
+        contentEl.textContent = setContent(value);
       });
     });
-    return html`<div class="dynamic-counter">
-        <p class="c-dynamic-counter__title">Nested:</p>
-        <p class="c-dynamic-counter__subtitle">(slotted)</p>
-        <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
-        <span ref="counterValueEl">${counter}</span>
+    return html`<div class="c-dynamic-list-slotted-label">
+        <p class="content" ref="contentEl">${setContent(label)}</p>
     </div>`;
   };
 
-  // src/js/component/pages/dynamicList/counter/definition.js
-  var dynamicCounterDef = createComponent({
-    name: "dynamic-list-counter",
-    component: DynamicListCounter,
-    exportState: ["counter", "parentListId"],
-    state: {
-      parentListId: () => ({
-        value: -1,
-        type: Number
-      }),
-      counter: () => ({
-        value: 0,
-        type: Number
-      })
-    }
-  });
-
-  // src/js/component/pages/dynamicList/button/dynamicListButton.js
-  var DynamicListButton = ({ html, getState, onMount, watchSync }) => {
-    const { label } = getState();
-    onMount(({ element }) => {
-      watchSync("active", (value) => {
-        element.classList.toggle("active", value);
-      });
-    });
-    return html`
-        <button type="button" class="c-dynamic-list-button">${label}</button>
-    `;
-  };
-
-  // src/js/component/pages/dynamicList/button/definition.js
-  var dynamicListButtonDef = createComponent({
-    name: "dynamic-list-button",
-    component: DynamicListButton,
-    exportState: ["active", "label"],
+  // src/js/component/pages/dynamicList/slottedLabel/definition.js
+  var dynamicListLabelDef = createComponent({
+    name: "dynamic-slotted-label",
+    component: DynamicListSlottedLabel,
+    exportState: ["label"],
     state: {
       label: () => ({
-        value: "",
-        type: String
-      }),
-      active: () => ({
-        value: false,
-        type: Boolean
+        value: void 0,
+        type: "Any"
       })
     }
   });
 
   // src/js/component/pages/dynamicList/repeaters/dynamicListRepeater.js
-  function getRepeaterCard2({
+  function getRepeaterCard({
     sync,
     staticProps: staticProps2,
     bindProps,
@@ -29485,7 +26715,7 @@ Loading snippet ...</pre
         });
       },
       render: ({ sync }) => {
-        return getRepeaterCard2({
+        return getRepeaterCard({
           sync,
           staticProps: staticProps2,
           bindProps,
@@ -29537,43 +26767,1744 @@ Loading snippet ...</pre
         value: "",
         type: String
       })
-    }
+    },
+    child: [dynamicListCardDef, dynamicListLabelDef]
   });
 
-  // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js
-  function setContent(value) {
-    return `slotted: ${value}`;
-  }
-  var DynamicListSlottedLabel = async ({
-    html,
-    onMount,
-    watch,
-    getState
-  }) => {
-    const { label } = getState();
-    onMount(({ refs }) => {
-      const { contentEl } = refs;
-      watch("label", (value) => {
-        contentEl.textContent = setContent(value);
-      });
+  // src/js/component/pages/dynamicList/definition.js
+  var dynamicListDef = createComponent({
+    name: "dynamic-list",
+    component: DynamicList,
+    state: {
+      counter: () => ({
+        value: 0,
+        type: Number
+      }),
+      data: () => ({
+        value: startData,
+        type: Array
+      }),
+      activeSample: () => ({
+        value: 3,
+        type: Number
+      })
+    },
+    child: [dynamicListButtonDef, dynamicListRepeaterDef, onlyDesktopDef]
+  });
+
+  // src/js/pages/dynamicList/index.js
+  useComponent([dynamicListDef]);
+  var dynamic_list = () => {
+    return renderHtml` <dynamic-list> </dynamic-list> `;
+  };
+
+  // src/js/pages/mobJs/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/overview.json"
     });
-    return html`<div class="c-dynamic-list-slotted-label">
-        <p class="content" ref="contentEl">${setContent(label)}</p>
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small">mobjs </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">mobJs</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/initialization/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_initialization = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/initialization.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>initialization</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Initialization</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/routing/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_routing = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/routing.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>routing</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">routing</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/component/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_component = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/component.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>component</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Component</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/component/common/linksMobJs/data.js
+  var items = [
+    {
+      label: "html",
+      url: "mobJs_html"
+    },
+    {
+      label: "onMount",
+      url: "mobJs_onMount"
+    },
+    {
+      label: "getState",
+      url: "mobJs_getState"
+    },
+    {
+      label: "setState",
+      url: "mobJs_setState"
+    },
+    {
+      label: "watch",
+      url: "mobJs_watch"
+    },
+    {
+      label: "watchSync",
+      url: "mobJs_watchSync"
+    },
+    {
+      label: "staticProps",
+      url: "mobJs_staticProps"
+    },
+    {
+      label: "bindProps",
+      url: "mobJs_bindProps"
+    },
+    {
+      label: "bindEvents",
+      url: "mobJs_bindEvents"
+    },
+    {
+      label: "delegateEvents",
+      url: "mobJs_delegateEvents"
+    },
+    {
+      label: "reactive list: (repeat)",
+      url: "mobJs_repeat"
+    },
+    {
+      label: "unBind",
+      url: "mobJs_unBind"
+    },
+    {
+      label: "emit",
+      url: "mobJs_emit"
+    },
+    {
+      label: "emitAsync",
+      url: "mobJs_emitAsync"
+    },
+    {
+      label: "computed",
+      url: "mobJs_computed"
+    },
+    {
+      label: "renderComponent",
+      url: "mobJs_renderComponent"
+    },
+    {
+      label: "removeDOM",
+      url: "mobJs_removeDom"
+    },
+    {
+      label: "remove",
+      url: "mobJs_remove"
+    },
+    {
+      label: "getChildren",
+      url: "mobJs_getChildren"
+    },
+    {
+      label: "freezeProp",
+      url: "mobJs_freezeProp"
+    },
+    {
+      label: "unFreezeProp",
+      url: "mobJs_unFreezeProp"
+    },
+    {
+      label: "getParentId",
+      url: "mobJs_getParentId"
+    },
+    {
+      label: "watchParent",
+      url: "mobJs_watchParent"
+    }
+  ];
+
+  // src/js/component/common/linksMobJs/linksMobJs.js
+  var data = {
+    mobjs: items
+  };
+  var getItems = ({ data: data3, staticProps: staticProps2 }) => {
+    return data3.map((item) => {
+      const { label, url } = item;
+      return renderHtml`<li>
+                <links-mobjs-button
+                    ${staticProps2({
+        label,
+        url
+      })}
+                ></links-mobjs-button>
+            </li>`;
+    }).join("");
+  };
+  var linksMobJs = ({ html, staticProps: staticProps2, getState }) => {
+    const { section } = getState();
+    return html`<div class="c-params-mobjs">
+        <ul>
+            ${getItems({ staticProps: staticProps2, data: data?.[section] ?? [] })}
+        </ul>
     </div>`;
   };
 
-  // src/js/component/pages/dynamicList/slottedLabel/definition.js
-  var dynamicListLabelDef = createComponent({
-    name: "dynamic-slotted-label",
-    component: DynamicListSlottedLabel,
-    exportState: ["label"],
+  // src/js/component/common/linksMobJs/linksMobJsButton.js
+  var linksMobJsButton = ({ html, getState }) => {
+    const { label, url } = getState();
+    const { activeRoute } = mainStore.get();
+    const currentClass = activeRoute === url ? "current" : "";
+    return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
+  };
+
+  // src/js/component/common/linksMobJs/definition.js
+  var paramsMobJsDef = createComponent({
+    name: "links-mobjs",
+    component: linksMobJs,
+    exportState: ["section"],
+    state: {
+      section: () => ({
+        value: "",
+        type: String
+      })
+    },
+    child: [paramsMobJsButtonDef]
+  });
+  var paramsMobJsButtonDef = createComponent({
+    name: "links-mobjs-button",
+    component: linksMobJsButton,
+    exportState: ["label", "url"],
     state: {
       label: () => ({
-        value: void 0,
-        type: "Any"
+        value: "",
+        type: String
+      }),
+      url: () => ({
+        value: "",
+        type: String
       })
     }
   });
+
+  // src/js/pages/mobJs/html/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_html = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/html.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>html</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">HTML</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/onMount/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_onMount = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/onMount.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>onMount</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">onMount</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/getState/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_getState = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/getState.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>getState</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">getState</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/setState/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_setState = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/setState.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>setState</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">setState</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/emit/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_emit = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/emit.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>emit</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">emit</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/emitAsync/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_emitAsync = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/emitAsync.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>emitAsync</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">emitAsync</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/computed/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_computed = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/computed.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>computed</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">computed</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/watch/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_watch = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watch.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>watch</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">watch</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/watchSync/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_watchSync = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watchSync.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>watchSync</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">watchSync</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/renderComponent/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_renderComponent = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/renderDom.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>renderDom</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">renderDom</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/remove/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_remove = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/remove.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>remove</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">remove</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/removeDom/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_removeDom = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/removeDom.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>removeDom</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">removeDom</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/getChildren/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_getChildren = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/getChildren.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>getChildren</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">getChildren</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/freezeProp/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_freezeProp = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/freezeProp.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>freezeProp</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">freezeProp</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/unFreezeProp/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_unFreezeProp = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/unFreezeProp.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>unFreezeProp</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">unFreezeProp</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/getParentId/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_getParentId = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/getParentId.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>getParentId</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">getParentId</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/watchParent/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_watchParent = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/watchParent.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>watchParent</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">watchParent</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/staticProps/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_staticProps = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/staticProps.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>staticProps</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">staticProps</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/bindProps/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_bindProps = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/bindProps.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>bindProps</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">bindProps</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/unBind/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_unBind = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/unBind.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>unBind</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">unBind</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/syncParent/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_syncParent = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/syncParent.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>syncParent</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">syncParent</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/bindEvents/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_bindEvents = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/bindEvents.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>bindEvents</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">bindEvents</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/delegateEvents/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_delegateEvents = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/delegateEvents.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>delegateEvents</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">delegateEvents</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/repeat/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    paramsMobJsDef
+  ]);
+  var mobJs_repeat = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/repeat.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> /
+            <a href="./#mobJs_component">component</a> /
+            <span>repeat</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section: "mobjs" })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">repeat</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/refs/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_refs = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/refs.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>refs</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">refs</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/slot/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_slot = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/slot.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>slot</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">slot</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/utils/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_utils = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/utils.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>utils</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Utils</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/webComponent/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_web_component = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/webComponent.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>webComponent</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">WebComponent</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/debug/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_debug = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/debug.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>debug</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Debug</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/runtime/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_runtime = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/runtime.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>runtime</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Runtime</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/instanceName/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_instanceName = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/instanceName.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>instanceName</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">InstanceName</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobJs/tick/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobJs_tick = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobJs/tick.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobJs_overview">mobjs</a> / <span>tick</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Tick</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobCore/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var mobCore_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/overview.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small">mobCore </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">mobCore</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobCore/events/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var mobCore_events = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/events.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Events</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Events</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobCore/store/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var mobCore_store = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/store.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Store</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Store</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobCore/defaults/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    scrollToDef,
+    docsTitleComponentDef,
+    htmlContentDef
+  ]);
+  var mobCore_defaults = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobCore/defaults.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
+        </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Defaults</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/asyncTimeline/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_async_timeline = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/asyncTimeline.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Async timeline</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Async timeline</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/createStagger/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_create_stagger = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/createStagger.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>CreateStagger</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">CreateStagger</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/overview.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small">mobMotion </doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">mobMotion</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/parallax/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_parallax = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/parallax.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Parallax</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Parallax</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/scrollTrigger/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_scrolltrigger = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/scrollTrigger.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>ScrollTrigger</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">ScrollTrigger</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/sequencer/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_sequencer = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/sequencer.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Sequencer</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Sequencer</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/stagger/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_stagger = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/stagger.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Stagger</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Stagger</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/syncTimeline/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_sync_timeline = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/syncTimeline.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Sync timeline</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Sync timeline</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/tweenSpringLerp/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_tween_spring_lerp = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/tweenSpringLerp.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Tween Spring Lerp</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Tweens</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/mobMotion/defaults/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var mobMotion_defaults = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/mobMotion/defaults.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            ><a href="./#mobMotion_overview">mobMotion</a> /
+            <span>Defaults</span></doc-title-small
+        >
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Defaults</doc-title>
+    </doc-container>`;
+  };
+
+  // src/js/pages/svg/overview/index.js
+  useComponent([
+    docsContainerComponentDef,
+    docsTitleSmallComponentDef,
+    docsTitleComponentDef,
+    htmlContentDef,
+    scrollToDef
+  ]);
+  var svg_overview = async () => {
+    const { data: data3 } = await loadJsonContent({
+      source: "./data/svg/overview.json"
+    });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small">Svg</doc-title-small>
+        <scroll-to slot="section-links"></scroll-to>
+        <doc-title slot="section-title">Svg</doc-title>
+    </doc-container>`;
+  };
 
   // src/js/component/pages/svg/child/animation/animation.js
   var childAnimations = ({ groups, trails }) => {
@@ -29782,8 +28713,23 @@ Loading snippet ...</pre
         value: "",
         type: String
       })
-    }
+    },
+    child: [onlyDesktopDef]
   });
+
+  // src/js/pages/svg/child/index.js
+  useComponent([svgChild]);
+  var child = async () => {
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/child.svg"
+    });
+    const { data: star } = await loadTextContent({
+      source: "./asset/svg/star.svg"
+    });
+    return renderHtml`<div>
+        <svg-child ${staticProps({ svg, star })}></svg-child>
+    </div>`;
+  };
 
   // src/js/component/pages/svg/mv1/animation/index.js
   var mv1Animation = ({ logoRefs, around }) => {
@@ -29962,7 +28908,430 @@ Loading snippet ...</pre
         value: "",
         type: String
       })
+    },
+    child: [onlyDesktopDef]
+  });
+
+  // src/js/pages/svg/mv1/index.js
+  useComponent([Mv1Def]);
+  var mv1 = async () => {
+    const { data: logo } = await loadTextContent({
+      source: "./asset/svg/logo-color.svg"
+    });
+    const { data: sideShape } = await loadTextContent({
+      source: "./asset/svg/piece-arrow.svg"
+    });
+    return renderHtml`<div>
+        <mv1-component ${staticProps({ logo, sideShape })}></mv1-component>
+    </div>`;
+  };
+
+  // src/js/component/common/animationTitle/animationTitle.js
+  var AnimationTitle = ({ html, onMount, watchSync }) => {
+    onMount(({ element, refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { titleEl } = refs;
+      watchSync("align", (value) => {
+        element.classList.remove("is-left");
+        element.classList.remove("is-right");
+        element.classList.add(`is-${value}`);
+      });
+      watchSync("title", (value) => {
+        titleEl.innerHTML = value;
+      });
+      watchSync("color", (value) => {
+        titleEl.classList.remove("is-white");
+        titleEl.classList.remove("is-black");
+        titleEl.classList.remove("is-highlight");
+        titleEl.classList.add(`is-${value}`);
+      });
+      mobCore.useFrame(() => {
+        titleEl.classList.add("visible");
+      });
+    });
+    return html`<div class="c-animation-title">
+        <h4 ref="titleEl"></h4>
+    </div>`;
+  };
+
+  // src/js/component/common/animationTitle/definition.js
+  var animationTitleDef = createComponent({
+    name: "animation-title",
+    component: AnimationTitle,
+    exportState: ["title", "align", "color"],
+    state: {
+      title: () => ({
+        value: "",
+        type: String
+      }),
+      align: () => ({
+        value: "left",
+        type: String,
+        validate: (value) => {
+          return ["left", "right"].includes(value);
+        }
+      }),
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (value) => {
+          return ["white", "black", "highlight"].includes(value);
+        }
+      })
     }
+  });
+
+  // src/svg/icon-code.svg
+  var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
+
+  // src/js/component/common/codeButton/codeButton.js
+  var CodeButton = ({
+    getState,
+    watchSync,
+    onMount,
+    html,
+    delegateEvents
+  }) => {
+    onMount(({ element }) => {
+      watchSync("color", (value) => {
+        if (value === "black") {
+          element.classList.remove("c-code-btn--white");
+          element.classList.add("c-code-btn--black");
+        }
+        if (value === "white") {
+          element.classList.add("c-code-btn--white");
+          element.classList.remove("c-code-btn--black");
+        }
+      });
+      watchSync("drawers", (value) => {
+        const isActive = value.length > 0;
+        element.classList.toggle("active", isActive);
+      });
+      const unsubscribeOpenNav = navigationStore.watch(
+        "openNavigation",
+        () => {
+          element.classList.remove("active");
+        }
+      );
+      const unsubscribeCloseNav = navigationStore.watch(
+        "closeNavigation",
+        () => {
+          const { drawers } = getState();
+          if (drawers.length === 0) return;
+          element.classList.add("active");
+        }
+      );
+      return () => {
+        unsubscribeCloseNav();
+        unsubscribeOpenNav();
+        element.remove();
+      };
+    });
+    return html`
+        <button
+            class="c-code-btn"
+            ${delegateEvents({
+      click: () => {
+        const { drawers } = getState();
+        const codeOverlayId = getIdByInstanceName("codeOverlay");
+        setStateById(codeOverlayId, "urls", drawers);
+      }
+    })}
+        >
+            <span class="c-code-btn__icon">${icon_code_default}</span>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/codeButton/definition.js
+  var codeButtonComponentDef = createComponent({
+    name: "code-button",
+    component: CodeButton,
+    exportState: ["drawers", "color"],
+    state: {
+      drawers: () => ({
+        value: [],
+        type: Array
+      }),
+      color: () => ({
+        value: "black",
+        type: String
+      })
+    }
+  });
+
+  // src/js/component/common/codeOverlay/animation/overlayScroller.js
+  var overlayScroller = ({ screen, scroller: scroller2, scrollbar }) => {
+    const instance = new SmoothScroller({
+      screen,
+      scroller: scroller2,
+      direction: "vertical",
+      drag: true,
+      scopedEvent: true,
+      breakpoint: "xSmall",
+      onTick: ({ percent }) => {
+        scrollbar.value = percent;
+      }
+    });
+    instance.init();
+    return {
+      updateScroller: () => {
+        const scrollerHeight = outerHeight(scroller2);
+        const screenHeight = outerHeight(screen);
+        const scrollBarHeight = outerWidth(scrollbar);
+        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
+        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
+        instance.refresh();
+      },
+      move: (val2) => instance.move(val2),
+      goToTop: () => instance.set(0)
+    };
+  };
+
+  // src/svg/icon-copy.svg
+  var icon_copy_default = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 466.726 466.722" width="466.726pt" height="466.722pt"><defs><clipPath id="_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA"><rect width="466.726" height="466.722"/></clipPath></defs><g clip-path="url(#_clipPath_NGPjDQvH1wIrClzh8RPwl8j4Z0sPfcPA)"><path d=" M 64.164 0 C 28.918 0 0 28.918 0 64.164 L 0 306.614 C 0 341.86 28.918 370.778 64.164 370.778 L 306.614 370.778 C 341.86 370.778 370.778 341.86 370.778 306.614 L 370.778 64.164 C 370.778 28.918 341.86 0 306.614 0 L 64.164 0 Z  M 64.164 34.969 L 306.614 34.969 C 323.075 34.969 335.723 47.703 335.723 64.164 L 335.723 306.614 C 335.723 323.075 323.075 335.723 306.614 335.723 L 64.164 335.723 C 47.703 335.723 34.969 323.075 34.969 306.614 L 34.969 64.164 C 34.969 47.703 47.703 34.969 64.164 34.969 Z " fill-rule="evenodd" /><path d=" M 353.214 95.945 C 348.577 95.949 344.132 97.793 340.855 101.07 C 337.578 104.347 335.734 108.793 335.73 113.429 C 335.734 118.062 337.578 122.507 340.855 125.784 C 344.132 129.061 348.578 130.905 353.214 130.913 L 402.566 130.913 C 418.882 130.913 431.675 143.792 431.675 160.108 L 431.675 402.558 C 431.675 418.874 418.882 431.667 402.566 431.667 L 160.116 431.667 C 143.8 431.667 130.921 418.874 130.921 402.558 L 130.917 353.292 C 130.937 348.643 129.105 344.175 125.823 340.878 C 122.542 337.581 118.085 335.726 113.432 335.722 C 108.78 335.726 104.323 337.581 101.045 340.878 C 97.764 344.175 95.928 348.643 95.948 353.292 L 95.948 402.558 C 95.948 437.792 124.882 466.722 160.112 466.722 L 402.562 466.722 C 437.796 466.722 466.726 437.788 466.726 402.558 L 466.726 160.108 C 466.726 124.874 437.792 95.944 402.562 95.944 L 353.214 95.945 Z " /></g></svg>\n';
+
+  // src/js/component/common/codeOverlay/codeOverlay.js
+  var copyToClipboard = ({ getState }) => {
+    const { rawContent } = getState();
+    navigator.clipboard.writeText(rawContent);
+  };
+  function getRepeaterCard2({ sync, bindProps, setState, delegateEvents }) {
+    return renderHtml`
+        <code-overlay-button
+            ${sync}
+            ${bindProps({
+      bind: ["activeContent"],
+      props: ({ activeContent, _current }) => {
+        const { label, source } = _current;
+        return {
+          key: label,
+          disable: !source || source.length === 0,
+          selected: label === activeContent
+        };
+      }
+    })}
+            ${delegateEvents({
+      click: (_e, { current }) => {
+        const { label } = current;
+        setState("activeContent", label);
+      }
+    })}
+        >
+        </code-overlay-button>
+    `;
+  }
+  var printContent = async ({
+    setState,
+    getState,
+    codeEl,
+    currentKey,
+    updateScroller,
+    goToTop,
+    renderComponent
+  }) => {
+    const { urls } = getState();
+    const currentItem = urls.find(({ label }) => {
+      return label === currentKey;
+    });
+    const source = currentItem?.source;
+    if (!source?.length) return;
+    const htmlContent = renderHtml`<html-content
+        ${staticProps({ source, useMinHeight: true })}
+    ></html-content>`;
+    await renderComponent({
+      attachTo: codeEl,
+      component: htmlContent
+    });
+    setState(
+      "rawContent",
+      /* HTML */
+      codeEl.textContent
+    );
+    updateScroller();
+    goToTop();
+  };
+  var CodeOverlay = ({
+    onMount,
+    setState,
+    getState,
+    repeat,
+    html,
+    bindProps,
+    delegateEvents,
+    staticProps: staticProps2,
+    watch,
+    renderComponent,
+    removeDOM
+  }) => {
+    onMount(({ element, refs }) => {
+      const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
+      const { updateScroller, move, goToTop } = overlayScroller({
+        screen: screenEl,
+        scroller: scrollerEl,
+        scrollbar
+      });
+      scrollbar.addEventListener("input", () => {
+        move(scrollbar.value);
+      });
+      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_LEAVES, () => {
+        setState("urls", []);
+      });
+      watch("activeContent", (currentKey) => {
+        printContent({
+          setState,
+          getState,
+          codeEl,
+          currentKey,
+          updateScroller,
+          goToTop,
+          staticProps: staticProps2,
+          renderComponent
+        });
+      });
+      watch("urls", async (urls) => {
+        const shouldOpen = urls.length > 0;
+        if (shouldOpen) {
+          element.classList.add("active");
+          document.body.style.overflow = "hidden";
+          const firstActiveItem = urls?.[0]?.label;
+          if (!firstActiveItem) return;
+          setState("activeContent", firstActiveItem);
+          return;
+        }
+        element.classList.remove("active");
+        document.body.style.overflow = "";
+        setState("activeContent", "");
+        removeDOM(codeEl);
+        goToTop();
+      });
+      return () => {
+      };
+    });
+    return html`
+        <div class="c-code-overlay js-overlay">
+            <span
+                class="c-code-overlay__background"
+                ${delegateEvents({
+      click: () => {
+        setState("urls", []);
+      }
+    })}
+            ></span>
+            <div class="c-code-overlay__wrap js-overlay-wrap">
+                <button
+                    type="button"
+                    class="c-code-overlay__close"
+                    ${delegateEvents({
+      click: () => {
+        setState("urls", []);
+      }
+    })}
+                ></button>
+                <button
+                    type="button"
+                    class="c-code-overlay__copy"
+                    ${delegateEvents({
+      click: () => {
+        copyToClipboard({ getState });
+      }
+    })}
+                >
+                    ${icon_copy_default}
+                </button>
+                <div class="c-code-overlay__header">
+                    ${repeat({
+      clean: true,
+      watch: "urls",
+      render: ({ sync }) => {
+        return getRepeaterCard2({
+          sync,
+          bindProps,
+          delegateEvents,
+          setState
+        });
+      }
+    })}
+                </div>
+                <input
+                    type="range"
+                    id="test"
+                    name="test"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step=".5"
+                    ref="scrollbar"
+                    class="c-code-overlay__scrollbar"
+                />
+                <div class="c-code-overlay__content" ref="screenEl">
+                    <div ref="scrollerEl">
+                        <div
+                            class="c-code-overlay__content__description"
+                            ref="codeEl"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/codeOverlay/codeOverlayButton.js
+  var CodeOverlayButton = ({ onMount, watch, getState, html }) => {
+    const { key, disable } = getState();
+    onMount(({ element }) => {
+      const unwatchSelected = watch("selected", (selected) => {
+        element.classList.toggle("selected", selected);
+      });
+      return () => {
+        unwatchSelected();
+      };
+    });
+    const isDisable = disable ? "disable" : "";
+    return html`
+        <button class="c-code-overlay__button ${isDisable}">${key}</button>
+    `;
+  };
+
+  // src/js/component/common/codeOverlay/definition.js
+  var codeOverlayButtonDef = createComponent({
+    name: "code-overlay-button",
+    component: CodeOverlayButton,
+    exportState: ["key", "selected", "disable"],
+    state: {
+      key: "",
+      selected: () => ({
+        value: false,
+        type: Boolean
+      }),
+      disable: () => ({
+        value: true,
+        type: Boolean
+      })
+    }
+  });
+  var codeOverlayDef = createComponent({
+    name: "code-overlay",
+    component: CodeOverlay,
+    exportState: ["urls", "activeContent"],
+    state: {
+      urls: () => ({
+        value: [],
+        type: Array,
+        skipEqual: false
+      }),
+      activeContent: () => ({
+        value: "",
+        type: String,
+        skipEqual: true
+      }),
+      rawContent: () => ({
+        value: "",
+        type: String
+      })
+    },
+    child: [codeOverlayButtonDef, htmlContentDef]
   });
 
   // src/js/component/common/mLogo1/mLogo1.js
@@ -29999,67 +29368,917 @@ Loading snippet ...</pre
     }
   });
 
+  // src/svg/scroll_arrow.svg
+  var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
+
+  // src/js/component/common/nextPage/nextPage.js
+  var QuickNav = ({ getState, onMount, html, watchSync }) => {
+    const { active } = getState();
+    const activeClass = active ? "active" : "";
+    onMount(({ element, refs }) => {
+      if (motionCore.mq("max", "desktop")) return;
+      const { prev: prev2, next } = refs;
+      watchSync("active", (isActive) => {
+        element.classList.toggle("active", isActive);
+      });
+      watchSync("nextRoute", (route) => {
+        next.classList.toggle("is-disable", !route);
+        next.href = route;
+      });
+      watchSync("prevRoute", (route) => {
+        prev2.classList.toggle("is-disable", !route);
+        prev2.href = route;
+      });
+      watchSync("color", (color) => {
+        if (color === "white") {
+          element.classList.remove("fill-black");
+          element.classList.add("fill-white");
+          return;
+        }
+        if (color === "black") {
+          element.classList.remove("fill-white");
+          element.classList.add("fill-black");
+          return;
+        }
+      });
+    });
+    return html`<div class="c-quick-nav-container ${activeClass}">
+        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
+        <a class="c-quick-nav c-quick-nav--next" ref="next">${scroll_arrow_default}</a>
+    </div>`;
+  };
+
+  // src/js/component/common/nextPage/definition.js
+  var quickNavDef = createComponent({
+    name: "quick-nav",
+    component: QuickNav,
+    exportState: ["color", "active", "prevRoute", "nextRoute"],
+    state: {
+      color: () => ({
+        value: "white",
+        type: String,
+        validate: (value) => {
+          return ["white", "black"].includes(value);
+        }
+      }),
+      active: () => ({
+        value: false,
+        type: Boolean
+      }),
+      prevRoute: () => ({
+        value: "",
+        type: String
+      }),
+      nextRoute: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/component/common/routeLoader/routeLoader.js
+  var RouteLoader = ({ html, onMount }) => {
+    onMount(({ element }) => {
+      element.classList.add("disable");
+      let tweenOut = tween.createTween({
+        data: { opacity: 1, scale: 1 },
+        duration: 500
+      });
+      tweenOut.subscribe(({ opacity, scale }) => {
+        element.style.opacity = opacity;
+        element.style.transform = `scale(${scale})`;
+      });
+      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
+        element.classList.remove("disable");
+        tweenOut.goTo({ opacity: 1, scale: 1 });
+      });
+      mainStore.watch(MAIN_STORE_AFTER_ROUTE_CHANGE, async () => {
+        await tweenOut.goTo({ opacity: 0, scale: 0.9 });
+        element.classList.add("disable");
+      });
+      return () => {
+        tweenOut.destroy();
+        tweenOut = null;
+      };
+    });
+    return html`
+        <div class="c-loader center-viewport">
+            <span class="c-loader__inner"></span>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/routeLoader/definition.js
+  var routeLoaderDef = createComponent({
+    name: "route-loader",
+    component: RouteLoader,
+    state: {
+      isLoading: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
+  // src/js/component/common/scrolldownLabel/scrolldownLabel.js
+  var ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
+    const { active } = getState();
+    const activeClass = active ? "active" : "";
+    onMount(({ element }) => {
+      watchSync("active", (isActive) => {
+        element.classList.toggle("active", isActive);
+      });
+      return () => {
+      };
+    });
+    return html`
+        <div class="c-scroller-down-label ${activeClass}">
+            <h1>Scroll down</h1>
+            ${scroll_arrow_default}
+        </div>
+    `;
+  };
+
+  // src/js/component/common/scrolldownLabel/definition.js
+  var scrollDownLabelDef = createComponent({
+    name: "scroll-down-label",
+    component: ScrollDownLabel,
+    exportState: ["active"],
+    state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
+  // src/js/component/layout/footer/footer.js
+  var Footer = ({ html }) => {
+    return html`
+        <footer class="l-footer">
+            <div class="l-footer__container">
+                <footer-nav></footer-nav>
+                <mobjs-slot name="debug"></mobjs-slot>
+            </div>
+        </footer>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerButton.js
+  var FooterNavButton = ({ html, onMount, getState }) => {
+    const { label, section } = getState();
+    onMount(({ element }) => {
+      navigationStore.watch("activeSection", (current) => {
+        const isActiveSection = current === section;
+        element.classList.toggle("current", isActiveSection);
+      });
+    });
+    return html`
+        <button type="button" class="footer-nav__button">${label}</button>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/footerNav.js
+  var data2 = [
+    {
+      label: "About",
+      url: "about",
+      section: "about"
+    },
+    {
+      label: "Canvas 2d",
+      url: "canvas_overview",
+      section: "canvas"
+    },
+    {
+      label: "Illustration",
+      url: "svg_overview",
+      section: "svg"
+    },
+    {
+      label: "MobCore",
+      url: "mobCore_overview",
+      section: "mobCore"
+    },
+    {
+      label: "MobJs",
+      url: "mobJs_overview",
+      section: "mobJs"
+    },
+    {
+      label: "MobMotion",
+      url: "mobMotion_overview",
+      section: "mobMotion"
+    },
+    {
+      label: "Plugin",
+      url: "plugin_overview",
+      section: "plugin"
+    }
+  ];
+  var getItems2 = ({ delegateEvents, staticProps: staticProps2 }) => {
+    return data2.map(({ label, url, section }) => {
+      return renderHtml`<li class="footer-nav__item">
+                <footer-nav-button
+                    ${delegateEvents({
+        click: () => {
+          loadUrl({ url });
+        }
+      })}
+                    ${staticProps2({
+        label,
+        section
+      })}
+                ></footer-nav-button>
+            </li> `;
+    }).join("");
+  };
+  var FooterNav = ({ html, delegateEvents, staticProps: staticProps2 }) => {
+    if (motionCore.mq("max", "desktop")) return html` <span></span> `;
+    return html`
+        <ul class="footer-nav">
+            ${getItems2({ delegateEvents, staticProps: staticProps2 })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/footer/footerNav/definition.js
+  var footerNavButtonDef = createComponent({
+    name: "footer-nav-button",
+    component: FooterNavButton,
+    exportState: ["label", "section"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      section: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+  var footerNavDef = createComponent({
+    name: "footer-nav",
+    component: FooterNav,
+    child: [footerNavButtonDef]
+  });
+
+  // src/js/component/layout/footer/definition.js
+  var footerComponentDef = createComponent({
+    name: "mob-footer",
+    component: Footer,
+    child: [footerNavDef]
+  });
+
+  // src/js/component/layout/header/header.js
+  function openInfo({ navInfo }) {
+    mobCore.useFrame(() => {
+      navInfo.classList.add("open");
+    });
+  }
+  function closeInfo({ navInfo }) {
+    mobCore.useFrame(() => {
+      navInfo.classList.remove("open");
+    });
+  }
+  function titleHandler() {
+    loadUrl({ url: "#home" });
+    navigationStore.set("navigationIsOpen", false);
+    navigationStore.emit("closeNavigation");
+    navigationStore.emit("closeAllAccordion");
+    navigationStore.emit("goToTop");
+  }
+  var Header = ({ html, onMount, delegateEvents }) => {
+    onMount(({ refs }) => {
+      const { navInfo, title, beta } = refs;
+      navigationStore.watch("openNavigation", () => openInfo({ navInfo }));
+      navigationStore.watch("closeNavigation", () => closeInfo({ navInfo }));
+      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
+        title.classList.toggle("visible", route !== "home");
+        beta.classList.toggle("visible", route !== "home");
+      });
+      return () => {
+      };
+    });
+    return html`
+        <header class="l-header">
+            <div class="l-header__container">
+                <div class="l-header__grid">
+                    <div class="l-header__toggle">
+                        <mob-header-toggle></mob-header-toggle>
+                    </div>
+                    <button
+                        type="button"
+                        class="l-header__title"
+                        ref="titleLink"
+                        ${delegateEvents({
+      click: () => {
+        titleHandler();
+      }
+    })}
+                    >
+                        <div class="l-header__title-container">
+                            <h3 ref="title"><span>Mob</span>Project</h3>
+                            <h5 ref="beta">beta 0.0.1</h5>
+                        </div>
+                    </button>
+                    <div class="l-header__utils">
+                        <mob-header-nav></mob-header-nav>
+                    </div>
+                </div>
+                <div class="l-header__navinfo" ref="navInfo">
+                    <p class="p--small"></p>
+                </div>
+            </div>
+        </header>
+    `;
+  };
+
+  // src/svg/icon-github.svg
+  var icon_github_default = '<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>\n\n';
+
+  // src/js/component/layout/header/headernav.js
+  var icon = {
+    github: icon_github_default
+  };
+  var onClick = ({ event }) => {
+    const button = event.target;
+    console.log(button);
+    const { url } = button.dataset;
+    loadUrl({ url });
+    const { navigationIsOpen } = navigationStore.get();
+    if (!navigationIsOpen) return;
+    navigationStore.set("navigationIsOpen", false);
+    navigationStore.emit("closeNavigation");
+  };
+  function additems({ delegateEvents }) {
+    const { header } = getCommonData();
+    const { links } = header;
+    return links.map((link) => {
+      const { svg, url, internal } = link;
+      return renderHtml`<li class="l-header__sidenav__item">
+                ${internal ? renderHtml`
+                          <button
+                              type="button"
+                              data-url="${url}"
+                              class="l-header__sidenav__link"
+                              ${delegateEvents({
+        click: (event) => {
+          console.log("click");
+          onClick({ event });
+        }
+      })}
+                          >
+                              ${icon[svg]}
+                          </button>
+                      ` : renderHtml`
+                          <a
+                              href="${url}"
+                              target="_blank"
+                              class="l-header__sidenav__link"
+                          >
+                              ${icon[svg]}
+                          </a>
+                      `}
+            </li>`;
+    }).join("");
+  }
+  var Headernav = ({ html, delegateEvents }) => {
+    return html`
+        <ul class="l-header__sidenav">
+            ${additems({ delegateEvents })}
+        </ul>
+    `;
+  };
+
+  // src/js/component/layout/header/headerToggle.js
+  var hanburgerHandler = () => {
+    const { navigationIsOpen } = navigationStore.get("navigationIsOpen");
+    navigationStore.set("navigationIsOpen", (state) => !state);
+    if (navigationIsOpen) {
+      navigationStore.emit("closeNavigation");
+      return;
+    }
+    navigationStore.emit("openNavigation");
+  };
+  var HeaderToggle = ({ onMount, html, delegateEvents }) => {
+    onMount(({ element }) => {
+      navigationStore.watch("closeNavigation", () => {
+        mobCore.useFrame(() => {
+          element.classList.remove("is-open");
+        });
+      });
+      navigationStore.watch("openNavigation", () => {
+        mobCore.useFrame(() => {
+          element.classList.add("is-open");
+        });
+      });
+    });
+    return html`
+        <button
+            class="hamburger hamburger--squeeze"
+            type="button"
+            ${delegateEvents({
+      click: () => hanburgerHandler()
+    })}
+        >
+            <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+            </div>
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/header/definition.js
+  var headerNavComponentDef = createComponent({
+    name: "mob-header-nav",
+    component: Headernav
+  });
+  var headerToggleComponentDef = createComponent({
+    name: "mob-header-toggle",
+    component: HeaderToggle
+  });
+  var headerComponentDef = createComponent({
+    name: "mob-header",
+    component: Header,
+    child: [headerNavComponentDef, headerToggleComponentDef]
+  });
+
+  // src/js/component/layout/navigation/animation/navScroller.js
+  var currentPercent = 0;
+  var initNavigationScoller = ({ root: root2 }) => {
+    const screenEl = root2.querySelector(".l-navcontainer__wrap");
+    const scrollerEl = root2.querySelector(".l-navcontainer__scroll");
+    const percentEl = root2.querySelector(".l-navcontainer__percent");
+    const setDelay = 200;
+    const navScroller = new SmoothScroller({
+      screen: screenEl,
+      scroller: scrollerEl,
+      direction: "vertical",
+      drag: true,
+      scopedEvent: true,
+      breakpoint: "tablet",
+      onUpdate: ({ percent }) => {
+        const { navigationIsOpen } = navigationStore.get();
+        if (!navigationIsOpen) return;
+        currentPercent = Number.parseInt(percent) / 100;
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+      }
+    });
+    navScroller.init();
+    navigationStore.watch("activeSection", (section) => {
+      const currentSection = document.querySelector(
+        `[data-sectionname='${section}']`
+      );
+      if (!currentSection) return;
+      const header = document.querySelector(".l-header");
+      const navHeight = outerHeight(scrollerEl);
+      const headerHeight = outerHeight(header);
+      const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
+      const maxValue = Math.min(percent, 100);
+      navScroller.move(maxValue);
+    });
+    navigationStore.watch("refreshScroller", () => navScroller.refresh());
+    navigationStore.watch("closeNavigation", () => {
+      percentEl.style.transform = `translateZ(0) scaleX(0)`;
+    });
+    navigationStore.watch("openNavigation", () => {
+      percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+    });
+    navigationStore.watch("goToTop", () => {
+      setTimeout(() => {
+        navScroller.move(0);
+        navigationStore.set("activeSection", "no-section");
+      }, setDelay);
+    });
+  };
+
+  // src/js/component/layout/navigation/navContainer.js
+  function closeNavigation({ element, main }) {
+    mobCore.useFrame(() => {
+      document.body.style.overflow = "";
+      element.classList.remove("active");
+      main.classList.remove("shift");
+    });
+  }
+  function openNavigation({ element, main }) {
+    navigationStore.emit("refreshScroller");
+    mobCore.useFrame(() => {
+      document.body.style.overflow = "hidden";
+      element.classList.add("active");
+      main.classList.add("shift");
+    });
+  }
+  function addHandler({ main, toTopBtn }) {
+    main.addEventListener("click", () => {
+      const { navigationIsOpen } = navigationStore.get();
+      if (!navigationIsOpen) return;
+      navigationStore.set("navigationIsOpen", false);
+      navigationStore.emit("closeNavigation");
+    });
+    toTopBtn.addEventListener("click", () => {
+      navigationStore.emit("closeAllAccordion");
+      navigationStore.emit("goToTop");
+      const { navigationIsOpen } = navigationStore.get();
+      if (!navigationIsOpen) bodyScroll.to(0);
+    });
+  }
+  var NavigationContainer = ({ html, onMount }) => {
+    onMount(({ element, refs }) => {
+      const main = document.querySelector("main.main");
+      let lastMq = "";
+      const { toTopBtn, wrap } = refs;
+      navigationStore.watch(
+        "openNavigation",
+        () => openNavigation({ element, main })
+      );
+      navigationStore.watch(
+        "closeNavigation",
+        () => closeNavigation({ element, main })
+      );
+      mobCore.useResize(() => {
+        const isDesktop = motionCore.mq("max", "desktop");
+        const currentMq = isDesktop ? "desk" : "mob";
+        if (currentMq !== lastMq) wrap.scrollTo(0, 0);
+        lastMq = currentMq;
+      });
+      addHandler({ main, toTopBtn });
+      initNavigationScoller({ root: element });
+      return () => {
+      };
+    });
+    return html`
+        <div class="l-navcontainer">
+            <div class="l-navcontainer__side">
+                <div class="l-navcontainer__percent"></div>
+                <button class="l-navcontainer__totop" ref="toTopBtn"></button>
+            </div>
+            <div class="l-navcontainer__wrap" ref="wrap">
+                <div class="l-navcontainer__scroll">
+                    <mob-navigation name="main_navigation"></mob-navigation>
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigation.js
+  function getItems3({ data: data3, staticProps: staticProps2, setState, bindProps, bindEvents }) {
+    return data3.map((item, index) => {
+      const {
+        label,
+        url,
+        activeId,
+        children,
+        section,
+        sectioName,
+        scrollToSection
+      } = item;
+      if (section) {
+        return renderHtml`
+                    <mob-navigation-label
+                        ${staticProps2({ label, sectioName })}
+                    ></mob-navigation-label>
+                `;
+      }
+      return children ? renderHtml`
+                      <mob-navigation-submenu
+                          ${staticProps2({
+        headerButton: {
+          label,
+          url
+        },
+        children,
+        callback: () => setState("currentAccordionId", index)
+      })}
+                          ${bindProps({
+        bind: ["currentAccordionId"],
+        props: ({ currentAccordionId }) => {
+          return {
+            isOpen: currentAccordionId === index
+          };
+        }
+      })}
+                      >
+                      </mob-navigation-submenu>
+                  ` : renderHtml`
+                      <li class="l-navigation__item">
+                          <mob-navigation-button
+                              ${bindEvents({
+        click: () => {
+        }
+      })}
+                              ${staticProps2({
+        label,
+        url,
+        scrollToSection: scrollToSection ?? "no-scroll",
+        activeId: activeId ?? -1
+      })}
+                          ></mob-navigation-button>
+                      </li>
+                  `;
+    }).join("");
+  }
+  var Navigation = ({
+    html,
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    bindEvents
+  }) => {
+    const { navigation: data3 } = getCommonData();
+    navigationStore.watch("closeAllAccordion", () => {
+      setState("currentAccordionId", -1);
+    });
+    return html`
+        <nav class="l-navigation">
+            <ul class="l-navigation__list">
+                ${getItems3({
+      data: data3,
+      staticProps: staticProps2,
+      setState,
+      bindProps,
+      bindEvents
+    })}
+            </ul>
+        </nav>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationButton.js
+  var NavigationButton = ({
+    getState,
+    html,
+    onMount,
+    watch,
+    delegateEvents
+  }) => {
+    const {
+      label,
+      url,
+      arrowClass,
+      subMenuClass,
+      fireRoute,
+      callback: callback2,
+      scrollToSection,
+      activeId
+    } = getState();
+    onMount(({ element }) => {
+      watch("isOpen", (isOpen) => {
+        mobCore.useFrame(() => {
+          element.classList.toggle("active", isOpen);
+        });
+      });
+      mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, (current) => {
+        mobCore.useFrame(() => {
+          const urlParsed = url.split("?");
+          const hash = urlParsed?.[0] ?? "";
+          const { activeParams } = mainStore.get();
+          const paramsMatch = activeId === -1 || activeParams?.activeId == activeId;
+          const isActiveRoute = current === hash && paramsMatch;
+          element.classList.toggle("current", isActiveRoute);
+          if (isActiveRoute && fireRoute) {
+            callback2();
+            navigationStore.set("activeSection", scrollToSection);
+          }
+        });
+      });
+      return () => {
+      };
+    });
+    return html`
+        <button
+            type="button"
+            class="l-navigation__link  ${arrowClass} ${subMenuClass}"
+            ${delegateEvents({
+      click: () => {
+        callback2();
+        if (!fireRoute) return;
+        loadUrl({ url });
+        navigationStore.set("navigationIsOpen", false);
+        navigationStore.emit("closeNavigation");
+      }
+    })}
+        >
+            ${label}
+        </button>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationLabel.js
+  var NavigationLabel = ({ getState, html }) => {
+    const { label, sectioName } = getState();
+    return html`
+        <div class="l-navigation__label" data-sectionname="${sectioName}">
+            ${label}
+        </div>
+    `;
+  };
+
+  // src/js/component/layout/navigation/navigationSubmenu.js
+  function getSubmenu({ children, staticProps: staticProps2, callback: callback2 }) {
+    return children.map((child2) => {
+      const { label, url, scrollToSection, activeId } = child2;
+      return renderHtml`
+                <li class="l-navigation__submenu__item">
+                    <mob-navigation-button
+                        ${staticProps2({
+        callback: callback2,
+        label,
+        url,
+        subMenuClass: "l-navigation__link--submenu",
+        scrollToSection,
+        activeId: activeId ?? -1
+      })}
+                    ></mob-navigation-button>
+                </li>
+            `;
+    }).join("");
+  }
+  var NavigationSubmenu = ({
+    onMount,
+    html,
+    getState,
+    setState,
+    staticProps: staticProps2,
+    bindProps,
+    watchSync
+  }) => {
+    const { children, headerButton, callback: callback2 } = getState();
+    const { label, url, activeId } = headerButton;
+    onMount(({ refs }) => {
+      const { content: content2 } = refs;
+      slide.subscribe(content2);
+      slide.reset(content2);
+      watchSync("isOpen", async (isOpen) => {
+        const action2 = isOpen ? "down" : "up";
+        await slide[action2](content2);
+        navigationStore.emit("refreshScroller");
+        if (!isOpen) {
+          const navId = getIdByInstanceName("main_navigation");
+          setStateById(navId, "currentAccordionId", -1, false);
+        }
+      });
+      return () => {
+      };
+    });
+    return html`
+        <li class="l-navigation__item has-child">
+            <mob-navigation-button
+                ${staticProps2({
+      label,
+      url,
+      arrowClass: "l-navigation__link--arrow",
+      fireRoute: false,
+      activeId: activeId ?? -1,
+      callback: () => {
+        setState("isOpen", (prev2) => !prev2);
+        const { isOpen } = getState("isOpen");
+        if (isOpen) callback2();
+      }
+    })}
+                ${bindProps({
+      bind: ["isOpen"],
+      props: ({ isOpen }) => {
+        return { isOpen };
+      }
+    })}
+            ></mob-navigation-button>
+            <ul class="l-navigation__submenu" ref="content">
+                ${getSubmenu({ children, staticProps: staticProps2, callback: callback2 })}
+            </ul>
+        </li>
+    `;
+  };
+
+  // src/js/component/layout/navigation/definition.js
+  var navigationButtonDef = createComponent({
+    name: "mob-navigation-button",
+    type: "button",
+    component: NavigationButton,
+    exportState: [
+      "label",
+      "url",
+      "arrowClass",
+      "subMenuClass",
+      "fireRoute",
+      "callback",
+      "isOpen",
+      "scrollToSection",
+      "activeId"
+    ],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      url: () => ({
+        value: "",
+        type: String
+      }),
+      activeId: () => ({
+        value: -1,
+        type: Number
+      }),
+      scrollToSection: () => ({
+        value: "",
+        type: String
+      }),
+      arrowClass: () => ({
+        value: "",
+        type: String
+      }),
+      subMenuClass: () => ({
+        value: "",
+        type: String
+      }),
+      fireRoute: () => ({
+        value: true,
+        type: Boolean
+      }),
+      callback: () => ({
+        value: () => {
+        },
+        type: Function
+      }),
+      isOpen: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+  var navigationLabelDef = createComponent({
+    name: "mob-navigation-label",
+    component: NavigationLabel,
+    exportState: ["label", "sectioName"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      sectioName: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+  var navigationSubmenuDef = createComponent({
+    name: "mob-navigation-submenu",
+    component: NavigationSubmenu,
+    exportState: ["children", "headerButton", "isOpen", "callback"],
+    state: {
+      callback: () => ({
+        value: () => {
+        },
+        type: Function
+      }),
+      headerButton: () => ({
+        value: {},
+        type: "Any"
+      }),
+      children: () => ({
+        value: [],
+        type: Array
+      }),
+      isOpen: () => ({
+        value: false,
+        type: Boolean
+      })
+    },
+    child: [navigationButtonDef]
+  });
+  var navigationDef = createComponent({
+    name: "mob-navigation",
+    component: Navigation,
+    exportState: ["currentAccordionId"],
+    state: {
+      currentAccordionId: () => ({
+        value: -1,
+        type: Number,
+        skipEqual: false
+      })
+    },
+    child: [navigationLabelDef, navigationSubmenuDef, navigationButtonDef]
+  });
+  var navigationComponentDef = createComponent({
+    name: "mob-navigation-container",
+    component: NavigationContainer,
+    child: [navigationDef]
+  });
+
   // src/js/wrapper/index.js
   useComponent([
     codeOverlayDef,
     headerComponentDef,
-    headerNavComponentDef,
-    headerToggleComponentDef,
-    navigationDef,
-    footerComponentDef,
-    footerNavDef,
-    footerNavButtonDef,
     navigationComponentDef,
-    navigationDef,
-    navigationSubmenuDef,
-    navigationButtonDef,
-    navigationLabelDef,
-    animationTitleDef,
-    codeButtonComponentDef,
-    codeOverlayDef,
-    codeOverlayButtonDef,
-    degubButtonComponentDef,
-    docsContainerComponentDef,
-    docsTitleComponentDef,
-    docsTitleSmallComponentDef,
-    htmlContentDef,
-    paramsMobJsDef,
-    paramsMobJsButtonDef,
-    loaderDef,
-    mLogo1SvgDef,
+    footerComponentDef,
     quickNavDef,
-    onlyDesktopDef,
     routeLoaderDef,
-    scrollToButtonDef,
-    scrollToDef,
+    animationTitleDef,
+    mLogo1SvgDef,
     scrollDownLabelDef,
-    footerShaperV1Def,
-    snippetContentDef,
-    spacerContentDef,
-    listContentDef,
-    paragraphContentDef,
-    titleContentDef,
-    animatedPatternN0Def,
-    animatedPatternN1Def,
-    caterpillarN0Def,
-    caterpillarN1Def,
-    caterpillarN2Def,
-    dynamicListDef,
-    dynamicListLabelDef,
-    dynamicListSlotDef,
-    dynamicListRepeaterDef,
-    dynamicListEmptyDef,
-    dynamicCounterDef,
-    dynamicListCardDef,
-    dynamicListButtonDef,
-    homePageComponentDef,
-    horizontalScrollerDef,
-    horizontalScrollerButtonDef,
-    horizontalScrollerSectionDef,
-    scrollerN0Def,
-    scrollerN1Def,
-    svgChild,
-    Mv1Def
+    codeButtonComponentDef
   ]);
   var wrapper = async () => {
     const { data: svg } = await loadTextContent({

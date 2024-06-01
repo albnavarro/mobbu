@@ -1,4 +1,6 @@
 import { createComponent } from '../../../../mobjs';
+import { dynamicCounterDef } from '../counter/definition';
+import { dynamicListEmptyDef } from '../empty/definition';
 import { DynamicListCard } from './dynamicListCard';
 
 export const dynamicListCardDef = createComponent({
@@ -27,4 +29,5 @@ export const dynamicListCardDef = createComponent({
             type: Number,
         }),
     },
+    child: [dynamicCounterDef, dynamicListEmptyDef],
 });

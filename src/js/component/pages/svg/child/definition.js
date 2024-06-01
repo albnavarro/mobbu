@@ -1,4 +1,5 @@
 import { createComponent } from '../../../../mobjs';
+import { onlyDesktopDef } from '../../../common/onlyDesktop/definition';
 import { SvgChild } from './child';
 
 export const svgChild = createComponent({
@@ -15,4 +16,5 @@ export const svgChild = createComponent({
             type: String,
         }),
     },
+    child: [onlyDesktopDef],
 });

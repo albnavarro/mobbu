@@ -1,5 +1,8 @@
-import { html, staticProps } from '../../../mobjs';
+import { animatedPatternN0Def } from '../../../component/pages/animatedPattern/animatedPatternN0/definition';
+import { html, staticProps, useComponent } from '../../../mobjs';
 import { animatedPatternN0Params } from './animatedPatternN0Params';
+
+useComponent([animatedPatternN0Def]);
 
 export const animatedPatternN0 = ({ params }) => {
     const { version } = params;
