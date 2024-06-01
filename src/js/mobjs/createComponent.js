@@ -46,6 +46,10 @@ export const createComponent = ({
     style = '',
     child = [],
 }) => {
+    /**
+     * Load child component.
+     * ( launch createComponent recursvly )
+     */
     useComponent(child);
 
     return {
