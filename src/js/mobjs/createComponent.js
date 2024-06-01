@@ -25,7 +25,7 @@ export const getDefaultComponent = () => defaultComponent;
 
 /**
  * @param {import('./type').createComponentType} param
- * @returns {{[key:string]:{componentFunction:import('./mainStore/type').componentFunctionType,componentParams:import('./type').componentParsedType}}}
+ * @returns {import('./type').createComponentReturnType}
  *
  * @description
  * Format component definition in object key: value.

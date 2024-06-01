@@ -729,6 +729,13 @@ export interface createComponentType extends componentParsedType {
     component: componentFunctionType;
 }
 
+export interface createComponentReturnType {
+    [key: string]: {
+        componentFunction: import('./mainStore/type').componentFunctionType;
+        componentParams: import('./type').componentParsedType;
+    };
+}
+
 export interface defaultComponent {
     /**
      * @description
