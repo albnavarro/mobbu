@@ -25,7 +25,7 @@ export const getDefaultComponent = () => defaultComponent;
 
 /**
  * @param {import('./type').createComponentType} param
- * @returns object<string:{componentFunction:function,componentParams:Object}>
+ * @returns {{[key:string]:{componentFunction:import('./mainStore/type').componentFunctionType,componentParams:import('./type').componentParsedType}}}
  *
  * @description
  * Format component definition in object key: value.
@@ -33,7 +33,7 @@ export const getDefaultComponent = () => defaultComponent;
  */
 export const createComponent = ({
     name = '',
-    component = () => {},
+    component,
     state = {},
     exportState = [],
     scoped,
@@ -62,6 +62,7 @@ export const createComponent = ({
                 attributeToObserve,
                 attributeChangedCallback,
                 style,
+                child,
             },
         },
     };

@@ -15,7 +15,7 @@ import {
 } from '../constant';
 
 /**
- * @param {{[key:string]:{componentFunction:(arg0: import('../type').componentType) => Promise<string>,componentParams:import('../type').componentParsedType }}} componentList
+ * @param {{[key:string]:import('../mainStore/type').componentListMapType}} componentList
  */
 export const defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {

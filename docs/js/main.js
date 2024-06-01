@@ -5124,8 +5124,7 @@
   var getDefaultComponent = () => defaultComponent;
   var createComponent = ({
     name = "",
-    component = () => {
-    },
+    component,
     state = {},
     exportState = [],
     scoped,
@@ -5157,7 +5156,8 @@
           adoptedCallback,
           attributeToObserve,
           attributeChangedCallback,
-          style
+          style,
+          child: child2
         }
       }
     };

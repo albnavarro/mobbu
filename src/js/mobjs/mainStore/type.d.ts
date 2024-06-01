@@ -1,6 +1,6 @@
 export type componentFunctionType = (
     arg0: import('../type').componentType
-) => Promise<string>;
+) => Promise<string> | string;
 
 export interface componentListMapType {
     componentFunction: componentFunctionType;

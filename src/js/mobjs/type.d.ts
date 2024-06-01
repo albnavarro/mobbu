@@ -423,7 +423,7 @@ export interface componentType {
         arg0: (arg1: {
             element: HTMLElement;
             refs: { [key: string]: HTMLElement | HTMLElement[] };
-        }) => () => void
+        }) => () => (() => void) | Promise<() => void>
     ): void;
 
     /**
@@ -724,7 +724,7 @@ export interface componentParsedType {
 
 export interface createComponentType extends componentParsedType {
     name: string;
-    component: () => void;
+    component: componentFunctionType;
 }
 
 export interface defaultComponent {
