@@ -9,12 +9,12 @@ export interface repeaterType {
     afterUpdate(arg0: {
         element: HTMLElement;
         container: HTMLElement;
-        childrenId: Array<string>;
+        childrenId: string[];
     }): void;
     beforeUpdate(arg0: {
         element: HTMLElement;
         container: HTMLElement;
-        childrenId: Array<string>;
+        childrenId: string[];
     }): void;
     getChildren: (arg0: string) => string[];
     id: string;
