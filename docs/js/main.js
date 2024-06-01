@@ -27067,18 +27067,6 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/definition.js
-  var paramsMobJsDef = createComponent({
-    name: "links-mobjs",
-    component: linksMobJs,
-    exportState: ["section"],
-    state: {
-      section: () => ({
-        value: "",
-        type: String
-      })
-    },
-    child: [paramsMobJsButtonDef]
-  });
   var paramsMobJsButtonDef = createComponent({
     name: "links-mobjs-button",
     component: linksMobJsButton,
@@ -27093,6 +27081,18 @@ Loading snippet ...</pre
         type: String
       })
     }
+  });
+  var paramsMobJsDef = createComponent({
+    name: "links-mobjs",
+    component: linksMobJs,
+    exportState: ["section"],
+    state: {
+      section: () => ({
+        value: "",
+        type: String
+      })
+    },
+    child: [paramsMobJsButtonDef]
   });
 
   // src/js/pages/mobJs/html/index.js
