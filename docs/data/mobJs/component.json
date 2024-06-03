@@ -117,6 +117,26 @@
             "props": {
                 "tag": "h5"
             },
+            "content": "child:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "An array with the definitions of the components used within it. It is necessary to load dependencies before initializing the application."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
             "content": "exportState:"
         },
         {

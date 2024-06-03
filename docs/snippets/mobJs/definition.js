@@ -1,12 +1,19 @@
 import { createComponent } from '../mobjs';
-import { MyComponent } from '../myComponent';
+import { MyComponentFn } from '../myComponent';
 
-export const myComponentDefinition = createComponent({
+export const MyComponent = createComponent({
     /**
      * Necessary
      */
     name: 'my-component',
-    component: MyComponent,
+    component: MyComponentFn,
+
+    /**
+     * Import components definition used inside.
+     * ( object returned by createComponent() function )
+     * It is necessary to load the dependencies before the application
+     */
+    child: ['ChildComponent1', 'ChildComponent2'],
 
     /**
      * Optional
