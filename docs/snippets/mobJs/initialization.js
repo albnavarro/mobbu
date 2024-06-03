@@ -1,5 +1,4 @@
 import { inizializeApp } from './mobjs';
-import * as components from './component/componentList';
 import * as pages from './pages/routeList';
 import { wrapper } from './wrapper';
 import { beforePageTransition, pageTransition } from './pageTransition';
@@ -23,17 +22,13 @@ inizializeApp({
     wrapper,
 
     /**
-     * Object that container all component definition.
-     */
-    components,
-
-    /**
      * Object that container all route.
      */
     pages,
 
     /**
      * Index route.
+     * The name of the page function for home
      */
     index: 'home',
 

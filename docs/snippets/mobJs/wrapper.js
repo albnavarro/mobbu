@@ -5,7 +5,14 @@
  * parameters, since the wrapper is not a component
  * we can make use of global utilities.
  */
-import { staticProps, html } from '../mobjs';
+import { staticProps, html, useComponent } from '../mobjs';
+
+/**
+ * Import components definition used in wrapper.
+ * ( object returned by createComponent() function )
+ * It is necessary to load the dependencies before the application
+ */
+useComponent([Header, Footer]);
 
 export const wrapper = async () => {
     /**

@@ -34,7 +34,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The function number corresponds to the Location.hash parameter of the window."
+            "content": "The function name corresponds to the Location.hash parameter of the window."
         },
         {
             "component": "mob-paragraph",
@@ -49,6 +49,13 @@
                 "style": "medium"
             },
             "content": "The function will have as input an object with the route parameters if present."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is necessary to load the dependencies before initializing the application through the utility useComponent()"
         },
         {
             "component": "mob-paragraph",
