@@ -1,8 +1,8 @@
 import { createComponent } from '../../../mobjs';
-import { DocTitleSmall } from './docSide';
+import { DocTitleSmallFn } from './docSide';
 
-export const docsTitleSmallComponentDef = createComponent({
+export const DocsTitleSmall = createComponent({
     name: 'doc-title-small',
-    component: DocTitleSmall,
+    component: DocTitleSmallFn,
     state: {},
 });

@@ -1,6 +1,6 @@
 import { DocContainer } from '../../../component/common/docsContainer/definition';
 import { DocTitle } from '../../../component/common/doctitle/definition';
-import { docsTitleSmallComponentDef } from '../../../component/common/doctitleSmall/definition';
+import { DocsTitleSmall } from '../../../component/common/doctitleSmall/definition';
 import { htmlContentDef } from '../../../component/common/htmlContent/definition';
 import { scrollToDef } from '../../../component/common/scrollTo/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
@@ -8,7 +8,7 @@ import { loadJsonContent } from '../../../utils/utils';
 
 useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef,

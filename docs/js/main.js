@@ -22024,7 +22024,7 @@
   });
 
   // src/js/component/common/doctitleSmall/docSide.js
-  var DocTitleSmall = ({ html }) => {
+  var DocTitleSmallFn = ({ html }) => {
     return html`
         <div class="c-doc-title-small">
             <mobjs-slot />
@@ -22033,9 +22033,9 @@
   };
 
   // src/js/component/common/doctitleSmall/definition.js
-  var docsTitleSmallComponentDef = createComponent({
+  var DocsTitleSmall = createComponent({
     name: "doc-title-small",
-    component: DocTitleSmall,
+    component: DocTitleSmallFn,
     state: {}
   });
 
@@ -24810,7 +24810,7 @@ Loading snippet ...</pre
   // src/js/pages/about/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -24836,7 +24836,7 @@ Loading snippet ...</pre
   // src/js/pages/plugin/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -25380,7 +25380,7 @@ Loading snippet ...</pre
   // src/js/pages/canvas/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -26844,7 +26844,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -26870,7 +26870,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/initialization/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -26898,7 +26898,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/routing/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -26926,7 +26926,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/component/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -27113,7 +27113,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/html/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27146,7 +27146,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/onMount/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27179,7 +27179,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/getState/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27212,7 +27212,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/setState/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27245,7 +27245,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/emit/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27278,7 +27278,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/emitAsync/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27311,7 +27311,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/computed/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27344,7 +27344,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/watch/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27377,7 +27377,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/watchSync/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27410,7 +27410,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/renderComponent/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27443,7 +27443,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/remove/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27476,7 +27476,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/removeDom/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27509,7 +27509,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/getChildren/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27542,7 +27542,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/freezeProp/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27575,7 +27575,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/unFreezeProp/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27608,7 +27608,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/getParentId/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27641,7 +27641,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/watchParent/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27674,7 +27674,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/staticProps/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27707,7 +27707,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/bindProps/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27740,7 +27740,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/unBind/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27773,7 +27773,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/syncParent/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27806,7 +27806,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/bindEvents/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27839,7 +27839,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/delegateEvents/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27872,7 +27872,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/repeat/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     paramsMobJsDef
@@ -27905,7 +27905,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/refs/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -27933,7 +27933,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/slot/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -27961,7 +27961,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/utils/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -27989,7 +27989,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/webComponent/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28017,7 +28017,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/debug/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28045,7 +28045,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/runtime/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28073,7 +28073,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/instanceName/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28101,7 +28101,7 @@ Loading snippet ...</pre
   // src/js/pages/mobJs/tick/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28129,7 +28129,7 @@ Loading snippet ...</pre
   // src/js/pages/mobCore/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -28155,7 +28155,7 @@ Loading snippet ...</pre
   // src/js/pages/mobCore/events/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -28183,7 +28183,7 @@ Loading snippet ...</pre
   // src/js/pages/mobCore/store/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -28211,7 +28211,7 @@ Loading snippet ...</pre
   // src/js/pages/mobCore/defaults/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     scrollToDef,
     DocTitle,
     htmlContentDef
@@ -28239,7 +28239,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/asyncTimeline/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28268,7 +28268,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/createStagger/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28297,7 +28297,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28323,7 +28323,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/parallax/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28352,7 +28352,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/scrollTrigger/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28381,7 +28381,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/sequencer/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28410,7 +28410,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/stagger/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28439,7 +28439,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/syncTimeline/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28468,7 +28468,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/tweenSpringLerp/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28497,7 +28497,7 @@ Loading snippet ...</pre
   // src/js/pages/mobMotion/defaults/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef
@@ -28526,7 +28526,7 @@ Loading snippet ...</pre
   // src/js/pages/svg/overview/index.js
   useComponent([
     DocContainer,
-    docsTitleSmallComponentDef,
+    DocsTitleSmall,
     DocTitle,
     htmlContentDef,
     scrollToDef

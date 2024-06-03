@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const DocTitleSmall = ({ html }) => {
+export const DocTitleSmallFn = ({ html }) => {
     return html`
         <div class="c-doc-title-small">
             <mobjs-slot />
