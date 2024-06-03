@@ -28,10 +28,21 @@
 - 2: parte da 4 e finisce a 6.
 - 3: parte da 2 e finisce a 4.
 
-# Docs
-- Creare un stile per le quote tipo file md `quote`
 
 # MobJs
+
+### Docs
+- Creare un stile per le quote tipo file md `quote`
+
+### Pages:
+- Al posto di esportare le pagine con export, creare un file di rotte:
+
+```js
+const routes = {
+    'home': HomeRoutes,
+    'about-us' AboutUsRoutes
+}
+```
 
 ### Type
 - i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
