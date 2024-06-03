@@ -1,5 +1,5 @@
 import { createComponent } from '../../../mobjs';
-import { htmlContentDef } from '../htmlContent/definition';
+import { HtmlContent } from '../htmlContent/definition';
 import { CodeOverlayFn } from './codeOverlay';
 import { CodeOverlayButtonFn } from './codeOverlayButton';
 
@@ -46,5 +46,5 @@ export const CodeOverlay = createComponent({
             type: String,
         }),
     },
-    child: [CodeOverlayButton, htmlContentDef],
+    child: [CodeOverlayButton, HtmlContent],
 });

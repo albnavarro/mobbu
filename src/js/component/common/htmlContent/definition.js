@@ -1,15 +1,15 @@
 import { createComponent } from '../../../mobjs';
-import { loaderDef } from '../loader/definition';
-import { snippetContentDef } from '../snippet/definition';
-import { spacerContentDef } from '../spacerAnchor/definition';
-import { listContentDef } from '../typography/list/definition';
-import { paragraphContentDef } from '../typography/paragraph/definition';
-import { titleContentDef } from '../typography/titles/definition';
-import { HtmlContent } from './htmlContent';
+import { Loader } from '../loader/definition';
+import { Snippet } from '../snippet/definition';
+import { SpacerAnchor } from '../spacerAnchor/definition';
+import { List } from '../typography/list/definition';
+import { Paragraph } from '../typography/paragraph/definition';
+import { Title } from '../typography/titles/definition';
+import { HtmlContentFn } from './htmlContent';
 
-export const htmlContentDef = createComponent({
+export const HtmlContent = createComponent({
     name: 'html-content',
-    component: HtmlContent,
+    component: HtmlContentFn,
     exportState: ['source', 'useMinHeight', 'useMaxWidth', 'data'],
     state: {
         source: () => ({
@@ -33,12 +33,5 @@ export const htmlContentDef = createComponent({
             type: Boolean,
         }),
     },
-    child: [
-        listContentDef,
-        paragraphContentDef,
-        titleContentDef,
-        loaderDef,
-        snippetContentDef,
-        spacerContentDef,
-    ],
+    child: [List, Paragraph, Title, Loader, Snippet, SpacerAnchor],
 });

@@ -24,7 +24,7 @@ const getItems = ({ data, staticProps }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const linksMobJs = ({ html, staticProps, getState }) => {
+export const LinksMobJsFn = ({ html, staticProps, getState }) => {
     const { section } = getState();
 
     return html`<div class="c-params-mobjs">

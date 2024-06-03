@@ -2,10 +2,10 @@ import { AnimationTitle } from '../component/common/animationTitle/definition';
 import { CodeButton } from '../component/common/codeButton/definition';
 import { CodeOverlay } from '../component/common/codeOverlay/definition';
 import { CebugButton } from '../component/common/debug/definition';
-import { mLogo1SvgDef } from '../component/common/mLogo1/definition';
-import { quickNavDef } from '../component/common/nextPage/definition';
-import { routeLoaderDef } from '../component/common/routeLoader/definition';
-import { scrollDownLabelDef } from '../component/common/scrolldownLabel/definition';
+import { MLogo1 } from '../component/common/mLogo1/definition';
+import { QuickNav } from '../component/common/nextPage/definition';
+import { RouteLoader } from '../component/common/routeLoader/definition';
+import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
 import { footerComponentDef } from '../component/layout/footer/definition';
 import { headerComponentDef } from '../component/layout/header/definition';
 import { navigationComponentDef } from '../component/layout/navigation/definition';
@@ -17,11 +17,11 @@ useComponent([
     headerComponentDef,
     navigationComponentDef,
     footerComponentDef,
-    quickNavDef,
-    routeLoaderDef,
+    QuickNav,
+    RouteLoader,
     AnimationTitle,
-    mLogo1SvgDef,
-    scrollDownLabelDef,
+    MLogo1,
+    ScrollDownLabel,
     CodeButton,
     CebugButton,
 ]);

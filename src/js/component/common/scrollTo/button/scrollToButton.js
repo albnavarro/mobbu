@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const ScrollToButton = ({ html, getState, onMount, watchSync }) => {
+export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();
 
     onMount(({ element }) => {

@@ -1,6 +1,6 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { onlyDesktopDef } from '../../../common/onlyDesktop/definition';
+import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { ScrollerN0 } from './scrollerN0';
 
 export const scrollerN0Def = createComponent({
@@ -73,5 +73,5 @@ export const scrollerN0Def = createComponent({
         }),
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
-    child: [onlyDesktopDef],
+    child: [OnlyDesktop],
 });

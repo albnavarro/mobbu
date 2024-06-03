@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { ScrollDownLabel } from './scrolldownLabel';
+import { ScrollDownLabelFn } from './scrolldownLabel';
 
-export const scrollDownLabelDef = createComponent({
+export const ScrollDownLabel = createComponent({
     name: 'scroll-down-label',
-    component: ScrollDownLabel,
+    component: ScrollDownLabelFn,
     exportState: ['active'],
     state: {
         active: () => ({

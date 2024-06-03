@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const Title = ({ html, getState }) => {
+export const TitleFn = ({ html, getState }) => {
     const { tag, color, isBold } = getState();
     const colorClass = `is-${color}`;
     const boldClass = isBold ? `is-bold` : '';

@@ -1,7 +1,7 @@
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Mlogo1 = ({ html, onMount, getState, watchSync }) => {
+export const Mlogo1Fn = ({ html, onMount, getState, watchSync }) => {
     const { svg, active } = getState();
     const activeClass = active ? 'active' : '';
 

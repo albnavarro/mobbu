@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { Paragraph } from './paragraph';
+import { ParagraphFn } from './paragraph';
 
-export const paragraphContentDef = createComponent({
+export const Paragraph = createComponent({
     name: 'mob-paragraph',
-    component: Paragraph,
+    component: ParagraphFn,
     exportState: ['style', 'color'],
     state: {
         style: () => ({

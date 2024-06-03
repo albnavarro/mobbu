@@ -1,5 +1,5 @@
 import { createComponent } from '../../../../mobjs';
-import { onlyDesktopDef } from '../../../common/onlyDesktop/definition';
+import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { Mv1Component } from './mv1';
 
 export const Mv1Def = createComponent({
@@ -16,5 +16,5 @@ export const Mv1Def = createComponent({
             type: String,
         }),
     },
-    child: [onlyDesktopDef],
+    child: [OnlyDesktop],
 });

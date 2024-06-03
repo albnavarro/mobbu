@@ -8,7 +8,7 @@ import { tween } from '../../../mobMotion';
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const RouteLoader = ({ html, onMount }) => {
+export const RouteLoaderFn = ({ html, onMount }) => {
     onMount(({ element }) => {
         element.classList.add('disable');
 

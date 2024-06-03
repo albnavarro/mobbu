@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { Title } from './title';
+import { TitleFn } from './title';
 
-export const titleContentDef = createComponent({
+export const Title = createComponent({
     name: 'mob-title',
-    component: Title,
+    component: TitleFn,
     exportState: ['tag', 'color', 'isBold'],
     state: {
         tag: () => ({

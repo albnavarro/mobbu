@@ -1,10 +1,10 @@
 import { createComponent } from '../../../mobjs';
-import { linksMobJs } from './linksMobJs';
-import { linksMobJsButton } from './linksMobJsButton';
+import { LinksMobJsFn } from './linksMobJs';
+import { LinksMobJsButtonFn } from './linksMobJsButton';
 
-export const paramsMobJsButtonDef = createComponent({
+export const LinksMobJsButton = createComponent({
     name: 'links-mobjs-button',
-    component: linksMobJsButton,
+    component: LinksMobJsButtonFn,
     exportState: ['label', 'url'],
     state: {
         label: () => ({
@@ -18,9 +18,9 @@ export const paramsMobJsButtonDef = createComponent({
     },
 });
 
-export const paramsMobJsDef = createComponent({
+export const LinksMobJs = createComponent({
     name: 'links-mobjs',
-    component: linksMobJs,
+    component: LinksMobJsFn,
     exportState: ['section'],
     state: {
         section: () => ({
@@ -28,5 +28,5 @@ export const paramsMobJsDef = createComponent({
             type: String,
         }),
     },
-    child: [paramsMobJsButtonDef],
+    child: [LinksMobJsButton],
 });

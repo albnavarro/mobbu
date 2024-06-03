@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { Mlogo1 } from './mLogo1';
+import { Mlogo1Fn } from './mLogo1';
 
-export const mLogo1SvgDef = createComponent({
+export const MLogo1 = createComponent({
     name: 'm-logo-1',
-    component: Mlogo1,
+    component: Mlogo1Fn,
     exportState: ['svg', 'active'],
     state: {
         svg: () => ({

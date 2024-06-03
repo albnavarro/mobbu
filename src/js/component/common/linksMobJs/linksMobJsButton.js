@@ -3,7 +3,7 @@ import { mainStore } from '../../../mobjs';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const linksMobJsButton = ({ html, getState }) => {
+export const LinksMobJsButtonFn = ({ html, getState }) => {
     const { label, url } = getState();
     const { activeRoute } = mainStore.get();
     const currentClass = activeRoute === url ? 'current' : '';

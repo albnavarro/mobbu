@@ -7208,7 +7208,7 @@
   };
 
   // src/js/component/common/typography/titles/title.js
-  var Title = ({ html, getState }) => {
+  var TitleFn = ({ html, getState }) => {
     const { tag, color, isBold } = getState();
     const colorClass = `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
@@ -7218,9 +7218,9 @@
   };
 
   // src/js/component/common/typography/titles/definition.js
-  var titleContentDef = createComponent({
+  var Title = createComponent({
     name: "mob-title",
-    component: Title,
+    component: TitleFn,
     exportState: ["tag", "color", "isBold"],
     state: {
       tag: () => ({
@@ -7242,7 +7242,7 @@
   });
 
   // src/js/pages/404/index.js
-  useComponent([titleContentDef]);
+  useComponent([Title]);
   var pageNotFound2 = () => {
     return renderHtml`
         <div class="page-not-found">
@@ -19806,7 +19806,7 @@
     element.textContent = "";
     element.insertAdjacentHTML("afterbegin", content);
   };
-  var OnlyDesktop = ({ html, onMount }) => {
+  var OnlyDesktopFn = ({ html, onMount }) => {
     onMount(({ element }) => {
       onResize({ element });
       mobCore.useResize(() => {
@@ -19817,9 +19817,9 @@
   };
 
   // src/js/component/common/onlyDesktop/definition.js
-  var onlyDesktopDef = createComponent({
+  var OnlyDesktop = createComponent({
     name: "only-desktop",
-    component: OnlyDesktop,
+    component: OnlyDesktopFn,
     state: {}
   });
 
@@ -20268,7 +20268,7 @@
       }),
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/animatedPatternN0/animatedPatternN0Params.js
@@ -20755,7 +20755,7 @@
       ],
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/animatedPatternN1/index.js
@@ -21063,7 +21063,7 @@
       mouseMoveRatio: 10,
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/caterpillarN0/index.js
@@ -21375,7 +21375,7 @@
       rotationDuration: 5e3,
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/caterpillarN1/index.js
@@ -21779,7 +21779,7 @@
         type: "Any"
       })
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/caterpillarN2/index.js
@@ -22040,7 +22040,7 @@
   });
 
   // src/js/component/common/loader/loader.js
-  var Loader = ({ onMount, html, watch, remove: remove2, getState }) => {
+  var LoaderFn = ({ onMount, html, watch, remove: remove2, getState }) => {
     const { position: position2 } = getState();
     onMount(({ element }) => {
       let tweenOut = tween.createTween({
@@ -22069,9 +22069,9 @@
   };
 
   // src/js/component/common/loader/definition.js
-  var loaderDef = createComponent({
+  var Loader = createComponent({
     name: "mob-loader",
-    component: Loader,
+    component: LoaderFn,
     exportState: ["position", "shouldRemove"],
     state: {
       shouldRemove: () => ({
@@ -22801,7 +22801,7 @@
     core_default.highlightElement(ref, { language: "javascript" });
     ref.style.minHeight = "";
   };
-  var Snippet = ({ html, onMount, getState }) => {
+  var SnippetFn = ({ html, onMount, getState }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } = getState();
     const isFullClass = isFull ? "is-full" : "";
     const hasBorderClass = hasBorder ? "has-border" : "";
@@ -22833,9 +22833,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/snippet/definition.js
-  var snippetContentDef = createComponent({
+  var Snippet = createComponent({
     name: "mob-snippet",
-    component: Snippet,
+    component: SnippetFn,
     exportState: [
       "source",
       "isFull",
@@ -22907,7 +22907,7 @@ Loading snippet ...</pre
     rootMargin: "0% 0% -100% 0%",
     threshold: 0.5
   };
-  var SpacerAnchor = async ({ html, getState, onMount }) => {
+  var SpacerAnchorFn = async ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? "spacer--line" : "";
     onMount(({ element }) => {
@@ -22934,9 +22934,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/spacerAnchor/definition.js
-  var spacerContentDef = createComponent({
+  var SpacerAnchor = createComponent({
     name: "mob-spacer",
-    component: SpacerAnchor,
+    component: SpacerAnchorFn,
     exportState: ["style", "line", "id", "label"],
     state: {
       style: () => ({
@@ -22964,7 +22964,7 @@ Loading snippet ...</pre
   var getList = ({ items: items2 }) => {
     return items2.map((item) => renderHtml` <li>${item}</li> `).join("");
   };
-  var List = ({ html, getState }) => {
+  var ListFn = ({ html, getState }) => {
     const { style, color, items: items2, dots } = getState();
     const colorClass = `is-${color}`;
     const dotsClass = dots ? "" : `hide-dots`;
@@ -22974,9 +22974,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/typography/list/definition.js
-  var listContentDef = createComponent({
+  var List = createComponent({
     name: "mob-list",
-    component: List,
+    component: ListFn,
     exportState: ["style", "color", "items", "dots"],
     state: {
       style: () => ({
@@ -23004,7 +23004,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/typography/paragraph/paragraph.js
-  var Paragraph = ({ html, getState }) => {
+  var ParagraphFn = ({ html, getState }) => {
     const { style, color } = getState();
     const colorClass = `is-${color}`;
     return html`<p class="p p--${style} ${colorClass}">
@@ -23013,9 +23013,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/typography/paragraph/definition.js
-  var paragraphContentDef = createComponent({
+  var Paragraph = createComponent({
     name: "mob-paragraph",
-    component: Paragraph,
+    component: ParagraphFn,
     exportState: ["style", "color"],
     state: {
       style: () => ({
@@ -23064,7 +23064,7 @@ Loading snippet ...</pre
         ></mob-loader>
     `;
   };
-  var HtmlContent = async ({
+  var HtmlContentFn = async ({
     html,
     getState,
     setState,
@@ -23092,9 +23092,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/htmlContent/definition.js
-  var htmlContentDef = createComponent({
+  var HtmlContent = createComponent({
     name: "html-content",
-    component: HtmlContent,
+    component: HtmlContentFn,
     exportState: ["source", "useMinHeight", "useMaxWidth", "data"],
     state: {
       source: () => ({
@@ -23118,18 +23118,11 @@ Loading snippet ...</pre
         type: Boolean
       })
     },
-    child: [
-      listContentDef,
-      paragraphContentDef,
-      titleContentDef,
-      loaderDef,
-      snippetContentDef,
-      spacerContentDef
-    ]
+    child: [List, Paragraph, Title, Loader, Snippet, SpacerAnchor]
   });
 
   // src/js/component/common/scrollTo/button/scrollToButton.js
-  var ScrollToButton = ({ html, getState, onMount, watchSync }) => {
+  var ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();
     onMount(({ element }) => {
       watchSync("active", (val2) => {
@@ -23144,9 +23137,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/scrollTo/button/definition.js
-  var scrollToButtonDef = createComponent({
+  var ScrollToButton = createComponent({
     name: "scroll-to-button",
-    component: ScrollToButton,
+    component: ScrollToButtonFn,
     exportState: ["label", "active"],
     state: {
       label: () => ({
@@ -24735,7 +24728,7 @@ Loading snippet ...</pre
         </scroll-to-button>
     </li> `;
   }
-  var ScrollTo = ({
+  var ScrollToFn = ({
     html,
     onMount,
     delegateEvents,
@@ -24790,9 +24783,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/scrollTo/definition.js
-  var scrollToDef = createComponent({
+  var ScrollTo = createComponent({
     name: "scroll-to",
-    component: ScrollTo,
+    component: ScrollToFn,
     exportState: ["activeId"],
     state: {
       activeLabel: () => ({
@@ -24804,17 +24797,11 @@ Loading snippet ...</pre
         type: Array
       })
     },
-    child: [scrollToButtonDef]
+    child: [ScrollToButton]
   });
 
   // src/js/pages/about/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var about = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/about.json"
@@ -24834,13 +24821,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/plugin/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var plugin_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/plugin/overview.json"
@@ -24860,7 +24841,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/shapes/footerShapeV1.js
-  var FooterShaperV1 = ({ html, onMount, getState }) => {
+  var FooterShapeV1Fn = ({ html, onMount, getState }) => {
     const { svg, position: position2 } = getState();
     const positionClass = `shape-v1--${position2}`;
     onMount(({ element }) => {
@@ -24872,9 +24853,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/shapes/definition.js
-  var footerShaperV1Def = createComponent({
+  var FooterShapeV1 = createComponent({
     name: "footer-shape-v1",
-    component: FooterShaperV1,
+    component: FooterShapeV1Fn,
     exportState: ["position", "svg"],
     state: {
       position: () => ({
@@ -25326,7 +25307,7 @@ Loading snippet ...</pre
     child: [
       horizontalScrollerButtonDef,
       horizontalScrollerSectionDef,
-      footerShaperV1Def
+      FooterShapeV1
     ]
   });
 
@@ -25378,13 +25359,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/canvas/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var canvas_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/canvas/overview.json"
@@ -25781,7 +25756,7 @@ Loading snippet ...</pre
       }),
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/scroller/scrollerParams.js
@@ -26152,7 +26127,7 @@ Loading snippet ...</pre
       endRotation: 720,
       disableOffcanvas: detectFirefox() || detectSafari() ? true : false
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/canvas/scrollerN1/index.js
@@ -26832,7 +26807,7 @@ Loading snippet ...</pre
         type: Number
       })
     },
-    child: [dynamicListButtonDef, dynamicListRepeaterDef, onlyDesktopDef]
+    child: [dynamicListButtonDef, dynamicListRepeaterDef, OnlyDesktop]
   });
 
   // src/js/pages/dynamicList/index.js
@@ -26842,13 +26817,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/overview.json"
@@ -26868,13 +26837,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/initialization/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_initialization = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/initialization.json"
@@ -26896,13 +26859,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/routing/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_routing = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/routing.json"
@@ -26924,13 +26881,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/component/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_component = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/component.json"
@@ -27064,7 +27015,7 @@ Loading snippet ...</pre
             </li>`;
     }).join("");
   };
-  var linksMobJs = ({ html, staticProps: staticProps2, getState }) => {
+  var LinksMobJsFn = ({ html, staticProps: staticProps2, getState }) => {
     const { section } = getState();
     return html`<div class="c-params-mobjs">
         <ul>
@@ -27074,7 +27025,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var linksMobJsButton = ({ html, getState }) => {
+  var LinksMobJsButtonFn = ({ html, getState }) => {
     const { label, url } = getState();
     const { activeRoute } = mainStore.get();
     const currentClass = activeRoute === url ? "current" : "";
@@ -27082,9 +27033,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/definition.js
-  var paramsMobJsButtonDef = createComponent({
+  var LinksMobJsButton = createComponent({
     name: "links-mobjs-button",
-    component: linksMobJsButton,
+    component: LinksMobJsButtonFn,
     exportState: ["label", "url"],
     state: {
       label: () => ({
@@ -27097,9 +27048,9 @@ Loading snippet ...</pre
       })
     }
   });
-  var paramsMobJsDef = createComponent({
+  var LinksMobJs = createComponent({
     name: "links-mobjs",
-    component: linksMobJs,
+    component: LinksMobJsFn,
     exportState: ["section"],
     state: {
       section: () => ({
@@ -27107,17 +27058,11 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [paramsMobJsButtonDef]
+    child: [LinksMobJsButton]
   });
 
   // src/js/pages/mobJs/html/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_html = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/html.json"
@@ -27144,13 +27089,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/onMount/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_onMount = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/onMount.json"
@@ -27177,13 +27116,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/getState/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_getState = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/getState.json"
@@ -27210,13 +27143,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/setState/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_setState = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/setState.json"
@@ -27243,13 +27170,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/emit/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_emit = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/emit.json"
@@ -27276,13 +27197,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/emitAsync/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_emitAsync = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/emitAsync.json"
@@ -27309,13 +27224,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/computed/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_computed = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/computed.json"
@@ -27342,13 +27251,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watch/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_watch = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/watch.json"
@@ -27375,13 +27278,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watchSync/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_watchSync = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/watchSync.json"
@@ -27408,13 +27305,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/renderComponent/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_renderComponent = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/renderDom.json"
@@ -27441,13 +27332,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/remove/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_remove = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/remove.json"
@@ -27474,13 +27359,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/removeDom/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_removeDom = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/removeDom.json"
@@ -27507,13 +27386,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/getChildren/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_getChildren = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/getChildren.json"
@@ -27540,13 +27413,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/freezeProp/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_freezeProp = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/freezeProp.json"
@@ -27573,13 +27440,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/unFreezeProp/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_unFreezeProp = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/unFreezeProp.json"
@@ -27606,13 +27467,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/getParentId/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_getParentId = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/getParentId.json"
@@ -27639,13 +27494,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/watchParent/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_watchParent = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/watchParent.json"
@@ -27672,13 +27521,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/staticProps/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_staticProps = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/staticProps.json"
@@ -27705,13 +27548,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/bindProps/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_bindProps = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/bindProps.json"
@@ -27738,13 +27575,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/unBind/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_unBind = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/unBind.json"
@@ -27771,13 +27602,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/syncParent/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_syncParent = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/syncParent.json"
@@ -27804,13 +27629,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/bindEvents/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_bindEvents = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/bindEvents.json"
@@ -27837,13 +27656,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/delegateEvents/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_delegateEvents = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/delegateEvents.json"
@@ -27870,13 +27683,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/repeat/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_repeat = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/repeat.json"
@@ -27903,13 +27710,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/refs/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_refs = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/refs.json"
@@ -27931,13 +27732,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/slot/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_slot = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/slot.json"
@@ -27959,13 +27754,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/utils/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_utils = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/utils.json"
@@ -27987,13 +27776,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/webComponent/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_web_component = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/webComponent.json"
@@ -28015,13 +27798,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/debug/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_debug = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/debug.json"
@@ -28043,13 +27820,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/runtime/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_runtime = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/runtime.json"
@@ -28071,13 +27842,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/instanceName/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_instanceName = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/instanceName.json"
@@ -28099,13 +27864,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobJs/tick/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobJs_tick = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobJs/tick.json"
@@ -28127,13 +27886,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var mobCore_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobCore/overview.json"
@@ -28153,13 +27906,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/events/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var mobCore_events = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobCore/events.json"
@@ -28181,13 +27928,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/store/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var mobCore_store = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobCore/store.json"
@@ -28209,13 +27950,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobCore/defaults/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var mobCore_defaults = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobCore/defaults.json"
@@ -28237,13 +27972,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/asyncTimeline/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_async_timeline = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/asyncTimeline.json"
@@ -28266,13 +27995,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/createStagger/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_create_stagger = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/createStagger.json"
@@ -28295,13 +28018,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/overview.json"
@@ -28321,13 +28038,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/parallax/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_parallax = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/parallax.json"
@@ -28350,13 +28061,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/scrollTrigger/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_scrolltrigger = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/scrollTrigger.json"
@@ -28379,13 +28084,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/sequencer/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_sequencer = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/sequencer.json"
@@ -28408,13 +28107,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/stagger/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_stagger = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/stagger.json"
@@ -28437,13 +28130,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/syncTimeline/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_sync_timeline = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/syncTimeline.json"
@@ -28466,13 +28153,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/tweenSpringLerp/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_tween_spring_lerp = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/tweenSpringLerp.json"
@@ -28495,13 +28176,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/mobMotion/defaults/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var mobMotion_defaults = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/mobMotion/defaults.json"
@@ -28524,13 +28199,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/svg/overview/index.js
-  useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    scrollToDef
-  ]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
   var svg_overview = async () => {
     const { data: data3 } = await loadJsonContent({
       source: "./data/svg/overview.json"
@@ -28757,7 +28426,7 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/svg/child/index.js
@@ -28952,7 +28621,7 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [onlyDesktopDef]
+    child: [OnlyDesktop]
   });
 
   // src/js/pages/svg/mv1/index.js
@@ -29374,7 +29043,7 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [CodeOverlayButton, htmlContentDef]
+    child: [CodeOverlayButton, HtmlContent]
   });
 
   // src/js/component/common/debug/debugButton.js
@@ -29416,7 +29085,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/mLogo1/mLogo1.js
-  var Mlogo1 = ({ html, onMount, getState, watchSync }) => {
+  var Mlogo1Fn = ({ html, onMount, getState, watchSync }) => {
     const { svg, active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ refs }) => {
@@ -29433,9 +29102,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/mLogo1/definition.js
-  var mLogo1SvgDef = createComponent({
+  var MLogo1 = createComponent({
     name: "m-logo-1",
-    component: Mlogo1,
+    component: Mlogo1Fn,
     exportState: ["svg", "active"],
     state: {
       svg: () => ({
@@ -29453,7 +29122,7 @@ Loading snippet ...</pre
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/nextPage/nextPage.js
-  var QuickNav = ({ getState, onMount, html, watchSync }) => {
+  var QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element, refs }) => {
@@ -29490,9 +29159,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/nextPage/definition.js
-  var quickNavDef = createComponent({
+  var QuickNav = createComponent({
     name: "quick-nav",
-    component: QuickNav,
+    component: QuickNavFn,
     exportState: ["color", "active", "prevRoute", "nextRoute"],
     state: {
       color: () => ({
@@ -29518,7 +29187,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/routeLoader/routeLoader.js
-  var RouteLoader = ({ html, onMount }) => {
+  var RouteLoaderFn = ({ html, onMount }) => {
     onMount(({ element }) => {
       element.classList.add("disable");
       let tweenOut = tween.createTween({
@@ -29550,9 +29219,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/routeLoader/definition.js
-  var routeLoaderDef = createComponent({
+  var RouteLoader = createComponent({
     name: "route-loader",
-    component: RouteLoader,
+    component: RouteLoaderFn,
     state: {
       isLoading: () => ({
         value: false,
@@ -29562,7 +29231,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/scrolldownLabel/scrolldownLabel.js
-  var ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
+  var ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? "active" : "";
     onMount(({ element }) => {
@@ -29581,9 +29250,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/scrolldownLabel/definition.js
-  var scrollDownLabelDef = createComponent({
+  var ScrollDownLabel = createComponent({
     name: "scroll-down-label",
-    component: ScrollDownLabel,
+    component: ScrollDownLabelFn,
     exportState: ["active"],
     state: {
       active: () => ({
@@ -30353,11 +30022,11 @@ Loading snippet ...</pre
     headerComponentDef,
     navigationComponentDef,
     footerComponentDef,
-    quickNavDef,
-    routeLoaderDef,
+    QuickNav,
+    RouteLoader,
     AnimationTitle,
-    mLogo1SvgDef,
-    scrollDownLabelDef,
+    MLogo1,
+    ScrollDownLabel,
     CodeButton,
     CebugButton
   ]);

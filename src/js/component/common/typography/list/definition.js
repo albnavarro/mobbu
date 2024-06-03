@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { List } from './list';
+import { ListFn } from './list';
 
-export const listContentDef = createComponent({
+export const List = createComponent({
     name: 'mob-list',
-    component: List,
+    component: ListFn,
     exportState: ['style', 'color', 'items', 'dots'],
     state: {
         style: () => ({

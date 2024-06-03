@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { SpacerAnchor } from './spacerAnchor';
+import { SpacerAnchorFn } from './spacerAnchor';
 
-export const spacerContentDef = createComponent({
+export const SpacerAnchor = createComponent({
     name: 'mob-spacer',
-    component: SpacerAnchor,
+    component: SpacerAnchorFn,
     exportState: ['style', 'line', 'id', 'label'],
     state: {
         style: () => ({

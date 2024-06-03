@@ -1,7 +1,7 @@
-import { titleContentDef } from '../../component/common/typography/titles/definition';
+import { Title } from '../../component/common/typography/titles/definition';
 import { html, staticProps, useComponent } from '../../mobjs';
 
-useComponent([titleContentDef]);
+useComponent([Title]);
 
 export const pageNotFound = () => {
     return html`

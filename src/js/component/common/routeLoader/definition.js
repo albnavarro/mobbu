@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { RouteLoader } from './routeLoader';
+import { RouteLoaderFn } from './routeLoader';
 
-export const routeLoaderDef = createComponent({
+export const RouteLoader = createComponent({
     name: 'route-loader',
-    component: RouteLoader,
+    component: RouteLoaderFn,
     state: {
         isLoading: () => ({
             value: false,

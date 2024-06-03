@@ -46,7 +46,7 @@ const getLoader = ({ data, bindProps }) => {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const HtmlContent = async ({
+export const HtmlContentFn = async ({
     html,
     getState,
     setState,

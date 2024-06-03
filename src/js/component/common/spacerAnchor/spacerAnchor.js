@@ -13,7 +13,7 @@ const options = {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const SpacerAnchor = async ({ html, getState, onMount }) => {
+export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? 'spacer--line' : '';
 

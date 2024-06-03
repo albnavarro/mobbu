@@ -1,6 +1,6 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { onlyDesktopDef } from '../../../common/onlyDesktop/definition';
+import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { AnimatedPatternN1 } from './animatedPatternN1';
 
 export const animatedPatternN1Def = createComponent({
@@ -27,5 +27,5 @@ export const animatedPatternN1Def = createComponent({
         ],
         disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
     },
-    child: [onlyDesktopDef],
+    child: [OnlyDesktop],
 });

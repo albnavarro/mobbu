@@ -1,5 +1,5 @@
 import { createComponent } from '../../../mobjs';
-import { footerShaperV1Def } from '../../common/shapes/definition';
+import { FooterShapeV1 } from '../../common/shapes/definition';
 import { HorizontalScroller } from './horizontalScroller';
 import { horizontalScrollerButtonDef } from './horizontalScrollerButton/definition';
 import { horizontalScrollerSectionDef } from './horizontalScrollerSection/definition';
@@ -49,6 +49,6 @@ export const horizontalScrollerDef = createComponent({
     child: [
         horizontalScrollerButtonDef,
         horizontalScrollerSectionDef,
-        footerShaperV1Def,
+        FooterShapeV1,
     ],
 });

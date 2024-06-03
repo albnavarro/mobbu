@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const Paragraph = ({ html, getState }) => {
+export const ParagraphFn = ({ html, getState }) => {
     const { style, color } = getState();
     const colorClass = `is-${color}`;
 

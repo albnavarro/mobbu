@@ -29,7 +29,7 @@ const loadSnippet = async ({ ref, source }) => {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Snippet = ({ html, onMount, getState }) => {
+export const SnippetFn = ({ html, onMount, getState }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } =
         getState();
     const isFullClass = isFull ? 'is-full' : '';

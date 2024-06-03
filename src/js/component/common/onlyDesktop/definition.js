@@ -1,8 +1,8 @@
 import { createComponent } from '../../../mobjs';
-import { OnlyDesktop } from './onlyDesktop';
+import { OnlyDesktopFn } from './onlyDesktop';
 
-export const onlyDesktopDef = createComponent({
+export const OnlyDesktop = createComponent({
     name: 'only-desktop',
-    component: OnlyDesktop,
+    component: OnlyDesktopFn,
     state: {},
 });

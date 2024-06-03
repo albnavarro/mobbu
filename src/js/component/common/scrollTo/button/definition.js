@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { ScrollToButton } from './scrollToButton';
+import { ScrollToButtonFn } from './scrollToButton';
 
-export const scrollToButtonDef = createComponent({
+export const ScrollToButton = createComponent({
     name: 'scroll-to-button',
-    component: ScrollToButton,
+    component: ScrollToButtonFn,
     exportState: ['label', 'active'],
     state: {
         label: () => ({

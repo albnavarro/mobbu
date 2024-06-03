@@ -1,18 +1,12 @@
 import { DocContainer } from '../../../component/common/docsContainer/definition';
 import { DocTitle } from '../../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../../component/common/doctitleSmall/definition';
-import { htmlContentDef } from '../../../component/common/htmlContent/definition';
-import { paramsMobJsDef } from '../../../component/common/linksMobJs/definition';
+import { HtmlContent } from '../../../component/common/htmlContent/definition';
+import { LinksMobJs } from '../../../component/common/linksMobJs/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    DocTitle,
-    htmlContentDef,
-    paramsMobJsDef,
-]);
+useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
 
 export const mobJs_freezeProp = async () => {
     const { data } = await loadJsonContent({

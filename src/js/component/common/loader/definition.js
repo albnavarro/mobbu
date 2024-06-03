@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { Loader } from './loader';
+import { LoaderFn } from './loader';
 
-export const loaderDef = createComponent({
+export const Loader = createComponent({
     name: 'mob-loader',
-    component: Loader,
+    component: LoaderFn,
     exportState: ['position', 'shouldRemove'],
     state: {
         shouldRemove: () => ({

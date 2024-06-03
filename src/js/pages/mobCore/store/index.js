@@ -1,18 +1,12 @@
 import { DocContainer } from '../../../component/common/docsContainer/definition';
 import { DocTitle } from '../../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../../component/common/doctitleSmall/definition';
-import { htmlContentDef } from '../../../component/common/htmlContent/definition';
-import { scrollToDef } from '../../../component/common/scrollTo/definition';
+import { HtmlContent } from '../../../component/common/htmlContent/definition';
+import { ScrollTo } from '../../../component/common/scrollTo/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-useComponent([
-    DocContainer,
-    DocsTitleSmall,
-    scrollToDef,
-    DocTitle,
-    htmlContentDef,
-]);
+useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
 
 export const mobCore_store = async () => {
     const { data } = await loadJsonContent({

@@ -44,7 +44,7 @@ function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const ScrollTo = ({
+export const ScrollToFn = ({
     html,
     onMount,
     delegateEvents,

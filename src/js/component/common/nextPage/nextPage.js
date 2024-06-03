@@ -4,7 +4,7 @@ import { motionCore } from '../../../mobMotion';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const QuickNav = ({ getState, onMount, html, watchSync }) => {
+export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';
 

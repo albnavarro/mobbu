@@ -1,10 +1,10 @@
 import { createComponent } from '../../../mobjs';
-import { scrollToButtonDef } from './button/definition';
-import { ScrollTo } from './scrollTo';
+import { ScrollToButton } from './button/definition';
+import { ScrollToFn } from './scrollTo';
 
-export const scrollToDef = createComponent({
+export const ScrollTo = createComponent({
     name: 'scroll-to',
-    component: ScrollTo,
+    component: ScrollToFn,
     exportState: ['activeId'],
     state: {
         activeLabel: () => ({
@@ -16,5 +16,5 @@ export const scrollToDef = createComponent({
             type: Array,
         }),
     },
-    child: [scrollToButtonDef],
+    child: [ScrollToButton],
 });

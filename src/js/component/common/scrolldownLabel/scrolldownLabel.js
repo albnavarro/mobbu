@@ -3,7 +3,7 @@ import arrow from '../../../../svg/scroll_arrow.svg';
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const ScrollDownLabel = ({ html, onMount, getState, watchSync }) => {
+export const ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';
 

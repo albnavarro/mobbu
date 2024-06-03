@@ -1,5 +1,5 @@
 import { createComponent } from '../../../mobjs';
-import { onlyDesktopDef } from '../../common/onlyDesktop/definition';
+import { OnlyDesktop } from '../../common/onlyDesktop/definition';
 import { dynamicListButtonDef } from './button/definition';
 import { startData } from './data';
 import { DynamicList } from './dynamicList';
@@ -22,5 +22,5 @@ export const dynamicListDef = createComponent({
             type: Number,
         }),
     },
-    child: [dynamicListButtonDef, dynamicListRepeaterDef, onlyDesktopDef],
+    child: [dynamicListButtonDef, dynamicListRepeaterDef, OnlyDesktop],
 });

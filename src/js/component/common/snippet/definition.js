@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { Snippet } from './snippet';
+import { SnippetFn } from './snippet';
 
-export const snippetContentDef = createComponent({
+export const Snippet = createComponent({
     name: 'mob-snippet',
-    component: Snippet,
+    component: SnippetFn,
     exportState: [
         'source',
         'isFull',

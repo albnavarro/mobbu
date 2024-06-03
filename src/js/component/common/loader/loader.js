@@ -3,7 +3,7 @@ import { tween } from '../../../mobMotion';
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Loader = ({ onMount, html, watch, remove, getState }) => {
+export const LoaderFn = ({ onMount, html, watch, remove, getState }) => {
     const { position } = getState();
 
     onMount(({ element }) => {

@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { FooterShaperV1 } from './footerShapeV1';
+import { FooterShapeV1Fn } from './footerShapeV1';
 
-export const footerShaperV1Def = createComponent({
+export const FooterShapeV1 = createComponent({
     name: 'footer-shape-v1',
-    component: FooterShaperV1,
+    component: FooterShapeV1Fn,
     exportState: ['position', 'svg'],
     state: {
         position: () => ({

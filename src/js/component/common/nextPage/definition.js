@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { QuickNav } from './nextPage';
+import { QuickNavFn } from './nextPage';
 
-export const quickNavDef = createComponent({
+export const QuickNav = createComponent({
     name: 'quick-nav',
-    component: QuickNav,
+    component: QuickNavFn,
     exportState: ['color', 'active', 'prevRoute', 'nextRoute'],
     state: {
         color: () => ({
