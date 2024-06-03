@@ -5,7 +5,7 @@ import { navigationStore } from './store/navStore';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationButton = ({
+export const NavigationButtonFn = ({
     getState,
     html,
     onMount,

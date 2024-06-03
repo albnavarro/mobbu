@@ -16,7 +16,7 @@ const hanburgerHandler = () => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HeaderToggle = ({ onMount, html, delegateEvents }) => {
+export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
         navigationStore.watch('closeNavigation', () => {
             mobCore.useFrame(() => {

@@ -28,7 +28,7 @@ function getSubmenu({ children, staticProps, callback }) {
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const NavigationSubmenu = ({
+export const NavigationSubmenuFn = ({
     onMount,
     html,
     getState,

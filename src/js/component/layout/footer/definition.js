@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { Footer } from './footer';
-import { footerNavDef } from './footerNav/definition';
+import { FooterFn } from './footer';
+import { FooterNav } from './footerNav/definition';
 
-export const footerComponentDef = createComponent({
+export const Footer = createComponent({
     name: 'mob-footer',
-    component: Footer,
-    child: [footerNavDef],
+    component: FooterFn,
+    child: [FooterNav],
 });

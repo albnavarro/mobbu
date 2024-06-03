@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const Footer = ({ html }) => {
+export const FooterFn = ({ html }) => {
     return html`
         <footer class="l-footer">
             <div class="l-footer__container">

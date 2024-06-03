@@ -1,7 +1,7 @@
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationLabel = ({ getState, html }) => {
+export const NavigationLabelFn = ({ getState, html }) => {
     const { label, sectioName } = getState();
 
     return html`

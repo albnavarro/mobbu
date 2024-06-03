@@ -42,7 +42,7 @@ function addHandler({ main, toTopBtn }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const NavigationContainer = ({ html, onMount }) => {
+export const NavigationContainerFn = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
         const main = document.querySelector('main.main');
         let lastMq = '';

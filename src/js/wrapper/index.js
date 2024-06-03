@@ -6,17 +6,17 @@ import { MLogo1 } from '../component/common/mLogo1/definition';
 import { QuickNav } from '../component/common/nextPage/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
 import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
-import { footerComponentDef } from '../component/layout/footer/definition';
-import { headerComponentDef } from '../component/layout/header/definition';
-import { navigationComponentDef } from '../component/layout/navigation/definition';
+import { Footer } from '../component/layout/footer/definition';
+import { Header } from '../component/layout/header/definition';
+import { NavigationContainer } from '../component/layout/navigation/definition';
 import { html, staticProps, useComponent } from '../mobjs';
 import { loadTextContent } from '../utils/utils';
 
 useComponent([
     CodeOverlay,
-    headerComponentDef,
-    navigationComponentDef,
-    footerComponentDef,
+    Header,
+    NavigationContainer,
+    Footer,
     QuickNav,
     RouteLoader,
     AnimationTitle,

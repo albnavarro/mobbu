@@ -29263,7 +29263,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/layout/footer/footer.js
-  var Footer = ({ html }) => {
+  var FooterFn = ({ html }) => {
     return html`
         <footer class="l-footer">
             <div class="l-footer__container">
@@ -29275,7 +29275,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/footer/footerNav/footerButton.js
-  var FooterNavButton = ({ html, onMount, getState }) => {
+  var FooterNavButtonFn = ({ html, onMount, getState }) => {
     const { label, section } = getState();
     onMount(({ element }) => {
       navigationStore.watch("activeSection", (current) => {
@@ -29343,7 +29343,7 @@ Loading snippet ...</pre
             </li> `;
     }).join("");
   };
-  var FooterNav = ({ html, delegateEvents, staticProps: staticProps2 }) => {
+  var FooterNavFn = ({ html, delegateEvents, staticProps: staticProps2 }) => {
     if (motionCore.mq("max", "desktop")) return html` <span></span> `;
     return html`
         <ul class="footer-nav">
@@ -29353,9 +29353,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/footer/footerNav/definition.js
-  var footerNavButtonDef = createComponent({
+  var FooterNavButton = createComponent({
     name: "footer-nav-button",
-    component: FooterNavButton,
+    component: FooterNavButtonFn,
     exportState: ["label", "section"],
     state: {
       label: () => ({
@@ -29368,17 +29368,17 @@ Loading snippet ...</pre
       })
     }
   });
-  var footerNavDef = createComponent({
+  var FooterNav = createComponent({
     name: "footer-nav",
-    component: FooterNav,
-    child: [footerNavButtonDef]
+    component: FooterNavFn,
+    child: [FooterNavButton]
   });
 
   // src/js/component/layout/footer/definition.js
-  var footerComponentDef = createComponent({
+  var Footer = createComponent({
     name: "mob-footer",
-    component: Footer,
-    child: [footerNavDef]
+    component: FooterFn,
+    child: [FooterNav]
   });
 
   // src/js/component/layout/header/header.js
@@ -29399,7 +29399,7 @@ Loading snippet ...</pre
     navigationStore.emit("closeAllAccordion");
     navigationStore.emit("goToTop");
   }
-  var Header = ({ html, onMount, delegateEvents }) => {
+  var HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ refs }) => {
       const { navInfo, title, beta } = refs;
       navigationStore.watch("openNavigation", () => openInfo({ navInfo }));
@@ -29494,7 +29494,7 @@ Loading snippet ...</pre
             </li>`;
     }).join("");
   }
-  var Headernav = ({ html, delegateEvents }) => {
+  var HeadernavFn = ({ html, delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
             ${additems({ delegateEvents })}
@@ -29512,7 +29512,7 @@ Loading snippet ...</pre
     }
     navigationStore.emit("openNavigation");
   };
-  var HeaderToggle = ({ onMount, html, delegateEvents }) => {
+  var HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
       navigationStore.watch("closeNavigation", () => {
         mobCore.useFrame(() => {
@@ -29541,18 +29541,18 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/header/definition.js
-  var headerNavComponentDef = createComponent({
+  var HeaderNav = createComponent({
     name: "mob-header-nav",
-    component: Headernav
+    component: HeadernavFn
   });
-  var headerToggleComponentDef = createComponent({
+  var HeaderToggle = createComponent({
     name: "mob-header-toggle",
-    component: HeaderToggle
+    component: HeaderToggleFn
   });
-  var headerComponentDef = createComponent({
+  var Header = createComponent({
     name: "mob-header",
-    component: Header,
-    child: [headerNavComponentDef, headerToggleComponentDef]
+    component: HeaderFn,
+    child: [HeaderNav, HeaderToggle]
   });
 
   // src/js/component/layout/navigation/animation/navScroller.js
@@ -29634,7 +29634,7 @@ Loading snippet ...</pre
       if (!navigationIsOpen) bodyScroll.to(0);
     });
   }
-  var NavigationContainer = ({ html, onMount }) => {
+  var NavigationContainerFn = ({ html, onMount }) => {
     onMount(({ element, refs }) => {
       const main = document.querySelector("main.main");
       let lastMq = "";
@@ -29730,7 +29730,7 @@ Loading snippet ...</pre
                   `;
     }).join("");
   }
-  var Navigation = ({
+  var NavigationFn = ({
     html,
     staticProps: staticProps2,
     setState,
@@ -29757,7 +29757,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/navigationButton.js
-  var NavigationButton = ({
+  var NavigationButtonFn = ({
     getState,
     html,
     onMount,
@@ -29817,7 +29817,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/navigationLabel.js
-  var NavigationLabel = ({ getState, html }) => {
+  var NavigationLabelFn = ({ getState, html }) => {
     const { label, sectioName } = getState();
     return html`
         <div class="l-navigation__label" data-sectionname="${sectioName}">
@@ -29846,7 +29846,7 @@ Loading snippet ...</pre
             `;
     }).join("");
   }
-  var NavigationSubmenu = ({
+  var NavigationSubmenuFn = ({
     onMount,
     html,
     getState,
@@ -29903,9 +29903,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/definition.js
-  var navigationButtonDef = createComponent({
+  var NavigationButton = createComponent({
     name: "mob-navigation-button",
-    component: NavigationButton,
+    component: NavigationButtonFn,
     exportState: [
       "label",
       "url",
@@ -29957,9 +29957,9 @@ Loading snippet ...</pre
       })
     }
   });
-  var navigationLabelDef = createComponent({
+  var NavigationLabel = createComponent({
     name: "mob-navigation-label",
-    component: NavigationLabel,
+    component: NavigationLabelFn,
     exportState: ["label", "sectioName"],
     state: {
       label: () => ({
@@ -29972,9 +29972,9 @@ Loading snippet ...</pre
       })
     }
   });
-  var navigationSubmenuDef = createComponent({
+  var NavigationSubmenu = createComponent({
     name: "mob-navigation-submenu",
-    component: NavigationSubmenu,
+    component: NavigationSubmenuFn,
     exportState: ["children", "headerButton", "isOpen", "callback"],
     state: {
       callback: () => ({
@@ -29995,11 +29995,11 @@ Loading snippet ...</pre
         type: Boolean
       })
     },
-    child: [navigationButtonDef]
+    child: [NavigationButton]
   });
-  var navigationDef = createComponent({
+  var Navigation = createComponent({
     name: "mob-navigation",
-    component: Navigation,
+    component: NavigationFn,
     exportState: ["currentAccordionId"],
     state: {
       currentAccordionId: () => ({
@@ -30008,20 +30008,20 @@ Loading snippet ...</pre
         skipEqual: false
       })
     },
-    child: [navigationLabelDef, navigationSubmenuDef, navigationButtonDef]
+    child: [NavigationLabel, NavigationSubmenu, NavigationButton]
   });
-  var navigationComponentDef = createComponent({
+  var NavigationContainer = createComponent({
     name: "mob-navigation-container",
-    component: NavigationContainer,
-    child: [navigationDef]
+    component: NavigationContainerFn,
+    child: [Navigation]
   });
 
   // src/js/wrapper/index.js
   useComponent([
     CodeOverlay,
-    headerComponentDef,
-    navigationComponentDef,
-    footerComponentDef,
+    Header,
+    NavigationContainer,
+    Footer,
     QuickNav,
     RouteLoader,
     AnimationTitle,

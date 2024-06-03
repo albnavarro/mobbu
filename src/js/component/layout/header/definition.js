@@ -1,20 +1,20 @@
 import { createComponent } from '../../../mobjs';
-import { Header } from './header';
-import { Headernav } from './headernav';
-import { HeaderToggle } from './headerToggle';
+import { HeaderFn } from './header';
+import { HeadernavFn } from './headernav';
+import { HeaderToggleFn } from './headerToggle';
 
-export const headerNavComponentDef = createComponent({
+export const HeaderNav = createComponent({
     name: 'mob-header-nav',
-    component: Headernav,
+    component: HeadernavFn,
 });
 
-export const headerToggleComponentDef = createComponent({
+export const HeaderToggle = createComponent({
     name: 'mob-header-toggle',
-    component: HeaderToggle,
+    component: HeaderToggleFn,
 });
 
-export const headerComponentDef = createComponent({
+export const Header = createComponent({
     name: 'mob-header',
-    component: Header,
-    child: [headerNavComponentDef, headerToggleComponentDef],
+    component: HeaderFn,
+    child: [HeaderNav, HeaderToggle],
 });

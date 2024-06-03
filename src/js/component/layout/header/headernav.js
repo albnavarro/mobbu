@@ -62,7 +62,7 @@ function additems({ delegateEvents }) {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Headernav = ({ html, delegateEvents }) => {
+export const HeadernavFn = ({ html, delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">
             ${additems({ delegateEvents })}

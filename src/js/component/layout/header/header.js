@@ -29,7 +29,7 @@ function titleHandler() {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const Header = ({ html, onMount, delegateEvents }) => {
+export const HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ refs }) => {
         const { navInfo, title, beta } = refs;
 

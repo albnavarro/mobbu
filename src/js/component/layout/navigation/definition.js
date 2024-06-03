@@ -1,15 +1,15 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { NavigationContainer } from './navContainer';
-import { Navigation } from './navigation';
-import { NavigationButton } from './navigationButton';
-import { NavigationLabel } from './navigationLabel';
-import { NavigationSubmenu } from './navigationSubmenu';
+import { NavigationContainerFn } from './navContainer';
+import { NavigationFn } from './navigation';
+import { NavigationButtonFn } from './navigationButton';
+import { NavigationLabelFn } from './navigationLabel';
+import { NavigationSubmenuFn } from './navigationSubmenu';
 
-export const navigationButtonDef = createComponent({
+export const NavigationButton = createComponent({
     name: 'mob-navigation-button',
-    component: NavigationButton,
+    component: NavigationButtonFn,
     exportState: [
         'label',
         'url',
@@ -61,9 +61,9 @@ export const navigationButtonDef = createComponent({
     },
 });
 
-export const navigationLabelDef = createComponent({
+export const NavigationLabel = createComponent({
     name: 'mob-navigation-label',
-    component: NavigationLabel,
+    component: NavigationLabelFn,
     exportState: ['label', 'sectioName'],
     state: {
         label: () => ({
@@ -77,9 +77,9 @@ export const navigationLabelDef = createComponent({
     },
 });
 
-export const navigationSubmenuDef = createComponent({
+export const NavigationSubmenu = createComponent({
     name: 'mob-navigation-submenu',
-    component: NavigationSubmenu,
+    component: NavigationSubmenuFn,
     exportState: ['children', 'headerButton', 'isOpen', 'callback'],
     state: {
         callback: () => ({
@@ -99,12 +99,12 @@ export const navigationSubmenuDef = createComponent({
             type: Boolean,
         }),
     },
-    child: [navigationButtonDef],
+    child: [NavigationButton],
 });
 
-export const navigationDef = createComponent({
+export const Navigation = createComponent({
     name: 'mob-navigation',
-    component: Navigation,
+    component: NavigationFn,
     exportState: ['currentAccordionId'],
     state: {
         currentAccordionId: () => ({
@@ -113,11 +113,11 @@ export const navigationDef = createComponent({
             skipEqual: false,
         }),
     },
-    child: [navigationLabelDef, navigationSubmenuDef, navigationButtonDef],
+    child: [NavigationLabel, NavigationSubmenu, NavigationButton],
 });
 
-export const navigationComponentDef = createComponent({
+export const NavigationContainer = createComponent({
     name: 'mob-navigation-container',
-    component: NavigationContainer,
-    child: [navigationDef],
+    component: NavigationContainerFn,
+    child: [Navigation],
 });

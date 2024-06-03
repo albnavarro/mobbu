@@ -1,10 +1,10 @@
 import { createComponent } from '../../../../mobjs';
-import { FooterNavButton } from './footerButton';
-import { FooterNav } from './footerNav';
+import { FooterNavButtonFn } from './footerButton';
+import { FooterNavFn } from './footerNav';
 
-export const footerNavButtonDef = createComponent({
+export const FooterNavButton = createComponent({
     name: 'footer-nav-button',
-    component: FooterNavButton,
+    component: FooterNavButtonFn,
     exportState: ['label', 'section'],
     state: {
         label: () => ({
@@ -18,8 +18,8 @@ export const footerNavButtonDef = createComponent({
     },
 });
 
-export const footerNavDef = createComponent({
+export const FooterNav = createComponent({
     name: 'footer-nav',
-    component: FooterNav,
-    child: [footerNavButtonDef],
+    component: FooterNavFn,
+    child: [FooterNavButton],
 });
