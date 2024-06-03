@@ -17,7 +17,7 @@ import { staticPropsMap } from '../../../mobjs/temporaryData/staticProps';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const DebugButton = ({ html, delegateEvents }) => {
+export const DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
         <button
             type="button"

@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { AnimationTitle } from './animationTitle';
+import { AnimationTitleFn } from './animationTitle';
 
-export const animationTitleDef = createComponent({
+export const AnimationTitle = createComponent({
     name: 'animation-title',
-    component: AnimationTitle,
+    component: AnimationTitleFn,
     exportState: ['title', 'align', 'color'],
     state: {
         title: () => ({

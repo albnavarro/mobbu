@@ -85,7 +85,7 @@ const printContent = async ({
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const CodeOverlay = ({
+export const CodeOverlayFn = ({
     onMount,
     setState,
     getState,

@@ -1,14 +1,14 @@
 import { createComponent } from '../../../mobjs';
 import { htmlContentDef } from '../htmlContent/definition';
-import { CodeOverlay } from './codeOverlay';
-import { CodeOverlayButton } from './codeOverlayButton';
+import { CodeOverlayFn } from './codeOverlay';
+import { CodeOverlayButtonFn } from './codeOverlayButton';
 
 /**
  * Button state ( each for every drawer ).
  */
-export const codeOverlayButtonDef = createComponent({
+export const CodeOverlayButton = createComponent({
     name: 'code-overlay-button',
-    component: CodeOverlayButton,
+    component: CodeOverlayButtonFn,
     exportState: ['key', 'selected', 'disable'],
     state: {
         key: '',
@@ -26,9 +26,9 @@ export const codeOverlayButtonDef = createComponent({
 /**
  * Overlay state
  */
-export const codeOverlayDef = createComponent({
+export const CodeOverlay = createComponent({
     name: 'code-overlay',
-    component: CodeOverlay,
+    component: CodeOverlayFn,
     exportState: ['urls', 'activeContent'],
     state: {
         urls: () => ({
@@ -46,5 +46,5 @@ export const codeOverlayDef = createComponent({
             type: String,
         }),
     },
-    child: [codeOverlayButtonDef, htmlContentDef],
+    child: [CodeOverlayButton, htmlContentDef],
 });

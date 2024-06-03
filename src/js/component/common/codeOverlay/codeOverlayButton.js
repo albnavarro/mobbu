@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const CodeOverlayButton = ({ onMount, watch, getState, html }) => {
+export const CodeOverlayButtonFn = ({ onMount, watch, getState, html }) => {
     const { key, disable } = getState();
 
     onMount(({ element }) => {

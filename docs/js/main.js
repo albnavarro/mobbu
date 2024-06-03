@@ -21978,7 +21978,7 @@
   };
 
   // src/js/component/common/docsContainer/docContainer.js
-  var DocContainer = ({ html, onMount }) => {
+  var DocContainerFn = ({ html, onMount }) => {
     onMount(() => {
       window.scrollTo(0, 0);
       const logoM1Id = getIdByInstanceName("m1_logo");
@@ -22002,13 +22002,13 @@
   };
 
   // src/js/component/common/docsContainer/definition.js
-  var docsContainerComponentDef = createComponent({
+  var DocContainer = createComponent({
     name: "doc-container",
-    component: DocContainer
+    component: DocContainerFn
   });
 
   // src/js/component/common/doctitle/docSide.js
-  var DocTitle = ({ html }) => {
+  var DocTitleFn = ({ html }) => {
     return html`
         <div class="c-doc-title">
             <h2><mobjs-slot /></h2>
@@ -22017,9 +22017,9 @@
   };
 
   // src/js/component/common/doctitle/definition.js
-  var docsTitleComponentDef = createComponent({
+  var DocTitle = createComponent({
     name: "doc-title",
-    component: DocTitle,
+    component: DocTitleFn,
     state: {}
   });
 
@@ -24809,10 +24809,10 @@ Loading snippet ...</pre
 
   // src/js/pages/about/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var about = async () => {
@@ -24835,9 +24835,9 @@ Loading snippet ...</pre
 
   // src/js/pages/plugin/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -25379,10 +25379,10 @@ Loading snippet ...</pre
 
   // src/js/pages/canvas/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var canvas_overview = async () => {
@@ -26843,9 +26843,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -26869,9 +26869,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/initialization/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -26897,9 +26897,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/routing/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -26925,9 +26925,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/component/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -27112,9 +27112,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/html/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27145,9 +27145,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/onMount/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27178,9 +27178,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/getState/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27211,9 +27211,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/setState/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27244,9 +27244,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/emit/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27277,9 +27277,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/emitAsync/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27310,9 +27310,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/computed/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27343,9 +27343,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/watch/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27376,9 +27376,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/watchSync/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27409,9 +27409,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/renderComponent/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27442,9 +27442,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/remove/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27475,9 +27475,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/removeDom/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27508,9 +27508,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/getChildren/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27541,9 +27541,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/freezeProp/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27574,9 +27574,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/unFreezeProp/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27607,9 +27607,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/getParentId/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27640,9 +27640,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/watchParent/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27673,9 +27673,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/staticProps/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27706,9 +27706,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/bindProps/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27739,9 +27739,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/unBind/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27772,9 +27772,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/syncParent/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27805,9 +27805,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/bindEvents/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27838,9 +27838,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/delegateEvents/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27871,9 +27871,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/repeat/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef
   ]);
@@ -27904,9 +27904,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/refs/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -27932,9 +27932,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/slot/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -27960,9 +27960,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/utils/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -27988,9 +27988,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/webComponent/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28016,9 +28016,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/debug/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28044,9 +28044,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/runtime/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28072,9 +28072,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/instanceName/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28100,9 +28100,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobJs/tick/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28128,10 +28128,10 @@ Loading snippet ...</pre
 
   // src/js/pages/mobCore/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var mobCore_overview = async () => {
@@ -28154,10 +28154,10 @@ Loading snippet ...</pre
 
   // src/js/pages/mobCore/events/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var mobCore_events = async () => {
@@ -28182,10 +28182,10 @@ Loading snippet ...</pre
 
   // src/js/pages/mobCore/store/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var mobCore_store = async () => {
@@ -28210,10 +28210,10 @@ Loading snippet ...</pre
 
   // src/js/pages/mobCore/defaults/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
     scrollToDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef
   ]);
   var mobCore_defaults = async () => {
@@ -28238,9 +28238,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/asyncTimeline/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28267,9 +28267,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/createStagger/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28296,9 +28296,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28322,9 +28322,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/parallax/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28351,9 +28351,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/scrollTrigger/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28380,9 +28380,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/sequencer/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28409,9 +28409,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/stagger/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28438,9 +28438,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/syncTimeline/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28467,9 +28467,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/tweenSpringLerp/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28496,9 +28496,9 @@ Loading snippet ...</pre
 
   // src/js/pages/mobMotion/defaults/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28525,9 +28525,9 @@ Loading snippet ...</pre
 
   // src/js/pages/svg/overview/index.js
   useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     scrollToDef
   ]);
@@ -28970,7 +28970,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitle = ({ html, onMount, watchSync }) => {
+  var AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop")) return;
       const { titleEl } = refs;
@@ -28998,9 +28998,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/animationTitle/definition.js
-  var animationTitleDef = createComponent({
+  var AnimationTitle = createComponent({
     name: "animation-title",
-    component: AnimationTitle,
+    component: AnimationTitleFn,
     exportState: ["title", "align", "color"],
     state: {
       title: () => ({
@@ -29028,7 +29028,7 @@ Loading snippet ...</pre
   var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/codeButton/codeButton.js
-  var CodeButton = ({
+  var CodeButtonFn = ({
     getState,
     watchSync,
     onMount,
@@ -29087,9 +29087,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/codeButton/definition.js
-  var codeButtonComponentDef = createComponent({
+  var CodeButton = createComponent({
     name: "code-button",
-    component: CodeButton,
+    component: CodeButtonFn,
     exportState: ["drawers", "color"],
     state: {
       drawers: () => ({
@@ -29194,7 +29194,7 @@ Loading snippet ...</pre
     updateScroller();
     goToTop();
   };
-  var CodeOverlay = ({
+  var CodeOverlayFn = ({
     onMount,
     setState,
     getState,
@@ -29321,7 +29321,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/codeOverlay/codeOverlayButton.js
-  var CodeOverlayButton = ({ onMount, watch, getState, html }) => {
+  var CodeOverlayButtonFn = ({ onMount, watch, getState, html }) => {
     const { key, disable } = getState();
     onMount(({ element }) => {
       const unwatchSelected = watch("selected", (selected) => {
@@ -29338,9 +29338,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/codeOverlay/definition.js
-  var codeOverlayButtonDef = createComponent({
+  var CodeOverlayButton = createComponent({
     name: "code-overlay-button",
-    component: CodeOverlayButton,
+    component: CodeOverlayButtonFn,
     exportState: ["key", "selected", "disable"],
     state: {
       key: "",
@@ -29354,9 +29354,9 @@ Loading snippet ...</pre
       })
     }
   });
-  var codeOverlayDef = createComponent({
+  var CodeOverlay = createComponent({
     name: "code-overlay",
-    component: CodeOverlay,
+    component: CodeOverlayFn,
     exportState: ["urls", "activeContent"],
     state: {
       urls: () => ({
@@ -29374,11 +29374,11 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [codeOverlayButtonDef, htmlContentDef]
+    child: [CodeOverlayButton, htmlContentDef]
   });
 
   // src/js/component/common/debug/debugButton.js
-  var DebugButton = ({ html, delegateEvents }) => {
+  var DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
         <button
             type="button"
@@ -29410,9 +29410,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/definition.js
-  var debugButtonComponentDef = createComponent({
+  var CebugButton = createComponent({
     name: "debug-button",
-    component: DebugButton
+    component: DebugButtonFn
   });
 
   // src/js/component/common/mLogo1/mLogo1.js
@@ -30349,17 +30349,17 @@ Loading snippet ...</pre
 
   // src/js/wrapper/index.js
   useComponent([
-    codeOverlayDef,
+    CodeOverlay,
     headerComponentDef,
     navigationComponentDef,
     footerComponentDef,
     quickNavDef,
     routeLoaderDef,
-    animationTitleDef,
+    AnimationTitle,
     mLogo1SvgDef,
     scrollDownLabelDef,
-    codeButtonComponentDef,
-    debugButtonComponentDef
+    CodeButton,
+    CebugButton
   ]);
   var wrapper = async () => {
     const { data: svg } = await loadTextContent({

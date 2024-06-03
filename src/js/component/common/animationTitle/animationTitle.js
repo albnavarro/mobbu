@@ -4,7 +4,7 @@ import { motionCore } from '../../../mobMotion';
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const AnimationTitle = ({ html, onMount, watchSync }) => {
+export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 

@@ -1,8 +1,8 @@
 import { createComponent } from '../../../mobjs';
-import { DocTitle } from './docSide';
+import { DocTitleFn } from './docSide';
 
-export const docsTitleComponentDef = createComponent({
+export const DocTitle = createComponent({
     name: 'doc-title',
-    component: DocTitle,
+    component: DocTitleFn,
     state: {},
 });

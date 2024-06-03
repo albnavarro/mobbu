@@ -1,7 +1,7 @@
-import { animationTitleDef } from '../component/common/animationTitle/definition';
-import { codeButtonComponentDef } from '../component/common/codeButton/definition';
-import { codeOverlayDef } from '../component/common/codeOverlay/definition';
-import { debugButtonComponentDef } from '../component/common/debug/definition';
+import { AnimationTitle } from '../component/common/animationTitle/definition';
+import { CodeButton } from '../component/common/codeButton/definition';
+import { CodeOverlay } from '../component/common/codeOverlay/definition';
+import { CebugButton } from '../component/common/debug/definition';
 import { mLogo1SvgDef } from '../component/common/mLogo1/definition';
 import { quickNavDef } from '../component/common/nextPage/definition';
 import { routeLoaderDef } from '../component/common/routeLoader/definition';
@@ -13,17 +13,17 @@ import { html, staticProps, useComponent } from '../mobjs';
 import { loadTextContent } from '../utils/utils';
 
 useComponent([
-    codeOverlayDef,
+    CodeOverlay,
     headerComponentDef,
     navigationComponentDef,
     footerComponentDef,
     quickNavDef,
     routeLoaderDef,
-    animationTitleDef,
+    AnimationTitle,
     mLogo1SvgDef,
     scrollDownLabelDef,
-    codeButtonComponentDef,
-    debugButtonComponentDef,
+    CodeButton,
+    CebugButton,
 ]);
 
 export const wrapper = async () => {

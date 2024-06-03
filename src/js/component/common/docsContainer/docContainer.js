@@ -3,7 +3,7 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
 /**
  * @param {import("../../../mobjs/type").componentType}
  */
-export const DocContainer = ({ html, onMount }) => {
+export const DocContainerFn = ({ html, onMount }) => {
     onMount(() => {
         window.scrollTo(0, 0);
 

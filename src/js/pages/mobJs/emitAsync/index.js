@@ -1,5 +1,5 @@
-import { docsContainerComponentDef } from '../../../component/common/docsContainer/definition';
-import { docsTitleComponentDef } from '../../../component/common/doctitle/definition';
+import { DocContainer } from '../../../component/common/docsContainer/definition';
+import { DocTitle } from '../../../component/common/doctitle/definition';
 import { docsTitleSmallComponentDef } from '../../../component/common/doctitleSmall/definition';
 import { htmlContentDef } from '../../../component/common/htmlContent/definition';
 import { paramsMobJsDef } from '../../../component/common/linksMobJs/definition';
@@ -7,9 +7,9 @@ import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
 useComponent([
-    docsContainerComponentDef,
+    DocContainer,
     docsTitleSmallComponentDef,
-    docsTitleComponentDef,
+    DocTitle,
     htmlContentDef,
     paramsMobJsDef,
 ]);

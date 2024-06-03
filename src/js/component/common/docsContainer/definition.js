@@ -1,7 +1,7 @@
 import { createComponent } from '../../../mobjs';
-import { DocContainer } from './docContainer';
+import { DocContainerFn } from './docContainer';
 
-export const docsContainerComponentDef = createComponent({
+export const DocContainer = createComponent({
     name: 'doc-container',
-    component: DocContainer,
+    component: DocContainerFn,
 });
