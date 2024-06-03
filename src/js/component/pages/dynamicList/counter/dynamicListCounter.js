@@ -1,7 +1,7 @@
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const DynamicListCounter = async ({
+export const DynamicListCounterFn = async ({
     watch,
     onMount,
     html,

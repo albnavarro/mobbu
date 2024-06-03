@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { DynamicListSlottedLabel } from './dynamicListSlottedLabel';
+import { DynamicListSlottedLabelFn } from './dynamicListSlottedLabel';
 
-export const dynamicListLabelDef = createComponent({
+export const DynamicListSlottedLabel = createComponent({
     name: 'dynamic-slotted-label',
-    component: DynamicListSlottedLabel,
+    component: DynamicListSlottedLabelFn,
     exportState: ['label'],
     state: {
         label: () => ({

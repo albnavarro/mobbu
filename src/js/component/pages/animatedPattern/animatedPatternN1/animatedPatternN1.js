@@ -7,7 +7,7 @@ import { animatedPatternN1Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const AnimatedPatternN1 = ({ onMount, html, getState }) => {
+export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
     onMount(({ refs }) => {

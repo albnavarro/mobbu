@@ -7,7 +7,7 @@ import { scrollerN0Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const ScrollerN0 = ({ onMount, html, getState }) => {
+export const ScrollerN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 

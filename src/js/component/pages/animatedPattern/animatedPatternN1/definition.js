@@ -1,11 +1,11 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
-import { AnimatedPatternN1 } from './animatedPatternN1';
+import { AnimatedPatternN1Fn } from './animatedPatternN1';
 
-export const animatedPatternN1Def = createComponent({
+export const AnimatedPatternN1 = createComponent({
     name: 'animatedpattern-n1',
-    component: AnimatedPatternN1,
+    component: AnimatedPatternN1Fn,
     exportState: [
         'numberOfRow',
         'numberOfColumn',

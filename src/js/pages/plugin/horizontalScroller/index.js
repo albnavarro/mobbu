@@ -1,9 +1,9 @@
-import { horizontalScrollerDef } from '../../../component/pages/horizontalScroller/definition';
+import { HorizontalScroller } from '../../../component/pages/horizontalScroller/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { loadTextContent } from '../../../utils/utils';
 import { horizontalScrollerParams } from './horizontalScrollerParams';
 
-useComponent([horizontalScrollerDef]);
+useComponent([HorizontalScroller]);
 
 export const horizontalScroller = async ({ params }) => {
     const { version } = params;

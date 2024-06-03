@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const horizontalScrollerSection = ({ html, getState }) => {
+export const HorizontalScrollerSectionFn = ({ html, getState }) => {
     const { id, pinClass } = getState();
 
     return html`

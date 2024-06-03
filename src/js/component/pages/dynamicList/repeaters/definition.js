@@ -1,11 +1,11 @@
 import { createComponent } from '../../../../mobjs';
-import { dynamicListCardDef } from '../card/definition';
-import { dynamicListLabelDef } from '../slottedLabel/definition';
-import { DynamicListRepeater } from './dynamicListRepeater';
+import { DynamicListCard } from '../card/definition';
+import { DynamicListSlottedLabel } from '../slottedLabel/definition';
+import { DynamicListRepeaterFn } from './dynamicListRepeater';
 
-export const dynamicListRepeaterDef = createComponent({
+export const DynamicListRepeater = createComponent({
     name: 'dynamic-list-repeater',
-    component: DynamicListRepeater,
+    component: DynamicListRepeaterFn,
     exportState: [
         'label',
         'clean',
@@ -41,5 +41,5 @@ export const dynamicListRepeaterDef = createComponent({
             type: String,
         }),
     },
-    child: [dynamicListCardDef, dynamicListLabelDef],
+    child: [DynamicListCard, DynamicListSlottedLabel],
 });

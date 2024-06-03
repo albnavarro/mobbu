@@ -1,7 +1,7 @@
-import { scrollerN1Def } from '../../../component/pages/scroller/ScrollerN1/definition';
+import { ScrollerN1 } from '../../../component/pages/scroller/ScrollerN1/definition';
 import { html, useComponent } from '../../../mobjs';
 
-useComponent([scrollerN1Def]);
+useComponent([ScrollerN1]);
 
 export const scrollerN1 = () => {
     return html`<div class="l-padding">

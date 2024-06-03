@@ -5,7 +5,7 @@
 function setContent(value) {
     return `slotted: ${value}`;
 }
-export const DynamicListSlottedLabel = async ({
+export const DynamicListSlottedLabelFn = async ({
     html,
     onMount,
     watch,

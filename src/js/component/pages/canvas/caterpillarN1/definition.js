@@ -1,11 +1,11 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
-import { CaterpillarN1 } from './caterpillarN1';
+import { CaterpillarN1Fn } from './caterpillarN1';
 
-export const caterpillarN1Def = createComponent({
+export const CaterpillarN1 = createComponent({
     name: 'caterpillar-n1',
-    component: CaterpillarN1,
+    component: CaterpillarN1Fn,
     exportState: [
         'numItems',
         'width',

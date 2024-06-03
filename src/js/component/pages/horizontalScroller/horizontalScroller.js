@@ -58,7 +58,7 @@ const getNav = ({
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HorizontalScroller = ({
+export const HorizontalScrollerFn = ({
     onMount,
     html,
     getState,

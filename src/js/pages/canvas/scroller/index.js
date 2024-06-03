@@ -1,8 +1,8 @@
-import { scrollerN0Def } from '../../../component/pages/scroller/ScrollerN0/definition';
+import { ScrollerN0 } from '../../../component/pages/scroller/ScrollerN0/definition';
 import { html, staticProps, useComponent } from '../../../mobjs';
 import { scrollerParams } from './scrollerParams';
 
-useComponent([scrollerN0Def]);
+useComponent([ScrollerN0]);
 
 export const scrollerN0 = ({ params }) => {
     const { version } = params;

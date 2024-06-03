@@ -15,7 +15,7 @@ function updateContent(label, val) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const DynamicListCard = ({
+export const DynamicListCardFn = ({
     getState,
     html,
     onMount,

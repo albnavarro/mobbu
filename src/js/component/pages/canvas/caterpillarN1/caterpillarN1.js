@@ -7,7 +7,7 @@ import { caterpillarN1Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN1 = ({ onMount, html, getState }) => {
+export const CaterpillarN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
     onMount(({ refs }) => {

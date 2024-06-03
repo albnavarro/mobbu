@@ -1,7 +1,7 @@
 /**
  * @param {import("../../../../mobjs/type").componentType}
  */
-export const HorizontalScrollerButton = ({
+export const HorizontalScrollerButtonFn = ({
     getState,
     watch,
     html,

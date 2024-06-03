@@ -1,13 +1,13 @@
 import { createComponent } from '../../../mobjs';
 import { OnlyDesktop } from '../../common/onlyDesktop/definition';
-import { dynamicListButtonDef } from './button/definition';
+import { DynamicListButton } from './button/definition';
 import { startData } from './data';
-import { DynamicList } from './dynamicList';
-import { dynamicListRepeaterDef } from './repeaters/definition';
+import { DynamicListFn } from './dynamicList';
+import { DynamicListRepeater } from './repeaters/definition';
 
-export const dynamicListDef = createComponent({
+export const DynamicList = createComponent({
     name: 'dynamic-list',
-    component: DynamicList,
+    component: DynamicListFn,
     state: {
         counter: () => ({
             value: 0,
@@ -22,5 +22,5 @@ export const dynamicListDef = createComponent({
             type: Number,
         }),
     },
-    child: [dynamicListButtonDef, dynamicListRepeaterDef, OnlyDesktop],
+    child: [DynamicListButton, DynamicListRepeater, OnlyDesktop],
 });

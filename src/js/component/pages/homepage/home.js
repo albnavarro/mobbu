@@ -12,7 +12,7 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 /**
  * @param {import('../../../mobjs/type').componentType}
  */
-export const HomeComponent = ({ html, onMount, getState }) => {
+export const HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
 
     onMount(async ({ refs }) => {

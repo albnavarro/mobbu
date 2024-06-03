@@ -7,7 +7,7 @@ import { animatedPatternN0Animation } from './animation/animation';
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const AnimatedPatternN0 = ({ onMount, html, getState }) => {
+export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 

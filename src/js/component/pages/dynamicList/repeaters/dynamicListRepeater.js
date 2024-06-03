@@ -60,7 +60,7 @@ function afterUpdateList({ element, className, childrenId }) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const DynamicListRepeater = ({
+export const DynamicListRepeaterFn = ({
     getState,
     html,
     repeat,

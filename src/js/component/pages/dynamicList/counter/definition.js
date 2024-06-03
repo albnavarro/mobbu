@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { DynamicListCounter } from './dynamicListCounter';
+import { DynamicListCounterFn } from './dynamicListCounter';
 
-export const dynamicCounterDef = createComponent({
+export const DynamicCounter = createComponent({
     name: 'dynamic-list-counter',
-    component: DynamicListCounter,
+    component: DynamicListCounterFn,
     exportState: ['counter', 'parentListId'],
     state: {
         parentListId: () => ({

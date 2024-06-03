@@ -1,7 +1,7 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
-import { CaterpillarN2 } from './caterpillarN2';
+import { CaterpillarN2Fn } from './caterpillarN2';
 
 const duration = 10;
 
@@ -48,9 +48,9 @@ const buttons = {
     },
 };
 
-export const caterpillarN2Def = createComponent({
+export const CaterpillarN2 = createComponent({
     name: 'caterpillar-n2',
-    component: CaterpillarN2,
+    component: CaterpillarN2Fn,
     exportState: [
         'numItems',
         'width',

@@ -1,7 +1,7 @@
 import { createComponent } from '../../../../mobjs';
-import { DynamicListEmpty } from './dynamicListEmpty';
+import { DynamicListEmptyFn } from './dynamicListEmpty';
 
-export const dynamicListEmptyDef = createComponent({
+export const DynamicListEmpty = createComponent({
     name: 'dynamic-list-empty',
-    component: DynamicListEmpty,
+    component: DynamicListEmptyFn,
 });

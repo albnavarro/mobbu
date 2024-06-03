@@ -1,9 +1,9 @@
 import { createComponent } from '../../../mobjs';
-import { HomeComponent } from './home';
+import { HomeComponentFn } from './home';
 
-export const homePageComponentDef = createComponent({
+export const HomeComponent = createComponent({
     name: 'home-component',
-    component: HomeComponent,
+    component: HomeComponentFn,
     exportState: ['svg'],
     state: {
         svg: () => ({

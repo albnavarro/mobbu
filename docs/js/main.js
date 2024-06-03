@@ -20132,7 +20132,7 @@
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
-  var AnimatedPatternN0 = ({ onMount, html, getState }) => {
+  var AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
@@ -20200,9 +20200,9 @@
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/definition.js
-  var animatedPatternN0Def = createComponent({
+  var AnimatedPatternN0 = createComponent({
     name: "animatedpattern-n0",
-    component: AnimatedPatternN0,
+    component: AnimatedPatternN0Fn,
     exportState: [
       "title",
       "nextRoute",
@@ -20406,7 +20406,7 @@
   ];
 
   // src/js/pages/canvas/animatedPatternN0/index.js
-  useComponent([animatedPatternN0Def]);
+  useComponent([AnimatedPatternN0]);
   var animatedPatternN0 = ({ params }) => {
     const { version } = params;
     const props = animatedPatternN0Params[Math.max(
@@ -20631,7 +20631,7 @@
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
-  var AnimatedPatternN1 = ({ onMount, html, getState }) => {
+  var AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop")) return;
@@ -20706,9 +20706,9 @@
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/definition.js
-  var animatedPatternN1Def = createComponent({
+  var AnimatedPatternN1 = createComponent({
     name: "animatedpattern-n1",
-    component: AnimatedPatternN1,
+    component: AnimatedPatternN1Fn,
     exportState: [
       "numberOfRow",
       "numberOfColumn",
@@ -20759,7 +20759,7 @@
   });
 
   // src/js/pages/canvas/animatedPatternN1/index.js
-  useComponent([animatedPatternN1Def]);
+  useComponent([AnimatedPatternN1]);
   var animatedPatternN1 = () => {
     return renderHtml`<div class="l-padding">
         <animatedpattern-n1></animatedpattern-n1>
@@ -20953,7 +20953,7 @@
   };
 
   // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
-  var CaterpillarN0 = ({ onMount, html, getState }) => {
+  var CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop")) return;
@@ -21022,9 +21022,9 @@
   };
 
   // src/js/component/pages/canvas/caterpillarN0/definition.js
-  var caterpillarN0Def = createComponent({
+  var CaterpillarN0 = createComponent({
     name: "caterpillar-n0",
-    component: CaterpillarN0,
+    component: CaterpillarN0Fn,
     exportState: [
       "nextRoute",
       "prevRoute",
@@ -21067,7 +21067,7 @@
   });
 
   // src/js/pages/canvas/caterpillarN0/index.js
-  useComponent([caterpillarN0Def]);
+  useComponent([CaterpillarN0]);
   var caterpillarN0 = () => {
     return renderHtml`<div class="l-padding">
         <caterpillar-n0></caterpillar-n0>
@@ -21278,7 +21278,7 @@
   };
 
   // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
-  var CaterpillarN1 = ({ onMount, html, getState }) => {
+  var CaterpillarN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop")) return;
@@ -21348,9 +21348,9 @@
   };
 
   // src/js/component/pages/canvas/caterpillarN1/definition.js
-  var caterpillarN1Def = createComponent({
+  var CaterpillarN1 = createComponent({
     name: "caterpillar-n1",
-    component: CaterpillarN1,
+    component: CaterpillarN1Fn,
     exportState: [
       "numItems",
       "width",
@@ -21379,7 +21379,7 @@
   });
 
   // src/js/pages/canvas/caterpillarN1/index.js
-  useComponent([caterpillarN1Def]);
+  useComponent([CaterpillarN1]);
   var caterpillarN1 = () => {
     return renderHtml`<div class="l-padding">
         <caterpillar-n1></caterpillar-n1>
@@ -21597,7 +21597,7 @@
             </li>`;
     }).join("");
   }
-  var CaterpillarN2 = ({ onMount, html, getState }) => {
+  var CaterpillarN2Fn = ({ onMount, html, getState }) => {
     const { buttons: buttons3, rotationDefault } = getState();
     document.body.style.background = "#000000";
     onMount(({ element, refs }) => {
@@ -21744,9 +21744,9 @@
       method: "resume"
     }
   };
-  var caterpillarN2Def = createComponent({
+  var CaterpillarN2 = createComponent({
     name: "caterpillar-n2",
-    component: CaterpillarN2,
+    component: CaterpillarN2Fn,
     exportState: [
       "numItems",
       "width",
@@ -21783,7 +21783,7 @@
   });
 
   // src/js/pages/canvas/caterpillarN2/index.js
-  useComponent([caterpillarN2Def]);
+  useComponent([CaterpillarN2]);
   var caterpillarN2 = () => {
     return renderHtml`<div class="l-padding">
         <caterpillar-n2></caterpillar-n2>
@@ -21866,7 +21866,7 @@
     await playIntro();
     playSvg();
   };
-  var HomeComponent = ({ html, onMount, getState }) => {
+  var HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
     onMount(async ({ refs }) => {
       const { textStagger, svg_group } = refs;
@@ -21954,9 +21954,9 @@
   };
 
   // src/js/component/pages/homepage/definition.js
-  var homePageComponentDef = createComponent({
+  var HomeComponent = createComponent({
     name: "home-component",
-    component: HomeComponent,
+    component: HomeComponentFn,
     exportState: ["svg"],
     state: {
       svg: () => ({
@@ -21967,7 +21967,7 @@
   });
 
   // src/js/pages/home/index.js
-  useComponent([homePageComponentDef]);
+  useComponent([HomeComponent]);
   var home = async () => {
     const { data: svg } = await loadTextContent({
       source: "./asset/svg/ms.svg"
@@ -25038,7 +25038,7 @@ Loading snippet ...</pre
             `;
     }).join("");
   };
-  var HorizontalScroller2 = ({
+  var HorizontalScrollerFn = ({
     onMount,
     html,
     getState,
@@ -25178,7 +25178,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/horizontalScrollerButton.js
-  var HorizontalScrollerButton = ({
+  var HorizontalScrollerButtonFn = ({
     getState,
     watch,
     html,
@@ -25208,9 +25208,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerButton/definition.js
-  var horizontalScrollerButtonDef = createComponent({
+  var HorizontalScrollerButton = createComponent({
     name: "horizontal-scroller-button",
-    component: HorizontalScrollerButton,
+    component: HorizontalScrollerButtonFn,
     exportState: ["id", "active"],
     state: {
       id: () => ({
@@ -25225,7 +25225,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerSection/horizontalScrollerSection.js
-  var horizontalScrollerSection = ({ html, getState }) => {
+  var HorizontalScrollerSectionFn = ({ html, getState }) => {
     const { id, pinClass } = getState();
     return html`
         <section
@@ -25245,9 +25245,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/horizontalScroller/horizontalScrollerSection/definition.js
-  var horizontalScrollerSectionDef = createComponent({
+  var HorizontalScrollerSection = createComponent({
     name: "horizontal-scroller-section",
-    component: horizontalScrollerSection,
+    component: HorizontalScrollerSectionFn,
     exportState: ["id", "pinClass"],
     state: {
       id: () => ({
@@ -25262,9 +25262,9 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/horizontalScroller/definition.js
-  var horizontalScrollerDef = createComponent({
+  var HorizontalScroller2 = createComponent({
     name: "horizontal-scroller",
-    component: HorizontalScroller2,
+    component: HorizontalScrollerFn,
     exportState: [
       "nextRoute",
       "prevRoute",
@@ -25304,11 +25304,7 @@ Loading snippet ...</pre
         type: Boolean
       })
     },
-    child: [
-      horizontalScrollerButtonDef,
-      horizontalScrollerSectionDef,
-      FooterShapeV1
-    ]
+    child: [HorizontalScrollerButton, HorizontalScrollerSection, FooterShapeV1]
   });
 
   // src/js/pages/plugin/horizontalScroller/horizontalScrollerParams.js
@@ -25332,7 +25328,7 @@ Loading snippet ...</pre
   ];
 
   // src/js/pages/plugin/horizontalScroller/index.js
-  useComponent([horizontalScrollerDef]);
+  useComponent([HorizontalScroller2]);
   var horizontalScroller = async ({ params }) => {
     const { version } = params;
     const props = horizontalScrollerParams[Math.max(
@@ -25596,7 +25592,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
-  var ScrollerN0 = ({ onMount, html, getState }) => {
+  var ScrollerN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
@@ -25671,9 +25667,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN0/definition.js
-  var scrollerN0Def = createComponent({
+  var ScrollerN0 = createComponent({
     name: "scroller-n0",
-    component: ScrollerN0,
+    component: ScrollerN0Fn,
     exportState: [
       "title",
       "nextRoute",
@@ -25835,7 +25831,7 @@ Loading snippet ...</pre
   ];
 
   // src/js/pages/canvas/scroller/index.js
-  useComponent([scrollerN0Def]);
+  useComponent([ScrollerN0]);
   var scrollerN0 = ({ params }) => {
     const { version } = params;
     const props = scrollerParams[Math.max(0, Math.min(Number(version), scrollerParams.length - 1))];
@@ -26027,7 +26023,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN1/scrollerN1.js
-  var ScrollerN1 = ({ onMount, html, getState }) => {
+  var ScrollerN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ refs }) => {
       if (motionCore.mq("max", "desktop")) return;
@@ -26104,9 +26100,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN1/definition.js
-  var scrollerN1Def = createComponent({
+  var ScrollerN1 = createComponent({
     name: "scroller-n1",
-    component: ScrollerN1,
+    component: ScrollerN1Fn,
     exportState: [
       "amountOfPath",
       "width",
@@ -26131,7 +26127,7 @@ Loading snippet ...</pre
   });
 
   // src/js/pages/canvas/scrollerN1/index.js
-  useComponent([scrollerN1Def]);
+  useComponent([ScrollerN1]);
   var scrollerN1 = () => {
     return renderHtml`<div class="l-padding">
         <scroller-n1></scroller-n1>
@@ -26139,7 +26135,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/button/dynamicListButton.js
-  var DynamicListButton = ({ html, getState, onMount, watchSync }) => {
+  var DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();
     onMount(({ element }) => {
       watchSync("active", (value) => {
@@ -26152,9 +26148,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/button/definition.js
-  var dynamicListButtonDef = createComponent({
+  var DynamicListButton = createComponent({
     name: "dynamic-list-button",
-    component: DynamicListButton,
+    component: DynamicListButtonFn,
     exportState: ["active", "label"],
     state: {
       label: () => ({
@@ -26376,7 +26372,7 @@ Loading snippet ...</pre
             `;
     }).join("");
   }
-  var DynamicList = async ({
+  var DynamicListFn = async ({
     setState,
     html,
     onMount,
@@ -26467,7 +26463,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/counter/dynamicListCounter.js
-  var DynamicListCounter = async ({
+  var DynamicListCounterFn = async ({
     watch,
     onMount,
     html,
@@ -26489,9 +26485,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/counter/definition.js
-  var dynamicCounterDef = createComponent({
+  var DynamicCounter = createComponent({
     name: "dynamic-list-counter",
-    component: DynamicListCounter,
+    component: DynamicListCounterFn,
     exportState: ["counter", "parentListId"],
     state: {
       parentListId: () => ({
@@ -26506,7 +26502,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
-  var DynamicListEmpty = async ({ html }) => {
+  var DynamicListEmptyFn = async ({ html }) => {
     return html`<div class="c-dynamic-list-empty">
         <p>empty comp</p>
         <mobjs-slot name="empty-slot"></mobjs-slot>
@@ -26514,16 +26510,16 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/empty/definition.js
-  var dynamicListEmptyDef = createComponent({
+  var DynamicListEmpty = createComponent({
     name: "dynamic-list-empty",
-    component: DynamicListEmpty
+    component: DynamicListEmptyFn
   });
 
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
   function updateContent(label, val2) {
     return `${label}: ${val2}`;
   }
-  var DynamicListCard = ({
+  var DynamicListCardFn = ({
     getState,
     html,
     onMount,
@@ -26590,9 +26586,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/card/definition.js
-  var dynamicListCardDef = createComponent({
+  var DynamicListCard = createComponent({
     name: "dynamic-list-card",
-    component: DynamicListCard,
+    component: DynamicListCardFn,
     exportState: ["isFull", "label", "index", "counter", "parentListId"],
     state: {
       parentListId: () => ({
@@ -26616,14 +26612,14 @@ Loading snippet ...</pre
         type: Number
       })
     },
-    child: [dynamicCounterDef, dynamicListEmptyDef]
+    child: [DynamicCounter, DynamicListEmpty]
   });
 
   // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js
   function setContent(value) {
     return `slotted: ${value}`;
   }
-  var DynamicListSlottedLabel = async ({
+  var DynamicListSlottedLabelFn = async ({
     html,
     onMount,
     watch,
@@ -26642,9 +26638,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/slottedLabel/definition.js
-  var dynamicListLabelDef = createComponent({
+  var DynamicListSlottedLabel = createComponent({
     name: "dynamic-slotted-label",
-    component: DynamicListSlottedLabel,
+    component: DynamicListSlottedLabelFn,
     exportState: ["label"],
     state: {
       label: () => ({
@@ -26706,7 +26702,7 @@ Loading snippet ...</pre
     newElement.textContent = "";
     newElement.insertAdjacentHTML("afterbegin", updateNewElement(childrenId));
   }
-  var DynamicListRepeater = ({
+  var DynamicListRepeaterFn = ({
     getState,
     html,
     repeat,
@@ -26748,9 +26744,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/repeaters/definition.js
-  var dynamicListRepeaterDef = createComponent({
+  var DynamicListRepeater = createComponent({
     name: "dynamic-list-repeater",
-    component: DynamicListRepeater,
+    component: DynamicListRepeaterFn,
     exportState: [
       "label",
       "clean",
@@ -26786,13 +26782,13 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [dynamicListCardDef, dynamicListLabelDef]
+    child: [DynamicListCard, DynamicListSlottedLabel]
   });
 
   // src/js/component/pages/dynamicList/definition.js
-  var dynamicListDef = createComponent({
+  var DynamicList = createComponent({
     name: "dynamic-list",
-    component: DynamicList,
+    component: DynamicListFn,
     state: {
       counter: () => ({
         value: 0,
@@ -26807,11 +26803,11 @@ Loading snippet ...</pre
         type: Number
       })
     },
-    child: [dynamicListButtonDef, dynamicListRepeaterDef, OnlyDesktop]
+    child: [DynamicListButton, DynamicListRepeater, OnlyDesktop]
   });
 
   // src/js/pages/dynamicList/index.js
-  useComponent([dynamicListDef]);
+  useComponent([DynamicList]);
   var dynamic_list = () => {
     return renderHtml` <dynamic-list> </dynamic-list> `;
   };

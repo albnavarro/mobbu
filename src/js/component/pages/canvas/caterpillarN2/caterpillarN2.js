@@ -24,7 +24,7 @@ function getControls({ buttons }) {
 /**
  * @param {import('../../../../mobjs/type').componentType}
  */
-export const CaterpillarN2 = ({ onMount, html, getState }) => {
+export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
     const { buttons, rotationDefault } = getState();
     document.body.style.background = '#000000';
 

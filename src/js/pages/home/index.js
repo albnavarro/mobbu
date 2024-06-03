@@ -1,8 +1,8 @@
-import { homePageComponentDef } from '../../component/pages/homepage/definition';
+import { HomeComponent } from '../../component/pages/homepage/definition';
 import { html, staticProps, useComponent } from '../../mobjs';
 import { loadTextContent } from '../../utils/utils';
 
-useComponent([homePageComponentDef]);
+useComponent([HomeComponent]);
 
 export const home = async () => {
     const { data: svg } = await loadTextContent({

@@ -1,9 +1,9 @@
 import { createComponent } from '../../../../mobjs';
-import { DynamicListButton } from './dynamicListButton';
+import { DynamicListButtonFn } from './dynamicListButton';
 
-export const dynamicListButtonDef = createComponent({
+export const DynamicListButton = createComponent({
     name: 'dynamic-list-button',
-    component: DynamicListButton,
+    component: DynamicListButtonFn,
     exportState: ['active', 'label'],
     state: {
         label: () => ({

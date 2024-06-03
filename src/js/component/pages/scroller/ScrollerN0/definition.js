@@ -1,11 +1,11 @@
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
-import { ScrollerN0 } from './scrollerN0';
+import { ScrollerN0Fn } from './scrollerN0';
 
-export const scrollerN0Def = createComponent({
+export const ScrollerN0 = createComponent({
     name: 'scroller-n0',
-    component: ScrollerN0,
+    component: ScrollerN0Fn,
     exportState: [
         'title',
         'nextRoute',

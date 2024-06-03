@@ -1,12 +1,12 @@
 import { createComponent } from '../../../mobjs';
 import { FooterShapeV1 } from '../../common/shapes/definition';
-import { HorizontalScroller } from './horizontalScroller';
-import { horizontalScrollerButtonDef } from './horizontalScrollerButton/definition';
-import { horizontalScrollerSectionDef } from './horizontalScrollerSection/definition';
+import { HorizontalScrollerFn } from './horizontalScroller';
+import { HorizontalScrollerButton } from './horizontalScrollerButton/definition';
+import { HorizontalScrollerSection } from './horizontalScrollerSection/definition';
 
-export const horizontalScrollerDef = createComponent({
+export const HorizontalScroller = createComponent({
     name: 'horizontal-scroller',
-    component: HorizontalScroller,
+    component: HorizontalScrollerFn,
     exportState: [
         'nextRoute',
         'prevRoute',
@@ -46,9 +46,5 @@ export const horizontalScrollerDef = createComponent({
             type: Boolean,
         }),
     },
-    child: [
-        horizontalScrollerButtonDef,
-        horizontalScrollerSectionDef,
-        FooterShapeV1,
-    ],
+    child: [HorizontalScrollerButton, HorizontalScrollerSection, FooterShapeV1],
 });

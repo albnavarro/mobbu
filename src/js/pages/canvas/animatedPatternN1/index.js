@@ -1,7 +1,7 @@
-import { animatedPatternN1Def } from '../../../component/pages/animatedPattern/animatedPatternN1/definition';
+import { AnimatedPatternN1 } from '../../../component/pages/animatedPattern/animatedPatternN1/definition';
 import { html, useComponent } from '../../../mobjs';
 
-useComponent([animatedPatternN1Def]);
+useComponent([AnimatedPatternN1]);
 
 export const animatedPatternN1 = () => {
     return html`<div class="l-padding">

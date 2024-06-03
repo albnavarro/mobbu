@@ -1,11 +1,11 @@
 import { createComponent } from '../../../../mobjs';
-import { dynamicCounterDef } from '../counter/definition';
-import { dynamicListEmptyDef } from '../empty/definition';
-import { DynamicListCard } from './dynamicListCard';
+import { DynamicCounter } from '../counter/definition';
+import { DynamicListEmpty } from '../empty/definition';
+import { DynamicListCardFn } from './dynamicListCard';
 
-export const dynamicListCardDef = createComponent({
+export const DynamicListCard = createComponent({
     name: 'dynamic-list-card',
-    component: DynamicListCard,
+    component: DynamicListCardFn,
     exportState: ['isFull', 'label', 'index', 'counter', 'parentListId'],
     state: {
         parentListId: () => ({
@@ -29,5 +29,5 @@ export const dynamicListCardDef = createComponent({
             type: Number,
         }),
     },
-    child: [dynamicCounterDef, dynamicListEmptyDef],
+    child: [DynamicCounter, DynamicListEmpty],
 });
