@@ -1,6 +1,5 @@
 // @ts-check
 
-import * as pages from './pages/routeList';
 import { loadData } from './data';
 import { motionCore, tween } from './mobMotion';
 import { inizializeApp, setDefaultComponent } from './mobjs';
@@ -9,6 +8,7 @@ import { mobCore } from './mobCore';
 import { setBrowserClass } from './utils/utils';
 import { getScrollbarWith } from './utils/scrollbarWith';
 import { beforePageTransition, pageTransition } from './pageTransition';
+import { routes } from './pages';
 // import { stateTest } from './test/mapTest/mapTest';
 // import { initTestMapStore } from './test/mapStore';
 // import { storeTest } from './test/storeTest';
@@ -75,7 +75,7 @@ mobCore.useLoad(() => {
             rootId: '#root',
             contentId: '#content',
             wrapper,
-            pages,
+            pages: routes,
             index: 'home',
             pageNotFound: 'pageNotFound',
             beforePageTransition,
