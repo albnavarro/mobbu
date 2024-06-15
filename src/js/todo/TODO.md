@@ -35,12 +35,18 @@
 - Creare un stile per le quote tipo file md `quote`
 
 ### Pages:
-- Al posto di esportare le pagine con export, creare un file di rotte:
+- Al posto di esportare un semplice oggetto, aggiungere le props per utilizzare piú volte lo stesso layout.
 
 ```js
 const routes = {
-    'home': HomeRoutes,
-    'about-us' AboutUsRoutes
+    'home': {
+        layout: Home,
+        props: {}
+    }
+    'about-us': {
+        layout: AboutUs,
+        props: {}
+    }
 }
 ```
 
