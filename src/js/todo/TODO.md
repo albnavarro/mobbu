@@ -35,20 +35,7 @@
 - Creare un stile per le quote tipo file md `quote`
 
 ### Pages:
-- Al posto di esportare un semplice oggetto, aggiungere le props per utilizzare piú volte lo stesso layout.
-
-```js
-const routes = {
-    'home': {
-        layout: Home,
-        props: {}
-    }
-    'about-us': {
-        layout: AboutUs,
-        props: {}
-    }
-}
-```
+- Riulitilizzare i layout comuni per la documentazione.
 
 ### Type
 - i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri

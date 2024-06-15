@@ -86,7 +86,16 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      */
     mainStore.set(MAIN_STORE_ACTIVE_ROUTE, route);
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
-    const content = await getRouteList()?.[route]?.({ params });
+
+    /**
+     * Get route props,
+     */
+    const props = getRouteList()?.[route]?.props ?? {};
+
+    /**
+     * Get route DOM,
+     */
+    const content = await getRouteList()?.[route]?.layout?.({ params, props });
 
     /**
      * Clone old route.

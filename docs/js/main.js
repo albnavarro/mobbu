@@ -18162,11 +18162,7 @@
   var indexPage = "";
   var pageNotFound = "";
   var setRouteList = (list) => {
-    const listParsed = Object.entries(list).reduce((previous, current) => {
-      const [key, value] = current;
-      return { ...previous, [key]: value };
-    }, {});
-    routeList = listParsed;
+    routeList = { ...list };
   };
   var getRouteList = () => routeList;
   var setIndex = ({ routeName = "" }) => {
@@ -19409,7 +19405,8 @@
     removeOrphanComponent();
     mainStore.set(MAIN_STORE_ACTIVE_ROUTE, route);
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
-    const content2 = await getRouteList()?.[route]?.({ params });
+    const props = getRouteList()?.[route]?.props ?? {};
+    const content2 = await getRouteList()?.[route]?.layout?.({ params, props });
     const beforePageTransition3 = getBeforePageTransition();
     let clone = contentEl?.cloneNode(true);
     if (beforePageTransition3 && clone) {
@@ -30049,73 +30046,274 @@ Loading snippet ...</pre
 
   // src/js/pages/index.js
   var routes = {
-    pageNotFound: pageNotFound2,
-    about,
-    animatedPatternN0,
-    animatedPatternN1,
-    caterpillarN0,
-    caterpillarN1,
-    caterpillarN2,
-    canvas_overview,
-    scrollerN0,
-    scrollerN1,
-    dynamic_list,
-    home,
-    mobCore_defaults,
-    mobCore_events,
-    mobCore_overview,
-    mobCore_store,
-    mobJs_emit,
-    mobJs_html,
-    mobJs_runtime,
-    mobJs_refs,
-    mobJs_slot,
-    mobJs_tick,
-    mobJs_debug,
-    mobJs_utils,
-    mobJs_watch,
-    mobJs_remove,
-    mobJs_repeat,
-    mobJs_unBind,
-    mobJs_onMount,
-    mobJs_routing,
-    mobJs_computed,
-    mobJs_getState,
-    mobJs_renderComponent,
-    mobJs_initialization,
-    mobJs_delegateEvents,
-    mobJs_web_component,
-    mobJs_unFreezeProp,
-    mobJs_instanceName,
-    mobJs_watchParent,
-    mobJs_staticProps,
-    mobJs_getParentId,
-    mobJs_getChildren,
-    mobJs_syncParent,
-    mobJs_freezeProp,
-    mobJs_bindEvents,
-    mobJs_watchSync,
-    mobJs_removeDom,
-    mobJs_emitAsync,
-    mobJs_component,
-    mobJs_bindProps,
-    mobJs_setState,
-    mobJs_overview,
-    mobMotion_stagger,
-    mobMotion_defaults,
-    mobMotion_overview,
-    mobMotion_parallax,
-    mobMotion_sequencer,
-    mobMotion_scrolltrigger,
-    mobMotion_sync_timeline,
-    mobMotion_create_stagger,
-    mobMotion_async_timeline,
-    mobMotion_tween_spring_lerp,
-    horizontalScroller,
-    plugin_overview,
-    child,
-    mv1,
-    svg_overview
+    pageNotFound: {
+      layout: pageNotFound2,
+      props: {}
+    },
+    about: {
+      layout: about,
+      props: {}
+    },
+    animatedPatternN0: {
+      layout: animatedPatternN0,
+      props: {}
+    },
+    animatedPatternN1: {
+      layout: animatedPatternN1,
+      props: {}
+    },
+    caterpillarN0: {
+      layout: caterpillarN0,
+      props: {}
+    },
+    caterpillarN1: {
+      layout: caterpillarN1,
+      props: {}
+    },
+    caterpillarN2: {
+      layout: caterpillarN2,
+      props: {}
+    },
+    canvas_overview: {
+      layout: canvas_overview,
+      props: {}
+    },
+    scrollerN0: {
+      layout: scrollerN0,
+      props: {}
+    },
+    scrollerN1: {
+      layout: scrollerN1,
+      props: {}
+    },
+    dynamic_list: {
+      layout: dynamic_list,
+      props: {}
+    },
+    home: {
+      layout: home,
+      props: {}
+    },
+    mobCore_defaults: {
+      layout: mobCore_defaults,
+      props: {}
+    },
+    mobCore_events: {
+      layout: mobCore_events,
+      props: {}
+    },
+    mobCore_overview: {
+      layout: mobCore_overview,
+      props: {}
+    },
+    mobCore_store: {
+      layout: mobCore_store,
+      props: {}
+    },
+    mobJs_emit: {
+      layout: mobJs_emit,
+      props: {}
+    },
+    mobJs_html: {
+      layout: mobJs_html,
+      props: {}
+    },
+    mobJs_runtime: {
+      layout: mobJs_runtime,
+      props: {}
+    },
+    mobJs_refs: {
+      layout: mobJs_refs,
+      props: {}
+    },
+    mobJs_slot: {
+      layout: mobJs_slot,
+      props: {}
+    },
+    mobJs_tick: {
+      layout: mobJs_tick,
+      props: {}
+    },
+    mobJs_debug: {
+      layout: mobJs_debug,
+      props: {}
+    },
+    mobJs_utils: {
+      layout: mobJs_utils,
+      props: {}
+    },
+    mobJs_watch: {
+      layout: mobJs_watch,
+      props: {}
+    },
+    mobJs_remove: {
+      layout: mobJs_remove,
+      props: {}
+    },
+    mobJs_repeat: {
+      layout: mobJs_repeat,
+      props: {}
+    },
+    mobJs_unBind: {
+      layout: mobJs_unBind,
+      props: {}
+    },
+    mobJs_onMount: {
+      layout: mobJs_onMount,
+      props: {}
+    },
+    mobJs_routing: {
+      layout: mobJs_routing,
+      props: {}
+    },
+    mobJs_computed: {
+      layout: mobJs_computed,
+      props: {}
+    },
+    mobJs_getState: {
+      layout: mobJs_getState,
+      props: {}
+    },
+    mobJs_renderComponent: {
+      layout: mobJs_renderComponent,
+      props: {}
+    },
+    mobJs_initialization: {
+      layout: mobJs_initialization,
+      props: {}
+    },
+    mobJs_delegateEvents: {
+      layout: mobJs_delegateEvents,
+      props: {}
+    },
+    mobJs_web_component: {
+      layout: mobJs_web_component,
+      props: {}
+    },
+    mobJs_unFreezeProp: {
+      layout: mobJs_unFreezeProp,
+      props: {}
+    },
+    mobJs_instanceName: {
+      layout: mobJs_instanceName,
+      props: {}
+    },
+    mobJs_watchParent: {
+      layout: mobJs_watchParent,
+      props: {}
+    },
+    mobJs_staticProps: {
+      layout: mobJs_staticProps,
+      props: {}
+    },
+    mobJs_getParentId: {
+      layout: mobJs_getParentId,
+      props: {}
+    },
+    mobJs_getChildren: {
+      layout: mobJs_getChildren,
+      props: {}
+    },
+    mobJs_syncParent: {
+      layout: mobJs_syncParent,
+      props: {}
+    },
+    mobJs_freezeProp: {
+      layout: mobJs_freezeProp,
+      props: {}
+    },
+    mobJs_bindEvents: {
+      layout: mobJs_bindEvents,
+      props: {}
+    },
+    mobJs_watchSync: {
+      layout: mobJs_watchSync,
+      props: {}
+    },
+    mobJs_removeDom: {
+      layout: mobJs_removeDom,
+      props: {}
+    },
+    mobJs_emitAsync: {
+      layout: mobJs_emitAsync,
+      props: {}
+    },
+    mobJs_component: {
+      layout: mobJs_component,
+      props: {}
+    },
+    mobJs_bindProps: {
+      layout: mobJs_bindProps,
+      props: {}
+    },
+    mobJs_setState: {
+      layout: mobJs_setState,
+      props: {}
+    },
+    mobJs_overview: {
+      layout: mobJs_overview,
+      props: {}
+    },
+    mobMotion_stagger: {
+      layout: mobMotion_stagger,
+      props: {}
+    },
+    mobMotion_defaults: {
+      layout: mobMotion_defaults,
+      props: {}
+    },
+    mobMotion_overview: {
+      layout: mobMotion_overview,
+      props: {}
+    },
+    mobMotion_parallax: {
+      layout: mobMotion_parallax,
+      props: {}
+    },
+    mobMotion_sequencer: {
+      layout: mobMotion_sequencer,
+      props: {}
+    },
+    mobMotion_scrolltrigger: {
+      layout: mobMotion_scrolltrigger,
+      props: {}
+    },
+    mobMotion_sync_timeline: {
+      layout: mobMotion_sync_timeline,
+      props: {}
+    },
+    mobMotion_create_stagger: {
+      layout: mobMotion_create_stagger,
+      props: {}
+    },
+    mobMotion_async_timeline: {
+      layout: mobMotion_async_timeline,
+      props: {}
+    },
+    mobMotion_tween_spring_lerp: {
+      layout: mobMotion_tween_spring_lerp,
+      props: {}
+    },
+    horizontalScroller: {
+      layout: horizontalScroller,
+      props: {}
+    },
+    plugin_overview: {
+      layout: plugin_overview,
+      props: {}
+    },
+    child: {
+      layout: child,
+      props: {}
+    },
+    mv1: {
+      layout: mv1,
+      props: {}
+    },
+    svg_overview: {
+      layout: svg_overview,
+      props: {}
+    }
   };
 
   // src/js/main.js

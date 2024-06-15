@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {{[key:string]: (() => Promise.<string> )|(() => string)}} list
+ * @type {import("../type").pagesType}
  */
 let routeList = {};
 
@@ -16,23 +16,18 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
- * @param {{[key:string]: (() => Promise.<string> )|(() => string)}} list
+ * @param {import("../type").pagesType} list
  * @returns void
  *
  * @description
  * Add route list to store.
  */
 export const setRouteList = (list) => {
-    const listParsed = Object.entries(list).reduce((previous, current) => {
-        const [key, value] = current;
-        return { ...previous, [key]: value };
-    }, {});
-
-    routeList = listParsed;
+    routeList = { ...list };
 };
 
 /**
- * @returns {{[key:string]: (arg0: {[key:string]: any}) => Promise.<string>|string}} list
+ * @returns {import("../type").pagesType} list
  *
  * @description
  * Get route list to store.

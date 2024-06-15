@@ -773,12 +773,24 @@ export type pageTransition = (arg0: {
     newRoute: string;
 }) => Promise<any>;
 
+export interface pagesType {
+    [key: string]: {
+        layout:
+            | ((arg0: { params: any; props: any }) => Promise<string>)
+            | ((arg0: { params: any; props: any }) => string);
+        props: any;
+    };
+}
+
 export interface inizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
     contentId: string;
     pages: {
-        [key: string]: (() => Promise<string>) | (() => string);
+        [key: string]: {
+            layout: (() => Promise<string>) | (() => string);
+            props: any;
+        };
     };
     afterInit: () => void;
     index: string;
