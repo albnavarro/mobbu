@@ -24059,13 +24059,12 @@ Loading snippet ...</pre
     child: [ScrollToButton]
   });
 
-  // src/js/pages/about/index.js
+  // src/js/pages/Layout/layoutSidebarAnchor.js
   useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
-  var about = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/about.json"
-    });
-    return renderHtml`<doc-container>
+  var layoutSidebarAnchor = async ({ props }) => {
+    const { source, title, section, breadCrumbs } = props;
+    const { data: data3 } = await loadJsonContent({ source });
+    return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
@@ -24073,9 +24072,11 @@ Loading snippet ...</pre
       useMaxWidth: true
     })}
         ></html-content>
-        <doc-title-small slot="section-title-small">About </doc-title-small>
+        <doc-title-small slot="section-title-small"
+            ><a href="${breadCrumbs}">${section}</a> / <span>${title}</span>
+        </doc-title-small>
         <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">About</doc-title>
+        <doc-title slot="section-title">${title}</doc-title>
     </doc-container>`;
   };
 
@@ -27688,92 +27689,6 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/pages/mobCore/defaults/index.js
-  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
-  var mobCore_defaults = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/defaults.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Defaults</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Defaults</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/events/index.js
-  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
-  var mobCore_events = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/events.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Events</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Events</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/overview/index.js
-  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
-  var mobCore_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobCore </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobCore</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobCore/store/index.js
-  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
-  var mobCore_store = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobCore/store.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobCore_overview">mobCore</a> / <span>Store</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Store</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/component/common/linksMobJs/data.js
   var items = [
     {
@@ -30051,8 +29966,13 @@ Loading snippet ...</pre
       props: {}
     },
     about: {
-      layout: about,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/about.json",
+        title: "",
+        section: "About",
+        breadCrumbs: "./#about"
+      }
     },
     animatedPatternN0: {
       layout: animatedPatternN0,
@@ -30095,20 +30015,40 @@ Loading snippet ...</pre
       props: {}
     },
     mobCore_defaults: {
-      layout: mobCore_defaults,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobCore/defaults.json",
+        title: "Defaults",
+        section: "mobCore",
+        breadCrumbs: "./#mobCore_overview"
+      }
     },
     mobCore_events: {
-      layout: mobCore_events,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobCore/events.json",
+        title: "Events",
+        section: "mobCore",
+        breadCrumbs: "./#mobCore_overview"
+      }
     },
     mobCore_overview: {
-      layout: mobCore_overview,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobCore/overview.json",
+        title: "",
+        section: "mobCore",
+        breadCrumbs: "./#mobCore_overview"
+      }
     },
     mobCore_store: {
-      layout: mobCore_store,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobCore/store.json",
+        title: "Store",
+        section: "mobCore",
+        breadCrumbs: "./#mobCore_overview"
+      }
     },
     mobJs_emit: {
       layout: mobJs_emit,

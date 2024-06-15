@@ -1,5 +1,5 @@
 import { pageNotFound } from './404';
-import { about } from './about';
+import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
 import { animatedPatternN1 } from './canvas/animatedPatternN1';
 import { caterpillarN0 } from './canvas/caterpillarN0';
@@ -10,10 +10,6 @@ import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
 import { dynamic_list } from './dynamicList';
 import { home } from './home';
-import { mobCore_defaults } from './mobCore/defaults';
-import { mobCore_events } from './mobCore/events';
-import { mobCore_overview } from './mobCore/overview';
-import { mobCore_store } from './mobCore/store';
 import { mobJs_bindEvents } from './mobJs/bindEvents';
 import { mobJs_bindProps } from './mobJs/bindProps';
 import { mobJs_component } from './mobJs/component';
@@ -72,8 +68,13 @@ export const routes = {
         props: {},
     },
     about: {
-        layout: about,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/about.json',
+            title: '',
+            section: 'About',
+            breadCrumbs: './#about',
+        },
     },
     animatedPatternN0: {
         layout: animatedPatternN0,
@@ -116,20 +117,40 @@ export const routes = {
         props: {},
     },
     mobCore_defaults: {
-        layout: mobCore_defaults,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobCore/defaults.json',
+            title: 'Defaults',
+            section: 'mobCore',
+            breadCrumbs: './#mobCore_overview',
+        },
     },
     mobCore_events: {
-        layout: mobCore_events,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobCore/events.json',
+            title: 'Events',
+            section: 'mobCore',
+            breadCrumbs: './#mobCore_overview',
+        },
     },
     mobCore_overview: {
-        layout: mobCore_overview,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobCore/overview.json',
+            title: '',
+            section: 'mobCore',
+            breadCrumbs: './#mobCore_overview',
+        },
     },
     mobCore_store: {
-        layout: mobCore_store,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobCore/store.json',
+            title: 'Store',
+            section: 'mobCore',
+            breadCrumbs: './#mobCore_overview',
+        },
     },
     mobJs_emit: {
         layout: mobJs_emit,
