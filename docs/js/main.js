@@ -24061,6 +24061,12 @@ Loading snippet ...</pre
 
   // src/js/pages/Layout/layoutSidebarAnchor.js
   useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+  var getBreadCrumbs = ({ breadCrumbs, section }) => {
+    if (breadCrumbs.length > 0) {
+      return renderHtml` <a href="${breadCrumbs}">${section}</a> / `;
+    }
+    return ``;
+  };
   var layoutSidebarAnchor = async ({ props }) => {
     const { source, title, section, breadCrumbs } = props;
     const { data: data3 } = await loadJsonContent({ source });
@@ -24073,8 +24079,11 @@ Loading snippet ...</pre
     })}
         ></html-content>
         <doc-title-small slot="section-title-small"
-            ><a href="${breadCrumbs}">${section}</a> / <span>${title}</span>
-        </doc-title-small>
+            >${getBreadCrumbs({
+      breadCrumbs,
+      section
+    })}${title}</doc-title-small
+        >
         <scroll-to slot="section-links"></scroll-to>
         <doc-title slot="section-title">${title}</doc-title>
     </doc-container>`;
@@ -29969,9 +29978,9 @@ Loading snippet ...</pre
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/about.json",
-        title: "",
-        section: "About",
-        breadCrumbs: "./#about"
+        title: "About",
+        section: "",
+        breadCrumbs: ""
       }
     },
     animatedPatternN0: {
@@ -30014,6 +30023,15 @@ Loading snippet ...</pre
       layout: home,
       props: {}
     },
+    mobCore_overview: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobCore/overview.json",
+        title: "mobCore",
+        section: "",
+        breadCrumbs: ""
+      }
+    },
     mobCore_defaults: {
       layout: layoutSidebarAnchor,
       props: {
@@ -30028,15 +30046,6 @@ Loading snippet ...</pre
       props: {
         source: "./data/mobCore/events.json",
         title: "Events",
-        section: "mobCore",
-        breadCrumbs: "./#mobCore_overview"
-      }
-    },
-    mobCore_overview: {
-      layout: layoutSidebarAnchor,
-      props: {
-        source: "./data/mobCore/overview.json",
-        title: "",
         section: "mobCore",
         breadCrumbs: "./#mobCore_overview"
       }

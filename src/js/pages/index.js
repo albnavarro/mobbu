@@ -71,9 +71,9 @@ export const routes = {
         layout: layoutSidebarAnchor,
         props: {
             source: './data/about.json',
-            title: '',
-            section: 'About',
-            breadCrumbs: './#about',
+            title: 'About',
+            section: '',
+            breadCrumbs: '',
         },
     },
     animatedPatternN0: {
@@ -116,6 +116,15 @@ export const routes = {
         layout: home,
         props: {},
     },
+    mobCore_overview: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobCore/overview.json',
+            title: 'mobCore',
+            section: '',
+            breadCrumbs: '',
+        },
+    },
     mobCore_defaults: {
         layout: layoutSidebarAnchor,
         props: {
@@ -130,15 +139,6 @@ export const routes = {
         props: {
             source: './data/mobCore/events.json',
             title: 'Events',
-            section: 'mobCore',
-            breadCrumbs: './#mobCore_overview',
-        },
-    },
-    mobCore_overview: {
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobCore/overview.json',
-            title: '',
             section: 'mobCore',
             breadCrumbs: './#mobCore_overview',
         },
