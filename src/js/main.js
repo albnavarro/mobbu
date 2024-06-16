@@ -75,7 +75,7 @@ mobCore.useLoad(() => {
             rootId: '#root',
             contentId: '#content',
             wrapper,
-            pages: routes,
+            routes,
             index: 'home',
             pageNotFound: 'pageNotFound',
             beforePageTransition,

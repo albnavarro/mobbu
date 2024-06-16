@@ -785,7 +785,7 @@ export interface inizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
     contentId: string;
-    pages: routeType[];
+    routes: routeType[];
     afterInit: () => void;
     index: string;
     pageNotFound: string;

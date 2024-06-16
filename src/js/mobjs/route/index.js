@@ -31,7 +31,7 @@ export const inizializeApp = async ({
     rootId,
     wrapper,
     contentId,
-    pages = [],
+    routes = [],
     afterInit = () => {},
     index = 'home',
     pageNotFound = 'pageNotFound',
@@ -71,7 +71,7 @@ export const inizializeApp = async ({
     /**
      *
      */
-    setRouteList(pages);
+    setRouteList(routes);
 
     /**
      * Set idnex route
