@@ -13,7 +13,13 @@ export const storeWatchAction = ({ state, prop, callback }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
-    if (!store || !(prop in store)) {
+    if (!store)
+        return {
+            state: undefined,
+            unsubscribeId: '',
+        };
+
+    if (!(prop in store)) {
         storeWatchWarning(prop, logStyle);
 
         return {

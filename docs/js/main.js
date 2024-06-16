@@ -2597,7 +2597,12 @@
   var storeWatchAction = ({ state, prop, callback: callback2 }) => {
     const { store, callBackWatcher } = state;
     const logStyle2 = getLogStyle();
-    if (!store || !(prop in store)) {
+    if (!store)
+      return {
+        state: void 0,
+        unsubscribeId: ""
+      };
+    if (!(prop in store)) {
       storeWatchWarning(prop, logStyle2);
       return {
         state: void 0,
