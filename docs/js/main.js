@@ -28767,233 +28767,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobMotion/asyncTimeline/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_async_timeline = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/asyncTimeline.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Async timeline</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Async timeline</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/createStagger/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_create_stagger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/createStagger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>CreateStagger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">CreateStagger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/defaults/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_defaults = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/defaults.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Defaults</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Defaults</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/overview/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobMotion </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobMotion</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/parallax/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_parallax = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/parallax.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Parallax</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Parallax</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/scrollTrigger/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_scrolltrigger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/scrollTrigger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>ScrollTrigger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">ScrollTrigger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/sequencer/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_sequencer = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/sequencer.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Sequencer</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Sequencer</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/stagger/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_stagger = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/stagger.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Stagger</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Stagger</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/syncTimeline/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_sync_timeline = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/syncTimeline.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Sync timeline</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Sync timeline</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobMotion/tweenSpringLerp/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobMotion_tween_spring_lerp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobMotion/tweenSpringLerp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobMotion_overview">mobMotion</a> /
-            <span>Tween Spring Lerp</span></doc-title-small
-        >
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Tweens</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/component/common/shapes/footerShapeV1.js
   var FooterShapeV1Fn = ({ html, onMount, getState }) => {
     const { svg, position: position2 } = getState();
@@ -30204,44 +29977,94 @@ Loading snippet ...</pre
       props: {}
     },
     mobMotion_stagger: {
-      layout: mobMotion_stagger,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/stagger.json",
+        title: "Stagger",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_defaults: {
-      layout: mobMotion_defaults,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/defaults.json",
+        title: "Defaults",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_overview: {
-      layout: mobMotion_overview,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/overview.json",
+        title: "mobMotion",
+        section: "",
+        breadCrumbs: ""
+      }
     },
     mobMotion_parallax: {
-      layout: mobMotion_parallax,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/parallax.json",
+        title: "Parallax",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_sequencer: {
-      layout: mobMotion_sequencer,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/sequencer.json",
+        title: "Sequencer",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_scrolltrigger: {
-      layout: mobMotion_scrolltrigger,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/scrollTrigger.json",
+        title: "ScrollTrigger",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_sync_timeline: {
-      layout: mobMotion_sync_timeline,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/syncTimeline.json",
+        title: "Sync timeline",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_create_stagger: {
-      layout: mobMotion_create_stagger,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/createStagger.json",
+        title: "CreateStagger",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_async_timeline: {
-      layout: mobMotion_async_timeline,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/asyncTimeline.json",
+        title: "Async timeline",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     mobMotion_tween_spring_lerp: {
-      layout: mobMotion_tween_spring_lerp,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobMotion/tweenSpringLerp.json",
+        title: "Tween Spring Lerp",
+        section: "mobMotion",
+        breadCrumbs: "./#mobMotion_overview"
+      }
     },
     horizontalScroller: {
       layout: horizontalScroller,

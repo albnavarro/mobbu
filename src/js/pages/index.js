@@ -46,16 +46,6 @@ import { mobJs_watch } from './mobJs/watch';
 import { mobJs_watchParent } from './mobJs/watchParent';
 import { mobJs_watchSync } from './mobJs/watchSync';
 import { mobJs_web_component } from './mobJs/webComponent';
-import { mobMotion_async_timeline } from './mobMotion/asyncTimeline';
-import { mobMotion_create_stagger } from './mobMotion/createStagger';
-import { mobMotion_defaults } from './mobMotion/defaults';
-import { mobMotion_overview } from './mobMotion/overview';
-import { mobMotion_parallax } from './mobMotion/parallax';
-import { mobMotion_scrolltrigger } from './mobMotion/scrollTrigger';
-import { mobMotion_sequencer } from './mobMotion/sequencer';
-import { mobMotion_stagger } from './mobMotion/stagger';
-import { mobMotion_sync_timeline } from './mobMotion/syncTimeline';
-import { mobMotion_tween_spring_lerp } from './mobMotion/tweenSpringLerp';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { plugin_overview } from './plugin/overview';
 import { child } from './svg/child';
@@ -297,44 +287,94 @@ export const routes = {
         props: {},
     },
     mobMotion_stagger: {
-        layout: mobMotion_stagger,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/stagger.json',
+            title: 'Stagger',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_defaults: {
-        layout: mobMotion_defaults,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/defaults.json',
+            title: 'Defaults',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_overview: {
-        layout: mobMotion_overview,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/overview.json',
+            title: 'mobMotion',
+            section: '',
+            breadCrumbs: '',
+        },
     },
     mobMotion_parallax: {
-        layout: mobMotion_parallax,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/parallax.json',
+            title: 'Parallax',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_sequencer: {
-        layout: mobMotion_sequencer,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/sequencer.json',
+            title: 'Sequencer',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_scrolltrigger: {
-        layout: mobMotion_scrolltrigger,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/scrollTrigger.json',
+            title: 'ScrollTrigger',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_sync_timeline: {
-        layout: mobMotion_sync_timeline,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/syncTimeline.json',
+            title: 'Sync timeline',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_create_stagger: {
-        layout: mobMotion_create_stagger,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/createStagger.json',
+            title: 'CreateStagger',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_async_timeline: {
-        layout: mobMotion_async_timeline,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/asyncTimeline.json',
+            title: 'Async timeline',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     mobMotion_tween_spring_lerp: {
-        layout: mobMotion_tween_spring_lerp,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobMotion/tweenSpringLerp.json',
+            title: 'Tween Spring Lerp',
+            section: 'mobMotion',
+            breadCrumbs: './#mobMotion_overview',
+        },
     },
     horizontalScroller: {
         layout: horizontalScroller,
