@@ -31,11 +31,16 @@
 
 # MobJs
 
-### Docs
-- Creare un stile per le quote tipo file md `quote`
+### Utils
 
-### Pages:
-- Update routing docs.
+```js
+    setStateById(quicknavId, 'active', true);
+
+    // aggiungere
+    setStateByName('insyanceName', 'active', true);
+    // cosi da evitare il passaggio di recuperare l'id
+    // La stassa cosa per le altre utils simili.
+```
 
 ### Methods
 - Capire come gestire i metodi.
