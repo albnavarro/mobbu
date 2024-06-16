@@ -35,17 +35,8 @@
 - Creare un stile per le quote tipo file md `quote`
 
 ### Pages:
-- pages array structure, aggiungere routeName per poter usare una forma tipo `prefix-suffix`.
+- Sostituire nelle rotte il caratter `_` con `-`
 
-```js
-{
-     myKey: {
-        routeName: 'my-route', // add this
-        Layout: MyLayout,
-        props: {}
-    }
-}
-```
 
 - Update routing docs.
 
