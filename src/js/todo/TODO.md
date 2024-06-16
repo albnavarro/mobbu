@@ -39,6 +39,24 @@
 
 ### Methods
 - Capire come gestire i metodi.
+- Es:
+
+```js
+export const MyComponent = ({addMethods}) => {
+    addMethods('myMethod', (param) => {
+        //
+    })
+    ...
+};
+```
+
+```js
+export const MyComponent2 = ({addMethods}) => {
+    const id = getIdByInstanceName('myComponent');
+    useMethodsById(id, 'myMethod', param)
+    ...
+};
+```
 
 
 ### Type
