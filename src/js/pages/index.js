@@ -12,9 +12,7 @@ import { dynamic_list } from './dynamicList';
 import { home } from './home';
 import { mobJs_bindEvents } from './mobJs/bindEvents';
 import { mobJs_bindProps } from './mobJs/bindProps';
-import { mobJs_component } from './mobJs/component';
 import { mobJs_computed } from './mobJs/computed';
-import { mobJs_debug } from './mobJs/debug';
 import { mobJs_delegateEvents } from './mobJs/delegateEvents';
 import { mobJs_emit } from './mobJs/emit';
 import { mobJs_emitAsync } from './mobJs/emitAsync';
@@ -23,29 +21,19 @@ import { mobJs_getChildren } from './mobJs/getChildren';
 import { mobJs_getParentId } from './mobJs/getParentId';
 import { mobJs_getState } from './mobJs/getState';
 import { mobJs_html } from './mobJs/html';
-import { mobJs_initialization } from './mobJs/initialization';
-import { mobJs_instanceName } from './mobJs/instanceName';
 import { mobJs_onMount } from './mobJs/onMount';
-import { mobJs_overview } from './mobJs/overview';
-import { mobJs_refs } from './mobJs/refs';
 import { mobJs_remove } from './mobJs/remove';
 import { mobJs_removeDom } from './mobJs/removeDom';
 import { mobJs_renderComponent } from './mobJs/renderComponent';
 import { mobJs_repeat } from './mobJs/repeat';
-import { mobJs_routing } from './mobJs/routing';
-import { mobJs_runtime } from './mobJs/runtime';
 import { mobJs_setState } from './mobJs/setState';
-import { mobJs_slot } from './mobJs/slot';
 import { mobJs_staticProps } from './mobJs/staticProps';
 import { mobJs_syncParent } from './mobJs/syncParent';
-import { mobJs_tick } from './mobJs/tick';
 import { mobJs_unBind } from './mobJs/unBind';
 import { mobJs_unFreezeProp } from './mobJs/unFreezeProp';
-import { mobJs_utils } from './mobJs/utils';
 import { mobJs_watch } from './mobJs/watch';
 import { mobJs_watchParent } from './mobJs/watchParent';
 import { mobJs_watchSync } from './mobJs/watchSync';
-import { mobJs_web_component } from './mobJs/webComponent';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
@@ -140,36 +128,120 @@ export const routes = {
             breadCrumbs: './#mobCore_overview',
         },
     },
+    mobJs_overview: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/overview.json',
+            title: 'mobJs',
+            section: '',
+            breadCrumbs: '',
+        },
+    },
+    mobJs_initialization: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/initialization.json',
+            title: 'initialization',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_component: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/component.json',
+            title: 'component',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_web_component: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/webComponent.json',
+            title: 'webComponent',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_routing: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/routing.json',
+            title: 'routing',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_refs: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/refs.json',
+            title: 'refs',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_slot: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/slot.json',
+            title: 'slot',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_runtime: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/runtime.json',
+            title: 'runtime',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_instanceName: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/instanceName.json',
+            title: 'instanceName',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_tick: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/tick.json',
+            title: 'tick',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_utils: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/utils.json',
+            title: 'utils',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
+    mobJs_debug: {
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/debug.json',
+            title: 'debug',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs_overview',
+        },
+    },
     mobJs_emit: {
         layout: mobJs_emit,
         props: {},
     },
     mobJs_html: {
         layout: mobJs_html,
-        props: {},
-    },
-    mobJs_runtime: {
-        layout: mobJs_runtime,
-        props: {},
-    },
-    mobJs_refs: {
-        layout: mobJs_refs,
-        props: {},
-    },
-    mobJs_slot: {
-        layout: mobJs_slot,
-        props: {},
-    },
-    mobJs_tick: {
-        layout: mobJs_tick,
-        props: {},
-    },
-    mobJs_debug: {
-        layout: mobJs_debug,
-        props: {},
-    },
-    mobJs_utils: {
-        layout: mobJs_utils,
         props: {},
     },
     mobJs_watch: {
@@ -192,10 +264,6 @@ export const routes = {
         layout: mobJs_onMount,
         props: {},
     },
-    mobJs_routing: {
-        layout: mobJs_routing,
-        props: {},
-    },
     mobJs_computed: {
         layout: mobJs_computed,
         props: {},
@@ -208,24 +276,12 @@ export const routes = {
         layout: mobJs_renderComponent,
         props: {},
     },
-    mobJs_initialization: {
-        layout: mobJs_initialization,
-        props: {},
-    },
     mobJs_delegateEvents: {
         layout: mobJs_delegateEvents,
         props: {},
     },
-    mobJs_web_component: {
-        layout: mobJs_web_component,
-        props: {},
-    },
     mobJs_unFreezeProp: {
         layout: mobJs_unFreezeProp,
-        props: {},
-    },
-    mobJs_instanceName: {
-        layout: mobJs_instanceName,
         props: {},
     },
     mobJs_watchParent: {
@@ -268,20 +324,12 @@ export const routes = {
         layout: mobJs_emitAsync,
         props: {},
     },
-    mobJs_component: {
-        layout: mobJs_component,
-        props: {},
-    },
     mobJs_bindProps: {
         layout: mobJs_bindProps,
         props: {},
     },
     mobJs_setState: {
         layout: mobJs_setState,
-        props: {},
-    },
-    mobJs_overview: {
-        layout: mobJs_overview,
         props: {},
     },
     mobMotion_stagger: {

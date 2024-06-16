@@ -27911,28 +27911,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/component/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_component = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/component.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>component</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Component</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/computed/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_computed = async () => {
@@ -27957,28 +27935,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">computed</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/debug/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_debug = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/debug.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>debug</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Debug</doc-title>
     </doc-container>`;
   };
 
@@ -28198,50 +28154,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/initialization/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_initialization = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/initialization.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>initialization</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Initialization</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/instanceName/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_instanceName = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/instanceName.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>instanceName</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">InstanceName</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/onMount/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_onMount = async () => {
@@ -28266,48 +28178,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">onMount</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/overview/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">mobjs </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">mobJs</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/refs/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_refs = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/refs.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>refs</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">refs</doc-title>
     </doc-container>`;
   };
 
@@ -28419,50 +28289,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/routing/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_routing = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/routing.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>routing</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">routing</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/runtime/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_runtime = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/runtime.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>runtime</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Runtime</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/setState/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_setState = async () => {
@@ -28487,28 +28313,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">setState</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/slot/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_slot = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/slot.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>slot</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">slot</doc-title>
     </doc-container>`;
   };
 
@@ -28566,28 +28370,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/tick/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_tick = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/tick.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>tick</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Tick</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/unBind/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_unBind = async () => {
@@ -28639,28 +28421,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">unFreezeProp</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/utils/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_utils = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/utils.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>utils</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Utils</doc-title>
     </doc-container>`;
   };
 
@@ -28742,28 +28502,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">watchSync</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/webComponent/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var mobJs_web_component = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/webComponent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> / <span>webComponent</span>
-        </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">WebComponent</doc-title>
     </doc-container>`;
   };
 
@@ -29792,36 +29530,120 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobCore_overview"
       }
     },
+    mobJs_overview: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/overview.json",
+        title: "mobJs",
+        section: "",
+        breadCrumbs: ""
+      }
+    },
+    mobJs_initialization: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/initialization.json",
+        title: "initialization",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_component: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/component.json",
+        title: "component",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_web_component: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/webComponent.json",
+        title: "webComponent",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_routing: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/routing.json",
+        title: "routing",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_refs: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/refs.json",
+        title: "refs",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_slot: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/slot.json",
+        title: "slot",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_runtime: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/runtime.json",
+        title: "runtime",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_instanceName: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/instanceName.json",
+        title: "instanceName",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_tick: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/tick.json",
+        title: "tick",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_utils: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/utils.json",
+        title: "utils",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
+    mobJs_debug: {
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/mobJs/debug.json",
+        title: "debug",
+        section: "mobJs",
+        breadCrumbs: "./#mobJs_overview"
+      }
+    },
     mobJs_emit: {
       layout: mobJs_emit,
       props: {}
     },
     mobJs_html: {
       layout: mobJs_html,
-      props: {}
-    },
-    mobJs_runtime: {
-      layout: mobJs_runtime,
-      props: {}
-    },
-    mobJs_refs: {
-      layout: mobJs_refs,
-      props: {}
-    },
-    mobJs_slot: {
-      layout: mobJs_slot,
-      props: {}
-    },
-    mobJs_tick: {
-      layout: mobJs_tick,
-      props: {}
-    },
-    mobJs_debug: {
-      layout: mobJs_debug,
-      props: {}
-    },
-    mobJs_utils: {
-      layout: mobJs_utils,
       props: {}
     },
     mobJs_watch: {
@@ -29844,10 +29666,6 @@ Loading snippet ...</pre
       layout: mobJs_onMount,
       props: {}
     },
-    mobJs_routing: {
-      layout: mobJs_routing,
-      props: {}
-    },
     mobJs_computed: {
       layout: mobJs_computed,
       props: {}
@@ -29860,24 +29678,12 @@ Loading snippet ...</pre
       layout: mobJs_renderComponent,
       props: {}
     },
-    mobJs_initialization: {
-      layout: mobJs_initialization,
-      props: {}
-    },
     mobJs_delegateEvents: {
       layout: mobJs_delegateEvents,
       props: {}
     },
-    mobJs_web_component: {
-      layout: mobJs_web_component,
-      props: {}
-    },
     mobJs_unFreezeProp: {
       layout: mobJs_unFreezeProp,
-      props: {}
-    },
-    mobJs_instanceName: {
-      layout: mobJs_instanceName,
       props: {}
     },
     mobJs_watchParent: {
@@ -29920,20 +29726,12 @@ Loading snippet ...</pre
       layout: mobJs_emitAsync,
       props: {}
     },
-    mobJs_component: {
-      layout: mobJs_component,
-      props: {}
-    },
     mobJs_bindProps: {
       layout: mobJs_bindProps,
       props: {}
     },
     mobJs_setState: {
       layout: mobJs_setState,
-      props: {}
-    },
-    mobJs_overview: {
-      layout: mobJs_overview,
       props: {}
     },
     mobMotion_stagger: {
