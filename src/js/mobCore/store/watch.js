@@ -13,7 +13,7 @@ export const storeWatchAction = ({ state, prop, callback }) => {
     const { store, callBackWatcher } = state;
     const logStyle = getLogStyle();
 
-    if (!(prop in store)) {
+    if (!store || !(prop in store)) {
         storeWatchWarning(prop, logStyle);
 
         return {
