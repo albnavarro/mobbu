@@ -18158,13 +18158,15 @@
   });
 
   // src/js/mobjs/mainStore/routeList.js
-  var routeList = {};
+  var routeList = [];
   var indexPage = "";
   var pageNotFound = "";
   var setRouteList = (list) => {
-    routeList = { ...list };
+    routeList = [...list];
   };
-  var getRouteList = () => routeList;
+  var getRouteByName = ({ routeName = "" }) => {
+    return routeList.find(({ name }) => routeName === name);
+  };
   var setIndex = ({ routeName = "" }) => {
     indexPage = routeName;
   };
@@ -19405,8 +19407,9 @@
     removeOrphanComponent();
     mainStore.set(MAIN_STORE_ACTIVE_ROUTE, route);
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
-    const props = getRouteList()?.[route]?.props ?? {};
-    const content2 = await getRouteList()?.[route]?.layout?.({ params, props });
+    const routeObejct = getRouteByName({ routeName: route });
+    const props = routeObejct?.props ?? {};
+    const content2 = await routeObejct?.layout?.({ params, props }) ?? "";
     const beforePageTransition3 = getBeforePageTransition();
     let clone = contentEl?.cloneNode(true);
     if (beforePageTransition3 && clone) {
@@ -19445,7 +19448,7 @@
     const index = getIndex();
     const pageNotFound3 = getPageNotFound();
     if (url === "") return index;
-    return url in getRouteList() ? url : pageNotFound3;
+    return getRouteByName({ routeName: url }) ? url : pageNotFound3;
   };
 
   // src/js/mobjs/route/router.js
@@ -19529,7 +19532,7 @@
     rootId,
     wrapper: wrapper2,
     contentId,
-    pages = {},
+    pages = [],
     afterInit = () => {
     },
     index = "home",
@@ -28829,12 +28832,14 @@ Loading snippet ...</pre
       title: "component"
     }
   ];
-  var routes = {
-    pageNotFound: {
+  var routes = [
+    {
+      name: "pageNotFound",
       layout: pageNotFound2,
       props: {}
     },
-    about: {
+    {
+      name: "about",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/about.json",
@@ -28843,47 +28848,58 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     },
-    animatedPatternN0: {
+    {
+      name: "animatedPatternN0",
       layout: animatedPatternN0,
       props: {}
     },
-    animatedPatternN1: {
+    {
+      name: "animatedPatternN1",
       layout: animatedPatternN1,
       props: {}
     },
-    caterpillarN0: {
+    {
+      name: "caterpillarN0",
       layout: caterpillarN0,
       props: {}
     },
-    caterpillarN1: {
+    {
+      name: "caterpillarN1",
       layout: caterpillarN1,
       props: {}
     },
-    caterpillarN2: {
+    {
+      name: "caterpillarN2",
       layout: caterpillarN2,
       props: {}
     },
-    canvas_overview: {
+    {
+      name: "canvas_overview",
       layout: canvas_overview,
       props: {}
     },
-    scrollerN0: {
+    {
+      name: "scrollerN0",
       layout: scrollerN0,
       props: {}
     },
-    scrollerN1: {
+    {
+      name: "scrollerN1",
       layout: scrollerN1,
       props: {}
     },
-    dynamic_list: {
+    {
+      name: "dynamic_list",
       layout: dynamic_list,
       props: {}
     },
-    home: {
+    {
+      name: "home",
       layout: home,
       props: {}
     },
-    mobCore_overview: {
+    {
+      name: "mobCore_overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/overview.json",
@@ -28892,7 +28908,8 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     },
-    mobCore_defaults: {
+    {
+      name: "mobCore_defaults",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/defaults.json",
@@ -28901,7 +28918,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobCore_overview"
       }
     },
-    mobCore_events: {
+    {
+      name: "mobCore_events",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/events.json",
@@ -28910,7 +28928,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobCore_overview"
       }
     },
-    mobCore_store: {
+    {
+      name: "mobCore_store",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/store.json",
@@ -28919,7 +28938,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobCore_overview"
       }
     },
-    mobJs_overview: {
+    {
+      name: "mobJs_overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/overview.json",
@@ -28928,7 +28948,8 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     },
-    mobJs_initialization: {
+    {
+      name: "mobJs_initialization",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/initialization.json",
@@ -28937,7 +28958,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_component: {
+    {
+      name: "mobJs_component",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/component.json",
@@ -28946,7 +28968,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_web_component: {
+    {
+      name: "mobJs_web_component",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/webComponent.json",
@@ -28955,7 +28978,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_routing: {
+    {
+      name: "mobJs_routing",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/routing.json",
@@ -28964,7 +28988,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_refs: {
+    {
+      name: "mobJs_refs",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/refs.json",
@@ -28973,7 +28998,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_slot: {
+    {
+      name: "mobJs_slot",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/slot.json",
@@ -28982,7 +29008,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_runtime: {
+    {
+      name: "mobJs_runtime",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/runtime.json",
@@ -28991,7 +29018,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_instanceName: {
+    {
+      name: "mobJs_instanceName",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/instanceName.json",
@@ -29000,7 +29028,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_tick: {
+    {
+      name: "mobJs_tick",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/tick.json",
@@ -29009,7 +29038,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_utils: {
+    {
+      name: "mobJs_utils",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/utils.json",
@@ -29018,7 +29048,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_debug: {
+    {
+      name: "mobJs_debug",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/debug.json",
@@ -29027,7 +29058,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
-    mobJs_html: {
+    {
+      name: "mobJs_html",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/html.json",
@@ -29036,7 +29068,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_onMount: {
+    {
+      name: "mobJs_onMount",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/onMount.json",
@@ -29045,7 +29078,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_getState: {
+    {
+      name: "mobJs_getState",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getState.json",
@@ -29054,7 +29088,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_setState: {
+    {
+      name: "mobJs_setState",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/setState.json",
@@ -29063,7 +29098,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_watch: {
+    {
+      name: "mobJs_watch",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watch.json",
@@ -29072,7 +29108,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_watchSync: {
+    {
+      name: "mobJs_watchSync",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchSync.json",
@@ -29081,7 +29118,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_staticProps: {
+    {
+      name: "mobJs_staticProps",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/staticProps.json",
@@ -29090,7 +29128,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_bindProps: {
+    {
+      name: "mobJs_bindProps",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindProps.json",
@@ -29099,7 +29138,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_bindEvents: {
+    {
+      name: "mobJs_bindEvents",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindEvents.json",
@@ -29108,7 +29148,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_delegateEvents: {
+    {
+      name: "mobJs_delegateEvents",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/delegateEvents.json",
@@ -29117,7 +29158,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_repeat: {
+    {
+      name: "mobJs_repeat",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/repeat.json",
@@ -29126,7 +29168,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_unBind: {
+    {
+      name: "mobJs_unBind",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unBind.json",
@@ -29135,7 +29178,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_emit: {
+    {
+      name: "mobJs_emit",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emit.json",
@@ -29144,7 +29188,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_emitAsync: {
+    {
+      name: "mobJs_emitAsync",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emitAsync.json",
@@ -29153,7 +29198,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_computed: {
+    {
+      name: "mobJs_computed",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/computed.json",
@@ -29162,7 +29208,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_renderComponent: {
+    {
+      name: "mobJs_renderComponent",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/renderDom.json",
@@ -29171,7 +29218,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_removeDom: {
+    {
+      name: "mobJs_removeDom",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/removeDom.json",
@@ -29180,7 +29228,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_remove: {
+    {
+      name: "mobJs_remove",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/remove.json",
@@ -29189,7 +29238,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_getChildren: {
+    {
+      name: "mobJs_getChildren",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getChildren.json",
@@ -29198,7 +29248,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_freezeProp: {
+    {
+      name: "mobJs_freezeProp",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/freezeProp.json",
@@ -29207,7 +29258,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_unFreezeProp: {
+    {
+      name: "mobJs_unFreezeProp",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unFreezeProp.json",
@@ -29216,7 +29268,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_getParentId: {
+    {
+      name: "mobJs_getParentId",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getParentId.json",
@@ -29225,7 +29278,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_watchParent: {
+    {
+      name: "mobJs_watchParent",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchParent.json",
@@ -29234,7 +29288,8 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobMotion_stagger: {
+    {
+      name: "mobMotion_stagger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/stagger.json",
@@ -29243,7 +29298,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_defaults: {
+    {
+      name: "mobMotion_defaults",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/defaults.json",
@@ -29252,7 +29308,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_overview: {
+    {
+      name: "mobMotion_overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/overview.json",
@@ -29261,7 +29318,8 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     },
-    mobMotion_parallax: {
+    {
+      name: "mobMotion_parallax",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/parallax.json",
@@ -29270,7 +29328,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_sequencer: {
+    {
+      name: "mobMotion_sequencer",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/sequencer.json",
@@ -29279,7 +29338,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_scrolltrigger: {
+    {
+      name: "mobMotion_scrolltrigger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/scrollTrigger.json",
@@ -29288,7 +29348,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_sync_timeline: {
+    {
+      name: "mobMotion_sync_timeline",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/syncTimeline.json",
@@ -29297,7 +29358,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_create_stagger: {
+    {
+      name: "mobMotion_create_stagger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/createStagger.json",
@@ -29306,7 +29368,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_async_timeline: {
+    {
+      name: "mobMotion_async_timeline",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/asyncTimeline.json",
@@ -29315,7 +29378,8 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    mobMotion_tween_spring_lerp: {
+    {
+      name: "mobMotion_tween_spring_lerp",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/tweenSpringLerp.json",
@@ -29324,11 +29388,13 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobMotion_overview"
       }
     },
-    horizontalScroller: {
+    {
+      name: "horizontalScroller",
       layout: horizontalScroller,
       props: {}
     },
-    plugin_overview: {
+    {
+      name: "plugin_overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/plugin/overview.json",
@@ -29337,15 +29403,18 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     },
-    child: {
+    {
+      name: "child",
       layout: child,
       props: {}
     },
-    mv1: {
+    {
+      name: "mv1",
       layout: mv1,
       props: {}
     },
-    svg_overview: {
+    {
+      name: "svg_overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/svg/overview.json",
@@ -29354,7 +29423,7 @@ Loading snippet ...</pre
         breadCrumbs: ""
       }
     }
-  };
+  ];
 
   // src/js/main.js
   mobCore.useLoad(() => {

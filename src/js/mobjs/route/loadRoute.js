@@ -4,7 +4,7 @@ import {
     removeCancellableComponent,
     removeOrphanComponent,
 } from '../componentStore/action/removeAndDestroy';
-import { getRouteList } from '../mainStore/routeList';
+import { getRouteByName } from '../mainStore/routeList';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -88,14 +88,19 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
 
     /**
+     * Get route.
+     */
+    const routeObejct = getRouteByName({ routeName: route });
+
+    /**
      * Get route props,
      */
-    const props = getRouteList()?.[route]?.props ?? {};
+    const props = routeObejct?.props ?? {};
 
     /**
      * Get route DOM,
      */
-    const content = await getRouteList()?.[route]?.layout?.({ params, props });
+    const content = (await routeObejct?.layout?.({ params, props })) ?? '';
 
     /**
      * Clone old route.

@@ -3,7 +3,7 @@
 import {
     getIndex,
     getPageNotFound,
-    getRouteList,
+    getRouteByName,
 } from '../mainStore/routeList';
 
 /**
@@ -19,5 +19,6 @@ export const getRouteModule = ({ url = '' }) => {
     const pageNotFound = getPageNotFound();
 
     if (url === '') return index;
-    return url in getRouteList() ? url : pageNotFound;
+
+    return getRouteByName({ routeName: url }) ? url : pageNotFound;
 };

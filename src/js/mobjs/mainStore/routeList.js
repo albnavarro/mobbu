@@ -1,9 +1,9 @@
 // @ts-check
 
 /**
- * @type {import("../type").pagesType}
+ * @type {import("../type").routeType[]}
  */
-let routeList = {};
+let routeList = [];
 
 /**
  * @type {string}
@@ -16,23 +16,27 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
- * @param {import("../type").pagesType} list
+ * @param {import("../type").routeType[]} list
  * @returns void
  *
  * @description
  * Add route list to store.
  */
 export const setRouteList = (list) => {
-    routeList = { ...list };
+    routeList = [...list];
 };
 
 /**
- * @returns {import("../type").pagesType} list
+ * @param {object} obj
+ * @param {string} obj.routeName
+ * @return {import("../type").routeType}
  *
  * @description
  * Get route list to store.
  */
-export const getRouteList = () => routeList;
+export const getRouteByName = ({ routeName = '' }) => {
+    return routeList.find(({ name }) => routeName === name);
+};
 
 /**
  * @param {object} obj

@@ -26,12 +26,17 @@ const mobJsComponentBreadCrumbs = [
     },
 ];
 
-export const routes = {
-    pageNotFound: {
+/**
+ * @type {import('../mobjs/type').routeType[]}
+ */
+export const routes = [
+    {
+        name: 'pageNotFound',
         layout: pageNotFound,
         props: {},
     },
-    about: {
+    {
+        name: 'about',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/about.json',
@@ -40,47 +45,58 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-    animatedPatternN0: {
+    {
+        name: 'animatedPatternN0',
         layout: animatedPatternN0,
         props: {},
     },
-    animatedPatternN1: {
+    {
+        name: 'animatedPatternN1',
         layout: animatedPatternN1,
         props: {},
     },
-    caterpillarN0: {
+    {
+        name: 'caterpillarN0',
         layout: caterpillarN0,
         props: {},
     },
-    caterpillarN1: {
+    {
+        name: 'caterpillarN1',
         layout: caterpillarN1,
         props: {},
     },
-    caterpillarN2: {
+    {
+        name: 'caterpillarN2',
         layout: caterpillarN2,
         props: {},
     },
-    canvas_overview: {
+    {
+        name: 'canvas_overview',
         layout: canvas_overview,
         props: {},
     },
-    scrollerN0: {
+    {
+        name: 'scrollerN0',
         layout: scrollerN0,
         props: {},
     },
-    scrollerN1: {
+    {
+        name: 'scrollerN1',
         layout: scrollerN1,
         props: {},
     },
-    dynamic_list: {
+    {
+        name: 'dynamic_list',
         layout: dynamic_list,
         props: {},
     },
-    home: {
+    {
+        name: 'home',
         layout: home,
         props: {},
     },
-    mobCore_overview: {
+    {
+        name: 'mobCore_overview',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/overview.json',
@@ -89,7 +105,8 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-    mobCore_defaults: {
+    {
+        name: 'mobCore_defaults',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/defaults.json',
@@ -98,7 +115,8 @@ export const routes = {
             breadCrumbs: './#mobCore_overview',
         },
     },
-    mobCore_events: {
+    {
+        name: 'mobCore_events',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/events.json',
@@ -107,7 +125,8 @@ export const routes = {
             breadCrumbs: './#mobCore_overview',
         },
     },
-    mobCore_store: {
+    {
+        name: 'mobCore_store',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/store.json',
@@ -116,7 +135,8 @@ export const routes = {
             breadCrumbs: './#mobCore_overview',
         },
     },
-    mobJs_overview: {
+    {
+        name: 'mobJs_overview',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/overview.json',
@@ -125,7 +145,8 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-    mobJs_initialization: {
+    {
+        name: 'mobJs_initialization',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/initialization.json',
@@ -134,7 +155,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_component: {
+    {
+        name: 'mobJs_component',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/component.json',
@@ -143,7 +165,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_web_component: {
+    {
+        name: 'mobJs_web_component',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/webComponent.json',
@@ -152,7 +175,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_routing: {
+    {
+        name: 'mobJs_routing',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/routing.json',
@@ -161,7 +185,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_refs: {
+    {
+        name: 'mobJs_refs',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/refs.json',
@@ -170,7 +195,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_slot: {
+    {
+        name: 'mobJs_slot',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/slot.json',
@@ -179,7 +205,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_runtime: {
+    {
+        name: 'mobJs_runtime',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/runtime.json',
@@ -188,7 +215,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_instanceName: {
+    {
+        name: 'mobJs_instanceName',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/instanceName.json',
@@ -197,7 +225,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_tick: {
+    {
+        name: 'mobJs_tick',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/tick.json',
@@ -206,7 +235,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_utils: {
+    {
+        name: 'mobJs_utils',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/utils.json',
@@ -215,7 +245,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_debug: {
+    {
+        name: 'mobJs_debug',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/debug.json',
@@ -224,7 +255,8 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
-    mobJs_html: {
+    {
+        name: 'mobJs_html',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/html.json',
@@ -233,7 +265,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_onMount: {
+    {
+        name: 'mobJs_onMount',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/onMount.json',
@@ -242,7 +275,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_getState: {
+    {
+        name: 'mobJs_getState',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getState.json',
@@ -251,7 +285,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_setState: {
+    {
+        name: 'mobJs_setState',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/setState.json',
@@ -260,7 +295,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_watch: {
+    {
+        name: 'mobJs_watch',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watch.json',
@@ -269,7 +305,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_watchSync: {
+    {
+        name: 'mobJs_watchSync',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watchSync.json',
@@ -278,7 +315,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_staticProps: {
+    {
+        name: 'mobJs_staticProps',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/staticProps.json',
@@ -287,7 +325,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_bindProps: {
+    {
+        name: 'mobJs_bindProps',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/bindProps.json',
@@ -296,7 +335,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_bindEvents: {
+    {
+        name: 'mobJs_bindEvents',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/bindEvents.json',
@@ -305,7 +345,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_delegateEvents: {
+    {
+        name: 'mobJs_delegateEvents',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/delegateEvents.json',
@@ -314,7 +355,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_repeat: {
+    {
+        name: 'mobJs_repeat',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/repeat.json',
@@ -323,7 +365,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_unBind: {
+    {
+        name: 'mobJs_unBind',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/unBind.json',
@@ -332,7 +375,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_emit: {
+    {
+        name: 'mobJs_emit',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/emit.json',
@@ -341,7 +385,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_emitAsync: {
+    {
+        name: 'mobJs_emitAsync',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/emitAsync.json',
@@ -350,7 +395,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_computed: {
+    {
+        name: 'mobJs_computed',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/computed.json',
@@ -359,7 +405,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_renderComponent: {
+    {
+        name: 'mobJs_renderComponent',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/renderDom.json',
@@ -368,7 +415,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_removeDom: {
+    {
+        name: 'mobJs_removeDom',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/removeDom.json',
@@ -377,7 +425,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_remove: {
+    {
+        name: 'mobJs_remove',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/remove.json',
@@ -386,7 +435,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_getChildren: {
+    {
+        name: 'mobJs_getChildren',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getChildren.json',
@@ -395,7 +445,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_freezeProp: {
+    {
+        name: 'mobJs_freezeProp',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/freezeProp.json',
@@ -404,7 +455,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_unFreezeProp: {
+    {
+        name: 'mobJs_unFreezeProp',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/unFreezeProp.json',
@@ -413,7 +465,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_getParentId: {
+    {
+        name: 'mobJs_getParentId',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getParentId.json',
@@ -422,7 +475,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_watchParent: {
+    {
+        name: 'mobJs_watchParent',
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watchParent.json',
@@ -431,7 +485,8 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobMotion_stagger: {
+    {
+        name: 'mobMotion_stagger',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/stagger.json',
@@ -440,7 +495,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_defaults: {
+    {
+        name: 'mobMotion_defaults',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/defaults.json',
@@ -449,7 +505,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_overview: {
+    {
+        name: 'mobMotion_overview',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/overview.json',
@@ -458,7 +515,8 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-    mobMotion_parallax: {
+    {
+        name: 'mobMotion_parallax',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/parallax.json',
@@ -467,7 +525,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_sequencer: {
+    {
+        name: 'mobMotion_sequencer',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/sequencer.json',
@@ -476,7 +535,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_scrolltrigger: {
+    {
+        name: 'mobMotion_scrolltrigger',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/scrollTrigger.json',
@@ -485,7 +545,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_sync_timeline: {
+    {
+        name: 'mobMotion_sync_timeline',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/syncTimeline.json',
@@ -494,7 +555,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_create_stagger: {
+    {
+        name: 'mobMotion_create_stagger',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/createStagger.json',
@@ -503,7 +565,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_async_timeline: {
+    {
+        name: 'mobMotion_async_timeline',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/asyncTimeline.json',
@@ -512,7 +575,8 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    mobMotion_tween_spring_lerp: {
+    {
+        name: 'mobMotion_tween_spring_lerp',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/tweenSpringLerp.json',
@@ -521,11 +585,13 @@ export const routes = {
             breadCrumbs: './#mobMotion_overview',
         },
     },
-    horizontalScroller: {
+    {
+        name: 'horizontalScroller',
         layout: horizontalScroller,
         props: {},
     },
-    plugin_overview: {
+    {
+        name: 'plugin_overview',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/plugin/overview.json',
@@ -534,15 +600,18 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-    child: {
+    {
+        name: 'child',
         layout: child,
         props: {},
     },
-    mv1: {
+    {
+        name: 'mv1',
         layout: mv1,
         props: {},
     },
-    svg_overview: {
+    {
+        name: 'svg_overview',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/svg/overview.json',
@@ -551,4 +620,4 @@ export const routes = {
             breadCrumbs: '',
         },
     },
-};
+];

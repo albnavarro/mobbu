@@ -31,7 +31,7 @@ export const inizializeApp = async ({
     rootId,
     wrapper,
     contentId,
-    pages = {},
+    pages = [],
     afterInit = () => {},
     index = 'home',
     pageNotFound = 'pageNotFound',
