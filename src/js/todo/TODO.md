@@ -49,6 +49,10 @@
 
 - Update routing docs.
 
+### Methods
+- Capire come gestire i metodi.
+
+
 ### Type
 - i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
 - indicare nella docs il tipo di ogni parametro
