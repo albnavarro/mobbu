@@ -622,8 +622,8 @@ export interface componentType {
          * ```
          */
         render: (arg0: {
-            sync: object;
-            html: (arg0: string) => string;
+            sync: string;
+            html?: (arg0: string) => string;
         }) => string;
     }): string;
 

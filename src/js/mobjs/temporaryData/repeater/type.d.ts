@@ -24,7 +24,7 @@ export interface repeaterType {
     setState: setType;
     watch: watchType;
     emit: emitType;
-    render: (arg0: { sync: object; html: (arg0: string) => string }) => string;
+    render: (arg0: { sync: string; html?: (arg0: string) => string }) => string;
 }
 
 export interface watchListType extends repeaterType {

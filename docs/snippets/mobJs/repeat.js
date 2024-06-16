@@ -12,6 +12,11 @@ repeat(arg0: {
         container: HTMLElement;
         childrenId: string[];
     }): void;
+    render: (arg0: {
+        sync: string;
+        html?: (arg0: string) => string;
+    }) => string;
+}): string;
 
 
 import { html } from '../mobjs';
