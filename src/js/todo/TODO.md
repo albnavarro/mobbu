@@ -35,7 +35,20 @@
 - Creare un stile per le quote tipo file md `quote`
 
 ### Pages:
-- Riulitilizzare i layout comuni per la documentazione.
+- pages array structure, aggiungere routeName per poter usare una forma tipo `prefix-suffix`.
+
+```js
+{
+     myKey: {
+        routeName: 'my-route', // add this
+        Layout: MyLayout,
+        props: {}
+
+    }
+}
+```
+
+- Update docs
 
 ### Type
 - i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
