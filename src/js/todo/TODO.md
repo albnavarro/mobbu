@@ -43,12 +43,11 @@
         routeName: 'my-route', // add this
         Layout: MyLayout,
         props: {}
-
     }
 }
 ```
 
-- Update docs
+- Update routing docs.
 
 ### Type
 - i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
