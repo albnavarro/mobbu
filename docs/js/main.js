@@ -29281,26 +29281,6 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/pages/plugin/overview/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var plugin_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/plugin/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">Plugin </doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Plugin</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/component/pages/svg/child/animation/animation.js
   var childAnimations = ({ groups, trails }) => {
     const RAD2DEG = 180 / Math.PI;
@@ -29721,26 +29701,6 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/pages/svg/overview/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, ScrollTo]);
-  var svg_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/svg/overview.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small">Svg</doc-title-small>
-        <scroll-to slot="section-links"></scroll-to>
-        <doc-title slot="section-title">Svg</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/index.js
   var routes = {
     pageNotFound: {
@@ -30071,8 +30031,13 @@ Loading snippet ...</pre
       props: {}
     },
     plugin_overview: {
-      layout: plugin_overview,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/plugin/overview.json",
+        title: "Plugin",
+        section: "",
+        breadCrumbs: ""
+      }
     },
     child: {
       layout: child,
@@ -30083,8 +30048,13 @@ Loading snippet ...</pre
       props: {}
     },
     svg_overview: {
-      layout: svg_overview,
-      props: {}
+      layout: layoutSidebarAnchor,
+      props: {
+        source: "./data/svg/overview.json",
+        title: "Svg",
+        section: "",
+        breadCrumbs: ""
+      }
     }
   };
 

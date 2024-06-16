@@ -47,10 +47,8 @@ import { mobJs_watchParent } from './mobJs/watchParent';
 import { mobJs_watchSync } from './mobJs/watchSync';
 import { mobJs_web_component } from './mobJs/webComponent';
 import { horizontalScroller } from './plugin/horizontalScroller';
-import { plugin_overview } from './plugin/overview';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
-import { svg_overview } from './svg/overview';
 
 export const routes = {
     pageNotFound: {
@@ -381,8 +379,13 @@ export const routes = {
         props: {},
     },
     plugin_overview: {
-        layout: plugin_overview,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/plugin/overview.json',
+            title: 'Plugin',
+            section: '',
+            breadCrumbs: '',
+        },
     },
     child: {
         layout: child,
@@ -393,7 +396,12 @@ export const routes = {
         props: {},
     },
     svg_overview: {
-        layout: svg_overview,
-        props: {},
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/svg/overview.json',
+            title: 'Svg',
+            section: '',
+            breadCrumbs: '',
+        },
     },
 };
