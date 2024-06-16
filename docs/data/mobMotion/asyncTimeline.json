@@ -358,9 +358,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "resolve: the resolve function",
-                    "loop: current loop counter",
-                    "direction: current direction 'forward | backward'"
+                    "<span class='quote'>resolve</span>: the resolve function",
+                    "<span class='quote'>loop</span>: current loop counter",
+                    "<span class='quote'>direction</span>: current direction 'forward | backward'"
                 ]
             }
         },
@@ -432,7 +432,10 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["true: promiseAll", "false: promiseRace"]
+                "items": [
+                    "<span class='quote'>true</span>: promiseAll",
+                    "<span class='quote'>false</span>: promiseRace"
+                ]
             }
         },
         {
@@ -730,8 +733,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "loop: current loop counter",
-                    "direction: current direction 'forward | backward'"
+                    "<span class='quote'>loop</span>: current loop counter",
+                    "<span class='quote'>direction</span>: current direction 'forward | backward'"
                 ]
             }
         },

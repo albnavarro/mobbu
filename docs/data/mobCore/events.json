@@ -61,8 +61,8 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "fps: current fps value: number",
-                    "time: current time: number"
+                    "<span class='quote'>fps</span>: current fps value: number",
+                    "<span class='quote'>time</span>: current time: number"
                 ]
             }
         },
@@ -260,12 +260,12 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "horizontalResize: boolean",
-                    "verticalResize: boolean",
-                    "documentHeight: number",
-                    "scrollY: number",
-                    "windowsHeight: number",
-                    "windowsWidth: number"
+                    "<span class='quote'>horizontalResize</span>: boolean",
+                    "<span class='quote'>verticalResize</span>: boolean",
+                    "<span class='quote'>documentHeight</span>: number",
+                    "<span class='quote'>scrollY</span>: number",
+                    "<span class='quote'>windowsHeight</span>: number",
+                    "<span class='quote'>windowsWidth</span>: number"
                 ]
             }
         },
@@ -310,7 +310,9 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["visibilityState: hidden | visible"]
+                "items": [
+                    "<span class='quote'>visibilityState</span>: hidden | visible"
+                ]
             }
         },
         {
@@ -368,11 +370,11 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: number y: number }",
-                    "client: { x: number y: number }",
-                    "target: Element",
-                    "type: mouseEvent",
-                    "preventDefault: function"
+                    "<span class='quote'>page</span>: { x: number y: number }",
+                    "<span class='quote'>client</span>: { x: number y: number }",
+                    "<span class='quote'>target</span>: Element",
+                    "<span class='quote'>type</span>: mouseEvent",
+                    "<span class='quote'>preventDefault</span>: function"
                 ]
             }
         },
@@ -418,15 +420,15 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "page: { x: number; y: number; }",
-                    "client: { x: number; y: number; }",
-                    "target: Element",
-                    "type: mouseEvent",
-                    "preventDefault: function",
-                    "spinX: number",
-                    "spinY: number",
-                    "pixelX: number",
-                    "pixelY: number"
+                    "<span class='quote'>page</span>: { x: number; y: number; }",
+                    "<span class='quote'>client</span>: { x: number; y: number; }",
+                    "<span class='quote'>target</span>: Element",
+                    "<span class='quote'>type</span>: mouseEvent",
+                    "<span class='quote'>preventDefault</span>: function",
+                    "<span class='quote'>spinX</span>: number",
+                    "<span class='quote'>spinY</span>: number",
+                    "<span class='quote'>pixelX</span>: number",
+                    "<span class='quote'>pixelY</span>: number"
                 ]
             }
         },
@@ -465,7 +467,10 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["scrollY: number", "direction: scrollDirection"]
+                "items": [
+                    "<span class='quote'>scrollY</span>: number",
+                    "<span class='quote'>direction</span>: scrollDirection"
+                ]
             }
         },
         {
@@ -509,7 +514,10 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["scrollY: number", "direction: scrollDirection"]
+                "items": [
+                    "<span class='quote'>scrollY</span>: number",
+                    "<span class='quote'>direction</span>: scrollDirection"
+                ]
             }
         },
         {
@@ -553,7 +561,10 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["scrollY: number", "direction: scrollDirection"]
+                "items": [
+                    "<span class='quote'>scrollY</span>: number",
+                    "<span class='quote'>direction</span>: scrollDirection"
+                ]
             }
         },
         {
@@ -597,7 +608,7 @@
         {
             "component": "mob-list",
             "props": {
-                "items": ["scrollY: number"]
+                "items": ["<span class='quote'>scrollY</span>: number"]
             }
         },
         {

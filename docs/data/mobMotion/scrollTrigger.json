@@ -342,9 +342,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "+/-100px: move by +-100 pixel",
-                    "+/-100vw | +/-100vh: move by +-100 fractions of viewport",
-                    "+/-100w | +/-100h: move by +-100 fractions of itself",
+                    "<span class='quote'>+/-100px</span>: move by +-100 pixel",
+                    "<span class='quote'>+/-100vw | +/-100vh</span>: move by +-100 fractions of viewport",
+                    "<span class='quote'>+/-100w | +/-100h</span>: move by +-100 fractions of itself",
                     "The propierties will be re-calculated at each resize"
                 ]
             }
@@ -367,7 +367,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "45deg |  -45deg, The default value is 0."
+            "content": "<span class='quote'>45deg |  -45deg</span>, The default value is 0."
         },
         {
             "component": "mob-spacer",
@@ -387,7 +387,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "example: +/-0.5, The scale property is increased by 0.5, th default value is 0."
+            "content": "example: <span class='quote'>+/-0.5</span>, The scale property is increased by 0.5, th default value is 0."
         },
         {
             "component": "mob-spacer",
@@ -407,7 +407,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "+/- number between 0 and 1."
+            "content": "<span class='quote'>+/-</span> number between <span class='quote'>0 and 1</span>."
         },
         {
             "component": "mob-spacer",
@@ -427,7 +427,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "('margin', 'padding-left', etc ...) Each value will be converted to px, no unit misure is needed."
+            "content": "<span class='quote'>'margin', 'padding-left', etc ...</span> Each value will be converted to px, no unit misure is needed."
         },
         {
             "component": "mob-spacer",
@@ -447,7 +447,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If a tween is used there are no options the value will be controlled by the sequencer/scrollerTween itself."
+            "content": "If a <span class='quote'>tween</span> is used there are no options the value will be controlled by the <span class='quote'>sequencer/scrollerTween</span> itself."
         },
         {
             "component": "mob-spacer",
@@ -615,14 +615,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If start corresponds to bottom/right the animation will begin when the top/left side of the item touches the indicated value from the bottom/right of the screen."
+            "content": "If start corresponds to <span class='quote'>bottom/right</span> the animation will begin when the <span class='quote'>top/left</span> side of the item touches the indicated value from the bottom/right of the screen."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "If start corresponds to top/left the animation will begin when the bottom/right side of the item touches the indicated value from the top/left of the screen. ( reverse scroll use )"
+            "content": "If start corresponds to <span class='quote'>top/left</span> the animation will begin when the <span class='quote'>bottom/right</span> side of the item touches the indicated value from the top/left of the screen. ( reverse scroll use )"
         },
         {
             "component": "mob-paragraph",
@@ -649,7 +649,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "add a value in vh|vw|px, use vh in vertical direction, vw in horizontal direction,"
+            "content": "add a value in <span class='quote'>vh|vw|px</span>, use vh in vertical direction, vw in horizontal direction,"
         },
         {
             "component": "mob-spacer",
@@ -669,7 +669,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can add the item height/width value or half of one of them to the final value.<br/>Useful for centering the element."
+            "content": "You can add the item <span class='quote'>height/width value or half</span> of one of them to the final value.<br/>Useful for centering the element."
         },
         {
             "component": "mob-paragraph",
@@ -740,7 +740,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "top | right | bottom | left<br/>this parameter behaves exactly like the equivalent in start/end."
+            "content": "<span class='quote'>top | right | bottom | left</span><br/>this parameter behaves exactly like the equivalent in start/end."
         },
         {
             "component": "mob-spacer",
@@ -760,7 +760,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A function that returns a number<br/>Same as range this value will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
+            "content": "<span class='quote'>A function that returns a number</span><br/>Same as range this value will always be added from the chosen position towards the center of the screen, whether the position corresponds to top|bottom left|right"
         },
         {
             "component": "mob-spacer",
@@ -1332,8 +1332,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "value: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
-                    "parentIsMoving: Internal parameter that helps synchronization, no direct utility for the user."
+                    "<span class='quote'>value</span>: current value. If used by another scrollTrigger/Parallax it will be used as the scroll value of its container without needing to be recalculated. ",
+                    "<span class='quote'>parentIsMoving</span>: Internal parameter that helps synchronization, no direct utility for the user."
                 ]
             }
         },

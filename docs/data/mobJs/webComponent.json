@@ -69,13 +69,13 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "attributeToObserve",
-                    "constructorCallback",
-                    "connectedCallback",
-                    "disconnectedCallback",
-                    "adoptedCallback",
-                    "attributeChangedCallback",
-                    "style"
+                    "<span class='quote'>attributeToObserve</span>",
+                    "<span class='quote'>constructorCallback</span>",
+                    "<span class='quote'>connectedCallback</span>",
+                    "<span class='quote'>disconnectedCallback</span>",
+                    "<span class='quote'>adoptedCallback</span>",
+                    "<span class='quote'>attributeChangedCallback</span>",
+                    "<span class='quote'>style</span>"
                 ]
             }
         },
@@ -125,20 +125,20 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "componentId: string",
-                    "emit: function",
-                    "emitAsync: function",
-                    "freezeProp: function",
-                    "getChildren: function",
-                    "getParentId: function",
-                    "getState: function",
-                    "remove: function",
-                    "setState: function",
-                    "unBind: function",
-                    "unFreezeProp: function",
-                    "watch: function",
-                    "watchSync: function",
-                    "watchParent: function"
+                    "<span class='quote'>componentId</span>: string",
+                    "<span class='quote'>emit</span>: function",
+                    "<span class='quote'>emitAsync</span>: function",
+                    "<span class='quote'>freezeProp</span>: function",
+                    "<span class='quote'>getChildren</span>: function",
+                    "<span class='quote'>getParentId</span>: function",
+                    "<span class='quote'>getState</span>: function",
+                    "<span class='quote'>remove</span>: function",
+                    "<span class='quote'>setState</span>: function",
+                    "<span class='quote'>unBind</span>: function",
+                    "<span class='quote'>unFreezeProp</span>: function",
+                    "<span class='quote'>watch</span>: function",
+                    "<span class='quote'>watchSync</span>: function",
+                    "<span class='quote'>watchParent</span>: function"
                 ]
             }
         },
@@ -167,9 +167,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "name: name of the changed attribute",
-                    "oldValue: old value",
-                    "newValue: new value"
+                    "<span class='quote'>name</span>: name of the changed attribute",
+                    "<span class='quote'>oldValue</span>: old value",
+                    "<span class='quote'>newValue</span>: new value"
                 ]
             }
         },

@@ -109,9 +109,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "element: Root component HTMLElement ",
-                    "container: List container HTMLElement.",
-                    "childrenId: Active Children ids."
+                    "<span class='quote'>element</span>: Root component HTMLElement ",
+                    "<span class='quote'>container</span>: List container HTMLElement.",
+                    "<span class='quote'>childrenId</span>: Active Children ids."
                 ]
             }
         },
@@ -134,9 +134,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "element: Root component HTMLElement ",
-                    "container: List container HTMLElement.",
-                    "childrenId: Active Children ids."
+                    "<span class='quote'>element</span>: Root component HTMLElement ",
+                    "<span class='quote'>container</span>: List container HTMLElement.",
+                    "<span class='quote'>childrenId</span>: Active Children ids."
                 ]
             }
         },
@@ -159,8 +159,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "html: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "sync: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed."
+                    "<span class='quote'>html</span>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
+                    "<span class='quote'>sync</span>: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed."
                 ]
             }
         },

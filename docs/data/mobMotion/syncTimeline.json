@@ -246,8 +246,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "useCurrent: false The timeline will always start from the start/end regardless of the current position.<br/>",
-                    "useCurrent: true The timeline will reverse its direction (it will perform a reverse action) only if it is going in the opposite direction, otherwise it will continue on its path.",
+                    "<span class='quote'>useCurrent</span>: <span class='quote'>false</span> The timeline will always start from the start/end regardless of the current position.<br/>",
+                    "<span class='quote'>useCurrent</span>: <span class='quote'>true</span> The timeline will reverse its direction (it will perform a reverse action) only if it is going in the opposite direction, otherwise it will continue on its path.",
                     "The default value of useCurrent is false."
                 ]
             }
@@ -412,8 +412,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "loop: current loop counter",
-                    "direction: current direction 'forward | backward'"
+                    "<span class='quote'>loop</span>: current loop counter",
+                    "<span class='quote'>direction</span>: current direction 'forward | backward'"
                 ]
             }
         },
@@ -493,8 +493,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "time: current time",
-                    "direction: current direction 'forward | backward'"
+                    "<span class='quote'>time</span>: current time",
+                    "<span class='quote'>direction</span>: current direction 'forward | backward'"
                 ]
             }
         },

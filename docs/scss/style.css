@@ -654,6 +654,21 @@ code {
     display: none;
   }
 }
+.quote {
+  position: relative;
+  margin-inline: 0.1333333333rem;
+}
+.quote::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(0.1333333333rem * -1);
+  right: calc(0.1333333333rem * -1);
+  background: rgba(0, 0, 0, 0.15);
+  z-index: -1;
+  border-radius: 0.2666666667rem;
+}
 [data-component=footer] {
   height: var(--footer-height);
   position: fixed;

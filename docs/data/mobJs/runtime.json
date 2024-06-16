@@ -47,10 +47,10 @@
                 "style": "medium",
                 "dots": true,
                 "items": [
-                    "attachTo: Node where attach new component",
-                    "component: Component to render",
-                    "position: position where attach new component: 'afterbegin'|'beforeend'",
-                    "clean: remove previous content"
+                    "<span class='quote'>attachTo</span>: Node where attach new component",
+                    "<span class='quote'>component</span>: Component to render",
+                    "<span class='quote'>position</span>: position where attach new component: 'afterbegin'|'beforeend'",
+                    "<span class='quote'>clean</span>: remove previous content"
                 ]
             }
         },

@@ -48,8 +48,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "param: Optional parameters added to the URL.",
-                    "props: Optional props passed to the function"
+                    "<span class='quote'>param</span> Optional parameters added to the URL.",
+                    "<span class='quote'>props</span> Optional props passed to the function"
                 ]
             }
         },
@@ -144,9 +144,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "name: route name.",
-                    "layout: function to use",
-                    "props: the props (object) to pass to the layout function "
+                    "<span class='quote'>name</span> route name.",
+                    "<span class='quote'>layout</span> function to use",
+                    "<span class='quote'>props</span> the props (object) to pass to the layout function "
                 ]
             }
         },

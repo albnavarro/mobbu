@@ -34,3 +34,21 @@
         display: none;
     }
 }
+
+.quote {
+    position: relative;
+    margin-inline: rem(2);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(#{rem(2)} * -1);
+        /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
+        right: calc(#{rem(2)} * -1);
+        background: rgba($black, 0.15);
+        z-index: -1;
+        border-radius: rem(4);
+    }
+}
