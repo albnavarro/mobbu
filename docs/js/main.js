@@ -19537,7 +19537,7 @@
     rootId,
     wrapper: wrapper2,
     contentId,
-    pages = [],
+    routes: routes2 = [],
     afterInit = () => {
     },
     index = "home",
@@ -19557,7 +19557,7 @@
     setBeforePageTransition({ fn: beforePageTransition3 });
     initParseWatcher();
     setComponentList();
-    setRouteList(pages);
+    setRouteList(routes2);
     setIndex({ routeName: index });
     setPageNotFound({ routeName: pageNotFound3 });
     rootEl.insertAdjacentHTML("afterbegin", wrapperDOM);
@@ -29479,7 +29479,7 @@ Loading snippet ...</pre
         rootId: "#root",
         contentId: "#content",
         wrapper,
-        pages: routes,
+        routes,
         index: "home",
         pageNotFound: "pageNotFound",
         beforePageTransition: beforePageTransition2,

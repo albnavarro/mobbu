@@ -9,8 +9,9 @@ import { staticProps, html, useComponent } from '../mobjs';
  */
 useComponent([MyComponent]);
 
-export const my_route = async ({ params }) => {
+export const my_route = async ({ params, props }) => {
     const { param1, param2 } = params;
+    const { myProps } = props;
 
     const response = await fetch('my_entry_point');
 

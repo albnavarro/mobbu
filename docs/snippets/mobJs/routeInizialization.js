@@ -1,52 +1,36 @@
-// ./pages/routeList
-export * from './routes/404';
-export * from './routes/home';
-export * from './routes/pageNotFound';
-export * from './routes/route1';
-export * from './routes/route2';
-export * from './routes/route3';
-export * from './routes/route4';
+interface routeType {
+    name: string;
+    layout:
+        | ((arg0: { params: any; props: any }) => Promise<string>)
+        | ((arg0: { params: any; props: any }) => string);
+    props: any;
+}
 
-// main.js
-import { inizializeApp } from './mobjs';
-import { beforePageTransition, pageTransition } from './pageTransition';
-...
-import * as pages from './pages/routeList'; // load pages
-...
+// ./routes/index'
 
-inizializeApp({
+import { pageNotFound } from './404';
+import { my_route } from './myRoute';
+import { home } from './home';
 
-    ...
-
-    /**
-     * Object that container all route.
-     * Load pages
-     */
-    pages,
-
-    /**
-     * Index route.
-     */
-    index: 'home',
-
-    /**
-     * Optional function used for page-tranition
-     * ( after node clone, before append cloned node ).
-     */
-    beforePageTransition,
-
-    /**
-     * Optional function used for page-tranition
-     * Here it is possible animate old and new route node.
-     */
-    pageTransition,
-
-    /**
-     * 404 route.
-     */
-    pageNotFound: 'pageNotFound',
-
-
-    ...
-
-});
+/**
+ * @type {import('../mobjs/type').routeType[]}
+ */
+export const routes = [
+    {
+        name: 'pageNotFound',
+        layout: pageNotFound,
+        props: {},
+    },
+    {
+        name: 'home',
+        layout: home,
+        props: {},
+    },
+    {
+        name: 'myRoute',
+        layout: my_route,
+        props: {
+            myProp: 'hello',
+        },
+    },
+];

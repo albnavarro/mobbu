@@ -78,7 +78,7 @@
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "items": ["- element: main node.", "- refs: nested node"]
+                "items": ["element: main node.", "refs: nested node"]
             }
         },
         {

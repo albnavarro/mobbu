@@ -34,13 +34,6 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The function name corresponds to the Location.hash parameter of the window."
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
             "content": "The route functions can be asynchronous, this is to allow the fetching of any data.<br/>The function is executed before deleting the old route, only when the data has been recovered and the data is ready will the new route be rendered."
         },
         {
@@ -48,7 +41,17 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The function will have as input an object with the route parameters if present."
+            "content": "The function has as parameter an object with:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "param: Optional parameters added to the URL.",
+                    "props: Optional props passed to the function"
+                ]
+            }
         },
         {
             "component": "mob-paragraph",
@@ -118,8 +121,8 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "initialization",
-                "label": "Initialization"
+                "id": "Export routes",
+                "label": "Export routes"
             }
         },
         {
@@ -127,14 +130,25 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Initialization"
+            "content": "Export routes"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "All the routes will then be exported and imported during the initialization of the app:"
+            "content": "All the routes must be inserted into an array as follows, it is necessary to indicate:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "name: route name.",
+                    "layout: function to use",
+                    "props: the props (object) to pass to the layout function "
+                ]
+            }
         },
         {
             "component": "mob-snippet",

@@ -1,5 +1,5 @@
 import { inizializeApp } from './mobjs';
-import * as pages from './pages/routeList';
+import { routes } from './routes';
 import { wrapper } from './wrapper';
 import { beforePageTransition, pageTransition } from './pageTransition';
 
@@ -10,7 +10,7 @@ inizializeApp({
     rootId: '#root',
 
     /**
-     * Id when route is loaded inside wrapper
+     * Id where route is loaded inside wrapper
      */
     contentId: '#content',
 
@@ -24,13 +24,18 @@ inizializeApp({
     /**
      * Object that container all route.
      */
-    pages,
+    routes,
 
     /**
      * Index route.
      * The name of the page function for home
      */
     index: 'home',
+
+    /**
+     * 404 route.
+     */
+    pageNotFound: 'pageNotFound',
 
     /**
      * Optional function used for page-tranition
@@ -45,12 +50,7 @@ inizializeApp({
     pageTransition,
 
     /**
-     * 404 route.
-     */
-    pageNotFound: 'pageNotFound',
-
-    /**
-     * Custom callback firend after inizialization
+     * Custom callback fired after initialization
      * ( first render of app ).
      */
     afterInit: async () => {

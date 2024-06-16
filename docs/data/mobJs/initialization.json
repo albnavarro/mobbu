@@ -89,44 +89,6 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "routelist",
-                "label": "Import&nbsp;routes"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Import routes"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "Import of all page definitions.<br/> <a href='./#mobJs-routing'>Routing</a>"
-        },
-        {
-            "component": "mob-snippet",
-            "props": {
-                "source": "./snippets/mobJs/routeList.js",
-                "isFull": true,
-                "hasOverflow": false,
-                "hasBorder": true,
-                "numLines": 26
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "medium",
                 "id": "wrapper",
                 "label": "Wrapper"
             }
@@ -180,6 +142,23 @@
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Routes"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-routing'>Create and export routes</a>"
+                ]
             }
         },
         {
