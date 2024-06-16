@@ -27,7 +27,7 @@
         },
         {
             "label": "Overview",
-            "url": "canvas_overview",
+            "url": "canvas-overview",
             "scrollToSection": "canvas",
             "children": null
         },
@@ -134,7 +134,7 @@
         },
         {
             "label": "Overview",
-            "url": "svg_overview",
+            "url": "svg-overview",
             "scrollToSection": "svg",
             "children": null
         },
@@ -158,22 +158,22 @@
         {
             "label": "Overview",
             "scrollToSection": "mobCore",
-            "url": "mobCore_overview"
+            "url": "mobCore-overview"
         },
         {
             "label": "Store",
             "scrollToSection": "mobCore",
-            "url": "mobCore_store"
+            "url": "mobCore-store"
         },
         {
             "label": "Event",
             "scrollToSection": "mobCore",
-            "url": "mobCore_events"
+            "url": "mobCore-events"
         },
         {
             "label": "defaults",
             "scrollToSection": "mobCore",
-            "url": "mobCore_defaults"
+            "url": "mobCore-defaults"
         },
         {
             "label": "mobJs",
@@ -183,17 +183,17 @@
         {
             "label": "Overview",
             "scrollToSection": "mobJs",
-            "url": "mobJs_overview"
+            "url": "mobJs-overview"
         },
         {
             "label": "Initialization",
             "scrollToSection": "mobJs",
-            "url": "mobJs_initialization"
+            "url": "mobJs-initialization"
         },
         {
             "label": "Component structure",
             "scrollToSection": "mobJs",
-            "url": "mobJs_component"
+            "url": "mobJs-component"
         },
         {
             "label": "Component Params",
@@ -202,164 +202,164 @@
                 {
                     "label": "html",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_html"
+                    "url": "mobJs-html"
                 },
                 {
                     "label": "onMount/Destroy",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_onMount"
+                    "url": "mobJs-onMount"
                 },
                 {
                     "label": "getState",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_getState"
+                    "url": "mobJs-getState"
                 },
                 {
                     "label": "setState",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_setState"
+                    "url": "mobJs-setState"
                 },
                 {
                     "label": "watch",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_watch"
+                    "url": "mobJs-watch"
                 },
                 {
                     "label": "watchSync",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_watchSync"
+                    "url": "mobJs-watchSync"
                 },
                 {
                     "label": "staticProps",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_staticProps"
+                    "url": "mobJs-staticProps"
                 },
                 {
                     "label": "bindProps",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_bindProps"
+                    "url": "mobJs-bindProps"
                 },
                 {
                     "label": "bindEvents",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_bindEvents"
+                    "url": "mobJs-bindEvents"
                 },
                 {
                     "label": "delegateEvents",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_delegateEvents"
+                    "url": "mobJs-delegateEvents"
                 },
                 {
                     "label": "reactive list (repeat)",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_repeat"
+                    "url": "mobJs-repeat"
                 },
                 {
                     "label": "unBind",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_unBind"
+                    "url": "mobJs-unBind"
                 },
                 {
                     "label": "emit",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_emit"
+                    "url": "mobJs-emit"
                 },
                 {
                     "label": "emitAsync",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_emitAsync"
+                    "url": "mobJs-emitAsync"
                 },
                 {
                     "label": "computed",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_computed"
+                    "url": "mobJs-computed"
                 },
                 {
                     "label": "renderComponent",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_renderComponent"
+                    "url": "mobJs-renderComponent"
                 },
                 {
                     "label": "removeDom",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_removeDom"
+                    "url": "mobJs-removeDom"
                 },
                 {
                     "label": "remove",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_remove"
+                    "url": "mobJs-remove"
                 },
                 {
                     "label": "getChildren",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_getChildren"
+                    "url": "mobJs-getChildren"
                 },
                 {
                     "label": "freezeProp",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_freezeProp"
+                    "url": "mobJs-freezeProp"
                 },
                 {
                     "label": "unFreezeProp",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_unFreezeProp"
+                    "url": "mobJs-unFreezeProp"
                 },
                 {
                     "label": "getParentId",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_getParentId"
+                    "url": "mobJs-getParentId"
                 },
                 {
                     "label": "watchParent",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs_watchParent"
+                    "url": "mobJs-watchParent"
                 }
             ]
         },
         {
             "label": "Web component",
             "scrollToSection": "mobJs",
-            "url": "mobJs_web_component"
+            "url": "mobJs-web-component"
         },
         {
             "label": "Routing",
             "scrollToSection": "mobJs",
-            "url": "mobJs_routing"
+            "url": "mobJs-routing"
         },
         {
             "label": "Refs",
             "scrollToSection": "mobJs",
-            "url": "mobJs_refs"
+            "url": "mobJs-refs"
         },
         {
             "label": "Slot",
             "scrollToSection": "mobJs",
-            "url": "mobJs_slot"
+            "url": "mobJs-slot"
         },
         {
             "label": "Runtime add/remove",
             "scrollToSection": "mobJs",
-            "url": "mobJs_runtime"
+            "url": "mobJs-runtime"
         },
         {
             "label": "instanceName",
             "scrollToSection": "mobJs",
-            "url": "mobJs_instanceName"
+            "url": "mobJs-instanceName"
         },
         {
             "label": "tick",
             "scrollToSection": "mobJs",
-            "url": "mobJs_tick"
+            "url": "mobJs-tick"
         },
         {
             "label": "Utils",
             "scrollToSection": "mobJs",
-            "url": "mobJs_utils"
+            "url": "mobJs-utils"
         },
         {
             "label": "Debug",
             "scrollToSection": "mobJs",
-            "url": "mobJs_debug"
+            "url": "mobJs-debug"
         },
         {
             "label": "examples:",
@@ -368,7 +368,7 @@
                 {
                     "label": "Listing",
                     "scrollToSection": "mobJs",
-                    "url": "dynamic_list"
+                    "url": "dynamic-list"
                 }
             ]
         },
@@ -380,52 +380,52 @@
         {
             "label": "overview",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_overview"
+            "url": "mobMotion-overview"
         },
         {
             "label": "Tween/Spring/Lerp",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_tween_spring_lerp"
+            "url": "mobMotion-tween-spring-lerp"
         },
         {
             "label": "Async timeline",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_async_timeline"
+            "url": "mobMotion-async-timeline"
         },
         {
             "label": "Sequencer",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_sequencer"
+            "url": "mobMotion-sequencer"
         },
         {
             "label": "Stagger",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_stagger"
+            "url": "mobMotion-stagger"
         },
         {
             "label": "Create stagger",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_create_stagger"
+            "url": "mobMotion-create-stagger"
         },
         {
             "label": "Sync timeline",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_sync_timeline"
+            "url": "mobMotion-sync-timeline"
         },
         {
             "label": "ScrollTrigger",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_scrolltrigger"
+            "url": "mobMotion-scrolltrigger"
         },
         {
             "label": "Parallax",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_parallax"
+            "url": "mobMotion-parallax"
         },
         {
             "label": "Defaults",
             "scrollToSection": "mobMotion",
-            "url": "mobMotion_defaults"
+            "url": "mobMotion-defaults"
         },
         {
             "label": "plugin",
@@ -435,7 +435,7 @@
         {
             "label": "pverview",
             "scrollToSection": "plugin",
-            "url": "plugin_overview"
+            "url": "plugin-overview"
         },
         {
             "label": "horizotnal scroller v0",

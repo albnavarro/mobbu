@@ -20,8 +20,8 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>",
-                    "<a href='./#mobMotion_stagger'>stagger</a>"
+                    "<a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>",
+                    "<a href='./#mobMotion-stagger'>stagger</a>"
                 ]
             }
         }

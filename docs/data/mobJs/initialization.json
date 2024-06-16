@@ -105,7 +105,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Import of all page definitions.<br/> <a href='./#mobJs_routing'>Routing</a>"
+            "content": "Import of all page definitions.<br/> <a href='./#mobJs-routing'>Routing</a>"
         },
         {
             "component": "mob-snippet",

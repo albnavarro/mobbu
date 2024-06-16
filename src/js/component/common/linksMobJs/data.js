@@ -1,94 +1,94 @@
 export const items = [
     {
         label: 'html',
-        url: 'mobJs_html',
+        url: 'mobJs-html',
     },
     {
         label: 'onMount',
-        url: 'mobJs_onMount',
+        url: 'mobJs-onMount',
     },
     {
         label: 'getState',
-        url: 'mobJs_getState',
+        url: 'mobJs-getState',
     },
     {
         label: 'setState',
-        url: 'mobJs_setState',
+        url: 'mobJs-setState',
     },
     {
         label: 'watch',
-        url: 'mobJs_watch',
+        url: 'mobJs-watch',
     },
     {
         label: 'watchSync',
-        url: 'mobJs_watchSync',
+        url: 'mobJs-watchSync',
     },
     {
         label: 'staticProps',
-        url: 'mobJs_staticProps',
+        url: 'mobJs-staticProps',
     },
     {
         label: 'bindProps',
-        url: 'mobJs_bindProps',
+        url: 'mobJs-bindProps',
     },
     {
         label: 'bindEvents',
-        url: 'mobJs_bindEvents',
+        url: 'mobJs-bindEvents',
     },
     {
         label: 'delegateEvents',
-        url: 'mobJs_delegateEvents',
+        url: 'mobJs-delegateEvents',
     },
     {
         label: 'reactive list: (repeat)',
-        url: 'mobJs_repeat',
+        url: 'mobJs-repeat',
     },
     {
         label: 'unBind',
-        url: 'mobJs_unBind',
+        url: 'mobJs-unBind',
     },
     {
         label: 'emit',
-        url: 'mobJs_emit',
+        url: 'mobJs-emit',
     },
     {
         label: 'emitAsync',
-        url: 'mobJs_emitAsync',
+        url: 'mobJs-emitAsync',
     },
     {
         label: 'computed',
-        url: 'mobJs_computed',
+        url: 'mobJs-computed',
     },
     {
         label: 'renderComponent',
-        url: 'mobJs_renderComponent',
+        url: 'mobJs-renderComponent',
     },
     {
         label: 'removeDOM',
-        url: 'mobJs_removeDom',
+        url: 'mobJs-removeDom',
     },
     {
         label: 'remove',
-        url: 'mobJs_remove',
+        url: 'mobJs-remove',
     },
     {
         label: 'getChildren',
-        url: 'mobJs_getChildren',
+        url: 'mobJs-getChildren',
     },
     {
         label: 'freezeProp',
-        url: 'mobJs_freezeProp',
+        url: 'mobJs-freezeProp',
     },
     {
         label: 'unFreezeProp',
-        url: 'mobJs_unFreezeProp',
+        url: 'mobJs-unFreezeProp',
     },
     {
         label: 'getParentId',
-        url: 'mobJs_getParentId',
+        url: 'mobJs-getParentId',
     },
     {
         label: 'watchParent',
-        url: 'mobJs_watchParent',
+        url: 'mobJs-watchParent',
     },
 ];

@@ -2597,7 +2597,7 @@
   var storeWatchAction = ({ state, prop, callback: callback2 }) => {
     const { store, callBackWatcher } = state;
     const logStyle2 = getLogStyle();
-    if (!(prop in store)) {
+    if (!store || !(prop in store)) {
       storeWatchWarning(prop, logStyle2);
       return {
         state: void 0,
@@ -23026,32 +23026,32 @@ Loading snippet ...</pre
     },
     {
       label: "Canvas 2d",
-      url: "canvas_overview",
+      url: "canvas-overview",
       section: "canvas"
     },
     {
       label: "Illustration",
-      url: "svg_overview",
+      url: "svg-overview",
       section: "svg"
     },
     {
       label: "MobCore",
-      url: "mobCore_overview",
+      url: "mobCore-overview",
       section: "mobCore"
     },
     {
       label: "MobJs",
-      url: "mobJs_overview",
+      url: "mobJs-overview",
       section: "mobJs"
     },
     {
       label: "MobMotion",
-      url: "mobMotion_overview",
+      url: "mobMotion-overview",
       section: "mobMotion"
     },
     {
       label: "Plugin",
-      url: "plugin_overview",
+      url: "plugin-overview",
       section: "plugin"
     }
   ];
@@ -24096,95 +24096,95 @@ Loading snippet ...</pre
   var items = [
     {
       label: "html",
-      url: "mobJs_html"
+      url: "mobJs-html"
     },
     {
       label: "onMount",
-      url: "mobJs_onMount"
+      url: "mobJs-onMount"
     },
     {
       label: "getState",
-      url: "mobJs_getState"
+      url: "mobJs-getState"
     },
     {
       label: "setState",
-      url: "mobJs_setState"
+      url: "mobJs-setState"
     },
     {
       label: "watch",
-      url: "mobJs_watch"
+      url: "mobJs-watch"
     },
     {
       label: "watchSync",
-      url: "mobJs_watchSync"
+      url: "mobJs-watchSync"
     },
     {
       label: "staticProps",
-      url: "mobJs_staticProps"
+      url: "mobJs-staticProps"
     },
     {
       label: "bindProps",
-      url: "mobJs_bindProps"
+      url: "mobJs-bindProps"
     },
     {
       label: "bindEvents",
-      url: "mobJs_bindEvents"
+      url: "mobJs-bindEvents"
     },
     {
       label: "delegateEvents",
-      url: "mobJs_delegateEvents"
+      url: "mobJs-delegateEvents"
     },
     {
       label: "reactive list: (repeat)",
-      url: "mobJs_repeat"
+      url: "mobJs-repeat"
     },
     {
       label: "unBind",
-      url: "mobJs_unBind"
+      url: "mobJs-unBind"
     },
     {
       label: "emit",
-      url: "mobJs_emit"
+      url: "mobJs-emit"
     },
     {
       label: "emitAsync",
-      url: "mobJs_emitAsync"
+      url: "mobJs-emitAsync"
     },
     {
       label: "computed",
-      url: "mobJs_computed"
+      url: "mobJs-computed"
     },
     {
       label: "renderComponent",
-      url: "mobJs_renderComponent"
+      url: "mobJs-renderComponent"
     },
     {
       label: "removeDOM",
-      url: "mobJs_removeDom"
+      url: "mobJs-removeDom"
     },
     {
       label: "remove",
-      url: "mobJs_remove"
+      url: "mobJs-remove"
     },
     {
       label: "getChildren",
-      url: "mobJs_getChildren"
+      url: "mobJs-getChildren"
     },
     {
       label: "freezeProp",
-      url: "mobJs_freezeProp"
+      url: "mobJs-freezeProp"
     },
     {
       label: "unFreezeProp",
-      url: "mobJs_unFreezeProp"
+      url: "mobJs-unFreezeProp"
     },
     {
       label: "getParentId",
-      url: "mobJs_getParentId"
+      url: "mobJs-getParentId"
     },
     {
       label: "watchParent",
-      url: "mobJs_watchParent"
+      url: "mobJs-watchParent"
     }
   ];
 
@@ -27821,7 +27821,7 @@ Loading snippet ...</pre
     });
     return html`<div>
         <div class="l-index__content">
-            <a class="l-index__item" href="./#mobCore_overview">
+            <a class="l-index__item" href="./#mobCore-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Core
@@ -27833,7 +27833,7 @@ Loading snippet ...</pre
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="./#mobJs_overview">
+            <a class="l-index__item" href="./#mobJs-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Js
@@ -27845,7 +27845,7 @@ Loading snippet ...</pre
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="./#mobMotion_overview">
+            <a class="l-index__item" href="./#mobMotion-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Motion
@@ -28824,11 +28824,11 @@ Loading snippet ...</pre
   // src/js/pages/index.js
   var mobJsComponentBreadCrumbs = [
     {
-      url: "./#mobJs_overview",
+      url: "./#mobJs-overview",
       title: "mobJs"
     },
     {
-      url: "./#mobJs_component",
+      url: "./#mobJs-component",
       title: "component"
     }
   ];
@@ -28874,7 +28874,7 @@ Loading snippet ...</pre
       props: {}
     },
     {
-      name: "canvas_overview",
+      name: "canvas-overview",
       layout: canvas_overview,
       props: {}
     },
@@ -28889,7 +28889,7 @@ Loading snippet ...</pre
       props: {}
     },
     {
-      name: "dynamic_list",
+      name: "dynamic-list",
       layout: dynamic_list,
       props: {}
     },
@@ -28899,7 +28899,7 @@ Loading snippet ...</pre
       props: {}
     },
     {
-      name: "mobCore_overview",
+      name: "mobCore-overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/overview.json",
@@ -28909,37 +28909,37 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobCore_defaults",
+      name: "mobCore-defaults",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/defaults.json",
         title: "Defaults",
         section: "mobCore",
-        breadCrumbs: "./#mobCore_overview"
+        breadCrumbs: "./#mobCore-overview"
       }
     },
     {
-      name: "mobCore_events",
+      name: "mobCore-events",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/events.json",
         title: "Events",
         section: "mobCore",
-        breadCrumbs: "./#mobCore_overview"
+        breadCrumbs: "./#mobCore-overview"
       }
     },
     {
-      name: "mobCore_store",
+      name: "mobCore-store",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/store.json",
         title: "Store",
         section: "mobCore",
-        breadCrumbs: "./#mobCore_overview"
+        breadCrumbs: "./#mobCore-overview"
       }
     },
     {
-      name: "mobJs_overview",
+      name: "mobJs-overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/overview.json",
@@ -28949,117 +28949,117 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_initialization",
+      name: "mobJs-initialization",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/initialization.json",
         title: "initialization",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_component",
+      name: "mobJs-component",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/component.json",
         title: "component",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_web_component",
+      name: "mobJs-web-component",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/webComponent.json",
         title: "webComponent",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_routing",
+      name: "mobJs-routing",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/routing.json",
         title: "routing",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_refs",
+      name: "mobJs-refs",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/refs.json",
         title: "refs",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_slot",
+      name: "mobJs-slot",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/slot.json",
         title: "slot",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_runtime",
+      name: "mobJs-runtime",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/runtime.json",
         title: "runtime",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_instanceName",
+      name: "mobJs-instanceName",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/instanceName.json",
         title: "instanceName",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_tick",
+      name: "mobJs-tick",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/tick.json",
         title: "tick",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_utils",
+      name: "mobJs-utils",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/utils.json",
         title: "utils",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_debug",
+      name: "mobJs-debug",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/debug.json",
         title: "debug",
         section: "mobJs",
-        breadCrumbs: "./#mobJs_overview"
+        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
-      name: "mobJs_html",
+      name: "mobJs-html",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/html.json",
@@ -29069,7 +29069,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_onMount",
+      name: "mobJs-onMount",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/onMount.json",
@@ -29079,7 +29079,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_getState",
+      name: "mobJs-getState",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getState.json",
@@ -29089,7 +29089,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_setState",
+      name: "mobJs-setState",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/setState.json",
@@ -29099,7 +29099,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_watch",
+      name: "mobJs-watch",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watch.json",
@@ -29109,7 +29109,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_watchSync",
+      name: "mobJs-watchSync",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchSync.json",
@@ -29119,7 +29119,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_staticProps",
+      name: "mobJs-staticProps",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/staticProps.json",
@@ -29129,7 +29129,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_bindProps",
+      name: "mobJs-bindProps",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindProps.json",
@@ -29139,7 +29139,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_bindEvents",
+      name: "mobJs-bindEvents",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindEvents.json",
@@ -29149,7 +29149,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_delegateEvents",
+      name: "mobJs-delegateEvents",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/delegateEvents.json",
@@ -29159,7 +29159,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_repeat",
+      name: "mobJs-repeat",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/repeat.json",
@@ -29169,7 +29169,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_unBind",
+      name: "mobJs-unBind",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unBind.json",
@@ -29179,7 +29179,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_emit",
+      name: "mobJs-emit",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emit.json",
@@ -29189,7 +29189,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_emitAsync",
+      name: "mobJs-emitAsync",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emitAsync.json",
@@ -29199,7 +29199,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_computed",
+      name: "mobJs-computed",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/computed.json",
@@ -29209,7 +29209,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_renderComponent",
+      name: "mobJs-renderComponent",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/renderDom.json",
@@ -29219,7 +29219,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_removeDom",
+      name: "mobJs-removeDom",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/removeDom.json",
@@ -29229,7 +29229,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_remove",
+      name: "mobJs-remove",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/remove.json",
@@ -29239,7 +29239,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_getChildren",
+      name: "mobJs-getChildren",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getChildren.json",
@@ -29249,7 +29249,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_freezeProp",
+      name: "mobJs-freezeProp",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/freezeProp.json",
@@ -29259,7 +29259,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_unFreezeProp",
+      name: "mobJs-unFreezeProp",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unFreezeProp.json",
@@ -29269,7 +29269,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_getParentId",
+      name: "mobJs-getParentId",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getParentId.json",
@@ -29279,7 +29279,7 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobJs_watchParent",
+      name: "mobJs-watchParent",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchParent.json",
@@ -29289,27 +29289,27 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobMotion_stagger",
+      name: "mobMotion-stagger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/stagger.json",
         title: "Stagger",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_defaults",
+      name: "mobMotion-defaults",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/defaults.json",
         title: "Defaults",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_overview",
+      name: "mobMotion-overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/overview.json",
@@ -29319,73 +29319,73 @@ Loading snippet ...</pre
       }
     },
     {
-      name: "mobMotion_parallax",
+      name: "mobMotion-parallax",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/parallax.json",
         title: "Parallax",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_sequencer",
+      name: "mobMotion-sequencer",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/sequencer.json",
         title: "Sequencer",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_scrolltrigger",
+      name: "mobMotion-scrolltrigger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/scrollTrigger.json",
         title: "ScrollTrigger",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_sync_timeline",
+      name: "mobMotion-sync-timeline",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/syncTimeline.json",
         title: "Sync timeline",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_create_stagger",
+      name: "mobMotion-create-stagger",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/createStagger.json",
         title: "CreateStagger",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_async_timeline",
+      name: "mobMotion-async-timeline",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/asyncTimeline.json",
         title: "Async timeline",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
-      name: "mobMotion_tween_spring_lerp",
+      name: "mobMotion-tween-spring-lerp",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/tweenSpringLerp.json",
         title: "Tween Spring Lerp",
         section: "mobMotion",
-        breadCrumbs: "./#mobMotion_overview"
+        breadCrumbs: "./#mobMotion-overview"
       }
     },
     {
@@ -29394,7 +29394,7 @@ Loading snippet ...</pre
       props: {}
     },
     {
-      name: "plugin_overview",
+      name: "plugin-overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/plugin/overview.json",
@@ -29414,7 +29414,7 @@ Loading snippet ...</pre
       props: {}
     },
     {
-      name: "svg_overview",
+      name: "svg-overview",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/svg/overview.json",

@@ -218,7 +218,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Reference breakpoint, it will be possible to add custom values in <a href='./#mobMotion_defaults'>Default utils</a>"
+            "content": "Reference breakpoint, it will be possible to add custom values in <a href='./#mobMotion-defaults'>Default utils</a>"
         },
         {
             "component": "mob-spacer",
@@ -759,7 +759,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If you decide to use the easing parameter, an instance of <a href='./#mobMotion_tween_spring_lerp'>Lerp or Spring</a> will be used to update the values."
+            "content": "If you decide to use the easing parameter, an instance of <a href='./#mobMotion-tween-spring-lerp'>Lerp or Spring</a> will be used to update the values."
         },
         {
             "component": "mob-spacer",
@@ -886,7 +886,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
+            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion-defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",

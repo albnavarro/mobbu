@@ -67,7 +67,7 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
 
     return html`<div>
         <div class="l-index__content">
-            <a class="l-index__item" href="./#mobCore_overview">
+            <a class="l-index__item" href="./#mobCore-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Core
@@ -79,7 +79,7 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="./#mobJs_overview">
+            <a class="l-index__item" href="./#mobJs-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Js
@@ -91,7 +91,7 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
                     </h2>
                 </div>
             </a>
-            <a class="l-index__item" href="./#mobMotion_overview">
+            <a class="l-index__item" href="./#mobMotion-overview">
                 <div class="l-index__inner-content">
                     <h1 class="l-index__stagger" ref="textStagger">
                         <span>Mob</span>Motion

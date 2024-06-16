@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "syncTimeline is a large timer that can handle one or more <a href='./#mobMotion_sequencer'>sequencer</a>. It regulates its duration and manages all the play, stop, pause and more options."
+            "content": "syncTimeline is a large timer that can handle one or more <a href='./#mobMotion-sequencer'>sequencer</a>. It regulates its duration and manages all the play, stop, pause and more options."
         },
         {
             "component": "mob-paragraph",

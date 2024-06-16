@@ -20,9 +20,9 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobMotion_sequencer'>sequencer</a>",
-                    "<a href='./#mobMotion_create_stagger'>createStagger</a>",
-                    "<a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>"
+                    "<a href='./#mobMotion-sequencer'>sequencer</a>",
+                    "<a href='./#mobMotion-create-stagger'>createStagger</a>",
+                    "<a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>"
                 ]
             }
         }

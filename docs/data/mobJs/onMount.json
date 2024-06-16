@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The route will be considered loaded (and consequently the specific <a href='./#mobJs_routing'>events</a> will be launched) when all onMount functions are executed."
+            "content": "The route will be considered loaded (and consequently the specific <a href='./#mobJs-routing'>events</a> will be launched) when all onMount functions are executed."
         },
         {
             "component": "mob-spacer",
@@ -52,7 +52,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the scoped parameter in the <a href='./#mobJs_component'>component definition</a>."
+            "content": "You can execute the onMount function exactly after the component has been attached to the DOM and before child components are created by using the scoped parameter in the <a href='./#mobJs-component'>component definition</a>."
         },
         {
             "component": "mob-spacer",

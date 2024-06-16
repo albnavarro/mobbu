@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Typically we use events like click, mousedown, mouseup, mouseover. Events like mouseenter cannot work in this case, use <a href='./#mobJs_bindEvents'>bindEvent</a> to handle similar events."
+            "content": "Typically we use events like click, mousedown, mouseup, mouseover. Events like mouseenter cannot work in this case, use <a href='./#mobJs-bindEvents'>bindEvent</a> to handle similar events."
         },
         {
             "component": "mob-spacer",
@@ -86,7 +86,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The callback can have an object with two values: current and index. These two values will be needed when using reactive lists ( <a href='./#mobJs_repeat'>repeat</a> )"
+            "content": "The callback can have an object with two values: current and index. These two values will be needed when using reactive lists ( <a href='./#mobJs-repeat'>repeat</a> )"
         },
         {
             "component": "mob-spacer",

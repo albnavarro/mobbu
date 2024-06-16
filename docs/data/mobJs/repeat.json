@@ -32,7 +32,7 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "items": ["<a href='./#dynamic_list'>example</a>"]
+                "items": ["<a href='./#dynamic-list'>example</a>"]
             }
         },
         {

@@ -42,7 +42,7 @@
             "props": {
                 "style": "medium",
                 "dots": false,
-                "items": ["<a href='./#mobJs_runtime'>runtimeComponent</a>"]
+                "items": ["<a href='./#mobJs-runtime'>runtimeComponent</a>"]
             }
         }
     ]

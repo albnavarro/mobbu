@@ -67,7 +67,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs_slot'>slot</a>) you can decide to point to the states of the first component that hosts it and not of the general function component."
+            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs-slot'>slot</a>) you can decide to point to the states of the first component that hosts it and not of the general function component."
         },
         {
             "component": "mob-title",
@@ -141,7 +141,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The props function can have two values added: _current and _index. These two values will be needed when using reactive lists ( <a href='./#mobJs_repeat'>repeat</a> )"
+            "content": "The props function can have two values added: _current and _index. These two values will be needed when using reactive lists ( <a href='./#mobJs-repeat'>repeat</a> )"
         },
         {
             "component": "mob-snippet",

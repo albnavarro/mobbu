@@ -130,7 +130,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "To manage staggers refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
+            "content": "To manage staggers refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",

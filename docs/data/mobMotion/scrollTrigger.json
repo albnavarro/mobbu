@@ -536,7 +536,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "For more complex animations propierties use a custom tween. It is possible to use a <a href='./#mobMotion_sequencer'>sequencer</a>, otherwise there is a simplified tween: scrollerTween which shares some methods :"
+            "content": "For more complex animations propierties use a custom tween. It is possible to use a <a href='./#mobMotion-sequencer'>sequencer</a>, otherwise there is a simplified tween: scrollerTween which shares some methods :"
         },
         {
             "component": "mob-list",
@@ -1220,7 +1220,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion_defaults'>Default utils</a>."
+            "content": "Boolean value.<br/>Apply a throttle to the scroll. The throttle value can be changed in <a href='./#mobMotion-defaults'>Default utils</a>."
         },
         {
             "component": "mob-title",

@@ -9,32 +9,32 @@ const data = [
     },
     {
         label: 'Canvas 2d',
-        url: 'canvas_overview',
+        url: 'canvas-overview',
         section: 'canvas',
     },
     {
         label: 'Illustration',
-        url: 'svg_overview',
+        url: 'svg-overview',
         section: 'svg',
     },
     {
         label: 'MobCore',
-        url: 'mobCore_overview',
+        url: 'mobCore-overview',
         section: 'mobCore',
     },
     {
         label: 'MobJs',
-        url: 'mobJs_overview',
+        url: 'mobJs-overview',
         section: 'mobJs',
     },
     {
         label: 'MobMotion',
-        url: 'mobMotion_overview',
+        url: 'mobMotion-overview',
         section: 'mobMotion',
     },
     {
         label: 'Plugin',
-        url: 'plugin_overview',
+        url: 'plugin-overview',
         section: 'plugin',
     },
 ];

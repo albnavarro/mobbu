@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Canvas 2d experiment with <a href='./#mobMotion_overview'>mobMotion</a>"
+            "content": "Canvas 2d experiment with <a href='./#mobMotion-overview'>mobMotion</a>"
         },
         {
             "component": "mob-spacer",

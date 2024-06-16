@@ -20,8 +20,8 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobMotion_sequencer'>sequencer</a>",
-                    "<a href='./#mobMotion_sync_timeline'>syncTimeline</a>"
+                    "<a href='./#mobMotion-sequencer'>sequencer</a>",
+                    "<a href='./#mobMotion-sync-timeline'>syncTimeline</a>"
                 ]
             }
         }

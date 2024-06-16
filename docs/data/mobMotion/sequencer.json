@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='./#mobMotion_sync_timeline'>syncTimeline</a> and <a href='./#mobMotion_scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
+            "content": "The sequencer is a different type of tween, it is not tied to time or to a precision value. We can imagine it as a store which, given a value, returns a series of interprolated data. The sequencer has a draw(value) function that takes care of interpolating the data, in fact it is the API that the sequencer exposes to be controlled. <a href='./#mobMotion-sync-timeline'>syncTimeline</a> and <a href='./#mobMotion-scrolltrigger'>scrolTrigger</a> can use the sequencer by passing partial values to it."
         },
         {
             "component": "mob-paragraph",
@@ -69,7 +69,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If we decide to use a timeline to manage the sequencer ( <a href='./#mobMotion_sync_timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='./#mobMotion_scrolltrigger'>scrollTrigger</a>"
+            "content": "If we decide to use a timeline to manage the sequencer ( <a href='./#mobMotion-sync-timeline'>syncTimeline</a> ) the duration of the timeline will be the real duration while the duration parameter of the sequencer will be managed through a simple proportion. The same thing will happen with <a href='./#mobMotion-scrolltrigger'>scrollTrigger</a>"
         },
         {
             "component": "mob-spacer",
@@ -112,7 +112,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='./#mobMotion_tween_spring_lerp'>tween</a>:"
+            "content": "The initialization code is almost identical (only the relative option is missing) to <a href='./#mobMotion-tween-spring-lerp'>tween</a>:"
         },
         {
             "component": "mob-snippet",
@@ -371,7 +371,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to define labels to use as a reference from our <a href='./#mobMotion_sync_timeline'>syncTimeline</a>"
+            "content": "It is possible to define labels to use as a reference from our <a href='./#mobMotion-sync-timeline'>syncTimeline</a>"
         },
         {
             "component": "mob-snippet",
@@ -513,7 +513,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The masterSequencer allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion_create_stagger'>createStagger</a>"
+            "content": "The masterSequencer allows you to group multiple sequencers and pass a single instance to the respective syncTimeline/scrollTrigger.<br/> This module is very useful when using <a href='./#mobMotion-create-stagger'>createStagger</a>"
         },
         {
             "component": "mob-snippet",
@@ -545,7 +545,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Sequencers can use the <a href='./#mobMotion_create_stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
+            "content": "Sequencers can use the <a href='./#mobMotion-create-stagger'>createStagger</a> utility to synchronize multiple instances using stagger parameters."
         },
         {
             "component": "mob-spacer",

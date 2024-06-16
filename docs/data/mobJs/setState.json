@@ -25,21 +25,21 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore_store'>store class</a>. The setState() function is equivalent to myStore.set()."
+            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore-store'>store class</a>. The setState() function is equivalent to myStore.set()."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The setState function is often used in conjunction with the <a href='#mobJs_watch'>watch</a> function to update the DOM."
+            "content": "The setState function is often used in conjunction with the <a href='#mobJs-watch'>watch</a> function to update the DOM."
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Component states are declared in the component's <a href='#mobJs_component'>definition</a>"
+            "content": "Component states are declared in the component's <a href='#mobJs-component'>definition</a>"
         },
         {
             "component": "mob-snippet",

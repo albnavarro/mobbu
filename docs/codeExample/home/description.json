@@ -20,8 +20,8 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobMotion_tween_spring_lerp'>Tween</a>",
-                    "<a href='./#mobMotion_async_timeline'>asyncTimeline</a>"
+                    "<a href='./#mobMotion-tween-spring-lerp'>Tween</a>",
+                    "<a href='./#mobMotion-async-timeline'>asyncTimeline</a>"
                 ]
             }
         }

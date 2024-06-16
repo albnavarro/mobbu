@@ -28,7 +28,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Unlike <a href='./#mobMotion_stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
+            "content": "Unlike <a href='./#mobMotion-stagger'>stagger</a> which works as a single tween/lerp/spring/sequencer/scrollerTween, createStagger is a utility that allows you to synchronize multiple senquencers using the stagger scheme. createStagger returns an array with precomputed start and end values."
         },
         {
             "component": "mob-spacer",
@@ -266,7 +266,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
@@ -294,7 +294,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",
@@ -322,7 +322,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refer to the <a href='./#mobMotion_stagger'>stagger</a> section"
+            "content": "Refer to the <a href='./#mobMotion-stagger'>stagger</a> section"
         },
         {
             "component": "mob-spacer",

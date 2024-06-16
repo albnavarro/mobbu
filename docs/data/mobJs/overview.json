@@ -41,7 +41,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "<a href='./#mobCore_overview'>mobCore</a>:<br/> The mobJs and mobCore folders must be at the same level."
+            "content": "<a href='./#mobCore-overview'>mobCore</a>:<br/> The mobJs and mobCore folders must be at the same level."
         },
         {
             "component": "mob-spacer",
@@ -92,17 +92,17 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs_initialization'>initialization</a>",
-                    "<a href='./#mobJs_component'>Component structure</a>",
-                    "<a href='./#mobJs_web_component'>Web component</a>",
-                    "<a href='./#mobJs_routing'>Routing</a>",
-                    "<a href='./#mobJs_refs'>Refs</a>",
-                    "<a href='./#mobJs_slot'>Slot</a>",
-                    "<a href='./#mobJs_runtime'>Runtime add/remove</a>",
-                    "<a href='./#mobJs_instanceName'>InstanceName</a>",
-                    "<a href='./#mobJs_tick'>Tick</a>",
-                    "<a href='./#mobJs_utils'>Utils</a>",
-                    "<a href='./#mobJs_debug'>Debug</a>"
+                    "<a href='./#mobJs-initialization'>initialization</a>",
+                    "<a href='./#mobJs-component'>Component structure</a>",
+                    "<a href='./#mobJs-web-component'>Web component</a>",
+                    "<a href='./#mobJs-routing'>Routing</a>",
+                    "<a href='./#mobJs-refs'>Refs</a>",
+                    "<a href='./#mobJs-slot'>Slot</a>",
+                    "<a href='./#mobJs-runtime'>Runtime add/remove</a>",
+                    "<a href='./#mobJs-instanceName'>InstanceName</a>",
+                    "<a href='./#mobJs-tick'>Tick</a>",
+                    "<a href='./#mobJs-utils'>Utils</a>",
+                    "<a href='./#mobJs-debug'>Debug</a>"
                 ]
             }
         },
@@ -138,17 +138,17 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs_html'>html</a>",
-                    "<a href='./#mobJs_onMount'>onMount/Destroy</a>",
-                    "<a href='./#mobJs_getState'>getState</a>",
-                    "<a href='./#mobJs_setState'>setState</a>",
-                    "<a href='./#mobJs_watch'>watch</a>",
-                    "<a href='./#mobJs_watchSync'>watchSync</a>",
-                    "<a href='./#mobJs_staticProps'>staticProps</a>",
-                    "<a href='./#mobJs_bindProps'>bindProps</a>",
-                    "<a href='./#mobJs_bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs_delegateEvents'>delegateEvents</a>",
-                    "<a href='./#mobJs_repeat'>reactive list (repeat)</a>"
+                    "<a href='./#mobJs-html'>html</a>",
+                    "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
+                    "<a href='./#mobJs-getState'>getState</a>",
+                    "<a href='./#mobJs-setState'>setState</a>",
+                    "<a href='./#mobJs-watch'>watch</a>",
+                    "<a href='./#mobJs-watchSync'>watchSync</a>",
+                    "<a href='./#mobJs-staticProps'>staticProps</a>",
+                    "<a href='./#mobJs-bindProps'>bindProps</a>",
+                    "<a href='./#mobJs-bindEvents'>bindEvents</a>",
+                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
                 ]
             }
         },
@@ -165,18 +165,18 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs_unBind'>unBind</a>",
-                    "<a href='./#mobJs_emit'>emit</a>",
-                    "<a href='./#mobJs_emitAsync'>emitAsync</a>",
-                    "<a href='./#mobJs_computed'>computed</a>",
-                    "<a href='./#mobJs_renderComponent'>renderComponent</a>",
-                    "<a href='./#mobJs_removeDom'>removeDOM</a>",
-                    "<a href='./#mobJs_remove'>remove</a>",
-                    "<a href='./#mobJs_getChildren'>getChildren</a>",
-                    "<a href='./#mobJs_freezeProp'>freezeProp</a>",
-                    "<a href='./#mobJs_unFreezeProp'>unFreezeProp</a>",
-                    "<a href='./#mobJs_getParentId'>getParentId</a>",
-                    "<a href='./#mobJs_watchParent'>watchParent</a>"
+                    "<a href='./#mobJs-unBind'>unBind</a>",
+                    "<a href='./#mobJs-emit'>emit</a>",
+                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
+                    "<a href='./#mobJs-computed'>computed</a>",
+                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
+                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
+                    "<a href='./#mobJs-remove'>remove</a>",
+                    "<a href='./#mobJs-getChildren'>getChildren</a>",
+                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
+                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
+                    "<a href='./#mobJs-getParentId'>getParentId</a>",
+                    "<a href='./#mobJs-watchParent'>watchParent</a>"
                 ]
             }
         },

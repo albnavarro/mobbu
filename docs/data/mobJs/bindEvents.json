@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The bindEvent function allows you to associate an event with a component, this function has no effect on generic (non-component) elements of the dom. If you want to associate twenty to any node in the DOM use <a href='./#mobJs_delegateEvents'>delegateEvents</a>."
+            "content": "The bindEvent function allows you to associate an event with a component, this function has no effect on generic (non-component) elements of the dom. If you want to associate twenty to any node in the DOM use <a href='./#mobJs-delegateEvents'>delegateEvents</a>."
         },
         {
             "component": "mob-spacer",
@@ -79,7 +79,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The callback can have an object with two values: current and index. These two values will be needed when using reactive lists ( <a href='./#mobJs_repeat'>repeat</a> )"
+            "content": "The callback can have an object with two values: current and index. These two values will be needed when using reactive lists ( <a href='./#mobJs-repeat'>repeat</a> )"
         },
         {
             "component": "mob-spacer",

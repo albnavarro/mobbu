@@ -39,7 +39,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "List of <a href='./#mobJs_utils'>utilities</a> to manage a component starting from the name/id"
+            "content": "List of <a href='./#mobJs-utils'>utilities</a> to manage a component starting from the name/id"
         },
         {
             "component": "mob-snippet",

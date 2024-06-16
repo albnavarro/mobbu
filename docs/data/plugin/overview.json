@@ -32,7 +32,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "A collection of plugin examples developed with <a href='./#mobMotion_overview'>mobMotion</a>: coming soon."
+            "content": "A collection of plugin examples developed with <a href='./#mobMotion-overview'>mobMotion</a>: coming soon."
         },
         {
             "component": "mob-spacer",

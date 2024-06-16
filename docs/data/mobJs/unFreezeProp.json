@@ -25,7 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "the unFreezeProp() function eliminates the state lock applied by <a href='./#mobJs_freezeProp'>freezeProp()</a>"
+            "content": "the unFreezeProp() function eliminates the state lock applied by <a href='./#mobJs-freezeProp'>freezeProp()</a>"
         },
         {
             "component": "mob-snippet",
