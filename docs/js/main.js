@@ -27884,168 +27884,6 @@ Loading snippet ...</pre
     child: [LinksMobJsButton]
   });
 
-  // src/js/pages/mobJs/bindEvents/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_bindEvents = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/bindEvents.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>bindEvents</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">bindEvents</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/bindProps/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_bindProps = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/bindProps.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>bindProps</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">bindProps</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/computed/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_computed = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/computed.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>computed</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">computed</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/delegateEvents/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_delegateEvents = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/delegateEvents.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>delegateEvents</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">delegateEvents</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/emit/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_emit = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/emit.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>emit</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">emit</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/emitAsync/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_emitAsync = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/emitAsync.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>emitAsync</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">emitAsync</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/freezeProp/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_freezeProp = async () => {
@@ -28127,222 +27965,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/getState/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_getState = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getState.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getState</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getState</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/onMount/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_onMount = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/onMount.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>onMount</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">onMount</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/remove/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_remove = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/remove.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>remove</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">remove</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/removeDom/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_removeDom = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/removeDom.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>removeDom</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">removeDom</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/renderComponent/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_renderComponent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/renderDom.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>renderDom</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">renderDom</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/repeat/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_repeat = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/repeat.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>repeat</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">repeat</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/setState/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_setState = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/setState.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>setState</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">setState</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/staticProps/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_staticProps = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/staticProps.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>staticProps</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">staticProps</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/syncParent/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_syncParent = async () => {
@@ -28367,33 +27989,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">syncParent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/unBind/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_unBind = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/unBind.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>unBind</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">unBind</doc-title>
     </doc-container>`;
   };
 
@@ -28424,33 +28019,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/watch/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_watch = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watch.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watch</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watch</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/watchParent/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_watchParent = async () => {
@@ -28475,33 +28043,6 @@ Loading snippet ...</pre
             slot="section-links"
         ></links-mobjs>
         <doc-title slot="section-title">watchParent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/watchSync/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_watchSync = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watchSync.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watchSync</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watchSync</doc-title>
     </doc-container>`;
   };
 
@@ -29440,6 +28981,16 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/index.js
+  var mobJsComponentBreadCrumbs = [
+    {
+      url: "./#mobJs_overview",
+      title: "mobJs"
+    },
+    {
+      url: "./#mobJs_component",
+      title: "component"
+    }
+  ];
   var routes = {
     pageNotFound: {
       layout: pageNotFound2,
@@ -29644,57 +29195,161 @@ Loading snippet ...</pre
         source: "./data/mobJs/html.json",
         title: "html",
         section: "mobjs",
-        breadCrumbs: [
-          {
-            url: "./#mobJs_overview",
-            title: "mobJs"
-          },
-          {
-            url: "./#mobJs_component",
-            title: "component"
-          }
-        ]
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_onMount: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/onMount.json",
+        title: "onMount",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_getState: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/getState.json",
+        title: "getState",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_setState: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/setState.json",
+        title: "setState",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_watch: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/watch.json",
+        title: "watch",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_watchSync: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/watchSync.json",
+        title: "watchSync",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_staticProps: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/staticProps.json",
+        title: "staticProps",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_bindProps: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/bindProps.json",
+        title: "bindProps",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_bindEvents: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/bindEvents.json",
+        title: "bindEvents",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_delegateEvents: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/delegateEvents.json",
+        title: "delegateEvents",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_repeat: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/repeat.json",
+        title: "repeat",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_unBind: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/unBind.json",
+        title: "unBind",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
     mobJs_emit: {
-      layout: mobJs_emit,
-      props: {}
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/emit.json",
+        title: "emit",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
-    mobJs_watch: {
-      layout: mobJs_watch,
-      props: {}
-    },
-    mobJs_remove: {
-      layout: mobJs_remove,
-      props: {}
-    },
-    mobJs_repeat: {
-      layout: mobJs_repeat,
-      props: {}
-    },
-    mobJs_unBind: {
-      layout: mobJs_unBind,
-      props: {}
-    },
-    mobJs_onMount: {
-      layout: mobJs_onMount,
-      props: {}
+    mobJs_emitAsync: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/emitAsync.json",
+        title: "emitAsync",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
     mobJs_computed: {
-      layout: mobJs_computed,
-      props: {}
-    },
-    mobJs_getState: {
-      layout: mobJs_getState,
-      props: {}
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/computed.json",
+        title: "computed",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
     mobJs_renderComponent: {
-      layout: mobJs_renderComponent,
-      props: {}
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/renderDom.json",
+        title: "renderDom",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
-    mobJs_delegateEvents: {
-      layout: mobJs_delegateEvents,
-      props: {}
+    mobJs_removeDom: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/removeDom.json",
+        title: "removeDom",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_remove: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/remove.json",
+        title: "remove",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
     mobJs_unFreezeProp: {
       layout: mobJs_unFreezeProp,
@@ -29702,10 +29357,6 @@ Loading snippet ...</pre
     },
     mobJs_watchParent: {
       layout: mobJs_watchParent,
-      props: {}
-    },
-    mobJs_staticProps: {
-      layout: mobJs_staticProps,
       props: {}
     },
     mobJs_getParentId: {
@@ -29722,30 +29373,6 @@ Loading snippet ...</pre
     },
     mobJs_freezeProp: {
       layout: mobJs_freezeProp,
-      props: {}
-    },
-    mobJs_bindEvents: {
-      layout: mobJs_bindEvents,
-      props: {}
-    },
-    mobJs_watchSync: {
-      layout: mobJs_watchSync,
-      props: {}
-    },
-    mobJs_removeDom: {
-      layout: mobJs_removeDom,
-      props: {}
-    },
-    mobJs_emitAsync: {
-      layout: mobJs_emitAsync,
-      props: {}
-    },
-    mobJs_bindProps: {
-      layout: mobJs_bindProps,
-      props: {}
-    },
-    mobJs_setState: {
-      layout: mobJs_setState,
       props: {}
     },
     mobMotion_stagger: {

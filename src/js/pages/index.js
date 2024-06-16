@@ -11,32 +11,26 @@ import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
 import { dynamic_list } from './dynamicList';
 import { home } from './home';
-import { mobJs_bindEvents } from './mobJs/bindEvents';
-import { mobJs_bindProps } from './mobJs/bindProps';
-import { mobJs_computed } from './mobJs/computed';
-import { mobJs_delegateEvents } from './mobJs/delegateEvents';
-import { mobJs_emit } from './mobJs/emit';
-import { mobJs_emitAsync } from './mobJs/emitAsync';
 import { mobJs_freezeProp } from './mobJs/freezeProp';
 import { mobJs_getChildren } from './mobJs/getChildren';
 import { mobJs_getParentId } from './mobJs/getParentId';
-import { mobJs_getState } from './mobJs/getState';
-import { mobJs_onMount } from './mobJs/onMount';
-import { mobJs_remove } from './mobJs/remove';
-import { mobJs_removeDom } from './mobJs/removeDom';
-import { mobJs_renderComponent } from './mobJs/renderComponent';
-import { mobJs_repeat } from './mobJs/repeat';
-import { mobJs_setState } from './mobJs/setState';
-import { mobJs_staticProps } from './mobJs/staticProps';
 import { mobJs_syncParent } from './mobJs/syncParent';
-import { mobJs_unBind } from './mobJs/unBind';
 import { mobJs_unFreezeProp } from './mobJs/unFreezeProp';
-import { mobJs_watch } from './mobJs/watch';
 import { mobJs_watchParent } from './mobJs/watchParent';
-import { mobJs_watchSync } from './mobJs/watchSync';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
+
+const mobJsComponentBreadCrumbs = [
+    {
+        url: './#mobJs_overview',
+        title: 'mobJs',
+    },
+    {
+        url: './#mobJs_component',
+        title: 'component',
+    },
+];
 
 export const routes = {
     pageNotFound: {
@@ -242,57 +236,161 @@ export const routes = {
             source: './data/mobJs/html.json',
             title: 'html',
             section: 'mobjs',
-            breadCrumbs: [
-                {
-                    url: './#mobJs_overview',
-                    title: 'mobJs',
-                },
-                {
-                    url: './#mobJs_component',
-                    title: 'component',
-                },
-            ],
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_onMount: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/onMount.json',
+            title: 'onMount',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_getState: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/getState.json',
+            title: 'getState',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_setState: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/setState.json',
+            title: 'setState',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_watch: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/watch.json',
+            title: 'watch',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_watchSync: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/watchSync.json',
+            title: 'watchSync',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_staticProps: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/staticProps.json',
+            title: 'staticProps',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_bindProps: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindProps.json',
+            title: 'bindProps',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_bindEvents: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindEvents.json',
+            title: 'bindEvents',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_delegateEvents: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/delegateEvents.json',
+            title: 'delegateEvents',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_repeat: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/repeat.json',
+            title: 'repeat',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_unBind: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/unBind.json',
+            title: 'unBind',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
     mobJs_emit: {
-        layout: mobJs_emit,
-        props: {},
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/emit.json',
+            title: 'emit',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
-    mobJs_watch: {
-        layout: mobJs_watch,
-        props: {},
-    },
-    mobJs_remove: {
-        layout: mobJs_remove,
-        props: {},
-    },
-    mobJs_repeat: {
-        layout: mobJs_repeat,
-        props: {},
-    },
-    mobJs_unBind: {
-        layout: mobJs_unBind,
-        props: {},
-    },
-    mobJs_onMount: {
-        layout: mobJs_onMount,
-        props: {},
+    mobJs_emitAsync: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/emitAsync.json',
+            title: 'emitAsync',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
     mobJs_computed: {
-        layout: mobJs_computed,
-        props: {},
-    },
-    mobJs_getState: {
-        layout: mobJs_getState,
-        props: {},
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/computed.json',
+            title: 'computed',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
     mobJs_renderComponent: {
-        layout: mobJs_renderComponent,
-        props: {},
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/renderDom.json',
+            title: 'renderDom',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
-    mobJs_delegateEvents: {
-        layout: mobJs_delegateEvents,
-        props: {},
+    mobJs_removeDom: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/removeDom.json',
+            title: 'removeDom',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_remove: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/remove.json',
+            title: 'remove',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
     mobJs_unFreezeProp: {
         layout: mobJs_unFreezeProp,
@@ -300,10 +398,6 @@ export const routes = {
     },
     mobJs_watchParent: {
         layout: mobJs_watchParent,
-        props: {},
-    },
-    mobJs_staticProps: {
-        layout: mobJs_staticProps,
         props: {},
     },
     mobJs_getParentId: {
@@ -320,30 +414,6 @@ export const routes = {
     },
     mobJs_freezeProp: {
         layout: mobJs_freezeProp,
-        props: {},
-    },
-    mobJs_bindEvents: {
-        layout: mobJs_bindEvents,
-        props: {},
-    },
-    mobJs_watchSync: {
-        layout: mobJs_watchSync,
-        props: {},
-    },
-    mobJs_removeDom: {
-        layout: mobJs_removeDom,
-        props: {},
-    },
-    mobJs_emitAsync: {
-        layout: mobJs_emitAsync,
-        props: {},
-    },
-    mobJs_bindProps: {
-        layout: mobJs_bindProps,
-        props: {},
-    },
-    mobJs_setState: {
-        layout: mobJs_setState,
         props: {},
     },
     mobMotion_stagger: {
