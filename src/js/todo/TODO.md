@@ -35,9 +35,6 @@
 - Creare un stile per le quote tipo file md `quote`
 
 ### Pages:
-- Sostituire nelle rotte il caratter `_` con `-`
-
-
 - Update routing docs.
 
 ### Methods
