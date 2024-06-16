@@ -31,6 +31,11 @@
 
 # MobJs
 
+### back from browser
+- Tornando indietro cdal back del browser dovrebbe arrivare alla posizione di scroll procedente.
+- salvarla e usarla solo sul back ( pop state ).
+
+
 ### Utils
 
 ```js
