@@ -33,7 +33,20 @@
 
 ### back from browser
 - Tornando indietro cdal back del browser dovrebbe arrivare alla posizione di scroll procedente.
-- salvarla e usarla solo sul back ( pop state ).
+- Tornando identro vanno inibite le transizioni di pagina.
+
+```js
+// router.js
+
+const historyId = mobCore.getUnivoqueId();
+history.replaceState({ nextId: historyId }, '', `#${hash}${paramsToPush}`);
+
+window.addEventListener('popstate', (event) => {
+    comeFromback = event?.state?.nextId;
+});
+
+... capire come gestire scrollTo(0,0)
+```
 
 
 ### Utils
