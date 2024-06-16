@@ -1,5 +1,6 @@
 import { pageNotFound } from './404';
 import { layoutSidebarAnchor } from './Layout/layoutSidebarAnchor';
+import { layoutSidebarLinks } from './Layout/layoutSidebarLinks';
 import { animatedPatternN0 } from './canvas/animatedPatternN0';
 import { animatedPatternN1 } from './canvas/animatedPatternN1';
 import { caterpillarN0 } from './canvas/caterpillarN0';
@@ -20,7 +21,6 @@ import { mobJs_freezeProp } from './mobJs/freezeProp';
 import { mobJs_getChildren } from './mobJs/getChildren';
 import { mobJs_getParentId } from './mobJs/getParentId';
 import { mobJs_getState } from './mobJs/getState';
-import { mobJs_html } from './mobJs/html';
 import { mobJs_onMount } from './mobJs/onMount';
 import { mobJs_remove } from './mobJs/remove';
 import { mobJs_removeDom } from './mobJs/removeDom';
@@ -236,12 +236,26 @@ export const routes = {
             breadCrumbs: './#mobJs_overview',
         },
     },
+    mobJs_html: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/html.json',
+            title: 'html',
+            section: 'mobjs',
+            breadCrumbs: [
+                {
+                    url: './#mobJs_overview',
+                    title: 'mobJs',
+                },
+                {
+                    url: './#mobJs_component',
+                    title: 'component',
+                },
+            ],
+        },
+    },
     mobJs_emit: {
         layout: mobJs_emit,
-        props: {},
-    },
-    mobJs_html: {
-        layout: mobJs_html,
         props: {},
     },
     mobJs_watch: {

@@ -24089,6 +24089,33 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/pages/Layout/layoutSidebarLinks.js
+  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+  var getBreadCrumbs2 = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a> / `).join("");
+  var layoutSidebarLinks = async ({ props }) => {
+    const { source, title, section, breadCrumbs } = props;
+    const { data: data3 } = await loadJsonContent({ source });
+    return renderHtml` <doc-container>
+        <html-content
+            slot="docs"
+            ${staticProps({
+      data: data3.data,
+      useMaxWidth: true
+    })}
+        ></html-content>
+        <doc-title-small slot="section-title-small"
+            >${getBreadCrumbs2({
+      breadCrumbs
+    })}<span>${title}</span></doc-title-small
+        >
+        <links-mobjs
+            ${staticProps({ section })}
+            slot="section-links"
+        ></links-mobjs>
+        <doc-title slot="section-title">${title}</doc-title>
+    </doc-container>`;
+  };
+
   // src/js/component/common/onlyDesktop/onlyDesktop.js
   var content = renderHtml`
     <div class="only-desktop">
@@ -28127,33 +28154,6 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/pages/mobJs/html/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_html = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/html.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>html</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">HTML</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/pages/mobJs/onMount/index.js
   useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var mobJs_onMount = async () => {
@@ -29638,12 +29638,26 @@ Loading snippet ...</pre
         breadCrumbs: "./#mobJs_overview"
       }
     },
+    mobJs_html: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/html.json",
+        title: "html",
+        section: "mobjs",
+        breadCrumbs: [
+          {
+            url: "./#mobJs_overview",
+            title: "mobJs"
+          },
+          {
+            url: "./#mobJs_component",
+            title: "component"
+          }
+        ]
+      }
+    },
     mobJs_emit: {
       layout: mobJs_emit,
-      props: {}
-    },
-    mobJs_html: {
-      layout: mobJs_html,
       props: {}
     },
     mobJs_watch: {
