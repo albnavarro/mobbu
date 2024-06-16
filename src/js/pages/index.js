@@ -11,12 +11,6 @@ import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
 import { dynamic_list } from './dynamicList';
 import { home } from './home';
-import { mobJs_freezeProp } from './mobJs/freezeProp';
-import { mobJs_getChildren } from './mobJs/getChildren';
-import { mobJs_getParentId } from './mobJs/getParentId';
-import { mobJs_syncParent } from './mobJs/syncParent';
-import { mobJs_unFreezeProp } from './mobJs/unFreezeProp';
-import { mobJs_watchParent } from './mobJs/watchParent';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
@@ -392,29 +386,50 @@ export const routes = {
             breadCrumbs: mobJsComponentBreadCrumbs,
         },
     },
-    mobJs_unFreezeProp: {
-        layout: mobJs_unFreezeProp,
-        props: {},
-    },
-    mobJs_watchParent: {
-        layout: mobJs_watchParent,
-        props: {},
-    },
-    mobJs_getParentId: {
-        layout: mobJs_getParentId,
-        props: {},
-    },
     mobJs_getChildren: {
-        layout: mobJs_getChildren,
-        props: {},
-    },
-    mobJs_syncParent: {
-        layout: mobJs_syncParent,
-        props: {},
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/getChildren.json',
+            title: 'getChildren',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
     mobJs_freezeProp: {
-        layout: mobJs_freezeProp,
-        props: {},
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/freezeProp.json',
+            title: 'freezeProp',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_unFreezeProp: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/unFreezeProp.json',
+            title: 'unFreezeProp',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_getParentId: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/getParentId.json',
+            title: 'getParentId',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    mobJs_watchParent: {
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/watchParent.json',
+            title: 'watchParent',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
     },
     mobMotion_stagger: {
         layout: layoutSidebarAnchor,

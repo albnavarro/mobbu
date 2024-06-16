@@ -2,11 +2,11 @@ import { DocContainer } from '../../component/common/docsContainer/definition';
 import { DocTitle } from '../../component/common/doctitle/definition';
 import { DocsTitleSmall } from '../../component/common/doctitleSmall/definition';
 import { HtmlContent } from '../../component/common/htmlContent/definition';
-import { ScrollTo } from '../../component/common/scrollTo/definition';
+import { LinksMobJs } from '../../component/common/linksMobJs/definition';
 import { html, staticProps, useComponent } from '../../mobjs';
 import { loadJsonContent } from '../../utils/utils';
 
-useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
 
 const getBreadCrumbs = ({ breadCrumbs }) =>
     breadCrumbs

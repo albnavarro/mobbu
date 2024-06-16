@@ -24089,8 +24089,167 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
+  // src/js/component/common/linksMobJs/data.js
+  var items = [
+    {
+      label: "html",
+      url: "mobJs_html"
+    },
+    {
+      label: "onMount",
+      url: "mobJs_onMount"
+    },
+    {
+      label: "getState",
+      url: "mobJs_getState"
+    },
+    {
+      label: "setState",
+      url: "mobJs_setState"
+    },
+    {
+      label: "watch",
+      url: "mobJs_watch"
+    },
+    {
+      label: "watchSync",
+      url: "mobJs_watchSync"
+    },
+    {
+      label: "staticProps",
+      url: "mobJs_staticProps"
+    },
+    {
+      label: "bindProps",
+      url: "mobJs_bindProps"
+    },
+    {
+      label: "bindEvents",
+      url: "mobJs_bindEvents"
+    },
+    {
+      label: "delegateEvents",
+      url: "mobJs_delegateEvents"
+    },
+    {
+      label: "reactive list: (repeat)",
+      url: "mobJs_repeat"
+    },
+    {
+      label: "unBind",
+      url: "mobJs_unBind"
+    },
+    {
+      label: "emit",
+      url: "mobJs_emit"
+    },
+    {
+      label: "emitAsync",
+      url: "mobJs_emitAsync"
+    },
+    {
+      label: "computed",
+      url: "mobJs_computed"
+    },
+    {
+      label: "renderComponent",
+      url: "mobJs_renderComponent"
+    },
+    {
+      label: "removeDOM",
+      url: "mobJs_removeDom"
+    },
+    {
+      label: "remove",
+      url: "mobJs_remove"
+    },
+    {
+      label: "getChildren",
+      url: "mobJs_getChildren"
+    },
+    {
+      label: "freezeProp",
+      url: "mobJs_freezeProp"
+    },
+    {
+      label: "unFreezeProp",
+      url: "mobJs_unFreezeProp"
+    },
+    {
+      label: "getParentId",
+      url: "mobJs_getParentId"
+    },
+    {
+      label: "watchParent",
+      url: "mobJs_watchParent"
+    }
+  ];
+
+  // src/js/component/common/linksMobJs/linksMobJs.js
+  var data2 = {
+    mobjs: items
+  };
+  var getItems3 = ({ data: data3, staticProps: staticProps2 }) => {
+    return data3.map((item) => {
+      const { label, url } = item;
+      return renderHtml`<li>
+                <links-mobjs-button
+                    ${staticProps2({
+        label,
+        url
+      })}
+                ></links-mobjs-button>
+            </li>`;
+    }).join("");
+  };
+  var LinksMobJsFn = ({ html, staticProps: staticProps2, getState }) => {
+    const { section } = getState();
+    return html`<div class="c-params-mobjs">
+        <ul>
+            ${getItems3({ staticProps: staticProps2, data: data2?.[section] ?? [] })}
+        </ul>
+    </div>`;
+  };
+
+  // src/js/component/common/linksMobJs/linksMobJsButton.js
+  var LinksMobJsButtonFn = ({ html, getState }) => {
+    const { label, url } = getState();
+    const { activeRoute } = mainStore.get();
+    const currentClass = activeRoute === url ? "current" : "";
+    return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
+  };
+
+  // src/js/component/common/linksMobJs/definition.js
+  var LinksMobJsButton = createComponent({
+    name: "links-mobjs-button",
+    component: LinksMobJsButtonFn,
+    exportState: ["label", "url"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      url: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+  var LinksMobJs = createComponent({
+    name: "links-mobjs",
+    component: LinksMobJsFn,
+    exportState: ["section"],
+    state: {
+      section: () => ({
+        value: "",
+        type: String
+      })
+    },
+    child: [LinksMobJsButton]
+  });
+
   // src/js/pages/Layout/layoutSidebarLinks.js
-  useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
   var getBreadCrumbs2 = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a> / `).join("");
   var layoutSidebarLinks = async ({ props }) => {
     const { source, title, section, breadCrumbs } = props;
@@ -27725,327 +27884,6 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/linksMobJs/data.js
-  var items = [
-    {
-      label: "html",
-      url: "mobJs_html"
-    },
-    {
-      label: "onMount",
-      url: "mobJs_onMount"
-    },
-    {
-      label: "getState",
-      url: "mobJs_getState"
-    },
-    {
-      label: "setState",
-      url: "mobJs_setState"
-    },
-    {
-      label: "watch",
-      url: "mobJs_watch"
-    },
-    {
-      label: "watchSync",
-      url: "mobJs_watchSync"
-    },
-    {
-      label: "staticProps",
-      url: "mobJs_staticProps"
-    },
-    {
-      label: "bindProps",
-      url: "mobJs_bindProps"
-    },
-    {
-      label: "bindEvents",
-      url: "mobJs_bindEvents"
-    },
-    {
-      label: "delegateEvents",
-      url: "mobJs_delegateEvents"
-    },
-    {
-      label: "reactive list: (repeat)",
-      url: "mobJs_repeat"
-    },
-    {
-      label: "unBind",
-      url: "mobJs_unBind"
-    },
-    {
-      label: "emit",
-      url: "mobJs_emit"
-    },
-    {
-      label: "emitAsync",
-      url: "mobJs_emitAsync"
-    },
-    {
-      label: "computed",
-      url: "mobJs_computed"
-    },
-    {
-      label: "renderComponent",
-      url: "mobJs_renderComponent"
-    },
-    {
-      label: "removeDOM",
-      url: "mobJs_removeDom"
-    },
-    {
-      label: "remove",
-      url: "mobJs_remove"
-    },
-    {
-      label: "getChildren",
-      url: "mobJs_getChildren"
-    },
-    {
-      label: "freezeProp",
-      url: "mobJs_freezeProp"
-    },
-    {
-      label: "unFreezeProp",
-      url: "mobJs_unFreezeProp"
-    },
-    {
-      label: "getParentId",
-      url: "mobJs_getParentId"
-    },
-    {
-      label: "watchParent",
-      url: "mobJs_watchParent"
-    }
-  ];
-
-  // src/js/component/common/linksMobJs/linksMobJs.js
-  var data2 = {
-    mobjs: items
-  };
-  var getItems3 = ({ data: data3, staticProps: staticProps2 }) => {
-    return data3.map((item) => {
-      const { label, url } = item;
-      return renderHtml`<li>
-                <links-mobjs-button
-                    ${staticProps2({
-        label,
-        url
-      })}
-                ></links-mobjs-button>
-            </li>`;
-    }).join("");
-  };
-  var LinksMobJsFn = ({ html, staticProps: staticProps2, getState }) => {
-    const { section } = getState();
-    return html`<div class="c-params-mobjs">
-        <ul>
-            ${getItems3({ staticProps: staticProps2, data: data2?.[section] ?? [] })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var LinksMobJsButtonFn = ({ html, getState }) => {
-    const { label, url } = getState();
-    const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute === url ? "current" : "";
-    return html`<a href="./#${url}" class="${currentClass}">${label}</a>`;
-  };
-
-  // src/js/component/common/linksMobJs/definition.js
-  var LinksMobJsButton = createComponent({
-    name: "links-mobjs-button",
-    component: LinksMobJsButtonFn,
-    exportState: ["label", "url"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-  var LinksMobJs = createComponent({
-    name: "links-mobjs",
-    component: LinksMobJsFn,
-    exportState: ["section"],
-    state: {
-      section: () => ({
-        value: "",
-        type: String
-      })
-    },
-    child: [LinksMobJsButton]
-  });
-
-  // src/js/pages/mobJs/freezeProp/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_freezeProp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/freezeProp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>freezeProp</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">freezeProp</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/getChildren/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_getChildren = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getChildren.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getChildren</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getChildren</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/getParentId/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_getParentId = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/getParentId.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>getParentId</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">getParentId</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/syncParent/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_syncParent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/syncParent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>syncParent</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">syncParent</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/unFreezeProp/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_unFreezeProp = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/unFreezeProp.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>unFreezeProp</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">unFreezeProp</doc-title>
-    </doc-container>`;
-  };
-
-  // src/js/pages/mobJs/watchParent/index.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
-  var mobJs_watchParent = async () => {
-    const { data: data3 } = await loadJsonContent({
-      source: "./data/mobJs/watchParent.json"
-    });
-    return renderHtml` <doc-container>
-        <html-content
-            slot="docs"
-            ${staticProps({
-      data: data3.data,
-      useMaxWidth: true
-    })}
-        ></html-content>
-        <doc-title-small slot="section-title-small"
-            ><a href="./#mobJs_overview">mobjs</a> /
-            <a href="./#mobJs_component">component</a> /
-            <span>watchParent</span></doc-title-small
-        >
-        <links-mobjs
-            ${staticProps({ section: "mobjs" })}
-            slot="section-links"
-        ></links-mobjs>
-        <doc-title slot="section-title">watchParent</doc-title>
-    </doc-container>`;
-  };
-
   // src/js/component/common/shapes/footerShapeV1.js
   var FooterShapeV1Fn = ({ html, onMount, getState }) => {
     const { svg, position: position2 } = getState();
@@ -29351,29 +29189,50 @@ Loading snippet ...</pre
         breadCrumbs: mobJsComponentBreadCrumbs
       }
     },
-    mobJs_unFreezeProp: {
-      layout: mobJs_unFreezeProp,
-      props: {}
-    },
-    mobJs_watchParent: {
-      layout: mobJs_watchParent,
-      props: {}
-    },
-    mobJs_getParentId: {
-      layout: mobJs_getParentId,
-      props: {}
-    },
     mobJs_getChildren: {
-      layout: mobJs_getChildren,
-      props: {}
-    },
-    mobJs_syncParent: {
-      layout: mobJs_syncParent,
-      props: {}
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/getChildren.json",
+        title: "getChildren",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
     mobJs_freezeProp: {
-      layout: mobJs_freezeProp,
-      props: {}
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/freezeProp.json",
+        title: "freezeProp",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_unFreezeProp: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/unFreezeProp.json",
+        title: "unFreezeProp",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_getParentId: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/getParentId.json",
+        title: "getParentId",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    mobJs_watchParent: {
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/watchParent.json",
+        title: "watchParent",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
     },
     mobMotion_stagger: {
       layout: layoutSidebarAnchor,
