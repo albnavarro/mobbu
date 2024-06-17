@@ -38,7 +38,7 @@ export const Snippet = createComponent({
             type: Number,
         }),
         loadOnMount: () => ({
-            value: false,
+            value: true,
             type: Boolean,
         }),
     },

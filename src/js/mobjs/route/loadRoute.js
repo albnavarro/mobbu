@@ -23,14 +23,21 @@ import { parseComponents } from '../parseComponent/componentParse';
 import { tick } from '../componentStore/tick';
 
 /**
- * @param {object} obj
- * @param {string} obj.route
- * @param {{[key:string]: any}} obj.params
+ * @param {object} param
+ * @param {string} param.route
+ * @param {{[key:string]: any}} param.params
+ * @param {boolean} param.comeFromHistory
+ * @param {number} param.scrollY
  *
  * @description
  * Load new route.
  */
-export const loadRoute = async ({ route = '', params = {} }) => {
+export const loadRoute = async ({
+    route = '',
+    params = {},
+    scrollY,
+    comeFromHistory = false,
+}) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
 
     /**
@@ -113,7 +120,7 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      */
     let clone = contentEl?.cloneNode(true);
 
-    if (beforePageTransition && clone) {
+    if (beforePageTransition && clone && !comeFromHistory) {
         await beforePageTransition({
             // @ts-ignore
             oldNode: clone,
@@ -127,7 +134,6 @@ export const loadRoute = async ({ route = '', params = {} }) => {
      *
      */
     contentEl.innerHTML = '';
-    scrollTo(0, 0);
     removeCancellableComponent();
     contentEl.insertAdjacentHTML('afterbegin', content);
 
@@ -142,11 +148,16 @@ export const loadRoute = async ({ route = '', params = {} }) => {
     if (!skip) mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, route);
 
     /**
+     * Scroll to 0 or if use history from history scrollY value
+     */
+    scrollTo(0, scrollY);
+
+    /**
      * Animate pgae teansition.
      * Remove old route.
      */
     const pageTransition = getPageTransition();
-    if (pageTransition) {
+    if (pageTransition && !comeFromHistory) {
         await pageTransition({
             oldNode: clone,
             newNode: contentEl,

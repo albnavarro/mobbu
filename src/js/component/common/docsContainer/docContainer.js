@@ -5,8 +5,6 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
  */
 export const DocContainerFn = ({ html, onMount }) => {
     onMount(() => {
-        window.scrollTo(0, 0);
-
         /**
          * Show side logo.
          */
