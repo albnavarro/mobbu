@@ -32,21 +32,11 @@
 # MobJs
 
 ### back from browser
-- Tornando indietro cdal back del browser dovrebbe arrivare alla posizione di scroll procedente.
-- Tornando identro vanno inibite le transizioni di pagina.
+- historyScrollY -> historyBack
+- agiungere historyNext
+- quando chiamo deleteLastHistory ( -> deleteLastHistoryBack ), l'item verra inserito in historyNext come ultimo.
+- intercettare back o next dalla history per collegarsi a historyBack/historyNext
 
-```js
-// router.js
-
-const historyId = mobCore.getUnivoqueId();
-history.replaceState({ nextId: historyId }, '', `#${hash}${paramsToPush}`);
-
-window.addEventListener('popstate', (event) => {
-    comeFromback = event?.state?.nextId;
-});
-
-... capire come gestire scrollTo(0,0)
-```
 
 
 ### Utils
