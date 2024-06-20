@@ -2,13 +2,21 @@
 
 import { mobCore } from '../../mobCore';
 import { mainStore } from '../mainStore/mainStore';
-import { getLastHistoryScrollY, setHistoryScrollY } from './historyScrollY';
+import {
+    getLastHistory,
+    getLastHistoryNext2,
+    pippodebug,
+    setHistoryBack,
+    setHistoryNext,
+} from './historyScrollY';
 import { loadRoute } from './loadRoute';
+import { pippo } from './popDirection';
 import { getRouteModule } from './utils';
 
 let previousHash = '';
 let previousParamsToPush = '';
 let currentSearch;
+let historyDirection = 'back';
 
 /**
  * @type {string|undefined}
@@ -108,17 +116,36 @@ const hashHandler = async () => {
      */
     previousParamsToPush = paramsToPush;
 
+    // modalita standard
+    // salvo il vaslore dello scroll corrente
+    if (!comeFrombackId) {
+        console.log('NO BACK/NEXT');
+        setHistoryBack(valueY);
+    }
+
+    // salvo il vaslore dello scroll corrente
+    if (comeFrombackId && historyDirection === 'back') {
+        console.log('from back');
+        setHistoryNext(valueY);
+    }
+
+    // salvo il vaslore corrente di next in back
+    if (comeFrombackId && historyDirection === 'next') {
+        console.log('from next');
+        setHistoryBack(getLastHistoryNext2());
+    }
+
     /**
      * Load.
      */
     await loadRoute({
         route: getRouteModule({ url: hash }),
         params,
-        scrollY: comeFrombackId ? getLastHistoryScrollY() : 0,
+        scrollY: comeFrombackId ? getLastHistory(historyDirection) : 0,
         comeFromHistory: comeFrombackId ? true : false,
     });
 
-    if (!comeFrombackId) setHistoryScrollY(valueY);
+    pippodebug();
 };
 
 /**
@@ -127,13 +154,26 @@ const hashHandler = async () => {
  */
 export const router = () => {
     hashHandler();
+    pippo();
 
     window.addEventListener('popstate', (event) => {
+        console.log('pop state');
         comeFrombackId = event?.state?.nextId;
     });
 
     window.addEventListener('hashchange', () => {
+        console.log('has change');
         hashHandler();
+    });
+
+    window.addEventListener('forward', () => {
+        console.log('handler next');
+        historyDirection = 'next';
+    });
+
+    window.addEventListener('back', () => {
+        console.log('handler back');
+        historyDirection = 'back';
     });
 };
 

@@ -18163,18 +18163,46 @@
   });
 
   // src/js/mobjs/route/historyScrollY.js
-  var historyScrollY = [];
-  var deleteLastHistory = () => {
-    const arrayLenght = historyScrollY.length;
-    if (arrayLenght > 1) historyScrollY.length = historyScrollY.length - 1;
+  var historyBack = [];
+  var historyNext = [];
+  var deleteLastHistoryBack = () => {
+    const arrayLenght = historyBack.length;
+    if (arrayLenght >= 1) historyBack.length = historyBack.length - 1;
   };
-  var setHistoryScrollY = (value) => {
-    historyScrollY.push(value);
+  var deleteLastHistoryNext = () => {
+    const arrayLenght = historyNext.length;
+    console.log(arrayLenght);
+    if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
   };
-  var getLastHistoryScrollY = () => {
-    const value = historyScrollY.at(-1);
-    deleteLastHistory();
+  var setHistoryBack = (value) => {
+    historyBack.push(value);
+  };
+  var setHistoryNext = (value) => {
+    historyNext.push(value);
+  };
+  var getLastHistoryBack = () => {
+    const value = historyBack.at(-1);
+    deleteLastHistoryBack();
     return value;
+  };
+  var getLastHistoryNext = () => {
+    const value = historyNext.at(-2);
+    deleteLastHistoryNext();
+    return value;
+  };
+  var getLastHistoryNext2 = () => {
+    const value = historyNext.at(-1);
+    return value;
+  };
+  var getLastHistory = (direction2) => {
+    if (direction2 === "back") {
+      return getLastHistoryBack();
+    }
+    return getLastHistoryNext();
+  };
+  var pippodebug = () => {
+    console.log("back", historyBack);
+    console.log("next", historyNext);
   };
 
   // src/js/mobjs/mainStore/routeList.js
@@ -19468,6 +19496,58 @@
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
   };
 
+  // src/js/mobjs/route/popDirection.js
+  var pippo = () => {
+    let currentIndex = history.state && history.state.index || 0;
+    if (!history.state || !("index" in history.state)) {
+      history.replaceState(
+        { index: currentIndex, state: history.state },
+        document.title
+      );
+    }
+    const getState = Object.getOwnPropertyDescriptor(
+      History.prototype,
+      "state"
+    ).get;
+    const { pushState, replaceState } = history;
+    function onPopstate() {
+      const state = getState.call(history);
+      if (!state) {
+        replaceState.call(
+          history,
+          { index: currentIndex + 1 },
+          document.title
+        );
+      }
+      const index = state ? state.index : currentIndex + 1;
+      const direction2 = index > currentIndex ? "forward" : "back";
+      window.dispatchEvent(new Event(direction2));
+      currentIndex = index;
+    }
+    function modifyStateFunction(func, n) {
+      return (state, ...args) => {
+        func.call(history, { index: currentIndex + n, state }, ...args);
+        currentIndex += n;
+      };
+    }
+    function modifyStateGetter(cls) {
+      const { get: get3 } = Object.getOwnPropertyDescriptor(cls.prototype, "state");
+      Object.defineProperty(cls.prototype, "state", {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return get3.call(this)?.state;
+        },
+        set: void 0
+      });
+    }
+    modifyStateGetter(History);
+    modifyStateGetter(PopStateEvent);
+    history.pushState = modifyStateFunction(pushState, 1);
+    history.replaceState = modifyStateFunction(replaceState, 0);
+    window.addEventListener("popstate", onPopstate);
+  };
+
   // src/js/mobjs/route/utils.js
   var getRouteModule = ({ url = "" }) => {
     const index = getIndex();
@@ -19480,6 +19560,7 @@
   var previousHash = "";
   var previousParamsToPush = "";
   var currentSearch;
+  var historyDirection = "back";
   var comeFrombackId;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
@@ -19517,21 +19598,44 @@
     currentSearch = void 0;
     previousHash = hash;
     previousParamsToPush = paramsToPush;
+    if (!comeFrombackId) {
+      console.log("NO BACK/NEXT");
+      setHistoryBack(valueY);
+    }
+    if (comeFrombackId && historyDirection === "back") {
+      console.log("from back");
+      setHistoryNext(valueY);
+    }
+    if (comeFrombackId && historyDirection === "next") {
+      console.log("from next");
+      setHistoryBack(getLastHistoryNext2());
+    }
     await loadRoute({
       route: getRouteModule({ url: hash }),
       params,
-      scrollY: comeFrombackId ? getLastHistoryScrollY() : 0,
+      scrollY: comeFrombackId ? getLastHistory(historyDirection) : 0,
       comeFromHistory: comeFrombackId ? true : false
     });
-    if (!comeFrombackId) setHistoryScrollY(valueY);
+    pippodebug();
   };
   var router = () => {
     hashHandler();
+    pippo();
     window.addEventListener("popstate", (event) => {
+      console.log("pop state");
       comeFrombackId = event?.state?.nextId;
     });
     window.addEventListener("hashchange", () => {
+      console.log("has change");
       hashHandler();
+    });
+    window.addEventListener("forward", () => {
+      console.log("handler next");
+      historyDirection = "next";
+    });
+    window.addEventListener("back", () => {
+      console.log("handler back");
+      historyDirection = "back";
     });
   };
   var loadUrl = ({ url = "" }) => {

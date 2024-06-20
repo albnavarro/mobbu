@@ -1,6 +1,6 @@
 //github.com/johanholmerin/popstate-direction
 
-https: export const pippo = () => {
+export const pippo = () => {
     // Keep track of current position
     let currentIndex = (history.state && history.state.index) || 0;
 
@@ -56,7 +56,7 @@ https: export const pippo = () => {
             configurable: true,
             enumerable: true,
             get() {
-                return get.call(this).state;
+                return get.call(this)?.state;
             },
             set: undefined,
         });
