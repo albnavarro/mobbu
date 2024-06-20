@@ -3,9 +3,11 @@
 import { mobCore } from '../../mobCore';
 import { mainStore } from '../mainStore/mainStore';
 import {
+    backSize,
     getLastHistory,
     getLastHistoryNext2,
     pippodebug,
+    resetNext,
     setHistoryBack,
     setHistoryNext,
 } from './historyScrollY';
@@ -174,7 +176,7 @@ export const router = () => {
         /**
          * First back
          */
-        if (comeFrombackId && !prevId) {
+        if (comeFrombackId && !prevId && backSize() > 0) {
             prevId = comeFrombackId;
             console.log('----BACK----');
             historyDirection = 'back';
@@ -184,7 +186,7 @@ export const router = () => {
         /**
          * Next
          */
-        if (comeFrombackId && prevId > comeFrombackId) {
+        if (comeFrombackId && prevId > comeFrombackId && backSize() > 0) {
             prevId = comeFrombackId;
             console.log('----BACK----');
             historyDirection = 'back';
@@ -203,6 +205,11 @@ export const router = () => {
 
         prevId = undefined;
         historyDirection = '';
+
+        /**
+         * Normal mode reset next
+         */
+        resetNext();
     });
 
     window.addEventListener('hashchange', () => {

@@ -18179,6 +18179,12 @@
   var setHistoryNext = (value) => {
     historyNext.push(value);
   };
+  var resetNext = () => {
+    historyNext = [];
+  };
+  var backSize = () => {
+    return historyBack.length;
+  };
   var getLastHistoryBack = () => {
     const value = historyBack.at(-1);
     deleteLastHistoryBack();
@@ -19577,13 +19583,13 @@
       console.log(event.state);
       console.log("pop state");
       comeFrombackId = event?.state?.nextId;
-      if (comeFrombackId && !prevId) {
+      if (comeFrombackId && !prevId && backSize() > 0) {
         prevId = comeFrombackId;
         console.log("----BACK----");
         historyDirection = "back";
         return;
       }
-      if (comeFrombackId && prevId > comeFrombackId) {
+      if (comeFrombackId && prevId > comeFrombackId && backSize() > 0) {
         prevId = comeFrombackId;
         console.log("----BACK----");
         historyDirection = "back";
@@ -19597,6 +19603,7 @@
       }
       prevId = void 0;
       historyDirection = "";
+      resetNext();
     });
     window.addEventListener("hashchange", () => {
       console.log("has change");

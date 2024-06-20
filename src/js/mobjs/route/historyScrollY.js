@@ -6,7 +6,7 @@ const historyBack = [];
 /**
  * @type {number[]}
  */
-const historyNext = [];
+let historyNext = [];
 
 const deleteLastHistoryBack = () => {
     const arrayLenght = historyBack.length;
@@ -32,6 +32,14 @@ export const setHistoryBack = (value) => {
  */
 export const setHistoryNext = (value) => {
     historyNext.push(value);
+};
+
+export const resetNext = () => {
+    historyNext = [];
+};
+
+export const backSize = () => {
+    return historyBack.length;
 };
 
 /**
