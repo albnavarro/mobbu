@@ -142,7 +142,7 @@ const hashHandler = async (prevId) => {
 
     // salvo il vaslore corrente di next in back
     if (comeFrombackId && historyDirection === 'next') {
-        console.log('FROM PREV');
+        console.log('FROM NEXT');
         setHistoryBack(getLastHistoryNext2());
     }
 
@@ -176,7 +176,7 @@ export const router = () => {
          */
         if (comeFrombackId && !prevId) {
             prevId = comeFrombackId;
-            console.log('----PREV----');
+            console.log('----BACK----');
             historyDirection = 'back';
             return;
         }
@@ -186,7 +186,7 @@ export const router = () => {
          */
         if (comeFrombackId && prevId > comeFrombackId) {
             prevId = comeFrombackId;
-            console.log('----PREV----');
+            console.log('----BACK----');
             historyDirection = 'back';
             return;
         }
@@ -202,6 +202,7 @@ export const router = () => {
         }
 
         prevId = undefined;
+        historyDirection = '';
     });
 
     window.addEventListener('hashchange', () => {

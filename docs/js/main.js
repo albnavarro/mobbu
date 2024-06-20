@@ -19560,7 +19560,7 @@
       setHistoryNext(valueY);
     }
     if (comeFrombackId && historyDirection === "next") {
-      console.log("FROM PREV");
+      console.log("FROM NEXT");
       setHistoryBack(getLastHistoryNext2());
     }
     await loadRoute({
@@ -19579,13 +19579,13 @@
       comeFrombackId = event?.state?.nextId;
       if (comeFrombackId && !prevId) {
         prevId = comeFrombackId;
-        console.log("----PREV----");
+        console.log("----BACK----");
         historyDirection = "back";
         return;
       }
       if (comeFrombackId && prevId > comeFrombackId) {
         prevId = comeFrombackId;
-        console.log("----PREV----");
+        console.log("----BACK----");
         historyDirection = "back";
         return;
       }
@@ -19596,6 +19596,7 @@
         return;
       }
       prevId = void 0;
+      historyDirection = "";
     });
     window.addEventListener("hashchange", () => {
       console.log("has change");
