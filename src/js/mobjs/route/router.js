@@ -10,7 +10,6 @@ import {
     setHistoryNext,
 } from './historyScrollY';
 import { loadRoute } from './loadRoute';
-import { pippo } from './popDirection';
 import { getRouteModule } from './utils';
 
 let previousHash = '';
@@ -19,7 +18,12 @@ let currentSearch;
 let historyDirection = 'back';
 
 /**
- * @type {string|undefined}
+ * @type {number|undefined}
+ */
+let prevId;
+
+/**
+ * @type {number|undefined}
  */
 let comeFrombackId;
 
@@ -54,11 +58,12 @@ const getParams = (value) => {
 };
 
 /**
+ * @param {number} prevId
  * @description
  * Get hash from url and load new route.
  */
-const hashHandler = async () => {
-    const historyId = mobCore.getUnivoqueId();
+const hashHandler = async (prevId) => {
+    const historyId = mobCore.getTime();
 
     /**
      * Prevent multiple routes start at same time.
@@ -98,7 +103,13 @@ const hashHandler = async () => {
      * set unique id to route.
      * Useful in poState to check if come from backButton
      */
-    history.replaceState({ nextId: historyId }, '', `#${hash}${paramsToPush}`);
+    if (!prevId)
+        history.replaceState(
+            { nextId: historyId },
+            '',
+            `#${hash}${paramsToPush}`
+        );
+
     const valueY = window.scrollY;
 
     /**
@@ -119,19 +130,19 @@ const hashHandler = async () => {
     // modalita standard
     // salvo il vaslore dello scroll corrente
     if (!comeFrombackId) {
-        console.log('NO BACK/NEXT');
+        console.log('NEW NAVIGATION');
         setHistoryBack(valueY);
     }
 
     // salvo il vaslore dello scroll corrente
     if (comeFrombackId && historyDirection === 'back') {
-        console.log('from back');
+        console.log('FROM BACK');
         setHistoryNext(valueY);
     }
 
     // salvo il vaslore corrente di next in back
     if (comeFrombackId && historyDirection === 'next') {
-        console.log('from next');
+        console.log('FROM PREV');
         setHistoryBack(getLastHistoryNext2());
     }
 
@@ -153,27 +164,49 @@ const hashHandler = async () => {
  * Initialize router.
  */
 export const router = () => {
-    hashHandler();
-    pippo();
+    hashHandler(comeFrombackId);
 
     window.addEventListener('popstate', (event) => {
+        console.log(event.state);
         console.log('pop state');
         comeFrombackId = event?.state?.nextId;
+
+        /**
+         * First back
+         */
+        if (comeFrombackId && !prevId) {
+            prevId = comeFrombackId;
+            console.log('----PREV----');
+            historyDirection = 'back';
+            return;
+        }
+
+        /**
+         * Next
+         */
+        if (comeFrombackId && prevId > comeFrombackId) {
+            prevId = comeFrombackId;
+            console.log('----PREV----');
+            historyDirection = 'back';
+            return;
+        }
+
+        /**
+         * prev
+         */
+        if (comeFrombackId && prevId < comeFrombackId) {
+            prevId = comeFrombackId;
+            console.log('----NEXT----');
+            historyDirection = 'next';
+            return;
+        }
+
+        prevId = undefined;
     });
 
     window.addEventListener('hashchange', () => {
         console.log('has change');
-        hashHandler();
-    });
-
-    window.addEventListener('forward', () => {
-        console.log('handler next');
-        historyDirection = 'next';
-    });
-
-    window.addEventListener('back', () => {
-        console.log('handler back');
-        historyDirection = 'back';
+        hashHandler(comeFrombackId);
     });
 };
 

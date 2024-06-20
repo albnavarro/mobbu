@@ -15,7 +15,6 @@ const deleteLastHistoryBack = () => {
 
 const deleteLastHistoryNext = () => {
     const arrayLenght = historyNext.length;
-    console.log(arrayLenght);
     if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
 };
 
