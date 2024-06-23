@@ -82,7 +82,7 @@ export const ScrollToFn = ({
             setState('isVisible', false);
         });
 
-        mainStore.watch('atfterRouteChange', () => {
+        mainStore.watch('afterRouteChange', () => {
             setState('isVisible', true);
         });
 
