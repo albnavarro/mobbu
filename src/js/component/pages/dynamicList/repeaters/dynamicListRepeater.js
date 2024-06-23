@@ -58,7 +58,7 @@ function afterUpdateList({ element, className, childrenId }) {
 }
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent<'data'|'key'|'clean'|'listId'|'counter'|'label'>}
  */
 export const DynamicListRepeaterFn = ({
     getState,

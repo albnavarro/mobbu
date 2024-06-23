@@ -1,7 +1,7 @@
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @type {import('../../../mobjs/type').mobComponent}
  */
 export const DocContainerFn = ({ html, onMount }) => {
     onMount(() => {

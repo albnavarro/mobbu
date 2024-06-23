@@ -1,4 +1,3 @@
-import { mobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
@@ -44,7 +43,7 @@ const getLoader = ({ data, bindProps }) => {
 };
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @type {import("../../../mobjs/type").mobComponent<'source'|'data'|'contentIsLoaded'|'useMinHeight'|'useMaxWidth'>}
  */
 export const HtmlContentFn = async ({
     html,

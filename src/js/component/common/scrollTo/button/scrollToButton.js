@@ -1,5 +1,5 @@
 /**
- * @param {import("../../../../mobjs/type").componentType}
+ * @type {import("../../../../mobjs/type").componentType<'label'|'active'>}
  */
 export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();

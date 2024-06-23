@@ -3,7 +3,7 @@ import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'drawers'|'color'>}
  */
 export const CodeButtonFn = ({
     getState,

@@ -1,5 +1,5 @@
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent}
  */
 export const DynamicListEmptyFn = async ({ html }) => {
     return html`<div class="c-dynamic-list-empty">

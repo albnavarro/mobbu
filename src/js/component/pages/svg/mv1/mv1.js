@@ -8,7 +8,7 @@ const playAnimation = async ({ playIntro, playSvg }) => {
 };
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent<'logo'|'sideShape'>}
  */
 export const Mv1Component = ({ html, onMount, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');

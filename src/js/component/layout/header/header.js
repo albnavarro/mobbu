@@ -27,7 +27,7 @@ function titleHandler() {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent}
  */
 export const HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ refs }) => {

@@ -42,7 +42,7 @@ function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
 }
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @type {import("../../../mobjs/type").mobComponent<'activeLabel'|'anchorItems'>}
  */
 export const ScrollToFn = ({
     html,

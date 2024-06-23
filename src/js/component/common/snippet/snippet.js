@@ -27,7 +27,7 @@ const loadSnippet = async ({ ref, source }) => {
 };
 
 /**
- * @param {import("../../../mobjs/type").componentType}
+ * @type {import("../../../mobjs/type").mobComponent<'source'|'contentIsLoaded'|'isFull'|'hasOverflow'|'hasBorder'|'numLines'|'loadOnMount'>}
  */
 export const SnippetFn = ({ html, onMount, getState }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } =

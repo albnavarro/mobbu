@@ -24,7 +24,7 @@ const getTrail = ({ star }) => {
 };
 
 /**
- * @param {import("../../../../mobjs/type").componentType}
+ * @type {import("../../../../mobjs/type").mobComponent<'star'|'svg'>}
  */
 export const SvgChild = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');

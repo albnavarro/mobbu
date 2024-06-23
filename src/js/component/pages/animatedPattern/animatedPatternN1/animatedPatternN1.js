@@ -5,7 +5,7 @@ import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent}
  */
 export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';

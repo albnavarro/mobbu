@@ -7,7 +7,9 @@ export interface componentReturnType {
     content: string;
 }
 
-export interface componentType {
+export type mobComponent<T = ''> = (props: componentType<T>) => string;
+
+export interface componentType<T> {
     key: string;
     id: string;
 
@@ -20,7 +22,7 @@ export interface componentType {
      *
      * ```
      */
-    getState(): any;
+    getState(): Record<T, any>;
 
     /**
      * @example
@@ -46,7 +48,7 @@ export interface componentType {
      * ```
      */
     setState(
-        prop: string,
+        prop: T,
         newValue: any,
         fireCallback?: boolean,
         clone?: boolean
@@ -60,7 +62,7 @@ export interface componentType {
      *
      * ```
      */
-    emit(prop: string): void;
+    emit(prop: T): void;
 
     /**
      * @example
@@ -80,7 +82,7 @@ export interface componentType {
      *
      * ```
      */
-    emitAsync(prop: string): Promise<{ success: boolean }>;
+    emitAsync(prop: T): Promise<{ success: boolean }>;
 
     /**
      *
@@ -116,7 +118,7 @@ export interface componentType {
      *
      * ```
      */
-    computed(prop: string, keys: string[], callback: () => void): void;
+    computed(prop: T, keys: T[], callback: () => void): void;
 
     /**
      * @description
@@ -133,7 +135,7 @@ export interface componentType {
      * ```
      *
      */
-    watch(prop: string, callback: () => void): void;
+    watch(prop: T, callback: () => void): void;
 
     /**
      * @description
@@ -150,7 +152,7 @@ export interface componentType {
      * ```
      *
      */
-    watchSync(prop: string, callback: () => void): void;
+    watchSync(prop: T, callback: () => void): void;
 
     /**
      * @description
@@ -197,7 +199,7 @@ export interface componentType {
      *
      * ```
      */
-    freezeProp(prop: string): void;
+    freezeProp(prop: T): void;
 
     /**
      * @example
@@ -207,7 +209,7 @@ export interface componentType {
      *
      * ```
      */
-    unFreezeProp(prop: string): void;
+    unFreezeProp(prop: T): void;
 
     /**
      * @example
@@ -299,9 +301,9 @@ export interface componentType {
      * ```
      */
     bindProps(arg0: {
-        bind: Array<string>;
+        bind: Array<T>;
         forceParent: [boolean];
-        props(arg0: { [key: string]: any }): object;
+        props(arg0: { [key: T]: any }): object;
     }): string;
 
     /**
@@ -504,7 +506,7 @@ export interface componentType {
          * @description
          * Array of object used to create list
          */
-        watch: string;
+        watch: T;
 
         /**
          * @description

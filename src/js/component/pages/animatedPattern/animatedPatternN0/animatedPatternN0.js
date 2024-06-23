@@ -5,7 +5,7 @@ import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN0Animation } from './animation/animation';
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent}
  */
 export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();

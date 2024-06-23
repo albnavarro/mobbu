@@ -91,7 +91,7 @@ function getRepeaters({ bindProps, staticProps }) {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'counter'|'data'|'activeSample'>}
  */
 export const DynamicListFn = async ({
     setState,

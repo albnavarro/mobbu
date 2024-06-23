@@ -15,7 +15,7 @@ import { repeaterTargetComponentMap } from '../../../mobjs/temporaryData/repeate
 import { staticPropsMap } from '../../../mobjs/temporaryData/staticProps';
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent}
  */
 export const DebugButtonFn = ({ html, delegateEvents }) => {
     return html`

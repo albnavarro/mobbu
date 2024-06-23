@@ -10,7 +10,7 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 };
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'svg'>}
  */
 export const HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();

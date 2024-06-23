@@ -60,7 +60,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
 };
 
 /**
- * @param {import("../../../../mobjs/type").componentType}
+ * @type {import("../../../../mobjs/type").mobComponent}
  */
 export const FooterNavFn = ({ html, delegateEvents, staticProps }) => {
     if (motionCore.mq('max', 'desktop')) return html` <span></span> `;

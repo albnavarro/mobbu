@@ -1,10 +1,10 @@
-/**
- * @param {import('../../../../mobjs/type').componentType}
- */
-
 function setContent(value) {
     return `slotted: ${value}`;
 }
+
+/**
+ * @type {import('../../../../mobjs/type').mobComponent<'label'>}
+ */
 export const DynamicListSlottedLabelFn = async ({
     html,
     onMount,

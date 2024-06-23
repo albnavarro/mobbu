@@ -60,7 +60,7 @@ function additems({ delegateEvents }) {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent}
  */
 export const HeadernavFn = ({ html, delegateEvents }) => {
     return html`

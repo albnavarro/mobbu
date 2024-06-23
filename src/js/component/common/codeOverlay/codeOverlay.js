@@ -83,7 +83,7 @@ const printContent = async ({
 };
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'urls'|'activeContent'|'rawContent'>}
  */
 export const CodeOverlayFn = ({
     onMount,
@@ -93,7 +93,6 @@ export const CodeOverlayFn = ({
     html,
     bindProps,
     delegateEvents,
-    staticProps,
     watch,
     renderComponent,
     removeDOM,
@@ -126,7 +125,6 @@ export const CodeOverlayFn = ({
                 currentKey,
                 updateScroller,
                 goToTop,
-                staticProps,
                 renderComponent,
             });
         });

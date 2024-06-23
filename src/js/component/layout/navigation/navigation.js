@@ -73,7 +73,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
 }
 
 /**
- * @param {import('../../../mobjs/type').componentType} param
+ * @type {import('../../../mobjs/type').mobComponent<'currentAccordionId'>}
  */
 export const NavigationFn = ({
     html,

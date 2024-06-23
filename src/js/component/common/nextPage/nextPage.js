@@ -2,7 +2,7 @@ import arrow from '../../../../svg/scroll_arrow.svg';
 import { motionCore } from '../../../mobMotion';
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'color'|'active'|'prevRoute'|'nextRoute'>}
  */
 export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     const { active } = getState();

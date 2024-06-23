@@ -5,7 +5,7 @@ import { motionCore } from '../../../../mobMotion';
 import { scrollerN1Animation } from './animation/animation';
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent}
  */
 export const ScrollerN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';

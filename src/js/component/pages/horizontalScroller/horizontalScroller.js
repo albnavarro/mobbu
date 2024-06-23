@@ -56,7 +56,7 @@ const getNav = ({
 };
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'nextRoute'|'prevRoute'|'svgLeft'|'svgRight'|'currentId'|'currentIdFromScroll'|'animatePin'>}
  */
 export const HorizontalScrollerFn = ({
     onMount,

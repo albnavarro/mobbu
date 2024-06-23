@@ -1,5 +1,5 @@
 /**
- * @param {import("../../../../mobjs/type").componentType}
+ * @type {import("../../../../mobjs/type").mobComponent<'id'|'pinClass'>}
  */
 export const HorizontalScrollerSectionFn = ({ html, getState }) => {
     const { id, pinClass } = getState();

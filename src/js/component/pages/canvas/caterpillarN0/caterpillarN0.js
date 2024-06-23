@@ -5,7 +5,7 @@ import { motionCore } from '../../../../mobMotion';
 import { caterpillarN0Animation } from './animation/animation';
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent}
  */
 export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';

@@ -1,5 +1,5 @@
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import('../../../../mobjs/type').mobComponent<'parentListId'|'counter'>}
  */
 export const DynamicListCounterFn = async ({
     watch,

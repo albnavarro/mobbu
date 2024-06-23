@@ -22,7 +22,7 @@ const getItems = ({ data, staticProps }) => {
 };
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'section'>}
  */
 export const LinksMobJsFn = ({ html, staticProps, getState }) => {
     const { section } = getState();

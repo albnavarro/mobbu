@@ -1,7 +1,7 @@
 import { mainStore } from '../../../mobjs';
 
 /**
- * @param {import('../../../mobjs/type').componentType}
+ * @type {import('../../../mobjs/type').mobComponent<'label'|'url'>}
  */
 export const LinksMobJsButtonFn = ({ html, getState }) => {
     const { label, url } = getState();
