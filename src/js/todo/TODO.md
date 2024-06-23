@@ -31,23 +31,8 @@
 
 # MobJs
 
-### back from browser
-- Tornando indietro cdal back del browser dovrebbe arrivare alla posizione di scroll procedente.
-- Tornando identro vanno inibite le transizioni di pagina.
-
-```js
-// router.js
-
-const historyId = mobCore.getUnivoqueId();
-history.replaceState({ nextId: historyId }, '', `#${hash}${paramsToPush}`);
-
-window.addEventListener('popstate', (event) => {
-    comeFromback = event?.state?.nextId;
-});
-
-... capire come gestire scrollTo(0,0)
-```
-
+## type
+- `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T>
 
 ### Utils
 
