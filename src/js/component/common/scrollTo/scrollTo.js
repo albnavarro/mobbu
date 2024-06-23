@@ -1,5 +1,5 @@
 import { offset } from '../../../mobCore/utils';
-import { mainStore, tick } from '../../../mobjs';
+import { mainStore } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { anchorStore } from './scrollToStore';
