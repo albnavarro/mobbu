@@ -88,6 +88,7 @@ mobCore.useLoad(() => {
                 loaderTween = null;
                 getScrollbarWith();
             },
+            restoreScroll: true,
         });
     };
 

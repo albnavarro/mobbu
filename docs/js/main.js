@@ -19440,6 +19440,13 @@
     );
   };
 
+  // src/js/mobjs/mainStore/restoreScroll.js
+  var restoreScroll = true;
+  var setRestoreScroll = (value) => {
+    restoreScroll = value;
+  };
+  var getRestoreScroll = () => restoreScroll;
+
   // src/js/mobjs/route/loadRoute.js
   var loadRoute = async ({
     route = "",
@@ -19484,7 +19491,7 @@
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
     if (!skip) mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, route);
-    scrollTo(0, scrollY2);
+    if (getRestoreScroll()) scrollTo(0, scrollY2);
     const pageTransition3 = getPageTransition();
     if (pageTransition3 && !comeFromHistory) {
       await pageTransition3({
@@ -19641,7 +19648,8 @@
     index = "home",
     pageNotFound: pageNotFound3 = "pageNotFound",
     beforePageTransition: beforePageTransition3,
-    pageTransition: pageTransition3
+    pageTransition: pageTransition3,
+    restoreScroll: restoreScroll2 = true
   }) => {
     const rootEl = (
       /** @type{HTMLElement} */
@@ -19653,6 +19661,7 @@
     setRoot({ element: rootEl });
     setPageTransition({ fn: pageTransition3 });
     setBeforePageTransition({ fn: beforePageTransition3 });
+    setRestoreScroll(restoreScroll2);
     initParseWatcher();
     setComponentList();
     setRouteList(routes2);
@@ -29587,7 +29596,8 @@ Loading snippet ...</pre
           jsMainLoaderBackground?.remove();
           loaderTween = null;
           getScrollbarWith();
-        }
+        },
+        restoreScroll: true
       });
     };
     init7();

@@ -56,4 +56,9 @@ inizializeApp({
     afterInit: async () => {
         //
     },
+
+    /**
+     * Restore scroll position on history navigate.
+     */
+    restoreScroll: true,
 });

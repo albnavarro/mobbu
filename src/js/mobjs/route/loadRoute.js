@@ -21,6 +21,7 @@ import {
 } from '../mainStore/pageTransition';
 import { parseComponents } from '../parseComponent/componentParse';
 import { tick } from '../componentStore/tick';
+import { getRestoreScroll } from '../mainStore/restoreScroll';
 
 /**
  * @param {object} param
@@ -150,7 +151,7 @@ export const loadRoute = async ({
     /**
      * Scroll to 0 or if use history from history scrollY value
      */
-    scrollTo(0, scrollY);
+    if (getRestoreScroll()) scrollTo(0, scrollY);
 
     /**
      * Animate pgae teansition.

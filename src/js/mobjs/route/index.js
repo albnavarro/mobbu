@@ -20,6 +20,7 @@ import {
     setBeforePageTransition,
     setPageTransition,
 } from '../mainStore/pageTransition';
+import { setRestoreScroll } from '../mainStore/restoreScroll';
 
 /**
  * @type {( arg0: import('../type').inizializeApp) => Promise<void>}
@@ -37,6 +38,7 @@ export const inizializeApp = async ({
     pageNotFound = 'pageNotFound',
     beforePageTransition,
     pageTransition,
+    restoreScroll = true,
 }) => {
     /**
      * @type {HTMLElement|null}
@@ -57,6 +59,7 @@ export const inizializeApp = async ({
     setRoot({ element: rootEl });
     setPageTransition({ fn: pageTransition });
     setBeforePageTransition({ fn: beforePageTransition });
+    setRestoreScroll(restoreScroll);
 
     /**
      * Init parse watcher.
