@@ -7,7 +7,6 @@ import {
     historyBackSize,
     getLastHistory,
     getLastHistoryNext,
-    pippodebug,
     resetNext,
     setHistoryBack,
     setHistoryNext,
@@ -130,19 +129,16 @@ const hashHandler = async () => {
     // modalita standard
     // salvo il vaslore dello scroll corrente
     if (!currentHistory) {
-        console.log('NEW NAVIGATION');
         setHistoryBack(historyObejct);
     }
 
     // salvo il vaslore dello scroll corrente
     if (currentHistory && historyDirection === HISTORY_BACK) {
-        console.log('FROM BACK');
         setHistoryNext(historyObejct);
     }
 
     // salvo il vaslore corrente di next in back
     if (currentHistory && historyDirection === HISTORY_NEXT) {
-        console.log('FROM NEXT');
         setHistoryBack(getLastHistoryNext());
     }
 
@@ -155,8 +151,6 @@ const hashHandler = async () => {
         scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
         comeFromHistory: currentHistory ? true : false,
     });
-
-    pippodebug();
 };
 
 /**
@@ -167,8 +161,6 @@ export const router = () => {
     hashHandler();
 
     window.addEventListener('popstate', (event) => {
-        console.log(event.state);
-        console.log('pop state');
         currentHistory = event?.state?.nextId;
 
         /**
@@ -176,7 +168,6 @@ export const router = () => {
          */
         if (currentHistory && !previousHistory && historyBackSize() > 0) {
             previousHistory = currentHistory;
-            console.log('----BACK----');
             historyDirection = HISTORY_BACK;
             return;
         }
@@ -190,7 +181,6 @@ export const router = () => {
             historyBackSize() > 0
         ) {
             previousHistory = currentHistory;
-            console.log('----BACK----');
             historyDirection = HISTORY_BACK;
             return;
         }
@@ -200,7 +190,6 @@ export const router = () => {
          */
         if (currentHistory && previousHistory?.time < currentHistory?.time) {
             previousHistory = currentHistory;
-            console.log('----NEXT----');
             historyDirection = HISTORY_NEXT;
             return;
         }
@@ -215,7 +204,6 @@ export const router = () => {
     });
 
     window.addEventListener('hashchange', () => {
-        console.log('has change');
         hashHandler();
     });
 };

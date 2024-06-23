@@ -90,8 +90,3 @@ export const getLastHistory = (direction) => {
 
     return getPenultimateHistoryNext();
 };
-
-export const pippodebug = () => {
-    console.log('back', historyBack);
-    console.log('next', historyNext);
-};

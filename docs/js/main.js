@@ -18209,10 +18209,6 @@
     }
     return getPenultimateHistoryNext();
   };
-  var pippodebug = () => {
-    console.log("back", historyBack);
-    console.log("next", historyNext);
-  };
 
   // src/js/mobjs/mainStore/routeList.js
   var routeList = [];
@@ -19561,15 +19557,12 @@
     previousHash = hash;
     previousParamsToPush = paramsToPush;
     if (!currentHistory) {
-      console.log("NEW NAVIGATION");
       setHistoryBack(historyObejct);
     }
     if (currentHistory && historyDirection === HISTORY_BACK) {
-      console.log("FROM BACK");
       setHistoryNext(historyObejct);
     }
     if (currentHistory && historyDirection === HISTORY_NEXT) {
-      console.log("FROM NEXT");
       setHistoryBack(getLastHistoryNext());
     }
     await loadRoute({
@@ -19578,29 +19571,23 @@
       scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
       comeFromHistory: currentHistory ? true : false
     });
-    pippodebug();
   };
   var router = () => {
     hashHandler();
     window.addEventListener("popstate", (event) => {
-      console.log(event.state);
-      console.log("pop state");
       currentHistory = event?.state?.nextId;
       if (currentHistory && !previousHistory && historyBackSize() > 0) {
         previousHistory = currentHistory;
-        console.log("----BACK----");
         historyDirection = HISTORY_BACK;
         return;
       }
       if (currentHistory && previousHistory?.time > currentHistory?.time && historyBackSize() > 0) {
         previousHistory = currentHistory;
-        console.log("----BACK----");
         historyDirection = HISTORY_BACK;
         return;
       }
       if (currentHistory && previousHistory?.time < currentHistory?.time) {
         previousHistory = currentHistory;
-        console.log("----NEXT----");
         historyDirection = HISTORY_NEXT;
         return;
       }
@@ -19609,7 +19596,6 @@
       resetNext();
     });
     window.addEventListener("hashchange", () => {
-      console.log("has change");
       hashHandler();
     });
   };
