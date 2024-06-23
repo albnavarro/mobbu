@@ -4,14 +4,7 @@ import { SnippetFn } from './snippet';
 export const Snippet = createComponent({
     name: 'mob-snippet',
     component: SnippetFn,
-    exportState: [
-        'source',
-        'isFull',
-        'hasOverflow',
-        'hasBorder',
-        'numLines',
-        'loadOnMount',
-    ],
+    exportState: ['source', 'isFull', 'hasOverflow', 'hasBorder', 'numLines'],
     state: {
         source: () => ({
             value: '',
@@ -36,10 +29,6 @@ export const Snippet = createComponent({
         numLines: () => ({
             value: 1,
             type: Number,
-        }),
-        loadOnMount: () => ({
-            value: false,
-            type: Boolean,
         }),
     },
 });

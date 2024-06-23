@@ -89,7 +89,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 8
+                "numLines": 18
             }
         },
         {
@@ -114,7 +114,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 8
+                "numLines": 23
             }
         },
         {
@@ -157,7 +157,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 28
+                "numLines": 36
             }
         },
         {
@@ -182,7 +182,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 1
+                "numLines": 6
             }
         },
         {
@@ -207,7 +207,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 3
+                "numLines": 8
             }
         },
         {
@@ -267,7 +267,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 3
+                "numLines": 23
             }
         },
         {
@@ -297,7 +297,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 3
+                "numLines": 48
             }
         },
         {

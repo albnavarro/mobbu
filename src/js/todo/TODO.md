@@ -34,6 +34,9 @@
 ## type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T>
 
+## Component
+- props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
+
 
 ### Utils
 

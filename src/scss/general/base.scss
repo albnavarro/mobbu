@@ -20,6 +20,7 @@
     --nav-width: 100vw;
     --default-padding: #{rem(100)};
     --snippet-rem-value: #{strip-unit(rem(14))};
+    --snippet-line-height-value: #{strip-unit(line-height(15, 22))};
 
     @include mq(desktop) {
         @media screen and (height <= 700px) {
@@ -73,11 +74,15 @@ img {
 
 main {
     padding-top: calc(var(--header-height));
-    transition: transform 0.55s, opacity 1s 0.5s;
+    transition:
+        transform 0.55s,
+        opacity 1s 0.5s;
     min-height: 100vh;
 
     &.shift {
-        transition: transform 0.55s, opacity 0.55s;
+        transition:
+            transform 0.55s,
+            opacity 0.55s;
         cursor: pointer;
         opacity: 0;
     }

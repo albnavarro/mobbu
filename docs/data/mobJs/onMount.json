@@ -124,7 +124,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 26
+                "numLines": 34
             }
         },
         {
@@ -153,7 +153,8 @@
                 "source": "./snippets/mobJs/onmountAsync.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 27
             }
         },
         {
@@ -182,7 +183,8 @@
                 "source": "./snippets/mobJs/onmountTips.js",
                 "isFull": true,
                 "hasOverflow": false,
-                "hasBorder": true
+                "hasBorder": true,
+                "numLines": 38
             }
         },
         {

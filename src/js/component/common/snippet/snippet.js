@@ -23,15 +23,14 @@ const loadSnippet = async ({ ref, source }) => {
      * Apply highlight.
      */
     hljs.highlightElement(ref, { language: 'javascript' });
-    ref.style.minHeight = '';
+    ref.style.height = '';
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<'source'|'contentIsLoaded'|'isFull'|'hasOverflow'|'hasBorder'|'numLines'|'loadOnMount'>}
+ * @type {import("../../../mobjs/type").mobComponent<'source'|'contentIsLoaded'|'isFull'|'hasOverflow'|'hasBorder'|'numLines'>}
  */
 export const SnippetFn = ({ html, onMount, getState }) => {
-    const { source, isFull, hasBorder, hasOverflow, numLines, loadOnMount } =
-        getState();
+    const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? 'is-full' : '';
     const hasBorderClass = hasBorder ? 'has-border' : '';
     const hasOverflowClass = hasOverflow ? 'has-overflow' : '';
@@ -44,14 +43,13 @@ export const SnippetFn = ({ html, onMount, getState }) => {
         document.documentElement
     ).getPropertyValue('--snippet-rem-value');
 
+    const lineHeight = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue('--snippet-line-height-value');
+
     onMount(async ({ refs }) => {
         const { codeEl } = refs;
-
-        if (loadOnMount) {
-            await loadSnippet({ ref: codeEl, source });
-        } else {
-            loadSnippet({ ref: codeEl, source });
-        }
+        loadSnippet({ ref: codeEl, source });
 
         return () => {};
     });
@@ -61,7 +59,7 @@ export const SnippetFn = ({ html, onMount, getState }) => {
             <pre
                 class="${isFullClass} ${hasOverflowClass}"
                 ref="codeEl"
-                style="min-height:${numLines * remValue}rem;"
+                style="height:${numLines * lineHeight * remValue}rem;"
             >
 Loading snippet ...</pre
             >
