@@ -6,7 +6,7 @@ bindEvents(
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'counter'>}
  */
 export const MyComponent = ({ html, bindEvents, setState }) => {
     return html`

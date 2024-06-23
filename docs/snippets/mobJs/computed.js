@@ -3,7 +3,7 @@ computed(prop: string, keys: string[], callback: () => void): void;
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'sum'|'state1'|'state2'>}
  */
 export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
     const { sum } = getState();
@@ -11,7 +11,7 @@ export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
     onMount(({ refs }) => {
         const { label } = refs;
 
-        computed('sum', ['sate1', 'state2'], (state1, state2) => {
+        computed('sum', ['state1', 'state2'], (state1, state2) => {
             return state1 + state2;
         });
 

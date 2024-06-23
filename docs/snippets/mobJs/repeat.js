@@ -44,7 +44,7 @@ function getItems({ sync, bindProps, delegateEvents }) {
 }
 
 /**
- * @param {import('../../../../mobjs/type').componentType}
+ * @type {import("../mobjs/type").mobComponent<'myStateArray'|'counter'>}
  */
 export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
     return html`

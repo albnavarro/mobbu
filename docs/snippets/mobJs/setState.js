@@ -7,7 +7,7 @@ setState(
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'label'|'counter'>}
  */
 export const MyComponent = ({ html, setState }) => {
     /**

@@ -1,5 +1,5 @@
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = ({ html }) => {
     /**

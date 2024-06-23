@@ -6,7 +6,7 @@ bindProps(arg0: {
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'counter'|'label'>}
  */
 export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
     onMount(() => {

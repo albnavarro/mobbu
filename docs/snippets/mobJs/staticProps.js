@@ -2,7 +2,7 @@ staticProps(arg0: { [key: string]: any }): string;
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = ({ html, getState, staticProps }) => {
     const { label } = getState();

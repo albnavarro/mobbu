@@ -10,7 +10,7 @@ const loadContent = async ({ element, source }) => {
 };
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'lazyLoad'|'source'>}
  */
 export const MyComponent = async ({ html, onMount, getState }) => {
     const { lazyLoad, source } = getState();

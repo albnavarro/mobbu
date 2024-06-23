@@ -2,7 +2,7 @@ watch(prop: string, callback: () => void): void;
 
 
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'label'>}
  */
 export const MyComponent = ({ html, onMount, getState, watch }) => {
     const { label } = getState();

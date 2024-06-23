@@ -1,5 +1,5 @@
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'myArray'|'label'>}
  */
 export const MyComponent = ({
     html,

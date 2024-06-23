@@ -2,7 +2,7 @@ emitAsync(prop: string): Promise<{ success: boolean }>;
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'myState'>}
  */
 export const MyComponent = ({ html, onMount, emitAsync }) => {
     onMount(async () => {

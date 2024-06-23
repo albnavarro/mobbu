@@ -2,7 +2,7 @@ unFreezeProp(prop: string): void;
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent<'myState'>}
  */
 export const MyComponent = ({ html, onMount, unFreezeProp }) => {
     onMount(() => {

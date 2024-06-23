@@ -2,7 +2,7 @@ unBind: (arg0: { id: string }) => void;
 
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = ({ html, onMount, unBind }) => {
     onMount(() => {

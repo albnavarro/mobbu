@@ -7,7 +7,7 @@ function myAsyncFunction() {
 }
 
 /**
- * @param {import("../mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = async ({ html }) => {
     await myAsyncFunction();

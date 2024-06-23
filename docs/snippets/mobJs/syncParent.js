@@ -1,7 +1,7 @@
 import { parseDom } from '../../../src/js/mobjs';
 
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = ({ html, onMount, syncParent }) => {
     onMount(async (refs) => {

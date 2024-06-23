@@ -2,7 +2,7 @@ removeDOM(element: HTMLElement): void;
 
 
 /**
- * @param {import("../../../src/js/mobjs/type").componentType}
+ * @type {import("../mobjs/type").mobComponent}
  */
 export const MyComponent = ({ html, onMount, removeDOM }) => {
     onMount(({ refs }) => {
