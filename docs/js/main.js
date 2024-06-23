@@ -29596,7 +29596,8 @@ Loading snippet ...</pre
           jsMainLoaderBackground?.remove();
           loaderTween = null;
           getScrollbarWith();
-        }
+        },
+        restoreScroll: true
       });
     };
     init7();
