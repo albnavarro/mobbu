@@ -1,3 +1,5 @@
+import { HISTORY_BACK } from './constant';
+
 /**
  * @type {number[]}
  */
@@ -69,7 +71,7 @@ export const getLastHistoryNext2 = () => {
  * @returns {number|undefined}
  */
 export const getLastHistory = (direction) => {
-    if (direction === 'back') {
+    if (direction === HISTORY_BACK) {
         return getLastHistoryBack();
     }
 

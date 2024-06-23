@@ -7036,12 +7036,12 @@
       ...arrayOfCallback,
       { cb: currentCallback, id, index: -1, frame: -1 }
     ];
-    const prevId2 = id;
+    const prevId = id;
     callBackStore.quickSetProp("id", id + 1);
     return {
       arrayOfCallbackUpdated,
       unsubscribeCb: (arrayOfCallback2) => arrayOfCallback2.map(({ id: id2, cb, index, frame }) => {
-        if (id2 === prevId2) cb = () => {
+        if (id2 === prevId) cb = () => {
         };
         return { id: id2, cb, index, frame };
       })
@@ -7058,7 +7058,7 @@
       { cb: cacheId, id, index: -1, frame: -1 }
     ];
     unsubscribeCacheArray.push(unsubscribe3);
-    const prevId2 = id;
+    const prevId = id;
     callBackStore.quickSetProp("id", id + 1);
     return {
       arrayOfCallbackUpdated,
@@ -7066,7 +7066,7 @@
       unsubscribeCb: (arrayOfCallback2) => {
         unsubscribe3();
         return arrayOfCallback2.map(({ id: id2, cb, index, frame }) => {
-          if (id2 === prevId2) cb = "";
+          if (id2 === prevId) cb = "";
           return { id: id2, cb, index, frame };
         });
       }
@@ -12076,8 +12076,8 @@
         }
         this.currentAction.push({ id, action: action2 });
         const prevActionIsCurrent = lastAction.find(
-          ({ id: prevId2, action: prevAction }) => {
-            return prevId2 === id && prevAction === action2;
+          ({ id: prevId, action: prevAction }) => {
+            return prevId === id && prevAction === action2;
           }
         );
         const fn = {
@@ -18162,6 +18162,10 @@
     }
   });
 
+  // src/js/mobjs/route/constant.js
+  var HISTORY_BACK = "BACK";
+  var HISTORY_NEXT = "NEXT";
+
   // src/js/mobjs/route/historyScrollY.js
   var historyBack = [];
   var historyNext = [];
@@ -18200,7 +18204,7 @@
     return value;
   };
   var getLastHistory = (direction2) => {
-    if (direction2 === "back") {
+    if (direction2 === HISTORY_BACK) {
       return getLastHistoryBack();
     }
     return getLastHistoryNext();
@@ -19514,8 +19518,8 @@
   var previousParamsToPush = "";
   var currentSearch;
   var historyDirection = "back";
-  var prevId;
-  var comeFrombackId;
+  var previousHistoryId;
+  var curentHistoryId;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
   };
@@ -19530,7 +19534,7 @@
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
-  var hashHandler = async (prevId2) => {
+  var hashHandler = async (prevId) => {
     const historyId = mobCore.getTime();
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
@@ -19547,7 +19551,7 @@
     const hash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentSearch ?? search);
     const paramsToPush = currentSearch || Object.keys(search).length > 0 ? `?${currentSearch ?? search}` : "";
-    if (!prevId2)
+    if (!prevId)
       history.replaceState(
         { nextId: historyId },
         "",
@@ -19557,57 +19561,57 @@
     currentSearch = void 0;
     previousHash = hash;
     previousParamsToPush = paramsToPush;
-    if (!comeFrombackId) {
+    if (!curentHistoryId) {
       console.log("NEW NAVIGATION");
       setHistoryBack(valueY);
     }
-    if (comeFrombackId && historyDirection === "back") {
+    if (curentHistoryId && historyDirection === HISTORY_BACK) {
       console.log("FROM BACK");
       setHistoryNext(valueY);
     }
-    if (comeFrombackId && historyDirection === "next") {
+    if (curentHistoryId && historyDirection === HISTORY_NEXT) {
       console.log("FROM NEXT");
       setHistoryBack(getLastHistoryNext2());
     }
     await loadRoute({
       route: getRouteModule({ url: hash }),
       params,
-      scrollY: comeFrombackId ? getLastHistory(historyDirection) : 0,
-      comeFromHistory: comeFrombackId ? true : false
+      scrollY: curentHistoryId ? getLastHistory(historyDirection) : 0,
+      comeFromHistory: curentHistoryId ? true : false
     });
     pippodebug();
   };
   var router = () => {
-    hashHandler(comeFrombackId);
+    hashHandler(curentHistoryId);
     window.addEventListener("popstate", (event) => {
       console.log(event.state);
       console.log("pop state");
-      comeFrombackId = event?.state?.nextId;
-      if (comeFrombackId && !prevId && backSize() > 0) {
-        prevId = comeFrombackId;
+      curentHistoryId = event?.state?.nextId;
+      if (curentHistoryId && !previousHistoryId && backSize() > 0) {
+        previousHistoryId = curentHistoryId;
         console.log("----BACK----");
-        historyDirection = "back";
+        historyDirection = HISTORY_BACK;
         return;
       }
-      if (comeFrombackId && prevId > comeFrombackId && backSize() > 0) {
-        prevId = comeFrombackId;
+      if (curentHistoryId && previousHistoryId > curentHistoryId && backSize() > 0) {
+        previousHistoryId = curentHistoryId;
         console.log("----BACK----");
-        historyDirection = "back";
+        historyDirection = HISTORY_BACK;
         return;
       }
-      if (comeFrombackId && prevId < comeFrombackId) {
-        prevId = comeFrombackId;
+      if (curentHistoryId && previousHistoryId < curentHistoryId) {
+        previousHistoryId = curentHistoryId;
         console.log("----NEXT----");
-        historyDirection = "next";
+        historyDirection = HISTORY_NEXT;
         return;
       }
-      prevId = void 0;
+      previousHistoryId = void 0;
       historyDirection = "";
       resetNext();
     });
     window.addEventListener("hashchange", () => {
       console.log("has change");
-      hashHandler(comeFrombackId);
+      hashHandler(curentHistoryId);
     });
   };
   var loadUrl = ({ url = "" }) => {
@@ -21722,14 +21726,14 @@ Loading snippet ...</pre
       }
       const data3 = setSlideData(target);
       slideItems.push(data3);
-      const prevId2 = slideId;
+      const prevId = slideId;
       slideId++;
       slideItems.push(data3);
       return () => {
         data3.unsubscribe();
         data3.tween = null;
         data3.item = null;
-        slideItems = slideItems.filter(({ id }) => id !== prevId2);
+        slideItems = slideItems.filter(({ id }) => id !== prevId);
       };
     }
     function reset(target) {
