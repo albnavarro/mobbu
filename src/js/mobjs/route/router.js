@@ -4,9 +4,9 @@ import { mobCore } from '../../mobCore';
 import { mainStore } from '../mainStore/mainStore';
 import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
-    backSize,
+    historyBackSize,
     getLastHistory,
-    getLastHistoryNext2,
+    getLastHistoryNext,
     pippodebug,
     resetNext,
     setHistoryBack,
@@ -21,14 +21,14 @@ let currentSearch;
 let historyDirection = 'back';
 
 /**
- * @type {number|undefined}
+ * @type {import('./type').historyType}
  */
-let previousHistoryId;
+let previousHistory;
 
 /**
- * @type {number|undefined}
+ * @type {import('./type').historyType}
  */
-let curentHistoryId;
+let currentHistory;
 
 /**
  * @param {string} value
@@ -61,12 +61,11 @@ const getParams = (value) => {
 };
 
 /**
- * @param {number} prevId
  * @description
  * Get hash from url and load new route.
  */
-const hashHandler = async (prevId) => {
-    const historyId = mobCore.getTime();
+const hashHandler = async () => {
+    const historyObejct = { time: mobCore.getTime(), scrollY: window.scrollY };
 
     /**
      * Prevent multiple routes start at same time.
@@ -77,7 +76,7 @@ const hashHandler = async (prevId) => {
          * Restore previous hash/params.
          */
         history.replaceState(
-            { nextId: historyId },
+            { nextId: historyObejct },
             '',
             `#${previousHash}${previousParamsToPush}`
         );
@@ -106,14 +105,12 @@ const hashHandler = async (prevId) => {
      * set unique id to route.
      * Useful in poState to check if come from backButton
      */
-    if (!prevId)
+    if (!currentHistory)
         history.replaceState(
-            { nextId: historyId },
+            { nextId: historyObejct },
             '',
             `#${hash}${paramsToPush}`
         );
-
-    const valueY = window.scrollY;
 
     /**
      * Reset last search value ( id come form loadUrl function ).
@@ -132,21 +129,21 @@ const hashHandler = async (prevId) => {
 
     // modalita standard
     // salvo il vaslore dello scroll corrente
-    if (!curentHistoryId) {
+    if (!currentHistory) {
         console.log('NEW NAVIGATION');
-        setHistoryBack(valueY);
+        setHistoryBack(historyObejct);
     }
 
     // salvo il vaslore dello scroll corrente
-    if (curentHistoryId && historyDirection === HISTORY_BACK) {
+    if (currentHistory && historyDirection === HISTORY_BACK) {
         console.log('FROM BACK');
-        setHistoryNext(valueY);
+        setHistoryNext(historyObejct);
     }
 
     // salvo il vaslore corrente di next in back
-    if (curentHistoryId && historyDirection === HISTORY_NEXT) {
+    if (currentHistory && historyDirection === HISTORY_NEXT) {
         console.log('FROM NEXT');
-        setHistoryBack(getLastHistoryNext2());
+        setHistoryBack(getLastHistoryNext());
     }
 
     /**
@@ -155,8 +152,8 @@ const hashHandler = async (prevId) => {
     await loadRoute({
         route: getRouteModule({ url: hash }),
         params,
-        scrollY: curentHistoryId ? getLastHistory(historyDirection) : 0,
-        comeFromHistory: curentHistoryId ? true : false,
+        scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
+        comeFromHistory: currentHistory ? true : false,
     });
 
     pippodebug();
@@ -167,18 +164,18 @@ const hashHandler = async (prevId) => {
  * Initialize router.
  */
 export const router = () => {
-    hashHandler(curentHistoryId);
+    hashHandler();
 
     window.addEventListener('popstate', (event) => {
         console.log(event.state);
         console.log('pop state');
-        curentHistoryId = event?.state?.nextId;
+        currentHistory = event?.state?.nextId;
 
         /**
          * First back
          */
-        if (curentHistoryId && !previousHistoryId && backSize() > 0) {
-            previousHistoryId = curentHistoryId;
+        if (currentHistory && !previousHistory && historyBackSize() > 0) {
+            previousHistory = currentHistory;
             console.log('----BACK----');
             historyDirection = HISTORY_BACK;
             return;
@@ -188,11 +185,11 @@ export const router = () => {
          * Next
          */
         if (
-            curentHistoryId &&
-            previousHistoryId > curentHistoryId &&
-            backSize() > 0
+            currentHistory &&
+            previousHistory?.time > currentHistory?.time &&
+            historyBackSize() > 0
         ) {
-            previousHistoryId = curentHistoryId;
+            previousHistory = currentHistory;
             console.log('----BACK----');
             historyDirection = HISTORY_BACK;
             return;
@@ -201,14 +198,14 @@ export const router = () => {
         /**
          * prev
          */
-        if (curentHistoryId && previousHistoryId < curentHistoryId) {
-            previousHistoryId = curentHistoryId;
+        if (currentHistory && previousHistory?.time < currentHistory?.time) {
+            previousHistory = currentHistory;
             console.log('----NEXT----');
             historyDirection = HISTORY_NEXT;
             return;
         }
 
-        previousHistoryId = undefined;
+        previousHistory = undefined;
         historyDirection = '';
 
         /**
@@ -219,7 +216,7 @@ export const router = () => {
 
     window.addEventListener('hashchange', () => {
         console.log('has change');
-        hashHandler(curentHistoryId);
+        hashHandler();
     });
 };
 

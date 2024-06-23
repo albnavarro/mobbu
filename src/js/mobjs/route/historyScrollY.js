@@ -1,27 +1,33 @@
 import { HISTORY_BACK } from './constant';
 
 /**
- * @type {number[]}
+ * @type {import('./type').historyType[]}
  */
 const historyBack = [];
 
 /**
- * @type {number[]}
+ * @type {import('./type').historyType[]}
  */
 let historyNext = [];
 
+/**
+ * @returns {void}
+ */
 const deleteLastHistoryBack = () => {
     const arrayLenght = historyBack.length;
     if (arrayLenght >= 1) historyBack.length = historyBack.length - 1;
 };
 
+/**
+ * @returns {void}
+ */
 const deleteLastHistoryNext = () => {
     const arrayLenght = historyNext.length;
     if (arrayLenght >= 1) historyNext.length = historyNext.length - 1;
 };
 
 /**
- * @param {number} value
+ * @param {import('./type').historyType} value
  * @returns {void}
  */
 export const setHistoryBack = (value) => {
@@ -29,23 +35,29 @@ export const setHistoryBack = (value) => {
 };
 
 /**
- * @param {number} value
+ * @param {import('./type').historyType} value
  * @returns {void}
  */
 export const setHistoryNext = (value) => {
     historyNext.push(value);
 };
 
+/**
+ * @returns {void}
+ */
 export const resetNext = () => {
     historyNext = [];
 };
 
-export const backSize = () => {
+/**
+ * @returns {number}
+ */
+export const historyBackSize = () => {
     return historyBack.length;
 };
 
 /**
- * @returns {number|undefined}
+ * @returns {import('./type').historyType}
  */
 const getLastHistoryBack = () => {
     const value = historyBack.at(-1);
@@ -54,28 +66,29 @@ const getLastHistoryBack = () => {
 };
 
 /**
- * @returns {number|undefined}
+ * @returns {import('./type').historyType}
  */
-const getLastHistoryNext = () => {
+const getPenultimateHistoryNext = () => {
     const value = historyNext.at(-2);
     deleteLastHistoryNext();
     return value;
 };
 
-export const getLastHistoryNext2 = () => {
+export const getLastHistoryNext = () => {
     const value = historyNext.at(-1);
     return value;
 };
 
 /**
- * @returns {number|undefined}
+ * @param {string} direction
+ * @returns {import('./type').historyType}
  */
 export const getLastHistory = (direction) => {
     if (direction === HISTORY_BACK) {
         return getLastHistoryBack();
     }
 
-    return getLastHistoryNext();
+    return getPenultimateHistoryNext();
 };
 
 export const pippodebug = () => {

@@ -18186,7 +18186,7 @@
   var resetNext = () => {
     historyNext = [];
   };
-  var backSize = () => {
+  var historyBackSize = () => {
     return historyBack.length;
   };
   var getLastHistoryBack = () => {
@@ -18194,12 +18194,12 @@
     deleteLastHistoryBack();
     return value;
   };
-  var getLastHistoryNext = () => {
+  var getPenultimateHistoryNext = () => {
     const value = historyNext.at(-2);
     deleteLastHistoryNext();
     return value;
   };
-  var getLastHistoryNext2 = () => {
+  var getLastHistoryNext = () => {
     const value = historyNext.at(-1);
     return value;
   };
@@ -18207,7 +18207,7 @@
     if (direction2 === HISTORY_BACK) {
       return getLastHistoryBack();
     }
-    return getLastHistoryNext();
+    return getPenultimateHistoryNext();
   };
   var pippodebug = () => {
     console.log("back", historyBack);
@@ -19518,8 +19518,8 @@
   var previousParamsToPush = "";
   var currentSearch;
   var historyDirection = "back";
-  var previousHistoryId;
-  var curentHistoryId;
+  var previousHistory;
+  var currentHistory;
   var sanitizeParams = (value) => {
     return value.replace("?", "").replace("/", "");
   };
@@ -19534,12 +19534,12 @@
       return key && key.length > 0 ? { ...previous, [key]: value2 } : previous;
     }, {});
   };
-  var hashHandler = async (prevId) => {
-    const historyId = mobCore.getTime();
+  var hashHandler = async () => {
+    const historyObejct = { time: mobCore.getTime(), scrollY: window.scrollY };
     const { routeIsLoading } = mainStore.get();
     if (routeIsLoading) {
       history.replaceState(
-        { nextId: historyId },
+        { nextId: historyObejct },
         "",
         `#${previousHash}${previousParamsToPush}`
       );
@@ -19551,67 +19551,66 @@
     const hash = sanitizeHash(parts?.[0] ?? "");
     const params = getParams(currentSearch ?? search);
     const paramsToPush = currentSearch || Object.keys(search).length > 0 ? `?${currentSearch ?? search}` : "";
-    if (!prevId)
+    if (!currentHistory)
       history.replaceState(
-        { nextId: historyId },
+        { nextId: historyObejct },
         "",
         `#${hash}${paramsToPush}`
       );
-    const valueY = window.scrollY;
     currentSearch = void 0;
     previousHash = hash;
     previousParamsToPush = paramsToPush;
-    if (!curentHistoryId) {
+    if (!currentHistory) {
       console.log("NEW NAVIGATION");
-      setHistoryBack(valueY);
+      setHistoryBack(historyObejct);
     }
-    if (curentHistoryId && historyDirection === HISTORY_BACK) {
+    if (currentHistory && historyDirection === HISTORY_BACK) {
       console.log("FROM BACK");
-      setHistoryNext(valueY);
+      setHistoryNext(historyObejct);
     }
-    if (curentHistoryId && historyDirection === HISTORY_NEXT) {
+    if (currentHistory && historyDirection === HISTORY_NEXT) {
       console.log("FROM NEXT");
-      setHistoryBack(getLastHistoryNext2());
+      setHistoryBack(getLastHistoryNext());
     }
     await loadRoute({
       route: getRouteModule({ url: hash }),
       params,
-      scrollY: curentHistoryId ? getLastHistory(historyDirection) : 0,
-      comeFromHistory: curentHistoryId ? true : false
+      scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
+      comeFromHistory: currentHistory ? true : false
     });
     pippodebug();
   };
   var router = () => {
-    hashHandler(curentHistoryId);
+    hashHandler();
     window.addEventListener("popstate", (event) => {
       console.log(event.state);
       console.log("pop state");
-      curentHistoryId = event?.state?.nextId;
-      if (curentHistoryId && !previousHistoryId && backSize() > 0) {
-        previousHistoryId = curentHistoryId;
+      currentHistory = event?.state?.nextId;
+      if (currentHistory && !previousHistory && historyBackSize() > 0) {
+        previousHistory = currentHistory;
         console.log("----BACK----");
         historyDirection = HISTORY_BACK;
         return;
       }
-      if (curentHistoryId && previousHistoryId > curentHistoryId && backSize() > 0) {
-        previousHistoryId = curentHistoryId;
+      if (currentHistory && previousHistory?.time > currentHistory?.time && historyBackSize() > 0) {
+        previousHistory = currentHistory;
         console.log("----BACK----");
         historyDirection = HISTORY_BACK;
         return;
       }
-      if (curentHistoryId && previousHistoryId < curentHistoryId) {
-        previousHistoryId = curentHistoryId;
+      if (currentHistory && previousHistory?.time < currentHistory?.time) {
+        previousHistory = currentHistory;
         console.log("----NEXT----");
         historyDirection = HISTORY_NEXT;
         return;
       }
-      previousHistoryId = void 0;
+      previousHistory = void 0;
       historyDirection = "";
       resetNext();
     });
     window.addEventListener("hashchange", () => {
       console.log("has change");
-      hashHandler(curentHistoryId);
+      hashHandler();
     });
   };
   var loadUrl = ({ url = "" }) => {
