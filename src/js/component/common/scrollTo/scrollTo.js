@@ -49,46 +49,50 @@ export const ScrollToFn = ({
     onMount,
     delegateEvents,
     staticProps,
+    getState,
     bindProps,
     watchSync,
     setState,
     repeat,
 }) => {
+    const unWatchItems = anchorStore.watch('items', async (val) => {
+        setState('anchorItems', val);
+    });
+
+    const unWatchStoreActive = anchorStore.watch(
+        'activeLabelFromObeserver',
+        (label) => {
+            if (disableObservereffect) return;
+
+            setState('activeLabel', label);
+        }
+    );
+
+    /**
+     * Await route is loaded to never array.
+     */
+    const unWatchAfterRoutChange = mainStore.watch('afterRouteChange', () => {
+        const { anchorItems } = getState();
+        setState('itemOrdered', anchorItems.reverse());
+        setState('isVisible', true);
+    });
+
+    const unWatchBeforeRoutChange = mainStore.watch('beforeRouteChange', () => {
+        setState('isVisible', false);
+    });
+
     onMount(({ element }) => {
         if (motionCore.mq('max', 'large')) return;
-
-        const unWatchItems = anchorStore.watch('items', async (val) => {
-            console.log(val.length);
-            setState('anchorItems', val.reverse());
-            await tick();
-
-            console.log('resolve sctollto tick');
-        });
-
-        const unWatchStoreActive = anchorStore.watch(
-            'activeLabelFromObeserver',
-            (label) => {
-                if (disableObservereffect) return;
-
-                setState('activeLabel', label);
-            }
-        );
 
         watchSync('isVisible', (value) => {
             element.classList.toggle('visible', value);
         });
 
-        mainStore.watch('beforeRouteChange', () => {
-            setState('isVisible', false);
-        });
-
-        mainStore.watch('afterRouteChange', () => {
-            setState('isVisible', true);
-        });
-
         return () => {
             unWatchItems();
             unWatchStoreActive();
+            unWatchAfterRoutChange();
+            unWatchBeforeRoutChange();
         };
     });
 
@@ -96,9 +100,8 @@ export const ScrollToFn = ({
         <div class="c-scroll-to">
             <ul ref="list">
                 ${repeat({
-                    clean: false,
-                    watch: 'anchorItems',
-                    key: 'id',
+                    clean: true,
+                    watch: 'itemOrdered',
                     render: ({ html, sync }) => {
                         return addScrollButton({
                             html,

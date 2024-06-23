@@ -24099,47 +24099,48 @@ Loading snippet ...</pre
     onMount,
     delegateEvents,
     staticProps: staticProps2,
+    getState,
     bindProps,
     watchSync,
     setState,
     repeat
   }) => {
+    const unWatchItems = anchorStore.watch("items", async (val2) => {
+      setState("anchorItems", val2);
+    });
+    const unWatchStoreActive = anchorStore.watch(
+      "activeLabelFromObeserver",
+      (label) => {
+        if (disableObservereffect) return;
+        setState("activeLabel", label);
+      }
+    );
+    const unWatchAfterRoutChange = mainStore.watch("afterRouteChange", () => {
+      const { anchorItems } = getState();
+      setState("itemOrdered", anchorItems.reverse());
+      setState("isVisible", true);
+    });
+    const unWatchBeforeRoutChange = mainStore.watch("beforeRouteChange", () => {
+      setState("isVisible", false);
+    });
     onMount(({ element }) => {
       if (motionCore.mq("max", "large")) return;
-      const unWatchItems = anchorStore.watch("items", async (val2) => {
-        console.log(val2.length);
-        setState("anchorItems", val2.reverse());
-        await tick();
-        console.log("resolve sctollto tick");
-      });
-      const unWatchStoreActive = anchorStore.watch(
-        "activeLabelFromObeserver",
-        (label) => {
-          if (disableObservereffect) return;
-          setState("activeLabel", label);
-        }
-      );
       watchSync("isVisible", (value) => {
         element.classList.toggle("visible", value);
-      });
-      mainStore.watch("beforeRouteChange", () => {
-        setState("isVisible", false);
-      });
-      mainStore.watch("afterRouteChange", () => {
-        setState("isVisible", true);
       });
       return () => {
         unWatchItems();
         unWatchStoreActive();
+        unWatchAfterRoutChange();
+        unWatchBeforeRoutChange();
       };
     });
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
                 ${repeat({
-      clean: false,
-      watch: "anchorItems",
-      key: "id",
+      clean: true,
+      watch: "itemOrdered",
       render: ({ html: html2, sync }) => {
         return addScrollButton({
           html: html2,
@@ -24167,6 +24168,10 @@ Loading snippet ...</pre
         type: String
       }),
       anchorItems: () => ({
+        value: [],
+        type: Array
+      }),
+      itemOrdered: () => ({
         value: [],
         type: Array
       }),

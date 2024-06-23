@@ -15,6 +15,10 @@ export const ScrollTo = createComponent({
             value: [],
             type: Array,
         }),
+        itemOrdered: () => ({
+            value: [],
+            type: Array,
+        }),
         isVisible: () => ({
             value: false,
             type: Boolean,
