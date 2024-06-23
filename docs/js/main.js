@@ -18113,7 +18113,7 @@
   var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
   var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
   var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
-  var MAIN_STORE_AFTER_ROUTE_CHANGE = "atfterRouteChange";
+  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
   var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
   var MAIN_STORE_REPEATER_PARSER_ROOT = "repeaterParserRoot";
 
