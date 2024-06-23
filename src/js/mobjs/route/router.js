@@ -1,12 +1,33 @@
 // @ts-check
 
+import { mobCore } from '../../mobCore';
 import { mainStore } from '../mainStore/mainStore';
+import { HISTORY_BACK, HISTORY_NEXT } from './constant';
+import {
+    historyBackSize,
+    getLastHistory,
+    getLastHistoryNext,
+    resetNext,
+    setHistoryBack,
+    setHistoryNext,
+} from './historyScrollY';
 import { loadRoute } from './loadRoute';
 import { getRouteModule } from './utils';
 
 let previousHash = '';
 let previousParamsToPush = '';
 let currentSearch;
+let historyDirection = 'back';
+
+/**
+ * @type {import('./type').historyType}
+ */
+let previousHistory;
+
+/**
+ * @type {import('./type').historyType}
+ */
+let currentHistory;
 
 /**
  * @param {string} value
@@ -42,7 +63,9 @@ const getParams = (value) => {
  * @description
  * Get hash from url and load new route.
  */
-const hashHandler = () => {
+const hashHandler = async () => {
+    const historyObejct = { time: mobCore.getTime(), scrollY: window.scrollY };
+
     /**
      * Prevent multiple routes start at same time.
      */
@@ -51,7 +74,11 @@ const hashHandler = () => {
         /**
          * Restore previous hash/params.
          */
-        history.replaceState({}, '', `#${previousHash}${previousParamsToPush}`);
+        history.replaceState(
+            { nextId: historyObejct },
+            '',
+            `#${previousHash}${previousParamsToPush}`
+        );
         return;
     }
 
@@ -72,7 +99,17 @@ const hashHandler = () => {
         currentSearch || Object.keys(search).length > 0
             ? `?${currentSearch ?? search}`
             : '';
-    history.replaceState({}, '', `#${hash}${paramsToPush}`);
+
+    /**
+     * set unique id to route.
+     * Useful in poState to check if come from backButton
+     */
+    if (!currentHistory)
+        history.replaceState(
+            { nextId: historyObejct },
+            '',
+            `#${hash}${paramsToPush}`
+        );
 
     /**
      * Reset last search value ( id come form loadUrl function ).
@@ -89,12 +126,30 @@ const hashHandler = () => {
      */
     previousParamsToPush = paramsToPush;
 
+    // modalita standard
+    // salvo il vaslore dello scroll corrente
+    if (!currentHistory) {
+        setHistoryBack(historyObejct);
+    }
+
+    // salvo il vaslore dello scroll corrente
+    if (currentHistory && historyDirection === HISTORY_BACK) {
+        setHistoryNext(historyObejct);
+    }
+
+    // salvo il vaslore corrente di next in back
+    if (currentHistory && historyDirection === HISTORY_NEXT) {
+        setHistoryBack(getLastHistoryNext());
+    }
+
     /**
      * Load.
      */
-    loadRoute({
+    await loadRoute({
         route: getRouteModule({ url: hash }),
         params,
+        scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
+        comeFromHistory: currentHistory ? true : false,
     });
 };
 
@@ -104,6 +159,49 @@ const hashHandler = () => {
  */
 export const router = () => {
     hashHandler();
+
+    window.addEventListener('popstate', (event) => {
+        currentHistory = event?.state?.nextId;
+
+        /**
+         * First back
+         */
+        if (currentHistory && !previousHistory && historyBackSize() > 0) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_BACK;
+            return;
+        }
+
+        /**
+         * Next
+         */
+        if (
+            currentHistory &&
+            previousHistory?.time > currentHistory?.time &&
+            historyBackSize() > 0
+        ) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_BACK;
+            return;
+        }
+
+        /**
+         * prev
+         */
+        if (currentHistory && previousHistory?.time < currentHistory?.time) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_NEXT;
+            return;
+        }
+
+        previousHistory = undefined;
+        historyDirection = '';
+
+        /**
+         * Normal mode reset next
+         */
+        resetNext();
+    });
 
     window.addEventListener('hashchange', () => {
         hashHandler();

@@ -791,4 +791,5 @@ export interface inizializeApp {
     pageNotFound: string;
     beforePageTransition?: beforePageTransition;
     pageTransition?: pageTransition;
+    restoreScroll?: boolean;
 }
