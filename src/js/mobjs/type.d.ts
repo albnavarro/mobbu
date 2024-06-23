@@ -135,7 +135,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watch(prop: T, callback: () => void): void;
+    watch(prop: T, callback: (any) => void): void;
 
     /**
      * @description
@@ -152,7 +152,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watchSync(prop: T, callback: () => void): void;
+    watchSync(prop: T, callback: (any) => void): void;
 
     /**
      * @description
