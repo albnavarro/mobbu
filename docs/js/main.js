@@ -20792,17 +20792,10 @@ Loading snippet ...</pre
       value: [],
       type: Array
     }),
-    computedItems: () => ({
-      value: [],
-      type: Array
-    }),
     activeLabelFromObeserver: () => ({
       value: "",
       type: String
     })
-  });
-  anchorStore.computed("computedItems", ["items"], (val2) => {
-    return val2;
   });
   mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
     anchorStore.set("items", []);
@@ -24107,19 +24100,18 @@ Loading snippet ...</pre
     delegateEvents,
     staticProps: staticProps2,
     bindProps,
+    watchSync,
     setState,
     repeat
   }) => {
-    onMount(() => {
+    onMount(({ element }) => {
       if (motionCore.mq("max", "large")) return;
-      const unWatchStoreComputed = anchorStore.watch(
-        "computedItems",
-        async (val2) => {
-          setState("anchorItems", val2.reverse());
-          await tick();
-          console.log("resolve sctollto tick");
-        }
-      );
+      const unWatchItems = anchorStore.watch("items", async (val2) => {
+        console.log(val2.length);
+        setState("anchorItems", val2.reverse());
+        await tick();
+        console.log("resolve sctollto tick");
+      });
       const unWatchStoreActive = anchorStore.watch(
         "activeLabelFromObeserver",
         (label) => {
@@ -24127,8 +24119,17 @@ Loading snippet ...</pre
           setState("activeLabel", label);
         }
       );
+      watchSync("isVisible", (value) => {
+        element.classList.toggle("visible", value);
+      });
+      mainStore.watch("beforeRouteChange", () => {
+        setState("isVisible", false);
+      });
+      mainStore.watch("atfterRouteChange", () => {
+        setState("isVisible", true);
+      });
       return () => {
-        unWatchStoreComputed();
+        unWatchItems();
         unWatchStoreActive();
       };
     });
@@ -24168,6 +24169,10 @@ Loading snippet ...</pre
       anchorItems: () => ({
         value: [],
         type: Array
+      }),
+      isVisible: () => ({
+        value: false,
+        type: Boolean
       })
     },
     child: [ScrollToButton]

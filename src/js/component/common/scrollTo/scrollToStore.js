@@ -6,22 +6,10 @@ export const anchorStore = mobCore.createStore({
         value: [],
         type: Array,
     }),
-    computedItems: () => ({
-        value: [],
-        type: Array,
-    }),
     activeLabelFromObeserver: () => ({
         value: '',
         type: String,
     }),
-});
-
-/**
- * Await that all anchor is populated then update once.
- * Store is populated by spacer component.
- */
-anchorStore.computed('computedItems', ['items'], (val) => {
-    return val;
 });
 
 /**

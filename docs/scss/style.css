@@ -2543,6 +2543,10 @@ code {
 .c-scroll-to {
   color: #fff;
   margin-left: 2.6666666667rem;
+  display: none;
+}
+.c-scroll-to.visible {
+  display: block;
 }
 .c-scroll-to ul {
   padding: 0;

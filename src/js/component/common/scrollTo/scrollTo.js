@@ -1,5 +1,5 @@
 import { offset } from '../../../mobCore/utils';
-import { tick } from '../../../mobjs';
+import { mainStore, tick } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { anchorStore } from './scrollToStore';
@@ -50,21 +50,20 @@ export const ScrollToFn = ({
     delegateEvents,
     staticProps,
     bindProps,
+    watchSync,
     setState,
     repeat,
 }) => {
-    onMount(() => {
+    onMount(({ element }) => {
         if (motionCore.mq('max', 'large')) return;
 
-        const unWatchStoreComputed = anchorStore.watch(
-            'computedItems',
-            async (val) => {
-                setState('anchorItems', val.reverse());
-                await tick();
+        const unWatchItems = anchorStore.watch('items', async (val) => {
+            console.log(val.length);
+            setState('anchorItems', val.reverse());
+            await tick();
 
-                console.log('resolve sctollto tick');
-            }
-        );
+            console.log('resolve sctollto tick');
+        });
 
         const unWatchStoreActive = anchorStore.watch(
             'activeLabelFromObeserver',
@@ -75,8 +74,20 @@ export const ScrollToFn = ({
             }
         );
 
+        watchSync('isVisible', (value) => {
+            element.classList.toggle('visible', value);
+        });
+
+        mainStore.watch('beforeRouteChange', () => {
+            setState('isVisible', false);
+        });
+
+        mainStore.watch('atfterRouteChange', () => {
+            setState('isVisible', true);
+        });
+
         return () => {
-            unWatchStoreComputed();
+            unWatchItems();
             unWatchStoreActive();
         };
     });

@@ -3,6 +3,11 @@
 .c-scroll-to {
     color: $white;
     margin-left: rem(40);
+    display: none;
+
+    &.visible {
+        display: block;
+    }
 
     ul {
         padding: 0;
