@@ -11,6 +11,9 @@ import {
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './constant';
 
+/**
+ * @type {import('../../mobCore/store/type').mobStore<'activeRoute'|'activeParams'|'beforeRouteLeave'|'beforeRouteChange'|'afterRouteChange'|'routeIsLoading'|'repeaterParserRoot'>}
+ */
 export const mainStore = mobCore.createStore({
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({
         value: '',

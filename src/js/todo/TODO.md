@@ -6,6 +6,9 @@
 ### Default:
 - Spostare mq da mobMotion a mobCore.
 
+### Type:
+- Aggiungere nella docs i riferiment al generic mobStore<'props1'|'props2'>
+
 # Mob motion
 
 ### AsyncTimeline
@@ -36,6 +39,16 @@
 
 ## Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
+
+## Events
+- esporre delle funzioni che ritarno i vari `afterRouteChange` etc... come svelte
+- sempre che possano convivere con i generic.
+
+```js
+beforeNavigate(({props}) => {
+    ///
+})
+```
 
 
 ### Utils

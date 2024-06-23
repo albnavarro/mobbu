@@ -21,7 +21,7 @@ import {
 
 /**
  * @param {import('./type').mobStoreBaseData} data
- * @returns {import('./type').storePublicMethods}
+ * @returns {import('./type').mobStore}
  */
 export const mobStore = (data = {}) => {
     /**

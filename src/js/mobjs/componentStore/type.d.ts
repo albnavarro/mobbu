@@ -7,7 +7,7 @@ import {
     setType,
     watchType,
 } from '../../mobCore/store/type';
-import { storePublicMethods } from '../../mobCore/store/type';
+import { mobStore } from '../../mobCore/store/type';
 import { userComponent } from '../webComponent/type';
 
 export interface componentCommonTypes {
@@ -34,7 +34,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     element: HTMLElement | userComponent;
     componentName: string;
     instanceName: string;
-    state: storePublicMethods;
+    state: mobStore;
 }
 
 export interface componentStoreInputTypes extends componentCommonTypes {

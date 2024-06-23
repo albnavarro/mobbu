@@ -1,7 +1,10 @@
 import { mobCore } from '../../../../mobCore';
 
 /**
+ * @description
  * Navigation store utils.
+ *
+ * @type {import('../../../../mobCore/store/type').mobStore<import('./type').navigationStoreProps>}
  */
 export const navigationStore = mobCore.createStore({
     closeAllAccordion: () => {},
