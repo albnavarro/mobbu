@@ -1,5 +1,5 @@
-# General
-- Portare tutti i tipi da jsDoc a d.ts
+# Alias
+- Alias: aggiungere gli alias @ !!!!
 
 # MobCore
 
@@ -33,6 +33,7 @@
 
 ## type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T>
+
 
 ### Utils
 
