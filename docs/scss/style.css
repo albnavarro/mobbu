@@ -2271,11 +2271,6 @@ code {
   color: #fff;
   padding: 2.6666666667rem;
   position: relative;
-  opacity: 0;
-  transition: opacity 0.55s;
-}
-.html-content.active {
-  opacity: 1;
 }
 .html-content.is-min-100 {
   min-height: calc(100vh - var(--header-height) - 5.3333333333rem);

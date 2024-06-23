@@ -21021,11 +21021,8 @@ Loading snippet ...</pre
     const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
     const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
-    onMount(async ({ element }) => {
+    onMount(async () => {
       setState("contentIsLoaded", true);
-      mobCore.useFrame(() => {
-        element.classList.add("active");
-      });
     });
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">

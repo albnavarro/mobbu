@@ -62,12 +62,8 @@ export const HtmlContentFn = async ({
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
     const useMaxWidthClass = useMaxWidth ? 'is-max-width' : '';
 
-    onMount(async ({ element }) => {
+    onMount(async () => {
         setState('contentIsLoaded', true);
-
-        mobCore.useFrame(() => {
-            element.classList.add('active');
-        });
     });
 
     return html`

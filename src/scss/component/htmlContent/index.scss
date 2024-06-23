@@ -4,19 +4,15 @@
     color: $white;
     padding: rem(40);
     position: relative;
-    opacity: 0;
-    transition: opacity 0.55s;
-
-    &.active {
-        opacity: 1;
-    }
 
     &.is-min-100 {
         min-height: calc(100vh - var(--header-height) - #{rem(80)});
     }
 
     a {
-        transition: opacity 0.35s, color 0.35s;
+        transition:
+            opacity 0.35s,
+            color 0.35s;
         color: $white;
 
         &:hover {
