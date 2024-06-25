@@ -17,7 +17,7 @@ export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
             element.classList.add(`is-${value}`);
         });
 
-        setState('title', '');
+        // setState('align', '');
 
         watchSync('align', (value) => {
             titleEl.innerHTML = value;

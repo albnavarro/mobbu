@@ -6,10 +6,12 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
     ? I
     : never;
 
+type BaseType<T> = UnionToIntersection<Values<T>>;
+
 /**
  * Set State
  */
-type setStateRecord<T> = {
+type SetStateRecord<T> = {
     [P in keyof T]: (
         prop: P,
         value: T[P],
@@ -18,8 +20,13 @@ type setStateRecord<T> = {
     ) => void;
 };
 
-export type setState<T> = UnionToIntersection<Values<setStateRecord<T>>>;
+export type SetState<T> = BaseType<SetStateRecord<T>>;
 
 /**
- * Set State
+ * WatchSync
  */
+type WatchSyncRecord<T> = {
+    [P in keyof T]: (prop: P, callback: (arg0: T[P]) => void) => void;
+};
+
+export type WatchSync<T> = BaseType<WatchSyncRecord<T>>;

@@ -1,4 +1,5 @@
 export interface animationTitle {
     title: string;
-    align: boolean;
+    align: string;
+    color: string;
 }

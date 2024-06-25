@@ -2,7 +2,7 @@ import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
-import { setState } from './unionType';
+import { SetState, WatchSync } from './unionType';
 
 export interface componentReturnType {
     content: string;
@@ -50,7 +50,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    setState: setState<T>;
+    setState: SetState<T>;
 
     /**
      * @example
@@ -150,7 +150,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watchSync(prop: keyof T, callback: (arg0: T[keyof T]) => void): void;
+    watchSync: WatchSync<T>;
 
     /**
      * @description
