@@ -1,10 +1,11 @@
+//@ts-check
 import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'title'|'align'|'color'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').animationTitle>}
  */
-export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
+export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -15,6 +16,8 @@ export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
             element.classList.remove('is-right');
             element.classList.add(`is-${value}`);
         });
+
+        setState('align', 2);
 
         watchSync('title', (value) => {
             titleEl.innerHTML = value;

@@ -7,7 +7,9 @@ export interface componentReturnType {
     content: string;
 }
 
-export type mobComponent<T = ''> = (props: componentType<T>) => string;
+export type mobComponent<T = { [key: string]: any }> = (
+    props: componentType<T>
+) => string;
 
 export interface componentType<T> {
     key: string;
@@ -22,7 +24,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    getState(): Record<T, any>;
+    getState(): Record<keyof T, any>;
 
     /**
      * @example
@@ -48,8 +50,8 @@ export interface componentType<T> {
      * ```
      */
     setState(
-        prop: T,
-        newValue: any,
+        prop: keyof T,
+        newValue: T[keyof T],
         fireCallback?: boolean,
         clone?: boolean
     ): void;
