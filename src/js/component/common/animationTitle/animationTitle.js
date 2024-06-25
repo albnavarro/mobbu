@@ -25,24 +25,27 @@ export const AnimationTitleFn = ({
             element.classList.add(`is-${value}`);
         });
 
-        /**
-         * @type {import('../../../mobjs/type').Union<import('./type').animationTitle>}
-         */
         setState('title', 2);
+
+        /**
+         * @type {import('./type').setState>}
+         */
+        const setState2 = (prop, value) => {
+            console.log(prop, value);
+        };
+
+        setState2('align', true);
+
+        // const test = {
+        //     key: 'arr',
+        //     render: (value, row) => {
+        //         value;
+        //     },
+        // };
 
         watchSync('align', (value) => {
             titleEl.innerHTML = value;
         });
-
-        /**
-         * @type {import('./type').Union<import('./type').DumpRecord>}
-         */
-        const one = {
-            key: 'arr',
-            render: (value, row) => {
-                value;
-            },
-        };
 
         watchSync('color', (value) => {
             titleEl.classList.remove('is-white');

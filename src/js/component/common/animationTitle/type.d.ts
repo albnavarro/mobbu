@@ -1,20 +1,18 @@
 export interface animationTitle {
-    title: number;
+    title: string;
     align: boolean;
 }
 
-export interface DumpRecord {
-    arr: boolean[];
-    num: number;
-    str: string;
-}
-
-type RowType = Record<string, any>;
-interface Row<T = RowType, K extends keyof T = keyof T> {
-    key: K;
-    render: (value: T[K], row: T) => any;
-}
 type Values<T> = T[keyof T];
-type Union<T> = Values<{
-    [Prop in keyof T]: Row<T, Prop>;
-}>;
+
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+    k: infer I
+) => void
+    ? I
+    : never;
+
+type EmitRecord = {
+    [P in keyof animationTitle]: (prop: P, value: animationTitle[P]) => void;
+};
+
+type setState = UnionToIntersection<Values<EmitRecord>>;
