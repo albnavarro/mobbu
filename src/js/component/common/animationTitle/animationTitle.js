@@ -28,7 +28,7 @@ export const AnimationTitleFn = ({
         setState('title', 2);
 
         /**
-         * @type {import('./type').setState>}
+         * @type {import('./type').setState<import('./type').animationTitle>}
          */
         const setState2 = (prop, value) => {
             console.log(prop, value);

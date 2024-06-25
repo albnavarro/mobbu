@@ -4,15 +4,14 @@ export interface animationTitle {
 }
 
 type Values<T> = T[keyof T];
-
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
     k: infer I
 ) => void
     ? I
     : never;
 
-type EmitRecord = {
-    [P in keyof animationTitle]: (prop: P, value: animationTitle[P]) => void;
+type setStateRecord<T> = {
+    [P in keyof T]: (prop: P, value: T[P]) => void;
 };
 
-type setState = UnionToIntersection<Values<EmitRecord>>;
+type setState<T> = UnionToIntersection<Values<setStateRecord<T>>>;
