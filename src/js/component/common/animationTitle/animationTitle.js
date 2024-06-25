@@ -5,11 +5,19 @@ import { motionCore } from '../../../mobMotion';
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').animationTitle>}
  */
-export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
+export const AnimationTitleFn = ({
+    html,
+    onMount,
+    watchSync,
+    setState,
+    getState,
+}) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const { titleEl } = refs;
+
+        const { title } = getState();
 
         watchSync('align', (value) => {
             element.classList.remove('is-left');
@@ -17,11 +25,24 @@ export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
             element.classList.add(`is-${value}`);
         });
 
-        setState('align', 2);
+        /**
+         * @type {import('../../../mobjs/type').Union<import('./type').animationTitle>}
+         */
+        setState('title', 2);
 
-        watchSync('title', (value) => {
+        watchSync('align', (value) => {
             titleEl.innerHTML = value;
         });
+
+        /**
+         * @type {import('./type').Union<import('./type').DumpRecord>}
+         */
+        const one = {
+            key: 'arr',
+            render: (value, row) => {
+                value;
+            },
+        };
 
         watchSync('color', (value) => {
             titleEl.classList.remove('is-white');

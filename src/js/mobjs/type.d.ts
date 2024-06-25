@@ -154,7 +154,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watchSync(prop: T, callback: (any) => void): void;
+    watchSync(prop: keyof T, callback: (arg0: T[keyof T]) => void): void;
 
     /**
      * @description
