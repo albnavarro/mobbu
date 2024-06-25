@@ -1,3 +1,5 @@
+// https://catchts.com/publish-subscribe
+
 type Values<T> = T[keyof T];
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
