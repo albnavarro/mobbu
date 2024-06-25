@@ -2,6 +2,7 @@ import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
+import { setState } from './unionType';
 
 export interface componentReturnType {
     content: string;
@@ -49,12 +50,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    setState(
-        prop: keyof T,
-        newValue: T[keyof T],
-        fireCallback?: boolean,
-        clone?: boolean
-    ): void;
+    setState: setState<T>;
 
     /**
      * @example
