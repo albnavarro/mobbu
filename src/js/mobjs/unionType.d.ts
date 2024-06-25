@@ -1,4 +1,5 @@
 // https://catchts.com/publish-subscribe
+// https://stackoverflow.com/a/50375286
 
 type Values<T> = T[keyof T];
 
