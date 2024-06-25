@@ -5,7 +5,7 @@ import { motionCore } from '../../../mobMotion';
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').animationTitle>}
  */
-export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
+export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -16,8 +16,6 @@ export const AnimationTitleFn = ({ html, onMount, watchSync, setState }) => {
             element.classList.remove('is-right');
             element.classList.add(`is-${value}`);
         });
-
-        // setState('align', '');
 
         watchSync('align', (value) => {
             titleEl.innerHTML = value;
