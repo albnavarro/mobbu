@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
@@ -27,6 +29,11 @@ const getData = async ({ source, data }) => {
     return currentData.data;
 };
 
+/**
+ * @param {object} param
+ * @param {any} param.data
+ * @param {import('../../../mobjs/type').BindProps<import('./type').HtmlContent>} param.bindProps
+ */
 const getLoader = ({ data, bindProps }) => {
     if (data && data.length > 0) return '';
 
@@ -43,7 +50,7 @@ const getLoader = ({ data, bindProps }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<'source'|'data'|'contentIsLoaded'|'useMinHeight'|'useMaxWidth'>}
+ * @type {import("../../../mobjs/type").mobComponent<import('./type').HtmlContent>}
  */
 export const HtmlContentFn = async ({
     html,

@@ -2,7 +2,23 @@ import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
-import { SetState, WatchSync } from './unionType';
+import {
+    BaseType,
+    ComputedRecord,
+    SetStateRecord,
+    WatchRecord,
+} from './unionType';
+
+export type SetState<T> = BaseType<SetStateRecord<T>>;
+export type Watch<T> = BaseType<WatchRecord<T>>;
+export type Computed<T> = BaseType<ComputedRecord<T>>;
+export type BindProps<T> = (arg0: {
+    bind: Array<keyof T>;
+    forceParent?: boolean;
+    props: (arg0: Record<keyof T, any>) => {
+        [key: string]: any;
+    };
+}) => string;
 
 export interface componentReturnType {
     content: string;
@@ -60,7 +76,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    emit(prop: T): void;
+    emit(prop: keyof T): void;
 
     /**
      * @example
@@ -80,7 +96,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    emitAsync(prop: T): Promise<{ success: boolean }>;
+    emitAsync(prop: keyof T): Promise<{ success: boolean }>;
 
     /**
      *
@@ -116,7 +132,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    computed(prop: T, keys: T[], callback: () => void): void;
+    computed: Computed<T>;
 
     /**
      * @description
@@ -133,7 +149,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watch(prop: T, callback: (any) => void): void;
+    watch: Watch<T>;
 
     /**
      * @description
@@ -150,7 +166,7 @@ export interface componentType<T> {
      * ```
      *
      */
-    watchSync: WatchSync<T>;
+    watchSync: Watch<T>;
 
     /**
      * @description
@@ -197,7 +213,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    freezeProp(prop: T): void;
+    freezeProp(prop: keyof T): void;
 
     /**
      * @example
@@ -207,7 +223,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    unFreezeProp(prop: T): void;
+    unFreezeProp(prop: keyof T): void;
 
     /**
      * @example
@@ -262,7 +278,7 @@ export interface componentType<T> {
      * Detach binbProps.
      * Note: The function will be active as soon as the whole route is rendered.
      */
-    unBind: (arg0: { id: string }) => void;
+    unBind: () => void;
 
     /**
      * @description

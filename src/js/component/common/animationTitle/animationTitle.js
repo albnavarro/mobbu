@@ -5,19 +5,43 @@ import { motionCore } from '../../../mobMotion';
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').animationTitle>}
  */
-export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
+export const AnimationTitleFn = ({
+    html,
+    onMount,
+    watchSync,
+    watch,
+    setState,
+    emit,
+    emitAsync,
+    computed,
+    freezeProp,
+    unBind,
+}) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const { titleEl } = refs;
 
-        watchSync('align', (value) => {
+        setState('pippo', true);
+
+        emit('color');
+        emitAsync('align');
+        computed('pippo', ['align', 'color'], (align, pippo) => {
+            return true;
+        });
+        watch('pippo', (value) => {
+            //
+        });
+        freezeProp('align');
+        unBind();
+
+        watchSync('color', (value) => {
             element.classList.remove('is-left');
             element.classList.remove('is-right');
             element.classList.add(`is-${value}`);
         });
 
-        watchSync('align', (value) => {
+        watchSync('pippo', (value) => {
             titleEl.innerHTML = value;
         });
 

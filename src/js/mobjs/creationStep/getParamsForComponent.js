@@ -103,8 +103,9 @@ export const getParamsForComponentFunction = ({
             emit(state);
             return unsubscribe;
         },
-        freezeProp: (prop) => freezePropById({ id, prop }),
-        unFreezeProp: (prop) => unFreezePropById({ id, prop }),
+        freezeProp: (/** @type{string} */ prop) => freezePropById({ id, prop }),
+        unFreezeProp: (/** @type{string} */ prop) =>
+            unFreezePropById({ id, prop }),
         unBind: () => unBind({ id }),
         bindProps: (obj) => {
             return `${ATTR_DYNAMIC}="${setBindProps({
