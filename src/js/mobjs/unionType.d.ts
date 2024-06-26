@@ -53,6 +53,8 @@ export type WatchRecord<T> = {
 /**
  * @description
  * Computed
+ * TODO: arg: any, se viene buttato fuori come oggetto,
+ * Posso usare la tecnica di BInd props con un Union... innestato.
  */
 export type ComputedRecord<T> = {
     [P in keyof T]: (
