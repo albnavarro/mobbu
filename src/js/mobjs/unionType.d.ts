@@ -66,11 +66,13 @@ export type ComputedRecord<T> = {
  * @description
  * BindProps
  */
+type BindPropsParamsRecord<T> = Record<keyof T, T>;
+
 export type BindPropsRecord<T> = {
     [P in keyof T]: (arg0: {
         bind: Array<keyof T>;
         forceParent?: boolean;
-        props: (arg0: Record<keyof T, T[keyof T]>) => {
+        props: (arg0: BaseType<BindPropsParamsRecord<T>>) => {
             [key: string]: any;
         };
     }) => string;

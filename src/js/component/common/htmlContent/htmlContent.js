@@ -40,8 +40,8 @@ const getLoader = ({ data, bindProps }) => {
     return html`
         <mob-loader
             ${bindProps({
-                bind: ['contentIsLoaded'],
-                props: ({ contentIsLoaded }) => {
+                bind: ['contentIsLoaded', 'useMinHeight'],
+                props: ({ contentIsLoaded, data }) => {
                     return { shouldRemove: contentIsLoaded };
                 },
             })}
