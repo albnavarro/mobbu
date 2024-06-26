@@ -16,6 +16,7 @@ export const AnimationTitleFn = ({
     computed,
     freezeProp,
     unBind,
+    getState,
 }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -23,6 +24,7 @@ export const AnimationTitleFn = ({
         const { titleEl } = refs;
 
         setState('pippo', true);
+        const { pippo, align } = getState();
 
         emit('color');
         emitAsync('align');

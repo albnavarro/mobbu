@@ -6,10 +6,14 @@
  * Exclude K value.
  */
 type NotValue<T, K> = T extends K ? never : T;
+
+/**
+ * Get object values.
+ */
 type Values<T> = T[keyof T];
 
 /**
- *
+ * For each values of object
  */
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
     k: infer I
@@ -18,6 +22,14 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
     : never;
 
 export type BaseType<T> = UnionToIntersection<Values<T>>;
+
+/**
+ * @description
+ * GetState
+ */
+export type GetStateRecord<T> = {
+    [P in keyof T]: T[P];
+};
 
 /**
  * Set State
@@ -48,4 +60,18 @@ export type ComputedRecord<T> = {
         keys: Array<NotValue<keyof T, P>>,
         callback: (...args: any) => T[P]
     ) => void;
+};
+
+/**
+ * @description
+ * BindProps
+ */
+export type BindPropsRecord<T> = {
+    [P in keyof T]: (arg0: {
+        bind: Array<keyof T>;
+        forceParent?: boolean;
+        props: (arg0: Record<keyof T, T[keyof T]>) => {
+            [key: string]: any;
+        };
+    }) => string;
 };

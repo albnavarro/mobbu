@@ -4,7 +4,9 @@ import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
 import {
     BaseType,
+    BindPropsRecord,
     ComputedRecord,
+    GetStateRecord,
     SetStateRecord,
     WatchRecord,
 } from './unionType';
@@ -12,13 +14,7 @@ import {
 export type SetState<T> = BaseType<SetStateRecord<T>>;
 export type Watch<T> = BaseType<WatchRecord<T>>;
 export type Computed<T> = BaseType<ComputedRecord<T>>;
-export type BindProps<T> = (arg0: {
-    bind: Array<keyof T>;
-    forceParent?: boolean;
-    props: (arg0: Record<keyof T, any>) => {
-        [key: string]: any;
-    };
-}) => string;
+export type BindProps<T> = BaseType<BindPropsRecord<T>>;
 
 export interface componentReturnType {
     content: string;
@@ -41,7 +37,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    getState(): Record<keyof T, any>;
+    getState(): GetStateRecord<T>;
 
     /**
      * @example
@@ -314,11 +310,12 @@ export interface componentType<T> {
      * ></MyComponent>
      * ```
      */
-    bindProps(arg0: {
-        bind: Array<T>;
-        forceParent: [boolean];
-        props(arg0: { [key: T]: any }): object;
-    }): string;
+    bindProps: BindProps<T>;
+    // bindProps(arg0: {
+    //     bind: Array<T>;
+    //     forceParent: [boolean];
+    //     props(arg0: { [key: T]: any }): object;
+    // }): string;
 
     /**
      * @description
