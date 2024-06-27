@@ -13,6 +13,19 @@
       return true;
   });
 ```
+
+- src/js/mobCore/store/storeSet.js: `fireComputed` righa: `506`, al posto `propValues`
+
+```js
+const valuesToObject = keys
+    .map((item) => {
+        return { [item]: store[item] };
+    })
+    .reduce((previous, current) => {
+        return { ...previous, ...current };
+    }, {});
+```
+
 - Finiti i type di `mobJs` migrarli su `mobStore`, mobJs li importara direttamante da mobStore.
 
 # Mob motion
