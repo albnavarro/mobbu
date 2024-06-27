@@ -8,6 +8,8 @@
 
 ### Type: feat/T1
 - computed: la callback deve avere in ingresso un ogetto, cosi da facilitare i type ts in `mobJs`.
+- logica di bindProps.
+
 ```js
   computed('pippo', ['align', 'color'], ({ align, color }) => {
       return true;
