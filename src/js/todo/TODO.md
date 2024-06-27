@@ -6,10 +6,14 @@
 ### Default:
 - Spostare mq da mobMotion a mobCore.
 
-### Type:
-- Aggiungere nella docs i riferiment al generic mobStore<'props1'|'props2'>
-- E' possibile nei generic di mobStore aggiungere anche il tipo ? mobStore<{'props': boolean}>
-
+### Type: feat/T1
+- computed: la callback deve avere in ingresso un ogetto, cosi da facilitare i type ts in `mobJs`.
+```js
+  computed('pippo', ['align', 'color'], ({ align, color }) => {
+      return true;
+  });
+```
+- Finiti i type di `mobJs` migrarli su `mobStore`, mobJs li importara direttamante da mobStore.
 
 # Mob motion
 
@@ -37,6 +41,7 @@
 # MobJs
 
 ## type
+- Risolvere il task `computed` in `mobStore` per finire i componenti di mobJs.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T>
 
 ## Component
@@ -87,8 +92,8 @@ export const MyComponent2 = ({addMethods}) => {
 
 
 ### Type
-- i tipi in etranta nella funzione componente dovrebbero essere tutti esportati come singoli, in modo da essere usati nelle funzioni di appoggio se passati come parametri
-- indicare nella docs il tipo di ogni parametro
+-
+
 
 
 ### App:
