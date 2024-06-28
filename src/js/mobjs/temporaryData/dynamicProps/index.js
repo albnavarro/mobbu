@@ -16,7 +16,7 @@ import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 export const dynamicPropsMap = new Map();
 
 /**
- * @param {{'bind':Array<string>,'parentId':string|undefined,'props':object, forceParent:[boolean]}} propsObj
+ * @param {{'bind':string[],'parentId':string|undefined,'props':{[key:string]: any}, forceParent? :boolean}} propsObj
  * @return {string|undefined} props id in store.
  *
  * @description

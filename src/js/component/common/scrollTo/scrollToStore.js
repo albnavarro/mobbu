@@ -23,8 +23,8 @@ export const anchorStore = mobCore.createStore({
  * Await that all anchor is populated then update once.
  * Store is populated by spacer component.
  */
-anchorStore.computed('computedItems', ['items'], (val) => {
-    return val;
+anchorStore.computed('computedItems', ['items'], ({ items }) => {
+    return items;
 });
 
 /**

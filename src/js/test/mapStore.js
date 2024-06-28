@@ -41,11 +41,11 @@ export const initTestMapStore = async () => {
         },
     });
 
-    test.computed('computedProp1', ['prop1', 'prop2'], (prop1, prop2) => {
+    test.computed('computedProp1', ['prop1', 'prop2'], ({ prop1, prop2 }) => {
         return `${prop1}_${prop2}`;
     });
 
-    test.computed('computedProp2', ['myObject'], (myObject) => {
+    test.computed('computedProp2', ['myObject'], ({ myObject }) => {
         return `${myObject.prop1}_`;
     });
 

@@ -80,7 +80,7 @@ export const storeTest = () => {
         storeTest.computed(
             'myComputed',
             ['myObj', 'mySecondProp', 'simpleObj'],
-            (myObj, mySecondProp) => {
+            ({ myObj, mySecondProp }) => {
                 return myObj.pippo + myObj.test2.test2 + mySecondProp;
             }
         );

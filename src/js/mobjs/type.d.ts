@@ -3,18 +3,23 @@ import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
 import {
-    BaseType,
     BindPropsRecord,
     ComputedRecord,
     GetStateRecord,
     SetStateRecord,
     WatchRecord,
-} from './unionType';
+} from './tsUtils/singleType';
+import { BaseType, OnlyStringKey } from './tsUtils/utils';
 
 export type SetState<T> = BaseType<SetStateRecord<T>>;
 export type Watch<T> = BaseType<WatchRecord<T>>;
 export type Computed<T> = BaseType<ComputedRecord<T>>;
-export type BindProps<T> = BaseType<BindPropsRecord<T>>;
+export type GetState<T> = GetStateRecord<T>;
+export type BindProps<T> = BindPropsRecord<T>;
+export type DelegateEvents = (
+    arg0: delegateEventObject | delegateEventObject[]
+) => any;
+export type BindEvents = (arg0: bindEventsObject | bindEventsObject[]) => void;
 
 export interface componentReturnType {
     content: string;
@@ -24,7 +29,7 @@ export type mobComponent<T = { [key: string]: any }> = (
     props: componentType<T>
 ) => string;
 
-export interface componentType<T> {
+export interface componentType<T = { [key: string]: any }> {
     key: string;
     id: string;
 
@@ -37,7 +42,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    getState(): GetStateRecord<T>;
+    getState(): GetState<T>;
 
     /**
      * @example
@@ -348,7 +353,7 @@ export interface componentType<T> {
      * ></MyComponent>
      * ```
      */
-    bindEvents(arg0: bindEventsObject | bindEventsObject[]): void;
+    bindEvents: BindEvents;
 
     /**
      * @description
@@ -383,7 +388,7 @@ export interface componentType<T> {
      * ></MyComponent>
      * ```
      */
-    delegateEvents(arg0: delegateEventObject[] | delegateEventObject): void;
+    delegateEvents: DelegateEvents;
 
     /**
      *
@@ -517,7 +522,7 @@ export interface componentType<T> {
          * @description
          * Array of object used to create list
          */
-        watch: T;
+        watch: OnlyStringKey<T>;
 
         /**
          * @description

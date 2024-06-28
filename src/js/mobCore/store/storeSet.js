@@ -503,15 +503,19 @@ const fireComputed = (instanceId) => {
         /**
          * Get dependencies current state;
          */
-        const propValues = keys.map((item) => {
-            return store[item];
-        });
+        const valuesToObject = keys
+            .map((item) => {
+                return { [item]: store[item] };
+            })
+            .reduce((previous, current) => {
+                return { ...previous, ...current };
+            }, {});
 
         /**
          * Fire callback computed
          */
         // @ts-ignore
-        const computedValue = fn(...propValues);
+        const computedValue = fn(valuesToObject);
 
         /**
          * Set the result value to computed prop
@@ -612,7 +616,7 @@ export const storeComputedAction = ({ state, prop, keys, fn }) => {
  * @param {string} param.instanceId
  * @param {string[]} param.keys
  * @param {string} param.prop
- * @param {() => void} param.callback
+ * @param {(arg0: { [key: string]: any }) => void} param.callback
  * @returns {void}
  */
 export const storeComputedEntryPoint = ({

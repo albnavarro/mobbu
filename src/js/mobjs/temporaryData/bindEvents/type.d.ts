@@ -1,6 +1,3 @@
 export interface bindEventsObject {
-    [key: string]: (
-        arg0: Event,
-        arg1: { _current: any; _index: number }
-    ) => void;
+    [key: string]: (arg0: Event, arg1: { current: any; index: number }) => void;
 }

@@ -10,7 +10,11 @@ export interface storeMapValue {
             fn: (current: any, previous: any, validate: validateState) => void;
         }
     >;
-    callBackComputed: Set<{ prop: string; fn: () => void; keys: string[] }>;
+    callBackComputed: Set<{
+        prop: string;
+        fn: (arg0: { [key: string]: any }) => void;
+        keys: string[];
+    }>;
     lastestPropsChanged: Set<string>;
     validationStatusObject: {
         [key: string]: validateState;
@@ -88,7 +92,7 @@ export type watchType<T> = (
 export type computedType<T> = (
     prop: T,
     keys: T[],
-    callback: () => void
+    callback: (arg0: { [key: string]: any }) => void
 ) => void;
 
 export type emitType<T> = (props: T) => void;
@@ -164,7 +168,7 @@ export interface storeWatchReturnObject {
 export interface storeComputed {
     prop: string;
     keys: string[];
-    fn: () => void;
+    fn: (arg0: { [key: string]: any }) => void;
 }
 
 export interface storeComputedAction extends storeComputed {

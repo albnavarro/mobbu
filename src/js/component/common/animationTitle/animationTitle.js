@@ -28,8 +28,8 @@ export const AnimationTitleFn = ({
 
         emit('color');
         emitAsync('align');
-        computed('pippo', ['align', 'color'], (align, color) => {
-            return true;
+        computed('pippo', ['align', 'color'], ({ color }) => {
+            return color.length > 0;
         });
         watch('pippo', (value) => {
             //
