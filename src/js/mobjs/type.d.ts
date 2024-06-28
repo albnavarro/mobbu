@@ -72,7 +72,7 @@ export interface componentType<T> {
      */
     setState<K extends keyof T>(
         prop: K,
-        value: T[K],
+        value: T[K] | ((arg0: T[K]) => T[K]),
         fireCallback?: boolean,
         clone?: boolean
     ): void;
