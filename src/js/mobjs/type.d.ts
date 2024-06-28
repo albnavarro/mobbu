@@ -1,35 +1,38 @@
+// https://stackoverflow.com/questions/65668969/event-maps-and-type-guards#answer-65890181
+
 import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
-import {
-    BindPropsRecord,
-    ComputedRecord,
-    GetStateRecord,
-    SetStateRecord,
-    WatchRecord,
-} from './tsUtils/singleType';
-import { BaseType, OnlyStringKey } from './tsUtils/utils';
+import { OnlyStringKey } from './tsUtils/utils';
 
-export type SetState<T> = BaseType<SetStateRecord<T>>;
-export type Watch<T> = BaseType<WatchRecord<T>>;
-export type Computed<T> = BaseType<ComputedRecord<T>>;
-export type GetState<T> = GetStateRecord<T>;
-export type BindProps<T> = BindPropsRecord<T>;
+interface MobComponentMap {
+    [prop: string]: any;
+}
+
+export type BindProps<T> = (arg0: {
+    bind: Array<OnlyStringKey<T>>;
+    forceParent?: boolean;
+    props: (arg0: T & { _current: any; _index: number }) => {
+        [key: string]: any;
+    };
+}) => string;
+
 export type DelegateEvents = (
     arg0: delegateEventObject | delegateEventObject[]
 ) => any;
+
 export type BindEvents = (arg0: bindEventsObject | bindEventsObject[]) => void;
 
 export interface componentReturnType {
     content: string;
 }
 
-export type mobComponent<T = { [key: string]: any }> = (
+export type mobComponent<T extends MobComponentMap> = (
     props: componentType<T>
 ) => string;
 
-export interface componentType<T = { [key: string]: any }> {
+export interface componentType<T> {
     key: string;
     id: string;
 
@@ -42,7 +45,7 @@ export interface componentType<T = { [key: string]: any }> {
      *
      * ```
      */
-    getState(): GetState<T>;
+    getState(): T;
 
     /**
      * @example
@@ -67,7 +70,12 @@ export interface componentType<T = { [key: string]: any }> {
      *
      * ```
      */
-    setState: SetState<T>;
+    setState<K extends keyof T>(
+        prop: K,
+        value: T[K],
+        fireCallback?: boolean,
+        clone?: boolean
+    ): void;
 
     /**
      * @example
@@ -133,7 +141,11 @@ export interface componentType<T = { [key: string]: any }> {
      *
      * ```
      */
-    computed: Computed<T>;
+    computed<K extends keyof T>(
+        prop: K,
+        keys: Array<keyof T>,
+        callback: (arg0: T) => T[K]
+    ): void;
 
     /**
      * @description
@@ -150,7 +162,7 @@ export interface componentType<T = { [key: string]: any }> {
      * ```
      *
      */
-    watch: Watch<T>;
+    watch<K extends keyof T>(prop: K, callback: (arg0: T[K]) => void): void;
 
     /**
      * @description
@@ -167,7 +179,7 @@ export interface componentType<T = { [key: string]: any }> {
      * ```
      *
      */
-    watchSync: Watch<T>;
+    watchSync<K extends keyof T>(prop: K, callback: (arg0: T[K]) => void): void;
 
     /**
      * @description
