@@ -1,5 +1,5 @@
 export type componentFunctionType = (
-    arg0: import('../type').componentType
+    arg0: import('../type').componentPropsType
 ) => Promise<string> | string;
 
 export interface componentListMapType {

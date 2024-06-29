@@ -32,7 +32,7 @@ import { renderHtml } from './utils';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
- * @returns {import('../type').componentType}
+ * @returns {import('../type').componentPropsType}
  *
  * @description
  * Create component

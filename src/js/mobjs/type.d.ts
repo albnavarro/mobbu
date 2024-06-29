@@ -2,37 +2,35 @@
 
 import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
-import { bindEventsObject } from './temporaryData/bindEvents/type';
-import { delegateEventObject } from './temporaryData/weakBindEvents/type';
+import {
+    PartialBindEvents,
+    PartialBindProps,
+    PartialDelegateEvents,
+    PartialGetState,
+} from './tsUtils/mobComponentProps';
 import { NotValue, OnlyStringKey } from './tsUtils/utils';
 
+export type BindProps<T> = PartialBindProps<T>;
+export type DelegateEvents = PartialDelegateEvents;
+export type BindEvents = PartialBindEvents;
+export type GetState<T> = PartialGetState<T>;
+
+/**
+ * Main component.
+ */
 interface MobComponentMap {
     [prop: string]: any;
 }
-
-export type BindProps<T> = (arg0: {
-    bind: Array<OnlyStringKey<T>>;
-    forceParent?: boolean;
-    props: (arg0: T & { _current: any; _index: number }) => {
-        [key: string]: any;
-    };
-}) => string;
-
-export type DelegateEvents = (
-    arg0: delegateEventObject | delegateEventObject[]
-) => any;
-
-export type BindEvents = (arg0: bindEventsObject | bindEventsObject[]) => void;
 
 export interface componentReturnType {
     content: string;
 }
 
 export type mobComponent<T extends MobComponentMap> = (
-    props: componentType<T>
+    props: componentPropsType<T>
 ) => string;
 
-export interface componentType<T> {
+export interface componentPropsType<T> {
     key: string;
     id: string;
 
@@ -45,7 +43,7 @@ export interface componentType<T> {
      *
      * ```
      */
-    getState(): T;
+    getState: GetState<T>;
 
     /**
      * @example
