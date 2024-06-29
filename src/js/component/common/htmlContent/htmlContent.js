@@ -54,8 +54,6 @@ export const HtmlContentFn = async ({
     onMount,
 }) => {
     const { source, data } = getState();
-    console.log(data);
-
     const currentData = await getData({ source, data });
 
     const { useMinHeight, useMaxWidth } = getState();

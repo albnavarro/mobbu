@@ -21007,7 +21007,6 @@ Loading snippet ...</pre
     onMount
   }) => {
     const { source, data: data3 } = getState();
-    console.log(data3);
     const currentData = await getData2({ source, data: data3 });
     const { useMinHeight, useMaxWidth } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
