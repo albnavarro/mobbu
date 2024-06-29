@@ -1,3 +1,4 @@
+//@ts-check
 import { getLegendData } from '../../../data';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
@@ -10,7 +11,7 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 };
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'svg'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').HomeComponent>}
  */
 export const HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
