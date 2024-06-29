@@ -7,27 +7,6 @@
 - Spostare mq da mobMotion a mobCore.
 
 ### Type: feat/T1
-- computed: la callback deve avere in ingresso un ogetto, cosi da facilitare i type ts in `mobJs`.
-- logica di bindProps.
-
-```js
-  computed('pippo', ['align', 'color'], ({ align, color }) => {
-      return true;
-  });
-```
-
-- src/js/mobCore/store/storeSet.js: `fireComputed` righa: `506`, al posto `propValues`
-
-```js
-const valuesToObject = keys
-    .map((item) => {
-        return { [item]: store[item] };
-    })
-    .reduce((previous, current) => {
-        return { ...previous, ...current };
-    }, {});
-```
-
 - Finiti i type di `mobJs` migrarli su `mobStore`, mobJs li importara direttamante da mobStore.
 
 # Mob motion
@@ -56,8 +35,8 @@ const valuesToObject = keys
 # MobJs
 
 ## type
-- Risolvere il task `computed` in `mobStore` per finire i componenti di mobJs.
-- `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T>
+- `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
+- `setStateById` etc.. devono avere un generic `<T>` in entrata per allinearsi con `mobComponent`
 
 ## Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
@@ -104,12 +83,6 @@ export const MyComponent2 = ({addMethods}) => {
     ...
 };
 ```
-
-
-### Type
--
-
-
 
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
