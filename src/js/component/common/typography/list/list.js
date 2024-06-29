@@ -5,7 +5,7 @@ const getList = ({ items }) => {
 };
 
 /**
- * @type {import("../../../../mobjs/type").mobComponent<'style'|'dots'|'color'|'items'>}
+ * @type {import("../../../../mobjs/type").mobComponent<import('./type').List>}
  */
 export const ListFn = ({ html, getState }) => {
     const { style, color, items, dots } = getState();

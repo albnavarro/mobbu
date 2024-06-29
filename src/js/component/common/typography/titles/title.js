@@ -1,5 +1,5 @@
 /**
- * @type {import("../../../../mobjs/type").mobComponent}
+ * @type {import("../../../../mobjs/type").mobComponent<import("./type").Title>}
  */
 export const TitleFn = ({ html, getState }) => {
     const { tag, color, isBold } = getState();
