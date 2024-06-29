@@ -1,6 +1,6 @@
 import { bindEventsObject } from '../temporaryData/bindEvents/type';
 import { delegateEventObject } from '../temporaryData/weakBindEvents/type';
-import { OnlyStringKey } from './utils';
+import { NotValue, OnlyStringKey } from './utils';
 
 /**
  * bindProps.
@@ -40,4 +40,25 @@ export type PartialSetState<T> = <K extends keyof T>(
     value: T[K] | ((arg0: T[K]) => T[K]),
     fireCallback?: boolean,
     clone?: boolean
+) => void;
+
+/**
+ * emit
+ */
+export type PartialEmit<T> = (prop: keyof T) => void;
+
+/**
+ * emitAsync
+ */
+export type PartialEmitAsync<T> = (
+    prop: keyof T
+) => Promise<{ success: boolean }>;
+
+/**
+ * computed
+ */
+export type PartialCompunted<T> = <K extends keyof T>(
+    prop: K,
+    keys: Array<NotValue<keyof T, K>>,
+    callback: (arg0: T) => T[K]
 ) => void;

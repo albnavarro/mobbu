@@ -5,17 +5,23 @@ import { componentFunctionType } from './mainStore/type';
 import {
     PartialBindEvents,
     PartialBindProps,
+    PartialCompunted,
     PartialDelegateEvents,
+    PartialEmit,
+    PartialEmitAsync,
     PartialGetState,
     PartialSetState,
 } from './tsUtils/mobComponentProps';
-import { NotValue, OnlyStringKey } from './tsUtils/utils';
+import { OnlyStringKey } from './tsUtils/utils';
 
 export type BindProps<T> = PartialBindProps<T>;
 export type DelegateEvents = PartialDelegateEvents;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
+export type Emit<T> = PartialEmit<T>;
+export type EmitAsync<T> = PartialEmitAsync<T>;
+export type Computed<T> = PartialCompunted<T>;
 
 /**
  * Main component.
@@ -80,7 +86,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    emit(prop: keyof T): void;
+    emit: Emit<T>;
 
     /**
      * @example
@@ -100,7 +106,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    emitAsync(prop: keyof T): Promise<{ success: boolean }>;
+    emitAsync: EmitAsync<T>;
 
     /**
      *
@@ -136,11 +142,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    computed<K extends keyof T>(
-        prop: K,
-        keys: Array<NotValue<keyof T, K>>,
-        callback: (arg0: T) => T[K]
-    ): void;
+    computed: Computed<T>;
 
     /**
      * @description
