@@ -80,3 +80,23 @@ export type PartialRemoveDOM = (element: HTMLElement) => void;
  * Remove
  */
 export type PartialRemove = () => void;
+
+/**
+ * Remove
+ */
+export type PartialGetChildren = (componentName: string) => Array<string>;
+
+/**
+ * freezeProp
+ */
+export type PartialFreezeProp<T> = (prop: keyof T) => void;
+
+/**
+ * freezeProp
+ */
+export type PartialUnFreezeProp<T> = (prop: keyof T) => void;
+
+/**
+ * freezeProp
+ */
+export type PartialGetParentId = () => string | undefined;

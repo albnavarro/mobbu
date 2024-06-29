@@ -9,10 +9,14 @@ import {
     PartialDelegateEvents,
     PartialEmit,
     PartialEmitAsync,
+    PartialFreezeProp,
+    PartialGetChildren,
+    PartialGetParentId,
     PartialGetState,
     PartialRemove,
     PartialRemoveDOM,
     PartialSetState,
+    PartialUnFreezeProp,
     PartialWatch,
 } from './tsUtils/mobComponentProps';
 import { OnlyStringKey } from './tsUtils/utils';
@@ -28,6 +32,9 @@ export type Computed<T> = PartialCompunted<T>;
 export type Watch<T> = PartialWatch<T>;
 export type RemoveDom = PartialRemoveDOM;
 export type Remove = PartialRemove;
+export type GetChildren = PartialGetChildren;
+export type UnFreezeProp<T> = PartialUnFreezeProp<T>;
+export type GetParentId = PartialGetParentId;
 
 /**
  * Main component.
@@ -219,7 +226,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    getChildren(componentName: string): Array<string>;
+    getChildren: GetChildren;
 
     /**
      * @example
@@ -229,7 +236,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    freezeProp(prop: keyof T): void;
+    freezeProp: FreezeProp<T>;
 
     /**
      * @example
@@ -239,7 +246,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    unFreezeProp(prop: keyof T): void;
+    unFreezeProp: UnFreezeProp<T>;
 
     /**
      * @example
@@ -249,7 +256,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    getParentId(): string | undefined;
+    getParentId: GetParentId;
 
     /**
      * @example
