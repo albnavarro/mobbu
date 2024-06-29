@@ -19729,39 +19729,16 @@
   };
 
   // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitleFn = ({
-    html,
-    onMount,
-    watchSync,
-    watch,
-    setState,
-    emit,
-    emitAsync,
-    computed,
-    freezeProp,
-    unBind: unBind2,
-    getState
-  }) => {
+  var AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
       if (motionCore.mq("max", "desktop")) return;
       const { titleEl } = refs;
-      setState("pippo", true);
-      const { pippo, align } = getState();
-      emit("color");
-      emitAsync("align");
-      computed("pippo", ["align", "color"], ({ color }) => {
-        return color.length > 0;
-      });
-      watch("pippo", (value) => {
-      });
-      freezeProp("align");
-      unBind2();
-      watchSync("color", (value) => {
+      watchSync("align", (value) => {
         element.classList.remove("is-left");
         element.classList.remove("is-right");
         element.classList.add(`is-${value}`);
       });
-      watchSync("pippo", (value) => {
+      watchSync("title", (value) => {
         titleEl.innerHTML = value;
       });
       watchSync("color", (value) => {
@@ -21013,8 +20990,8 @@ Loading snippet ...</pre
     return renderHtml`
         <mob-loader
             ${bindProps({
-      bind: ["contentIsLoaded", "useMinHeight"],
-      props: ({ contentIsLoaded, data: data4 }) => {
+      bind: ["contentIsLoaded"],
+      props: ({ contentIsLoaded }) => {
         return { shouldRemove: contentIsLoaded };
       }
     })}

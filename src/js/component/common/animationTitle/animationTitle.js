@@ -1,49 +1,22 @@
-//@ts-check
 import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<import('./type').animationTitle>}
+ * @type {import('../../../mobjs/type').mobComponent<'title'|'align'|'color'>}
  */
-export const AnimationTitleFn = ({
-    html,
-    onMount,
-    watchSync,
-    watch,
-    setState,
-    emit,
-    emitAsync,
-    computed,
-    freezeProp,
-    unBind,
-    getState,
-}) => {
+export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const { titleEl } = refs;
 
-        setState('pippo', true);
-        const { pippo, align } = getState();
-
-        emit('color');
-        emitAsync('align');
-        computed('pippo', ['align', 'color'], ({ color }) => {
-            return color.length > 0;
-        });
-        watch('pippo', (value) => {
-            //
-        });
-        freezeProp('align');
-        unBind();
-
-        watchSync('color', (value) => {
+        watchSync('align', (value) => {
             element.classList.remove('is-left');
             element.classList.remove('is-right');
             element.classList.add(`is-${value}`);
         });
 
-        watchSync('pippo', (value) => {
+        watchSync('title', (value) => {
             titleEl.innerHTML = value;
         });
 

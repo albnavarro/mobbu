@@ -1,10 +1,5 @@
 import { html } from '../../../../mobjs';
 
-/**
- * @param {object} param
- * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater>} param.bindProps
- * @param {import('../../../../mobjs/type').DelegateEvents} param.delegateEvents
- */
 function getRepeaterCard({
     sync,
     staticProps,
@@ -63,7 +58,7 @@ function afterUpdateList({ element, className, childrenId }) {
 }
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListRepeater>}
+ * @type {import('../../../../mobjs/type').mobComponent<'data'|'key'|'clean'|'listId'|'counter'|'label'>}
  */
 export const DynamicListRepeaterFn = ({
     getState,
