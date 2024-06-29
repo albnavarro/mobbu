@@ -121,7 +121,7 @@ export type PartialOnMount = (
     arg0: (arg1: {
         element: HTMLElement;
         refs: { [key: string]: HTMLElement | HTMLElement[] };
-    }) => (() => void) | Promise<void> | void
+    }) => (() => void) | Promise<() => void>
 ) => void;
 
 /**
