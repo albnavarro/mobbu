@@ -22,7 +22,7 @@ function getControls({ buttons }) {
 }
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent}
+ * @type {import('../../../../mobjs/type').mobComponent<import('./type').CaterpillarN2>}
  */
 export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
     const { buttons, rotationDefault } = getState();
