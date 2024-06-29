@@ -17,6 +17,7 @@ export const AnimationTitleFn = ({
     freezeProp,
     unBind,
     getState,
+    remove,
 }) => {
     onMount(({ element, refs }) => {
         if (motionCore.mq('max', 'desktop')) return;

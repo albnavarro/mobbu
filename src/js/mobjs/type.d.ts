@@ -10,7 +10,10 @@ import {
     PartialEmit,
     PartialEmitAsync,
     PartialGetState,
+    PartialRemove,
+    PartialRemoveDOM,
     PartialSetState,
+    PartialWatch,
 } from './tsUtils/mobComponentProps';
 import { OnlyStringKey } from './tsUtils/utils';
 
@@ -22,6 +25,9 @@ export type SetState<T> = PartialSetState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
+export type Watch<T> = PartialWatch<T>;
+export type RemoveDom = PartialRemoveDOM;
+export type Remove = PartialRemove;
 
 /**
  * Main component.
@@ -159,7 +165,7 @@ export interface componentPropsType<T> {
      * ```
      *
      */
-    watch<K extends keyof T>(prop: K, callback: (arg0: T[K]) => void): void;
+    watch: Watch<T>;
 
     /**
      * @description
@@ -176,7 +182,7 @@ export interface componentPropsType<T> {
      * ```
      *
      */
-    watchSync<K extends keyof T>(prop: K, callback: (arg0: T[K]) => void): void;
+    watchSync: Watch<T>;
 
     /**
      * @description
@@ -190,7 +196,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    removeDOM(element: HTMLElement): void;
+    removeDOM: RemoveDom;
 
     /**
      * @description
@@ -203,7 +209,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    remove(): void;
+    remove: Remove;
 
     /**
      * @example

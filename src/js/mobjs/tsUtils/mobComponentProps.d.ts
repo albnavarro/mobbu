@@ -62,3 +62,21 @@ export type PartialCompunted<T> = <K extends keyof T>(
     keys: Array<NotValue<keyof T, K>>,
     callback: (arg0: T) => T[K]
 ) => void;
+
+/**
+ * watch
+ */
+export type PartialWatch<T> = <K extends keyof T>(
+    prop: K,
+    callback: (arg0: T[K]) => void
+) => void;
+
+/**
+ * RemoveDom
+ */
+export type PartialRemoveDOM = (element: HTMLElement) => void;
+
+/**
+ * Remove
+ */
+export type PartialRemove = () => void;
