@@ -16,13 +16,14 @@ import {
     PartialOnMount,
     PartialRemove,
     PartialRemoveDOM,
+    PartialRenderComponent,
+    PartialRepeat,
     PartialSetState,
     PartialUnBind,
     PartialUnFreezeProp,
     PartialWatch,
     PartialWatchParent,
 } from './tsUtils/mobComponentProps';
-import { OnlyStringKey } from './tsUtils/utils';
 
 export type BindProps<T> = PartialBindProps<T>;
 export type DelegateEvents = PartialDelegateEvents;
@@ -42,6 +43,8 @@ export type GetParentId = PartialGetParentId;
 export type WatchParent = PartialWatchParent;
 export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
+export type Repeat<T> = PartialRepeat<T>;
+export type RenderComponent = PartialRenderComponent;
 
 /**
  * Main component.
@@ -535,139 +538,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    repeat(arg0: {
-        /**
-         * @description
-         * Clean previous item.
-         */
-        clean?: boolean;
-
-        /**
-         * @description
-         * Array of object used to create list
-         */
-        watch: OnlyStringKey<T>;
-
-        /**
-         * @description
-         * Unique key used to track the mutation of each individual component.
-         */
-        key?: string | undefined;
-
-        /**
-         * @description
-         * Function fired before update
-         *
-         * @example
-         *
-         * ${repeat({
-         *     beforeUpdate: ({ container, childrenId }) => {
-         *         ....
-         *     },
-         * })}
-         */
-        beforeUpdate?(arg0: {
-            /**
-             * @description
-             * Main component
-             */
-            element: HTMLElement;
-
-            /**
-             * @description
-             * List container element.
-             */
-            container: HTMLElement;
-
-            /**
-             * @description
-             * Active Children ids
-             */
-            childrenId: string[];
-        }): void;
-
-        /**
-         * @description
-         * Function fired after update
-         *
-         * @example
-         *
-         * ${repeat({
-         *     afterUpdate: ({ container, childrenId }) => {
-         *         ....
-         *     },
-         * })}
-         */
-        afterUpdate?(arg0: {
-            /**
-             * @description
-             * Main component
-             */
-            element: HTMLElement;
-
-            /**
-             * @description
-             * List container element.
-             */
-            container: HTMLElement;
-
-            /**
-             * @description
-             * New Children ids
-             */
-            childrenId: string[];
-        }): void;
-
-        /**
-         * @description
-         * Render child component.
-         *
-         * - sync props is necessary (obbligatorie) for tracking key and store current and index value.
-         *   this props can be used "ONCE".
-         *
-         *
-         * @example
-         *
-         * ```javascript
-         *
-         * <div>
-         *     ${repeat({
-         *         ...
-         *         render: ({ sync, html }) => {
-         *            return html`
-         *                <my-component
-         *                    ${sync} // !important
-         *                    ${staticProps({
-         *                        myState: value,
-         *                    })}
-         *                    ${bindProps({
-         *                        bind: ['my_array_state', 'myState2'],
-         *                        props: ({ myState2, _current, _index }) => {
-         *                            return {
-         *                                myState2,
-         *                                label: _current.myValue,
-         *                                index,
-         *                            };
-         *                        },
-         *                    })}
-         *                    ${bindEvents({
-         *                        mousedown: (_e, { current, index }) =>
-         *                            //
-         *                    })}
-         *                >
-         *                </my-component>
-         *            `
-         *         }
-         *     })}
-         * </div>
-         *
-         * ```
-         */
-        render: (arg0: {
-            sync: string;
-            html?: (arg0: string) => string;
-        }) => string;
-    }): string;
+    repeat: Repeat<T>;
 
     /**
      * @description
@@ -687,14 +558,7 @@ export interface componentPropsType<T> {
      * Parse node with component to render.
      * The function receives as an argument the root element to be parsed, if no element is supplied the root of the component will be used.
      */
-    // parseDom: (arg0?: HTMLElement) => Promise<any>;
-
-    renderComponent: (arg0: {
-        attachTo: HTMLElement;
-        component: string;
-        position?: 'afterbegin' | 'beforeend';
-        clean?: boolean;
-    }) => Promise<any>;
+    renderComponent: RenderComponent;
 }
 
 interface webComponentParmas {

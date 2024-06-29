@@ -123,3 +123,147 @@ export type PartialOnMount = (
         refs: { [key: string]: HTMLElement | HTMLElement[] };
     }) => (() => void) | Promise<() => void> | void
 ) => void;
+
+/**
+ * repeat
+ */
+export type PartialRepeat<T> = (arg0: {
+    /**
+     * @description
+     * Clean previous item.
+     */
+    clean?: boolean;
+
+    /**
+     * @description
+     * Array of object used to create list
+     */
+    watch: OnlyStringKey<T>;
+
+    /**
+     * @description
+     * Unique key used to track the mutation of each individual component.
+     */
+    key?: string | undefined;
+
+    /**
+     * @description
+     * Function fired before update
+     *
+     * @example
+     *
+     * ${repeat({
+     *     beforeUpdate: ({ container, childrenId }) => {
+     *         ....
+     *     },
+     * })}
+     */
+    beforeUpdate?(arg0: {
+        /**
+         * @description
+         * Main component
+         */
+        element: HTMLElement;
+
+        /**
+         * @description
+         * List container element.
+         */
+        container: HTMLElement;
+
+        /**
+         * @description
+         * Active Children ids
+         */
+        childrenId: string[];
+    }): void;
+
+    /**
+     * @description
+     * Function fired after update
+     *
+     * @example
+     *
+     * ${repeat({
+     *     afterUpdate: ({ container, childrenId }) => {
+     *         ....
+     *     },
+     * })}
+     */
+    afterUpdate?(arg0: {
+        /**
+         * @description
+         * Main component
+         */
+        element: HTMLElement;
+
+        /**
+         * @description
+         * List container element.
+         */
+        container: HTMLElement;
+
+        /**
+         * @description
+         * New Children ids
+         */
+        childrenId: string[];
+    }): void;
+
+    /**
+     * @description
+     * Render child component.
+     *
+     * - sync props is necessary (obbligatorie) for tracking key and store current and index value.
+     *   this props can be used "ONCE".
+     *
+     *
+     * @example
+     *
+     * ```javascript
+     *
+     * <div>
+     *     ${repeat({
+     *         ...
+     *         render: ({ sync, html }) => {
+     *            return html`
+     *                <my-component
+     *                    ${sync} // !important
+     *                    ${staticProps({
+     *                        myState: value,
+     *                    })}
+     *                    ${bindProps({
+     *                        bind: ['my_array_state', 'myState2'],
+     *                        props: ({ myState2, _current, _index }) => {
+     *                            return {
+     *                                myState2,
+     *                                label: _current.myValue,
+     *                                index,
+     *                            };
+     *                        },
+     *                    })}
+     *                    ${bindEvents({
+     *                        mousedown: (_e, { current, index }) =>
+     *                            //
+     *                    })}
+     *                >
+     *                </my-component>
+     *            `
+     *         }
+     *     })}
+     * </div>
+     *
+     * ```
+     */
+    render: (arg0: { sync: string; html?: (arg0: string) => string }) => string;
+}) => string;
+
+/**
+ * RemoveDom
+ */
+export type PartialRenderComponent = (arg0: {
+    attachTo: HTMLElement;
+    component: string;
+    position?: 'afterbegin' | 'beforeend';
+    clean?: boolean;
+}) => Promise<any>;
