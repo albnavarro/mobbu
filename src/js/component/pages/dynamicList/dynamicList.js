@@ -39,6 +39,13 @@ const repeaters = [
     },
 ];
 
+/**
+ * @param {object} param
+ * @param {import('../../../mobjs/type').SetState<import('./type').DynamicList>} param.setState
+ * @param {any} param.staticProps
+ * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
+ * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList>} param.bindProps
+ */
 function getButton({ setState, staticProps, delegateEvents, bindProps }) {
     return buttons
         .map((column, index) => {
@@ -70,6 +77,11 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
         .join('');
 }
 
+/**
+ * @param {object} param
+ * @param {any} param.staticProps
+ * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList>} param.bindProps
+ */
 function getRepeaters({ bindProps, staticProps }) {
     return repeaters
         .map((item, index) => {
@@ -91,7 +103,7 @@ function getRepeaters({ bindProps, staticProps }) {
 }
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'counter'|'data'|'activeSample'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').DynamicList>}
  */
 export const DynamicListFn = async ({
     setState,
