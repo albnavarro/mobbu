@@ -27,4 +27,17 @@ export type PartialBindEvents = (
     arg0: bindEventsObject | bindEventsObject[]
 ) => void;
 
+/**
+ * getState
+ */
 export type PartialGetState<T> = () => T;
+
+/**
+ * setState
+ */
+export type PartialSetState<T> = <K extends keyof T>(
+    prop: K,
+    value: T[K] | ((arg0: T[K]) => T[K]),
+    fireCallback?: boolean,
+    clone?: boolean
+) => void;

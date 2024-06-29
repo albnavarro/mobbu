@@ -7,6 +7,7 @@ import {
     PartialBindProps,
     PartialDelegateEvents,
     PartialGetState,
+    PartialSetState,
 } from './tsUtils/mobComponentProps';
 import { NotValue, OnlyStringKey } from './tsUtils/utils';
 
@@ -14,6 +15,7 @@ export type BindProps<T> = PartialBindProps<T>;
 export type DelegateEvents = PartialDelegateEvents;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
+export type SetState<T> = PartialSetState<T>;
 
 /**
  * Main component.
@@ -68,12 +70,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    setState<K extends keyof T>(
-        prop: K,
-        value: T[K] | ((arg0: T[K]) => T[K]),
-        fireCallback?: boolean,
-        clone?: boolean
-    ): void;
+    setState: SetState<T>;
 
     /**
      * @example
