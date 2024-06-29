@@ -1,5 +1,5 @@
 /**
- * @type {import('../../../../mobjs/type').mobComponent<'label'|'active'>}
+ * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListButton>}
  */
 export const DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();

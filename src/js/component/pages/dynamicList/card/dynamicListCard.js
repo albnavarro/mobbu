@@ -13,7 +13,7 @@ function updateContent(label, val) {
 }
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<'parentListId'|'isFull'|'label'|'index'|'counter'>}
+ * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListCard>}
  */
 export const DynamicListCardFn = ({
     getState,

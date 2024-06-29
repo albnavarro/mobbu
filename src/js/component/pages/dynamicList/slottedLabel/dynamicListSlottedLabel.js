@@ -3,7 +3,7 @@ function setContent(value) {
 }
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<'label'>}
+ * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListSlottedLabel>}
  */
 export const DynamicListSlottedLabelFn = async ({
     html,
