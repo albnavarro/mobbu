@@ -1,5 +1,5 @@
 /**
- * @type {import("../../../../mobjs/type").mobComponent<'id'|'active'>}
+ * @type {import("../../../../mobjs/type").mobComponent<import("./type").HorizontalScrollerButton>}
  */
 export const HorizontalScrollerButtonFn = ({
     getState,

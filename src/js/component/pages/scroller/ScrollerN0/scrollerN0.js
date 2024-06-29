@@ -5,7 +5,7 @@ import { motionCore } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent}
+ * @type {import('../../../../mobjs/type').mobComponent<import('./type').ScrollerN0>}
  */
 export const ScrollerN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
