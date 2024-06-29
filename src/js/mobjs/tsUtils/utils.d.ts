@@ -7,7 +7,7 @@ export type OnlyStringKey<T> = Extract<keyof T, string>;
  * Utils:
  * Exclude K value.
  */
-type NotValue<T, K> = T extends K ? never : T;
+export type NotValue<T, K> = T extends K ? never : T;
 
 /**
  * Get object values.

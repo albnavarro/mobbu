@@ -4,7 +4,7 @@ import { mobStoreBaseData } from '../mobCore/store/type';
 import { componentFunctionType } from './mainStore/type';
 import { bindEventsObject } from './temporaryData/bindEvents/type';
 import { delegateEventObject } from './temporaryData/weakBindEvents/type';
-import { OnlyStringKey } from './tsUtils/utils';
+import { NotValue, OnlyStringKey } from './tsUtils/utils';
 
 interface MobComponentMap {
     [prop: string]: any;
@@ -143,7 +143,7 @@ export interface componentType<T> {
      */
     computed<K extends keyof T>(
         prop: K,
-        keys: Array<keyof T>,
+        keys: Array<NotValue<keyof T, K>>,
         callback: (arg0: T) => T[K]
     ): void;
 
