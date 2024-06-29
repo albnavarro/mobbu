@@ -73,7 +73,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
 }
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'currentAccordionId'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').Navigation>}
  */
 export const NavigationFn = ({
     html,

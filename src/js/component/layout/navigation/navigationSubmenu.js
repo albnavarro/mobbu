@@ -26,7 +26,7 @@ function getSubmenu({ children, staticProps, callback }) {
 }
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<'callback'\'headerButton'|'children'|'isOpen'>}
+ * @type {import("../../../mobjs/type").mobComponent<import('./type').NavigationSubmenu>}
  */
 export const NavigationSubmenuFn = ({
     onMount,

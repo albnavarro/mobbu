@@ -3,7 +3,7 @@ import { loadUrl, mainStore, MAIN_STORE_ACTIVE_ROUTE } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'label'|'url'|'activeId'|'scrollToSection'|'arrowClass'|'subMenuClass'|'fireRoute'|'callback'|'isOpen'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').NavigationButton>}
  */
 export const NavigationButtonFn = ({
     getState,

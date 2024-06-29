@@ -1,5 +1,5 @@
 /**
- * @type {import('../../../mobjs/type').mobComponent<'label'|'sectioName'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').NavigationLabel>}
  */
 export const NavigationLabelFn = ({ getState, html }) => {
     const { label, sectioName } = getState();
