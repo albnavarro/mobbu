@@ -11,7 +11,7 @@ const options = {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<'style'|'line'|'id'|'label'>}
+ * @type {import("../../../mobjs/type").mobComponent<import('./type').SpacerAnchor>}
  */
 export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
