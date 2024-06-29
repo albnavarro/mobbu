@@ -43,7 +43,7 @@ const getLoader = ({ data, bindProps }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<'source'|'data'|'contentIsLoaded'|'useMinHeight'|'useMaxWidth'>}
+ * @type {import("../../../mobjs/type").mobComponent<import('./type').HtmlContent>}
  */
 export const HtmlContentFn = async ({
     html,
@@ -54,6 +54,7 @@ export const HtmlContentFn = async ({
     onMount,
 }) => {
     const { source, data } = getState();
+    console.log(data);
 
     const currentData = await getData({ source, data });
 

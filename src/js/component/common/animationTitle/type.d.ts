@@ -1,6 +1,5 @@
-export interface animationTitle {
+export interface AnimationTitle {
     title: string;
     align: string;
     color: string;
-    pippo: boolean;
 }

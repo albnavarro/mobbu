@@ -1,6 +1,6 @@
 export interface HtmlContent {
     source: string;
-    data: any[];
+    data: { component: string; props: any; content: string }[];
     contentIsLoaded: boolean;
     useMinHeight: boolean;
     useMaxWidth: boolean;

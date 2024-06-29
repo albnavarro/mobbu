@@ -2,7 +2,7 @@ import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<'title'|'align'|'color'>}
+ * @type {import('../../../mobjs/type').mobComponent<import('./type').AnimationTitle>}
  */
 export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, refs }) => {

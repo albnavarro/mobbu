@@ -1,5 +1,5 @@
 /**
- * @type {import("../../../mobjs/type").mobComponent<'key'|'selected'|'disable'>}
+ * @type {import("../../../mobjs/type").mobComponent<import("./type").CodeOverlayButton>}
  */
 export const CodeOverlayButtonFn = ({ onMount, watch, getState, html }) => {
     const { key, disable } = getState();
