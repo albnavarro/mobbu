@@ -5,7 +5,7 @@ import { componentMap } from '../store';
 /**
  * @param {string} id
  * @param {string} prop
- * @param {function():void} cb
+ * @param {(arg0: any) => void} cb
  * @returns {(( function():void )|undefined)}
  *
  * @description

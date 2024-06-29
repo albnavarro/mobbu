@@ -82,7 +82,7 @@ export type PartialRemoveDOM = (element: HTMLElement) => void;
 export type PartialRemove = () => void;
 
 /**
- * Remove
+ * getChildren
  */
 export type PartialGetChildren = (componentName: string) => Array<string>;
 
@@ -92,11 +92,34 @@ export type PartialGetChildren = (componentName: string) => Array<string>;
 export type PartialFreezeProp<T> = (prop: keyof T) => void;
 
 /**
- * freezeProp
+ * unFreezeProp
  */
 export type PartialUnFreezeProp<T> = (prop: keyof T) => void;
 
 /**
- * freezeProp
+ * getParentId
  */
 export type PartialGetParentId = () => string | undefined;
+
+/**
+ * watchParent
+ */
+export type PartialWatchParent = (
+    prop: string,
+    callback: (arg0: any) => void
+) => void;
+
+/**
+ * Unbind
+ */
+export type PartialUnBind = () => void;
+
+/**
+ * onMount
+ */
+export type PartialOnMount = (
+    arg0: (arg1: {
+        element: HTMLElement;
+        refs: { [key: string]: HTMLElement | HTMLElement[] };
+    }) => (() => void) | Promise<() => void> | void
+) => void;

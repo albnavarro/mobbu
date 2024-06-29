@@ -13,11 +13,14 @@ import {
     PartialGetChildren,
     PartialGetParentId,
     PartialGetState,
+    PartialOnMount,
     PartialRemove,
     PartialRemoveDOM,
     PartialSetState,
+    PartialUnBind,
     PartialUnFreezeProp,
     PartialWatch,
+    PartialWatchParent,
 } from './tsUtils/mobComponentProps';
 import { OnlyStringKey } from './tsUtils/utils';
 
@@ -33,8 +36,12 @@ export type Watch<T> = PartialWatch<T>;
 export type RemoveDom = PartialRemoveDOM;
 export type Remove = PartialRemove;
 export type GetChildren = PartialGetChildren;
+export type FreezeProp<T> = PartialFreezeProp<T>;
 export type UnFreezeProp<T> = PartialUnFreezeProp<T>;
 export type GetParentId = PartialGetParentId;
+export type WatchParent = PartialWatchParent;
+export type UnBind = PartialUnBind;
+export type OnMount = PartialOnMount;
 
 /**
  * Main component.
@@ -269,7 +276,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    watchParent(prop: string, callback: () => void): void;
+    watchParent: WatchParent;
 
     /**
      *
@@ -301,7 +308,7 @@ export interface componentPropsType<T> {
      * Detach binbProps.
      * Note: The function will be active as soon as the whole route is rendered.
      */
-    unBind: () => void;
+    unBind: UnBind;
 
     /**
      * @description
@@ -453,12 +460,7 @@ export interface componentPropsType<T> {
      *
      * ```
      */
-    onMount(
-        arg0: (arg1: {
-            element: HTMLElement;
-            refs: { [key: string]: HTMLElement | HTMLElement[] };
-        }) => (() => void) | Promise<() => void> | void
-    ): void;
+    onMount: OnMount;
 
     /**
      * @description
