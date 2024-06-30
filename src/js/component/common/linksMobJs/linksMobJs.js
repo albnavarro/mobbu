@@ -7,6 +7,11 @@ const data = {
     mobjs: items,
 };
 
+/**
+ * @param {object} param
+ * @param {Array<{label: string, url: string}>} param.data
+ * @param {import('../../../mobjs/type').StaticProps} param.staticProps
+ */
 const getItems = ({ data, staticProps }) => {
     return data
         .map((item) => {

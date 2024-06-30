@@ -19,6 +19,7 @@ import {
     PartialRenderComponent,
     PartialRepeat,
     PartialSetState,
+    PartialStaticProps,
     PartialUnBind,
     PartialUnFreezeProp,
     PartialWatch,
@@ -45,6 +46,7 @@ export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
 export type RenderComponent = PartialRenderComponent;
+export type StaticProps = PartialStaticProps;
 
 /**
  * Main component.
@@ -299,7 +301,7 @@ export interface componentPropsType<T> {
      * ></MyComponent>
      * ```
      */
-    staticProps(arg0: { [key: string]: any }): string;
+    staticProps: StaticProps;
 
     /**
      * @example

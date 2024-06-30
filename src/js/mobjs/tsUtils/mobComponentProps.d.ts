@@ -268,3 +268,8 @@ export type PartialRenderComponent = (arg0: {
     position?: 'afterbegin' | 'beforeend';
     clean?: boolean;
 }) => Promise<any>;
+
+/**
+ * StaticProps
+ */
+export type PartialStaticProps = (arg0: { [key: string]: any }) => string;
