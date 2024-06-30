@@ -10,11 +10,23 @@ import {
     staticProps,
 } from '../../../mobjs';
 
+/**
+ * @param {Object} param
+ * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
+ */
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
     navigator.clipboard.writeText(rawContent);
 };
 
+/**
+ * @param {Object} param
+ * @param {string} param.sync
+ * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay>} param.bindProps
+ * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
+ * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
+ * @returns {string}
+ */
 function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
     return html`
         <code-overlay-button
@@ -42,6 +54,17 @@ function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
     `;
 }
 
+/**
+ * @param {Object} param
+ * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
+ * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
+ * @param {HTMLElement} param.codeEl
+ * @param {string} param.currentKey
+ * @param {() => void} param.updateScroller
+ * @param {() => void} param.goToTop
+ * @param {import('../../../mobjs/type').RenderComponent} param.renderComponent
+ * @returns {Promise<any>}
+ */
 const printContent = async ({
     setState,
     getState,
@@ -79,7 +102,7 @@ const printContent = async ({
     /**
      * Save raw data.
      */
-    setState('rawContent', /* HTML */ codeEl.textContent);
+    setState('rawContent', codeEl?.textContent ?? '');
 
     updateScroller();
     goToTop();

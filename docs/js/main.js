@@ -22719,11 +22719,7 @@ Loading snippet ...</pre
       attachTo: codeEl,
       component: htmlContent
     });
-    setState(
-      "rawContent",
-      /* HTML */
-      codeEl.textContent
-    );
+    setState("rawContent", codeEl?.textContent ?? "");
     updateScroller();
     goToTop();
   };
