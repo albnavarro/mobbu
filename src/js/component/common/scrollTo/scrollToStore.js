@@ -2,7 +2,7 @@ import { mobCore } from '../../../mobCore';
 import { mainStore, MAIN_STORE_BEFORE_ROUTE_CHANGE } from '../../../mobjs';
 
 /**
- * @type {import('../../../mobCore/store/type').mobStore<'items'|'computedItems'|'activeLabelFromObeserver'>}
+ * @type {import('../../../mobCore/store/type').mobStore<import('./type').AnchorStore>}
  */
 export const anchorStore = mobCore.createStore({
     items: () => ({
