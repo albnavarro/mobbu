@@ -102,7 +102,7 @@ export type quickSetPropType<T> = <K extends keyof T>(
 export type watchType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
     callback: (current: T[K], previous: T[K], validate: validateState) => void
-) => void;
+) => () => void;
 
 export type computedType<T> = <K extends keyof T>(
     prop: Extract<K, string>,

@@ -9,7 +9,9 @@ export interface componentListMapType {
 
 export interface MainStore {
     activeRoute: string;
-    activeParams: string;
+    activeParams: {
+        [key: string]: any;
+    };
     beforeRouteLeave: string;
     beforeRouteChange: string;
     afterRouteChange: string;
