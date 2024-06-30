@@ -3,6 +3,7 @@
 
 # DOCS
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
+- `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
 # MobCore
 
@@ -36,6 +37,7 @@
 # MobJs
 
 ## type
+- `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 - `setStateById` etc.. devono avere un generic `<T>` in entrata per allinearsi con `mobComponent`
 
