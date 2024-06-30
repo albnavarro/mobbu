@@ -1,6 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
+import { mobStore } from '../../mobCore/store/mobStore';
 import {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -59,17 +60,18 @@ export const mainStore = mobCore.createStore({
 });
 
 // const { pippo } = mainStore.get();
-// const x = mainStore.getProp('pippo');
+// const x = mainStore.getProp('repeaterParserRoot');
 // mainStore.set('pippo', 2);
 // mainStore.quickSetProp('pippo', 2);
 // mainStore.watch('pippo', (current, previous, status) => {
 //     //
 // });
-// mainStore.computed(
-//     'pippo',
-//     ['routeIsLoading', 'beforeRouteChange'],
-//     ({ routeIsLoading, beforeRouteChange }) => {
-//         console.log(routeIsLoading, beforeRouteChange);
-//         return 2;
-//     }
-// );
+mainStore.computed(
+    'pippo',
+    ['beforeRouteChange', 'beforeRouteChange'],
+    ({ routeIsLoading, beforeRouteChange }) => {
+        console.log(routeIsLoading, beforeRouteChange);
+        return 2;
+    }
+);
+// mainStore.emitAsync('activeRoute')

@@ -83,35 +83,38 @@ export interface mobStore<T extends StoreDefaultMap> {
 
 export type getType<T> = () => T;
 
-export type getPropType<T> = <K extends keyof T>(arg0: K) => T[K];
+export type getPropType<T> = <K extends keyof T>(
+    arg0: Extract<K, string>
+) => T[K];
 
 export type setType<T> = <K extends keyof T>(
-    prop: K,
+    prop: Extract<K, string>,
     value: T[K] | ((arg0: T[K]) => T[K]),
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
 
 export type quickSetPropType<T> = <K extends keyof T>(
-    prop: K,
+    prop: Extract<K, string>,
     value: T[K]
 ) => void;
 
 export type watchType<T> = <K extends keyof T>(
-    prop: K,
+    prop: Extract<K, string>,
     callback: (current: T[K], previous: T[K], validate: validateState) => void
 ) => void;
 
 export type computedType<T> = <K extends keyof T>(
-    prop: K,
-    keys: Array<NotValue<keyof T, K>>,
+    prop: Extract<K, string>,
+    // keys: Array<NotValue<keyof T, K>>,
+    keys: Array<Extract<K, string>>,
     callback: (arg0: T) => T[K]
 ) => void;
 
-export type emitType<T> = (props: keyof T) => void;
+export type emitType<T> = (props: Extract<keyof T, string>) => void;
 
 export type emitAsyncType<T> = (
-    props: keyof T
+    props: Extract<keyof T, string>
 ) => Promise<{ success: boolean }>;
 
 export type mobStoreTypeAlias =
