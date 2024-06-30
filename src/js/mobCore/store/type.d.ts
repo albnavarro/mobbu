@@ -106,8 +106,7 @@ export type watchType<T> = <K extends keyof T>(
 
 export type computedType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    // keys: Array<NotValue<keyof T, K>>,
-    keys: Array<Extract<K, string>>,
+    keys: Array<Extract<keyof T, string>>,
     callback: (arg0: T) => T[K]
 ) => void;
 
