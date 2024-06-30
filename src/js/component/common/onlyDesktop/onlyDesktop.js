@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -18,7 +20,7 @@ const onResize = ({ element }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").componentType}
+ * @type {import("../../../mobjs/type").mobComponent}
  */
 export const OnlyDesktopFn = ({ html, onMount }) => {
     onMount(({ element }) => {

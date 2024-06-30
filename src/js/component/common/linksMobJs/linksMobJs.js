@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../mobjs';
 import { items } from './data';
 

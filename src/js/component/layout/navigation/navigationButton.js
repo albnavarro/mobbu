@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { loadUrl, mainStore, MAIN_STORE_ACTIVE_ROUTE } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
@@ -50,7 +52,7 @@ export const NavigationButtonFn = ({
                  */
                 const { activeParams } = mainStore.get();
                 const paramsMatch =
-                    activeId === -1 || activeParams?.activeId == activeId;
+                    activeId === -1 || activeParams?.['activeId'] === activeId;
 
                 const isActiveRoute = current === hash && paramsMatch;
                 element.classList.toggle('current', isActiveRoute);

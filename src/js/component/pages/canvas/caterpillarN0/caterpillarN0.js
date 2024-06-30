@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
@@ -10,10 +12,10 @@ import { caterpillarN0Animation } from './animation/animation';
 export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
-    onMount(({ refs }) => {
+    onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { wrap, canvas } = refs;
+        const { wrap, canvas } = ref;
 
         /**
          * Quicknav

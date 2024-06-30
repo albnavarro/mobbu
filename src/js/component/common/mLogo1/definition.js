@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { Mlogo1Fn } from './mLogo1';
 

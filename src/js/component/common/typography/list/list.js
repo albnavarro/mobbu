@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../../mobjs';
 
 const getList = ({ items }) => {
@@ -9,6 +11,7 @@ const getList = ({ items }) => {
  */
 export const ListFn = ({ html, getState }) => {
     const { style, color, items, dots } = getState();
+
     const colorClass = `is-${color}`;
     const dotsClass = dots ? '' : `hide-dots`;
 

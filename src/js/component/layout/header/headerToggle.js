@@ -1,8 +1,10 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
 const hanburgerHandler = () => {
-    const { navigationIsOpen } = navigationStore.get('navigationIsOpen');
+    const { navigationIsOpen } = navigationStore.get();
     navigationStore.set('navigationIsOpen', (state) => !state);
 
     if (navigationIsOpen) {

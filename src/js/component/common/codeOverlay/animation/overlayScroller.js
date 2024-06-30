@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { outerHeight, outerWidth } from '../../../../mobCore/utils';
 import { SmoothScroller } from '../../../../mobMotion/plugin';
 

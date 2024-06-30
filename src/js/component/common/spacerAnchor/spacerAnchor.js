@@ -1,3 +1,5 @@
+//@ts-check
+
 import { anchorStore } from '../scrollTo/scrollToStore';
 
 function hasAnchor({ id }) {
@@ -33,6 +35,7 @@ export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
             });
         });
 
+        // @ts-ignore
         observer.observe(element, options);
 
         return () => {

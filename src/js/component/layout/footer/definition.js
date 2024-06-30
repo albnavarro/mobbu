@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { FooterFn } from './footer';
 import { FooterNav } from './footerNav/definition';

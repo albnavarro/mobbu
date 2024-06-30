@@ -1,3 +1,5 @@
+//@ts-check
+
 import {
     mainStore,
     MAIN_STORE_AFTER_ROUTE_CHANGE,
@@ -34,6 +36,7 @@ export const RouteLoaderFn = ({ html, onMount }) => {
 
         return () => {
             tweenOut.destroy();
+            // @ts-ignore
             tweenOut = null;
         };
     });

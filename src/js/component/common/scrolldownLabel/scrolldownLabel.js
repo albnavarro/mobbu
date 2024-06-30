@@ -1,3 +1,6 @@
+//@ts-check
+
+// @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
 
 /**

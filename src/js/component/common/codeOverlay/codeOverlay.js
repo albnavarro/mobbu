@@ -1,4 +1,7 @@
+//@ts-check
+
 import { overlayScroller } from './animation/overlayScroller';
+// @ts-ignore
 import copyIcon from '../../../../svg/icon-copy.svg';
 import {
     html,
@@ -97,8 +100,8 @@ export const CodeOverlayFn = ({
     renderComponent,
     removeDOM,
 }) => {
-    onMount(({ element, refs }) => {
-        const { screenEl, scrollerEl, codeEl, scrollbar } = refs;
+    onMount(({ element, ref }) => {
+        const { screenEl, scrollerEl, codeEl, scrollbar } = ref;
 
         const { updateScroller, move, goToTop } = overlayScroller({
             screen: screenEl,
@@ -107,6 +110,7 @@ export const CodeOverlayFn = ({
         });
 
         scrollbar.addEventListener('input', () => {
+            // @ts-ignore
             move(scrollbar.value);
         });
 

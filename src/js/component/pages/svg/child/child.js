@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { childAnimations } from './animation/animation';
@@ -29,7 +31,7 @@ const getTrail = ({ star }) => {
 export const SvgChild = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
 
-    const { svg, star } = isDesktop ? getState() : '';
+    const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
 
     /**
      * Quicknav
@@ -47,8 +49,10 @@ export const SvgChild = ({ onMount, html, getState }) => {
     setStateById(titleId, 'color', 'white');
     setStateById(titleId, 'title', 'Child');
 
-    onMount(({ refs }) => {
+    onMount(({ refs, ref }) => {
         if (!isDesktop) return;
+
+        const { stagger } = refs;
 
         const {
             trail0,
@@ -61,8 +65,7 @@ export const SvgChild = ({ onMount, html, getState }) => {
             trail7,
             trail8,
             trail9,
-            stagger,
-        } = refs;
+        } = ref;
 
         const childMethods = childAnimations({
             groups: stagger,

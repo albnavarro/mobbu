@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../../mobjs';
 import { DynamicCounter } from '../counter/definition';
 import { DynamicListEmpty } from '../empty/definition';

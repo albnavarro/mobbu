@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import {
     loadUrl,
@@ -30,8 +32,8 @@ function titleHandler() {
  * @type {import('../../../mobjs/type').mobComponent}
  */
 export const HeaderFn = ({ html, onMount, delegateEvents }) => {
-    onMount(({ refs }) => {
-        const { navInfo, title, beta } = refs;
+    onMount(({ ref }) => {
+        const { navInfo, title, beta } = ref;
 
         navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
         navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));

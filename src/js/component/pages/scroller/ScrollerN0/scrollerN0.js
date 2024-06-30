@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
@@ -11,7 +13,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
-    onMount(({ refs }) => {
+    onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         /**
@@ -65,7 +67,7 @@ export const ScrollerN0Fn = ({ onMount, html, getState }) => {
         /**
          * Refs
          */
-        const { wrap, canvas, canvasScroller } = refs;
+        const { wrap, canvas, canvasScroller } = ref;
 
         /**
          * Prevent landing at bottom of the page.

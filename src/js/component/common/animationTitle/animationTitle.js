@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
@@ -5,10 +7,10 @@ import { motionCore } from '../../../mobMotion';
  * @type {import('../../../mobjs/type').mobComponent<import('./type').AnimationTitle>}
  */
 export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
-    onMount(({ element, refs }) => {
+    onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { titleEl } = refs;
+        const { titleEl } = ref;
 
         watchSync('align', (value) => {
             element.classList.remove('is-left');

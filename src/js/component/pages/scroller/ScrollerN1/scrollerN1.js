@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
@@ -10,7 +12,7 @@ import { scrollerN1Animation } from './animation/animation';
 export const ScrollerN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
-    onMount(({ refs }) => {
+    onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         /**
@@ -68,7 +70,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
         /**
          * Refs
          */
-        const { wrap, canvas, canvasScroller } = refs;
+        const { wrap, canvas, canvasScroller } = ref;
 
         const destroyAnimation = scrollerN1Animation({
             canvas,

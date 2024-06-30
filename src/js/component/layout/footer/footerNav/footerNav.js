@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html, loadUrl } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 

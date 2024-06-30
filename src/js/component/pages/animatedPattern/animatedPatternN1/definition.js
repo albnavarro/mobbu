@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
@@ -25,7 +27,10 @@ export const AnimatedPatternN1 = createComponent({
             2, 18, 10, 27, 21, 22, 23, 24, 25, 25, 26, 37, 42, 53, 58, 69, 74,
             85, 86, 87, 88, 89, 90, 44, 60, 65, 66,
         ],
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        disableOffcanvas: () => ({
+            value: detectFirefox() || detectSafari() ? true : false,
+            type: Boolean,
+        }),
     },
     child: [OnlyDesktop],
 });

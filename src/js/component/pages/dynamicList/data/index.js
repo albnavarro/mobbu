@@ -1,3 +1,5 @@
+//@ts-check
+
 export const startData = [
     {
         key: 'a',

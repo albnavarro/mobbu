@@ -69,7 +69,7 @@ export type PartialCompunted<T> = <K extends keyof T>(
 export type PartialWatch<T> = <K extends keyof T>(
     prop: K,
     callback: (current: T[K], previous: T[K], validate: validateState) => void
-) => void;
+) => () => void;
 
 /**
  * RemoveDom
@@ -120,7 +120,8 @@ export type PartialUnBind = () => void;
 export type PartialOnMount = (
     arg0: (arg1: {
         element: HTMLElement;
-        refs: { [key: string]: HTMLElement | HTMLElement[] };
+        ref: { [key: string]: HTMLElement };
+        refs: { [key: string]: HTMLElement[] };
     }) => (() => void) | Promise<() => void> | undefined
 ) => void;
 

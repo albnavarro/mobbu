@@ -1,3 +1,6 @@
+//@ts-check
+
+// @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
 import { html, loadUrl } from '../../../mobjs';

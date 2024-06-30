@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { mobCore } from '../../../../mobCore';
 import { outerWidth } from '../../../../mobCore/utils';
 import { scroller } from '../../../../mobMotion';
@@ -101,9 +102,11 @@ export const horizontalScrollerAnimation = ({
     let titlesParallax = createParallax({ titles });
 
     const side = document.querySelector('.l-navcontainer__side');
+    // @ts-ignore
     sideWidth = outerWidth(side) / 2;
 
     const unsubscribeResize = mobCore.useResize(() => {
+        // @ts-ignore
         sideWidth = outerWidth(side) / 2;
     });
 

@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @type {import("../../../../mobjs/type").mobComponent<import("./type").HorizontalScrollerButton>}
  */
@@ -9,8 +11,8 @@ export const HorizontalScrollerButtonFn = ({
 }) => {
     const { id } = getState();
 
-    onMount(({ refs }) => {
-        const { button } = refs;
+    onMount(({ ref }) => {
+        const { button } = ref;
 
         watch('active', (active) => {
             button.classList.toggle('active', active);

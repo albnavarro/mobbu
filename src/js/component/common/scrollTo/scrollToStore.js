@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { mainStore, MAIN_STORE_BEFORE_ROUTE_CHANGE } from '../../../mobjs';
 

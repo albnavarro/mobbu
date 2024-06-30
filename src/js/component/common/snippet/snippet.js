@@ -1,3 +1,5 @@
+//@ts-check
+
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '../../../utils/utils';
@@ -22,7 +24,7 @@ const loadSnippet = async ({ ref, source }) => {
     /**
      * Apply highlight.
      */
-    hljs.highlightElement(ref, { language: 'javascript' });
+    hljs.highlightElement(ref);
     ref.style.height = '';
 };
 
@@ -47,8 +49,8 @@ export const SnippetFn = ({ html, onMount, getState }) => {
         document.documentElement
     ).getPropertyValue('--snippet-line-height-value');
 
-    onMount(async ({ refs }) => {
-        const { codeEl } = refs;
+    onMount(async ({ ref }) => {
+        const { codeEl } = ref;
         const { awaitLoad } = getState();
 
         if (awaitLoad) {
@@ -65,7 +67,9 @@ export const SnippetFn = ({ html, onMount, getState }) => {
             <pre
                 class="${isFullClass} ${hasOverflowClass}"
                 ref="codeEl"
-                style="height:${numLines * lineHeight * remValue}rem;"
+                style="height:${numLines *
+                Number(lineHeight) *
+                Number(remValue)}rem;"
             >
 Loading snippet ...</pre
             >

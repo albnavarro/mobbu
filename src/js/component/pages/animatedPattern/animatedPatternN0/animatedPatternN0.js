@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
@@ -11,9 +13,9 @@ export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
-    onMount(({ refs }) => {
+    onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
-        const { wrap, canvas } = refs;
+        const { wrap, canvas } = ref;
 
         /**
          * Quicknav

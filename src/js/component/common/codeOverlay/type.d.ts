@@ -5,7 +5,7 @@ export interface CodeOverlayButton {
 }
 
 export interface CodeOverlay {
-    urls: string[];
+    urls: { label: string; source: string }[];
     activeContent: string;
     rawContent: string;
 }

@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').MLogo1>}
  */
@@ -5,8 +7,8 @@ export const Mlogo1Fn = ({ html, onMount, getState, watchSync }) => {
     const { svg, active } = getState();
     const activeClass = active ? 'active' : '';
 
-    onMount(({ refs }) => {
-        const { logo } = refs;
+    onMount(({ ref }) => {
+        const { logo } = ref;
 
         watchSync('active', (isActive) => {
             logo.classList.toggle('active', isActive);

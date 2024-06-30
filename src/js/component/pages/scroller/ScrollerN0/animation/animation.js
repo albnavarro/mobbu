@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { scroller, tween } from '../../../../../mobMotion';
 import { mainStore } from '../../../../../mobjs';
 import {

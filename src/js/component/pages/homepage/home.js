@@ -1,4 +1,5 @@
 //@ts-check
+
 import { getLegendData } from '../../../data';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';

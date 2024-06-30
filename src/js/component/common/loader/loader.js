@@ -1,3 +1,5 @@
+//@ts-check
+
 import { tween } from '../../../mobMotion';
 
 /**
@@ -26,6 +28,7 @@ export const LoaderFn = ({ onMount, html, watch, remove, getState }) => {
 
         return () => {
             tweenOut.destroy();
+            // @ts-ignore
             tweenOut = null;
         };
     });

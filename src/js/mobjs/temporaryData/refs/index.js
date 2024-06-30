@@ -20,12 +20,26 @@ export const getRefs = (element) => {
 
 /**
  * @param {{ [key: string ]: HTMLElement[] }} refs
- * @return {{ [key: string ]: HTMLElement|HTMLElement[] }} refs
+ * @return {{ [key: string ]: HTMLElement[] }} refs
  */
-export const parseRefs = (refs) => {
+export const parseRefsArray = (refs) => {
     return Object.entries(refs)
         .map(([key, value]) => {
-            return value.length === 1 ? { [key]: value[0] } : { [key]: value };
+            return { [key]: value };
+        })
+        .reduce((previous, current) => {
+            return { ...previous, ...current };
+        }, {});
+};
+
+/**
+ * @param {{ [key: string ]: HTMLElement[] }} refs
+ * @return {{ [key: string ]: HTMLElement }} refs
+ */
+export const parseRef = (refs) => {
+    return Object.entries(refs)
+        .map(([key, value]) => {
+            return { [key]: value[0] };
         })
         .reduce((previous, current) => {
             return { ...previous, ...current };

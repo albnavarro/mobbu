@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { FooterShapeV1 } from '../../common/shapes/definition';
 import { HorizontalScrollerFn } from './horizontalScroller';

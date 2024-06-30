@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 
 /**

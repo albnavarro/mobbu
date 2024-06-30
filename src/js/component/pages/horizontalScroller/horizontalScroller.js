@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
@@ -70,14 +72,14 @@ export const HorizontalScrollerFn = ({
 }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
-    onMount(({ element, refs }) => {
+    onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
         const titles = element.querySelectorAll('.js-title h1');
         const { destroy } = horizontalScrollerAnimation({
-            rootRef: refs.js_root,
+            rootRef: ref['js_root'],
             indicators,
             titles,
             nav,
@@ -159,7 +161,9 @@ export const HorizontalScrollerFn = ({
             /**
              * Get scroll value.
              */
+            // @ts-ignore
             const { top } = offset(shadowCenter);
+            // @ts-ignore
             const height = outerHeight(shadowCenter);
             const scrollValue =
                 /**
@@ -167,6 +171,7 @@ export const HorizontalScrollerFn = ({
                  *                              active: currentId || currentIdFromScroll
                  * ( onLeaveBack issue )
                  */
+                // @ts-ignore
                 Number.parseInt(id) === 0
                     ? window.innerHeight + 1
                     : top + height - window.innerHeight;
@@ -174,6 +179,7 @@ export const HorizontalScrollerFn = ({
             /**
              * Scroll
              */
+            // @ts-ignore
             bodyScroll.to(scrollValue, { duration: 2000 });
         });
 

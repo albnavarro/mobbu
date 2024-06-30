@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getIdByInstanceName, setStateById } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { mv1Animation } from './animation';
@@ -12,9 +14,11 @@ const playAnimation = async ({ playIntro, playSvg }) => {
  */
 export const Mv1Component = ({ html, onMount, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
-    const { logo, sideShape } = isDesktop ? getState() : '';
+    const { logo, sideShape } = isDesktop
+        ? getState()
+        : { logo: '', sideShape: '' };
 
-    onMount(({ element, refs }) => {
+    onMount(({ refs, ref }) => {
         if (!isDesktop) return;
 
         /**
@@ -44,11 +48,11 @@ export const Mv1Component = ({ html, onMount, getState }) => {
             block8,
             M_left,
             M_right,
-            around,
-        } = refs;
+        } = ref;
+
+        const { around } = refs;
 
         const { playIntro, playSvg, destroySvg } = mv1Animation({
-            element,
             logoRefs: [
                 { block1 },
                 { block2 },

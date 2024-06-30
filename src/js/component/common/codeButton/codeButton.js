@@ -1,3 +1,6 @@
+//@ts-check
+
+// @ts-ignore
 import codeIcon from '../../../../svg/icon-code.svg';
 import { getIdByInstanceName, setStateById } from '../../../mobjs';
 import { navigationStore } from '../../layout/navigation/store/navStore';

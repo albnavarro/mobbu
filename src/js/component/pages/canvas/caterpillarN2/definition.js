@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
@@ -77,7 +79,10 @@ export const CaterpillarN2 = createComponent({
         duration: 10,
         rotationDefault: 360,
         friction: duration / 2 / Math.PI,
-        disableOffcanvas: detectFirefox() || detectSafari() ? true : false,
+        disableOffcanvas: () => ({
+            value: detectFirefox() || detectSafari() ? true : false,
+            type: Boolean,
+        }),
         buttons: () => ({
             value: buttons,
             type: 'Any',

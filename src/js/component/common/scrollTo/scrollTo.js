@@ -1,3 +1,5 @@
+//@ts-check
+
 import { offset } from '../../../mobCore/utils';
 import { tick } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -48,7 +50,6 @@ export const ScrollToFn = ({
     html,
     onMount,
     delegateEvents,
-    staticProps,
     bindProps,
     setState,
     repeat,
@@ -92,7 +93,6 @@ export const ScrollToFn = ({
                         return addScrollButton({
                             html,
                             delegateEvents,
-                            staticProps,
                             bindProps,
                             setState,
                             sync,

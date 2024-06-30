@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../data';
 import { getIdByInstanceName, html, setStateById, tick } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
@@ -156,7 +158,8 @@ export const DynamicListFn = async ({
         setStateById(codeButtonId, 'color', 'black');
 
         watchSync('counter', (value) => {
-            counterEl.textContent = value;
+            // @ts-ignore
+            counterEl.textContent = `${value}`;
         });
 
         return () => {

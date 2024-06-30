@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
@@ -28,9 +30,9 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
     const { buttons, rotationDefault } = getState();
     document.body.style.background = '#000000';
 
-    onMount(({ element, refs }) => {
+    onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
-        const { wrap, canvas, rangeValue, rotationButton } = refs;
+        const { wrap, canvas, rangeValue, rotationButton } = ref;
 
         /**
          * Quicknav
@@ -98,13 +100,14 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
         Object.entries(buttons).forEach(([className, value]) => {
             const { method } = value;
             const btn = element.querySelector(`.${className}`);
-            btn.addEventListener('click', () => animationMethods?.[method]());
+            btn?.addEventListener('click', () => animationMethods?.[method]());
         });
 
         /**
          * Rotation handler
          */
         rotationButton.addEventListener('change', () => {
+            // @ts-ignore
             const value = rotationButton.value;
             setRotation(value);
             rangeValue.textContent = value;

@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { OnlyDesktop } from '../../common/onlyDesktop/definition';
 import { DynamicListButton } from './button/definition';

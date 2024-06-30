@@ -57,7 +57,7 @@ export interface componentReturnType {
     content: string;
 }
 
-export type mobComponent<T extends MobComponentMap> = (
+export type mobComponent<T = MobComponentMap> = (
     props: componentPropsType<T>
 ) => string;
 
@@ -448,7 +448,7 @@ export interface componentPropsType<T> {
      * ```javascript
      *
      * export const MyComponent = ({ onMount, html }) => {
-     *     onMount(({ element, refs }) => {
+     *     onMount(({ element, refs, ref }) => {
      *         const { myRef } = refs;
      *
      *         return () => {}

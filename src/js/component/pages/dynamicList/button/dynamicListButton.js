@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListButton>}
  */
@@ -8,6 +10,8 @@ export const DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
         watchSync('active', (value) => {
             element.classList.toggle('active', value);
         });
+
+        return () => {};
     });
 
     return html`

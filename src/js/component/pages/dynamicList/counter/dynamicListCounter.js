@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicCounter>}
  */
@@ -9,12 +11,14 @@ export const DynamicListCounterFn = async ({
 }) => {
     const { parentListId, counter } = getState();
 
-    onMount(({ refs }) => {
-        const { counterValueEl } = refs;
+    onMount(({ ref }) => {
+        const { counterValueEl } = ref;
 
         watch('counter', (value) => {
-            counterValueEl.textContent = value;
+            counterValueEl.textContent = `${value}`;
         });
+
+        return () => {};
     });
 
     return html`<div class="dynamic-counter">

@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
@@ -40,11 +42,11 @@ export const NavigationSubmenuFn = ({
     const { children, headerButton, callback } = getState();
     const { label, url, activeId } = headerButton;
 
-    onMount(({ refs }) => {
+    onMount(({ ref }) => {
         /**
          * Accordion
          */
-        const { content } = refs;
+        const { content } = ref;
 
         slide.subscribe(content);
         slide.reset(content);
@@ -79,7 +81,7 @@ export const NavigationSubmenuFn = ({
                     activeId: activeId ?? -1,
                     callback: () => {
                         setState('isOpen', (prev) => !prev);
-                        const { isOpen } = getState('isOpen');
+                        const { isOpen } = getState();
                         if (isOpen) callback();
                     },
                 })}

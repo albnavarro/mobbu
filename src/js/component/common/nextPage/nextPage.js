@@ -1,3 +1,6 @@
+//@ts-check
+
+// @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
 import { motionCore } from '../../../mobMotion';
 
@@ -8,10 +11,10 @@ export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';
 
-    onMount(({ element, refs }) => {
+    onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { prev, next } = refs;
+        const { prev, next } = ref;
 
         watchSync('active', (isActive) => {
             element.classList.toggle('active', isActive);
@@ -19,11 +22,13 @@ export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
 
         watchSync('nextRoute', (route) => {
             next.classList.toggle('is-disable', !route);
+            // @ts-ignore
             next.href = route;
         });
 
         watchSync('prevRoute', (route) => {
             prev.classList.toggle('is-disable', !route);
+            // @ts-ignore
             prev.href = route;
         });
 

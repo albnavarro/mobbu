@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../../mobjs';
 
 function getRepeaterCard({
@@ -69,7 +71,7 @@ export const DynamicListRepeaterFn = ({
     delegateEvents,
 }) => {
     const { listId, key, clean, label } = getState();
-    const keyParsed = key.length > 0 ? key : null;
+    const keyParsed = key.length > 0 ? key : undefined;
 
     return html`
         <div class="c-dynamic-list-repeater">

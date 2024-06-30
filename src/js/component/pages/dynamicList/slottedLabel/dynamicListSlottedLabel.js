@@ -1,3 +1,5 @@
+//@ts-check
+
 function setContent(value) {
     return `slotted: ${value}`;
 }
@@ -13,12 +15,14 @@ export const DynamicListSlottedLabelFn = async ({
 }) => {
     const { label } = getState();
 
-    onMount(({ refs }) => {
-        const { contentEl } = refs;
+    onMount(({ ref }) => {
+        const { contentEl } = ref;
 
         watch('label', (value) => {
             contentEl.textContent = setContent(value);
         });
+
+        return () => {};
     });
 
     return html`<div class="c-dynamic-list-slotted-label">

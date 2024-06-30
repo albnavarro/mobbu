@@ -1,3 +1,5 @@
+//@ts-check
+
 import { createComponent } from '../../../mobjs';
 import { ScrollToButton } from './button/definition';
 import { ScrollToFn } from './scrollTo';

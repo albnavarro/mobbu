@@ -1,3 +1,5 @@
+//@ts-check
+
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
@@ -62,6 +64,8 @@ export const HtmlContentFn = async ({
 
     onMount(async () => {
         setState('contentIsLoaded', true);
+
+        return () => {};
     });
 
     return html`

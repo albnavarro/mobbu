@@ -1,3 +1,5 @@
+//@ts-check
+
 import { getCommonData } from '../../../data';
 import { html } from '../../../mobjs';
 import { navigationStore } from './store/navStore';

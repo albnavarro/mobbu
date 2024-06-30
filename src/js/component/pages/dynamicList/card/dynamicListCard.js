@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../../mobCore';
 
 // function wait() {
@@ -27,8 +29,8 @@ export const DynamicListCardFn = ({
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
 
-    onMount(({ element, refs }) => {
-        const { indexEl, labelEl, counterEl } = refs;
+    onMount(({ element, ref }) => {
+        const { indexEl, labelEl, counterEl } = ref;
 
         element.addEventListener('click', () => {
             element.classList.toggle('is-selected');
@@ -49,6 +51,8 @@ export const DynamicListCardFn = ({
         mobCore.useFrame(() => {
             element.classList.add('active');
         });
+
+        return () => {};
     });
 
     const isFullClass = isFull ? 'is-full' : '';

@@ -1,3 +1,5 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
@@ -43,10 +45,10 @@ function addHandler({ main, toTopBtn }) {
  * @type {import('../../../mobjs/type').mobComponent}
  */
 export const NavigationContainerFn = ({ html, onMount }) => {
-    onMount(({ element, refs }) => {
+    onMount(({ element, ref }) => {
         const main = document.querySelector('main.main');
         let lastMq = '';
-        const { toTopBtn, wrap } = refs;
+        const { toTopBtn, wrap } = ref;
 
         /**
          * Open navigation.

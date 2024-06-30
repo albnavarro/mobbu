@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * @type {import("../../../../mobjs/type").mobComponent<import("./type").ScrollToButton>}
  */
@@ -8,6 +10,8 @@ export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
         watchSync('active', (val) => {
             element.classList.toggle('active', val);
         });
+
+        return () => {};
     });
 
     return html`
