@@ -254,8 +254,6 @@ export type simpleStoreCustomValue = () => {
 export interface mobStoreBaseData {
     [key: string]:
         | simpleStoreCustomValue
-        | number
-        | string
-        | object
+        | mobStoreTypeNative
         | mobStoreBaseData;
 }
