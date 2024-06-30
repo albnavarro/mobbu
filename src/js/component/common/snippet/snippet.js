@@ -49,7 +49,13 @@ export const SnippetFn = ({ html, onMount, getState }) => {
 
     onMount(async ({ refs }) => {
         const { codeEl } = refs;
-        loadSnippet({ ref: codeEl, source });
+        const { awaitLoad } = getState();
+
+        if (awaitLoad) {
+            await loadSnippet({ ref: codeEl, source });
+        } else {
+            loadSnippet({ ref: codeEl, source });
+        }
 
         return () => {};
     });

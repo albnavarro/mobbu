@@ -1,13 +1,13 @@
 import { html } from '../../../mobjs';
 import { loadJsonContent } from '../../../utils/utils';
 
-const getComponents = ({ data, staticProps }) => {
+const getComponents = ({ data, staticProps, awaitLoadSnippet }) => {
     return data
         .map((item) => {
             const { component, props, content } = item;
 
             return html`
-                <${component} ${staticProps(props)}>
+                <${component} ${staticProps({ ...props, awaitLoad: awaitLoadSnippet })}>
                     ${content ?? ''}
                 </${component}>
             `;
@@ -56,7 +56,7 @@ export const HtmlContentFn = async ({
     const { source, data } = getState();
     const currentData = await getData({ source, data });
 
-    const { useMinHeight, useMaxWidth } = getState();
+    const { useMinHeight, useMaxWidth, awaitLoadSnippet } = getState();
     const useMinHeightClass = useMinHeight ? 'is-min-100' : '';
     const useMaxWidthClass = useMaxWidth ? 'is-max-width' : '';
 
@@ -67,7 +67,11 @@ export const HtmlContentFn = async ({
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
             ${getLoader({ data, bindProps })}
-            ${getComponents({ data: currentData, staticProps })}
+            ${getComponents({
+                data: currentData,
+                staticProps,
+                awaitLoadSnippet,
+            })}
         </section>
     `;
 };

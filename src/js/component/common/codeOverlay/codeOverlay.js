@@ -62,7 +62,7 @@ const printContent = async ({
     if (!source?.length) return;
 
     const htmlContent = html`<html-content
-        ${staticProps({ source, useMinHeight: true })}
+        ${staticProps({ source, useMinHeight: true, awaitLoadSnippet: true })}
     ></html-content>`;
 
     /**

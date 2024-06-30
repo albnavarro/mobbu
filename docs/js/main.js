@@ -20728,7 +20728,12 @@
     ).getPropertyValue("--snippet-line-height-value");
     onMount(async ({ refs }) => {
       const { codeEl } = refs;
-      loadSnippet({ ref: codeEl, source });
+      const { awaitLoad } = getState();
+      if (awaitLoad) {
+        await loadSnippet({ ref: codeEl, source });
+      } else {
+        loadSnippet({ ref: codeEl, source });
+      }
       return () => {
       };
     });
@@ -20749,7 +20754,14 @@ Loading snippet ...</pre
   var Snippet = createComponent({
     name: "mob-snippet",
     component: SnippetFn,
-    exportState: ["source", "isFull", "hasOverflow", "hasBorder", "numLines"],
+    exportState: [
+      "source",
+      "isFull",
+      "hasOverflow",
+      "hasBorder",
+      "numLines",
+      "awaitLoad"
+    ],
     state: {
       source: () => ({
         value: "",
@@ -20774,6 +20786,10 @@ Loading snippet ...</pre
       numLines: () => ({
         value: 1,
         type: Number
+      }),
+      awaitLoad: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -20971,11 +20987,11 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/htmlContent/htmlContent.js
-  var getComponents = ({ data: data3, staticProps: staticProps2 }) => {
+  var getComponents = ({ data: data3, staticProps: staticProps2, awaitLoadSnippet }) => {
     return data3.map((item) => {
       const { component, props, content: content2 } = item;
       return renderHtml`
-                <${component} ${staticProps2(props)}>
+                <${component} ${staticProps2({ ...props, awaitLoad: awaitLoadSnippet })}>
                     ${content2 ?? ""}
                 </${component}>
             `;
@@ -21010,7 +21026,7 @@ Loading snippet ...</pre
   }) => {
     const { source, data: data3 } = getState();
     const currentData = await getData2({ source, data: data3 });
-    const { useMinHeight, useMaxWidth } = getState();
+    const { useMinHeight, useMaxWidth, awaitLoadSnippet } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
     const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
     onMount(async () => {
@@ -21019,7 +21035,11 @@ Loading snippet ...</pre
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
             ${getLoader({ data: data3, bindProps })}
-            ${getComponents({ data: currentData, staticProps: staticProps2 })}
+            ${getComponents({
+      data: currentData,
+      staticProps: staticProps2,
+      awaitLoadSnippet
+    })}
         </section>
     `;
   };
@@ -21028,7 +21048,13 @@ Loading snippet ...</pre
   var HtmlContent = createComponent({
     name: "html-content",
     component: HtmlContentFn,
-    exportState: ["source", "useMinHeight", "useMaxWidth", "data"],
+    exportState: [
+      "source",
+      "useMinHeight",
+      "useMaxWidth",
+      "data",
+      "awaitLoadSnippet"
+    ],
     state: {
       source: () => ({
         value: "",
@@ -21047,6 +21073,10 @@ Loading snippet ...</pre
         type: Boolean
       }),
       useMaxWidth: () => ({
+        value: false,
+        type: Boolean
+      }),
+      awaitLoadSnippet: () => ({
         value: false,
         type: Boolean
       })
@@ -22679,7 +22709,7 @@ Loading snippet ...</pre
     const source = currentItem?.source;
     if (!source?.length) return;
     const htmlContent = renderHtml`<html-content
-        ${staticProps({ source, useMinHeight: true })}
+        ${staticProps({ source, useMinHeight: true, awaitLoadSnippet: true })}
     ></html-content>`;
     await renderComponent({
       attachTo: codeEl,

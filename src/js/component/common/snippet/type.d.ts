@@ -5,4 +5,5 @@ export interface Snippet {
     hasOverflow: boolean;
     hasBorder: boolean;
     numLines: number;
+    awaitLoad: boolean;
 }

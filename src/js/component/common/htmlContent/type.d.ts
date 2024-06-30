@@ -4,4 +4,5 @@ export interface HtmlContent {
     contentIsLoaded: boolean;
     useMinHeight: boolean;
     useMaxWidth: boolean;
+    awaitLoadSnippet: boolean;
 }

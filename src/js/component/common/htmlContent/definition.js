@@ -10,7 +10,13 @@ import { HtmlContentFn } from './htmlContent';
 export const HtmlContent = createComponent({
     name: 'html-content',
     component: HtmlContentFn,
-    exportState: ['source', 'useMinHeight', 'useMaxWidth', 'data'],
+    exportState: [
+        'source',
+        'useMinHeight',
+        'useMaxWidth',
+        'data',
+        'awaitLoadSnippet',
+    ],
     state: {
         source: () => ({
             value: '',
@@ -29,6 +35,10 @@ export const HtmlContent = createComponent({
             type: Boolean,
         }),
         useMaxWidth: () => ({
+            value: false,
+            type: Boolean,
+        }),
+        awaitLoadSnippet: () => ({
             value: false,
             type: Boolean,
         }),
