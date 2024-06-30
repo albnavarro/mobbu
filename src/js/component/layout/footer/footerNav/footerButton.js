@@ -11,6 +11,8 @@ export const FooterNavButtonFn = ({ html, onMount, getState }) => {
             const isActiveSection = current === section;
             element.classList.toggle('current', isActiveSection);
         });
+
+        return () => {};
     });
 
     return html`

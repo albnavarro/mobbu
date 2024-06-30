@@ -27,6 +27,8 @@ export const OnlyDesktopFn = ({ html, onMount }) => {
         mobCore.useResize(() => {
             onResize({ element });
         });
+
+        return () => {};
     });
 
     return html` <div class="only-desktop-container" ref="container"></div> `;

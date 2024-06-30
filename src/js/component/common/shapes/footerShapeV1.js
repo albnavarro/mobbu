@@ -11,6 +11,8 @@ export const FooterShapeV1Fn = ({ html, onMount, getState }) => {
         mobCore.useFrame(() => {
             element.classList.add('active');
         });
+
+        return () => {};
     });
 
     return html` <div class="shape-v1 ${positionClass}">${svg}</div> `;

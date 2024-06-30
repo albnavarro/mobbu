@@ -68,7 +68,7 @@ export type PartialCompunted<T> = <K extends keyof T>(
  */
 export type PartialWatch<T> = <K extends keyof T>(
     prop: K,
-    callback: (arg0: T[K]) => void
+    callback: (current: T[K], previous: T[K], validate: validateState) => void
 ) => void;
 
 /**

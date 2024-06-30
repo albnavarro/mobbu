@@ -1,13 +1,14 @@
 # Alias
 - Alias: aggiungere gli alias @ !!!!
 
+# DOCS
+- Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
+
 # MobCore
 
 ### Default:
 - Spostare mq da mobMotion a mobCore.
 
-### Type: feat/T1
-- Finiti i type di `mobJs` migrarli su `mobStore`, mobJs li importara direttamante da mobStore.
 
 # Mob motion
 

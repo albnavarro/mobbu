@@ -30,6 +30,8 @@ export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
         mobCore.useFrame(() => {
             titleEl.classList.add('visible');
         });
+
+        return () => {};
     });
 
     return html`<div class="c-animation-title">

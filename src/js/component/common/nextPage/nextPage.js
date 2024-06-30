@@ -40,6 +40,8 @@ export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
                 return;
             }
         });
+
+        return () => {};
     });
 
     return html`<div class="c-quick-nav-container ${activeClass}">

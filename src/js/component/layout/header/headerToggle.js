@@ -29,6 +29,8 @@ export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
                 element.classList.add('is-open');
             });
         });
+
+        return () => {};
     });
 
     return html`

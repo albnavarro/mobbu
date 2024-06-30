@@ -19750,6 +19750,8 @@
       mobCore.useFrame(() => {
         titleEl.classList.add("visible");
       });
+      return () => {
+      };
     });
     return html`<div class="c-animation-title">
         <h4 ref="titleEl"></h4>
@@ -22977,6 +22979,8 @@ Loading snippet ...</pre
           return;
         }
       });
+      return () => {
+      };
     });
     return html`<div class="c-quick-nav-container ${activeClass}">
         <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
@@ -23108,6 +23112,8 @@ Loading snippet ...</pre
         const isActiveSection = current === section;
         element.classList.toggle("current", isActiveSection);
       });
+      return () => {
+      };
     });
     return html`
         <button type="button" class="footer-nav__button">${label}</button>
@@ -23350,6 +23356,8 @@ Loading snippet ...</pre
           element.classList.add("is-open");
         });
       });
+      return () => {
+      };
     });
     return html`
         <button
@@ -24393,6 +24401,8 @@ Loading snippet ...</pre
       mobCore.useResize(() => {
         onResize({ element });
       });
+      return () => {
+      };
     });
     return html` <div class="only-desktop-container" ref="container"></div> `;
   };
@@ -27991,6 +28001,8 @@ Loading snippet ...</pre
       mobCore.useFrame(() => {
         element.classList.add("active");
       });
+      return () => {
+      };
     });
     return html` <div class="shape-v1 ${positionClass}">${svg}</div> `;
   };
