@@ -1,12 +1,14 @@
-bindProps(arg0: {
-    bind: Array<string>;
-    forceParent: [boolean];
-    props(arg0: { [key: string]: any }): object;
-}): string;
+export type BindProps<T> = (arg0: {
+    bind: Array<OnlyStringKey<T>>;
+    forceParent?: boolean;
+    props: (arg0: T & { _current: any; _index: number }) => {
+        [key: string]: any;
+    };
+}) => string;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'counter'|'label'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
     onMount(() => {

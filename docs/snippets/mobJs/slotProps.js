@@ -1,5 +1,5 @@
 /**
- * @type {import("../mobjs/type").mobComponent<'mylayoutState'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyLayout = ({ html, staticProps, bindProps }) => {
     return html`
@@ -22,7 +22,7 @@ export const MyLayout = ({ html, staticProps, bindProps }) => {
 };
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myState'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, bindProps }) => {
     return html`

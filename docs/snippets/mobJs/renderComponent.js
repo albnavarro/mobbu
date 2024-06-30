@@ -1,4 +1,4 @@
-renderComponent: (arg0: {
+export type RenderComponent = (arg0: {
     attachTo: HTMLElement;
     component: string;
     position?: 'afterbegin' | 'beforeend';
@@ -7,7 +7,7 @@ renderComponent: (arg0: {
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myState'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({
     html,

@@ -1,9 +1,12 @@
-computed(prop: string, keys: string[], callback: () => void): void;
-
+export type Compunted<T> = <K extends keyof T>(
+    prop: K,
+    keys: Array<NotValue<keyof T, K>>,
+    callback: (arg0: T) => T[K]
+) => void;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'sum'|'state1'|'state2'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
     const { sum } = getState();

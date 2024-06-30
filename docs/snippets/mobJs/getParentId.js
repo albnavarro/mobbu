@@ -1,8 +1,8 @@
-getParentId(): string | undefined;
+export type GetParentId = () => string | undefined;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, getParentId }) => {
     onMount(() => {

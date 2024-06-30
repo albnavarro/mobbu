@@ -1,7 +1,7 @@
 import { tick } from '../mobjs';
 
 /**
- * @type {import("../mobjs/type").mobComponent<'counter'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, bindEvents, bindProps, setState }) => {
     return html`

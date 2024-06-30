@@ -1,13 +1,13 @@
-setState(
-    prop: string,
-    newValue: any,
+export type SetState<T> = <K extends keyof T>(
+    prop: K,
+    value: T[K] | ((arg0: T[K]) => T[K]),
     fireCallback?: boolean,
     clone?: boolean
-): void;
+) => void;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'label'|'counter'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, setState }) => {
     /**

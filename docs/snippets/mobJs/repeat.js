@@ -1,22 +1,19 @@
-repeat(arg0: {
-    clean: boolean;
-    watch: string;
+export type PartialRepeat<T> = (arg0: {
+    clean?: boolean;
+    watch: OnlyStringKey<T>;
     key?: string | undefined;
-    beforeUpdate(arg0: {
+    beforeUpdate?(arg0: {
         element: HTMLElement;
         container: HTMLElement;
         childrenId: string[];
     }): void;
-    afterUpdate(arg0: {
+    afterUpdate?(arg0: {
         element: HTMLElement;
         container: HTMLElement;
         childrenId: string[];
     }): void;
-    render: (arg0: {
-        sync: string;
-        html?: (arg0: string) => string;
-    }) => string;
-}): string;
+    render: (arg0: { sync: string; html?: (arg0: string) => string }) => string;
+}) => string;
 
 
 import { html } from '../mobjs';

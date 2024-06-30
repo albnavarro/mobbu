@@ -1,8 +1,8 @@
-emitAsync(prop: string): Promise<{ success: boolean }>;
+export type EmitAsync<T> = (prop: keyof T) => void;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myState'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, emitAsync }) => {
     onMount(async () => {

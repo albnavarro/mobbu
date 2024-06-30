@@ -1,12 +1,14 @@
-delegateEvents(
-    arg0:
-        | { [key: string]: (arg0: object) => {} }
-        | [{ [key: string]: (arg0: object) => {} }]
-): void;
+export interface delegateEventObject {
+    [key: string]: (arg0: Event, arg1: { current: any; index: number }) => void;
+}
+
+export type DelegateEvents = (
+    arg0: delegateEventObject | delegateEventObject[]
+) => any;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'counter'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, delegateEvents, setState }) => {
     return html`

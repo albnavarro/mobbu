@@ -1,7 +1,7 @@
-getState(arg0: string): any;
+export type GetState<T> = () => T;
 
 /**
- * @type {import("../mobjs/type").mobComponent<'label'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, getState }) => {
     /**

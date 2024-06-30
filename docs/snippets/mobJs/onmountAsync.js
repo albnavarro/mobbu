@@ -7,7 +7,7 @@ function myAsyncFunction() {
 }
 
 /**
- * @type {import("../mobjs/type").mobComponent}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = async ({ html, onMount }) => {
     onMount(async () => {

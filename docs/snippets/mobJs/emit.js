@@ -1,8 +1,8 @@
-emit(prop: string): void;
+export type Emit<T> = (prop: keyof T) => void;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myState'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, emit }) => {
     onMount(() => {

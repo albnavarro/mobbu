@@ -1,8 +1,11 @@
-watch(prop: string, callback: () => void): void;
+export type Watch<T> = <K extends keyof T>(
+    prop: K,
+    callback: (current: T[K], previous: T[K], validate: validateState) => void
+) => void;
 
 
 /**
- * @type {import("../mobjs/type").mobComponent<'label'>}
+ * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, getState, watch }) => {
     const { label } = getState();
