@@ -25,7 +25,18 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to retrieve HTML nodes using refs. A single node will be returned if the ref is single, an array of nodes if the ref has been defined multiple times."
+            "content": "You can use html nodes using refs/ref properties"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<span class='quote'>refs</span>: Always returns an array with all matches",
+                    "<span class='quote'>ref</span>: The first match found always returns"
+                ]
+            }
         },
         {
             "component": "mob-snippet",

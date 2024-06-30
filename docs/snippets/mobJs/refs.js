@@ -2,8 +2,9 @@
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount }) => {
-    onMount(({ refs }) => {
-        const { list, list_item } = refs;
+    onMount(({ refs, ref }) => {
+        const { list } = ref;
+        const { list_item } = refs;
 
         console.log(list); // <ul>
         console.log(list_item); // [<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,]
