@@ -1,3 +1,6 @@
+export type OnlyStringKey<T> = Extract<keyof T, string>;
+export type NotValue<T, K> = T extends K ? never : T;
+
 export type storeMap = Map<string, storeMapValue>;
 
 export type validateState = boolean | { [key: string]: boolean };
@@ -55,7 +58,14 @@ export interface storeMapValue {
     };
 }
 
-export interface mobStore<T> {
+/**
+ * Main component.
+ */
+interface StoreDefaultMap {
+    [prop: string]: any;
+}
+
+export interface mobStore<T extends StoreDefaultMap> {
     get: getType<T>;
     getProp: getPropType<T>;
     set: setType<T>;
@@ -71,33 +81,38 @@ export interface mobStore<T> {
     destroy: () => void;
 }
 
-export type getType<T> = () => Record<T, any>;
+export type getType<T> = () => T;
 
-export type getPropType<T> = (arg0: T) => any;
+export type getPropType<T> = <K extends keyof T>(arg0: K) => T[K];
 
-export type setType<T> = (
-    prop: T,
-    value: any | ((arg0: any) => any),
+export type setType<T> = <K extends keyof T>(
+    prop: K,
+    value: T[K] | ((arg0: T[K]) => T[K]),
     fireCallback?: boolean,
     clone?: boolean
-) => any;
-
-export type quickSetPropType<T> = (prop: T, value: any) => void;
-
-export type watchType<T> = (
-    prop: T,
-    callback: (current: any, previous: any, validate: validateState) => void
-) => () => void;
-
-export type computedType<T> = (
-    prop: T,
-    keys: T[],
-    callback: (arg0: { [key: string]: any }) => void
 ) => void;
 
-export type emitType<T> = (props: T) => void;
+export type quickSetPropType<T> = <K extends keyof T>(
+    prop: K,
+    value: T[K]
+) => void;
 
-export type emitAsyncType<T> = (props: T) => Promise<{ success: boolean }>;
+export type watchType<T> = <K extends keyof T>(
+    prop: K,
+    callback: (current: T[K], previous: T[K], validate: validateState) => void
+) => void;
+
+export type computedType<T> = <K extends keyof T>(
+    prop: K,
+    keys: Array<NotValue<keyof T, K>>,
+    callback: (arg0: T) => T[K]
+) => void;
+
+export type emitType<T> = (props: keyof T) => void;
+
+export type emitAsyncType<T> = (
+    props: keyof T
+) => Promise<{ success: boolean }>;
 
 export type mobStoreTypeAlias =
     | 'String'

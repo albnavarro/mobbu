@@ -12,7 +12,7 @@ import {
 } from './constant';
 
 /**
- * @type {import('../../mobCore/store/type').mobStore<'activeRoute'|'activeParams'|'beforeRouteLeave'|'beforeRouteChange'|'afterRouteChange'|'routeIsLoading'|'repeaterParserRoot'>}
+ * @type {import('../../mobCore/store/type').mobStore<import('./type').MainStore>}
  */
 export const mainStore = mobCore.createStore({
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({
@@ -57,3 +57,19 @@ export const mainStore = mobCore.createStore({
         }),
     },
 });
+
+// const { pippo } = mainStore.get();
+// const x = mainStore.getProp('pippo');
+// mainStore.set('pippo', 2);
+// mainStore.quickSetProp('pippo', 2);
+// mainStore.watch('pippo', (current, previous, status) => {
+//     //
+// });
+// mainStore.computed(
+//     'pippo',
+//     ['routeIsLoading', 'beforeRouteChange'],
+//     ({ routeIsLoading, beforeRouteChange }) => {
+//         console.log(routeIsLoading, beforeRouteChange);
+//         return 2;
+//     }
+// );

@@ -6,3 +6,17 @@ export interface componentListMapType {
     componentFunction: componentFunctionType;
     componentParams: import('../type').componentParsedType;
 }
+
+export interface MainStore {
+    activeRoute: string;
+    activeParams: string;
+    beforeRouteLeave: string;
+    beforeRouteChange: string;
+    afterRouteChange: string;
+    routeIsLoading: boolean;
+    repeaterParserRoot: {
+        element: HTMLElement;
+        parentId: string;
+    };
+    pippo: number;
+}

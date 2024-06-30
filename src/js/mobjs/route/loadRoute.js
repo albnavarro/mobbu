@@ -58,7 +58,6 @@ export const loadRoute = async ({
     if (!contentEl) return;
 
     /**
-     * @type {{ [x: string]: string; }}
      * Set before Route leave.
      */
     const { activeRoute } = mainStore.get();
