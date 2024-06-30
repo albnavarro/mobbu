@@ -29,6 +29,11 @@ const getData = async ({ source, data }) => {
     return currentData.data;
 };
 
+/**
+ * @param {object} param
+ * @param {any} param.data
+ * @param {import('../../../mobjs/type').BindProps<import('./type').HtmlContent,import('../loader/type').Loader>} param.bindProps
+ */
 const getLoader = ({ data, bindProps }) => {
     if (data && data.length > 0) return '';
 

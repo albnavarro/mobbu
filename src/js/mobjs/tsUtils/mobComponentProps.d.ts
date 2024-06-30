@@ -1,16 +1,14 @@
 import { bindEventsObject } from '../temporaryData/bindEvents/type';
 import { delegateEventObject } from '../temporaryData/weakBindEvents/type';
-import { NotValue, OnlyStringKey } from './utils';
+import { NotValue, OnlyStringKey, RempapToOptional } from './utils';
 
 /**
  * bindProps.
  */
-export type PartialBindProps<T> = (arg0: {
+export type PartialBindProps<T, R> = (arg0: {
     bind: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
-    props: (arg0: T & { _current: any; _index: number }) => {
-        [key: string]: any;
-    };
+    props: (arg0: T & { _current: any; _index: number }) => RempapToOptional<R>;
 }) => string;
 
 /**

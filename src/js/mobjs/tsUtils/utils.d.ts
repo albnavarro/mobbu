@@ -8,3 +8,7 @@ export type OnlyStringKey<T> = Extract<keyof T, string>;
  * Exclude K value.
  */
 export type NotValue<T, K> = T extends K ? never : T;
+
+export type RempapToOptional<Type> = {
+    [Property in keyof Type]?: Type[Property];
+};

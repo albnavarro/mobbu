@@ -22,7 +22,7 @@ const copyToClipboard = ({ getState }) => {
 /**
  * @param {Object} param
  * @param {string} param.sync
- * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay>} param.bindProps
+ * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay,import('./type').CodeOverlayButton>} param.bindProps
  * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
  * @returns {string}

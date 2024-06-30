@@ -2,6 +2,14 @@
 
 import { html } from '../../../../mobjs';
 
+/**
+ * @param {object} param
+ * @param {string} param.sync
+ * @param {import('../../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater, import('../card/type').DynamicListCard>} param.bindProps
+ * @param {number} param.listId
+ * @param {import('../../../../mobjs/type').DelegateEvents} param.delegateEvents
+ */
 function getRepeaterCard({
     sync,
     staticProps,

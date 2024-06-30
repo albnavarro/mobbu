@@ -82,6 +82,7 @@ export const DynamicListCardFn = ({
                         })}
                         ${bindProps({
                             bind: ['counter'],
+                            /** @return {import('../counter/type').DynamicCounter|{}} */
                             props: ({ counter }) => {
                                 return { counter };
                             },

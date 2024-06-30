@@ -5,7 +5,16 @@ import { html } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
 /**
+ * @description
  * Create first level items.
+ *
+ * @param {object} param
+ * @param {any} param.data
+ * @param {import('../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../mobjs/type').SetState<import('./type').Navigation>} param.setState
+ * @param {import('../../../mobjs/type').BindProps<import('./type').Navigation,import('./type').NavigationSubmenu>} param.bindProps
+ * @param {import('../../../mobjs/type').BindEvents} param.bindEvents
+ *
  */
 function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
     return data

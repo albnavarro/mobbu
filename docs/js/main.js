@@ -23754,6 +23754,7 @@ Loading snippet ...</pre
     })}
                 ${bindProps({
       bind: ["isOpen"],
+      /** @returns {import('./type').NavigationButton|{}} */
       props: ({ isOpen }) => {
         return { isOpen };
       }
@@ -27625,6 +27626,7 @@ Loading snippet ...</pre
     })}
                         ${bindProps({
       bind: ["counter"],
+      /** @return {import('../counter/type').DynamicCounter|{}} */
       props: ({ counter: counter2 }) => {
         return { counter: counter2 };
       }

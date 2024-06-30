@@ -24,6 +24,14 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
         .join('');
 };
 
+/**
+ * @param {object} param
+ * @param {number} param.numOfCol
+ * @param {import('../../../mobjs/type').SetState<import('./type').HorizontalScroller>} param.setState
+ * @param {import('../../../mobjs/type').BindProps<import('./type').HorizontalScroller, import('./horizontalScrollerButton/type').HorizontalScrollerButton>} param.bindProps
+ * @param {import('../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
+ */
 const getNav = ({
     numOfCol,
     setState,

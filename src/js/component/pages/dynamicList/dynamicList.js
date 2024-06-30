@@ -44,9 +44,9 @@ const repeaters = [
 /**
  * @param {object} param
  * @param {import('../../../mobjs/type').SetState<import('./type').DynamicList>} param.setState
- * @param {any} param.staticProps
+ * @param {import('../../../mobjs/type').StaticProps} param.staticProps
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
- * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList>} param.bindProps
+ * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList,import('./button/type').DynamicListButton>} param.bindProps
  */
 function getButton({ setState, staticProps, delegateEvents, bindProps }) {
     return buttons
@@ -81,8 +81,8 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
 
 /**
  * @param {object} param
- * @param {any} param.staticProps
- * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList>} param.bindProps
+ * @param {import('../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList, import('./repeaters/type').DynamicListRepeater>} param.bindProps
  */
 function getRepeaters({ bindProps, staticProps }) {
     return repeaters

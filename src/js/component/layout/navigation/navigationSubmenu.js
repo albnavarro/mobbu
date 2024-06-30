@@ -87,6 +87,7 @@ export const NavigationSubmenuFn = ({
                 })}
                 ${bindProps({
                     bind: ['isOpen'],
+                    /** @returns {import('./type').NavigationButton|{}} */
                     props: ({ isOpen }) => {
                         return { isOpen };
                     },

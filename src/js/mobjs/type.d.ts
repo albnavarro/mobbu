@@ -26,7 +26,7 @@ import {
     PartialWatchParent,
 } from './tsUtils/mobComponentProps';
 
-export type BindProps<T> = PartialBindProps<T>;
+export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
 export type DelegateEvents = PartialDelegateEvents;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
@@ -59,11 +59,11 @@ export interface componentReturnType {
     content: string;
 }
 
-export type mobComponent<T = MobComponentMap> = (
-    props: componentPropsType<T>
+export type mobComponent<T = MobComponentMap, R = MobComponentMap> = (
+    props: componentPropsType<T, R>
 ) => string;
 
-export interface componentPropsType<T> {
+export interface componentPropsType<T, R> {
     key: string;
     id: string;
 
@@ -349,7 +349,7 @@ export interface componentPropsType<T> {
      * ></MyComponent>
      * ```
      */
-    bindProps: BindProps<T>;
+    bindProps: BindProps<T, R>;
     // bindProps(arg0: {
     //     bind: Array<T>;
     //     forceParent: [boolean];
