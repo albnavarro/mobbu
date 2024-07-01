@@ -8,7 +8,7 @@ import { NotValue, OnlyStringKey } from './utils';
 export type PartialBindProps<T, R> = (arg0: {
     bind: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
-    props: (arg0: T & { _current: any; _index: number }) => R | object;
+    props: (arg0: T & { _current: any; _index: number }) => Partial<R>;
 }) => string;
 
 /**
