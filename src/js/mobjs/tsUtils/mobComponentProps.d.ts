@@ -270,4 +270,4 @@ export type PartialRenderComponent = (arg0: {
 /**
  * StaticProps
  */
-export type PartialStaticProps = (arg0: { [key: string]: any }) => string;
+export type PartialStaticProps<R> = (arg0: Partial<R>) => string;

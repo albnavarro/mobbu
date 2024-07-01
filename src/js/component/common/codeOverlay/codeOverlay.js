@@ -7,7 +7,6 @@ import {
     html,
     mainStore,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
-    staticProps,
 } from '../../../mobjs';
 
 /**
@@ -58,6 +57,7 @@ function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
  * @param {Object} param
  * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
  * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
+ * @param {import('../../../mobjs/type').StaticProps<import('../htmlContent/type').HtmlContent>} param.staticProps
  * @param {HTMLElement} param.codeEl
  * @param {string} param.currentKey
  * @param {() => void} param.updateScroller
@@ -72,6 +72,7 @@ const printContent = async ({
     currentKey,
     updateScroller,
     goToTop,
+    staticProps,
     renderComponent,
 }) => {
     const { urls } = getState();
@@ -122,6 +123,7 @@ export const CodeOverlayFn = ({
     watch,
     renderComponent,
     removeDOM,
+    staticProps,
 }) => {
     onMount(({ element, ref }) => {
         const { screenEl, scrollerEl, codeEl, scrollbar } = ref;
@@ -146,6 +148,7 @@ export const CodeOverlayFn = ({
          */
         watch('activeContent', (currentKey) => {
             printContent({
+                staticProps,
                 setState,
                 getState,
                 codeEl,

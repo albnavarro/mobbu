@@ -22704,6 +22704,7 @@ Loading snippet ...</pre
     currentKey,
     updateScroller,
     goToTop,
+    staticProps: staticProps2,
     renderComponent
   }) => {
     const { urls } = getState();
@@ -22713,7 +22714,7 @@ Loading snippet ...</pre
     const source = currentItem?.source;
     if (!source?.length) return;
     const htmlContent = renderHtml`<html-content
-        ${staticProps({ source, useMinHeight: true, awaitLoadSnippet: true })}
+        ${staticProps2({ source, useMinHeight: true, awaitLoadSnippet: true })}
     ></html-content>`;
     await renderComponent({
       attachTo: codeEl,
@@ -22733,7 +22734,8 @@ Loading snippet ...</pre
     delegateEvents,
     watch,
     renderComponent,
-    removeDOM
+    removeDOM,
+    staticProps: staticProps2
   }) => {
     onMount(({ element, ref }) => {
       const { screenEl, scrollerEl, codeEl, scrollbar } = ref;
@@ -22750,6 +22752,7 @@ Loading snippet ...</pre
       });
       watch("activeContent", (currentKey) => {
         printContent({
+          staticProps: staticProps2,
           setState,
           getState,
           codeEl,

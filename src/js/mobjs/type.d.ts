@@ -46,7 +46,7 @@ export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
 export type RenderComponent = PartialRenderComponent;
-export type StaticProps = PartialStaticProps;
+export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 
 /**
  * Main component.
@@ -301,7 +301,7 @@ export interface componentPropsType<T, R> {
      * ></MyComponent>
      * ```
      */
-    staticProps: StaticProps;
+    staticProps: StaticProps<R>;
 
     /**
      * @example
