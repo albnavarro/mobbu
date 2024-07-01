@@ -14,15 +14,25 @@ let disableObservereffect = false;
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
  * @param {string} param.sync
  * @param {import('../../../mobjs/type').SetState<import('./type').ScrollTo>} param.setState
+ * @param {import('../../../mobjs/type').GetState<import('./type').ScrollTo>} param.getState
  * @param {import('../../../mobjs/type').BindProps<import('./type').ScrollTo,import('./button/type').ScrollToButton>} param.bindProps
  * @returns {string}
  */
-function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
+function addScrollButton({
+    html,
+    delegateEvents,
+    sync,
+    setState,
+    bindProps,
+    getState,
+}) {
     return html`<li>
         <scroll-to-button
             ${delegateEvents({
-                click: async (_e, { current }) => {
-                    const { id: scroll, label, element } = current;
+                click: async (_e, { index }) => {
+                    const { anchorItems } = getState();
+                    const { id: scroll, label, element } = anchorItems[index];
+
                     const offsetTop =
                         scroll === 'start' ? 0 : offset(element).top - 50;
 
@@ -41,10 +51,14 @@ function addScrollButton({ html, delegateEvents, sync, setState, bindProps }) {
             })}
             ${bindProps({
                 bind: ['activeLabel'],
-                props: ({ activeLabel, _current }) => ({
-                    active: activeLabel === _current.label,
-                    label: _current.label,
-                }),
+                props: ({ activeLabel, _index }) => {
+                    const { anchorItems } = getState();
+
+                    return {
+                        active: activeLabel === anchorItems[_index]?.label,
+                        label: anchorItems[_index]?.label,
+                    };
+                },
             })}
             ${sync}
         >
@@ -61,6 +75,7 @@ export const ScrollToFn = ({
     delegateEvents,
     bindProps,
     setState,
+    getState,
     repeat,
 }) => {
     onMount(() => {
@@ -104,6 +119,7 @@ export const ScrollToFn = ({
                             delegateEvents,
                             bindProps,
                             setState,
+                            getState,
                             sync,
                         });
                     },

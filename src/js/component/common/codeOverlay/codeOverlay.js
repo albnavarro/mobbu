@@ -23,17 +23,25 @@ const copyToClipboard = ({ getState }) => {
  * @param {string} param.sync
  * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay,import('./type').CodeOverlayButton>} param.bindProps
  * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
+ * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
  * @returns {string}
  */
-function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
+function getRepeaterCard({
+    sync,
+    bindProps,
+    setState,
+    delegateEvents,
+    getState,
+}) {
     return html`
         <code-overlay-button
             ${sync}
             ${bindProps({
                 bind: ['activeContent'],
-                props: ({ activeContent, _current }) => {
-                    const { label, source } = _current;
+                props: ({ activeContent, _index }) => {
+                    const { urls } = getState();
+                    const { label, source } = urls[_index];
 
                     return {
                         key: label,
@@ -43,8 +51,9 @@ function getRepeaterCard({ sync, bindProps, setState, delegateEvents }) {
                 },
             })}
             ${delegateEvents({
-                click: (_e, { current }) => {
-                    const { label } = current;
+                click: (_e, { index }) => {
+                    const { urls } = getState();
+                    const { label } = urls[index];
                     setState('activeContent', label);
                 },
             })}
@@ -237,6 +246,7 @@ export const CodeOverlayFn = ({
                                 bindProps,
                                 delegateEvents,
                                 setState,
+                                getState,
                             });
                         },
                     })}

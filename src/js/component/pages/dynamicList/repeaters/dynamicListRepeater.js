@@ -6,6 +6,7 @@ import { html } from '../../../../mobjs';
  * @param {object} param
  * @param {string} param.sync
  * @param {import('../../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListRepeater>} param.getState
  * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater, import('../card/type').DynamicListCard>} param.bindProps
  * @param {number} param.listId
  * @param {import('../../../../mobjs/type').DelegateEvents} param.delegateEvents
@@ -16,6 +17,7 @@ function getRepeaterCard({
     bindProps,
     listId,
     delegateEvents,
+    getState,
 }) {
     return html`
         <dynamic-list-card
@@ -24,10 +26,12 @@ function getRepeaterCard({
             })}
             ${bindProps({
                 bind: ['counter', 'data'],
-                props: ({ counter, _current, _index }) => {
+                props: ({ counter, _index }) => {
+                    const { data } = getState();
+
                     return {
                         counter,
-                        label: _current.label,
+                        label: data[_index].label,
                         index: _index,
                     };
                 },
@@ -101,6 +105,7 @@ export const DynamicListRepeaterFn = ({
                         return getRepeaterCard({
                             sync,
                             staticProps,
+                            getState,
                             bindProps,
                             delegateEvents,
                             listId,

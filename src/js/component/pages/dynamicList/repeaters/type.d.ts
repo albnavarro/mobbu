@@ -1,5 +1,5 @@
 export interface DynamicListRepeater {
-    data: any[];
+    data: { key: string; label: string }[];
     key: string;
     clean: boolean;
     listId: number;
