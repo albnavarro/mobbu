@@ -18,22 +18,24 @@ export type PartialRepeat<T> = (arg0: {
 
 import { html } from '../mobjs';
 
-function getItems({ sync, bindProps, delegateEvents }) {
+function getItems({ sync, bindProps, delegateEvents, getState }) {
     return html`
         <my-child-component
             ${sync} // !important
             ${bindProps({
                 bind: ['counter'],
-                props: ({ counter, _current, _index }) => {
+                props: ({ counter }, index) => {
+                    const { myStateArray } = getState();
+                
                     return {
                         counter,
-                        label: _current.label,
-                        index: _index,
+                        label: myStateArray[index].label,
+                        index: index,
                     };
                 },
             })}
             ${delegateEvents({
-                click: (_e, { current, index }) => console.log(current, index),
+                click: (event,  index ) => console.log(event, index),
             })}
         >
         </my-child-component>
@@ -43,7 +45,7 @@ function getItems({ sync, bindProps, delegateEvents }) {
 /**
  * @type {import("../mobjs/type").mobComponent<'myStateArray'|'counter'>}
  */
-export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
+export const MyComponent = ({ html, repeat, bindProps, delegateEvents, getState }) => {
     return html`
         <div>
             ${repeat({
@@ -61,6 +63,7 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
                         sync,
                         bindProps,
                         delegateEvents,
+                        getState
                     });
                 },
             })}

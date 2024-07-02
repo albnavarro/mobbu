@@ -658,6 +658,8 @@ code {
 .quote {
   position: relative;
   margin-inline: 0.1333333333rem;
+  padding: 0.1333333333rem;
+  font-size: 0.9em;
 }
 .quote::after {
   content: "";

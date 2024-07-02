@@ -15,8 +15,9 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
         <div>
             <button
                 ${delegateEvents({
-                    click: (e, { current, index }) => {
+                    click: (event, index) => {
                         setState('counter', (value) => (value += 1));
+                        event.preventDefault(); 
                     },
                 })}
             >
@@ -24,10 +25,11 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
             </button>
             <my-child-component
                 ${delegateEvents({
-                    click: (e, { current, index }) => {
+                    click: (event, index) => {
                         setState('counter', (value) => (value += 1));
+                        event.preventDefault(); 
                     },
-                    onmousedown: (e, { current, index }) => {
+                    onmouseenter: (event, index) => {
                         setState('counter', (value) => (value += 1));
                     },
                 })}

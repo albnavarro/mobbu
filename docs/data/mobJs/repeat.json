@@ -182,14 +182,14 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "index / current"
+            "content": "index"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "When using the bindProps/bindEvent/delegateEvent functions, it is possible to use the two attributes index and current ( _index and _current in the case of bindProps) to update the state of the component with the corresponding value of the observed array"
+            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
         },
         {
             "component": "mob-spacer",

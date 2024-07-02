@@ -72,26 +72,30 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Extra argument"
+            "content": "Repeater props"
         },
         {
             "component": "mob-title",
             "props": {
                 "tag": "h4"
             },
-            "content": "current<br/>index"
+            "content": "index"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "The callback can have an object with two values: current and index. These two values will be needed when using reactive lists ( <a href='./#mobJs-repeat'>repeat</a> )"
+            "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
         },
         {
-            "component": "mob-spacer",
+            "component": "mob-list",
             "props": {
-                "style": "small"
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
             }
         },
         {

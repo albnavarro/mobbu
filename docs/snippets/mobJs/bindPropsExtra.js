@@ -2,10 +2,12 @@ return html`
     <div>
         <my-child-component
             ${bindProps({
-                bind: ['label', 'counter'],
-                props: ({ label, counter, _index, _current }) => {
+                bind: ['dataArray', 'counter'],
+                props: ({ dataArray, counter }, index) => {
+                    const { dataArray } = getState();
+
                     return {
-                        childProp3: label,
+                        childProp3: dataArray[index].myProp,
                         childProp4: counter,
                     };
                 },
