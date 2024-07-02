@@ -28759,16 +28759,16 @@ Loading snippet ...</pre
   var SvgChild = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq("min", "desktop");
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
-    const quicknavId = getIdByInstanceName("quick_nav");
-    setStateById(quicknavId, "active", true);
-    setStateById(quicknavId, "nextRoute", "#mv1");
-    setStateById(quicknavId, "color", "black");
-    const titleId = getIdByInstanceName("animation_title");
-    setStateById(titleId, "align", "left");
-    setStateById(titleId, "color", "white");
-    setStateById(titleId, "title", "Child");
     onMount(({ refs, ref }) => {
       if (!isDesktop) return;
+      const quicknavId = getIdByInstanceName("quick_nav");
+      setStateById(quicknavId, "active", true);
+      setStateById(quicknavId, "nextRoute", "#mv1");
+      setStateById(quicknavId, "color", "black");
+      const titleId = getIdByInstanceName("animation_title");
+      setStateById(titleId, "align", "left");
+      setStateById(titleId, "color", "white");
+      setStateById(titleId, "title", "Child");
       const { stagger } = refs;
       const {
         trail0,

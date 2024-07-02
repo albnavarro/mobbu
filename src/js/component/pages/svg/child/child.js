@@ -33,24 +33,24 @@ export const SvgChild = ({ onMount, html, getState }) => {
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
 
-    /**
-     * Quicknav
-     */
-    const quicknavId = getIdByInstanceName('quick_nav');
-    setStateById(quicknavId, 'active', true);
-    setStateById(quicknavId, 'nextRoute', '#mv1');
-    setStateById(quicknavId, 'color', 'black');
-
-    /**
-     * Title.
-     */
-    const titleId = getIdByInstanceName('animation_title');
-    setStateById(titleId, 'align', 'left');
-    setStateById(titleId, 'color', 'white');
-    setStateById(titleId, 'title', 'Child');
-
     onMount(({ refs, ref }) => {
         if (!isDesktop) return;
+
+        /**
+         * Quicknav
+         */
+        const quicknavId = getIdByInstanceName('quick_nav');
+        setStateById(quicknavId, 'active', true);
+        setStateById(quicknavId, 'nextRoute', '#mv1');
+        setStateById(quicknavId, 'color', 'black');
+
+        /**
+         * Title.
+         */
+        const titleId = getIdByInstanceName('animation_title');
+        setStateById(titleId, 'align', 'left');
+        setStateById(titleId, 'color', 'white');
+        setStateById(titleId, 'title', 'Child');
 
         const { stagger } = refs;
 
