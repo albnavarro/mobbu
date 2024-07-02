@@ -14,7 +14,7 @@ export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
     onMount(({ refs }) => {
         const { label } = refs;
 
-        computed('sum', ['state1', 'state2'], (state1, state2) => {
+        computed('sum', ['state1', 'state2'], ({ state1, state2 }) => {
             return state1 + state2;
         });
 

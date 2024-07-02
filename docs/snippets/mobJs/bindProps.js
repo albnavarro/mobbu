@@ -1,9 +1,7 @@
-export type BindProps<T> = (arg0: {
+export type BindProps<T, R> = (arg0: {
     bind: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
-    props: (arg0: T & { _current: any; _index: number }) => {
-        [key: string]: any;
-    };
+    props: (arg0: T, index: number) => Partial<R>;
 }) => string;
 
 

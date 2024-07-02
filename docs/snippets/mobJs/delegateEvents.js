@@ -1,5 +1,5 @@
 export interface delegateEventObject {
-    [key: string]: (arg0: Event, arg1: { current: any; index: number }) => void;
+    [key: string]: (arg0: Event, index: number) => void;
 }
 
 export type DelegateEvents = (
