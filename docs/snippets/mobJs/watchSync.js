@@ -1,6 +1,6 @@
 export type WatchSync<T> = <K extends keyof T>(
     prop: K,
-    callback: (current: T[K], previous: T[K], validate: validateState) => void
+    callback: (current: T[K], previous: T[K], validate: boolean) => void
 ) => void;
 
 
