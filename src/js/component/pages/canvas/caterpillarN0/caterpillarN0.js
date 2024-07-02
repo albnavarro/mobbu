@@ -13,7 +13,10 @@ export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
     onMount(({ ref }) => {
-        if (motionCore.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) {
+            document.body.style.background = '';
+            return;
+        }
 
         const { wrap, canvas } = ref;
 

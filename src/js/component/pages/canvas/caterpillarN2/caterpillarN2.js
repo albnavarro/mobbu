@@ -31,7 +31,11 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
     onMount(({ element, ref }) => {
-        if (motionCore.mq('max', 'desktop')) return;
+        if (motionCore.mq('max', 'desktop')) {
+            document.body.style.background = '';
+            return;
+        }
+
         const { wrap, canvas, rangeValue, rotationButton } = ref;
 
         /**

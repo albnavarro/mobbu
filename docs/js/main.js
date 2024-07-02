@@ -24746,7 +24746,10 @@ Loading snippet ...</pre
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const { wrap, canvas } = ref;
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -25247,7 +25250,10 @@ Loading snippet ...</pre
   var AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const { wrap, canvas } = ref;
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -25572,7 +25578,10 @@ Loading snippet ...</pre
   var CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const { wrap, canvas } = ref;
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -25900,7 +25909,10 @@ Loading snippet ...</pre
   var CaterpillarN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const { wrap, canvas } = ref;
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -26223,7 +26235,10 @@ Loading snippet ...</pre
     const { buttons: buttons3, rotationDefault } = getState();
     document.body.style.background = "#000000";
     onMount(({ element, ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const { wrap, canvas, rangeValue, rotationButton } = ref;
       const quicknavId = getIdByInstanceName("quick_nav");
       setStateById(quicknavId, "active", true);
@@ -26657,7 +26672,10 @@ Loading snippet ...</pre
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const scrollLabelId = getIdByInstanceName("scroll_down_label");
       setStateById(scrollLabelId, "active", true);
       const quicknavId = getIdByInstanceName("quick_nav");
@@ -27090,7 +27108,10 @@ Loading snippet ...</pre
   var ScrollerN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
     onMount(({ ref }) => {
-      if (motionCore.mq("max", "desktop")) return;
+      if (motionCore.mq("max", "desktop")) {
+        document.body.style.background = "";
+        return;
+      }
       const scrollLabelId = getIdByInstanceName("scroll_down_label");
       setStateById(scrollLabelId, "active", true);
       const quicknavId = getIdByInstanceName("quick_nav");
