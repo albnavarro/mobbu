@@ -27742,6 +27742,7 @@ Loading snippet ...</pre
     })}
             ${bindProps({
       bind: ["counter", "data"],
+      /** @returns {Partial<import('../card/type').DynamicListCard>} */
       props: ({ counter }, index) => {
         const { data: data3 } = getState();
         return {
@@ -27753,7 +27754,9 @@ Loading snippet ...</pre
     })}
             ${delegateEvents({
       mousedown: (_e, index) => {
-        console.log(index);
+        const { data: data3 } = getState();
+        const current = data3[index].label;
+        console.log(current, index);
       }
     })}
             ${sync}
@@ -27763,6 +27766,7 @@ Loading snippet ...</pre
                 ${bindProps({
       bind: ["label"],
       forceParent: true,
+      /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
       props: ({ label }) => {
         return {
           label

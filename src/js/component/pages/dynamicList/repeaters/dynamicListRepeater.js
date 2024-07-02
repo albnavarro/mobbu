@@ -5,9 +5,9 @@ import { html } from '../../../../mobjs';
 /**
  * @param {object} param
  * @param {string} param.sync
- * @param {import('../../../../mobjs/type').StaticProps} param.staticProps
+ * @param {import('../../../../mobjs/type').StaticProps<import('../card/type').DynamicListCard>} param.staticProps
  * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListRepeater>} param.getState
- * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater, import('../card/type').DynamicListCard>} param.bindProps
+ * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater>} param.bindProps
  * @param {number} param.listId
  * @param {import('../../../../mobjs/type').DelegateEvents} param.delegateEvents
  */
@@ -26,6 +26,7 @@ function getRepeaterCard({
             })}
             ${bindProps({
                 bind: ['counter', 'data'],
+                /** @returns {Partial<import('../card/type').DynamicListCard>} */
                 props: ({ counter }, index) => {
                     const { data } = getState();
 
@@ -38,7 +39,10 @@ function getRepeaterCard({
             })}
             ${delegateEvents({
                 mousedown: (_e, index) => {
-                    console.log(index);
+                    const { data } = getState();
+                    const current = data[index].label;
+
+                    console.log(current, index);
                 },
             })}
             ${sync}
@@ -48,6 +52,7 @@ function getRepeaterCard({
                 ${bindProps({
                     bind: ['label'],
                     forceParent: true,
+                    /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
                     props: ({ label }) => {
                         return {
                             label,
