@@ -188,17 +188,17 @@
             "component": "mob-list",
             "props": {
                 "items": [
-                    "Function | 'Function'",
-                    "String | 'String'",
-                    "Number | 'Number'",
-                    "Boolean | 'Boolean'",
-                    "Array | 'Array'",
-                    "Element | 'Element'",
-                    "HTMLElement | HTMLElement",
-                    "NodeList | 'NodeList'",
-                    "Set | 'Set'",
-                    "Map | 'Map'",
-                    "'Any'"
+                    "<span class='quote'>Function | 'Function'</span>",
+                    "<span class='quote'>String | 'String'</span>",
+                    "<span class='quote'>Number | 'Number'</span>",
+                    "<span class='quote'>Boolean | 'Boolean'</span>",
+                    "<span class='quote'>Array | 'Array'</span>",
+                    "<span class='quote'>Element | 'Element'</span>",
+                    "<span class='quote'>HTMLElement | HTMLElement</span>",
+                    "<span class='quote'>NodeList | 'NodeList'</span>",
+                    "<span class='quote'>Set | 'Set'</span>",
+                    "<span class='quote'>Map | 'Map'</span>",
+                    "<span class='quote'>'Any'</span>"
                 ]
             }
         },
