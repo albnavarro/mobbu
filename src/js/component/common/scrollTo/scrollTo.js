@@ -29,7 +29,7 @@ function addScrollButton({
     return html`<li>
         <scroll-to-button
             ${delegateEvents({
-                click: async (_e, { index }) => {
+                click: async (_e, index) => {
                     const { anchorItems } = getState();
                     const { id: scroll, label, element } = anchorItems[index];
 
@@ -51,12 +51,12 @@ function addScrollButton({
             })}
             ${bindProps({
                 bind: ['activeLabel'],
-                props: ({ activeLabel, _index }) => {
+                props: ({ activeLabel }, index) => {
                     const { anchorItems } = getState();
 
                     return {
-                        active: activeLabel === anchorItems[_index]?.label,
-                        label: anchorItems[_index]?.label,
+                        active: activeLabel === anchorItems[index]?.label,
+                        label: anchorItems[index]?.label,
                     };
                 },
             })}

@@ -61,7 +61,7 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
                 id: componentId,
             });
 
-            callback(e, currentRepeaterState);
+            callback(e, currentRepeaterState?.index);
         });
     });
 

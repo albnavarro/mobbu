@@ -81,7 +81,7 @@ export const ATTR_REFS = 'ref';
 export const frameDelayAfterParse = 5;
 
 /**
- * @type {{current:object, index: number}};
+ * @type {import("./temporaryData/currentRepeaterItemValue/type").currentRepeaterState};
  */
 export const DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
 

@@ -39,9 +39,9 @@ function getRepeaterCard({
             ${sync}
             ${bindProps({
                 bind: ['activeContent'],
-                props: ({ activeContent, _index }) => {
+                props: ({ activeContent }, index) => {
                     const { urls } = getState();
-                    const { label, source } = urls[_index];
+                    const { label, source } = urls[index];
 
                     return {
                         key: label,
@@ -51,7 +51,7 @@ function getRepeaterCard({
                 },
             })}
             ${delegateEvents({
-                click: (_e, { index }) => {
+                click: (_e, index) => {
                     const { urls } = getState();
                     const { label } = urls[index];
                     setState('activeContent', label);

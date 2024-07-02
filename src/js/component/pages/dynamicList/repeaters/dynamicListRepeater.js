@@ -26,19 +26,20 @@ function getRepeaterCard({
             })}
             ${bindProps({
                 bind: ['counter', 'data'],
-                props: ({ counter, _index }) => {
+                props: ({ counter }, index) => {
                     const { data } = getState();
 
                     return {
                         counter,
-                        label: data[_index].label,
-                        index: _index,
+                        label: data[index].label,
+                        index: index,
                     };
                 },
             })}
             ${delegateEvents({
-                mousedown: (_e, { current, index }) =>
-                    console.log(current, index),
+                mousedown: (_e, index) => {
+                    console.log(index);
+                },
             })}
             ${sync}
         >

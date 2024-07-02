@@ -1,5 +1,6 @@
 // @ts-check
 
+import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant.js';
 import { componentMap } from '../store.js';
 
 /**
@@ -29,13 +30,13 @@ export const setRepeaterStateById = ({ id = '', value }) => {
  *
  * @param {object} obj
  * @param {string} obj.id
- * @return { any }
+ * @return { import('../../temporaryData/currentRepeaterItemValue/type.js').currentRepeaterState }
  *
  * @description
  * Update element root from generic to real after conversion.
  */
 export const getRepeaterStateById = ({ id = '' }) => {
-    if (!id || id === '') return false;
+    if (!id || id === '') return DEFAULT_CURRENT_REPEATER_STATE;
 
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;

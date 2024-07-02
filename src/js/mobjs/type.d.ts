@@ -325,8 +325,8 @@ export interface componentPropsType<T, R> {
      *   Default value is false.
      *
      * - `Extra props inside repeater:`
-     * `_current` and `_index` they return the updated value corresponding to the current element of the observed array.
-     * Correspond to `myArray.map((_current, _index) => { ... })`.
+     * `index` position of element inside array.
+     * Correspond to `myArray.map((_current, index) => { ... })`.
      *
      *
      * - `Slot`
@@ -339,7 +339,7 @@ export interface componentPropsType<T, R> {
      *     ${bindProps({
      *         bind: ['state1','state2'],
      *         forceParent: false,
-     *         props: ({ state1, state2, _current, _index }) => {
+     *         props: ({ state1, state2 }, index) => {
      *             return {
      *                 <state>: ...
      *                 <state>: ...
@@ -371,17 +371,17 @@ export interface componentPropsType<T, R> {
      * ```javascript
      * <MyComponent
      *       ${bindEvents({
-     *            click: (e, {current, index}) => myFunction(e)
+     *            click: (e, index) => myFunction(e)
      *       })}
      * ></MyComponent>
      *
      * <MyComponent
      *       ${bindEvents([
      *           {
-     *               click: (e, {current, index}) => myFunction(e)
+     *               click: (e, index) => myFunction(e)
      *           },
      *           {
-     *               mousedown: (e, {current, index}) => myFunction(e)
+     *               mousedown: (e, index) => myFunction(e)
      *           },
      *       ])}
      * ></MyComponent>
@@ -406,17 +406,17 @@ export interface componentPropsType<T, R> {
      * ```javascript
      * <MyComponent
      *       ${delegateEvents({
-     *            click: (e, {current, index}) => myFunction(e)
+     *            click: (e, index) => myFunction(e)
      *       })}
      * ></MyComponent>
      *
      * <MyComponent
      *       ${delegateEvents([
      *           {
-     *               click: (e, {current, index}) => myFunction(e)
+     *               click: (e, index) => myFunction(e)
      *           },
      *           {
-     *               mousedown: (e, {current, index}) => myFunction(e)
+     *               mousedown: (e, index) => myFunction(e)
      *           },
      *       ])}
      * ></MyComponent>
@@ -519,16 +519,18 @@ export interface componentPropsType<T, R> {
      *                    })}
      *                    ${bindProps({
      *                        bind: ['my_array_state', 'myState2'],
-     *                        props: ({ myState2, _current, _index }) => {
+     *                        props: ({ myState2 }, index) => {
+     *                        const { my_array_state } = getState();
+     *
      *                            return {
      *                                myState2,
-     *                                label: _current.myValue,
+     *                                label: my_array_state[index].myValue,
      *                                index,
      *                            };
      *                        },
      *                    })}
      *                    ${bindEvents({
-     *                        mousedown: (_e, { current, index }) =>
+     *                        mousedown: (event, index) =>
      *                            //
      *                    })}
      *                >

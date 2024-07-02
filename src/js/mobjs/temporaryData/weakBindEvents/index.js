@@ -127,7 +127,7 @@ function handleAction(eventKey, event) {
     /**
      * Fire callback.
      */
-    callback(event, currentRepeaterState);
+    callback(event, currentRepeaterState?.index);
 }
 
 /**

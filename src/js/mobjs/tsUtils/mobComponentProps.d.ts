@@ -8,7 +8,7 @@ import { NotValue, OnlyStringKey } from './utils';
 export type PartialBindProps<T, R> = (arg0: {
     bind: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
-    props: (arg0: T & { _current: any; _index: number }) => Partial<R>;
+    props: (arg0: T, index: number) => Partial<R>;
 }) => string;
 
 /**
@@ -233,16 +233,18 @@ export type PartialRepeat<T> = (arg0: {
      *                    })}
      *                    ${bindProps({
      *                        bind: ['my_array_state', 'myState2'],
-     *                        props: ({ myState2, _current, _index }) => {
+     *                        props: ({ myState2 }, index) => {
+     *                        const { my_array_state } = getState();
+     *
      *                            return {
      *                                myState2,
-     *                                label: _current.myValue,
+     *                                label: my_array_state[index].myValue,
      *                                index,
      *                            };
      *                        },
      *                    })}
      *                    ${bindEvents({
-     *                        mousedown: (_e, { current, index }) =>
+     *                        mousedown: (event, index) =>
      *                            //
      *                    })}
      *                >
