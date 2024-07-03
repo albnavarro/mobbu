@@ -27,9 +27,7 @@ function getRepeaterCard({
             ${bindProps({
                 bind: ['counter'],
                 /** @returns {Partial<import('../card/type').DynamicListCard>} */
-                props: ({ counter }, index) => {
-                    const { data } = getState();
-
+                props: ({ counter, data }, index) => {
                     return {
                         counter,
                         label: data[index].label,

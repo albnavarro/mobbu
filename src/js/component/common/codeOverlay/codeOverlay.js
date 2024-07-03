@@ -39,8 +39,7 @@ function getRepeaterCard({
             ${sync}
             ${bindProps({
                 bind: ['activeContent'],
-                props: ({ activeContent }, index) => {
-                    const { urls } = getState();
+                props: ({ activeContent, urls }, index) => {
                     const { label, source } = urls[index];
 
                     return {

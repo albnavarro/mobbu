@@ -93,6 +93,11 @@ const setDynamicProp = ({
         );
     }
 
+    /*
+     * Use this to filter parent props that match with nind array
+     * Use instead parentState in newProps initialize.
+     *  It is more useful pass all parent state instead prop definited in bind array
+     *
     const values = bind
         .map((currentState) => {
             return {
@@ -100,6 +105,7 @@ const setDynamicProp = ({
             };
         })
         .reduce((previous, current) => ({ ...previous, ...current }), {});
+    */
 
     /**
      * If element is deleted from list don't update state.
@@ -111,7 +117,7 @@ const setDynamicProp = ({
         id: componentId,
     });
 
-    const newProps = props?.(values, currentRepeaterState?.index);
+    const newProps = props?.(parentState, currentRepeaterState?.index);
 
     if (!newProps) return;
 
