@@ -1,7 +1,7 @@
 return html`
     <my-component
         ${bindProps({
-            bind: ['counter', 'data'],
+            bind: ['counter'],
             props: ({ counter }) => {
                 return {
                     counter,

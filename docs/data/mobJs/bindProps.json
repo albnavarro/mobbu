@@ -81,7 +81,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The props property is a function that will have as a parameter an object with the current value of the monitored states. This function will return an object with the values to assign to the state of the child component."
+            "content": "The props property is a function that takes as input an object with all state values of the parent component (not just the monitored states).<br/> This function will return an object with the values to assign to the state of the child component."
         },
         {
             "component": "mob-snippet",
