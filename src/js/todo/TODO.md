@@ -37,8 +37,9 @@
 # MobJs
 
 ## BindProps
-- In `componentStore` insieme a `isRepeater` salvare anche la prop del `watcher` se all'interno di un repeater: `repeaterWatchState`
-- Aggiungere in automatico `repeaterWatchState` se `isRepeater === true`, cosí da non doverla aggiungere coem dipendenza.
+- In `componentStore` insieme a `isRepeater` salvare anche la prop del `watcher` durante la creazione del `repeater`:<br/>
+Si puó chiamare `repeaterWatchState`.
+- Aggiungere in automatico a `bind: ['prop', 'porp2']`  `repeaterWatchState` se `isRepeater === true`, cosí da non doverla aggiungere coem dipendenza.
 - Questo comporta di avere il campo `bind: ['prop', 'porp2']` facoltativo se l'unica dipendenza é il repeater.
 
 ## type
