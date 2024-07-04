@@ -36,6 +36,11 @@
 
 # MobJs
 
+## BindProps
+- In `componentStore` insieme a `isRepeater` salvare anche la prop del `watcher` se all'interno di un repeater: `repeaterWatchState`
+- Aggiungere in automatico `repeaterWatchState` se `isRepeater === true`, cosí da non doverla aggiungere coem dipendenza.
+- Questo comporta di avere il campo `bind: ['prop', 'porp2']` facoltativo se l'unica dipendenza é il repeater.
+
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
