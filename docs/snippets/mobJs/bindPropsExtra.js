@@ -2,7 +2,7 @@ return html`
     <div>
         <my-child-component
             ${bindProps({
-                bind: ['counter'],
+                bind: ['counter', 'dataArray'],
                 props: ({ counter, dataArray }, index) => {
                     return {
                         childProp3: dataArray[index].myProp,

@@ -23,7 +23,7 @@ function getItems({ sync, bindProps, delegateEvents }) {
         <my-child-component
             ${sync} // !important
             ${bindProps({
-                bind: ['counter'],
+                bind: ['counter', 'myStateArray'],
                 props: ({ counter, myStateArray }, index) => {
                     return {
                         counter,

@@ -25,7 +25,7 @@ function getRepeaterCard({
                 parentListId: listId,
             })}
             ${bindProps({
-                bind: ['counter'],
+                bind: ['counter', 'data'],
                 /** @returns {Partial<import('../card/type').DynamicListCard>} */
                 props: ({ counter, data }, index) => {
                     return {
