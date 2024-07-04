@@ -41,6 +41,7 @@
 Si puó chiamare `repeaterWatchState`.
 - Aggiungere in automatico a `bind: ['prop', 'porp2']`  `repeaterWatchState` se `isRepeater === true`, cosí da non doverla aggiungere coem dipendenza.
 - Questo comporta di avere il campo `bind: ['prop', 'porp2']` facoltativo se l'unica dipendenza é il repeater.
+- CI puó essere il rischio di aggiungere due volte la stessa prop se reinserita a mano, da valutare.
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
