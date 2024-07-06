@@ -37,12 +37,10 @@
 # MobJs
 
 ## BindProps
-- In `componentStore` insieme a `isRepeater` salvare anche la prop del `watcher` durante la creazione del `repeater`:<br/>
-Si puó chiamare `repeaterWatchState`.
-- Aggiungere in automatico a `bind: ['prop', 'porp2']`  `repeaterWatchState` se `isRepeater === true`, cosí da non doverla aggiungere coem dipendenza.
-- Questo comporta di avere il campo `bind: ['prop', 'porp2']` facoltativo se l'unica dipendenza é il repeater.
-- Il trick puó essere partire dall' utils `sync` del watcher, li si sá giá la prop del repeater ( sono all' allinterno del watcher del repeater ). Qui si puó aggiungere un nuovo attributo da passare al webComponent e salvare cosí il nome della prop da aggiungere in automatico all'array bind.
-- In `bind: ['prop', 'porp2']` bisognerá poi filtrare poi la prop se giá inserita.
+- Rendere il campo bind facoltativo.
+- Riferimenti funzione `setBindProps` in `src/js/mobjs/temporaryData/dynamicProps/index.js`
+- `propsIsValid`: remove check su bind.
+- `propsObj`: merge con bind: [''] se bind non esisite.
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
