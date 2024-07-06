@@ -10,6 +10,7 @@ import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_KEY,
+    ATTR_REPEATER_PROP_BIND,
 } from '../constant';
 import {
     getElementById,
@@ -26,6 +27,7 @@ const AFTER = 'afterend';
 
 /**
  * @param {object} obj
+ * @param {string} obj.state
  * @param {string} obj.targetComponent
  * @param {string} obj.key
  * @param {string} obj.repeatId
@@ -40,6 +42,7 @@ const AFTER = 'afterend';
  * Get partial list to add from chunked array of components.
  */
 function getPartialsComponentList({
+    state,
     key,
     currentUnique,
     index,
@@ -53,6 +56,7 @@ function getPartialsComponentList({
     const currentValue = currentUnique?.[index];
 
     const sync = /* HTML */ ` ${ATTR_KEY}="${key}"
+    ${ATTR_REPEATER_PROP_BIND}="${state}"
     ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
         current: currentValue,
         index,
@@ -67,6 +71,7 @@ function getPartialsComponentList({
 
 /**
  * @param {object} obj
+ * @param {string} obj.state
  * @param {array} obj.current
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
@@ -82,6 +87,7 @@ function getPartialsComponentList({
  * Add new children by key.
  */
 export const addWithKey = ({
+    state = '',
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
@@ -243,6 +249,7 @@ export const addWithKey = ({
             .filter((element) => element.isNewElement)
             .map((element) =>
                 getPartialsComponentList({
+                    state,
                     targetComponent,
                     key: element.key,
                     currentUnique,

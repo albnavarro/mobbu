@@ -1,7 +1,11 @@
 // @ts-check
 
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
-import { ATTR_CHILD_REPEATID, ATTR_CURRENT_LIST_VALUE } from '../constant';
+import {
+    ATTR_CHILD_REPEATID,
+    ATTR_CURRENT_LIST_VALUE,
+    ATTR_REPEATER_PROP_BIND,
+} from '../constant';
 import { getChildrenInsideElement } from './utils';
 import { getElementById } from '../componentStore/action/element';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
@@ -9,6 +13,7 @@ import { renderHtml } from '../creationStep/utils';
 
 /**
  * @param {object} obj
+ * @param {string} obj.state
  * @param {array} obj.current
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
@@ -24,6 +29,7 @@ import { renderHtml } from '../creationStep/utils';
  * This method a component with a unique list of the same component
  */
 export const addWithoutKey = ({
+    state = '',
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
@@ -64,6 +70,7 @@ export const addWithoutKey = ({
                     index: currentIndex,
                 }
             )}"
+            ${ATTR_REPEATER_PROP_BIND}="${state}"
             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
             return render({

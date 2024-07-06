@@ -25,6 +25,7 @@ import { listKeyExist } from './utils';
  * Update repater list.
  */
 export const updateChildren = async ({
+    state = '',
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     current = [],
@@ -50,6 +51,7 @@ export const updateChildren = async ({
      * Get unique array of data ( current compared with previous )
      */
     const currentUnivoque = fn({
+        state,
         current,
         previous,
         repeaterParentElement,

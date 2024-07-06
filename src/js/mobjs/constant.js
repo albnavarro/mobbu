@@ -58,6 +58,11 @@ export const ATTR_CURRENT_LIST_VALUE = 'currentlistvalue';
 /**
  * @type {string};
  */
+export const ATTR_REPEATER_PROP_BIND = 'repeatPropBind';
+
+/**
+ * @type {string};
+ */
 export const ATTR_BIND_EVENTS = 'bindevents';
 
 /**

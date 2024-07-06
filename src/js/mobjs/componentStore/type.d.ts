@@ -17,6 +17,7 @@ export interface componentCommonTypes {
         index: number;
     };
     isRepeater?: boolean;
+    repeatPropBind?: string;
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;
     freezedPros?: string[];
