@@ -35,6 +35,7 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
+    const repeatPropBind = element.getRepeaterPropBind();
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
@@ -72,6 +73,7 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         key,
         dynamicPropsId,
         dynamicPropsIdFromSlot,
+        repeatPropBind,
         bindEventsId,
         currentRepeatValue,
         parentId,

@@ -10,6 +10,7 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
+    ATTR_REPEATER_PROP_BIND,
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
@@ -172,6 +173,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #delegateEventId;
 
+                /**
+                 * @type {string|undefined|null}
+                 */
+                #repeatPropBind;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -232,6 +238,10 @@ export const defineUserComponent = (componentList) => {
 
                     this.#delegateEventId = host.getAttribute(
                         ATTR_WEAK_BIND_EVENTS
+                    );
+
+                    this.#repeatPropBind = host.getAttribute(
+                        ATTR_REPEATER_PROP_BIND
                     );
 
                     /**
@@ -343,6 +353,10 @@ export const defineUserComponent = (componentList) => {
 
                 getDelegateEventId() {
                     return this.#delegateEventId;
+                }
+
+                getRepeaterPropBind() {
+                    return this.#repeatPropBind;
                 }
 
                 getComponentRepeatId() {

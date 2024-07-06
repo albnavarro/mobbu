@@ -13,6 +13,7 @@ export interface componentDataType {
     parentId: string | undefined;
     currentRepeatValue: any;
     componentRepeatId: string | null | undefined;
+    repeatPropBind: string | undefined;
 }
 
 export interface getParamsForComponent extends componentStoreReturnType {

@@ -155,10 +155,13 @@ export const parseComponentsRecursive = async ({
         bindEventsId,
         parentId,
         componentRepeatId,
+        repeatPropBind,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
     });
+
+    console.log(repeatPropBind);
 
     /**
      * Get state from componentParams

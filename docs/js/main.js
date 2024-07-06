@@ -17247,6 +17247,10 @@
            * @type {string|undefined|null}
            */
           #delegateEventId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #repeatPropBind;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17309,6 +17313,9 @@
             this.#componentRepeatId = host.getAttribute(ATTR_CHILD_REPEATID);
             this.#delegateEventId = host.getAttribute(
               ATTR_WEAK_BIND_EVENTS
+            );
+            this.#repeatPropBind = host.getAttribute(
+              ATTR_REPEATER_PROP_BIND
             );
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
@@ -17390,6 +17397,9 @@
           }
           getDelegateEventId() {
             return this.#delegateEventId;
+          }
+          getRepeaterPropBind() {
+            return this.#repeatPropBind;
           }
           getComponentRepeatId() {
             return this.#componentRepeatId;
@@ -19126,6 +19136,7 @@
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
+    const repeatPropBind = element.getRepeaterPropBind();
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
@@ -19162,6 +19173,7 @@
       key,
       dynamicPropsId,
       dynamicPropsIdFromSlot,
+      repeatPropBind,
       bindEventsId,
       currentRepeatValue,
       parentId,
@@ -19288,11 +19300,13 @@
       currentRepeatValue,
       bindEventsId,
       parentId,
-      componentRepeatId
+      componentRepeatId,
+      repeatPropBind
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
     });
+    console.log(repeatPropBind);
     const { state } = componentParams;
     const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
       element: componentToParse,

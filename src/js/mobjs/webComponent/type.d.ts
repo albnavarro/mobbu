@@ -18,6 +18,7 @@ export class userComponent extends HTMLElement {
     getSlotPosition: () => string | undefined;
     getDelegateEventId: () => string | undefined;
     getComponentRepeatId: () => string | undefined;
+    getRepeaterPropBind: () => string | undefined;
 }
 
 export class repeaterComponent extends HTMLElement {
