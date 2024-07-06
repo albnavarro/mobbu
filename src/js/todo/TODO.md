@@ -36,12 +36,6 @@
 
 # MobJs
 
-## BindProps
-- Rendere il campo bind facoltativo.
-- Riferimenti funzione `setBindProps` in `src/js/mobjs/temporaryData/dynamicProps/index.js`
-- `propsIsValid`: remove check su bind.
-- `propsObj`: merge con bind: [''] se bind non esisite.
-
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
