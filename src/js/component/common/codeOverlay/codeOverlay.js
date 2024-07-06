@@ -38,7 +38,7 @@ function getRepeaterCard({
         <code-overlay-button
             ${sync}
             ${bindProps({
-                bind: ['activeContent', 'urls'],
+                bind: ['activeContent'],
                 props: ({ activeContent, urls }, index) => {
                     const { label, source } = urls[index];
 

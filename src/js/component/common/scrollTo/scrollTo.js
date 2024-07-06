@@ -50,7 +50,7 @@ function addScrollButton({
                 },
             })}
             ${bindProps({
-                bind: ['activeLabel', 'anchorItems'],
+                bind: ['activeLabel'],
                 props: ({ activeLabel, anchorItems }, index) => {
                     return {
                         active: activeLabel === anchorItems[index]?.label,

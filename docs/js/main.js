@@ -22713,7 +22713,7 @@ Loading snippet ...</pre
         <code-overlay-button
             ${sync}
             ${bindProps({
-      bind: ["activeContent", "urls"],
+      bind: ["activeContent"],
       props: ({ activeContent, urls }, index) => {
         const { label, source } = urls[index];
         return {
@@ -24165,7 +24165,7 @@ Loading snippet ...</pre
       }
     })}
             ${bindProps({
-      bind: ["activeLabel", "anchorItems"],
+      bind: ["activeLabel"],
       props: ({ activeLabel, anchorItems }, index) => {
         return {
           active: activeLabel === anchorItems[index]?.label,
