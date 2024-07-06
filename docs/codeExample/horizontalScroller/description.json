@@ -3,7 +3,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h1"
+                "tag": "h3"
             },
             "content": "Horizontal scroller"
         },
