@@ -19,11 +19,16 @@ export type PartialRepeat<T> = (arg0: {
 import { html } from '../mobjs';
 
 function getItems({ sync, bindProps, delegateEvents }) {
+
+    /**
+     * 'myStateArray' in bindProps can be omitted.
+     * By default the `watch` state will triggere a reaction.
+     */
     return html`
         <my-child-component
             ${sync} // !important
             ${bindProps({
-                bind: ['counter', 'myStateArray'],
+                bind: ['counter'], 
                 props: ({ counter, myStateArray }, index) => {
                     return {
                         counter,

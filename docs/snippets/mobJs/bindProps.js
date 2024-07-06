@@ -1,5 +1,5 @@
 export type BindProps<T, R> = (arg0: {
-    bind: Array<OnlyStringKey<T>>;
+    bind?: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
     props: (arg0: T, index: number) => Partial<R>;
 }) => string;

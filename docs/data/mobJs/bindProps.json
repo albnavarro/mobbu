@@ -56,6 +56,13 @@
             "content": "The bind property is an array in which the states to monitor are listed, bindProps will fire when one or all of the listed states change. If the states change in the same eventLoop there will be only one reaction."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The parameter is optional since within a repeater the monitored state will trigger the reaction by default, if you want to monitor only that state you can omit the bind parameter."
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h4"
@@ -142,6 +149,13 @@
                 "style": "medium"
             },
             "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The state indicated in the repeater in the watch parameter will trigger the reaction automatically, so there is no need to specify it again in the bind parameter."
         },
         {
             "component": "mob-list",
