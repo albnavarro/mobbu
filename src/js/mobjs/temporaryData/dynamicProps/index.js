@@ -129,6 +129,7 @@ const setDynamicProp = ({
 /**
  * @param {object} obj
  * @param {string|undefined} obj.propsId
+ * @param {string|undefined} [ obj.repeatPropBind ]
  * @param {string} obj.componentId
  * @return void
  *
@@ -136,7 +137,11 @@ const setDynamicProp = ({
  * Add componentId to dynamic props stored and initialize them.
  *
  */
-export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
+export const addCurrentIdToDynamicProps = ({
+    propsId,
+    repeatPropBind,
+    componentId,
+}) => {
     if (!propsId) return;
 
     for (const [key, value] of dynamicPropsMap) {
@@ -145,7 +150,7 @@ export const addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
         }
     }
 
-    applyDynamicProps({ componentId, inizilizeWatcher: false });
+    applyDynamicProps({ componentId, repeatPropBind, inizilizeWatcher: false });
 };
 
 /**
@@ -186,6 +191,7 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
 /**
  * @param {object} obj
  * @param {string} obj.componentId
+ * @param {string|undefined} [ obj.repeatPropBind ]
  * @param {boolean} obj.inizilizeWatcher
  * @return void
  *
@@ -194,7 +200,11 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  * add watcher to parent ( or specific component ) state.
  *
  */
-export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
+export const applyDynamicProps = ({
+    componentId,
+    repeatPropBind,
+    inizilizeWatcher,
+}) => {
     /**
      *
      * @description
@@ -220,6 +230,16 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
         const { bind, props, parentId } = dynamicpropsfiltered;
 
         /**
+         * Merge watch state inside a repeater with bind array.
+         */
+        const bindUpdated =
+            repeatPropBind?.length > 0 && !bind.includes(repeatPropBind)
+                ? [...bind, repeatPropBind]
+                : [...bind];
+
+        console.log(bindUpdated);
+
+        /**
          * Force parent id or get the natually parent id.
          */
         const currentParentId = parentId ?? getParentIdById(componentId);
@@ -230,7 +250,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
              */
             setDynamicProp({
                 componentId,
-                bind,
+                bind: bindUpdated,
                 props,
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
@@ -244,7 +264,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
          */
         let watchIsRunning = false;
 
-        const unWatchArray = bind.map((/** @type{string} */ state) => {
+        const unWatchArray = bindUpdated.map((/** @type{string} */ state) => {
             return watchById(currentParentId, state, () => {
                 if (watchIsRunning) return;
 
@@ -265,7 +285,7 @@ export const applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
                 mobCore.useNextLoop(() => {
                     setDynamicProp({
                         componentId,
-                        bind,
+                        bind: bindUpdated,
                         props,
                         currentParentId: currentParentId ?? '',
                         fireCallback: true,

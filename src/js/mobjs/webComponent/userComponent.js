@@ -356,7 +356,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getRepeaterPropBind() {
-                    return this.#repeatPropBind;
+                    return this.#repeatPropBind ?? undefined;
                 }
 
                 getComponentRepeatId() {

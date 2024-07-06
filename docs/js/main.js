@@ -17399,7 +17399,7 @@
             return this.#delegateEventId;
           }
           getRepeaterPropBind() {
-            return this.#repeatPropBind;
+            return this.#repeatPropBind ?? void 0;
           }
           getComponentRepeatId() {
             return this.#componentRepeatId;
@@ -17923,14 +17923,18 @@
       setStateById(componentId, key, value, fireCallback);
     });
   };
-  var addCurrentIdToDynamicProps = ({ propsId, componentId }) => {
+  var addCurrentIdToDynamicProps = ({
+    propsId,
+    repeatPropBind,
+    componentId
+  }) => {
     if (!propsId) return;
     for (const [key, value] of dynamicPropsMap) {
       if (key === propsId) {
         dynamicPropsMap.set(key, { ...value, componentId });
       }
     }
-    applyDynamicProps({ componentId, inizilizeWatcher: false });
+    applyDynamicProps({ componentId, repeatPropBind, inizilizeWatcher: false });
   };
   var removeCurrentIdToDynamicProps = ({ componentId }) => {
     if (!componentId) return;
@@ -17945,7 +17949,11 @@
     if (!propsId) return;
     dynamicPropsMap.delete(propsId);
   };
-  var applyDynamicProps = ({ componentId, inizilizeWatcher }) => {
+  var applyDynamicProps = ({
+    componentId,
+    repeatPropBind,
+    inizilizeWatcher
+  }) => {
     const dynamicPropsFilteredArray = [...dynamicPropsMap.values()].filter(
       (item) => {
         const currentComponentId = item?.componentId;
@@ -17955,11 +17963,13 @@
     if (!dynamicPropsFilteredArray) return;
     dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
       const { bind, props, parentId } = dynamicpropsfiltered;
+      const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
+      console.log(bindUpdated);
       const currentParentId = parentId ?? getParentIdById(componentId);
       if (!inizilizeWatcher) {
         setDynamicProp({
           componentId,
-          bind,
+          bind: bindUpdated,
           props,
           currentParentId: currentParentId ?? "",
           fireCallback: true
@@ -17967,7 +17977,7 @@
         return;
       }
       let watchIsRunning = false;
-      const unWatchArray = bind.map((state) => {
+      const unWatchArray = bindUpdated.map((state) => {
         return watchById(currentParentId, state, () => {
           if (watchIsRunning) return;
           const decrementQueue = incrementTickQueuque({
@@ -17979,7 +17989,7 @@
           mobCore.useNextLoop(() => {
             setDynamicProp({
               componentId,
-              bind,
+              bind: bindUpdated,
               props,
               currentParentId: currentParentId ?? "",
               fireCallback: true
@@ -19316,6 +19326,7 @@
       componentName,
       instanceName,
       key,
+      repeatPropBind,
       isCancellable,
       parentId
     });
@@ -19332,6 +19343,7 @@
       setRepeaterStateById({ id, value: currentRepeatValue });
     addCurrentIdToDynamicProps({
       propsId: dynamicPropsId,
+      repeatPropBind,
       componentId: id
     });
     addCurrentIdToDynamicProps({
@@ -19410,7 +19422,11 @@
         });
       },
       fireDynamic: () => {
-        applyDynamicProps({ componentId: id, inizilizeWatcher: true });
+        applyDynamicProps({
+          componentId: id,
+          repeatPropBind,
+          inizilizeWatcher: true
+        });
       },
       fireFirstRepeat: firstRepeatEmitArray.length > 0 ? () => {
         firstRepeatEmitArray.forEach((fn) => {
@@ -27780,7 +27796,7 @@ Loading snippet ...</pre
       parentListId: listId
     })}
             ${bindProps({
-      bind: ["counter", "data"],
+      bind: ["counter"],
       /** @returns {Partial<import('../card/type').DynamicListCard>} */
       props: ({ counter, data: data3 }, index) => {
         return {

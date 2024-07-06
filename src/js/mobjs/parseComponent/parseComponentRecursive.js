@@ -180,6 +180,7 @@ export const parseComponentsRecursive = async ({
             componentName,
             instanceName,
             key,
+            repeatPropBind,
             isCancellable,
             parentId,
         });
@@ -225,6 +226,7 @@ export const parseComponentsRecursive = async ({
      */
     addCurrentIdToDynamicProps({
         propsId: dynamicPropsId,
+        repeatPropBind,
         componentId: id,
     });
 
@@ -369,7 +371,11 @@ export const parseComponentsRecursive = async ({
             });
         },
         fireDynamic: () => {
-            applyDynamicProps({ componentId: id, inizilizeWatcher: true });
+            applyDynamicProps({
+                componentId: id,
+                repeatPropBind,
+                inizilizeWatcher: true,
+            });
         },
         fireFirstRepeat:
             firstRepeatEmitArray.length > 0
