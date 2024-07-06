@@ -237,8 +237,6 @@ export const applyDynamicProps = ({
                 ? [...bind, repeatPropBind]
                 : [...bind];
 
-        console.log(bindUpdated);
-
         /**
          * Force parent id or get the natually parent id.
          */

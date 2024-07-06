@@ -161,8 +161,6 @@ export const parseComponentsRecursive = async ({
         parentIdForced,
     });
 
-    console.log(repeatPropBind);
-
     /**
      * Get state from componentParams
      */

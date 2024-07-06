@@ -17964,7 +17964,6 @@
     dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
       const { bind, props, parentId } = dynamicpropsfiltered;
       const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
-      console.log(bindUpdated);
       const currentParentId = parentId ?? getParentIdById(componentId);
       if (!inizilizeWatcher) {
         setDynamicProp({
@@ -19316,7 +19315,6 @@
       element: componentToParse,
       parentIdForced
     });
-    console.log(repeatPropBind);
     const { state } = componentParams;
     const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
       element: componentToParse,
