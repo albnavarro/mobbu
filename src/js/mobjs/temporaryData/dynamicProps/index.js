@@ -16,7 +16,7 @@ import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 export const dynamicPropsMap = new Map();
 
 /**
- * @param {{'bind':string[],'parentId':string|undefined,'props':{[key:string]: any}, forceParent? :boolean}} propsObj
+ * @param {{bind?:string[],parentId:string|undefined,props:{[key:string]: any}, forceParent? :boolean}} propsObj
  * @return {string|undefined} props id in store.
  *
  * @description
@@ -38,7 +38,10 @@ export const dynamicPropsMap = new Map();
  * ```
  */
 export const setBindProps = (propsObj) => {
-    const propsIsValid = 'bind' in propsObj && 'props' in propsObj;
+    const propsIsValid = 'props' in propsObj;
+
+    const propsObjUpdates =
+        'bind' in propsObj ? propsObj : { ...propsObj, bind: [] };
 
     if (!propsIsValid) {
         console.warn(`bindProps not valid`);
@@ -49,7 +52,12 @@ export const setBindProps = (propsObj) => {
      * @type {string}
      */
     const id = mobCore.getUnivoqueId();
-    dynamicPropsMap.set(id, { ...propsObj, componentId: '', propsId: id });
+    // @ts-ignore
+    dynamicPropsMap.set(id, {
+        ...propsObjUpdates,
+        componentId: '',
+        propsId: id,
+    });
 
     return id;
 };

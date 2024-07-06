@@ -17884,13 +17884,18 @@
   // src/js/mobjs/temporaryData/dynamicProps/index.js
   var dynamicPropsMap = /* @__PURE__ */ new Map();
   var setBindProps = (propsObj) => {
-    const propsIsValid = "bind" in propsObj && "props" in propsObj;
+    const propsIsValid = "props" in propsObj;
+    const propsObjUpdates = "bind" in propsObj ? propsObj : { ...propsObj, bind: [] };
     if (!propsIsValid) {
       console.warn(`bindProps not valid`);
       return;
     }
     const id = mobCore.getUnivoqueId();
-    dynamicPropsMap.set(id, { ...propsObj, componentId: "", propsId: id });
+    dynamicPropsMap.set(id, {
+      ...propsObjUpdates,
+      componentId: "",
+      propsId: id
+    });
     return id;
   };
   var setDynamicProp = ({
