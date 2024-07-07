@@ -25,21 +25,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to associate a unique name with a single instance of a component, from the name we can then recover its id and use the component in a transversal manner."
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Utils"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "List of <a href='./#mobJs-utils'>utilities</a> to manage a component starting from the name/id"
+            "content": "It is possible to associate a unique name with a single instance of a component"
         },
         {
             "component": "mob-snippet",
@@ -49,6 +35,43 @@
                 "hasOverflow": false,
                 "hasBorder": true,
                 "numLines": 8
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "utils"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Using the instance name you can use the following utils:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": true,
+                "items": ["<span class='quote'>setStateByName</span>"]
+            }
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": ["<a href='./#mobJs-utils'>Utils</a>"]
             }
         }
     ]
