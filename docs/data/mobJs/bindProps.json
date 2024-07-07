@@ -74,7 +74,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs-slot'>slot</a>) you can decide to point to the states of the first component that hosts it and not of the general function component."
+            "content": "By default the states defined in the watch parameter are related to the general component. When inserting multiple components into the same return (for example, we are using a <a href='./#mobJs-slot'>slot</a> or a nested component inside a repeater) you can decide to point to the states of the first component that hosts it and not of the general function component."
         },
         {
             "component": "mob-title",
