@@ -1,6 +1,6 @@
 //@ts-check
 
-import { getIdByInstanceName, html, setStateById } from '../../../../mobjs';
+import { html, setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { childAnimations } from './animation/animation';
 
@@ -39,18 +39,16 @@ export const SvgChild = ({ onMount, html, getState }) => {
         /**
          * Quicknav
          */
-        const quicknavId = getIdByInstanceName('quick_nav');
-        setStateById(quicknavId, 'active', true);
-        setStateById(quicknavId, 'nextRoute', '#mv1');
-        setStateById(quicknavId, 'color', 'black');
+        setStateByName('quick_nav', 'active', true);
+        setStateByName('quick_nav', 'nextRoute', '#mv1');
+        setStateByName('quick_nav', 'color', 'black');
 
         /**
          * Title.
          */
-        const titleId = getIdByInstanceName('animation_title');
-        setStateById(titleId, 'align', 'left');
-        setStateById(titleId, 'color', 'white');
-        setStateById(titleId, 'title', 'Child');
+        setStateByName('animation_title', 'align', 'left');
+        setStateByName('animation_title', 'color', 'white');
+        setStateByName('animation_title', 'title', 'Child');
 
         const { stagger } = refs;
 
@@ -87,11 +85,11 @@ export const SvgChild = ({ onMount, html, getState }) => {
         playAnimation({ playIntro });
 
         return () => {
-            setStateById(quicknavId, 'active', false);
-            setStateById(quicknavId, 'prevRoute', '');
-            setStateById(quicknavId, 'nextRoute', '');
-            setStateById(titleId, 'align', '');
-            setStateById(titleId, 'title', '');
+            setStateByName('quick_nav', 'active', false);
+            setStateByName('quick_nav', 'prevRoute', '');
+            setStateByName('quick_nav', 'nextRoute', '');
+            setStateByName('animation_title', 'align', '');
+            setStateByName('animation_title', 'title', '');
             destroy();
         };
     });

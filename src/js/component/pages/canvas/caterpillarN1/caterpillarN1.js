@@ -2,7 +2,7 @@
 
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
-import { getIdByInstanceName, setStateById } from '../../../../mobjs';
+import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { caterpillarN1Animation } from './animation/animation';
 
@@ -23,27 +23,24 @@ export const CaterpillarN1Fn = ({ onMount, html, getState }) => {
         /**
          * Quicknav
          */
-        const quicknavId = getIdByInstanceName('quick_nav');
-        setStateById(quicknavId, 'active', true);
-        setStateById(quicknavId, 'prevRoute', '#caterpillarN0');
-        setStateById(quicknavId, 'nextRoute', '#caterpillarN2');
-        setStateById(quicknavId, 'color', 'white');
+        setStateByName('quick_nav', 'active', true);
+        setStateByName('quick_nav', 'prevRoute', '#caterpillarN0');
+        setStateByName('quick_nav', 'nextRoute', '#caterpillarN2');
+        setStateByName('quick_nav', 'color', 'white');
 
         /**
          * Title.
          */
-        const titleId = getIdByInstanceName('animation_title');
-        setStateById(titleId, 'align', 'left');
-        setStateById(titleId, 'color', 'white');
-        setStateById(titleId, 'title', 'Caterpillar N1');
+        setStateByName('animation_title', 'align', 'left');
+        setStateByName('animation_title', 'color', 'white');
+        setStateByName('animation_title', 'title', 'Caterpillar N1');
 
         /**
          * Code button
          */
         const { caterpillarN1 } = getLegendData();
         const { source } = caterpillarN1;
-        const codeButtonId = getIdByInstanceName('global-code-button');
-        setStateById(codeButtonId, 'drawers', [
+        setStateByName('global-code-button', 'drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -61,7 +58,7 @@ export const CaterpillarN1Fn = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'white');
+        setStateByName('global-code-button', 'color', 'white');
 
         const destroyAnimation = caterpillarN1Animation({
             canvas,
@@ -74,12 +71,12 @@ export const CaterpillarN1Fn = ({ onMount, html, getState }) => {
 
         return () => {
             destroyAnimation();
-            setStateById(quicknavId, 'active', false);
-            setStateById(quicknavId, 'prevRoute', '');
-            setStateById(quicknavId, 'nextRoute', '');
-            setStateById(titleId, 'align', '');
-            setStateById(titleId, 'title', '');
-            setStateById(codeButtonId, 'drawers', []);
+            setStateByName('quick_nav', 'active', false);
+            setStateByName('quick_nav', 'prevRoute', '');
+            setStateByName('quick_nav', 'nextRoute', '');
+            setStateByName('animation_title', 'align', '');
+            setStateByName('animation_title', 'title', '');
+            setStateByName('global-code-button', 'drawers', []);
             document.body.style.background = '';
         };
     });

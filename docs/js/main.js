@@ -19902,8 +19902,7 @@
             ${delegateEvents({
       click: () => {
         const { drawers } = getState();
-        const codeOverlayId = getIdByInstanceName("codeOverlay");
-        setStateById(codeOverlayId, "urls", drawers);
+        setStateByName("codeOverlay", "urls", drawers);
       }
     })}
         >
@@ -25297,27 +25296,24 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = ref;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(
-        quicknavId,
+      setStateByName("quick_nav", "active", true);
+      setStateByName(
+        "quick_nav",
         "prevRoute",
         "#animatedPatternN0?version=3&activeId=3"
       );
-      setStateById(
-        quicknavId,
+      setStateByName(
+        "quick_nav",
         "nextRoute",
         "#scrollerN0?version=0&activeId=0"
       );
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N1");
+      setStateByName("quick_nav", "color", "white");
+      setStateByName("animation_title", "align", "left");
+      setStateByName("animation_title", "color", "white");
+      setStateByName("animation_title", "title", "Caterpillar N1");
       const { animatedPatternN1: animatedPatternN12 } = getLegendData();
       const { source } = animatedPatternN12;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
+      setStateByName("global-code-button", "drawers", [
         {
           label: "description",
           source: source.description
@@ -25335,7 +25331,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "white");
+      setStateByName("global-code-button", "color", "white");
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -25344,12 +25340,12 @@ Loading snippet ...</pre
         wrap.classList.add("active");
       });
       return () => {
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
+        setStateByName("quick_nav", "active", false);
+        setStateByName("quick_nav", "prevRoute", "");
+        setStateByName("quick_nav", "nextRoute", "");
+        setStateByName("animation_title", "align", "");
+        setStateByName("animation_title", "title", "");
+        setStateByName("global-code-button", "drawers", []);
         document.body.style.background = "";
         destroyAnimation();
       };
@@ -25953,19 +25949,16 @@ Loading snippet ...</pre
         return;
       }
       const { wrap, canvas } = ref;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "prevRoute", "#caterpillarN0");
-      setStateById(quicknavId, "nextRoute", "#caterpillarN2");
-      setStateById(quicknavId, "color", "white");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Caterpillar N1");
+      setStateByName("quick_nav", "active", true);
+      setStateByName("quick_nav", "prevRoute", "#caterpillarN0");
+      setStateByName("quick_nav", "nextRoute", "#caterpillarN2");
+      setStateByName("quick_nav", "color", "white");
+      setStateByName("animation_title", "align", "left");
+      setStateByName("animation_title", "color", "white");
+      setStateByName("animation_title", "title", "Caterpillar N1");
       const { caterpillarN1: caterpillarN12 } = getLegendData();
       const { source } = caterpillarN12;
-      const codeButtonId = getIdByInstanceName("global-code-button");
-      setStateById(codeButtonId, "drawers", [
+      setStateByName("global-code-button", "drawers", [
         {
           label: "description",
           source: source.description
@@ -25983,7 +25976,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateById(codeButtonId, "color", "white");
+      setStateByName("global-code-button", "color", "white");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -25993,12 +25986,12 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
-        setStateById(codeButtonId, "drawers", []);
+        setStateByName("quick_nav", "active", false);
+        setStateByName("quick_nav", "prevRoute", "");
+        setStateByName("quick_nav", "nextRoute", "");
+        setStateByName("animation_title", "align", "");
+        setStateByName("animation_title", "title", "");
+        setStateByName("global-code-button", "drawers", []);
         document.body.style.background = "";
       };
     });
@@ -28783,14 +28776,12 @@ Loading snippet ...</pre
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
     onMount(({ refs, ref }) => {
       if (!isDesktop) return;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "nextRoute", "#mv1");
-      setStateById(quicknavId, "color", "black");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Child");
+      setStateByName("quick_nav", "active", true);
+      setStateByName("quick_nav", "nextRoute", "#mv1");
+      setStateByName("quick_nav", "color", "black");
+      setStateByName("animation_title", "align", "left");
+      setStateByName("animation_title", "color", "white");
+      setStateByName("animation_title", "title", "Child");
       const { stagger } = refs;
       const {
         trail0,
@@ -28822,11 +28813,11 @@ Loading snippet ...</pre
       const { playIntro, destroy } = childMethods;
       playAnimation2({ playIntro });
       return () => {
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
+        setStateByName("quick_nav", "active", false);
+        setStateByName("quick_nav", "prevRoute", "");
+        setStateByName("quick_nav", "nextRoute", "");
+        setStateByName("animation_title", "align", "");
+        setStateByName("animation_title", "title", "");
         destroy();
       };
     });
@@ -28977,14 +28968,12 @@ Loading snippet ...</pre
     const { logo, sideShape } = isDesktop ? getState() : { logo: "", sideShape: "" };
     onMount(({ refs, ref }) => {
       if (!isDesktop) return;
-      const quicknavId = getIdByInstanceName("quick_nav");
-      setStateById(quicknavId, "active", true);
-      setStateById(quicknavId, "prevRoute", "#child");
-      setStateById(quicknavId, "color", "black");
-      const titleId = getIdByInstanceName("animation_title");
-      setStateById(titleId, "align", "left");
-      setStateById(titleId, "color", "white");
-      setStateById(titleId, "title", "Mv1");
+      setStateByName("quick_nav", "active", true);
+      setStateByName("quick_nav", "prevRoute", "#child");
+      setStateByName("quick_nav", "color", "black");
+      setStateByName("animation_title", "align", "left");
+      setStateByName("animation_title", "color", "white");
+      setStateByName("animation_title", "title", "Mv1");
       const {
         block1,
         block2,
@@ -29015,11 +29004,11 @@ Loading snippet ...</pre
       });
       playAnimation3({ playIntro, playSvg });
       return () => {
-        setStateById(quicknavId, "active", false);
-        setStateById(quicknavId, "prevRoute", "");
-        setStateById(quicknavId, "nextRoute", "");
-        setStateById(titleId, "align", "");
-        setStateById(titleId, "title", "");
+        setStateByName("quick_nav", "active", false);
+        setStateByName("quick_nav", "prevRoute", "");
+        setStateByName("quick_nav", "nextRoute", "");
+        setStateByName("animation_title", "align", "");
+        setStateByName("animation_title", "title", "");
         destroySvg();
       };
     });

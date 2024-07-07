@@ -2,7 +2,7 @@
 
 // @ts-ignore
 import codeIcon from '../../../../svg/icon-code.svg';
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { setStateByName } from '../../../mobjs';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 
 /**
@@ -65,14 +65,9 @@ export const CodeButtonFn = ({
                     const { drawers } = getState();
 
                     /**
-                     * Get overlay id.
-                     */
-                    const codeOverlayId = getIdByInstanceName('codeOverlay');
-
-                    /**
                      * Update overlay urls state.
                      */
-                    setStateById(codeOverlayId, 'urls', drawers);
+                    setStateByName('codeOverlay', 'urls', drawers);
                 },
             })}
         >
