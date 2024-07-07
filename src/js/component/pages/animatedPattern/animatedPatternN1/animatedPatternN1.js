@@ -51,7 +51,7 @@ export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
          */
         setMainTitleState('align', 'left');
         setMainTitleState('color', 'white');
-        setMainTitleState('title', 'Caterpillar N1');
+        setMainTitleState('title', 'Animated pattern N1');
 
         /**
          * Code button

@@ -72,7 +72,7 @@ export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setMainTitleState('color', 'white');
+        setCodeButtonState('color', 'white');
 
         /**
          * Animation.

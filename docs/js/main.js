@@ -25309,7 +25309,7 @@ Loading snippet ...</pre
       setQuickNavState("color", "white");
       setMainTitleState("align", "left");
       setMainTitleState("color", "white");
-      setMainTitleState("title", "Caterpillar N1");
+      setMainTitleState("title", "Animated pattern N1");
       const { animatedPatternN1: animatedPatternN12 } = getLegendData();
       const { source } = animatedPatternN12;
       setCodeButtonState("drawers", [
@@ -25649,7 +25649,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setMainTitleState("color", "white");
+      setCodeButtonState("color", "white");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
