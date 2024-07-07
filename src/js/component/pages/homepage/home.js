@@ -1,7 +1,7 @@
 //@ts-check
 
 import { getLegendData } from '../../../data';
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { setStateByName } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
 import { homeTextAnimation } from './animation/text';
 
@@ -35,8 +35,7 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
          */
         const { home } = getLegendData();
         const { source } = home;
-        const codeButtonId = getIdByInstanceName('global-code-button');
-        setStateById(codeButtonId, 'drawers', [
+        setStateByName('global-code-button', 'drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -58,12 +57,12 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
                 source: source.textAnimation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateByName('global-code-button', 'color', 'black');
 
         return () => {
             destroy();
             destroyText();
-            setStateById(codeButtonId, 'drawers', []);
+            setStateByName('global-code-button', 'drawers', []);
         };
     });
 

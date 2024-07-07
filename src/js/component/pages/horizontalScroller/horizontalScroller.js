@@ -2,7 +2,7 @@
 
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
-import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
+import { html, setStateByName } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { horizontalScrollerAnimation } from './animation/animation';
@@ -98,27 +98,24 @@ export const HorizontalScrollerFn = ({
         /**
          * Quicknav
          */
-        const quicknavId = getIdByInstanceName('quick_nav');
-        setStateById(quicknavId, 'active', true);
-        setStateById(quicknavId, 'prevRoute', prevRoute);
-        setStateById(quicknavId, 'nextRoute', nextRoute);
-        setStateById(quicknavId, 'color', 'white');
+        setStateByName('quick_nav', 'active', true);
+        setStateByName('quick_nav', 'prevRoute', prevRoute);
+        setStateByName('quick_nav', 'nextRoute', nextRoute);
+        setStateByName('quick_nav', 'color', 'white');
 
         /**
          * Title.
          */
-        const titleId = getIdByInstanceName('animation_title');
-        setStateById(titleId, 'align', 'right');
-        setStateById(titleId, 'color', 'white');
-        setStateById(titleId, 'title', 'HorizontalScroller');
+        setStateByName('animation_title', 'align', 'right');
+        setStateByName('animation_title', 'color', 'white');
+        setStateByName('animation_title', 'title', 'HorizontalScroller');
 
         /**
          * Code button
          */
         const { horizontalScroller } = getLegendData();
         const { source } = horizontalScroller;
-        const codeButtonId = getIdByInstanceName('global-code-button');
-        setStateById(codeButtonId, 'drawers', [
+        setStateByName('global-code-button', 'drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -144,7 +141,7 @@ export const HorizontalScrollerFn = ({
                 source: source.animation,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'white');
+        setStateByName('global-code-button', 'color', 'white');
 
         /**
          * Prevent landing at bottom of the page.
@@ -193,13 +190,13 @@ export const HorizontalScrollerFn = ({
 
         return () => {
             destroy();
-            setStateById(quicknavId, 'active', false);
-            setStateById(quicknavId, 'prevRoute', '');
-            setStateById(quicknavId, 'nextRoute', '');
-            setStateById(titleId, 'align', '');
-            setStateById(titleId, 'title', '');
-            setStateById(quicknavId, 'color', 'black');
-            setStateById(codeButtonId, 'drawers', []);
+            setStateByName('quick_nav', 'active', false);
+            setStateByName('quick_nav', 'prevRoute', '');
+            setStateByName('quick_nav', 'nextRoute', '');
+            setStateByName('animation_title', 'align', '');
+            setStateByName('animation_title', 'title', '');
+            setStateByName('quick_nav', 'color', 'black');
+            setStateByName('global-code-button', 'drawers', []);
         };
     });
 

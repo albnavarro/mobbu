@@ -1,7 +1,7 @@
 //@ts-check
 
 import { getLegendData } from '../../../data';
-import { getIdByInstanceName, html, setStateById, tick } from '../../../mobjs';
+import { html, setStateByName, tick } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -124,8 +124,7 @@ export const DynamicListFn = async ({
          */
         const { repeater } = getLegendData();
         const { source } = repeater;
-        const codeButtonId = getIdByInstanceName('global-code-button');
-        setStateById(codeButtonId, 'drawers', [
+        setStateByName('global-code-button', 'drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -155,7 +154,7 @@ export const DynamicListFn = async ({
                 source: source.data,
             },
         ]);
-        setStateById(codeButtonId, 'color', 'black');
+        setStateByName('global-code-button', 'color', 'black');
 
         watchSync('counter', (value) => {
             // @ts-ignore
@@ -163,7 +162,7 @@ export const DynamicListFn = async ({
         });
 
         return () => {
-            setStateById(codeButtonId, 'drawers', []);
+            setStateByName('global-code-button', 'drawers', []);
         };
     });
 
