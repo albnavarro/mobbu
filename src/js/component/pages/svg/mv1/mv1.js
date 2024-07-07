@@ -18,22 +18,32 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         ? getState()
         : { logo: '', sideShape: '' };
 
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
+     */
+    const setQuickNavState = setStateByName('quick_nav');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
+     */
+    const setMainTitleState = setStateByName('animation_title');
+
     onMount(({ refs, ref }) => {
         if (!isDesktop) return;
 
         /**
          * Quicknav
          */
-        setStateByName('quick_nav', 'active', true);
-        setStateByName('quick_nav', 'prevRoute', '#child');
-        setStateByName('quick_nav', 'color', 'black');
+        setQuickNavState('active', true);
+        setQuickNavState('prevRoute', '#child');
+        setQuickNavState('color', 'black');
 
         /**
          * Title.
          */
-        setStateByName('animation_title', 'align', 'left');
-        setStateByName('animation_title', 'color', 'white');
-        setStateByName('animation_title', 'title', 'Mv1');
+        setMainTitleState('align', 'left');
+        setMainTitleState('color', 'white');
+        setMainTitleState('title', 'Mv1');
 
         const {
             block1,
@@ -69,11 +79,11 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         playAnimation({ playIntro, playSvg });
 
         return () => {
-            setStateByName('quick_nav', 'active', false);
-            setStateByName('quick_nav', 'prevRoute', '');
-            setStateByName('quick_nav', 'nextRoute', '');
-            setStateByName('animation_title', 'align', '');
-            setStateByName('animation_title', 'title', '');
+            setQuickNavState('active', false);
+            setQuickNavState('prevRoute', '');
+            setQuickNavState('nextRoute', '');
+            setMainTitleState('align', '');
+            setMainTitleState('title', '');
             destroySvg();
         };
     });

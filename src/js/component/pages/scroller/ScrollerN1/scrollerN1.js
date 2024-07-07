@@ -12,6 +12,26 @@ import { scrollerN1Animation } from './animation/animation';
 export const ScrollerN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/scrolldownLabel/type').ScrollDownLabel>}
+     */
+    const setScrollDownState = setStateByName('scroll_down_label');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
+     */
+    const setQuickNavState = setStateByName('quick_nav');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
+     */
+    const setMainTitleState = setStateByName('animation_title');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
@@ -21,32 +41,28 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
         /**
          * Show scroll down label.
          */
-        setStateByName('scroll_down_label', 'active', true);
+        setScrollDownState('active', true);
 
         /**
          * Quicknav
          */
-        setStateByName('quick_nav', 'active', true);
-        setStateByName('quick_nav', 'nextRoute', '');
-        setStateByName(
-            'quick_nav',
-            'prevRoute',
-            '#scrollerN0?version=4&activeId=4'
-        );
+        setQuickNavState('active', true);
+        setQuickNavState('nextRoute', '');
+        setQuickNavState('prevRoute', '#scrollerN0?version=4&activeId=4');
 
         /**
          * Title.
          */
-        setStateByName('animation_title', 'align', 'left');
-        setStateByName('animation_title', 'color', 'white');
-        setStateByName('animation_title', 'title', 'Scroller N1');
+        setMainTitleState('align', 'left');
+        setMainTitleState('color', 'white');
+        setMainTitleState('title', 'Scroller N1');
 
         /**
          * Code button
          */
         const { scrollerN1 } = getLegendData();
         const { source } = scrollerN1;
-        setStateByName('global-code-button', 'drawers', [
+        setCodeButtonState('drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -64,7 +80,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateByName('global-code-button', 'color', 'white');
+        setCodeButtonState('color', 'white');
 
         /**
          * Refs
@@ -87,13 +103,13 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
             /**
              * Hide scroll down label.
              */
-            setStateByName('scroll_down_label', 'active', false);
-            setStateByName('quick_nav', 'active', false);
-            setStateByName('quick_nav', 'prevRoute', '');
-            setStateByName('quick_nav', 'nextRoute', '');
-            setStateByName('animation_title', 'align', '');
-            setStateByName('animation_title', 'title', '');
-            setStateByName('global-code-button', 'drawers', []);
+            setScrollDownState('active', false);
+            setQuickNavState('active', false);
+            setQuickNavState('prevRoute', '');
+            setQuickNavState('nextRoute', '');
+            setMainTitleState('align', '');
+            setMainTitleState('title', '');
+            setCodeButtonState('drawers', []);
             document.body.style.background = '';
         };
     });

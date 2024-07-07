@@ -80,6 +80,21 @@ export const HorizontalScrollerFn = ({
 }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/nextPage/type').QuickNav>}
+     */
+    const setQuickNavState = setStateByName('quick_nav');
+
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/animationTitle/type').AnimationTitle>}
+     */
+    const setMainTitleState = setStateByName('animation_title');
+
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
@@ -98,24 +113,24 @@ export const HorizontalScrollerFn = ({
         /**
          * Quicknav
          */
-        setStateByName('quick_nav', 'active', true);
-        setStateByName('quick_nav', 'prevRoute', prevRoute);
-        setStateByName('quick_nav', 'nextRoute', nextRoute);
-        setStateByName('quick_nav', 'color', 'white');
+        setQuickNavState('active', true);
+        setQuickNavState('prevRoute', prevRoute);
+        setQuickNavState('nextRoute', nextRoute);
+        setQuickNavState('color', 'white');
 
         /**
          * Title.
          */
-        setStateByName('animation_title', 'align', 'right');
-        setStateByName('animation_title', 'color', 'white');
-        setStateByName('animation_title', 'title', 'HorizontalScroller');
+        setMainTitleState('align', 'right');
+        setMainTitleState('color', 'white');
+        setMainTitleState('title', 'HorizontalScroller');
 
         /**
          * Code button
          */
         const { horizontalScroller } = getLegendData();
         const { source } = horizontalScroller;
-        setStateByName('global-code-button', 'drawers', [
+        setCodeButtonState('drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -141,7 +156,7 @@ export const HorizontalScrollerFn = ({
                 source: source.animation,
             },
         ]);
-        setStateByName('global-code-button', 'color', 'white');
+        setCodeButtonState('color', 'white');
 
         /**
          * Prevent landing at bottom of the page.
@@ -190,13 +205,13 @@ export const HorizontalScrollerFn = ({
 
         return () => {
             destroy();
-            setStateByName('quick_nav', 'active', false);
-            setStateByName('quick_nav', 'prevRoute', '');
-            setStateByName('quick_nav', 'nextRoute', '');
-            setStateByName('animation_title', 'align', '');
-            setStateByName('animation_title', 'title', '');
-            setStateByName('quick_nav', 'color', 'black');
-            setStateByName('global-code-button', 'drawers', []);
+            setQuickNavState('active', false);
+            setQuickNavState('prevRoute', '');
+            setQuickNavState('nextRoute', '');
+            setQuickNavState('color', 'black');
+            setMainTitleState('align', '');
+            setMainTitleState('title', '');
+            setCodeButtonState('drawers', []);
         };
     });
 

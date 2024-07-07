@@ -33,22 +33,32 @@ export const SvgChild = ({ onMount, html, getState }) => {
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
 
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
+     */
+    const setQuickNavState = setStateByName('quick_nav');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
+     */
+    const setMainTitleState = setStateByName('animation_title');
+
     onMount(({ refs, ref }) => {
         if (!isDesktop) return;
 
         /**
          * Quicknav
          */
-        setStateByName('quick_nav', 'active', true);
-        setStateByName('quick_nav', 'nextRoute', '#mv1');
-        setStateByName('quick_nav', 'color', 'black');
+        setQuickNavState('active', true);
+        setQuickNavState('nextRoute', '#mv1');
+        setQuickNavState('color', 'black');
 
         /**
          * Title.
          */
-        setStateByName('animation_title', 'align', 'left');
-        setStateByName('animation_title', 'color', 'white');
-        setStateByName('animation_title', 'title', 'Child');
+        setMainTitleState('align', 'left');
+        setMainTitleState('color', 'white');
+        setMainTitleState('title', 'Child');
 
         const { stagger } = refs;
 
@@ -85,11 +95,11 @@ export const SvgChild = ({ onMount, html, getState }) => {
         playAnimation({ playIntro });
 
         return () => {
-            setStateByName('quick_nav', 'active', false);
-            setStateByName('quick_nav', 'prevRoute', '');
-            setStateByName('quick_nav', 'nextRoute', '');
-            setStateByName('animation_title', 'align', '');
-            setStateByName('animation_title', 'title', '');
+            setQuickNavState('active', false);
+            setQuickNavState('prevRoute', '');
+            setQuickNavState('nextRoute', '');
+            setMainTitleState('align', '');
+            setMainTitleState('title', '');
             destroy();
         };
     });

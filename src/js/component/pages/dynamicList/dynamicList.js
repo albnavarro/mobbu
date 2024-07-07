@@ -116,6 +116,11 @@ export const DynamicListFn = async ({
     delegateEvents,
     watchSync,
 }) => {
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(({ refs }) => {
         const { counterEl } = refs;
 
@@ -124,7 +129,7 @@ export const DynamicListFn = async ({
          */
         const { repeater } = getLegendData();
         const { source } = repeater;
-        setStateByName('global-code-button', 'drawers', [
+        setCodeButtonState('drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -154,7 +159,7 @@ export const DynamicListFn = async ({
                 source: source.data,
             },
         ]);
-        setStateByName('global-code-button', 'color', 'black');
+        setCodeButtonState('color', 'black');
 
         watchSync('counter', (value) => {
             // @ts-ignore
@@ -162,7 +167,7 @@ export const DynamicListFn = async ({
         });
 
         return () => {
-            setStateByName('global-code-button', 'drawers', []);
+            setCodeButtonState('drawers', []);
         };
     });
 
