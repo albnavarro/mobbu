@@ -33,7 +33,7 @@ function getItems({ sync, bindProps, delegateEvents }) {
                     return {
                         counter,
                         label: myStateArray[index].label,
-                        index: index,
+                        index,
                     };
                 },
             })}
@@ -41,6 +41,19 @@ function getItems({ sync, bindProps, delegateEvents }) {
                 click: (event,  index ) => console.log(event, index),
             })}
         >
+           <my-child-component-inner
+               ${bindProps({
+                   bind: ['counter', 'index'], 
+                   forceParent: true, // bind to <my-child-component/> props
+                   props: ({ counter, index }) => {
+                       return {
+                           counter,
+                           index
+                       };
+                   },
+               })}
+            > 
+           </my-child-component-inner> 
         </my-child-component>
     `;
 }

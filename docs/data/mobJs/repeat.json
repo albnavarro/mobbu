@@ -175,6 +175,29 @@
             "props": {
                 "tag": "h3"
             },
+            "content": "important"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<span class='quote'>clean = false</span>: The render function must return a HTML in which the first node must be the 'repeat' component",
+                    "<span class='quote'>clean = true</span>: the render function can return HTML in which the component can be contained in one or more HTML tags"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
             "content": "Note:"
         },
         {
@@ -190,6 +213,13 @@
                 "style": "medium"
             },
             "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The value of <span class='quote'>index</span> will be valid only for the first component, i.e. the component to which the <span class='quote'>sync key</span> is associated"
         },
         {
             "component": "mob-spacer",
