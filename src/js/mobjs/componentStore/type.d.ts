@@ -35,7 +35,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     element: HTMLElement | userComponent;
     componentName: string;
     instanceName: string;
-    state: mobStore;
+    state: mobStore<any>;
 }
 
 export interface componentStoreInputTypes extends componentCommonTypes {
