@@ -35,7 +35,13 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
          */
         const { home } = getLegendData();
         const { source } = home;
-        setStateByName('global-code-button', 'drawers', [
+
+        /**
+         * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+         */
+        const setCodeButtonState = setStateByName('global-code-button');
+
+        setCodeButtonState('drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -57,12 +63,12 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
                 source: source.textAnimation,
             },
         ]);
-        setStateByName('global-code-button', 'color', 'black');
+        setCodeButtonState('color', 'black');
 
         return () => {
             destroy();
             destroyText();
-            setStateByName('global-code-button', 'drawers', []);
+            setCodeButtonState('drawers', []);
         };
     });
 

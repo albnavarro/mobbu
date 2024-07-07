@@ -17846,10 +17846,10 @@
     }
     state.set(prop, value, fire4);
   };
-  var setStateByName = (name = "", prop = "", value, fire4 = true) => {
+  var setStateByName = (name = "") => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
-    setStateById(id, prop, value, fire4);
+    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
   };
 
   // src/js/mobjs/componentStore/action/watch.js
@@ -19902,7 +19902,8 @@
             ${delegateEvents({
       click: () => {
         const { drawers } = getState();
-        setStateByName("codeOverlay", "urls", drawers);
+        const setCodeOvrlayState = setStateByName("codeOverlay");
+        setCodeOvrlayState("urls", drawers);
       }
     })}
         >
@@ -28026,7 +28027,8 @@ Loading snippet ...</pre
       playAnimation({ playIntro, playText, playSvg });
       const { home: home2 } = getLegendData();
       const { source } = home2;
-      setStateByName("global-code-button", "drawers", [
+      const setCodeButtonState = setStateByName("global-code-button");
+      setCodeButtonState("drawers", [
         {
           label: "description",
           source: source.description
@@ -28048,11 +28050,11 @@ Loading snippet ...</pre
           source: source.textAnimation
         }
       ]);
-      setStateByName("global-code-button", "color", "black");
+      setCodeButtonState("color", "black");
       return () => {
         destroy();
         destroyText();
-        setStateByName("global-code-button", "drawers", []);
+        setCodeButtonState("drawers", []);
       };
     });
     return html`<div>

@@ -78,17 +78,14 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
 
 /**
  * @param {string} name
- * @param {string} prop
- * @param {any} value
- * @param {boolean} fire
- * @returns {void}
+ * @returns {(prop:string, value:any, fire:(boolean|undefined)) => void}
  *
  * @description
  * Set state
  */
-export const setStateByName = (name = '', prop = '', value, fire = true) => {
+export const setStateByName = (name = '') => {
     const id = getIdByInstanceName(name);
     if (!id) console.warn(`component ${name}, not found`);
 
-    setStateById(id, prop, value, fire);
+    return (prop, value, fire) => setStateById(id, prop, value, fire);
 };

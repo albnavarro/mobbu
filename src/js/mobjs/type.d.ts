@@ -19,6 +19,7 @@ import {
     PartialRenderComponent,
     PartialRepeat,
     PartialSetState,
+    PartialSetStateByName,
     PartialStaticProps,
     PartialUnBind,
     PartialUnFreezeProp,
@@ -47,6 +48,7 @@ export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
 export type RenderComponent = PartialRenderComponent;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
+export type SetStateByName<T> = PartialSetStateByName<T>;
 
 /**
  * Main component.

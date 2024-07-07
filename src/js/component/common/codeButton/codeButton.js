@@ -65,9 +65,11 @@ export const CodeButtonFn = ({
                     const { drawers } = getState();
 
                     /**
+                     * @type {import('../../../mobjs/type').SetStateByName<import('../codeOverlay/type').CodeOverlay>}
                      * Update overlay urls state.
                      */
-                    setStateByName('codeOverlay', 'urls', drawers);
+                    const setCodeOvrlayState = setStateByName('codeOverlay');
+                    setCodeOvrlayState('urls', drawers);
                 },
             })}
         >

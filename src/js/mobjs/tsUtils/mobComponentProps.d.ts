@@ -41,6 +41,16 @@ export type PartialSetState<T> = <K extends keyof T>(
 ) => void;
 
 /**
+ * setStateByName
+ */
+export type PartialSetStateByName<T> = <K extends keyof T>(
+    prop: K,
+    value: T[K] | ((arg0: T[K]) => T[K]),
+    fireCallback?: boolean,
+    clone?: boolean
+) => void;
+
+/**
  * emit
  */
 export type PartialEmit<T> = (prop: keyof T) => void;
