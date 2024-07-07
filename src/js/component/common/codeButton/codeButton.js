@@ -15,6 +15,11 @@ export const CodeButtonFn = ({
     html,
     delegateEvents,
 }) => {
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../codeOverlay/type').CodeOverlay>}
+     */
+    const setCodeOvrlayState = setStateByName('codeOverlay');
+
     onMount(({ element }) => {
         watchSync('color', (value) => {
             if (value === 'black') {
@@ -63,12 +68,6 @@ export const CodeButtonFn = ({
             ${delegateEvents({
                 click: () => {
                     const { drawers } = getState();
-
-                    /**
-                     * @type {import('../../../mobjs/type').SetStateByName<import('../codeOverlay/type').CodeOverlay>}
-                     * Update overlay urls state.
-                     */
-                    const setCodeOvrlayState = setStateByName('codeOverlay');
                     setCodeOvrlayState('urls', drawers);
                 },
             })}

@@ -19861,6 +19861,7 @@
     html,
     delegateEvents
   }) => {
+    const setCodeOvrlayState = setStateByName("codeOverlay");
     onMount(({ element }) => {
       watchSync("color", (value) => {
         if (value === "black") {
@@ -19902,7 +19903,6 @@
             ${delegateEvents({
       click: () => {
         const { drawers } = getState();
-        const setCodeOvrlayState = setStateByName("codeOverlay");
         setCodeOvrlayState("urls", drawers);
       }
     })}
@@ -28016,6 +28016,7 @@ Loading snippet ...</pre
   };
   var HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
+    const setCodeButtonState = setStateByName("global-code-button");
     onMount(async ({ refs }) => {
       const { textStagger, svg_group } = refs;
       const { destroy, playIntro, playSvg } = simpleIntroAnimation({
@@ -28027,7 +28028,6 @@ Loading snippet ...</pre
       playAnimation({ playIntro, playText, playSvg });
       const { home: home2 } = getLegendData();
       const { source } = home2;
-      const setCodeButtonState = setStateByName("global-code-button");
       setCodeButtonState("drawers", [
         {
           label: "description",

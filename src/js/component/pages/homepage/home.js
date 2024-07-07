@@ -17,6 +17,11 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 export const HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
 
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(async ({ refs }) => {
         const { textStagger, svg_group } = refs;
 
@@ -35,12 +40,6 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
          */
         const { home } = getLegendData();
         const { source } = home;
-
-        /**
-         * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
-         */
-        const setCodeButtonState = setStateByName('global-code-button');
-
         setCodeButtonState('drawers', [
             {
                 label: 'description',
