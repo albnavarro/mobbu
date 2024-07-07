@@ -39,7 +39,6 @@
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
-- `setStateById` etc.. devono avere un generic `<T>` in entrata per allinearsi con `mobComponent`
 
 ## Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
@@ -52,18 +51,6 @@
 beforeNavigate(({props}) => {
     ///
 })
-```
-
-
-### Utils
-
-```js
-    setStateById(quicknavId, 'active', true);
-
-    // aggiungere
-    setStateByName('insyanceName', 'active', true);
-    // cosi da evitare il passaggio di recuperare l'id
-    // La stassa cosa per le altre utils simili.
 ```
 
 ### Methods
