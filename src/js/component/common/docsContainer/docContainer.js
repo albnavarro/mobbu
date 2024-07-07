@@ -1,6 +1,6 @@
 //@ts-check
 
-import { getIdByInstanceName, setStateById } from '../../../mobjs';
+import { setStateByName } from '../../../mobjs';
 
 /**
  * @type {import('../../../mobjs/type').mobComponent}
@@ -10,14 +10,13 @@ export const DocContainerFn = ({ html, onMount }) => {
         /**
          * Show side logo.
          */
-        const logoM1Id = getIdByInstanceName('m1_logo');
-        setStateById(logoM1Id, 'active', true);
+        setStateByName('m1_logo', 'active', true);
 
         return () => {
             /**
              * Hide side logo.
              */
-            setStateById(logoM1Id, 'active', false);
+            setStateByName('m1_logo', 'active', false);
         };
     });
 

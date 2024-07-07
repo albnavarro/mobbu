@@ -2,6 +2,7 @@
 
 import { checkIfStateIsExportable } from '../../mainStore/actions/exportState';
 import { componentMap } from '../store';
+import { getIdByInstanceName } from './component';
 import { getFreezePropStatus } from './freeze';
 
 /**
@@ -20,11 +21,25 @@ export const getStateById = (id = '') => {
 };
 
 /**
+ * @param {string} name
+ * @return object
+ *
+ * @description
+ * Get state by name
+ */
+export const getStateByName = (name = '') => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+
+    return getStateById(id);
+};
+
+/**
  * @param {string} id
  * @param {string} prop
  * @param {any} value
  * @param {boolean} fire
- * @returns void
+ * @returns {void}
  *
  * @description
  * Set state
@@ -59,4 +74,21 @@ export const setStateById = (id = '', prop = '', value, fire = true) => {
     }
 
     state.set(prop, value, fire);
+};
+
+/**
+ * @param {string} name
+ * @param {string} prop
+ * @param {any} value
+ * @param {boolean} fire
+ * @returns {void}
+ *
+ * @description
+ * Set state
+ */
+export const setStateByName = (name = '', prop = '', value, fire = true) => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+
+    setStateById(id, prop, value, fire);
 };

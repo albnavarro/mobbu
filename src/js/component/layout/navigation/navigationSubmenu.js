@@ -1,6 +1,6 @@
 //@ts-check
 
-import { getIdByInstanceName, html, setStateById } from '../../../mobjs';
+import { html, setStateByName } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 import { navigationStore } from './store/navStore';
 
@@ -62,8 +62,12 @@ export const NavigationSubmenuFn = ({
              * Need to reset currentAccordionId without fire callback.
              */
             if (!isOpen) {
-                const navId = getIdByInstanceName('main_navigation');
-                setStateById(navId, 'currentAccordionId', -1, false);
+                setStateByName(
+                    'main_navigation',
+                    'currentAccordionId',
+                    -1,
+                    false
+                );
             }
         });
 
