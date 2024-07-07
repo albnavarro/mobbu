@@ -55,7 +55,7 @@ beforeNavigate(({props}) => {
 
 ### Methods
 - Capire come gestire i metodi.
-- Es:
+- Es: potrebbe assomigliare a setStateByName.
 
 ```js
 export const MyComponent = ({addMethods}) => {
@@ -68,8 +68,8 @@ export const MyComponent = ({addMethods}) => {
 
 ```js
 export const MyComponent2 = ({addMethods}) => {
-    const id = getIdByInstanceName('myComponent');
-    useMethodsById(id, 'myMethod', param)
+    const myComponentMethod1 = useMethodsByName('instanceName', 'myMethod1')
+    myComponentMethod1(param)
     ...
 };
 ```
