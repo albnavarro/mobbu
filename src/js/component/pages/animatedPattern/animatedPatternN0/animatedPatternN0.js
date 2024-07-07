@@ -13,6 +13,21 @@ export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
+     */
+    const setQuickNavState = setStateByName('quick_nav');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
+     */
+    const setMainTitleState = setStateByName('animation_title');
+
+    /**
+     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(({ ref }) => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
@@ -24,24 +39,24 @@ export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
         /**
          * Quicknav
          */
-        setStateByName('quick_nav', 'active', true);
-        setStateByName('quick_nav', 'prevRoute', prevRoute);
-        setStateByName('quick_nav', 'nextRoute', nextRoute);
-        setStateByName('quick_nav', 'color', 'white');
+        setQuickNavState('active', true);
+        setQuickNavState('prevRoute', prevRoute);
+        setQuickNavState('nextRoute', nextRoute);
+        setQuickNavState('color', 'white');
 
         /**
          * Title.
          */
-        setStateByName('animation_title', 'align', 'left');
-        setStateByName('animation_title', 'color', 'white');
-        setStateByName('animation_title', 'title', title);
+        setMainTitleState('align', 'left');
+        setMainTitleState('color', 'white');
+        setMainTitleState('title', title);
 
         /**
          * Code button
          */
         const { animatedPatternN0 } = getLegendData();
         const { source } = animatedPatternN0;
-        setStateByName('global-code-button', 'drawers', [
+        setCodeButtonState('drawers', [
             {
                 label: 'description',
                 source: source.description,
@@ -59,7 +74,7 @@ export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
                 source: source.animation,
             },
         ]);
-        setStateByName('global-code-button', 'color', 'white');
+        setCodeButtonState('color', 'white');
 
         const destroyAnimation = animatedPatternN0Animation({
             canvas,
@@ -72,12 +87,12 @@ export const AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
 
         return () => {
             destroyAnimation();
-            setStateByName('quick_nav', 'active', false);
-            setStateByName('quick_nav', 'prevRoute', '');
-            setStateByName('quick_nav', 'nextRoute', '');
-            setStateByName('animation_title', 'align', '');
-            setStateByName('animation_title', 'title', '');
-            setStateByName('global-code-button', 'drawers', []);
+            setQuickNavState('active', false);
+            setQuickNavState('prevRoute', '');
+            setQuickNavState('nextRoute', '');
+            setMainTitleState('align', '');
+            setMainTitleState('title', '');
+            setCodeButtonState('drawers', []);
             document.body.style.background = '';
         };
     });

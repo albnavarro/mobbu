@@ -42,6 +42,11 @@ export const NavigationSubmenuFn = ({
     const { children, headerButton, callback } = getState();
     const { label, url, activeId } = headerButton;
 
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('./type').Navigation>}
+     */
+    const setNavigationState = setStateByName('main_navigation');
+
     onMount(({ ref }) => {
         /**
          * Accordion
@@ -62,12 +67,7 @@ export const NavigationSubmenuFn = ({
              * Need to reset currentAccordionId without fire callback.
              */
             if (!isOpen) {
-                setStateByName(
-                    'main_navigation',
-                    'currentAccordionId',
-                    -1,
-                    false
-                );
+                setNavigationState('currentAccordionId', -1, false);
             }
         });
 

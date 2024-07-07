@@ -23772,6 +23772,7 @@ Loading snippet ...</pre
   }) => {
     const { children, headerButton, callback: callback2 } = getState();
     const { label, url, activeId } = headerButton;
+    const setNavigationState = setStateByName("main_navigation");
     onMount(({ ref }) => {
       const { content: content2 } = ref;
       slide.subscribe(content2);
@@ -23781,12 +23782,7 @@ Loading snippet ...</pre
         await slide[action2](content2);
         navigationStore.emit("refreshScroller");
         if (!isOpen) {
-          setStateByName(
-            "main_navigation",
-            "currentAccordionId",
-            -1,
-            false
-          );
+          setNavigationState("currentAccordionId", -1, false);
         }
       });
       return () => {
@@ -24062,10 +24058,11 @@ Loading snippet ...</pre
 
   // src/js/component/common/docsContainer/docContainer.js
   var DocContainerFn = ({ html, onMount }) => {
+    const setLogoState = setStateByName("m1_logo");
     onMount(() => {
-      setStateByName("m1_logo", "active", true);
+      setLogoState("active", true);
       return () => {
-        setStateByName("m1_logo", "active", false);
+        setLogoState("active", false);
       };
     });
     return html`
@@ -24790,22 +24787,25 @@ Loading snippet ...</pre
   var AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
+    const setQuickNavState = setStateByName("quick_nav");
+    const setMainTitleState = setStateByName("animation_title");
+    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = ref;
-      setStateByName("quick_nav", "active", true);
-      setStateByName("quick_nav", "prevRoute", prevRoute);
-      setStateByName("quick_nav", "nextRoute", nextRoute);
-      setStateByName("quick_nav", "color", "white");
-      setStateByName("animation_title", "align", "left");
-      setStateByName("animation_title", "color", "white");
-      setStateByName("animation_title", "title", title);
+      setQuickNavState("active", true);
+      setQuickNavState("prevRoute", prevRoute);
+      setQuickNavState("nextRoute", nextRoute);
+      setQuickNavState("color", "white");
+      setMainTitleState("align", "left");
+      setMainTitleState("color", "white");
+      setMainTitleState("title", title);
       const { animatedPatternN0: animatedPatternN02 } = getLegendData();
       const { source } = animatedPatternN02;
-      setStateByName("global-code-button", "drawers", [
+      setCodeButtonState("drawers", [
         {
           label: "description",
           source: source.description
@@ -24823,7 +24823,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateByName("global-code-button", "color", "white");
+      setCodeButtonState("color", "white");
       const destroyAnimation = animatedPatternN0Animation({
         canvas,
         ...getState()
@@ -24833,12 +24833,12 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setStateByName("quick_nav", "active", false);
-        setStateByName("quick_nav", "prevRoute", "");
-        setStateByName("quick_nav", "nextRoute", "");
-        setStateByName("animation_title", "align", "");
-        setStateByName("animation_title", "title", "");
-        setStateByName("global-code-button", "drawers", []);
+        setQuickNavState("active", false);
+        setQuickNavState("prevRoute", "");
+        setQuickNavState("nextRoute", "");
+        setMainTitleState("align", "");
+        setMainTitleState("title", "");
+        setCodeButtonState("drawers", []);
         document.body.style.background = "";
       };
     });
@@ -25291,30 +25291,28 @@ Loading snippet ...</pre
   // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
   var AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
+    const setQuickNavState = setStateByName("quick_nav");
+    const setMainTitleState = setStateByName("animation_title");
+    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = ref;
-      setStateByName("quick_nav", "active", true);
-      setStateByName(
-        "quick_nav",
+      setQuickNavState("active", true);
+      setQuickNavState(
         "prevRoute",
         "#animatedPatternN0?version=3&activeId=3"
       );
-      setStateByName(
-        "quick_nav",
-        "nextRoute",
-        "#scrollerN0?version=0&activeId=0"
-      );
-      setStateByName("quick_nav", "color", "white");
-      setStateByName("animation_title", "align", "left");
-      setStateByName("animation_title", "color", "white");
-      setStateByName("animation_title", "title", "Caterpillar N1");
+      setQuickNavState("nextRoute", "#scrollerN0?version=0&activeId=0");
+      setQuickNavState("color", "white");
+      setMainTitleState("align", "left");
+      setMainTitleState("color", "white");
+      setMainTitleState("title", "Caterpillar N1");
       const { animatedPatternN1: animatedPatternN12 } = getLegendData();
       const { source } = animatedPatternN12;
-      setStateByName("global-code-button", "drawers", [
+      setCodeButtonState("drawers", [
         {
           label: "description",
           source: source.description
@@ -25332,7 +25330,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateByName("global-code-button", "color", "white");
+      setCodeButtonState("color", "white");
       const destroyAnimation = animatedPatternN1Animation({
         canvas,
         ...getState()
@@ -25341,12 +25339,12 @@ Loading snippet ...</pre
         wrap.classList.add("active");
       });
       return () => {
-        setStateByName("quick_nav", "active", false);
-        setStateByName("quick_nav", "prevRoute", "");
-        setStateByName("quick_nav", "nextRoute", "");
-        setStateByName("animation_title", "align", "");
-        setStateByName("animation_title", "title", "");
-        setStateByName("global-code-button", "drawers", []);
+        setQuickNavState("active", false);
+        setQuickNavState("prevRoute", "");
+        setQuickNavState("nextRoute", "");
+        setMainTitleState("align", "");
+        setMainTitleState("title", "");
+        setCodeButtonState("drawers", []);
         document.body.style.background = "";
         destroyAnimation();
       };
@@ -25616,21 +25614,24 @@ Loading snippet ...</pre
   // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
   var CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
+    const setQuickNavState = setStateByName("quick_nav");
+    const setMainTitleState = setStateByName("animation_title");
+    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = ref;
-      setStateByName("quick_nav", "active", true);
-      setStateByName("quick_nav", "nextRoute", "#caterpillarN1");
-      setStateByName("quick_nav", "color", "white");
-      setStateByName("animation_title", "align", "left");
-      setStateByName("animation_title", "color", "white");
-      setStateByName("animation_title", "title", "Caterpillar N0");
+      setQuickNavState("active", true);
+      setQuickNavState("nextRoute", "#caterpillarN1");
+      setQuickNavState("color", "white");
+      setMainTitleState("align", "left");
+      setMainTitleState("color", "white");
+      setMainTitleState("title", "Caterpillar N0");
       const { caterpillarN0: caterpillarN02 } = getLegendData();
       const { source } = caterpillarN02;
-      setStateByName("global-code-button", "drawers", [
+      setCodeButtonState("drawers", [
         {
           label: "description",
           source: source.description
@@ -25648,7 +25649,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateByName("global-code-button", "color", "white");
+      setMainTitleState("color", "white");
       const destroyAnimation = caterpillarN0Animation({
         canvas,
         ...getState()
@@ -25658,12 +25659,12 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setStateByName("quick_nav", "active", false);
-        setStateByName("quick_nav", "prevRoute", "");
-        setStateByName("quick_nav", "nextRoute", "");
-        setStateByName("animation_title", "align", "");
-        setStateByName("animation_title", "title", "");
-        setStateByName("global-code-button", "drawers", []);
+        setQuickNavState("active", false);
+        setQuickNavState("prevRoute", "");
+        setQuickNavState("nextRoute", "");
+        setMainTitleState("align", "");
+        setMainTitleState("title", "");
+        setCodeButtonState("drawers", []);
         document.body.style.background = "";
       };
     });
@@ -25944,22 +25945,25 @@ Loading snippet ...</pre
   // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
   var CaterpillarN1Fn = ({ onMount, html, getState }) => {
     document.body.style.background = "#000000";
+    const setQuickNavState = setStateByName("quick_nav");
+    const setMainTitleState = setStateByName("animation_title");
+    const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
       const { wrap, canvas } = ref;
-      setStateByName("quick_nav", "active", true);
-      setStateByName("quick_nav", "prevRoute", "#caterpillarN0");
-      setStateByName("quick_nav", "nextRoute", "#caterpillarN2");
-      setStateByName("quick_nav", "color", "white");
-      setStateByName("animation_title", "align", "left");
-      setStateByName("animation_title", "color", "white");
-      setStateByName("animation_title", "title", "Caterpillar N1");
+      setQuickNavState("active", true);
+      setQuickNavState("prevRoute", "#caterpillarN0");
+      setQuickNavState("nextRoute", "#caterpillarN2");
+      setQuickNavState("color", "white");
+      setMainTitleState("align", "left");
+      setMainTitleState("color", "white");
+      setMainTitleState("title", "Caterpillar N1");
       const { caterpillarN1: caterpillarN12 } = getLegendData();
       const { source } = caterpillarN12;
-      setStateByName("global-code-button", "drawers", [
+      setCodeButtonState("drawers", [
         {
           label: "description",
           source: source.description
@@ -25977,7 +25981,7 @@ Loading snippet ...</pre
           source: source.animation
         }
       ]);
-      setStateByName("global-code-button", "color", "white");
+      setCodeButtonState("color", "white");
       const destroyAnimation = caterpillarN1Animation({
         canvas,
         ...getState()
@@ -25987,12 +25991,12 @@ Loading snippet ...</pre
       });
       return () => {
         destroyAnimation();
-        setStateByName("quick_nav", "active", false);
-        setStateByName("quick_nav", "prevRoute", "");
-        setStateByName("quick_nav", "nextRoute", "");
-        setStateByName("animation_title", "align", "");
-        setStateByName("animation_title", "title", "");
-        setStateByName("global-code-button", "drawers", []);
+        setQuickNavState("active", false);
+        setQuickNavState("prevRoute", "");
+        setQuickNavState("nextRoute", "");
+        setMainTitleState("align", "");
+        setMainTitleState("title", "");
+        setCodeButtonState("drawers", []);
         document.body.style.background = "";
       };
     });

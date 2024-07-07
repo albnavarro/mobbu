@@ -6,17 +6,16 @@ import { setStateByName } from '../../../mobjs';
  * @type {import('../../../mobjs/type').mobComponent}
  */
 export const DocContainerFn = ({ html, onMount }) => {
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../mLogo1/type').MLogo1>}
+     */
+    const setLogoState = setStateByName('m1_logo');
+
     onMount(() => {
-        /**
-         * Show side logo.
-         */
-        setStateByName('m1_logo', 'active', true);
+        setLogoState('active', true);
 
         return () => {
-            /**
-             * Hide side logo.
-             */
-            setStateByName('m1_logo', 'active', false);
+            setLogoState('active', false);
         };
     });
 
