@@ -48,7 +48,8 @@
 Si puó usare la stessa tecnica usata con `addSelfIdToFutureComponent` se il componente é `isRepeaterFirstChildNode` cicla sui figli `userComponent` e aggiunge la props:
 
 - in  `parseComponentRecursive.js` righa `~200` la funzione `setRepeaterStateById()` setta la prop isRepeaterFirstChildNode, questo é il punto giusto.
-- Se la funzione precedente individua un `isRepeaterFirstChildNode`:
+
+Se la funzione precedente individua un `isRepeaterFirstChildNode`:
 - Bastera come per `addSelfIdToFutureComponent` aggiungere direttamante nel webcomponent tramite tre setter i valori. ( dovrebbero essere trovati solo i componenti del return HTML corrente figli del primo nodo del repeater. ):
     - la nuova propietá `repeaterContext` ( id del componente corrente )
     - le due propieta `repeatPropBind` e `currentRepeaterState` iniziali. ( si useranno sempre i valori del componente corrente )
