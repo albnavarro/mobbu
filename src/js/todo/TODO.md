@@ -43,7 +43,17 @@
 #### Soluzione:
 - Aggiungere una nuova propieta `repeaterContext` in `componentMap` in cui sará presente l' `id` del primo componente definito all' interno della funzione `render` del repeater. Il componente in questione ( primo componente/node del repeater ) ha la propietá `isRepeaterFirstChildNode = true`
 - Ogni volta che il component del primo nodo verrá aggiornato verranno filtrati tutti i component che hanno nella propietá `repeaterContext` l' id del componente corrente e verra copiato il valore di `repeatPropBind` e `currentRepeaterState`
-- Si puó usare la stessa tecnica usata con `addSelfIdToFutureComponent` se il componente é `isRepeaterFirstChildNode` cicla sui figli e aggiunge la props.
+
+#### Come e dove
+Si puó usare la stessa tecnica usata con `addSelfIdToFutureComponent` se il componente é `isRepeaterFirstChildNode` cicla sui figli e aggiunge la props:
+
+- in  `parseComponentRecursive.js` righa `~200` la funzione `setRepeaterStateById()` setta la prop isRepeaterFirstChildNode, questo é il punto giusto.
+- Se la funzione precedente individua un `isRepeaterFirstChildNode`:
+- Bastera come per `addSelfIdToFutureComponent` aggiungere direttamante nel webcomponent tramite tre setter i valori. ( dovrebbero essere trovati solo i componenti del return HTML corrente figli del primo nodo del repeater. ):
+    - la nuova propietá `repeaterContext` ( id del componente corrente )
+    - le due propieta `repeatPropBind` e `currentRepeaterState` iniziali
+- Poi nel watcher del repater ad ogni aggiornamanto verranno cercati nella mappa i componenti con la propietá `repeaterContext === id corrente` per aggiornare la  propietá `currentRepeaterState`
+- Nel watcher il punto giusto é: `watchList.js` righa `~204` dopo la funzione `setRepeaterStateById`
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
