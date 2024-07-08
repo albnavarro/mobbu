@@ -36,6 +36,14 @@
 
 # MobJs
 
+## repeater
+#### Problema:
+- Tutti i component presenti nella funzione `render` ritornata dal `repeater` a prescinedere dalla profinditá di innesto devono avere la propietá `parentPropsWatcher` e `currentRepeaterState` presente, non solo il componente del primo nodo.
+
+#### Soluzione:
+- Aggiungere una nuova propieta `repeaterContext` in `componentMap` in cui sará presente l' `id` del primo componente definito all' interno della funzione `render` del repeater. ( Il primo nodo non viene preso in considerazione, lui é il `context` ).
+- Ogni volta che il component del primo nodo verrá aggiornato verranno filtrati tutti i component che hanno nella propietá `repeaterContext` l' id del componente corrente e verra copiato il valore di `parentPropsWatcher` e `currentRepeaterState`
+
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
