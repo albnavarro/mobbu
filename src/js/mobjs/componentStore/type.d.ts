@@ -16,7 +16,7 @@ export interface componentCommonTypes {
         current: object;
         index: number;
     };
-    isRepeater?: boolean;
+    isRepeaterFirstChildNode?: boolean;
     repeatPropBind?: string;
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;

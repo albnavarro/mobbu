@@ -22,7 +22,7 @@ export const setRepeaterStateById = ({ id = '', value }) => {
     componentMap.set(id, {
         ...item,
         currentRepeaterState: value,
-        isRepeater: true,
+        isRepeaterFirstChildNode: true,
     });
 };
 

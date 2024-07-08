@@ -15,7 +15,7 @@ export const defineRepeaterComponent = () => {
                 super();
                 this.attachShadow({ mode: 'open' });
                 this.#repeatId = '';
-                this.isRepeater = true;
+                this.isRepeaterFirstChildNode = true;
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
