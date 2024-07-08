@@ -212,8 +212,9 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Set initial repate list current value to pass to dynamicProps.
+     * Set initial repeat current value to pass to dynamicProps.
      * When component is created.
+     * this is appplied to first child node of a repeater
      */
     if (currentRepeatValue?.index !== -1)
         setRepeaterStateById({ id, value: currentRepeatValue });

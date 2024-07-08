@@ -13,7 +13,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 function selectAll(root) {
     const result = [];
     for (const node of walkPreOrder(root)) {
-        if (node?.isRepeaterFirstChildNode && node?.getRepeatId?.()) {
+        if (node?.isRepeaterPlaceholder && node?.getRepeatId?.()) {
             result.push(node);
         }
     }

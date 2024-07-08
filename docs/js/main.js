@@ -17057,7 +17057,7 @@
           super();
           this.attachShadow({ mode: "open" });
           this.#repeatId = "";
-          this.isRepeaterFirstChildNode = true;
+          this.isRepeaterPlaceholder = true;
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
             this.#repeatId = this.shadowRoot?.host.getAttribute(ATTR_REPEATID);
@@ -18520,7 +18520,7 @@
   // src/js/mobjs/query/querySecificRepeater.js
   function selectAll6(root2, repeatId) {
     for (const node of walkPreOrder(root2)) {
-      if (node?.isRepeaterFirstChildNode && node?.getRepeatId?.() === repeatId) {
+      if (node?.isRepeaterPlaceholder && node?.getRepeatId?.() === repeatId) {
         return node;
       }
     }
@@ -19145,7 +19145,7 @@
   function selectAll7(root2) {
     const result = [];
     for (const node of walkPreOrder(root2)) {
-      if (node?.isRepeaterFirstChildNode && node?.getRepeatId?.()) {
+      if (node?.isRepeaterPlaceholder && node?.getRepeatId?.()) {
         result.push(node);
       }
     }
