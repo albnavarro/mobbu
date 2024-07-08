@@ -16864,7 +16864,7 @@
   var ATTR_REPEATID = "repeatid";
   var ATTR_CHILD_REPEATID = "repeaterchild";
   var ATTR_KEY = "key";
-  var ATTR_CURRENT_LIST_VALUE = "currentlistvalue";
+  var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
   var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";

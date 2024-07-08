@@ -43,6 +43,7 @@
 #### Soluzione:
 - Aggiungere una nuova propieta `repeaterContext` in `componentMap` in cui sará presente l' `id` del primo componente definito all' interno della funzione `render` del repeater. Il componente in questione ( primo componente/node del repeater ) ha la propietá `isRepeaterFirstChildNode = true`
 - Ogni volta che il component del primo nodo verrá aggiornato verranno filtrati tutti i component che hanno nella propietá `repeaterContext` l' id del componente corrente e verra copiato il valore di `repeatPropBind` e `currentRepeaterState`
+- Si puó usare la stessa tecnica usata con `addSelfIdToFutureComponent` se il componente é `isRepeaterFirstChildNode` cicla sui figli e aggiunge la props.
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
