@@ -53,7 +53,7 @@ export const ATTR_KEY = 'key';
 /**
  * @type {string};
  */
-export const ATTR_CURRENT_LIST_VALUE = 'currentlistvalue';
+export const ATTR_CURRENT_LIST_VALUE = 'currentRepeaterValue';
 
 /**
  * @type {string};
