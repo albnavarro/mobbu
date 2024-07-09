@@ -256,6 +256,11 @@ export const parseComponentsRecursive = async ({
     const content = await userFunctionComponent(objectFromComponentFunction);
 
     /**
+     * Get all classes from placeholder component
+     */
+    const classList = componentToParse.classList;
+
+    /**
      * Add custom DOM to basic component
      */
     const { newElement } = await convertToRealElement({
@@ -263,6 +268,11 @@ export const parseComponentsRecursive = async ({
         // @ts-ignore
         element: componentToParse,
     });
+
+    /**
+     * copy all classes in new component.
+     */
+    newElement.classList.add(...classList);
 
     /**
      * Find all refs.
