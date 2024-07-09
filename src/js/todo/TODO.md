@@ -36,6 +36,9 @@
 
 # MobJs
 
+## debug
+con debug attivo aggiungere `<-- nome componente -->` alla fien del componente
+
 ## repeater
 #### Problema:
 - Tutti i component presenti nella funzione `render` ritornata dal `repeater` a prescinedere dalla profinditá di innesto devono avere la propietá `repeatPropBind` e `currentRepeaterState` presente, non solo il componente del primo nodo.
