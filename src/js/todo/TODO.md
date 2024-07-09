@@ -36,6 +36,12 @@
 
 # MobJs
 
+## className
+- Aggiunge className al componente, es:
+```js
+<my-component className='my-class'>copies</my-component>
+```
+
 ## repeater
 #### Problema:
 - Tutti i component presenti nella funzione `render` ritornata dal `repeater` a prescinedere dalla profinditá di innesto devono avere la propietá `repeatPropBind` e `currentRepeaterState` presente, non solo il componente del primo nodo.
