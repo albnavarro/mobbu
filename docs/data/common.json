@@ -327,6 +327,11 @@
             "url": "mobJs-routing"
         },
         {
+            "label": "ClassList",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-class-list"
+        },
+        {
             "label": "Refs",
             "scrollToSection": "mobJs",
             "url": "mobJs-refs"

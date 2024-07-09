@@ -4,7 +4,7 @@
 export const MyComponent = ({ html }) => {
     return html`
         <div>
-            <my-child-component name="child"></my-child-component>
+            <my-child-component class="myclass1 myclass2"></my-child-component>
         </div>
     `;
 };

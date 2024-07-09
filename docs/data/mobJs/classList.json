@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "refs"
+            "content": "classList"
         },
         {
             "component": "mob-spacer",
@@ -25,27 +25,16 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can use html nodes using refs/ref properties"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "items": [
-                    "<span class='quote'>refs</span>: Always returns an array with all matches",
-                    "<span class='quote'>ref</span>: The first match found always returns"
-                ]
-            }
+            "content": "It is possible to use the class attribute on a component."
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/refs.js",
+                "source": "./snippets/mobJs/classList.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 28
+                "numLines": 10
             }
         }
     ]

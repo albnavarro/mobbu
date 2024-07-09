@@ -186,6 +186,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-class-list',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/classList.json',
+            title: 'classList',
+            section: 'classList',
+            breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
         name: 'mobJs-refs',
         layout: layoutSidebarAnchor,
         props: {
