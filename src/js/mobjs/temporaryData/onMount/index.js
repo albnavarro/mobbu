@@ -1,7 +1,7 @@
 // @ts-check
 
 import { setDestroyCallback } from '../../componentStore/action/removeAndDestroy';
-import { parseRef, parseRefsArray } from '../refs';
+import { parseRef } from '../refs';
 
 /**
  * @type {Map<string,Function>}
@@ -44,7 +44,6 @@ export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
         element,
         ref: parseRef(refsCollection),
         refs: refsCollection,
-        // refs: parseRefsArray(refsCollection),
     });
 
     /**

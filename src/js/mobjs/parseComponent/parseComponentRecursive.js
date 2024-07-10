@@ -381,6 +381,9 @@ export const parseComponentsRecursive = async ({
         onMount: async () => {
             if (shoulBeScoped) return;
 
+            /**
+             * Normalize component refs in array like default refs
+             */
             const refFromComponent = refsComponentToNewElement(
                 refsCollectionComponent
             );

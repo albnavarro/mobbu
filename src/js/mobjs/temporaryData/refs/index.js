@@ -2,6 +2,9 @@ import { getElementById } from '../../componentStore/action/element';
 import { ATTR_REFS } from '../../constant';
 
 /**
+ * @description
+ * Get all reference per ref ( querySelectorAll )
+ *
  * @param {HTMLElement|import("../../webComponent/type").userComponent} element
  * @returns {{ [key: string ]: HTMLElement[] }}>}
  */
@@ -27,6 +30,11 @@ export const getRefs = (element) => {
 };
 
 /**
+ * @description
+ * Get an array `{ref, id}[]`
+ * Get id reference for each placeholder component
+ * After parse will be fransformed in real element.
+ *
  * @param {HTMLElement|import("../../webComponent/type").userComponent} element
  * @returns {{ ref: string, id:string }[]}
  */
@@ -51,20 +59,9 @@ export const getRefsComponent = (element) => {
 };
 
 /**
- * @param {{ [key: string ]: HTMLElement[] }} refs
- * @return {{ [key: string ]: HTMLElement[] }} refs
- */
-export const parseRefsArray = (refs) => {
-    return Object.entries(refs)
-        .map(([key, value]) => {
-            return { [key]: value };
-        })
-        .reduce((previous, current) => {
-            return { ...previous, ...current };
-        }, {});
-};
-
-/**
+ * @description
+ * Get only first element per ref ( ref )
+ *
  * @param {{ [key: string ]: HTMLElement[] }} refs
  * @return {{ [key: string ]: HTMLElement }}
  */
@@ -82,7 +79,7 @@ export const parseRef = (refs) => {
  * @description
  * From an array of single pair `{ ref: id }[]`
  * return an array with ref: `{ref: element[]}`
- * Only form mobJs component
+ * Get element from placeholder id and organize in array
  *
  * @param { {ref: string, id:string }[]} refs
  * @return {{ [key: string ]: HTMLElement[] }}
