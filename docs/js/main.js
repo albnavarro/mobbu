@@ -18491,6 +18491,7 @@
       item.removeAttribute(ATTR_REFS);
       return {
         ref: refKey,
+        // @ts-ignore
         id: item.getId?.()
       };
     });
@@ -18527,17 +18528,9 @@
       element,
       ref: parseRef(refsCollection),
       refs: refsCollection
-      // refs: parseRefsArray(refsCollection),
     });
     setDestroyCallback({ cb: destroyCallback, id });
     onMountCallbackMap.delete(id);
-  };
-  var executeFireOnMountCallBack = ({ id, element, refsCollection }) => {
-    return fireOnMountCallBack({
-      id,
-      element,
-      refsCollection
-    });
   };
 
   // src/js/mobjs/query/querySecificRepeater.js
@@ -19415,7 +19408,7 @@
     });
     newElement.classList.add(...classList);
     const refsCollection = newElement ? getRefs(newElement) : {};
-    const refsCollectionComponent = newElement ? getRefsComponent(newElement) : {};
+    const refsCollectionComponent = newElement ? getRefsComponent(newElement) : [];
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();
@@ -19453,7 +19446,7 @@
     }
     const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
     if (shoulBeScoped) {
-      await executeFireOnMountCallBack({
+      await fireOnMountCallBack({
         id,
         element: newElement,
         refsCollection
@@ -19466,7 +19459,7 @@
         const refFromComponent = refsComponentToNewElement(
           refsCollectionComponent
         );
-        await executeFireOnMountCallBack({
+        await fireOnMountCallBack({
           id,
           element: newElement,
           refsCollection: { ...refsCollection, ...refFromComponent }
@@ -27486,8 +27479,6 @@ Loading snippet ...</pre
       const { data: data3, buttonLabel } = column;
       return renderHtml`
                 <dynamic-list-button
-                    class="pippoCLass"
-                    ref="pippo"
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: async () => {
@@ -27537,7 +27528,6 @@ Loading snippet ...</pre
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ refs }) => {
       const { counterEl } = refs;
-      console.log(refs);
       const { repeater } = getLegendData();
       const { source } = repeater;
       setCodeButtonState("drawers", [
@@ -27590,8 +27580,6 @@ Loading snippet ...</pre
       bindProps
     })}
                     <dynamic-list-button
-                        class="pippoClass"
-                        ref="pippo"
                         ${staticProps2({ label: "increase counter" })}
                         ${delegateEvents({
       click: async () => {
@@ -27605,7 +27593,7 @@ Loading snippet ...</pre
             </div>
 
             <div class="c-dynamic-list__counter">
-                <h4 ref="counterEl">List counter</h4>
+                <h4>List counter</h4>
                 <span ref="counterEl"></span>
             </div>
 
@@ -27824,7 +27812,6 @@ Loading snippet ...</pre
   }) {
     return renderHtml`
         <dynamic-list-card
-            class="repeaterCard"
             ${staticProps2({
       parentListId: listId
     })}
