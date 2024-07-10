@@ -36,6 +36,9 @@
 
 # MobJs
 
+## refs
+Aggiornale la DOCS cone le ref/refs per componente
+
 ## debug
 con debug attivo aggiungere `<-- nome componente -->` alla fien del componente
 
