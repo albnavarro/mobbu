@@ -68,21 +68,3 @@ export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
 export const removeOnMountCallbackReference = ({ id }) => {
     onMountCallbackMap.delete(id);
 };
-
-/**
- * @param {object} obj
- * @param {string} obj.id - component id
- * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
- * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
- * @returns {Promise<any>}
- *
- * @description
- * Fire onMount callback.
- */
-export const executeFireOnMountCallBack = ({ id, element, refsCollection }) => {
-    return fireOnMountCallBack({
-        id,
-        element,
-        refsCollection,
-    });
-};

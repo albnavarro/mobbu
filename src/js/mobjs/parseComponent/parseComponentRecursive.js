@@ -6,7 +6,7 @@ import { getComponentList } from '../mainStore/componentList';
 // import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
 import { getParseSourceArray } from './utils';
-import { executeFireOnMountCallBack } from '../temporaryData/onMount';
+import { fireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
 import {
     addCurrentIdToDynamicProps,
@@ -357,7 +357,7 @@ export const parseComponentsRecursive = async ({
     const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
 
     if (shoulBeScoped) {
-        await executeFireOnMountCallBack({
+        await fireOnMountCallBack({
             id,
             element: newElement,
             refsCollection,
@@ -391,7 +391,7 @@ export const parseComponentsRecursive = async ({
             /**
              * Fire onMount callback at the end of current parse.
              */
-            await executeFireOnMountCallBack({
+            await fireOnMountCallBack({
                 id,
                 element: newElement,
                 refsCollection: { ...refsCollection, ...refFromComponent },
