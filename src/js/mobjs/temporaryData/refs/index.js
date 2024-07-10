@@ -79,6 +79,11 @@ export const parseRef = (refs) => {
 };
 
 /**
+ * @description
+ * From an array of single pair `{ ref: id }[]`
+ * return an array with ref: `{ref: element[]}`
+ * Only form mobJs component
+ *
  * @param { {ref: string, id:string }[]} refs
  * @return {{ [key: string ]: HTMLElement[] }}
  */
