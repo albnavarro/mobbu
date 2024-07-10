@@ -37,7 +37,8 @@
 # MobJs
 
 ## refs
-Aggiornale la DOCS cone le ref/refs per componente
+- Aggiornale la DOC cone le `ref/refs` per componente.
+- Specificare che con gli `scoped component` le refs sui componenti non possono essere usati.
 
 ## debug
 con debug attivo aggiungere `<-- nome componente -->` alla fien del componente
