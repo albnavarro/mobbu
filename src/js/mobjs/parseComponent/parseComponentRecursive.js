@@ -21,7 +21,11 @@ import {
     addSelfIdToParentComponent,
     setParentsIdFallback,
 } from '../componentStore/action/parent';
-import { getRefs } from '../temporaryData/refs';
+import {
+    getRefs,
+    getRefsComponent,
+    refsComponentToNewElement,
+} from '../temporaryData/refs';
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 import { getParamsFromWebComponent } from '../creationStep/getParamsFromWebComponent';
 import { addComponentToStore } from '../componentStore/addComponentToStore';
@@ -275,9 +279,18 @@ export const parseComponentsRecursive = async ({
     newElement.classList.add(...classList);
 
     /**
-     * Find all refs.
+     * Find all default node refs.
      */
     const refsCollection = newElement ? getRefs(newElement) : {};
+
+    /**
+     * Find all component node refs.
+     */
+    const refsCollectionComponent = newElement
+        ? getRefsComponent(newElement)
+        : {};
+
+    // console.log(refsCollection, refsCollectionComponent);
 
     /**
      * Set parentId to component inside current.
@@ -370,13 +383,17 @@ export const parseComponentsRecursive = async ({
         onMount: async () => {
             if (shoulBeScoped) return;
 
+            const refFromComponent = refsComponentToNewElement(
+                refsCollectionComponent
+            );
+
             /**
              * Fire onMount callback at the end of current parse.
              */
             await executeFireOnMountCallBack({
                 id,
                 element: newElement,
-                refsCollection,
+                refsCollection: { ...refsCollection, ...refFromComponent },
             });
         },
         fireDynamic: () => {
