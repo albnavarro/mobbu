@@ -28,7 +28,7 @@ export const getRefs = (element) => {
 
 /**
  * @param {HTMLElement|import("../../webComponent/type").userComponent} element
- * @returns {{ [key: string ]: {element: HTMLElement[], id:string } }}>}
+ * @returns {{ ref: string, id:string }[]}
  */
 export const getRefsComponent = (element) => {
     const refs = element.querySelectorAll(`[${ATTR_REFS}]`);
@@ -37,21 +37,16 @@ export const getRefsComponent = (element) => {
         [...refs]
             // @ts-ignore
             .filter((item) => item.getIsPlaceholder?.())
-            .reduce((previous, current) => {
-                const refKey = current.getAttribute(ATTR_REFS);
-                current.removeAttribute(ATTR_REFS);
-
-                const newRefsByKey =
-                    refKey in previous
-                        ? [...previous[refKey], current]
-                        : [current];
+            .map((item) => {
+                const refKey = item.getAttribute(ATTR_REFS);
+                item.removeAttribute(ATTR_REFS);
 
                 return {
-                    ...previous,
+                    ref: refKey,
                     // @ts-ignore
-                    [refKey]: { element: newRefsByKey, id: current.getId?.() },
+                    id: item.getId?.(),
                 };
-            }, {})
+            })
     );
 };
 
@@ -84,18 +79,23 @@ export const parseRef = (refs) => {
 };
 
 /**
- * @param {{ [key: string ]: {element: HTMLElement[], id:string } }} refs
- * @return {{ [key: string ]: HTMLElement }}
+ * @param { {ref: string, id:string }[]} refs
+ * @return {{ [key: string ]: HTMLElement[] }}
  */
 export const refsComponentToNewElement = (refs) => {
-    return Object.entries(refs)
-        .map(([key, { id }]) => {
-            console.log(id);
+    return refs
+        .map(({ ref, id }) => {
             return {
-                [key]: getElementById({ id }),
+                ref,
+                element: getElementById({ id }),
             };
         })
         .reduce((previous, current) => {
-            return { ...previous, ...current };
+            const { ref, element } = current;
+
+            const newRefsByKey =
+                ref in previous ? [...previous[ref], element] : [element];
+
+            return { ...previous, [ref]: newRefsByKey };
         }, {});
 };

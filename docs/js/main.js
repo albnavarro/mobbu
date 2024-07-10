@@ -18486,16 +18486,14 @@
   };
   var getRefsComponent = (element) => {
     const refs = element.querySelectorAll(`[${ATTR_REFS}]`);
-    return [...refs].filter((item) => item.getIsPlaceholder?.()).reduce((previous, current) => {
-      const refKey = current.getAttribute(ATTR_REFS);
-      current.removeAttribute(ATTR_REFS);
-      const newRefsByKey = refKey in previous ? [...previous[refKey], current] : [current];
+    return [...refs].filter((item) => item.getIsPlaceholder?.()).map((item) => {
+      const refKey = item.getAttribute(ATTR_REFS);
+      item.removeAttribute(ATTR_REFS);
       return {
-        ...previous,
-        // @ts-ignore
-        [refKey]: { element: newRefsByKey, id: current.getId?.() }
+        ref: refKey,
+        id: item.getId?.()
       };
-    }, {});
+    });
   };
   var parseRef = (refs) => {
     return Object.entries(refs).map(([key, value]) => {
@@ -18505,13 +18503,15 @@
     }, {});
   };
   var refsComponentToNewElement = (refs) => {
-    return Object.entries(refs).map(([key, { id }]) => {
-      console.log(id);
+    return refs.map(({ ref, id }) => {
       return {
-        [key]: getElementById({ id })
+        ref,
+        element: getElementById({ id })
       };
     }).reduce((previous, current) => {
-      return { ...previous, ...current };
+      const { ref, element } = current;
+      const newRefsByKey = ref in previous ? [...previous[ref], element] : [element];
+      return { ...previous, [ref]: newRefsByKey };
     }, {});
   };
 
@@ -27487,6 +27487,7 @@ Loading snippet ...</pre
       return renderHtml`
                 <dynamic-list-button
                     class="pippoCLass"
+                    ref="pippo"
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: async () => {
@@ -27604,7 +27605,7 @@ Loading snippet ...</pre
             </div>
 
             <div class="c-dynamic-list__counter">
-                <h4>List counter</h4>
+                <h4 ref="counterEl">List counter</h4>
                 <span ref="counterEl"></span>
             </div>
 

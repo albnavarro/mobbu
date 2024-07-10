@@ -288,9 +288,7 @@ export const parseComponentsRecursive = async ({
      */
     const refsCollectionComponent = newElement
         ? getRefsComponent(newElement)
-        : {};
-
-    // console.log(refsCollection, refsCollectionComponent);
+        : [];
 
     /**
      * Set parentId to component inside current.
