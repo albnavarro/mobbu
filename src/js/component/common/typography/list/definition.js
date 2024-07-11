@@ -19,10 +19,10 @@ export const List = createComponent({
             type: Boolean,
         }),
         color: () => ({
-            value: 'white',
+            value: 'black',
             type: String,
             validate: (val) => {
-                return ['white', 'grey', 'hightlight'].includes(val);
+                return ['white', 'black', 'grey', 'hightlight'].includes(val);
             },
         }),
         items: () => ({

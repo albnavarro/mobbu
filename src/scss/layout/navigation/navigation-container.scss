@@ -58,7 +58,7 @@
         top: 0;
         height: calc(100vh - var(--header-height) - var(--footer-height));
         display: none;
-        background: rgba($black, 0.25);
+        background: rgba($black, 0.15);
 
         @include mq(desktop) {
             display: block;
@@ -72,7 +72,7 @@
         right: 0;
         height: rem(40);
         border: 0;
-        background: $hightlight;
+        background: $black;
         transform: translateY(100%);
         padding: 0;
         margin: 0;
@@ -101,7 +101,7 @@
         left: 100%;
         top: 0;
         width: calc(100vw - var(--nav-width));
-        background: $hightlight;
+        background: $white;
         height: rem(10);
         transform-origin: left;
         transform: scaleX(0);

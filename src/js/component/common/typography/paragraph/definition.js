@@ -15,10 +15,10 @@ export const Paragraph = createComponent({
             strict: true,
         }),
         color: () => ({
-            value: 'white',
+            value: 'black',
             type: String,
             validate: (val) => {
-                return ['white', 'grey', 'highlight'].includes(val);
+                return ['white', 'grey', 'black', 'highlight'].includes(val);
             },
         }),
     },

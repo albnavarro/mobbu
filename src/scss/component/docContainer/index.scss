@@ -11,8 +11,8 @@
         flex: auto;
         background: radial-gradient(
             circle at bottom center,
-            transparent 100px,
-            rgba($black, 0.2)
+            rgba($white, 0) rem(300),
+            rgba($white, 0.3)
         );
         background-attachment: fixed;
         transition: background 0.2s;

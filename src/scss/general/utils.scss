@@ -17,6 +17,10 @@
     color: $white;
 }
 
+.is-black {
+    color: $black;
+}
+
 .is-bold {
     font-weight: 500;
 }
@@ -49,7 +53,7 @@
         left: calc(#{rem(2)} * -1);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         right: calc(#{rem(2)} * -1);
-        background: rgba($black, 0.15);
+        background: $white;
         z-index: -1;
         border-radius: rem(4);
     }

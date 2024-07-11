@@ -22,7 +22,7 @@
             border: 1px rgba($white, 0.05) solid;
             padding: rem(10);
             border-radius: rem(30);
-            background-color: rgba($black, 0.2);
+            background-color: $white;
 
             @include mq('desktop') {
                 padding: rem(30);
@@ -52,8 +52,8 @@
             }
         }
 
-        .hljs-comment {
-            color: #95a1b7;
-        }
+        // .hljs-comment {
+        //     color: #95a1b7;
+        // }
     }
 }

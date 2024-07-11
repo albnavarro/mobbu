@@ -38,11 +38,13 @@ html {
 }
 
 body {
-    background: radial-gradient(
-        circle at bottom center,
-        $background 15px,
-        $grey-medium
-    );
+    background: $grey-medium-2;
+
+    // background: radial-gradient(
+    //     circle at bottom center,
+    //     $background 15px,
+    //     $grey-medium
+    // );
     background-attachment: fixed;
     overflow-x: hidden;
 }

@@ -13,10 +13,10 @@ export const Title = createComponent({
             type: String,
         }),
         color: () => ({
-            value: 'white',
+            value: 'black',
             type: String,
             validate: (val) => {
-                return ['white', 'hightlight'].includes(val);
+                return ['white', 'hightlight', 'black'].includes(val);
             },
         }),
         isBold: () => ({

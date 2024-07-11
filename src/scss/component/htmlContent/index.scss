@@ -1,7 +1,7 @@
 @use '../../abstract' as *;
 
 .html-content {
-    color: $white;
+    color: $black;
     padding: rem(40);
     position: relative;
 
@@ -13,7 +13,7 @@
         transition:
             opacity 0.35s,
             color 0.35s;
-        color: $white;
+        color: $black;
 
         &:hover {
             color: $hightlight;
@@ -26,7 +26,7 @@
 
     /* stylelint-disable-next-line no-descending-specificity */
     li > a {
-        background: $black;
+        background: $white;
         padding: rem(5) rem(10);
         border-radius: rem(20);
         margin-bottom: rem(10);
@@ -34,13 +34,13 @@
         display: inline-block;
         text-decoration: none;
         min-width: rem(300);
-        color: $white;
+        color: $black;
         text-align: center;
         transition: background 0.35s;
         font-size: rem(14);
 
         &:hover {
-            background: rgba($black, 0.7);
+            background: $black;
             color: $white;
         }
     }
@@ -55,7 +55,7 @@
     }
 
     h3 {
-        border-bottom: 1px rgba($white, 1) solid;
+        border-bottom: 1px rgba($black, 1) solid;
         padding-bottom: rem(20);
         margin-bottom: rem(40);
         position: relative;
@@ -67,12 +67,12 @@
             top: 100%;
             width: rem(50);
             height: 5px;
-            background: $white;
+            background: $black;
         }
     }
 
     h5 {
-        border-bottom: 1px rgba($white, 1) solid;
+        border-bottom: 1px rgba($black, 1) solid;
         padding-bottom: rem(10);
         margin-bottom: rem(20);
         margin-top: rem(40);
@@ -85,7 +85,7 @@
             top: 100%;
             width: rem(30);
             height: 5px;
-            background: $white;
+            background: $black;
         }
     }
 }
