@@ -57,7 +57,7 @@ export const SvgChild = ({ onMount, html, getState }) => {
          * Title.
          */
         setMainTitleState('align', 'left');
-        setMainTitleState('color', 'white');
+        setMainTitleState('color', 'black');
         setMainTitleState('title', 'Child');
 
         const { stagger } = refs;

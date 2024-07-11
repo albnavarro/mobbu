@@ -10,10 +10,16 @@
     &__content {
         flex: auto;
         background: radial-gradient(
-            circle at bottom center,
-            rgba($white, 0) rem(300),
-            rgba($white, 0.3)
-        );
+                farthest-side at bottom left,
+                rgba($white, 1),
+                transparent
+            ),
+            radial-gradient(
+                farthest-corner at bottom right,
+                rgba($white, 1),
+                transparent 400px
+            );
+
         background-attachment: fixed;
         transition: background 0.2s;
 

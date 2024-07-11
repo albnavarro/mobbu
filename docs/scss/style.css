@@ -387,7 +387,7 @@ h5,
 h6,
 label {
   margin: 0 0 0.5em;
-  font-weight: 500;
+  font-weight: 600;
 }
 body {
   font-weight: 300;
@@ -509,7 +509,7 @@ code {
   bottom: 0;
   left: calc(0.1333333333rem * -1);
   right: calc(0.1333333333rem * -1);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   z-index: -1;
   border-radius: 0.2666666667rem;
 }
@@ -1419,7 +1419,7 @@ code {
   z-index: 10;
 }
 .c-dynamic-list__counter {
-  color: #fff;
+  color: #000;
   padding: 2.6666666667rem 2.6666666667rem 0;
 }
 .c-dynamic-list__container {
@@ -1433,7 +1433,7 @@ code {
   gap: 3.3333333333rem;
 }
 .c-dynamic-list__label {
-  color: #fff;
+  color: #000;
   padding: 1.3333333333rem;
 }
 .c-dynamic-list__top {
@@ -1452,7 +1452,7 @@ code {
   background: transparent;
   opacity: 0;
   transition: opacity 1.55s, transform 0.35s;
-  color: rgba(255, 255, 255, 0.3);
+  color: #000;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -1468,11 +1468,12 @@ code {
   width: 100%;
 }
 .c-dynamic-card__title {
-  color: #fff;
+  color: #000;
   margin-bottom: 0.6666666667rem;
+  font-weight: 600;
 }
 .c-dynamic-card__container {
-  background: rgba(0, 0, 0, 0.3);
+  background: #fff;
   border-radius: 2rem;
   padding: 1.3333333333rem;
   transition: background 0.55s, color 0.55s;
@@ -1481,8 +1482,11 @@ code {
   transform: scale(0.95);
 }
 .c-dynamic-card.is-selected .c-dynamic-card__container {
-  background: rgba(0, 0, 0, 0.6);
-  color: #a4a4b3;
+  background: #000;
+  color: #fff;
+}
+.c-dynamic-card.is-selected .c-dynamic-card__title {
+  color: #fff;
 }
 .c-dynamic-slot {
   background: #000;
@@ -1514,21 +1518,27 @@ code {
   font-size: 0.8rem;
 }
 .c-dynamic-list-empty {
-  border: 1px rgba(255, 255, 255, 0.1) solid;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
   padding: 0.3333333333rem;
   margin-top: 0.6666666667rem;
+}
+.active .c-dynamic-list-empty {
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .c-dynamic-list-slotted-label {
-  border: 1px rgba(255, 255, 255, 0.1) solid;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
   padding: 0.3333333333rem;
   margin-top: 0.6666666667rem;
 }
+.active .c-dynamic-list-slotted-label {
+  border-color: rgba(255, 255, 255, 0.3);
+}
 .c-dynamic-list-repeater__title {
-  color: #fff;
+  color: #000;
   padding: 1.3333333333rem;
 }
 .c-dynamic-list-repeater__new {
-  color: rgba(255, 255, 255, 0.3);
+  color: #000;
   font-size: 0.8rem;
   padding: 0 1.3333333333rem;
   line-height: 1.5;
@@ -1566,10 +1576,10 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #000;
   text-transform: capitalize;
   font-size: 1.6666666667rem;
-  font-weight: 400;
+  font-weight: 600;
   transition: background 0.55s;
 }
 .l-h-scroller__top {
@@ -2129,7 +2139,7 @@ code {
   padding: 0;
 }
 .html-content li > a {
-  background: #fff;
+  background: #000;
   padding: 0.3333333333rem 0.6666666667rem;
   border-radius: 1.3333333333rem;
   margin-bottom: 0.6666666667rem;
@@ -2137,14 +2147,14 @@ code {
   display: inline-block;
   text-decoration: none;
   min-width: 20rem;
-  color: #000;
+  color: #fff;
   text-align: center;
   transition: background 0.35s;
   font-size: 0.9333333333rem;
 }
 .html-content li > a:hover {
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
 }
 .html-content p,
 .html-content code,
@@ -2291,9 +2301,13 @@ code {
   flex: auto;
   background:
     radial-gradient(
-      circle at bottom center,
-      rgba(255, 255, 255, 0) 20rem,
-      rgba(255, 255, 255, 0.3));
+      farthest-side at bottom left,
+      white,
+      transparent),
+    radial-gradient(
+      farthest-corner at bottom right,
+      white,
+      transparent 400px);
   background-attachment: fixed;
   transition: background 0.2s;
 }

@@ -11,10 +11,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        color: $white;
+        color: $black;
         text-transform: capitalize;
         font-size: rem(25);
-        font-weight: 400;
+        font-weight: 600;
         transition: background 0.55s;
     }
 
@@ -93,7 +93,9 @@
             background: transparent;
             border: 0;
             border-top: 5px transparent solid;
-            transition: background 0.55s, border-top 0.55s;
+            transition:
+                background 0.55s,
+                border-top 0.55s;
             position: relative;
 
             &.active {
@@ -124,7 +126,9 @@
         width: rem(60);
         height: rem(20);
         color: $white;
-        transition: background 0.15s, opacity 0.15s;
+        transition:
+            background 0.15s,
+            opacity 0.15s;
         font-size: rem(16);
         pointer-events: none;
         opacity: 0;

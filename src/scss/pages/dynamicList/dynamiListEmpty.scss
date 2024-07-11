@@ -1,7 +1,11 @@
 @use '../../abstract' as *;
 
 .c-dynamic-list-empty {
-    border: 1px rgba($white, 0.1) solid;
+    border: 1px rgba($black, 0.1) solid;
     padding: rem(5);
     margin-top: rem(10);
+
+    @include when-inside('.active') {
+        border-color: rgba($white, 0.3);
+    }
 }

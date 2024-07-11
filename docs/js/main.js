@@ -28820,7 +28820,7 @@ Loading snippet ...</pre
       setQuickNavState("nextRoute", "#mv1");
       setQuickNavState("color", "black");
       setMainTitleState("align", "left");
-      setMainTitleState("color", "white");
+      setMainTitleState("color", "black");
       setMainTitleState("title", "Child");
       const { stagger } = refs;
       const {

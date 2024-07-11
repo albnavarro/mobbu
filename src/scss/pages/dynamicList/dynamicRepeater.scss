@@ -2,12 +2,12 @@
 
 .c-dynamic-list-repeater {
     &__title {
-        color: $white;
+        color: $black;
         padding: rem(20);
     }
 
     &__new {
-        color: rgba($white, 0.3);
+        color: $black;
         font-size: rem(12);
         padding: 0 rem(20);
         line-height: 1.5;
