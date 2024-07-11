@@ -187,6 +187,20 @@
             "content": "If you decide to use a webComponent it is possible to use specific parameters that will allow you to control the life cycle of the webComponent."
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "scoped:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Fire onMount callback immediately, normally onMount is fired after all components have been created. This means that if <span class='quote'>scoped:true</span> e.g. every querySelector fired inside onMount function is scoped inside current component, but has no effect to child component. <span class='quote'>default = false</span>"
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
