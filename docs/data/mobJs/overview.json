@@ -129,7 +129,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "Primary:"
         },
@@ -156,7 +156,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "Secondary:"
         },

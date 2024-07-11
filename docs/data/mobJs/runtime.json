@@ -36,7 +36,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4",
+                "tag": "h5",
                 "isBold": true
             },
             "content": "renderComponent parameters:"

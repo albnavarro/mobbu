@@ -37,14 +37,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
-            },
-            "content": "Params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "bind"
         },
@@ -65,7 +58,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "forceParent"
         },
@@ -79,7 +72,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "props"
         },
@@ -89,6 +82,12 @@
                 "style": "medium"
             },
             "content": "The props property is a function that takes as input an object with all state values of the parent component (not just the monitored states).<br/> This function will return an object with the values to assign to the state of the child component."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-snippet",
@@ -109,9 +108,15 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "forceParent:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",

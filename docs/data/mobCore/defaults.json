@@ -50,7 +50,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "usePassive"
         },
@@ -64,7 +64,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "deferredNextTick",
                 "label": "deferredNextTick"
             }
@@ -72,7 +72,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "deferredNextTick"
         },
@@ -93,7 +93,7 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "small",
                 "id": "throttle",
                 "label": "throttle"
             }
@@ -101,7 +101,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "throttle"
         },

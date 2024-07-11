@@ -37,13 +37,13 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium"
+                "style": "small"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Scoped rendering"
         },
@@ -63,7 +63,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Params"
         },
@@ -100,7 +100,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Destroy"
         },

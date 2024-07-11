@@ -44,13 +44,6 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
-            },
-            "content": "Params:"
-        },
-        {
-            "component": "mob-title",
-            "props": {
                 "tag": "h5"
             },
             "content": "watch:"
@@ -203,7 +196,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "index"
         },

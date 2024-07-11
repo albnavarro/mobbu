@@ -70,4 +70,22 @@
             background: $white;
         }
     }
+
+    h5 {
+        border-bottom: 1px rgba($white, 1) solid;
+        padding-bottom: rem(10);
+        margin-bottom: rem(20);
+        margin-top: rem(40);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: rem(30);
+            height: 5px;
+            background: $white;
+        }
+    }
 }

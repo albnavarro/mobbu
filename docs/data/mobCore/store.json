@@ -60,7 +60,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Basic implementations:"
         },
@@ -87,7 +87,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Advanced implementations:"
         },
@@ -153,14 +153,14 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Params:"
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "value"
         },
@@ -180,7 +180,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "type"
         },
@@ -211,7 +211,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "validate"
         },
@@ -231,7 +231,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "skipEqual"
         },
@@ -251,7 +251,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "strict"
         },
@@ -316,7 +316,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "Other set params:"
         },

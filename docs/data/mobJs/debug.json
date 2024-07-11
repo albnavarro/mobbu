@@ -23,7 +23,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "setDefaultComponent"
         },
@@ -37,7 +37,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h5"
             },
             "content": "mainStore"
         },

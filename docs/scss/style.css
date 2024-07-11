@@ -2329,6 +2329,22 @@ code {
   height: 5px;
   background: #fff;
 }
+.html-content h5 {
+  border-bottom: 1px white solid;
+  padding-bottom: 0.6666666667rem;
+  margin-bottom: 1.3333333333rem;
+  margin-top: 2.6666666667rem;
+  position: relative;
+}
+.html-content h5::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 2rem;
+  height: 5px;
+  background: #fff;
+}
 .snippet code {
   display: inline-block;
   position: relative;

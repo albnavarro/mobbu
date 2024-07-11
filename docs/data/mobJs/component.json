@@ -87,12 +87,6 @@
             "content": "This mechanism significantly speeds up the search and transformation of components into the page."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -105,12 +99,6 @@
                 "style": "medium"
             },
             "content": "The component function launched when the component is created."
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
@@ -127,12 +115,6 @@
             "content": "An array with the definitions of the components used within it. It is necessary to load dependencies before initializing the application."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -147,12 +129,6 @@
             "content": "An array of states visible from the outside, e.g. from the parent component."
         },
         {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
-        },
-        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -165,12 +141,6 @@
                 "style": "medium"
             },
             "content": "The states of the component. The state is an instance of store"
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
-                "style": "small"
-            }
         },
         {
             "component": "mob-title",
