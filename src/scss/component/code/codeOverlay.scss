@@ -40,7 +40,7 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: rgba($white, 0.3);
+            background-color: rgba($grey, 0.6);
             border-radius: 0;
             height: rem(10);
             width: rem(10);
@@ -171,9 +171,9 @@
         width: 100%;
         height: var(--header-height);
         margin: 0;
-        background: $white;
+        background: $grey;
         border: 0;
-        border-right: 1px $grey solid;
+        border-right: 1px $white solid;
         color: $black;
         transition:
             background 0.35s,
@@ -214,7 +214,7 @@
     &__content {
         width: 100%;
         height: calc(100vh - var(--header-height));
-        background: $grey-medium-2;
+        background: $white;
         color: $white;
         line-height: 1.4;
         font-size: rem(15);
