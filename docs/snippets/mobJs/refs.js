@@ -1,28 +1,32 @@
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount }) => {
+export const MyComponent = ({ html, staticProps, onMount }) => {
     onMount(({ refs, ref }) => {
-        const { list } = ref;
-        const { list_item } = refs;
+        const { list, myComponent } = ref;
+        const { listItem } = refs;
 
         console.log(list); // <ul>
-        console.log(list_item); // [<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,]
+        console.log(listItem); // [<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,<li>,]
+        console.log(myComponent); // first node of <my-component>
     });
 
     return html`
         <div>
             <ul ref="list">
-                <li ref="list_item">1</li>
-                <li ref="list_item">2</li>
-                <li ref="list_item">3</li>
-                <li ref="list_item">4</li>
-                <li ref="list_item">5</li>
-                <li ref="list_item">6</li>
-                <li ref="list_item">7</li>
-                <li ref="list_item">8</li>
-                <li ref="list_item">9</li>
+                <li ref="listItem">1</li>
+                <li ref="listItem">2</li>
+                <li ref="listItem">3</li>
+                <li ref="listItem">4</li>
+                <li ref="listItem">5</li>
+                <li ref="listItem">6</li>
+                <li ref="listItem">7</li>
+                <li ref="listItem">8</li>
+                <li ref="listItem">9</li>
             </ul>
+            <my-component ref="myComponent" ${staticProps({ prop: 'my-prop' })}>
+                content
+            </my-component>
         </div>
     `;
 };

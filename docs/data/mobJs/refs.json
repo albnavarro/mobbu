@@ -39,6 +39,20 @@
             }
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Refs can be applied both to <span class='quote'>html nodes</span> and <span class='quote'>components</span>, a ref/refs applied to the component will return the first node of the component itself."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Refs <span class='quote'>cannot be used</span> in components/nodes within a <span class='quote'>repeater</span>. This is because a repeater is transpiled into a separate context."
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobJs/refs.js",
