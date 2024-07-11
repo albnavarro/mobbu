@@ -65,6 +65,12 @@
             "content": "Stagger interface example:"
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobMotion/staggerInterface.js",
@@ -177,7 +183,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "note:"
         },
@@ -223,7 +229,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h5"
+                "tag": "h4"
             },
             "content": "note:"
         },

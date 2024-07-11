@@ -86,7 +86,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Common params:"
         },
@@ -143,7 +143,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Tween:"
         },
@@ -250,7 +250,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Spring"
         },
@@ -364,7 +364,7 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3"
+                "tag": "h2"
             },
             "content": "Lerp"
         },
