@@ -61,6 +61,7 @@ Se la funzione precedente individua un `isRepeaterFirstChildNode`:
     - la nuova propietá `repeaterContext` ( id del componente corrente )
     - le due propieta `repeatPropBind` e `currentRepeaterState` iniziali. ( si useranno sempre i valori del componente corrente )
 - Naturalamente bisogna evitare che i nuovi elementi figli di `isRepeaterFirstChildNode` eseguano nuovamante la funzione `setRepeaterStateById` ( non sono `isRepeaterFirstChildNode` )
+- ( Verrebbe comodo rinominare `setRepeaterStateById` in `setRepeaterFirstNodeStateById` )
 - Percio nella righa `~219` nella condizione bisogna controllare che al propietá `repeaterContext` non sia impostata nel compoenente corrente.
 - Poi nel watcher del repater ad ogni aggiornamanto verranno cercati nella mappa i componenti con la propietá `repeaterContext === idCorrente` per aggiornare la  propietá `currentRepeaterState`
 - Nel watcher il punto giusto é: `watchList.js` righa `~204` dopo la funzione `setRepeaterStateById`
