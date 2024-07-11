@@ -5,7 +5,7 @@
     padding: rem(5);
     margin-top: rem(10);
 
-    @include when-inside('.active') {
+    @include when-inside('.is-selected') {
         border-color: rgba($white, 0.3);
     }
 }

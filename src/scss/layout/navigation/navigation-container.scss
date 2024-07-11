@@ -21,10 +21,6 @@
         transform: translateX(0);
     }
 
-    @include mq(tablet) {
-        padding-top: var(--header-navinfo);
-    }
-
     &__wrap {
         width: var(--nav-width);
         max-width: 375px;

@@ -762,8 +762,8 @@ code {
 }
 .l-navigation__label {
   padding: 0.6666666667rem 1.3333333333rem;
-  background: #ccc;
-  color: #000;
+  background: #000;
+  color: #fff;
 }
 .l-navigation__link {
   text-decoration: none;
@@ -874,11 +874,6 @@ code {
 }
 .l-navcontainer.active {
   transform: translateX(0);
-}
-@media (min-width: 48em) {
-  .l-navcontainer {
-    padding-top: var(--header-navinfo);
-  }
 }
 .l-navcontainer__wrap {
   width: var(--nav-width);
@@ -1488,7 +1483,7 @@ code {
   padding: 0.3333333333rem;
   margin-top: 0.6666666667rem;
 }
-.active .c-dynamic-list-empty {
+.is-selected .c-dynamic-list-empty {
   border-color: rgba(255, 255, 255, 0.3);
 }
 .c-dynamic-list-slotted-label {
@@ -1496,7 +1491,7 @@ code {
   padding: 0.3333333333rem;
   margin-top: 0.6666666667rem;
 }
-.active .c-dynamic-list-slotted-label {
+.is-selected .c-dynamic-list-slotted-label {
   border-color: rgba(255, 255, 255, 0.3);
 }
 .c-dynamic-list-repeater__title {
