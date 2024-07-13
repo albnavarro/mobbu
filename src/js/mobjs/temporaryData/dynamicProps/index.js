@@ -159,7 +159,12 @@ export const addCurrentIdToDynamicProps = ({
         }
     }
 
-    applyDynamicProps({ componentId, repeatPropBind, inizilizeWatcher: false });
+    applyDynamicProps({
+        componentId,
+        repeatPropBind,
+        inizilizeWatcher: false,
+        inizializeBeforeRepeaterTick: true,
+    });
 };
 
 /**
@@ -202,6 +207,7 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  * @param {string} obj.componentId
  * @param {string|undefined} [ obj.repeatPropBind ]
  * @param {boolean} obj.inizilizeWatcher
+ * @param {boolean} obj.inizializeBeforeRepeaterTick
  * @return void
  *
  * @description
@@ -213,6 +219,7 @@ export const applyDynamicProps = async ({
     componentId,
     repeatPropBind,
     inizilizeWatcher,
+    inizializeBeforeRepeaterTick = true,
 }) => {
     /**
      *
@@ -251,6 +258,21 @@ export const applyDynamicProps = async ({
          */
         const currentParentId = parentId ?? getParentIdById(componentId);
 
+        /**
+         * Normally props is initialized after repeater
+         * So on created we doesn't have the props ready
+         * Fire setDynamicProp once before repeater tick to
+         * add value in store and use it onCreated
+         */
+        if (!inizilizeWatcher && inizializeBeforeRepeaterTick)
+            setDynamicProp({
+                componentId,
+                bind: bindUpdated,
+                props,
+                currentParentId: currentParentId ?? '',
+                fireCallback: true,
+            });
+
         if (!inizilizeWatcher) {
             /**
              * Initialize props after repater
@@ -259,7 +281,7 @@ export const applyDynamicProps = async ({
             await repeaterTick();
 
             /**
-             * Set first bind state on component created
+             * Refresh state after repater created
              */
             setDynamicProp({
                 componentId,

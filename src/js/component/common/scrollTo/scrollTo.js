@@ -16,8 +16,6 @@ let disableObservereffect = false;
  * @param {import('../../../mobjs/type').SetState<import('./type').ScrollTo>} param.setState
  * @param {import('../../../mobjs/type').GetState<import('./type').ScrollTo>} param.getState
  * @param {import('../../../mobjs/type').BindProps<import('./type').ScrollTo,import('./button/type').ScrollToButton>} param.bindProps
- * @param {import('../../../mobjs/type').StaticProps<import('./button/type').ScrollToButton>} param.staticProps
- * @param {any} param.currentValue
  * @returns {string}
  */
 function addScrollButton({
@@ -27,8 +25,6 @@ function addScrollButton({
     setState,
     bindProps,
     getState,
-    staticProps,
-    currentValue,
 }) {
     return html`<li>
         <scroll-to-button
@@ -53,14 +49,12 @@ function addScrollButton({
                     disableObservereffect = false;
                 },
             })}
-            ${staticProps({
-                label: currentValue.label,
-            })}
             ${bindProps({
                 bind: ['activeLabel'],
                 props: ({ activeLabel, anchorItems }, index) => {
                     return {
                         active: activeLabel === anchorItems[index]?.label,
+                        label: anchorItems[index]?.label,
                     };
                 },
             })}
@@ -78,7 +72,6 @@ export const ScrollToFn = ({
     onMount,
     delegateEvents,
     bindProps,
-    staticProps,
     setState,
     getState,
     repeat,
@@ -118,7 +111,7 @@ export const ScrollToFn = ({
                     clean: false,
                     watch: 'anchorItems',
                     key: 'id',
-                    render: ({ html, sync, currentValue }) => {
+                    render: ({ html, sync }) => {
                         return addScrollButton({
                             html,
                             delegateEvents,
@@ -126,8 +119,6 @@ export const ScrollToFn = ({
                             setState,
                             getState,
                             sync,
-                            staticProps,
-                            currentValue,
                         });
                     },
                 })}

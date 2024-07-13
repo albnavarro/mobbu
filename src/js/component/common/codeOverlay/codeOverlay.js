@@ -24,9 +24,7 @@ const copyToClipboard = ({ getState }) => {
  * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay,import('./type').CodeOverlayButton>} param.bindProps
  * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
  * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
- * @param {import('../../../mobjs/type').StaticProps<import('./type').CodeOverlayButton>} param.staticProps
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
- * @param {any} param.currentValue
  * @returns {string}
  */
 function getRepeaterCard({
@@ -35,24 +33,18 @@ function getRepeaterCard({
     setState,
     delegateEvents,
     getState,
-    staticProps,
-    currentValue,
 }) {
-    const { label, source } = currentValue;
-
     return html`
         <code-overlay-button
             ${sync}
-            ${staticProps({
-                key: label,
-                disable: !source || source.length === 0,
-            })}
             ${bindProps({
                 bind: ['activeContent'],
                 props: ({ activeContent, urls }, index) => {
-                    const { label } = urls[index];
+                    const { label, source } = urls[index];
 
                     return {
+                        key: label,
+                        disable: !source || source.length === 0,
                         selected: label === activeContent,
                     };
                 },
@@ -247,15 +239,13 @@ export const CodeOverlayFn = ({
                     ${repeat({
                         clean: true,
                         watch: 'urls',
-                        render: ({ sync, currentValue }) => {
+                        render: ({ sync }) => {
                             return getRepeaterCard({
                                 sync,
                                 bindProps,
                                 delegateEvents,
                                 setState,
                                 getState,
-                                staticProps,
-                                currentValue,
                             });
                         },
                     })}
