@@ -94,7 +94,7 @@ export const setRepeaterContext = ({ element, id }) => {
  */
 export const getComponentIdByRepeatercontext = ({ contextId }) => {
     return [...componentMap.values()]
-        .filter(({ repeaterContext }) => repeaterContext === contextId)
+        .filter(({ repeaterContextId }) => repeaterContextId === contextId)
         .map(({ id }) => id);
 };
 

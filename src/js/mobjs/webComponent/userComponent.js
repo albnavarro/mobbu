@@ -182,7 +182,7 @@ export const defineUserComponent = (componentList) => {
                 /**
                  * @type {string|undefined|null}
                  */
-                #repeaterContext;
+                #repeaterContextId;
 
                 static get observedAttributes() {
                     return attributeToObserve;
@@ -222,7 +222,7 @@ export const defineUserComponent = (componentList) => {
                     this.#currentKey = '';
                     this.#parentId = '';
                     this.#componentRepeatId = '';
-                    this.#repeaterContext = '';
+                    this.#repeaterContextId = '';
 
                     //
                     this.isUserComponent = true;
@@ -251,7 +251,7 @@ export const defineUserComponent = (componentList) => {
                         ATTR_REPEATER_PROP_BIND
                     );
 
-                    this.#repeaterContext = host.getAttribute(
+                    this.#repeaterContextId = host.getAttribute(
                         ATTR_REPEATER_CONTEXT
                     );
 
@@ -392,11 +392,11 @@ export const defineUserComponent = (componentList) => {
                  * @param {string} value
                  */
                 setComponentRepeaterContext(value) {
-                    this.#repeaterContext = value;
+                    this.#repeaterContextId = value;
                 }
 
                 getComponentRepeatContext() {
-                    return this.#repeaterContext ?? undefined;
+                    return this.#repeaterContextId ?? undefined;
                 }
 
                 #getData() {

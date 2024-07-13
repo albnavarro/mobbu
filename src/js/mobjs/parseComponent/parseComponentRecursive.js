@@ -164,7 +164,7 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
         repeatPropBind,
-        repeaterContext,
+        repeaterContextId,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
@@ -190,7 +190,7 @@ export const parseComponentsRecursive = async ({
             repeatPropBind,
             isCancellable,
             parentId,
-            repeaterContext,
+            repeaterContextId,
         });
 
     /**
@@ -229,7 +229,7 @@ export const parseComponentsRecursive = async ({
      */
     if (
         currentRepeatValue?.index !== -1 &&
-        (!repeaterContext || repeaterContext === '')
+        (!repeaterContextId || repeaterContextId === '')
     ) {
         setIsRepeaterFirstChildNode({ id });
         setRepeaterStateById({ id, value: currentRepeatValue });
@@ -241,7 +241,7 @@ export const parseComponentsRecursive = async ({
      * When component is created.
      * this is applied to child of firstChildNode
      */
-    if (repeaterContext && repeaterContext.length > 0) {
+    if (repeaterContextId && repeaterContextId.length > 0) {
         setRepeaterStateById({ id, value: currentRepeatValue });
     }
 

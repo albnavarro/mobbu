@@ -42,7 +42,7 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const repeaterContext = element.getComponentRepeatContext();
+    const repeaterContextId = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? '';
     const componentName = element.getComponentName();
@@ -58,8 +58,8 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
      *
      */
     const repeatPropBind =
-        repeaterContext && repeaterContext.length > 0
-            ? getRepeaterPropBind({ id: repeaterContext })
+        repeaterContextId && repeaterContextId.length > 0
+            ? getRepeaterPropBind({ id: repeaterContextId })
             : element.getRepeaterPropBind();
 
     /**
@@ -68,8 +68,8 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
      *
      */
     const currentRepeatValue =
-        repeaterContext && repeaterContext.length > 0
-            ? getRepeaterStateById({ id: repeaterContext })
+        repeaterContextId && repeaterContextId.length > 0
+            ? getRepeaterStateById({ id: repeaterContextId })
             : getComponentRepeaterState(currentRepeaterValueId);
 
     return {
@@ -99,6 +99,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         currentRepeatValue,
         parentId,
         componentRepeatId,
-        repeaterContext,
+        repeaterContextId,
     };
 };

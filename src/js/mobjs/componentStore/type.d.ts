@@ -18,7 +18,7 @@ export interface componentCommonTypes {
     };
     isRepeaterFirstChildNode?: boolean;
     repeatPropBind?: string;
-    repeaterContext?: string;
+    repeaterContextId?: string;
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;
     freezedPros?: string[];

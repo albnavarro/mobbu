@@ -16866,7 +16866,7 @@
   var ATTR_KEY = "key";
   var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
   var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
-  var ATTR_REPEATER_CONTEXT = "repeaterContext";
+  var ATTR_REPEATER_CONTEXT = "repeaterContextId";
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
   var ATTR_PARENT_ID = "parentid";
@@ -16939,7 +16939,7 @@
     });
   };
   var getComponentIdByRepeatercontext = ({ contextId }) => {
-    return [...componentMap.values()].filter(({ repeaterContext }) => repeaterContext === contextId).map(({ id }) => id);
+    return [...componentMap.values()].filter(({ repeaterContextId }) => repeaterContextId === contextId).map(({ id }) => id);
   };
   var getRepeaterPropBind = ({ id = "" }) => {
     if (!id || id === "") return "";
@@ -17305,7 +17305,7 @@
           /**
            * @type {string|undefined|null}
            */
-          #repeaterContext;
+          #repeaterContextId;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17352,7 +17352,7 @@
             this.#currentKey = "";
             this.#parentId = "";
             this.#componentRepeatId = "";
-            this.#repeaterContext = "";
+            this.#repeaterContextId = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17373,7 +17373,7 @@
             this.#repeatPropBind = host.getAttribute(
               ATTR_REPEATER_PROP_BIND
             );
-            this.#repeaterContext = host.getAttribute(
+            this.#repeaterContextId = host.getAttribute(
               ATTR_REPEATER_CONTEXT
             );
             if (this.#slotPosition && !this.active) {
@@ -17479,10 +17479,10 @@
            * @param {string} value
            */
           setComponentRepeaterContext(value2) {
-            this.#repeaterContext = value2;
+            this.#repeaterContextId = value2;
           }
           getComponentRepeatContext() {
-            return this.#repeaterContext ?? void 0;
+            return this.#repeaterContextId ?? void 0;
           }
           #getData() {
             return {
@@ -19250,7 +19250,7 @@
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const repeaterContext = element.getComponentRepeatContext();
+    const repeaterContextId = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? "";
     const componentName = element.getComponentName();
@@ -19259,8 +19259,8 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-    const repeatPropBind = repeaterContext && repeaterContext.length > 0 ? getRepeaterPropBind({ id: repeaterContext }) : element.getRepeaterPropBind();
-    const currentRepeatValue = repeaterContext && repeaterContext.length > 0 ? getRepeaterStateById({ id: repeaterContext }) : getComponentRepeaterState(currentRepeaterValueId);
+    const repeatPropBind = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterPropBind({ id: repeaterContextId }) : element.getRepeaterPropBind();
+    const currentRepeatValue = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterStateById({ id: repeaterContextId }) : getComponentRepeaterState(currentRepeaterValueId);
     return {
       element,
       props: {
@@ -19288,7 +19288,7 @@
       currentRepeatValue,
       parentId,
       componentRepeatId,
-      repeaterContext
+      repeaterContextId
     };
   };
 
@@ -19302,7 +19302,7 @@
     currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
     isRepeaterFirstChildNode = false,
     repeatPropBind = "",
-    repeaterContext = "",
+    repeaterContextId = "",
     parentPropsWatcher = [() => {
     }],
     destroy = () => {
@@ -19326,7 +19326,7 @@
       currentRepeaterState,
       isRepeaterFirstChildNode,
       repeatPropBind,
-      repeaterContext,
+      repeaterContextId,
       isCancellable,
       id,
       parentId,
@@ -19415,7 +19415,7 @@
       parentId,
       componentRepeatId,
       repeatPropBind,
-      repeaterContext
+      repeaterContextId
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
@@ -19432,7 +19432,7 @@
       repeatPropBind,
       isCancellable,
       parentId,
-      repeaterContext
+      repeaterContextId
     });
     setParentsIdFallback({ componentId: id });
     addSelfIdToParentComponent({ id });
@@ -19443,12 +19443,12 @@
         targetComponent: componentName
       });
     }
-    if (currentRepeatValue?.index !== -1 && (!repeaterContext || repeaterContext === "")) {
+    if (currentRepeatValue?.index !== -1 && (!repeaterContextId || repeaterContextId === "")) {
       setIsRepeaterFirstChildNode({ id });
       setRepeaterStateById({ id, value: currentRepeatValue });
       setRepeaterContext({ element: componentToParse, id });
     }
-    if (repeaterContext && repeaterContext.length > 0) {
+    if (repeaterContextId && repeaterContextId.length > 0) {
       setRepeaterStateById({ id, value: currentRepeatValue });
     }
     addCurrentIdToDynamicProps({
