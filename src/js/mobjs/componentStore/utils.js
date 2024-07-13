@@ -1,5 +1,7 @@
 // @ts-check
 
+import { mobCore } from '../../mobCore';
+
 /**
  * @param {object} obj
  * @param {{string: Array.<string>}|{}} obj.currentChild
@@ -64,3 +66,12 @@ export const addPropsToState = ({ props, store }) => {
         store.set(key, value);
     });
 };
+
+/**
+ * @description
+ *
+ * @returns {Promise<void>}
+ */
+export function awaitNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+}

@@ -9,6 +9,7 @@ import { watchById } from '../../componentStore/action/watch';
 import { incrementTickQueuque } from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
+import { repeaterTick } from '../../componentStore/tickRepeater';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
@@ -75,7 +76,7 @@ export const setBindProps = (propsObj) => {
  * Store props and return a unique identifier
  *
  */
-const setDynamicProp = ({
+const setDynamicProp = async ({
     componentId,
     bind,
     props,
@@ -83,6 +84,12 @@ const setDynamicProp = ({
     fireCallback,
 }) => {
     if (!currentParentId) return;
+
+    /**
+     * Update dynamic props after repeater.
+     * So we have the last value of currentvalue && index
+     */
+    await repeaterTick();
 
     /**
      * Check id all bind props exist in parent state.

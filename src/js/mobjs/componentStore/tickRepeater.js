@@ -6,7 +6,7 @@ import { awaitNextLoop } from './utils';
 /**
  * @type {Map<string,string>}
  */
-const queque = new Map();
+const repeaterQueque = new Map();
 
 /**
  * Limit queque size.
@@ -18,17 +18,17 @@ const maxQueuqueSize = 1000;
  * @param {any} props
  * @returns {() => void}
  */
-export const incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
+export const incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize) {
         console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
 
         return () => {};
     }
 
     const id = mobCore.getUnivoqueId();
-    queque.set(id, props);
+    repeaterQueque.set(id, props);
 
-    return () => queque.delete(id);
+    return () => repeaterQueque.delete(id);
 };
 
 /**
@@ -37,7 +37,7 @@ export const incrementTickQueuque = (props) => {
  * @returns {boolean}
  */
 const queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize;
 };
 
 /**
@@ -49,11 +49,11 @@ const queueIsResolved = () => {
  * @param {(value: void | PromiseLike<void>) => void} [ params.previousResolve ]
  * @returns {Promise<void>}
  */
-export const tick = async ({ debug = false, previousResolve } = {}) => {
+export const repeaterTick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
 
     if (debug) {
-        queque.forEach((value) => {
+        repeaterQueque.forEach((value) => {
             console.log(value);
         });
     }
@@ -69,6 +69,6 @@ export const tick = async ({ debug = false, previousResolve } = {}) => {
             return;
         }
 
-        tick({ debug, previousResolve: previousResolve ?? resolve });
+        repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
     });
 };

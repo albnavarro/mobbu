@@ -12,6 +12,7 @@ import {
 } from '../componentStore/action/freeze';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { incrementTickQueuque } from '../componentStore/tick';
+import { incrementRepeaterTickQueuque } from '../componentStore/tickRepeater';
 import { QUEQUE_TYPE_REPEATER } from '../constant';
 import { querySecificRepeater } from '../query/querySecificRepeater';
 import {
@@ -75,6 +76,11 @@ export const watchList = ({
                 type: QUEQUE_TYPE_REPEATER,
             });
 
+            const descrementRepeaterQueue = incrementRepeaterTickQueuque({
+                state,
+                id,
+            });
+
             /**
              * Secure step 1.
              * Avoid state mutation during list construction.
@@ -107,6 +113,7 @@ export const watchList = ({
                  * Remove watcher to active queuqe operation.
                  */
                 descrementQueue();
+                descrementRepeaterQueue();
                 return;
             }
 
@@ -201,22 +208,13 @@ export const watchList = ({
                 if (!currentValue) return;
 
                 /**
-                 * With key get relaIndex ( duplicate issue )
-                 */
-                const realIndex = key
-                    ? current
-                          .map((item) => item[key])
-                          .indexOf(currentValue[key])
-                    : index;
-
-                /**
                  * Store current value in store
                  * to use in dynamicrops
                  * FrstRepeaterChild
                  */
                 setRepeaterStateById({
                     id,
-                    value: { current: currentValue, index: realIndex },
+                    value: { current: currentValue, index },
                 });
 
                 /**
@@ -235,7 +233,7 @@ export const watchList = ({
                 firstRepeaterchildChildren.forEach((childId) => {
                     setRepeaterStateById({
                         id: childId,
-                        value: { current: currentValue, index: realIndex },
+                        value: { current: currentValue, index },
                     });
                 });
             });
@@ -279,6 +277,7 @@ export const watchList = ({
                  * Remove watcher to active queuqe operation.
                  */
                 descrementQueue();
+                descrementRepeaterQueue();
             });
         }
     );
