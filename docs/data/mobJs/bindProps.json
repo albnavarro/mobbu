@@ -163,13 +163,6 @@
             "content": "The state indicated in the repeater in the watch parameter will trigger the reaction automatically, so there is no need to specify it again in the bind parameter."
         },
         {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The reaction of the props always occurs after the repeaters have been completed, this means that at the time of creation the data is not only available, use staticProps or the watch/watchSync utils to use the props."
-        },
-        {
             "component": "mob-list",
             "props": {
                 "style": "medium",
