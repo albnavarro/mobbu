@@ -210,7 +210,7 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  * @param {string} obj.componentId
  * @param {string|undefined} [ obj.repeatPropBind ]
  * @param {boolean} obj.inizilizeWatcher
- * @param {boolean} obj.inizializeBeforeRepeaterTick
+ * @param {boolean} [ obj.inizializeBeforeRepeaterTick ]
  * @return void
  *
  * @description
