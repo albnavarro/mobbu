@@ -19,7 +19,7 @@ export const DynamicListSlottedLabelFn = async ({
         const { contentEl } = ref;
 
         watch('label', (value) => {
-            contentEl.textContent = setContent(value);
+            contentEl.innerHTML = setContent(value);
         });
 
         return () => {};

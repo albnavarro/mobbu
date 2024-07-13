@@ -1,4 +1,4 @@
-export type PartialRepeat<T> = (arg0: {
+export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     clean?: boolean;
     watch: OnlyStringKey<T>;
     key?: string | undefined;
@@ -12,7 +12,12 @@ export type PartialRepeat<T> = (arg0: {
         container: HTMLElement;
         childrenId: string[];
     }): void;
-    render: (arg0: { sync: string; html?: (arg0: string) => string }) => string;
+    render: (arg0: {
+        sync: string;
+        index: number;
+        currentValue: ArrayElement<T[K]>;
+        html?: (arg0: string) => string;
+    }) => string;
 }) => string;
 
 
@@ -43,11 +48,11 @@ function getItems({ sync, bindProps, delegateEvents }) {
         >
            <my-child-component-inner
                ${bindProps({
-                   bind: ['counter', 'index'], 
-                   forceParent: true, // bind to <my-child-component/> props
-                   props: ({ counter, index }) => {
+                   bind: ['counter'], 
+                   props: ({ counter, myStateArray }, index) => {
                        return {
                            counter,
+                           label: myStateArray[index].label,
                            index
                        };
                    },
@@ -74,7 +79,7 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
                 afterUpdate: ({ element, childrenId, element }) => {
                     //
                 },
-                render: ({ sync }) => {
+                render: ({ sync, currentValue, index }) => {
                     return getItems({
                         sync,
                         bindProps,

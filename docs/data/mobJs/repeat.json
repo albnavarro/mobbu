@@ -84,6 +84,13 @@
             "content": "Optional key, if you are using an array of objects you can use an object key to maintain the order of the results. If multiple elements share the same key, duplicates will be eliminated."
         },
         {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If no key is specified and <span class='quote'>clean=false</span>, only new items will be added/removed, but persistent items will not be affected. It will only update the <span class='quote'>index</span> value in bindProps/delegateEvent/bindEvent"
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h5"
@@ -102,9 +109,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>element</span>: Root component HTMLElement ",
-                    "<span class='quote'>container</span>: List container HTMLElement.",
-                    "<span class='quote'>childrenId</span>: Active Children ids."
+                    "<strong>element</strong>: Root component HTMLElement ",
+                    "<strong>container</strong>: List container HTMLElement.",
+                    "<strong>childrenId</strong>: Active Children ids."
                 ]
             }
         },
@@ -127,9 +134,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>element</span>: Root component HTMLElement ",
-                    "<span class='quote'>container</span>: List container HTMLElement.",
-                    "<span class='quote'>childrenId</span>: Active Children ids."
+                    "<strong>element</strong>: Root component HTMLElement ",
+                    "<strong>container</strong>: List container HTMLElement.",
+                    "<strong>childrenId</strong>: Active Children ids."
                 ]
             }
         },
@@ -152,8 +159,10 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>html</span>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "<span class='quote'>sync</span>: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed."
+                    "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
+                    "<strong>sync</strong>: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed.",
+                    "<strong>currentValue</strong>: The current value of the array indicated in the watch parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time.",
+                    "<strong>index</strong>: The current index of the array indicated in the watch parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time."
                 ]
             }
         },
@@ -175,8 +184,8 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<span class='quote'>clean = false</span>: The render function must return a HTML in which the first node must be the 'repeat' component",
-                    "<span class='quote'>clean = true</span>: the render function can return HTML in which the component can be contained in one or more HTML tags"
+                    "<strong>clean = false</strong>: The render function must return a HTML in which the first node must be the 'repeat' component",
+                    "<strong>clean = true</strong>: the render function can return HTML in which the component can be contained in one or more HTML tags"
                 ]
             }
         },
@@ -206,13 +215,6 @@
                 "style": "medium"
             },
             "content": "Indicates the position of the component inside a repeater, used to retrieve the current value, equivalent to the index parameter of an <span class='quote'>array.map((item, index) => item)</span>"
-        },
-        {
-            "component": "mob-paragraph",
-            "props": {
-                "style": "medium"
-            },
-            "content": "The value of <span class='quote'>index</span> will be valid only for the first component, i.e. the component to which the <span class='quote'>sync key</span> is associated"
         },
         {
             "component": "mob-spacer",

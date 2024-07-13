@@ -52,7 +52,7 @@ function getRepeaterCard({
                     /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
                     props: ({ data, counter }, index) => {
                         return {
-                            label: `${data[index].label}/${counter}`,
+                            label: `label: ${data[index].label} <br/> counter: ${counter}`,
                         };
                     },
                 })}

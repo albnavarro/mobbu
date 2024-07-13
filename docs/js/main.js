@@ -27854,7 +27854,7 @@ Loading snippet ...</pre
     onMount(({ ref }) => {
       const { contentEl } = ref;
       watch("label", (value) => {
-        contentEl.textContent = setContent(value);
+        contentEl.innerHTML = setContent(value);
       });
       return () => {
       };
@@ -27918,7 +27918,7 @@ Loading snippet ...</pre
       /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
       props: ({ data: data3, counter }, index) => {
         return {
-          label: `${data3[index].label}/${counter}`
+          label: `label: ${data3[index].label} <br/> counter: ${counter}`
         };
       }
     })}
