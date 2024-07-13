@@ -16866,6 +16866,7 @@
   var ATTR_KEY = "key";
   var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
   var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
+  var ATTR_REPEATER_CONTEXT = "repeaterContext";
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
   var ATTR_PARENT_ID = "parentid";
@@ -16875,6 +16876,33 @@
   var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
   var QUEQUE_TYPE_PARSE_WATCH_ASYNC = "PARSE_WATCH_ASYNC";
+
+  // src/js/mobjs/query/queryAllFutureComponent.js
+  function* walkPreOrder(node) {
+    if (!node) return;
+    yield node;
+    for (const child2 of node.children) {
+      yield* walkPreOrder(child2);
+    }
+  }
+  function selectAll(root2, oneDepth) {
+    const result = [];
+    for (const node of walkPreOrder(root2)) {
+      if (result.length > 0 && oneDepth) break;
+      if (node?.getIsPlaceholder?.()) {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+  var queryAllFutureComponent = (node, oneDepth = true) => {
+    let result = [];
+    const root2 = node || document.body;
+    for (const child2 of root2.children) {
+      result = [...result, ...selectAll(child2, oneDepth)];
+    }
+    return result;
+  };
 
   // src/js/mobjs/componentStore/store.js
   var componentMap = /* @__PURE__ */ new Map();
@@ -16886,7 +16914,15 @@
     if (!item) return;
     componentMap.set(id, {
       ...item,
-      currentRepeaterState: value,
+      currentRepeaterState: value
+    });
+  };
+  var setIsRepeaterFirstChildNode = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, {
+      ...item,
       isRepeaterFirstChildNode: true
     });
   };
@@ -16895,6 +16931,12 @@
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;
     return currentRepeaterState;
+  };
+  var setRepeaterContext = ({ element, id }) => {
+    const children = queryAllFutureComponent(element, false);
+    children.forEach((child2) => {
+      child2.setAttribute(ATTR_REPEATER_CONTEXT, id);
+    });
   };
 
   // src/js/mobjs/componentStore/action/element.js
@@ -17301,6 +17343,7 @@
             this.#currentKey = "";
             this.#parentId = "";
             this.#componentRepeatId = "";
+            this.#repeaterContext = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17320,6 +17363,9 @@
             );
             this.#repeatPropBind = host.getAttribute(
               ATTR_REPEATER_PROP_BIND
+            );
+            this.#repeaterContext = host.getAttribute(
+              ATTR_REPEATER_CONTEXT
             );
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
@@ -17420,14 +17466,14 @@
           getComponentRepeatId() {
             return this.#componentRepeatId;
           }
-          getComponentRepeatContext() {
-            return this.#repeaterContext ?? void 0;
-          }
           /**
            * @param {string} value
            */
           setComponentRepeaterContext(value2) {
             this.#repeaterContext = value2;
+          }
+          getComponentRepeatContext() {
+            return this.#repeaterContext ?? void 0;
           }
           #getData() {
             return {
@@ -17638,33 +17684,6 @@
   };
   var removeOrphansBindEvent = () => {
     bindEventMap.clear();
-  };
-
-  // src/js/mobjs/query/queryAllFutureComponent.js
-  function* walkPreOrder(node) {
-    if (!node) return;
-    yield node;
-    for (const child2 of node.children) {
-      yield* walkPreOrder(child2);
-    }
-  }
-  function selectAll(root2, oneDepth) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (result.length > 0 && oneDepth) break;
-      if (node?.getIsPlaceholder?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryAllFutureComponent = (node, oneDepth = true) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll(child2, oneDepth)];
-    }
-    return result;
   };
 
   // src/js/mobjs/componentStore/utils.js
@@ -19214,9 +19233,7 @@
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const currentRepeatValue = getComponentRepeaterState(
-      currentRepeaterValueId
-    );
+    const repeaterContext = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? "";
     const componentName = element.getComponentName();
@@ -19225,8 +19242,7 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-    const repeaterContextvalue = element.getComponentRepeatContext();
-    const isChildOfFirstRepeaterNode = repeaterContextvalue && repeaterContextvalue !== "" ? true : false;
+    const currentRepeatValue = repeaterContext && repeaterContext.length > 0 ? getRepeaterStateById({ id: repeaterContext }) : getComponentRepeaterState(currentRepeaterValueId);
     return {
       element,
       props: {
@@ -19254,7 +19270,7 @@
       currentRepeatValue,
       parentId,
       componentRepeatId,
-      isChildOfFirstRepeaterNode
+      repeaterContext
     };
   };
 
@@ -19381,7 +19397,7 @@
       parentId,
       componentRepeatId,
       repeatPropBind,
-      isChildOfFirstRepeaterNode
+      repeaterContext
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
@@ -19397,7 +19413,8 @@
       key,
       repeatPropBind,
       isCancellable,
-      parentId
+      parentId,
+      repeaterContext
     });
     setParentsIdFallback({ componentId: id });
     addSelfIdToParentComponent({ id });
@@ -19408,7 +19425,12 @@
         targetComponent: componentName
       });
     }
-    if (currentRepeatValue?.index !== -1 && !isChildOfFirstRepeaterNode) {
+    if (currentRepeatValue?.index !== -1 && (!repeaterContext || repeaterContext === "")) {
+      setIsRepeaterFirstChildNode({ id });
+      setRepeaterStateById({ id, value: currentRepeatValue });
+      setRepeaterContext({ element: componentToParse, id });
+    }
+    if (repeaterContext && repeaterContext.length > 0) {
       setRepeaterStateById({ id, value: currentRepeatValue });
     }
     addCurrentIdToDynamicProps({

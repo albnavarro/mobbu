@@ -29,7 +29,11 @@ import {
 import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 import { getParamsFromWebComponent } from '../creationStep/getParamsFromWebComponent';
 import { addComponentToStore } from '../componentStore/addComponentToStore';
-import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
+import {
+    setIsRepeaterFirstChildNode,
+    setRepeaterContext,
+    setRepeaterStateById,
+} from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 
 /**
@@ -160,7 +164,7 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
         repeatPropBind,
-        isChildOfFirstRepeaterNode,
+        repeaterContext,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
@@ -186,6 +190,7 @@ export const parseComponentsRecursive = async ({
             repeatPropBind,
             isCancellable,
             parentId,
+            repeaterContext,
         });
 
     /**
@@ -220,8 +225,23 @@ export const parseComponentsRecursive = async ({
      * Set initial repeat current value to pass to dynamicProps.
      * When component is created.
      * this is applied to first child node of a repeater
+     * Exclude child of repeater first child node
      */
-    if (currentRepeatValue?.index !== -1 && !isChildOfFirstRepeaterNode) {
+    if (
+        currentRepeatValue?.index !== -1 &&
+        (!repeaterContext || repeaterContext === '')
+    ) {
+        setIsRepeaterFirstChildNode({ id });
+        setRepeaterStateById({ id, value: currentRepeatValue });
+        setRepeaterContext({ element: componentToParse, id });
+    }
+
+    /**
+     * Set initial repeat current value to pass to dynamicProps.
+     * When component is created.
+     * this is applied to child of firstChildNode
+     */
+    if (repeaterContext && repeaterContext.length > 0) {
         setRepeaterStateById({ id, value: currentRepeatValue });
     }
 

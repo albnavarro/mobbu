@@ -20,6 +20,7 @@ export class userComponent extends HTMLElement {
     getComponentRepeatId: () => string | undefined;
     getRepeaterPropBind: () => string | undefined;
     getComponentRepeatContext: () => string | undefined;
+    setComponentRepeaterContext: (arg0: string) => void;
 }
 
 export class repeaterComponent extends HTMLElement {

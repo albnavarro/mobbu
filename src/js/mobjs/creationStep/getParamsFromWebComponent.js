@@ -3,6 +3,7 @@
 import { getComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { getPropsFromParent } from '../temporaryData/staticProps';
 import { filterExportableStateFromObject } from '../mainStore/actions/exportState';
+import { getRepeaterStateById } from '../componentStore/action/currentRepeatValue';
 
 /**
  * @param {object} obj
@@ -39,9 +40,7 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const currentRepeatValue = getComponentRepeaterState(
-        currentRepeaterValueId
-    );
+    const repeaterContext = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? '';
     const componentName = element.getComponentName();
@@ -51,9 +50,15 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
 
-    const repeaterContextvalue = element.getComponentRepeatContext();
-    const isChildOfFirstRepeaterNode =
-        repeaterContextvalue && repeaterContextvalue !== '' ? true : false;
+    /**
+     * Get currentRepeatValue from id ( firstChildNode)
+     * Or from firstChildRepeaterNode if is a child of forstChildRepeaterNode
+     *
+     */
+    const currentRepeatValue =
+        repeaterContext && repeaterContext.length > 0
+            ? getRepeaterStateById({ id: repeaterContext })
+            : getComponentRepeaterState(currentRepeaterValueId);
 
     return {
         element,
@@ -82,6 +87,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         currentRepeatValue,
         parentId,
         componentRepeatId,
-        isChildOfFirstRepeaterNode,
+        repeaterContext,
     };
 };
