@@ -86,6 +86,20 @@ export const setRepeaterContext = ({ element, id }) => {
 
 /**
  *
+ * @param {object} param
+ * @param {string} param.contextId
+ * @return { string[] }
+ *
+ * @description
+ */
+export const getComponentIdByRepeatercontext = ({ contextId }) => {
+    return [...componentMap.values()]
+        .filter(({ repeaterContext }) => repeaterContext === contextId)
+        .map(({ id }) => id);
+};
+
+/**
+ *
  * @param {object} obj
  * @param {string} obj.id
  * @return {string}

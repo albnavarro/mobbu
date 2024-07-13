@@ -48,12 +48,11 @@ function getRepeaterCard({
             <dynamic-slotted-label
                 slot="card-label-slot"
                 ${bindProps({
-                    bind: ['label'],
-                    forceParent: true,
+                    bind: ['counter'],
                     /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-                    props: ({ label }) => {
+                    props: ({ data, counter }, index) => {
                         return {
-                            label,
+                            label: `${data[index].label}/${counter}`,
                         };
                     },
                 })}

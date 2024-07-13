@@ -16938,6 +16938,9 @@
       child2.setAttribute(ATTR_REPEATER_CONTEXT, id);
     });
   };
+  var getComponentIdByRepeatercontext = ({ contextId }) => {
+    return [...componentMap.values()].filter(({ repeaterContext }) => repeaterContext === contextId).map(({ id }) => id);
+  };
   var getRepeaterPropBind = ({ id = "" }) => {
     if (!id || id === "") return "";
     const item = componentMap.get(id);
@@ -19044,6 +19047,15 @@
           const current2 = currentUnivoque?.[index];
           if (!current2) return;
           setRepeaterStateById({ id: id2, value: { current: current2, index } });
+          const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
+            contextId: id2
+          });
+          firstRepeaterchildChildren.forEach((childId) => {
+            setRepeaterStateById({
+              id: childId,
+              value: { current: current2, index }
+            });
+          });
         });
         mobCore.useNextLoop(async () => {
           if (mainComponent) {
@@ -27898,11 +27910,11 @@ Loading snippet ...</pre
             <dynamic-slotted-label
                 slot="card-label-slot"
                 ${bindProps({
-      bind: ["label"],
+      bind: ["counter"],
       /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-      props: ({ label }) => {
+      props: ({ data: data3, counter }, index) => {
         return {
-          label
+          label: `${data3[index].label}/${counter}`
         };
       }
     })}

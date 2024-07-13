@@ -1,7 +1,10 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { setRepeaterStateById } from '../componentStore/action/currentRepeatValue';
+import {
+    getComponentIdByRepeatercontext,
+    setRepeaterStateById,
+} from '../componentStore/action/currentRepeatValue';
 import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
@@ -200,8 +203,29 @@ export const watchList = ({
                 /**
                  * Store current value in store
                  * to use in dynamicrops
+                 * FrstRepeaterChild
                  */
                 setRepeaterStateById({ id, value: { current, index } });
+
+                /**
+                 * Get id of children of FirstRepeaterChild
+                 */
+                const firstRepeaterchildChildren =
+                    getComponentIdByRepeatercontext({
+                        contextId: id,
+                    });
+
+                /**
+                 * Store current value in store
+                 * to use in dynamicrops
+                 * ( child if FirstRepeaterChild )
+                 */
+                firstRepeaterchildChildren.forEach((childId) => {
+                    setRepeaterStateById({
+                        id: childId,
+                        value: { current, index },
+                    });
+                });
             });
 
             /**
