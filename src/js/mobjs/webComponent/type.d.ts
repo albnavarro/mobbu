@@ -19,6 +19,7 @@ export class userComponent extends HTMLElement {
     getDelegateEventId: () => string | undefined;
     getComponentRepeatId: () => string | undefined;
     getRepeaterPropBind: () => string | undefined;
+    getComponentRepeatContext: () => string | undefined;
 }
 
 export class repeaterComponent extends HTMLElement {

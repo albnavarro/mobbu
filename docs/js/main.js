@@ -19213,6 +19213,8 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
+    const repeaterContextvalue = element.getComponentRepeatContext();
+    const isChildOfFirstRepeaterNode = repeaterContextvalue && repeaterContextvalue !== "" ? true : false;
     return {
       element,
       props: {
@@ -19239,7 +19241,8 @@
       bindEventsId,
       currentRepeatValue,
       parentId,
-      componentRepeatId
+      componentRepeatId,
+      isChildOfFirstRepeaterNode
     };
   };
 
@@ -19365,7 +19368,8 @@
       bindEventsId,
       parentId,
       componentRepeatId,
-      repeatPropBind
+      repeatPropBind,
+      isChildOfFirstRepeaterNode
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
@@ -19392,8 +19396,9 @@
         targetComponent: componentName
       });
     }
-    if (currentRepeatValue?.index !== -1)
+    if (currentRepeatValue?.index !== -1 && !isChildOfFirstRepeaterNode) {
       setRepeaterStateById({ id, value: currentRepeatValue });
+    }
     addCurrentIdToDynamicProps({
       propsId: dynamicPropsId,
       repeatPropBind,

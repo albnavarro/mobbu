@@ -160,6 +160,7 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
         repeatPropBind,
+        isChildOfFirstRepeaterNode,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
@@ -220,8 +221,9 @@ export const parseComponentsRecursive = async ({
      * When component is created.
      * this is applied to first child node of a repeater
      */
-    if (currentRepeatValue?.index !== -1)
+    if (currentRepeatValue?.index !== -1 && !isChildOfFirstRepeaterNode) {
         setRepeaterStateById({ id, value: currentRepeatValue });
+    }
 
     /**
      * Initialize dynamic props and

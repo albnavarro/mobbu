@@ -14,6 +14,7 @@ export interface componentDataType {
     currentRepeatValue: any;
     componentRepeatId: string | null | undefined;
     repeatPropBind: string | undefined;
+    isChildOfFirstRepeaterNode: boolean | undefined;
 }
 
 export interface getParamsForComponent extends componentStoreReturnType {

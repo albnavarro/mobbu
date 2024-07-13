@@ -51,6 +51,10 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
 
+    const repeaterContextvalue = element.getComponentRepeatContext();
+    const isChildOfFirstRepeaterNode =
+        repeaterContextvalue && repeaterContextvalue !== '' ? true : false;
+
     return {
         element,
         props: {
@@ -78,5 +82,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         currentRepeatValue,
         parentId,
         componentRepeatId,
+        isChildOfFirstRepeaterNode,
     };
 };
