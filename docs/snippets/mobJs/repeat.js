@@ -20,10 +20,16 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     }) => string;
 }) => string;
 
-
 import { html } from '../mobjs';
 
-function getItems({ sync, bindProps, delegateEvents }) {
+function getItems({
+    sync,
+    bindProps,
+    staticProps,
+    delegateEvents,
+    currentValue,
+}) {
+    const { myProps } = currentValue;
 
     /**
      * 'myStateArray' in bindProps can be omitted.
@@ -32,8 +38,11 @@ function getItems({ sync, bindProps, delegateEvents }) {
     return html`
         <my-child-component
             ${sync} // !important
+            ${staticProps({
+                staticProp: myProps,
+            })}
             ${bindProps({
-                bind: ['counter'], 
+                bind: ['counter'],
                 props: ({ counter, myStateArray }, index) => {
                     return {
                         counter,
@@ -43,17 +52,17 @@ function getItems({ sync, bindProps, delegateEvents }) {
                 },
             })}
             ${delegateEvents({
-                click: (event,  index ) => console.log(event, index),
+                click: (event, index) => console.log(event, index),
             })}
         >
            <my-child-component-inner
                ${bindProps({
-                   bind: ['counter'], 
+                   bind: ['counter'],
                    props: ({ counter, myStateArray }, index) => {
                        return {
                            counter,
                            label: myStateArray[index].label,
-                           index
+                           index,
                        };
                    },
                })}
@@ -66,7 +75,13 @@ function getItems({ sync, bindProps, delegateEvents }) {
 /**
  * @type {import("../mobjs/type").mobComponent<'myStateArray'|'counter'>}
  */
-export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
+export const MyComponent = ({
+    html,
+    repeat,
+    bindProps,
+    staticProps,
+    delegateEvents,
+}) => {
     return html`
         <div>
             ${repeat({
@@ -83,7 +98,9 @@ export const MyComponent = ({ html, repeat, bindProps, delegateEvents }) => {
                     return getItems({
                         sync,
                         bindProps,
+                        staticProps,
                         delegateEvents,
+                        currentValue,
                     });
                 },
             })}
