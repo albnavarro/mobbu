@@ -10,7 +10,6 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
-    ATTR_REPEATER_CONTEXT,
     ATTR_REPEATER_PROP_BIND,
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
@@ -349,6 +348,13 @@ export const defineUserComponent = (componentList) => {
                     return this.#propsFromSlotId;
                 }
 
+                /**
+                 * @param {any} value
+                 */
+                setRepeatValue(value) {
+                    this.#currentRepeatValueId = value;
+                }
+
                 getRepeatValue() {
                     return this.#currentRepeatValueId;
                 }
@@ -363,6 +369,13 @@ export const defineUserComponent = (componentList) => {
 
                 getRepeaterPropBind() {
                     return this.#repeatPropBind ?? undefined;
+                }
+
+                /**
+                 * @param {string} value
+                 */
+                setRepeaterPropBind(value) {
+                    this.#repeatPropBind = value;
                 }
 
                 getComponentRepeatId() {

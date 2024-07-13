@@ -17393,6 +17393,12 @@
           getPropsFromSlotId() {
             return this.#propsFromSlotId;
           }
+          /**
+           * @param {any} value
+           */
+          setRepeatValue(value2) {
+            this.#currentRepeatValueId = value2;
+          }
           getRepeatValue() {
             return this.#currentRepeatValueId;
           }
@@ -17404,6 +17410,12 @@
           }
           getRepeaterPropBind() {
             return this.#repeatPropBind ?? void 0;
+          }
+          /**
+           * @param {string} value
+           */
+          setRepeaterPropBind(value2) {
+            this.#repeatPropBind = value2;
           }
           getComponentRepeatId() {
             return this.#componentRepeatId;
