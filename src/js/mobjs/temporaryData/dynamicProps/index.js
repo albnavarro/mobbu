@@ -76,7 +76,7 @@ export const setBindProps = (propsObj) => {
  * Store props and return a unique identifier
  *
  */
-const setDynamicProp = async ({
+const setDynamicProp = ({
     componentId,
     bind,
     props,
@@ -84,12 +84,6 @@ const setDynamicProp = async ({
     fireCallback,
 }) => {
     if (!currentParentId) return;
-
-    /**
-     * Update dynamic props after repeater.
-     * So we have the last value of currentvalue && index
-     */
-    await repeaterTick();
 
     /**
      * Check id all bind props exist in parent state.
@@ -215,7 +209,7 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  * add watcher to parent ( or specific component ) state.
  *
  */
-export const applyDynamicProps = ({
+export const applyDynamicProps = async ({
     componentId,
     repeatPropBind,
     inizilizeWatcher,
@@ -241,7 +235,7 @@ export const applyDynamicProps = ({
     /**
      * Cycle dynamicProps from component or from slot.
      */
-    dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
+    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
         const { bind, props, parentId } = dynamicpropsfiltered;
 
         /**
@@ -258,6 +252,12 @@ export const applyDynamicProps = ({
         const currentParentId = parentId ?? getParentIdById(componentId);
 
         if (!inizilizeWatcher) {
+            /**
+             * Initialize props after repater
+             * So we have the last value of currentValue && index
+             */
+            await repeaterTick();
+
             /**
              * Set first bind state on component created
              */
@@ -295,8 +295,8 @@ export const applyDynamicProps = ({
                  * Wait the end of current block.
                  */
                 watchIsRunning = true;
-                mobCore.useNextLoop(async () => {
-                    await setDynamicProp({
+                mobCore.useNextLoop(() => {
+                    setDynamicProp({
                         componentId,
                         bind: bindUpdated,
                         props,
@@ -323,7 +323,7 @@ export const applyDynamicProps = ({
         /**
          * Remove current dynamic prop from store.
          */
-    });
+    }
 
     /**
      * If all watcher ( from component or from slot ) is initialized deleter all reference from store
