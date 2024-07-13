@@ -197,15 +197,27 @@ export const watchList = ({
              * propierties so bindPros get last current/index value when watch.
              */
             [...childrenFiltered].forEach((id, index) => {
-                const current = currentUnivoque?.[index];
-                if (!current) return;
+                const currentValue = currentUnivoque?.[index];
+                if (!currentValue) return;
+
+                /**
+                 * With key get relaIndex ( duplicate issue )
+                 */
+                const realIndex = key
+                    ? current
+                          .map((item) => item[key])
+                          .indexOf(currentValue[key])
+                    : index;
 
                 /**
                  * Store current value in store
                  * to use in dynamicrops
                  * FrstRepeaterChild
                  */
-                setRepeaterStateById({ id, value: { current, index } });
+                setRepeaterStateById({
+                    id,
+                    value: { current: currentValue, index: realIndex },
+                });
 
                 /**
                  * Get id of children of FirstRepeaterChild
@@ -223,7 +235,7 @@ export const watchList = ({
                 firstRepeaterchildChildren.forEach((childId) => {
                     setRepeaterStateById({
                         id: childId,
-                        value: { current, index },
+                        value: { current: currentValue, index: realIndex },
                     });
                 });
             });
