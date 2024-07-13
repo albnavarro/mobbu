@@ -9,6 +9,11 @@ import { awaitNextLoop } from './utils';
 const repeaterQueque = new Map();
 
 /**
+ * @returns {boolean}
+ */
+export const repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+
+/**
  * Limit queque size.
  * Prevent possible side effect
  */

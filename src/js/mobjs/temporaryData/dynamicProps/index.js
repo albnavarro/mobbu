@@ -9,7 +9,10 @@ import { watchById } from '../../componentStore/action/watch';
 import { incrementTickQueuque } from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
-import { repeaterTick } from '../../componentStore/tickRepeater';
+import {
+    repeaterQuequeIsEmpty,
+    repeaterTick,
+} from '../../componentStore/tickRepeater';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
@@ -273,7 +276,10 @@ export const applyDynamicProps = async ({
                 fireCallback: true,
             });
 
-        if (!inizilizeWatcher) {
+        /**
+         * If repeater is running, update
+         */
+        if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
             /**
              * Initialize props after repater
              * So we have the last value of currentValue && index
