@@ -295,14 +295,15 @@ export const applyDynamicProps = ({
                  * Wait the end of current block.
                  */
                 watchIsRunning = true;
-                mobCore.useNextLoop(() => {
-                    setDynamicProp({
+                mobCore.useNextLoop(async () => {
+                    await setDynamicProp({
                         componentId,
                         bind: bindUpdated,
                         props,
                         currentParentId: currentParentId ?? '',
                         fireCallback: true,
                     });
+
                     watchIsRunning = false;
 
                     /**
