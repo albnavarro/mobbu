@@ -16938,6 +16938,12 @@
       child2.setAttribute(ATTR_REPEATER_CONTEXT, id);
     });
   };
+  var getRepeaterPropBind = ({ id = "" }) => {
+    if (!id || id === "") return "";
+    const item = componentMap.get(id);
+    const repeatPropBind = item?.repeatPropBind;
+    return repeatPropBind;
+  };
 
   // src/js/mobjs/componentStore/action/element.js
   var setElementById = ({
@@ -19229,7 +19235,6 @@
     const propsId = element.getStaticPropsId();
     const dynamicPropsId = element.getDynamicPropsid();
     const bindEventsId = element.getBindEventsId();
-    const repeatPropBind = element.getRepeaterPropBind();
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
@@ -19242,6 +19247,7 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
+    const repeatPropBind = repeaterContext && repeaterContext.length > 0 ? getRepeaterPropBind({ id: repeaterContext }) : element.getRepeaterPropBind();
     const currentRepeatValue = repeaterContext && repeaterContext.length > 0 ? getRepeaterStateById({ id: repeaterContext }) : getComponentRepeaterState(currentRepeaterValueId);
     return {
       element,
@@ -27893,7 +27899,6 @@ Loading snippet ...</pre
                 slot="card-label-slot"
                 ${bindProps({
       bind: ["label"],
-      forceParent: true,
       /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
       props: ({ label }) => {
         return {

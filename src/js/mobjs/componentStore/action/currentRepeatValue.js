@@ -83,3 +83,20 @@ export const setRepeaterContext = ({ element, id }) => {
         child.setAttribute(ATTR_REPEATER_CONTEXT, id);
     });
 };
+
+/**
+ *
+ * @param {object} obj
+ * @param {string} obj.id
+ * @return {string}
+ *
+ * @description
+ * Update element root from generic to real after conversion.
+ */
+export const getRepeaterPropBind = ({ id = '' }) => {
+    if (!id || id === '') return '';
+
+    const item = componentMap.get(id);
+    const repeatPropBind = item?.repeatPropBind;
+    return repeatPropBind;
+};
