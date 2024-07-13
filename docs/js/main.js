@@ -19447,12 +19447,13 @@
         targetComponent: componentName
       });
     }
-    if (currentRepeatValue?.index !== -1 && (!repeaterContextId || repeaterContextId === "")) {
+    const shouldAddCurrentRepeaterValue = currentRepeatValue?.index !== -1;
+    if (shouldAddCurrentRepeaterValue && (!repeaterContextId || repeaterContextId === "")) {
       setIsRepeaterFirstChildNode({ id });
       setRepeaterStateById({ id, value: currentRepeatValue });
       setRepeaterContext({ element: componentToParse, id });
     }
-    if (repeaterContextId && repeaterContextId.length > 0) {
+    if (shouldAddCurrentRepeaterValue && repeaterContextId && repeaterContextId.length > 0) {
       setRepeaterStateById({ id, value: currentRepeatValue });
     }
     addCurrentIdToDynamicProps({

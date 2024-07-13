@@ -222,13 +222,21 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Set initial repeat current value to pass to dynamicProps.
-     * When component is created.
-     * this is applied to first child node of a repeater
-     * Exclude child of repeater first child node
+     * Is a component inside a repeater.
+     * We have the first currentRepeatValue
+     */
+    const shouldAddCurrentRepeaterValue = currentRepeatValue?.index !== -1;
+
+    /**
+     * Set initial currentRepeaterState for initialize dynamicProps.
+     * Only first child node of a repeater
+     *
+     * - update componentMap isRepeaterFirstChildNode
+     * - update componentMap currentRepeaterState
+     * - update child repeaterContextId
      */
     if (
-        currentRepeatValue?.index !== -1 &&
+        shouldAddCurrentRepeaterValue &&
         (!repeaterContextId || repeaterContextId === '')
     ) {
         setIsRepeaterFirstChildNode({ id });
@@ -237,11 +245,16 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
-     * Set initial repeat current value to pass to dynamicProps.
-     * When component is created.
-     * this is applied to child of firstChildNode
+     * Set initial currentRepeaterState for initialize dynamicProps.
+     * Only child of isRepeaterFirstChildNode
+     *
+     * - update repeaterContextId
      */
-    if (repeaterContextId && repeaterContextId.length > 0) {
+    if (
+        shouldAddCurrentRepeaterValue &&
+        repeaterContextId &&
+        repeaterContextId.length > 0
+    ) {
         setRepeaterStateById({ id, value: currentRepeatValue });
     }
 
