@@ -65,6 +65,8 @@ function getPartialsComponentList({
 
     return render({
         sync,
+        index,
+        currentValue,
         html: renderHtml,
     });
 }

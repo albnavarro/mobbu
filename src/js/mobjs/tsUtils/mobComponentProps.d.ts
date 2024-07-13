@@ -266,7 +266,12 @@ export type PartialRepeat<T> = (arg0: {
      *
      * ```
      */
-    render: (arg0: { sync: string; html?: (arg0: string) => string }) => string;
+    render: (arg0: {
+        sync: string;
+        index: number;
+        currentValue: any;
+        html?: (arg0: string) => string;
+    }) => string;
 }) => string;
 
 /**

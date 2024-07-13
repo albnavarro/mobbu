@@ -75,6 +75,8 @@ export const addWithoutKey = ({
 
             return render({
                 sync,
+                index,
+                currentValue,
                 html: renderHtml,
             });
         });

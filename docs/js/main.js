@@ -18741,6 +18741,8 @@
     );
     return render2({
       sync,
+      index,
+      currentValue,
       html: renderHtml
     });
   }
@@ -18877,6 +18879,8 @@
         );
         return render2({
           sync,
+          index,
+          currentValue,
           html: renderHtml
         });
       });
