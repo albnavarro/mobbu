@@ -110,6 +110,7 @@ export const addWithKey = ({
      * Get element to delete before element is removed from dom in reorder list step.
      */
     const elementToRemoveObj = getNewElement(previous, currentUnique, key);
+
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
         const keyValue = item?.[key];
         return getElementByKeyInContainer({

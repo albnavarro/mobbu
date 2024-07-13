@@ -97,7 +97,9 @@ export const getElementByKeyInContainer = ({
                 if (!value) return;
 
                 const { element, key: currentKey } = value;
-                return container.contains(element) && currentKey === key;
+                return (
+                    container.contains(element) && `${currentKey}` === `${key}`
+                );
             }) ?? '';
 
     /**
