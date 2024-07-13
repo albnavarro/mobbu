@@ -13,6 +13,7 @@ import {
     repeaterQuequeIsEmpty,
     repeaterTick,
 } from '../../componentStore/tickRepeater';
+import { componentHasKey } from '../../componentStore/action/component';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
@@ -278,8 +279,15 @@ export const applyDynamicProps = async ({
 
         /**
          * If repeater is running, update
+         * After repeater is end the state observer can change if key is used
+         * Ic case of not univoque element some item can be deleted from wtached satate.
+         * So update props.
          */
-        if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+        if (
+            !inizilizeWatcher &&
+            !repeaterQuequeIsEmpty() &&
+            componentHasKey(componentId)
+        ) {
             /**
              * Initialize props after repater
              * So we have the last value of currentValue && index

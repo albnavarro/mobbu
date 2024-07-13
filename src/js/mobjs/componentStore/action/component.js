@@ -44,3 +44,22 @@ export const getIdByInstanceName = (name = '') => {
 
     return id;
 };
+
+/**
+ * @param {string} id
+ *
+ * @description
+ * get component name By id
+ */
+export const componentHasKey = (id = '') => {
+    if (!id || id === '') return;
+
+    const item = componentMap.get(id);
+    const key = item?.key;
+
+    if (!key) {
+        return false;
+    }
+
+    return key !== '';
+};
