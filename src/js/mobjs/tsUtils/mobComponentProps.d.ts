@@ -1,6 +1,6 @@
 import { bindEventsObject } from '../temporaryData/bindEvents/type';
 import { delegateEventObject } from '../temporaryData/weakBindEvents/type';
-import { NotValue, OnlyStringKey } from './utils';
+import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 /**
  * bindProps.
@@ -136,7 +136,7 @@ export type PartialOnMount = (
 /**
  * repeat
  */
-export type PartialRepeat<T> = (arg0: {
+export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     /**
      * @description
      * Clean previous item.
@@ -269,7 +269,7 @@ export type PartialRepeat<T> = (arg0: {
     render: (arg0: {
         sync: string;
         index: number;
-        currentValue: any;
+        currentValue: ArrayElement<T[K]>;
         html?: (arg0: string) => string;
     }) => string;
 }) => string;

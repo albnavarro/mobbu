@@ -12,3 +12,9 @@ export type NotValue<T, K> = T extends K ? never : T;
 export type RemapToOptional<Type> = {
     [Property in keyof Type]?: Type[Property];
 };
+
+/**
+ * Utils:
+ * Get type of element in array
+ */
+export type ArrayElement<T> = T extends (infer U)[] ? U : null;
