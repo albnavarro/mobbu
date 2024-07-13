@@ -167,7 +167,7 @@ export const addCurrentIdToDynamicProps = ({
         componentId,
         repeatPropBind,
         inizilizeWatcher: false,
-        inizializeBeforeRepeaterTick: true,
+        setBindPropsOnCreated: true,
     });
 };
 
@@ -211,7 +211,7 @@ export const removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
  * @param {string} obj.componentId
  * @param {string|undefined} [ obj.repeatPropBind ]
  * @param {boolean} obj.inizilizeWatcher
- * @param {boolean} [ obj.inizializeBeforeRepeaterTick ]
+ * @param {boolean} [ obj.setBindPropsOnCreated ]
  * @return void
  *
  * @description
@@ -223,7 +223,7 @@ export const applyDynamicProps = async ({
     componentId,
     repeatPropBind,
     inizilizeWatcher,
-    inizializeBeforeRepeaterTick = true,
+    setBindPropsOnCreated = false,
 }) => {
     /**
      *
@@ -268,7 +268,7 @@ export const applyDynamicProps = async ({
          * Fire setDynamicProp once before repeater tick to
          * add value in store and use it onCreated
          */
-        if (!inizilizeWatcher && inizializeBeforeRepeaterTick)
+        if (!inizilizeWatcher && setBindPropsOnCreated) {
             setDynamicProp({
                 componentId,
                 bind: bindUpdated,
@@ -276,6 +276,12 @@ export const applyDynamicProps = async ({
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
             });
+
+            /**
+             * If thereis no key is not necessary wair repeaterQueque
+             */
+            if (!componentHasKey(componentId)) return;
+        }
 
         /**
          * If repeater is running, update
