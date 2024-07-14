@@ -21,6 +21,7 @@ import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
+import { getDefaultComponent } from '../createComponent';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -164,7 +165,20 @@ export const addWithKey = ({
      */
     if (parent) parent.innerHTML = '';
     newPersistentElementOrder.forEach((/** {HTMLElement} */ item) => {
-        if (parent && item) parent.append(item);
+        if (parent && item) {
+            parent.append(item);
+
+            const { debug } = getDefaultComponent();
+
+            /**
+             * Add component name in debug mode
+             */
+            if (debug)
+                item.insertAdjacentHTML(
+                    'afterend',
+                    `<!--  ${targetComponent} --> `
+                );
+        }
     });
 
     /**

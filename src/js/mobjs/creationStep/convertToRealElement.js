@@ -21,8 +21,20 @@ import { removeCurrentToPropsByPropsId } from '../temporaryData/staticProps';
  * Check parentNode to insertAdjacentHTML possible error.
  */
 const getNewElement = ({ element, content }) => {
+    const { debug } = getDefaultComponent();
+
     if (element.parentNode) {
         element.insertAdjacentHTML('afterend', content);
+
+        /**
+         * Add component name in debug mode
+         */
+        if (debug)
+            element.insertAdjacentHTML(
+                'afterend',
+                `<!--  ${element.tagName.toLowerCase()} --> `
+            );
+
         return /** @type {HTMLElement} */ (element.nextElementSibling);
     }
 

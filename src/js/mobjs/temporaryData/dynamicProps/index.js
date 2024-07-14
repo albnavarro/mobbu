@@ -6,7 +6,7 @@ import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
-import { incrementTickQueuque, tick } from '../../componentStore/tick';
+import { incrementTickQueuque } from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 import {
