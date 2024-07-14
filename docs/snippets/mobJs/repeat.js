@@ -83,7 +83,7 @@ export const MyComponent = ({
     delegateEvents,
 }) => {
     return html`
-        <div>
+        <div class="repeater-container">
             ${repeat({
                 watch: 'myStateArray',
                 clean: false,

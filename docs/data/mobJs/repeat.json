@@ -190,6 +190,15 @@
             }
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "items": [
+                    "<strong>Container</strong>: Each repeater must be instantiated in a node as its only child, other elements added together with the repeater may be lost during upgrades<br/>In the following example the container is represented by the <span class='quote'>.repeater-container</span> node"
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium"
