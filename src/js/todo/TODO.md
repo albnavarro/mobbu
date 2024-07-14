@@ -36,10 +36,6 @@
 
 # MobJs
 
-## refs
-- Aggiornale la DOC cone le `ref/refs` per componente.
-- Specificare che con gli `scoped component` le refs sui componenti non possono essere usati.
-
 ## debug
 con debug attivo aggiungere `<-- nome componente -->` alla fien del componente
 
@@ -88,10 +84,8 @@ export const MyComponent2 = ({addMethods}) => {
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
 - FallBack se i vari tentativi di precompilare/resuperare il parentId falliscono dovrebbe evitare di usare qualsiasi tipo di querySelector ( setParentsIdFallback ).
 
-## tick ?
-- Tutti i bindProps dovrebbero partire quando i repeater sono stati completati. Vedi codeOverlay component quando si usa await tick().
-    - se il type é QUEQUE_TYPE_REPEATER alimentare una mappa parallela.
-    - tickRepeater() ?
+## tick
+- `repeaterTick`, al momento bindProps usa il tick dei repeater solo in presenza di una `key`, é abbastanza ?
 
 ## src/js/mobjs/webComponent/
 Le propieta private dell classe possono essere null|undefined.
