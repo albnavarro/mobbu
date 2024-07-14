@@ -36,9 +36,6 @@
 
 # MobJs
 
-## debug
-con debug attivo aggiungere `<-- nome componente -->` alla fien del componente
-
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
