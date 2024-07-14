@@ -260,6 +260,11 @@ export const applyDynamicProps = async ({
         const currentParentId = parentId ?? getParentIdById(componentId);
 
         /**
+         * Component inside a repeater has unique key
+         */
+        const hasKey = componentHasKey(componentId);
+
+        /**
          * Normally props is initialized after repeater
          * So on created we doesn't have the props ready
          * Fire setDynamicProp once before repeater tick to
@@ -274,10 +279,7 @@ export const applyDynamicProps = async ({
                 fireCallback: true,
             });
 
-            /**
-             * If thereis no key is not necessary wair repeaterQueque
-             */
-            if (!componentHasKey(componentId)) return;
+            if (!hasKey) return;
         }
 
         /**
@@ -286,11 +288,7 @@ export const applyDynamicProps = async ({
          * Ic case of not univoque element some item can be deleted from wtached satate.
          * So update props.
          */
-        if (
-            !inizilizeWatcher &&
-            !repeaterQuequeIsEmpty() &&
-            componentHasKey(componentId)
-        ) {
+        if (!inizilizeWatcher && !repeaterQuequeIsEmpty() && hasKey) {
             /**
              * Initialize props after repater
              * So we have the last value of currentValue && index
