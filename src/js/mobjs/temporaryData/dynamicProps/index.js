@@ -269,6 +269,12 @@ export const applyDynamicProps = async ({
          * So on created we doesn't have the props ready
          * Fire setDynamicProp once before repeater tick to
          * add value in store and use it onCreated
+         *
+         * The values calculated here can refer to the previous
+         * state of the store, in the next step after the repeaters
+         * have been executed it will be updated with the latest
+         * state of the store.
+         * TODO: figure out how to avoid double passage
          */
         if (!inizilizeWatcher) {
             setDynamicProp({
