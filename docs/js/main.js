@@ -16985,7 +16985,7 @@
       const value2 = componentMap.get(id);
       if (!value2) return;
       const { element: element2, key: currentKey } = value2;
-      return container.contains(element2) && currentKey === key;
+      return container.contains(element2) && `${currentKey}` === `${key}`;
     }) ?? "";
     const targetValue = componentMap.get(targetId);
     if (!targetValue) return;
@@ -17723,6 +17723,9 @@
       store.set(key, value);
     });
   };
+  function awaitNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+  }
 
   // src/js/mobjs/componentStore/action/parent.js
   var getParentIdById = (id = "") => {
@@ -17835,6 +17838,15 @@
     }
     return id;
   };
+  var componentHasKey = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const key = item?.key;
+    if (!key) {
+      return false;
+    }
+    return key !== "";
+  };
 
   // src/js/mobjs/componentStore/action/freeze.js
   var freezePropById = ({ id = "", prop }) => {
@@ -17927,9 +17939,6 @@
     queque.set(id, props);
     return () => queque.delete(id);
   };
-  function awaitNextLoop() {
-    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
-  }
   var queueIsResolved = () => {
     return queque.size === 0 || queque.size >= maxQueuqueSize;
   };
@@ -17950,6 +17959,43 @@
         return;
       }
       tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
+  // src/js/mobjs/componentStore/tickRepeater.js
+  var repeaterQueque = /* @__PURE__ */ new Map();
+  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+  var maxQueuqueSize2 = 1e3;
+  var incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize2) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    repeaterQueque.set(id, props);
+    return () => repeaterQueque.delete(id);
+  };
+  var queueIsResolved2 = () => {
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
+  };
+  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      repeaterQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved2() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved2()) {
+        resolve();
+        return;
+      }
+      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
     });
   };
 
@@ -18011,7 +18057,11 @@
         dynamicPropsMap.set(key, { ...value, componentId });
       }
     }
-    applyDynamicProps({ componentId, repeatPropBind, inizilizeWatcher: false });
+    applyDynamicProps({
+      componentId,
+      repeatPropBind,
+      inizilizeWatcher: false
+    });
   };
   var removeCurrentIdToDynamicProps = ({ componentId }) => {
     if (!componentId) return;
@@ -18026,7 +18076,7 @@
     if (!propsId) return;
     dynamicPropsMap.delete(propsId);
   };
-  var applyDynamicProps = ({
+  var applyDynamicProps = async ({
     componentId,
     repeatPropBind,
     inizilizeWatcher
@@ -18038,11 +18088,23 @@
       }
     );
     if (!dynamicPropsFilteredArray) return;
-    dynamicPropsFilteredArray.forEach((dynamicpropsfiltered) => {
+    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
       const { bind, props, parentId } = dynamicpropsfiltered;
       const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
       const currentParentId = parentId ?? getParentIdById(componentId);
+      const hasKey = componentHasKey(componentId);
       if (!inizilizeWatcher) {
+        setDynamicProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: true
+        });
+        if (!hasKey) return;
+      }
+      if (!inizilizeWatcher && !repeaterQuequeIsEmpty() && hasKey) {
+        await repeaterTick();
         setDynamicProp({
           componentId,
           bind: bindUpdated,
@@ -18054,7 +18116,8 @@
       }
       let watchIsRunning = false;
       const unWatchArray = bindUpdated.map((state) => {
-        return watchById(currentParentId, state, () => {
+        return watchById(currentParentId, state, async () => {
+          await repeaterTick();
           if (watchIsRunning) return;
           const decrementQueue = incrementTickQueuque({
             state,
@@ -18076,7 +18139,7 @@
         });
       });
       setDynamicPropsWatch({ id: componentId, unWatchArray });
-    });
+    }
     if (!inizilizeWatcher) return;
     for (const [key, value] of dynamicPropsMap) {
       const { componentId: currentComponentId } = value;
@@ -18428,8 +18491,14 @@
 
   // src/js/mobjs/creationStep/convertToRealElement.js
   var getNewElement = ({ element, content: content2 }) => {
+    const { debug } = getDefaultComponent();
     if (element.parentNode) {
       element.insertAdjacentHTML("afterend", content2);
+      if (debug)
+        element.insertAdjacentHTML(
+          "afterend",
+          `<!--  ${element.tagName.toLowerCase()} --> `
+        );
       return (
         /** @type {HTMLElement} */
         element.nextElementSibling
@@ -18783,7 +18852,15 @@
     const parent = newPersistentElementOrder[0]?.parentNode ?? repeaterParentElement;
     if (parent) parent.innerHTML = "";
     newPersistentElementOrder.forEach((item) => {
-      if (parent && item) parent.append(item);
+      if (parent && item) {
+        parent.append(item);
+        const { debug } = getDefaultComponent();
+        if (debug)
+          item.insertAdjacentHTML(
+            "afterend",
+            `<!--  ${targetComponent} --> `
+          );
+      }
     });
     updateChildrenOrder({
       id,
@@ -18988,6 +19065,10 @@
           id,
           type: QUEQUE_TYPE_REPEATER
         });
+        const descrementRepeaterQueue = incrementRepeaterTickQueuque({
+          state,
+          id
+        });
         freezePropById({ id, prop: state });
         const repeatIsRunning = getActiveRepeater({
           id,
@@ -18998,6 +19079,7 @@
           unFreezePropById({ id, prop: state });
           setState(state, previous, false);
           descrementQueue();
+          descrementRepeaterQueue();
           return;
         }
         const targetComponentBeforeParse = getRepeaterComponentTarget({
@@ -19048,16 +19130,19 @@
           element: repeaterParentElement
         });
         [...childrenFiltered].forEach((id2, index) => {
-          const current2 = currentUnivoque?.[index];
-          if (!current2) return;
-          setRepeaterStateById({ id: id2, value: { current: current2, index } });
+          const currentValue = currentUnivoque?.[index];
+          if (!currentValue) return;
+          setRepeaterStateById({
+            id: id2,
+            value: { current: currentValue, index }
+          });
           const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
             contextId: id2
           });
           firstRepeaterchildChildren.forEach((childId) => {
             setRepeaterStateById({
               id: childId,
-              value: { current: current2, index }
+              value: { current: currentValue, index }
             });
           });
         });
@@ -19077,6 +19162,7 @@
           unFreezePropById({ id, prop: state });
           setState(state, currentUnivoque, false);
           descrementQueue();
+          descrementRepeaterQueue();
         });
       }
     );
@@ -22998,10 +23084,10 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/codeOverlay/codeOverlayButton.js
-  var CodeOverlayButtonFn = ({ onMount, watch, getState, html }) => {
+  var CodeOverlayButtonFn = ({ onMount, watchSync, html, getState }) => {
     const { key, disable } = getState();
     onMount(({ element }) => {
-      const unwatchSelected = watch("selected", (selected) => {
+      const unwatchSelected = watchSync("selected", (selected) => {
         element.classList.toggle("selected", selected);
       });
       return () => {
@@ -24228,7 +24314,7 @@ Loading snippet ...</pre
     });
     return html`
         <button type="button">
-            <span> ${label} </span>
+            <span ref="labelRef"> ${label} </span>
         </button>
     `;
   };
