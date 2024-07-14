@@ -6,7 +6,7 @@ import { getParentIdById } from '../../componentStore/action/parent';
 import { setDynamicPropsWatch } from '../../componentStore/action/props';
 import { getStateById, setStateById } from '../../componentStore/action/state';
 import { watchById } from '../../componentStore/action/watch';
-import { incrementTickQueuque } from '../../componentStore/tick';
+import { incrementTickQueuque, tick } from '../../componentStore/tick';
 import { componentMap } from '../../componentStore/store';
 import { QUEQUE_TYPE_BINDPROPS } from '../../constant';
 import {
@@ -317,7 +317,15 @@ export const applyDynamicProps = async ({
         let watchIsRunning = false;
 
         const unWatchArray = bindUpdated.map((/** @type{string} */ state) => {
-            return watchById(currentParentId, state, () => {
+            return watchById(currentParentId, state, async () => {
+                /**
+                 * Fire bindProps at least.
+                 */
+                await repeaterTick();
+
+                /**
+                 * Wait for all all props is settled.
+                 */
                 if (watchIsRunning) return;
 
                 /**
