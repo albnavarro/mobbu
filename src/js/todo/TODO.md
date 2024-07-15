@@ -41,9 +41,11 @@
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
 ## Invaldate component.
-- Utilizzare `renderComponent`, collegarlo a duno stato e alla mutazione dello stato eseguirlo.
-- La funzione non fará altro che usare il watch passato alla funzione e al cambiamento dello stesso eseguire `renderComponent()`
-- Non ci dovrebbe essere bisogno di gestire l'unusubscribe, al destroy del componente viene cmq. tutto perso, si comporterebbe come un watch normale.
+- Utilizzare lo stesso flusso di `renderComponent()`, collegarlo ad un array di stati e alla mutazione dello stato eseguirlo.
+- Il codice dentro la funzione `watch` dovrebbe essere pressoche indentico a `renderComponent`
+- `attachTo` sará `parent`, <strong>come ricavarlo</strong> ?
+- Oltre al `watch` la funzione dovrá ritornare anche il primo `render` per la prima inizializzazione.
+- All' interno del watch utilizzare lo stesso meccasmi di `bindProps` `watchIsRunning` o direttamnte `await tick()`
 
 ```js
 <div>
