@@ -270,7 +270,10 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
         sync: string;
         index: number;
         currentValue: ArrayElement<T[K]>;
-        html?: (arg0: string) => string;
+        html: (
+            template: { raw: readonly string[] | ArrayLike<string> },
+            ...substitutions: any[]
+        ) => string;
     }) => string;
 }) => string;
 

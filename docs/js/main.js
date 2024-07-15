@@ -27801,6 +27801,33 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/pages/dynamicList/data/innerData.js
+  var innerData = [
+    [{ key: 4 }],
+    [{ key: 20 }, { key: 10 }, { key: 10 }, { key: 30 }],
+    [
+      { key: 3 },
+      { key: 20 },
+      { key: 5 },
+      { key: 20 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 60 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 10 },
+      { key: 5 }
+    ]
+  ];
+
   // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
   var DynamicListEmptyFn = async ({ html }) => {
     return html`<div class="c-dynamic-list-empty">
@@ -27827,14 +27854,17 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     watch,
-    id
+    id,
+    repeat,
+    setState,
+    bindEvents
   }) => {
     const { isFull, parentListId, index, label, counter } = getState();
+    let repeaterIndex = 0;
+    let elementRef;
     onMount(({ element, ref }) => {
       const { indexEl, labelEl, counterEl } = ref;
-      element.addEventListener("click", () => {
-        element.classList.toggle("is-selected");
-      });
+      elementRef = element;
       watch("index", (val2) => {
         indexEl.textContent = updateContent("index", val2);
       });
@@ -27855,6 +27885,26 @@ Loading snippet ...</pre
         <div class="c-dynamic-card ${isFullClass}">
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>
+                <dynamic-list-button
+                    class="c-dynamic-card__button"
+                    ${bindEvents({
+      click: () => {
+        if (!elementRef) return;
+        setState("isSelected", (val2) => !val2);
+        elementRef.classList.toggle("is-selected");
+      }
+    })}
+                    ${bindProps({
+      bind: ["isSelected"],
+      props: ({ isSelected }) => {
+        return {
+          active: isSelected
+        };
+      }
+    })}
+                >
+                    Select
+                </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
                 <div class="index" ref="indexEl">
@@ -27883,10 +27933,77 @@ Loading snippet ...</pre
     })}
                     />
                 </dynamic-list-empty>
+                <div class="c-dynamic-card__repeater-container">
+                    <p><strong>Inner repeater:</strong></p>
+                    <dynamic-list-button
+                        class="c-dynamic-card__button"
+                        ${bindEvents({
+      click: () => {
+        repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
+        setState("innerData", innerData[repeaterIndex]);
+      }
+    })}
+                    >
+                        Update:
+                    </dynamic-list-button>
+                    <div class="c-dynamic-card__repeater">
+                        ${repeat({
+      watch: "innerData",
+      key: "key",
+      render: ({ sync, html: html2 }) => {
+        return html2`<dynamic-list-card-inner
+                                    ${bindProps({
+          /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+          props: ({ innerData: innerData2 }, index2) => {
+            return {
+              key: innerData2[index2].key
+            };
+          }
+        })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>`;
+      }
+    })}
+                    </div>
+                </div>
             </div>
         </div>
     `;
   };
+
+  // src/js/component/pages/dynamicList/card/innerCard/dynamicListCardInner.js
+  var DynamicListCardInnerFn = async ({
+    watch,
+    onMount,
+    html,
+    getState
+  }) => {
+    const { key } = getState();
+    onMount(({ ref }) => {
+      const { keyRef } = ref;
+      watch("key", (value) => {
+        keyRef.textContent = `${value}`;
+      });
+      return () => {
+      };
+    });
+    return html`<span class="dynamic-list-card-inner">
+        <span ref="keyRef">${key}</span>
+    </span>`;
+  };
+
+  // src/js/component/pages/dynamicList/card/innerCard/definition.js
+  var DynamicListCardInner = createComponent({
+    name: "dynamic-list-card-inner",
+    component: DynamicListCardInnerFn,
+    exportState: ["key"],
+    state: {
+      key: () => ({
+        value: 0,
+        type: Number
+      })
+    }
+  });
 
   // src/js/component/pages/dynamicList/card/definition.js
   var DynamicListCard = createComponent({
@@ -27913,9 +28030,22 @@ Loading snippet ...</pre
       counter: () => ({
         value: 0,
         type: Number
+      }),
+      innerData: () => ({
+        value: innerData[0],
+        type: Array
+      }),
+      isSelected: () => ({
+        value: false,
+        type: Boolean
       })
     },
-    child: [DynamicCounter, DynamicListEmpty]
+    child: [
+      DynamicCounter,
+      DynamicListEmpty,
+      DynamicListCardInner,
+      DynamicListButton
+    ]
   });
 
   // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js

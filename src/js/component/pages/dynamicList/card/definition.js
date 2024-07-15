@@ -1,9 +1,12 @@
 //@ts-check
 
 import { createComponent } from '../../../../mobjs';
+import { DynamicListButton } from '../button/definition';
 import { DynamicCounter } from '../counter/definition';
+import { innerData } from '../data/innerData';
 import { DynamicListEmpty } from '../empty/definition';
 import { DynamicListCardFn } from './dynamicListCard';
+import { DynamicListCardInner } from './innerCard/definition';
 
 export const DynamicListCard = createComponent({
     name: 'dynamic-list-card',
@@ -30,6 +33,19 @@ export const DynamicListCard = createComponent({
             value: 0,
             type: Number,
         }),
+        innerData: () => ({
+            value: innerData[0],
+            type: Array,
+        }),
+        isSelected: () => ({
+            value: false,
+            type: Boolean,
+        }),
     },
-    child: [DynamicCounter, DynamicListEmpty],
+    child: [
+        DynamicCounter,
+        DynamicListEmpty,
+        DynamicListCardInner,
+        DynamicListButton,
+    ],
 });

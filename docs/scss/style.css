@@ -1415,7 +1415,6 @@ code {
   transition: opacity 1.55s, transform 0.35s;
   color: #000;
   box-sizing: border-box;
-  cursor: pointer;
 }
 @media (min-width: 75em) {
   .c-dynamic-card {
@@ -1439,15 +1438,19 @@ code {
   padding: 1.3333333333rem;
   transition: background 0.55s, color 0.55s;
 }
-.c-dynamic-card:hover {
-  transform: scale(0.95);
-}
 .c-dynamic-card.is-selected .c-dynamic-card__container {
   background: #000;
   color: #fff;
 }
 .c-dynamic-card.is-selected .c-dynamic-card__title {
   color: #fff;
+}
+.c-dynamic-card__repeater-container {
+  margin-top: 1.3333333333rem;
+}
+.c-dynamic-card__button {
+  margin-bottom: 0.8rem;
+  width: 100%;
 }
 .c-dynamic-slot {
   background: #000;

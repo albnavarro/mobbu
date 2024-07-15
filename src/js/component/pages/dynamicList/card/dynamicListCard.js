@@ -1,6 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../../mobCore';
+import { innerData } from '../data/innerData';
 
 // function wait() {
 //     return new Promise((resolve) => {
@@ -26,15 +27,17 @@ export const DynamicListCardFn = ({
     bindProps,
     watch,
     id,
+    repeat,
+    setState,
+    bindEvents,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
+    let repeaterIndex = 0;
+    let elementRef;
 
     onMount(({ element, ref }) => {
         const { indexEl, labelEl, counterEl } = ref;
-
-        element.addEventListener('click', () => {
-            element.classList.toggle('is-selected');
-        });
+        elementRef = element;
 
         watch('index', (val) => {
             indexEl.textContent = updateContent('index', val);
@@ -61,6 +64,26 @@ export const DynamicListCardFn = ({
         <div class="c-dynamic-card ${isFullClass}">
             <div class="c-dynamic-card__container">
                 <p class="c-dynamic-card__title">card content</p>
+                <dynamic-list-button
+                    class="c-dynamic-card__button"
+                    ${bindEvents({
+                        click: () => {
+                            if (!elementRef) return;
+                            setState('isSelected', (val) => !val);
+                            elementRef.classList.toggle('is-selected');
+                        },
+                    })}
+                    ${bindProps({
+                        bind: ['isSelected'],
+                        props: ({ isSelected }) => {
+                            return {
+                                active: isSelected,
+                            };
+                        },
+                    })}
+                >
+                    Select
+                </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
                 <div class="index" ref="indexEl">
@@ -89,6 +112,43 @@ export const DynamicListCardFn = ({
                         })}
                     />
                 </dynamic-list-empty>
+                <div class="c-dynamic-card__repeater-container">
+                    <p><strong>Inner repeater:</strong></p>
+                    <dynamic-list-button
+                        class="c-dynamic-card__button"
+                        ${bindEvents({
+                            click: () => {
+                                repeaterIndex =
+                                    repeaterIndex < innerData.length - 1
+                                        ? repeaterIndex + 1
+                                        : 0;
+
+                                setState('innerData', innerData[repeaterIndex]);
+                            },
+                        })}
+                    >
+                        Update:
+                    </dynamic-list-button>
+                    <div class="c-dynamic-card__repeater">
+                        ${repeat({
+                            watch: 'innerData',
+                            key: 'key',
+                            render: ({ sync, html }) => {
+                                return html`<dynamic-list-card-inner
+                                    ${bindProps({
+                                        /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                        props: ({ innerData }, index) => {
+                                            return {
+                                                key: innerData[index].key,
+                                            };
+                                        },
+                                    })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>`;
+                            },
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     `;
