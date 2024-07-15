@@ -23003,6 +23003,7 @@ Loading snippet ...</pre
           document.body.style.overflow = "hidden";
           const firstActiveItem = urls?.[0]?.label;
           if (!firstActiveItem) return;
+          await tick();
           setState("activeContent", firstActiveItem);
           return;
         }
