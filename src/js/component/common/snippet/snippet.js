@@ -50,6 +50,11 @@ export const SnippetFn = ({ html, onMount, getState }) => {
     ).getPropertyValue('--snippet-line-height-value');
 
     onMount(async ({ ref }) => {
+        /**
+         * Async onMount, component should be destroyed.
+         */
+        if (!getState || !ref) return () => {};
+
         const { codeEl } = ref;
         const { awaitLoad } = getState();
 
