@@ -40,6 +40,32 @@
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
+## Invaldate component.
+- Utilizzare `renderComponent`, collegarlo a duno stato e alla mutazione dello stato eseguirlo.
+- La funzione non fará altro che usare il watch passato alla funzione e al cambiamento dello stesso eseguire `renderComponent()`
+- Non ci dovrebbe essere bisogno di gestire l'unusubscribe, al destroy del componente viene cmq. tutto perso, si comporterebbe come un watch normale.
+
+```js
+<div>
+    ${invalidate({
+        bind:['myState'],
+        render: ({html}) => {
+            return html`
+                <my-component
+                    ${bindProps({
+                        bind: ['myState'],
+                        props: ({ myState }) => {
+                            return {
+                                childState: myState,
+                            };
+                        },
+                    })}
+                ></my-component>`
+        }
+    })}
+</div>
+```
+
 ## Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
 
