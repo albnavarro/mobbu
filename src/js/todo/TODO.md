@@ -41,29 +41,56 @@
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
 ## Invaldate component.
-- Utilizzare lo stesso flusso di `renderComponent()`, collegarlo ad un array di stati e alla mutazione dello stato eseguirlo.
-- Il codice dentro la funzione `watch` dovrebbe essere pressoche indentico a `renderComponent`
-- `attachTo` sará `parent`, <strong>come ricavarlo</strong> ?
-- Oltre al `watch` la funzione dovrá ritornare anche il primo `render` per la prima inizializzazione.
-- All' interno del watch utilizzare lo stesso meccasmi di `bindProps` `watchIsRunning` o direttamnte `await tick()`
+```js
+invalidate: ({ bind, render }) => {
+    const invalidateId = mobCore.getUnivoqueId();
+
+    /**
+     * L'attributo viene letto un userComponent.
+     * Poi come le altre propietá viene salvato in componentMap:
+     * - invalidateId
+     * - invalidateParent: elment/componentToParse.parent
+     *
+     * Specificare come per il repeater che ci vuole un container div unico
+     * L'idUnico puó essere sempre uguale per ogni invalidate funzione.
+     */
+    const sync = `invalidateId=${invalidateId}`;
+    const invalidateRender = () => render({ html: renderHtml, sync });
+
+    bind.forEach((state) => {
+        watch(state, async () => {
+            //
+            /**
+             * async trick come computed.
+             * Cercare nella mappa un component con invalidateId corrispondente
+             * E recuperare invalidateParent
+             * A questo punto la logica e come render component
+             */
+
+            // ...
+
+            invalidateParent.insertAdjacentHTML(
+                position,
+                invalidateRender()
+            );
+
+            // ...
+        });
+    });
+
+    return invalidateRender();
+},
+```
 
 ```js
-<div>
+<div class="test-container2">
     ${invalidate({
-        bind:['myState'],
-        render: ({html}) => {
-            return html`
-                <my-component
-                    ${bindProps({
-                        bind: ['myState'],
-                        props: ({ myState }) => {
-                            return {
-                                childState: myState,
-                            };
-                        },
-                    })}
-                ></my-component>`
-        }
+        bind: ['counter'],
+        render: ({ html, sync }) => {
+            return html`<my-component ${sync}
+                >paperino2</my-component
+            >`;
+        },
     })}
 </div>
 ```
