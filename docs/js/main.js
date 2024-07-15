@@ -17838,15 +17838,6 @@
     }
     return id;
   };
-  var componentHasKey = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const key = item?.key;
-    if (!key) {
-      return false;
-    }
-    return key !== "";
-  };
 
   // src/js/mobjs/componentStore/action/freeze.js
   var freezePropById = ({ id = "", prop }) => {
@@ -18092,7 +18083,6 @@
       const { bind, props, parentId } = dynamicpropsfiltered;
       const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
       const currentParentId = parentId ?? getParentIdById(componentId);
-      const hasKey = componentHasKey(componentId);
       if (!inizilizeWatcher) {
         setDynamicProp({
           componentId,
@@ -18101,9 +18091,8 @@
           currentParentId: currentParentId ?? "",
           fireCallback: true
         });
-        if (!hasKey) return;
       }
-      if (!inizilizeWatcher && !repeaterQuequeIsEmpty() && hasKey) {
+      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
         await repeaterTick();
         setDynamicProp({
           componentId,
@@ -18112,8 +18101,8 @@
           currentParentId: currentParentId ?? "",
           fireCallback: true
         });
-        return;
       }
+      if (!inizilizeWatcher) return;
       let watchIsRunning = false;
       const unWatchArray = bindUpdated.map((state) => {
         return watchById(currentParentId, state, async () => {
@@ -22913,6 +22902,7 @@ Loading snippet ...</pre
       bind: ["activeContent"],
       props: ({ activeContent, urls }, index) => {
         const { label, source } = urls[index];
+        console.log(label, activeContent);
         return {
           key: label,
           disable: !source || source.length === 0,
@@ -23003,7 +22993,6 @@ Loading snippet ...</pre
           document.body.style.overflow = "hidden";
           const firstActiveItem = urls?.[0]?.label;
           if (!firstActiveItem) return;
-          await tick();
           setState("activeContent", firstActiveItem);
           return;
         }

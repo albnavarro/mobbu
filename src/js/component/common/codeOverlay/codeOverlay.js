@@ -7,7 +7,6 @@ import {
     html,
     mainStore,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
-    tick,
 } from '../../../mobjs';
 
 /**
@@ -42,6 +41,8 @@ function getRepeaterCard({
                 bind: ['activeContent'],
                 props: ({ activeContent, urls }, index) => {
                     const { label, source } = urls[index];
+
+                    console.log(label, activeContent);
 
                     return {
                         key: label,
@@ -186,12 +187,6 @@ export const CodeOverlayFn = ({
                  */
                 const firstActiveItem = urls?.[0]?.label;
                 if (!firstActiveItem) return;
-
-                /**
-                 * Await urls has been completed,
-                 * Active item run after
-                 */
-                await tick();
 
                 setState('activeContent', firstActiveItem);
                 return;

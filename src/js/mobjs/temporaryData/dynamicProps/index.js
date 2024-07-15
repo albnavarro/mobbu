@@ -260,11 +260,6 @@ export const applyDynamicProps = async ({
         const currentParentId = parentId ?? getParentIdById(componentId);
 
         /**
-         * Component inside a repeater has unique key
-         */
-        const hasKey = componentHasKey(componentId);
-
-        /**
          * Normally props is initialized after repeater
          * So on created we doesn't have the props ready
          * Fire setDynamicProp once before repeater tick to
@@ -274,7 +269,6 @@ export const applyDynamicProps = async ({
          * state of the store, in the next step after the repeaters
          * have been executed it will be updated with the latest
          * state of the store.
-         * TODO: figure out how to avoid double passage
          */
         if (!inizilizeWatcher) {
             setDynamicProp({
@@ -284,17 +278,14 @@ export const applyDynamicProps = async ({
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
             });
-
-            if (!hasKey) return;
         }
 
         /**
          * If repeater is running, update
-         * After repeater is end the state observer can change if key is used
-         * Ic case of not univoque element some item can be deleted from wtached satate.
+         * After repeater is end the state observer can change.
          * So update props.
          */
-        if (!inizilizeWatcher && !repeaterQuequeIsEmpty() && hasKey) {
+        if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
             /**
              * Initialize props after repater
              * So we have the last value of currentValue && index
@@ -311,9 +302,9 @@ export const applyDynamicProps = async ({
                 currentParentId: currentParentId ?? '',
                 fireCallback: true,
             });
-
-            return;
         }
+
+        if (!inizilizeWatcher) return;
 
         /**
          * Watch props on change
