@@ -101,6 +101,7 @@
                     "<a href='./#mobJs-slot'>Slot</a>",
                     "<a href='./#mobJs-runtime'>Runtime add/remove</a>",
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
                     "<a href='./#mobJs-tick'>Tick</a>",
                     "<a href='./#mobJs-utils'>Utils</a>",
                     "<a href='./#mobJs-debug'>Debug</a>"

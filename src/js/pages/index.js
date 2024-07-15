@@ -236,6 +236,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-setStateByName',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/setStateByName.json',
+            title: 'setStateByName',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
         name: 'mobJs-tick',
         layout: layoutSidebarAnchor,
         props: {

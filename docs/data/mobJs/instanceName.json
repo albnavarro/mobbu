@@ -71,7 +71,9 @@
             "props": {
                 "tag": "h3",
                 "dots": false,
-                "items": ["<a href='./#mobJs-utils'>Utils</a>"]
+                "items": [
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>"
+                ]
             }
         }
     ]

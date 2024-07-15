@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small",
+                "id": "start",
+                "label": "Overview"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "SetStateByName"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Set component state by instance name"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/utils-get-state-by-name.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 3
+            }
+        }
+    ]
+}

@@ -352,6 +352,11 @@
             "url": "mobJs-instanceName"
         },
         {
+            "label": "setStateByName",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-setStateByName"
+        },
+        {
             "label": "tick",
             "scrollToSection": "mobJs",
             "url": "mobJs-tick"
