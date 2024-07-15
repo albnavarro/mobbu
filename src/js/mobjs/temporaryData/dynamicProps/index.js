@@ -13,7 +13,6 @@ import {
     repeaterQuequeIsEmpty,
     repeaterTick,
 } from '../../componentStore/tickRepeater';
-import { componentHasKey } from '../../componentStore/action/component';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}

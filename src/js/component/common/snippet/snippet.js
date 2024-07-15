@@ -7,6 +7,8 @@ import { loadTextContent } from '../../../utils/utils';
 hljs.registerLanguage('javascript', javascript);
 
 const loadSnippet = async ({ ref, source }) => {
+    if (!ref) return;
+
     /**
      * Get snippet data.
      */
@@ -50,13 +52,14 @@ export const SnippetFn = ({ html, onMount, getState }) => {
     ).getPropertyValue('--snippet-line-height-value');
 
     onMount(async ({ ref }) => {
+        const { codeEl } = ref;
+
         /**
          * Async onMount, component should be destroyed.
+         * Avoid desconstruct
          */
-        if (!getState || !ref) return () => {};
-
-        const { codeEl } = ref;
-        const { awaitLoad } = getState();
+        const stateObject = getState();
+        const awaitLoad = stateObject?.awaitLoad;
 
         if (awaitLoad) {
             await loadSnippet({ ref: codeEl, source });

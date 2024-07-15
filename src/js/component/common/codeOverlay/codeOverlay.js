@@ -42,8 +42,6 @@ function getRepeaterCard({
                 props: ({ activeContent, urls }, index) => {
                     const { label, source } = urls[index];
 
-                    console.log(label, activeContent);
-
                     return {
                         key: label,
                         disable: !source || source.length === 0,

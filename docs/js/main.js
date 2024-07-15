@@ -20922,6 +20922,7 @@
   // src/js/component/common/snippet/snippet.js
   core_default.registerLanguage("javascript", javascript);
   var loadSnippet = async ({ ref, source }) => {
+    if (!ref) return;
     const { success, data: data3 } = await loadTextContent({ source });
     if (!success) {
       ref.textContent = `something went wrong`;
@@ -20943,10 +20944,9 @@
       document.documentElement
     ).getPropertyValue("--snippet-line-height-value");
     onMount(async ({ ref }) => {
-      if (!getState || !ref) return () => {
-      };
       const { codeEl } = ref;
-      const { awaitLoad } = getState();
+      const stateObject = getState();
+      const awaitLoad = stateObject?.awaitLoad;
       if (awaitLoad) {
         await loadSnippet({ ref: codeEl, source });
       } else {
@@ -22902,7 +22902,6 @@ Loading snippet ...</pre
       bind: ["activeContent"],
       props: ({ activeContent, urls }, index) => {
         const { label, source } = urls[index];
-        console.log(label, activeContent);
         return {
           key: label,
           disable: !source || source.length === 0,
