@@ -11,17 +11,13 @@ export const DynamicListCardInnerFn = async ({
 }) => {
     const { key } = getState();
 
-    onMount(({ ref }) => {
-        const { keyRef } = ref;
-
+    onMount(({ element }) => {
         watch('key', (value) => {
-            keyRef.textContent = `${value}`;
+            element.textContent = `${value}`;
         });
 
         return () => {};
     });
 
-    return html`<span class="dynamic-list-card-inner">
-        <span ref="keyRef">${key}</span>
-    </span>`;
+    return html`<span class="dynamic-list-card-inner"> ${key} </span>`;
 };

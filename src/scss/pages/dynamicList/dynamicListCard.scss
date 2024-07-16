@@ -59,8 +59,14 @@
         margin-top: rem(20);
     }
 
+    &__repeater {
+        font-size: 0;
+    }
+
     &__button {
         margin-bottom: rem(12);
         width: 100%;
+        padding: rem(12);
+        border: 1px $white solid;
     }
 }

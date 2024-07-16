@@ -25,17 +25,17 @@ const buttons = [
 
 const repeaters = [
     {
-        label: 'dynamic list with key',
+        label: 'repeater with key',
         key: 'key',
         clean: false,
     },
     {
-        label: 'dynamic list without key',
+        label: 'repeater without key',
         key: '',
         clean: false,
     },
     {
-        label: 'dynamic list clear',
+        label: 'repeater clear',
         key: '',
         clean: true,
     },
@@ -55,6 +55,7 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
 
             return html`
                 <dynamic-list-button
+                    class="c-dynamic-list__top__button"
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
                         click: async () => {
@@ -183,6 +184,7 @@ export const DynamicListFn = async ({
                         bindProps,
                     })}
                     <dynamic-list-button
+                        class="c-dynamic-list__top__button"
                         ${staticProps({ label: 'increase counter' })}
                         ${delegateEvents({
                             click: async () => {
