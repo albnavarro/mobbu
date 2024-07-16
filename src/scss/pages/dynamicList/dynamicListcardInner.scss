@@ -1,0 +1,21 @@
+@use '../../abstract' as *;
+
+.dynamic-list-card-inner {
+    width: rem(20);
+    height: rem(20);
+    text-align: center;
+    background: $black;
+    color: $white;
+    margin: rem(1);
+    padding: 0;
+    border-radius: rem(4);
+    font-size: rem(12);
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include when-inside('.is-selected') {
+        background: $white;
+        color: $black;
+    }
+}

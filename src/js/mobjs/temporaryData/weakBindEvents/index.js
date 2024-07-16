@@ -4,6 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/classVersion/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { getIdByElement } from '../../componentStore/action/element';
+import { repeaterTick } from '../../componentStore/tickRepeater';
 import {
     ATTR_WEAK_BIND_EVENTS,
     DEFAULT_CURRENT_REPEATER_STATE,
@@ -132,13 +133,15 @@ function handleAction(eventKey, event) {
 
 /**
  * @param {HTMLElement} root
- * @return { void }
+ * @return { Promise<any> }
  *
  * @description
  * Store props and return a unique identifier
  *
  */
-export const applyDelegationBindEvent = (root) => {
+export const applyDelegationBindEvent = async (root) => {
+    await repeaterTick();
+
     /**
      * Get parent node of root ( root of parseComponentRecursive ).
      */

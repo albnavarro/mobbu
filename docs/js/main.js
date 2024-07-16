@@ -16997,6 +16997,75 @@
     return element;
   };
 
+  // src/js/mobjs/componentStore/utils.js
+  var updateChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = [...childGroupByName, id];
+    return currentChild;
+  };
+  var removeChildFromChildrenArray = ({
+    currentChild,
+    id = "",
+    componentName = ""
+  }) => {
+    const childGroupByName = currentChild?.[componentName] ?? [];
+    currentChild[componentName] = childGroupByName.filter(
+      (currentId) => {
+        return id !== currentId;
+      }
+    );
+    return currentChild;
+  };
+  var addPropsToState = ({ props, store }) => {
+    Object.entries(props).forEach(([key, value]) => {
+      store.set(key, value);
+    });
+  };
+  function awaitNextLoop() {
+    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
+  }
+
+  // src/js/mobjs/componentStore/tickRepeater.js
+  var repeaterQueque = /* @__PURE__ */ new Map();
+  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
+  var maxQueuqueSize = 1e3;
+  var incrementRepeaterTickQueuque = (props) => {
+    if (repeaterQueque.size >= maxQueuqueSize) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    repeaterQueque.set(id, props);
+    return () => repeaterQueque.delete(id);
+  };
+  var queueIsResolved = () => {
+    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize;
+  };
+  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      repeaterQueque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved()) {
+        resolve();
+        return;
+      }
+      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
   // src/js/mobjs/mainStore/root.js
   var root = document.createElement("div");
   var setRoot = ({ element }) => {
@@ -17044,7 +17113,8 @@
     Object.defineProperty(event, "target", { value: targetParsed });
     callback2(event, currentRepeaterState?.index);
   }
-  var applyDelegationBindEvent = (root2) => {
+  var applyDelegationBindEvent = async (root2) => {
+    await repeaterTick();
     const parent = root2.parentNode;
     const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
     [...elements].forEach((element) => {
@@ -17695,38 +17765,6 @@
     bindEventMap.clear();
   };
 
-  // src/js/mobjs/componentStore/utils.js
-  var updateChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = [...childGroupByName, id];
-    return currentChild;
-  };
-  var removeChildFromChildrenArray = ({
-    currentChild,
-    id = "",
-    componentName = ""
-  }) => {
-    const childGroupByName = currentChild?.[componentName] ?? [];
-    currentChild[componentName] = childGroupByName.filter(
-      (currentId) => {
-        return id !== currentId;
-      }
-    );
-    return currentChild;
-  };
-  var addPropsToState = ({ props, store }) => {
-    Object.entries(props).forEach(([key, value]) => {
-      store.set(key, value);
-    });
-  };
-  function awaitNextLoop() {
-    return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
-  }
-
   // src/js/mobjs/componentStore/action/parent.js
   var getParentIdById = (id = "") => {
     if (!id || id === "") return;
@@ -17919,10 +17957,10 @@
 
   // src/js/mobjs/componentStore/tick.js
   var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize = 1e3;
+  var maxQueuqueSize2 = 1e3;
   var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
+    if (queque.size >= maxQueuqueSize2) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
       return () => {
       };
     }
@@ -17930,50 +17968,13 @@
     queque.set(id, props);
     return () => queque.delete(id);
   };
-  var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
+  var queueIsResolved2 = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize2;
   };
   var tick = async ({ debug = false, previousResolve } = {}) => {
     await awaitNextLoop();
     if (debug) {
       queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
-  // src/js/mobjs/componentStore/tickRepeater.js
-  var repeaterQueque = /* @__PURE__ */ new Map();
-  var repeaterQuequeIsEmpty = () => repeaterQueque.size === 0;
-  var maxQueuqueSize2 = 1e3;
-  var incrementRepeaterTickQueuque = (props) => {
-    if (repeaterQueque.size >= maxQueuqueSize2) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize2})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    repeaterQueque.set(id, props);
-    return () => repeaterQueque.delete(id);
-  };
-  var queueIsResolved2 = () => {
-    return repeaterQueque.size === 0 || repeaterQueque.size >= maxQueuqueSize2;
-  };
-  var repeaterTick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      repeaterQueque.forEach((value) => {
         console.log(value);
       });
     }
@@ -17986,7 +17987,7 @@
         resolve();
         return;
       }
-      repeaterTick({ debug, previousResolve: previousResolve ?? resolve });
+      tick({ debug, previousResolve: previousResolve ?? resolve });
     });
   };
 
@@ -27859,7 +27860,7 @@ Loading snippet ...</pre
     id,
     repeat,
     setState,
-    bindEvents
+    delegateEvents
   }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -27889,7 +27890,7 @@ Loading snippet ...</pre
                 <p class="c-dynamic-card__title">card content</p>
                 <dynamic-list-button
                     class="c-dynamic-card__button"
-                    ${bindEvents({
+                    ${delegateEvents({
       click: () => {
         if (!elementRef) return;
         setState("isSelected", (val2) => !val2);
@@ -27939,7 +27940,7 @@ Loading snippet ...</pre
                     <p><strong>Inner repeater:</strong></p>
                     <dynamic-list-button
                         class="c-dynamic-card__button"
-                        ${bindEvents({
+                        ${delegateEvents({
       click: () => {
         repeaterIndex = repeaterIndex < innerData.length - 1 ? repeaterIndex + 1 : 0;
         setState("innerData", innerData[repeaterIndex]);

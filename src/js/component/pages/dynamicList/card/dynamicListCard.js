@@ -29,7 +29,7 @@ export const DynamicListCardFn = ({
     id,
     repeat,
     setState,
-    bindEvents,
+    delegateEvents,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -66,7 +66,7 @@ export const DynamicListCardFn = ({
                 <p class="c-dynamic-card__title">card content</p>
                 <dynamic-list-button
                     class="c-dynamic-card__button"
-                    ${bindEvents({
+                    ${delegateEvents({
                         click: () => {
                             if (!elementRef) return;
                             setState('isSelected', (val) => !val);
@@ -116,7 +116,7 @@ export const DynamicListCardFn = ({
                     <p><strong>Inner repeater:</strong></p>
                     <dynamic-list-button
                         class="c-dynamic-card__button"
-                        ${bindEvents({
+                        ${delegateEvents({
                             click: () => {
                                 repeaterIndex =
                                     repeaterIndex < innerData.length - 1
