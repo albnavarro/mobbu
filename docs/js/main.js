@@ -19462,7 +19462,6 @@
       }
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
-      applyDelegationBindEvent(element);
       return;
     }
     const componentToParseName = componentToParse.getComponentName();
@@ -19655,6 +19654,7 @@
       currentIterationCounter: 0,
       parentIdForced
     });
+    applyDelegationBindEvent(element);
   };
   var initParseWatcher = () => {
     mainStore.watch(

@@ -114,13 +114,6 @@ export const parseComponentsRecursive = async ({
         functionToFireAtTheEnd.length = 0;
         currentSelectors.length = 0;
 
-        /**
-         * Apply delegate event at the ends of all repeater parse.
-         * Important! do not use await here.
-         * This should be the last commad.
-         */
-        applyDelegationBindEvent(element);
-
         return;
     }
 
