@@ -5,7 +5,6 @@ import { QUEQUE_TYPE_PARSE_WATCH_ASYNC } from '../constant';
 import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
-import { applyDelegationBindEvent } from '../temporaryData/weakBindEvents';
 import { parseComponentsRecursive } from './parseComponentRecursive';
 
 /**
@@ -30,13 +29,6 @@ export const parseComponents = async ({
         currentIterationCounter: 0,
         parentIdForced,
     });
-
-    /**
-     * Apply delegate event at the ends of all repeater parse.
-     * Important! do not use await here.
-     * This should be the last command.
-     */
-    applyDelegationBindEvent(element);
 };
 
 /**
