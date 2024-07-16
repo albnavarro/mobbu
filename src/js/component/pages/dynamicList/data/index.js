@@ -131,3 +131,29 @@ export const state3 = [
         label: 'D',
     },
 ];
+
+export const innerData = [
+    [{ key: 4 }],
+    [{ key: 20 }, { key: 10 }, { key: 10 }, { key: 30 }],
+    [
+        { key: 3 },
+        { key: 20 },
+        { key: 5 },
+        { key: 20 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 60 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 5 },
+        { key: 10 },
+        { key: 5 },
+    ],
+];

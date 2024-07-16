@@ -1,7 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../../mobCore';
-import { innerData } from '../data/innerData';
+import { innerData } from '../data';
 
 // function wait() {
 //     return new Promise((resolve) => {

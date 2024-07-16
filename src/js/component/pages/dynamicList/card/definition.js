@@ -3,7 +3,7 @@
 import { createComponent } from '../../../../mobjs';
 import { DynamicListButton } from '../button/definition';
 import { DynamicCounter } from '../counter/definition';
-import { innerData } from '../data/innerData';
+import { innerData } from '../data';
 import { DynamicListEmpty } from '../empty/definition';
 import { DynamicListCardFn } from './dynamicListCard';
 import { DynamicListCardInner } from './innerCard/definition';

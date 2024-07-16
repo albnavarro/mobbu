@@ -27592,6 +27592,31 @@ Loading snippet ...</pre
       label: "D"
     }
   ];
+  var innerData = [
+    [{ key: 4 }],
+    [{ key: 20 }, { key: 10 }, { key: 10 }, { key: 30 }],
+    [
+      { key: 3 },
+      { key: 20 },
+      { key: 5 },
+      { key: 20 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 60 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 5 },
+      { key: 10 },
+      { key: 5 }
+    ]
+  ];
 
   // src/js/component/pages/dynamicList/dynamicList.js
   var buttons2 = [
@@ -27803,33 +27828,6 @@ Loading snippet ...</pre
       })
     }
   });
-
-  // src/js/component/pages/dynamicList/data/innerData.js
-  var innerData = [
-    [{ key: 4 }],
-    [{ key: 20 }, { key: 10 }, { key: 10 }, { key: 30 }],
-    [
-      { key: 3 },
-      { key: 20 },
-      { key: 5 },
-      { key: 20 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 60 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 5 },
-      { key: 10 },
-      { key: 5 }
-    ]
-  ];
 
   // src/js/component/pages/dynamicList/empty/dynamicListEmpty.js
   var DynamicListEmptyFn = async ({ html }) => {
