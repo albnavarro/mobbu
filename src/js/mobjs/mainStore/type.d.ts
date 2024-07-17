@@ -16,7 +16,7 @@ export interface MainStore {
     beforeRouteChange: string;
     afterRouteChange: string;
     routeIsLoading: boolean;
-    repeaterParserRoot: {
+    repeaterParserAsync: {
         element: HTMLElement;
         parentId: string;
     };

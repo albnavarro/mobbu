@@ -22,7 +22,7 @@ import {
     ATTR_REPEATID,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
+import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setBindProps } from '../temporaryData/dynamicProps';
@@ -91,11 +91,11 @@ export const getParamsForComponentFunction = ({
              * Render
              */
             mainStore.set(
-                MAIN_STORE_REPEATER_PARSER_ROOT,
+                MAIN_STORE_ASYNC_PARSER,
                 { element: attachTo, parentId: id },
                 false
             );
-            return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+            return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
         },
         invalidate: ({ bind, render }) => {
             const invalidateId = mobCore.getUnivoqueId();

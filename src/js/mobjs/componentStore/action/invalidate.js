@@ -1,6 +1,6 @@
 import { mobCore } from '../../../mobCore';
 import { QUEQUE_TYPE_INVALIDATE } from '../../constant';
-import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../../mainStore/constant';
+import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
@@ -126,12 +126,12 @@ export const inizializeInvalidateWatch = async ({
                  * Parse new component.
                  */
                 mainStore.set(
-                    MAIN_STORE_REPEATER_PARSER_ROOT,
+                    MAIN_STORE_ASYNC_PARSER,
                     { element: invalidateParent, parentId: id },
                     false
                 );
 
-                await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+                await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
 
                 watchIsRunning = false;
                 descrementQueue();

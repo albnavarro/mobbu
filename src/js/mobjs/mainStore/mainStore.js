@@ -7,7 +7,7 @@ import {
     MAIN_STORE_AFTER_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
-    MAIN_STORE_REPEATER_PARSER_ROOT,
+    MAIN_STORE_ASYNC_PARSER,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './constant';
 
@@ -44,7 +44,7 @@ export const mainStore = mobCore.createStore({
         value: false,
         type: Boolean,
     }),
-    [MAIN_STORE_REPEATER_PARSER_ROOT]: {
+    [MAIN_STORE_ASYNC_PARSER]: {
         element: () => ({
             value: document.createElement('div'),
             type: HTMLElement,

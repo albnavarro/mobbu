@@ -17216,7 +17216,7 @@
   var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
   var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
   var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
-  var MAIN_STORE_REPEATER_PARSER_ROOT = "repeaterParserRoot";
+  var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
 
   // src/js/mobjs/mainStore/mainStore.js
   var mainStore = mobCore.createStore({
@@ -17249,7 +17249,7 @@
       value: false,
       type: Boolean
     }),
-    [MAIN_STORE_REPEATER_PARSER_ROOT]: {
+    [MAIN_STORE_ASYNC_PARSER]: {
       element: () => ({
         value: document.createElement("div"),
         type: HTMLElement,
@@ -17274,9 +17274,7 @@
     }
     const id = mobCore.getUnivoqueId();
     queque.set(id, props);
-    return () => {
-      queque.delete(id);
-    };
+    return () => queque.delete(id);
   };
   var queueIsResolved3 = () => {
     return queque.size === 0 || queque.size >= maxQueuqueSize3;
@@ -17830,11 +17828,11 @@
             renderFunction()
           );
           mainStore.set(
-            MAIN_STORE_REPEATER_PARSER_ROOT,
+            MAIN_STORE_ASYNC_PARSER,
             { element: invalidateParent, parentId: id },
             false
           );
-          await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
           watchIsRunning = false;
           descrementQueue();
           decrementInvalidateQueque();
@@ -19153,11 +19151,11 @@
       repeatId
     });
     mainStore.set(
-      MAIN_STORE_REPEATER_PARSER_ROOT,
+      MAIN_STORE_ASYNC_PARSER,
       { element: repeaterParentElement, parentId: id },
       false
     );
-    await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+    await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
     updateChildrenOrder({
       id,
       componentName: targetComponent
@@ -19358,11 +19356,11 @@
         }
         attachTo.insertAdjacentHTML(position2, component);
         mainStore.set(
-          MAIN_STORE_REPEATER_PARSER_ROOT,
+          MAIN_STORE_ASYNC_PARSER,
           { element: attachTo, parentId: id },
           false
         );
-        return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+        return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
       },
       invalidate: ({ bind, render: render2 }) => {
         const invalidateId = mobCore.getUnivoqueId();
@@ -19815,15 +19813,12 @@
     });
   };
   var initParseWatcher = () => {
-    mainStore.watch(
-      MAIN_STORE_REPEATER_PARSER_ROOT,
-      async ({ element, parentId }) => {
-        await parseComponents({
-          element,
-          parentIdForced: parentId ?? ""
-        });
-      }
-    );
+    mainStore.watch(MAIN_STORE_ASYNC_PARSER, async ({ element, parentId }) => {
+      await parseComponents({
+        element,
+        parentIdForced: parentId ?? ""
+      });
+    });
   };
 
   // src/js/mobjs/mainStore/restoreScroll.js
