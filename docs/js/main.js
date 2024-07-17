@@ -17741,6 +17741,9 @@
     invalidatePlaceHolderMap.set(id, parent);
   };
   var getFirstInvalidateParent = ({ id }) => {
+    if (!invalidatePlaceHolderMap.has(id)) {
+      return;
+    }
     return invalidatePlaceHolderMap.get(id);
   };
   var getInvalidateParent = ({ invalidateId = "" }) => {

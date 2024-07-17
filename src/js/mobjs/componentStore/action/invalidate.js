@@ -9,6 +9,9 @@ import { awaitNextLoop } from '../utils';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
 
 /**
+ * @description
+ * Store parent invalidate by a webcomponent utils
+ *
  * @type {Map<string, HTMLElement>}
  */
 const invalidatePlaceHolderMap = new Map();
@@ -29,6 +32,10 @@ export const addIvalidateParent = ({ id = '', parent }) => {
  * @returns {HTMLElement}
  */
 export const getFirstInvalidateParent = ({ id }) => {
+    if (!invalidatePlaceHolderMap.has(id)) {
+        return;
+    }
+
     return invalidatePlaceHolderMap.get(id);
 };
 
