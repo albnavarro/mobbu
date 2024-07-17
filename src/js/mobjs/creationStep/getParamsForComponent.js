@@ -6,6 +6,7 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../componentStore/action/freeze';
+import { inizializeInvalidateWatch } from '../componentStore/action/invalidate';
 import { getParentIdById } from '../componentStore/action/parent';
 import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
 import {
@@ -16,6 +17,7 @@ import { watchById } from '../componentStore/action/watch';
 import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
+    ATTR_INVALIDATE,
     ATTR_PROPS,
     ATTR_REPEATID,
     ATTR_WEAK_BIND_EVENTS,
@@ -94,6 +96,21 @@ export const getParamsForComponentFunction = ({
                 false
             );
             return mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+        },
+        invalidate: ({ bind, render }) => {
+            const invalidateId = mobCore.getUnivoqueId();
+            const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
+            const invalidateRender = () => render({ html: renderHtml, sync });
+
+            inizializeInvalidateWatch({
+                bind,
+                watch,
+                id,
+                invalidateId,
+                renderFunction: invalidateRender,
+            });
+
+            return invalidateRender();
         },
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });

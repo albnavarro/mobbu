@@ -21,6 +21,7 @@ export class userComponent extends HTMLElement {
     getRepeaterPropBind: () => string | undefined;
     getComponentRepeatContext: () => string | undefined;
     setComponentRepeaterContext: (arg0: string) => void;
+    getInvalidateId: () => string;
 }
 
 export class repeaterComponent extends HTMLElement {

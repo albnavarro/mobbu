@@ -288,6 +288,20 @@ export type PartialRenderComponent = (arg0: {
 }) => Promise<any>;
 
 /**
+ * Invalidate component
+ */
+export type PartialInvalidateComponent<T> = (arg0: {
+    bind?: Array<OnlyStringKey<T>>;
+    render: (arg0: {
+        html: (
+            template: { raw: readonly string[] | ArrayLike<string> },
+            ...substitutions: any[]
+        ) => string;
+        sync: string;
+    }) => string;
+}) => string;
+
+/**
  * StaticProps
  */
 export type PartialStaticProps<R> = (arg0: Partial<R>) => string;

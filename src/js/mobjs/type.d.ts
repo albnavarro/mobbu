@@ -13,6 +13,7 @@ import {
     PartialGetChildren,
     PartialGetParentId,
     PartialGetState,
+    PartialInvalidateComponent,
     PartialOnMount,
     PartialRemove,
     PartialRemoveDOM,
@@ -47,6 +48,7 @@ export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
 export type RenderComponent = PartialRenderComponent;
+export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 
@@ -565,6 +567,12 @@ export interface componentPropsType<T, R> {
      * The function receives as an argument the root element to be parsed, if no element is supplied the root of the component will be used.
      */
     renderComponent: RenderComponent;
+
+    /**
+     * @description
+     * Invalidate component
+     */
+    invalidate: InvalidateComponent<T>;
 }
 
 interface webComponentParmas {

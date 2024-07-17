@@ -30,6 +30,7 @@ export const DynamicListCardFn = ({
     repeat,
     setState,
     delegateEvents,
+    invalidate,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -112,6 +113,8 @@ export const DynamicListCardFn = ({
                         })}
                     />
                 </dynamic-list-empty>
+
+                <!-- Inner repeater -->
                 <div class="c-dynamic-card__repeater-container">
                     <p><strong>Inner repeater:</strong></p>
                     <dynamic-list-button
@@ -140,6 +143,33 @@ export const DynamicListCardFn = ({
                                         props: ({ innerData }, index) => {
                                             return {
                                                 key: innerData[index].key,
+                                            };
+                                        },
+                                    })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>`;
+                            },
+                        })}
+                    </div>
+                </div>
+
+                <!-- Invalidate -->
+                <div class="c-dynamic-card__invalidate">
+                    <p>
+                        <strong
+                            >Inner invalidate<br />
+                            on counter mutation:</strong
+                        >
+                    </p>
+                    <div class="c-dynamic-card__invalidate__wrap">
+                        ${invalidate({
+                            bind: ['counter'],
+                            render: ({ sync, html }) => {
+                                return html`<dynamic-list-card-inner
+                                    ${bindProps({
+                                        props: ({ counter }) => {
+                                            return {
+                                                key: counter,
                                             };
                                         },
                                     })}

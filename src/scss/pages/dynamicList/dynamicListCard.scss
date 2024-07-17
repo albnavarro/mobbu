@@ -55,7 +55,8 @@
         }
     }
 
-    &__repeater-container {
+    &__repeater-container,
+    &__invalidate {
         margin-top: rem(20);
     }
 

@@ -20,8 +20,8 @@ import {
     getPageTransition,
 } from '../mainStore/pageTransition';
 import { parseComponents } from '../parseComponent/componentParse';
-import { tick } from '../componentStore/tick';
 import { getRestoreScroll } from '../mainStore/restoreScroll';
+import { awaitNextLoop } from '../componentStore/utils';
 
 /**
  * @param {object} param
@@ -44,7 +44,7 @@ export const loadRoute = async ({
     /**
      * Await that all operation is completed before load next route
      */
-    await tick();
+    await awaitNextLoop();
 
     /**
      *

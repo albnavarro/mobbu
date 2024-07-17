@@ -86,6 +86,11 @@ export const ATTR_PARENT_ID = 'parentid';
 export const ATTR_REFS = 'ref';
 
 /**
+ * @type {string};
+ */
+export const ATTR_INVALIDATE = 'invalidateid';
+
+/**
  * @type {number};
  */
 export const frameDelayAfterParse = 5;
@@ -104,6 +109,11 @@ export const QUEQUE_TYPE_BINDPROPS = 'QUEQUE_BINDPROPS';
  * @type {string};
  */
 export const QUEQUE_TYPE_REPEATER = 'QUEQUE_REPEATER';
+
+/**
+ * @type {string};
+ */
+export const QUEQUE_TYPE_INVALIDATE = 'QUEQUE_INVALIDATE';
 
 /**
  * @type {string};

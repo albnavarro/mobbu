@@ -47,4 +47,14 @@
             border: 0;
         }
     }
+
+    &__invalidate {
+        padding: rem(20) rem(40) 0;
+        display: flex;
+        border-bottom: 1px $black solid;
+
+        &__title {
+            margin-right: rem(12);
+        }
+    }
 }

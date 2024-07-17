@@ -313,7 +313,7 @@ export const applyDynamicProps = async ({
         const unWatchArray = bindUpdated.map((/** @type{string} */ state) => {
             return watchById(currentParentId, state, async () => {
                 /**
-                 * Fire bindProps at least.
+                 * Fire bindProps after repeater.
                  */
                 await repeaterTick();
 

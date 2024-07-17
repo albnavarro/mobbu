@@ -7,6 +7,7 @@ import {
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_INSTANCENAME,
+    ATTR_INVALIDATE,
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
@@ -184,6 +185,11 @@ export const defineUserComponent = (componentList) => {
                  */
                 #repeaterContextId;
 
+                /**
+                 * @type {string|undefined|null}
+                 */
+                #invalidateId;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -254,6 +260,8 @@ export const defineUserComponent = (componentList) => {
                     this.#repeaterContextId = host.getAttribute(
                         ATTR_REPEATER_CONTEXT
                     );
+
+                    this.#invalidateId = host.getAttribute(ATTR_INVALIDATE);
 
                     /**
                      * Placeholder element that will move to slot.
@@ -397,6 +405,10 @@ export const defineUserComponent = (componentList) => {
 
                 getComponentRepeatContext() {
                     return this.#repeaterContextId ?? undefined;
+                }
+
+                getInvalidateId() {
+                    return this.#invalidateId ?? undefined;
                 }
 
                 #getData() {

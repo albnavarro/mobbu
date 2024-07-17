@@ -3,6 +3,7 @@
 import { createComponent } from '../../../mobjs';
 import { OnlyDesktop } from '../../common/onlyDesktop/definition';
 import { DynamicListButton } from './button/definition';
+import { DynamicListCardInner } from './card/innerCard/definition';
 import { startData } from './data';
 import { DynamicListFn } from './dynamicList';
 import { DynamicListRepeater } from './repeaters/definition';
@@ -24,5 +25,10 @@ export const DynamicList = createComponent({
             type: Number,
         }),
     },
-    child: [DynamicListButton, DynamicListRepeater, OnlyDesktop],
+    child: [
+        DynamicListButton,
+        DynamicListRepeater,
+        OnlyDesktop,
+        DynamicListCardInner,
+    ],
 });

@@ -116,6 +116,7 @@ export const DynamicListFn = async ({
     bindProps,
     delegateEvents,
     watchSync,
+    invalidate,
 }) => {
     /**
      * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
@@ -198,11 +199,36 @@ export const DynamicListFn = async ({
                 </div>
             </div>
 
+            <!-- Invalidate -->
+            <div class="c-dynamic-list__invalidate">
+                <h4 class="c-dynamic-list__invalidate__title">
+                    Invalidate component on counter mutation:
+                </h4>
+                <div class="c-dynamic-list__invalidate__wrap">
+                    ${invalidate({
+                        bind: ['counter'],
+                        render: ({ sync, html }) => {
+                            return html`<dynamic-list-card-inner
+                                ${bindProps({
+                                    props: ({ counter }) => {
+                                        return {
+                                            key: counter,
+                                        };
+                                    },
+                                })}
+                                ${sync}
+                            ></dynamic-list-card-inner>`;
+                        },
+                    })}
+                </div>
+            </div>
+
             <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
                 <span ref="counterEl"></span>
             </div>
 
+            <!-- Repeaters -->
             <div class="c-dynamic-list__container">
                 <div class="c-dynamic-list__grid">
                     ${getRepeaters({ bindProps, staticProps })}
