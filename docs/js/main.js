@@ -17746,13 +17746,6 @@
     }
     return invalidatePlaceHolderMap.get(id);
   };
-  var getInvalidateParent = ({ invalidateId = "" }) => {
-    if (!invalidateId || invalidateId === "") return;
-    const item = [...componentMap.values()].find(
-      ({ invalidateId: currentInvalidateId }) => currentInvalidateId === invalidateId
-    );
-    return item?.invalidateParent;
-  };
   var inizializeInvalidateWatch = async ({
     bind = [],
     watch,
@@ -17773,8 +17766,8 @@
         });
         watchIsRunning = true;
         mobCore.useNextLoop(async () => {
-          const invalidateParent = getInvalidateParent({
-            invalidateId
+          const invalidateParent = getFirstInvalidateParent({
+            id: invalidateId
           });
           destroyComponentInsideNodeById({
             id,
@@ -18032,10 +18025,6 @@
            * @type {string|undefined|null}
            */
           #repeaterContextId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #invalidateId;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -18106,7 +18095,6 @@
             this.#repeaterContextId = host.getAttribute(
               ATTR_REPEATER_CONTEXT
             );
-            this.#invalidateId = host.getAttribute(ATTR_INVALIDATE);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -18214,9 +18202,6 @@
           }
           getComponentRepeatContext() {
             return this.#repeaterContextId ?? void 0;
-          }
-          getInvalidateId() {
-            return this.#invalidateId ?? void 0;
           }
           #getData() {
             return {
@@ -19449,7 +19434,6 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-    const invalidateId = element.getInvalidateId();
     const repeatPropBind = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterPropBind({ id: repeaterContextId }) : element.getRepeaterPropBind();
     const currentRepeatValue = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterStateById({ id: repeaterContextId }) : getComponentRepeaterState(currentRepeaterValueId);
     return {
@@ -19479,8 +19463,7 @@
       currentRepeatValue,
       parentId,
       componentRepeatId,
-      repeaterContextId,
-      invalidateId
+      repeaterContextId
     };
   };
 
@@ -19611,8 +19594,7 @@
       parentId,
       componentRepeatId,
       repeatPropBind,
-      repeaterContextId,
-      invalidateId
+      repeaterContextId
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
@@ -19628,8 +19610,6 @@
       key,
       repeatPropBind,
       isCancellable,
-      invalidateId,
-      invalidateParent: getFirstInvalidateParent({ id: invalidateId }),
       parentId,
       repeaterContextId
     });

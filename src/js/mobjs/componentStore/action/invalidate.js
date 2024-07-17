@@ -117,8 +117,8 @@ export const inizializeInvalidateWatch = async ({
              */
             watchIsRunning = true;
             mobCore.useNextLoop(async () => {
-                const invalidateParent = getInvalidateParent({
-                    invalidateId,
+                const invalidateParent = getFirstInvalidateParent({
+                    id: invalidateId,
                 });
 
                 /**

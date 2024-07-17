@@ -51,7 +51,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-    const invalidateId = element.getInvalidateId();
 
     /**
      * Get repeatPropBind from id ( firstChildNode)
@@ -101,6 +100,5 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         parentId,
         componentRepeatId,
         repeaterContextId,
-        invalidateId,
     };
 };

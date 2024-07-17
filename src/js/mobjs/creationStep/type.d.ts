@@ -15,7 +15,6 @@ export interface componentDataType {
     componentRepeatId: string | null | undefined;
     repeatPropBind: string | undefined;
     repeaterContextId: string | undefined;
-    invalidateId: string | undefined;
 }
 
 export interface getParamsForComponent extends componentStoreReturnType {

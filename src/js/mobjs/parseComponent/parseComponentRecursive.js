@@ -172,7 +172,6 @@ export const parseComponentsRecursive = async ({
         componentRepeatId,
         repeatPropBind,
         repeaterContextId,
-        invalidateId,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
@@ -197,8 +196,6 @@ export const parseComponentsRecursive = async ({
             key,
             repeatPropBind,
             isCancellable,
-            invalidateId,
-            invalidateParent: getFirstInvalidateParent({ id: invalidateId }),
             parentId,
             repeaterContextId,
         });
