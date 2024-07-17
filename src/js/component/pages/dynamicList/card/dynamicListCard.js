@@ -11,8 +11,19 @@ import { innerData } from '../data';
 //     });
 // }
 
+/**
+ * @param {any} label
+ * @param {any} label
+ */
 function updateContent(label, val) {
     return `${label}: ${val}`;
+}
+
+/**
+ * @param {number} numberOfItem
+ */
+function createArray(numberOfItem) {
+    return [...new Array(numberOfItem).keys()].map((i) => i + 1);
 }
 
 /**
@@ -142,7 +153,7 @@ export const DynamicListCardFn = ({
                                         /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
                                         props: ({ innerData }, index) => {
                                             return {
-                                                key: innerData[index].key,
+                                                key: `${innerData[index].key}`,
                                             };
                                         },
                                     })}
@@ -165,24 +176,32 @@ export const DynamicListCardFn = ({
                         ${invalidate({
                             bind: ['counter'],
                             render: ({ html }) => {
-                                return html`<div class="validate-test-wrapper">
-                                    <dynamic-list-card-inner
-                                        ${bindProps({
-                                            props: ({ counter }) => {
-                                                return {
-                                                    key: counter,
-                                                };
-                                            },
-                                        })}
-                                        ${delegateEvents({
-                                            click: () => {
-                                                console.log(
-                                                    'invalidate inside reepater click'
-                                                );
-                                            },
-                                        })}
-                                    ></dynamic-list-card-inner>
-                                </div>`;
+                                const { counter } = getState();
+
+                                return `
+                                    ${createArray(counter)
+                                        .map((item) => {
+                                            return html`
+                                                <div
+                                                    class="validate-test-wrapper"
+                                                >
+                                                    <dynamic-list-card-inner
+                                                        ${staticProps({
+                                                            key: `${item}`,
+                                                        })}
+                                                        ${delegateEvents({
+                                                            click: () => {
+                                                                console.log(
+                                                                    'invalidate inside reepater click'
+                                                                );
+                                                            },
+                                                        })}
+                                                    ></dynamic-list-card-inner>
+                                                </div>
+                                            `;
+                                        })
+                                        .join('')}
+                                `;
                             },
                         })}
                     </div>

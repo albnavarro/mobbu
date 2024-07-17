@@ -30,7 +30,7 @@ export const DynamicListCard = createComponent({
             type: Number,
         }),
         counter: () => ({
-            value: 0,
+            value: 1,
             type: Number,
         }),
         innerData: () => ({

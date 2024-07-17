@@ -13,7 +13,7 @@ export const DynamicList = createComponent({
     component: DynamicListFn,
     state: {
         counter: () => ({
-            value: 0,
+            value: 1,
             type: Number,
         }),
         data: () => ({

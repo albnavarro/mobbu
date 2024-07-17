@@ -60,6 +60,13 @@
         margin-top: rem(20);
     }
 
+    &__invalidate {
+        &__wrap {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
     &__repeater {
         font-size: 0;
     }

@@ -196,6 +196,21 @@ export const DynamicListFn = async ({
                             },
                         })}
                     ></dynamic-list-button>
+                    <dynamic-list-button
+                        class="c-dynamic-list__top__button"
+                        ${staticProps({ label: 'decrease counter' })}
+                        ${delegateEvents({
+                            click: async () => {
+                                setState('counter', (prev) => {
+                                    if (prev > 0) return (prev -= 1);
+                                    return prev;
+                                });
+
+                                await tick();
+                                console.log('resolve decrement');
+                            },
+                        })}
+                    ></dynamic-list-button>
                 </div>
             </div>
 
@@ -213,7 +228,7 @@ export const DynamicListFn = async ({
                                     ${bindProps({
                                         props: ({ counter }) => {
                                             return {
-                                                key: counter,
+                                                key: `${counter}`,
                                             };
                                         },
                                     })}

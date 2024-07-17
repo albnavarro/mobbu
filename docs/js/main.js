@@ -27637,8 +27637,8 @@ Loading snippet ...</pre
     exportState: ["key"],
     state: {
       key: () => ({
-        value: 0,
-        type: Number
+        value: "",
+        type: String
       })
     }
   });
@@ -27947,8 +27947,22 @@ Loading snippet ...</pre
                         ${delegateEvents({
       click: async () => {
         setState("counter", (prev2) => prev2 += 1);
-        await invalidateTick({ debug: true });
+        await tick();
         console.log("resolve increment");
+      }
+    })}
+                    ></dynamic-list-button>
+                    <dynamic-list-button
+                        class="c-dynamic-list__top__button"
+                        ${staticProps2({ label: "decrease counter" })}
+                        ${delegateEvents({
+      click: async () => {
+        setState("counter", (prev2) => {
+          if (prev2 > 0) return prev2 -= 1;
+          return prev2;
+        });
+        await tick();
+        console.log("resolve decrement");
       }
     })}
                     ></dynamic-list-button>
@@ -27969,7 +27983,7 @@ Loading snippet ...</pre
                                     ${bindProps({
           props: ({ counter }) => {
             return {
-              key: counter
+              key: `${counter}`
             };
           }
         })}
@@ -28053,6 +28067,9 @@ Loading snippet ...</pre
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
   function updateContent(label, val2) {
     return `${label}: ${val2}`;
+  }
+  function createArray(numberOfItem) {
+    return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
   var DynamicListCardFn = ({
     getState,
@@ -28167,7 +28184,7 @@ Loading snippet ...</pre
           /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
           props: ({ innerData: innerData2 }, index2) => {
             return {
-              key: innerData2[index2].key
+              key: `${innerData2[index2].key}`
             };
           }
         })}
@@ -28190,24 +28207,29 @@ Loading snippet ...</pre
                         ${invalidate({
       bind: ["counter"],
       render: ({ html: html2 }) => {
-        return html2`<div class="validate-test-wrapper">
-                                    <dynamic-list-card-inner
-                                        ${bindProps({
-          props: ({ counter: counter2 }) => {
-            return {
-              key: counter2
-            };
-          }
-        })}
-                                        ${delegateEvents({
-          click: () => {
-            console.log(
-              "invalidate inside reepater click"
-            );
-          }
-        })}
-                                    ></dynamic-list-card-inner>
-                                </div>`;
+        const { counter: counter2 } = getState();
+        return `
+                                    ${createArray(counter2).map((item) => {
+          return html2`
+                                                <div
+                                                    class="validate-test-wrapper"
+                                                >
+                                                    <dynamic-list-card-inner
+                                                        ${staticProps2({
+            key: `${item}`
+          })}
+                                                        ${delegateEvents({
+            click: () => {
+              console.log(
+                "invalidate inside reepater click"
+              );
+            }
+          })}
+                                                    ></dynamic-list-card-inner>
+                                                </div>
+                                            `;
+        }).join("")}
+                                `;
       }
     })}
                     </div>
@@ -28240,7 +28262,7 @@ Loading snippet ...</pre
         type: Number
       }),
       counter: () => ({
-        value: 0,
+        value: 1,
         type: Number
       }),
       innerData: () => ({
@@ -28445,7 +28467,7 @@ Loading snippet ...</pre
     component: DynamicListFn,
     state: {
       counter: () => ({
-        value: 0,
+        value: 1,
         type: Number
       }),
       data: () => ({

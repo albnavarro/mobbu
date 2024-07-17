@@ -1462,6 +1462,10 @@ code {
 .c-dynamic-card__invalidate {
   margin-top: 1.3333333333rem;
 }
+.c-dynamic-card__invalidate__wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .c-dynamic-card__repeater {
   font-size: 0;
 }

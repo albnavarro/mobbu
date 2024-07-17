@@ -9,8 +9,8 @@ export const DynamicListCardInner = createComponent({
     exportState: ['key'],
     state: {
         key: () => ({
-            value: 0,
-            type: Number,
+            value: '',
+            type: String,
         }),
     },
 });
