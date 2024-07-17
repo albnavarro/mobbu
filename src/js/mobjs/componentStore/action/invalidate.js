@@ -13,7 +13,7 @@ import { destroyComponentInsideNodeById } from './removeAndDestroy';
  *
  * @type {Map<string, HTMLElement>}
  */
-const invalidatePlaceHolderMap = new Map();
+export const invalidatePlaceHolderMap = new Map();
 
 /**
  * @description

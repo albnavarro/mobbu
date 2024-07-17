@@ -6,12 +6,12 @@ import { awaitNextLoop } from './utils';
 /**
  * @type {Map<string,string>}
  */
-const InvalidateQueque = new Map();
+const invalidateQueque = new Map();
 
 /**
  * @returns {boolean}
  */
-export const invalidateQuequeIsEmpty = () => InvalidateQueque.size === 0;
+export const invalidateQuequeIsEmpty = () => invalidateQueque.size === 0;
 
 /**
  * Limit queque size.
@@ -24,16 +24,16 @@ const maxQueuqueSize = 1000;
  * @returns {() => void}
  */
 export const incrementInvalidateTickQueuque = (props) => {
-    if (InvalidateQueque.size >= maxQueuqueSize) {
+    if (invalidateQueque.size >= maxQueuqueSize) {
         console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
 
         return () => {};
     }
 
     const id = mobCore.getUnivoqueId();
-    InvalidateQueque.set(id, props);
+    invalidateQueque.set(id, props);
 
-    return () => InvalidateQueque.delete(id);
+    return () => invalidateQueque.delete(id);
 };
 
 /**
@@ -43,7 +43,7 @@ export const incrementInvalidateTickQueuque = (props) => {
  */
 const queueIsResolved = () => {
     return (
-        InvalidateQueque.size === 0 || InvalidateQueque.size >= maxQueuqueSize
+        invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize
     );
 };
 
@@ -63,7 +63,7 @@ export const invalidateTick = async ({
     await awaitNextLoop();
 
     if (debug) {
-        InvalidateQueque.forEach((value) => {
+        invalidateQueque.forEach((value) => {
             console.log(value);
         });
     }

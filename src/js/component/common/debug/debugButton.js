@@ -7,6 +7,7 @@ import {
     mainStore,
     tempDelegateEventMap,
 } from '../../../mobjs';
+import { invalidatePlaceHolderMap } from '../../../mobjs/componentStore/action/invalidate';
 import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
 import { currentRepeaterValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
 import { dynamicPropsMap } from '../../../mobjs/temporaryData/dynamicProps';
@@ -42,6 +43,7 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                     );
                     console.log('eventDelegationMap', eventDelegationMap);
                     console.log('tempDelegateEventMap', tempDelegateEventMap);
+                    console.log('invalidateMap', invalidatePlaceHolderMap);
                 },
             })}
         >

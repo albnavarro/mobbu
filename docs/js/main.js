@@ -17031,20 +17031,20 @@
   }
 
   // src/js/mobjs/componentStore/tickInvalidate.js
-  var InvalidateQueque = /* @__PURE__ */ new Map();
+  var invalidateQueque = /* @__PURE__ */ new Map();
   var maxQueuqueSize = 1e3;
   var incrementInvalidateTickQueuque = (props) => {
-    if (InvalidateQueque.size >= maxQueuqueSize) {
+    if (invalidateQueque.size >= maxQueuqueSize) {
       console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
       return () => {
       };
     }
     const id = mobCore.getUnivoqueId();
-    InvalidateQueque.set(id, props);
-    return () => InvalidateQueque.delete(id);
+    invalidateQueque.set(id, props);
+    return () => invalidateQueque.delete(id);
   };
   var queueIsResolved = () => {
-    return InvalidateQueque.size === 0 || InvalidateQueque.size >= maxQueuqueSize;
+    return invalidateQueque.size === 0 || invalidateQueque.size >= maxQueuqueSize;
   };
   var invalidateTick = async ({
     debug = false,
@@ -17052,7 +17052,7 @@
   } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      InvalidateQueque.forEach((value) => {
+      invalidateQueque.forEach((value) => {
         console.log(value);
       });
     }
@@ -17274,7 +17274,9 @@
     }
     const id = mobCore.getUnivoqueId();
     queque.set(id, props);
-    return () => queque.delete(id);
+    return () => {
+      queque.delete(id);
+    };
   };
   var queueIsResolved3 = () => {
     return queque.size === 0 || queque.size >= maxQueuqueSize3;
@@ -23307,6 +23309,7 @@ Loading snippet ...</pre
         );
         console.log("eventDelegationMap", eventDelegationMap);
         console.log("tempDelegateEventMap", tempDelegateEventMap);
+        console.log("invalidateMap", invalidatePlaceHolderMap);
       }
     })}
         >
@@ -27949,7 +27952,7 @@ Loading snippet ...</pre
                         ${delegateEvents({
       click: async () => {
         setState("counter", (prev2) => prev2 += 1);
-        await tick();
+        await invalidateTick({ debug: true });
         console.log("resolve increment");
       }
     })}
