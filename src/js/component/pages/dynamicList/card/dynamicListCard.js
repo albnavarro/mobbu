@@ -164,7 +164,7 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
                             bind: ['counter'],
-                            render: ({ sync, html }) => {
+                            render: ({ html }) => {
                                 return html`<div class="validate-test-wrapper">
                                     <dynamic-list-card-inner
                                         ${bindProps({
@@ -174,7 +174,6 @@ export const DynamicListCardFn = ({
                                                 };
                                             },
                                         })}
-                                        ${sync}
                                     ></dynamic-list-card-inner>
                                 </div>`;
                             },

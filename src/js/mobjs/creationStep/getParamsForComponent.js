@@ -100,7 +100,7 @@ export const getParamsForComponentFunction = ({
         invalidate: ({ bind, render }) => {
             const invalidateId = mobCore.getUnivoqueId();
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-            const invalidateRender = () => render({ html: renderHtml, sync });
+            const invalidateRender = () => render({ html: renderHtml });
 
             inizializeInvalidateWatch({
                 bind,

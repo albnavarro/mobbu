@@ -18025,6 +18025,10 @@
            * @type {string|undefined|null}
            */
           #repeaterContextId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #invalidateId;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -18095,6 +18099,7 @@
             this.#repeaterContextId = host.getAttribute(
               ATTR_REPEATER_CONTEXT
             );
+            this.#invalidateId = host.getAttribute(ATTR_INVALIDATE);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -18202,6 +18207,9 @@
           }
           getComponentRepeatContext() {
             return this.#repeaterContextId ?? void 0;
+          }
+          getInvalidateId() {
+            return this.#invalidateId ?? void 0;
           }
           #getData() {
             return {
@@ -19306,7 +19314,7 @@
       invalidate: ({ bind, render: render2 }) => {
         const invalidateId = mobCore.getUnivoqueId();
         const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-        const invalidateRender = () => render2({ html: renderHtml, sync });
+        const invalidateRender = () => render2({ html: renderHtml });
         inizializeInvalidateWatch({
           bind,
           watch,
@@ -27913,7 +27921,7 @@ Loading snippet ...</pre
                 <div class="c-dynamic-list__invalidate__wrap">
                     ${invalidate({
       bind: ["counter"],
-      render: ({ sync, html: html2 }) => {
+      render: ({ html: html2 }) => {
         return html2`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner
                                     ${bindProps({
@@ -27923,7 +27931,6 @@ Loading snippet ...</pre
             };
           }
         })}
-                                    ${sync}
                                 ></dynamic-list-card-inner>
                             </div>`;
       }
@@ -28140,7 +28147,7 @@ Loading snippet ...</pre
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
       bind: ["counter"],
-      render: ({ sync, html: html2 }) => {
+      render: ({ html: html2 }) => {
         return html2`<div class="validate-test-wrapper">
                                     <dynamic-list-card-inner
                                         ${bindProps({
@@ -28150,7 +28157,6 @@ Loading snippet ...</pre
             };
           }
         })}
-                                        ${sync}
                                     ></dynamic-list-card-inner>
                                 </div>`;
       }

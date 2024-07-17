@@ -297,7 +297,6 @@ export type PartialInvalidateComponent<T> = (arg0: {
             template: { raw: readonly string[] | ArrayLike<string> },
             ...substitutions: any[]
         ) => string;
-        sync: string;
     }) => string;
 }) => string;
 
