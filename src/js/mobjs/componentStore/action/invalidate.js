@@ -9,6 +9,32 @@ import { awaitNextLoop } from '../utils';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
 
 /**
+ * @type {Map<string, HTMLElement>}
+ */
+const invalidatePlaceHolderMap = new Map();
+
+/**
+ * @description
+ * Store parent invalidate block from invalidate webComponent.
+ *
+ * @param {object} params
+ * @param {string} params.id
+ * @param {HTMLElement} params.parent
+ */
+export const addIvalidateParent = ({ id = '', parent }) => {
+    invalidatePlaceHolderMap.set(id, parent);
+};
+
+/**
+ * @returns {HTMLElement}
+ */
+export const getFirstInvalidateParent = ({ id }) => {
+    return invalidatePlaceHolderMap.get(id);
+};
+
+/**
+ * @description
+ * Get invalidate parent stored from webComponent.
  *
  * @param {object} obj
  * @param {string} obj.invalidateId

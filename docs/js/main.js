@@ -17203,6 +17203,621 @@
   // src/js/mobjs/creationStep/utils.js
   var renderHtml = String.raw;
 
+  // src/js/mobjs/mainStore/constant.js
+  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
+  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
+  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
+  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
+  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
+  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
+  var MAIN_STORE_REPEATER_PARSER_ROOT = "repeaterParserRoot";
+
+  // src/js/mobjs/mainStore/mainStore.js
+  var mainStore = mobCore.createStore({
+    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
+      value: {},
+      type: "any",
+      skipEqual: false
+    }),
+    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
+      value: false,
+      type: Boolean
+    }),
+    [MAIN_STORE_REPEATER_PARSER_ROOT]: {
+      element: () => ({
+        value: document.createElement("div"),
+        type: HTMLElement,
+        skipEqual: false
+      }),
+      parentId: () => ({
+        value: "",
+        type: String,
+        skipEqual: false
+      })
+    }
+  });
+
+  // src/js/mobjs/temporaryData/bindEvents/index.js
+  var bindEventMap = /* @__PURE__ */ new Map();
+  var setBindEvents = (eventsData = []) => {
+    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
+    const id = mobCore.getUnivoqueId();
+    bindEventMap.set(id, eventsDataParsed);
+    return id;
+  };
+  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
+    const eventArray = bindEventMap.get(bindEventsId);
+    if (!eventArray) return;
+    eventArray.forEach((event) => {
+      const [eventName] = Object.keys(event);
+      const [callback2] = Object.values(event);
+      if (!eventName || !callback2) return;
+      element.addEventListener(eventName, (e) => {
+        const currentRepeaterState = getRepeaterStateById({
+          id: componentId
+        });
+        callback2(e, currentRepeaterState?.index);
+      });
+    });
+    bindEventMap.delete(bindEventsId);
+  };
+  var removeOrphansBindEvent = () => {
+    bindEventMap.clear();
+  };
+
+  // src/js/mobjs/componentStore/action/parent.js
+  var getParentIdById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    if (!parentId) {
+      return;
+    }
+    return parentId;
+  };
+  var addSelfIdToParentComponent = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentId = item?.parentId;
+    const componentName = item?.componentName ?? "";
+    if (!parentId) return;
+    const value = componentMap.get(parentId);
+    if (!value) return;
+    const { child: child2 } = value;
+    if (!child2) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...updateChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+  var setParentsIdFallback = ({ componentId }) => {
+    const item = componentMap.get(componentId);
+    if (!item) return;
+    const { element, parentId } = item;
+    if (parentId && parentId.length > 0) return;
+    const parentNode = (
+      /** @type {HTMLElement|undefined} */
+      element?.parentNode
+    );
+    const parent = (
+      /** @type {HTMLElement|undefined} */
+      parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
+    );
+    const newItem = parent && (!parentId || parentId === "") ? {
+      ...item,
+      parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? ""
+    } : item;
+    componentMap.set(componentId, newItem);
+  };
+  var addParentIdToFutureComponent = ({ element, id }) => {
+    const children = queryAllFutureComponent(element, false);
+    children.forEach((child2) => {
+      child2.setParentId(id);
+    });
+  };
+
+  // src/js/mobjs/componentStore/action/props.js
+  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { parentPropsWatcher } = item;
+    if (!parentPropsWatcher) return;
+    componentMap.set(id, {
+      ...item,
+      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
+    });
+  };
+  var unBind = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
+    parentPropsWatcher.forEach((unwatch) => {
+      unwatch();
+    });
+  };
+
+  // src/js/mobjs/mainStore/actions/exportState.js
+  var filterExportableStateFromObject = ({
+    componentName,
+    currentProps = {}
+  }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return Object.entries(currentProps).filter(([key]) => {
+      return exportableState.includes(key);
+    }).reduce((previous, current) => {
+      const [key, value] = current;
+      return { ...previous, [key]: value };
+    }, {});
+  };
+  var checkIfStateIsExportable = ({ componentName, propName }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return exportableState.includes(propName);
+  };
+
+  // src/js/mobjs/componentStore/action/component.js
+  var getIdByInstanceName = (name = "") => {
+    if (!name) return;
+    const instance = [...componentMap.values()].find(({ instanceName }) => {
+      return instanceName === name;
+    });
+    const id = instance?.id;
+    if (!id) {
+      console.warn(`getIdByName failed no name`);
+      return;
+    }
+    return id;
+  };
+
+  // src/js/mobjs/componentStore/action/freeze.js
+  var freezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: [...freezedPros, prop]
+    });
+  };
+  var unFreezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
+    });
+  };
+  var getFreezePropStatus = ({ id = "", prop }) => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const freezedPros = item?.freezedPros;
+    if (!freezedPros) return false;
+    return freezedPros.includes(prop);
+  };
+
+  // src/js/mobjs/componentStore/action/state.js
+  var getStateById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.get();
+  };
+  var setStateById = (id = "", prop = "", value, fire4 = true) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
+    const isFreezed = getFreezePropStatus({ id, prop });
+    if (isFreezed) {
+      return;
+    }
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.componentName ?? "";
+    const stateIsExportable = checkIfStateIsExportable({
+      componentName,
+      propName: prop
+    });
+    if (!stateIsExportable) {
+      console.warn(
+        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
+      );
+      return null;
+    }
+    if (!state) {
+      console.warn(`setStateById failed no id found on prop: ${prop}`);
+      return null;
+    }
+    state.set(prop, value, fire4);
+  };
+  var setStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
+  };
+
+  // src/js/mobjs/componentStore/action/watch.js
+  var watchById = (id = "", prop = "", cb = () => {
+  }) => {
+    if ((!id || id === "") && (!prop || prop === "")) return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.watch(prop, cb);
+  };
+
+  // src/js/mobjs/temporaryData/dynamicProps/index.js
+  var dynamicPropsMap = /* @__PURE__ */ new Map();
+  var setBindProps = (propsObj) => {
+    const propsIsValid = "props" in propsObj;
+    const propsObjUpdates = "bind" in propsObj ? propsObj : { ...propsObj, bind: [] };
+    if (!propsIsValid) {
+      console.warn(`bindProps not valid`);
+      return;
+    }
+    const id = mobCore.getUnivoqueId();
+    dynamicPropsMap.set(id, {
+      ...propsObjUpdates,
+      componentId: "",
+      propsId: id
+    });
+    return id;
+  };
+  var setDynamicProp = ({
+    componentId,
+    bind,
+    props,
+    currentParentId,
+    fireCallback
+  }) => {
+    if (!currentParentId) return;
+    const parentState = getStateById(currentParentId);
+    if (!parentState) return;
+    const parentStateKeys = Object.keys(parentState);
+    const bindArrayIsValid = bind.every(
+      (state) => parentStateKeys.includes(state)
+    );
+    if (!bindArrayIsValid) {
+      console.warn(
+        `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
+      );
+    }
+    const componentExist = componentMap.has(componentId);
+    if (!componentExist) return;
+    const currentRepeaterState = getRepeaterStateById({
+      id: componentId
+    });
+    const newProps = props?.(parentState, currentRepeaterState?.index);
+    if (!newProps) return;
+    Object.entries(newProps).forEach(([key, value]) => {
+      setStateById(componentId, key, value, fireCallback);
+    });
+  };
+  var addCurrentIdToDynamicProps = ({
+    propsId,
+    repeatPropBind,
+    componentId
+  }) => {
+    if (!propsId) return;
+    for (const [key, value] of dynamicPropsMap) {
+      if (key === propsId) {
+        dynamicPropsMap.set(key, { ...value, componentId });
+      }
+    }
+    applyDynamicProps({
+      componentId,
+      repeatPropBind,
+      inizilizeWatcher: false
+    });
+  };
+  var removeCurrentIdToDynamicProps = ({ componentId }) => {
+    if (!componentId) return;
+    for (const [key, value] of dynamicPropsMap) {
+      const { componentId: currentComponentId } = value;
+      if (currentComponentId === componentId) {
+        dynamicPropsMap.delete(key);
+      }
+    }
+  };
+  var removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
+    if (!propsId) return;
+    dynamicPropsMap.delete(propsId);
+  };
+  var applyDynamicProps = async ({
+    componentId,
+    repeatPropBind,
+    inizilizeWatcher
+  }) => {
+    const dynamicPropsFilteredArray = [...dynamicPropsMap.values()].filter(
+      (item) => {
+        const currentComponentId = item?.componentId;
+        return currentComponentId === componentId;
+      }
+    );
+    if (!dynamicPropsFilteredArray) return;
+    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
+      const { bind, props, parentId } = dynamicpropsfiltered;
+      const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
+      const currentParentId = parentId ?? getParentIdById(componentId);
+      if (!inizilizeWatcher) {
+        setDynamicProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: true
+        });
+      }
+      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
+        await repeaterTick();
+        setDynamicProp({
+          componentId,
+          bind: bindUpdated,
+          props,
+          currentParentId: currentParentId ?? "",
+          fireCallback: true
+        });
+      }
+      if (!inizilizeWatcher) return;
+      let watchIsRunning = false;
+      const unWatchArray = bindUpdated.map((state) => {
+        return watchById(currentParentId, state, async () => {
+          await repeaterTick();
+          if (watchIsRunning) return;
+          const decrementQueue = incrementTickQueuque({
+            state,
+            id: componentId,
+            type: QUEQUE_TYPE_BINDPROPS
+          });
+          watchIsRunning = true;
+          mobCore.useNextLoop(() => {
+            setDynamicProp({
+              componentId,
+              bind: bindUpdated,
+              props,
+              currentParentId: currentParentId ?? "",
+              fireCallback: true
+            });
+            watchIsRunning = false;
+            decrementQueue();
+          });
+        });
+      });
+      setDynamicPropsWatch({ id: componentId, unWatchArray });
+    }
+    if (!inizilizeWatcher) return;
+    for (const [key, value] of dynamicPropsMap) {
+      const { componentId: currentComponentId } = value;
+      if (currentComponentId === componentId) {
+        dynamicPropsMap.delete(key);
+      }
+    }
+  };
+  var removeOrphansDynamicProps = () => {
+    dynamicPropsMap.clear();
+  };
+
+  // src/js/mobjs/temporaryData/repeaterTargetComponent/index.js
+  var repeaterTargetComponentMap = /* @__PURE__ */ new Map();
+  var addRepeatTargetComponent = ({
+    repeatId,
+    repeaterParentId,
+    targetComponent
+  }) => {
+    if (repeaterTargetComponentMap.has(repeatId)) return;
+    repeaterTargetComponentMap.set(repeatId, {
+      repeatId,
+      repeaterParentId,
+      targetComponent
+    });
+  };
+  var getRepeaterComponentTarget = ({ id }) => {
+    const item = repeaterTargetComponentMap.get(id);
+    if (!item) return;
+    return item?.targetComponent;
+  };
+  var removeRepeaterComponentTargetByParentId = ({ id }) => {
+    for (const [key, value] of repeaterTargetComponentMap) {
+      const { repeaterParentId } = value;
+      if (repeaterParentId === id) {
+        repeaterTargetComponentMap.delete(key);
+      }
+    }
+  };
+
+  // src/js/mobjs/componentStore/action/removeAndDestroy.js
+  var removeItselfFromParent = ({ id, parentId, componentName }) => {
+    if (!id) return;
+    const value = componentMap.get(parentId ?? "");
+    if (!value) return;
+    const { child: child2 } = value;
+    if (!parentId || !child2) return;
+    componentMap.set(parentId, {
+      ...value,
+      child: {
+        ...child2,
+        ...removeChildFromChildrenArray({
+          currentChild: child2,
+          id,
+          componentName
+        })
+      }
+    });
+  };
+  var removeAndDestroyById = ({ id = "" }) => {
+    if (!id || id === "") return;
+    const instanceValue = componentMap.get(id);
+    if (!instanceValue) return;
+    const {
+      parentId,
+      componentName,
+      child: child2,
+      element,
+      state,
+      destroy,
+      parentPropsWatcher
+    } = instanceValue;
+    Object.values(child2 ?? {}).flat().forEach((childId) => {
+      removeAndDestroyById({ id: childId });
+    });
+    removeItselfFromParent({ id, parentId, componentName });
+    destroy?.();
+    state.destroy();
+    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
+    removeRepeaterComponentTargetByParentId({ id });
+    removeCurrentIdToDynamicProps({ componentId: id });
+    componentMap.delete(id);
+    element?.removeCustomComponent?.();
+    element?.remove();
+  };
+  var destroyComponentInsideNodeById = ({ id, container }) => {
+    const instanceValue = componentMap.get(id);
+    const child2 = instanceValue?.child;
+    if (!child2) return;
+    const allChild = Object.values(child2 ?? {}).flat();
+    allChild.forEach((id2) => {
+      const state = componentMap.get(id2);
+      const element = state?.element;
+      if (element && container.contains(element)) {
+        removeAndDestroyById({ id: id2 });
+      }
+    });
+  };
+  var removeCancellableComponent = () => {
+    const cancellableComponents2 = [...componentMap.values()].filter(
+      ({ isCancellable }) => isCancellable
+    );
+    cancellableComponents2.forEach(({ id }) => removeAndDestroyById({ id }));
+  };
+  var removeOrphanComponent = () => {
+    const orphans = [...componentMap.values()].filter(
+      ({ element, isCancellable }) => isCancellable && !document.body.contains(element)
+    );
+    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
+    removeOrphansPropsFromParent();
+    removeOrphansBindEvent();
+    removeOrphansDynamicProps();
+  };
+  var setDestroyCallback = ({ cb = () => {
+  }, id = null }) => {
+    if (!id) return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, destroy: cb });
+  };
+
+  // src/js/mobjs/componentStore/action/invalidate.js
+  var invalidatePlaceHolderMap = /* @__PURE__ */ new Map();
+  var addIvalidateParent = ({ id = "", parent }) => {
+    invalidatePlaceHolderMap.set(id, parent);
+  };
+  var getFirstInvalidateParent = ({ id }) => {
+    return invalidatePlaceHolderMap.get(id);
+  };
+  var getInvalidateParent = ({ invalidateId = "" }) => {
+    if (!invalidateId || invalidateId === "") return;
+    const item = [...componentMap.values()].find(
+      ({ invalidateId: currentInvalidateId }) => currentInvalidateId === invalidateId
+    );
+    return item?.invalidateParent;
+  };
+  var inizializeInvalidateWatch = async ({
+    bind = [],
+    watch,
+    id,
+    invalidateId,
+    renderFunction
+  }) => {
+    let watchIsRunning = false;
+    await awaitNextLoop();
+    bind.forEach((state) => {
+      watch(state, async () => {
+        if (watchIsRunning) return;
+        await repeaterTick();
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        watchIsRunning = true;
+        mobCore.useNextLoop(async () => {
+          const invalidateParent = getInvalidateParent({
+            invalidateId
+          });
+          destroyComponentInsideNodeById({
+            id,
+            container: invalidateParent
+          });
+          invalidateParent.textContent = "";
+          invalidateParent.insertAdjacentHTML(
+            "afterbegin",
+            renderFunction()
+          );
+          mainStore.set(
+            MAIN_STORE_REPEATER_PARSER_ROOT,
+            { element: invalidateParent, parentId: id },
+            false
+          );
+          await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
+          watchIsRunning = false;
+          descrementQueue();
+        });
+      });
+    });
+  };
+
+  // src/js/mobjs/webComponent/invalidate.js
+  var defineInvalidateComponent = () => {
+    customElements.define(
+      "mobjs-invalidate",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const invalidateId = this.shadowRoot?.host.getAttribute(ATTR_INVALIDATE);
+            const parent = (
+              /** @type{HTMLElement} */
+              this.parentNode
+            );
+            addIvalidateParent({ id: invalidateId, parent });
+            parent?.removeChild(this);
+          }
+        }
+      }
+    );
+  };
+
   // src/js/mobjs/webComponent/repeater.js
   var defineRepeaterComponent = () => {
     customElements.define(
@@ -17722,6 +18337,7 @@
     defineUserComponent(componentListMap);
     defineRepeaterComponent();
     defineSlotComponent();
+    defineInvalidateComponent();
   };
   var getComponentList = () => {
     return componentListMap;
@@ -17782,538 +18398,6 @@
       }
     };
   };
-
-  // src/js/mobjs/temporaryData/bindEvents/index.js
-  var bindEventMap = /* @__PURE__ */ new Map();
-  var setBindEvents = (eventsData = []) => {
-    const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
-    const id = mobCore.getUnivoqueId();
-    bindEventMap.set(id, eventsDataParsed);
-    return id;
-  };
-  var applyBindEvents = ({ element, componentId, bindEventsId }) => {
-    const eventArray = bindEventMap.get(bindEventsId);
-    if (!eventArray) return;
-    eventArray.forEach((event) => {
-      const [eventName] = Object.keys(event);
-      const [callback2] = Object.values(event);
-      if (!eventName || !callback2) return;
-      element.addEventListener(eventName, (e) => {
-        const currentRepeaterState = getRepeaterStateById({
-          id: componentId
-        });
-        callback2(e, currentRepeaterState?.index);
-      });
-    });
-    bindEventMap.delete(bindEventsId);
-  };
-  var removeOrphansBindEvent = () => {
-    bindEventMap.clear();
-  };
-
-  // src/js/mobjs/componentStore/action/parent.js
-  var getParentIdById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    if (!parentId) {
-      return;
-    }
-    return parentId;
-  };
-  var addSelfIdToParentComponent = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentId = item?.parentId;
-    const componentName = item?.componentName ?? "";
-    if (!parentId) return;
-    const value = componentMap.get(parentId);
-    if (!value) return;
-    const { child: child2 } = value;
-    if (!child2) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child2,
-        ...updateChildrenArray({
-          currentChild: child2,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-  var setParentsIdFallback = ({ componentId }) => {
-    const item = componentMap.get(componentId);
-    if (!item) return;
-    const { element, parentId } = item;
-    if (parentId && parentId.length > 0) return;
-    const parentNode = (
-      /** @type {HTMLElement|undefined} */
-      element?.parentNode
-    );
-    const parent = (
-      /** @type {HTMLElement|undefined} */
-      parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
-    );
-    const newItem = parent && (!parentId || parentId === "") ? {
-      ...item,
-      parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? ""
-    } : item;
-    componentMap.set(componentId, newItem);
-  };
-  var addParentIdToFutureComponent = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
-    children.forEach((child2) => {
-      child2.setParentId(id);
-    });
-  };
-
-  // src/js/mobjs/componentStore/action/props.js
-  var setDynamicPropsWatch = ({ id = "", unWatchArray = [] }) => {
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { parentPropsWatcher } = item;
-    if (!parentPropsWatcher) return;
-    componentMap.set(id, {
-      ...item,
-      parentPropsWatcher: [...parentPropsWatcher, ...unWatchArray]
-    });
-  };
-  var unBind = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const parentPropsWatcher = item?.parentPropsWatcher ?? [];
-    parentPropsWatcher.forEach((unwatch) => {
-      unwatch();
-    });
-  };
-
-  // src/js/mobjs/mainStore/actions/exportState.js
-  var filterExportableStateFromObject = ({
-    componentName,
-    currentProps = {}
-  }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return Object.entries(currentProps).filter(([key]) => {
-      return exportableState.includes(key);
-    }).reduce((previous, current) => {
-      const [key, value] = current;
-      return { ...previous, [key]: value };
-    }, {});
-  };
-  var checkIfStateIsExportable = ({ componentName, propName }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return exportableState.includes(propName);
-  };
-
-  // src/js/mobjs/componentStore/action/component.js
-  var getIdByInstanceName = (name = "") => {
-    if (!name) return;
-    const instance = [...componentMap.values()].find(({ instanceName }) => {
-      return instanceName === name;
-    });
-    const id = instance?.id;
-    if (!id) {
-      console.warn(`getIdByName failed no name`);
-      return;
-    }
-    return id;
-  };
-
-  // src/js/mobjs/componentStore/action/freeze.js
-  var freezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: [...freezedPros, prop]
-    });
-  };
-  var unFreezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
-    });
-  };
-  var getFreezePropStatus = ({ id = "", prop }) => {
-    if (!id || id === "") return false;
-    const item = componentMap.get(id);
-    const freezedPros = item?.freezedPros;
-    if (!freezedPros) return false;
-    return freezedPros.includes(prop);
-  };
-
-  // src/js/mobjs/componentStore/action/state.js
-  var getStateById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.get();
-  };
-  var setStateById = (id = "", prop = "", value, fire4 = true) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed = getFreezePropStatus({ id, prop });
-    if (isFreezed) {
-      return;
-    }
-    const item = componentMap.get(id);
-    const state = item?.state;
-    const componentName = item?.componentName ?? "";
-    const stateIsExportable = checkIfStateIsExportable({
-      componentName,
-      propName: prop
-    });
-    if (!stateIsExportable) {
-      console.warn(
-        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
-      );
-      return null;
-    }
-    if (!state) {
-      console.warn(`setStateById failed no id found on prop: ${prop}`);
-      return null;
-    }
-    state.set(prop, value, fire4);
-  };
-  var setStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
-  };
-
-  // src/js/mobjs/componentStore/action/watch.js
-  var watchById = (id = "", prop = "", cb = () => {
-  }) => {
-    if ((!id || id === "") && (!prop || prop === "")) return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.watch(prop, cb);
-  };
-
-  // src/js/mobjs/temporaryData/dynamicProps/index.js
-  var dynamicPropsMap = /* @__PURE__ */ new Map();
-  var setBindProps = (propsObj) => {
-    const propsIsValid = "props" in propsObj;
-    const propsObjUpdates = "bind" in propsObj ? propsObj : { ...propsObj, bind: [] };
-    if (!propsIsValid) {
-      console.warn(`bindProps not valid`);
-      return;
-    }
-    const id = mobCore.getUnivoqueId();
-    dynamicPropsMap.set(id, {
-      ...propsObjUpdates,
-      componentId: "",
-      propsId: id
-    });
-    return id;
-  };
-  var setDynamicProp = ({
-    componentId,
-    bind,
-    props,
-    currentParentId,
-    fireCallback
-  }) => {
-    if (!currentParentId) return;
-    const parentState = getStateById(currentParentId);
-    if (!parentState) return;
-    const parentStateKeys = Object.keys(parentState);
-    const bindArrayIsValid = bind.every(
-      (state) => parentStateKeys.includes(state)
-    );
-    if (!bindArrayIsValid) {
-      console.warn(
-        `bind props error: Some prop ${JSON.stringify(bind)} doesn't exist`
-      );
-    }
-    const componentExist = componentMap.has(componentId);
-    if (!componentExist) return;
-    const currentRepeaterState = getRepeaterStateById({
-      id: componentId
-    });
-    const newProps = props?.(parentState, currentRepeaterState?.index);
-    if (!newProps) return;
-    Object.entries(newProps).forEach(([key, value]) => {
-      setStateById(componentId, key, value, fireCallback);
-    });
-  };
-  var addCurrentIdToDynamicProps = ({
-    propsId,
-    repeatPropBind,
-    componentId
-  }) => {
-    if (!propsId) return;
-    for (const [key, value] of dynamicPropsMap) {
-      if (key === propsId) {
-        dynamicPropsMap.set(key, { ...value, componentId });
-      }
-    }
-    applyDynamicProps({
-      componentId,
-      repeatPropBind,
-      inizilizeWatcher: false
-    });
-  };
-  var removeCurrentIdToDynamicProps = ({ componentId }) => {
-    if (!componentId) return;
-    for (const [key, value] of dynamicPropsMap) {
-      const { componentId: currentComponentId } = value;
-      if (currentComponentId === componentId) {
-        dynamicPropsMap.delete(key);
-      }
-    }
-  };
-  var removeCurrentToDynamicPropsByPropsId = ({ propsId }) => {
-    if (!propsId) return;
-    dynamicPropsMap.delete(propsId);
-  };
-  var applyDynamicProps = async ({
-    componentId,
-    repeatPropBind,
-    inizilizeWatcher
-  }) => {
-    const dynamicPropsFilteredArray = [...dynamicPropsMap.values()].filter(
-      (item) => {
-        const currentComponentId = item?.componentId;
-        return currentComponentId === componentId;
-      }
-    );
-    if (!dynamicPropsFilteredArray) return;
-    for (const dynamicpropsfiltered of dynamicPropsFilteredArray) {
-      const { bind, props, parentId } = dynamicpropsfiltered;
-      const bindUpdated = repeatPropBind?.length > 0 && !bind.includes(repeatPropBind) ? [...bind, repeatPropBind] : [...bind];
-      const currentParentId = parentId ?? getParentIdById(componentId);
-      if (!inizilizeWatcher) {
-        setDynamicProp({
-          componentId,
-          bind: bindUpdated,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
-        await repeaterTick();
-        setDynamicProp({
-          componentId,
-          bind: bindUpdated,
-          props,
-          currentParentId: currentParentId ?? "",
-          fireCallback: true
-        });
-      }
-      if (!inizilizeWatcher) return;
-      let watchIsRunning = false;
-      const unWatchArray = bindUpdated.map((state) => {
-        return watchById(currentParentId, state, async () => {
-          await repeaterTick();
-          if (watchIsRunning) return;
-          const decrementQueue = incrementTickQueuque({
-            state,
-            id: componentId,
-            type: QUEQUE_TYPE_BINDPROPS
-          });
-          watchIsRunning = true;
-          mobCore.useNextLoop(() => {
-            setDynamicProp({
-              componentId,
-              bind: bindUpdated,
-              props,
-              currentParentId: currentParentId ?? "",
-              fireCallback: true
-            });
-            watchIsRunning = false;
-            decrementQueue();
-          });
-        });
-      });
-      setDynamicPropsWatch({ id: componentId, unWatchArray });
-    }
-    if (!inizilizeWatcher) return;
-    for (const [key, value] of dynamicPropsMap) {
-      const { componentId: currentComponentId } = value;
-      if (currentComponentId === componentId) {
-        dynamicPropsMap.delete(key);
-      }
-    }
-  };
-  var removeOrphansDynamicProps = () => {
-    dynamicPropsMap.clear();
-  };
-
-  // src/js/mobjs/temporaryData/repeaterTargetComponent/index.js
-  var repeaterTargetComponentMap = /* @__PURE__ */ new Map();
-  var addRepeatTargetComponent = ({
-    repeatId,
-    repeaterParentId,
-    targetComponent
-  }) => {
-    if (repeaterTargetComponentMap.has(repeatId)) return;
-    repeaterTargetComponentMap.set(repeatId, {
-      repeatId,
-      repeaterParentId,
-      targetComponent
-    });
-  };
-  var getRepeaterComponentTarget = ({ id }) => {
-    const item = repeaterTargetComponentMap.get(id);
-    if (!item) return;
-    return item?.targetComponent;
-  };
-  var removeRepeaterComponentTargetByParentId = ({ id }) => {
-    for (const [key, value] of repeaterTargetComponentMap) {
-      const { repeaterParentId } = value;
-      if (repeaterParentId === id) {
-        repeaterTargetComponentMap.delete(key);
-      }
-    }
-  };
-
-  // src/js/mobjs/componentStore/action/removeAndDestroy.js
-  var removeItselfFromParent = ({ id, parentId, componentName }) => {
-    if (!id) return;
-    const value = componentMap.get(parentId ?? "");
-    if (!value) return;
-    const { child: child2 } = value;
-    if (!parentId || !child2) return;
-    componentMap.set(parentId, {
-      ...value,
-      child: {
-        ...child2,
-        ...removeChildFromChildrenArray({
-          currentChild: child2,
-          id,
-          componentName
-        })
-      }
-    });
-  };
-  var removeAndDestroyById = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const instanceValue = componentMap.get(id);
-    if (!instanceValue) return;
-    const {
-      parentId,
-      componentName,
-      child: child2,
-      element,
-      state,
-      destroy,
-      parentPropsWatcher
-    } = instanceValue;
-    Object.values(child2 ?? {}).flat().forEach((childId) => {
-      removeAndDestroyById({ id: childId });
-    });
-    removeItselfFromParent({ id, parentId, componentName });
-    destroy?.();
-    state.destroy();
-    if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
-    removeRepeaterComponentTargetByParentId({ id });
-    removeCurrentIdToDynamicProps({ componentId: id });
-    componentMap.delete(id);
-    element?.removeCustomComponent?.();
-    element?.remove();
-  };
-  var destroyComponentInsideNodeById = ({ id, container }) => {
-    const instanceValue = componentMap.get(id);
-    const child2 = instanceValue?.child;
-    if (!child2) return;
-    const allChild = Object.values(child2 ?? {}).flat();
-    allChild.forEach((id2) => {
-      const state = componentMap.get(id2);
-      const element = state?.element;
-      if (element && container.contains(element)) {
-        removeAndDestroyById({ id: id2 });
-      }
-    });
-  };
-  var removeCancellableComponent = () => {
-    const cancellableComponents2 = [...componentMap.values()].filter(
-      ({ isCancellable }) => isCancellable
-    );
-    cancellableComponents2.forEach(({ id }) => removeAndDestroyById({ id }));
-  };
-  var removeOrphanComponent = () => {
-    const orphans = [...componentMap.values()].filter(
-      ({ element, isCancellable }) => isCancellable && !document.body.contains(element)
-    );
-    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
-    removeOrphansPropsFromParent();
-    removeOrphansBindEvent();
-    removeOrphansDynamicProps();
-  };
-  var setDestroyCallback = ({ cb = () => {
-  }, id = null }) => {
-    if (!id) return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, { ...item, destroy: cb });
-  };
-
-  // src/js/mobjs/mainStore/constant.js
-  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
-  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
-  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
-  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
-  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
-  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
-  var MAIN_STORE_REPEATER_PARSER_ROOT = "repeaterParserRoot";
-
-  // src/js/mobjs/mainStore/mainStore.js
-  var mainStore = mobCore.createStore({
-    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-      value: {},
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-      value: false,
-      type: Boolean
-    }),
-    [MAIN_STORE_REPEATER_PARSER_ROOT]: {
-      element: () => ({
-        value: document.createElement("div"),
-        type: HTMLElement,
-        skipEqual: false
-      }),
-      parentId: () => ({
-        value: "",
-        type: String,
-        skipEqual: false
-      })
-    }
-  });
 
   // src/js/mobjs/route/constant.js
   var HISTORY_BACK = "BACK";
@@ -19189,59 +19273,6 @@
     return fireFirstRepeat;
   };
 
-  // src/js/mobjs/componentStore/action/invalidate.js
-  var getInvalidateParent = ({ invalidateId = "" }) => {
-    if (!invalidateId || invalidateId === "") return;
-    const item = [...componentMap.values()].find(
-      ({ invalidateId: currentInvalidateId }) => currentInvalidateId === invalidateId
-    );
-    return item?.invalidateParent;
-  };
-  var inizializeInvalidateWatch = async ({
-    bind = [],
-    watch,
-    id,
-    invalidateId,
-    renderFunction
-  }) => {
-    let watchIsRunning = false;
-    await awaitNextLoop();
-    bind.forEach((state) => {
-      watch(state, async () => {
-        if (watchIsRunning) return;
-        await repeaterTick();
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        watchIsRunning = true;
-        mobCore.useNextLoop(async () => {
-          const invalidateParent = getInvalidateParent({
-            invalidateId
-          });
-          destroyComponentInsideNodeById({
-            id,
-            container: invalidateParent
-          });
-          invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
-          mainStore.set(
-            MAIN_STORE_REPEATER_PARSER_ROOT,
-            { element: invalidateParent, parentId: id },
-            false
-          );
-          await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
-          watchIsRunning = false;
-          descrementQueue();
-        });
-      });
-    });
-  };
-
   // src/js/mobjs/creationStep/getParamsForComponent.js
   var getParamsForComponentFunction = ({
     getState,
@@ -19295,7 +19326,7 @@
           invalidateId,
           renderFunction: invalidateRender
         });
-        return invalidateRender();
+        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
       },
       getChildren: (componentName) => {
         return getChildrenIdByName({ id, componentName });
@@ -19584,10 +19615,6 @@
       parentIdForced
     });
     const { state } = componentParams;
-    const invalidateParent = invalidateId && invalidateId !== "" ? (
-      /** @type{HTMLElement} */
-      componentToParse.parentNode
-    ) : void 0;
     const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
       element: componentToParse,
       props,
@@ -19599,7 +19626,7 @@
       repeatPropBind,
       isCancellable,
       invalidateId,
-      invalidateParent,
+      invalidateParent: getFirstInvalidateParent({ id: invalidateId }),
       parentId,
       repeaterContextId
     });
@@ -27904,16 +27931,18 @@ Loading snippet ...</pre
                     ${invalidate({
       bind: ["counter"],
       render: ({ sync, html: html2 }) => {
-        return html2`<dynamic-list-card-inner
-                                ${bindProps({
+        return html2`<div class="validate-test-wrapper">
+                                <dynamic-list-card-inner
+                                    ${bindProps({
           props: ({ counter }) => {
             return {
               key: counter
             };
           }
         })}
-                                ${sync}
-                            ></dynamic-list-card-inner>`;
+                                    ${sync}
+                                ></dynamic-list-card-inner>
+                            </div>`;
       }
     })}
                 </div>
@@ -28129,16 +28158,18 @@ Loading snippet ...</pre
                         ${invalidate({
       bind: ["counter"],
       render: ({ sync, html: html2 }) => {
-        return html2`<dynamic-list-card-inner
-                                    ${bindProps({
+        return html2`<div class="validate-test-wrapper">
+                                    <dynamic-list-card-inner
+                                        ${bindProps({
           props: ({ counter: counter2 }) => {
             return {
               key: counter2
             };
           }
         })}
-                                    ${sync}
-                                ></dynamic-list-card-inner>`;
+                                        ${sync}
+                                    ></dynamic-list-card-inner>
+                                </div>`;
       }
     })}
                     </div>

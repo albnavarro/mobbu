@@ -110,7 +110,7 @@ export const getParamsForComponentFunction = ({
                 renderFunction: invalidateRender,
             });
 
-            return invalidateRender();
+            return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
         },
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });

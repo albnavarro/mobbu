@@ -35,6 +35,7 @@ import {
     setRepeaterStateById,
 } from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
+import { getFirstInvalidateParent } from '../componentStore/action/invalidate';
 
 /**
  * @param {object} obj
@@ -183,14 +184,6 @@ export const parseComponentsRecursive = async ({
     const { state } = componentParams;
 
     /**
-     * Get parent DOM element of invalidate component.
-     */
-    const invalidateParent =
-        invalidateId && invalidateId !== ''
-            ? /** @type{HTMLElement} */ (componentToParse.parentNode)
-            : undefined;
-
-    /**
      * Add component to store
      */
     const { getState, setState, emit, emitAsync, computed, watch } =
@@ -205,7 +198,7 @@ export const parseComponentsRecursive = async ({
             repeatPropBind,
             isCancellable,
             invalidateId,
-            invalidateParent,
+            invalidateParent: getFirstInvalidateParent({ id: invalidateId }),
             parentId,
             repeaterContextId,
         });

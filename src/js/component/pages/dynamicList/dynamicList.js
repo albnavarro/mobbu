@@ -208,16 +208,18 @@ export const DynamicListFn = async ({
                     ${invalidate({
                         bind: ['counter'],
                         render: ({ sync, html }) => {
-                            return html`<dynamic-list-card-inner
-                                ${bindProps({
-                                    props: ({ counter }) => {
-                                        return {
-                                            key: counter,
-                                        };
-                                    },
-                                })}
-                                ${sync}
-                            ></dynamic-list-card-inner>`;
+                            return html`<div class="validate-test-wrapper">
+                                <dynamic-list-card-inner
+                                    ${bindProps({
+                                        props: ({ counter }) => {
+                                            return {
+                                                key: counter,
+                                            };
+                                        },
+                                    })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>
+                            </div>`;
                         },
                     })}
                 </div>
