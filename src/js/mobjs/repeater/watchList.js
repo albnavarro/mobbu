@@ -79,6 +79,7 @@ export const watchList = ({
             const descrementRepeaterQueue = incrementRepeaterTickQueuque({
                 state,
                 id,
+                type: QUEQUE_TYPE_REPEATER,
             });
 
             /**

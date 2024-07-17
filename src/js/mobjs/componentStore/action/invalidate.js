@@ -3,8 +3,8 @@ import { QUEQUE_TYPE_INVALIDATE } from '../../constant';
 import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
 import { incrementTickQueuque } from '../tick';
+import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { repeaterTick } from '../tickRepeater';
-import { awaitNextLoop } from '../utils';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
 
 /**
@@ -35,7 +35,9 @@ export const getFirstInvalidateParent = ({ id }) => {
         return;
     }
 
-    return invalidatePlaceHolderMap.get(id);
+    const parent = invalidatePlaceHolderMap.get(id);
+    invalidatePlaceHolderMap.delete(id);
+    return parent;
 };
 
 /**
@@ -61,10 +63,14 @@ export const inizializeInvalidateWatch = async ({
     let watchIsRunning = false;
 
     /**
-     * Bind watch after current loop has resolved.
+     * Bind watch after repeaterTick has resolved.
      * Skip double rendering on initialization
      */
-    await awaitNextLoop();
+    await repeaterTick();
+
+    const invalidateParent = getFirstInvalidateParent({
+        id: invalidateId,
+    });
 
     /**
      * Update component
@@ -88,15 +94,17 @@ export const inizializeInvalidateWatch = async ({
                 type: QUEQUE_TYPE_INVALIDATE,
             });
 
+            const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+                state,
+                id,
+                type: QUEQUE_TYPE_INVALIDATE,
+            });
+
             /**
              * Update
              */
             watchIsRunning = true;
             mobCore.useNextLoop(async () => {
-                const invalidateParent = getFirstInvalidateParent({
-                    id: invalidateId,
-                });
-
                 /**
                  * Remove old component.
                  */
@@ -127,6 +135,7 @@ export const inizializeInvalidateWatch = async ({
 
                 watchIsRunning = false;
                 descrementQueue();
+                decrementInvalidateQueque();
             });
         });
     });

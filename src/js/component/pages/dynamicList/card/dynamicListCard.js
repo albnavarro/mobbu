@@ -174,6 +174,13 @@ export const DynamicListCardFn = ({
                                                 };
                                             },
                                         })}
+                                        ${delegateEvents({
+                                            click: () => {
+                                                console.log(
+                                                    'invalidate inside reepater click'
+                                                );
+                                            },
+                                        })}
                                     ></dynamic-list-card-inner>
                                 </div>`;
                             },

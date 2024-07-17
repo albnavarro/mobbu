@@ -1,7 +1,5 @@
 // @ts-check
 
-import { incrementTickQueuque } from '../componentStore/tick';
-import { QUEQUE_TYPE_PARSE_WATCH_ASYNC } from '../constant';
 import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
@@ -42,17 +40,10 @@ export const initParseWatcher = () => {
     mainStore.watch(
         MAIN_STORE_REPEATER_PARSER_ROOT,
         async ({ element, parentId }) => {
-            const decrementQueqe = incrementTickQueuque({
-                element,
-                type: QUEQUE_TYPE_PARSE_WATCH_ASYNC,
-            });
-
             await parseComponents({
                 element,
                 parentIdForced: parentId ?? '',
             });
-
-            decrementQueqe();
         }
     );
 };

@@ -35,7 +35,6 @@ import {
     setRepeaterStateById,
 } from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
-import { getFirstInvalidateParent } from '../componentStore/action/invalidate';
 
 /**
  * @param {object} obj

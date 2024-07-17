@@ -119,3 +119,8 @@ export const QUEQUE_TYPE_INVALIDATE = 'QUEQUE_INVALIDATE';
  * @type {string};
  */
 export const QUEQUE_TYPE_PARSE_WATCH_ASYNC = 'PARSE_WATCH_ASYNC';
+
+/**
+ * @type {string};
+ */
+export const QUEQUE_TYPE_PARSE_COMPONENT = 'PARSE_COMPONENT';

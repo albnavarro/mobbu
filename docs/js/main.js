@@ -16877,7 +16877,6 @@
   var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
   var QUEQUE_TYPE_REPEATER = "QUEQUE_REPEATER";
   var QUEQUE_TYPE_INVALIDATE = "QUEQUE_INVALIDATE";
-  var QUEQUE_TYPE_PARSE_WATCH_ASYNC = "PARSE_WATCH_ASYNC";
 
   // src/js/mobjs/query/queryAllFutureComponent.js
   function* walkPreOrder(node) {
@@ -17031,26 +17030,29 @@
     return new Promise((resolve) => mobCore.useNextLoop(() => resolve()));
   }
 
-  // src/js/mobjs/componentStore/tick.js
-  var queque = /* @__PURE__ */ new Map();
+  // src/js/mobjs/componentStore/tickInvalidate.js
+  var InvalidateQueque = /* @__PURE__ */ new Map();
   var maxQueuqueSize = 1e3;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize) {
+  var incrementInvalidateTickQueuque = (props) => {
+    if (InvalidateQueque.size >= maxQueuqueSize) {
       console.warn(`maximum loop event reached: (${maxQueuqueSize})`);
       return () => {
       };
     }
     const id = mobCore.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
+    InvalidateQueque.set(id, props);
+    return () => InvalidateQueque.delete(id);
   };
   var queueIsResolved = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize;
+    return InvalidateQueque.size === 0 || InvalidateQueque.size >= maxQueuqueSize;
   };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
+  var invalidateTick = async ({
+    debug = false,
+    previousResolve
+  } = {}) => {
     await awaitNextLoop();
     if (debug) {
-      queque.forEach((value) => {
+      InvalidateQueque.forEach((value) => {
         console.log(value);
       });
     }
@@ -17063,7 +17065,10 @@
         resolve();
         return;
       }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
+      invalidateTick({
+        debug,
+        previousResolve: previousResolve ?? resolve
+      });
     });
   };
 
@@ -17152,7 +17157,8 @@
     callback2(event, currentRepeaterState?.index);
   }
   var applyDelegationBindEvent = async (root2) => {
-    await tick();
+    await repeaterTick();
+    await invalidateTick();
     const parent = root2.parentNode;
     const elements = parent?.querySelectorAll(`[${ATTR_WEAK_BIND_EVENTS}]`) ?? [];
     [...elements].forEach((element) => {
@@ -17256,6 +17262,42 @@
       })
     }
   });
+
+  // src/js/mobjs/componentStore/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize3 = 1e3;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize3) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved3 = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize3;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved3() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved3()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
 
   // src/js/mobjs/temporaryData/bindEvents/index.js
   var bindEventMap = /* @__PURE__ */ new Map();
@@ -17744,7 +17786,9 @@
     if (!invalidatePlaceHolderMap.has(id)) {
       return;
     }
-    return invalidatePlaceHolderMap.get(id);
+    const parent = invalidatePlaceHolderMap.get(id);
+    invalidatePlaceHolderMap.delete(id);
+    return parent;
   };
   var inizializeInvalidateWatch = async ({
     bind = [],
@@ -17754,7 +17798,10 @@
     renderFunction
   }) => {
     let watchIsRunning = false;
-    await awaitNextLoop();
+    await repeaterTick();
+    const invalidateParent = getFirstInvalidateParent({
+      id: invalidateId
+    });
     bind.forEach((state) => {
       watch(state, async () => {
         if (watchIsRunning) return;
@@ -17764,11 +17811,13 @@
           id,
           type: QUEQUE_TYPE_INVALIDATE
         });
+        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
         watchIsRunning = true;
         mobCore.useNextLoop(async () => {
-          const invalidateParent = getFirstInvalidateParent({
-            id: invalidateId
-          });
           destroyComponentInsideNodeById({
             id,
             container: invalidateParent
@@ -17786,6 +17835,7 @@
           await mainStore.emitAsync(MAIN_STORE_REPEATER_PARSER_ROOT);
           watchIsRunning = false;
           descrementQueue();
+          decrementInvalidateQueque();
         });
       });
     });
@@ -19147,7 +19197,8 @@
         });
         const descrementRepeaterQueue = incrementRepeaterTickQueuque({
           state,
-          id
+          id,
+          type: QUEQUE_TYPE_REPEATER
         });
         freezePropById({ id, prop: state });
         const repeatIsRunning = getActiveRepeater({
@@ -19765,15 +19816,10 @@
     mainStore.watch(
       MAIN_STORE_REPEATER_PARSER_ROOT,
       async ({ element, parentId }) => {
-        const decrementQueqe = incrementTickQueuque({
-          element,
-          type: QUEQUE_TYPE_PARSE_WATCH_ASYNC
-        });
         await parseComponents({
           element,
           parentIdForced: parentId ?? ""
         });
-        decrementQueqe();
       }
     );
   };
@@ -28153,6 +28199,13 @@ Loading snippet ...</pre
             return {
               key: counter2
             };
+          }
+        })}
+                                        ${delegateEvents({
+          click: () => {
+            console.log(
+              "invalidate inside reepater click"
+            );
           }
         })}
                                     ></dynamic-list-card-inner>
