@@ -24,7 +24,6 @@ export interface componentCommonTypes {
     freezedPros?: string[];
     isCancellable: boolean;
     invalidateId?: string;
-    invalidateParent?: HTMLElement;
     child?:
         | {
               string: string[];

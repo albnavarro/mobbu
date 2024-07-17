@@ -2,7 +2,6 @@ import { mobCore } from '../../../mobCore';
 import { QUEQUE_TYPE_INVALIDATE } from '../../constant';
 import { MAIN_STORE_REPEATER_PARSER_ROOT } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
-import { componentMap } from '../store';
 import { incrementTickQueuque } from '../tick';
 import { repeaterTick } from '../tickRepeater';
 import { awaitNextLoop } from '../utils';
@@ -37,29 +36,6 @@ export const getFirstInvalidateParent = ({ id }) => {
     }
 
     return invalidatePlaceHolderMap.get(id);
-};
-
-/**
- * @description
- * Get invalidate parent stored from webComponent.
- *
- * @param {object} obj
- * @param {string} obj.invalidateId
- * @return { HTMLElement }
- *
- * @description
- * Update element root from generic to real after conversion.
- */
-export const getInvalidateParent = ({ invalidateId = '' }) => {
-    if (!invalidateId || invalidateId === '') return;
-
-    // @ts-ignore
-    const item = [...componentMap.values()].find(
-        ({ invalidateId: currentInvalidateId }) =>
-            currentInvalidateId === invalidateId
-    );
-
-    return item?.invalidateParent;
 };
 
 /**
