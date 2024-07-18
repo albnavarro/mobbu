@@ -115,7 +115,7 @@ export const getParamsForComponentFunction = ({
                     setInvalidateId({ id, invalidateId });
 
                     /**
-                     * Ad initialize function to function map
+                     * Fire invalidate id after component parse
                      */
                     inizializeInvalidateWatch({
                         bind,
