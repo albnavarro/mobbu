@@ -2,7 +2,6 @@ import { mobCore } from '../../../mobCore';
 import { QUEQUE_TYPE_INVALIDATE } from '../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
-import { componentMap } from '../store';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { repeaterTick } from '../tickRepeater';
@@ -61,8 +60,8 @@ export const removeInvalidateId = ({ id }) => {
  * key is component id associated to these function.
  *
  * @param {object} params
- * @param {string} params.id
- * @param {string} params.invalidateId
+ * @param {string} params.id - component id
+ * @param {string} params.invalidateId - invalidate id
  * @param {() => void} params.fn
  * @returns {void}
  */

@@ -61,7 +61,6 @@ export const removeAndDestroyById = ({ id = '' }) => {
         child,
         element,
         state,
-        invalidateId,
         destroy,
         parentPropsWatcher,
     } = instanceValue;
@@ -93,7 +92,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     removeRepeaterComponentTargetByParentId({ id });
 
     /**
-     * Remove invalidateId
+     * Clean all invalidate reference
      */
     removeInvalidateId({ id });
 
