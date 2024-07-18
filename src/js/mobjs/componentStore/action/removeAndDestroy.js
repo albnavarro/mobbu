@@ -95,7 +95,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
     /**
      * Remove invalidateId
      */
-    removeInvalidateId({ id, invalidateId });
+    removeInvalidateId({ id });
 
     /**
      * Secure check: remove orphas reference from mainStore

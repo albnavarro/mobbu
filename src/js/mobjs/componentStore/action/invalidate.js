@@ -23,33 +23,9 @@ export const invalidateIdPlaceHolderMap = new Map();
  * Store initialize invalidate function
  * Key is componentId
  *
- * @type {Map<string, Array<() => void>>}
+ * @type {Map<string, Array<{invalidateId:string, fn: () => void }>>}
  */
 export const invalidateFunctionMap = new Map();
-
-/**
- * @description
- * Store on componentMap all invalidateId used by component.
- * On component destroy use these is to clean invalidateIdPlaceHolderMap
- *
- * @param {object} params
- * @param {string} params.id - component id
- * @param {string} params.invalidateId = invalidate id
- * @returns {void}
- */
-export const setInvalidateId = ({ id, invalidateId }) => {
-    if (!id || id === '') return;
-
-    const item = componentMap.get(id);
-    if (!item) return;
-
-    const { invalidateId: currentInvalidateId } = item;
-
-    componentMap.set(id, {
-        ...item,
-        invalidateId: [...currentInvalidateId, invalidateId],
-    });
-};
 
 /**
  * @description
@@ -57,25 +33,26 @@ export const setInvalidateId = ({ id, invalidateId }) => {
  *
  * @param {object} params
  * @param {string} params.id - component id
- * @param {string[]} params.invalidateId = invalidate id stored in array by component
  * @returns {void}
  */
-export const removeInvalidateId = ({ id, invalidateId }) => {
-    /**
-     * id of functionMap is component id
-     */
+export const removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
+        const value = invalidateFunctionMap.get(id);
+
+        /**
+         *Remove reference to parent Id taken from invalidate web component.
+         */
+        value.forEach(({ invalidateId }) => {
+            if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+                invalidateIdPlaceHolderMap.delete(invalidateId);
+            }
+        });
+
+        /**
+         * Delete all
+         */
         invalidateFunctionMap.delete(id);
     }
-
-    /**
-     * Component has all invalidate id stored in a array
-     */
-    invalidateId.forEach((currentInvalidateId) => {
-        if (invalidateIdPlaceHolderMap.has(currentInvalidateId)) {
-            invalidateIdPlaceHolderMap.delete(currentInvalidateId);
-        }
-    });
 };
 
 /**
@@ -85,12 +62,13 @@ export const removeInvalidateId = ({ id, invalidateId }) => {
  *
  * @param {object} params
  * @param {string} params.id
+ * @param {string} params.invalidateId
  * @param {() => void} params.fn
  * @returns {void}
  */
-export const setInvalidateFunction = ({ id, fn }) => {
+export const setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [...currentFunctions, fn]);
+    invalidateFunctionMap.set(id, [...currentFunctions, { invalidateId, fn }]);
 };
 
 /**
@@ -99,7 +77,7 @@ export const setInvalidateFunction = ({ id, fn }) => {
  *
  * @param {object} params
  * @param {string} params.id
- * @returns {Array<() => void>}
+ * @returns {Array<{invalidateId: string, fn: () => void }>}
  */
 export const getInvalidateFunctions = ({ id }) => {
     return invalidateFunctionMap.get(id) ?? [];

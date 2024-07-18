@@ -9,7 +9,6 @@ import {
 import {
     inizializeInvalidateWatch,
     setInvalidateFunction,
-    setInvalidateId,
 } from '../componentStore/action/invalidate';
 import { getParentIdById } from '../componentStore/action/parent';
 import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
@@ -108,12 +107,8 @@ export const getParamsForComponentFunction = ({
 
             setInvalidateFunction({
                 id,
+                invalidateId,
                 fn: () => {
-                    /**
-                     * Update invalidateId array in component map.
-                     */
-                    setInvalidateId({ id, invalidateId });
-
                     /**
                      * Fire invalidate id after component parse
                      */

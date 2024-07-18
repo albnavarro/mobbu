@@ -17737,7 +17737,7 @@
     state.destroy();
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
-    removeInvalidateId({ id, invalidateId });
+    removeInvalidateId({ id });
     removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -17782,29 +17782,20 @@
   // src/js/mobjs/componentStore/action/invalidate.js
   var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
   var invalidateFunctionMap = /* @__PURE__ */ new Map();
-  var setInvalidateId = ({ id, invalidateId }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { invalidateId: currentInvalidateId } = item;
-    componentMap.set(id, {
-      ...item,
-      invalidateId: [...currentInvalidateId, invalidateId]
-    });
-  };
-  var removeInvalidateId = ({ id, invalidateId }) => {
+  var removeInvalidateId = ({ id }) => {
     if (invalidateFunctionMap.has(id)) {
+      const value = invalidateFunctionMap.get(id);
+      value.forEach(({ invalidateId }) => {
+        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+          invalidateIdPlaceHolderMap.delete(invalidateId);
+        }
+      });
       invalidateFunctionMap.delete(id);
     }
-    invalidateId.forEach((currentInvalidateId) => {
-      if (invalidateIdPlaceHolderMap.has(currentInvalidateId)) {
-        invalidateIdPlaceHolderMap.delete(currentInvalidateId);
-      }
-    });
   };
-  var setInvalidateFunction = ({ id, fn }) => {
+  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [...currentFunctions, fn]);
+    invalidateFunctionMap.set(id, [...currentFunctions, { invalidateId, fn }]);
   };
   var getInvalidateFunctions = ({ id }) => {
     return invalidateFunctionMap.get(id) ?? [];
@@ -19396,8 +19387,8 @@
         const invalidateRender = () => render2({ html: renderHtml });
         setInvalidateFunction({
           id,
+          invalidateId,
           fn: () => {
-            setInvalidateId({ id, invalidateId });
             inizializeInvalidateWatch({
               bind,
               watch,
@@ -19829,7 +19820,7 @@
       } : () => {
       },
       fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
-        invalidateFunctions.forEach((fn) => {
+        invalidateFunctions.forEach(({ fn }) => {
           fn?.();
         });
       } : () => {
@@ -28145,6 +28136,47 @@ Loading snippet ...</pre
     }).join("")}
     `;
   };
+  var getInvalidateRender2 = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    getState,
+    invalidate
+  }) => {
+    const { counter } = getState();
+    return renderHtml`
+        ${createArray(counter).map((item) => {
+      return renderHtml`
+                    <div class="validate-test-wrapper">
+                        <dynamic-list-card-inner
+                            ${staticProps2({
+        key: `${item}pi`
+      })}
+                            ${delegateEvents({
+        click: () => {
+          console.log(
+            "invalidate inside reepater click"
+          );
+        }
+      })}
+                        >
+                            <div class="c-dynamic-card__invalidate__wrap">
+                                ${invalidate({
+        bind: ["counter"],
+        render: () => {
+          return getInvalidateRender({
+            getState,
+            delegateEvents,
+            staticProps: staticProps2
+          });
+        }
+      })}
+                            </div>
+                        </dynamic-list-card-inner>
+                    </div>
+                `;
+    }).join("")}
+    `;
+  };
   var DynamicListCardFn = ({
     getState,
     html,
@@ -28281,22 +28313,11 @@ Loading snippet ...</pre
                         ${invalidate({
       bind: ["counter"],
       render: () => {
-        return getInvalidateRender({
+        return getInvalidateRender2({
           getState,
           delegateEvents,
-          staticProps: staticProps2
-        });
-      }
-    })}
-                    </div>
-                    <div class="c-dynamic-card__invalidate__wrap">
-                        ${invalidate({
-      bind: ["counter"],
-      render: () => {
-        return getInvalidateRender({
-          getState,
-          delegateEvents,
-          staticProps: staticProps2
+          staticProps: staticProps2,
+          invalidate
         });
       }
     })}

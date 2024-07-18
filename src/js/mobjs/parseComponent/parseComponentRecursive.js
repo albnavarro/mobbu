@@ -468,7 +468,7 @@ export const parseComponentsRecursive = async ({
         fireInvalidateFunction:
             invalidateFunctions.length > 0
                 ? () => {
-                      invalidateFunctions.forEach((fn) => {
+                      invalidateFunctions.forEach(({ fn }) => {
                           fn?.();
                       });
                   }
