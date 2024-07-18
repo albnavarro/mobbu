@@ -1,6 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../../mobCore';
+import { html } from '../../../../mobjs';
 import { innerData } from '../data';
 
 // function wait() {
@@ -25,6 +26,39 @@ function updateContent(label, val) {
 function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
 }
+
+/**
+ * @param {object} params
+ * @param {import('../../../../mobjs/type').StaticProps<import('./innerCard/type').DynamicListCardInner>} params.staticProps
+ * @param {import('../../../../mobjs/type').DelegateEvents} params.delegateEvents
+ * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListCard>} params.getState
+ */
+const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
+    const { counter } = getState();
+
+    return html`
+        ${createArray(counter)
+            .map((item) => {
+                return html`
+                    <div class="validate-test-wrapper">
+                        <dynamic-list-card-inner
+                            ${staticProps({
+                                key: `${item}`,
+                            })}
+                            ${delegateEvents({
+                                click: () => {
+                                    console.log(
+                                        'invalidate inside reepater click'
+                                    );
+                                },
+                            })}
+                        ></dynamic-list-card-inner>
+                    </div>
+                `;
+            })
+            .join('')}
+    `;
+};
 
 /**
  * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListCard>}
@@ -175,33 +209,12 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
                             bind: ['counter'],
-                            render: ({ html }) => {
-                                const { counter } = getState();
-
-                                return `
-                                    ${createArray(counter)
-                                        .map((item) => {
-                                            return html`
-                                                <div
-                                                    class="validate-test-wrapper"
-                                                >
-                                                    <dynamic-list-card-inner
-                                                        ${staticProps({
-                                                            key: `${item}`,
-                                                        })}
-                                                        ${delegateEvents({
-                                                            click: () => {
-                                                                console.log(
-                                                                    'invalidate inside reepater click'
-                                                                );
-                                                            },
-                                                        })}
-                                                    ></dynamic-list-card-inner>
-                                                </div>
-                                            `;
-                                        })
-                                        .join('')}
-                                `;
+                            render: () => {
+                                return getInvalidateRender({
+                                    getState,
+                                    delegateEvents,
+                                    staticProps,
+                                });
                             },
                         })}
                     </div>

@@ -28071,6 +28071,29 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
+  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
+    const { counter } = getState();
+    return renderHtml`
+        ${createArray(counter).map((item) => {
+      return renderHtml`
+                    <div class="validate-test-wrapper">
+                        <dynamic-list-card-inner
+                            ${staticProps2({
+        key: `${item}`
+      })}
+                            ${delegateEvents({
+        click: () => {
+          console.log(
+            "invalidate inside reepater click"
+          );
+        }
+      })}
+                        ></dynamic-list-card-inner>
+                    </div>
+                `;
+    }).join("")}
+    `;
+  };
   var DynamicListCardFn = ({
     getState,
     html,
@@ -28206,30 +28229,12 @@ Loading snippet ...</pre
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
       bind: ["counter"],
-      render: ({ html: html2 }) => {
-        const { counter: counter2 } = getState();
-        return `
-                                    ${createArray(counter2).map((item) => {
-          return html2`
-                                                <div
-                                                    class="validate-test-wrapper"
-                                                >
-                                                    <dynamic-list-card-inner
-                                                        ${staticProps2({
-            key: `${item}`
-          })}
-                                                        ${delegateEvents({
-            click: () => {
-              console.log(
-                "invalidate inside reepater click"
-              );
-            }
-          })}
-                                                    ></dynamic-list-card-inner>
-                                                </div>
-                                            `;
-        }).join("")}
-                                `;
+      render: () => {
+        return getInvalidateRender({
+          getState,
+          delegateEvents,
+          staticProps: staticProps2
+        });
       }
     })}
                     </div>
