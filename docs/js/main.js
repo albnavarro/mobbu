@@ -17725,6 +17725,7 @@
       child: child2,
       element,
       state,
+      invalidateId,
       destroy,
       parentPropsWatcher
     } = instanceValue;
@@ -17736,6 +17737,7 @@
     state.destroy();
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
+    removeInvalidateId({ invalidateId });
     removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -17779,6 +17781,16 @@
 
   // src/js/mobjs/componentStore/action/invalidate.js
   var invalidatePlaceHolderMap = /* @__PURE__ */ new Map();
+  var setInvalidateId = ({ id, invalidateId }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    componentMap.set(id, { ...item, invalidateId });
+  };
+  var removeInvalidateId = ({ invalidateId }) => {
+    if (!invalidatePlaceHolderMap.has(invalidateId)) return;
+    invalidatePlaceHolderMap.delete(invalidateId);
+  };
   var addIvalidateParent = ({ id = "", parent }) => {
     invalidatePlaceHolderMap.set(id, parent);
   };
@@ -17787,7 +17799,6 @@
       return;
     }
     const parent = invalidatePlaceHolderMap.get(id);
-    invalidatePlaceHolderMap.delete(id);
     return parent;
   };
   var inizializeInvalidateWatch = async ({
@@ -17799,12 +17810,13 @@
   }) => {
     let watchIsRunning = false;
     await repeaterTick();
-    const invalidateParent = getFirstInvalidateParent({
-      id: invalidateId
-    });
+    setInvalidateId({ id, invalidateId });
     bind.forEach((state) => {
       watch(state, async () => {
         if (watchIsRunning) return;
+        const invalidateParent = getFirstInvalidateParent({
+          id: invalidateId
+        });
         await repeaterTick();
         const descrementQueue = incrementTickQueuque({
           state,

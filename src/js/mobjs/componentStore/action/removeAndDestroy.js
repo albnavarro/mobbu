@@ -9,6 +9,7 @@ import { removeRepeaterComponentTargetByParentId } from '../../temporaryData/rep
 import { removeOrphansPropsFromParent } from '../../temporaryData/staticProps';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
+import { removeInvalidateId } from './invalidate';
 
 /**
  * @param {Object} param
@@ -60,6 +61,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
         child,
         element,
         state,
+        invalidateId,
         destroy,
         parentPropsWatcher,
     } = instanceValue;
@@ -84,8 +86,16 @@ export const removeAndDestroyById = ({ id = '' }) => {
     destroy?.();
     state.destroy();
 
+    /**
+     * Unsubscribe component binding.
+     */
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
+
+    /**
+     * Remove invalidateId
+     */
+    removeInvalidateId({ invalidateId });
 
     /**
      * Secure check: remove orphas reference from mainStore

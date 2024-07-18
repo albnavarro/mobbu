@@ -2,6 +2,7 @@ import { mobCore } from '../../../mobCore';
 import { QUEQUE_TYPE_INVALIDATE } from '../../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
+import { componentMap } from '../store';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { repeaterTick } from '../tickRepeater';
@@ -14,6 +15,32 @@ import { destroyComponentInsideNodeById } from './removeAndDestroy';
  * @type {Map<string, HTMLElement>}
  */
 export const invalidatePlaceHolderMap = new Map();
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.invalidateId
+ * @returns {void}
+ */
+const setInvalidateId = ({ id, invalidateId }) => {
+    if (!id || id === '') return;
+
+    const item = componentMap.get(id);
+    if (!item) return;
+
+    componentMap.set(id, { ...item, invalidateId });
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.invalidateId
+ * @returns {void}
+ */
+export const removeInvalidateId = ({ invalidateId }) => {
+    if (!invalidatePlaceHolderMap.has(invalidateId)) return;
+
+    invalidatePlaceHolderMap.delete(invalidateId);
+};
 
 /**
  * @description
@@ -36,7 +63,6 @@ export const getFirstInvalidateParent = ({ id }) => {
     }
 
     const parent = invalidatePlaceHolderMap.get(id);
-    invalidatePlaceHolderMap.delete(id);
     return parent;
 };
 
@@ -68,9 +94,10 @@ export const inizializeInvalidateWatch = async ({
      */
     await repeaterTick();
 
-    const invalidateParent = getFirstInvalidateParent({
-        id: invalidateId,
-    });
+    /**
+     * Ad invalidateId in component map.
+     */
+    setInvalidateId({ id, invalidateId });
 
     /**
      * Update component
@@ -78,6 +105,10 @@ export const inizializeInvalidateWatch = async ({
     bind.forEach((state) => {
         watch(state, async () => {
             if (watchIsRunning) return;
+
+            const invalidateParent = getFirstInvalidateParent({
+                id: invalidateId,
+            });
 
             /**
              * Invalidate component after repeater
