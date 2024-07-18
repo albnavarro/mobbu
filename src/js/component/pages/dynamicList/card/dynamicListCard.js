@@ -218,6 +218,18 @@ export const DynamicListCardFn = ({
                             },
                         })}
                     </div>
+                    <div class="c-dynamic-card__invalidate__wrap">
+                        ${invalidate({
+                            bind: ['counter'],
+                            render: () => {
+                                return getInvalidateRender({
+                                    getState,
+                                    delegateEvents,
+                                    staticProps,
+                                });
+                            },
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

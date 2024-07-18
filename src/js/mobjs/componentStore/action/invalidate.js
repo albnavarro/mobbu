@@ -11,35 +11,83 @@ import { destroyComponentInsideNodeById } from './removeAndDestroy';
 /**
  * @description
  * Store parent invalidate by a webcomponent utils
+ * Key is invalidate id
  *
  * @type {Map<string, HTMLElement>}
  */
-export const invalidatePlaceHolderMap = new Map();
+export const invalidateIdPlaceHolderMap = new Map();
 
 /**
+ * @description
+ * Store initialize invalidate function
+ *
+ * @type {Map<string, Array<() => void>>}
+ */
+export const invalidateFunctionMap = new Map();
+
+/**
+ * @description
+ * Store on componentMap all invalidateId used by component.
+ * On component destroy use these is to clean invalidateIdPlaceHolderMap
+ *
  * @param {object} params
- * @param {string} params.id
- * @param {string} params.invalidateId
+ * @param {string} params.id - component id
+ * @param {string} params.invalidateId = invalidate id
  * @returns {void}
  */
-const setInvalidateId = ({ id, invalidateId }) => {
+export const setInvalidateId = ({ id, invalidateId }) => {
     if (!id || id === '') return;
 
     const item = componentMap.get(id);
     if (!item) return;
 
-    componentMap.set(id, { ...item, invalidateId });
+    const { invalidateId: currentInvalidateId } = item;
+
+    componentMap.set(id, {
+        ...item,
+        invalidateId: [...currentInvalidateId, invalidateId],
+    });
+};
+
+/**
+ * @description
+ * Clean the two utils map on component destroy.
+ *
+ * @param {object} params
+ * @param {string} params.id - component id
+ * @param {string[]} params.invalidateId = invalidate id stored in array by component
+ * @returns {void}
+ */
+export const removeInvalidateId = ({ id, invalidateId }) => {
+    if (invalidateFunctionMap.has(id)) {
+        invalidateFunctionMap.delete(id);
+    }
+
+    invalidateId.forEach((currentInvalidateId) => {
+        if (invalidateIdPlaceHolderMap.has(currentInvalidateId)) {
+            invalidateIdPlaceHolderMap.delete(currentInvalidateId);
+        }
+    });
 };
 
 /**
  * @param {object} params
- * @param {string} params.invalidateId
+ * @param {string} params.id
+ * @param {() => void} params.fn
  * @returns {void}
  */
-export const removeInvalidateId = ({ invalidateId }) => {
-    if (!invalidatePlaceHolderMap.has(invalidateId)) return;
+export const setInvalidateFunction = ({ id, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [...currentFunctions, fn]);
+};
 
-    invalidatePlaceHolderMap.delete(invalidateId);
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {Array<() => void>}
+ */
+export const getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
 };
 
 /**
@@ -50,19 +98,19 @@ export const removeInvalidateId = ({ invalidateId }) => {
  * @param {string} params.id
  * @param {HTMLElement} params.parent
  */
-export const addIvalidateParent = ({ id = '', parent }) => {
-    invalidatePlaceHolderMap.set(id, parent);
+export const addInvalidateParent = ({ id = '', parent }) => {
+    invalidateIdPlaceHolderMap.set(id, parent);
 };
 
 /**
  * @returns {HTMLElement}
  */
 export const getFirstInvalidateParent = ({ id }) => {
-    if (!invalidatePlaceHolderMap.has(id)) {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
         return;
     }
 
-    const parent = invalidatePlaceHolderMap.get(id);
+    const parent = invalidateIdPlaceHolderMap.get(id);
     return parent;
 };
 
@@ -87,17 +135,6 @@ export const inizializeInvalidateWatch = async ({
      * Watch props on change
      */
     let watchIsRunning = false;
-
-    /**
-     * Bind watch after repeaterTick has resolved.
-     * Skip double rendering on initialization
-     */
-    await repeaterTick();
-
-    /**
-     * Ad invalidateId in component map.
-     */
-    setInvalidateId({ id, invalidateId });
 
     /**
      * Update component

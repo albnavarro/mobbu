@@ -35,12 +35,13 @@ import {
     setRepeaterStateById,
 } from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
+import { getInvalidateFunctions } from '../componentStore/action/invalidate';
 
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function, fireInvalidateFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
@@ -102,10 +103,16 @@ export const parseComponentsRecursive = async ({
          * onMount state of parent.
          */
         for (const item of functionToFireAtTheEnd.reverse()) {
-            const { onMount, fireDynamic, fireFirstRepeat } = item;
+            const {
+                onMount,
+                fireDynamic,
+                fireFirstRepeat,
+                fireInvalidateFunction,
+            } = item;
             await onMount();
             fireDynamic();
             fireFirstRepeat();
+            fireInvalidateFunction();
         }
 
         /**
@@ -382,6 +389,11 @@ export const parseComponentsRecursive = async ({
         });
     });
 
+    /**
+     * Execute invalidateFunction.
+     */
+    const invalidateFunctions = getInvalidateFunctions({ id });
+
     // const bindEventsId = objectFromComponentFunction?.bindEventsId;
     if (bindEventsId) {
         applyBindEvents({
@@ -449,6 +461,14 @@ export const parseComponentsRecursive = async ({
             firstRepeatEmitArray.length > 0
                 ? () => {
                       firstRepeatEmitArray.forEach((fn) => {
+                          fn?.();
+                      });
+                  }
+                : () => {},
+        fireInvalidateFunction:
+            invalidateFunctions.length > 0
+                ? () => {
+                      invalidateFunctions.forEach((fn) => {
                           fn?.();
                       });
                   }

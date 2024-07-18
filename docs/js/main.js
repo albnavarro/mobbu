@@ -17737,7 +17737,7 @@
     state.destroy();
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
-    removeInvalidateId({ invalidateId });
+    removeInvalidateId({ id, invalidateId });
     removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -17780,25 +17780,43 @@
   };
 
   // src/js/mobjs/componentStore/action/invalidate.js
-  var invalidatePlaceHolderMap = /* @__PURE__ */ new Map();
+  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
+  var invalidateFunctionMap = /* @__PURE__ */ new Map();
   var setInvalidateId = ({ id, invalidateId }) => {
     if (!id || id === "") return;
     const item = componentMap.get(id);
     if (!item) return;
-    componentMap.set(id, { ...item, invalidateId });
+    const { invalidateId: currentInvalidateId } = item;
+    componentMap.set(id, {
+      ...item,
+      invalidateId: [...currentInvalidateId, invalidateId]
+    });
   };
-  var removeInvalidateId = ({ invalidateId }) => {
-    if (!invalidatePlaceHolderMap.has(invalidateId)) return;
-    invalidatePlaceHolderMap.delete(invalidateId);
+  var removeInvalidateId = ({ id, invalidateId }) => {
+    if (invalidateFunctionMap.has(id)) {
+      invalidateFunctionMap.delete(id);
+    }
+    invalidateId.forEach((currentInvalidateId) => {
+      if (invalidateIdPlaceHolderMap.has(currentInvalidateId)) {
+        invalidateIdPlaceHolderMap.delete(currentInvalidateId);
+      }
+    });
   };
-  var addIvalidateParent = ({ id = "", parent }) => {
-    invalidatePlaceHolderMap.set(id, parent);
+  var setInvalidateFunction = ({ id, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [...currentFunctions, fn]);
+  };
+  var getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
+  };
+  var addInvalidateParent = ({ id = "", parent }) => {
+    invalidateIdPlaceHolderMap.set(id, parent);
   };
   var getFirstInvalidateParent = ({ id }) => {
-    if (!invalidatePlaceHolderMap.has(id)) {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
       return;
     }
-    const parent = invalidatePlaceHolderMap.get(id);
+    const parent = invalidateIdPlaceHolderMap.get(id);
     return parent;
   };
   var inizializeInvalidateWatch = async ({
@@ -17809,8 +17827,6 @@
     renderFunction
   }) => {
     let watchIsRunning = false;
-    await repeaterTick();
-    setInvalidateId({ id, invalidateId });
     bind.forEach((state) => {
       watch(state, async () => {
         if (watchIsRunning) return;
@@ -17868,7 +17884,7 @@
               /** @type{HTMLElement} */
               this.parentNode
             );
-            addIvalidateParent({ id: invalidateId, parent });
+            addInvalidateParent({ id: invalidateId, parent });
             parent?.removeChild(this);
           }
         }
@@ -19378,12 +19394,18 @@
         const invalidateId = mobCore.getUnivoqueId();
         const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
         const invalidateRender = () => render2({ html: renderHtml });
-        inizializeInvalidateWatch({
-          bind,
-          watch,
+        setInvalidateFunction({
           id,
-          invalidateId,
-          renderFunction: invalidateRender
+          fn: () => {
+            setInvalidateId({ id, invalidateId });
+            inizializeInvalidateWatch({
+              bind,
+              watch,
+              id,
+              invalidateId,
+              renderFunction: invalidateRender
+            });
+          }
         });
         return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
       },
@@ -19555,7 +19577,7 @@
     },
     freezedPros = [],
     isCancellable = true,
-    invalidateId = "",
+    invalidateId = [],
     child: child2 = {},
     parentId = "",
     id = "",
@@ -19623,10 +19645,16 @@
       if (!activeParser) {
       }
       for (const item of functionToFireAtTheEnd.reverse()) {
-        const { onMount, fireDynamic, fireFirstRepeat } = item;
+        const {
+          onMount,
+          fireDynamic,
+          fireFirstRepeat,
+          fireInvalidateFunction
+        } = item;
         await onMount();
         fireDynamic();
         fireFirstRepeat();
+        fireInvalidateFunction();
       }
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
@@ -19758,6 +19786,7 @@
         })
       });
     });
+    const invalidateFunctions = getInvalidateFunctions({ id });
     if (bindEventsId) {
       applyBindEvents({
         element: newElement,
@@ -19795,6 +19824,12 @@
       },
       fireFirstRepeat: firstRepeatEmitArray.length > 0 ? () => {
         firstRepeatEmitArray.forEach((fn) => {
+          fn?.();
+        });
+      } : () => {
+      },
+      fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
+        invalidateFunctions.forEach((fn) => {
           fn?.();
         });
       } : () => {
@@ -23316,7 +23351,11 @@ Loading snippet ...</pre
         );
         console.log("eventDelegationMap", eventDelegationMap);
         console.log("tempDelegateEventMap", tempDelegateEventMap);
-        console.log("invalidateMap", invalidatePlaceHolderMap);
+        console.log(
+          "invalidateIdPlaceHolderMap",
+          invalidateIdPlaceHolderMap
+        );
+        console.log("invalidateFunctionMap", invalidateFunctionMap);
       }
     })}
         >
@@ -28238,6 +28277,18 @@ Loading snippet ...</pre
                             on counter mutation:</strong
                         >
                     </p>
+                    <div class="c-dynamic-card__invalidate__wrap">
+                        ${invalidate({
+      bind: ["counter"],
+      render: () => {
+        return getInvalidateRender({
+          getState,
+          delegateEvents,
+          staticProps: staticProps2
+        });
+      }
+    })}
+                    </div>
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
       bind: ["counter"],

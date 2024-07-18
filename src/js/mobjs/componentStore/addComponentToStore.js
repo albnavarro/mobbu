@@ -28,7 +28,7 @@ export const addComponentToStore = ({
     destroy = () => {},
     freezedPros = [],
     isCancellable = true,
-    invalidateId = '',
+    invalidateId = [],
     child = {},
     parentId = '',
     id = '',

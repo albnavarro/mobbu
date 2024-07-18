@@ -1,6 +1,6 @@
 //@ts-check
 
-import { addIvalidateParent } from '../componentStore/action/invalidate';
+import { addInvalidateParent } from '../componentStore/action/invalidate';
 import { ATTR_INVALIDATE } from '../constant';
 
 export const defineInvalidateComponent = () => {
@@ -19,7 +19,7 @@ export const defineInvalidateComponent = () => {
                         this.shadowRoot?.host.getAttribute(ATTR_INVALIDATE);
 
                     const parent = /** @type{HTMLElement} */ (this.parentNode);
-                    addIvalidateParent({ id: invalidateId, parent });
+                    addInvalidateParent({ id: invalidateId, parent });
 
                     // eslint-disable-next-line unicorn/prefer-dom-node-remove
                     parent?.removeChild(this);

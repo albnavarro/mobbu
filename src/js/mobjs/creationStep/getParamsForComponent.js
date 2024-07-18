@@ -6,7 +6,11 @@ import {
     freezePropById,
     unFreezePropById,
 } from '../componentStore/action/freeze';
-import { inizializeInvalidateWatch } from '../componentStore/action/invalidate';
+import {
+    inizializeInvalidateWatch,
+    setInvalidateFunction,
+    setInvalidateId,
+} from '../componentStore/action/invalidate';
 import { getParentIdById } from '../componentStore/action/parent';
 import { setDynamicPropsWatch, unBind } from '../componentStore/action/props';
 import {
@@ -102,12 +106,25 @@ export const getParamsForComponentFunction = ({
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
             const invalidateRender = () => render({ html: renderHtml });
 
-            inizializeInvalidateWatch({
-                bind,
-                watch,
+            setInvalidateFunction({
                 id,
-                invalidateId,
-                renderFunction: invalidateRender,
+                fn: () => {
+                    /**
+                     * Ad invalidateId in component map.
+                     */
+                    setInvalidateId({ id, invalidateId });
+
+                    /**
+                     * Ad initialize function to function map
+                     */
+                    inizializeInvalidateWatch({
+                        bind,
+                        watch,
+                        id,
+                        invalidateId,
+                        renderFunction: invalidateRender,
+                    });
+                },
             });
 
             return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;

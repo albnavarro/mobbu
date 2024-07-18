@@ -23,7 +23,7 @@ export interface componentCommonTypes {
     destroy?: () => void;
     freezedPros?: string[];
     isCancellable: boolean;
-    invalidateId?: string;
+    invalidateId?: string[];
     child?:
         | {
               string: string[];
