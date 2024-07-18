@@ -17812,7 +17812,7 @@
   var addInvalidateParent = ({ id = "", parent }) => {
     invalidateIdPlaceHolderMap.set(id, parent);
   };
-  var getFirstInvalidateParent = ({ id }) => {
+  var getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
       return;
     }
@@ -17830,7 +17830,7 @@
     bind.forEach((state) => {
       watch(state, async () => {
         if (watchIsRunning) return;
-        const invalidateParent = getFirstInvalidateParent({
+        const invalidateParent = getInvalidateParent({
           id: invalidateId
         });
         await repeaterTick();

@@ -12,6 +12,7 @@ import { destroyComponentInsideNodeById } from './removeAndDestroy';
  * @description
  * Store parent invalidate by a webcomponent utils
  * Key is invalidate id
+ * Component track in invalidateId array all the reference to this map.
  *
  * @type {Map<string, HTMLElement>}
  */
@@ -20,6 +21,7 @@ export const invalidateIdPlaceHolderMap = new Map();
 /**
  * @description
  * Store initialize invalidate function
+ * Key is componentId
  *
  * @type {Map<string, Array<() => void>>}
  */
@@ -59,10 +61,16 @@ export const setInvalidateId = ({ id, invalidateId }) => {
  * @returns {void}
  */
 export const removeInvalidateId = ({ id, invalidateId }) => {
+    /**
+     * id of functionMap is component id
+     */
     if (invalidateFunctionMap.has(id)) {
         invalidateFunctionMap.delete(id);
     }
 
+    /**
+     * Component has all invalidate id stored in a array
+     */
     invalidateId.forEach((currentInvalidateId) => {
         if (invalidateIdPlaceHolderMap.has(currentInvalidateId)) {
             invalidateIdPlaceHolderMap.delete(currentInvalidateId);
@@ -71,6 +79,10 @@ export const removeInvalidateId = ({ id, invalidateId }) => {
 };
 
 /**
+ * @description
+ * Add new invalidate sterter function in map.
+ * key is component id associated to these function.
+ *
  * @param {object} params
  * @param {string} params.id
  * @param {() => void} params.fn
@@ -82,6 +94,9 @@ export const setInvalidateFunction = ({ id, fn }) => {
 };
 
 /**
+ * @description
+ * Get invalidate starter function to launch at the end of parseDOM
+ *
  * @param {object} params
  * @param {string} params.id
  * @returns {Array<() => void>}
@@ -95,17 +110,20 @@ export const getInvalidateFunctions = ({ id }) => {
  * Store parent invalidate block from invalidate webComponent.
  *
  * @param {object} params
- * @param {string} params.id
- * @param {HTMLElement} params.parent
+ * @param {string} params.id - component id
+ * @param {HTMLElement} params.parent = parent of invalidate web-component
  */
 export const addInvalidateParent = ({ id = '', parent }) => {
     invalidateIdPlaceHolderMap.set(id, parent);
 };
 
 /**
+ * @description
+ * Get invalidate parent by invalidate id.
+ *
  * @returns {HTMLElement}
  */
-export const getFirstInvalidateParent = ({ id }) => {
+export const getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
         return;
     }
@@ -143,7 +161,7 @@ export const inizializeInvalidateWatch = async ({
         watch(state, async () => {
             if (watchIsRunning) return;
 
-            const invalidateParent = getFirstInvalidateParent({
+            const invalidateParent = getInvalidateParent({
                 id: invalidateId,
             });
 

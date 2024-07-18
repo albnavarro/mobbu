@@ -110,7 +110,7 @@ export const getParamsForComponentFunction = ({
                 id,
                 fn: () => {
                     /**
-                     * Ad invalidateId in component map.
+                     * Update invalidateId array in component map.
                      */
                     setInvalidateId({ id, invalidateId });
 
