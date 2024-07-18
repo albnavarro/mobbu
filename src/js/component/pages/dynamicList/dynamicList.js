@@ -2,6 +2,7 @@
 
 import { getLegendData } from '../../../data';
 import { html, setStateByName, tick } from '../../../mobjs';
+import { clamp } from '../../../mobMotion/animation/utils/animationUtils';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -186,10 +187,12 @@ export const DynamicListFn = async ({
                     })}
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps({ label: 'increase counter' })}
+                        ${staticProps({ label: '+ counter ( max: 10 )' })}
                         ${delegateEvents({
                             click: async () => {
-                                setState('counter', (prev) => (prev += 1));
+                                setState('counter', (prev) => {
+                                    return clamp((prev += 1), 0, 10);
+                                });
                                 await tick();
 
                                 console.log('resolve increment');
@@ -198,7 +201,7 @@ export const DynamicListFn = async ({
                     ></dynamic-list-button>
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps({ label: 'decrease counter' })}
+                        ${staticProps({ label: '- counter: ( min 0 )' })}
                         ${delegateEvents({
                             click: async () => {
                                 setState('counter', (prev) => {

@@ -17725,7 +17725,6 @@
       child: child2,
       element,
       state,
-      invalidateId,
       destroy,
       parentPropsWatcher
     } = instanceValue;
@@ -18094,10 +18093,6 @@
            * @type {string|undefined|null}
            */
           #repeaterContextId;
-          /**
-           * @type {string|undefined|null}
-           */
-          #invalidateId;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -18168,7 +18163,6 @@
             this.#repeaterContextId = host.getAttribute(
               ATTR_REPEATER_CONTEXT
             );
-            this.#invalidateId = host.getAttribute(ATTR_INVALIDATE);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -18276,9 +18270,6 @@
           }
           getComponentRepeatContext() {
             return this.#repeaterContextId ?? void 0;
-          }
-          getInvalidateId() {
-            return this.#invalidateId ?? void 0;
           }
           #getData() {
             return {
@@ -19568,7 +19559,6 @@
     },
     freezedPros = [],
     isCancellable = true,
-    invalidateId = [],
     child: child2 = {},
     parentId = "",
     id = "",
@@ -19588,7 +19578,6 @@
       repeatPropBind,
       repeaterContextId,
       isCancellable,
-      invalidateId,
       id,
       parentId,
       freezedPros,
@@ -27985,10 +27974,12 @@ Loading snippet ...</pre
     })}
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps2({ label: "increase counter" })}
+                        ${staticProps2({ label: "+ counter ( max: 10 )" })}
                         ${delegateEvents({
       click: async () => {
-        setState("counter", (prev2) => prev2 += 1);
+        setState("counter", (prev2) => {
+          return clamp(prev2 += 1, 0, 10);
+        });
         await tick();
         console.log("resolve increment");
       }
@@ -27996,7 +27987,7 @@ Loading snippet ...</pre
                     ></dynamic-list-button>
                     <dynamic-list-button
                         class="c-dynamic-list__top__button"
-                        ${staticProps2({ label: "decrease counter" })}
+                        ${staticProps2({ label: "- counter: ( min 0 )" })}
                         ${delegateEvents({
       click: async () => {
         setState("counter", (prev2) => {
@@ -28131,47 +28122,6 @@ Loading snippet ...</pre
         }
       })}
                         ></dynamic-list-card-inner>
-                    </div>
-                `;
-    }).join("")}
-    `;
-  };
-  var getInvalidateRender2 = ({
-    staticProps: staticProps2,
-    delegateEvents,
-    getState,
-    invalidate
-  }) => {
-    const { counter } = getState();
-    return renderHtml`
-        ${createArray(counter).map((item) => {
-      return renderHtml`
-                    <div class="validate-test-wrapper">
-                        <dynamic-list-card-inner
-                            ${staticProps2({
-        key: `${item}pi`
-      })}
-                            ${delegateEvents({
-        click: () => {
-          console.log(
-            "invalidate inside reepater click"
-          );
-        }
-      })}
-                        >
-                            <div class="c-dynamic-card__invalidate__wrap">
-                                ${invalidate({
-        bind: ["counter"],
-        render: () => {
-          return getInvalidateRender({
-            getState,
-            delegateEvents,
-            staticProps: staticProps2
-          });
-        }
-      })}
-                            </div>
-                        </dynamic-list-card-inner>
                     </div>
                 `;
     }).join("")}
@@ -28313,11 +28263,10 @@ Loading snippet ...</pre
                         ${invalidate({
       bind: ["counter"],
       render: () => {
-        return getInvalidateRender2({
+        return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2,
-          invalidate
+          staticProps: staticProps2
         });
       }
     })}

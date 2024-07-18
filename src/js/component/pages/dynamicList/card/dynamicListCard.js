@@ -14,7 +14,7 @@ import { innerData } from '../data';
 
 /**
  * @param {any} label
- * @param {any} label
+ * @param {any} val
  */
 function updateContent(label, val) {
     return `${label}: ${val}`;
@@ -206,18 +206,6 @@ export const DynamicListCardFn = ({
                             on counter mutation:</strong
                         >
                     </p>
-                    <div class="c-dynamic-card__invalidate__wrap">
-                        ${invalidate({
-                            bind: ['counter'],
-                            render: () => {
-                                return getInvalidateRender({
-                                    getState,
-                                    delegateEvents,
-                                    staticProps,
-                                });
-                            },
-                        })}
-                    </div>
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
                             bind: ['counter'],

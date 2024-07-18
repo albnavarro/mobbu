@@ -37,16 +37,6 @@
 # MobJs
 
 ## invalidate:
-- await `repaterTick` puo essere evitato.
-- Forse é piu sicuro toliere `await repeaterTick();` prima del watch ( primo lancio ).
-- Rimettere il seguente snippet dentro il watch.
-    ```js
-    const invalidateParent = getFirstInvalidateParent({
-        id: invalidateId,
-    });
-    ```
-- Trovare un altro modo per rupluire `invalidatePlaceHolderMap`
-- Legare l'id al parente e al suo destroy rimuovere l'item
 - Aggiornare la docs.
 
 ## type
