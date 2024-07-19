@@ -39,6 +39,17 @@
 ## invalidate:
 - Aggiornare la docs.
 
+## repeater
+##### updateChildrenOrder
+- `updateChildrenOrder`, quando ci sono due repeater uguali ( o cmq fanno riferimenti allo stesso componente da ripetere, fare dei test ) nello stesso `scope` la funzione sembra fallire.
+- `addWithKey`, qui sicuramante fallisce, sarebbe da eliminare.
+- `updateChildren` qui potrebbe andare bene, ma se si puó eliminare non sarebbe male.
+
+##### Soluzione A
+-  `addWithKey` e `addWithoutKey` dovrebbero ritornare la lista ordinata di `id/element` correnti dopo l'aggiornamanto.
+- Il trick é capire come fare.
+- a questo punto mappare questa lista ritornando gli `id ordinati` per il passaggio di `index`, `current` value e non pescarlo da `child` di componentStore
+
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
