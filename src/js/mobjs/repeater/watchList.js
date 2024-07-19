@@ -220,6 +220,8 @@ export const watchList = ({
                     .map(({ id }) => id);
             };
 
+            const hasKey = key && key !== '';
+
             /**
              * Update children current value ( for "immutable" children ).
              * - repeater without key: item persistence.
@@ -235,8 +237,11 @@ export const watchList = ({
                     /**
                      * @description
                      * Find real index in original array ( current )
+                     * TODO: fare il confronto solo sulla key
                      */
-                    const realIndex = current.indexOf(currentValue);
+                    const realIndex = hasKey
+                        ? current.indexOf(currentValue)
+                        : index;
 
                     /**
                      * Store current value in store

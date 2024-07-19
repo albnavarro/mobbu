@@ -19235,11 +19235,12 @@
             return -1;
           }).map(({ id: id2 }) => id2);
         };
+        const hasKey = key && key !== "";
         [...childrenFilteredOrdered(childrenFiltered)].forEach(
           (id2, index) => {
             const currentValue = currentUnivoque?.[index];
             if (!currentValue) return;
-            const realIndex = current.indexOf(currentValue);
+            const realIndex = hasKey ? current.indexOf(currentValue) : index;
             setRepeaterStateById({
               id: id2,
               value: { current: currentValue, index: realIndex }
