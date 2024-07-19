@@ -1,6 +1,5 @@
 // @ts-check
 
-import { updateChildrenOrder } from '../componentStore/action/children';
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { addWithKey } from './addWithKey';
@@ -75,11 +74,6 @@ export const updateChildren = async ({
         false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-
-    updateChildrenOrder({
-        id,
-        componentName: targetComponent,
-    });
 
     /**
      * Return update current without duplicate fi needed by addWithkey.

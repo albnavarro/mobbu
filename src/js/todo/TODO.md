@@ -49,6 +49,10 @@
 - Il trick é capire come fare.
 - a questo punto mappare questa lista ritornando gli `id ordinati` per il passaggio di `index`, `current` value e non pescarlo da `child` di componentStore
 
+#### Soluzione A2 try
+- Commentare tutti i `updateChildrenOrder`
+- Prima del ciclo per fare i `setState` finale dei figli, perció dopo il parseDOM
+
 ##### Soluzione B
 -  Capire come rendere piú efficinete la funzione `updateChildrenOrder`
 

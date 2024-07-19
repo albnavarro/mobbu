@@ -198,46 +198,80 @@ export const watchList = ({
             });
 
             /**
+             * Order children
+             * TODO: bring outSide.
+             */
+            const childrenFilteredOrdered = (childrenfiltered) => {
+                return childrenfiltered
+                    .map((id) => {
+                        return { id, element: getElementById({ id }) };
+                    })
+                    .sort(function (a, b) {
+                        const { element: elementA } = a;
+                        const { element: elementB } = b;
+                        if (elementA === elementB || !elementA || !elementB)
+                            return 0;
+                        if (elementA.compareDocumentPosition(elementB) & 2) {
+                            // b comes before a
+                            return 1;
+                        }
+                        return -1;
+                    })
+                    .map(({ id }) => id);
+            };
+
+            /**
              * Update children current value ( for "immutable" children ).
              * - repeater without key: item persistence.
              * - repeater with key: item moved.
              * Update storeComponent currentRepeaterState
              * propierties so bindPros get last current/index value when watch.
              */
-            [...childrenFiltered].forEach((id, index) => {
-                const currentValue = currentUnivoque?.[index];
-                if (!currentValue) return;
+            [...childrenFilteredOrdered(childrenFiltered)].forEach(
+                (id, index) => {
+                    const currentValue = currentUnivoque?.[index];
+                    if (!currentValue) return;
 
-                /**
-                 * Store current value in store
-                 * to use in dynamicrops
-                 * FrstRepeaterChild
-                 */
-                setRepeaterStateById({
-                    id,
-                    value: { current: currentValue, index },
-                });
+                    /**
+                     * @description
+                     * Find real index in original array ( current )
+                     */
+                    const realIndex = current.indexOf(currentValue);
 
-                /**
-                 * Get id of children of FirstRepeaterChild
-                 */
-                const firstRepeaterchildChildren =
-                    getComponentIdByRepeatercontext({
-                        contextId: id,
-                    });
-
-                /**
-                 * Store current value in store
-                 * to use in dynamicrops
-                 * ( child if FirstRepeaterChild )
-                 */
-                firstRepeaterchildChildren.forEach((childId) => {
+                    /**
+                     * Store current value in store
+                     * to use in dynamicrops
+                     * FrstRepeaterChild
+                     */
                     setRepeaterStateById({
-                        id: childId,
-                        value: { current: currentValue, index },
+                        id,
+                        value: { current: currentValue, index: realIndex },
                     });
-                });
-            });
+
+                    /**
+                     * Get id of children of FirstRepeaterChild
+                     */
+                    const firstRepeaterchildChildren =
+                        getComponentIdByRepeatercontext({
+                            contextId: id,
+                        });
+
+                    /**
+                     * Store current value in store
+                     * to use in dynamicrops
+                     * ( child if FirstRepeaterChild )
+                     */
+                    firstRepeaterchildChildren.forEach((childId) => {
+                        setRepeaterStateById({
+                            id: childId,
+                            value: {
+                                current: currentValue,
+                                index: realIndex,
+                            },
+                        });
+                    });
+                }
+            );
 
             /**
              * Fire onComplete next tick;
@@ -267,12 +301,6 @@ export const watchList = ({
                 });
 
                 unFreezePropById({ id, prop: state });
-
-                /**
-                 * Update watch state.
-                 * If key is used duplicated item is removed.
-                 */
-                setState(state, currentUnivoque, false);
 
                 /**
                  * Remove watcher to active queuqe operation.

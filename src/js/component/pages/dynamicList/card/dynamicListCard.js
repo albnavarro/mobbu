@@ -196,6 +196,25 @@ export const DynamicListCardFn = ({
                             },
                         })}
                     </div>
+
+                    <div class="c-dynamic-card__repeater">
+                        ${repeat({
+                            watch: 'innerData',
+                            render: ({ sync, html }) => {
+                                return html`<dynamic-list-card-inner
+                                    ${bindProps({
+                                        /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                        props: ({ innerData }, index) => {
+                                            return {
+                                                key: `${innerData[index].key}`,
+                                            };
+                                        },
+                                    })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>`;
+                            },
+                        })}
+                    </div>
                 </div>
 
                 <!-- Invalidate -->

@@ -18832,46 +18832,6 @@
     return repeatIsActive;
   };
 
-  // src/js/mobjs/componentStore/action/children.js
-  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
-    if (!id || id === "") return [];
-    const item = componentMap.get(id);
-    const child2 = item?.child;
-    if (!child2) {
-      console.warn(`getChildIdById failed no id found`);
-      return [];
-    }
-    return child2?.[componentName] ?? [];
-  };
-  var updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
-    const element = getElementById({ id });
-    if (!element) return;
-    const components = getChildrenIdByName({ id, componentName });
-    const componentsIdFiltered = components.map((id2) => {
-      return { id: id2, element: getElementById({ id: id2 }) };
-    }).filter(({ element: element2 }) => {
-      return filterBy.length > 0 ? filterBy.includes(element2) : true;
-    }).sort(function(a, b) {
-      const { element: elementA } = a;
-      const { element: elementB } = b;
-      if (elementA === elementB || !elementA || !elementB) return 0;
-      if (elementA.compareDocumentPosition(elementB) & 2) {
-        return 1;
-      }
-      return -1;
-    }).map(({ id: id2 }) => id2);
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { child: child2 } = item;
-    componentMap.set(id, {
-      ...item,
-      child: {
-        ...child2,
-        [componentName]: componentsIdFiltered
-      }
-    });
-  };
-
   // src/js/mobjs/repeater/utils.js
   var getNewElement2 = (current = [], previous = [], key = "") => {
     return current.filter((el) => {
@@ -19001,11 +18961,6 @@
             `<!--  ${targetComponent} --> `
           );
       }
-    });
-    updateChildrenOrder({
-      id,
-      componentName: targetComponent,
-      filterBy: newPersistentElementOrder
     });
     const childrenFiltered = getChildrenInsideElement({
       component: targetComponent,
@@ -19166,10 +19121,6 @@
       false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-    updateChildrenOrder({
-      id,
-      componentName: targetComponent
-    });
     return currentUnivoque;
   };
 
@@ -19270,23 +19221,43 @@
           getChildren,
           element: repeaterParentElement
         });
-        [...childrenFiltered].forEach((id2, index) => {
-          const currentValue = currentUnivoque?.[index];
-          if (!currentValue) return;
-          setRepeaterStateById({
-            id: id2,
-            value: { current: currentValue, index }
-          });
-          const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
-            contextId: id2
-          });
-          firstRepeaterchildChildren.forEach((childId) => {
+        const childrenFilteredOrdered = (childrenfiltered) => {
+          return childrenfiltered.map((id2) => {
+            return { id: id2, element: getElementById({ id: id2 }) };
+          }).sort(function(a, b) {
+            const { element: elementA } = a;
+            const { element: elementB } = b;
+            if (elementA === elementB || !elementA || !elementB)
+              return 0;
+            if (elementA.compareDocumentPosition(elementB) & 2) {
+              return 1;
+            }
+            return -1;
+          }).map(({ id: id2 }) => id2);
+        };
+        [...childrenFilteredOrdered(childrenFiltered)].forEach(
+          (id2, index) => {
+            const currentValue = currentUnivoque?.[index];
+            if (!currentValue) return;
+            const realIndex = current.indexOf(currentValue);
             setRepeaterStateById({
-              id: childId,
-              value: { current: currentValue, index }
+              id: id2,
+              value: { current: currentValue, index: realIndex }
             });
-          });
-        });
+            const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
+              contextId: id2
+            });
+            firstRepeaterchildChildren.forEach((childId) => {
+              setRepeaterStateById({
+                id: childId,
+                value: {
+                  current: currentValue,
+                  index: realIndex
+                }
+              });
+            });
+          }
+        );
         mobCore.useNextLoop(async () => {
           if (mainComponent) {
             afterUpdate({
@@ -19301,7 +19272,6 @@
             container: repeaterParentElement
           });
           unFreezePropById({ id, prop: state });
-          setState(state, currentUnivoque, false);
           descrementQueue();
           descrementRepeaterQueue();
         });
@@ -19328,6 +19298,18 @@
     });
     repeatMap.delete(repeatId);
     return fireFirstRepeat;
+  };
+
+  // src/js/mobjs/componentStore/action/children.js
+  var getChildrenIdByName = ({ id = "", componentName = "" }) => {
+    if (!id || id === "") return [];
+    const item = componentMap.get(id);
+    const child2 = item?.child;
+    if (!child2) {
+      console.warn(`getChildIdById failed no id found`);
+      return [];
+    }
+    return child2?.[componentName] ?? [];
   };
 
   // src/js/mobjs/creationStep/getParamsForComponent.js
@@ -27805,7 +27787,15 @@ Loading snippet ...</pre
   ];
   var innerData = [
     [{ key: 4 }],
-    [{ key: 20 }, { key: 10 }, { key: 10 }, { key: 30 }],
+    [
+      { key: 20 },
+      { key: 10 },
+      { key: 10 },
+      { key: 6 },
+      { key: 10 },
+      { key: 10 },
+      { key: 30 }
+    ],
     [
       { key: 3 },
       { key: 20 },
@@ -28234,6 +28224,25 @@ Loading snippet ...</pre
                         ${repeat({
       watch: "innerData",
       key: "key",
+      render: ({ sync, html: html2 }) => {
+        return html2`<dynamic-list-card-inner
+                                    ${bindProps({
+          /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+          props: ({ innerData: innerData2 }, index2) => {
+            return {
+              key: `${innerData2[index2].key}`
+            };
+          }
+        })}
+                                    ${sync}
+                                ></dynamic-list-card-inner>`;
+      }
+    })}
+                    </div>
+
+                    <div class="c-dynamic-card__repeater">
+                        ${repeat({
+      watch: "innerData",
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({

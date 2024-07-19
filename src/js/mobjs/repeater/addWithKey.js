@@ -17,7 +17,6 @@ import {
     getElementByKeyInContainer,
     getIdByElement,
 } from '../componentStore/action/element';
-import { updateChildrenOrder } from '../componentStore/action/children';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
@@ -186,15 +185,6 @@ export const addWithKey = ({
      * GET CHILD IN DOM IN RIGHT ORDER
      * --------------------------
      */
-
-    /**
-     * Now update the element order in store.
-     */
-    updateChildrenOrder({
-        id,
-        componentName: targetComponent,
-        filterBy: newPersistentElementOrder,
-    });
 
     /**
      * Filter children inside repeaterParentElement
