@@ -40,8 +40,7 @@
 
 ## repeater
 ##### updateChildrenOrder
-- Al posto di usare il tag componente e il container per recupeare i children, usare associare repeaterId a `isRepeaterFirstChildNode`.
-- Questo risolverá ( ? ) la possibilitá di innestare piu repeater nello stesso scope.
+- I repearer non possono essere innestati nell stesso scope. indagare.
 
 ##### Soluzione A
 -  `addWithKey` e `addWithoutKey` dovrebbero ritornare la lista ordinata di `id/element` correnti dopo l'aggiornamanto.

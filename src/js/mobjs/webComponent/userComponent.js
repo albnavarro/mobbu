@@ -385,7 +385,7 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getComponentRepeatId() {
-                    return this.#componentRepeatId;
+                    return this.#componentRepeatId ?? '';
                 }
 
                 /**

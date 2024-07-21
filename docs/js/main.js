@@ -18260,7 +18260,7 @@
             this.#repeatPropBind = value2;
           }
           getComponentRepeatId() {
-            return this.#componentRepeatId;
+            return this.#componentRepeatId ?? "";
           }
           /**
            * @param {string} value
