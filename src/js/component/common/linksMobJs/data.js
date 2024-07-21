@@ -46,6 +46,10 @@ export const items = [
         url: 'mobJs-repeat',
     },
     {
+        label: 'invalidate',
+        url: 'mobJs-invalidate',
+    },
+    {
         label: 'unBind',
         url: 'mobJs-unBind',
     },

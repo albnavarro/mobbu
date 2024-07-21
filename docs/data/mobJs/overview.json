@@ -150,7 +150,8 @@
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
                     "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
+                    "<a href='./#mobJs-invalidate'>invalidate</a>"
                 ]
             }
         },

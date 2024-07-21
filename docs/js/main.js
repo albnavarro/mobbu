@@ -24680,6 +24680,10 @@ Loading snippet ...</pre
       url: "mobJs-repeat"
     },
     {
+      label: "invalidate",
+      url: "mobJs-invalidate"
+    },
+    {
       label: "unBind",
       url: "mobJs-unBind"
     },
@@ -30032,6 +30036,16 @@ Loading snippet ...</pre
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/repeat.json",
+        title: "repeat",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    {
+      name: "mobJs-invalidate",
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/invalidate.json",
         title: "repeat",
         section: "mobjs",
         breadCrumbs: mobJsComponentBreadCrumbs

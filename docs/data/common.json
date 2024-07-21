@@ -255,6 +255,11 @@
                     "url": "mobJs-repeat"
                 },
                 {
+                    "label": "invalidate",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate"
+                },
+                {
                     "label": "unBind",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-unBind"

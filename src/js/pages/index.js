@@ -386,6 +386,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-invalidate',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/invalidate.json',
+            title: 'repeat',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-unBind',
         layout: layoutSidebarLinks,
         props: {
