@@ -36,25 +36,12 @@
 # MobJs
 
 ## invalidate:
-- Aggiornare la docs.
+- Aggiungere `beforeRender` e `afterRender` come per repeater.
 
 ## repeater
 ##### updateChildrenOrder
 - All' interno dei repeater non posso innestare invalidate o altri repeater nello stesso scope.
 - Sembra un problema di concorrenza asincrona.
-
-
-##### Soluzione A
--  `addWithKey` e `addWithoutKey` dovrebbero ritornare la lista ordinata di `id/element` correnti dopo l'aggiornamanto.
-- Il trick é capire come fare.
-- a questo punto mappare questa lista ritornando gli `id ordinati` per il passaggio di `index`, `current` value e non pescarlo da `child` di componentStore
-
-#### Soluzione A2 try
-- Commentare tutti i `updateChildrenOrder`
-- Prima del ciclo per fare i `setState` finale dei figli, perció dopo il parseDOM
-
-##### Soluzione B
--  Capire come rendere piú efficinete la funzione `updateChildrenOrder`
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
