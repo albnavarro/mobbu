@@ -35,13 +35,18 @@
 
 # MobJs
 
-## invalidate:
+## invalidate A:
+- Quando si hanno piú invalidate innestati nello stesso scope `invalidateParent` potrá fare riferimentiro a un vecchio elemento non piu presente.
+- quando `invalidate` superiore viene re-renderizzato gli `invalidate` innestati fanno riferimento a un parentNode calcolato in precedenza.
+- come aggiornarlo ?
+
+## invalidate B:
 - Aggiungere `beforeRender` e `afterRender` come per repeater.
 
 ## repeater
 - All' interno dei repeater non posso innestare invalidate o altri repeater nello stesso scope.
 - Questo perche la funzione repeat({}) innestata viene lanciata dopo il parse del repeater in cui é contenuto
-- Il componente principale viene parsato quando ancora l'id del repeater innestato non c'é.
+- Il componente principale viene parsato quando ancora l'id del repeater innestato non c'é ( deve ancora essere renderizzato il repater padre ).
 
 
 ## type
