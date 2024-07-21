@@ -40,9 +40,8 @@
 
 ## repeater
 ##### updateChildrenOrder
-- `updateChildrenOrder`, quando ci sono due repeater uguali ( o cmq fanno riferimenti allo stesso componente da ripetere, fare dei test ) nello stesso `scope` la funzione sembra fallire.
-- `addWithKey`, qui sicuramante fallisce, sarebbe da eliminare.
-- `updateChildren` qui potrebbe andare bene, ma se si puó eliminare non sarebbe male.
+- Al posto di usare il tag componente e il container per recupeare i children, usare associare repeaterId a `isRepeaterFirstChildNode`.
+- Questo risolverá ( ? ) la possibilitá di innestare piu repeater nello stesso scope.
 
 ##### Soluzione A
 -  `addWithKey` e `addWithoutKey` dovrebbero ritornare la lista ordinata di `id/element` correnti dopo l'aggiornamanto.
