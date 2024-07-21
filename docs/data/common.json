@@ -250,14 +250,19 @@
                     "url": "mobJs-delegateEvents"
                 },
                 {
-                    "label": "reactive list (repeat)",
+                    "label": "renderComponent",
                     "scrollToSection": "mobJs",
-                    "url": "mobJs-repeat"
+                    "url": "mobJs-renderComponent"
                 },
                 {
                     "label": "invalidate",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-invalidate"
+                },
+                {
+                    "label": "reactive list (repeat)",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-repeat"
                 },
                 {
                     "label": "unBind",
@@ -278,11 +283,6 @@
                     "label": "computed",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-computed"
-                },
-                {
-                    "label": "renderComponent",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-renderComponent"
                 },
                 {
                     "label": "removeDom",

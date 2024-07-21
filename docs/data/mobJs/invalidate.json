@@ -67,7 +67,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The render function. The function has as parameter an object composed as follows:"
+            "content": "The render function. Unlike a <span class='quote'>repeater</span> the render function can return any type of DOM without restrictions."
         },
         {
             "component": "mob-list",

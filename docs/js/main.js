@@ -24676,12 +24676,16 @@ Loading snippet ...</pre
       url: "mobJs-delegateEvents"
     },
     {
-      label: "reactive list: (repeat)",
-      url: "mobJs-repeat"
+      label: "renderComponent",
+      url: "mobJs-renderComponent"
     },
     {
       label: "invalidate",
       url: "mobJs-invalidate"
+    },
+    {
+      label: "reactive list: (repeat)",
+      url: "mobJs-repeat"
     },
     {
       label: "unBind",
@@ -24698,10 +24702,6 @@ Loading snippet ...</pre
     {
       label: "computed",
       url: "mobJs-computed"
-    },
-    {
-      label: "renderComponent",
-      url: "mobJs-renderComponent"
     },
     {
       label: "removeDOM",

@@ -42,12 +42,16 @@ export const items = [
         url: 'mobJs-delegateEvents',
     },
     {
-        label: 'reactive list: (repeat)',
-        url: 'mobJs-repeat',
+        label: 'renderComponent',
+        url: 'mobJs-renderComponent',
     },
     {
         label: 'invalidate',
         url: 'mobJs-invalidate',
+    },
+    {
+        label: 'reactive list: (repeat)',
+        url: 'mobJs-repeat',
     },
     {
         label: 'unBind',
@@ -64,10 +68,6 @@ export const items = [
     {
         label: 'computed',
         url: 'mobJs-computed',
-    },
-    {
-        label: 'renderComponent',
-        url: 'mobJs-renderComponent',
     },
     {
         label: 'removeDOM',

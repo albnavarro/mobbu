@@ -76,15 +76,15 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
-            "content": "Explore MobJs main features:"
+            "content": "Main features:"
         },
         {
             "component": "mob-list",
@@ -149,10 +149,39 @@
                     "<a href='./#mobJs-staticProps'>staticProps</a>",
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
-                    "<a href='./#mobJs-invalidate'>invalidate</a>"
+                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Render list/component:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
+                    "<a href='./#mobJs-invalidate'>invalidate</a>",
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -172,7 +201,6 @@
                     "<a href='./#mobJs-emit'>emit</a>",
                     "<a href='./#mobJs-emitAsync'>emitAsync</a>",
                     "<a href='./#mobJs-computed'>computed</a>",
-                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
                     "<a href='./#mobJs-removeDom'>removeDOM</a>",
                     "<a href='./#mobJs-remove'>remove</a>",
                     "<a href='./#mobJs-getChildren'>getChildren</a>",
