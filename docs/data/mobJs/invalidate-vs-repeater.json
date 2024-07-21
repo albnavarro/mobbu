@@ -21,11 +21,66 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Invalidate:"
+        },
+        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "You can use html nodes using refs/ref properties"
+            "content": "Invalidate takes care of deleting the old DOM and returning a fresh new DOM."
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Repeater:"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Repeater, on the other hand, keeps track of the components by reusing them and optionally maintaining their order."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "For this reason, the render of the repeater must return the element to be synchronized via the <span class='quote'>sync</span> parameter as the <span class='quote'>first node</span>"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": ""
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "Both functions must be contained in a unique div",
+                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>."
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         },
         {
             "component": "mob-list",
