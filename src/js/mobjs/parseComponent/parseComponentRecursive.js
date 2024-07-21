@@ -224,8 +224,7 @@ export const parseComponentsRecursive = async ({
 
     /**
      * Add component type to repeaterTargetComponentMap
-     * So in watch callback of repeater will be filter the right child component.
-     * Use the component name of the first repeater child.
+     * Use in debug mode to print component name on moved element.
      */
     if (componentRepeatId && componentRepeatId !== '') {
         addRepeatTargetComponent({
