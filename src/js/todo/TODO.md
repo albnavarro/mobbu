@@ -39,9 +39,10 @@
 - Aggiungere `beforeRender` e `afterRender` come per repeater.
 
 ## repeater
-##### updateChildrenOrder
 - All' interno dei repeater non posso innestare invalidate o altri repeater nello stesso scope.
-- Sembra un problema di concorrenza asincrona.
+- Questo perche la funzione repeat({}) innestata viene lanciata dopo il parse del repeater in cui é contenuto
+- Il componente principale viene parsato quando ancora l'id del repeater innestato non c'é.
+
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
