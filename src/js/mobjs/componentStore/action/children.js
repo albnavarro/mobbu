@@ -76,3 +76,30 @@ export const updateChildrenOrder = ({ id, componentName, filterBy = [] }) => {
         },
     });
 };
+
+/**
+ * @param {object} obj
+ * @param {string[]} obj.children
+ * @return {string[]}
+ *
+ *
+ * @description
+ * Get an array of children sorted by DOM position
+ */
+export const gerOrderedChildrenById = ({ children }) => {
+    return children
+        .map((id) => {
+            return { id, element: getElementById({ id }) };
+        })
+        .sort(function (a, b) {
+            const { element: elementA } = a;
+            const { element: elementB } = b;
+            if (elementA === elementB || !elementA || !elementB) return 0;
+            if (elementA.compareDocumentPosition(elementB) & 2) {
+                // b comes before a
+                return 1;
+            }
+            return -1;
+        })
+        .map(({ id }) => id);
+};

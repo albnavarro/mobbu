@@ -1,6 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
+import { gerOrderedChildrenById } from '../componentStore/action/children';
 import {
     getComponentIdByRepeatercontext,
     setRepeaterStateById,
@@ -198,27 +199,11 @@ export const watchList = ({
             });
 
             /**
-             * Order children
-             * TODO: bring outSide.
+             * Order children by DOM position.
              */
-            const childrenFilteredOrdered = (childrenfiltered) => {
-                return childrenfiltered
-                    .map((id) => {
-                        return { id, element: getElementById({ id }) };
-                    })
-                    .sort(function (a, b) {
-                        const { element: elementA } = a;
-                        const { element: elementB } = b;
-                        if (elementA === elementB || !elementA || !elementB)
-                            return 0;
-                        if (elementA.compareDocumentPosition(elementB) & 2) {
-                            // b comes before a
-                            return 1;
-                        }
-                        return -1;
-                    })
-                    .map(({ id }) => id);
-            };
+            const childrenFilteredSorted = [
+                ...gerOrderedChildrenById({ children: childrenFiltered }),
+            ];
 
             const hasKey = key && key !== '';
 
@@ -229,54 +214,52 @@ export const watchList = ({
              * Update storeComponent currentRepeaterState
              * propierties so bindPros get last current/index value when watch.
              */
-            [...childrenFilteredOrdered(childrenFiltered)].forEach(
-                (id, index) => {
-                    const currentValue = currentUnivoque?.[index];
-                    if (!currentValue) return;
+            childrenFilteredSorted.forEach((id, index) => {
+                const currentValue = currentUnivoque?.[index];
+                if (!currentValue) return;
 
-                    /**
-                     * @description
-                     * Find real index in original array ( current )
-                     * TODO: fare il confronto solo sulla key
-                     */
-                    const realIndex = hasKey
-                        ? current.indexOf(currentValue)
-                        : index;
+                /**
+                 * @description
+                 * Find real index in original array ( current )
+                 * TODO: fare il confronto solo sulla key
+                 */
+                const realIndex = hasKey
+                    ? current.indexOf(currentValue)
+                    : index;
 
-                    /**
-                     * Store current value in store
-                     * to use in dynamicrops
-                     * FrstRepeaterChild
-                     */
+                /**
+                 * Store current value in store
+                 * to use in dynamicrops
+                 * FrstRepeaterChild
+                 */
+                setRepeaterStateById({
+                    id,
+                    value: { current: currentValue, index: realIndex },
+                });
+
+                /**
+                 * Get id of children of FirstRepeaterChild
+                 */
+                const firstRepeaterchildChildren =
+                    getComponentIdByRepeatercontext({
+                        contextId: id,
+                    });
+
+                /**
+                 * Store current value in store
+                 * to use in dynamicrops
+                 * ( child if FirstRepeaterChild )
+                 */
+                firstRepeaterchildChildren.forEach((childId) => {
                     setRepeaterStateById({
-                        id,
-                        value: { current: currentValue, index: realIndex },
+                        id: childId,
+                        value: {
+                            current: currentValue,
+                            index: realIndex,
+                        },
                     });
-
-                    /**
-                     * Get id of children of FirstRepeaterChild
-                     */
-                    const firstRepeaterchildChildren =
-                        getComponentIdByRepeatercontext({
-                            contextId: id,
-                        });
-
-                    /**
-                     * Store current value in store
-                     * to use in dynamicrops
-                     * ( child if FirstRepeaterChild )
-                     */
-                    firstRepeaterchildChildren.forEach((childId) => {
-                        setRepeaterStateById({
-                            id: childId,
-                            value: {
-                                current: currentValue,
-                                index: realIndex,
-                            },
-                        });
-                    });
-                }
-            );
+                });
+            });
 
             /**
              * Fire onComplete next tick;
