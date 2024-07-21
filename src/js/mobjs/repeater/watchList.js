@@ -229,8 +229,8 @@ export const watchList = ({
                 const realIndex = hasKey
                     ? current.findIndex((value) => {
                           return (
-                              `${value?.key}` ===
-                              `${currentUnivoque?.[index].key}`
+                              `${value?.[key]}` ===
+                              `${currentUnivoque?.[index]?.[key]}`
                           );
                       })
                     : index;

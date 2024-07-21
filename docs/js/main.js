@@ -19254,7 +19254,7 @@
           const currentValue = currentUnivoque?.[index];
           if (!currentValue) return;
           const realIndex = hasKey ? current.findIndex((value) => {
-            return `${value?.key}` === `${currentUnivoque?.[index].key}`;
+            return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
           }) : index;
           setRepeaterStateById({
             id: id2,
@@ -28223,6 +28223,8 @@ Loading snippet ...</pre
                     >
                         Update:
                     </dynamic-list-button>
+
+                    <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
       watch: "innerData",
@@ -28243,6 +28245,7 @@ Loading snippet ...</pre
     })}
                     </div>
 
+                    <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
       watch: "innerData",

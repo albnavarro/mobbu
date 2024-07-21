@@ -177,6 +177,8 @@ export const DynamicListCardFn = ({
                     >
                         Update:
                     </dynamic-list-button>
+
+                    <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             watch: 'innerData',
@@ -197,6 +199,7 @@ export const DynamicListCardFn = ({
                         })}
                     </div>
 
+                    <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             watch: 'innerData',

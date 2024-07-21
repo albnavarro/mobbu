@@ -69,6 +69,13 @@
 
     &__repeater {
         font-size: 0;
+        border-bottom: 1px rgba($black, 0.1) solid;
+        padding-bottom: rem(12);
+        margin-bottom: rem(12);
+
+        @include when-inside('.is-selected') {
+            border-bottom: 1px rgba($white, 0.1) solid;
+        }
     }
 
     &__button {

@@ -1468,6 +1468,12 @@ code {
 }
 .c-dynamic-card__repeater {
   font-size: 0;
+  border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.is-selected .c-dynamic-card__repeater {
+  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
 }
 .c-dynamic-card__button {
   margin-bottom: 0.8rem;
