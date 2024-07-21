@@ -40,7 +40,9 @@
 
 ## repeater
 ##### updateChildrenOrder
-- I repearer non possono essere innestati nell stesso scope. indagare.
+- All' interno dei repeater non posso innestare invalidate o altri repeater nello stesso scope.
+- Sembra un problema di concorrenza asincrona.
+
 
 ##### Soluzione A
 -  `addWithKey` e `addWithoutKey` dovrebbero ritornare la lista ordinata di `id/element` correnti dopo l'aggiornamanto.
