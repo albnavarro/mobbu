@@ -218,13 +218,21 @@ export const watchList = ({
                 const currentValue = currentUnivoque?.[index];
                 if (!currentValue) return;
 
+                // const realIndex = hasKey
+                //     ? current.indexOf(currentValue)
+                //     : index;
+
                 /**
                  * @description
                  * Find real index in original array ( current )
-                 * TODO: fare il confronto solo sulla key
                  */
                 const realIndex = hasKey
-                    ? current.indexOf(currentValue)
+                    ? current.findIndex((value) => {
+                          return (
+                              `${value?.key}` ===
+                              `${currentUnivoque?.[index].key}`
+                          );
+                      })
                     : index;
 
                 /**

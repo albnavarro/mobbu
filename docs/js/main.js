@@ -19253,7 +19253,9 @@
         childrenFilteredSorted.forEach((id2, index) => {
           const currentValue = currentUnivoque?.[index];
           if (!currentValue) return;
-          const realIndex = hasKey ? current.indexOf(currentValue) : index;
+          const realIndex = hasKey ? current.findIndex((value) => {
+            return `${value?.key}` === `${currentUnivoque?.[index].key}`;
+          }) : index;
           setRepeaterStateById({
             id: id2,
             value: { current: currentValue, index: realIndex }
