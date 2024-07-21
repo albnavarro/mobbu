@@ -120,7 +120,7 @@ export const getChildrenInsideElement = ({
  * @return {Array.<string>}
  *
  * @description
- * Get children of component inside a element by a precompiler children lsit
+ * Get children of component inside a element by a precompiler children list
  */
 export const filterChildrenInsideElement = ({ children, element }) => {
     if (!children || !element) return [];
@@ -131,6 +131,15 @@ export const filterChildrenInsideElement = ({ children, element }) => {
     });
 };
 
+/**
+ * @param {object} obj
+ * @param {string} obj.id
+ * @param {string} obj.repeatId
+ * @return {Array.<string>}
+ *
+ * @description
+ * Get children of component inside a element by a precompiler children list
+ */
 export const getChildrenInsideElementByRepeaterId = ({ id, repeatId }) => {
     if (!id || id === '') return;
 
