@@ -1,7 +1,8 @@
 // @ts-check
 
 import {
-    getChildrenInsideElement,
+    filterChildrenInsideElement,
+    getChildrenInsideElementByRepeaterId,
     getNewElement,
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
@@ -78,7 +79,6 @@ function getPartialsComponentList({
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {(arg0: string)=> string[]} obj.getChildren
  * @param {string} obj.key
  * @param {string} obj.id
  * @param {Function} obj.render
@@ -94,7 +94,6 @@ export const addWithKey = ({
     previous = [],
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
-    getChildren,
     key = '',
     id = '',
     render,
@@ -189,9 +188,13 @@ export const addWithKey = ({
     /**
      * Filter children inside repeaterParentElement
      */
-    const childrenFiltered = getChildrenInsideElement({
-        component: targetComponent,
-        getChildren,
+    const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
+        id,
+        repeatId,
+    });
+
+    const childrenFiltered = filterChildrenInsideElement({
+        children: childrenByRepeatId,
         element: repeaterParentElement,
     });
 

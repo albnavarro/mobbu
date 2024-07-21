@@ -23,7 +23,7 @@ import {
 } from '../temporaryData/repeaterActions';
 import { getRepeaterComponentTarget } from '../temporaryData/repeaterTargetComponent';
 import { updateChildren } from './updateChildren';
-import { getChildrenInsideElement } from './utils';
+import { getChildrenInsideElementByRepeaterId } from './utils';
 
 /**
  * @param {import('../temporaryData/repeater/type').watchListType} param
@@ -37,7 +37,6 @@ export const watchList = ({
     clean = false,
     beforeUpdate = () => {},
     afterUpdate = () => {},
-    getChildren,
     key = '',
     id = '',
     repeaterParentElement,
@@ -127,10 +126,9 @@ export const watchList = ({
             });
 
             if (targetComponentBeforeParse && (clean || forceRepeater)) {
-                const currentChildern = getChildrenInsideElement({
-                    component: targetComponentBeforeParse,
-                    getChildren,
-                    element: repeaterParentElement,
+                const currentChildern = getChildrenInsideElementByRepeaterId({
+                    id,
+                    repeatId,
                 });
 
                 currentChildern.forEach((id) => {
@@ -156,10 +154,9 @@ export const watchList = ({
                 beforeUpdate({
                     element: mainComponent,
                     container: repeaterParentElement,
-                    childrenId: getChildrenInsideElement({
-                        component: targetComponentBeforeParse,
-                        getChildren,
-                        element: repeaterParentElement,
+                    childrenId: getChildrenInsideElementByRepeaterId({
+                        id,
+                        repeatId,
                     }),
                 });
             }
@@ -173,7 +170,6 @@ export const watchList = ({
                 targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
-                getChildren,
                 key,
                 id,
                 render,
@@ -185,17 +181,13 @@ export const watchList = ({
              */
             forceRepeater = false;
 
-            const targetComponentAfterParse = getRepeaterComponentTarget({
-                id: repeatId,
-            });
-
             /**
              * Filter children inside repeaterParentElement
              */
-            const childrenFiltered = getChildrenInsideElement({
-                component: targetComponentAfterParse,
-                getChildren,
-                element: repeaterParentElement,
+
+            const childrenFiltered = getChildrenInsideElementByRepeaterId({
+                id,
+                repeatId,
             });
 
             /**

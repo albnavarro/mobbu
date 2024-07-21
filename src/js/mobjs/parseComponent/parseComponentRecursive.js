@@ -204,6 +204,7 @@ export const parseComponentsRecursive = async ({
             isCancellable,
             parentId,
             repeaterContextId,
+            componentRepeatId,
         });
 
     /**

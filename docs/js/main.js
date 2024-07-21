@@ -18884,16 +18884,20 @@
       (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
     );
   };
-  var getChildrenInsideElement = ({
-    component,
-    getChildren,
-    element
-  }) => {
-    const children = getChildren(component);
+  var filterChildrenInsideElement = ({ children, element }) => {
     if (!children || !element) return [];
     return [...children].filter((id) => {
       const child2 = getElementById({ id }) ?? null;
       return element.contains(child2);
+    });
+  };
+  var getChildrenInsideElementByRepeaterId = ({ id, repeatId }) => {
+    if (!id || id === "") return;
+    const values = [...componentMap.values()];
+    return values.filter((item) => {
+      return item?.componentRepeatId === repeatId;
+    }).map((item) => {
+      return item.id;
     });
   };
 
@@ -18946,7 +18950,6 @@
     previous = [],
     repeaterParentElement = document.createElement("div"),
     targetComponent = "",
-    getChildren,
     key = "",
     id = "",
     render: render2,
@@ -18987,9 +18990,12 @@
           );
       }
     });
-    const childrenFiltered = getChildrenInsideElement({
-      component: targetComponent,
-      getChildren,
+    const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
+      id,
+      repeatId
+    });
+    const childrenFiltered = filterChildrenInsideElement({
+      children: childrenByRepeatId,
       element: repeaterParentElement
     });
     const chunkedElementToAdd = elementToAddObj.reduce(
@@ -19051,10 +19057,9 @@
     current = [],
     previous = [],
     repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
-    getChildren,
     render: render2,
-    repeatId
+    repeatId,
+    id
   }) => {
     const currentLenght = current.length;
     const previousLenght = previous.length;
@@ -19086,9 +19091,12 @@
       });
     }
     if (diff < 0) {
-      const childrenFilteredToRemove = getChildrenInsideElement({
-        component: targetComponent,
-        getChildren,
+      const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
+        id,
+        repeatId
+      });
+      const childrenFilteredToRemove = filterChildrenInsideElement({
+        children: childrenByRepeatId,
         element: repeaterParentElement
       });
       const childrenToRemoveByKey = childrenFilteredToRemove.filter(
@@ -19120,7 +19128,6 @@
     targetComponent = "",
     current = [],
     previous = [],
-    getChildren,
     key = "",
     id,
     render: render2,
@@ -19134,7 +19141,6 @@
       previous,
       repeaterParentElement,
       targetComponent,
-      getChildren,
       key,
       id,
       render: render2,
@@ -19160,7 +19166,6 @@
     },
     afterUpdate = () => {
     },
-    getChildren,
     key = "",
     id = "",
     repeaterParentElement,
@@ -19203,10 +19208,9 @@
           id: repeatId
         });
         if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
-          const currentChildern = getChildrenInsideElement({
-            component: targetComponentBeforeParse,
-            getChildren,
-            element: repeaterParentElement
+          const currentChildern = getChildrenInsideElementByRepeaterId({
+            id,
+            repeatId
           });
           currentChildern.forEach((id2) => {
             removeAndDestroyById({ id: id2 });
@@ -19218,10 +19222,9 @@
           beforeUpdate({
             element: mainComponent,
             container: repeaterParentElement,
-            childrenId: getChildrenInsideElement({
-              component: targetComponentBeforeParse,
-              getChildren,
-              element: repeaterParentElement
+            childrenId: getChildrenInsideElementByRepeaterId({
+              id,
+              repeatId
             })
           });
         }
@@ -19231,20 +19234,15 @@
           targetComponent: targetComponentBeforeParse,
           current,
           previous: clean2 || forceRepeater ? [] : previous,
-          getChildren,
           key,
           id,
           render: render2,
           repeatId
         });
         forceRepeater = false;
-        const targetComponentAfterParse = getRepeaterComponentTarget({
-          id: repeatId
-        });
-        const childrenFiltered = getChildrenInsideElement({
-          component: targetComponentAfterParse,
-          getChildren,
-          element: repeaterParentElement
+        const childrenFiltered = getChildrenInsideElementByRepeaterId({
+          id,
+          repeatId
         });
         const childrenFilteredSorted = [
           ...gerOrderedChildrenById({ children: childrenFiltered })
@@ -19538,6 +19536,7 @@
     isRepeaterFirstChildNode = false,
     repeatPropBind = "",
     repeaterContextId = "",
+    componentRepeatId = "",
     parentPropsWatcher = [() => {
     }],
     destroy = () => {
@@ -19562,6 +19561,7 @@
       isRepeaterFirstChildNode,
       repeatPropBind,
       repeaterContextId,
+      componentRepeatId,
       isCancellable,
       id,
       parentId,
@@ -19673,7 +19673,8 @@
       repeatPropBind,
       isCancellable,
       parentId,
-      repeaterContextId
+      repeaterContextId,
+      componentRepeatId
     });
     setParentsIdFallback({ componentId: id });
     addSelfIdToParentComponent({ id });

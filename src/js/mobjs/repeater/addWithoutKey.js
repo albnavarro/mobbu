@@ -6,7 +6,10 @@ import {
     ATTR_CURRENT_LIST_VALUE,
     ATTR_REPEATER_PROP_BIND,
 } from '../constant';
-import { getChildrenInsideElement } from './utils';
+import {
+    filterChildrenInsideElement,
+    getChildrenInsideElementByRepeaterId,
+} from './utils';
 import { getElementById } from '../componentStore/action/element';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
@@ -18,7 +21,6 @@ import { renderHtml } from '../creationStep/utils';
  * @param {array} obj.previous
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
- * @param {(arg0: string)=> string[]} obj.getChildren
  * @param {Function} obj.render
  * @param {string} obj.id
  * @param {string} obj.repeatId
@@ -33,10 +35,9 @@ export const addWithoutKey = ({
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
-    targetComponent = '',
-    getChildren,
     render,
     repeatId,
+    id,
 }) => {
     /**
      * @type {number}
@@ -99,9 +100,18 @@ export const addWithoutKey = ({
         /**
          * Filter children inside repeaterParentElement
          */
-        const childrenFilteredToRemove = getChildrenInsideElement({
-            component: targetComponent,
-            getChildren,
+
+        const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
+            id,
+            repeatId,
+        });
+
+        /**
+         * Maybe unnecessat
+         * Use for more fine check.
+         */
+        const childrenFilteredToRemove = filterChildrenInsideElement({
+            children: childrenByRepeatId,
             element: repeaterParentElement,
         });
 

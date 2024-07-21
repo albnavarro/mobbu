@@ -1,6 +1,7 @@
 // @ts-check
 
 import { getElementById } from '../componentStore/action/element';
+import { componentMap } from '../componentStore/store';
 
 /**
  * @param {Array} current
@@ -109,4 +110,36 @@ export const getChildrenInsideElement = ({
         const child = getElementById({ id }) ?? null;
         return element.contains(child);
     });
+};
+
+/**
+ * @param {object} obj
+ * @param {string[]} obj.children
+ * @param {HTMLElement} obj.element
+ *
+ * @return {Array.<string>}
+ *
+ * @description
+ * Get children of component inside a element by a precompiler children lsit
+ */
+export const filterChildrenInsideElement = ({ children, element }) => {
+    if (!children || !element) return [];
+
+    return [...children].filter((id) => {
+        const child = getElementById({ id }) ?? null;
+        return element.contains(child);
+    });
+};
+
+export const getChildrenInsideElementByRepeaterId = ({ id, repeatId }) => {
+    if (!id || id === '') return;
+
+    const values = [...componentMap.values()];
+    return values
+        .filter((item) => {
+            return item?.componentRepeatId === repeatId;
+        })
+        .map((item) => {
+            return item.id;
+        });
 };
