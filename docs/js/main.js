@@ -24688,6 +24688,10 @@ Loading snippet ...</pre
       url: "mobJs-repeat"
     },
     {
+      label: "invalidate vs repeater",
+      url: "mobJs-invalidate-vs-repeater"
+    },
+    {
       label: "unBind",
       url: "mobJs-unBind"
     },
@@ -30046,6 +30050,16 @@ Loading snippet ...</pre
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/invalidate.json",
+        title: "repeat",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    {
+      name: "mobJs-invalidate-vs-repeater",
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/invalidate-vs-repeater.json",
         title: "repeat",
         section: "mobjs",
         breadCrumbs: mobJsComponentBreadCrumbs

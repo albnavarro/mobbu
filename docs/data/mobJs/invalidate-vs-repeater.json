@@ -1,0 +1,42 @@
+{
+    "data": [
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h1",
+                "isBold": true
+            },
+            "content": "refs"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "You can use html nodes using refs/ref properties"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-invalidate'>invalidate</a>",
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                ]
+            }
+        }
+    ]
+}

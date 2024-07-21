@@ -265,6 +265,11 @@
                     "url": "mobJs-repeat"
                 },
                 {
+                    "label": "invalidate vs repeater",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-invalidate-vs-repeater"
+                },
+                {
                     "label": "unBind",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-unBind"

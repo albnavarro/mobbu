@@ -396,6 +396,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-invalidate-vs-repeater',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/invalidate-vs-repeater.json',
+            title: 'repeat',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-unBind',
         layout: layoutSidebarLinks,
         props: {

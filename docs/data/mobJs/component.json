@@ -330,9 +330,22 @@
         {
             "component": "mob-title",
             "props": {
+                "tag": "h3"
+            },
+            "content": "Component params in depth:"
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
                 "tag": "h4"
             },
-            "content": "Main params:"
+            "content": "Primary:"
         },
         {
             "component": "mob-list",
@@ -349,9 +362,14 @@
                     "<a href='./#mobJs-staticProps'>staticProps</a>",
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>"
+                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
@@ -359,7 +377,33 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Secondary params:"
+            "content": "Render list/component:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
+                    "<a href='./#mobJs-invalidate'>invalidate</a>",
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
+                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Secondary:"
         },
         {
             "component": "mob-list",
@@ -371,7 +415,6 @@
                     "<a href='./#mobJs-emit'>emit</a>",
                     "<a href='./#mobJs-emitAsync'>emitAsync</a>",
                     "<a href='./#mobJs-computed'>computed</a>",
-                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
                     "<a href='./#mobJs-removeDom'>removeDOM</a>",
                     "<a href='./#mobJs-remove'>remove</a>",
                     "<a href='./#mobJs-getChildren'>getChildren</a>",
