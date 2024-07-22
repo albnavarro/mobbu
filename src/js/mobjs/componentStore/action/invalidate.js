@@ -286,7 +286,7 @@ export const inizializeInvalidateWatch = async ({
                     fn();
                 });
 
-                console.log(invalidateFunctionMap);
+                // console.log(invalidateFunctionMap);
                 /**
                  * End
                  */

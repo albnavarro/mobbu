@@ -39,6 +39,9 @@
 - Risolto ma:
 - L' `unsubscribe` degli invalidate non viene mai salvato a differenza del repeater ( ci sará lo stesso problema ? ).
 - Ordinare bene il codice poi gestire gli `unusubscribe` in modo da avere solo i `watcher` attivi e non quelli fantasma.
+- in realtá il lavoro di unwatch dovrebbe essere fatto dal `destroy` dei componenti interni all 'invalidate.
+- Ma quando aggiorno il component nested sembra non vengano ditrutti ( cta update dell' esempio nella card ).
+- Probabile basti sistemare questo.
 
 ## invalidate B:
 - Aggiungere `beforeRender` e `afterRender` come per repeater.

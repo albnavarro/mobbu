@@ -17894,7 +17894,6 @@
           invalidateChildToInizialize.forEach(({ fn }) => {
             fn();
           });
-          console.log(invalidateFunctionMap);
         });
       });
     });
