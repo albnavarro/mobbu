@@ -28176,6 +28176,7 @@ Loading snippet ...</pre
         bind: ["innerData"],
         render: () => {
           const { innerData: innerData2 } = getState();
+          console.log("render");
           return createArray(counter).map((item2) => {
             return renderHtml`
                                                 <div>${innerData2.length}</div>

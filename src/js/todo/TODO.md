@@ -35,17 +35,10 @@
 
 # MobJs
 
-## invalidate A:
-- Quando si hanno piú invalidate innestati nello stesso scope `invalidateParent` potrá fare riferimentiro a un vecchio elemento non piu presente.
-- quando `invalidate` superiore viene re-renderizzato gli `invalidate` innestati fanno riferimento a un parentNode calcolato in precedenza.
-- come aggiornarlo ?
-
-#### tentative:
-- salvare `unbibScribeWatch` di ogni invalidate nella mappa con le funzioni.
-- quando un `invalidate` si aggiorna cerca gli altri `invalidate` con id component uguale e contenuti nel suo parent.
-- lancia per questi `unsubscribe`.
-- a questo punto l' `invalidate` principale potrá ricreare gli altri `invalidate` innestati senza problemi
-- ... forse
+## invalidate innestati nello stesso scope:
+- Risolto ma:
+- L' `unsubscribe` degli invalidate non viene mai salvato a differenza del repeater ( ci sará lo stesso problema ? ).
+- Ordinare bene il codice poi gestire gli `unusubscribe` in modo da avere solo i `watcher` attivi e non quelli fantasma.
 
 ## invalidate B:
 - Aggiungere `beforeRender` e `afterRender` come per repeater.

@@ -65,6 +65,7 @@ const getInvalidateRender = ({
                                 bind: ['innerData'],
                                 render: () => {
                                     const { innerData } = getState();
+                                    console.log('render');
 
                                     return createArray(counter)
                                         .map((item2) => {
