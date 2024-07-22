@@ -54,27 +54,44 @@ export const removeInvalidateId = ({ id }) => {
     }
 };
 
+/**
+ * @description
+ * Remove invalidate by id filtered by invalidateId
+ *
+ * @param {object} params
+ * @param {string} params.id - component id
+ * @param {string} params.invalidateId - invalidate id
+ * @returns {void}
+ */
 export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     if (!invalidateFunctionMap.has(id)) return;
+
     const value = invalidateFunctionMap.get(id);
-
-    const pippo = value.filter((item) => {
-        return item.invalidateId !== invalidateId;
-    });
-
-    invalidateFunctionMap.set(id, pippo);
+    const valueParsed = value.filter(
+        (item) => item.invalidateId !== invalidateId
+    );
+    invalidateFunctionMap.set(id, valueParsed);
 };
 
+/**
+ * @description
+ * Get all invalidate inside HTMLElement
+ *
+ * @param {HTMLElement} element
+ * @returns {{id: string, parent:HTMLElement}[]}
+ */
 export const getInvalidateInsideElement = (element) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
 
-    return entries
-        .filter(([_id, parent]) => {
-            return element.contains(parent);
-        })
-        .map(([id, parent]) => {
-            return { id, parent };
-        });
+    return (
+        entries
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            .filter(([_id, parent]) => element.contains(parent))
+            .map(([id, parent]) => ({
+                id,
+                parent,
+            }))
+    );
 };
 
 /**
@@ -197,15 +214,17 @@ export const inizializeInvalidateWatch = async ({
                 const invalidatechildToDelete =
                     getInvalidateInsideElement(invalidateParent);
 
-                const functionMapValues = [...invalidateFunctionMap.values()];
-
-                const final = functionMapValues.flat().filter((item) => {
-                    return invalidatechildToDelete.some((current) => {
-                        return current.id === item.invalidateId;
+                const invalidateChildToDeletePArsed = [
+                    ...invalidateFunctionMap.values(),
+                ]
+                    .flat()
+                    .filter((item) => {
+                        return invalidatechildToDelete.some((current) => {
+                            return current.id === item.invalidateId;
+                        });
                     });
-                });
 
-                final.forEach((item) => {
+                invalidateChildToDeletePArsed.forEach((item) => {
                     removeInvalidateByInvalidateId({
                         id,
                         invalidateId: item.invalidateId,
@@ -250,22 +269,24 @@ export const inizializeInvalidateWatch = async ({
                 /**
                  * Run new invalidate init function
                  */
-                const invalidatechild2 =
+                const newInvalidateChild =
                     getInvalidateInsideElement(invalidateParent);
-                const functionMapValues2 = [...invalidateFunctionMap.values()];
 
-                const final2 = functionMapValues2.flat().filter((item) => {
-                    return invalidatechild2.some((current) => {
-                        return current.id === item.invalidateId;
+                const invalidateChildToInizialize = [
+                    ...invalidateFunctionMap.values(),
+                ]
+                    .flat()
+                    .filter((item) => {
+                        return newInvalidateChild.some((current) => {
+                            return current.id === item.invalidateId;
+                        });
                     });
-                });
 
-                final2.forEach(({ fn }) => {
+                invalidateChildToInizialize.forEach(({ fn }) => {
                     fn();
                 });
 
                 console.log(invalidateFunctionMap);
-
                 /**
                  * End
                  */
