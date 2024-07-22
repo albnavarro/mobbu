@@ -40,6 +40,13 @@
 - quando `invalidate` superiore viene re-renderizzato gli `invalidate` innestati fanno riferimento a un parentNode calcolato in precedenza.
 - come aggiornarlo ?
 
+#### tentative:
+- salvare `unbibScribeWatch` di ogni invalidate nella mappa con le funzioni.
+- quando un `invalidate` si aggiorna cerca gli altri `invalidate` con id component uguale e contenuti nel suo parent.
+- lancia per questi `unsubscribe`.
+- a questo punto l' `invalidate` principale potrá ricreare gli altri `invalidate` innestati senza problemi
+- ... forse
+
 ## invalidate B:
 - Aggiungere `beforeRender` e `afterRender` come per repeater.
 
