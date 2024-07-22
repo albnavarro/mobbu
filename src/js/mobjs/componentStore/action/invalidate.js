@@ -54,6 +54,29 @@ export const removeInvalidateId = ({ id }) => {
     }
 };
 
+export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+
+    const pippo = value.filter((item) => {
+        return item.invalidateId !== invalidateId;
+    });
+
+    invalidateFunctionMap.set(id, pippo);
+};
+
+export const getInvalidateInsideElement = (element) => {
+    const entries = [...invalidateIdPlaceHolderMap.entries()];
+
+    return entries
+        .filter(([_id, parent]) => {
+            return element.contains(parent);
+        })
+        .map(([id, parent]) => {
+            return { id, parent };
+        });
+};
+
 /**
  * @description
  * Add new invalidate sterter function in map.
@@ -169,6 +192,30 @@ export const inizializeInvalidateWatch = async ({
             watchIsRunning = true;
             mobCore.useNextLoop(async () => {
                 /**
+                 * Remove child invalidate of this invalidate.
+                 */
+                const invalidatechildToDelete =
+                    getInvalidateInsideElement(invalidateParent);
+
+                const functionMapValues = [...invalidateFunctionMap.values()];
+
+                const final = functionMapValues.flat().filter((item) => {
+                    return invalidatechildToDelete.some((current) => {
+                        return current.id === item.invalidateId;
+                    });
+                });
+
+                final.forEach((item) => {
+                    removeInvalidateByInvalidateId({
+                        id,
+                        invalidateId: item.invalidateId,
+                    });
+                });
+                /**
+                 * End
+                 */
+
+                /**
                  * Remove old component.
                  */
                 destroyComponentInsideNodeById({
@@ -199,6 +246,29 @@ export const inizializeInvalidateWatch = async ({
                 watchIsRunning = false;
                 descrementQueue();
                 decrementInvalidateQueque();
+
+                /**
+                 * Run new invalidate init function
+                 */
+                const invalidatechild2 =
+                    getInvalidateInsideElement(invalidateParent);
+                const functionMapValues2 = [...invalidateFunctionMap.values()];
+
+                const final2 = functionMapValues2.flat().filter((item) => {
+                    return invalidatechild2.some((current) => {
+                        return current.id === item.invalidateId;
+                    });
+                });
+
+                final2.forEach(({ fn }) => {
+                    fn();
+                });
+
+                console.log(invalidateFunctionMap);
+
+                /**
+                 * End
+                 */
             });
         });
     });

@@ -33,7 +33,13 @@ function createArray(numberOfItem) {
  * @param {import('../../../../mobjs/type').DelegateEvents} params.delegateEvents
  * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListCard>} params.getState
  */
-const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
+const getInvalidateRender = ({
+    staticProps,
+    delegateEvents,
+    getState,
+    invalidate,
+    bindProps,
+}) => {
     const { counter } = getState();
 
     return html`
@@ -52,7 +58,36 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
                                     );
                                 },
                             })}
-                        ></dynamic-list-card-inner>
+                        >
+                        </dynamic-list-card-inner>
+                        <div class="c-dynamic-card__invalidate__wrap">
+                            ${invalidate({
+                                bind: ['innerData'],
+                                render: () => {
+                                    const { innerData } = getState();
+
+                                    return createArray(counter)
+                                        .map((item2) => {
+                                            return html`
+                                                <div>${innerData.length}</div>
+
+                                                <dynamic-list-card-inner
+                                                    ${bindProps({
+                                                        bind: ['counter'],
+                                                        props: () => {
+                                                            return {
+                                                                key: `${item2}`,
+                                                            };
+                                                        },
+                                                    })}
+                                                >
+                                                </dynamic-list-card-inner>
+                                            `;
+                                        })
+                                        .join('');
+                                },
+                            })}
+                        </div>
                     </div>
                 `;
             })
@@ -236,6 +271,8 @@ export const DynamicListCardFn = ({
                                     getState,
                                     delegateEvents,
                                     staticProps,
+                                    invalidate,
+                                    bindProps,
                                 });
                             },
                         })}
