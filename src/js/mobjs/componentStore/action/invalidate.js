@@ -5,6 +5,7 @@ import { mainStore } from '../../mainStore/mainStore';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { repeaterTick } from '../tickRepeater';
+import { freezePropById, unFreezePropById } from './freeze';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
 
 /**
@@ -91,7 +92,7 @@ export const getInvalidateInsideElement = (element) => {
     return entries
         .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([_id, parent]) => element.contains(parent) && element !== parent
+            ([_id, parent]) => element?.contains(parent) && element !== parent
         )
         .map(([id, parent]) => ({
             id,
@@ -267,6 +268,8 @@ export const inizializeInvalidateWatch = async ({
         const unsubscribe = watch(state, async () => {
             if (watchIsRunning) return;
 
+            freezePropById({ id, prop: state });
+
             const invalidateParent = getInvalidateParent({
                 id: invalidateId,
             });
@@ -297,6 +300,11 @@ export const inizializeInvalidateWatch = async ({
              */
             watchIsRunning = true;
             mobCore.useNextLoop(async () => {
+                if (!invalidateParent) {
+                    unFreezePropById({ id, prop: state });
+                    return;
+                }
+
                 /**
                  * Remove child invalidate of this invalidate.
                  */
@@ -339,10 +347,7 @@ export const inizializeInvalidateWatch = async ({
                  */
                 inizializeNestedInvalidate({ invalidateParent });
 
-                // console.log(invalidateFunctionMap);
-                /**
-                 * End
-                 */
+                unFreezePropById({ id, prop: state });
             });
         });
 

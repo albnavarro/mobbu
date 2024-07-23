@@ -17299,6 +17299,37 @@
     });
   };
 
+  // src/js/mobjs/componentStore/action/freeze.js
+  var freezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: [...freezedPros, prop]
+    });
+  };
+  var unFreezePropById = ({ id = "", prop }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { freezedPros } = item;
+    if (!freezedPros) return;
+    componentMap.set(id, {
+      ...item,
+      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
+    });
+  };
+  var getFreezePropStatus = ({ id = "", prop }) => {
+    if (!id || id === "") return false;
+    const item = componentMap.get(id);
+    const freezedPros = item?.freezedPros;
+    if (!freezedPros) return false;
+    return freezedPros.includes(prop);
+  };
+
   // src/js/mobjs/temporaryData/bindEvents/index.js
   var bindEventMap = /* @__PURE__ */ new Map();
   var setBindEvents = (eventsData = []) => {
@@ -17437,37 +17468,6 @@
       return;
     }
     return id;
-  };
-
-  // src/js/mobjs/componentStore/action/freeze.js
-  var freezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: [...freezedPros, prop]
-    });
-  };
-  var unFreezePropById = ({ id = "", prop }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    const { freezedPros } = item;
-    if (!freezedPros) return;
-    componentMap.set(id, {
-      ...item,
-      freezedPros: freezedPros.filter((currentProp) => currentProp !== prop)
-    });
-  };
-  var getFreezePropStatus = ({ id = "", prop }) => {
-    if (!id || id === "") return false;
-    const item = componentMap.get(id);
-    const freezedPros = item?.freezedPros;
-    if (!freezedPros) return false;
-    return freezedPros.includes(prop);
   };
 
   // src/js/mobjs/componentStore/action/state.js
@@ -17750,7 +17750,7 @@
     allChild.forEach((id2) => {
       const state = componentMap.get(id2);
       const element = state?.element;
-      if (element && container.contains(element)) {
+      if (element && container?.contains(element)) {
         removeAndDestroyById({ id: id2 });
       }
     });
@@ -17807,7 +17807,7 @@
     const entries = [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => element.contains(parent) && element !== parent
+      ([_id, parent]) => element?.contains(parent) && element !== parent
     ).map(([id, parent]) => ({
       id,
       parent
@@ -17883,6 +17883,7 @@
     const unsubScribeArray = bind.map((state) => {
       const unsubscribe3 = watch(state, async () => {
         if (watchIsRunning) return;
+        freezePropById({ id, prop: state });
         const invalidateParent = getInvalidateParent({
           id: invalidateId
         });
@@ -17899,6 +17900,10 @@
         });
         watchIsRunning = true;
         mobCore.useNextLoop(async () => {
+          if (!invalidateParent) {
+            unFreezePropById({ id, prop: state });
+            return;
+          }
           destroyNesterInvalidate({ id, invalidateParent });
           destroyComponentInsideNodeById({
             id,
@@ -17919,6 +17924,7 @@
           descrementQueue();
           decrementInvalidateQueque();
           inizializeNestedInvalidate({ invalidateParent });
+          unFreezePropById({ id, prop: state });
         });
       });
       return unsubscribe3;

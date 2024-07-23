@@ -130,7 +130,7 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
         const state = componentMap.get(id);
         const element = state?.element;
 
-        if (element && container.contains(element)) {
+        if (element && container?.contains(element)) {
             removeAndDestroyById({ id });
         }
     });
