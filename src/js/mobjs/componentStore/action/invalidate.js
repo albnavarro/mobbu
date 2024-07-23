@@ -22,7 +22,7 @@ export const invalidateIdPlaceHolderMap = new Map();
  * Store initialize invalidate function
  * Key is componentId
  *
- * @type {Map<string, Array<{invalidateId:string, fn: () => void }>>}
+ * @type {Map<string, Array<{invalidateId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
  */
 export const invalidateFunctionMap = new Map();
 
@@ -107,7 +107,34 @@ export const getInvalidateInsideElement = (element) => {
  */
 export const setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [...currentFunctions, { invalidateId, fn }]);
+    invalidateFunctionMap.set(id, [
+        ...currentFunctions,
+        { invalidateId, fn, unsubscribe: [() => {}] },
+    ]);
+};
+
+/**
+ * @description
+ * Add new invalidate sterter function in map.
+ * key is component id associated to these function.
+ *
+ * @param {object} params
+ * @param {string} params.id - component id
+ * @param {string} params.invalidateId - invalidate id
+ * @param {(() => void)[]} params.unsubscribe
+ * @returns {void}
+ */
+export const addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item) => {
+        if (item.invalidateId === invalidateId) {
+            return { ...item, unsubscribe };
+        }
+
+        return item;
+    });
+
+    invalidateFunctionMap.set(id, item);
 };
 
 /**
@@ -174,8 +201,8 @@ export const inizializeInvalidateWatch = async ({
     /**
      * Update component
      */
-    bind.forEach((state) => {
-        watch(state, async () => {
+    const unsubScribeArray = bind.map((state) => {
+        const unsubscribe = watch(state, async () => {
             if (watchIsRunning) return;
 
             const invalidateParent = getInvalidateParent({
@@ -214,7 +241,7 @@ export const inizializeInvalidateWatch = async ({
                 const invalidatechildToDelete =
                     getInvalidateInsideElement(invalidateParent);
 
-                const invalidateChildToDeletePArsed = [
+                const invalidateChildToDeleteParsed = [
                     ...invalidateFunctionMap.values(),
                 ]
                     .flat()
@@ -224,12 +251,18 @@ export const inizializeInvalidateWatch = async ({
                         });
                     });
 
-                invalidateChildToDeletePArsed.forEach((item) => {
-                    removeInvalidateByInvalidateId({
-                        id,
-                        invalidateId: item.invalidateId,
+                invalidateChildToDeleteParsed.forEach((item) => {
+                    item.unsubscribe.forEach((fn) => {
+                        fn();
                     });
                 });
+
+                // invalidateChildToDeleteParsed.forEach((item) => {
+                //     removeInvalidateByInvalidateId({
+                //         id,
+                //         invalidateId: item.invalidateId,
+                //     });
+                // });
                 /**
                  * End
                  */
@@ -292,5 +325,13 @@ export const inizializeInvalidateWatch = async ({
                  */
             });
         });
+
+        return unsubscribe;
+    });
+
+    addInvalidateUnsubcribe({
+        id,
+        invalidateId,
+        unsubscribe: unsubScribeArray,
     });
 };

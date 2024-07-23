@@ -17792,14 +17792,6 @@
       invalidateFunctionMap.delete(id);
     }
   };
-  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
-    const value = invalidateFunctionMap.get(id);
-    const valueParsed = value.filter(
-      (item) => item.invalidateId !== invalidateId
-    );
-    invalidateFunctionMap.set(id, valueParsed);
-  };
   var getInvalidateInsideElement = (element) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
     return entries.filter(([_id, parent]) => element.contains(parent)).map(([id, parent]) => ({
@@ -17809,7 +17801,21 @@
   };
   var setInvalidateFunction = ({ id, invalidateId, fn }) => {
     const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [...currentFunctions, { invalidateId, fn }]);
+    invalidateFunctionMap.set(id, [
+      ...currentFunctions,
+      { invalidateId, fn, unsubscribe: [() => {
+      }] }
+    ]);
+  };
+  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.invalidateId === invalidateId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    invalidateFunctionMap.set(id, item);
   };
   var getInvalidateFunctions = ({ id }) => {
     return invalidateFunctionMap.get(id) ?? [];
@@ -17832,8 +17838,8 @@
     renderFunction
   }) => {
     let watchIsRunning = false;
-    bind.forEach((state) => {
-      watch(state, async () => {
+    const unsubScribeArray = bind.map((state) => {
+      const unsubscribe3 = watch(state, async () => {
         if (watchIsRunning) return;
         const invalidateParent = getInvalidateParent({
           id: invalidateId
@@ -17852,17 +17858,16 @@
         watchIsRunning = true;
         mobCore.useNextLoop(async () => {
           const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
-          const invalidateChildToDeletePArsed = [
+          const invalidateChildToDeleteParsed = [
             ...invalidateFunctionMap.values()
           ].flat().filter((item) => {
             return invalidatechildToDelete.some((current) => {
               return current.id === item.invalidateId;
             });
           });
-          invalidateChildToDeletePArsed.forEach((item) => {
-            removeInvalidateByInvalidateId({
-              id,
-              invalidateId: item.invalidateId
+          invalidateChildToDeleteParsed.forEach((item) => {
+            item.unsubscribe.forEach((fn) => {
+              fn();
             });
           });
           destroyComponentInsideNodeById({
@@ -17896,6 +17901,12 @@
           });
         });
       });
+      return unsubscribe3;
+    });
+    addInvalidateUnsubcribe({
+      id,
+      invalidateId,
+      unsubscribe: unsubScribeArray
     });
   };
 
