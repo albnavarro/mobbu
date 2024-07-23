@@ -70,6 +70,11 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
     const valueParsed = value.filter(
         (item) => item.invalidateId !== invalidateId
     );
+
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+        invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+
     invalidateFunctionMap.set(id, valueParsed);
 };
 
@@ -83,15 +88,15 @@ export const removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
 export const getInvalidateInsideElement = (element) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
 
-    return (
-        entries
+    return entries
+        .filter(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            .filter(([_id, parent]) => element.contains(parent))
-            .map(([id, parent]) => ({
-                id,
-                parent,
-            }))
-    );
+            ([_id, parent]) => element.contains(parent) && element !== parent
+        )
+        .map(([id, parent]) => ({
+            id,
+            parent,
+        }));
 };
 
 /**
@@ -255,14 +260,13 @@ export const inizializeInvalidateWatch = async ({
                     item.unsubscribe.forEach((fn) => {
                         fn();
                     });
+
+                    removeInvalidateByInvalidateId({
+                        id,
+                        invalidateId: item.invalidateId,
+                    });
                 });
 
-                // invalidateChildToDeleteParsed.forEach((item) => {
-                //     removeInvalidateByInvalidateId({
-                //         id,
-                //         invalidateId: item.invalidateId,
-                //     });
-                // });
                 /**
                  * End
                  */

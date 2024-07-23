@@ -17792,9 +17792,23 @@
       invalidateFunctionMap.delete(id);
     }
   };
+  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+    const valueParsed = value.filter(
+      (item) => item.invalidateId !== invalidateId
+    );
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+      invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+    invalidateFunctionMap.set(id, valueParsed);
+  };
   var getInvalidateInsideElement = (element) => {
     const entries = [...invalidateIdPlaceHolderMap.entries()];
-    return entries.filter(([_id, parent]) => element.contains(parent)).map(([id, parent]) => ({
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, parent]) => element.contains(parent) && element !== parent
+    ).map(([id, parent]) => ({
       id,
       parent
     }));
@@ -17868,6 +17882,10 @@
           invalidateChildToDeleteParsed.forEach((item) => {
             item.unsubscribe.forEach((fn) => {
               fn();
+            });
+            removeInvalidateByInvalidateId({
+              id,
+              invalidateId: item.invalidateId
             });
           });
           destroyComponentInsideNodeById({
