@@ -17844,6 +17844,34 @@
     const parent = invalidateIdPlaceHolderMap.get(id);
     return parent;
   };
+  var destroyNesterInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return invalidatechildToDelete.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({
+        id,
+        invalidateId: item.invalidateId
+      });
+    });
+  };
+  var inizializeNestedInvalidate = ({ invalidateParent }) => {
+    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return newInvalidateChild.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
   var inizializeInvalidateWatch = async ({
     bind = [],
     watch,
@@ -17871,23 +17899,7 @@
         });
         watchIsRunning = true;
         mobCore.useNextLoop(async () => {
-          const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
-          const invalidateChildToDeleteParsed = [
-            ...invalidateFunctionMap.values()
-          ].flat().filter((item) => {
-            return invalidatechildToDelete.some((current) => {
-              return current.id === item.invalidateId;
-            });
-          });
-          invalidateChildToDeleteParsed.forEach((item) => {
-            item.unsubscribe.forEach((fn) => {
-              fn();
-            });
-            removeInvalidateByInvalidateId({
-              id,
-              invalidateId: item.invalidateId
-            });
-          });
+          destroyNesterInvalidate({ id, invalidateParent });
           destroyComponentInsideNodeById({
             id,
             container: invalidateParent
@@ -17906,17 +17918,7 @@
           watchIsRunning = false;
           descrementQueue();
           decrementInvalidateQueque();
-          const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
-          const invalidateChildToInizialize = [
-            ...invalidateFunctionMap.values()
-          ].flat().filter((item) => {
-            return newInvalidateChild.some((current) => {
-              return current.id === item.invalidateId;
-            });
-          });
-          invalidateChildToInizialize.forEach(({ fn }) => {
-            fn();
-          });
+          inizializeNestedInvalidate({ invalidateParent });
         });
       });
       return unsubscribe3;

@@ -182,6 +182,63 @@ export const getInvalidateParent = ({ id }) => {
 };
 
 /**
+ * @description
+ * Destroy nester invalidate.
+ *
+ * @param {object} params
+ * @param {string} params.id
+ * @param {HTMLElement} params.invalidateParent
+ * @returns {void}
+ */
+const destroyNesterInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete =
+        getInvalidateInsideElement(invalidateParent);
+
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()]
+        .flat()
+        .filter((item) => {
+            return invalidatechildToDelete.some((current) => {
+                return current.id === item.invalidateId;
+            });
+        });
+
+    invalidateChildToDeleteParsed.forEach((item) => {
+        item.unsubscribe.forEach((fn) => {
+            fn();
+        });
+
+        removeInvalidateByInvalidateId({
+            id,
+            invalidateId: item.invalidateId,
+        });
+    });
+};
+
+/**
+ * @description
+ * Initialize watch function of nested invalidate.
+ *
+ * @param {object} params
+ * @param {HTMLElement} params.invalidateParent
+ * @returns {void}
+ */
+const inizializeNestedInvalidate = ({ invalidateParent }) => {
+    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
+
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()]
+        .flat()
+        .filter((item) => {
+            return newInvalidateChild.some((current) => {
+                return current.id === item.invalidateId;
+            });
+        });
+
+    invalidateChildToInizialize.forEach(({ fn }) => {
+        fn();
+    });
+};
+
+/**
  * @param {object} params
  * @param {string[]} params.bind
  * @param {import('../../type').Watch<any>} params.watch
@@ -243,33 +300,7 @@ export const inizializeInvalidateWatch = async ({
                 /**
                  * Remove child invalidate of this invalidate.
                  */
-                const invalidatechildToDelete =
-                    getInvalidateInsideElement(invalidateParent);
-
-                const invalidateChildToDeleteParsed = [
-                    ...invalidateFunctionMap.values(),
-                ]
-                    .flat()
-                    .filter((item) => {
-                        return invalidatechildToDelete.some((current) => {
-                            return current.id === item.invalidateId;
-                        });
-                    });
-
-                invalidateChildToDeleteParsed.forEach((item) => {
-                    item.unsubscribe.forEach((fn) => {
-                        fn();
-                    });
-
-                    removeInvalidateByInvalidateId({
-                        id,
-                        invalidateId: item.invalidateId,
-                    });
-                });
-
-                /**
-                 * End
-                 */
+                destroyNesterInvalidate({ id, invalidateParent });
 
                 /**
                  * Remove old component.
@@ -306,22 +337,7 @@ export const inizializeInvalidateWatch = async ({
                 /**
                  * Run new invalidate init function
                  */
-                const newInvalidateChild =
-                    getInvalidateInsideElement(invalidateParent);
-
-                const invalidateChildToInizialize = [
-                    ...invalidateFunctionMap.values(),
-                ]
-                    .flat()
-                    .filter((item) => {
-                        return newInvalidateChild.some((current) => {
-                            return current.id === item.invalidateId;
-                        });
-                    });
-
-                invalidateChildToInizialize.forEach(({ fn }) => {
-                    fn();
-                });
+                inizializeNestedInvalidate({ invalidateParent });
 
                 // console.log(invalidateFunctionMap);
                 /**
