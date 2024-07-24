@@ -160,7 +160,7 @@ export const getInvalidateFunctions = ({ id }) => {
  * Store parent invalidate block from invalidate webComponent.
  *
  * @param {object} params
- * @param {string} params.id - component id
+ * @param {string} params.id - invalidate id
  * @param {HTMLElement} params.parent = parent of invalidate web-component
  */
 export const addInvalidateParent = ({ id = '', parent }) => {

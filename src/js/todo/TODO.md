@@ -35,10 +35,21 @@
 
 # MobJs
 
-## repeater
-- All' interno dei repeater non posso innestare invalidate o altri repeater nello stesso scope.
-- Questo perche la funzione repeat({}) innestata viene lanciata dopo il parse del repeater in cui é contenuto
-- Il componente principale viene parsato quando ancora l'id del repeater innestato non c'é ( deve ancora essere renderizzato il repater padre ).
+## 1) repeater => mobEach
+- Conviene creare una nuovo repeat chiamato `mobEach` da zero ricalcando pari pari `invalidate`
+- Rifatta la struttura base si potra agilmente riattaccare il vecchio partendo da `watchList`
+- Si tratta di un duplicato 1 a 1 gli unici dati che cambieranno saranno solo quelli in entrata al corrispettivo di `inzializeInvalidateWatch`.
+- Il problema é che che il repeater deve lanciare il primo `emit` per forza, non puó tornare il primo DOM come `invalidate`
+- potrebbe lanciarlo direttamante senza ritornarlo alla fine del corrispettivo `inzializeInvalidateWatch`.
+
+## 2) Invalidate 1
+- il check degli `invalidate innesatati` sará possibile farlo pari pari con i reepater ora.
+
+## 3) Invalidate 2.
+- Risistemati i punto 1/2 aggiungere `beforeUpdate/afterUpdate` a `invalidate`
+
+## 4) Invalidate/Repeat
+- I controlli sugli elementi innesati di invalidati sará possibile copiarli anche in `mobEach`.
 
 
 ## type
