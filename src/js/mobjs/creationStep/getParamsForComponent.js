@@ -27,7 +27,6 @@ import {
     ATTR_INVALIDATE,
     ATTR_MOBJS_EACH,
     ATTR_PROPS,
-    ATTR_REPEATID,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
@@ -35,7 +34,6 @@ import { mainStore } from '../mainStore/mainStore';
 import { setBindEvents } from '../temporaryData/bindEvents';
 import { setBindProps } from '../temporaryData/dynamicProps';
 import { addOnMoutCallback } from '../temporaryData/onMount';
-import { addRepeat } from '../temporaryData/repeater/add';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
 import { renderHtml } from './utils';
@@ -172,38 +170,6 @@ export const getParamsForComponentFunction = ({
             return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
                 eventsData
             )}"`;
-        },
-        repeat: ({
-            watch: stateToWatch, // use alias to maintain ured naming convention.
-            clean = false,
-            beforeUpdate = () => {},
-            afterUpdate = () => {},
-            key,
-            render,
-        }) => {
-            const currentRepeatId = mobCore.getUnivoqueId();
-            repeatIdArray.push(currentRepeatId);
-
-            addRepeat({
-                repeatId: currentRepeatId,
-                obj: {
-                    state: stateToWatch,
-                    setState,
-                    emit,
-                    watch,
-                    clean,
-                    beforeUpdate,
-                    afterUpdate,
-                    getChildren: (/** @type{string} */ componentName) => {
-                        return getChildrenIdByName({ id, componentName });
-                    },
-                    key,
-                    id,
-                    render,
-                },
-            });
-
-            return `<mobjs-repeater ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"></mobjs-repeater>`;
         },
         mobJsEach: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.

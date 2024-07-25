@@ -16861,7 +16861,6 @@
   var ATTR_INSTANCENAME = "name";
   var ATTR_COMPONENT_NAME = "name";
   var ATTR_SLOT = "slot";
-  var ATTR_REPEATID = "repeatid";
   var ATTR_CHILD_REPEATID = "repeaterchild";
   var ATTR_KEY = "key";
   var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
@@ -19414,12 +19413,6 @@
     onMountCallbackMap.delete(id);
   };
 
-  // src/js/mobjs/temporaryData/repeater/add.js
-  var repeatMap = /* @__PURE__ */ new Map();
-  var addRepeat = ({ repeatId, obj }) => {
-    repeatMap.set(repeatId, obj);
-  };
-
   // src/js/mobjs/creationStep/getParamsForComponent.js
   var getParamsForComponentFunction = ({
     getState,
@@ -19522,39 +19515,6 @@
         return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
           eventsData
         )}"`;
-      },
-      repeat: ({
-        watch: stateToWatch,
-        // use alias to maintain ured naming convention.
-        clean: clean2 = false,
-        beforeUpdate = () => {
-        },
-        afterUpdate = () => {
-        },
-        key: key2,
-        render: render2
-      }) => {
-        const currentRepeatId = mobCore.getUnivoqueId();
-        repeatIdArray.push(currentRepeatId);
-        addRepeat({
-          repeatId: currentRepeatId,
-          obj: {
-            state: stateToWatch,
-            setState,
-            emit,
-            watch,
-            clean: clean2,
-            beforeUpdate,
-            afterUpdate,
-            getChildren: (componentName) => {
-              return getChildrenIdByName({ id, componentName });
-            },
-            key: key2,
-            id,
-            render: render2
-          }
-        });
-        return `<mobjs-repeater ${ATTR_REPEATID}="${currentRepeatId}" style="display:none;"></mobjs-repeater>`;
       },
       mobJsEach: ({
         watch: stateToWatch,
@@ -23411,7 +23371,6 @@ Loading snippet ...</pre
         console.log("bindEventMap", bindEventMap);
         console.log("currentListValueMap", currentRepeaterValueMap);
         console.log("activeRepeatMap", activeRepeatMap);
-        console.log("repeatMap", repeatMap);
         console.log("onMountCallbackMap", onMountCallbackMap);
         console.log("staticPropsMap", staticPropsMap);
         console.log("dynamicPropsMap", dynamicPropsMap);

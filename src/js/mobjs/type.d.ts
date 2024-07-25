@@ -52,7 +52,7 @@ export type RenderComponent = PartialRenderComponent;
 export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
-export type MobJsEach = PartialMobJsEach;
+export type MobJsEach<T> = PartialMobJsEach<T>;
 
 /**
  * Main component.
@@ -548,12 +548,7 @@ export interface componentPropsType<T, R> {
      *
      * ```
      */
-    repeat: Repeat<T>;
-
-    /**
-     * TODO
-     */
-    mobJsEach: MobJsEach;
+    mobJsEach: MobJsEach<T>;
 
     /**
      * @description

@@ -26,7 +26,7 @@ import { updateChildren } from './updateChildren';
 import { getChildrenInsideElementByRepeaterId } from './utils';
 
 /**
- * @param {any} param
+ * @param {import('./type').watchListType} param
  * @return {() => void}
  */
 export const watchEach = ({

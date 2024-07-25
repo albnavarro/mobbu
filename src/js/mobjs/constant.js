@@ -38,11 +38,6 @@ export const ATTR_SLOT = 'slot';
 /**
  * @type {string};
  */
-export const ATTR_REPEATID = 'repeatid';
-
-/**
- * @type {string};
- */
 export const ATTR_CHILD_REPEATID = 'repeaterchild';
 
 /**

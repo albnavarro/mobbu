@@ -1,4 +1,4 @@
-import { emitType, setType, watchType } from '../../../mobCore/store/type';
+import { emitType, setType, watchType } from '../../mobCore/store/type';
 
 /**
  * @description
@@ -16,7 +16,6 @@ export interface repeaterType {
         container: HTMLElement;
         childrenId: string[];
     }): void;
-    getChildren: (arg0: string) => string[];
     id: string;
     clean: boolean;
     key: string | undefined;
@@ -34,6 +33,5 @@ export interface repeaterType {
 }
 
 export interface watchListType extends repeaterType {
-    repeaterParentElement: HTMLElement;
-    repeatId: string;
+    eachId: string;
 }
