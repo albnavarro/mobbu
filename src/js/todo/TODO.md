@@ -37,10 +37,7 @@
 
 ## 1) repeater => mobEach
 - Conviene creare una nuovo repeat chiamato `mobEach` da zero ricalcando pari pari `invalidate`
-- Rifatta la struttura base si potra agilmente riattaccare il vecchio partendo da `watchList`
-- Si tratta di un duplicato 1 a 1 gli unici dati che cambieranno saranno solo quelli in entrata al corrispettivo di `inzializeInvalidateWatch`.
-- Il problema é che che il repeater deve lanciare il primo `emit` per forza, non puó tornare il primo DOM come `invalidate`
-- potrebbe lanciarlo direttamante senza ritornarlo alla fine del corrispettivo `inzializeInvalidateWatch`.
+- OK
 
 ## 2) Invalidate 1
 - il check degli `invalidate innesatati` sará possibile farlo pari pari con i reepater ora.
