@@ -13,9 +13,7 @@ import {
     applyDynamicProps,
 } from '../temporaryData/dynamicProps';
 import { decrementParserCounter } from '../temporaryData/parser/parser';
-import { inizializeRepeat } from '../temporaryData/repeater/inizialize';
 import { getParamsForComponentFunction } from '../creationStep/getParamsForComponent';
-import { queryGenericRepeater } from '../query/queryGenericRepeater';
 import {
     addParentIdToFutureComponent,
     addSelfIdToParentComponent,
@@ -42,7 +40,7 @@ import { getEachFunctions } from '../componentStore/action/each';
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function, fireInvalidateFunction:function, fireEachFunction:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireEachFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
@@ -107,13 +105,11 @@ export const parseComponentsRecursive = async ({
             const {
                 onMount,
                 fireDynamic,
-                fireFirstRepeat,
                 fireInvalidateFunction,
                 fireEachFunction,
             } = item;
             await onMount();
             fireDynamic();
-            fireFirstRepeat();
             fireEachFunction();
             fireInvalidateFunction();
         }
@@ -359,34 +355,10 @@ export const parseComponentsRecursive = async ({
     setElementById({ id, newElement });
 
     /**
-     * Get all repeat placeholder to check the parent div for each list.
-     */
-    const repeaterNodeList = queryGenericRepeater(newElement);
-    const repeatersParents = [...repeaterNodeList].map((placeholder) => {
-        return {
-            parent: /** @type {HTMLElement} */ (placeholder.parentNode),
-            // @ts-ignore
-            id: placeholder.getRepeatId(),
-        };
-    });
-
-    /**
-     * Execute repeat List function
-     */
-    const repeatIdArray = objectFromComponentFunction?.repeatIdArray;
-    const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
-        return inizializeRepeat({
-            repeatId,
-            repeaterParent: repeatersParents.find(({ id }) => {
-                return id === repeatId;
-            }),
-        });
-    });
-
-    /**
      * Execute invalidateFunction.
      */
     const invalidateFunctions = getInvalidateFunctions({ id });
+    const eachFunctions = getEachFunctions({ id });
 
     // const bindEventsId = objectFromComponentFunction?.bindEventsId;
     if (bindEventsId) {
@@ -396,11 +368,6 @@ export const parseComponentsRecursive = async ({
             bindEventsId,
         });
     }
-
-    /**
-     * Execute invalidateFunction.
-     */
-    const eachFunctions = getEachFunctions({ id });
 
     /**
      * Fire immediately onMount callback, scoped to current component DOM.
@@ -456,14 +423,6 @@ export const parseComponentsRecursive = async ({
                 inizilizeWatcher: true,
             });
         },
-        fireFirstRepeat:
-            firstRepeatEmitArray.length > 0
-                ? () => {
-                      firstRepeatEmitArray.forEach((fn) => {
-                          fn?.();
-                      });
-                  }
-                : () => {},
         fireInvalidateFunction:
             invalidateFunctions.length > 0
                 ? () => {

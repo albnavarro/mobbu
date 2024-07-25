@@ -2,7 +2,6 @@
 
 import { defineEachComponent } from '../webComponent/each';
 import { defineInvalidateComponent } from '../webComponent/invalidate';
-import { defineRepeaterComponent } from '../webComponent/repeater';
 import { defineSlotComponent } from '../webComponent/slot';
 import { defineUserComponent } from '../webComponent/userComponent';
 
@@ -36,7 +35,6 @@ export const setComponentList = () => {
      */
 
     defineUserComponent(componentListMap);
-    defineRepeaterComponent();
     defineSlotComponent();
     defineInvalidateComponent();
     defineEachComponent();

@@ -39,7 +39,7 @@ export const watchEach = ({
     afterUpdate = () => {},
     key = '',
     id = '',
-    repeatId = '',
+    eachId = '',
     render,
 }) => {
     const mainComponent = getElementById({ id });
@@ -59,8 +59,8 @@ export const watchEach = ({
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
             if (!mobCore.checkType(Array, current)) return;
 
-            const repeaterParentElement = getEachParent({
-                id: repeatId,
+            const eachParentElement = getEachParent({
+                id: eachId,
             });
 
             /**
@@ -95,7 +95,7 @@ export const watchEach = ({
             const repeatIsRunning = getActiveRepeater({
                 id,
                 state,
-                container: repeaterParentElement,
+                container: eachParentElement,
             });
 
             if (repeatIsRunning) {
@@ -118,13 +118,13 @@ export const watchEach = ({
              * If clean is active remove previous children.
              */
             const targetComponentBeforeParse = getRepeaterComponentTarget({
-                id: repeatId,
+                id: eachId,
             });
 
             if (targetComponentBeforeParse && (clean || forceRepeater)) {
                 const currentChildern = getChildrenInsideElementByRepeaterId({
                     id,
-                    repeatId,
+                    repeatId: eachId,
                 });
 
                 currentChildern.forEach((id) => {
@@ -135,13 +135,13 @@ export const watchEach = ({
                  * Web component trick.
                  * Sure to delete host element.
                  */
-                repeaterParentElement.textContent = '';
+                eachParentElement.textContent = '';
             }
 
             /**
              * Set current active repeater in mainStore.
              */
-            addActiveRepeat({ id, state, container: repeaterParentElement });
+            addActiveRepeat({ id, state, container: eachParentElement });
 
             /**
              * Execute beforeUpdate function
@@ -149,10 +149,10 @@ export const watchEach = ({
             if (mainComponent) {
                 beforeUpdate({
                     element: mainComponent,
-                    container: repeaterParentElement,
+                    container: eachParentElement,
                     childrenId: getChildrenInsideElementByRepeaterId({
                         id,
-                        repeatId,
+                        repeatId: eachId,
                     }),
                 });
             }
@@ -162,14 +162,14 @@ export const watchEach = ({
              */
             const currentUnivoque = await updateChildren({
                 state,
-                repeaterParentElement,
+                repeaterParentElement: eachParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
                 key,
                 id,
                 render,
-                repeatId,
+                repeatId: eachId,
             });
 
             /**
@@ -183,7 +183,7 @@ export const watchEach = ({
 
             const childrenFiltered = getChildrenInsideElementByRepeaterId({
                 id,
-                repeatId,
+                repeatId: eachId,
             });
 
             /**
@@ -267,7 +267,7 @@ export const watchEach = ({
                 if (mainComponent) {
                     afterUpdate({
                         element: mainComponent,
-                        container: repeaterParentElement,
+                        container: eachParentElement,
                         childrenId: childrenFiltered,
                     });
                 }
@@ -281,7 +281,7 @@ export const watchEach = ({
                 removeActiveRepeat({
                     id,
                     state,
-                    container: repeaterParentElement,
+                    container: eachParentElement,
                 });
 
                 unFreezePropById({ id, prop: state });

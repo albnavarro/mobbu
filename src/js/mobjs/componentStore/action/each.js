@@ -1,5 +1,4 @@
 import { watchEach } from '../../each/eachList';
-import { freezePropById, unFreezePropById } from './freeze';
 
 /**
  * @description
@@ -182,6 +181,7 @@ export const getEachParent = ({ id }) => {
  * @param {HTMLElement} params.eachParent
  * @returns {void}
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const destroyNesterEach = ({ id, eachParent }) => {
     const eachChildToDelete = getEachInsideElement(eachParent);
 
@@ -213,6 +213,7 @@ const destroyNesterEach = ({ id, eachParent }) => {
  * @param {HTMLElement} params.eachParent
  * @returns {void}
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inizializeNestedEach = ({ eachParent }) => {
     const newEachChild = getEachInsideElement(eachParent);
 
@@ -259,7 +260,7 @@ export const inizializeEachWatch = async ({
         afterUpdate,
         key,
         id,
-        repeatId: eachId,
+        eachId,
         render,
     });
 

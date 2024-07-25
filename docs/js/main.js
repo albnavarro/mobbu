@@ -18292,7 +18292,7 @@
     },
     key = "",
     id = "",
-    repeatId = "",
+    eachId = "",
     render: render2
   }) => {
     const mainComponent = getElementById({ id });
@@ -18301,8 +18301,8 @@
       state,
       async (current, previous) => {
         if (!mobCore.checkType(Array, current)) return;
-        const repeaterParentElement = getEachParent({
-          id: repeatId
+        const eachParentElement = getEachParent({
+          id: eachId
         });
         const descrementQueue = incrementTickQueuque({
           state,
@@ -18318,7 +18318,7 @@
         const repeatIsRunning = getActiveRepeater({
           id,
           state,
-          container: repeaterParentElement
+          container: eachParentElement
         });
         if (repeatIsRunning) {
           unFreezePropById({ id, prop: state });
@@ -18328,44 +18328,44 @@
           return;
         }
         const targetComponentBeforeParse = getRepeaterComponentTarget({
-          id: repeatId
+          id: eachId
         });
         if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
           const currentChildern = getChildrenInsideElementByRepeaterId({
             id,
-            repeatId
+            repeatId: eachId
           });
           currentChildern.forEach((id2) => {
             removeAndDestroyById({ id: id2 });
           });
-          repeaterParentElement.textContent = "";
+          eachParentElement.textContent = "";
         }
-        addActiveRepeat({ id, state, container: repeaterParentElement });
+        addActiveRepeat({ id, state, container: eachParentElement });
         if (mainComponent) {
           beforeUpdate({
             element: mainComponent,
-            container: repeaterParentElement,
+            container: eachParentElement,
             childrenId: getChildrenInsideElementByRepeaterId({
               id,
-              repeatId
+              repeatId: eachId
             })
           });
         }
         const currentUnivoque = await updateChildren({
           state,
-          repeaterParentElement,
+          repeaterParentElement: eachParentElement,
           targetComponent: targetComponentBeforeParse,
           current,
           previous: clean2 || forceRepeater ? [] : previous,
           key,
           id,
           render: render2,
-          repeatId
+          repeatId: eachId
         });
         forceRepeater = false;
         const childrenFiltered = getChildrenInsideElementByRepeaterId({
           id,
-          repeatId
+          repeatId: eachId
         });
         const childrenFilteredSorted = [
           ...gerOrderedChildrenById({ children: childrenFiltered })
@@ -18398,14 +18398,14 @@
           if (mainComponent) {
             afterUpdate({
               element: mainComponent,
-              container: repeaterParentElement,
+              container: eachParentElement,
               childrenId: childrenFiltered
             });
           }
           removeActiveRepeat({
             id,
             state,
-            container: repeaterParentElement
+            container: eachParentElement
           });
           unFreezePropById({ id, prop: state });
           descrementQueue();
@@ -18474,7 +18474,7 @@
       afterUpdate,
       key,
       id,
-      repeatId: eachId,
+      eachId,
       render: render2
     });
     addEachUnsubcribe({
@@ -18526,36 +18526,6 @@
             addInvalidateParent({ id: invalidateId, parent });
             parent?.removeChild(this);
           }
-        }
-      }
-    );
-  };
-
-  // src/js/mobjs/webComponent/repeater.js
-  var defineRepeaterComponent = () => {
-    customElements.define(
-      "mobjs-repeater",
-      class extends HTMLElement {
-        /**
-         * @type {string|undefined|null}
-         */
-        #repeatId;
-        constructor() {
-          super();
-          this.attachShadow({ mode: "open" });
-          this.#repeatId = "";
-          this.isRepeaterPlaceholder = true;
-          const { dataset } = this.shadowRoot?.host ?? {};
-          if (dataset) {
-            this.#repeatId = this.shadowRoot?.host.getAttribute(ATTR_REPEATID);
-          }
-        }
-        removeCustomComponent() {
-          if (!this.shadowRoot) return;
-          this.parentElement?.removeChild(this);
-        }
-        getRepeatId() {
-          return this.#repeatId;
         }
       }
     );
@@ -19040,7 +19010,6 @@
     );
     console.log(`component loaded:${Object.keys(componentListMap).length}`);
     defineUserComponent(componentListMap);
-    defineRepeaterComponent();
     defineSlotComponent();
     defineInvalidateComponent();
     defineEachComponent();
@@ -19445,464 +19414,10 @@
     onMountCallbackMap.delete(id);
   };
 
-  // src/js/mobjs/query/querySecificRepeater.js
-  function selectAll6(root2, repeatId) {
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isRepeaterPlaceholder && node?.getRepeatId?.() === repeatId) {
-        return node;
-      }
-    }
-    return null;
-  }
-  var querySecificRepeater = (node, repeatId) => {
-    const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      const result = selectAll6(child2, repeatId);
-      if (result) return result;
-    }
-    return null;
-  };
-
-  // src/js/mobjs/repeater/utils.js
-  var getNewElement3 = (current = [], previous = [], key = "") => {
-    return current.filter((el) => {
-      const value = el?.[key];
-      return !previous.some((a) => a?.[key] === value);
-    });
-  };
-  var mixPreviousAndCurrentData2 = (current, previous, key) => {
-    return current.map((el, index) => {
-      const value = el?.[key];
-      const isNewElement = !previous.some((a) => a?.[key] === value);
-      return isNewElement ? { isNewElement: true, key: el?.[key], index } : { isNewElement: false, key: el?.[key], index };
-    });
-  };
-  var arrayhaskey2 = ({ arr = [], key = "" }) => {
-    return arr.every((item) => {
-      return item?.[key];
-    });
-  };
-  var listKeyExist2 = ({ current, previous, key }) => {
-    return arrayhaskey2({ arr: current, key }) && arrayhaskey2({ arr: previous, key });
-  };
-  var getUnivoqueByKey2 = ({ data: data3 = [], key = "" }) => {
-    return data3.filter(
-      (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
-    );
-  };
-  var filterChildrenInsideElement2 = ({ children, element }) => {
-    if (!children || !element) return [];
-    return [...children].filter((id) => {
-      const child2 = getElementById({ id }) ?? null;
-      return element.contains(child2);
-    });
-  };
-  var getChildrenInsideElementByRepeaterId2 = ({ id, repeatId }) => {
-    if (!id || id === "") return;
-    const values = [...componentMap.values()];
-    return values.filter((item) => {
-      return item?.componentRepeatId === repeatId;
-    }).map((item) => {
-      return item.id;
-    });
-  };
-
-  // src/js/mobjs/repeater/addWithKey.js
-  var BEFORE2 = "beforebegin";
-  var AFTER2 = "afterend";
-  function getPartialsComponentList2({
-    state,
-    key,
-    currentUnique,
-    index,
-    render: render2,
-    repeatId
-  }) {
-    const currentValue = currentUnique?.[index];
-    const sync = (
-      /* HTML */
-      ` ${ATTR_KEY}="${key}"
-    ${ATTR_REPEATER_PROP_BIND}="${state}"
-    ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
-        current: currentValue,
-        index
-      })}"
-    ${ATTR_CHILD_REPEATID}="${repeatId}"`
-    );
-    return render2({
-      sync,
-      index,
-      currentValue,
-      html: renderHtml
-    });
-  }
-  var addWithKey2 = ({
-    state = "",
-    current = [],
-    previous = [],
-    repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
-    key = "",
-    id = "",
-    render: render2,
-    repeatId
-  }) => {
-    const currentUnique = getUnivoqueByKey2({ data: current, key });
-    const elementToRemoveObj = getNewElement3(previous, currentUnique, key);
-    const elementToRemoveByKey = elementToRemoveObj.map((item) => {
-      const keyValue = item?.[key];
-      return getElementByKeyInContainer({
-        key: keyValue,
-        parentId: id,
-        container: repeaterParentElement
-      });
-    });
-    const elementToAddObj = mixPreviousAndCurrentData2(
-      currentUnique,
-      previous,
-      key
-    );
-    const newPersistentElementOrder = elementToAddObj.filter(({ isNewElement }) => !isNewElement).map((item) => {
-      return getElementByKeyInContainer({
-        key: item.key,
-        parentId: id,
-        container: repeaterParentElement
-      });
-    });
-    const parent = newPersistentElementOrder[0]?.parentNode ?? repeaterParentElement;
-    if (parent) parent.innerHTML = "";
-    newPersistentElementOrder.forEach((item) => {
-      if (parent && item) {
-        parent.append(item);
-        const { debug } = getDefaultComponent();
-        if (debug)
-          item.insertAdjacentHTML(
-            "afterend",
-            `<!--  ${targetComponent} --> `
-          );
-      }
-    });
-    const childrenByRepeatId = getChildrenInsideElementByRepeaterId2({
-      id,
-      repeatId
-    });
-    const childrenFiltered = filterChildrenInsideElement2({
-      children: childrenByRepeatId,
-      element: repeaterParentElement
-    });
-    const chunkedElementToAdd = elementToAddObj.reduce(
-      (previous2, current2) => {
-        return current2.isNewElement ? (() => {
-          previous2.at(-1).push(current2);
-          return previous2;
-        })() : [...previous2, [current2]];
-      },
-      [[]]
-    );
-    if (!chunkedElementToAdd?.[0].length) chunkedElementToAdd.shift();
-    chunkedElementToAdd.forEach((item) => {
-      const firstEl = item[0];
-      const { isNewElement: firstElementIsNew } = firstEl;
-      const previousOrNextExistingElement = firstElementIsNew ? getElementById({
-        id: childrenFiltered[0]
-      }) : getElementByKeyInContainer({
-        key: item[0]?.key,
-        parentId: id,
-        container: repeaterParentElement
-      });
-      const componentToAppend = item.filter((element) => element.isNewElement).map(
-        (element) => getPartialsComponentList2({
-          state,
-          targetComponent,
-          key: element.key,
-          currentUnique,
-          index: element.index,
-          render: render2,
-          id,
-          repeatId
-        })
-      ).join("");
-      const position2 = firstElementIsNew ? BEFORE2 : AFTER2;
-      if (previousOrNextExistingElement) {
-        previousOrNextExistingElement.insertAdjacentHTML(
-          position2,
-          componentToAppend
-        );
-      } else {
-        repeaterParentElement.insertAdjacentHTML(
-          "afterbegin",
-          componentToAppend
-        );
-      }
-    });
-    elementToRemoveByKey.forEach((component) => {
-      const id2 = getIdByElement({ element: component });
-      if (!id2) return;
-      removeAndDestroyById({ id: id2 });
-    });
-    return currentUnique;
-  };
-
-  // src/js/mobjs/repeater/addWithoutKey.js
-  var addWithoutKey2 = ({
-    state = "",
-    current = [],
-    previous = [],
-    repeaterParentElement = document.createElement("div"),
-    render: render2,
-    repeatId,
-    id
-  }) => {
-    const currentLenght = current.length;
-    const previousLenght = previous.length;
-    const diff = currentLenght - previousLenght;
-    if (diff > 0) {
-      const elementToAdd = [...new Array(diff).keys()].map((_item, index) => {
-        const currentValue = current?.[index + previousLenght];
-        const currentIndex = index + previousLenght;
-        const sync = (
-          /* HTML */
-          `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-            {
-              current: currentValue,
-              index: currentIndex
-            }
-          )}"
-            ${ATTR_REPEATER_PROP_BIND}="${state}"
-            ${ATTR_CHILD_REPEATID}="${repeatId}"`
-        );
-        return render2({
-          sync,
-          index,
-          currentValue,
-          html: renderHtml
-        });
-      });
-      elementToAdd.forEach((element) => {
-        repeaterParentElement.insertAdjacentHTML("beforeend", element);
-      });
-    }
-    if (diff < 0) {
-      const childrenByRepeatId = getChildrenInsideElementByRepeaterId2({
-        id,
-        repeatId
-      });
-      const childrenFilteredToRemove = filterChildrenInsideElement2({
-        children: childrenByRepeatId,
-        element: repeaterParentElement
-      });
-      const childrenToRemoveByKey = childrenFilteredToRemove.filter(
-        (_child, i) => {
-          return i >= current.length;
-        }
-      );
-      const childrenPersistent = childrenFilteredToRemove.filter(
-        (_child, i) => {
-          return i < current.length;
-        }
-      );
-      repeaterParentElement.textContent = "";
-      childrenToRemoveByKey.forEach((childId) => {
-        removeAndDestroyById({ id: childId });
-      });
-      childrenPersistent.forEach((childId) => {
-        const element = getElementById({ id: childId });
-        if (element) repeaterParentElement.append(element);
-      });
-    }
-    return current;
-  };
-
-  // src/js/mobjs/repeater/updateChildren.js
-  var updateChildren2 = async ({
-    state = "",
-    repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
-    current = [],
-    previous = [],
-    key = "",
-    id,
-    render: render2,
-    repeatId
-  }) => {
-    const hasKey = listKeyExist2({ current, previous, key });
-    const fn = hasKey ? addWithKey2 : addWithoutKey2;
-    const currentUnivoque = fn({
-      state,
-      current,
-      previous,
-      repeaterParentElement,
-      targetComponent,
-      key,
-      id,
-      render: render2,
-      repeatId
-    });
-    mainStore.set(
-      MAIN_STORE_ASYNC_PARSER,
-      { element: repeaterParentElement, parentId: id },
-      false
-    );
-    await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-    return currentUnivoque;
-  };
-
-  // src/js/mobjs/repeater/watchList.js
-  var watchList = ({
-    state = "",
-    setState,
-    emit,
-    watch,
-    clean: clean2 = false,
-    beforeUpdate = () => {
-    },
-    afterUpdate = () => {
-    },
-    key = "",
-    id = "",
-    repeaterParentElement,
-    repeatId = "",
-    render: render2
-  }) => {
-    const repeaterEl = querySecificRepeater(repeaterParentElement, repeatId);
-    repeaterEl?.remove();
-    repeaterEl?.removeCustomComponent();
-    const mainComponent = getElementById({ id });
-    let forceRepeater = true;
-    watch(
-      state,
-      async (current, previous) => {
-        if (!mobCore.checkType(Array, current)) return;
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_REPEATER
-        });
-        const descrementRepeaterQueue = incrementRepeaterTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_REPEATER
-        });
-        freezePropById({ id, prop: state });
-        const repeatIsRunning = getActiveRepeater({
-          id,
-          state,
-          container: repeaterParentElement
-        });
-        if (repeatIsRunning) {
-          unFreezePropById({ id, prop: state });
-          setState(state, previous, false);
-          descrementQueue();
-          descrementRepeaterQueue();
-          return;
-        }
-        const targetComponentBeforeParse = getRepeaterComponentTarget({
-          id: repeatId
-        });
-        if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
-          const currentChildern = getChildrenInsideElementByRepeaterId2({
-            id,
-            repeatId
-          });
-          currentChildern.forEach((id2) => {
-            removeAndDestroyById({ id: id2 });
-          });
-          repeaterParentElement.textContent = "";
-        }
-        addActiveRepeat({ id, state, container: repeaterParentElement });
-        if (mainComponent) {
-          beforeUpdate({
-            element: mainComponent,
-            container: repeaterParentElement,
-            childrenId: getChildrenInsideElementByRepeaterId2({
-              id,
-              repeatId
-            })
-          });
-        }
-        const currentUnivoque = await updateChildren2({
-          state,
-          repeaterParentElement,
-          targetComponent: targetComponentBeforeParse,
-          current,
-          previous: clean2 || forceRepeater ? [] : previous,
-          key,
-          id,
-          render: render2,
-          repeatId
-        });
-        forceRepeater = false;
-        const childrenFiltered = getChildrenInsideElementByRepeaterId2({
-          id,
-          repeatId
-        });
-        const childrenFilteredSorted = [
-          ...gerOrderedChildrenById({ children: childrenFiltered })
-        ];
-        const hasKey = key && key !== "";
-        childrenFilteredSorted.forEach((id2, index) => {
-          const currentValue = currentUnivoque?.[index];
-          if (!currentValue) return;
-          const realIndex = hasKey ? current.findIndex((value) => {
-            return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
-          }) : index;
-          setRepeaterStateById({
-            id: id2,
-            value: { current: currentValue, index: realIndex }
-          });
-          const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
-            contextId: id2
-          });
-          firstRepeaterchildChildren.forEach((childId) => {
-            setRepeaterStateById({
-              id: childId,
-              value: {
-                current: currentValue,
-                index: realIndex
-              }
-            });
-          });
-        });
-        mobCore.useNextLoop(async () => {
-          if (mainComponent) {
-            afterUpdate({
-              element: mainComponent,
-              container: repeaterParentElement,
-              childrenId: childrenFiltered
-            });
-          }
-          removeActiveRepeat({
-            id,
-            state,
-            container: repeaterParentElement
-          });
-          unFreezePropById({ id, prop: state });
-          descrementQueue();
-          descrementRepeaterQueue();
-        });
-      }
-    );
-    return () => emit(state);
-  };
-
   // src/js/mobjs/temporaryData/repeater/add.js
   var repeatMap = /* @__PURE__ */ new Map();
   var addRepeat = ({ repeatId, obj }) => {
     repeatMap.set(repeatId, obj);
-  };
-
-  // src/js/mobjs/temporaryData/repeater/inizialize.js
-  var inizializeRepeat = ({ repeatId, repeaterParent }) => {
-    if (!repeatId || !repeaterParent) return;
-    const obj = repeatMap.get(repeatId);
-    if (!obj) return;
-    const fireFirstRepeat = watchList({
-      ...obj,
-      repeatId,
-      repeaterParentElement: repeaterParent?.parent ?? document.createElement("div")
-    });
-    repeatMap.delete(repeatId);
-    return fireFirstRepeat;
   };
 
   // src/js/mobjs/creationStep/getParamsForComponent.js
@@ -20080,25 +19595,6 @@
     };
   };
 
-  // src/js/mobjs/query/queryGenericRepeater.js
-  function selectAll7(root2) {
-    const result = [];
-    for (const node of walkPreOrder(root2)) {
-      if (node?.isRepeaterPlaceholder && node?.getRepeatId?.()) {
-        result.push(node);
-      }
-    }
-    return result;
-  }
-  var queryGenericRepeater = (node) => {
-    let result = [];
-    const root2 = node || document.body;
-    for (const child2 of root2.children) {
-      result = [...result, ...selectAll7(child2)];
-    }
-    return result;
-  };
-
   // src/js/mobjs/creationStep/getParamsFromWebComponent.js
   var getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const id = element.getId();
@@ -20241,13 +19737,11 @@
         const {
           onMount,
           fireDynamic,
-          fireFirstRepeat,
           fireInvalidateFunction,
           fireEachFunction
         } = item;
         await onMount();
         fireDynamic();
-        fireFirstRepeat();
         fireEachFunction();
         fireInvalidateFunction();
       }
@@ -20361,27 +19855,8 @@
       return;
     }
     setElementById({ id, newElement });
-    const repeaterNodeList = queryGenericRepeater(newElement);
-    const repeatersParents = [...repeaterNodeList].map((placeholder) => {
-      return {
-        parent: (
-          /** @type {HTMLElement} */
-          placeholder.parentNode
-        ),
-        // @ts-ignore
-        id: placeholder.getRepeatId()
-      };
-    });
-    const repeatIdArray = objectFromComponentFunction?.repeatIdArray;
-    const firstRepeatEmitArray = repeatIdArray.map((repeatId) => {
-      return inizializeRepeat({
-        repeatId,
-        repeaterParent: repeatersParents.find(({ id: id2 }) => {
-          return id2 === repeatId;
-        })
-      });
-    });
     const invalidateFunctions = getInvalidateFunctions({ id });
+    const eachFunctions = getEachFunctions({ id });
     if (bindEventsId) {
       applyBindEvents({
         element: newElement,
@@ -20389,7 +19864,6 @@
         bindEventsId
       });
     }
-    const eachFunctions = getEachFunctions({ id });
     const shoulBeScoped = scoped ?? getDefaultComponent().scoped;
     if (shoulBeScoped) {
       await fireOnMountCallBack({
@@ -20417,12 +19891,6 @@
           repeatPropBind,
           inizilizeWatcher: true
         });
-      },
-      fireFirstRepeat: firstRepeatEmitArray.length > 0 ? () => {
-        firstRepeatEmitArray.forEach((fn) => {
-          fn?.();
-        });
-      } : () => {
       },
       fireInvalidateFunction: invalidateFunctions.length > 0 ? () => {
         invalidateFunctions.forEach(({ fn }) => {
