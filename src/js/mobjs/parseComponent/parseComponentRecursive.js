@@ -36,12 +36,13 @@ import {
 } from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 import { getInvalidateFunctions } from '../componentStore/action/invalidate';
+import { getEachFunctions } from '../componentStore/action/each';
 
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function, fireInvalidateFunction:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireFirstRepeat:function, fireInvalidateFunction:function, fireEachFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
@@ -108,10 +109,12 @@ export const parseComponentsRecursive = async ({
                 fireDynamic,
                 fireFirstRepeat,
                 fireInvalidateFunction,
+                fireEachFunction,
             } = item;
             await onMount();
             fireDynamic();
             fireFirstRepeat();
+            fireEachFunction();
             fireInvalidateFunction();
         }
 
@@ -395,6 +398,11 @@ export const parseComponentsRecursive = async ({
     }
 
     /**
+     * Execute invalidateFunction.
+     */
+    const eachFunctions = getEachFunctions({ id });
+
+    /**
      * Fire immediately onMount callback, scoped to current component DOM.
      * Child is ignored.
      */
@@ -460,6 +468,14 @@ export const parseComponentsRecursive = async ({
             invalidateFunctions.length > 0
                 ? () => {
                       invalidateFunctions.forEach(({ fn }) => {
+                          fn?.();
+                      });
+                  }
+                : () => {},
+        fireEachFunction:
+            eachFunctions.length > 0
+                ? () => {
+                      eachFunctions.forEach(({ fn }) => {
                           fn?.();
                       });
                   }

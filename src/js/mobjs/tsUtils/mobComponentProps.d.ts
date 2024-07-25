@@ -278,6 +278,11 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
 }) => string;
 
 /**
+ * TODO
+ */
+export type PartialMobJsEach = any;
+
+/**
  * RemoveDom
  */
 export type PartialRenderComponent = (arg0: {

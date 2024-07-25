@@ -77,6 +77,7 @@ export const DynamicListCardFn = ({
     setState,
     delegateEvents,
     invalidate,
+    mobJsEach,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -219,6 +220,27 @@ export const DynamicListCardFn = ({
                             },
                         })}
                     </div>
+                </div>
+
+                <!-- each test -->
+                <div class="c-dynamic-card__repeater">
+                    ${mobJsEach({
+                        watch: 'innerData',
+                        key: 'key',
+                        render: ({ sync, html }) => {
+                            return html`<dynamic-list-card-inner
+                                ${bindProps({
+                                    /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                    props: ({ innerData }, index) => {
+                                        return {
+                                            key: `${innerData[index].key}`,
+                                        };
+                                    },
+                                })}
+                                ${sync}
+                            ></dynamic-list-card-inner>`;
+                        },
+                    })}
                 </div>
 
                 <!-- Invalidate -->

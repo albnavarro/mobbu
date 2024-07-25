@@ -1,5 +1,6 @@
 // @ts-check
 
+import { defineEachComponent } from '../webComponent/each';
 import { defineInvalidateComponent } from '../webComponent/invalidate';
 import { defineRepeaterComponent } from '../webComponent/repeater';
 import { defineSlotComponent } from '../webComponent/slot';
@@ -38,6 +39,7 @@ export const setComponentList = () => {
     defineRepeaterComponent();
     defineSlotComponent();
     defineInvalidateComponent();
+    defineEachComponent();
 };
 
 /**

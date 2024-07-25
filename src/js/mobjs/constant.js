@@ -91,6 +91,11 @@ export const ATTR_REFS = 'ref';
 export const ATTR_INVALIDATE = 'invalidateid';
 
 /**
+ * @type {string};
+ */
+export const ATTR_MOBJS_EACH = 'mobjseach';
+
+/**
  * @type {number};
  */
 export const frameDelayAfterParse = 5;
