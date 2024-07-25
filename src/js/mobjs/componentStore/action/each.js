@@ -1,3 +1,4 @@
+import { watchEach } from '../../each/eachList';
 import { freezePropById, unFreezePropById } from './freeze';
 
 /**
@@ -241,54 +242,25 @@ export const inizializeEachWatch = async ({
     clean,
     beforeUpdate,
     afterUpdate,
-    getChildren,
     key,
     id,
     render,
 }) => {
     /**
-     * Watch props on change
-     */
-    let watchIsRunning = false;
-
-    /**
      * Update component
      */
-    const unsubscribe = watch(state, async () => {
-        if (watchIsRunning) return;
-
-        /**
-         * Remove child invalidate of this invalidate.
-         */
-
-        freezePropById({ id, prop: state });
-
-        const eachParent = getEachParent({
-            id: eachId,
-        });
-
-        if (!eachParent) {
-            unFreezePropById({ id, prop: state });
-            return;
-        }
-
-        destroyNesterEach({ id, eachParent });
-
-        /**
-         * Update
-         */
-        watchIsRunning = true;
-
-        // CODE
-        console.log('mobJsEach watch');
-
-        /**
-         * Run new each init function
-         */
-        inizializeNestedEach({ eachParent });
-
-        unFreezePropById({ id, prop: state });
-        watchIsRunning = false;
+    const unsubscribe = watchEach({
+        state,
+        setState,
+        emit,
+        watch,
+        clean,
+        beforeUpdate,
+        afterUpdate,
+        key,
+        id,
+        repeatId: eachId,
+        render,
     });
 
     addEachUnsubcribe({

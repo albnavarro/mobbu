@@ -73,7 +73,6 @@ export const DynamicListCardFn = ({
     bindProps,
     watch,
     id,
-    repeat,
     setState,
     delegateEvents,
     invalidate,
@@ -182,7 +181,7 @@ export const DynamicListCardFn = ({
 
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
-                        ${repeat({
+                        ${mobJsEach({
                             watch: 'innerData',
                             key: 'key',
                             render: ({ sync, html }) => {
@@ -203,7 +202,7 @@ export const DynamicListCardFn = ({
 
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
-                        ${repeat({
+                        ${mobJsEach({
                             watch: 'innerData',
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
@@ -220,27 +219,6 @@ export const DynamicListCardFn = ({
                             },
                         })}
                     </div>
-                </div>
-
-                <!-- each test -->
-                <div class="c-dynamic-card__repeater">
-                    ${mobJsEach({
-                        watch: 'innerData',
-                        key: 'key',
-                        render: ({ sync, html }) => {
-                            return html`<dynamic-list-card-inner
-                                ${bindProps({
-                                    /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
-                                    props: ({ innerData }, index) => {
-                                        return {
-                                            key: `${innerData[index].key}`,
-                                        };
-                                    },
-                                })}
-                                ${sync}
-                            ></dynamic-list-card-inner>`;
-                        },
-                    })}
                 </div>
 
                 <!-- Invalidate -->

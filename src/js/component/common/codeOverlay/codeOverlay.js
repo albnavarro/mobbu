@@ -124,7 +124,7 @@ export const CodeOverlayFn = ({
     onMount,
     setState,
     getState,
-    repeat,
+    mobJsEach,
     html,
     bindProps,
     delegateEvents,
@@ -236,7 +236,7 @@ export const CodeOverlayFn = ({
                     ${copyIcon}
                 </button>
                 <div class="c-code-overlay__header">
-                    ${repeat({
+                    ${mobJsEach({
                         clean: true,
                         watch: 'urls',
                         render: ({ sync }) => {
