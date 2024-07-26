@@ -34,19 +34,32 @@
 
 
 # MobJs
+## 1) Each.
+- Undibscribe nella mappa puó passare da `array` a `funzione singola`.
 
-## 1) repeater => mobEach
-- Conviene creare una nuovo repeat chiamato `mobEach` da zero ricalcando pari pari `invalidate`
-- OK
-
-## 2) Invalidate 1
-- il check degli `invalidate innesatati` sará possibile farlo pari pari con i reepater ora.
-
-## 3) Invalidate 2.
+## 2) Invalidate 1.
 - Risistemati i punto 1/2 aggiungere `beforeUpdate/afterUpdate` a `invalidate`
 
-## 4) Invalidate/Repeat
-- I controlli sugli elementi innesati di invalidati sará possibile copiarli anche in `mobEach`.
+## 2) Invalidate/Each
+- `beforeUpdate` sará asincono.
+
+## 3) update DOCS.
+- Aggiornare `repeater` to `each`.
+- Specificare che all' interno di `invalidate` si possono innestare `invalidate/repeater` nello stesso `scope`.
+
+## 4) Each.
+- I controlli sugli elementi innesati di invalidati sará possibile copiarli anche in `each`.
+- Ipoteticamente vanno fatti singolarmente per ogni singolo elemento.
+- Prima di rimuovere il singolo elemento:
+```js
+destroyNesterInvalidate({ id, invalidateParent: elementDaRimuovere });
+destroyNesterEach({ id, eachParent: elementDaRimuovere });
+```
+- Dopo aver aggiunto il nuovo elemento:
+```js
+inizializeNestedInvalidate({ invalidateParent: elementAggiunto });
+inizializeNestedEach({ eachParent: elementAggiunto });
+```
 
 
 ## type
