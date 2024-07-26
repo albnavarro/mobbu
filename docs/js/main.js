@@ -17848,6 +17848,7 @@
             return;
           }
           destroyNesterInvalidate({ id, invalidateParent });
+          destroyNesterEach({ id, eachParent: invalidateParent });
           destroyComponentInsideNodeById({
             id,
             container: invalidateParent
@@ -17867,6 +17868,7 @@
           descrementQueue();
           decrementInvalidateQueque();
           inizializeNestedInvalidate({ invalidateParent });
+          inizializeNestedEach({ eachParent: invalidateParent });
           unFreezePropById({ id, prop: state });
         });
       });
@@ -18431,6 +18433,25 @@
       eachFunctionMap.delete(id);
     }
   };
+  var removeEachByEachId = ({ id, eachId }) => {
+    if (!eachFunctionMap.has(id)) return;
+    const value = eachFunctionMap.get(id);
+    const valueParsed = value.filter((item) => item.eachId !== eachId);
+    if (eachIdPlaceHolderMap.has(eachId)) {
+      eachIdPlaceHolderMap.delete(eachId);
+    }
+    eachFunctionMap.set(id, valueParsed);
+  };
+  var getEachInsideElement = (element) => {
+    const entries = [...eachIdPlaceHolderMap.entries()];
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, parent]) => element?.contains(parent) && element !== parent
+    ).map(([id, parent]) => ({
+      id,
+      parent
+    }));
+  };
   var setEachFunction = ({ id, eachId, fn }) => {
     const currentFunctions = eachFunctionMap.get(id) ?? [];
     eachFunctionMap.set(id, [
@@ -18461,6 +18482,34 @@
     }
     const parent = eachIdPlaceHolderMap.get(id);
     return parent;
+  };
+  var destroyNesterEach = ({ id, eachParent }) => {
+    const eachChildToDelete = getEachInsideElement(eachParent);
+    const eachChildToDeleteParsed = [...eachFunctionMap.values()].flat().filter((item) => {
+      return eachChildToDelete.some((current) => {
+        return current.id === item.eachId;
+      });
+    });
+    eachChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeEachByEachId({
+        id,
+        eachId: item.eachId
+      });
+    });
+  };
+  var inizializeNestedEach = ({ eachParent }) => {
+    const newEachChild = getEachInsideElement(eachParent);
+    const eachChildToInizialize = [...eachFunctionMap.values()].flat().filter((item) => {
+      return newEachChild.some((current) => {
+        return current.id === item.eachId;
+      });
+    });
+    eachChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
   };
   var inizializeEachWatch = async ({
     eachId,

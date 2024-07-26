@@ -182,7 +182,7 @@ export const getEachParent = ({ id }) => {
  * @returns {void}
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const destroyNesterEach = ({ id, eachParent }) => {
+export const destroyNesterEach = ({ id, eachParent }) => {
     const eachChildToDelete = getEachInsideElement(eachParent);
 
     const eachChildToDeleteParsed = [...eachFunctionMap.values()]
@@ -214,7 +214,7 @@ const destroyNesterEach = ({ id, eachParent }) => {
  * @returns {void}
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const inizializeNestedEach = ({ eachParent }) => {
+export const inizializeNestedEach = ({ eachParent }) => {
     const newEachChild = getEachInsideElement(eachParent);
 
     const eachChildToInizialize = [...eachFunctionMap.values()]

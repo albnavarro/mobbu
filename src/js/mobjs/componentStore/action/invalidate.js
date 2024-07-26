@@ -5,6 +5,7 @@ import { mainStore } from '../../mainStore/mainStore';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { repeaterTick } from '../tickRepeater';
+import { destroyNesterEach, inizializeNestedEach } from './each';
 import { freezePropById, unFreezePropById } from './freeze';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
 
@@ -309,6 +310,7 @@ export const inizializeInvalidateWatch = async ({
                  * Remove child invalidate of this invalidate.
                  */
                 destroyNesterInvalidate({ id, invalidateParent });
+                destroyNesterEach({ id, eachParent: invalidateParent });
 
                 /**
                  * Remove old component.
@@ -346,6 +348,7 @@ export const inizializeInvalidateWatch = async ({
                  * Run new invalidate init function
                  */
                 inizializeNestedInvalidate({ invalidateParent });
+                inizializeNestedEach({ eachParent: invalidateParent });
 
                 unFreezePropById({ id, prop: state });
             });
