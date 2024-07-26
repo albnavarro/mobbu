@@ -9,6 +9,7 @@ import { removeRepeaterComponentTargetByParentId } from '../../temporaryData/rep
 import { removeOrphansPropsFromParent } from '../../temporaryData/staticProps';
 import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
+import { removeEachId } from './each';
 import { removeInvalidateId } from './invalidate';
 
 /**
@@ -95,6 +96,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
      * Clean all invalidate reference
      */
     removeInvalidateId({ id });
+    removeEachId({ id });
 
     /**
      * Secure check: remove orphas reference from mainStore

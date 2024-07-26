@@ -17920,6 +17920,7 @@
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
     removeInvalidateId({ id });
+    removeEachId({ id });
     removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -18419,6 +18420,17 @@
   // src/js/mobjs/componentStore/action/each.js
   var eachIdPlaceHolderMap = /* @__PURE__ */ new Map();
   var eachFunctionMap = /* @__PURE__ */ new Map();
+  var removeEachId = ({ id }) => {
+    if (eachFunctionMap.has(id)) {
+      const value = eachFunctionMap.get(id);
+      value.forEach(({ eachId }) => {
+        if (eachIdPlaceHolderMap.has(eachId)) {
+          eachIdPlaceHolderMap.delete(eachId);
+        }
+      });
+      eachFunctionMap.delete(id);
+    }
+  };
   var setEachFunction = ({ id, eachId, fn }) => {
     const currentFunctions = eachFunctionMap.get(id) ?? [];
     eachFunctionMap.set(id, [
@@ -23385,6 +23397,8 @@ Loading snippet ...</pre
           invalidateIdPlaceHolderMap
         );
         console.log("invalidateFunctionMap", invalidateFunctionMap);
+        console.log("eachIdPlaceHolderMap", eachIdPlaceHolderMap);
+        console.log("eachFunctionMap", eachFunctionMap);
       }
     })}
         >
