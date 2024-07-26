@@ -3,7 +3,7 @@ const getInvalidateRender = ({
     delegateEvents,
     getState,
     bindProps,
-    mobJsEach,
+    each,
 }) => {
     const { counter } = getState();
 
@@ -26,7 +26,7 @@ const getInvalidateRender = ({
                         >
                         </dynamic-list-card-inner>
                         <div class="c-dynamic-card__invalidate__wrap">
-                            ${mobJsEach({
+                            ${each({
                                 watch: 'innerData',
                                 render: ({ sync, html }) => {
                                     return html`<dynamic-list-card-inner

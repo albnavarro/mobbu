@@ -19577,7 +19577,7 @@
           eventsData
         )}"`;
       },
-      mobJsEach: ({
+      each: ({
         watch: stateToWatch,
         // use alias to maintain ured naming convention.
         clean: clean2 = false,
@@ -23238,7 +23238,7 @@ Loading snippet ...</pre
     onMount,
     setState,
     getState,
-    mobJsEach,
+    each,
     html,
     bindProps,
     delegateEvents,
@@ -23323,7 +23323,7 @@ Loading snippet ...</pre
                     ${icon_copy_default}
                 </button>
                 <div class="c-code-overlay__header">
-                    ${mobJsEach({
+                    ${each({
       clean: true,
       watch: "urls",
       render: ({ sync }) => {
@@ -24664,7 +24664,7 @@ Loading snippet ...</pre
     bindProps,
     setState,
     getState,
-    mobJsEach
+    each
   }) => {
     onMount(() => {
       if (motionCore.mq("max", "large")) return;
@@ -24691,7 +24691,7 @@ Loading snippet ...</pre
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${mobJsEach({
+                ${each({
       clean: false,
       watch: "anchorItems",
       key: "id",
@@ -28268,7 +28268,7 @@ Loading snippet ...</pre
     setState,
     delegateEvents,
     invalidate,
-    mobJsEach
+    each
   }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -28362,7 +28362,7 @@ Loading snippet ...</pre
 
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
-                        ${mobJsEach({
+                        ${each({
       watch: "innerData",
       key: "key",
       render: ({ sync, html: html2 }) => {
@@ -28383,7 +28383,7 @@ Loading snippet ...</pre
 
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
-                        ${mobJsEach({
+                        ${each({
       watch: "innerData",
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
@@ -28572,7 +28572,7 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     delegateEvents,
-    mobJsEach
+    each
   }) => {
     const { listId, key, clean: clean2, label } = getState();
     const keyParsed = key.length > 0 ? key : void 0;
@@ -28581,7 +28581,7 @@ Loading snippet ...</pre
             <h4 class="c-dynamic-list-repeater__title">${label}</h4>
             <p class="c-dynamic-list-repeater__new js-list"></p>
             <div class="c-dynamic-list-repeater__list">
-                ${mobJsEach({
+                ${each({
       watch: "data",
       clean: clean2,
       key: keyParsed,

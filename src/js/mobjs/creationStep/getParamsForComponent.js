@@ -171,7 +171,7 @@ export const getParamsForComponentFunction = ({
                 eventsData
             )}"`;
         },
-        mobJsEach: ({
+        each: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             clean = false,
             beforeUpdate = () => {},

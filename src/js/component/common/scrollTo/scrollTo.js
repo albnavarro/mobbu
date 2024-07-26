@@ -74,7 +74,7 @@ export const ScrollToFn = ({
     bindProps,
     setState,
     getState,
-    mobJsEach,
+    each,
 }) => {
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
@@ -107,7 +107,7 @@ export const ScrollToFn = ({
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${mobJsEach({
+                ${each({
                     clean: false,
                     watch: 'anchorItems',
                     key: 'id',

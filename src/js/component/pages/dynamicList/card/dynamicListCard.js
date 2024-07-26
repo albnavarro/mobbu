@@ -76,7 +76,7 @@ export const DynamicListCardFn = ({
     setState,
     delegateEvents,
     invalidate,
-    mobJsEach,
+    each,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -181,7 +181,7 @@ export const DynamicListCardFn = ({
 
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
-                        ${mobJsEach({
+                        ${each({
                             watch: 'innerData',
                             key: 'key',
                             render: ({ sync, html }) => {
@@ -202,7 +202,7 @@ export const DynamicListCardFn = ({
 
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
-                        ${mobJsEach({
+                        ${each({
                             watch: 'innerData',
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner

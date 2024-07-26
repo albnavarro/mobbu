@@ -136,7 +136,7 @@ export type PartialOnMount = (
 /**
  * repeat
  */
-export type PartialMobJsEach<T> = <K extends keyof T>(arg0: {
+export type PartialEach<T> = <K extends keyof T>(arg0: {
     /**
      * @description
      * Clean previous item.
