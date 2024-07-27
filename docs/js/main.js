@@ -17817,6 +17817,9 @@
   };
   var inizializeInvalidateWatch = async ({
     bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {
+    },
     watch,
     id,
     invalidateId,
@@ -17847,6 +17850,7 @@
             unFreezePropById({ id, prop: state });
             return;
           }
+          await beforeUpdate();
           destroyNesterInvalidate({ id, invalidateParent });
           destroyNesterRepeat({ id, repeatParent: invalidateParent });
           destroyComponentInsideNodeById({
@@ -17870,6 +17874,7 @@
           inizializeNestedInvalidate({ invalidateParent });
           inizializeNestedRepeat({ repeatParent: invalidateParent });
           unFreezePropById({ id, prop: state });
+          afterUpdate();
         });
       });
       return unsubscribe3;
@@ -19514,25 +19519,6 @@
         );
         return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
       },
-      invalidate: ({ bind, render: render2 }) => {
-        const invalidateId = mobCore.getUnivoqueId();
-        const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-        const invalidateRender = () => render2({ html: renderHtml });
-        setInvalidateFunction({
-          id,
-          invalidateId,
-          fn: () => {
-            inizializeInvalidateWatch({
-              bind,
-              watch,
-              id,
-              invalidateId,
-              renderFunction: invalidateRender
-            });
-          }
-        });
-        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
-      },
       getChildren: (componentName) => {
         return getChildrenIdByName({ id, componentName });
       },
@@ -19574,6 +19560,33 @@
         return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
           eventsData
         )}"`;
+      },
+      invalidate: ({
+        bind,
+        render: render2,
+        beforeUpdate = () => Promise.resolve(),
+        afterUpdate = () => {
+        }
+      }) => {
+        const invalidateId = mobCore.getUnivoqueId();
+        const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
+        const invalidateRender = () => render2({ html: renderHtml });
+        setInvalidateFunction({
+          id,
+          invalidateId,
+          fn: () => {
+            inizializeInvalidateWatch({
+              bind,
+              watch,
+              beforeUpdate,
+              afterUpdate,
+              id,
+              invalidateId,
+              renderFunction: invalidateRender
+            });
+          }
+        });
+        return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
       },
       repeat: ({
         watch: stateToWatch,
@@ -28230,7 +28243,13 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
+  var getInvalidateRender = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    getState,
+    bindProps,
+    repeat
+  }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28249,6 +28268,23 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
+                        <div class="c-dynamic-card__invalidate__wrap">
+                            ${repeat({
+        watch: "innerData",
+        render: ({ sync, html }) => {
+          return html`<dynamic-list-card-inner
+                                        ${bindProps({
+            props: ({ innerData: innerData2 }, index) => {
+              return {
+                key: `${innerData2[index].key}`
+              };
+            }
+          })}
+                                        ${sync}
+                                    ></dynamic-list-card-inner>`;
+        }
+      })}
+                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28415,7 +28451,9 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2
+          staticProps: staticProps2,
+          repeat,
+          bindProps
         });
       }
     })}

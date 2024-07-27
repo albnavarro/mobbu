@@ -292,6 +292,8 @@ export type PartialRenderComponent = (arg0: {
  */
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: Array<OnlyStringKey<T>>;
+    beforeUpdate?(): Promise<any>;
+    afterUpdate?(): void;
     render: (arg0: {
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },

@@ -103,30 +103,6 @@ export const getParamsForComponentFunction = ({
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
         },
-        invalidate: ({ bind, render }) => {
-            const invalidateId = mobCore.getUnivoqueId();
-            const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
-            const invalidateRender = () => render({ html: renderHtml });
-
-            setInvalidateFunction({
-                id,
-                invalidateId,
-                fn: () => {
-                    /**
-                     * Fire invalidate id after component parse
-                     */
-                    inizializeInvalidateWatch({
-                        bind,
-                        watch,
-                        id,
-                        invalidateId,
-                        renderFunction: invalidateRender,
-                    });
-                },
-            });
-
-            return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
-        },
         getChildren: (/** @type{string} */ componentName) => {
             return getChildrenIdByName({ id, componentName });
         },
@@ -170,6 +146,37 @@ export const getParamsForComponentFunction = ({
             return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
                 eventsData
             )}"`;
+        },
+        invalidate: ({
+            bind,
+            render,
+            beforeUpdate = () => Promise.resolve(),
+            afterUpdate = () => {},
+        }) => {
+            const invalidateId = mobCore.getUnivoqueId();
+            const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
+            const invalidateRender = () => render({ html: renderHtml });
+
+            setInvalidateFunction({
+                id,
+                invalidateId,
+                fn: () => {
+                    /**
+                     * Fire invalidate id after component parse
+                     */
+                    inizializeInvalidateWatch({
+                        bind,
+                        watch,
+                        beforeUpdate,
+                        afterUpdate,
+                        id,
+                        invalidateId,
+                        renderFunction: invalidateRender,
+                    });
+                },
+            });
+
+            return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
         },
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.

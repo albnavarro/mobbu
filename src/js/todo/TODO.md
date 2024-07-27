@@ -52,7 +52,6 @@ const query = [...queryAllFutureComponent(element)];
 - `beforeUpdate` sará asincono.
 
 ## 3) update DOCS.
-- Aggiornare `repeater` to `each`.
 - Specificare che all' interno di `invalidate` si possono innestare `invalidate/repeater` nello stesso `scope`.
 
 ## 4) Repeat.

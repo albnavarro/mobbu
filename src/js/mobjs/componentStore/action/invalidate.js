@@ -243,6 +243,8 @@ const inizializeNestedInvalidate = ({ invalidateParent }) => {
 /**
  * @param {object} params
  * @param {string[]} params.bind
+ * @param {() => Promise<any>} params.beforeUpdate
+ * @param {() => void} params.afterUpdate
  * @param {import('../../type').Watch<any>} params.watch
  * @param {string} params.id
  * @param {string} params.invalidateId
@@ -252,6 +254,8 @@ const inizializeNestedInvalidate = ({ invalidateParent }) => {
  */
 export const inizializeInvalidateWatch = async ({
     bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {},
     watch,
     id,
     invalidateId,
@@ -306,6 +310,8 @@ export const inizializeInvalidateWatch = async ({
                     return;
                 }
 
+                await beforeUpdate();
+
                 /**
                  * Remove child invalidate of this invalidate.
                  */
@@ -351,6 +357,8 @@ export const inizializeInvalidateWatch = async ({
                 inizializeNestedRepeat({ repeatParent: invalidateParent });
 
                 unFreezePropById({ id, prop: state });
+
+                afterUpdate();
             });
         });
 
