@@ -210,7 +210,6 @@ export const destroyNesterRepeat = ({ id, repeatParent }) => {
  * @param {HTMLElement} params.repeatParent
  * @returns {void}
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const inizializeNestedRepeat = ({ repeatParent }) => {
     const newRepeatChild = getRepeatInsideElement(repeatParent);
 
@@ -228,10 +227,10 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
 };
 
 /**
- * @param {object} params
- *
+ * @param {import('../../repeat/type').watchListType} param
+ * @return {void}
  */
-export const inizializeRepeatWatch = async ({
+export const inizializeRepeatWatch = ({
     repeatId,
     state,
     setState,

@@ -197,9 +197,6 @@ export const getParamsForComponentFunction = ({
                         clean,
                         beforeUpdate,
                         afterUpdate,
-                        getChildren: (/** @type{string} */ componentName) => {
-                            return getChildrenIdByName({ id, componentName });
-                        },
                         key,
                         id,
                         render,

@@ -18509,7 +18509,7 @@
       fn();
     });
   };
-  var inizializeRepeatWatch = async ({
+  var inizializeRepeatWatch = ({
     repeatId,
     state,
     setState,
@@ -19600,9 +19600,6 @@
               clean: clean2,
               beforeUpdate,
               afterUpdate,
-              getChildren: (componentName) => {
-                return getChildrenIdByName({ id, componentName });
-              },
               key: key2,
               id,
               render: render2
