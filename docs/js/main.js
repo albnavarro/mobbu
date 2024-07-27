@@ -18456,8 +18456,8 @@
     const currentFunctions = eachFunctionMap.get(id) ?? [];
     eachFunctionMap.set(id, [
       ...currentFunctions,
-      { eachId, fn, unsubscribe: [() => {
-      }] }
+      { eachId, fn, unsubscribe: () => {
+      } }
     ]);
   };
   var addEachUnsubcribe = ({ id, eachId, unsubscribe: unsubscribe3 }) => {
@@ -18491,9 +18491,7 @@
       });
     });
     eachChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe.forEach((fn) => {
-        fn();
-      });
+      item.unsubscribe();
       removeEachByEachId({
         id,
         eachId: item.eachId
@@ -18540,7 +18538,7 @@
     addEachUnsubcribe({
       id,
       eachId,
-      unsubscribe: [unsubscribe3]
+      unsubscribe: unsubscribe3
     });
     emit(state);
   };
@@ -28232,7 +28230,13 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
+  var getInvalidateRender = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    getState,
+    bindProps,
+    each
+  }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28251,6 +28255,23 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
+                        <div class="c-dynamic-card__invalidate__wrap">
+                            ${each({
+        watch: "innerData",
+        render: ({ sync, html }) => {
+          return html`<dynamic-list-card-inner
+                                        ${bindProps({
+            props: ({ innerData: innerData2 }, index) => {
+              return {
+                key: `${innerData2[index].key}`
+              };
+            }
+          })}
+                                        ${sync}
+                                    ></dynamic-list-card-inner>`;
+        }
+      })}
+                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28417,7 +28438,9 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2
+          staticProps: staticProps2,
+          each,
+          bindProps
         });
       }
     })}

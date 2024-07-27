@@ -45,10 +45,6 @@ const query = [...queryAllFutureComponent(element)];
 ```
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
-
-## 1) Each.
-- Unsubscribe nella mappa puó passare da `array` a `funzione singola`.
-
 ## 2) Invalidate 1.
 - Risistemati i punto 1/2 aggiungere `beforeUpdate/afterUpdate` a `invalidate`
 

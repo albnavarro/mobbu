@@ -15,7 +15,7 @@ export const eachIdPlaceHolderMap = new Map();
  * Store initialize each function
  * Key is componentId
  *
- * @type {Map<string, Array<{eachId:string, fn: () => void, unsubscribe: (() => void)[]  }>>}
+ * @type {Map<string, Array<{eachId:string, fn: () => void, unsubscribe: () => void  }>>}
  */
 export const eachFunctionMap = new Map();
 
@@ -105,7 +105,7 @@ export const setEachFunction = ({ id, eachId, fn }) => {
     const currentFunctions = eachFunctionMap.get(id) ?? [];
     eachFunctionMap.set(id, [
         ...currentFunctions,
-        { eachId, fn, unsubscribe: [() => {}] },
+        { eachId, fn, unsubscribe: () => {} },
     ]);
 };
 
@@ -117,7 +117,7 @@ export const setEachFunction = ({ id, eachId, fn }) => {
  * @param {object} params
  * @param {string} params.id - component id
  * @param {string} params.eachId - each id
- * @param {(() => void)[]} params.unsubscribe
+ * @param {() => void} params.unsubscribe
  * @returns {void}
  */
 export const addEachUnsubcribe = ({ id, eachId, unsubscribe }) => {
@@ -194,10 +194,7 @@ export const destroyNesterEach = ({ id, eachParent }) => {
         });
 
     eachChildToDeleteParsed.forEach((item) => {
-        item.unsubscribe.forEach((fn) => {
-            fn();
-        });
-
+        item.unsubscribe();
         removeEachByEachId({
             id,
             eachId: item.eachId,
@@ -267,7 +264,7 @@ export const inizializeEachWatch = async ({
     addEachUnsubcribe({
         id,
         eachId,
-        unsubscribe: [unsubscribe],
+        unsubscribe,
     });
 
     /**
