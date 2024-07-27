@@ -45,15 +45,6 @@ const query = [...queryAllFutureComponent(element)];
 ```
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
-## 2) Invalidate 1.
-- Aggiungere `beforeUpdate/afterUpdate` a `invalidate`
-
-## 2) Invalidate/Repeat
-- `beforeUpdate` sará asincono.
-
-## 3) update DOCS.
-- Specificare che all' interno di `invalidate` si possono innestare `invalidate/repeater` nello stesso `scope`.
-
 ## 4) Repeat.
 - I controlli sugli elementi innesati di invalidati sará possibile copiarli anche in `each`.
 - Ipoteticamente vanno fatti singolarmente per ogni singolo elemento.
