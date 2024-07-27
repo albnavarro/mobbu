@@ -18293,10 +18293,8 @@
     emit,
     watch,
     clean: clean2 = false,
-    beforeUpdate = () => {
-    },
-    afterUpdate = () => {
-    },
+    beforeUpdate,
+    afterUpdate,
     key = "",
     id = "",
     repeatId = "",
@@ -18337,6 +18335,26 @@
         const targetComponentBeforeParse = getRepeaterComponentTarget({
           id: repeatId
         });
+        if (mainComponent && !forceRepeater) {
+          beforeUpdate({
+            element: mainComponent,
+            container: repeatParentElement,
+            childrenId: getChildrenInsideElementByRepeaterId({
+              id,
+              repeatId
+            })
+          });
+        }
+        if (mainComponent && !forceRepeater) {
+          await beforeUpdate({
+            element: mainComponent,
+            container: repeatParentElement,
+            childrenId: getChildrenInsideElementByRepeaterId({
+              id,
+              repeatId
+            })
+          });
+        }
         if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
           const currentChildern = getChildrenInsideElementByRepeaterId({
             id,
@@ -18348,16 +18366,6 @@
           repeatParentElement.textContent = "";
         }
         addActiveRepeat({ id, state, container: repeatParentElement });
-        if (mainComponent) {
-          beforeUpdate({
-            element: mainComponent,
-            container: repeatParentElement,
-            childrenId: getChildrenInsideElementByRepeaterId({
-              id,
-              repeatId
-            })
-          });
-        }
         const currentUnivoque = await updateChildren({
           state,
           repeaterParentElement: repeatParentElement,
@@ -19592,8 +19600,7 @@
         watch: stateToWatch,
         // use alias to maintain ured naming convention.
         clean: clean2 = false,
-        beforeUpdate = () => {
-        },
+        beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         },
         key: key2,

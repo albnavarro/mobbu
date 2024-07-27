@@ -181,7 +181,7 @@ export const getParamsForComponentFunction = ({
         repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             clean = false,
-            beforeUpdate = () => {},
+            beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
             key,
             render,

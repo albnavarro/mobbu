@@ -185,7 +185,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
          * Active Children ids
          */
         childrenId: string[];
-    }): void;
+    }): Promise<void>;
 
     /**
      * @description
@@ -292,7 +292,7 @@ export type PartialRenderComponent = (arg0: {
  */
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: Array<OnlyStringKey<T>>;
-    beforeUpdate?(): Promise<any>;
+    beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
     render: (arg0: {
         html: (

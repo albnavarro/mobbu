@@ -35,8 +35,8 @@ export const watchRepeat = ({
     emit,
     watch,
     clean = false,
-    beforeUpdate = () => {},
-    afterUpdate = () => {},
+    beforeUpdate,
+    afterUpdate,
     key = '',
     id = '',
     repeatId = '',
@@ -121,6 +121,37 @@ export const watchRepeat = ({
                 id: repeatId,
             });
 
+            /**
+             * Execute beforeUpdate function first time ( no await )
+             */
+            if (mainComponent && !forceRepeater) {
+                beforeUpdate({
+                    element: mainComponent,
+                    container: repeatParentElement,
+                    childrenId: getChildrenInsideElementByRepeaterId({
+                        id,
+                        repeatId,
+                    }),
+                });
+            }
+
+            /**
+             * Execute beforeUpdate function on update ( use await )
+             */
+            if (mainComponent && !forceRepeater) {
+                await beforeUpdate({
+                    element: mainComponent,
+                    container: repeatParentElement,
+                    childrenId: getChildrenInsideElementByRepeaterId({
+                        id,
+                        repeatId,
+                    }),
+                });
+            }
+
+            /**
+             * If clean of first time remove DOM from repeater container.
+             */
             if (targetComponentBeforeParse && (clean || forceRepeater)) {
                 const currentChildern = getChildrenInsideElementByRepeaterId({
                     id,
@@ -142,20 +173,6 @@ export const watchRepeat = ({
              * Set current active repeater in mainStore.
              */
             addActiveRepeat({ id, state, container: repeatParentElement });
-
-            /**
-             * Execute beforeUpdate function
-             */
-            if (mainComponent) {
-                beforeUpdate({
-                    element: mainComponent,
-                    container: repeatParentElement,
-                    childrenId: getChildrenInsideElementByRepeaterId({
-                        id,
-                        repeatId,
-                    }),
-                });
-            }
 
             /**
              * Start main update list function

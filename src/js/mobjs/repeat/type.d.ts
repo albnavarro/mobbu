@@ -6,12 +6,12 @@ import { emitType, setType, watchType } from '../../mobCore/store/type';
  * Tehe repeater will execute after component render.
  */
 export interface repeaterType {
-    afterUpdate(arg0: {
+    beforeUpdate(arg0: {
         element: HTMLElement;
         container: HTMLElement;
         childrenId: string[];
-    }): void;
-    beforeUpdate(arg0: {
+    }): Promise<void>;
+    afterUpdate(arg0: {
         element: HTMLElement;
         container: HTMLElement;
         childrenId: string[];
