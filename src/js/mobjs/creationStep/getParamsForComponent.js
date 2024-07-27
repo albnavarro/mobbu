@@ -3,9 +3,9 @@
 import { mobCore } from '../../mobCore';
 import { getChildrenIdByName } from '../componentStore/action/children';
 import {
-    inizializeEachWatch,
-    setEachFunction,
-} from '../componentStore/action/each';
+    inizializeRepeatWatch,
+    setRepeatFunction,
+} from '../componentStore/action/repeat';
 import {
     freezePropById,
     unFreezePropById,
@@ -25,7 +25,7 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_DYNAMIC,
     ATTR_INVALIDATE,
-    ATTR_MOBJS_EACH,
+    ATTR_MOBJS_REPEAT,
     ATTR_PROPS,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
@@ -171,7 +171,7 @@ export const getParamsForComponentFunction = ({
                 eventsData
             )}"`;
         },
-        each: ({
+        repeat: ({
             watch: stateToWatch, // use alias to maintain ured naming convention.
             clean = false,
             beforeUpdate = () => {},
@@ -179,17 +179,17 @@ export const getParamsForComponentFunction = ({
             key,
             render,
         }) => {
-            const eachId = mobCore.getUnivoqueId();
+            const repeatId = mobCore.getUnivoqueId();
 
-            setEachFunction({
+            setRepeatFunction({
                 id,
-                eachId,
+                repeatId,
                 fn: () => {
                     /**
                      * Fire invalidate id after component parse
                      */
-                    inizializeEachWatch({
-                        eachId,
+                    inizializeRepeatWatch({
+                        repeatId,
                         state: stateToWatch,
                         setState,
                         emit,
@@ -207,7 +207,7 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-each ${ATTR_MOBJS_EACH}="${eachId}" style="display:none;"></mobjs-each>`;
+            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>`;
         },
     };
 };

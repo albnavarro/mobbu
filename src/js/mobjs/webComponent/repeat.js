@@ -1,11 +1,11 @@
 //@ts-check
 
-import { addEachParent } from '../componentStore/action/each';
-import { ATTR_MOBJS_EACH } from '../constant';
+import { addRepeatParent } from '../componentStore/action/repeat';
+import { ATTR_MOBJS_REPEAT } from '../constant';
 
-export const defineEachComponent = () => {
+export const defineRepeatComponent = () => {
     customElements.define(
-        'mobjs-each',
+        'mobjs-repeat',
         class extends HTMLElement {
             constructor() {
                 super();
@@ -15,11 +15,11 @@ export const defineEachComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const eachId =
-                        this.shadowRoot?.host.getAttribute(ATTR_MOBJS_EACH);
+                    const repeatId =
+                        this.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
 
                     const parent = /** @type{HTMLElement} */ (this.parentNode);
-                    addEachParent({ id: eachId, parent });
+                    addRepeatParent({ id: repeatId, parent });
 
                     // eslint-disable-next-line unicorn/prefer-dom-node-remove
                     parent?.removeChild(this);

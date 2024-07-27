@@ -16871,7 +16871,7 @@
   var ATTR_PARENT_ID = "parentid";
   var ATTR_REFS = "ref";
   var ATTR_INVALIDATE = "invalidateid";
-  var ATTR_MOBJS_EACH = "mobjseach";
+  var ATTR_MOBJS_REPEAT = "mobjsrepeat";
   var frameDelayAfterParse = 5;
   var DEFAULT_CURRENT_REPEATER_STATE = { current: {}, index: -1 };
   var QUEQUE_TYPE_BINDPROPS = "QUEQUE_BINDPROPS";
@@ -17848,7 +17848,7 @@
             return;
           }
           destroyNesterInvalidate({ id, invalidateParent });
-          destroyNesterEach({ id, eachParent: invalidateParent });
+          destroyNesterRepeat({ id, repeatParent: invalidateParent });
           destroyComponentInsideNodeById({
             id,
             container: invalidateParent
@@ -17868,7 +17868,7 @@
           descrementQueue();
           decrementInvalidateQueque();
           inizializeNestedInvalidate({ invalidateParent });
-          inizializeNestedEach({ eachParent: invalidateParent });
+          inizializeNestedRepeat({ repeatParent: invalidateParent });
           unFreezePropById({ id, prop: state });
         });
       });
@@ -17922,7 +17922,7 @@
     if (parentPropsWatcher) parentPropsWatcher.forEach((unwatch) => unwatch());
     removeRepeaterComponentTargetByParentId({ id });
     removeInvalidateId({ id });
-    removeEachId({ id });
+    removeRepeaterId({ id });
     removeCurrentIdToDynamicProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -17983,7 +17983,7 @@
     return repeatIsActive;
   };
 
-  // src/js/mobjs/each/utils.js
+  // src/js/mobjs/repeat/utils.js
   var getNewElement = (current = [], previous = [], key = "") => {
     return current.filter((el) => {
       const value = el?.[key];
@@ -18041,7 +18041,7 @@
     return value ?? DEFAULT_CURRENT_REPEATER_STATE;
   };
 
-  // src/js/mobjs/each/addWithKey.js
+  // src/js/mobjs/repeat/addWithKey.js
   var BEFORE = "beforebegin";
   var AFTER = "afterend";
   function getPartialsComponentList({
@@ -18177,7 +18177,7 @@
     return currentUnique;
   };
 
-  // src/js/mobjs/each/addWithoutKey.js
+  // src/js/mobjs/repeat/addWithoutKey.js
   var addWithoutKey = ({
     state = "",
     current = [],
@@ -18247,7 +18247,7 @@
     return current;
   };
 
-  // src/js/mobjs/each/updateChildren.js
+  // src/js/mobjs/repeat/updateChildren.js
   var updateChildren = async ({
     state = "",
     repeaterParentElement = document.createElement("div"),
@@ -18281,8 +18281,8 @@
     return currentUnivoque;
   };
 
-  // src/js/mobjs/each/eachList.js
-  var watchEach = ({
+  // src/js/mobjs/repeat/repeatList.js
+  var watchRepeat = ({
     state = "",
     setState,
     emit,
@@ -18294,7 +18294,7 @@
     },
     key = "",
     id = "",
-    eachId = "",
+    repeatId = "",
     render: render2
   }) => {
     const mainComponent = getElementById({ id });
@@ -18303,8 +18303,8 @@
       state,
       async (current, previous) => {
         if (!mobCore.checkType(Array, current)) return;
-        const eachParentElement = getEachParent({
-          id: eachId
+        const repeatParentElement = getRepeatParent({
+          id: repeatId
         });
         const descrementQueue = incrementTickQueuque({
           state,
@@ -18320,7 +18320,7 @@
         const repeatIsRunning = getActiveRepeater({
           id,
           state,
-          container: eachParentElement
+          container: repeatParentElement
         });
         if (repeatIsRunning) {
           unFreezePropById({ id, prop: state });
@@ -18330,44 +18330,44 @@
           return;
         }
         const targetComponentBeforeParse = getRepeaterComponentTarget({
-          id: eachId
+          id: repeatId
         });
         if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
           const currentChildern = getChildrenInsideElementByRepeaterId({
             id,
-            repeatId: eachId
+            repeatId
           });
           currentChildern.forEach((id2) => {
             removeAndDestroyById({ id: id2 });
           });
-          eachParentElement.textContent = "";
+          repeatParentElement.textContent = "";
         }
-        addActiveRepeat({ id, state, container: eachParentElement });
+        addActiveRepeat({ id, state, container: repeatParentElement });
         if (mainComponent) {
           beforeUpdate({
             element: mainComponent,
-            container: eachParentElement,
+            container: repeatParentElement,
             childrenId: getChildrenInsideElementByRepeaterId({
               id,
-              repeatId: eachId
+              repeatId
             })
           });
         }
         const currentUnivoque = await updateChildren({
           state,
-          repeaterParentElement: eachParentElement,
+          repeaterParentElement: repeatParentElement,
           targetComponent: targetComponentBeforeParse,
           current,
           previous: clean2 || forceRepeater ? [] : previous,
           key,
           id,
           render: render2,
-          repeatId: eachId
+          repeatId
         });
         forceRepeater = false;
         const childrenFiltered = getChildrenInsideElementByRepeaterId({
           id,
-          repeatId: eachId
+          repeatId
         });
         const childrenFilteredSorted = [
           ...gerOrderedChildrenById({ children: childrenFiltered })
@@ -18400,14 +18400,14 @@
           if (mainComponent) {
             afterUpdate({
               element: mainComponent,
-              container: eachParentElement,
+              container: repeatParentElement,
               childrenId: childrenFiltered
             });
           }
           removeActiveRepeat({
             id,
             state,
-            container: eachParentElement
+            container: repeatParentElement
           });
           unFreezePropById({ id, prop: state });
           descrementQueue();
@@ -18419,31 +18419,31 @@
     return unsubscribe3;
   };
 
-  // src/js/mobjs/componentStore/action/each.js
-  var eachIdPlaceHolderMap = /* @__PURE__ */ new Map();
-  var eachFunctionMap = /* @__PURE__ */ new Map();
-  var removeEachId = ({ id }) => {
-    if (eachFunctionMap.has(id)) {
-      const value = eachFunctionMap.get(id);
-      value.forEach(({ eachId }) => {
-        if (eachIdPlaceHolderMap.has(eachId)) {
-          eachIdPlaceHolderMap.delete(eachId);
+  // src/js/mobjs/componentStore/action/repeat.js
+  var repeatIdPlaceHolderMap = /* @__PURE__ */ new Map();
+  var repeatFunctionMap = /* @__PURE__ */ new Map();
+  var removeRepeaterId = ({ id }) => {
+    if (repeatFunctionMap.has(id)) {
+      const value = repeatFunctionMap.get(id);
+      value.forEach(({ repeatId }) => {
+        if (repeatIdPlaceHolderMap.has(repeatId)) {
+          repeatIdPlaceHolderMap.delete(repeatId);
         }
       });
-      eachFunctionMap.delete(id);
+      repeatFunctionMap.delete(id);
     }
   };
-  var removeEachByEachId = ({ id, eachId }) => {
-    if (!eachFunctionMap.has(id)) return;
-    const value = eachFunctionMap.get(id);
-    const valueParsed = value.filter((item) => item.eachId !== eachId);
-    if (eachIdPlaceHolderMap.has(eachId)) {
-      eachIdPlaceHolderMap.delete(eachId);
+  var removeRepeatByRepeatId = ({ id, repeatId }) => {
+    if (!repeatFunctionMap.has(id)) return;
+    const value = repeatFunctionMap.get(id);
+    const valueParsed = value.filter((item) => item.repeatId !== repeatId);
+    if (repeatIdPlaceHolderMap.has(repeatId)) {
+      repeatIdPlaceHolderMap.delete(repeatId);
     }
-    eachFunctionMap.set(id, valueParsed);
+    repeatFunctionMap.set(id, valueParsed);
   };
-  var getEachInsideElement = (element) => {
-    const entries = [...eachIdPlaceHolderMap.entries()];
+  var getRepeatInsideElement = (element) => {
+    const entries = [...repeatIdPlaceHolderMap.entries()];
     return entries.filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_id, parent]) => element?.contains(parent) && element !== parent
@@ -18452,65 +18452,65 @@
       parent
     }));
   };
-  var setEachFunction = ({ id, eachId, fn }) => {
-    const currentFunctions = eachFunctionMap.get(id) ?? [];
-    eachFunctionMap.set(id, [
+  var setRepeatFunction = ({ id, repeatId, fn }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
+    repeatFunctionMap.set(id, [
       ...currentFunctions,
-      { eachId, fn, unsubscribe: () => {
+      { repeatId, fn, unsubscribe: () => {
       } }
     ]);
   };
-  var addEachUnsubcribe = ({ id, eachId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = eachFunctionMap.get(id) ?? [];
+  var addRepeatUnsubcribe = ({ id, repeatId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = repeatFunctionMap.get(id) ?? [];
     const item = currentFunctions.map((item2) => {
-      if (item2.eachId === eachId) {
+      if (item2.repeatId === repeatId) {
         return { ...item2, unsubscribe: unsubscribe3 };
       }
       return item2;
     });
-    eachFunctionMap.set(id, item);
+    repeatFunctionMap.set(id, item);
   };
-  var getEachFunctions = ({ id }) => {
-    return eachFunctionMap.get(id) ?? [];
+  var getRepeatFunctions = ({ id }) => {
+    return repeatFunctionMap.get(id) ?? [];
   };
-  var addEachParent = ({ id = "", parent }) => {
-    eachIdPlaceHolderMap.set(id, parent);
+  var addRepeatParent = ({ id = "", parent }) => {
+    repeatIdPlaceHolderMap.set(id, parent);
   };
-  var getEachParent = ({ id }) => {
-    if (!eachIdPlaceHolderMap.has(id)) {
+  var getRepeatParent = ({ id }) => {
+    if (!repeatIdPlaceHolderMap.has(id)) {
       return;
     }
-    const parent = eachIdPlaceHolderMap.get(id);
+    const parent = repeatIdPlaceHolderMap.get(id);
     return parent;
   };
-  var destroyNesterEach = ({ id, eachParent }) => {
-    const eachChildToDelete = getEachInsideElement(eachParent);
-    const eachChildToDeleteParsed = [...eachFunctionMap.values()].flat().filter((item) => {
-      return eachChildToDelete.some((current) => {
-        return current.id === item.eachId;
+  var destroyNesterRepeat = ({ id, repeatParent }) => {
+    const repeatChildToDelete = getRepeatInsideElement(repeatParent);
+    const repeatChildToDeleteParsed = [...repeatFunctionMap.values()].flat().filter((item) => {
+      return repeatChildToDelete.some((current) => {
+        return current.id === item.repeatId;
       });
     });
-    eachChildToDeleteParsed.forEach((item) => {
+    repeatChildToDeleteParsed.forEach((item) => {
       item.unsubscribe();
-      removeEachByEachId({
+      removeRepeatByRepeatId({
         id,
-        eachId: item.eachId
+        repeatId: item.repeatId
       });
     });
   };
-  var inizializeNestedEach = ({ eachParent }) => {
-    const newEachChild = getEachInsideElement(eachParent);
-    const eachChildToInizialize = [...eachFunctionMap.values()].flat().filter((item) => {
-      return newEachChild.some((current) => {
-        return current.id === item.eachId;
+  var inizializeNestedRepeat = ({ repeatParent }) => {
+    const newRepeatChild = getRepeatInsideElement(repeatParent);
+    const repeatChildToInizialize = [...repeatFunctionMap.values()].flat().filter((item) => {
+      return newRepeatChild.some((current) => {
+        return current.id === item.repeatId;
       });
     });
-    eachChildToInizialize.forEach(({ fn }) => {
+    repeatChildToInizialize.forEach(({ fn }) => {
       fn();
     });
   };
-  var inizializeEachWatch = async ({
-    eachId,
+  var inizializeRepeatWatch = async ({
+    repeatId,
     state,
     setState,
     emit,
@@ -18522,7 +18522,7 @@
     id,
     render: render2
   }) => {
-    const unsubscribe3 = watchEach({
+    const unsubscribe3 = watchRepeat({
       state,
       setState,
       emit,
@@ -18532,33 +18532,33 @@
       afterUpdate,
       key,
       id,
-      eachId,
+      repeatId,
       render: render2
     });
-    addEachUnsubcribe({
+    addRepeatUnsubcribe({
       id,
-      eachId,
+      repeatId,
       unsubscribe: unsubscribe3
     });
     emit(state);
   };
 
-  // src/js/mobjs/webComponent/each.js
-  var defineEachComponent = () => {
+  // src/js/mobjs/webComponent/repeat.js
+  var defineRepeatComponent = () => {
     customElements.define(
-      "mobjs-each",
+      "mobjs-repeat",
       class extends HTMLElement {
         constructor() {
           super();
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            const eachId = this.shadowRoot?.host.getAttribute(ATTR_MOBJS_EACH);
+            const repeatId = this.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
             const parent = (
               /** @type{HTMLElement} */
               this.parentNode
             );
-            addEachParent({ id: eachId, parent });
+            addRepeatParent({ id: repeatId, parent });
             parent?.removeChild(this);
           }
         }
@@ -19070,7 +19070,7 @@
     defineUserComponent(componentListMap);
     defineSlotComponent();
     defineInvalidateComponent();
-    defineEachComponent();
+    defineRepeatComponent();
   };
   var getComponentList = () => {
     return componentListMap;
@@ -19575,7 +19575,7 @@
           eventsData
         )}"`;
       },
-      each: ({
+      repeat: ({
         watch: stateToWatch,
         // use alias to maintain ured naming convention.
         clean: clean2 = false,
@@ -19586,13 +19586,13 @@
         key: key2,
         render: render2
       }) => {
-        const eachId = mobCore.getUnivoqueId();
-        setEachFunction({
+        const repeatId = mobCore.getUnivoqueId();
+        setRepeatFunction({
           id,
-          eachId,
+          repeatId,
           fn: () => {
-            inizializeEachWatch({
-              eachId,
+            inizializeRepeatWatch({
+              repeatId,
               state: stateToWatch,
               setState,
               emit,
@@ -19609,7 +19609,7 @@
             });
           }
         });
-        return `<mobjs-each ${ATTR_MOBJS_EACH}="${eachId}" style="display:none;"></mobjs-each>`;
+        return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>`;
       }
     };
   };
@@ -19757,11 +19757,11 @@
           onMount,
           fireDynamic,
           fireInvalidateFunction,
-          fireEachFunction
+          fireRepeatFunction
         } = item;
         await onMount();
         fireDynamic();
-        fireEachFunction();
+        fireRepeatFunction();
         fireInvalidateFunction();
       }
       functionToFireAtTheEnd.length = 0;
@@ -19875,7 +19875,7 @@
     }
     setElementById({ id, newElement });
     const invalidateFunctions = getInvalidateFunctions({ id });
-    const eachFunctions = getEachFunctions({ id });
+    const repeatFunctions = getRepeatFunctions({ id });
     if (bindEventsId) {
       applyBindEvents({
         element: newElement,
@@ -19917,8 +19917,8 @@
         });
       } : () => {
       },
-      fireEachFunction: eachFunctions.length > 0 ? () => {
-        eachFunctions.forEach(({ fn }) => {
+      fireRepeatFunction: repeatFunctions.length > 0 ? () => {
+        repeatFunctions.forEach(({ fn }) => {
           fn?.();
         });
       } : () => {
@@ -23236,7 +23236,7 @@ Loading snippet ...</pre
     onMount,
     setState,
     getState,
-    each,
+    repeat,
     html,
     bindProps,
     delegateEvents,
@@ -23321,7 +23321,7 @@ Loading snippet ...</pre
                     ${icon_copy_default}
                 </button>
                 <div class="c-code-overlay__header">
-                    ${each({
+                    ${repeat({
       clean: true,
       watch: "urls",
       render: ({ sync }) => {
@@ -23444,8 +23444,11 @@ Loading snippet ...</pre
           invalidateIdPlaceHolderMap
         );
         console.log("invalidateFunctionMap", invalidateFunctionMap);
-        console.log("eachIdPlaceHolderMap", eachIdPlaceHolderMap);
-        console.log("eachFunctionMap", eachFunctionMap);
+        console.log(
+          "repeatIdPlaceHolderMap",
+          repeatIdPlaceHolderMap
+        );
+        console.log("repeatFunctionMap", repeatFunctionMap);
       }
     })}
         >
@@ -24662,7 +24665,7 @@ Loading snippet ...</pre
     bindProps,
     setState,
     getState,
-    each
+    repeat
   }) => {
     onMount(() => {
       if (motionCore.mq("max", "large")) return;
@@ -24689,7 +24692,7 @@ Loading snippet ...</pre
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${each({
+                ${repeat({
       clean: false,
       watch: "anchorItems",
       key: "id",
@@ -28230,13 +28233,7 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({
-    staticProps: staticProps2,
-    delegateEvents,
-    getState,
-    bindProps,
-    each
-  }) => {
+  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28255,23 +28252,6 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
-                        <div class="c-dynamic-card__invalidate__wrap">
-                            ${each({
-        watch: "innerData",
-        render: ({ sync, html }) => {
-          return html`<dynamic-list-card-inner
-                                        ${bindProps({
-            props: ({ innerData: innerData2 }, index) => {
-              return {
-                key: `${innerData2[index].key}`
-              };
-            }
-          })}
-                                        ${sync}
-                                    ></dynamic-list-card-inner>`;
-        }
-      })}
-                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28289,7 +28269,7 @@ Loading snippet ...</pre
     setState,
     delegateEvents,
     invalidate,
-    each
+    repeat
   }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
@@ -28383,7 +28363,7 @@ Loading snippet ...</pre
 
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
-                        ${each({
+                        ${repeat({
       watch: "innerData",
       key: "key",
       render: ({ sync, html: html2 }) => {
@@ -28404,7 +28384,7 @@ Loading snippet ...</pre
 
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
-                        ${each({
+                        ${repeat({
       watch: "innerData",
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
@@ -28438,9 +28418,7 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2,
-          each,
-          bindProps
+          staticProps: staticProps2
         });
       }
     })}
@@ -28595,7 +28573,7 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     delegateEvents,
-    each
+    repeat
   }) => {
     const { listId, key, clean: clean2, label } = getState();
     const keyParsed = key.length > 0 ? key : void 0;
@@ -28604,7 +28582,7 @@ Loading snippet ...</pre
             <h4 class="c-dynamic-list-repeater__title">${label}</h4>
             <p class="c-dynamic-list-repeater__new js-list"></p>
             <div class="c-dynamic-list-repeater__list">
-                ${each({
+                ${repeat({
       watch: "data",
       clean: clean2,
       key: keyParsed,

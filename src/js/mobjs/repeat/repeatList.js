@@ -6,7 +6,7 @@ import {
     getComponentIdByRepeatercontext,
     setRepeaterStateById,
 } from '../componentStore/action/currentRepeatValue';
-import { getEachParent } from '../componentStore/action/each';
+import { getRepeatParent } from '../componentStore/action/repeat';
 import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
@@ -29,7 +29,7 @@ import { getChildrenInsideElementByRepeaterId } from './utils';
  * @param {import('./type').watchListType} param
  * @return {() => void}
  */
-export const watchEach = ({
+export const watchRepeat = ({
     state = '',
     setState,
     emit,
@@ -39,7 +39,7 @@ export const watchEach = ({
     afterUpdate = () => {},
     key = '',
     id = '',
-    eachId = '',
+    repeatId = '',
     render,
 }) => {
     const mainComponent = getElementById({ id });
@@ -59,8 +59,8 @@ export const watchEach = ({
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
             if (!mobCore.checkType(Array, current)) return;
 
-            const eachParentElement = getEachParent({
-                id: eachId,
+            const repeatParentElement = getRepeatParent({
+                id: repeatId,
             });
 
             /**
@@ -95,7 +95,7 @@ export const watchEach = ({
             const repeatIsRunning = getActiveRepeater({
                 id,
                 state,
-                container: eachParentElement,
+                container: repeatParentElement,
             });
 
             if (repeatIsRunning) {
@@ -118,13 +118,13 @@ export const watchEach = ({
              * If clean is active remove previous children.
              */
             const targetComponentBeforeParse = getRepeaterComponentTarget({
-                id: eachId,
+                id: repeatId,
             });
 
             if (targetComponentBeforeParse && (clean || forceRepeater)) {
                 const currentChildern = getChildrenInsideElementByRepeaterId({
                     id,
-                    repeatId: eachId,
+                    repeatId,
                 });
 
                 currentChildern.forEach((id) => {
@@ -135,13 +135,13 @@ export const watchEach = ({
                  * Web component trick.
                  * Sure to delete host element.
                  */
-                eachParentElement.textContent = '';
+                repeatParentElement.textContent = '';
             }
 
             /**
              * Set current active repeater in mainStore.
              */
-            addActiveRepeat({ id, state, container: eachParentElement });
+            addActiveRepeat({ id, state, container: repeatParentElement });
 
             /**
              * Execute beforeUpdate function
@@ -149,10 +149,10 @@ export const watchEach = ({
             if (mainComponent) {
                 beforeUpdate({
                     element: mainComponent,
-                    container: eachParentElement,
+                    container: repeatParentElement,
                     childrenId: getChildrenInsideElementByRepeaterId({
                         id,
-                        repeatId: eachId,
+                        repeatId,
                     }),
                 });
             }
@@ -162,14 +162,14 @@ export const watchEach = ({
              */
             const currentUnivoque = await updateChildren({
                 state,
-                repeaterParentElement: eachParentElement,
+                repeaterParentElement: repeatParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
                 key,
                 id,
                 render,
-                repeatId: eachId,
+                repeatId,
             });
 
             /**
@@ -183,7 +183,7 @@ export const watchEach = ({
 
             const childrenFiltered = getChildrenInsideElementByRepeaterId({
                 id,
-                repeatId: eachId,
+                repeatId,
             });
 
             /**
@@ -267,7 +267,7 @@ export const watchEach = ({
                 if (mainComponent) {
                     afterUpdate({
                         element: mainComponent,
-                        container: eachParentElement,
+                        container: repeatParentElement,
                         childrenId: childrenFiltered,
                     });
                 }
@@ -281,7 +281,7 @@ export const watchEach = ({
                 removeActiveRepeat({
                     id,
                     state,
-                    container: eachParentElement,
+                    container: repeatParentElement,
                 });
 
                 unFreezePropById({ id, prop: state });

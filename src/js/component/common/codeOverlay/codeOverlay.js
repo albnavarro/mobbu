@@ -124,7 +124,7 @@ export const CodeOverlayFn = ({
     onMount,
     setState,
     getState,
-    each,
+    repeat,
     html,
     bindProps,
     delegateEvents,
@@ -236,7 +236,7 @@ export const CodeOverlayFn = ({
                     ${copyIcon}
                 </button>
                 <div class="c-code-overlay__header">
-                    ${each({
+                    ${repeat({
                         clean: true,
                         watch: 'urls',
                         render: ({ sync }) => {

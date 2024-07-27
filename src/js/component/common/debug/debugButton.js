@@ -8,9 +8,9 @@ import {
     tempDelegateEventMap,
 } from '../../../mobjs';
 import {
-    eachFunctionMap,
-    eachIdPlaceHolderMap,
-} from '../../../mobjs/componentStore/action/each';
+    repeatFunctionMap,
+    repeatIdPlaceHolderMap,
+} from '../../../mobjs/componentStore/action/repeat';
 import {
     invalidateFunctionMap,
     invalidateIdPlaceHolderMap,
@@ -53,8 +53,11 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                         invalidateIdPlaceHolderMap
                     );
                     console.log('invalidateFunctionMap', invalidateFunctionMap);
-                    console.log('eachIdPlaceHolderMap', eachIdPlaceHolderMap);
-                    console.log('eachFunctionMap', eachFunctionMap);
+                    console.log(
+                        'repeatIdPlaceHolderMap',
+                        repeatIdPlaceHolderMap
+                    );
+                    console.log('repeatFunctionMap', repeatFunctionMap);
                 },
             })}
         >

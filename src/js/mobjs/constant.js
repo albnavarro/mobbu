@@ -88,7 +88,7 @@ export const ATTR_INVALIDATE = 'invalidateid';
 /**
  * @type {string};
  */
-export const ATTR_MOBJS_EACH = 'mobjseach';
+export const ATTR_MOBJS_REPEAT = 'mobjsrepeat';
 
 /**
  * @type {number};

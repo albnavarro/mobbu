@@ -83,7 +83,7 @@ export const DynamicListRepeaterFn = ({
     staticProps,
     bindProps,
     delegateEvents,
-    each,
+    repeat,
 }) => {
     const { listId, key, clean, label } = getState();
     const keyParsed = key.length > 0 ? key : undefined;
@@ -93,7 +93,7 @@ export const DynamicListRepeaterFn = ({
             <h4 class="c-dynamic-list-repeater__title">${label}</h4>
             <p class="c-dynamic-list-repeater__new js-list"></p>
             <div class="c-dynamic-list-repeater__list">
-                ${each({
+                ${repeat({
                     watch: 'data',
                     clean,
                     key: keyParsed,

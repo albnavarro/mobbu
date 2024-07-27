@@ -14,7 +14,7 @@ import {
     PartialGetParentId,
     PartialGetState,
     PartialInvalidateComponent,
-    PartialEach,
+    PartialRepeat,
     PartialOnMount,
     PartialRemove,
     PartialRemoveDOM,
@@ -52,7 +52,7 @@ export type RenderComponent = PartialRenderComponent;
 export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
-export type Each<T> = PartialEach<T>;
+export type Repeat<T> = PartialRepeat<T>;
 
 /**
  * Main component.
@@ -548,7 +548,7 @@ export interface componentPropsType<T, R> {
      *
      * ```
      */
-    each: Each<T>;
+    repeat: Repeat<T>;
 
     /**
      * @description

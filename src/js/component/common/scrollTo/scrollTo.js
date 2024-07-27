@@ -74,7 +74,7 @@ export const ScrollToFn = ({
     bindProps,
     setState,
     getState,
-    each,
+    repeat,
 }) => {
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
@@ -107,7 +107,7 @@ export const ScrollToFn = ({
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${each({
+                ${repeat({
                     clean: false,
                     watch: 'anchorItems',
                     key: 'id',

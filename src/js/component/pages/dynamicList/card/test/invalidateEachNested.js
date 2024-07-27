@@ -3,7 +3,7 @@ const getInvalidateRender = ({
     delegateEvents,
     getState,
     bindProps,
-    each,
+    repeat,
 }) => {
     const { counter } = getState();
 
@@ -26,7 +26,7 @@ const getInvalidateRender = ({
                         >
                         </dynamic-list-card-inner>
                         <div class="c-dynamic-card__invalidate__wrap">
-                            ${each({
+                            ${repeat({
                                 watch: 'innerData',
                                 render: ({ sync, html }) => {
                                     return html`<dynamic-list-card-inner

@@ -33,5 +33,5 @@ export interface repeaterType {
 }
 
 export interface watchListType extends repeaterType {
-    eachId: string;
+    repeatId: string;
 }

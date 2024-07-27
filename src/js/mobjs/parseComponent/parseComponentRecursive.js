@@ -34,13 +34,13 @@ import {
 } from '../componentStore/action/currentRepeatValue';
 import { addRepeatTargetComponent } from '../temporaryData/repeaterTargetComponent';
 import { getInvalidateFunctions } from '../componentStore/action/invalidate';
-import { getEachFunctions } from '../componentStore/action/each';
+import { getRepeatFunctions } from '../componentStore/action/repeat';
 
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
- * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireEachFunction:function}>} [ obj.functionToFireAtTheEnd ]
+ * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
@@ -106,11 +106,11 @@ export const parseComponentsRecursive = async ({
                 onMount,
                 fireDynamic,
                 fireInvalidateFunction,
-                fireEachFunction,
+                fireRepeatFunction,
             } = item;
             await onMount();
             fireDynamic();
-            fireEachFunction();
+            fireRepeatFunction();
             fireInvalidateFunction();
         }
 
@@ -358,7 +358,7 @@ export const parseComponentsRecursive = async ({
      * Execute invalidateFunction.
      */
     const invalidateFunctions = getInvalidateFunctions({ id });
-    const eachFunctions = getEachFunctions({ id });
+    const repeatFunctions = getRepeatFunctions({ id });
 
     // const bindEventsId = objectFromComponentFunction?.bindEventsId;
     if (bindEventsId) {
@@ -431,10 +431,10 @@ export const parseComponentsRecursive = async ({
                       });
                   }
                 : () => {},
-        fireEachFunction:
-            eachFunctions.length > 0
+        fireRepeatFunction:
+            repeatFunctions.length > 0
                 ? () => {
-                      eachFunctions.forEach(({ fn }) => {
+                      repeatFunctions.forEach(({ fn }) => {
                           fn?.();
                       });
                   }
