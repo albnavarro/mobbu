@@ -34,8 +34,20 @@
 
 
 # MobJs
+
+## ParseComponent
+- In teria e possibile evitare di fare query nel DOM alla ricerca di `userCompoennt`:
+- `useComponent` andrá a salvare in un apposita mappa la propia root ( host ? ).
+- `getParseSourceArray` potra attingere direttamante a questa mappa senza dover eseguire alcuna `query`.
+- al posto di:
+```js
+const query = [...queryAllFutureComponent(element)];
+```
+- verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
+
+
 ## 1) Each.
-- Undibscribe nella mappa puó passare da `array` a `funzione singola`.
+- Unsubscribe nella mappa puó passare da `array` a `funzione singola`.
 
 ## 2) Invalidate 1.
 - Risistemati i punto 1/2 aggiungere `beforeUpdate/afterUpdate` a `invalidate`
