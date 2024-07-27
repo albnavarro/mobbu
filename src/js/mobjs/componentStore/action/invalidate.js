@@ -4,7 +4,6 @@ import { MAIN_STORE_ASYNC_PARSER } from '../../mainStore/constant';
 import { mainStore } from '../../mainStore/mainStore';
 import { incrementTickQueuque } from '../tick';
 import { incrementInvalidateTickQueuque } from '../tickInvalidate';
-import { repeaterTick } from '../tickRepeater';
 import { destroyNesterRepeat, inizializeNestedRepeat } from './repeat';
 import { freezePropById, unFreezePropById } from './freeze';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
@@ -278,12 +277,6 @@ export const inizializeInvalidateWatch = async ({
             const invalidateParent = getInvalidateParent({
                 id: invalidateId,
             });
-
-            /**
-             * Invalidate component after repeater
-             * Invalidate can be used inside repaater, but should be updated after
-             */
-            await repeaterTick();
 
             /**
              * Track queque.
