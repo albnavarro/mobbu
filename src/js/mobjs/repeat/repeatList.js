@@ -32,7 +32,7 @@ import { getChildrenInsideElementByRepeaterId } from './utils';
 export const watchRepeat = ({
     state = '',
     setState,
-    emit,
+    // emit,
     watch,
     clean = false,
     beforeUpdate,
@@ -45,10 +45,14 @@ export const watchRepeat = ({
     const mainComponent = getElementById({ id });
 
     /**
+     * Use if first render from repeat params is removed.
+     * - forceRepeater = true
+     * - emit at the end
+     *
      * First run use an empty previous array
      * To run first emit from definition store.
      */
-    let forceRepeater = true;
+    let forceRepeater = false;
 
     /**
      * Watcher is destroyed with the component tahu implement list repeater.
@@ -312,7 +316,7 @@ export const watchRepeat = ({
         }
     );
 
-    emit(state);
+    // emit(state);
 
     return unsubscribe;
 };

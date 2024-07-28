@@ -23,10 +23,14 @@ import {
 import { watchById } from '../componentStore/action/watch';
 import {
     ATTR_BIND_EVENTS,
+    ATTR_CHILD_REPEATID,
+    ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_INVALIDATE,
+    ATTR_KEY,
     ATTR_MOBJS_REPEAT,
     ATTR_PROPS,
+    ATTR_REPEATER_PROP_BIND,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
@@ -37,6 +41,8 @@ import { addOnMoutCallback } from '../temporaryData/onMount';
 import { setStaticProps } from '../temporaryData/staticProps';
 import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
 import { renderHtml } from './utils';
+import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
+import { getUnivoqueByKey } from '../repeat/utils';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -187,6 +193,42 @@ export const getParamsForComponentFunction = ({
             render,
         }) => {
             const repeatId = mobCore.getUnivoqueId();
+            const hasKey = key && key !== '';
+            const initialState = getState()?.[stateToWatch];
+            const currentUnique = hasKey
+                ? getUnivoqueByKey({ data: initialState, key })
+                : initialState;
+
+            /**
+             * Render immediately first DOM
+             */
+            const firstRender = () => {
+                return currentUnique
+                    .map(
+                        (
+                            /** @type{any} */ item,
+                            /** @type{number} */ index
+                        ) => {
+                            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                                {
+                                    current: item,
+                                    index: index,
+                                }
+                            )}"
+                            ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
+                            ${ATTR_REPEATER_PROP_BIND}="${stateToWatch}"
+                            ${ATTR_CHILD_REPEATID}="${repeatId}"`;
+
+                            return render({
+                                sync,
+                                index,
+                                currentValue: item,
+                                html: renderHtml,
+                            });
+                        }
+                    )
+                    .join('');
+            };
 
             setRepeatFunction({
                 id,
@@ -211,7 +253,7 @@ export const getParamsForComponentFunction = ({
                 },
             });
 
-            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>`;
+            return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${firstRender()}`;
         },
     };
 };

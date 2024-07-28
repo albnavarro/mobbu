@@ -22,6 +22,7 @@ import { renderHtml } from '../creationStep/utils';
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {Function} obj.render
+ * @param {string} [ obj.key ]
  * @param {string} obj.id
  * @param {string} obj.repeatId
  * @return {array}

@@ -22,7 +22,7 @@ export interface repeaterType {
     state: string | undefined;
     setState: setType;
     watch: watchType;
-    emit: emitType;
+    emit?: emitType;
     render: (arg0: {
         sync: string;
         html?: (
