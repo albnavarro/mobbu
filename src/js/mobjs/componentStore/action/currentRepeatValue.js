@@ -75,11 +75,31 @@ export const getRepeaterStateById = ({ id = '' }) => {
  * @return { void }
  *
  * @description
+ * Get children of isRepeaterFirstChildNode that is not isRepeaterFirstChildNode
+ * isRepeaterFirstChildNode === getComponentRepeatId() value.
+ *
+ * Teorically if child sf second isRepeaterFirstChildNode is marked.
+ * The context value is updated when inner isRepeaterFirstChildNode is parsed.
+ * tocheck.
  */
 export const setRepeaterContext = ({ element, id }) => {
+    /**
+     * All children
+     */
     const children = queryAllFutureComponent(element, false);
 
-    children.forEach((child) => {
+    /**
+     * Filter not isRepeaterFirstChildNode
+     */
+    const childrenFiltered = children.filter((child) => {
+        const currentRepeatId = child.getComponentRepeatId();
+        return !currentRepeatId || currentRepeatId === '';
+    });
+
+    /**
+     * Set repeat context
+     */
+    childrenFiltered.forEach((child) => {
         child.setAttribute(ATTR_REPEATER_CONTEXT, id);
     });
 };
