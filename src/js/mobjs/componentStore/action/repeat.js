@@ -265,9 +265,4 @@ export const inizializeRepeatWatch = ({
         repeatId,
         unsubscribe,
     });
-
-    /**
-     * First rendering
-     */
-    emit(state);
 };

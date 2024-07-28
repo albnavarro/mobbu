@@ -18551,7 +18551,6 @@
       repeatId,
       unsubscribe: unsubscribe3
     });
-    emit(state);
   };
 
   // src/js/mobjs/webComponent/repeat.js
