@@ -1,7 +1,6 @@
 //@ts-check
 
-import { addInvalidateParent } from '../componentStore/action/invalidate';
-import { ATTR_INVALIDATE } from '../constant';
+import { setWebComponentInvalidareParent } from './setWebComponentParent';
 
 export const defineInvalidateComponent = () => {
     customElements.define(
@@ -15,14 +14,7 @@ export const defineInvalidateComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const invalidateId =
-                        this.shadowRoot?.host.getAttribute(ATTR_INVALIDATE);
-
-                    const parent = /** @type{HTMLElement} */ (this.parentNode);
-                    addInvalidateParent({ id: invalidateId, parent });
-
-                    // eslint-disable-next-line unicorn/prefer-dom-node-remove
-                    parent?.removeChild(this);
+                    setWebComponentInvalidareParent({ context: this });
                 }
             }
         }
