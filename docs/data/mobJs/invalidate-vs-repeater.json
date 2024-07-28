@@ -72,7 +72,10 @@
                 "dots": true,
                 "items": [
                     "Both functions must be contained in a unique div",
-                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>."
+                    "A repeater with the <span class='quote'>clean=true</span> option is in all respects the mirror image of an <span class='quote'>invalidate</span>.",
+                    "<span class='quote'>Both</span> can be used multiple times in the same <span class='quote'>component/scope</span>",
+                    "<span class='quote'>Invalidate</span> <strong>can</strong> nest in same <span class='quote'>component/scope</span> multiple <span class='quote'>repeat/invalidate</span> function",
+                    "<span class='quote'>Repeater</span> <strong>can't</strong> nest in same <span class='quote'>component/scope</span> multiple <span class='quote'>repeat/invalidate</span> function"
                 ]
             }
         },

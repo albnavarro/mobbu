@@ -97,7 +97,7 @@
                 "style": "medium",
                 "items": [
                     "<strong>Container</strong>: The invalidate function must be contained in a unique DOM element",
-                    "<strong>Nested element</strong>: Is possibile nested in same <span class='quote'>component/scope</span> multiple <span class='quote'>repeat/invalidate</span> function"
+                    "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
                 ]
             }
         },
