@@ -45,14 +45,7 @@ const query = [...queryAllFutureComponent(element)];
 ```
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
-## Repeat a)
-- Repeat puó ritornare il DOM come `invalidate` per essere renderizzato subito.
-- tornara un `map` in cui prepara `sync`.
-- in `watchRepeat`niente `emit` e niente `forceRepeater`
-- in `dynamicProps` niente `repeaterTick`.
-- ?
-
-## Repeat b)
+## Repeat
 - I controlli sugli elementi innesati di invalidati sará possibile copiarli anche in `each`.
 - Ipoteticamente vanno fatti singolarmente per ogni singolo elemento.
 - Prima di rimuovere il singolo elemento:
@@ -65,6 +58,8 @@ destroyNesterEach({ id, eachParent: elementDaRimuovere });
 inizializeNestedInvalidate({ invalidateParent: elementAggiunto });
 inizializeNestedEach({ eachParent: elementAggiunto });
 ```
+
+- Problema riscontrato: per far funzionare un `invalidate` innestato in un repeater bisogna aggiungere uns etTimeout al webcomponent `invalidate`, dove salva il parent.
 
 
 ## type
