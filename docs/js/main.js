@@ -17209,96 +17209,6 @@
   // src/js/mobjs/creationStep/utils.js
   var renderHtml = String.raw;
 
-  // src/js/mobjs/mainStore/constant.js
-  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
-  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
-  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
-  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
-  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
-  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
-  var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
-
-  // src/js/mobjs/mainStore/mainStore.js
-  var mainStore = mobCore.createStore({
-    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
-      value: {},
-      type: "any",
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
-      skipEqual: false
-    }),
-    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
-      value: false,
-      type: Boolean
-    }),
-    [MAIN_STORE_ASYNC_PARSER]: {
-      element: () => ({
-        value: document.createElement("div"),
-        type: HTMLElement,
-        skipEqual: false
-      }),
-      parentId: () => ({
-        value: "",
-        type: String,
-        skipEqual: false
-      })
-    }
-  });
-
-  // src/js/mobjs/componentStore/tick.js
-  var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize3 = 1e3;
-  var incrementTickQueuque = (props) => {
-    if (queque.size >= maxQueuqueSize3) {
-      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
-      return () => {
-      };
-    }
-    const id = mobCore.getUnivoqueId();
-    queque.set(id, props);
-    return () => queque.delete(id);
-  };
-  var queueIsResolved3 = () => {
-    return queque.size === 0 || queque.size >= maxQueuqueSize3;
-  };
-  var tick = async ({ debug = false, previousResolve } = {}) => {
-    await awaitNextLoop();
-    if (debug) {
-      queque.forEach((value) => {
-        console.log(value);
-      });
-    }
-    if (queueIsResolved3() && previousResolve) {
-      previousResolve();
-      return;
-    }
-    return new Promise((resolve) => {
-      if (queueIsResolved3()) {
-        resolve();
-        return;
-      }
-      tick({ debug, previousResolve: previousResolve ?? resolve });
-    });
-  };
-
   // src/js/mobjs/componentStore/action/children.js
   var getChildrenIdByName = ({ id = "", componentName = "" }) => {
     if (!id || id === "") return [];
@@ -17542,6 +17452,42 @@
     return state?.watch(prop, cb);
   };
 
+  // src/js/mobjs/componentStore/tick.js
+  var queque = /* @__PURE__ */ new Map();
+  var maxQueuqueSize3 = 1e3;
+  var incrementTickQueuque = (props) => {
+    if (queque.size >= maxQueuqueSize3) {
+      console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
+      return () => {
+      };
+    }
+    const id = mobCore.getUnivoqueId();
+    queque.set(id, props);
+    return () => queque.delete(id);
+  };
+  var queueIsResolved3 = () => {
+    return queque.size === 0 || queque.size >= maxQueuqueSize3;
+  };
+  var tick = async ({ debug = false, previousResolve } = {}) => {
+    await awaitNextLoop();
+    if (debug) {
+      queque.forEach((value) => {
+        console.log(value);
+      });
+    }
+    if (queueIsResolved3() && previousResolve) {
+      previousResolve();
+      return;
+    }
+    return new Promise((resolve) => {
+      if (queueIsResolved3()) {
+        resolve();
+        return;
+      }
+      tick({ debug, previousResolve: previousResolve ?? resolve });
+    });
+  };
+
   // src/js/mobjs/temporaryData/dynamicProps/index.js
   var dynamicPropsMap = /* @__PURE__ */ new Map();
   var setBindProps = (propsObj) => {
@@ -17719,6 +17665,224 @@
         repeaterTargetComponentMap.delete(key);
       }
     }
+  };
+
+  // src/js/mobjs/mainStore/constant.js
+  var MAIN_STORE_ACTIVE_ROUTE = "activeRoute";
+  var MAIN_STORE_ACTIVE_PARAMS = "activeParams";
+  var MAIN_STORE_BEFORE_ROUTE_LEAVES = "beforeRouteLeave";
+  var MAIN_STORE_BEFORE_ROUTE_CHANGE = "beforeRouteChange";
+  var MAIN_STORE_AFTER_ROUTE_CHANGE = "afterRouteChange";
+  var MAIN_STORE_ROUTE_IS_LOADING = "routeIsLoading";
+  var MAIN_STORE_ASYNC_PARSER = "repeaterParserAsync";
+
+  // src/js/mobjs/mainStore/mainStore.js
+  var mainStore = mobCore.createStore({
+    [MAIN_STORE_ACTIVE_ROUTE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_ACTIVE_PARAMS]: () => ({
+      value: {},
+      type: "any",
+      skipEqual: false
+    }),
+    [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
+      value: "",
+      type: String,
+      skipEqual: false
+    }),
+    [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
+      value: false,
+      type: Boolean
+    }),
+    [MAIN_STORE_ASYNC_PARSER]: {
+      element: () => ({
+        value: document.createElement("div"),
+        type: HTMLElement,
+        skipEqual: false
+      }),
+      parentId: () => ({
+        value: "",
+        type: String,
+        skipEqual: false
+      })
+    }
+  });
+
+  // src/js/mobjs/componentStore/action/invalidate.js
+  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
+  var invalidateFunctionMap = /* @__PURE__ */ new Map();
+  var removeInvalidateId = ({ id }) => {
+    if (invalidateFunctionMap.has(id)) {
+      const value = invalidateFunctionMap.get(id);
+      value.forEach(({ invalidateId }) => {
+        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+          invalidateIdPlaceHolderMap.delete(invalidateId);
+        }
+      });
+      invalidateFunctionMap.delete(id);
+    }
+  };
+  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
+    if (!invalidateFunctionMap.has(id)) return;
+    const value = invalidateFunctionMap.get(id);
+    const valueParsed = value.filter(
+      (item) => item.invalidateId !== invalidateId
+    );
+    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
+      invalidateIdPlaceHolderMap.delete(invalidateId);
+    }
+    invalidateFunctionMap.set(id, valueParsed);
+  };
+  var getInvalidateInsideElement = (element) => {
+    const entries = [...invalidateIdPlaceHolderMap.entries()];
+    return entries.filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_id, parent]) => element?.contains(parent) && element !== parent
+    ).map(([id, parent]) => ({
+      id,
+      parent
+    }));
+  };
+  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    invalidateFunctionMap.set(id, [
+      ...currentFunctions,
+      { invalidateId, fn, unsubscribe: [() => {
+      }] }
+    ]);
+  };
+  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
+    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
+    const item = currentFunctions.map((item2) => {
+      if (item2.invalidateId === invalidateId) {
+        return { ...item2, unsubscribe: unsubscribe3 };
+      }
+      return item2;
+    });
+    invalidateFunctionMap.set(id, item);
+  };
+  var getInvalidateFunctions = ({ id }) => {
+    return invalidateFunctionMap.get(id) ?? [];
+  };
+  var addInvalidateParent = ({ id = "", parent }) => {
+    invalidateIdPlaceHolderMap.set(id, parent);
+  };
+  var getInvalidateParent = ({ id }) => {
+    if (!invalidateIdPlaceHolderMap.has(id)) {
+      return;
+    }
+    const parent = invalidateIdPlaceHolderMap.get(id);
+    return parent;
+  };
+  var destroyNesterInvalidate = ({ id, invalidateParent }) => {
+    const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
+    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return invalidatechildToDelete.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToDeleteParsed.forEach((item) => {
+      item.unsubscribe.forEach((fn) => {
+        fn();
+      });
+      removeInvalidateByInvalidateId({
+        id,
+        invalidateId: item.invalidateId
+      });
+    });
+  };
+  var inizializeNestedInvalidate = ({ invalidateParent }) => {
+    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
+    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter((item) => {
+      return newInvalidateChild.some((current) => {
+        return current.id === item.invalidateId;
+      });
+    });
+    invalidateChildToInizialize.forEach(({ fn }) => {
+      fn();
+    });
+  };
+  var inizializeInvalidateWatch = async ({
+    bind = [],
+    beforeUpdate = () => Promise.resolve(),
+    afterUpdate = () => {
+    },
+    watch,
+    id,
+    invalidateId,
+    renderFunction
+  }) => {
+    let watchIsRunning = false;
+    const unsubScribeArray = bind.map((state) => {
+      const unsubscribe3 = watch(state, async () => {
+        if (watchIsRunning) return;
+        freezePropById({ id, prop: state });
+        const invalidateParent = getInvalidateParent({
+          id: invalidateId
+        });
+        const descrementQueue = incrementTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
+          state,
+          id,
+          type: QUEQUE_TYPE_INVALIDATE
+        });
+        watchIsRunning = true;
+        mobCore.useNextLoop(async () => {
+          if (!invalidateParent) {
+            unFreezePropById({ id, prop: state });
+            return;
+          }
+          await beforeUpdate();
+          destroyNesterInvalidate({ id, invalidateParent });
+          destroyNesterRepeat({ id, repeatParent: invalidateParent });
+          destroyComponentInsideNodeById({
+            id,
+            container: invalidateParent
+          });
+          invalidateParent.textContent = "";
+          invalidateParent.insertAdjacentHTML(
+            "afterbegin",
+            renderFunction()
+          );
+          mainStore.set(
+            MAIN_STORE_ASYNC_PARSER,
+            { element: invalidateParent, parentId: id },
+            false
+          );
+          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
+          watchIsRunning = false;
+          descrementQueue();
+          decrementInvalidateQueque();
+          inizializeNestedInvalidate({ invalidateParent });
+          inizializeNestedRepeat({ repeatParent: invalidateParent });
+          unFreezePropById({ id, prop: state });
+          afterUpdate();
+        });
+      });
+      return unsubscribe3;
+    });
+    addInvalidateUnsubcribe({
+      id,
+      invalidateId,
+      unsubscribe: unsubScribeArray
+    });
   };
 
   // src/js/mobjs/componentStore/action/removeAndDestroy.js
@@ -18389,194 +18553,6 @@
     });
   };
 
-  // src/js/mobjs/componentStore/action/invalidate.js
-  var invalidateIdPlaceHolderMap = /* @__PURE__ */ new Map();
-  var invalidateFunctionMap = /* @__PURE__ */ new Map();
-  var removeInvalidateId = ({ id }) => {
-    if (invalidateFunctionMap.has(id)) {
-      const value = invalidateFunctionMap.get(id);
-      value.forEach(({ invalidateId }) => {
-        if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-          invalidateIdPlaceHolderMap.delete(invalidateId);
-        }
-      });
-      invalidateFunctionMap.delete(id);
-    }
-  };
-  var removeInvalidateByInvalidateId = ({ id, invalidateId }) => {
-    if (!invalidateFunctionMap.has(id)) return;
-    const value = invalidateFunctionMap.get(id);
-    const valueParsed = value.filter(
-      (item) => item.invalidateId !== invalidateId
-    );
-    if (invalidateIdPlaceHolderMap.has(invalidateId)) {
-      invalidateIdPlaceHolderMap.delete(invalidateId);
-    }
-    invalidateFunctionMap.set(id, valueParsed);
-  };
-  var getInvalidateInsideElement = (element) => {
-    const entries = [...invalidateIdPlaceHolderMap.entries()];
-    return entries.filter(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_id, parent]) => element?.contains(parent) && element !== parent
-    ).map(([id, parent]) => ({
-      id,
-      parent
-    }));
-  };
-  var setInvalidateFunction = ({ id, invalidateId, fn }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    invalidateFunctionMap.set(id, [
-      ...currentFunctions,
-      { invalidateId, fn, unsubscribe: [() => {
-      }] }
-    ]);
-  };
-  var addInvalidateUnsubcribe = ({ id, invalidateId, unsubscribe: unsubscribe3 }) => {
-    const currentFunctions = invalidateFunctionMap.get(id) ?? [];
-    const item = currentFunctions.map((item2) => {
-      if (item2.invalidateId === invalidateId) {
-        return { ...item2, unsubscribe: unsubscribe3 };
-      }
-      return item2;
-    });
-    invalidateFunctionMap.set(id, item);
-  };
-  var getInvalidateFunctions = ({ id }) => {
-    return invalidateFunctionMap.get(id) ?? [];
-  };
-  var addInvalidateParent = ({ id = "", parent }) => {
-    invalidateIdPlaceHolderMap.set(id, parent);
-  };
-  var getInvalidateParent = ({ id }) => {
-    if (!invalidateIdPlaceHolderMap.has(id)) {
-      return;
-    }
-    const parent = invalidateIdPlaceHolderMap.get(id);
-    return parent;
-  };
-  var destroyNesterInvalidate = ({ id, invalidateParent }) => {
-    const invalidatechildToDelete = getInvalidateInsideElement(invalidateParent);
-    const invalidateChildToDeleteParsed = [...invalidateFunctionMap.values()].flat().filter((item) => {
-      return invalidatechildToDelete.some((current) => {
-        return current.id === item.invalidateId;
-      });
-    });
-    invalidateChildToDeleteParsed.forEach((item) => {
-      item.unsubscribe.forEach((fn) => {
-        fn();
-      });
-      removeInvalidateByInvalidateId({
-        id,
-        invalidateId: item.invalidateId
-      });
-    });
-  };
-  var inizializeNestedInvalidate = ({ invalidateParent }) => {
-    const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
-    const invalidateChildToInizialize = [...invalidateFunctionMap.values()].flat().filter((item) => {
-      return newInvalidateChild.some((current) => {
-        return current.id === item.invalidateId;
-      });
-    });
-    invalidateChildToInizialize.forEach(({ fn }) => {
-      fn();
-    });
-  };
-  var inizializeInvalidateWatch = async ({
-    bind = [],
-    beforeUpdate = () => Promise.resolve(),
-    afterUpdate = () => {
-    },
-    watch,
-    id,
-    invalidateId,
-    renderFunction
-  }) => {
-    let watchIsRunning = false;
-    const unsubScribeArray = bind.map((state) => {
-      const unsubscribe3 = watch(state, async () => {
-        if (watchIsRunning) return;
-        freezePropById({ id, prop: state });
-        const invalidateParent = getInvalidateParent({
-          id: invalidateId
-        });
-        const descrementQueue = incrementTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        const decrementInvalidateQueque = incrementInvalidateTickQueuque({
-          state,
-          id,
-          type: QUEQUE_TYPE_INVALIDATE
-        });
-        watchIsRunning = true;
-        mobCore.useNextLoop(async () => {
-          if (!invalidateParent) {
-            unFreezePropById({ id, prop: state });
-            return;
-          }
-          await beforeUpdate();
-          destroyNesterInvalidate({ id, invalidateParent });
-          destroyNesterRepeat({ id, repeatParent: invalidateParent });
-          destroyComponentInsideNodeById({
-            id,
-            container: invalidateParent
-          });
-          invalidateParent.textContent = "";
-          invalidateParent.insertAdjacentHTML(
-            "afterbegin",
-            renderFunction()
-          );
-          mainStore.set(
-            MAIN_STORE_ASYNC_PARSER,
-            { element: invalidateParent, parentId: id },
-            false
-          );
-          await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
-          watchIsRunning = false;
-          descrementQueue();
-          decrementInvalidateQueque();
-          inizializeNestedInvalidate({ invalidateParent });
-          inizializeNestedRepeat({ repeatParent: invalidateParent });
-          unFreezePropById({ id, prop: state });
-          afterUpdate();
-        });
-      });
-      return unsubscribe3;
-    });
-    addInvalidateUnsubcribe({
-      id,
-      invalidateId,
-      unsubscribe: unsubScribeArray
-    });
-  };
-
-  // src/js/mobjs/webComponent/setWebComponentParent.js
-  var setWebComponentInvalidareParent = async ({ context }) => {
-    await awaitNextLoop();
-    const invalidateId = context.shadowRoot?.host.getAttribute(ATTR_INVALIDATE);
-    if (!invalidateId) return;
-    const parent = (
-      /** @type{HTMLElement} */
-      context.parentNode
-    );
-    addInvalidateParent({ id: invalidateId, parent });
-    parent?.removeChild(context);
-  };
-  var setWebComponentRepeatParent = async ({ context }) => {
-    await awaitNextLoop();
-    const invalidateId = context.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
-    if (!invalidateId) return;
-    const parent = (
-      /** @type{HTMLElement} */
-      context.parentNode
-    );
-    addRepeatParent({ id: invalidateId, parent });
-    parent?.removeChild(context);
-  };
-
   // src/js/mobjs/webComponent/repeat.js
   var defineRepeatComponent = () => {
     customElements.define(
@@ -18587,7 +18563,13 @@
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            setWebComponentRepeatParent({ context: this });
+            const repeatId = this.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
+            const parent = (
+              /** @type{HTMLElement} */
+              this.parentNode
+            );
+            addRepeatParent({ id: repeatId, parent });
+            parent?.removeChild(this);
           }
         }
       }
@@ -18604,7 +18586,13 @@
           this.attachShadow({ mode: "open" });
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
-            setWebComponentInvalidareParent({ context: this });
+            const invalidateId = this.shadowRoot?.host.getAttribute(ATTR_INVALIDATE);
+            const parent = (
+              /** @type{HTMLElement} */
+              this.parentNode
+            );
+            addInvalidateParent({ id: invalidateId, parent });
+            parent?.removeChild(this);
           }
         }
       }
@@ -28289,7 +28277,13 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
+  var getInvalidateRender = ({
+    staticProps: staticProps2,
+    delegateEvents,
+    getState,
+    invalidate,
+    bindProps
+  }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28308,6 +28302,32 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
+                        <div class="c-dynamic-card__invalidate__wrap">
+                            ${invalidate({
+        bind: ["innerData"],
+        render: () => {
+          const { innerData: innerData2 } = getState();
+          console.log("render");
+          return createArray(counter).map((item2) => {
+            return renderHtml`
+                                                <div>${innerData2.length}</div>
+
+                                                <dynamic-list-card-inner
+                                                    ${bindProps({
+              bind: ["counter"],
+              props: () => {
+                return {
+                  key: `${item2}`
+                };
+              }
+            })}
+                                                >
+                                                </dynamic-list-card-inner>
+                                            `;
+          }).join("");
+        }
+      })}
+                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28474,7 +28494,9 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2
+          staticProps: staticProps2,
+          invalidate,
+          bindProps
         });
       }
     })}
