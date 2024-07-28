@@ -28277,13 +28277,7 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({
-    staticProps: staticProps2,
-    delegateEvents,
-    getState,
-    bindProps,
-    repeat
-  }) => {
+  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28302,23 +28296,6 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
-                        <div class="c-dynamic-card__invalidate__wrap">
-                            ${repeat({
-        watch: "innerData",
-        render: ({ sync, html }) => {
-          return html`<dynamic-list-card-inner
-                                        ${bindProps({
-            props: ({ innerData: innerData2 }, index) => {
-              return {
-                key: `${innerData2[index].key}`
-              };
-            }
-          })}
-                                        ${sync}
-                                    ></dynamic-list-card-inner>`;
-        }
-      })}
-                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28485,9 +28462,7 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2,
-          bindProps,
-          repeat
+          staticProps: staticProps2
         });
       }
     })}
