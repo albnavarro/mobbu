@@ -33,7 +33,13 @@ function createArray(numberOfItem) {
  * @param {import('../../../../mobjs/type').DelegateEvents} params.delegateEvents
  * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListCard>} params.getState
  */
-const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
+const getInvalidateRender = ({
+    staticProps,
+    delegateEvents,
+    getState,
+    bindProps,
+    repeat,
+}) => {
     const { counter } = getState();
 
     return html`
@@ -54,6 +60,23 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
                             })}
                         >
                         </dynamic-list-card-inner>
+                        <div class="c-dynamic-card__invalidate__wrap">
+                            ${repeat({
+                                watch: 'innerData',
+                                render: ({ sync, html }) => {
+                                    return html`<dynamic-list-card-inner
+                                        ${bindProps({
+                                            props: ({ innerData }, index) => {
+                                                return {
+                                                    key: `${innerData[index].key}`,
+                                                };
+                                            },
+                                        })}
+                                        ${sync}
+                                    ></dynamic-list-card-inner>`;
+                                },
+                            })}
+                        </div>
                     </div>
                 `;
             })
@@ -106,6 +129,8 @@ export const DynamicListCardFn = ({
     });
 
     const isFullClass = isFull ? 'is-full' : '';
+
+    let testCounter = 0;
 
     return html`
         <div class="c-dynamic-card ${isFullClass}">
@@ -179,6 +204,35 @@ export const DynamicListCardFn = ({
                         Update:
                     </dynamic-list-button>
 
+                    <dynamic-list-button
+                        class="c-dynamic-card__button"
+                        ${delegateEvents({
+                            click: () => {
+                                testCounter += 1;
+
+                                setState('innerData2', (val) => [
+                                    ...val,
+                                    { key: testCounter },
+                                ]);
+                            },
+                        })}
+                    >
+                        Update +:
+                    </dynamic-list-button>
+
+                    <dynamic-list-button
+                        class="c-dynamic-card__button"
+                        ${delegateEvents({
+                            click: () => {
+                                setState('innerData2', (val) =>
+                                    val.length > 0 ? val.slice(0, -1) : val
+                                );
+                            },
+                        })}
+                    >
+                        Update -:
+                    </dynamic-list-button>
+
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
@@ -204,6 +258,7 @@ export const DynamicListCardFn = ({
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
                             watch: 'innerData',
+                            key: 'key',
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
@@ -215,7 +270,38 @@ export const DynamicListCardFn = ({
                                         },
                                     })}
                                     ${sync}
-                                ></dynamic-list-card-inner>`;
+                                >
+                                    <div class="pippo">
+                                        ${repeat({
+                                            watch: 'innerData2',
+                                            render: ({ html, sync }) => {
+                                                return html`<dynamic-list-card-inner
+                                                    ${bindProps({
+                                                        /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                                        props: (
+                                                            { innerData2 },
+                                                            index
+                                                        ) => {
+                                                            console.log(
+                                                                innerData2,
+                                                                index,
+                                                                innerData2[
+                                                                    index
+                                                                ].key
+                                                            );
+
+                                                            return {
+                                                                key: `${innerData2[index].key}`,
+                                                            };
+                                                        },
+                                                    })}
+                                                    ${sync}
+                                                >
+                                                </dynamic-list-card-inner>`;
+                                            },
+                                        })}
+                                    </div>
+                                </dynamic-list-card-inner>`;
                             },
                         })}
                     </div>
@@ -237,6 +323,8 @@ export const DynamicListCardFn = ({
                                     getState,
                                     delegateEvents,
                                     staticProps,
+                                    repeat,
+                                    bindProps,
                                 });
                             },
                         })}

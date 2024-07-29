@@ -6,7 +6,10 @@ import {
     getComponentIdByRepeatercontext,
     setRepeaterStateById,
 } from '../componentStore/action/currentRepeatValue';
-import { getRepeatParent } from '../componentStore/action/repeat';
+import {
+    getRepeatParent,
+    inizializeNestedRepeat,
+} from '../componentStore/action/repeat';
 import { getElementById } from '../componentStore/action/element';
 import {
     freezePropById,
@@ -24,6 +27,7 @@ import {
 import { getRepeaterComponentTarget } from '../temporaryData/repeaterTargetComponent';
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElementByRepeaterId } from './utils';
+import { inizializeNestedInvalidate } from '../componentStore/action/invalidate';
 
 /**
  * @param {import('./type').watchListType} param
@@ -125,6 +129,11 @@ export const watchRepeat = ({
                 id: repeatId,
             });
 
+            const childrenBeforeUdate = getChildrenInsideElementByRepeaterId({
+                id,
+                repeatId,
+            });
+
             /**
              * Execute beforeUpdate function first time ( no await )
              */
@@ -132,10 +141,7 @@ export const watchRepeat = ({
                 beforeUpdate({
                     element: mainComponent,
                     container: repeatParentElement,
-                    childrenId: getChildrenInsideElementByRepeaterId({
-                        id,
-                        repeatId,
-                    }),
+                    childrenId: childrenBeforeUdate,
                 });
             }
 
@@ -312,6 +318,26 @@ export const watchRepeat = ({
                  */
                 descrementQueue();
                 descrementRepeaterQueue();
+
+                /**
+                 * Initialize repeater/invalidate in same scope
+                 * Nesessary because main component is not parsed here
+                 * Get new children
+                 * Initialize repeater/invalidate inside each new component.
+                 */
+                const newChildren = childrenFiltered.filter(
+                    (x) => !childrenBeforeUdate.includes(x)
+                );
+
+                newChildren.forEach((id) => {
+                    const element = getElementById({ id });
+
+                    inizializeNestedInvalidate({
+                        invalidateParent: element,
+                    });
+
+                    inizializeNestedRepeat({ repeatParent: element });
+                });
             });
         }
     );

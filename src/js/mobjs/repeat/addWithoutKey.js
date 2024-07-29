@@ -13,6 +13,8 @@ import {
 import { getElementById } from '../componentStore/action/element';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
+import { destroyNesterInvalidate } from '../componentStore/action/invalidate';
+import { destroyNesterRepeat } from '../componentStore/action/repeat';
 
 /**
  * @param {object} obj
@@ -145,6 +147,10 @@ export const addWithoutKey = ({
          * Destroy
          */
         childrenToRemoveByKey.forEach((childId) => {
+            const element = getElementById({ id: childId });
+
+            destroyNesterInvalidate({ id, invalidateParent: element });
+            destroyNesterRepeat({ id, repeatParent: element });
             removeAndDestroyById({ id: childId });
         });
 

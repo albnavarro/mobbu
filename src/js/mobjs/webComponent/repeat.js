@@ -1,6 +1,13 @@
 //@ts-check
 
+const setParent = ({ repeatId, context }) => {
+    const parent = /** @type{HTMLElement} */ (context.parentNode);
+    addRepeatParent({ id: repeatId, parent });
+    return parent;
+};
+
 import { addRepeatParent } from '../componentStore/action/repeat';
+import { awaitNextLoop } from '../componentStore/utils';
 import { ATTR_MOBJS_REPEAT } from '../constant';
 
 export const defineRepeatComponent = () => {
@@ -18,11 +25,22 @@ export const defineRepeatComponent = () => {
                     const repeatId =
                         this.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
 
-                    const parent = /** @type{HTMLElement} */ (this.parentNode);
-                    addRepeatParent({ id: repeatId, parent });
+                    /**
+                     * Set parent immediately
+                     */
+                    setParent({ repeatId, context: this });
 
-                    // eslint-disable-next-line unicorn/prefer-dom-node-remove
-                    parent?.removeChild(this);
+                    /**
+                     * Update parent after first loop
+                     * Repater should move element.
+                     */
+                    (async () => {
+                        await awaitNextLoop();
+                        const parent = setParent({ repeatId, context: this });
+
+                        // eslint-disable-next-line unicorn/prefer-dom-node-remove
+                        parent?.removeChild(this);
+                    })();
                 }
             }
         }

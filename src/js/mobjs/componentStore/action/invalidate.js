@@ -191,7 +191,7 @@ export const getInvalidateParent = ({ id }) => {
  * @param {HTMLElement} params.invalidateParent
  * @returns {void}
  */
-const destroyNesterInvalidate = ({ id, invalidateParent }) => {
+export const destroyNesterInvalidate = ({ id, invalidateParent }) => {
     const invalidatechildToDelete =
         getInvalidateInsideElement(invalidateParent);
 
@@ -223,7 +223,7 @@ const destroyNesterInvalidate = ({ id, invalidateParent }) => {
  * @param {HTMLElement} params.invalidateParent
  * @returns {void}
  */
-const inizializeNestedInvalidate = ({ invalidateParent }) => {
+export const inizializeNestedInvalidate = ({ invalidateParent }) => {
     const newInvalidateChild = getInvalidateInsideElement(invalidateParent);
 
     const invalidateChildToInizialize = [...invalidateFunctionMap.values()]

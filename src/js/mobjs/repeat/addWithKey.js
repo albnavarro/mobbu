@@ -22,6 +22,8 @@ import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy'
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { renderHtml } from '../creationStep/utils';
 import { getDefaultComponent } from '../createComponent';
+import { destroyNesterInvalidate } from '../componentStore/action/invalidate';
+import { destroyNesterRepeat } from '../componentStore/action/repeat';
 
 const BEFORE = 'beforebegin';
 const AFTER = 'afterend';
@@ -298,11 +300,13 @@ export const addWithKey = ({
      * REMOVE ELEMENT
      * --------------------------
      */
-    elementToRemoveByKey.forEach((component) => {
-        const id = getIdByElement({ element: component });
-        if (!id) return;
+    elementToRemoveByKey.forEach((element) => {
+        const currentId = getIdByElement({ element: element });
+        if (!currentId) return;
 
-        removeAndDestroyById({ id });
+        destroyNesterInvalidate({ id, invalidateParent: element });
+        destroyNesterRepeat({ id, repeatParent: element });
+        removeAndDestroyById({ id: currentId });
     });
 
     return currentUnique;

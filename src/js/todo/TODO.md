@@ -46,70 +46,9 @@ const query = [...queryAllFutureComponent(element)];
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
 ## Repeat
-- Test repeater innestati: `feat/random-repeater-test-2`
 
-`addWithKey.js`
-
-```js
-elementToRemoveByKey.forEach((element) => {
-    const currentId = getIdByElement({ element: element });
-    if (!currentId) return;
-
-    destroyNesterInvalidate({ id, invalidateParent: element });
-    destroyNesterRepeat({ id, repeatParent: element });
-    removeAndDestroyById({ id: currentId });
-});
-```
-
-`addWithoutKey.js`
-
-```js
-elementToRemoveBchildrenToRemoveByKey.forEach((childId) => {
-    const element = getElementById({ id: childId });
-    destroyNesterInvalidate({ id, invalidateParent: element });
-    destroyNesterRepeat({ id, repeatParent: element });
-    removeAndDestroyById({ id: childId });
-});
-```
-
-`repeatList.js`
-```js
-let forceRepeater = false;
-
-let childrenBeforeUdate = [];
-
-----
-
-const targetComponentBeforeParse = getRepeaterComponentTarget({
-    id: repeatId,
-});
-
-childrenBeforeUdate = getChildrenInsideElementByRepeaterId({
-    id,
-    repeatId,
-});
-
-----
-const newChildren = childrenFiltered.filter(
-    (x) => !childrenBeforeUdate.includes(x)
-);
-
-newChildren.forEach((id) => {
-    const element = getElementById({ id });
-
-    inizializeNestedInvalidate({
-        invalidateParent: element,
-    });
-
-    inizializeNestedRepeat({ repeatParent: element });
-});
-```
-
-- Problema riscontrato: per far funzionare un `invalidate` innestato in un repeater bisogna aggiungere un setTimeout al webcomponent `invalidate`, dove salva il parent, altrimenti il parent letto risulta non presente nel DOM.
-- C'é un problema di sinconismo generale.
-- Se i parent vengono letti al next-loop puó saltare il repeater, altrimenti puo saltare l'invalidate.
-- TODO: siconcronizzare repeater/invalidate in modo che innestanvili reciprocamante funzionino sempre.
-
+- Problema `update+ x volte`, `update`, `update-`, sembra che arrivi una index sfalsata di 1, o elmenti gia distrutti.
+- Ma il risultato e giusto ....
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
