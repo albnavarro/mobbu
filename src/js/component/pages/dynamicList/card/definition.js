@@ -37,6 +37,22 @@ export const DynamicListCard = createComponent({
             value: innerData[0],
             type: Array,
         }),
+        innerData2: () => ({
+            value: [
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+                { key: 1 },
+            ],
+            type: Array,
+        }),
         isSelected: () => ({
             value: false,
             type: Boolean,
