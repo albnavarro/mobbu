@@ -45,11 +45,6 @@ const query = [...queryAllFutureComponent(element)];
 ```
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
-## Repeat
-
-- Problema `update+ x volte`, `update`, `update-`, sembra che arrivi una index sfalsata di 1, o elmenti gia distrutti.
-- Ma il risultato e giusto ....
-
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`

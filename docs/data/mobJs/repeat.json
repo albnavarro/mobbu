@@ -195,8 +195,7 @@
                 "style": "medium",
                 "items": [
                     "<strong>Container</strong>: Each repeater must be instantiated in a node as its only child, other elements added together with the repeater may be lost during upgrades<br/>In the following example the container is represented by the <span class='quote'>.repeater-container</span> node",
-                    "<strong>Nested element</strong>: It is not possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>",
-                    "It is possible to use multiple repeaters in the same scope as long as they are not nested"
+                    "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
                 ]
             }
         },

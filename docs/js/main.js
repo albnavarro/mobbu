@@ -28322,13 +28322,7 @@ Loading snippet ...</pre
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
-  var getInvalidateRender = ({
-    staticProps: staticProps2,
-    delegateEvents,
-    getState,
-    bindProps,
-    repeat
-  }) => {
+  var getInvalidateRender = ({ staticProps: staticProps2, delegateEvents, getState }) => {
     const { counter } = getState();
     return renderHtml`
         ${createArray(counter).map((item) => {
@@ -28347,23 +28341,6 @@ Loading snippet ...</pre
       })}
                         >
                         </dynamic-list-card-inner>
-                        <div class="c-dynamic-card__invalidate__wrap">
-                            ${repeat({
-        watch: "innerData",
-        render: ({ sync, html }) => {
-          return html`<dynamic-list-card-inner
-                                        ${bindProps({
-            props: ({ innerData: innerData2 }, index) => {
-              return {
-                key: `${innerData2[index].key}`
-              };
-            }
-          })}
-                                        ${sync}
-                                    ></dynamic-list-card-inner>`;
-        }
-      })}
-                        </div>
                     </div>
                 `;
     }).join("")}
@@ -28405,7 +28382,6 @@ Loading snippet ...</pre
       };
     });
     const isFullClass = isFull ? "is-full" : "";
-    let testCounter = 0;
     return html`
         <div class="c-dynamic-card ${isFullClass}">
             <div class="c-dynamic-card__container">
@@ -28474,35 +28450,6 @@ Loading snippet ...</pre
                         Update:
                     </dynamic-list-button>
 
-                    <dynamic-list-button
-                        class="c-dynamic-card__button"
-                        ${delegateEvents({
-      click: () => {
-        testCounter += 1;
-        setState("innerData2", (val2) => [
-          ...val2,
-          { key: testCounter }
-        ]);
-      }
-    })}
-                    >
-                        Update +:
-                    </dynamic-list-button>
-
-                    <dynamic-list-button
-                        class="c-dynamic-card__button"
-                        ${delegateEvents({
-      click: () => {
-        setState(
-          "innerData2",
-          (val2) => val2.length > 0 ? val2.slice(0, -1) : val2
-        );
-      }
-    })}
-                    >
-                        Update -:
-                    </dynamic-list-button>
-
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
@@ -28528,7 +28475,6 @@ Loading snippet ...</pre
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
       watch: "innerData",
-      key: "key",
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
@@ -28540,37 +28486,7 @@ Loading snippet ...</pre
           }
         })}
                                     ${sync}
-                                >
-                                    <div class="pippo">
-                                        ${repeat({
-          watch: "innerData2",
-          render: ({ html: html3, sync: sync2 }) => {
-            return html3`<dynamic-list-card-inner
-                                                    ${bindProps({
-              /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
-              props: ({ innerData2 }, index2) => {
-                console.log("--");
-                console.log(
-                  "arraylenght:",
-                  innerData2.length
-                );
-                console.log(
-                  "currentIndex:",
-                  index2
-                );
-                console.log("--");
-                return {
-                  key: `${innerData2[index2]?.key ?? "pippo"}`
-                };
-              }
-            })}
-                                                    ${sync2}
-                                                >
-                                                </dynamic-list-card-inner>`;
-          }
-        })}
-                                    </div>
-                                </dynamic-list-card-inner>`;
+                                ></dynamic-list-card-inner>`;
       }
     })}
                     </div>
@@ -28591,9 +28507,7 @@ Loading snippet ...</pre
         return getInvalidateRender({
           getState,
           delegateEvents,
-          staticProps: staticProps2,
-          repeat,
-          bindProps
+          staticProps: staticProps2
         });
       }
     })}
@@ -28632,22 +28546,6 @@ Loading snippet ...</pre
       }),
       innerData: () => ({
         value: innerData[0],
-        type: Array
-      }),
-      innerData2: () => ({
-        value: [
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 },
-          { key: 1 }
-        ],
         type: Array
       }),
       isSelected: () => ({
