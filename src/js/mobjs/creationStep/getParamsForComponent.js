@@ -163,10 +163,18 @@ export const getParamsForComponentFunction = ({
             const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
             const invalidateRender = () => render({ html: renderHtml });
 
+            /**
+             * When invalidate is inizilized runtime, all neseted invalidate is initialized.
+             * Fire each repeater once.
+             */
+            let isInizialized = false;
+
             setInvalidateFunction({
                 id,
                 invalidateId,
                 fn: () => {
+                    if (isInizialized) return;
+
                     /**
                      * Fire invalidate id after component parse
                      */
@@ -179,6 +187,8 @@ export const getParamsForComponentFunction = ({
                         invalidateId,
                         renderFunction: invalidateRender,
                     });
+
+                    isInizialized = true;
                 },
             });
 
@@ -230,10 +240,18 @@ export const getParamsForComponentFunction = ({
                     .join('');
             };
 
+            /**
+             * When repeater is inizilized runtime, all neseted repater is initialized.
+             * Fire each repeater once.
+             */
+            let isInizialized = false;
+
             setRepeatFunction({
                 id,
                 repeatId,
                 fn: () => {
+                    if (isInizialized) return;
+
                     /**
                      * Fire invalidate id after component parse
                      */
@@ -250,6 +268,8 @@ export const getParamsForComponentFunction = ({
                         id,
                         render,
                     });
+
+                    isInizialized = true;
                 },
             });
 

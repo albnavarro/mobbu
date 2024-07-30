@@ -19615,10 +19615,12 @@
         const invalidateId = mobCore.getUnivoqueId();
         const sync = `${ATTR_INVALIDATE}=${invalidateId}`;
         const invalidateRender = () => render2({ html: renderHtml });
+        let isInizialized = false;
         setInvalidateFunction({
           id,
           invalidateId,
           fn: () => {
+            if (isInizialized) return;
             inizializeInvalidateWatch({
               bind,
               watch,
@@ -19628,6 +19630,7 @@
               invalidateId,
               renderFunction: invalidateRender
             });
+            isInizialized = true;
           }
         });
         return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
@@ -19670,10 +19673,12 @@
             }
           ).join("");
         };
+        let isInizialized = false;
         setRepeatFunction({
           id,
           repeatId,
           fn: () => {
+            if (isInizialized) return;
             inizializeRepeatWatch({
               repeatId,
               state: stateToWatch,
@@ -19687,6 +19692,7 @@
               id,
               render: render2
             });
+            isInizialized = true;
           }
         });
         return `<mobjs-repeat ${ATTR_MOBJS_REPEAT}="${repeatId}" style="display:none;"></mobjs-repeat>${firstRender()}`;
@@ -19840,9 +19846,9 @@
           fireRepeatFunction
         } = item;
         await onMount();
-        fireDynamic();
         fireRepeatFunction();
         fireInvalidateFunction();
+        fireDynamic();
       }
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
@@ -28543,13 +28549,18 @@ Loading snippet ...</pre
                                                     ${bindProps({
               /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
               props: ({ innerData2 }, index2) => {
+                console.log("--");
                 console.log(
-                  innerData2,
-                  index2,
-                  innerData2[index2].key
+                  "arraylenght:",
+                  innerData2.length
                 );
+                console.log(
+                  "currentIndex:",
+                  index2
+                );
+                console.log("--");
                 return {
-                  key: `${innerData2[index2].key}`
+                  key: `${innerData2[index2]?.key ?? "pippo"}`
                 };
               }
             })}
@@ -28624,7 +28635,19 @@ Loading snippet ...</pre
         type: Array
       }),
       innerData2: () => ({
-        value: [],
+        value: [
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 },
+          { key: 1 }
+        ],
         type: Array
       }),
       isSelected: () => ({

@@ -282,16 +282,22 @@ export const DynamicListCardFn = ({
                                                             { innerData2 },
                                                             index
                                                         ) => {
+                                                            console.log('--');
+
                                                             console.log(
-                                                                innerData2,
-                                                                index,
-                                                                innerData2[
-                                                                    index
-                                                                ].key
+                                                                'arraylenght:',
+                                                                innerData2.length
                                                             );
 
+                                                            console.log(
+                                                                'currentIndex:',
+                                                                index
+                                                            );
+
+                                                            console.log('--');
+
                                                             return {
-                                                                key: `${innerData2[index].key}`,
+                                                                key: `${innerData2[index]?.key ?? 'pippo'}`,
                                                             };
                                                         },
                                                     })}

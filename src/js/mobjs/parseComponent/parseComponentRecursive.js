@@ -109,9 +109,9 @@ export const parseComponentsRecursive = async ({
                 fireRepeatFunction,
             } = item;
             await onMount();
-            fireDynamic();
             fireRepeatFunction();
             fireInvalidateFunction();
+            fireDynamic();
         }
 
         /**
