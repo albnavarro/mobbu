@@ -52,9 +52,35 @@ const query = [...queryAllFutureComponent(element)];
 - Nel primo parse si va cascata e il meccanismo di parse forze l'id ai figli. ( `addSelfIdToParentComponent` )
 - Mandando fn() senza parsare i componenti parenti il meccanismo salta.
 
-### Nested solution:
-- Questo il componente piu prossimo deve essere recuperato per forza dal web component repeater.
+### Nested problem:
 - il tentativo di usare la propieta `componentRepeatId` (da cui recuperare il parent) nella mappa dei componenti, fallisce se viene creato un repeater partendo da una array vuoto, non ci saranno componenti possessori di questo dato.
+- la funzione che deve ricevere l'id aggiornato sará questa:
+```js
+inizializeRepeatWatch({
+    repeatId,
+    state: stateToWatch,
+    setState,
+    emit,
+    watch,
+    clean,
+    beforeUpdate,
+    afterUpdate,
+    key,
+    id, // questo id deve conicidere con il primo componente che lo wrappa.
+    render,
+});
+```
+
+### Solution 1)
+- il web Component si deve distruggere dopo il recursiveParser.
+- Predisporre una query queryGenericRepeater().
+- il webComponent avrá un metodo che ritorna il `repeaterId`.
+- a ogni parse verrá cercato il webComponent.
+- Ogni volta che viene trovato aggiungerá l'id alla mappa `repeatIdPlaceHolderMap`
+- A casata ogni componente sovrascriverá questo valore.
+- alla fine avremmo l'esatto componente ( id ) che wrappa il repeater.
+- si porta usare nella funzione `inizializeRepeatWatch({})`
+- `id: getParentRepeatId({repeatId}) ?? id`
 - Risolverá l'errore di index/key ?? forse no o forse si.
 - Stesso ragionamento adrá fatto per invalidate
 
