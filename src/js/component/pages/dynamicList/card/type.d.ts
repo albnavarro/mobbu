@@ -5,6 +5,5 @@ export interface DynamicListCard {
     index: number;
     counter: number;
     innerData: { key: number }[];
-    innerData2: { key: number }[];
     isSelected: boolean;
 }
