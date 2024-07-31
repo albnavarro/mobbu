@@ -45,6 +45,9 @@ const query = [...queryAllFutureComponent(element)];
 ```
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
+## Nested.
+- Sembra che non riesca a fare l'unsibscribe di tutti, forse che i `parent` si spostano nel dom e non vnegono piu riconosciuti come figlio dell' elemento distrutto.
+
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
