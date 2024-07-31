@@ -49,11 +49,12 @@ const query = [...queryAllFutureComponent(element)];
 - I componenti innestati possono essere creati con un parentId sbagliato.
 - Solo il primo rendering dei repeater innestati ha l'id parente giusto ( es 3 repeater innestati )
 - il rendering di repeater nested senza passare dal primo ha in entrata l'id parente sbagliato per il parse.
-- Nel primo parse sa va cascata e il meccanismo di parse forze l'id ai figli.
+- Nel primo parse si va cascata e il meccanismo di parse forze l'id ai figli. ( `addSelfIdToParentComponent` )
 - Mandando fn() senza parsare i componenti parenti il meccanismo salta.
 
+### Nested solution:
 - Questo il componente piu prossimo deve essere recuperato per forza dal web component repeater.
-
+- il tentativo di usare la propieta `componentRepeatId` (da cui recuperare il parent) nella mappa dei componenti, fallisce se viene creato un repeater partendo da una array vuoto, non ci saranno componenti possessori di questo dato.
 - Risolverá l'errore di index/key ?? forse no o forse si.
 - Stesso ragionamento adrá fatto per invalidate
 
