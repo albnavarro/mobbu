@@ -196,32 +196,34 @@ export const MatrioskaFn = ({
             ${getButtons({ delegateEvents, setState })}
         </div>
         <div class="matrioska__body">
-            <div class="matrioska__level1">
-                ${repeat({
-                    watch: 'level1',
-                    render: ({ html, sync }) => {
-                        return html`<matrioska-item
-                            ${staticProps({ level: 'level 1' })}
-                            ${bindProps({
-                                /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
-                                props: ({ level1 }, index) => {
-                                    return {
-                                        key: `${level1[index]?.key ?? 'not_found'}`,
-                                        value: `${level1[index]?.value ?? 'not_found'}`,
-                                    };
-                                },
-                            })}
-                            ${sync}
-                        >
-                            ${getSecondLevel({
-                                repeat,
-                                staticProps,
-                                bindProps,
-                            })}
-                        </matrioska-item> `;
-                    },
-                })}
-            </div>
+            <matrioska-item ${staticProps({ level: 'level 0' })}>
+                <div class="matrioska__level1">
+                    ${repeat({
+                        watch: 'level1',
+                        render: ({ html, sync }) => {
+                            return html`<matrioska-item
+                                ${staticProps({ level: 'level 1' })}
+                                ${bindProps({
+                                    /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
+                                    props: ({ level1 }, index) => {
+                                        return {
+                                            key: `${level1[index]?.key ?? 'not_found'}`,
+                                            value: `${level1[index]?.value ?? 'not_found'}`,
+                                        };
+                                    },
+                                })}
+                                ${sync}
+                            >
+                                ${getSecondLevel({
+                                    repeat,
+                                    staticProps,
+                                    bindProps,
+                                })}
+                            </matrioska-item> `;
+                        },
+                    })}
+                </div>
+            </matrioska-item>
         </div>
     </div>`;
 };

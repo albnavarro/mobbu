@@ -47,9 +47,9 @@ const query = [...queryAllFutureComponent(element)];
 
 ## Nested.
 - I componenti innestati possono essere creati con un parentId sbagliato.
-- Solo il primo item ha l'id parente giusto
+- Solo il primo rendering dei repeater innestati ha l'id parente giusto ( es 3 repeater innestati )
+- il rendering di repeater nested senza passare dal primo ha in entrata l'id parente sbagliato per il parse.
 - Questo puó geenrare l'errore di index/key.
-- bisognerebbe filtrare i parent figli del node ma non figlio di altri nodi figli dello stesso ( solo il primo repeater figlio )
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.

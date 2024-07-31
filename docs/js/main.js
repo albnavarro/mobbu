@@ -29130,13 +29130,14 @@ Loading snippet ...</pre
             ${getButtons({ delegateEvents, setState })}
         </div>
         <div class="matrioska__body">
-            <div class="matrioska__level1">
-                ${repeat({
+            <matrioska-item ${staticProps2({ level: "level 0" })}>
+                <div class="matrioska__level1">
+                    ${repeat({
       watch: "level1",
       render: ({ html: html2, sync }) => {
         return html2`<matrioska-item
-                            ${staticProps2({ level: "level 1" })}
-                            ${bindProps({
+                                ${staticProps2({ level: "level 1" })}
+                                ${bindProps({
           /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
           props: ({ level1 }, index) => {
             return {
@@ -29145,17 +29146,18 @@ Loading snippet ...</pre
             };
           }
         })}
-                            ${sync}
-                        >
-                            ${getSecondLevel({
+                                ${sync}
+                            >
+                                ${getSecondLevel({
           repeat,
           staticProps: staticProps2,
           bindProps
         })}
-                        </matrioska-item> `;
+                            </matrioska-item> `;
       }
     })}
-            </div>
+                </div>
+            </matrioska-item>
         </div>
     </div>`;
   };
@@ -29222,11 +29224,17 @@ Loading snippet ...</pre
         type: Array
       }),
       level2: () => ({
-        value: [{ key: 1, value: mobCore.getUnivoqueId() }],
+        value: [
+          { key: 1, value: mobCore.getUnivoqueId() },
+          { key: 1, value: mobCore.getUnivoqueId() }
+        ],
         type: Array
       }),
       level3: () => ({
-        value: [{ key: 1, value: mobCore.getUnivoqueId() }],
+        value: [
+          { key: 1, value: mobCore.getUnivoqueId() },
+          { key: 1, value: mobCore.getUnivoqueId() }
+        ],
         type: Array
       })
     },
