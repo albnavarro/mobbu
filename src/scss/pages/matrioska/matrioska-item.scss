@@ -1,0 +1,7 @@
+@use '../../abstract' as *;
+
+.matrioska-item {
+    &__child {
+        margin-left: rem(24);
+    }
+}

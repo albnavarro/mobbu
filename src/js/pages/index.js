@@ -11,6 +11,7 @@ import { scrollerN0 } from './canvas/scroller';
 import { scrollerN1 } from './canvas/scrollerN1';
 import { dynamic_list } from './dynamicList';
 import { home } from './home';
+import { matrioska_page } from './matrioska';
 import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
@@ -88,6 +89,11 @@ export const routes = [
     {
         name: 'dynamic-list',
         layout: dynamic_list,
+        props: {},
+    },
+    {
+        name: 'matrioska',
+        layout: matrioska_page,
         props: {},
     },
     {
