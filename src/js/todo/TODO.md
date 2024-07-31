@@ -49,6 +49,8 @@ const query = [...queryAllFutureComponent(element)];
 - I componenti innestati possono essere creati con un parentId sbagliato.
 - Solo il primo rendering dei repeater innestati ha l'id parente giusto ( es 3 repeater innestati )
 - il rendering di repeater nested senza passare dal primo ha in entrata l'id parente sbagliato per il parse.
+- Nel primo parse sa va cascata e il meccanismo di parse forze l'id ai figli.
+- Mandando fn() senza parsare i componenti parenti il meccanismo salta.
 - Questo puó geenrare l'errore di index/key.
 
 ## type
