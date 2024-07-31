@@ -254,9 +254,6 @@ export const getParamsForComponentFunction = ({
 
                     /**
                      * Fire invalidate id after component parse
-                     * If function is fired runtime inside ad another repater
-                     * the parent is not this scoe component.
-                     * find component that use this repeater id and get the parent.
                      */
                     inizializeRepeatWatch({
                         repeatId,
