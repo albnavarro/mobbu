@@ -46,8 +46,10 @@ const query = [...queryAllFutureComponent(element)];
 - verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
 
 ## Nested.
-- Sembra che non riesca a fare l'unsibscribe di tutti, forse che i `parent` si spostano nel dom e non vnegono piu riconosciuti come figlio dell' elemento distrutto.
-- Il componente e distrutto ma arriva ancora una callback del `bindProps`.
+- I componenti innestati possono essere creati con un parentId sbagliato.
+- Solo il primo item ha l'id parente giusto
+- Questo puó geenrare l'errore di index/key.
+- bisognerebbe filtrare i parent figli del node ma non figlio di altri nodi figli dello stesso ( solo il primo repeater figlio )
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
