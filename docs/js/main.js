@@ -17408,6 +17408,17 @@
     }
     return id;
   };
+  var getIdByRepeatId = (repeatId = "") => {
+    if (!repeatId) return;
+    const instance = [...componentMap.values()].find(
+      ({ componentRepeatId }) => {
+        return componentRepeatId === repeatId;
+      }
+    );
+    const parentId = instance?.parentId;
+    if (!parentId) return;
+    return parentId;
+  };
 
   // src/js/mobjs/componentStore/action/state.js
   var getStateById = (id = "") => {
@@ -19689,7 +19700,7 @@
               beforeUpdate,
               afterUpdate,
               key: key2,
-              id,
+              id: getIdByRepeatId(repeatId) ?? id,
               render: render2
             });
             isInizialized = true;
@@ -29079,7 +29090,15 @@ Loading snippet ...</pre
         })}
                         ${sync}
                     >
-                        ${getThirdLevel({ repeat, staticProps: staticProps2, bindProps })}
+                        <matrioska-item class="test-wrap-1">
+                            <matrioska-item class="test-wrap-2">
+                                ${getThirdLevel({
+          repeat,
+          staticProps: staticProps2,
+          bindProps
+        })}
+                            </matrioska-item>
+                        </matrioska-item>
                     </matrioska-item> `;
       }
     })}

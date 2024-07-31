@@ -134,7 +134,15 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
                         })}
                         ${sync}
                     >
-                        ${getThirdLevel({ repeat, staticProps, bindProps })}
+                        <matrioska-item class="test-wrap-1">
+                            <matrioska-item class="test-wrap-2">
+                                ${getThirdLevel({
+                                    repeat,
+                                    staticProps,
+                                    bindProps,
+                                })}
+                            </matrioska-item>
+                        </matrioska-item>
                     </matrioska-item> `;
                 },
             })}
