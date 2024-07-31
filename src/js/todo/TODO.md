@@ -51,8 +51,11 @@ const query = [...queryAllFutureComponent(element)];
 - il rendering di repeater nested senza passare dal primo ha in entrata l'id parente sbagliato per il parse.
 - Nel primo parse sa va cascata e il meccanismo di parse forze l'id ai figli.
 - Mandando fn() senza parsare i componenti parenti il meccanismo salta.
-- Risolto, invalidate necessiterá di una procedura simile.
-- Ma non é Questo puó geenrare l'errore di index/key.
+
+- Questo il componente piu prossimo deve essere recuperato per forza dal web component repeater.
+
+- Risolverá l'errore di index/key ?? forse no o forse si.
+- Stesso ragionamento adrá fatto per invalidate
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.

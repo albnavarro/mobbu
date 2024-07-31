@@ -46,28 +46,6 @@ export const getIdByInstanceName = (name = '') => {
 };
 
 /**
- * @param {string} repeatId
- * @returns {string|undefined}
- *
- * @description
- * Get id by repeatId.
- * Return parent of id.
- */
-export const getIdByRepeatId = (repeatId = '') => {
-    if (!repeatId) return;
-
-    const instance = [...componentMap.values()].find(
-        ({ componentRepeatId }) => {
-            return componentRepeatId === repeatId;
-        }
-    );
-
-    const parentId = instance?.parentId;
-    if (!parentId) return;
-    return parentId;
-};
-
-/**
  * @param {string} id
  *
  * @description

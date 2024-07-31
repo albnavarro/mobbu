@@ -17408,17 +17408,6 @@
     }
     return id;
   };
-  var getIdByRepeatId = (repeatId = "") => {
-    if (!repeatId) return;
-    const instance = [...componentMap.values()].find(
-      ({ componentRepeatId }) => {
-        return componentRepeatId === repeatId;
-      }
-    );
-    const parentId = instance?.parentId;
-    if (!parentId) return;
-    return parentId;
-  };
 
   // src/js/mobjs/componentStore/action/state.js
   var getStateById = (id = "") => {
@@ -19700,7 +19689,7 @@
               beforeUpdate,
               afterUpdate,
               key: key2,
-              id: getIdByRepeatId(repeatId) ?? id,
+              id,
               render: render2
             });
             isInizialized = true;

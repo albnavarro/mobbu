@@ -43,7 +43,6 @@ import { setDelegateBindEvent } from '../temporaryData/weakBindEvents';
 import { renderHtml } from './utils';
 import { setComponentRepeaterState } from '../temporaryData/currentRepeaterItemValue';
 import { getUnivoqueByKey } from '../repeat/utils';
-import { getIdByRepeatId } from '../componentStore/action/component';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -269,7 +268,7 @@ export const getParamsForComponentFunction = ({
                         beforeUpdate,
                         afterUpdate,
                         key,
-                        id: getIdByRepeatId(repeatId) ?? id,
+                        id,
                         render,
                     });
 
