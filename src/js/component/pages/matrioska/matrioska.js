@@ -127,8 +127,8 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
                         ${bindProps({
                             props: ({ level2 }, index) => {
                                 return {
-                                    key: `${level2[index].key}`,
-                                    value: `${level2[index].value}`,
+                                    key: `${level2[index]?.key ?? 'not_found'}`,
+                                    value: `${level2[index]?.value ?? 'not_found'}`,
                                 };
                             },
                         })}
@@ -161,8 +161,8 @@ const getThirdLevel = ({ repeat, staticProps, bindProps }) => {
                         ${bindProps({
                             props: ({ level3 }, index) => {
                                 return {
-                                    key: `${level3[index].key}`,
-                                    value: `${level3[index].value}`,
+                                    key: `${level3[index]?.key ?? 'not_found'}`,
+                                    value: `${level3[index]?.value ?? 'not_found'}`,
                                 };
                             },
                         })}
@@ -206,8 +206,8 @@ export const MatrioskaFn = ({
                                 /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
                                 props: ({ level1 }, index) => {
                                     return {
-                                        key: `${level1[index].key}`,
-                                        value: `${level1[index].value}`,
+                                        key: `${level1[index]?.key ?? 'not_found'}`,
+                                        value: `${level1[index]?.value ?? 'not_found'}`,
                                     };
                                 },
                             })}

@@ -29072,8 +29072,8 @@ Loading snippet ...</pre
                         ${bindProps({
           props: ({ level2 }, index) => {
             return {
-              key: `${level2[index].key}`,
-              value: `${level2[index].value}`
+              key: `${level2[index]?.key ?? "not_found"}`,
+              value: `${level2[index]?.value ?? "not_found"}`
             };
           }
         })}
@@ -29099,8 +29099,8 @@ Loading snippet ...</pre
                         ${bindProps({
           props: ({ level3 }, index) => {
             return {
-              key: `${level3[index].key}`,
-              value: `${level3[index].value}`
+              key: `${level3[index]?.key ?? "not_found"}`,
+              value: `${level3[index]?.value ?? "not_found"}`
             };
           }
         })}
@@ -29140,8 +29140,8 @@ Loading snippet ...</pre
           /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
           props: ({ level1 }, index) => {
             return {
-              key: `${level1[index].key}`,
-              value: `${level1[index].value}`
+              key: `${level1[index]?.key ?? "not_found"}`,
+              value: `${level1[index]?.value ?? "not_found"}`
             };
           }
         })}
@@ -29163,9 +29163,12 @@ Loading snippet ...</pre
   // src/js/component/pages/matrioska/matrioskaItem/matrioskaItem.js
   var MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
     const { level } = getState();
-    onMount(({ ref }) => {
+    onMount(({ ref, element }) => {
       const { keyRef, valueRef } = ref;
       watchSync("key", (value) => {
+        if (value === "not_found") {
+          console.log("here:", element);
+        }
         keyRef.innerHTML = `key: ${value}`;
       });
       watchSync("value", (value) => {

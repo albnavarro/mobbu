@@ -47,6 +47,7 @@ const query = [...queryAllFutureComponent(element)];
 
 ## Nested.
 - Sembra che non riesca a fare l'unsibscribe di tutti, forse che i `parent` si spostano nel dom e non vnegono piu riconosciuti come figlio dell' elemento distrutto.
+- Il componente e distrutto ma arriva ancora una callback del `bindProps`.
 
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.

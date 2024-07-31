@@ -6,10 +6,14 @@
 export const MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
     const { level } = getState();
 
-    onMount(({ ref }) => {
+    onMount(({ ref, element }) => {
         const { keyRef, valueRef } = ref;
 
         watchSync('key', (value) => {
+            if (value === 'not_found') {
+                console.log('here:', element);
+            }
+
             keyRef.innerHTML = `key: ${value}`;
         });
 
