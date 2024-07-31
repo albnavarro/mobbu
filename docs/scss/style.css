@@ -1601,6 +1601,12 @@ code {
 .matrioska__level {
   border: 1px #000 solid;
 }
+.matrioska-item {
+  padding: 0.8rem;
+}
+.matrioska-item__info {
+  margin-bottom: 1.3333333333rem;
+}
 .matrioska-item__child {
   margin-left: 1.6rem;
 }

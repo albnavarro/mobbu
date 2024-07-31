@@ -28960,13 +28960,166 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/matrioska/matrioska.js
+  var getButtons = ({ delegateEvents, setState }) => {
+    return renderHtml`
+        <!-- level 1 -->
+        <div class="matrioska__head__item">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level1", (val2) => {
+          return [
+            ...val2,
+            {
+              key: val2.length + 1,
+              value: mobCore.getUnivoqueId()
+            }
+          ];
+        });
+      }
+    })}
+                >level 1 +</dynamic-list-button
+            >
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level1", (val2) => {
+          return val2.slice(0, -1);
+        });
+      }
+    })}
+                >level 1 -</dynamic-list-button
+            >
+        </div>
+
+        <!-- level 2 -->
+        <div class="matrioska__head__item">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level2", (val2) => {
+          return [
+            ...val2,
+            {
+              key: val2.length + 1,
+              value: mobCore.getUnivoqueId()
+            }
+          ];
+        });
+      }
+    })}
+                >level 2 +</dynamic-list-button
+            >
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level2", (val2) => {
+          return val2.slice(0, -1);
+        });
+      }
+    })}
+                >level 2 -</dynamic-list-button
+            >
+        </div>
+
+        <!-- level 3 -->
+        <div class="matrioska__head__item">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level3", (val2) => {
+          return [
+            ...val2,
+            {
+              key: val2.length + 1,
+              value: mobCore.getUnivoqueId()
+            }
+          ];
+        });
+      }
+    })}
+                >level 3 +</dynamic-list-button
+            >
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+      click: () => {
+        setState("level3", (val2) => {
+          return val2.slice(0, -1);
+        });
+      }
+    })}
+                >level 3 -</dynamic-list-button
+            >
+        </div>
+    `;
+  };
+  var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps }) => {
+    return renderHtml`
+        <div class="matrioska__level">
+            ${repeat({
+      watch: "level2",
+      render: ({ html, sync }) => {
+        return html`<matrioska-item
+                        ${staticProps2({
+          level: "level 2"
+        })}
+                        ${bindProps({
+          props: ({ level2 }, index) => {
+            return {
+              key: `${level2[index].key}`,
+              value: `${level2[index].value}`
+            };
+          }
+        })}
+                        ${sync}
+                    >
+                        ${getThirdLevel({ repeat, staticProps: staticProps2, bindProps })}
+                    </matrioska-item> `;
+      }
+    })}
+        </div>
+    `;
+  };
+  var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps }) => {
+    return renderHtml`
+        <div class="matrioska__level">
+            ${repeat({
+      watch: "level3",
+      render: ({ html, sync }) => {
+        return html`<matrioska-item
+                        ${staticProps2({
+          level: "level 3"
+        })}
+                        ${bindProps({
+          props: ({ level3 }, index) => {
+            return {
+              key: `${level3[index].key}`,
+              value: `${level3[index].value}`
+            };
+          }
+        })}
+                        ${sync}
+                    >
+                    </matrioska-item> `;
+      }
+    })}
+        </div>
+    `;
+  };
   var MatrioskaFn = ({
     html,
     onMount,
     delegateEvents,
     setState,
     repeat,
-    staticProps: staticProps2
+    staticProps: staticProps2,
+    bindProps
   }) => {
     onMount(() => {
       return () => {
@@ -28974,101 +29127,7 @@ Loading snippet ...</pre
     });
     return html`<div>
         <div class="matrioska__head">
-            <!-- level 1 -->
-            <div class="matrioska__head__item">
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level1", (val2) => {
-          return [
-            ...val2,
-            {
-              key: val2.length + 1,
-              value: mobCore.getUnivoqueId()
-            }
-          ];
-        });
-      }
-    })}
-                    >level 1 +</dynamic-list-button
-                >
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level1", (val2) => {
-          return val2.slice(0, -1);
-        });
-      }
-    })}
-                    >level 1 -</dynamic-list-button
-                >
-            </div>
-
-            <!-- level 2 -->
-            <div class="matrioska__head__item">
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level2", (val2) => {
-          return [
-            ...val2,
-            {
-              key: val2.length + 1,
-              value: mobCore.getUnivoqueId()
-            }
-          ];
-        });
-      }
-    })}
-                    >level 2 +</dynamic-list-button
-                >
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level2", (val2) => {
-          return val2.slice(0, -1);
-        });
-      }
-    })}
-                    >level 2 -</dynamic-list-button
-                >
-            </div>
-
-            <!-- level 3 -->
-            <div class="matrioska__head__item">
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level3", (val2) => {
-          return [
-            ...val2,
-            {
-              key: val2.length + 1,
-              value: mobCore.getUnivoqueId()
-            }
-          ];
-        });
-      }
-    })}
-                    >level 3 +</dynamic-list-button
-                >
-                <dynamic-list-button
-                    class="matrioska__button"
-                    ${delegateEvents({
-      click: () => {
-        setState("level3", (val2) => {
-          return val2.slice(0, -1);
-        });
-      }
-    })}
-                    >level 3 -</dynamic-list-button
-                >
-            </div>
+            ${getButtons({ delegateEvents, setState })}
         </div>
         <div class="matrioska__body">
             <div class="matrioska__level1">
@@ -29077,37 +29136,22 @@ Loading snippet ...</pre
       render: ({ html: html2, sync }) => {
         return html2`<matrioska-item
                             ${staticProps2({ level: "level 1" })}
-                            ${sync}
-                        >
-                            <div class="matrioska__level">
-                                ${repeat({
-          watch: "level2",
-          render: ({ html: html3, sync: sync2 }) => {
-            return html3`<matrioska-item
-                                            ${staticProps2({ level: "level 2" })}
-                                            ${sync2}
-                                        >
-                                            <div class="matrioska__level">
-                                                ${repeat({
-              watch: "level3",
-              render: ({
-                html: html4,
-                sync: sync3
-              }) => {
-                return html4`<matrioska-item
-                                                            ${staticProps2({
-                  level: "level 3"
-                })}
-                                                            ${sync3}
-                                                        >
-                                                        </matrioska-item> `;
-              }
-            })}
-                                            </div>
-                                        </matrioska-item> `;
+                            ${bindProps({
+          /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
+          props: ({ level1 }, index) => {
+            return {
+              key: `${level1[index].key}`,
+              value: `${level1[index].value}`
+            };
           }
         })}
-                            </div>
+                            ${sync}
+                        >
+                            ${getSecondLevel({
+          repeat,
+          staticProps: staticProps2,
+          bindProps
+        })}
                         </matrioska-item> `;
       }
     })}
@@ -29117,16 +29161,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/matrioska/matrioskaItem/matrioskaItem.js
-  var MatrioskaItemFn = ({ html, onMount, getState }) => {
+  var MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
     const { level } = getState();
-    console.log(level);
-    onMount(() => {
+    onMount(({ ref }) => {
+      const { keyRef, valueRef } = ref;
+      watchSync("key", (value) => {
+        keyRef.innerHTML = `key: ${value}`;
+      });
+      watchSync("value", (value) => {
+        valueRef.innerHTML = `value: ${value}`;
+      });
       return () => {
       };
     });
     return html`<div class="matrioska-item">
-        <div>
+        <div class="matrioska-item__info">
             <span class="matrioska-item__level">${level}</span>
+            <span class="matrioska-item__key" ref="keyRef"></span>
+            <span class="matrioska-item__value" ref="valueRef"></span>
         </div>
         <div class="matrioska-item__child">
             <mobjs-slot></mobjs-slot>
@@ -29138,7 +29190,7 @@ Loading snippet ...</pre
   var MatrioskaItem = createComponent({
     name: "matrioska-item",
     component: MatrioskaItemFn,
-    exportState: ["level"],
+    exportState: ["level", "key", "value"],
     state: {
       level: () => ({
         value: "",
