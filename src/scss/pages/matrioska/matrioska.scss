@@ -37,6 +37,14 @@
     }
 
     &__level {
+        flex: 33%;
+
+        &--2 {
+            border-bottom: 1px $black solid;
+            padding-bottom: rem(20);
+        }
+
+        &--2,
         &--3 {
             display: flex;
             flex-wrap: wrap;

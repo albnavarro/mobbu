@@ -2,7 +2,6 @@
 
 .matrioska-item {
     border-radius: rem(20);
-    border: 1px $black solid;
     overflow: hidden;
     margin: rem(12);
 
@@ -12,27 +11,28 @@
         margin-bottom: rem(20);
     }
 
+    &--2 {
+        flex: 0 0 calc(50% - (#{rem(12)} * 2));
+        background: $white;
+    }
+
     &--3 {
-        flex: 0 0 calc(20% - (#{rem(12)} * 2));
+        flex: 0 0 calc(50% - (#{rem(12)} * 2));
+        background: $grey;
     }
 
     &__info {
         margin-bottom: rem(20);
     }
 
-    &__child {
-        margin-left: rem(24);
-    }
-
     &__level {
-        background: $black;
-        color: $white;
         padding: rem(12);
+        margin-bottom: 0;
     }
 
     &__key,
     &__value {
-        padding: rem(12);
+        padding: 0 rem(12);
         margin-bottom: 0;
 
         span {
