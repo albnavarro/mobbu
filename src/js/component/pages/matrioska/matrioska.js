@@ -1,7 +1,8 @@
 //@ts-check
 
+import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html } from '../../../mobjs';
+import { html, setStateByName } from '../../../mobjs';
 
 /**
  * @param {object} params
@@ -197,6 +198,11 @@ export const MatrioskaFn = ({
     bindProps,
     watchSync,
 }) => {
+    /**
+     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+     */
+    const setCodeButtonState = setStateByName('global-code-button');
+
     onMount(({ ref }) => {
         const { level3_counter, level2_counter, level1_counter } = ref;
 
@@ -212,7 +218,34 @@ export const MatrioskaFn = ({
             level3_counter.innerHTML = `Number of items: ${val.length}`;
         });
 
-        return () => {};
+        /**
+         * Code button
+         */
+        const { matrioska } = getLegendData();
+        const { source } = matrioska;
+        setCodeButtonState('drawers', [
+            {
+                label: 'description',
+                source: source.description,
+            },
+            {
+                label: 'definition',
+                source: source.definition,
+            },
+            {
+                label: 'main',
+                source: source.mainComponent,
+            },
+            {
+                label: 'cards',
+                source: source.cards,
+            },
+        ]);
+        setCodeButtonState('color', 'black');
+
+        return () => {
+            setCodeButtonState('drawers', []);
+        };
     });
 
     return html`<div>

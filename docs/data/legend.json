@@ -75,6 +75,14 @@
             "data": "./codeExample/repeater/data.json"
         }
     },
+    "matrioska": {
+        "source": {
+            "description": "./codeExample/matrioska/description.json",
+            "definition": "./codeExample/matrioska/definition.json",
+            "mainComponent": "./codeExample/matrioska/mainComponent.json",
+            "cards": "./codeExample/matrioska/cards.json"
+        }
+    },
     "horizontalScroller": {
         "source": {
             "description": "./codeExample/horizontalScroller/description.json",
