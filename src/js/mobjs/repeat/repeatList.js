@@ -28,6 +28,7 @@ import { getRepeaterComponentTarget } from '../temporaryData/repeaterTargetCompo
 import { updateChildren } from './updateChildren';
 import { getChildrenInsideElementByRepeaterId } from './utils';
 import { inizializeNestedInvalidate } from '../componentStore/action/invalidate';
+import { getFallBackParentByElement } from '../componentStore/action/parent';
 
 /**
  * @param {import('./type').watchListType} param
@@ -57,6 +58,15 @@ export const watchRepeat = ({
      * To run first emit from definition store.
      */
     let forceRepeater = false;
+
+    /**
+     * When repater is created nested Main component is not parsed.
+     * So addSelfIdToParentComponent doesn't work.
+     * Get first element that contains repaterParent start from last map element.
+     */
+    const fallBackParentId = getFallBackParentByElement({
+        element: getRepeatParent({ id: repeatId }),
+    });
 
     /**
      * Watcher is destroyed with the component tahu implement list repeater.
@@ -195,6 +205,7 @@ export const watchRepeat = ({
                 previous: clean || forceRepeater ? [] : previous,
                 key,
                 id,
+                fallBackParentId,
                 render,
                 repeatId,
             });

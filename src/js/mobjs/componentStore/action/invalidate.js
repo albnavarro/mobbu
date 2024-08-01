@@ -7,6 +7,7 @@ import { incrementInvalidateTickQueuque } from '../tickInvalidate';
 import { destroyNesterRepeat, inizializeNestedRepeat } from './repeat';
 import { freezePropById, unFreezePropById } from './freeze';
 import { destroyComponentInsideNodeById } from './removeAndDestroy';
+import { getFallBackParentByElement } from './parent';
 
 /**
  * @description
@@ -266,6 +267,15 @@ export const inizializeInvalidateWatch = async ({
     let watchIsRunning = false;
 
     /**
+     * When invalidateId is created nested Main component is not parsed.
+     * So addSelfIdToParentComponent doesn't work.
+     * Get first element that contains invalidateParent start from last map element.
+     */
+    const fallBackParentId = getFallBackParentByElement({
+        element: getInvalidateParent({ id: invalidateId }),
+    });
+
+    /**
      * Update component
      */
     const unsubScribeArray = bind.map((state) => {
@@ -333,7 +343,10 @@ export const inizializeInvalidateWatch = async ({
                  */
                 mainStore.set(
                     MAIN_STORE_ASYNC_PARSER,
-                    { element: invalidateParent, parentId: id },
+                    {
+                        element: invalidateParent,
+                        parentId: fallBackParentId ?? id,
+                    },
                     false
                 );
 

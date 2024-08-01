@@ -63,6 +63,8 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 };
 
 /**
+ * @param {object} params
+ * @param {string} params.componentId
  * @returns void
  *
  * @description
@@ -80,22 +82,17 @@ export const setParentsIdFallback = ({ componentId }) => {
     if (parentId && parentId.length > 0) return;
 
     /**
-     * TODO: alternative solution for component that is not parsed inside other component
-     * So the non have id added by parent.
+     * Get first element that contains componentToParse start from last map element.
      */
-    const parentNode = /** @type {HTMLElement|undefined} */ (
-        element?.parentNode
-    );
-
-    const parent = /** @type {HTMLElement|undefined} */ (
-        parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
-    );
+    const fallBackParentId = getFallBackParentByElement({
+        element,
+    });
 
     const newItem =
-        parent && (!parentId || parentId === '')
+        fallBackParentId && fallBackParentId !== ''
             ? {
                   ...item,
-                  parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? '',
+                  parentId: fallBackParentId ?? '',
               }
             : item;
 
@@ -114,4 +111,18 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
     children.forEach((child) => {
         child.setParentId(id);
     });
+};
+
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @returns {string}
+ *
+ * @description
+ * Get first element that contains repaterParent start from last map element.
+ */
+export const getFallBackParentByElement = ({ element }) => {
+    return [...componentMap.values()].reverse().find((item) => {
+        return item.element.contains(element) && item.element !== element;
+    })?.id;
 };

@@ -16855,7 +16855,6 @@
 
   // src/js/mobjs/constant.js
   var ATTR_IS_COMPONENT = "data-mobjs";
-  var ATTR_IS_COMPONENT_VALUE = "mobjs";
   var ATTR_PROPS = "staticprops";
   var ATTR_DYNAMIC = "bindprops";
   var ATTR_INSTANCENAME = "name";
@@ -17334,17 +17333,12 @@
     if (!item) return;
     const { element, parentId } = item;
     if (parentId && parentId.length > 0) return;
-    const parentNode = (
-      /** @type {HTMLElement|undefined} */
-      element?.parentNode
-    );
-    const parent = (
-      /** @type {HTMLElement|undefined} */
-      parentNode?.closest(`[${ATTR_IS_COMPONENT}]`)
-    );
-    const newItem = parent && (!parentId || parentId === "") ? {
+    const fallBackParentId = getFallBackParentByElement({
+      element
+    });
+    const newItem = fallBackParentId && fallBackParentId !== "" ? {
       ...item,
-      parentId: parent?.dataset[ATTR_IS_COMPONENT_VALUE] ?? ""
+      parentId: fallBackParentId ?? ""
     } : item;
     componentMap.set(componentId, newItem);
   };
@@ -17353,6 +17347,11 @@
     children.forEach((child2) => {
       child2.setParentId(id);
     });
+  };
+  var getFallBackParentByElement = ({ element }) => {
+    return [...componentMap.values()].reverse().find((item) => {
+      return item.element.contains(element) && item.element !== element;
+    })?.id;
   };
 
   // src/js/mobjs/componentStore/action/props.js
@@ -17830,6 +17829,9 @@
     renderFunction
   }) => {
     let watchIsRunning = false;
+    const fallBackParentId = getFallBackParentByElement({
+      element: getInvalidateParent({ id: invalidateId })
+    });
     const unsubScribeArray = bind.map((state) => {
       const unsubscribe3 = watch(state, async () => {
         if (watchIsRunning) return;
@@ -17867,7 +17869,10 @@
           );
           mainStore.set(
             MAIN_STORE_ASYNC_PARSER,
-            { element: invalidateParent, parentId: id },
+            {
+              element: invalidateParent,
+              parentId: fallBackParentId ?? id
+            },
             false
           );
           await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -18269,6 +18274,7 @@
     previous = [],
     key = "",
     id,
+    fallBackParentId,
     render: render2,
     repeatId
   }) => {
@@ -18287,7 +18293,7 @@
     });
     mainStore.set(
       MAIN_STORE_ASYNC_PARSER,
-      { element: repeaterParentElement, parentId: id },
+      { element: repeaterParentElement, parentId: fallBackParentId ?? id },
       false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -18310,6 +18316,9 @@
   }) => {
     const mainComponent = getElementById({ id });
     let forceRepeater = false;
+    const fallBackParentId = getFallBackParentByElement({
+      element: getRepeatParent({ id: repeatId })
+    });
     const unsubscribe3 = watch(
       state,
       async (current, previous) => {
@@ -18383,6 +18392,7 @@
           previous: clean2 || forceRepeater ? [] : previous,
           key,
           id,
+          fallBackParentId,
           render: render2,
           repeatId
         });

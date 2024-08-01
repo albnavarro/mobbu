@@ -15,6 +15,7 @@ import { listKeyExist } from './utils';
  * @param {array} obj.previous
  * @param {string} obj.key
  * @param {string} obj.id
+ * @param {string} obj.fallBackParentId w
  * @param {string} obj.repeatId
  * @param {Function} obj.render
  * @return {Promise.<Array.<object>>}
@@ -30,6 +31,7 @@ export const updateChildren = async ({
     previous = [],
     key = '',
     id,
+    fallBackParentId,
     render,
     repeatId,
 }) => {
@@ -67,7 +69,7 @@ export const updateChildren = async ({
      */
     mainStore.set(
         MAIN_STORE_ASYNC_PARSER,
-        { element: repeaterParentElement, parentId: id },
+        { element: repeaterParentElement, parentId: fallBackParentId ?? id },
         false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
