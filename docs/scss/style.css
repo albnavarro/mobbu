@@ -1581,7 +1581,7 @@ code {
 .matrioska__head {
   position: sticky;
   top: var(--header-height);
-  background: rgba(0, 0, 0, 0.8);
+  background: #fff;
   padding: 0.5333333333rem;
   z-index: 10;
   display: flex;
@@ -1591,9 +1591,6 @@ code {
   flex: 33.3333333333%;
   padding-inline: 1.6rem;
   text-align: center;
-}
-.matrioska__head__counter {
-  color: #fff;
 }
 .matrioska__button {
   max-width: 13.3333333333rem;
