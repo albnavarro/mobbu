@@ -4,6 +4,27 @@ import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, setStateByName } from '../../../mobjs';
 
+const buttons = [
+    {
+        state: 'level1',
+        ref: 'level1_counter',
+        label_plus: 'level1 +',
+        label_minus: 'level1 -',
+    },
+    {
+        state: 'level2',
+        ref: 'level2_counter',
+        label_plus: 'level2 +',
+        label_minus: 'level2 -',
+    },
+    {
+        state: 'level3',
+        ref: 'level3_counter',
+        label_plus: 'level3 +',
+        label_minus: 'level3 -',
+    },
+];
+
 /**
  * @param {object} params
  * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
@@ -11,104 +32,46 @@ import { html, setStateByName } from '../../../mobjs';
  */
 const getButtons = ({ delegateEvents, setState }) => {
     return html`
-        <!-- level 1 -->
-        <div class="matrioska__head__item">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level1', (val) => {
-                            return [
-                                ...val,
-                                {
-                                    key: val.length + 1,
-                                    value: mobCore.getUnivoqueId(),
-                                },
-                            ];
-                        });
-                    },
-                })}
-                >level 1 +</dynamic-list-button
-            >
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level1', (val) => {
-                            return val.slice(0, -1);
-                        });
-                    },
-                })}
-                >level 1 -</dynamic-list-button
-            >
-            <div class="matrioska__head__counter" ref="level1_counter"></div>
-        </div>
-
-        <!-- level 2 -->
-        <div class="matrioska__head__item">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level2', (val) => {
-                            return [
-                                ...val,
-                                {
-                                    key: val.length + 1,
-                                    value: mobCore.getUnivoqueId(),
-                                },
-                            ];
-                        });
-                    },
-                })}
-                >level 2 +</dynamic-list-button
-            >
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level2', (val) => {
-                            return val.slice(0, -1);
-                        });
-                    },
-                })}
-                >level 2 -</dynamic-list-button
-            >
-            <div class="matrioska__head__counter" ref="level2_counter"></div>
-        </div>
-
-        <!-- level 3 -->
-        <div class="matrioska__head__item">
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level3', (val) => {
-                            return [
-                                ...val,
-                                {
-                                    key: val.length + 1,
-                                    value: mobCore.getUnivoqueId(),
-                                },
-                            ];
-                        });
-                    },
-                })}
-                >level 3 +</dynamic-list-button
-            >
-            <dynamic-list-button
-                class="matrioska__button"
-                ${delegateEvents({
-                    click: () => {
-                        setState('level3', (val) => {
-                            return val.slice(0, -1);
-                        });
-                    },
-                })}
-                >level 3 -</dynamic-list-button
-            >
-            <div class="matrioska__head__counter" ref="level3_counter"></div>
-        </div>
+        ${buttons
+            .map((button) => {
+                return html` <div class="matrioska__head__item">
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+                            click: () => {
+                                // @ts-ignore
+                                setState(button.state, (val) => {
+                                    return [
+                                        ...val,
+                                        {
+                                            key: val.length + 1,
+                                            value: mobCore.getUnivoqueId(),
+                                        },
+                                    ];
+                                });
+                            },
+                        })}
+                        >${button.label_plus}</dynamic-list-button
+                    >
+                    <dynamic-list-button
+                        class="matrioska__button"
+                        ${delegateEvents({
+                            click: () => {
+                                // @ts-ignore
+                                setState(button.state, (val) => {
+                                    return val.slice(0, -1);
+                                });
+                            },
+                        })}
+                        >${button.label_minus}</dynamic-list-button
+                    >
+                    <div
+                        class="matrioska__head__counter"
+                        ref=${button.ref}
+                    ></div>
+                </div>`;
+            })
+            .join('')}
     `;
 };
 
