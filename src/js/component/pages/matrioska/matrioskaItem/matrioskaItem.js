@@ -14,11 +14,11 @@ export const MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
                 console.log('here:', element);
             }
 
-            keyRef.innerHTML = `key: ${value}`;
+            keyRef.innerHTML = `${value}`;
         });
 
         watchSync('value', (value) => {
-            valueRef.innerHTML = `value: ${value}`;
+            valueRef.innerHTML = `${value}`;
         });
 
         return () => {};
@@ -26,9 +26,11 @@ export const MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
 
     return html`<div class="matrioska-item">
         <div class="matrioska-item__info">
-            <span class="matrioska-item__level">${level}</span>
-            <span class="matrioska-item__key" ref="keyRef"></span>
-            <span class="matrioska-item__value" ref="valueRef"></span>
+            <h4 class="matrioska-item__level">${level}:</h4>
+            <h6 class="matrioska-item__key">key: <span ref="keyRef"></span></h6>
+            <h6 class="matrioska-item__value">
+                Value: <span ref="valueRef"></span>
+            </h6>
         </div>
         <div class="matrioska-item__child">
             <mobjs-slot></mobjs-slot>

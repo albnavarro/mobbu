@@ -29002,6 +29002,7 @@ Loading snippet ...</pre
     })}
                 >level 1 -</dynamic-list-button
             >
+            <div class="matrioska__head__counter" ref="level1_counter"></div>
         </div>
 
         <!-- level 2 -->
@@ -29034,6 +29035,7 @@ Loading snippet ...</pre
     })}
                 >level 2 -</dynamic-list-button
             >
+            <div class="matrioska__head__counter" ref="level2_counter"></div>
         </div>
 
         <!-- level 3 -->
@@ -29066,16 +29068,18 @@ Loading snippet ...</pre
     })}
                 >level 3 -</dynamic-list-button
             >
+            <div class="matrioska__head__counter" ref="level3_counter"></div>
         </div>
     `;
   };
   var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps }) => {
     return renderHtml`
-        <div class="matrioska__level">
+        <div class="matrioska__level matrioska__level--2">
             ${repeat({
       watch: "level2",
       render: ({ html, sync }) => {
         return html`<matrioska-item
+                        class="matrioska-item--2"
                         ${staticProps2({
           level: "level 2"
         })}
@@ -29089,15 +29093,11 @@ Loading snippet ...</pre
         })}
                         ${sync}
                     >
-                        <matrioska-item class="test-wrap-1">
-                            <matrioska-item class="test-wrap-2">
-                                ${getThirdLevel({
+                        ${getThirdLevel({
           repeat,
           staticProps: staticProps2,
           bindProps
         })}
-                            </matrioska-item>
-                        </matrioska-item>
                     </matrioska-item> `;
       }
     })}
@@ -29106,11 +29106,12 @@ Loading snippet ...</pre
   };
   var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps }) => {
     return renderHtml`
-        <div class="matrioska__level">
+        <div class="matrioska__level matrioska__level--3">
             ${repeat({
       watch: "level3",
       render: ({ html, sync }) => {
         return html`<matrioska-item
+                        class="matrioska-item--3"
                         ${staticProps2({
           level: "level 3"
         })}
@@ -29137,25 +29138,37 @@ Loading snippet ...</pre
     setState,
     repeat,
     staticProps: staticProps2,
-    bindProps
+    bindProps,
+    watchSync
   }) => {
-    onMount(() => {
+    onMount(({ ref }) => {
+      const { level3_counter, level2_counter, level1_counter } = ref;
+      watchSync("level1", (val2) => {
+        level1_counter.innerHTML = `Number of items: ${val2.length}`;
+      });
+      watchSync("level2", (val2) => {
+        level2_counter.innerHTML = `Number of items: ${val2.length}`;
+      });
+      watchSync("level3", (val2) => {
+        level3_counter.innerHTML = `Number of items: ${val2.length}`;
+      });
       return () => {
       };
     });
     return html`<div>
+        <only-desktop></only-desktop>
         <div class="matrioska__head">
             ${getButtons({ delegateEvents, setState })}
         </div>
         <div class="matrioska__body">
-            <matrioska-item ${staticProps2({ level: "level 0" })}>
-                <div class="matrioska__level1">
-                    ${repeat({
+            <div class="matrioska__level matrioska__level--1">
+                ${repeat({
       watch: "level1",
       render: ({ html: html2, sync }) => {
         return html2`<matrioska-item
-                                ${staticProps2({ level: "level 1" })}
-                                ${bindProps({
+                            class="matrioska-item--1"
+                            ${staticProps2({ level: "level 1" })}
+                            ${bindProps({
           /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
           props: ({ level1 }, index) => {
             return {
@@ -29164,18 +29177,17 @@ Loading snippet ...</pre
             };
           }
         })}
-                                ${sync}
-                            >
-                                ${getSecondLevel({
+                            ${sync}
+                        >
+                            ${getSecondLevel({
           repeat,
           staticProps: staticProps2,
           bindProps
         })}
-                            </matrioska-item> `;
+                        </matrioska-item> `;
       }
     })}
-                </div>
-            </matrioska-item>
+            </div>
         </div>
     </div>`;
   };
@@ -29189,19 +29201,21 @@ Loading snippet ...</pre
         if (value === "not_found") {
           console.log("here:", element);
         }
-        keyRef.innerHTML = `key: ${value}`;
+        keyRef.innerHTML = `${value}`;
       });
       watchSync("value", (value) => {
-        valueRef.innerHTML = `value: ${value}`;
+        valueRef.innerHTML = `${value}`;
       });
       return () => {
       };
     });
     return html`<div class="matrioska-item">
         <div class="matrioska-item__info">
-            <span class="matrioska-item__level">${level}</span>
-            <span class="matrioska-item__key" ref="keyRef"></span>
-            <span class="matrioska-item__value" ref="valueRef"></span>
+            <h4 class="matrioska-item__level">${level}:</h4>
+            <h6 class="matrioska-item__key">key: <span ref="keyRef"></span></h6>
+            <h6 class="matrioska-item__value">
+                Value: <span ref="valueRef"></span>
+            </h6>
         </div>
         <div class="matrioska-item__child">
             <mobjs-slot></mobjs-slot>
@@ -29256,7 +29270,7 @@ Loading snippet ...</pre
         type: Array
       })
     },
-    child: [DynamicListButton, MatrioskaItem]
+    child: [DynamicListButton, OnlyDesktop, MatrioskaItem]
   });
 
   // src/js/pages/matrioska/index.js

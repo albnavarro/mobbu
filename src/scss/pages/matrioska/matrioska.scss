@@ -19,6 +19,10 @@
             padding-inline: rem(24);
             text-align: center;
         }
+
+        &__counter {
+            color: $white;
+        }
     }
 
     &__button {
@@ -29,6 +33,17 @@
     }
 
     &__level {
-        border: 1px $black solid;
+        // border-radius: rem(20);
+        // overflow: hidden;
+        //
+        // &--1,
+        // &--2 {
+        //     border: 1px $black solid;
+        // }
+
+        &--3 {
+            display: flex;
+            flex-wrap: wrap;
+        }
     }
 }
