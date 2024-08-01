@@ -798,6 +798,9 @@ Loading snippet ...</pre
         <div class="matrioska__head">
             ${VS({delegateEvents:r,setState:o})}
         </div>
+        <h4 class="matrioska__head__title">
+            Nested repater like matrioska in same component.
+        </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${n({watch:"level1",render:({html:p,sync:l})=>p`<matrioska-item

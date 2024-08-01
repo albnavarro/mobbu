@@ -19,6 +19,14 @@
             padding-inline: rem(24);
             text-align: center;
         }
+
+        &__title {
+            padding: rem(20) rem(40);
+            display: flex;
+            border-bottom: 1px $black solid;
+            margin-right: rem(12);
+            margin-bottom: rem(24);
+        }
     }
 
     &__button {

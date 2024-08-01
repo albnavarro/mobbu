@@ -216,6 +216,9 @@ export const MatrioskaFn = ({
         <div class="matrioska__head">
             ${getButtons({ delegateEvents, setState })}
         </div>
+        <h4 class="matrioska__head__title">
+            Nested repater like matrioska in same component.
+        </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
