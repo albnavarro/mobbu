@@ -29,6 +29,7 @@ import { updateChildren } from './updateChildren';
 import { getChildrenInsideElementByRepeaterId } from './utils';
 import { inizializeNestedInvalidate } from '../componentStore/action/invalidate';
 import { getFallBackParentByElement } from '../componentStore/action/parent';
+import { awaitNextLoop } from '../componentStore/utils';
 
 /**
  * @param {import('./type').watchListType} param
@@ -322,6 +323,12 @@ export const watchRepeat = ({
                     container: repeatParentElement,
                 });
 
+                /**
+                 * Unfreeze prop onnly when all is quiet
+                 *
+                 * Prevent overload error.
+                 */
+                await awaitNextLoop();
                 unFreezePropById({ id, prop: state });
 
                 /**

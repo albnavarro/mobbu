@@ -18441,6 +18441,7 @@
             state,
             container: repeatParentElement
           });
+          await awaitNextLoop();
           unFreezePropById({ id, prop: state });
           descrementQueue();
           descrementRepeaterQueue();
@@ -30915,7 +30916,7 @@ Loading snippet ...</pre
       await loadData();
       setDefaultComponent({
         scoped: false,
-        maxParseIteration: 1e3,
+        maxParseIteration: 1e6,
         debug: true
       });
       inizializeApp({
