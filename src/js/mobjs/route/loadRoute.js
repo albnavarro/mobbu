@@ -21,7 +21,6 @@ import {
 } from '../mainStore/pageTransition';
 import { parseComponents } from '../parseComponent/componentParse';
 import { getRestoreScroll } from '../mainStore/restoreScroll';
-import { awaitNextLoop } from '../componentStore/utils';
 import { tick } from '../componentStore/tick';
 
 /**
