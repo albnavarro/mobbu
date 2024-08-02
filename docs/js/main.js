@@ -20094,7 +20094,7 @@
     comeFromHistory = false
   }) => {
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, true);
-    await awaitNextLoop();
+    await tick();
     const contentId = getContentId();
     const contentEl = document?.querySelector(contentId);
     if (!contentEl) return;
