@@ -5,7 +5,11 @@ import { convertToRealElement } from '../creationStep/convertToRealElement';
 import { getComponentList } from '../mainStore/componentList';
 // import { removeOrphanComponent } from '../componentStore/action/removeAndDestroy';
 import { getDefaultComponent } from '../createComponent';
-import { getParseSourceArray } from './utils';
+import {
+    getCurrentIterationCounter,
+    getParseSourceArray,
+    incrementCurrentIterationCounter,
+} from './utils';
 import { fireOnMountCallBack } from '../temporaryData/onMount';
 import { applyBindEvents } from '../temporaryData/bindEvents';
 import {
@@ -41,7 +45,6 @@ import { getRepeatFunctions } from '../componentStore/action/repeat';
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
- * @param {number} [ obj.currentIterationCounter ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
  * @return {Promise<void>}
@@ -53,7 +56,6 @@ export const parseComponentsRecursive = async ({
     element,
     functionToFireAtTheEnd = [],
     isCancellable = true,
-    currentIterationCounter = 0,
     currentSelectors = [],
     parentIdForced = '',
 }) => {
@@ -70,11 +72,14 @@ export const parseComponentsRecursive = async ({
      * Check if max parse number is reached.
      */
     const parseLimitReached =
-        currentIterationCounter === getDefaultComponent().maxParseIteration;
+        getCurrentIterationCounter() ===
+        getDefaultComponent().maxParseIteration;
+
+    incrementCurrentIterationCounter();
 
     if (parseLimitReached)
         console.warn(
-            `dom parse reached max parse limit: ${currentIterationCounter}`
+            `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
         );
 
     /**
@@ -152,7 +157,6 @@ export const parseComponentsRecursive = async ({
             element,
             functionToFireAtTheEnd,
             isCancellable,
-            currentIterationCounter: (currentIterationCounter += 1),
             currentSelectors: parseSourceArray,
             parentIdForced,
         });
@@ -446,7 +450,6 @@ export const parseComponentsRecursive = async ({
         element,
         functionToFireAtTheEnd,
         isCancellable,
-        currentIterationCounter: (currentIterationCounter += 1),
         currentSelectors: parseSourceArray,
         parentIdForced,
     });

@@ -36,6 +36,7 @@
 # MobJs
 
 ## ParseComponent
+- Quando si sovraccarica puó tornare l'errore, capire quando bloccare tutto.
 - `const useQuery = false;` spostare a livello globale.
 - Tentative:
 ```js

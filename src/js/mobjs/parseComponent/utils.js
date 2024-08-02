@@ -3,7 +3,34 @@
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
 import { getuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
 
+/**
+ * @type {boolean}
+ */
 const useQuery = false;
+
+/**
+ * @type {number}
+ */
+let currentIterationCounter = 0;
+
+/**
+ * @return {void}
+ */
+export const incrementCurrentIterationCounter = () => {
+    currentIterationCounter += 1;
+};
+
+/**
+ * @return {number}
+ */
+export const getCurrentIterationCounter = () => currentIterationCounter;
+
+/**
+ * @return {void}
+ */
+export const resetCurrentIterationCounter = () => {
+    currentIterationCounter = 0;
+};
 
 /**
  * @param {object} obj

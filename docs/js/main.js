@@ -19477,6 +19477,14 @@
 
   // src/js/mobjs/parseComponent/utils.js
   var useQuery = false;
+  var currentIterationCounter = 0;
+  var incrementCurrentIterationCounter = () => {
+    currentIterationCounter += 1;
+  };
+  var getCurrentIterationCounter = () => currentIterationCounter;
+  var resetCurrentIterationCounter = () => {
+    currentIterationCounter = 0;
+  };
   var getParseSourceArray = ({ element, currentSelectors }) => {
     if (currentSelectors.length > 0) {
       const componentToParse = currentSelectors[0];
@@ -19847,7 +19855,6 @@
     element,
     functionToFireAtTheEnd = [],
     isCancellable = true,
-    currentIterationCounter = 0,
     currentSelectors = [],
     parentIdForced = ""
   }) => {
@@ -19857,10 +19864,11 @@
       element,
       currentSelectors
     });
-    const parseLimitReached = currentIterationCounter === getDefaultComponent().maxParseIteration;
+    const parseLimitReached = getCurrentIterationCounter() === getDefaultComponent().maxParseIteration;
+    incrementCurrentIterationCounter();
     if (parseLimitReached)
       console.warn(
-        `dom parse reached max parse limit: ${currentIterationCounter}`
+        `dom parse reached max parse limit: ${getCurrentIterationCounter()}`
       );
     if (!componentToParse || parseLimitReached) {
       const activeParser = decrementParserCounter();
@@ -19894,7 +19902,6 @@
         element,
         functionToFireAtTheEnd,
         isCancellable,
-        currentIterationCounter: currentIterationCounter += 1,
         currentSelectors: parseSourceArray,
         parentIdForced
       });
@@ -20042,7 +20049,6 @@
       element,
       functionToFireAtTheEnd,
       isCancellable,
-      currentIterationCounter: currentIterationCounter += 1,
       currentSelectors: parseSourceArray,
       parentIdForced
     });
@@ -20058,9 +20064,9 @@
     await parseComponentsRecursive({
       element,
       isCancellable,
-      currentIterationCounter: 0,
       parentIdForced
     });
+    resetCurrentIterationCounter();
     cleanuserPlaceHolder();
   };
   var initParseWatcher = () => {
@@ -30909,7 +30915,7 @@ Loading snippet ...</pre
       await loadData();
       setDefaultComponent({
         scoped: false,
-        maxParseIteration: 1e7,
+        maxParseIteration: 1e3,
         debug: true
       });
       inizializeApp({

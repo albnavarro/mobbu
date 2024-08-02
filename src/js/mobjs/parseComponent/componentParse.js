@@ -5,6 +5,7 @@ import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
 import { cleanuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
 import { parseComponentsRecursive } from './parseComponentRecursive';
+import { resetCurrentIterationCounter } from './utils';
 
 /**
  * @param {object} obj
@@ -25,10 +26,10 @@ export const parseComponents = async ({
     await parseComponentsRecursive({
         element,
         isCancellable,
-        currentIterationCounter: 0,
         parentIdForced,
     });
 
+    resetCurrentIterationCounter();
     cleanuserPlaceHolder();
 };
 
