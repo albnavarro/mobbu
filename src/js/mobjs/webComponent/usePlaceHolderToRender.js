@@ -25,7 +25,7 @@ export const addUserPlaceholder = (element) => {
  */
 export const getuserPlaceHolder = (element) => {
     const userComponent = [...userPlaceholder.values()].find((item) => {
-        return element?.contains(item);
+        return element?.contains(item) && item.getIsPlaceholder();
     });
 
     userPlaceholder.delete(userComponent);

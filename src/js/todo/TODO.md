@@ -36,7 +36,6 @@
 # MobJs
 
 ## ParseComponent
-- Controllare che la funzione `addUserPlaceHolder` sia lanciata solo quando il webComponent é in stato `placeHolder`
 - `const useQuery = false;` spostare a livello globale.
 - Tentative:
 ```js
