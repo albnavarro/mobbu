@@ -17457,7 +17457,7 @@
 
   // src/js/mobjs/componentStore/tick.js
   var queque = /* @__PURE__ */ new Map();
-  var maxQueuqueSize3 = 1e3;
+  var maxQueuqueSize3 = 1e5;
   var incrementTickQueuque = (props) => {
     if (queque.size >= maxQueuqueSize3) {
       console.warn(`maximum loop event reached: (${maxQueuqueSize3})`);
@@ -30916,7 +30916,7 @@ Loading snippet ...</pre
       await loadData();
       setDefaultComponent({
         scoped: false,
-        maxParseIteration: 1e6,
+        maxParseIteration: 1e3,
         debug: true
       });
       inizializeApp({

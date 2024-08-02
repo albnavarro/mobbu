@@ -12,7 +12,7 @@ const queque = new Map();
  * Limit queque size.
  * Prevent possible side effect
  */
-const maxQueuqueSize = 1000;
+const maxQueuqueSize = 100_000;
 
 /**
  * @param {any} props
