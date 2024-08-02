@@ -3,6 +3,7 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
+import { cleanuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
 import { parseComponentsRecursive } from './parseComponentRecursive';
 
 /**
@@ -27,6 +28,8 @@ export const parseComponents = async ({
         currentIterationCounter: 0,
         parentIdForced,
     });
+
+    cleanuserPlaceHolder();
 };
 
 /**

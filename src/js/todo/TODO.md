@@ -36,14 +36,26 @@
 # MobJs
 
 ## ParseComponent
-- In teria e possibile evitare di fare query nel DOM alla ricerca di `userCompoennt`:
-- `useComponent` andrá a salvare in un apposita mappa la propia root ( host ? ).
-- `getParseSourceArray` potra attingere direttamante a questa mappa senza dover eseguire alcuna `query`.
-- al posto di:
+- Controllare che la funzione `addUserPlaceHolder` sia lanciata solo quando il webComponent é in stato `placeHolder`
+- `const useQuery = false;` spostare a livello globale.
+- Tentative:
 ```js
-const query = [...queryAllFutureComponent(element)];
+
+// Filtrare tutti i placeholder qui con qualli parent di element.
+// Cosi da evitare il find a ogni chiamata
+// Fare un funzione che forza 'ordinamento per sicurezza ? vedere se impatta sulla performance.
+
+await parseComponentsRecursive({
+    element,
+    isCancellable,
+    currentIterationCounter: 0,
+    parentIdForced,
+});
+
+cleanuserPlaceHolder();
 ```
-- verrá pescato il primo elemento della mappa, e contemporaneamente rimosso.
+- Usare la mappa anche per `addParentIdToFutureComponent({ element: newElement, id });` cosi da evitare altre query, usare sempre il controllo `const useQuery = false;`
+
 
 ## Nested.
 - I componenti innestati possono essere creati con un parentId sbagliato.

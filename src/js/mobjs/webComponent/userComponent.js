@@ -15,6 +15,7 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
+import { addUserPlaceholder } from './usePlaceHolderToRender';
 
 /**
  * @param {{[key:string]:import('../mainStore/type').componentListMapType}} componentList
@@ -229,6 +230,9 @@ export const defineUserComponent = (componentList) => {
 
                     const host = this.shadowRoot?.host;
                     if (!host) return;
+
+                    // @ts-ignore
+                    addUserPlaceholder(host);
 
                     this.#name = host.getAttribute(ATTR_INSTANCENAME);
                     this.#staticPropsId = host.getAttribute(ATTR_PROPS);

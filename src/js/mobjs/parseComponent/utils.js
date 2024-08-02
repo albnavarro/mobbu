@@ -1,6 +1,9 @@
 // @ts-check
 
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
+import { getuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
+
+const useQuery = false;
 
 /**
  * @param {object} obj
@@ -15,7 +18,10 @@ export const getParseSourceArray = ({ element, currentSelectors }) => {
 
         return { componentToParse, parseSourceArray };
     } else {
-        const query = [...queryAllFutureComponent(element)];
+        const query = useQuery
+            ? [...queryAllFutureComponent(element)]
+            : getuserPlaceHolder(element);
+
         const componentToParse = query?.[0];
         const parseSourceArray = query.slice(1);
 
