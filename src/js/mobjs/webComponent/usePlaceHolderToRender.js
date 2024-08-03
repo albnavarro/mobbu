@@ -23,7 +23,7 @@ export const addUserPlaceholder = (element) => {
  *
  * Return an array with one element, to maintain compatibility with query solution.
  */
-export const getuserPlaceHolder = (element) => {
+export const getFirstUserChildPlaceHolder = (element) => {
     const userComponent = [...userPlaceholder.values()].find((item) => {
         return element?.contains(item) && item.getIsPlaceholder();
     });
@@ -33,12 +33,25 @@ export const getuserPlaceHolder = (element) => {
 };
 
 /**
+ * @param {object} params
+ * @param {Element} params.element
+ * @returns {Array<import('./type').userComponent>}
+ *
+ * @description
+ */
+export const getAllUserChildPlaceholder = ({ element }) => {
+    return [...userPlaceholder.values()].filter((item) => {
+        return element?.contains(item) && item.getIsPlaceholder();
+    });
+};
+
+/**
  * @returns {void}
  *
  * @description
  * Clean array at the end of parseRecursive.
  * Issue with element that switch position and there no real.
  */
-export const cleanuserPlaceHolder = () => {
+export const clearUserPlaceHolder = () => {
     userPlaceholder.clear();
 };

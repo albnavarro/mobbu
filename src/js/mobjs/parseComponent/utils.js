@@ -1,7 +1,7 @@
 // @ts-check
 
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
-import { getuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
+import { getFirstUserChildPlaceHolder } from '../webComponent/usePlaceHolderToRender';
 import { useQuery } from './useQuery';
 
 /**
@@ -43,7 +43,7 @@ export const getParseSourceArray = ({ element, currentSelectors }) => {
     } else {
         const query = useQuery
             ? [...queryAllFutureComponent(element)]
-            : getuserPlaceHolder(element);
+            : getFirstUserChildPlaceHolder(element);
 
         const componentToParse = query?.[0];
         const parseSourceArray = query.slice(1);

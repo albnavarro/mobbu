@@ -1,7 +1,9 @@
 // @ts-check
 
 import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
+import { useQuery } from '../../parseComponent/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
+import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -107,7 +109,10 @@ export const setParentsIdFallback = ({ componentId }) => {
  * If id is assigned to component nested in next cycle will be override.
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
+    const children = useQuery
+        ? queryAllFutureComponent(element, false)
+        : getAllUserChildPlaceholder({ element });
+
     children.forEach((child) => {
         child.setParentId(id);
     });

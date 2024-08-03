@@ -17296,6 +17296,30 @@
     bindEventMap.clear();
   };
 
+  // src/js/mobjs/parseComponent/useQuery.js
+  var useQuery = false;
+
+  // src/js/mobjs/webComponent/usePlaceHolderToRender.js
+  var userPlaceholder = /* @__PURE__ */ new Set();
+  var addUserPlaceholder = (element) => {
+    userPlaceholder.add(element);
+  };
+  var getFirstUserChildPlaceHolder = (element) => {
+    const userComponent = [...userPlaceholder.values()].find((item) => {
+      return element?.contains(item) && item.getIsPlaceholder();
+    });
+    userPlaceholder.delete(userComponent);
+    return [userComponent];
+  };
+  var getAllUserChildPlaceholder = ({ element }) => {
+    return [...userPlaceholder.values()].filter((item) => {
+      return element?.contains(item) && item.getIsPlaceholder();
+    });
+  };
+  var clearUserPlaceHolder = () => {
+    userPlaceholder.clear();
+  };
+
   // src/js/mobjs/componentStore/action/parent.js
   var getParentIdById = (id = "") => {
     if (!id || id === "") return;
@@ -17343,7 +17367,7 @@
     componentMap.set(componentId, newItem);
   };
   var addParentIdToFutureComponent = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
+    const children = useQuery ? queryAllFutureComponent(element, false) : getAllUserChildPlaceholder({ element });
     children.forEach((child2) => {
       child2.setParentId(id);
     });
@@ -18695,22 +18719,6 @@
     );
   };
 
-  // src/js/mobjs/webComponent/usePlaceHolderToRender.js
-  var userPlaceholder = /* @__PURE__ */ new Set();
-  var addUserPlaceholder = (element) => {
-    userPlaceholder.add(element);
-  };
-  var getuserPlaceHolder = (element) => {
-    const userComponent = [...userPlaceholder.values()].find((item) => {
-      return element?.contains(item) && item.getIsPlaceholder();
-    });
-    userPlaceholder.delete(userComponent);
-    return [userComponent];
-  };
-  var cleanuserPlaceHolder = () => {
-    userPlaceholder.clear();
-  };
-
   // src/js/mobjs/webComponent/userComponent.js
   var defineUserComponent = (componentList) => {
     Object.entries(componentList).forEach(([key, value]) => {
@@ -19476,9 +19484,6 @@
     });
   };
 
-  // src/js/mobjs/parseComponent/useQuery.js
-  var useQuery = false;
-
   // src/js/mobjs/parseComponent/utils.js
   var currentIterationCounter = 0;
   var incrementCurrentIterationCounter = () => {
@@ -19494,7 +19499,7 @@
       const parseSourceArray = currentSelectors.slice(1);
       return { componentToParse, parseSourceArray };
     } else {
-      const query = useQuery ? [...queryAllFutureComponent(element)] : getuserPlaceHolder(element);
+      const query = useQuery ? [...queryAllFutureComponent(element)] : getFirstUserChildPlaceHolder(element);
       const componentToParse = query?.[0];
       const parseSourceArray = query.slice(1);
       return { componentToParse, parseSourceArray };
@@ -20070,7 +20075,7 @@
       parentIdForced
     });
     resetCurrentIterationCounter();
-    cleanuserPlaceHolder();
+    clearUserPlaceHolder();
   };
   var initParseWatcher = () => {
     mainStore.watch(MAIN_STORE_ASYNC_PARSER, async ({ element, parentId }) => {
