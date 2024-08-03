@@ -35,6 +35,30 @@
 
 # MobJs
 
+```js
+export const parseComponents = async ({
+    element,
+    isCancellable = true,
+    parentIdForced = '',
+}) => {
+    incrementParserCounter();
+
+    /**
+    * Valutare la possibilita per sicurezza di eseguire un ordinament A > B di UserPlaceHolderMap.
+    * Se non impatta sulle performance puó essere un interessante controllo di sicurezza.
+    */
+
+    await parseComponentsRecursive({
+        element,
+        isCancellable,
+        parentIdForced,
+    });
+
+    resetCurrentIterationCounter();
+    clearUserPlaceHolder();
+};
+```
+
 ## type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
@@ -80,9 +104,6 @@ export const MyComponent2 = ({addMethods}) => {
 ### parentId
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
 - FallBack se i vari tentativi di precompilare/resuperare il parentId falliscono dovrebbe evitare di usare qualsiasi tipo di querySelector ( setParentsIdFallback ).
-
-## tick
-- `repeaterTick`, al momento bindProps usa il tick dei repeater solo in presenza di una `key`, é abbastanza ?
 
 ## src/js/mobjs/webComponent/
 Le propieta private dell classe possono essere null|undefined.
