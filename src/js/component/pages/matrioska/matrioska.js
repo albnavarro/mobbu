@@ -41,13 +41,15 @@ const getButtons = ({ delegateEvents, setState }) => {
                             click: () => {
                                 // @ts-ignore
                                 setState(button.state, (val) => {
-                                    return [
-                                        ...val,
-                                        {
-                                            key: val.length + 1,
-                                            value: mobCore.getUnivoqueId(),
-                                        },
-                                    ];
+                                    return val.length < 10
+                                        ? [
+                                              ...val,
+                                              {
+                                                  key: val.length + 1,
+                                                  value: mobCore.getUnivoqueId(),
+                                              },
+                                          ]
+                                        : val;
                                 });
                             },
                         })}
@@ -170,15 +172,15 @@ export const MatrioskaFn = ({
         const { level3_counter, level2_counter, level1_counter } = ref;
 
         watchSync('level1', (val) => {
-            level1_counter.innerHTML = `Number of items: ${val.length}`;
+            level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
         });
 
         watchSync('level2', (val) => {
-            level2_counter.innerHTML = `Number of items: ${val.length}`;
+            level2_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
         });
 
         watchSync('level3', (val) => {
-            level3_counter.innerHTML = `Number of items: ${val.length}`;
+            level3_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
         });
 
         /**

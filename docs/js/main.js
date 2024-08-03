@@ -29025,13 +29025,13 @@ Loading snippet ...</pre
                         ${delegateEvents({
         click: () => {
           setState(button.state, (val2) => {
-            return [
+            return val2.length < 10 ? [
               ...val2,
               {
                 key: val2.length + 1,
                 value: mobCore.getUnivoqueId()
               }
-            ];
+            ] : val2;
           });
         }
       })}
@@ -29129,13 +29129,13 @@ Loading snippet ...</pre
     onMount(({ ref }) => {
       const { level3_counter, level2_counter, level1_counter } = ref;
       watchSync("level1", (val2) => {
-        level1_counter.innerHTML = `Number of items: ${val2.length}`;
+        level1_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
       });
       watchSync("level2", (val2) => {
-        level2_counter.innerHTML = `Number of items: ${val2.length}`;
+        level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
       });
       watchSync("level3", (val2) => {
-        level3_counter.innerHTML = `Number of items: ${val2.length}`;
+        level3_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
       });
       const { matrioska } = getLegendData();
       const { source } = matrioska;
