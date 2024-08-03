@@ -17883,7 +17883,7 @@
           destroyNesterInvalidate({ id, invalidateParent });
           destroyNesterRepeat({ id, repeatParent: invalidateParent });
           destroyComponentInsideNodeById({
-            id,
+            id: fallBackParentId ?? id,
             container: invalidateParent
           });
           invalidateParent.textContent = "";
