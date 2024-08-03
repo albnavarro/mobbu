@@ -325,7 +325,7 @@ export const inizializeInvalidateWatch = async ({
                  * Remove old component.
                  */
                 destroyComponentInsideNodeById({
-                    id,
+                    id: fallBackParentId ?? id,
                     container: invalidateParent,
                 });
 
