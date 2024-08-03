@@ -19476,8 +19476,10 @@
     });
   };
 
-  // src/js/mobjs/parseComponent/utils.js
+  // src/js/mobjs/parseComponent/useQuery.js
   var useQuery = false;
+
+  // src/js/mobjs/parseComponent/utils.js
   var currentIterationCounter = 0;
   var incrementCurrentIterationCounter = () => {
     currentIterationCounter += 1;

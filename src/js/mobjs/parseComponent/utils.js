@@ -2,11 +2,7 @@
 
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
 import { getuserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
-
-/**
- * @type {boolean}
- */
-const useQuery = false;
+import { useQuery } from './useQuery';
 
 /**
  * @type {number}
