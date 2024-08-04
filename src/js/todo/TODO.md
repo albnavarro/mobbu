@@ -4,11 +4,20 @@
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
+# MobCore/MobJs
+
+## Store.
+- aggiungere myStore.update('myState', () => {})
+- eliminare da  `myStore.set` il comportamante di update
+
 # MobJs
 
 ## API:
 - Unformare `bindProps/repeat/invalidate` con `bind`.
 - invalidate: se `bind` non é un array forzarlo in un array.
+
+## Refactor
+- Creare `RuntimeAction` folder, spostare qui dentro tutto quello che é relativo a repeater/invalidare/runTime
 
 ## Parse
 ```js
