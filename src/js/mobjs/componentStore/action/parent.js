@@ -1,6 +1,5 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_IS_COMPONENT_VALUE } from '../../constant';
 import { useQuery } from '../../parseComponent/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender';

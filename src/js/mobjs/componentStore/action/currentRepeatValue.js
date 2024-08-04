@@ -4,7 +4,9 @@ import {
     ATTR_REPEATER_CONTEXT,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant.js';
+import { useQuery } from '../../parseComponent/useQuery.js';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent.js';
+import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender.js';
 import { componentMap } from '../store.js';
 
 /**
@@ -86,7 +88,9 @@ export const setRepeaterContext = ({ element, id }) => {
     /**
      * All children
      */
-    const children = queryAllFutureComponent(element, false);
+    const children = useQuery
+        ? queryAllFutureComponent(element, false)
+        : getAllUserChildPlaceholder({ element });
 
     /**
      * Filter not isRepeaterFirstChildNode
