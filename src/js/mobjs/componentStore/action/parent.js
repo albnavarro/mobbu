@@ -1,8 +1,6 @@
 // @ts-check
 
-import { useQuery } from '../../parseComponent/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
-import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -108,9 +106,14 @@ export const setParentsIdFallback = ({ componentId }) => {
  * If id is assigned to component nested in next cycle will be override.
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
-    const children = useQuery
-        ? queryAllFutureComponent(element, false)
-        : getAllUserChildPlaceholder({ element });
+    // const children = useQuery
+    //     ? queryAllFutureComponent(element, false)
+    //     : getAllUserChildPlaceholder({ element });
+
+    /**
+     * Query directly child of element id faster than checj each item in userPlaceholder
+     */
+    const children = queryAllFutureComponent(element, false);
 
     children.forEach((child) => {
         child.setParentId(id);

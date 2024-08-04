@@ -4,9 +4,7 @@ import {
     ATTR_REPEATER_CONTEXT,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant.js';
-import { useQuery } from '../../parseComponent/useQuery.js';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent.js';
-import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender.js';
 import { componentMap } from '../store.js';
 
 /**
@@ -85,12 +83,14 @@ export const getRepeaterStateById = ({ id = '' }) => {
  * tocheck.
  */
 export const setRepeaterContext = ({ element, id }) => {
+    // const children = useQuery
+    //     ? queryAllFutureComponent(element, false)
+    //     : getAllUserChildPlaceholder({ element });
+
     /**
-     * All children
+     * Query directly child of element id faster than checj each item in userPlaceholder
      */
-    const children = useQuery
-        ? queryAllFutureComponent(element, false)
-        : getAllUserChildPlaceholder({ element });
+    const children = queryAllFutureComponent(element, false);
 
     /**
      * Filter not isRepeaterFirstChildNode
