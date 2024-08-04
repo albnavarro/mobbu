@@ -22,6 +22,7 @@ import { onMountCallbackMap } from '../../../mobjs/temporaryData/onMount';
 import { activeRepeatMap } from '../../../mobjs/temporaryData/repeaterActions';
 import { repeaterTargetComponentMap } from '../../../mobjs/temporaryData/repeaterTargetComponent';
 import { staticPropsMap } from '../../../mobjs/temporaryData/staticProps';
+import { getUserChildPlaceholderSize } from '../../../mobjs/webComponent/usePlaceHolderToRender';
 
 /**
  * @type {import('../../../mobjs/type').mobComponent}
@@ -58,6 +59,10 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                         repeatIdPlaceHolderMap
                     );
                     console.log('repeatFunctionMap', repeatFunctionMap);
+                    console.log(
+                        'userChildPlaceholderSize',
+                        getUserChildPlaceholderSize()
+                    );
                 },
             })}
         >

@@ -19,31 +19,6 @@
 ## Refactor
 - Creare `RuntimeAction` folder, spostare qui dentro tutto quello che é relativo a repeater/invalidare/runTime
 
-## Parse
-```js
-export const parseComponents = async ({
-    element,
-    isCancellable = true,
-    parentIdForced = '',
-}) => {
-    incrementParserCounter();
-
-    /**
-    * Valutare la possibilita per sicurezza di eseguire un ordinament A > B di UserPlaceHolderMap.
-    * Se non impatta sulle performance puó essere un interessante controllo di sicurezza.
-    */
-
-    await parseComponentsRecursive({
-        element,
-        isCancellable,
-        parentIdForced,
-    });
-
-    resetCurrentIterationCounter();
-    clearUserPlaceHolder();
-};
-```
-
 ## Type
 - `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
