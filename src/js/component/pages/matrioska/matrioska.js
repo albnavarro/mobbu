@@ -87,7 +87,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
-                watch: 'level2',
+                bind: 'level2',
                 render: ({ html, sync }) => {
                     return html`<matrioska-item
                         class="matrioska-item--2"
@@ -126,7 +126,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps }) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
-                watch: 'level3',
+                bind: 'level3',
                 render: ({ html, sync }) => {
                     return html`<matrioska-item
                         class="matrioska-item--3"
@@ -224,7 +224,7 @@ export const MatrioskaFn = ({
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
-                    watch: 'level1',
+                    bind: 'level1',
                     render: ({ html, sync }) => {
                         return html`<matrioska-item
                             class="matrioska-item--1"

@@ -238,7 +238,7 @@ export const CodeOverlayFn = ({
                 <div class="c-code-overlay__header">
                     ${repeat({
                         clean: true,
-                        watch: 'urls',
+                        bind: 'urls',
                         render: ({ sync }) => {
                             return getRepeaterCard({
                                 sync,

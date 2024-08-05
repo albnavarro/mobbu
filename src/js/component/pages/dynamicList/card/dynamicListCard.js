@@ -182,7 +182,7 @@ export const DynamicListCardFn = ({
                     <!-- repeater by key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-                            watch: 'innerData',
+                            bind: 'innerData',
                             key: 'key',
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
@@ -203,7 +203,7 @@ export const DynamicListCardFn = ({
                     <!-- repeater no key -->
                     <div class="c-dynamic-card__repeater">
                         ${repeat({
-                            watch: 'innerData',
+                            bind: 'innerData',
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
@@ -231,7 +231,7 @@ export const DynamicListCardFn = ({
                     </p>
                     <div class="c-dynamic-card__invalidate__wrap">
                         ${invalidate({
-                            bind: ['counter'],
+                            bind: 'counter',
                             render: () => {
                                 return getInvalidateRender({
                                     getState,

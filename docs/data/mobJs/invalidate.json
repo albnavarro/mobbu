@@ -53,7 +53,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "An array of states that will invalidate rendering"
+            "content": "A state or an array of states that will invalidate rendering"
         },
         {
             "component": "mob-title",

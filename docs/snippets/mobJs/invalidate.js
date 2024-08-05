@@ -1,5 +1,7 @@
 export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: Array<OnlyStringKey<T>>;
+    bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
+    beforeUpdate?(): Promise<void>;
+    afterUpdate?(): void;
     render: (arg0: {
         html: (
             template: { raw: readonly string[] | ArrayLike<string> },

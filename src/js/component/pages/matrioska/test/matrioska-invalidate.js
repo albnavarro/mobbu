@@ -93,7 +93,7 @@ const getSecondLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${invalidate({
-                bind: ['level2'],
+                bind: 'level2',
                 render: ({ html }) => {
                     const { level2 } = getState();
 
@@ -141,7 +141,7 @@ const getThirdLevel = ({
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${invalidate({
-                bind: ['level3'],
+                bind: 'level3',
                 render: ({ html }) => {
                     const { level3 } = getState();
 
@@ -244,7 +244,7 @@ export const MatrioskaFn = ({
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
-                    watch: 'level1',
+                    bind: 'level1',
                     render: ({ html, sync }) => {
                         return html`<matrioska-item
                             class="matrioska-item--1"

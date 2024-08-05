@@ -179,7 +179,9 @@ export const getParamsForComponentFunction = ({
                      * Fire invalidate id after component parse
                      */
                     inizializeInvalidateWatch({
-                        bind,
+                        bind: /** @type{Array<string>} */ (
+                            mobCore.checkType(Array, bind) ? bind : [bind]
+                        ),
                         watch,
                         beforeUpdate,
                         afterUpdate,
@@ -195,7 +197,7 @@ export const getParamsForComponentFunction = ({
             return `<mobjs-invalidate ${sync} style="display:none;"></mobjs-invalidate>${invalidateRender()}`;
         },
         repeat: ({
-            watch: stateToWatch, // use alias to maintain ured naming convention.
+            bind,
             clean = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
@@ -204,7 +206,7 @@ export const getParamsForComponentFunction = ({
         }) => {
             const repeatId = mobCore.getUnivoqueId();
             const hasKey = key && key !== '';
-            const initialState = getState()?.[stateToWatch];
+            const initialState = getState()?.[bind];
             const currentUnique = hasKey
                 ? getUnivoqueByKey({ data: initialState, key })
                 : initialState;
@@ -226,7 +228,7 @@ export const getParamsForComponentFunction = ({
                                 }
                             )}"
                             ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
-                            ${ATTR_REPEATER_PROP_BIND}="${stateToWatch}"
+                            ${ATTR_REPEATER_PROP_BIND}="${bind}"
                             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
                             return render({
@@ -257,7 +259,7 @@ export const getParamsForComponentFunction = ({
                      */
                     inizializeRepeatWatch({
                         repeatId,
-                        state: stateToWatch,
+                        state: bind,
                         setState,
                         emit,
                         watch,

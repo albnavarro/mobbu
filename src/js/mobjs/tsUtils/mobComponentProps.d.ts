@@ -147,7 +147,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
      * @description
      * Array of object used to create list
      */
-    watch: OnlyStringKey<T>;
+    bind: OnlyStringKey<T>;
 
     /**
      * @description
@@ -291,7 +291,7 @@ export type PartialRenderComponent = (arg0: {
  * Invalidate component
  */
 export type PartialInvalidateComponent<T> = (arg0: {
-    bind?: Array<OnlyStringKey<T>>;
+    bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
     render: (arg0: {

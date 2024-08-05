@@ -109,7 +109,7 @@ export const ScrollToFn = ({
             <ul ref="list">
                 ${repeat({
                     clean: false,
-                    watch: 'anchorItems',
+                    bind: 'anchorItems',
                     key: 'id',
                     render: ({ html, sync }) => {
                         return addScrollButton({

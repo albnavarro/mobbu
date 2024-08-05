@@ -94,7 +94,7 @@ export const DynamicListRepeaterFn = ({
             <p class="c-dynamic-list-repeater__new js-list"></p>
             <div class="c-dynamic-list-repeater__list">
                 ${repeat({
-                    watch: 'data',
+                    bind: 'data',
                     clean,
                     key: keyParsed,
                     afterUpdate: ({ childrenId, element }) => {

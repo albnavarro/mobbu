@@ -224,7 +224,7 @@ export const DynamicListFn = async ({
                 </h4>
                 <div class="c-dynamic-list__invalidate__wrap">
                     ${invalidate({
-                        bind: ['counter'],
+                        bind: 'counter',
                         render: ({ html }) => {
                             return html`<div class="validate-test-wrapper">
                                 <dynamic-list-card-inner

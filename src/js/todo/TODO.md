@@ -12,10 +12,6 @@
 
 # MobJs
 
-## API:
-- Unformare `bindProps/repeat/invalidate` con `bind`.
-- invalidate: se `bind` non é un array forzarlo in un array.
-
 ## Refactor
 - Creare `RuntimeAction` folder, spostare qui dentro tutto quello che é relativo a repeater/invalidare/runTime
 

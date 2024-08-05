@@ -27,7 +27,7 @@ const getInvalidateRender = ({
                         </dynamic-list-card-inner>
                         <div class="c-dynamic-card__invalidate__wrap">
                             ${repeat({
-                                watch: 'innerData',
+                                bind: 'innerData',
                                 render: ({ sync, html }) => {
                                     return html`<dynamic-list-card-inner
                                         ${bindProps({
