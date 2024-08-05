@@ -57,6 +57,22 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobJs/bindEvents.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 26
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
                 "style": "medium"
             }
         },
@@ -92,9 +108,15 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/bindEvents.js",
+                "source": "./snippets/mobJs/bindEventsExtra.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,

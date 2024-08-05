@@ -15,11 +15,11 @@ export const MyComponent = ({ html, bindEvents, setState }) => {
         <div>
             <my-child-component
                 ${bindEvents({
-                    click: (event, index) => {
+                    click: (event) => {
                         setState('counter', (value) => (value += 1));
                         event.preventDefault(); 
                     },
-                    onmouseenter: (event, index) => {
+                    onmouseenter: (event) => {
                         setState('counter', (value) => (value += 1));
                     },
                 })}
