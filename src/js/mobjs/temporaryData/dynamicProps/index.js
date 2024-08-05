@@ -13,6 +13,10 @@ import {
     repeaterQuequeIsEmpty,
     repeaterTick,
 } from '../../componentStore/tickRepeater';
+import {
+    invalidateQuequeIsEmpty,
+    invalidateTick,
+} from '../../componentStore/tickInvalidate';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
@@ -281,8 +285,6 @@ export const applyDynamicProps = async ({
 
         /**
          * If repeater is running, update
-         * After repeater is end the state observer can change.
-         * So update props.
          */
         if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {
             /**
@@ -290,6 +292,28 @@ export const applyDynamicProps = async ({
              * So we have the last value of currentValue && index
              */
             await repeaterTick();
+
+            /**
+             * Refresh state after repater created
+             */
+            setDynamicProp({
+                componentId,
+                bind: bindUpdated,
+                props,
+                currentParentId: currentParentId ?? '',
+                fireCallback: true,
+            });
+        }
+
+        /**
+         * If invalidate is running, update
+         */
+        if (!inizilizeWatcher && !invalidateQuequeIsEmpty()) {
+            /**
+             * Initialize props after repater
+             * So we have the last value of currentValue && index
+             */
+            await invalidateTick();
 
             /**
              * Refresh state after repater created
@@ -316,6 +340,7 @@ export const applyDynamicProps = async ({
                  * Fire bindProps after repeater.
                  */
                 await repeaterTick();
+                await invalidateTick();
 
                 /**
                  * Wait for all all props is settled.
