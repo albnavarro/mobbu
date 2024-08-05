@@ -83,13 +83,6 @@ export const getRepeaterStateById = ({ id = '' }) => {
  * tocheck.
  */
 export const setRepeaterContext = ({ element, id }) => {
-    // const children = useQuery
-    //     ? queryAllFutureComponent(element, false)
-    //     : getAllUserChildPlaceholder({ element });
-
-    /**
-     * Query directly child of element id faster than checj each item in userPlaceholder
-     */
     const children = queryAllFutureComponent(element, false);
 
     /**
