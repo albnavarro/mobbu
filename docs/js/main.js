@@ -16975,30 +16975,13 @@
     });
     return item?.id ?? "";
   };
-  var getElementByKeyInContainer = ({
-    key = "",
-    parentId = "",
-    container = document.createElement("div")
-  }) => {
-    if (!key || key === "") return;
-    const value = componentMap.get(parentId ?? "");
-    if (!value) return;
-    const { child: child2 } = value;
-    if (!child2) return;
-    const targetId = Object.values(child2 ?? {}).flat().find((id) => {
-      const value2 = componentMap.get(id);
-      if (!value2) return;
-      const { element: element2, key: currentKey } = value2;
-      return container.contains(element2) && `${currentKey}` === `${key}`;
-    }) ?? "";
-    const targetValue = componentMap.get(targetId);
-    if (!targetValue) return;
-    const { element } = targetValue;
-    if (!element) {
-      console.warn(`getElementByKey failed no element found`);
-      return;
-    }
-    return element;
+  var getElementByKeyAndRepeatId = ({ key = "", repeatId = "" }) => {
+    if (key?.length === 0) return;
+    const values = [...componentMap.values()];
+    const valuesFiltered = values.find(
+      (item) => `${item.key}` === `${key}` && item.componentRepeatId === repeatId
+    );
+    return valuesFiltered?.element;
   };
 
   // src/js/mobjs/componentStore/utils.js
@@ -18034,7 +18017,7 @@
   };
   var arrayhaskey = ({ arr = [], key = "" }) => {
     return arr.every((item) => {
-      return item?.[key];
+      return key in item;
     });
   };
   var listKeyExist = ({ current, previous, key }) => {
@@ -18120,10 +18103,9 @@
     const elementToRemoveObj = getNewElement(previous, currentUnique, key);
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
       const keyValue = item?.[key];
-      return getElementByKeyInContainer({
+      return getElementByKeyAndRepeatId({
         key: keyValue,
-        parentId: id,
-        container: repeaterParentElement
+        repeatId
       });
     });
     const elementToAddObj = mixPreviousAndCurrentData(
@@ -18132,10 +18114,9 @@
       key
     );
     const newPersistentElementOrder = elementToAddObj.filter(({ isNewElement }) => !isNewElement).map((item) => {
-      return getElementByKeyInContainer({
+      return getElementByKeyAndRepeatId({
         key: item.key,
-        parentId: id,
-        container: repeaterParentElement
+        repeatId
       });
     });
     const parent = newPersistentElementOrder[0]?.parentNode ?? repeaterParentElement;
@@ -18174,10 +18155,9 @@
       const { isNewElement: firstElementIsNew } = firstEl;
       const previousOrNextExistingElement = firstElementIsNew ? getElementById({
         id: childrenFiltered[0]
-      }) : getElementByKeyInContainer({
+      }) : getElementByKeyAndRepeatId({
         key: item[0]?.key,
-        parentId: id,
-        container: repeaterParentElement
+        repeatId
       });
       const componentToAppend = item.filter((element) => element.isNewElement).map(
         (element) => getPartialsComponentList({
@@ -29318,14 +29298,14 @@ Loading snippet ...</pre
       level2: () => ({
         value: [
           { key: 1, value: mobCore.getUnivoqueId() },
-          { key: 1, value: mobCore.getUnivoqueId() }
+          { key: 2, value: mobCore.getUnivoqueId() }
         ],
         type: Array
       }),
       level3: () => ({
         value: [
           { key: 1, value: mobCore.getUnivoqueId() },
-          { key: 1, value: mobCore.getUnivoqueId() }
+          { key: 2, value: mobCore.getUnivoqueId() }
         ],
         type: Array
       })
@@ -30966,7 +30946,7 @@ Loading snippet ...</pre
       await loadData();
       setDefaultComponent({
         scoped: false,
-        maxParseIteration: 1e7,
+        maxParseIteration: 1e4,
         debug: true
       });
       inizializeApp({

@@ -51,7 +51,7 @@ export const mixPreviousAndCurrentData = (current, previous, key) => {
  */
 const arrayhaskey = ({ arr = [], key = '' }) => {
     return arr.every((/** @type {object} */ item) => {
-        return item?.[key];
+        return key in item;
     });
 };
 

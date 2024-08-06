@@ -63,57 +63,21 @@ export const getIdByElement = ({ element }) => {
  *
  * @param {object} obj
  * @param {string} obj.key
- * @param {string} obj.parentId
- * @param {HTMLElement} obj.container
+ * @param {string} obj.repeatId
  * @return {HTMLElement|undefined}
  *
  *
  * @description
- * Get element by key and parentId and child if specific HTMLElement
+ * Get element by key and repeatId.
  */
-export const getElementByKeyInContainer = ({
-    key = '',
-    parentId = '',
-    container = document.createElement('div'),
-}) => {
-    if (!key || key === '') return;
+export const getElementByKeyAndRepeatId = ({ key = '', repeatId = '' }) => {
+    if (key?.length === 0) return;
 
-    const value = componentMap.get(parentId ?? '');
-    if (!value) return;
+    const values = [...componentMap.values()];
+    const valuesFiltered = values.find(
+        (item) =>
+            `${item.key}` === `${key}` && item.componentRepeatId === repeatId
+    );
 
-    const { child } = value;
-    if (!child) return;
-
-    /**
-     * Search in parent component a component that:
-     * - is inside container
-     * - has specific key.
-     */
-    const targetId =
-        Object.values(child ?? {})
-            .flat()
-            .find((id) => {
-                const value = componentMap.get(id);
-                if (!value) return;
-
-                const { element, key: currentKey } = value;
-                return (
-                    container.contains(element) && `${currentKey}` === `${key}`
-                );
-            }) ?? '';
-
-    /**
-     * Get HTMLElement
-     */
-    const targetValue = componentMap.get(targetId);
-    if (!targetValue) return;
-
-    const { element } = targetValue;
-
-    if (!element) {
-        console.warn(`getElementByKey failed no element found`);
-        return;
-    }
-
-    return element;
+    return valuesFiltered?.element;
 };

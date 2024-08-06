@@ -15,7 +15,7 @@ import {
 } from '../constant';
 import {
     getElementById,
-    getElementByKeyInContainer,
+    getElementByKeyAndRepeatId,
     getIdByElement,
 } from '../componentStore/action/element';
 import { removeAndDestroyById } from '../componentStore/action/removeAndDestroy';
@@ -114,10 +114,9 @@ export const addWithKey = ({
 
     const elementToRemoveByKey = elementToRemoveObj.map((item) => {
         const keyValue = item?.[key];
-        return getElementByKeyInContainer({
+        return getElementByKeyAndRepeatId({
             key: keyValue,
-            parentId: id,
-            container: repeaterParentElement,
+            repeatId,
         });
     });
 
@@ -143,10 +142,9 @@ export const addWithKey = ({
     const newPersistentElementOrder = elementToAddObj
         .filter(({ isNewElement }) => !isNewElement)
         .map((item) => {
-            return getElementByKeyInContainer({
+            return getElementByKeyAndRepeatId({
                 key: item.key,
-                parentId: id,
-                container: repeaterParentElement,
+                repeatId,
             });
         });
 
@@ -248,10 +246,9 @@ export const addWithKey = ({
             ? getElementById({
                   id: childrenFiltered[0],
               })
-            : getElementByKeyInContainer({
+            : getElementByKeyAndRepeatId({
                   key: item[0]?.key,
-                  parentId: id,
-                  container: repeaterParentElement,
+                  repeatId,
               });
 
         /**

@@ -19,14 +19,14 @@ export const Matrioska = createComponent({
         level2: () => ({
             value: [
                 { key: 1, value: mobCore.getUnivoqueId() },
-                { key: 1, value: mobCore.getUnivoqueId() },
+                { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
         }),
         level3: () => ({
             value: [
                 { key: 1, value: mobCore.getUnivoqueId() },
-                { key: 1, value: mobCore.getUnivoqueId() },
+                { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
         }),
