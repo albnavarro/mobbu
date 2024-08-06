@@ -67,7 +67,7 @@ mobCore.useLoad(() => {
 
         setDefaultComponent({
             scoped: false,
-            maxParseIteration: 1000,
+            maxParseIteration: 10_000_000,
             debug: true,
         });
 

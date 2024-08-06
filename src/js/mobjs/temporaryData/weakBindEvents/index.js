@@ -4,6 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/classVersion/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { getIdByElement } from '../../componentStore/action/element';
+import { tick } from '../../componentStore/tick';
 import { invalidateTick } from '../../componentStore/tickInvalidate';
 import { repeaterTick } from '../../componentStore/tickRepeater';
 import {
@@ -11,6 +12,11 @@ import {
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
 import { getRoot } from '../../mainStore/root';
+
+/**
+ * @type {boolean}
+ */
+let shouldFireEvent = true;
 
 /**
  * @type {Map<string,Array<{[key:string]: () => void}>>}
@@ -90,11 +96,21 @@ const getItemFromTarget = (target) => {
 /**
  * @param {string} eventKey
  * @param {Event} event
- * @returns {void}
+ * @returns {Promise<void>}
  */
-function handleAction(eventKey, event) {
+async function handleAction(eventKey, event) {
     const target = event?.target;
     if (!target) return;
+
+    /**
+     * Fire one event at time on end of app tick.
+     * Set shouldFireEvent to true immediatyle after tick to restore
+     * event if callback fail.
+     */
+    if (!shouldFireEvent) return;
+    shouldFireEvent = false;
+    await tick();
+    shouldFireEvent = true;
 
     const { target: targetParsed, data } = getItemFromTarget(target);
 
