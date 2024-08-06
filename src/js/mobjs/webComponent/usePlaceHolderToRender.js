@@ -1,3 +1,5 @@
+import { tick } from '../componentStore/tick';
+
 /**
  * @type {Set<import('./type').userComponent>}
  */
@@ -46,13 +48,15 @@ export const getAllUserChildPlaceholder = ({ element }) => {
 };
 
 /**
- * @returns {void}
+ * @returns {Promise<void>}
  *
  * @description
- * Clean array at the end of parseRecursive.
+ * Clean array at the end of app operation.
  * Issue with element that switch position and there no real.
  */
-export const clearUserPlaceHolder = () => {
+export const clearUserPlaceHolder = async () => {
+    await tick();
+
     userPlaceholder.clear();
 };
 
