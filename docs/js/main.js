@@ -28176,8 +28176,6 @@ Loading snippet ...</pre
         click: async () => {
           setState("data", data3);
           setState("activeSample", index);
-          await tick();
-          console.log("resolve list update");
         }
       })}
                     ${bindProps({
@@ -28280,8 +28278,6 @@ Loading snippet ...</pre
         setState("counter", (prev2) => {
           return clamp(prev2 += 1, 0, 10);
         });
-        await tick();
-        console.log("resolve increment");
       }
     })}
                     ></dynamic-list-button>
@@ -28294,8 +28290,6 @@ Loading snippet ...</pre
           if (prev2 > 0) return prev2 -= 1;
           return prev2;
         });
-        await tick();
-        console.log("resolve decrement");
       }
     })}
                     ></dynamic-list-button>
@@ -29082,7 +29076,7 @@ Loading snippet ...</pre
         click: () => {
           setState(button.state, (val2) => {
             if (button.state === "level3")
-              return val2.length < 10 ? shuffle([
+              return val2.length < 5 ? shuffle([
                 ...val2,
                 {
                   key: getRandomInt2(1e3),
@@ -29202,7 +29196,7 @@ Loading snippet ...</pre
         level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
       });
       watchSync("level3", (val2) => {
-        level3_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
+        level3_counter.innerHTML = `Number of items: ${val2.length} ( max 5 )`;
       });
       const { matrioska } = getLegendData();
       const { source } = matrioska;

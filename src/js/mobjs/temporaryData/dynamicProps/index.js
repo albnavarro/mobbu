@@ -141,11 +141,10 @@ const setDynamicProp = ({
         newProps = props?.(parentState, currentRepeaterState?.index);
     } catch {
         /**
-         * Probably some not precise queque.
-         *
          * TODO:
          * Element is removed from DOM but not from componentMap.
          * Seems happen with repater element into slot fail, and useQuery == false.
+         * userPlaceholderMap automenta a dismisura.
          * Fallback here.
          */
         console.log('bindProps error:', componentId);

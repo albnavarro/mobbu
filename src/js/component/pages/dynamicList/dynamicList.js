@@ -1,7 +1,7 @@
 //@ts-check
 
 import { getLegendData } from '../../../data';
-import { html, setStateByName, tick } from '../../../mobjs';
+import { html, setStateByName } from '../../../mobjs';
 import { clamp } from '../../../mobMotion/animation/utils/animationUtils';
 import { startData, state1, state2, state3 } from './data';
 
@@ -62,9 +62,6 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                         click: async () => {
                             setState('data', data);
                             setState('activeSample', index);
-
-                            await tick();
-                            console.log('resolve list update');
                         },
                     })}
                     ${bindProps({
@@ -193,9 +190,6 @@ export const DynamicListFn = async ({
                                 setState('counter', (prev) => {
                                     return clamp((prev += 1), 0, 10);
                                 });
-                                await tick();
-
-                                console.log('resolve increment');
                             },
                         })}
                     ></dynamic-list-button>
@@ -208,9 +202,6 @@ export const DynamicListFn = async ({
                                     if (prev > 0) return (prev -= 1);
                                     return prev;
                                 });
-
-                                await tick();
-                                console.log('resolve decrement');
                             },
                         })}
                     ></dynamic-list-button>
