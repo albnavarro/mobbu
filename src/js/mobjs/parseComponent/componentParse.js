@@ -8,6 +8,7 @@ import {
     reorderUserPlaceholder,
 } from '../webComponent/usePlaceHolderToRender';
 import { parseComponentsRecursive } from './parseComponentRecursive';
+import { useQuery } from './useQuery';
 import { resetCurrentIterationCounter } from './utils';
 
 /**
@@ -25,7 +26,7 @@ export const parseComponents = async ({
     parentIdForced = '',
 }) => {
     incrementParserCounter();
-    reorderUserPlaceholder();
+    if (!useQuery) reorderUserPlaceholder();
 
     await parseComponentsRecursive({
         element,
@@ -34,7 +35,7 @@ export const parseComponents = async ({
     });
 
     resetCurrentIterationCounter();
-    clearUserPlaceHolder();
+    if (!useQuery) clearUserPlaceHolder();
 };
 
 /**

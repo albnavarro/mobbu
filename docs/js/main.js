@@ -17139,8 +17139,17 @@
   };
   var getRoot = () => root;
 
-  // src/js/mobjs/temporaryData/weakBindEvents/index.js
+  // src/js/mobjs/temporaryData/commonEvent.js
   var shouldFireEvent = true;
+  var allowFireEvent = () => {
+    shouldFireEvent = true;
+  };
+  var preventFireEvent = () => {
+    shouldFireEvent = false;
+  };
+  var getFireEvent = () => shouldFireEvent;
+
+  // src/js/mobjs/temporaryData/weakBindEvents/index.js
   var tempDelegateEventMap = /* @__PURE__ */ new Map();
   var eventDelegationMap = /* @__PURE__ */ new WeakMap();
   var eventToAdd = [];
@@ -17168,10 +17177,10 @@
   async function handleAction(eventKey, event) {
     const target = event?.target;
     if (!target) return;
-    if (!shouldFireEvent) return;
-    shouldFireEvent = false;
+    if (!getFireEvent()) return;
+    preventFireEvent();
     await tick();
-    shouldFireEvent = true;
+    allowFireEvent();
     const { target: targetParsed, data: data3 } = getItemFromTarget(target);
     if (!data3 || !document.contains(targetParsed)) return;
     const currentEvent = data3.find(({ event: event2 }) => event2 === eventKey);
@@ -17294,7 +17303,6 @@
   };
 
   // src/js/mobjs/temporaryData/bindEvents/index.js
-  var shouldFireEvent2 = true;
   var bindEventMap = /* @__PURE__ */ new Map();
   var setBindEvents = (eventsData = []) => {
     const eventsDataParsed = checkType(Object, eventsData) ? [eventsData] : eventsData;
@@ -17310,10 +17318,10 @@
       const [callback2] = Object.values(event);
       if (!eventName || !callback2) return;
       element.addEventListener(eventName, async (e) => {
-        if (!shouldFireEvent2) return;
-        shouldFireEvent2 = false;
+        if (!getFireEvent()) return;
+        preventFireEvent();
         await tick();
-        shouldFireEvent2 = true;
+        allowFireEvent();
         const currentRepeaterState = getRepeaterStateById({
           id: componentId
         });
@@ -17526,7 +17534,15 @@
     const currentRepeaterState = getRepeaterStateById({
       id: componentId
     });
-    const newProps = props?.(parentState, currentRepeaterState?.index);
+    let newProps;
+    try {
+      newProps = props?.(parentState, currentRepeaterState?.index);
+    } catch {
+      console.log("bindProps error:", componentId);
+      const element = getElementById({ id: componentId });
+      if (!document.body.contains(element))
+        removeAndDestroyById({ id: componentId });
+    }
     if (!newProps) return;
     Object.entries(newProps).forEach(([key, value]) => {
       setStateById(componentId, key, value, fireCallback);
@@ -18443,7 +18459,6 @@
             state,
             container: repeatParentElement
           });
-          await awaitNextLoop();
           unFreezePropById({ id, prop: state });
           descrementQueue();
           descrementRepeaterQueue();
@@ -18697,6 +18712,9 @@
     );
   };
 
+  // src/js/mobjs/parseComponent/useQuery.js
+  var useQuery = true;
+
   // src/js/mobjs/webComponent/usePlaceHolderToRender.js
   var userPlaceholder = /* @__PURE__ */ new Set();
   var addUserPlaceholder = (element) => {
@@ -18708,10 +18726,6 @@
     });
     userPlaceholder.delete(userComponent);
     return [userComponent];
-  };
-  var clearUserPlaceHolder = async () => {
-    await tick();
-    userPlaceholder.clear();
   };
   var getUserChildPlaceholderSize = () => {
     return userPlaceholder.size;
@@ -18731,6 +18745,10 @@
       return 0;
     });
     userPlaceholder = new Set(newValues);
+  };
+  var clearUserPlaceHolder = async () => {
+    await tick();
+    userPlaceholder.clear();
   };
 
   // src/js/mobjs/webComponent/userComponent.js
@@ -18918,7 +18936,7 @@
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
-            addUserPlaceholder(host);
+            if (!useQuery) addUserPlaceholder(host);
             this.#name = host.getAttribute(ATTR_INSTANCENAME);
             this.#staticPropsId = host.getAttribute(ATTR_PROPS);
             this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
@@ -19497,9 +19515,6 @@
       resolve({ newElement });
     });
   };
-
-  // src/js/mobjs/parseComponent/useQuery.js
-  var useQuery = false;
 
   // src/js/mobjs/parseComponent/utils.js
   var currentIterationCounter = 0;
@@ -20088,14 +20103,14 @@
     parentIdForced = ""
   }) => {
     incrementParserCounter();
-    reorderUserPlaceholder();
+    if (!useQuery) reorderUserPlaceholder();
     await parseComponentsRecursive({
       element,
       isCancellable,
       parentIdForced
     });
     resetCurrentIterationCounter();
-    clearUserPlaceHolder();
+    if (!useQuery) clearUserPlaceHolder();
   };
   var initParseWatcher = () => {
     mainStore.watch(MAIN_STORE_ASYNC_PARSER, async ({ element, parentId }) => {

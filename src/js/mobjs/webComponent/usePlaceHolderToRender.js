@@ -48,19 +48,6 @@ export const getAllUserChildPlaceholder = ({ element }) => {
 };
 
 /**
- * @returns {Promise<void>}
- *
- * @description
- * Clean array at the end of app operation.
- * Issue with element that switch position and there no real.
- */
-export const clearUserPlaceHolder = async () => {
-    await tick();
-
-    userPlaceholder.clear();
-};
-
-/**
  * @returns {number}
  *
  * @description
@@ -120,4 +107,16 @@ export const reorderUserPlaceholder = () => {
     });
 
     userPlaceholder = new Set(newValues);
+};
+
+/**
+ * @returns {Promise<void>}
+ *
+ * @description
+ * Clean array at the end of app operation.
+ * Issue with element that switch position and there no real.
+ */
+export const clearUserPlaceHolder = async () => {
+    await tick();
+    userPlaceholder.clear();
 };

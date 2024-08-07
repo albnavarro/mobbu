@@ -17,6 +17,8 @@ import {
     invalidateQuequeIsEmpty,
     invalidateTick,
 } from '../../componentStore/tickInvalidate';
+import { getElementById } from '../../componentStore/action/element';
+import { removeAndDestroyById } from '../../componentStore/action/removeAndDestroy';
 
 /**
  * @type {Map<string,{'bind':Array<string>,'parentId':string|undefined,'componentId':string,'propsId':string,'props':object}>}
@@ -133,7 +135,24 @@ const setDynamicProp = ({
         id: componentId,
     });
 
-    const newProps = props?.(parentState, currentRepeaterState?.index);
+    let newProps;
+
+    try {
+        newProps = props?.(parentState, currentRepeaterState?.index);
+    } catch {
+        /**
+         * Probably some not precise queque.
+         *
+         * TODO:
+         * Element is removed from DOM but not from componentMap.
+         * Seems happen with repater element into slot fail, and useQuery == false.
+         * Fallback here.
+         */
+        console.log('bindProps error:', componentId);
+        const element = getElementById({ id: componentId });
+        if (!document.body.contains(element))
+            removeAndDestroyById({ id: componentId });
+    }
 
     if (!newProps) return;
 

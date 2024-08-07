@@ -15,6 +15,7 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
+import { useQuery } from '../parseComponent/useQuery';
 import { addUserPlaceholder } from './usePlaceHolderToRender';
 
 /**
@@ -232,7 +233,7 @@ export const defineUserComponent = (componentList) => {
                     if (!host) return;
 
                     // @ts-ignore
-                    addUserPlaceholder(host);
+                    if (!useQuery) addUserPlaceholder(host);
 
                     this.#name = host.getAttribute(ATTR_INSTANCENAME);
                     this.#staticPropsId = host.getAttribute(ATTR_PROPS);
