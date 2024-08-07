@@ -1,6 +1,5 @@
 // @ts-check
 
-import { awaitNextLoop } from '../componentStore/utils';
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
