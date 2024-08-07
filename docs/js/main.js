@@ -18713,7 +18713,7 @@
   };
 
   // src/js/mobjs/parseComponent/useQuery.js
-  var useQuery = false;
+  var useQuery = true;
 
   // src/js/mobjs/webComponent/usePlaceHolderToRender.js
   var userPlaceholder = /* @__PURE__ */ new Set();
@@ -20102,7 +20102,6 @@
     isCancellable = true,
     parentIdForced = ""
   }) => {
-    await awaitNextLoop();
     incrementParserCounter();
     if (!useQuery) reorderUserPlaceholder();
     await parseComponentsRecursive({

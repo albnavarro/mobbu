@@ -1,4 +1,4 @@
 /**
  * @type {boolean}
  */
-export const useQuery = false;
+export const useQuery = true;

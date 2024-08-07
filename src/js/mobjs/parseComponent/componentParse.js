@@ -29,8 +29,6 @@ export const parseComponents = async ({
     /**
      * Await one loop so avery component is in useMap.
      */
-    await awaitNextLoop();
-
     incrementParserCounter();
     if (!useQuery) reorderUserPlaceholder();
 
