@@ -4,11 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { checkType } from '../../../mobCore/store/classVersion/storeType';
 import { getRepeaterStateById } from '../../componentStore/action/currentRepeatValue';
 import { tick } from '../../componentStore/tick';
-
-/**
- * @type {boolean}
- */
-let shouldFireEvent = true;
+import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 
 /**
  * @type {Map<string,Array<{[key:string]: (arg0: object, arg1: object) => {}}>>}
@@ -65,10 +61,10 @@ export const applyBindEvents = ({ element, componentId, bindEventsId }) => {
              * Set shouldFireEvent to true immediatyle after tick to restore
              * event if callback fail.
              */
-            if (!shouldFireEvent) return;
-            shouldFireEvent = false;
+            if (!getFireEvent()) return;
+            preventFireEvent();
             await tick();
-            shouldFireEvent = true;
+            allowFireEvent();
 
             /**
              * Add current repeate list for dynamic list.

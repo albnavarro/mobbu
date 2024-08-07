@@ -12,11 +12,7 @@ import {
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant';
 import { getRoot } from '../../mainStore/root';
-
-/**
- * @type {boolean}
- */
-let shouldFireEvent = true;
+import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';
 
 /**
  * @type {Map<string,Array<{[key:string]: () => void}>>}
@@ -107,10 +103,10 @@ async function handleAction(eventKey, event) {
      * Set shouldFireEvent to true immediatyle after tick to restore
      * event if callback fail.
      */
-    if (!shouldFireEvent) return;
-    shouldFireEvent = false;
+    if (!getFireEvent()) return;
+    preventFireEvent();
     await tick();
-    shouldFireEvent = true;
+    allowFireEvent();
 
     const { target: targetParsed, data } = getItemFromTarget(target);
 
