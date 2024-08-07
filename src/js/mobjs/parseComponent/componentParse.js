@@ -1,5 +1,6 @@
 // @ts-check
 
+import { awaitNextLoop } from '../componentStore/utils';
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
@@ -25,6 +26,11 @@ export const parseComponents = async ({
     isCancellable = true,
     parentIdForced = '',
 }) => {
+    /**
+     * Await one loop so avery component is in useMap.
+     */
+    await awaitNextLoop();
+
     incrementParserCounter();
     if (!useQuery) reorderUserPlaceholder();
 
