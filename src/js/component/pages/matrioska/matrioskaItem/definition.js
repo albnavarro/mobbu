@@ -6,7 +6,7 @@ import { MatrioskaItemFn } from './matrioskaItem';
 export const MatrioskaItem = createComponent({
     name: 'matrioska-item',
     component: MatrioskaItemFn,
-    exportState: ['level', 'key', 'value'],
+    exportState: ['level', 'key', 'value', 'active'],
     state: {
         level: () => ({
             value: '',
@@ -19,6 +19,10 @@ export const MatrioskaItem = createComponent({
         value: () => ({
             value: '',
             type: String,
+        }),
+        active: () => ({
+            value: false,
+            type: Boolean,
         }),
     },
     child: [],

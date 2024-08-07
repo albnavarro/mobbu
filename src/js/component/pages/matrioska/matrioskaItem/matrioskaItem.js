@@ -3,22 +3,29 @@
 /**
  * @type {import("../../../../mobjs/type").mobComponent<import('./type').MatrioskaItem>}
  */
-export const MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
+export const MatrioskaItemFn = ({
+    html,
+    onMount,
+    getState,
+    watchSync,
+    watch,
+    id,
+}) => {
     const { level } = getState();
 
     onMount(({ ref, element }) => {
         const { keyRef, valueRef } = ref;
 
         watchSync('key', (value) => {
-            if (value === 'not_found') {
-                console.log('here:', element);
-            }
-
             keyRef.innerHTML = `${value}`;
         });
 
         watchSync('value', (value) => {
             valueRef.innerHTML = `${value}`;
+        });
+
+        watch('active', (val) => {
+            element.classList.toggle('active', val);
         });
 
         return () => {};
@@ -30,6 +37,9 @@ export const MatrioskaItemFn = ({ html, onMount, getState, watchSync }) => {
             <h6 class="matrioska-item__key">key: <span ref="keyRef"></span></h6>
             <h6 class="matrioska-item__value">
                 Value: <span ref="valueRef"></span>
+            </h6>
+            <h6 class="matrioska-item__value">
+                Component id: <span>${id}</span>
             </h6>
         </div>
         <div class="matrioska-item__child">

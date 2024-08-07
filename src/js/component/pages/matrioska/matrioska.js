@@ -26,6 +26,24 @@ const buttons = [
 ];
 
 /**
+ * @param {Array<any>} array
+ */
+const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
+
+/**
+ * @param {number} max
+ */
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+/**
  * @param {object} params
  * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
  * @param {import('../../../mobjs/type').SetState<import('./type').Matrioska>} params.setState
@@ -41,11 +59,25 @@ const getButtons = ({ delegateEvents, setState }) => {
                             click: () => {
                                 // @ts-ignore
                                 setState(button.state, (val) => {
+                                    /**
+                                     * Shuffle level3
+                                     */
+                                    if (button.state === 'level3')
+                                        return val.length < 10
+                                            ? shuffle([
+                                                  ...val,
+                                                  {
+                                                      key: getRandomInt(1000),
+                                                      value: mobCore.getUnivoqueId(),
+                                                  },
+                                              ])
+                                            : val;
+
                                     return val.length < 10
                                         ? [
                                               ...val,
                                               {
-                                                  key: val.length + 1,
+                                                  key: getRandomInt(1000),
                                                   value: mobCore.getUnivoqueId(),
                                               },
                                           ]
@@ -82,8 +114,9 @@ const getButtons = ({ delegateEvents, setState }) => {
  * @param {import('../../../mobjs/type').Repeat<import('./type').Matrioska>} params.repeat
  * @param {import('../../../mobjs/type').StaticProps<import('./matrioskaItem/type').MatrioskaItem>} params.staticProps
  * @param {import('../../../mobjs/type').BindProps<import('./type').Matrioska,import('./matrioskaItem/type').MatrioskaItem>} params.bindProps
+ * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
  */
-const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
+const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -97,8 +130,8 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
                         ${bindProps({
                             props: ({ level2 }, index) => {
                                 return {
-                                    key: `${level2[index]?.key ?? 'not_found'}`,
-                                    value: `${level2[index]?.value ?? 'not_found'}`,
+                                    key: `${level2[index]?.key}`,
+                                    value: `${level2[index]?.value}`,
                                 };
                             },
                         })}
@@ -107,7 +140,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
                         ${getThirdLevel({
                             repeat,
                             staticProps,
-                            bindProps,
+                            delegateEvents,
                         })}
                     </matrioska-item> `;
                 },
@@ -120,25 +153,35 @@ const getSecondLevel = ({ repeat, staticProps, bindProps }) => {
  * @param {object} params
  * @param {import('../../../mobjs/type').Repeat<import('./type').Matrioska>} params.repeat
  * @param {import('../../../mobjs/type').StaticProps<import('./matrioskaItem/type').MatrioskaItem>} params.staticProps
- * @param {import('../../../mobjs/type').BindProps<import('./type').Matrioska,import('./matrioskaItem/type').MatrioskaItem>} params.bindProps
+ * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
  */
-const getThirdLevel = ({ repeat, staticProps, bindProps }) => {
+const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
-                render: ({ html, sync }) => {
+                key: 'key',
+                render: ({ html, sync, currentValue }) => {
+                    const name = mobCore.getUnivoqueId();
+
+                    /**
+                     * With key bind props is unnecessary here
+                     */
                     return html`<matrioska-item
                         class="matrioska-item--3"
+                        name="${name}"
                         ${staticProps({
                             level: 'level 3',
+                            key: `${currentValue?.key}`,
+                            value: `${currentValue?.value}`,
                         })}
-                        ${bindProps({
-                            props: ({ level3 }, index) => {
-                                return {
-                                    key: `${level3[index]?.key ?? 'not_found'}`,
-                                    value: `${level3[index]?.value ?? 'not_found'}`,
-                                };
+                        ${delegateEvents({
+                            click: () => {
+                                /**
+                                 *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
+                                 */
+                                const setActiveState = setStateByName(name);
+                                setActiveState('active', (val) => !val);
                             },
                         })}
                         ${sync}
@@ -220,6 +263,8 @@ export const MatrioskaFn = ({
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
+            <span> First/Second level repeater without key. </span>
+            <span> Third level repeater with key, shuffle order. </span>
         </h4>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
@@ -233,8 +278,8 @@ export const MatrioskaFn = ({
                                 /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
                                 props: ({ level1 }, index) => {
                                     return {
-                                        key: `${level1[index]?.key ?? 'not_found'}`,
-                                        value: `${level1[index]?.value ?? 'not_found'}`,
+                                        key: `${level1[index]?.key}`,
+                                        value: `${level1[index]?.value}`,
                                     };
                                 },
                             })}
@@ -244,6 +289,7 @@ export const MatrioskaFn = ({
                                 repeat,
                                 staticProps,
                                 bindProps,
+                                delegateEvents,
                             })}
                         </matrioska-item> `;
                     },
