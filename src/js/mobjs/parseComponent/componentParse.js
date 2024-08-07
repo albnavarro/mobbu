@@ -26,9 +26,6 @@ export const parseComponents = async ({
     isCancellable = true,
     parentIdForced = '',
 }) => {
-    /**
-     * Await one loop so avery component is in useMap.
-     */
     incrementParserCounter();
     if (!useQuery) reorderUserPlaceholder();
 
