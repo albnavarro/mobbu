@@ -12,9 +12,6 @@
 
 # MobJs
 
-## BindProps error.
-- Check `src/js/mobjs/temporaryData/dynamicProps/index.js` `try-catch`.
-
 ## Refactor
 - Creare `RuntimeAction` folder, spostare qui dentro tutto quello che é relativo a repeater/invalidare/runTime
 
