@@ -63,7 +63,7 @@ const getButtons = ({ delegateEvents, setState }) => {
                                      * Shuffle level3
                                      */
                                     if (button.state === 'level3')
-                                        return val.length < 5
+                                        return val.length < 10
                                             ? shuffle([
                                                   ...val,
                                                   {
@@ -223,7 +223,7 @@ export const MatrioskaFn = ({
         });
 
         watchSync('level3', (val) => {
-            level3_counter.innerHTML = `Number of items: ${val.length} ( max 5 )`;
+            level3_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
         });
 
         /**

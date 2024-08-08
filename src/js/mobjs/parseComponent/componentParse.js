@@ -3,10 +3,7 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from '../temporaryData/parser/parser';
-import {
-    clearUserPlaceHolder,
-    reorderUserPlaceholder,
-} from '../webComponent/usePlaceHolderToRender';
+import { clearUserPlaceHolder } from '../webComponent/usePlaceHolderToRender';
 import { parseComponentsRecursive } from './parseComponentRecursive';
 import { useQuery } from './useQuery';
 import { resetCurrentIterationCounter } from './utils';
@@ -26,7 +23,6 @@ export const parseComponents = async ({
     parentIdForced = '',
 }) => {
     incrementParserCounter();
-    if (!useQuery) reorderUserPlaceholder();
 
     await parseComponentsRecursive({
         element,
