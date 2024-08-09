@@ -6,9 +6,9 @@ const setParent = ({ invalidateId, context }) => {
     return parent;
 };
 
-import { addInvalidateParent } from '../componentStore/action/invalidate';
-import { awaitNextLoop } from '../componentStore/utils';
+import { addInvalidateParent } from '../modules/invalidate';
 import { ATTR_INVALIDATE } from '../constant';
+import { awaitNextLoop } from '../queque/utils';
 
 export const defineInvalidateComponent = () => {
     customElements.define(

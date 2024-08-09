@@ -10,18 +10,18 @@ import {
 import {
     repeatFunctionMap,
     repeatIdPlaceHolderMap,
-} from '../../../mobjs/componentStore/action/repeat';
+} from '../../../mobjs/modules/repeater';
 import {
     invalidateFunctionMap,
     invalidateIdPlaceHolderMap,
-} from '../../../mobjs/componentStore/action/invalidate';
-import { bindEventMap } from '../../../mobjs/temporaryData/bindEvents';
-import { currentRepeaterValueMap } from '../../../mobjs/temporaryData/currentRepeaterItemValue';
-import { dynamicPropsMap } from '../../../mobjs/temporaryData/dynamicProps';
-import { onMountCallbackMap } from '../../../mobjs/temporaryData/onMount';
-import { activeRepeatMap } from '../../../mobjs/temporaryData/repeaterActions';
-import { repeaterTargetComponentMap } from '../../../mobjs/temporaryData/repeaterTargetComponent';
-import { staticPropsMap } from '../../../mobjs/temporaryData/staticProps';
+} from '../../../mobjs/modules/invalidate';
+import { bindEventMap } from '../../../mobjs/modules/bindEvents';
+import { currentRepeaterValueMap } from '../../../mobjs/modules/repeater/repeaterValue';
+import { bindPropsMap } from '../../../mobjs/modules/bindProps';
+import { onMountCallbackMap } from '../../../mobjs/modules/onMount';
+import { activeRepeatMap } from '../../../mobjs/modules/repeater/activeRepeater';
+import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targetcomponent';
+import { staticPropsMap } from '../../../mobjs/modules/staticProps';
 import { getUserChildPlaceholderSize } from '../../../mobjs/webComponent/usePlaceHolderToRender';
 
 /**
@@ -42,7 +42,7 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                     console.log('activeRepeatMap', activeRepeatMap);
                     console.log('onMountCallbackMap', onMountCallbackMap);
                     console.log('staticPropsMap', staticPropsMap);
-                    console.log('dynamicPropsMap', dynamicPropsMap);
+                    console.log('dynamicPropsMap', bindPropsMap);
                     console.log(
                         'repeaterTargetComponent',
                         repeaterTargetComponentMap

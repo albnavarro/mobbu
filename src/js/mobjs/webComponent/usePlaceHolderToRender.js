@@ -1,9 +1,9 @@
-import { tick } from '../componentStore/tick';
+import { tick } from '../queque/tick';
 
 /**
  * @type {Set<import('./type').userComponent>}
  */
-let userPlaceholder = new Set();
+const userPlaceholder = new Set();
 
 /**
  * @param {import('./type').userComponent} element

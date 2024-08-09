@@ -1,10 +1,6 @@
 // @ts-check
 
-import {
-    getIndex,
-    getPageNotFound,
-    getRouteByName,
-} from '../mainStore/routeList';
+import { getIndex, getPageNotFound, getRouteByName } from './routeList';
 
 /**
  * @param {object} obj

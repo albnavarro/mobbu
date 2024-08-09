@@ -15,7 +15,7 @@ import {
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
-import { useQuery } from '../parseComponent/useQuery';
+import { useQuery } from '../parse/useQuery';
 import { addUserPlaceholder } from './usePlaceHolderToRender';
 
 /**

@@ -1,120 +1,240 @@
 // @ts-check
 
 import { mobCore } from '../../mobCore';
-import { frameDelayAfterParse } from '../constant';
-import { setComponentList } from '../mainStore/componentList';
+import { mainStore } from '../mainStore/mainStore';
+import { HISTORY_BACK, HISTORY_NEXT } from './constant';
 import {
-    setIndex,
-    setPageNotFound,
-    setRouteList,
-} from '../mainStore/routeList';
-import {
-    initParseWatcher,
-    parseComponents,
-} from '../parseComponent/componentParse';
-import { router } from './router';
-import { debugRoute } from './test';
-import { setContentId } from '../mainStore/contendId';
-import { setRoot } from '../mainStore/root';
-import {
-    setBeforePageTransition,
-    setPageTransition,
-} from '../mainStore/pageTransition';
-import { setRestoreScroll } from '../mainStore/restoreScroll';
+    historyBackSize,
+    getLastHistory,
+    getLastHistoryNext,
+    resetNext,
+    setHistoryBack,
+    setHistoryNext,
+} from './scroll';
+import { loadRoute } from './loadRoute';
+import { getRouteModule } from './utils';
+
+let previousHash = '';
+let previousParamsToPush = '';
+let currentSearch;
+let historyDirection = 'back';
 
 /**
- * @type {( arg0: import('../type').inizializeApp) => Promise<void>}
- *
- * @description
- * Inizializa default route.
+ * @type {import('./type').historyType}
  */
-export const inizializeApp = async ({
-    rootId,
-    wrapper,
-    contentId,
-    routes = [],
-    afterInit = () => {},
-    index = 'home',
-    pageNotFound = 'pageNotFound',
-    beforePageTransition,
-    pageTransition,
-    restoreScroll = true,
-}) => {
-    /**
-     * @type {HTMLElement|null}
-     */
-    const rootEl = /** @type{HTMLElement} */ document.querySelector(rootId);
-    const wrapperDOM = await wrapper();
+let previousHistory;
+
+/**
+ * @type {import('./type').historyType}
+ */
+let currentHistory;
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+const sanitizeParams = (value) => {
+    return value.replace('?', '').replace('/', '');
+};
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+const sanitizeHash = (value) => {
+    return value.replace('#', '').replace('/', '').replace('.', '');
+};
+
+/**
+ * @param {string} value
+ * @returns {{[key:string]:any}}
+ */
+const getParams = (value) => {
+    return value.split('&').reduce((previous, current) => {
+        const currentParams = current.split('=');
+        const key = sanitizeParams(currentParams?.[0] ?? '');
+        const value = currentParams?.[1];
+
+        return key && key.length > 0 ? { ...previous, [key]: value } : previous;
+    }, {});
+};
+
+/**
+ * @description
+ * Get hash from url and load new route.
+ */
+const hashHandler = async () => {
+    const historyObejct = { time: mobCore.getTime(), scrollY: window.scrollY };
 
     /**
-     * Validate initial data.
-     * Else skip.
+     * Prevent multiple routes start at same time.
      */
-    if (!contentId || !rootEl) return;
+    const { routeIsLoading } = mainStore.get();
+    if (routeIsLoading) {
+        /**
+         * Restore previous hash/params.
+         */
+        history.replaceState(
+            { nextId: historyObejct },
+            '',
+            `#${previousHash}${previousParamsToPush}`
+        );
+        return;
+    }
+
+    const hashOriginal = window.location.hash.slice(1);
+    const parts = hashOriginal.split('?');
+    const search = sanitizeParams(parts?.[1] ?? '');
 
     /**
-     *
+     * Get final hash/params value.
      */
-    setContentId({ contentId });
-    setRoot({ element: rootEl });
-    setPageTransition({ fn: pageTransition });
-    setBeforePageTransition({ fn: beforePageTransition });
-    setRestoreScroll(restoreScroll);
+    const hash = sanitizeHash(parts?.[0] ?? '');
+    const params = getParams(currentSearch ?? search);
 
     /**
-     * Init parse watcher.
+     * Update browser history.
      */
-    initParseWatcher();
+    const paramsToPush =
+        currentSearch || Object.keys(search).length > 0
+            ? `?${currentSearch ?? search}`
+            : '';
 
     /**
-     *
+     * set unique id to route.
+     * Useful in poState to check if come from backButton
      */
-    setComponentList();
+    if (!currentHistory)
+        history.replaceState(
+            { nextId: historyObejct },
+            '',
+            `#${hash}${paramsToPush}`
+        );
 
     /**
-     *
+     * Reset last search value ( id come form loadUrl function ).
      */
-    setRouteList(routes);
+    currentSearch = undefined;
 
     /**
-     * Set idnex route
+     * Store previous hash.
      */
-    setIndex({ routeName: index });
+    previousHash = hash;
 
     /**
-     * Set idnex route
+     * Store previous paramsToPush.
      */
-    setPageNotFound({ routeName: pageNotFound });
+    previousParamsToPush = paramsToPush;
+
+    // modalita standard
+    // salvo il vaslore dello scroll corrente
+    if (!currentHistory) {
+        setHistoryBack(historyObejct);
+    }
+
+    // salvo il vaslore dello scroll corrente
+    if (currentHistory && historyDirection === HISTORY_BACK) {
+        setHistoryNext(historyObejct);
+    }
+
+    // salvo il vaslore corrente di next in back
+    if (currentHistory && historyDirection === HISTORY_NEXT) {
+        setHistoryBack(getLastHistoryNext());
+    }
 
     /**
-     * Add wrapper to root node.
+     * Load.
      */
-    rootEl.insertAdjacentHTML('afterbegin', wrapperDOM);
+    await loadRoute({
+        route: getRouteModule({ url: hash }),
+        params,
+        scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
+        comeFromHistory: currentHistory ? true : false,
+    });
+};
+
+/**
+ * @description
+ * Initialize router.
+ */
+export const router = () => {
+    hashHandler();
+
+    window.addEventListener('popstate', (event) => {
+        currentHistory = event?.state?.nextId;
+
+        /**
+         * First back
+         */
+        if (currentHistory && !previousHistory && historyBackSize() > 0) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_BACK;
+            return;
+        }
+
+        /**
+         * Next
+         */
+        if (
+            currentHistory &&
+            previousHistory?.time > currentHistory?.time &&
+            historyBackSize() > 0
+        ) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_BACK;
+            return;
+        }
+
+        /**
+         * prev
+         */
+        if (currentHistory && previousHistory?.time < currentHistory?.time) {
+            previousHistory = currentHistory;
+            historyDirection = HISTORY_NEXT;
+            return;
+        }
+
+        previousHistory = undefined;
+        historyDirection = '';
+
+        /**
+         * Normal mode reset next
+         */
+        resetNext();
+    });
+
+    window.addEventListener('hashchange', () => {
+        hashHandler();
+    });
+};
+
+/**
+ * @description
+ * Set hash in current browser url.
+ */
+export const loadUrl = ({ url = '' }) => {
+    const parts = url.split('?');
 
     /**
-     * Render common layout component.
-     * Initialize js on common layout component.
-     * All component here is persistent, so isCancellable is set to false.
+     * Isolate hash, without # character.
      */
-    await parseComponents({ element: rootEl, isCancellable: false });
+    const hash = sanitizeHash(parts?.[0] ?? '');
 
     /**
-     * First callback after parse index.html first time.
-     * Wait 5 frames, so browser can clear gargbage collector created in parse step.
+     * Extract current params, to use later ( in getHash function ).
      */
-    mobCore.useFrameIndex(() => {
-        mobCore.useNextTick(() => {
-            afterInit();
-        });
-    }, frameDelayAfterParse);
+    const search = sanitizeParams(parts?.[1] ?? '');
+    if (search.length > 0) currentSearch = search;
 
     /**
-     * Debug
+     * Update hash without params.
      */
-    debugRoute();
+    window.location.hash = hash;
 
     /**
-     * Start router.
+     * If we want reload same route from same hash, maybe params is different.
      */
-    router();
+    if (hash === previousHash || previousHash === '') {
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+    }
 };

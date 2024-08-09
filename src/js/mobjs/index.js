@@ -3,29 +3,29 @@
 export {
     eventDelegationMap,
     tempDelegateEventMap,
-} from './temporaryData/weakBindEvents';
-export { getPropsFromParent } from './temporaryData/staticProps';
-export { componentMap } from './componentStore/store';
-export { renderHtml as html } from './creationStep/utils';
-export { createComponent } from './createComponent';
-export { setDefaultComponent } from './createComponent';
-export { removeAndDestroyById } from './componentStore/action/removeAndDestroy';
-export { removeOrphanComponent } from './componentStore/action/removeAndDestroy';
+} from './modules/delegateEvents';
+export { getPropsFromParent } from './modules/staticProps';
+export { componentMap } from './component/store';
+export { renderHtml as html } from './parse/steps/utils';
+export { createComponent } from './component/createComponent';
+export { setDefaultComponent } from './component/createComponent';
+export { removeAndDestroyById } from './component/action/removeAndDestroy';
+export { removeOrphanComponent } from './component/action/removeAndDestroy';
 export { mainStore } from './mainStore/mainStore';
-export { loadUrl } from './route/router';
-export { inizializeApp } from './route';
-export { getIdByInstanceName } from './componentStore/action/component';
-export { watchById } from './componentStore/action/watch';
-export { setStateById } from './componentStore/action/state';
-export { setStateByName } from './componentStore/action/state';
-export { getStateById } from './componentStore/action/state';
-export { getStateByName } from './componentStore/action/state';
-export { getChildrenIdByName } from './componentStore/action/children';
-export { getComponentNameById } from './componentStore/action/component';
-export { getParentIdById } from './componentStore/action/parent';
+export { loadUrl } from './route';
+export { inizializeApp } from './inizializeApp';
+export { getIdByInstanceName } from './component/action/component';
+export { watchById } from './component/action/watch';
+export { setStateById } from './component/action/state';
+export { setStateByName } from './component/action/state';
+export { getStateById } from './component/action/state';
+export { getStateByName } from './component/action/state';
+export { getChildrenIdByName } from './component/action/children';
+export { getComponentNameById } from './component/action/component';
+export { getParentIdById } from './component/action/parent';
 export { staticProps } from './utils';
-export { tick } from './componentStore/tick';
-export { getTree } from './componentStore/action/getTree';
+export { tick } from './queque/tick';
+export { getTree } from './component/action/getTree';
 export {
     MAIN_STORE_ACTIVE_PARAMS,
     MAIN_STORE_ACTIVE_ROUTE,
@@ -34,4 +34,4 @@ export {
     MAIN_STORE_BEFORE_ROUTE_LEAVES,
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './mainStore/constant';
-export { useComponent } from './mainStore/componentList';
+export { useComponent } from './component/componentList';

@@ -12,13 +12,8 @@
 
 # MobJs
 
-## Refactor
-- Creare `RuntimeAction` folder, spostare qui dentro tutto quello che é relativo a repeater/invalidare/runTime
-
 ## Type
-- `staticProp`: Aggiungere il generic <R> cosi come fatto per `bindProps`.
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
-
 
 ## Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).

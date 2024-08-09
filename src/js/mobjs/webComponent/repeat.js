@@ -6,9 +6,9 @@ const setParent = ({ repeatId, context }) => {
     return parent;
 };
 
-import { addRepeatParent } from '../componentStore/action/repeat';
-import { awaitNextLoop } from '../componentStore/utils';
+import { addRepeatParent } from '../modules/repeater';
 import { ATTR_MOBJS_REPEAT } from '../constant';
+import { awaitNextLoop } from '../queque/utils';
 
 export const defineRepeatComponent = () => {
     customElements.define(

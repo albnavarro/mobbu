@@ -1,5 +1,5 @@
-import { bindEventsObject } from '../temporaryData/bindEvents/type';
-import { delegateEventObject } from '../temporaryData/weakBindEvents/type';
+import { bindEventsObject } from '../modules/bindEvents/type';
+import { delegateEventObject } from '../modules/delegateEvents/type';
 import { ArrayElement, NotValue, OnlyStringKey } from './utils';
 
 /**
