@@ -191,7 +191,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Add component to store
      */
-    const { getState, setState, emit, emitAsync, computed, watch } =
+    const { getState, setState, emit, emitAsync, computed, watch, debug } =
         addComponentToStore({
             element: componentToParse,
             props,
@@ -290,6 +290,7 @@ export const parseComponentsRecursive = async ({
         id,
         key,
         bindEventsId,
+        debug,
     });
 
     /**

@@ -575,6 +575,12 @@ export interface componentPropsType<T, R> {
      * Invalidate component
      */
     invalidate: InvalidateComponent<T>;
+
+    /**
+     * @description
+     * Debug state function.
+     */
+    debug: () => void;
 }
 
 interface webComponentParmas {

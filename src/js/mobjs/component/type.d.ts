@@ -55,4 +55,5 @@ export interface componentStoreReturnType {
     emitAsync: emitAsyncType;
     computed: computedType;
     watch: watchType;
+    debug: () => void;
 }

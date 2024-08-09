@@ -19593,7 +19593,8 @@
     watch,
     id,
     key,
-    bindEventsId
+    bindEventsId,
+    debug
   }) => {
     const repeatIdArray = [];
     return {
@@ -19606,6 +19607,7 @@
       emitAsync,
       computed,
       watch,
+      debug,
       repeatIdArray,
       renderComponent: async ({
         attachTo,
@@ -19874,7 +19876,8 @@
       computed: (prop = "", keys = [], fn = () => {
       }) => store.computed(prop, keys, fn),
       watch: (prop = "", cb = () => {
-      }) => store.watch(prop, cb)
+      }) => store.watch(prop, cb),
+      debug: () => store.debug()
     };
   };
 
@@ -19954,7 +19957,7 @@
       parentIdForced
     });
     const { state } = componentParams;
-    const { getState, setState, emit, emitAsync, computed, watch } = addComponentToStore({
+    const { getState, setState, emit, emitAsync, computed, watch, debug } = addComponentToStore({
       element: componentToParse,
       props,
       state,
@@ -20003,7 +20006,8 @@
       watch,
       id,
       key,
-      bindEventsId
+      bindEventsId,
+      debug
     });
     const content2 = await userFunctionComponent(objectFromComponentFunction);
     const classList = componentToParse.classList;

@@ -62,6 +62,7 @@ export const getParamsForComponentFunction = ({
     id,
     key,
     bindEventsId,
+    debug,
 }) => {
     /**
      * Initialize repeatId collector.
@@ -78,6 +79,7 @@ export const getParamsForComponentFunction = ({
         emitAsync,
         computed,
         watch,
+        debug,
         repeatIdArray,
         renderComponent: async ({
             attachTo,

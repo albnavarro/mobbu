@@ -12,6 +12,9 @@
 
 # MobJs
 
+## Debug
+- Add `debug` ( params in componentFunction ) in DOCS.
+
 ## Type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 

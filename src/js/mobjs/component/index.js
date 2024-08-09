@@ -70,5 +70,6 @@ export const addComponentToStore = ({
         computed: (prop = '', keys = [], fn = () => {}) =>
             store.computed(prop, keys, fn),
         watch: (prop = '', cb = () => {}) => store.watch(prop, cb),
+        debug: () => store.debug(),
     };
 };
