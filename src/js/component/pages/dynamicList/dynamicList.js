@@ -2,7 +2,6 @@
 
 import { getLegendData } from '../../../data';
 import { html, setStateByName } from '../../../mobjs';
-import { clamp } from '../../../mobMotion/animation/utils/animationUtils';
 import { startData, state1, state2, state3 } from './data';
 
 const buttons = [
@@ -188,7 +187,7 @@ export const DynamicListFn = async ({
                         ${delegateEvents({
                             click: async () => {
                                 setState('counter', (prev) => {
-                                    return clamp((prev += 1), 0, 10);
+                                    return prev + 1;
                                 });
                             },
                         })}

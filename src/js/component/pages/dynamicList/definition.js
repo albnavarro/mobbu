@@ -15,6 +15,8 @@ export const DynamicList = createComponent({
         counter: () => ({
             value: 1,
             type: Number,
+            validate: (val) => val <= 10 && val >= 0,
+            strict: true,
         }),
         data: () => ({
             value: startData,

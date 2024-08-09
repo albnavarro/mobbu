@@ -15,6 +15,8 @@ export const Matrioska = createComponent({
         level1: () => ({
             value: [{ key: 1, value: mobCore.getUnivoqueId() }],
             type: Array,
+            validate: (val) => val.length <= 10,
+            strict: true,
         }),
         level2: () => ({
             value: [
@@ -22,6 +24,8 @@ export const Matrioska = createComponent({
                 { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
+            validate: (val) => val.length <= 10,
+            strict: true,
         }),
         level3: () => ({
             value: [
@@ -29,6 +33,8 @@ export const Matrioska = createComponent({
                 { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
+            validate: (val) => val.length <= 10,
+            strict: true,
         }),
     },
     child: [DynamicListButton, OnlyDesktop, MatrioskaItem],

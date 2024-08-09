@@ -63,25 +63,21 @@ const getButtons = ({ delegateEvents, setState }) => {
                                      * Shuffle level3
                                      */
                                     if (button.state === 'level3')
-                                        return val.length < 10
-                                            ? shuffle([
-                                                  ...val,
-                                                  {
-                                                      key: getRandomInt(1000),
-                                                      value: mobCore.getUnivoqueId(),
-                                                  },
-                                              ])
-                                            : val;
+                                        return shuffle([
+                                            ...val,
+                                            {
+                                                key: getRandomInt(1000),
+                                                value: mobCore.getUnivoqueId(),
+                                            },
+                                        ]);
 
-                                    return val.length < 10
-                                        ? [
-                                              ...val,
-                                              {
-                                                  key: getRandomInt(1000),
-                                                  value: mobCore.getUnivoqueId(),
-                                              },
-                                          ]
-                                        : val;
+                                    return [
+                                        ...val,
+                                        {
+                                            key: getRandomInt(1000),
+                                            value: mobCore.getUnivoqueId(),
+                                        },
+                                    ];
                                 });
                             },
                         })}
