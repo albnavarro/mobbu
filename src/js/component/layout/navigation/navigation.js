@@ -13,10 +13,9 @@ import { navigationStore } from './store/navStore';
  * @param {import('../../../mobjs/type').StaticProps} param.staticProps
  * @param {import('../../../mobjs/type').SetState<import('./type').Navigation>} param.setState
  * @param {import('../../../mobjs/type').BindProps<import('./type').Navigation,import('./type').NavigationSubmenu>} param.bindProps
- * @param {import('../../../mobjs/type').BindEvents} param.bindEvents
  *
  */
-function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
+function getItems({ data, staticProps, setState, bindProps }) {
     return data
         .map((item, index) => {
             const {
@@ -80,13 +79,7 @@ function getItems({ data, staticProps, setState, bindProps, bindEvents }) {
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').Navigation>}
  */
-export const NavigationFn = ({
-    html,
-    staticProps,
-    setState,
-    bindProps,
-    bindEvents,
-}) => {
+export const NavigationFn = ({ html, staticProps, setState, bindProps }) => {
     const { navigation: data } = getCommonData();
 
     /**
@@ -104,7 +97,6 @@ export const NavigationFn = ({
                     staticProps,
                     setState,
                     bindProps,
-                    bindEvents,
                 })}
             </ul>
         </nav>
