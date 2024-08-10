@@ -4,6 +4,8 @@
     border-radius: rem(20);
     overflow: hidden;
     margin: rem(12);
+    position: relative;
+    z-index: 1;
 
     &--1,
     &--2 {
@@ -12,12 +14,10 @@
     }
 
     &--2 {
-        flex: 0 0 calc(50% - (#{rem(12)} * 2));
         background: $white;
     }
 
     &--3 {
-        flex: 0 0 calc(50% - (#{rem(12)} * 2));
         background: $grey;
         cursor: pointer;
 

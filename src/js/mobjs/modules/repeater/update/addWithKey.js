@@ -21,6 +21,7 @@ import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
 import { getDefaultComponent } from '../../../component/createComponent';
+import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
 
 /**
  * @param {object} obj
@@ -122,9 +123,9 @@ export const addWithKey = ({
         const currentId = getIdByElement({ element: element });
         if (!currentId) return;
 
+        removeAndDestroyById({ id: currentId });
         destroyNestedInvalidate({ id, invalidateParent: element });
         destroyNestedRepeat({ id, repeatParent: element });
-        removeAndDestroyById({ id: currentId });
     });
 
     /**
@@ -139,7 +140,29 @@ export const addWithKey = ({
         currentUnique,
         previous,
         key
-    );
+    ).map(({ key, isNewElement, index }) => {
+        if (isNewElement)
+            return { key, isNewElement, index, wrapper: undefined };
+
+        /**
+         * Get persistent element.
+         */
+        const element = getElementByKeyAndRepeatId({
+            key,
+            repeatId,
+        });
+
+        /**
+         * If persistent Element use a wrapper save it.
+         * Than this element will added to DOM instead component.
+         */
+        const wrapper = findFirstRepeaterElementWrap({
+            rootNode: repeaterParentElement,
+            node: element,
+        });
+
+        return { key, isNewElement, index, wrapper };
+    });
 
     /**
      * -------------------
@@ -157,7 +180,7 @@ export const addWithKey = ({
      *
      * Add persistent element or new element to parse.
      */
-    newSequenceByKey.forEach(({ isNewElement, key, index }) => {
+    newSequenceByKey.forEach(({ isNewElement, key, index, wrapper }) => {
         if (!isNewElement) {
             const persistentElement = getElementByKeyAndRepeatId({
                 key,
@@ -165,7 +188,6 @@ export const addWithKey = ({
             });
 
             if (!persistentElement) return;
-
             const { debug } = getDefaultComponent();
 
             if (debug)
@@ -174,7 +196,17 @@ export const addWithKey = ({
                     `<!--  ${targetComponent} --> `
                 );
 
-            repeaterParentElement.append(persistentElement);
+            if (wrapper) {
+                /**
+                 * Wrapper
+                 */
+                repeaterParentElement.append(wrapper);
+            } else {
+                /**
+                 * No wrapper
+                 */
+                repeaterParentElement.append(persistentElement);
+            }
 
             return;
         }

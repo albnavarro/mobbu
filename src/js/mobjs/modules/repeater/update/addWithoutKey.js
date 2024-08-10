@@ -14,6 +14,7 @@ import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
+import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
 
 /**
  * @param {object} obj
@@ -120,9 +121,18 @@ export const addWithoutKey = ({
         elementToRemoveByKey.forEach((childId) => {
             const element = getElementById({ id: childId });
 
+            /**
+             * Get first wrapper that contains element child of repeaterParentElement
+             */
+            const elementWrapper = findFirstRepeaterElementWrap({
+                rootNode: repeaterParentElement,
+                node: element,
+            });
+
             destroyNestedInvalidate({ id, invalidateParent: element });
             destroyNestedRepeat({ id, repeatParent: element });
             removeAndDestroyById({ id: childId });
+            elementWrapper?.remove();
         });
     }
 

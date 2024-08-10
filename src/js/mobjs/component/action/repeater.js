@@ -32,6 +32,23 @@ export const setRepeaterStateById = ({ id = '', value }) => {
 /**
  *
  * @param {object} obj
+ * @param {HTMLElement} obj.rootNode
+ * @param {HTMLElement} obj.node
+ * @return {HTMLElement|Element|undefined}
+ *
+ * @description
+ * Find Dom element that container firstRepeaterElement.
+ */
+export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
+    if (!rootNode) return;
+    return [...rootNode.children].find(
+        (child) => child.contains(node) && child !== node
+    );
+};
+
+/**
+ *
+ * @param {object} obj
  * @param {string} obj.id
  * @return { void }
  *

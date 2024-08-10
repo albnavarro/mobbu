@@ -118,27 +118,33 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
             ${repeat({
                 bind: 'level2',
                 render: ({ html, sync }) => {
-                    return html`<matrioska-item
-                        class="matrioska-item--2"
-                        ${staticProps({
-                            level: 'level 2',
-                        })}
-                        ${bindProps({
-                            props: ({ level2 }, index) => {
-                                return {
-                                    key: `${level2[index]?.key}`,
-                                    value: `${level2[index]?.value}`,
-                                };
-                            },
-                        })}
-                        ${sync}
-                    >
-                        ${getThirdLevel({
-                            repeat,
-                            staticProps,
-                            delegateEvents,
-                        })}
-                    </matrioska-item> `;
+                    return html`
+                        <div
+                            class="matrioska__item-wrap matrioska__item-wrap--2"
+                        >
+                            <matrioska-item
+                                class="matrioska-item--2"
+                                ${staticProps({
+                                    level: 'level 2',
+                                })}
+                                ${bindProps({
+                                    props: ({ level2 }, index) => {
+                                        return {
+                                            key: `${level2[index]?.key}`,
+                                            value: `${level2[index]?.value}`,
+                                        };
+                                    },
+                                })}
+                                ${sync}
+                            >
+                                ${getThirdLevel({
+                                    repeat,
+                                    staticProps,
+                                    delegateEvents,
+                                })}
+                            </matrioska-item>
+                        </div>
+                    `;
                 },
             })}
         </div>
@@ -163,26 +169,33 @@ const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
                     /**
                      * With key bind props is unnecessary here
                      */
-                    return html`<matrioska-item
-                        class="matrioska-item--3"
-                        name="${name}"
-                        ${staticProps({
-                            level: 'level 3',
-                            key: `${currentValue?.key}`,
-                            value: `${currentValue?.value}`,
-                        })}
-                        ${delegateEvents({
-                            click: () => {
-                                /**
-                                 *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
-                                 */
-                                const setActiveState = setStateByName(name);
-                                setActiveState('active', (val) => !val);
-                            },
-                        })}
-                        ${sync}
-                    >
-                    </matrioska-item> `;
+                    return html`
+                        <div
+                            class="matrioska__item-wrap matrioska__item-wrap--3"
+                        >
+                            <matrioska-item
+                                class="matrioska-item--3"
+                                name="${name}"
+                                ${staticProps({
+                                    level: 'level 3',
+                                    key: `${currentValue?.key}`,
+                                    value: `${currentValue?.value}`,
+                                })}
+                                ${delegateEvents({
+                                    click: () => {
+                                        /**
+                                         *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
+                                         */
+                                        const setActiveState =
+                                            setStateByName(name);
+                                        setActiveState('active', (val) => !val);
+                                    },
+                                })}
+                                ${sync}
+                            >
+                            </matrioska-item>
+                        </div>
+                    `;
                 },
             })}
         </div>
@@ -267,27 +280,33 @@ export const MatrioskaFn = ({
                 ${repeat({
                     bind: 'level1',
                     render: ({ html, sync }) => {
-                        return html`<matrioska-item
-                            class="matrioska-item--1"
-                            ${staticProps({ level: 'level 1' })}
-                            ${bindProps({
-                                /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
-                                props: ({ level1 }, index) => {
-                                    return {
-                                        key: `${level1[index]?.key}`,
-                                        value: `${level1[index]?.value}`,
-                                    };
-                                },
-                            })}
-                            ${sync}
-                        >
-                            ${getSecondLevel({
-                                repeat,
-                                staticProps,
-                                bindProps,
-                                delegateEvents,
-                            })}
-                        </matrioska-item> `;
+                        return html`
+                            <div
+                                class="matrioska__item-wrap matrioska__item-wrap--1"
+                            >
+                                <matrioska-item
+                                    class="matrioska-item--1"
+                                    ${staticProps({ level: 'level 1' })}
+                                    ${bindProps({
+                                        /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
+                                        props: ({ level1 }, index) => {
+                                            return {
+                                                key: `${level1[index]?.key}`,
+                                                value: `${level1[index]?.value}`,
+                                            };
+                                        },
+                                    })}
+                                    ${sync}
+                                >
+                                    ${getSecondLevel({
+                                        repeat,
+                                        staticProps,
+                                        bindProps,
+                                        delegateEvents,
+                                    })}
+                                </matrioska-item>
+                            </div>
+                        `;
                     },
                 })}
             </div>

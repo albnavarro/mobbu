@@ -13,10 +13,11 @@
 # MobJs
 
 ## Repeater
-- Con il semplificazione di `addWithKey/addWithoutKey` é pensabile di poter wrappare gli elementi in altri elemeni dom, avendo una struttura piú flessibile
-- `addWithoutKey`: basterebbe che `removeAndDestroyById` usasse `destroyComponentInsideNodeById` se un nodo esiste altrimenti `removeAndDestroyById` classico.
-- L'elemento `DOM` puó essere calcolato al momento o salvato nella mappa come `repeaterItemFirstNode` ?
-- `addWithKey`: Da capire se si risolve il punto sopra.
+- Implementata la base per wrappare gli elementi repeater in altri elementi del DOM
+- Rimane valida la logica `wrapper del repeater`, `un componente di primo livello` per repeater.
+- Ora é possibile peró wrappare il component figlio in uno o piu div.
+- DOC: aggirnare
+
 
 ## Debug
 - Add `debug` ( params in componentFunction ) in DOCS.

@@ -56,4 +56,25 @@
             flex-wrap: wrap;
         }
     }
+
+    &__item-wrap {
+        &--2 {
+            flex: 0 0 50%;
+        }
+
+        &--3 {
+            flex: 0 0 50%;
+            padding: rem(20);
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                z-index: 0;
+                inset: rem(10);
+                background: $grey-light;
+                border-radius: rem(20);
+            }
+        }
+    }
 }
