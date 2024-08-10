@@ -117,18 +117,6 @@ export const addWithKey = ({
     });
 
     /**
-     * Remove
-     */
-    elementToRemoveByKey.forEach((element) => {
-        const currentId = getIdByElement({ element: element });
-        if (!currentId) return;
-
-        destroyNestedInvalidate({ id, invalidateParent: element });
-        destroyNestedRepeat({ id, repeatParent: element });
-        removeAndDestroyById({ id: currentId });
-    });
-
-    /**
      * -------------------
      *  NEW DATA
      * ------------------
@@ -183,6 +171,18 @@ export const addWithKey = ({
                 repeatId,
             })
         );
+    });
+
+    /**
+     * Remove at the end old element to avoid viual jump
+     */
+    elementToRemoveByKey.forEach((element) => {
+        const currentId = getIdByElement({ element: element });
+        if (!currentId) return;
+
+        destroyNestedInvalidate({ id, invalidateParent: element });
+        destroyNestedRepeat({ id, repeatParent: element });
+        removeAndDestroyById({ id: currentId });
     });
 
     return currentUnique;
