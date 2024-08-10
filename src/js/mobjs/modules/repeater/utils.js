@@ -1,8 +1,5 @@
 // @ts-check
 
-import { getElementById } from '../../component/action/element';
-import { componentMap } from '../../component/store';
-
 /**
  * @param {Array} current
  * @param {Array} previous
@@ -85,70 +82,4 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
     return data.filter(
         (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
     );
-};
-
-/**
- * @param {object} obj
- * @param {string} obj.component
- * @param {(arg0: string)=> string[]} obj.getChildren
- * @param {HTMLElement} obj.element
- *
- * @return {Array.<string>}
- *
- * @description
- * Get children of component inside a element
- */
-export const getChildrenInsideElement = ({
-    component,
-    getChildren,
-    element,
-}) => {
-    const children = getChildren(component);
-    if (!children || !element) return [];
-
-    return [...children].filter((id) => {
-        const child = getElementById({ id }) ?? null;
-        return element.contains(child);
-    });
-};
-
-/**
- * @param {object} obj
- * @param {string[]} obj.children
- * @param {HTMLElement} obj.element
- *
- * @return {Array.<string>}
- *
- * @description
- * Get children of component inside a element by a precompiler children list
- */
-export const filterChildrenInsideElement = ({ children, element }) => {
-    if (!children || !element) return [];
-
-    return [...children].filter((id) => {
-        const child = getElementById({ id }) ?? null;
-        return element.contains(child);
-    });
-};
-
-/**
- * @param {object} obj
- * @param {string} obj.id
- * @param {string} obj.repeatId
- * @return {Array.<string>}
- *
- * @description
- * Get children of component inside a element by a precompiler children list
- */
-export const getChildrenInsideElementByRepeaterId = ({ id, repeatId }) => {
-    if (!id || id === '') return;
-
-    const values = [...componentMap.values()];
-    return values
-        .filter((item) => {
-            return item?.componentRepeatId === repeatId;
-        })
-        .map((item) => {
-            return item.id;
-        });
 };

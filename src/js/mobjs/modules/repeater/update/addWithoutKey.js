@@ -7,10 +7,9 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
 import {
-    filterChildrenInsideElement,
-    getChildrenInsideElementByRepeaterId,
-} from '../utils';
-import { getElementById } from '../../../component/action/element';
+    getElementById,
+    getIdsByByRepeatId,
+} from '../../../component/action/element';
 import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
@@ -105,74 +104,27 @@ export const addWithoutKey = ({
         /**
          * Filter children inside repeaterParentElement
          */
-
-        const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
+        const idsByRepeatId = getIdsByByRepeatId({
             id,
             repeatId,
         });
 
         /**
-         * Maybe unnecessat
-         * Use for more fine check.
-         */
-        const childrenFilteredToRemove = filterChildrenInsideElement({
-            children: childrenByRepeatId,
-            element: repeaterParentElement,
-        });
-
-        /**
          * element to remove
          */
-        const childrenToRemoveByKey = childrenFilteredToRemove.filter(
-            (_child, i) => {
-                return i >= current.length;
-            }
-        );
-
-        /**
-         * Persistent element
-         */
-        const childrenPersistent = childrenFilteredToRemove.filter(
-            (_child, i) => {
-                return i < current.length;
-            }
-        );
-
-        /**
-         * Remove all dom component
-         * Web Component trick p1.
-         * Sure to remove host element.
-         */
-        repeaterParentElement.textContent = '';
+        const elementToRemoveByKey = idsByRepeatId.filter((_child, i) => {
+            return i >= current.length;
+        });
 
         /**
          * Destroy
          */
-        childrenToRemoveByKey.forEach((childId) => {
+        elementToRemoveByKey.forEach((childId) => {
             const element = getElementById({ id: childId });
 
             destroyNestedInvalidate({ id, invalidateParent: element });
             destroyNestedRepeat({ id, repeatParent: element });
             removeAndDestroyById({ id: childId });
-        });
-
-        /**
-         * Re-add persistent element
-         * Web component trick p2.
-         */
-        childrenPersistent.forEach((childId) => {
-            const element = getElementById({ id: childId });
-            if (element) {
-                const { debug } = getDefaultComponent();
-
-                if (debug)
-                    repeaterParentElement.insertAdjacentHTML(
-                        'beforeend',
-                        `<!--  ${targetComponent} --> `
-                    );
-
-                repeaterParentElement.append(element);
-            }
         });
     }
 

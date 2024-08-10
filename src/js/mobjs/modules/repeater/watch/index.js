@@ -7,7 +7,10 @@ import {
     setRepeaterStateById,
 } from '../../../component/action/repeater';
 import { getRepeatParent, inizializeNestedRepeat } from '..';
-import { getElementById } from '../../../component/action/element';
+import {
+    getElementById,
+    getIdsByByRepeatId,
+} from '../../../component/action/element';
 import {
     freezePropById,
     unFreezePropById,
@@ -23,7 +26,6 @@ import {
 } from '../activeRepeater';
 import { getRepeaterComponentTarget } from '../targetcomponent';
 import { updateRepeater } from '../update';
-import { getChildrenInsideElementByRepeaterId } from '../utils';
 import { inizializeNestedInvalidate } from '../../invalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
 
@@ -136,7 +138,7 @@ export const watchRepeat = ({
                 id: repeatId,
             });
 
-            const childrenBeforeUdate = getChildrenInsideElementByRepeaterId({
+            const childrenBeforeUdate = getIdsByByRepeatId({
                 id,
                 repeatId,
             });
@@ -159,7 +161,7 @@ export const watchRepeat = ({
                 await beforeUpdate({
                     element: mainComponent,
                     container: repeatParentElement,
-                    childrenId: getChildrenInsideElementByRepeaterId({
+                    childrenId: getIdsByByRepeatId({
                         id,
                         repeatId,
                     }),
@@ -170,7 +172,7 @@ export const watchRepeat = ({
              * If clean of first time remove DOM from repeater container.
              */
             if (targetComponentBeforeParse && (clean || forceRepeater)) {
-                const currentChildern = getChildrenInsideElementByRepeaterId({
+                const currentChildern = getIdsByByRepeatId({
                     id,
                     repeatId,
                 });
@@ -216,7 +218,7 @@ export const watchRepeat = ({
              * Filter children inside repeaterParentElement
              */
 
-            const childrenFiltered = getChildrenInsideElementByRepeaterId({
+            const childrenFiltered = getIdsByByRepeatId({
                 id,
                 repeatId,
             });
