@@ -18124,6 +18124,13 @@
         repeatId
       });
     });
+    elementToRemoveByKey.forEach((element) => {
+      const currentId = getIdByElement({ element });
+      if (!currentId) return;
+      destroyNestedInvalidate({ id, invalidateParent: element });
+      destroyNestedRepeat({ id, repeatParent: element });
+      removeAndDestroyById({ id: currentId });
+    });
     const newSequenceByKey = mixPreviousAndCurrentData(
       currentUnique,
       previous,
@@ -18153,13 +18160,6 @@
           repeatId
         })
       );
-    });
-    elementToRemoveByKey.forEach((element) => {
-      const currentId = getIdByElement({ element });
-      if (!currentId) return;
-      destroyNestedInvalidate({ id, invalidateParent: element });
-      destroyNestedRepeat({ id, repeatParent: element });
-      removeAndDestroyById({ id: currentId });
     });
     return currentUnique;
   };
