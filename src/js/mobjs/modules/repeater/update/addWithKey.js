@@ -1,8 +1,6 @@
 // @ts-check
 
 import {
-    filterChildrenInsideElement,
-    getChildrenInsideElementByRepeaterId,
     getNewElement,
     getUnivoqueByKey,
     mixPreviousAndCurrentData,
@@ -14,19 +12,14 @@ import {
     ATTR_REPEATER_PROP_BIND,
 } from '../../../constant';
 import {
-    getElementById,
     getElementByKeyAndRepeatId,
     getIdByElement,
 } from '../../../component/action/element';
 import { removeAndDestroyById } from '../../../component/action/removeAndDestroy';
 import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
-import { getDefaultComponent } from '../../../component/createComponent';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
-
-const BEFORE = 'beforebegin';
-const AFTER = 'afterend';
 
 /**
  * @param {object} obj
@@ -108,11 +101,14 @@ export const addWithKey = ({
     const currentUnique = getUnivoqueByKey({ data: current, key });
 
     /**
-     * Get element to delete before element is removed from dom in reorder list step.
+     * ------------------
+     * REMOVE
+     * ------------------
+     *
+     * Get element to delete from DOM and from componentMap
      */
-    const elementToRemoveObj = getNewElement(previous, currentUnique, key);
-
-    const elementToRemoveByKey = elementToRemoveObj.map((item) => {
+    const keyToRemove = getNewElement(previous, currentUnique, key);
+    const elementToRemoveByKey = keyToRemove.map((item) => {
         const keyValue = item?.[key];
         return getElementByKeyAndRepeatId({
             key: keyValue,
@@ -121,181 +117,7 @@ export const addWithKey = ({
     });
 
     /**
-     * Get set of data with the right sequence of new list element
-     * mark old and new element with isNewElement props.
-     */
-    const elementToAddObj = mixPreviousAndCurrentData(
-        currentUnique,
-        previous,
-        key
-    );
-
-    /**
-     * --------------------------
-     * REORDER PERSISTENT ELEMENT DI POSITION CHANGE
-     * --------------------------
-     */
-
-    /**
-     * Get an array with only old element that is not deleted
-     */
-    const newPersistentElementOrder = elementToAddObj
-        .filter(({ isNewElement }) => !isNewElement)
-        .map((item) => {
-            return getElementByKeyAndRepeatId({
-                key: item.key,
-                repeatId,
-            });
-        });
-
-    /**
-     * @type {HTMLElement|undefined}
-     *
-     * @description
-     * get parent element to reorder.
-     */
-    // @ts-ignore
-    const parent =
-        newPersistentElementOrder[0]?.parentNode ?? repeaterParentElement;
-
-    /**
-     * Remove the node and reinsert the old pers element in right position.
-     */
-    if (parent) parent.innerHTML = '';
-    newPersistentElementOrder.forEach((/** {HTMLElement} */ item) => {
-        if (parent && item) {
-            parent.append(item);
-
-            const { debug } = getDefaultComponent();
-
-            /**
-             * Add component name in debug mode
-             */
-            if (debug)
-                item.insertAdjacentHTML(
-                    'afterend',
-                    `<!--  ${targetComponent} --> `
-                );
-        }
-    });
-
-    /**
-     * --------------------------
-     * GET CHILD IN DOM IN RIGHT ORDER
-     * --------------------------
-     */
-
-    /**
-     * Filter children inside repeaterParentElement
-     */
-    const childrenByRepeatId = getChildrenInsideElementByRepeaterId({
-        id,
-        repeatId,
-    });
-
-    const childrenFiltered = filterChildrenInsideElement({
-        children: childrenByRepeatId,
-        element: repeaterParentElement,
-    });
-
-    /**
-     * --------------------------
-     * ADD NEW ELEMENT
-     * --------------------------
-     */
-
-    /**
-     * @type {Array.<Array.<{isNewElement: boolean, key:string, index:number}>>}
-     *
-     * @description
-     * Chunk the sequentially new element in group.
-     * So then insert the block of new element.
-     * Every persistent element go in index 0 of chunk
-     * This element is used to append new element.
-     */
-    const chunkedElementToAdd = elementToAddObj.reduce(
-        (/** @type {Array} */ previous, current) => {
-            return current.isNewElement
-                ? (() => {
-                      previous.at(-1).push(current);
-                      return previous;
-                  })()
-                : [...previous, [current]];
-        },
-        [[]]
-    );
-
-    /**
-     * Remove first empty array if nothig changed at begging of data.
-     */
-    if (!chunkedElementToAdd?.[0].length) chunkedElementToAdd.shift();
-
-    chunkedElementToAdd.forEach((item) => {
-        const firstEl = item[0];
-        const { isNewElement: firstElementIsNew } = firstEl;
-
-        /**
-         * @description
-         * 1 - If the first element of the list is new append before
-         * the first existing element
-         *
-         * 2 -Otherwise append to element at index 0 of current chank
-         * this element is persistent.
-         */
-        const previousOrNextExistingElement = firstElementIsNew
-            ? getElementById({
-                  id: childrenFiltered[0],
-              })
-            : getElementByKeyAndRepeatId({
-                  key: item[0]?.key,
-                  repeatId,
-              });
-
-        /**
-         * Filter from chunk the new element and create the new placeholder component
-         */
-        const componentToAppend = item
-            .filter((element) => element.isNewElement)
-            .map((element) =>
-                getPartialsComponentList({
-                    state,
-                    targetComponent,
-                    key: element.key,
-                    currentUnique,
-                    index: element.index,
-                    render,
-                    id,
-                    repeatId,
-                })
-            )
-            .join('');
-
-        /**
-         * Check if append new component before or after componentToAppend.
-         */
-        const position = firstElementIsNew ? BEFORE : AFTER;
-
-        /**
-         * If the new data is not empty go normal
-         * Otherwise append children to parent listCOntainer.
-         */
-        if (previousOrNextExistingElement) {
-            previousOrNextExistingElement.insertAdjacentHTML(
-                position,
-                componentToAppend
-            );
-        } else {
-            repeaterParentElement.insertAdjacentHTML(
-                'afterbegin',
-                componentToAppend
-            );
-        }
-    });
-
-    /**
-     * --------------------------
-     * REMOVE ELEMENT
-     * --------------------------
+     * Remove
      */
     elementToRemoveByKey.forEach((element) => {
         const currentId = getIdByElement({ element: element });
@@ -304,6 +126,63 @@ export const addWithKey = ({
         destroyNestedInvalidate({ id, invalidateParent: element });
         destroyNestedRepeat({ id, repeatParent: element });
         removeAndDestroyById({ id: currentId });
+    });
+
+    /**
+     * -------------------
+     *  NEW DATA
+     * ------------------
+     *
+     * Get set of data with the right sequence of new list element
+     * mark old and new element with isNewElement props.
+     */
+    const newSequenceByKey = mixPreviousAndCurrentData(
+        currentUnique,
+        previous,
+        key
+    );
+
+    /**
+     * -------------------
+     *  RESET
+     * ------------------
+     *
+     * Reset parent Element
+     */
+    repeaterParentElement.innerHTML = '';
+
+    /**
+     * -------------------
+     *  NEW DOM
+     * ------------------
+     *
+     * Add persistent element or new element to parse.
+     */
+    newSequenceByKey.forEach(({ isNewElement, key, index }) => {
+        if (!isNewElement) {
+            const persistentElement = getElementByKeyAndRepeatId({
+                key,
+                repeatId,
+            });
+
+            if (!persistentElement) return;
+            repeaterParentElement.append(persistentElement);
+            return;
+        }
+
+        repeaterParentElement.insertAdjacentHTML(
+            'beforeend',
+            getPartialsComponentList({
+                state,
+                targetComponent,
+                key,
+                currentUnique,
+                index,
+                render,
+                id,
+                repeatId,
+            })
+        );
     });
 
     return currentUnique;
