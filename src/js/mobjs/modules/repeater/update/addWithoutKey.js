@@ -14,7 +14,6 @@ import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
-import { getDefaultComponent } from '../../../component/createComponent';
 
 /**
  * @param {object} obj
@@ -38,7 +37,6 @@ export const addWithoutKey = ({
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
-    targetComponent = '',
     render,
     repeatId,
     id,

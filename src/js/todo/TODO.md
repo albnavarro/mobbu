@@ -12,6 +12,12 @@
 
 # MobJs
 
+## Repeater
+- Con il semplificazione di `addWithKey/addWithoutKey` é pensabile di poter wrappare gli elementi in altri elemeni dom, avendo una struttura piú flessibile
+- `addWithoutKey`: basterebbe che `removeAndDestroyById` usasse `destroyComponentInsideNodeById` se un nodo esiste altrimenti `removeAndDestroyById` classico.
+- L'elemento `DOM` puó essere calcolato al momento o salvato nella mappa come `repeaterItemFirstNode` ?
+- `addWithKey`: Da capire se si risolve il punto sopra.
+
 ## Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 

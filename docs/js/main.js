@@ -18167,7 +18167,6 @@
     current = [],
     previous = [],
     repeaterParentElement = document.createElement("div"),
-    targetComponent = "",
     render: render2,
     repeatId,
     id
