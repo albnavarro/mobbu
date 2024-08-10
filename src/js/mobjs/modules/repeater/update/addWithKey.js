@@ -20,17 +20,16 @@ import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
+import { getDefaultComponent } from '../../../component/createComponent';
 
 /**
  * @param {object} obj
  * @param {string} obj.state
- * @param {string} obj.targetComponent
  * @param {string} obj.key
  * @param {string} obj.repeatId
  * @param {array} obj.currentUnique
  * @param {number} obj.index
  * @param {Function} obj.render
- * @param {string} obj.id
  *
  * @return {string}
  *
@@ -166,7 +165,17 @@ export const addWithKey = ({
             });
 
             if (!persistentElement) return;
+
+            const { debug } = getDefaultComponent();
+
+            if (debug)
+                repeaterParentElement.insertAdjacentHTML(
+                    'beforeend',
+                    `<!--  ${targetComponent} --> `
+                );
+
             repeaterParentElement.append(persistentElement);
+
             return;
         }
 
@@ -174,12 +183,10 @@ export const addWithKey = ({
             'beforeend',
             getPartialsComponentList({
                 state,
-                targetComponent,
                 key,
                 currentUnique,
                 index,
                 render,
-                id,
                 repeatId,
             })
         );

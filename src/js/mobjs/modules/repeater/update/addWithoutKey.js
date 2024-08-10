@@ -15,6 +15,7 @@ import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
+import { getDefaultComponent } from '../../../component/createComponent';
 
 /**
  * @param {object} obj
@@ -38,6 +39,7 @@ export const addWithoutKey = ({
     current = [],
     previous = [],
     repeaterParentElement = document.createElement('div'),
+    targetComponent = '',
     render,
     repeatId,
     id,
@@ -160,7 +162,17 @@ export const addWithoutKey = ({
          */
         childrenPersistent.forEach((childId) => {
             const element = getElementById({ id: childId });
-            if (element) repeaterParentElement.append(element);
+            if (element) {
+                const { debug } = getDefaultComponent();
+
+                if (debug)
+                    repeaterParentElement.insertAdjacentHTML(
+                        'beforeend',
+                        `<!--  ${targetComponent} --> `
+                    );
+
+                repeaterParentElement.append(element);
+            }
         });
     }
 
