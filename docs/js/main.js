@@ -16864,7 +16864,6 @@
   var ATTR_KEY = "key";
   var ATTR_CURRENT_LIST_VALUE = "currentRepeaterValue";
   var ATTR_REPEATER_PROP_BIND = "repeatPropBind";
-  var ATTR_REPEATER_CONTEXT = "repeaterContextId";
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
   var ATTR_PARENT_ID = "parentid";
@@ -17729,10 +17728,6 @@
            * @type {string|undefined|null}
            */
           #repeatPropBind;
-          /**
-           * @type {string|undefined|null}
-           */
-          #repeaterContextId;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17779,7 +17774,6 @@
             this.#currentKey = "";
             this.#parentId = "";
             this.#componentRepeatId = "";
-            this.#repeaterContextId = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17800,9 +17794,6 @@
             );
             this.#repeatPropBind = host.getAttribute(
               ATTR_REPEATER_PROP_BIND
-            );
-            this.#repeaterContextId = host.getAttribute(
-              ATTR_REPEATER_CONTEXT
             );
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
@@ -17902,15 +17893,6 @@
           }
           getComponentRepeatId() {
             return this.#componentRepeatId ?? "";
-          }
-          /**
-           * @param {string} value
-           */
-          setComponentRepeaterContext(value2) {
-            this.#repeaterContextId = value2;
-          }
-          getComponentRepeatContext() {
-            return this.#repeaterContextId ?? void 0;
           }
           #getData() {
             return {

@@ -10,7 +10,6 @@ import {
     ATTR_KEY,
     ATTR_PARENT_ID,
     ATTR_PROPS,
-    ATTR_REPEATER_CONTEXT,
     ATTR_REPEATER_PROP_BIND,
     ATTR_SLOT,
     ATTR_WEAK_BIND_EVENTS,
@@ -181,11 +180,6 @@ export const defineUserComponent = (componentList) => {
                  */
                 #repeatPropBind;
 
-                /**
-                 * @type {string|undefined|null}
-                 */
-                #repeaterContextId;
-
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -224,7 +218,6 @@ export const defineUserComponent = (componentList) => {
                     this.#currentKey = '';
                     this.#parentId = '';
                     this.#componentRepeatId = '';
-                    this.#repeaterContextId = '';
 
                     //
                     this.isUserComponent = true;
@@ -254,10 +247,6 @@ export const defineUserComponent = (componentList) => {
 
                     this.#repeatPropBind = host.getAttribute(
                         ATTR_REPEATER_PROP_BIND
-                    );
-
-                    this.#repeaterContextId = host.getAttribute(
-                        ATTR_REPEATER_CONTEXT
                     );
 
                     /**
@@ -391,17 +380,6 @@ export const defineUserComponent = (componentList) => {
 
                 getComponentRepeatId() {
                     return this.#componentRepeatId ?? '';
-                }
-
-                /**
-                 * @param {string} value
-                 */
-                setComponentRepeaterContext(value) {
-                    this.#repeaterContextId = value;
-                }
-
-                getComponentRepeatContext() {
-                    return this.#repeaterContextId ?? undefined;
                 }
 
                 #getData() {

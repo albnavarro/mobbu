@@ -58,11 +58,6 @@ export const ATTR_REPEATER_PROP_BIND = 'repeatPropBind';
 /**
  * @type {string};
  */
-export const ATTR_REPEATER_CONTEXT = 'repeaterContextId';
-
-/**
- * @type {string};
- */
 export const ATTR_BIND_EVENTS = 'bindevents';
 
 /**

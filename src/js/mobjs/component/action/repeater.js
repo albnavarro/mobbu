@@ -1,11 +1,7 @@
 // @ts-check
 
-import {
-    ATTR_REPEATER_CONTEXT,
-    DEFAULT_CURRENT_REPEATER_STATE,
-} from '../../constant.js';
+import { DEFAULT_CURRENT_REPEATER_STATE } from '../../constant.js';
 import { getRepeatParent } from '../../modules/repeater/index.js';
-import { queryAllFutureComponent } from '../../query/queryAllFutureComponent.js';
 import { componentMap } from '../store.js';
 
 /**
