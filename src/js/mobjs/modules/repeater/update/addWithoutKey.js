@@ -17,7 +17,7 @@ import { setComponentRepeaterState } from '../repeaterValue';
 import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
-import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
+import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 import { chunkIdsByRepeaterWrapper } from '../utils';
 
@@ -121,7 +121,6 @@ export const addWithoutKey = ({
          */
         const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
             children: idsByRepeatId,
-            repeaterParentElement,
         });
 
         /**
@@ -141,12 +140,9 @@ export const addWithoutKey = ({
                 const element = getElementById({ id: childId });
 
                 /**
-                 * Get first wrapper that contains element child of repeaterParentElement
+                 * Get element wrapper
                  */
-                const elementWrapper = findFirstRepeaterElementWrap({
-                    rootNode: repeaterParentElement,
-                    node: element,
-                });
+                const elementWrapper = getRepeaterInnerWrap({ id: childId });
 
                 /**
                  * Destroy all component in repeater item wrapper child of scope component

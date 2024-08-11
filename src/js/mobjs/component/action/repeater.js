@@ -4,6 +4,7 @@ import {
     ATTR_REPEATER_CONTEXT,
     DEFAULT_CURRENT_REPEATER_STATE,
 } from '../../constant.js';
+import { getRepeatParent } from '../../modules/repeater/index.js';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent.js';
 import { componentMap } from '../store.js';
 
@@ -41,6 +42,7 @@ export const setRepeaterStateById = ({ id = '', value }) => {
  */
 export const findFirstRepeaterElementWrap = ({ rootNode, node }) => {
     if (!rootNode) return;
+
     return [...rootNode.children].find(
         (child) => child.contains(node) && child !== node
     );
@@ -147,4 +149,52 @@ export const getRepeaterPropBind = ({ id = '' }) => {
     const item = componentMap.get(id);
     const repeatPropBind = item?.repeatPropBind;
     return repeatPropBind;
+};
+
+/**
+ *
+ * @param {object} obj
+ * @param {string} obj.id
+ * @param {string} obj.repeatId
+ * @param {HTMLElement|Element} obj.element
+ * @returns{void}
+ *
+ * @description
+ * Update element root from generic to real after conversion.
+ */
+export const setRepeaterInnerWrap = ({ id = '', repeatId = '', element }) => {
+    if (!id || id === '') return;
+
+    const item = componentMap.get(id);
+    if (!item) return;
+
+    const repeaterParentElement = getRepeatParent({
+        id: repeatId,
+    });
+
+    const elementWrapper = findFirstRepeaterElementWrap({
+        rootNode: /** @type {HTMLElement} */ (repeaterParentElement),
+        node: /** @type {HTMLElement} */ (element),
+    });
+
+    componentMap.set(id, {
+        ...item,
+        repeaterInnerWrap: elementWrapper,
+    });
+};
+
+/**
+ *
+ * @param {object} obj
+ * @param {string} obj.id
+ * @return {HTMLElement|Element|undefined}
+ *
+ * @description
+ */
+export const getRepeaterInnerWrap = ({ id }) => {
+    if (!id || id === '') return;
+
+    const item = componentMap.get(id);
+    const repeaterInnerWrap = item?.repeaterInnerWrap;
+    return repeaterInnerWrap;
 };

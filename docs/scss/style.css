@@ -1429,11 +1429,6 @@ code {
   color: #000;
   box-sizing: border-box;
 }
-@media (min-width: 75em) {
-  .c-dynamic-card {
-    flex: 0 0 50%;
-  }
-}
 .c-dynamic-card.active {
   opacity: 1;
 }
@@ -1541,6 +1536,11 @@ code {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+}
+@media (min-width: 75em) {
+  .c-dynamic-list-repeater__item {
+    flex: 0 0 50%;
+  }
 }
 .c-dynamic-list-button {
   background: #000;

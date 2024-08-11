@@ -20,45 +20,47 @@ function getRepeaterCard({
     getState,
 }) {
     return html`
-        <dynamic-list-card
-            ${staticProps({
-                parentListId: listId,
-            })}
-            ${bindProps({
-                bind: ['counter'],
-                /** @returns {Partial<import('../card/type').DynamicListCard>} */
-                props: ({ counter, data }, index) => {
-                    return {
-                        counter,
-                        label: data[index].label,
-                        index: index,
-                    };
-                },
-            })}
-            ${delegateEvents({
-                mousedown: (_e, index) => {
-                    const { data } = getState();
-                    const current = data[index].label;
-
-                    console.log(current, index);
-                },
-            })}
-            ${sync()}
-        >
-            <dynamic-slotted-label
-                slot="card-label-slot"
+        <div class="c-dynamic-list-repeater__item">
+            <dynamic-list-card
+                ${staticProps({
+                    parentListId: listId,
+                })}
                 ${bindProps({
                     bind: ['counter'],
-                    /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-                    props: ({ data, counter }, index) => {
+                    /** @returns {Partial<import('../card/type').DynamicListCard>} */
+                    props: ({ counter, data }, index) => {
                         return {
-                            label: `label: ${data[index].label} <br/> counter: ${counter}`,
+                            counter,
+                            label: data[index].label,
+                            index: index,
                         };
                     },
                 })}
+                ${delegateEvents({
+                    mousedown: (_e, index) => {
+                        const { data } = getState();
+                        const current = data[index].label;
+
+                        console.log(current, index);
+                    },
+                })}
+                ${sync()}
             >
-            </dynamic-slotted-label>
-        </dynamic-list-card>
+                <dynamic-slotted-label
+                    slot="card-label-slot"
+                    ${bindProps({
+                        bind: ['counter'],
+                        /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
+                        props: ({ data, counter }, index) => {
+                            return {
+                                label: `label: ${data[index].label} <br/> counter: ${counter}`,
+                            };
+                        },
+                    })}
+                >
+                </dynamic-slotted-label>
+            </dynamic-list-card>
+        </div>
     `;
 }
 

@@ -1,8 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
-import { getElementById } from '../../component/action/element';
-import { findFirstRepeaterElementWrap } from '../../component/action/repeater';
+import { getRepeaterInnerWrap } from '../../component/action/repeater';
 
 /**
  * @param {Array} current
@@ -91,26 +90,19 @@ export const getUnivoqueByKey = ({ data = [], key = '' }) => {
 /**
  * @param {object} obj
  * @param {string[]} obj.children
- * @param {HTMLElement|Element} obj.repeaterParentElement
  * @return {Array<string[]>}
  *
  * @description
  * Group all childrn by wrapper ( or undefined if there is no wrapper )
  */
-export const chunkIdsByRepeaterWrapper = ({
-    children,
-    repeaterParentElement,
-}) => {
+export const chunkIdsByRepeaterWrapper = ({ children }) => {
     /**
      * @type {Map<HTMLElement|Element|string, string[]>}
      */
     const chunkMap = new Map();
 
     children.forEach((child) => {
-        const elementWrapper = findFirstRepeaterElementWrap({
-            rootNode: /** @type {HTMLElement} */ (repeaterParentElement),
-            node: getElementById({ id: child }),
-        });
+        const elementWrapper = getRepeaterInnerWrap({ id: child });
 
         if (!elementWrapper) {
             chunkMap.set(mobCore.getUnivoqueId(), [child]);

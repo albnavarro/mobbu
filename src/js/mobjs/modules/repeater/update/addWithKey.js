@@ -24,7 +24,7 @@ import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
 import { getDefaultComponent } from '../../../component/createComponent';
-import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
+import { getRepeaterInnerWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
 
 /**
@@ -127,10 +127,7 @@ export const addWithKey = ({
         const currentId = getIdByElement({ element: element });
         if (!currentId) return;
 
-        const elementWrapper = findFirstRepeaterElementWrap({
-            rootNode: repeaterParentElement,
-            node: element,
-        });
+        const elementWrapper = getRepeaterInnerWrap({ id: currentId });
 
         /**
          * Destroy all component in repeater item wrapper child of scope component
@@ -179,10 +176,8 @@ export const addWithKey = ({
          * If persistent Element use a wrapper save it.
          * Than this element will added to DOM instead component.
          */
-        const wrapper = findFirstRepeaterElementWrap({
-            rootNode: repeaterParentElement,
-            node: element,
-        });
+        const id = getIdByElement({ element });
+        const wrapper = getRepeaterInnerWrap({ id });
 
         return { key, isNewElement, index, wrapper };
     });

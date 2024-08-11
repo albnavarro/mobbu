@@ -17,10 +17,6 @@
     color: $black;
     box-sizing: border-box;
 
-    @include mq(large) {
-        flex: 0 0 50%;
-    }
-
     &.active {
         opacity: 1;
     }

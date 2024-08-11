@@ -31,6 +31,7 @@ import { addComponentToStore } from '../component';
 import {
     setIsRepeaterFirstChildNode,
     setRepeaterContext,
+    setRepeaterInnerWrap,
     setRepeaterStateById,
 } from '../component/action/repeater';
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
@@ -250,6 +251,11 @@ export const parseComponentsRecursive = async ({
         setIsRepeaterFirstChildNode({ id });
         setRepeaterStateById({ id, value: currentRepeatValue });
         setRepeaterContext({ element: componentToParse, id });
+        setRepeaterInnerWrap({
+            id,
+            repeatId: componentRepeatId,
+            element: componentToParse,
+        });
     }
 
     /**

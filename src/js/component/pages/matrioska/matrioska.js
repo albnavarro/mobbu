@@ -141,6 +141,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     repeat,
                                     staticProps,
                                     delegateEvents,
+                                    bindProps,
                                 })}
                             </matrioska-item>
                         </div>
@@ -155,15 +156,16 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
  * @param {object} params
  * @param {import('../../../mobjs/type').Repeat<import('./type').Matrioska>} params.repeat
  * @param {import('../../../mobjs/type').StaticProps<import('./matrioskaItem/type').MatrioskaItem>} params.staticProps
+ * @param {import('../../../mobjs/type').BindProps<import('./type').Matrioska,import('./matrioskaItem/type').MatrioskaItem>} params.bindProps
  * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
  */
-const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
+const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
                 bind: 'level3',
                 key: 'key',
-                render: ({ html, sync, currentValue }) => {
+                render: ({ html, sync }) => {
                     const name = mobCore.getUnivoqueId();
                     const name2 = mobCore.getUnivoqueId();
 
@@ -179,8 +181,14 @@ const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
                                 name="${name}"
                                 ${staticProps({
                                     level: 'level 3',
-                                    key: `${currentValue?.key}`,
-                                    value: `${currentValue?.value}`,
+                                })}
+                                ${bindProps({
+                                    props: ({ level3 }, index) => {
+                                        return {
+                                            key: `${level3[index]?.key}`,
+                                            value: `${level3[index]?.value}`,
+                                        };
+                                    },
                                 })}
                                 ${delegateEvents({
                                     click: () => {
@@ -200,8 +208,14 @@ const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
                                 name="${name2}"
                                 ${staticProps({
                                     level: 'level 3',
-                                    key: `${currentValue?.key}`,
-                                    value: `${currentValue?.value}`,
+                                })}
+                                ${bindProps({
+                                    props: ({ level3 }, index) => {
+                                        return {
+                                            key: `${level3[index]?.key}`,
+                                            value: `${level3[index]?.value}`,
+                                        };
+                                    },
                                 })}
                                 ${delegateEvents({
                                     click: () => {

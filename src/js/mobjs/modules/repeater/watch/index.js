@@ -239,7 +239,6 @@ export const watchRepeat = ({
              */
             const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
                 children: childrenFilteredSorted,
-                repeaterParentElement,
             });
 
             /**
