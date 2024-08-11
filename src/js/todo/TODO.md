@@ -13,10 +13,15 @@
 # MobJs
 
 ## Repeater
-- Implementata la base per wrappare gli elementi repeater in altri elementi del DOM
-- Rimane valida la logica `wrapper del repeater`, `un componente di primo livello` per repeater.
-- Ora é possibile peró wrappare il component figlio in uno o piu div.
-- DOC: aggirnare
+- E' possibile salvare il componentWrapper nella mappa senza doverlo calcolare ogni volta ?
+- dovrebbe salavarlo il componente con `isFirstchildRepeater` importato. Si potrebbe cosi di evituare di usare ripetutamente
+```js
+    const elementWrapper = findFirstRepeaterElementWrap({
+        rootNode: /** @type {HTMLElement} */ (repeaterParentElement),
+        node: getElementById({ id: child }),
+    });
+```
+
 
 #### next step:
 - `sync` al momento é una 'costante` deve essere una funzione che ristituisce un id fresco sul momento, questo permette di usare siblings component.
