@@ -237,7 +237,7 @@ export const watchRepeat = ({
             const chunkMap = new Map();
 
             /**
-             * Gropu all childrn by wrapper ( or undefined if there is no wrapper )
+             * Group all childrn by wrapper ( or undefined if there is no wrapper )
              * So index and current value is right
              */
             childrenFilteredSorted.forEach((child) => {
@@ -260,7 +260,8 @@ export const watchRepeat = ({
                 chunkMap.set(elementWrapper, [child]);
             });
 
-            const childrenChunked = [...chunkMap.values()];
+            const childrenChunkedByWrapper = [...chunkMap.values()];
+            chunkMap.clear();
             const hasKey = key && key !== '';
 
             /**
@@ -270,7 +271,7 @@ export const watchRepeat = ({
              * Update storeComponent currentRepeaterState
              * propierties so bindPros get last current/index value when watch.
              */
-            childrenChunked.forEach((childArray, index) => {
+            childrenChunkedByWrapper.forEach((childArray, index) => {
                 childArray.forEach((id) => {
                     const currentValue = currentUnivoque?.[index];
                     if (!currentValue) return;

@@ -18420,9 +18420,10 @@
           }
           chunkMap.set(elementWrapper, [child2]);
         });
-        const childrenChunked = [...chunkMap.values()];
+        const childrenChunkedByWrapper = [...chunkMap.values()];
+        chunkMap.clear();
         const hasKey = key && key !== "";
-        childrenChunked.forEach((childArray, index) => {
+        childrenChunkedByWrapper.forEach((childArray, index) => {
           childArray.forEach((id2) => {
             const currentValue = currentUnivoque?.[index];
             if (!currentValue) return;
