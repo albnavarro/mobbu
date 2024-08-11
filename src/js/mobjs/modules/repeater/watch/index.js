@@ -3,7 +3,6 @@
 import { mobCore } from '../../../../mobCore';
 import { gerOrderedChildrenById } from '../../../component/action/children';
 import {
-    findFirstRepeaterElementWrap,
     getComponentIdByRepeatercontext,
     setRepeaterStateById,
 } from '../../../component/action/repeater';
@@ -29,6 +28,7 @@ import { getRepeaterComponentTarget } from '../targetcomponent';
 import { updateRepeater } from '../update';
 import { inizializeNestedInvalidate } from '../../invalidate';
 import { getFallBackParentByElement } from '../../../component/action/parent';
+import { chunkIdsByRepeaterWrapper } from '../utils';
 
 /**
  * @param {import('../type').watchListType} param
@@ -77,7 +77,7 @@ export const watchRepeat = ({
         async (/** @type {Array} */ current, /** @type {Array} */ previous) => {
             if (!mobCore.checkType(Array, current)) return;
 
-            const repeatParentElement = getRepeatParent({
+            const repeaterParentElement = getRepeatParent({
                 id: repeatId,
             });
 
@@ -113,7 +113,7 @@ export const watchRepeat = ({
             const repeatIsRunning = getActiveRepeater({
                 id,
                 state,
-                container: repeatParentElement,
+                container: repeaterParentElement,
             });
 
             if (repeatIsRunning) {
@@ -150,7 +150,7 @@ export const watchRepeat = ({
             if (mainComponent && !forceRepeater) {
                 beforeUpdate({
                     element: mainComponent,
-                    container: repeatParentElement,
+                    container: repeaterParentElement,
                     childrenId: childrenBeforeUdate,
                 });
             }
@@ -161,7 +161,7 @@ export const watchRepeat = ({
             if (mainComponent && !forceRepeater) {
                 await beforeUpdate({
                     element: mainComponent,
-                    container: repeatParentElement,
+                    container: repeaterParentElement,
                     childrenId: getIdsByByRepeatId({
                         id,
                         repeatId,
@@ -186,20 +186,20 @@ export const watchRepeat = ({
                  * Web component trick.
                  * Sure to delete host element.
                  */
-                repeatParentElement.textContent = '';
+                repeaterParentElement.textContent = '';
             }
 
             /**
              * Set current active repeater in mainStore.
              */
-            addActiveRepeat({ id, state, container: repeatParentElement });
+            addActiveRepeat({ id, state, container: repeaterParentElement });
 
             /**
              * Start main update list function
              */
             const currentUnivoque = await updateRepeater({
                 state,
-                repeaterParentElement: repeatParentElement,
+                repeaterParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,
                 previous: clean || forceRepeater ? [] : previous,
@@ -232,36 +232,14 @@ export const watchRepeat = ({
             ];
 
             /**
-             * @type {Map<HTMLElement|Element|string, string[]>}
-             */
-            const chunkMap = new Map();
-
-            /**
              * Group all childrn by wrapper ( or undefined if there is no wrapper )
-             * So index and current value is right
+             * So the index and current value is fine.
              */
-            childrenFilteredSorted.forEach((child) => {
-                const elementWrapper = findFirstRepeaterElementWrap({
-                    rootNode: repeatParentElement,
-                    node: getElementById({ id: child }),
-                });
-
-                if (!elementWrapper) {
-                    chunkMap.set(mobCore.getUnivoqueId(), [child]);
-                    return;
-                }
-
-                if (chunkMap.has(elementWrapper)) {
-                    const children = chunkMap.get(elementWrapper);
-                    chunkMap.set(elementWrapper, [...children, child]);
-                    return;
-                }
-
-                chunkMap.set(elementWrapper, [child]);
+            const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+                children: childrenFilteredSorted,
+                repeaterParentElement,
             });
 
-            const childrenChunkedByWrapper = [...chunkMap.values()];
-            chunkMap.clear();
             const hasKey = key && key !== '';
 
             /**
@@ -338,7 +316,7 @@ export const watchRepeat = ({
                 if (mainComponent) {
                     afterUpdate({
                         element: mainComponent,
-                        container: repeatParentElement,
+                        container: repeaterParentElement,
                         childrenId: childrenFiltered,
                     });
                 }
@@ -352,7 +330,7 @@ export const watchRepeat = ({
                 removeActiveRepeat({
                     id,
                     state,
-                    container: repeatParentElement,
+                    container: repeaterParentElement,
                 });
 
                 /**

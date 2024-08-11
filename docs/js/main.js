@@ -18061,6 +18061,34 @@
       (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
     );
   };
+  var chunkIdsByRepeaterWrapper = ({
+    children,
+    repeaterParentElement
+  }) => {
+    const chunkMap = /* @__PURE__ */ new Map();
+    children.forEach((child2) => {
+      const elementWrapper = findFirstRepeaterElementWrap({
+        rootNode: (
+          /** @type {HTMLElement} */
+          repeaterParentElement
+        ),
+        node: getElementById({ id: child2 })
+      });
+      if (!elementWrapper) {
+        chunkMap.set(mobCore.getUnivoqueId(), [child2]);
+        return;
+      }
+      if (chunkMap.has(elementWrapper)) {
+        const children2 = chunkMap.get(elementWrapper);
+        chunkMap.set(elementWrapper, [...children2, child2]);
+        return;
+      }
+      chunkMap.set(elementWrapper, [child2]);
+    });
+    const childrenChunkedByWrapper = [...chunkMap.values()];
+    chunkMap.clear();
+    return childrenChunkedByWrapper;
+  };
 
   // src/js/mobjs/modules/repeater/repeaterValue/index.js
   var currentRepeaterValueMap = /* @__PURE__ */ new Map();
@@ -18239,25 +18267,10 @@
         id,
         repeatId
       });
-      const chunkMap = /* @__PURE__ */ new Map();
-      idsByRepeatId.forEach((child2) => {
-        const elementWrapper = findFirstRepeaterElementWrap({
-          rootNode: repeaterParentElement,
-          node: getElementById({ id: child2 })
-        });
-        if (!elementWrapper) {
-          chunkMap.set(mobCore.getUnivoqueId(), [child2]);
-          return;
-        }
-        if (chunkMap.has(elementWrapper)) {
-          const children = chunkMap.get(elementWrapper);
-          chunkMap.set(elementWrapper, [...children, child2]);
-          return;
-        }
-        chunkMap.set(elementWrapper, [child2]);
+      const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+        children: idsByRepeatId,
+        repeaterParentElement
       });
-      const childrenChunkedByWrapper = [...chunkMap.values()];
-      chunkMap.clear();
       const elementToRemoveByKey = childrenChunkedByWrapper.filter(
         (_child, i) => {
           return i >= current.length;
@@ -18345,7 +18358,7 @@
       state,
       async (current, previous) => {
         if (!mobCore.checkType(Array, current)) return;
-        const repeatParentElement = getRepeatParent({
+        const repeaterParentElement = getRepeatParent({
           id: repeatId
         });
         const descrementQueue = incrementTickQueuque({
@@ -18362,7 +18375,7 @@
         const repeatIsRunning = getActiveRepeater({
           id,
           state,
-          container: repeatParentElement
+          container: repeaterParentElement
         });
         if (repeatIsRunning) {
           unFreezePropById({ id, prop: state });
@@ -18381,14 +18394,14 @@
         if (mainComponent && !forceRepeater) {
           beforeUpdate({
             element: mainComponent,
-            container: repeatParentElement,
+            container: repeaterParentElement,
             childrenId: childrenBeforeUdate
           });
         }
         if (mainComponent && !forceRepeater) {
           await beforeUpdate({
             element: mainComponent,
-            container: repeatParentElement,
+            container: repeaterParentElement,
             childrenId: getIdsByByRepeatId({
               id,
               repeatId
@@ -18403,12 +18416,12 @@
           currentChildern.forEach((id2) => {
             removeAndDestroyById({ id: id2 });
           });
-          repeatParentElement.textContent = "";
+          repeaterParentElement.textContent = "";
         }
-        addActiveRepeat({ id, state, container: repeatParentElement });
+        addActiveRepeat({ id, state, container: repeaterParentElement });
         const currentUnivoque = await updateRepeater({
           state,
-          repeaterParentElement: repeatParentElement,
+          repeaterParentElement,
           targetComponent: targetComponentBeforeParse,
           current,
           previous: clean2 || forceRepeater ? [] : previous,
@@ -18426,25 +18439,10 @@
         const childrenFilteredSorted = [
           ...gerOrderedChildrenById({ children: childrenFiltered })
         ];
-        const chunkMap = /* @__PURE__ */ new Map();
-        childrenFilteredSorted.forEach((child2) => {
-          const elementWrapper = findFirstRepeaterElementWrap({
-            rootNode: repeatParentElement,
-            node: getElementById({ id: child2 })
-          });
-          if (!elementWrapper) {
-            chunkMap.set(mobCore.getUnivoqueId(), [child2]);
-            return;
-          }
-          if (chunkMap.has(elementWrapper)) {
-            const children = chunkMap.get(elementWrapper);
-            chunkMap.set(elementWrapper, [...children, child2]);
-            return;
-          }
-          chunkMap.set(elementWrapper, [child2]);
+        const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+          children: childrenFilteredSorted,
+          repeaterParentElement
         });
-        const childrenChunkedByWrapper = [...chunkMap.values()];
-        chunkMap.clear();
         const hasKey = key && key !== "";
         childrenChunkedByWrapper.forEach((childArray, index) => {
           childArray.forEach((id2) => {
@@ -18475,14 +18473,14 @@
           if (mainComponent) {
             afterUpdate({
               element: mainComponent,
-              container: repeatParentElement,
+              container: repeaterParentElement,
               childrenId: childrenFiltered
             });
           }
           removeActiveRepeat({
             id,
             state,
-            container: repeatParentElement
+            container: repeaterParentElement
           });
           unFreezePropById({ id, prop: state });
           descrementQueue();

@@ -19,7 +19,7 @@ import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
 import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
-import { mobCore } from '../../../../mobCore';
+import { chunkIdsByRepeaterWrapper } from '../utils';
 
 /**
  * @param {object} obj
@@ -115,36 +115,13 @@ export const addWithoutKey = ({
         });
 
         /**
-         * @type {Map<HTMLElement|Element|string, string[]>}
-         */
-        const chunkMap = new Map();
-
-        /**
          * Group all childrn by wrapper ( or undefined if there is no wrapper )
-         * So index and current value is right
+         * So destroy all right element by index
          */
-        idsByRepeatId.forEach((child) => {
-            const elementWrapper = findFirstRepeaterElementWrap({
-                rootNode: repeaterParentElement,
-                node: getElementById({ id: child }),
-            });
-
-            if (!elementWrapper) {
-                chunkMap.set(mobCore.getUnivoqueId(), [child]);
-                return;
-            }
-
-            if (chunkMap.has(elementWrapper)) {
-                const children = chunkMap.get(elementWrapper);
-                chunkMap.set(elementWrapper, [...children, child]);
-                return;
-            }
-
-            chunkMap.set(elementWrapper, [child]);
+        const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
+            children: idsByRepeatId,
+            repeaterParentElement,
         });
-
-        const childrenChunkedByWrapper = [...chunkMap.values()];
-        chunkMap.clear();
 
         /**
          * element to remove
