@@ -18239,26 +18239,49 @@
         id,
         repeatId
       });
-      const elementToRemoveByKey = idsByRepeatId.filter((_child, i) => {
-        return i >= current.length;
-      });
-      elementToRemoveByKey.forEach((childId) => {
-        const element = getElementById({ id: childId });
+      const chunkMap = /* @__PURE__ */ new Map();
+      idsByRepeatId.forEach((child2) => {
         const elementWrapper = findFirstRepeaterElementWrap({
           rootNode: repeaterParentElement,
-          node: element
+          node: getElementById({ id: child2 })
         });
-        if (elementWrapper) {
-          destroyComponentInsideNodeById({
-            id: getParentIdById(childId),
-            container: elementWrapper
-          });
-          elementWrapper.remove();
-        } else {
-          removeAndDestroyById({ id: childId });
+        if (!elementWrapper) {
+          chunkMap.set(mobCore.getUnivoqueId(), [child2]);
+          return;
         }
-        destroyNestedInvalidate({ id, invalidateParent: element });
-        destroyNestedRepeat({ id, repeatParent: element });
+        if (chunkMap.has(elementWrapper)) {
+          const children = chunkMap.get(elementWrapper);
+          chunkMap.set(elementWrapper, [...children, child2]);
+          return;
+        }
+        chunkMap.set(elementWrapper, [child2]);
+      });
+      const childrenChunkedByWrapper = [...chunkMap.values()];
+      chunkMap.clear();
+      const elementToRemoveByKey = childrenChunkedByWrapper.filter(
+        (_child, i) => {
+          return i >= current.length;
+        }
+      );
+      elementToRemoveByKey.forEach((childArray) => {
+        childArray.forEach((childId) => {
+          const element = getElementById({ id: childId });
+          const elementWrapper = findFirstRepeaterElementWrap({
+            rootNode: repeaterParentElement,
+            node: element
+          });
+          if (elementWrapper) {
+            destroyComponentInsideNodeById({
+              id: getParentIdById(childId),
+              container: elementWrapper
+            });
+            elementWrapper.remove();
+          } else {
+            removeAndDestroyById({ id: childId });
+          }
+          destroyNestedInvalidate({ id, invalidateParent: element });
+          destroyNestedRepeat({ id, repeatParent: element });
+        });
       });
     }
     return current;

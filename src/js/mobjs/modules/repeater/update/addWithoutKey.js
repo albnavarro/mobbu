@@ -19,6 +19,7 @@ import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
 import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
 import { getParentIdById } from '../../../component/action/parent';
+import { mobCore } from '../../../../mobCore';
 
 /**
  * @param {object} obj
@@ -114,43 +115,79 @@ export const addWithoutKey = ({
         });
 
         /**
+         * @type {Map<HTMLElement|Element|string, string[]>}
+         */
+        const chunkMap = new Map();
+
+        /**
+         * Group all childrn by wrapper ( or undefined if there is no wrapper )
+         * So index and current value is right
+         */
+        idsByRepeatId.forEach((child) => {
+            const elementWrapper = findFirstRepeaterElementWrap({
+                rootNode: repeaterParentElement,
+                node: getElementById({ id: child }),
+            });
+
+            if (!elementWrapper) {
+                chunkMap.set(mobCore.getUnivoqueId(), [child]);
+                return;
+            }
+
+            if (chunkMap.has(elementWrapper)) {
+                const children = chunkMap.get(elementWrapper);
+                chunkMap.set(elementWrapper, [...children, child]);
+                return;
+            }
+
+            chunkMap.set(elementWrapper, [child]);
+        });
+
+        const childrenChunkedByWrapper = [...chunkMap.values()];
+        chunkMap.clear();
+
+        /**
          * element to remove
          */
-        const elementToRemoveByKey = idsByRepeatId.filter((_child, i) => {
-            return i >= current.length;
-        });
+        const elementToRemoveByKey = childrenChunkedByWrapper.filter(
+            (_child, i) => {
+                return i >= current.length;
+            }
+        );
 
         /**
          * Destroy
          */
-        elementToRemoveByKey.forEach((childId) => {
-            const element = getElementById({ id: childId });
+        elementToRemoveByKey.forEach((childArray) => {
+            childArray.forEach((childId) => {
+                const element = getElementById({ id: childId });
 
-            /**
-             * Get first wrapper that contains element child of repeaterParentElement
-             */
-            const elementWrapper = findFirstRepeaterElementWrap({
-                rootNode: repeaterParentElement,
-                node: element,
-            });
-
-            /**
-             * Destroy all component in repeater item wrapper child of scope component
-             * Or destroy single component if there is no wrapper.
-             */
-            if (elementWrapper) {
-                destroyComponentInsideNodeById({
-                    id: getParentIdById(childId),
-                    container: elementWrapper,
+                /**
+                 * Get first wrapper that contains element child of repeaterParentElement
+                 */
+                const elementWrapper = findFirstRepeaterElementWrap({
+                    rootNode: repeaterParentElement,
+                    node: element,
                 });
 
-                elementWrapper.remove();
-            } else {
-                removeAndDestroyById({ id: childId });
-            }
+                /**
+                 * Destroy all component in repeater item wrapper child of scope component
+                 * Or destroy single component if there is no wrapper.
+                 */
+                if (elementWrapper) {
+                    destroyComponentInsideNodeById({
+                        id: getParentIdById(childId),
+                        container: elementWrapper,
+                    });
 
-            destroyNestedInvalidate({ id, invalidateParent: element });
-            destroyNestedRepeat({ id, repeatParent: element });
+                    elementWrapper.remove();
+                } else {
+                    removeAndDestroyById({ id: childId });
+                }
+
+                destroyNestedInvalidate({ id, invalidateParent: element });
+                destroyNestedRepeat({ id, repeatParent: element });
+            });
         });
     }
 
