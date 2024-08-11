@@ -115,6 +115,7 @@ export const addWithoutKey = ({
         });
 
         /**
+         * For singling component inside same repeater item.
          * Group all childrn by wrapper ( or undefined if there is no wrapper )
          * So destroy all right element by index
          */

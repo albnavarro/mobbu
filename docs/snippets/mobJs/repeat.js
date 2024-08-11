@@ -13,7 +13,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
         childrenId: string[];
     }): void;
     render: (arg0: {
-        sync: string;
+        sync: () => string;
         index: number;
         currentValue: ArrayElement<T[K]>;
         html?: (arg0: string) => string;
@@ -36,40 +36,41 @@ function getItems({
      * By default the `watch` state will triggere a reaction.
      */
     return html`
-        <my-child-component
-            ${sync} // !important
-            ${staticProps({
-                staticProp: myProps,
-            })}
-            ${bindProps({
-                bind: ['counter'],
-                props: ({ counter, myStateArray }, index) => {
-                    return {
-                        counter,
-                        label: myStateArray[index].label,
-                        index,
-                    };
-                },
-            })}
-            ${delegateEvents({
-                click: (event, index) => console.log(event, index),
-            })}
-        >
-           <my-child-component-inner
-               ${bindProps({
-                   bind: ['counter'],
-                   props: ({ counter, myStateArray }, index) => {
-                       return {
-                           counter,
-                           label: myStateArray[index].label,
-                           index,
-                       };
-                   },
-               })}
-            > 
-           </my-child-component-inner> 
-        </my-child-component>
-    `;
+        <div>
+            <my-child-component
+                ${sync()} // !important
+                ${staticProps({
+                    staticProp: myProps,
+                })}
+                ${bindProps({
+                    bind: ['counter'],
+                    props: ({ counter, myStateArray }, index) => {
+                        return {
+                            counter,
+                            label: myStateArray[index].label,
+                            index,
+                        };
+                    },
+                })}
+                ${delegateEvents({
+                    click: (event, index) => console.log(event, index),
+                })}
+            >
+                <my-child-component-inner
+                    ${bindProps({
+                        bind: ['counter'],
+                        props: ({ counter, myStateArray }, index) => {
+                            return {
+                                counter,
+                                label: myStateArray[index].label,
+                                index,
+                            };
+                        },
+                    })}
+                > 
+                </my-child-component-inner> 
+            </my-child-component>
+        </div>`;
 }
 
 /**

@@ -187,18 +187,9 @@
             "props": {
                 "style": "medium",
                 "items": [
-                    "<strong>clean = false</strong>: The render function must return a HTML in which the first node must be the 'repeat' component",
-                    "<strong>clean = true</strong>: the render function can return HTML in which the component can be contained in one or more HTML tags"
-                ]
-            }
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "items": [
-                    "<strong>Container</strong>: Each repeater must be instantiated in a node as its only child, other elements added together with the repeater may be lost during upgrades<br/>In the following example the container is represented by the <span class='quote'>.repeater-container</span> node",
-                    "<strong>Nested element</strong>: It is possible to nest multiple invalidate/repeaters inside each other in the same <span class='quote'>component/scope</span>"
+                    "<strong>Container</strong>: Each repeater must be initialized inside a <span class='quote'>dedicated HTML node</span>",
+                    "<strong>DOM strucure:</strong>: The function must return a DOM where the <span class='quote'>first node</span> must be a <span class='quote'>single node</span> regardless of whether it is a generic <span class='quote'>DOM element</span> or a <span class='quote'>component</span>.",
+                    "<strong>First level element:</strong>: Every <span class='quote'>top level element</span> (not nested in another component) must have the <span class='quote'>sync</span> function used."
                 ]
             }
         },

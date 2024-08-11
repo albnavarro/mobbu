@@ -232,14 +232,19 @@ export const watchRepeat = ({
             ];
 
             /**
-             * Group all childrn by wrapper ( or undefined if there is no wrapper )
+             * For singling component inside same repeater item.
+             * Group all children by wrapper ( or undefined if there is no wrapper )
              * So the index and current value is fine.
+             * Sorted operation is fine in this step.
              */
             const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
                 children: childrenFilteredSorted,
                 repeaterParentElement,
             });
 
+            /**
+             * Use key ?
+             */
             const hasKey = key && key !== '';
 
             /**
