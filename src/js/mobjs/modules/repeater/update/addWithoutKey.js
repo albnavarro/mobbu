@@ -1,6 +1,9 @@
 // @ts-check
 
-import { removeAndDestroyById } from '../../../component/action/removeAndDestroy';
+import {
+    destroyComponentInsideNodeById,
+    removeAndDestroyById,
+} from '../../../component/action/removeAndDestroy';
 import {
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
@@ -15,6 +18,7 @@ import { renderHtml } from '../../../parse/steps/utils';
 import { destroyNestedInvalidate } from '../../invalidate';
 import { destroyNestedRepeat } from '..';
 import { findFirstRepeaterElementWrap } from '../../../component/action/repeater';
+import { getParentIdById } from '../../../component/action/parent';
 
 /**
  * @param {object} obj
@@ -68,12 +72,13 @@ export const addWithoutKey = ({
             const currentValue = current?.[index + previousLenght];
             const currentIndex = index + previousLenght;
 
-            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                {
-                    current: currentValue,
-                    index: currentIndex,
-                }
-            )}"
+            const sync =
+                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                    {
+                        current: currentValue,
+                        index: currentIndex,
+                    }
+                )}"
             ${ATTR_REPEATER_PROP_BIND}="${state}"
             ${ATTR_CHILD_REPEATID}="${repeatId}"`;
 
@@ -129,10 +134,23 @@ export const addWithoutKey = ({
                 node: element,
             });
 
+            /**
+             * Destroy all component in repeater item wrapper child of scope component
+             * Or destroy single component if there is no wrapper.
+             */
+            if (elementWrapper) {
+                destroyComponentInsideNodeById({
+                    id: getParentIdById(childId),
+                    container: elementWrapper,
+                });
+
+                elementWrapper.remove();
+            } else {
+                removeAndDestroyById({ id: childId });
+            }
+
             destroyNestedInvalidate({ id, invalidateParent: element });
             destroyNestedRepeat({ id, repeatParent: element });
-            removeAndDestroyById({ id: childId });
-            elementWrapper?.remove();
         });
     }
 

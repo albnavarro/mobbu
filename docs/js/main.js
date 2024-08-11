@@ -17987,7 +17987,7 @@
     allChild.forEach((id2) => {
       const state = componentMap.get(id2);
       const element = state?.element;
-      if (element && container?.contains(element)) {
+      if (element && container?.contains(element) && element !== container) {
         removeAndDestroyById({ id: id2 });
       }
     });
@@ -18088,7 +18088,7 @@
     const currentValue = currentUnique?.[index];
     const sync = (
       /* HTML */
-      ` ${ATTR_KEY}="${key}"
+      () => ` ${ATTR_KEY}="${key}"
     ${ATTR_REPEATER_PROP_BIND}="${state}"
     ${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState({
         current: currentValue,
@@ -18126,7 +18126,19 @@
     elementToRemoveByKey.forEach((element) => {
       const currentId = getIdByElement({ element });
       if (!currentId) return;
-      removeAndDestroyById({ id: currentId });
+      const elementWrapper = findFirstRepeaterElementWrap({
+        rootNode: repeaterParentElement,
+        node: element
+      });
+      if (elementWrapper) {
+        destroyComponentInsideNodeById({
+          id: getParentIdById(currentId),
+          container: elementWrapper
+        });
+        elementWrapper.remove();
+      } else {
+        removeAndDestroyById({ id: currentId });
+      }
       destroyNestedInvalidate({ id, invalidateParent: element });
       destroyNestedRepeat({ id, repeatParent: element });
     });
@@ -18202,7 +18214,7 @@
         const currentIndex = index + previousLenght;
         const sync = (
           /* HTML */
-          `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+          () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
             {
               current: currentValue,
               index: currentIndex
@@ -18236,10 +18248,17 @@
           rootNode: repeaterParentElement,
           node: element
         });
+        if (elementWrapper) {
+          destroyComponentInsideNodeById({
+            id: getParentIdById(childId),
+            container: elementWrapper
+          });
+          elementWrapper.remove();
+        } else {
+          removeAndDestroyById({ id: childId });
+        }
         destroyNestedInvalidate({ id, invalidateParent: element });
         destroyNestedRepeat({ id, repeatParent: element });
-        removeAndDestroyById({ id: childId });
-        elementWrapper?.remove();
       });
     }
     return current;
@@ -18384,27 +18403,47 @@
         const childrenFilteredSorted = [
           ...gerOrderedChildrenById({ children: childrenFiltered })
         ];
+        const chunkMap = /* @__PURE__ */ new Map();
+        childrenFilteredSorted.forEach((child2) => {
+          const elementWrapper = findFirstRepeaterElementWrap({
+            rootNode: repeatParentElement,
+            node: getElementById({ id: child2 })
+          });
+          if (!elementWrapper) {
+            chunkMap.set(mobCore.getUnivoqueId(), [child2]);
+            return;
+          }
+          if (chunkMap.has(elementWrapper)) {
+            const children = chunkMap.get(elementWrapper);
+            chunkMap.set(elementWrapper, [...children, child2]);
+            return;
+          }
+          chunkMap.set(elementWrapper, [child2]);
+        });
+        const childrenChunked = [...chunkMap.values()];
         const hasKey = key && key !== "";
-        childrenFilteredSorted.forEach((id2, index) => {
-          const currentValue = currentUnivoque?.[index];
-          if (!currentValue) return;
-          const realIndex = hasKey ? current.findIndex((value) => {
-            return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
-          }) : index;
-          setRepeaterStateById({
-            id: id2,
-            value: { current: currentValue, index: realIndex }
-          });
-          const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
-            contextId: id2
-          });
-          firstRepeaterchildChildren.forEach((childId) => {
+        childrenChunked.forEach((childArray, index) => {
+          childArray.forEach((id2) => {
+            const currentValue = currentUnivoque?.[index];
+            if (!currentValue) return;
+            const realIndex = hasKey ? current.findIndex((value) => {
+              return `${value?.[key]}` === `${currentUnivoque?.[index]?.[key]}`;
+            }) : index;
             setRepeaterStateById({
-              id: childId,
-              value: {
-                current: currentValue,
-                index: realIndex
-              }
+              id: id2,
+              value: { current: currentValue, index: realIndex }
+            });
+            const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
+              contextId: id2
+            });
+            firstRepeaterchildChildren.forEach((childId) => {
+              setRepeaterStateById({
+                id: childId,
+                value: {
+                  current: currentValue,
+                  index: realIndex
+                }
+              });
             });
           });
         });
@@ -19680,7 +19719,7 @@
             (item, index) => {
               const sync = (
                 /* HTML */
-                `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
                   {
                     current: item,
                     index
@@ -23295,7 +23334,7 @@ Loading snippet ...</pre
   }) {
     return renderHtml`
         <code-overlay-button
-            ${sync}
+            ${sync()}
             ${bindProps({
       bind: ["activeContent"],
       props: ({ activeContent, urls }, index) => {
@@ -24759,7 +24798,7 @@ Loading snippet ...</pre
         };
       }
     })}
-            ${sync}
+            ${sync()}
         >
         </scroll-to-button>
     </li> `;
@@ -28479,7 +28518,7 @@ Loading snippet ...</pre
             };
           }
         })}
-                                    ${sync}
+                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
       }
     })}
@@ -28499,7 +28538,7 @@ Loading snippet ...</pre
             };
           }
         })}
-                                    ${sync}
+                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
       }
     })}
@@ -28644,7 +28683,7 @@ Loading snippet ...</pre
         console.log(current, index);
       }
     })}
-            ${sync}
+            ${sync()}
         >
             <dynamic-slotted-label
                 slot="card-label-slot"
@@ -29077,7 +29116,7 @@ Loading snippet ...</pre
             };
           }
         })}
-                                ${sync}
+                                ${sync()}
                             >
                                 ${getThirdLevel({
           repeat,
@@ -29100,6 +29139,7 @@ Loading snippet ...</pre
       key: "key",
       render: ({ html, sync, currentValue }) => {
         const name = mobCore.getUnivoqueId();
+        const name2 = mobCore.getUnivoqueId();
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
@@ -29118,7 +29158,24 @@ Loading snippet ...</pre
             setActiveState("active", (val2) => !val2);
           }
         })}
-                                ${sync}
+                                ${sync()}
+                            >
+                            </matrioska-item>
+                            <matrioska-item
+                                class="matrioska-item--3"
+                                name="${name2}"
+                                ${staticProps2({
+          level: "level 3",
+          key: `${currentValue?.key}`,
+          value: `${currentValue?.value}`
+        })}
+                                ${delegateEvents({
+          click: () => {
+            const setActiveState = setStateByName(name2);
+            setActiveState("active", (val2) => !val2);
+          }
+        })}
+                                ${sync()}
                             >
                             </matrioska-item>
                         </div>
@@ -29206,7 +29263,7 @@ Loading snippet ...</pre
             };
           }
         })}
-                                    ${sync}
+                                    ${sync()}
                                 >
                                     ${getSecondLevel({
           repeat,

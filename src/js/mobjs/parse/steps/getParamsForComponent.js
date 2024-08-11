@@ -223,12 +223,13 @@ export const getParamsForComponentFunction = ({
                             /** @type{any} */ item,
                             /** @type{number} */ index
                         ) => {
-                            const sync = /* HTML */ `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
-                                {
-                                    current: item,
-                                    index: index,
-                                }
-                            )}"
+                            const sync =
+                                /* HTML */ () => `${ATTR_CURRENT_LIST_VALUE}="${setComponentRepeaterState(
+                                    {
+                                        current: item,
+                                        index: index,
+                                    }
+                                )}"
                             ${ATTR_KEY}="${hasKey ? item?.[key] : ''}"
                             ${ATTR_REPEATER_PROP_BIND}="${bind}"
                             ${ATTR_CHILD_REPEATID}="${repeatId}"`;

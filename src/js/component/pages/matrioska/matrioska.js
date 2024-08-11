@@ -135,7 +135,7 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                         };
                                     },
                                 })}
-                                ${sync}
+                                ${sync()}
                             >
                                 ${getThirdLevel({
                                     repeat,
@@ -165,6 +165,7 @@ const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
                 key: 'key',
                 render: ({ html, sync, currentValue }) => {
                     const name = mobCore.getUnivoqueId();
+                    const name2 = mobCore.getUnivoqueId();
 
                     /**
                      * With key bind props is unnecessary here
@@ -191,7 +192,28 @@ const getThirdLevel = ({ repeat, staticProps, delegateEvents }) => {
                                         setActiveState('active', (val) => !val);
                                     },
                                 })}
-                                ${sync}
+                                ${sync()}
+                            >
+                            </matrioska-item>
+                            <matrioska-item
+                                class="matrioska-item--3"
+                                name="${name2}"
+                                ${staticProps({
+                                    level: 'level 3',
+                                    key: `${currentValue?.key}`,
+                                    value: `${currentValue?.value}`,
+                                })}
+                                ${delegateEvents({
+                                    click: () => {
+                                        /**
+                                         *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
+                                         */
+                                        const setActiveState =
+                                            setStateByName(name2);
+                                        setActiveState('active', (val) => !val);
+                                    },
+                                })}
+                                ${sync()}
                             >
                             </matrioska-item>
                         </div>
@@ -296,7 +318,7 @@ export const MatrioskaFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync}
+                                    ${sync()}
                                 >
                                     ${getSecondLevel({
                                         repeat,

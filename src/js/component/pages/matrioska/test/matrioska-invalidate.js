@@ -258,7 +258,7 @@ export const MatrioskaFn = ({
                                     };
                                 },
                             })}
-                            ${sync}
+                            ${sync()}
                         >
                             ${getSecondLevel({
                                 repeat,

@@ -267,7 +267,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
      * ```
      */
     render: (arg0: {
-        sync: string;
+        sync: () => string;
         index: number;
         currentValue: ArrayElement<T[K]>;
         html: (

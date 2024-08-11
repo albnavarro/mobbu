@@ -37,7 +37,7 @@ const getInvalidateRender = ({
                                                 };
                                             },
                                         })}
-                                        ${sync}
+                                        ${sync()}
                                     ></dynamic-list-card-inner>`;
                                 },
                             })}

@@ -115,7 +115,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
 /**
  * @param {Object} param
  * @param {string} param.id
- * @param {HTMLElement} param.container
+ * @param {Element|HTMLElement} param.container
  * @returns void
  *
  * @description
@@ -132,7 +132,7 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
         const state = componentMap.get(id);
         const element = state?.element;
 
-        if (element && container?.contains(element)) {
+        if (element && container?.contains(element) && element !== container) {
             removeAndDestroyById({ id });
         }
     });

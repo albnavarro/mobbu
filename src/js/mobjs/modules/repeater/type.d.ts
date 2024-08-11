@@ -24,7 +24,7 @@ export interface repeaterType {
     watch: watchType;
     emit?: emitType;
     render: (arg0: {
-        sync: string;
+        sync: () => string;
         html?: (
             template: { raw: readonly string[] | ArrayLike<string> },
             ...substitutions: any[]

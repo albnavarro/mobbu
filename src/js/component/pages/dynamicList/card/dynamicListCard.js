@@ -194,7 +194,7 @@ export const DynamicListCardFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync}
+                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}
@@ -214,7 +214,7 @@ export const DynamicListCardFn = ({
                                             };
                                         },
                                     })}
-                                    ${sync}
+                                    ${sync()}
                                 ></dynamic-list-card-inner>`;
                             },
                         })}

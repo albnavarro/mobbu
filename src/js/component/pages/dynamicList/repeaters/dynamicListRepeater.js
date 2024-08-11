@@ -4,7 +4,7 @@ import { html } from '../../../../mobjs';
 
 /**
  * @param {object} param
- * @param {string} param.sync
+ * @param {() => string} param.sync
  * @param {import('../../../../mobjs/type').StaticProps<import('../card/type').DynamicListCard>} param.staticProps
  * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListRepeater>} param.getState
  * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater>} param.bindProps
@@ -43,7 +43,7 @@ function getRepeaterCard({
                     console.log(current, index);
                 },
             })}
-            ${sync}
+            ${sync()}
         >
             <dynamic-slotted-label
                 slot="card-label-slot"

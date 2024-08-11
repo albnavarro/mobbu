@@ -36,7 +36,7 @@ function getRepeaterCard({
 }) {
     return html`
         <code-overlay-button
-            ${sync}
+            ${sync()}
             ${bindProps({
                 bind: ['activeContent'],
                 props: ({ activeContent, urls }, index) => {

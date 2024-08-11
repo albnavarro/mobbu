@@ -58,7 +58,7 @@ function addScrollButton({
                     };
                 },
             })}
-            ${sync}
+            ${sync()}
         >
         </scroll-to-button>
     </li> `;

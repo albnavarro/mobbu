@@ -3,6 +3,7 @@
 import { mobCore } from '../../../../mobCore';
 import { gerOrderedChildrenById } from '../../../component/action/children';
 import {
+    findFirstRepeaterElementWrap,
     getComponentIdByRepeatercontext,
     setRepeaterStateById,
 } from '../../../component/action/repeater';
@@ -230,6 +231,36 @@ export const watchRepeat = ({
                 ...gerOrderedChildrenById({ children: childrenFiltered }),
             ];
 
+            /**
+             * @type {Map<HTMLElement|Element|string, string[]>}
+             */
+            const chunkMap = new Map();
+
+            /**
+             * Gropu all childrn by wrapper ( or undefined if there is no wrapper )
+             * So index and current value is right
+             */
+            childrenFilteredSorted.forEach((child) => {
+                const elementWrapper = findFirstRepeaterElementWrap({
+                    rootNode: repeatParentElement,
+                    node: getElementById({ id: child }),
+                });
+
+                if (!elementWrapper) {
+                    chunkMap.set(mobCore.getUnivoqueId(), [child]);
+                    return;
+                }
+
+                if (chunkMap.has(elementWrapper)) {
+                    const children = chunkMap.get(elementWrapper);
+                    chunkMap.set(elementWrapper, [...children, child]);
+                    return;
+                }
+
+                chunkMap.set(elementWrapper, [child]);
+            });
+
+            const childrenChunked = [...chunkMap.values()];
             const hasKey = key && key !== '';
 
             /**
@@ -239,57 +270,59 @@ export const watchRepeat = ({
              * Update storeComponent currentRepeaterState
              * propierties so bindPros get last current/index value when watch.
              */
-            childrenFilteredSorted.forEach((id, index) => {
-                const currentValue = currentUnivoque?.[index];
-                if (!currentValue) return;
+            childrenChunked.forEach((childArray, index) => {
+                childArray.forEach((id) => {
+                    const currentValue = currentUnivoque?.[index];
+                    if (!currentValue) return;
 
-                // const realIndex = hasKey
-                //     ? current.indexOf(currentValue)
-                //     : index;
+                    // const realIndex = hasKey
+                    //     ? current.indexOf(currentValue)
+                    //     : index;
 
-                /**
-                 * @description
-                 * Find real index in original array ( current )
-                 */
-                const realIndex = hasKey
-                    ? current.findIndex((value) => {
-                          return (
-                              `${value?.[key]}` ===
-                              `${currentUnivoque?.[index]?.[key]}`
-                          );
-                      })
-                    : index;
+                    /**
+                     * @description
+                     * Find real index in original array ( current )
+                     */
+                    const realIndex = hasKey
+                        ? current.findIndex((value) => {
+                              return (
+                                  `${value?.[key]}` ===
+                                  `${currentUnivoque?.[index]?.[key]}`
+                              );
+                          })
+                        : index;
 
-                /**
-                 * Store current value in store
-                 * to use in dynamicrops
-                 * FrstRepeaterChild
-                 */
-                setRepeaterStateById({
-                    id,
-                    value: { current: currentValue, index: realIndex },
-                });
-
-                /**
-                 * Get id of children of FirstRepeaterChild
-                 */
-                const firstRepeaterchildChildren =
-                    getComponentIdByRepeatercontext({
-                        contextId: id,
+                    /**
+                     * Store current value in store
+                     * to use in dynamicrops
+                     * FrstRepeaterChild
+                     */
+                    setRepeaterStateById({
+                        id,
+                        value: { current: currentValue, index: realIndex },
                     });
 
-                /**
-                 * Store current value in store
-                 * to use in dynamicrops
-                 * ( child if FirstRepeaterChild )
-                 */
-                firstRepeaterchildChildren.forEach((childId) => {
-                    setRepeaterStateById({
-                        id: childId,
-                        value: {
-                            current: currentValue,
-                            index: realIndex,
-                        },
+                    /**
+                     * Get id of children of FirstRepeaterChild
+                     */
+                    const firstRepeaterchildChildren =
+                        getComponentIdByRepeatercontext({
+                            contextId: id,
+                        });
+
+                    /**
+                     * Store current value in store
+                     * to use in dynamicrops
+                     * ( child if FirstRepeaterChild )
+                     */
+                    firstRepeaterchildChildren.forEach((childId) => {
+                        setRepeaterStateById({
+                            id: childId,
+                            value: {
+                                current: currentValue,
+                                index: realIndex,
+                            },
+                        });
                     });
                 });
             });
