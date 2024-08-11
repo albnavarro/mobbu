@@ -18,6 +18,11 @@
 - Ora é possibile peró wrappare il component figlio in uno o piu div.
 - DOC: aggirnare
 
+#### next step:
+- `sync` al momento é una 'costante` deve essere una funzione che ristituisce un id fresco sul momento, questo permette di usare siblings component.
+- `destroy` rirpistinare l'utilizzo di `destroyComponentInsideNodeById` fallito al primo tentativo
+- poi valutare.
+
 
 ## Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
