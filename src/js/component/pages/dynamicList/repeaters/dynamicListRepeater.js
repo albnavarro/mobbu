@@ -57,6 +57,7 @@ function getRepeaterCard({
                             };
                         },
                     })}
+                    ${sync()}
                 >
                 </dynamic-slotted-label>
             </dynamic-list-card>

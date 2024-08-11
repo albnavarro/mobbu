@@ -16911,11 +16911,14 @@
     );
     return valuesFiltered?.element;
   };
-  var getIdsByByRepeatId = ({ id, repeatId }) => {
+  var getIdsByByRepeatId = ({ id, repeatId, filterById = false }) => {
     if (!id || id === "") return;
     const values = [...componentMap.values()];
     return values.filter((item) => {
       return item?.componentRepeatId === repeatId;
+    }).filter((item) => {
+      if (filterById) return item?.parentId === id;
+      return item;
     }).map((item) => {
       return item.id;
     });
@@ -18869,15 +18872,20 @@
         const targetComponentBeforeParse = getRepeaterComponentTarget({
           id: repeatId
         });
-        const childrenBeforeUdate = getIdsByByRepeatId({
+        const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
           id,
           repeatId
+        });
+        const childrenBeforeUdateFilterdByParent = getIdsByByRepeatId({
+          id,
+          repeatId,
+          filterById: true
         });
         if (mainComponent && !forceRepeater) {
           beforeUpdate({
             element: mainComponent,
             container: repeaterParentElement,
-            childrenId: childrenBeforeUdate
+            childrenId: childrenBeforeUdateFilterdByParent
           });
         }
         if (mainComponent && !forceRepeater) {
@@ -18914,12 +18922,19 @@
           repeatId
         });
         forceRepeater = false;
-        const childrenFiltered = getIdsByByRepeatId({
+        const childrenFilteredByRepeatId = getIdsByByRepeatId({
           id,
           repeatId
         });
+        const childrenFilteredByParent = getIdsByByRepeatId({
+          id,
+          repeatId,
+          filterById: true
+        });
         const childrenFilteredSorted = [
-          ...gerOrderedChildrenById({ children: childrenFiltered })
+          ...gerOrderedChildrenById({
+            children: childrenFilteredByRepeatId
+          })
         ];
         const childrenChunkedByWrapper = chunkIdsByRepeaterWrapper({
           children: childrenFilteredSorted
@@ -18936,18 +18951,6 @@
               id: id2,
               value: { current: currentValue, index: realIndex }
             });
-            const firstRepeaterchildChildren = getComponentIdByRepeatercontext({
-              contextId: id2
-            });
-            firstRepeaterchildChildren.forEach((childId) => {
-              setRepeaterStateById({
-                id: childId,
-                value: {
-                  current: currentValue,
-                  index: realIndex
-                }
-              });
-            });
           });
         });
         mobCore.useNextLoop(async () => {
@@ -18955,7 +18958,7 @@
             afterUpdate({
               element: mainComponent,
               container: repeaterParentElement,
-              childrenId: childrenFiltered
+              childrenId: childrenFilteredByParent
             });
           }
           removeActiveRepeat({
@@ -18966,8 +18969,8 @@
           unFreezePropById({ id, prop: state });
           descrementQueue();
           descrementRepeaterQueue();
-          const newChildren = childrenFiltered.filter(
-            (x) => !childrenBeforeUdate.includes(x)
+          const newChildren = childrenFilteredByRepeatId.filter(
+            (x) => !childrenBeforeUdateByRepeatId.includes(x)
           );
           newChildren.forEach((id2) => {
             const element = getElementById({ id: id2 });
@@ -19121,39 +19124,11 @@
       (child2) => child2.contains(node) && child2 !== node
     );
   };
-  var setIsRepeaterFirstChildNode = ({ id = "" }) => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    if (!item) return;
-    componentMap.set(id, {
-      ...item,
-      isRepeaterFirstChildNode: true
-    });
-  };
   var getRepeaterStateById = ({ id = "" }) => {
     if (!id || id === "") return DEFAULT_CURRENT_REPEATER_STATE;
     const item = componentMap.get(id);
     const currentRepeaterState = item?.currentRepeaterState;
     return currentRepeaterState;
-  };
-  var setRepeaterContext = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
-    const childrenFiltered = children.filter((child2) => {
-      const currentRepeatId = child2.getComponentRepeatId();
-      return !currentRepeatId || currentRepeatId === "";
-    });
-    childrenFiltered.forEach((child2) => {
-      child2.setAttribute(ATTR_REPEATER_CONTEXT, id);
-    });
-  };
-  var getComponentIdByRepeatercontext = ({ contextId }) => {
-    return [...componentMap.values()].filter(({ repeaterContextId }) => repeaterContextId === contextId).map(({ id }) => id);
-  };
-  var getRepeaterPropBind = ({ id = "" }) => {
-    if (!id || id === "") return "";
-    const item = componentMap.get(id);
-    const repeatPropBind = item?.repeatPropBind;
-    return repeatPropBind;
   };
   var setRepeaterInnerWrap = ({ id = "", repeatId = "", element }) => {
     if (!id || id === "") return;
@@ -19808,7 +19783,6 @@
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const repeaterContextId = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? "";
     const componentName = element.getComponentName();
@@ -19817,8 +19791,10 @@
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-    const repeatPropBind = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterPropBind({ id: repeaterContextId }) : element.getRepeaterPropBind();
-    const currentRepeatValue = repeaterContextId && repeaterContextId.length > 0 ? getRepeaterStateById({ id: repeaterContextId }) : getComponentRepeaterState(currentRepeaterValueId);
+    const repeatPropBind = element.getRepeaterPropBind();
+    const currentRepeatValue = getComponentRepeaterState(
+      currentRepeaterValueId
+    );
     return {
       element,
       props: {
@@ -19845,8 +19821,7 @@
       bindEventsId,
       currentRepeatValue,
       parentId,
-      componentRepeatId,
-      repeaterContextId
+      componentRepeatId
     };
   };
 
@@ -19858,10 +19833,8 @@
     state = {},
     key = "",
     currentRepeaterState = DEFAULT_CURRENT_REPEATER_STATE,
-    isRepeaterFirstChildNode = false,
     repeaterInnerWrap,
     repeatPropBind = "",
-    repeaterContextId = "",
     componentRepeatId = "",
     parentPropsWatcher = [() => {
     }],
@@ -19884,10 +19857,8 @@
       parentPropsWatcher,
       key,
       currentRepeaterState,
-      isRepeaterFirstChildNode,
       repeaterInnerWrap,
       repeatPropBind,
-      repeaterContextId,
       componentRepeatId,
       isCancellable,
       id,
@@ -19982,8 +19953,7 @@
       bindEventsId,
       parentId,
       componentRepeatId,
-      repeatPropBind,
-      repeaterContextId
+      repeatPropBind
     } = getParamsFromWebComponent({
       element: componentToParse,
       parentIdForced
@@ -20000,7 +19970,6 @@
       repeatPropBind,
       isCancellable,
       parentId,
-      repeaterContextId,
       componentRepeatId
     });
     setParentsIdFallback({ componentId: id });
@@ -20012,18 +19981,13 @@
         targetComponent: componentName
       });
     }
-    if (componentRepeatId && componentRepeatId?.length > 0 && (!repeaterContextId || repeaterContextId === "")) {
-      setIsRepeaterFirstChildNode({ id });
+    if (componentRepeatId && componentRepeatId?.length > 0) {
       setRepeaterStateById({ id, value: currentRepeatValue });
-      setRepeaterContext({ element: componentToParse, id });
       setRepeaterInnerWrap({
         id,
         repeatId: componentRepeatId,
         element: componentToParse
       });
-    }
-    if (repeaterContextId && repeaterContextId.length > 0) {
-      setRepeaterStateById({ id, value: currentRepeatValue });
     }
     addCurrentIdToBindProps({
       propsId: dynamicPropsId,
@@ -28735,6 +28699,7 @@ Loading snippet ...</pre
         };
       }
     })}
+                    ${sync()}
                 >
                 </dynamic-slotted-label>
             </dynamic-list-card>

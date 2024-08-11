@@ -29,8 +29,6 @@ import { applyDelegationBindEvent } from '../modules/delegateEvents';
 import { getParamsFromWebComponent } from './steps/getParamsFromWebComponent';
 import { addComponentToStore } from '../component';
 import {
-    setIsRepeaterFirstChildNode,
-    setRepeaterContext,
     setRepeaterInnerWrap,
     setRepeaterStateById,
 } from '../component/action/repeater';
@@ -178,7 +176,6 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
         repeatPropBind,
-        repeaterContextId,
     } = getParamsFromWebComponent({
         element: componentToParse,
         parentIdForced,
@@ -204,7 +201,6 @@ export const parseComponentsRecursive = async ({
             repeatPropBind,
             isCancellable,
             parentId,
-            repeaterContextId,
             componentRepeatId,
         });
 
@@ -239,33 +235,16 @@ export const parseComponentsRecursive = async ({
      * Set initial currentRepeaterState for initialize dynamicProps.
      * Only first child node of a repeater
      *
-     * - update componentMap isRepeaterFirstChildNode
      * - update componentMap currentRepeaterState
-     * - update child repeaterContextId
+     * - update innerwrap
      */
-    if (
-        componentRepeatId &&
-        componentRepeatId?.length > 0 &&
-        (!repeaterContextId || repeaterContextId === '')
-    ) {
-        setIsRepeaterFirstChildNode({ id });
+    if (componentRepeatId && componentRepeatId?.length > 0) {
         setRepeaterStateById({ id, value: currentRepeatValue });
-        setRepeaterContext({ element: componentToParse, id });
         setRepeaterInnerWrap({
             id,
             repeatId: componentRepeatId,
             element: componentToParse,
         });
-    }
-
-    /**
-     * Set initial currentRepeaterState for initialize dynamicProps.
-     * Only child of isRepeaterFirstChildNode
-     *
-     * - update repeaterContextId
-     */
-    if (repeaterContextId && repeaterContextId.length > 0) {
-        setRepeaterStateById({ id, value: currentRepeatValue });
     }
 
     /**

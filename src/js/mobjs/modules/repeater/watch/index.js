@@ -2,10 +2,7 @@
 
 import { mobCore } from '../../../../mobCore';
 import { gerOrderedChildrenById } from '../../../component/action/children';
-import {
-    getComponentIdByRepeatercontext,
-    setRepeaterStateById,
-} from '../../../component/action/repeater';
+import { setRepeaterStateById } from '../../../component/action/repeater';
 import { getRepeatParent, inizializeNestedRepeat } from '..';
 import {
     getElementById,
@@ -139,9 +136,15 @@ export const watchRepeat = ({
                 id: repeatId,
             });
 
-            const childrenBeforeUdate = getIdsByByRepeatId({
+            const childrenBeforeUdateByRepeatId = getIdsByByRepeatId({
                 id,
                 repeatId,
+            });
+
+            const childrenBeforeUdateFilterdByParent = getIdsByByRepeatId({
+                id,
+                repeatId,
+                filterById: true,
             });
 
             /**
@@ -151,7 +154,7 @@ export const watchRepeat = ({
                 beforeUpdate({
                     element: mainComponent,
                     container: repeaterParentElement,
-                    childrenId: childrenBeforeUdate,
+                    childrenId: childrenBeforeUdateFilterdByParent,
                 });
             }
 
@@ -219,16 +222,24 @@ export const watchRepeat = ({
              * Filter children inside repeaterParentElement
              */
 
-            const childrenFiltered = getIdsByByRepeatId({
+            const childrenFilteredByRepeatId = getIdsByByRepeatId({
                 id,
                 repeatId,
+            });
+
+            const childrenFilteredByParent = getIdsByByRepeatId({
+                id,
+                repeatId,
+                filterById: true,
             });
 
             /**
              * Order children by DOM position.
              */
             const childrenFilteredSorted = [
-                ...gerOrderedChildrenById({ children: childrenFiltered }),
+                ...gerOrderedChildrenById({
+                    children: childrenFilteredByRepeatId,
+                }),
             ];
 
             /**
@@ -258,10 +269,6 @@ export const watchRepeat = ({
                     const currentValue = currentUnivoque?.[index];
                     if (!currentValue) return;
 
-                    // const realIndex = hasKey
-                    //     ? current.indexOf(currentValue)
-                    //     : index;
-
                     /**
                      * @description
                      * Find real index in original array ( current )
@@ -284,29 +291,6 @@ export const watchRepeat = ({
                         id,
                         value: { current: currentValue, index: realIndex },
                     });
-
-                    /**
-                     * Get id of children of FirstRepeaterChild
-                     */
-                    const firstRepeaterchildChildren =
-                        getComponentIdByRepeatercontext({
-                            contextId: id,
-                        });
-
-                    /**
-                     * Store current value in store
-                     * to use in dynamicrops
-                     * ( child if FirstRepeaterChild )
-                     */
-                    firstRepeaterchildChildren.forEach((childId) => {
-                        setRepeaterStateById({
-                            id: childId,
-                            value: {
-                                current: currentValue,
-                                index: realIndex,
-                            },
-                        });
-                    });
                 });
             });
 
@@ -321,7 +305,7 @@ export const watchRepeat = ({
                     afterUpdate({
                         element: mainComponent,
                         container: repeaterParentElement,
-                        childrenId: childrenFiltered,
+                        childrenId: childrenFilteredByParent,
                     });
                 }
 
@@ -356,8 +340,8 @@ export const watchRepeat = ({
                  * Get new children
                  * Initialize repeater/invalidate inside each new component.
                  */
-                const newChildren = childrenFiltered.filter(
-                    (x) => !childrenBeforeUdate.includes(x)
+                const newChildren = childrenFilteredByRepeatId.filter(
+                    (x) => !childrenBeforeUdateByRepeatId.includes(x)
                 );
 
                 newChildren.forEach((id) => {

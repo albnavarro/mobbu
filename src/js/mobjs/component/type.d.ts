@@ -16,7 +16,6 @@ export interface componentCommonTypes {
         current: object;
         index: number;
     };
-    isRepeaterFirstChildNode?: boolean;
     repeaterInnerWrap?: HTMLElement | Element | undefined;
     repeatPropBind?: string;
     repeaterContextId?: string;

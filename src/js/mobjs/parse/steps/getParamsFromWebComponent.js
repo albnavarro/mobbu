@@ -42,7 +42,6 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const dynamicPropsIdFromSlot = element.getDynamicPropsFromSlotId();
     const propsSlot = element.getPropsFromSlotId();
     const currentRepeaterValueId = element.getRepeatValue();
-    const repeaterContextId = element.getComponentRepeatContext();
     const componentRepeatId = element.getComponentRepeatId();
     const key = element.getCurrentKey() ?? '';
     const componentName = element.getComponentName();
@@ -51,26 +50,10 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
     const propsFromParent = getPropsFromParent(cleanProsId);
     const propsFromSlot = getPropsFromParent(cleanProsFromSlot);
     const baseProps = { ...element.dataset };
-
-    /**
-     * Get repeatPropBind from id ( firstChildNode)
-     * Or from firstChildRepeaterNode if is a child of forstChildRepeaterNode
-     *
-     */
-    const repeatPropBind =
-        repeaterContextId && repeaterContextId.length > 0
-            ? getRepeaterPropBind({ id: repeaterContextId })
-            : element.getRepeaterPropBind();
-
-    /**
-     * Get currentRepeatValue from id ( firstChildNode)
-     * Or from firstChildRepeaterNode if is a child of forstChildRepeaterNode
-     *
-     */
-    const currentRepeatValue =
-        repeaterContextId && repeaterContextId.length > 0
-            ? getRepeaterStateById({ id: repeaterContextId })
-            : getComponentRepeaterState(currentRepeaterValueId);
+    const repeatPropBind = element.getRepeaterPropBind();
+    const currentRepeatValue = getComponentRepeaterState(
+        currentRepeaterValueId
+    );
 
     return {
         element,
@@ -99,6 +82,5 @@ export const getParamsFromWebComponent = ({ element, parentIdForced }) => {
         currentRepeatValue,
         parentId,
         componentRepeatId,
-        repeaterContextId,
     };
 };
