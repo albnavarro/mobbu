@@ -140,14 +140,18 @@ export const addWithoutKey = ({
                 const element = getElementById({ id: childId });
 
                 /**
-                 * Get element wrapper
+                 * First destroy all repeater/invalidate inside
                  */
-                const elementWrapper = getRepeaterInnerWrap({ id: childId });
+                destroyNestedInvalidate({ id, invalidateParent: element });
+                destroyNestedRepeat({ id, repeatParent: element });
 
                 /**
+                 * Then destroy component
                  * Destroy all component in repeater item wrapper child of scope component
                  * Or destroy single component if there is no wrapper.
                  */
+                const elementWrapper = getRepeaterInnerWrap({ id: childId });
+
                 if (elementWrapper) {
                     destroyComponentInsideNodeById({
                         id: getParentIdById(childId),
@@ -158,9 +162,6 @@ export const addWithoutKey = ({
                 } else {
                     removeAndDestroyById({ id: childId });
                 }
-
-                destroyNestedInvalidate({ id, invalidateParent: element });
-                destroyNestedRepeat({ id, repeatParent: element });
             });
         });
     }
