@@ -7,26 +7,17 @@
 # MobCore/MobJs
 
 ## Store.
+- Da valutare:
 - aggiungere myStore.update('myState', () => {})
 - eliminare da  `myStore.set` il comportamante di update
 
 # MobJs
 
 ## Repeater
-- E' possibile salvare il componentWrapper nella mappa senza doverlo calcolare ogni volta ?
-- dovrebbe salavarlo il componente con `isFirstchildRepeater` importato. Si potrebbe cosi di evituare di usare ripetutamente
-```js
-    const elementWrapper = findFirstRepeaterElementWrap({
-        rootNode: /** @type {HTMLElement} */ (repeaterParentElement),
-        node: getElementById({ id: child }),
-    });
-```
+- `<mobj-fragment>...</mobj-fragment>` valutare l'uso del `fragment` per avere due o piu elementi siblings senza `innerWrapper`.
 
-
-#### next step:
-- `sync` al momento é una 'costante` deve essere una funzione che ristituisce un id fresco sul momento, questo permette di usare siblings component.
-- `destroy` rirpistinare l'utilizzo di `destroyComponentInsideNodeById` fallito al primo tentativo
-- poi valutare.
+## Repeater/Invalidate
+- Aggiunger le `refs` alla funzione `afterUpdate`, in modo da avere ref sempre fresche.
 
 
 ## Debug
