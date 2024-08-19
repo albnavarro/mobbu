@@ -22,6 +22,7 @@ export interface componentCommonTypes {
     componentRepeatId?: string;
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;
+    methods: { [key: string]: (arg0: any) => void } | object;
     freezedPros?: string[];
     isCancellable: boolean;
     child?:

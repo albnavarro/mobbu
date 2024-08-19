@@ -41,24 +41,19 @@ beforeNavigate(({props}) => {
 
 ### Methods
 - Capire come gestire i metodi.
-- Es: potrebbe assomigliare a setStateByName.
 
 ```js
-export const MyComponent = ({addMethods}) => {
-    addMethods('myMethod', (param) => {
-        //
-    })
-    ...
-};
+addMethod('myMethod', (props) => {})
+
+methods: {
+    myMethods: (props) => {},
+    ....
+}
+
+useMethodByName('<name>').myMethod(props)
+useMethodByComponent('<component-name>').myMethod(props)
 ```
 
-```js
-export const MyComponent2 = ({addMethods}) => {
-    const myComponentMethod1 = useMethodsByName('instanceName', 'myMethod1')
-    myComponentMethod1(param)
-    ...
-};
-```
 
 ### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
