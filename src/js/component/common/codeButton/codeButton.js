@@ -39,15 +39,13 @@ export const CodeButtonFn = ({
         });
 
         const unsubscribeOpenNav = navigationStore.watch(
-            'openNavigation',
-            () => {
-                element.classList.remove('active');
-            }
-        );
+            'navigationIsOpen',
+            (val) => {
+                if (val) {
+                    element.classList.remove('active');
+                    return;
+                }
 
-        const unsubscribeCloseNav = navigationStore.watch(
-            'closeNavigation',
-            () => {
                 const { drawers } = getState();
                 if (drawers.length === 0) return;
 
@@ -56,7 +54,6 @@ export const CodeButtonFn = ({
         );
 
         return () => {
-            unsubscribeCloseNav();
             unsubscribeOpenNav();
             element.remove();
         };

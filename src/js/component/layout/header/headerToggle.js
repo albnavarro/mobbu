@@ -4,15 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
 const hanburgerHandler = () => {
-    const { navigationIsOpen } = navigationStore.get();
     navigationStore.set('navigationIsOpen', (state) => !state);
-
-    if (navigationIsOpen) {
-        navigationStore.emit('closeNavigation');
-        return;
-    }
-
-    navigationStore.emit('openNavigation');
 };
 
 /**
@@ -20,15 +12,14 @@ const hanburgerHandler = () => {
  */
 export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
-        navigationStore.watch('closeNavigation', () => {
+        navigationStore.watch('navigationIsOpen', (val) => {
             mobCore.useFrame(() => {
-                element.classList.remove('is-open');
-            });
-        });
+                if (val) {
+                    element.classList.add('is-open');
+                    return;
+                }
 
-        navigationStore.watch('openNavigation', () => {
-            mobCore.useFrame(() => {
-                element.classList.add('is-open');
+                element.classList.remove('is-open');
             });
         });
 

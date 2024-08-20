@@ -24,8 +24,6 @@ function closeInfo({ navInfo }) {
 function titleHandler() {
     loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
-    navigationStore.emit('closeNavigation');
-
     useMethodByName('main_navigation')?.closeAllAccordion();
     useMethodByName('navigation-container')?.scrollTop();
 }
@@ -37,8 +35,14 @@ export const HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ ref }) => {
         const { navInfo, title, beta } = ref;
 
-        navigationStore.watch('openNavigation', () => openInfo({ navInfo }));
-        navigationStore.watch('closeNavigation', () => closeInfo({ navInfo }));
+        navigationStore.watch('navigationIsOpen', (val) => {
+            if (val) {
+                openInfo({ navInfo });
+                return;
+            }
+
+            closeInfo({ navInfo });
+        });
 
         mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
             title.classList.toggle('visible', route !== 'home');

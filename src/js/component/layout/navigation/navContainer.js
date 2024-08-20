@@ -27,10 +27,7 @@ function openNavigation({ element, main }) {
 
 function addHandler({ main, toTopBtn }) {
     main.addEventListener('click', () => {
-        const { navigationIsOpen } = navigationStore.get();
-        if (!navigationIsOpen) return;
         navigationStore.set('navigationIsOpen', false);
-        navigationStore.emit('closeNavigation');
     });
 
     toTopBtn.addEventListener('click', () => {
@@ -52,18 +49,16 @@ export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
         const { toTopBtn, wrap } = ref;
 
         /**
-         * Open navigation.
+         * Open/Close navigation.
          */
-        navigationStore.watch('openNavigation', () =>
-            openNavigation({ element, main })
-        );
+        navigationStore.watch('navigationIsOpen', (val) => {
+            if (val) {
+                openNavigation({ element, main });
+                return;
+            }
 
-        /**
-         * Close navigation.
-         */
-        navigationStore.watch('closeNavigation', () =>
-            closeNavigation({ element, main })
-        );
+            closeNavigation({ element, main });
+        });
 
         /**
          * Reset scrollPositon from mobile to desktop.

@@ -266,11 +266,12 @@ export const scrollerN1Animation = ({
     /**
      * Pause/Resume animation on nav open.
      */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        isActive = false;
-    });
+    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            isActive = false;
+            return;
+        }
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () => {
         setTimeout(() => {
             isActive = true;
 
@@ -290,7 +291,6 @@ export const scrollerN1Animation = ({
     return () => {
         scrollerTween.destroy();
         unsubscribeResize();
-        unWatchResume();
         unWatchPause();
         scrollerTween.destroy();
         scrollerTween = null;

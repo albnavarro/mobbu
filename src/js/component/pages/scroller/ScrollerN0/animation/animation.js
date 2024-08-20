@@ -294,11 +294,12 @@ export const scrollerN0Animation = ({
     /**
      * Pause/Resume animation on nav open.
      */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        isActive = false;
-    });
+    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            isActive = false;
+            return;
+        }
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(async () => {
             isActive = true;
 
@@ -312,15 +313,14 @@ export const scrollerN0Animation = ({
              * Restart loop
              */
             mobCore.useFrame(() => loop());
-        }, 500)
-    );
+        }, 500);
+    });
 
     /**
      * Destroy.
      */
     return () => {
         unsubscribeResize();
-        unWatchResume();
         unWatchPause();
         sequencersInstances.forEach(({ sequencer, unsubscribe }) => {
             sequencer.destroy();

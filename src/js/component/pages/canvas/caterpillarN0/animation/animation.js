@@ -293,11 +293,12 @@ export const caterpillarN0Animation = ({
     /**
      * Pause/Resume animation on nav open.
      */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        isActive = false;
-    });
+    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            isActive = false;
+            return;
+        }
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () => {
         setTimeout(() => {
             isActive = true;
 
@@ -319,7 +320,6 @@ export const caterpillarN0Animation = ({
         unsubscribeResize();
         unsubscribeMouseMove();
         unsubscribeTouchMove();
-        unWatchResume();
         unWatchPause();
         ctx = null;
         offscreen = null;

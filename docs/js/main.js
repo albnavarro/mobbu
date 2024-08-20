@@ -20466,11 +20466,7 @@
   var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
 
   // src/js/component/layout/navigation/store/navStore.js
-  var NOOP2 = () => {
-  };
   var navigationStore = mobCore.createStore({
-    openNavigation: NOOP2,
-    closeNavigation: NOOP2,
     activeNavigationSection: () => ({
       value: "",
       type: String,
@@ -20507,21 +20503,18 @@
         element.classList.toggle("active", isActive);
       });
       const unsubscribeOpenNav = navigationStore.watch(
-        "openNavigation",
-        () => {
-          element.classList.remove("active");
-        }
-      );
-      const unsubscribeCloseNav = navigationStore.watch(
-        "closeNavigation",
-        () => {
+        "navigationIsOpen",
+        (val2) => {
+          if (val2) {
+            element.classList.remove("active");
+            return;
+          }
           const { drawers } = getState();
           if (drawers.length === 0) return;
           element.classList.add("active");
         }
       );
       return () => {
-        unsubscribeCloseNav();
         unsubscribeOpenNav();
         element.remove();
       };
@@ -23952,15 +23945,19 @@ Loading snippet ...</pre
   function titleHandler() {
     loadUrl({ url: "#home" });
     navigationStore.set("navigationIsOpen", false);
-    navigationStore.emit("closeNavigation");
     useMethodByName("main_navigation")?.closeAllAccordion();
     useMethodByName("navigation-container")?.scrollTop();
   }
   var HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ ref }) => {
       const { navInfo, title, beta } = ref;
-      navigationStore.watch("openNavigation", () => openInfo({ navInfo }));
-      navigationStore.watch("closeNavigation", () => closeInfo({ navInfo }));
+      navigationStore.watch("navigationIsOpen", (val2) => {
+        if (val2) {
+          openInfo({ navInfo });
+          return;
+        }
+        closeInfo({ navInfo });
+      });
       mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
         title.classList.toggle("visible", route !== "home");
         beta.classList.toggle("visible", route !== "home");
@@ -24014,10 +24011,7 @@ Loading snippet ...</pre
     console.log(button);
     const { url } = button.dataset;
     loadUrl({ url });
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) return;
     navigationStore.set("navigationIsOpen", false);
-    navigationStore.emit("closeNavigation");
   };
   function additems({ delegateEvents }) {
     const { header } = getCommonData();
@@ -24061,24 +24055,17 @@ Loading snippet ...</pre
 
   // src/js/component/layout/header/headerToggle.js
   var hanburgerHandler = () => {
-    const { navigationIsOpen } = navigationStore.get();
     navigationStore.set("navigationIsOpen", (state) => !state);
-    if (navigationIsOpen) {
-      navigationStore.emit("closeNavigation");
-      return;
-    }
-    navigationStore.emit("openNavigation");
   };
   var HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
-      navigationStore.watch("closeNavigation", () => {
+      navigationStore.watch("navigationIsOpen", (val2) => {
         mobCore.useFrame(() => {
+          if (val2) {
+            element.classList.add("is-open");
+            return;
+          }
           element.classList.remove("is-open");
-        });
-      });
-      navigationStore.watch("openNavigation", () => {
-        mobCore.useFrame(() => {
-          element.classList.add("is-open");
         });
       });
       return () => {
@@ -24148,11 +24135,12 @@ Loading snippet ...</pre
       const maxValue = Math.min(percent, 100);
       navScroller.move(maxValue);
     });
-    navigationStore.watch("closeNavigation", () => {
+    navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+        return;
+      }
       percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
-    navigationStore.watch("openNavigation", () => {
-      percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
     });
     return {
       scrollNativationToTop: () => {
@@ -24185,10 +24173,7 @@ Loading snippet ...</pre
   }
   function addHandler({ main, toTopBtn }) {
     main.addEventListener("click", () => {
-      const { navigationIsOpen } = navigationStore.get();
-      if (!navigationIsOpen) return;
       navigationStore.set("navigationIsOpen", false);
-      navigationStore.emit("closeNavigation");
     });
     toTopBtn.addEventListener("click", () => {
       useMethodByName("navigation-container")?.scrollTop();
@@ -24202,14 +24187,13 @@ Loading snippet ...</pre
       const main = document.querySelector("main.main");
       let lastMq = "";
       const { toTopBtn, wrap } = ref;
-      navigationStore.watch(
-        "openNavigation",
-        () => openNavigation({ element, main })
-      );
-      navigationStore.watch(
-        "closeNavigation",
-        () => closeNavigation({ element, main })
-      );
+      navigationStore.watch("navigationIsOpen", (val2) => {
+        if (val2) {
+          openNavigation({ element, main });
+          return;
+        }
+        closeNavigation({ element, main });
+      });
       mobCore.useResize(() => {
         const isDesktop = motionCore.mq("max", "desktop");
         const currentMq = isDesktop ? "desk" : "mob";
@@ -24372,7 +24356,6 @@ Loading snippet ...</pre
         if (!fireRoute) return;
         loadUrl({ url });
         navigationStore.set("navigationIsOpen", false);
-        navigationStore.emit("closeNavigation");
       }
     })}
         >
@@ -25412,25 +25395,24 @@ Loading snippet ...</pre
       });
       mobCore.useFrame(() => draw());
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      gridTimeline?.stop();
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(async () => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        gridTimeline?.stop();
+        isActive = false;
+        return;
+      }
+      setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute !== activeRoute) return;
         gridTimeline?.play();
         mobCore.useFrame(() => loop());
-      }, 500)
-    );
+      }, 500);
+    });
     return () => {
       gridTween.destroy();
       gridTimeline.destroy();
       unsubscribeResize();
-      unWatchResume();
       unWatchPause();
       gridTween = null;
       gridTimeline = null;
@@ -25913,20 +25895,20 @@ Loading snippet ...</pre
       });
       mobCore.useFrame(() => draw());
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      gridTimeline?.stop();
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(async () => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        gridTimeline?.stop();
+        isActive = false;
+        return;
+      }
+      setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute !== activeRoute) return;
         gridTimeline?.play();
         mobCore.useFrame(() => loop());
-      }, 500)
-    );
+      }, 500);
+    });
     return () => {
       gridTween.destroy();
       gridTimeline.destroy();
@@ -25934,7 +25916,6 @@ Loading snippet ...</pre
       unsubscribeResize();
       unsubscribeMouseMove();
       unsubscribeTouchMove();
-      unWatchResume();
       unWatchPause();
       gridTween = null;
       gridTimeline = null;
@@ -26243,10 +26224,11 @@ Loading snippet ...</pre
       const { x } = client;
       move({ x });
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch("closeNavigation", () => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        isActive = false;
+        return;
+      }
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
@@ -26259,7 +26241,6 @@ Loading snippet ...</pre
       unsubscribeResize();
       unsubscribeMouseMove();
       unsubscribeTouchMove();
-      unWatchResume();
       unWatchPause();
       ctx = null;
       offscreen = null;
@@ -26568,20 +26549,20 @@ Loading snippet ...</pre
       const { x, y } = client;
       move({ x, y });
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-      rectTimeline?.pause();
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(() => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        isActive = false;
+        rectTimeline?.pause();
+        return;
+      }
+      setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute !== activeRoute) return;
         rectTimeline?.resume();
         mobCore.useFrame(() => loop());
-      }, 500)
-    );
+      }, 500);
+    });
     return () => {
       rotationTween.destroy();
       centerTween.destroy();
@@ -26590,7 +26571,6 @@ Loading snippet ...</pre
       unsubscribeMouseMove();
       unsubscribeTouchMove();
       unWatchPause();
-      unWatchResume();
       rotationTween = null;
       centerTween = null;
       rectTimeline = null;
@@ -26861,26 +26841,25 @@ Loading snippet ...</pre
       canvas.height = canvas.clientHeight;
       draw();
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-      syncTimeline?.pause();
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(() => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        isActive = false;
+        syncTimeline?.pause();
+        return;
+      }
+      setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute !== activeRoute) return;
         syncTimeline?.resume();
         mobCore.useFrame(() => loop());
-      }, 500)
-    );
+      }, 500);
+    });
     return {
       destroy: () => {
         isActive = false;
         unsubscribeResize();
         unWatchPause();
-        unWatchResume();
         infiniteTween.destroy();
         syncTimeline.destroy();
         ctx = null;
@@ -27328,21 +27307,20 @@ Loading snippet ...</pre
       });
       mobCore.useFrame(() => draw());
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch(
-      "closeNavigation",
-      () => setTimeout(async () => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        isActive = false;
+        return;
+      }
+      setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
         if (currentRoute !== activeRoute) return;
         mobCore.useFrame(() => loop());
-      }, 500)
-    );
+      }, 500);
+    });
     return () => {
       unsubscribeResize();
-      unWatchResume();
       unWatchPause();
       sequencersInstances.forEach(({ sequencer, unsubscribe: unsubscribe3 }) => {
         sequencer.destroy();
@@ -27771,10 +27749,11 @@ Loading snippet ...</pre
         draw();
       });
     });
-    const unWatchPause = navigationStore.watch("openNavigation", () => {
-      isActive = false;
-    });
-    const unWatchResume = navigationStore.watch("closeNavigation", () => {
+    const unWatchPause = navigationStore.watch("navigationIsOpen", (val2) => {
+      if (val2) {
+        isActive = false;
+        return;
+      }
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
@@ -27785,7 +27764,6 @@ Loading snippet ...</pre
     return () => {
       scrollerTween.destroy();
       unsubscribeResize();
-      unWatchResume();
       unWatchPause();
       scrollerTween.destroy();
       scrollerTween = null;

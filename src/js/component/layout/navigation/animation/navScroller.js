@@ -61,17 +61,15 @@ export const initNavigationScoller = ({ root }) => {
     });
 
     /**
-     * Close nav.
+     * Open/close nav.
      */
-    navigationStore.watch('closeNavigation', () => {
-        percentEl.style.transform = `translateZ(0) scaleX(0)`;
-    });
+    navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+            return;
+        }
 
-    /**
-     * Open nav.
-     */
-    navigationStore.watch('openNavigation', () => {
-        percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
+        percentEl.style.transform = `translateZ(0) scaleX(0)`;
     });
 
     return {

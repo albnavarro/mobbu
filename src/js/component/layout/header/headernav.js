@@ -15,12 +15,7 @@ const onClick = ({ event }) => {
     console.log(button);
     const { url } = button.dataset;
     loadUrl({ url });
-
-    const { navigationIsOpen } = navigationStore.get();
-    if (!navigationIsOpen) return;
-
     navigationStore.set('navigationIsOpen', false);
-    navigationStore.emit('closeNavigation');
 };
 
 function additems({ delegateEvents }) {

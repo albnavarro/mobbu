@@ -315,12 +315,13 @@ export const animatedPatternN1Animation = ({
     /**
      * Pause/Resume animation on nav open.
      */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        gridTimeline?.stop();
-        isActive = false;
-    });
+    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            gridTimeline?.stop();
+            isActive = false;
+            return;
+        }
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(async () => {
             isActive = true;
 
@@ -335,8 +336,8 @@ export const animatedPatternN1Animation = ({
              */
             gridTimeline?.play();
             mobCore.useFrame(() => loop());
-        }, 500)
-    );
+        }, 500);
+    });
 
     /**
      * Destroy.
@@ -348,7 +349,6 @@ export const animatedPatternN1Animation = ({
         unsubscribeResize();
         unsubscribeMouseMove();
         unsubscribeTouchMove();
-        unWatchResume();
         unWatchPause();
         gridTween = null;
         gridTimeline = null;

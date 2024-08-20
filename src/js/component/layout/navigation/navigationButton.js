@@ -96,7 +96,6 @@ export const NavigationButtonFn = ({
                      */
                     loadUrl({ url });
                     navigationStore.set('navigationIsOpen', false);
-                    navigationStore.emit('closeNavigation');
                 },
             })}
         >

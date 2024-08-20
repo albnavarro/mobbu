@@ -249,12 +249,13 @@ export const caterpillarN2Animation = ({
     /**
      * Pause/Resume animation on nav open.
      */
-    const unWatchPause = navigationStore.watch('openNavigation', () => {
-        isActive = false;
-        syncTimeline?.pause();
-    });
+    const unWatchPause = navigationStore.watch('navigationIsOpen', (val) => {
+        if (val) {
+            isActive = false;
+            syncTimeline?.pause();
+            return;
+        }
 
-    const unWatchResume = navigationStore.watch('closeNavigation', () =>
         setTimeout(() => {
             isActive = true;
             /**
@@ -268,15 +269,14 @@ export const caterpillarN2Animation = ({
              */
             syncTimeline?.resume();
             mobCore.useFrame(() => loop());
-        }, 500)
-    );
+        }, 500);
+    });
 
     return {
         destroy: () => {
             isActive = false;
             unsubscribeResize();
             unWatchPause();
-            unWatchResume();
             infiniteTween.destroy();
             syncTimeline.destroy();
             ctx = null;
