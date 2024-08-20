@@ -15,7 +15,6 @@ const NOOP = () => {};
  * @type {import('../../../../mobCore/store/type').mobStore<import('./type').NavigationStore>}
  */
 export const navigationStore = mobCore.createStore({
-    refreshScroller: NOOP,
     openNavigation: NOOP,
     closeNavigation: NOOP,
     activeNavigationSection: () => ({

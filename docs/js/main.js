@@ -20469,7 +20469,6 @@
   var NOOP2 = () => {
   };
   var navigationStore = mobCore.createStore({
-    refreshScroller: NOOP2,
     openNavigation: NOOP2,
     closeNavigation: NOOP2,
     activeNavigationSection: () => ({
@@ -24149,7 +24148,6 @@ Loading snippet ...</pre
       const maxValue = Math.min(percent, 100);
       navScroller.move(maxValue);
     });
-    navigationStore.watch("refreshScroller", () => navScroller.refresh());
     navigationStore.watch("closeNavigation", () => {
       percentEl.style.transform = `translateZ(0) scaleX(0)`;
     });
@@ -24162,6 +24160,9 @@ Loading snippet ...</pre
           navScroller.move(0);
           navigationStore.set("activeNavigationSection", "no-section");
         }, setDelay);
+      },
+      refreshScroller: () => {
+        navScroller.refresh();
       }
     };
   };
@@ -24175,7 +24176,7 @@ Loading snippet ...</pre
     });
   }
   function openNavigation({ element, main }) {
-    navigationStore.emit("refreshScroller");
+    useMethodByName("navigation-container")?.refresh();
     mobCore.useFrame(() => {
       document.body.style.overflow = "hidden";
       element.classList.add("active");
@@ -24216,10 +24217,11 @@ Loading snippet ...</pre
         lastMq = currentMq;
       });
       addHandler({ main, toTopBtn });
-      const { scrollNativationToTop } = initNavigationScoller({
+      const { scrollNativationToTop, refreshScroller } = initNavigationScoller({
         root: element
       });
       addMethod("scrollTop", scrollNativationToTop);
+      addMethod("refresh", refreshScroller);
       return () => {
       };
     });
@@ -24428,7 +24430,7 @@ Loading snippet ...</pre
       watchSync("isOpen", async (isOpen) => {
         const action2 = isOpen ? "down" : "up";
         await slide[action2](content2);
-        navigationStore.emit("refreshScroller");
+        useMethodByName("navigation-container")?.refresh();
         if (!isOpen) {
           setNavigationState("currentAccordionId", -1, false);
         }

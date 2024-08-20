@@ -8,7 +8,7 @@ let currentPercent = 0;
 /**
  * @param {object} params
  * @param {HTMLElement} params.root
- * @returns {{scrollNativationToTop: () => void}}
+ * @returns {{scrollNativationToTop: () => void, refreshScroller: () => void}}
  */
 export const initNavigationScoller = ({ root }) => {
     const screenEl = root.querySelector('.l-navcontainer__wrap');
@@ -61,12 +61,6 @@ export const initNavigationScoller = ({ root }) => {
     });
 
     /**
-     * Refresh scroller on navigation open.
-     * Exact dimension after automac accordion close
-     */
-    navigationStore.watch('refreshScroller', () => navScroller.refresh());
-
-    /**
      * Close nav.
      */
     navigationStore.watch('closeNavigation', () => {
@@ -90,6 +84,9 @@ export const initNavigationScoller = ({ root }) => {
                  */
                 navigationStore.set('activeNavigationSection', 'no-section');
             }, setDelay);
+        },
+        refreshScroller: () => {
+            navScroller.refresh();
         },
     };
 };

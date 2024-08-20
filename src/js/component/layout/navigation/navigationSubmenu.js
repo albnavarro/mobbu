@@ -1,8 +1,7 @@
 //@ts-check
 
-import { html, setStateByName } from '../../../mobjs';
+import { html, setStateByName, useMethodByName } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
-import { navigationStore } from './store/navStore';
 
 function getSubmenu({ children, staticProps, callback }) {
     return children
@@ -60,7 +59,7 @@ export const NavigationSubmenuFn = ({
             const action = isOpen ? 'down' : 'up';
 
             await slide[action](content);
-            navigationStore.emit('refreshScroller');
+            useMethodByName('navigation-container')?.refresh();
 
             /**
              * When accordion is closed form element itSelf

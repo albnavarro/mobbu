@@ -16,7 +16,7 @@ function closeNavigation({ element, main }) {
 }
 
 function openNavigation({ element, main }) {
-    navigationStore.emit('refreshScroller');
+    useMethodByName('navigation-container')?.refresh();
 
     mobCore.useFrame(() => {
         document.body.style.overflow = 'hidden';
@@ -77,11 +77,13 @@ export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
 
         addHandler({ main, toTopBtn });
 
-        const { scrollNativationToTop } = initNavigationScoller({
-            root: element,
-        });
+        const { scrollNativationToTop, refreshScroller } =
+            initNavigationScoller({
+                root: element,
+            });
 
         addMethod('scrollTop', scrollNativationToTop);
+        addMethod('refresh', refreshScroller);
 
         return () => {};
     });
