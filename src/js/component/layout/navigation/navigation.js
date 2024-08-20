@@ -90,8 +90,8 @@ export const NavigationFn = ({
     /**
      * Close all accordion.
      */
-    addMethod('closeAllAccordion', () => {
-        setState('currentAccordionId', -1);
+    addMethod('closeAllAccordion', ({ fireCallback = true } = {}) => {
+        setState('currentAccordionId', -1, fireCallback);
     });
 
     return html`

@@ -24285,8 +24285,8 @@ Loading snippet ...</pre
     addMethod
   }) => {
     const { navigation: data3 } = getCommonData();
-    addMethod("closeAllAccordion", () => {
-      setState("currentAccordionId", -1);
+    addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
+      setState("currentAccordionId", -1, fireCallback);
     });
     return html`
         <nav class="l-navigation">
@@ -24405,7 +24405,6 @@ Loading snippet ...</pre
   }) => {
     const { children, headerButton, callback: callback2 } = getState();
     const { label, url, activeId } = headerButton;
-    const setNavigationState = setStateByName("main_navigation");
     onMount(({ ref }) => {
       const { content: content2 } = ref;
       slide.subscribe(content2);
@@ -24414,9 +24413,10 @@ Loading snippet ...</pre
         const action2 = isOpen ? "down" : "up";
         await slide[action2](content2);
         useMethodByName("navigation-container")?.refresh();
-        if (!isOpen) {
-          setNavigationState("currentAccordionId", -1, false);
-        }
+        if (isOpen) return;
+        useMethodByName("main_navigation")?.closeAllAccordion({
+          fireCallback: false
+        });
       });
       return () => {
       };

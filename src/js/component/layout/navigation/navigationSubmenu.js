@@ -1,6 +1,6 @@
 //@ts-check
 
-import { html, setStateByName, useMethodByName } from '../../../mobjs';
+import { html, useMethodByName } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 
 function getSubmenu({ children, staticProps, callback }) {
@@ -41,11 +41,6 @@ export const NavigationSubmenuFn = ({
     const { children, headerButton, callback } = getState();
     const { label, url, activeId } = headerButton;
 
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('./type').Navigation>}
-     */
-    const setNavigationState = setStateByName('main_navigation');
-
     onMount(({ ref }) => {
         /**
          * Accordion
@@ -60,14 +55,15 @@ export const NavigationSubmenuFn = ({
 
             await slide[action](content);
             useMethodByName('navigation-container')?.refresh();
+            if (isOpen) return;
 
             /**
              * When accordion is closed form element itSelf
              * Need to reset currentAccordionId without fire callback.
              */
-            if (!isOpen) {
-                setNavigationState('currentAccordionId', -1, false);
-            }
+            useMethodByName('main_navigation')?.closeAllAccordion({
+                fireCallback: false,
+            });
         });
 
         return () => {};
