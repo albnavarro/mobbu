@@ -306,3 +306,11 @@ export type PartialInvalidateComponent<T> = (arg0: {
  * StaticProps
  */
 export type PartialStaticProps<R> = (arg0: Partial<R>) => string;
+
+/**
+ * Methods
+ */
+export type PartialMethods = (
+    name: string,
+    fn: (...args: any[]) => void
+) => void;

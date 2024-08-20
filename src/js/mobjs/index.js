@@ -35,3 +35,4 @@ export {
     MAIN_STORE_ROUTE_IS_LOADING,
 } from './mainStore/constant';
 export { useComponent } from './component/componentList';
+export { useMethodByName } from './component/action/methods';

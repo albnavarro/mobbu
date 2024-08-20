@@ -43,6 +43,7 @@ import { setDelegateBindEvent } from '../../modules/delegateEvents';
 import { renderHtml } from './utils';
 import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
+import { addMethodById } from '../../component/action/methods';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -154,6 +155,9 @@ export const getParamsForComponentFunction = ({
             return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
                 eventsData
             )}"`;
+        },
+        addMethod: (name, fn) => {
+            addMethodById({ id, name, fn });
         },
         invalidate: ({
             bind,

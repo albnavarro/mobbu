@@ -27,6 +27,7 @@ import {
     PartialUnFreezeProp,
     PartialWatch,
     PartialWatchParent,
+    PartialMethods,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -53,6 +54,7 @@ export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 export type Repeat<T> = PartialRepeat<T>;
+export type Methods = PartialMethods;
 
 /**
  * Main component.
@@ -429,6 +431,24 @@ export interface componentPropsType<T, R> {
      * ```
      */
     delegateEvents: DelegateEvents;
+
+    /**
+     * @description
+     * Add method to current instance component;
+     *
+     *
+     * @example
+     * ```javascript
+     * export const MyComponent = ({ html, addMethod }) => {
+     *     addMethod('myMethod', (val) => {
+     *         console.log(val)
+     *     })
+     *
+     *     return html`<div></div>`;
+     * };
+     * ```
+     */
+    addMethod: PartialMethods;
 
     /**
      *

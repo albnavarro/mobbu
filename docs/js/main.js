@@ -19570,6 +19570,21 @@
     onMountCallbackMap.delete(id);
   };
 
+  // src/js/mobjs/component/action/methods.js
+  var addMethodById = ({ id, name, fn }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (name in methods) {
+      console.warn(`Method ${name}, is already used by ${id}`);
+      return;
+    }
+    componentMap.set(id, {
+      ...item,
+      methods: { ...methods, [name]: fn }
+    });
+  };
+
   // src/js/mobjs/parse/steps/getParamsForComponent.js
   var getParamsForComponentFunction = ({
     getState,
@@ -19655,6 +19670,9 @@
         return `${ATTR_WEAK_BIND_EVENTS}="${setDelegateBindEvent(
           eventsData
         )}"`;
+      },
+      addMethod: (name, fn) => {
+        addMethodById({ id, name, fn });
       },
       invalidate: ({
         bind,

@@ -22,7 +22,6 @@ export interface componentCommonTypes {
     componentRepeatId?: string;
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;
-    methods: { [key: string]: (arg0: any) => void } | object;
     freezedPros?: string[];
     isCancellable: boolean;
     child?:
@@ -39,6 +38,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     componentName: string;
     instanceName: string;
     state: mobStore<any>;
+    methods: { [key: string]: (...args: any[]) => void } | object;
 }
 
 export interface componentStoreInputTypes extends componentCommonTypes {
@@ -47,6 +47,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     instanceName: string;
     state: mobStoreBaseData;
     props: object;
+    methods?: { [key: string]: (...args: any[]) => void } | object;
 }
 
 export interface componentStoreReturnType {
