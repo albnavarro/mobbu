@@ -50,6 +50,42 @@
                 "hasBorder": true,
                 "numLines": 27
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "SetStateByName"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "It is possible to change the status of a component starting from the instance name:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
         }
     ]
 }
