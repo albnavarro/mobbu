@@ -2,7 +2,6 @@
 
 import { getCommonData } from '../../../data';
 import { html } from '../../../mobjs';
-import { navigationStore } from './store/navStore';
 
 /**
  * @description
@@ -79,13 +78,19 @@ function getItems({ data, staticProps, setState, bindProps }) {
 /**
  * @type {import('../../../mobjs/type').mobComponent<import('./type').Navigation>}
  */
-export const NavigationFn = ({ html, staticProps, setState, bindProps }) => {
+export const NavigationFn = ({
+    html,
+    staticProps,
+    setState,
+    bindProps,
+    addMethod,
+}) => {
     const { navigation: data } = getCommonData();
 
     /**
      * Close all accordion.
      */
-    navigationStore.watch('closeAllAccordion', () => {
+    addMethod('closeAllAccordion', () => {
         setState('currentAccordionId', -1);
     });
 

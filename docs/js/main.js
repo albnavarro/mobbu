@@ -19584,6 +19584,26 @@
       methods: { ...methods, [name]: fn }
     });
   };
+  var getMethodsById = ({ id }) => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const methods = item?.methods;
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${id} component`);
+      return {};
+    }
+    return methods;
+  };
+  var useMethodByName = (name) => {
+    const id = getIdByInstanceName(name);
+    if (!id || id === "") return;
+    const methods = getMethodsById({ id });
+    if (Object.keys(methods).length === 0) {
+      console.warn(`no methods available for ${name} component`);
+      return {};
+    }
+    return methods;
+  };
 
   // src/js/mobjs/parse/steps/getParamsForComponent.js
   var getParamsForComponentFunction = ({
@@ -20446,17 +20466,12 @@
   var icon_code_default = '<?xml version="1.0" encoding="UTF-8"?>\n<svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n <g>\n  <path d="m221.2 367.92-102.48-85.684 102.48-85.117c7.2812-6.1602 8.3984-16.801 2.2383-24.078-3.3594-3.9219-8.3984-6.1602-13.441-6.1602-3.9219 0-7.8398 1.1211-11.199 3.9219l-117.6 98.555c-3.9219 3.3594-6.1602 7.8398-6.1602 13.441 0 5.6016 2.2383 10.078 6.1602 13.441l118.16 98.559c3.3594 2.8008 6.7188 3.9219 11.199 3.9219 5.0391 0 10.078-2.2383 13.441-6.1602 5.6016-7.8438 4.4805-18.484-2.8008-24.641z"/>\n  <path d="m623.28 288.96c0-5.0391-2.2383-10.078-6.1602-13.441l-118.72-98.559c-3.3594-2.8008-7.2812-3.9219-11.199-3.9219-5.0391 0-10.078 2.2383-13.441 6.1602-6.1602 7.2812-5.0391 17.922 2.2383 24.078l102.48 85.68-101.92 85.684c-7.2812 6.1602-8.3984 16.801-2.2383 24.078 3.3594 3.9219 7.8398 6.1602 13.441 6.1602 3.9219 0 7.8398-1.6797 11.199-3.9219l118.16-98.559c3.918-3.3594 6.1602-8.3984 6.1602-13.438z"/>\n  <path d="m408.8 72.801c-1.6797-0.55859-3.3594-0.55859-5.0391-0.55859-7.2812 0-14 4.4805-16.238 12.32l-124.88 399.84c-2.8008 8.9609 2.2383 18.48 11.199 21.281 1.6797 0.55859 3.3594 0.55859 5.0391 0.55859 7.8398 0 14-5.0391 16.238-12.32l124.32-400.4c3.3633-8.3984-1.6758-17.918-10.637-20.719z"/>\n </g>\n</svg>\n';
 
   // src/js/component/layout/navigation/store/navStore.js
+  var NOOP2 = () => {
+  };
   var navigationStore = mobCore.createStore({
-    closeAllAccordion: () => {
-    },
-    refreshScroller: () => {
-    },
-    openNavigation: () => {
-    },
-    closeNavigation: () => {
-    },
-    goToTop: () => {
-    },
+    refreshScroller: NOOP2,
+    openNavigation: NOOP2,
+    closeNavigation: NOOP2,
     activeSection: () => ({
       value: "",
       type: String,
@@ -23939,8 +23954,8 @@ Loading snippet ...</pre
     loadUrl({ url: "#home" });
     navigationStore.set("navigationIsOpen", false);
     navigationStore.emit("closeNavigation");
-    navigationStore.emit("closeAllAccordion");
-    navigationStore.emit("goToTop");
+    useMethodByName("main_navigation")?.closeAllAccordion();
+    useMethodByName("navigation-container")?.scrollTop();
   }
   var HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ ref }) => {
@@ -24141,12 +24156,14 @@ Loading snippet ...</pre
     navigationStore.watch("openNavigation", () => {
       percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
     });
-    navigationStore.watch("goToTop", () => {
-      setTimeout(() => {
-        navScroller.move(0);
-        navigationStore.set("activeSection", "no-section");
-      }, setDelay);
-    });
+    return {
+      scrollNativationToTop: () => {
+        setTimeout(() => {
+          navScroller.move(0);
+          navigationStore.set("activeSection", "no-section");
+        }, setDelay);
+      }
+    };
   };
 
   // src/js/component/layout/navigation/navContainer.js
@@ -24173,13 +24190,13 @@ Loading snippet ...</pre
       navigationStore.emit("closeNavigation");
     });
     toTopBtn.addEventListener("click", () => {
-      navigationStore.emit("closeAllAccordion");
-      navigationStore.emit("goToTop");
+      useMethodByName("navigation-container")?.scrollTop();
+      useMethodByName("main_navigation")?.closeAllAccordion();
       const { navigationIsOpen } = navigationStore.get();
       if (!navigationIsOpen) bodyScroll.to(0);
     });
   }
-  var NavigationContainerFn = ({ html, onMount }) => {
+  var NavigationContainerFn = ({ html, onMount, addMethod }) => {
     onMount(({ element, ref }) => {
       const main = document.querySelector("main.main");
       let lastMq = "";
@@ -24199,7 +24216,10 @@ Loading snippet ...</pre
         lastMq = currentMq;
       });
       addHandler({ main, toTopBtn });
-      initNavigationScoller({ root: element });
+      const { scrollNativationToTop } = initNavigationScoller({
+        root: element
+      });
+      addMethod("scrollTop", scrollNativationToTop);
       return () => {
       };
     });
@@ -24271,9 +24291,15 @@ Loading snippet ...</pre
                   `;
     }).join("");
   }
-  var NavigationFn = ({ html, staticProps: staticProps2, setState, bindProps }) => {
+  var NavigationFn = ({
+    html,
+    staticProps: staticProps2,
+    setState,
+    bindProps,
+    addMethod
+  }) => {
     const { navigation: data3 } = getCommonData();
-    navigationStore.watch("closeAllAccordion", () => {
+    addMethod("closeAllAccordion", () => {
       setState("currentAccordionId", -1);
     });
     return html`
@@ -24581,7 +24607,9 @@ Loading snippet ...</pre
 
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
-        <mob-navigation-container></mob-navigation-container>
+        <mob-navigation-container
+            name="navigation-container"
+        ></mob-navigation-container>
         <main class="main">
             <div class="container">
                 <div class="inner-wrap">

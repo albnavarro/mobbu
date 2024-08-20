@@ -3,17 +3,21 @@
 import { mobCore } from '../../../../mobCore';
 
 /**
+ * No operation.
+ * Use to trigger event with emit method.
+ */
+const NOOP = () => {};
+
+/**
  * @description
  * Navigation store utils.
  *
  * @type {import('../../../../mobCore/store/type').mobStore<import('./type').NavigationStore>}
  */
 export const navigationStore = mobCore.createStore({
-    closeAllAccordion: () => {},
-    refreshScroller: () => {},
-    openNavigation: () => {},
-    closeNavigation: () => {},
-    goToTop: () => {},
+    refreshScroller: NOOP,
+    openNavigation: NOOP,
+    closeNavigation: NOOP,
     activeSection: () => ({
         value: '',
         type: String,

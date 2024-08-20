@@ -1,6 +1,7 @@
 //@ts-check
 
 import { mobCore } from '../../../mobCore';
+import { useMethodByName } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { initNavigationScoller } from './animation/navScroller';
@@ -33,8 +34,8 @@ function addHandler({ main, toTopBtn }) {
     });
 
     toTopBtn.addEventListener('click', () => {
-        navigationStore.emit('closeAllAccordion');
-        navigationStore.emit('goToTop');
+        useMethodByName('navigation-container')?.scrollTop();
+        useMethodByName('main_navigation')?.closeAllAccordion();
 
         const { navigationIsOpen } = navigationStore.get();
         if (!navigationIsOpen) bodyScroll.to(0);
@@ -44,7 +45,7 @@ function addHandler({ main, toTopBtn }) {
 /**
  * @type {import('../../../mobjs/type').mobComponent}
  */
-export const NavigationContainerFn = ({ html, onMount }) => {
+export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
     onMount(({ element, ref }) => {
         const main = document.querySelector('main.main');
         let lastMq = '';
@@ -75,7 +76,12 @@ export const NavigationContainerFn = ({ html, onMount }) => {
         });
 
         addHandler({ main, toTopBtn });
-        initNavigationScoller({ root: element });
+
+        const { scrollNativationToTop } = initNavigationScoller({
+            root: element,
+        });
+
+        addMethod('scrollTop', scrollNativationToTop);
 
         return () => {};
     });

@@ -43,7 +43,9 @@ export const wrapper = async () => {
 
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
-        <mob-navigation-container></mob-navigation-container>
+        <mob-navigation-container
+            name="navigation-container"
+        ></mob-navigation-container>
         <main class="main">
             <div class="container">
                 <div class="inner-wrap">

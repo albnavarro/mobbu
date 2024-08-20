@@ -5,6 +5,7 @@ import {
     loadUrl,
     mainStore,
     MAIN_STORE_BEFORE_ROUTE_CHANGE,
+    useMethodByName,
 } from '../../../mobjs';
 import { navigationStore } from '../navigation/store/navStore';
 
@@ -24,8 +25,9 @@ function titleHandler() {
     loadUrl({ url: '#home' });
     navigationStore.set('navigationIsOpen', false);
     navigationStore.emit('closeNavigation');
-    navigationStore.emit('closeAllAccordion');
-    navigationStore.emit('goToTop');
+
+    useMethodByName('main_navigation')?.closeAllAccordion();
+    useMethodByName('navigation-container')?.scrollTop();
 }
 
 /**

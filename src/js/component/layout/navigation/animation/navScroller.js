@@ -5,6 +5,11 @@ import { navigationStore } from '../store/navStore';
 
 let currentPercent = 0;
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.root
+ * @returns {{scrollNativationToTop: () => void}}
+ */
 export const initNavigationScoller = ({ root }) => {
     const screenEl = root.querySelector('.l-navcontainer__wrap');
     const scrollerEl = root.querySelector('.l-navcontainer__scroll');
@@ -75,17 +80,16 @@ export const initNavigationScoller = ({ root }) => {
         percentEl.style.transform = `translateZ(0) scaleX(${currentPercent})`;
     });
 
-    /**
-     * Scroll to top.
-     */
-    navigationStore.watch('goToTop', () => {
-        setTimeout(() => {
-            navScroller.move(0);
+    return {
+        scrollNativationToTop: () => {
+            setTimeout(() => {
+                navScroller.move(0);
 
-            /**
-             * Reset active section to scroll.
-             */
-            navigationStore.set('activeSection', 'no-section');
-        }, setDelay);
-    });
+                /**
+                 * Reset active section to scroll.
+                 */
+                navigationStore.set('activeSection', 'no-section');
+            }, setDelay);
+        },
+    };
 };
