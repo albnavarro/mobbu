@@ -39,26 +39,14 @@ beforeNavigate(({props}) => {
 })
 ```
 
-### Methods
-- Capire come gestire i metodi.
-
-```js
-addMethod('myMethod', (props) => {})
-
-methods: {
-    myMethods: (props) => {},
-    ....
-}
-
-useMethodByName('<name>').myMethod(props)
-useMethodByComponent('<component-name>').myMethod(props)
-```
+## Methods
+- Capire come gestire i tipi sui metodi.
 
 
-### App:
+## App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
 
-### parentId
+## parentId
 - ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
 
 ## src/js/mobjs/webComponent/

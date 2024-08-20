@@ -2,6 +2,7 @@
 
 import { html, loadUrl } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
+import { navigationStore } from '../../navigation/store/navStore';
 
 const data = [
     {
@@ -49,6 +50,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
                     ${delegateEvents({
                         click: () => {
                             loadUrl({ url });
+                            navigationStore.set('navigationIsOpen', false);
                         },
                     })}
                     ${staticProps({

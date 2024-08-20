@@ -23883,6 +23883,7 @@ Loading snippet ...</pre
                     ${delegateEvents({
         click: () => {
           loadUrl({ url });
+          navigationStore.set("navigationIsOpen", false);
         }
       })}
                     ${staticProps2({
