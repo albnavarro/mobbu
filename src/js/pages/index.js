@@ -252,6 +252,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-useMethodByName',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/useMethodByName.json',
+            title: 'useMethodByName ',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
         name: 'mobJs-tick',
         layout: layoutSidebarAnchor,
         props: {

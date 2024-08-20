@@ -14,14 +14,14 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "SetStateByName"
+            "content": "UseMethodByName"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Set component state by instance name"
+            "content": "Use methods by instance name"
         },
         {
             "component": "mob-spacer",
@@ -32,7 +32,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/utils-get-state-by-name.js",
+                "source": "./snippets/mobJs/utils-use-method-by-name.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -58,8 +58,8 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-instanceName'>Instance name</a>",
-                    "<a href='./#mobJs-setState'>Set state</a>"
+                    "<a href='./#mobJs-methods'>Create method</a>",
+                    "<a href='./#mobJs-instanceName'>Instance name</a>"
                 ]
             }
         },

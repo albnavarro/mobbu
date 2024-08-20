@@ -124,7 +124,8 @@
                 "dots": false,
                 "items": [
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
-                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>"
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
+                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
                 ]
             }
         },

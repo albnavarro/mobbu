@@ -62,17 +62,10 @@
             "component": "mob-list",
             "props": {
                 "tag": "h3",
-                "dots": true,
-                "items": ["<span class='quote'>setStateByName</span>"]
-            }
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>"
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
+                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
                 ]
             }
         }

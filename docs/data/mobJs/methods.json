@@ -54,7 +54,9 @@
             "props": {
                 "style": "small",
                 "dots": false,
-                "items": ["<a href='./#mobJs-repeat'>useMethodByName</a>"]
+                "items": [
+                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
+                ]
             }
         }
     ]
