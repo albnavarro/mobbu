@@ -96,15 +96,35 @@
                     "<a href='./#mobJs-component'>Component structure</a>",
                     "<a href='./#mobJs-web-component'>Web component</a>",
                     "<a href='./#mobJs-routing'>Routing</a>",
-                    "<a href='./#mobJs-class-list'>ClassList</a>",
-                    "<a href='./#mobJs-refs'>Refs</a>",
                     "<a href='./#mobJs-slot'>Slot</a>",
                     "<a href='./#mobJs-runtime'>Runtime add/remove</a>",
-                    "<a href='./#mobJs-instanceName'>InstanceName</a>",
-                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
                     "<a href='./#mobJs-tick'>Tick</a>",
                     "<a href='./#mobJs-utils'>Utils</a>",
                     "<a href='./#mobJs-debug'>Debug</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Traversal operation:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "tag": "h3",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-instanceName'>InstanceName</a>",
+                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>"
                 ]
             }
         },
@@ -149,7 +169,10 @@
                     "<a href='./#mobJs-staticProps'>staticProps</a>",
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>"
+                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs-methods'>methods</a>",
+                    "<a href='./#mobJs-class-list'>ClassList</a>",
+                    "<a href='./#mobJs-refs'>Refs</a>"
                 ]
             }
         },

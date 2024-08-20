@@ -250,6 +250,11 @@
                     "url": "mobJs-delegateEvents"
                 },
                 {
+                    "label": "methods",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-methods"
+                },
+                {
                     "label": "renderComponent",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-renderComponent"

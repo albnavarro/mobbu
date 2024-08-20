@@ -24968,6 +24968,10 @@ Loading snippet ...</pre
       url: "mobJs-delegateEvents"
     },
     {
+      label: "methods",
+      url: "mobJs-methods"
+    },
+    {
       label: "renderComponent",
       url: "mobJs-renderComponent"
     },
@@ -30713,6 +30717,16 @@ Loading snippet ...</pre
       props: {
         source: "./data/mobJs/delegateEvents.json",
         title: "delegateEvents",
+        section: "mobjs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    {
+      name: "mobJs-methods",
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/methods.json",
+        title: "methods",
         section: "mobjs",
         breadCrumbs: mobJsComponentBreadCrumbs
       }

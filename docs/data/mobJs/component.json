@@ -362,7 +362,10 @@
                     "<a href='./#mobJs-staticProps'>staticProps</a>",
                     "<a href='./#mobJs-bindProps'>bindProps</a>",
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
-                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>"
+                    "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
+                    "<a href='./#mobJs-methods'>methods</a>",
+                    "<a href='./#mobJs-class-list'>ClassList</a>",
+                    "<a href='./#mobJs-refs'>Refs</a>"
                 ]
             }
         },

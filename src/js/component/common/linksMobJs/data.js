@@ -42,6 +42,10 @@ export const items = [
         url: 'mobJs-delegateEvents',
     },
     {
+        label: 'methods',
+        url: 'mobJs-methods',
+    },
+    {
         label: 'renderComponent',
         url: 'mobJs-renderComponent',
     },

@@ -382,6 +382,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-methods',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/methods.json',
+            title: 'methods',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-repeat',
         layout: layoutSidebarLinks,
         props: {
