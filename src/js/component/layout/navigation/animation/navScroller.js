@@ -40,7 +40,7 @@ export const initNavigationScoller = ({ root }) => {
     /**
      * Aign menu to current active main section label
      */
-    navigationStore.watch('activeSection', (section) => {
+    navigationStore.watch('activeNavigationSection', (section) => {
         const currentSection = document.querySelector(
             `[data-sectionname='${section}']`
         );
@@ -88,7 +88,7 @@ export const initNavigationScoller = ({ root }) => {
                 /**
                  * Reset active section to scroll.
                  */
-                navigationStore.set('activeSection', 'no-section');
+                navigationStore.set('activeNavigationSection', 'no-section');
             }, setDelay);
         },
     };

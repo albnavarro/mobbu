@@ -20472,7 +20472,7 @@
     refreshScroller: NOOP2,
     openNavigation: NOOP2,
     closeNavigation: NOOP2,
-    activeSection: () => ({
+    activeNavigationSection: () => ({
       value: "",
       type: String,
       skipEqual: false
@@ -23834,7 +23834,7 @@ Loading snippet ...</pre
   var FooterNavButtonFn = ({ html, onMount, getState }) => {
     const { label, section } = getState();
     onMount(({ element }) => {
-      navigationStore.watch("activeSection", (current) => {
+      navigationStore.watch("activeNavigationSection", (current) => {
         const isActiveSection = current === section;
         element.classList.toggle("current", isActiveSection);
       });
@@ -24137,7 +24137,7 @@ Loading snippet ...</pre
       }
     });
     navScroller.init();
-    navigationStore.watch("activeSection", (section) => {
+    navigationStore.watch("activeNavigationSection", (section) => {
       const currentSection = document.querySelector(
         `[data-sectionname='${section}']`
       );
@@ -24160,7 +24160,7 @@ Loading snippet ...</pre
       scrollNativationToTop: () => {
         setTimeout(() => {
           navScroller.move(0);
-          navigationStore.set("activeSection", "no-section");
+          navigationStore.set("activeNavigationSection", "no-section");
         }, setDelay);
       }
     };
@@ -24350,7 +24350,10 @@ Loading snippet ...</pre
           element.classList.toggle("current", isActiveRoute);
           if (isActiveRoute && fireRoute) {
             callback2();
-            navigationStore.set("activeSection", scrollToSection);
+            navigationStore.set(
+              "activeNavigationSection",
+              scrollToSection
+            );
           }
         });
       });

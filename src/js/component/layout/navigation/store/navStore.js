@@ -18,7 +18,7 @@ export const navigationStore = mobCore.createStore({
     refreshScroller: NOOP,
     openNavigation: NOOP,
     closeNavigation: NOOP,
-    activeSection: () => ({
+    activeNavigationSection: () => ({
         value: '',
         type: String,
         skipEqual: false,

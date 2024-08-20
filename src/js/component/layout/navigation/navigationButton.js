@@ -67,7 +67,10 @@ export const NavigationButtonFn = ({
                     /**
                      * Aign menu to current active main section label
                      */
-                    navigationStore.set('activeSection', scrollToSection);
+                    navigationStore.set(
+                        'activeNavigationSection',
+                        scrollToSection
+                    );
                 }
             });
         });
