@@ -5,7 +5,6 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import tsParser from '@typescript-eslint/parser';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
     js.configs.recommended,
     eslintConfigPrettier,

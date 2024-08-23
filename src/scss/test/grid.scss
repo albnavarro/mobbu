@@ -5,11 +5,11 @@
     z-index: 12;
 
     &__grid {
-        @include grid;
-
         margin-bottom: rem(20);
         height: rem(40);
         overflow: hidden;
+
+        @include grid;
 
         span {
             height: rem(40);
