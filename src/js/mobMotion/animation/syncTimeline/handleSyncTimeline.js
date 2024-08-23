@@ -915,7 +915,7 @@ export default class HandleSyncTimeline {
     }
 
     /**
-     * @returns {string}
+     * @returns {import('../utils/timeline/type.js').directionType}
      *
      * @example
      * ```javascript

@@ -1,3 +1,5 @@
+import { directionType } from '../utils/timeline/type';
+
 export interface syncTimelineType {
     duration?: number;
     yoyo?: boolean;
@@ -9,7 +11,7 @@ export interface syncTimelineSequencers {
         partial: number;
         isLastDraw: boolean;
         useFrame: boolean;
-        direction: string;
+        direction: directionType;
     }) => void;
     getLabels: () => { name: string; time: number }[];
     inzializeStagger: () => void;
