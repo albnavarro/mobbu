@@ -1364,11 +1364,12 @@ export default class ParallaxClass {
         }
 
         if (this.screen && this.screen !== window) {
-            this.direction === parallaxConstant.DIRECTION_VERTICAL
-                ? // @ts-ignore
-                  (this.offset -= Math.trunc(offset(this.screen).top))
-                : // @ts-ignore
-                  (this.offset -= Math.trunc(position(this.screen).left));
+            this.offset -=
+                this.direction === parallaxConstant.DIRECTION_VERTICAL
+                    ? // @ts-ignore
+                      Math.trunc(offset(this.screen).top)
+                    : // @ts-ignore
+                      Math.trunc(position(this.screen).left);
         }
 
         if (this.trigger && (x !== 0 || y !== 0 || z !== 0)) {
