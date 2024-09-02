@@ -245,32 +245,32 @@ th {
 }
 :root {
   --scrollbar-with: 15px;
+  --extra-side-gutter: 1.6666666667rem;
+  --gap-size: 0.8333333333rem;
 }
 @media (min-width: 20em) {
   :root {
     --col-size: calc(calc(100vw - var(--scrollbar-with) - var(--extra-side-gutter) * 2) / 3 - 0.2777777778rem);
-    --gap-size: 0.8333333333rem;
-    --extra-side-gutter: 1.6666666667rem;
   }
 }
 :root {
   --scrollbar-with: 15px;
+  --extra-side-gutter: 2.1428571429rem;
+  --gap-size: 0.7142857143rem;
 }
 @media (min-width: 37.5em) {
   :root {
     --col-size: calc(min(42.8571428571rem - var(--extra-side-gutter) * 2, 100vw - var(--scrollbar-with) - var(--extra-side-gutter) * 2) / 4 - 0.1785714286rem);
-    --gap-size: 0.7142857143rem;
-    --extra-side-gutter: 2.1428571429rem;
   }
 }
 :root {
   --scrollbar-with: 15px;
+  --extra-side-gutter: 10rem;
+  --gap-size: 1.3333333333rem;
 }
 @media (min-width: 62em) {
   :root {
     --col-size: calc(min(106.6666666667rem - var(--extra-side-gutter) * 2, 100vw - var(--scrollbar-with) - var(--extra-side-gutter) * 2) / 10 - 0.1333333333rem);
-    --gap-size: 1.3333333333rem;
-    --extra-side-gutter: 10rem;
   }
 }
 :root {

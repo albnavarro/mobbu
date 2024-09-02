@@ -134,6 +134,8 @@
             This is only a default value.
             */
             --scrollbar-with: 15px;
+            --extra-side-gutter: #{$extra-side-gutter-to-rem};
+            --gap-size: #{$gap-to-rem};
 
             @include mq($key) {
                 @if $spread == 'narrow' {
@@ -147,9 +149,6 @@
                 @if $spread == 'wider' {
                     --col-size: calc(#{$max-with-unit} - #{$gap-unit});
                 }
-
-                --gap-size: #{$gap-to-rem};
-                --extra-side-gutter: #{$extra-side-gutter-to-rem};
             }
         }
     }
