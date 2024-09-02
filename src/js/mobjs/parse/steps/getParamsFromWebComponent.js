@@ -3,10 +3,6 @@
 import { getComponentRepeaterState } from '../../modules/repeater/repeaterValue';
 import { getPropsFromParent } from '../../modules/staticProps';
 import { filterExportableStateFromObject } from '../../component/action/exportState';
-import {
-    getRepeaterPropBind,
-    getRepeaterStateById,
-} from '../../component/action/repeater';
 
 /**
  * @param {object} obj

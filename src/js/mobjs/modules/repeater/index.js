@@ -181,7 +181,6 @@ export const getRepeatParent = ({ id }) => {
  * @param {HTMLElement} params.repeatParent
  * @returns {void}
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const destroyNestedRepeat = ({ id, repeatParent }) => {
     const repeatChildToDelete = getRepeatInsideElement(repeatParent);
 
