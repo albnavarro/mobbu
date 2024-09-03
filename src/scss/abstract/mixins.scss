@@ -129,15 +129,15 @@
         $extra-side-gutter-to-rem: rem($extra-side-gutter, $key);
 
         :root {
-            /*
-            Update this value in jsvascript on resize.
-            This is only a default value.
-            */
-            --scrollbar-with: 15px;
-
             @include mq($key) {
                 --extra-side-gutter: #{$extra-side-gutter-to-rem};
                 --gap-size: #{$gap-to-rem};
+
+                /*
+                Update this value in jsvascript on resize.
+                This is only a default value.
+                */
+                --scrollbar-with: 15px;
 
                 @if $spread == 'narrow' {
                     --col-size: calc(#{$max-with-unit} + #{$gap-unit});
