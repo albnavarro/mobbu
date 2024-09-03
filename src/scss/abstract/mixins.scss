@@ -134,10 +134,11 @@
             This is only a default value.
             */
             --scrollbar-with: 15px;
-            --extra-side-gutter: #{$extra-side-gutter-to-rem};
-            --gap-size: #{$gap-to-rem};
 
             @include mq($key) {
+                --extra-side-gutter: #{$extra-side-gutter-to-rem};
+                --gap-size: #{$gap-to-rem};
+
                 @if $spread == 'narrow' {
                     --col-size: calc(#{$max-with-unit} + #{$gap-unit});
                 }
