@@ -1,5 +1,12 @@
 //@ts-check
 
+/**
+ * @import { mobComponent, DelegateEvents, SetState, BindProps, StaticProps, Repeat, SetStateByName } from '../../../mobjs/type'
+ * @import { Matrioska } from './type'
+ * @import { MatrioskaItem } from './matrioskaItem/type'
+ * @import { CodeButton } from '../../common/codeButton/type';
+ */
+
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
 import { html, setStateByName } from '../../../mobjs';
@@ -44,9 +51,9 @@ function getRandomInt(max) {
 }
 
 /**
- * @param {object} params
- * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
- * @param {import('../../../mobjs/type').SetState<import('./type').Matrioska>} params.setState
+ * @param { object } params
+ * @param { DelegateEvents } params.delegateEvents
+ * @param { SetState<Matrioska> } params.setState
  */
 const getButtons = ({ delegateEvents, setState }) => {
     return html`
@@ -106,11 +113,11 @@ const getButtons = ({ delegateEvents, setState }) => {
 };
 
 /**
- * @param {object} params
- * @param {import('../../../mobjs/type').Repeat<import('./type').Matrioska>} params.repeat
- * @param {import('../../../mobjs/type').StaticProps<import('./matrioskaItem/type').MatrioskaItem>} params.staticProps
- * @param {import('../../../mobjs/type').BindProps<import('./type').Matrioska,import('./matrioskaItem/type').MatrioskaItem>} params.bindProps
- * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
+ * @param { object } params
+ * @param { Repeat<Matrioska> } params.repeat
+ * @param { StaticProps<MatrioskaItem> } params.staticProps
+ * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
+ * @param { DelegateEvents } params.delegateEvents
  */
 const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
@@ -153,11 +160,11 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
 };
 
 /**
- * @param {object} params
- * @param {import('../../../mobjs/type').Repeat<import('./type').Matrioska>} params.repeat
- * @param {import('../../../mobjs/type').StaticProps<import('./matrioskaItem/type').MatrioskaItem>} params.staticProps
- * @param {import('../../../mobjs/type').BindProps<import('./type').Matrioska,import('./matrioskaItem/type').MatrioskaItem>} params.bindProps
- * @param {import('../../../mobjs/type').DelegateEvents} params.delegateEvents
+ * @param { object } params
+ * @param { Repeat<Matrioska> } params.repeat
+ * @param { StaticProps<MatrioskaItem> } params.staticProps
+ * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
+ * @param { DelegateEvents } params.delegateEvents
  */
 const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
@@ -192,9 +199,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${delegateEvents({
                                     click: () => {
-                                        /**
-                                         *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
-                                         */
+                                        /** @type {SetStateByName<MatrioskaItem>} */
                                         const setActiveState =
                                             setStateByName(name);
                                         setActiveState('active', (val) => !val);
@@ -219,9 +224,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${delegateEvents({
                                     click: () => {
-                                        /**
-                                         *  @type {import('../../../mobjs/type').SetStateByName<import('./matrioskaItem/type').MatrioskaItem>}
-                                         */
+                                        /** @type {SetStateByName<MatrioskaItem>} */
                                         const setActiveState =
                                             setStateByName(name2);
                                         setActiveState('active', (val) => !val);
@@ -239,7 +242,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').Matrioska>}
+ * @type { mobComponent<Matrioska> }
  */
 export const MatrioskaFn = ({
     html,
@@ -252,7 +255,7 @@ export const MatrioskaFn = ({
     watchSync,
 }) => {
     /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
+     * @type { SetStateByName<CodeButton> }
      */
     const setCodeButtonState = setStateByName('global-code-button');
 
@@ -324,7 +327,7 @@ export const MatrioskaFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
-                                        /**@returns{Partial<import('./matrioskaItem/type').MatrioskaItem>} */
+                                        /**@returns{Partial<MatrioskaItem>} */
                                         props: ({ level1 }, index) => {
                                             return {
                                                 key: `${level1[index]?.key}`,
