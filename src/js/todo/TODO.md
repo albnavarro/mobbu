@@ -10,6 +10,41 @@
 ### Update
 - aggiungere myStore.update('myState', () => {})
 - eliminare da  `myStore.set` il comportamante di update
+- MobStore:
+```js
+
+    set: (prop, value, fireCallback = true, clone = false) => {
+        storeSetEntryPoint({
+            instanceId,
+            prop,
+            value,
+            fireCallback,
+            clone,
+            action: 'SET',
+        });
+    },
+    update: (prop, value, fireCallback = true, clone = false) => {
+        storeSetEntryPoint({
+            instanceId,
+            prop,
+            value,
+            fireCallback,
+            clone,
+            action: 'UPDATE',
+        });
+    },
+```
+- storeSet:
+
+```js
+// storeSetAction
+
+const valueParsed =
+    action === 'UPDATE'
+        ? value(previousValue)
+        : value;
+```
+
 
 ### Transformation
 - Aggiungere `transformation` da eseguire prima della validazione etc ...
