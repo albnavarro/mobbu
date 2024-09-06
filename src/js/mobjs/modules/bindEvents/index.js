@@ -1,7 +1,7 @@
 // @ts-check
 
 import { mobCore } from '../../../mobCore';
-import { checkType } from '../../../mobCore/store/classVersion/storeType';
+import { checkType } from '../../../mobCore/store/storeType';
 import { getRepeaterStateById } from '../../component/action/repeater';
 import { tick } from '../../queque/tick';
 import { allowFireEvent, getFireEvent, preventFireEvent } from '../commonEvent';

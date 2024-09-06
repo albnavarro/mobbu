@@ -28,7 +28,7 @@ import {
     handleScrollStart,
 } from './events/scrollUtils/handleScrollUtils';
 import { handleVisibilityChange } from './events/visibilityChange/handleVisibilityChange.js';
-import { checkType, getTypeName } from './store/classVersion/storeType.js';
+import { checkType, getTypeName } from './store/storeType.js';
 import { mobStore } from './store/mobStore.js';
 import { getUnivoqueId } from './utils/index.js';
 import { useNextLoop } from './utils/nextTick.js';

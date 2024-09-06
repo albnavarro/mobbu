@@ -1655,7 +1655,7 @@
     setTimeout(() => fn());
   };
 
-  // src/js/mobCore/store/classVersion/storeType.js
+  // src/js/mobCore/store/storeType.js
   var TYPE_IS_ANY = "ANY";
   var UNTYPED = "UNTYPED";
   var STRING = "STRING";
@@ -1791,7 +1791,7 @@
     }
   };
 
-  // src/js/mobCore/store/classVersion/checkEquality.js
+  // src/js/mobCore/store/checkEquality.js
   var mapsAreEqual = (m1, m2) => m1.size === m2.size && [...m1.keys()].every((key) => m1.get(key) === m2.get(key));
   var setsAreEqual = (a, b) => a.size === b.size && [...a].every((value) => b.has(value));
   var arrayAreEquals = (a, b) => {
@@ -1910,142 +1910,6 @@
     storeMap.delete(id);
   };
 
-  // src/js/mobCore/store/storeType.js
-  var TYPE_IS_ANY2 = "ANY";
-  var UNTYPED2 = "UNTYPED";
-  var STRING2 = "STRING";
-  var NUMBER2 = "NUMBER";
-  var OBJECT2 = "OBJECT";
-  var FUNCTION2 = "FUNCTION";
-  var ARRAY2 = "ARRAY";
-  var BOOLEAN2 = "BOOLEAN";
-  var ELEMENT2 = "ELEMENT";
-  var HTMLELEMENT2 = "HTMLELEMENT";
-  var NODELIST2 = "NODELIST";
-  var SET2 = "SET";
-  var MAP2 = "MAP";
-  var storeType2 = {
-    isString: (value) => Object.prototype.toString.call(value) === "[object String]",
-    isNumber: (value) => Object.prototype.toString.call(value) === "[object Number]" && Number.isFinite(value),
-    isObject: (value) => Object.prototype.toString.call(value) === "[object Object]",
-    isFunction: (value) => Object.prototype.toString.call(value) === "[object Function]",
-    isArray: (value) => Object.prototype.toString.call(value) === "[object Array]",
-    isBoolean: (value) => Object.prototype.toString.call(value) === "[object Boolean]",
-    isElement: (value) => value instanceof Element || value instanceof Document,
-    isHTMLElement: (value) => value instanceof HTMLElement,
-    isSet: (value) => value instanceof Set,
-    isMap: (value) => value instanceof Map,
-    isNodeList: (value) => Object.prototype.isPrototypeOf.call(NodeList.prototype, value)
-  };
-  var getTypeName2 = (type) => {
-    switch (type) {
-      case String:
-      case STRING2: {
-        return "String";
-      }
-      case Number:
-      case NUMBER2: {
-        return "Number";
-      }
-      case Object:
-      case OBJECT2: {
-        return "Object";
-      }
-      case Function:
-      case FUNCTION2: {
-        return "Function";
-      }
-      case Array:
-      case ARRAY2: {
-        return "Array";
-      }
-      case Boolean:
-      case BOOLEAN2: {
-        return "Boolean";
-      }
-      case Element:
-      case ELEMENT2: {
-        return "Element";
-      }
-      case HTMLElement:
-      case HTMLELEMENT2: {
-        return "HTMLElement";
-      }
-      case NodeList:
-      case NODELIST2: {
-        return "NodeList";
-      }
-      case Set:
-      case SET2: {
-        return "Set";
-      }
-      case Map:
-      case MAP2: {
-        return "Map";
-      }
-      case TYPE_IS_ANY2: {
-        return TYPE_IS_ANY2;
-      }
-      default: {
-        return UNTYPED2;
-      }
-    }
-  };
-  var checkType2 = (type, value) => {
-    switch (type) {
-      case String:
-      case STRING2: {
-        return storeType2.isString(value);
-      }
-      case Number:
-      case NUMBER2: {
-        return storeType2.isNumber(value);
-      }
-      case Object:
-      case OBJECT2: {
-        return storeType2.isObject(value);
-      }
-      case Function:
-      case FUNCTION2: {
-        return storeType2.isFunction(value);
-      }
-      case Array:
-      case ARRAY2: {
-        return storeType2.isArray(value);
-      }
-      case Boolean:
-      case BOOLEAN2: {
-        return storeType2.isBoolean(value);
-      }
-      case Element:
-      case ELEMENT2: {
-        return storeType2.isElement(value);
-      }
-      case HTMLElement:
-      case HTMLELEMENT2: {
-        return storeType2.isHTMLElement(value);
-      }
-      case NodeList:
-      case NODELIST2: {
-        return storeType2.isNodeList(value);
-      }
-      case Set:
-      case SET2: {
-        return storeType2.isSet(value);
-      }
-      case Map:
-      case MAP2: {
-        return storeType2.isMap(value);
-      }
-      case TYPE_IS_ANY2: {
-        return true;
-      }
-      default: {
-        return true;
-      }
-    }
-  };
-
   // src/js/mobCore/store/storeWarining.js
   var storeDepthWarning = (data3, style) => {
     console.warn(
@@ -2077,7 +1941,7 @@
   };
   var storeSetPropTypeWarning = (prop, val2, type, style) => {
     console.warn(
-      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName2(
+      `%c trying to execute setProp method on '${prop}' propierties: ${val2} is not a ${getTypeName(
         type
       )}`,
       style
@@ -2111,7 +1975,7 @@
   };
   var storeSetObjTypeWarning = (prop, subProp, subVal, type, style) => {
     console.warn(
-      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName2(
+      `%c trying to execute setObj data method on ${prop}.${subProp} propierties: ${subVal} is not a ${getTypeName(
         type
       )}`,
       style
@@ -2150,7 +2014,7 @@
 
   // src/js/mobCore/store/storeUtils.js
   var maxDepth = (object) => {
-    if (!storeType2.isObject(object)) return 0;
+    if (!storeType.isObject(object)) return 0;
     const values = Object.values(object);
     if (values.length === 0) return 1;
     return Math.max(...values.map((value) => maxDepth(value))) + 1;
@@ -2158,11 +2022,11 @@
   var getDataRecursive = (data3, shouldRecursive = true) => {
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
-      const functionResult = storeType2.isFunction(value) ? (
+      const functionResult = storeType.isFunction(value) ? (
         /** @type {Function} */
         value()
       ) : {};
-      if (storeType2.isObject(value) && shouldRecursive) {
+      if (storeType.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getDataRecursive(
@@ -2172,7 +2036,7 @@
           )
         };
       }
-      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
+      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && ("validate" in functionResult || "type" in functionResult || "skipEqual" in functionResult)) {
         return { ...p, [key]: functionResult.value };
       }
       return { ...p, [key]: value };
@@ -2181,11 +2045,11 @@
   var getPropRecursive = (data3, prop, fallback, shouldRecursive = true) => {
     return Object.entries(data3).reduce((p, c) => {
       const [key, value] = c;
-      const functionResult = storeType2.isFunction(value) ? (
+      const functionResult = storeType.isFunction(value) ? (
         /** @type{Function} */
         value()
       ) : {};
-      if (storeType2.isObject(value) && shouldRecursive) {
+      if (storeType.isObject(value) && shouldRecursive) {
         return {
           ...p,
           [key]: getPropRecursive(
@@ -2197,8 +2061,8 @@
           )
         };
       }
-      if (storeType2.isFunction(value) && storeType2.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
-        const propParsed = storeType2.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
+      if (storeType.isFunction(value) && storeType.isObject(functionResult) && "value" in functionResult && prop in functionResult) {
+        const propParsed = storeType.isString(functionResult[prop]) ? functionResult[prop].toUpperCase() : functionResult[prop];
         return { ...p, [key]: propParsed };
       }
       return { ...p, [key]: fallback };
@@ -2225,16 +2089,16 @@
     return getPropRecursive(data3, prop, fallback);
   };
   var cloneValueOrGet = ({ value }) => {
-    if (checkType2(Map, value)) {
+    if (checkType(Map, value)) {
       return new Map(value);
     }
-    if (checkType2(Set, value)) {
+    if (checkType(Set, value)) {
       return new Set(value);
     }
-    if (checkType2(Object, value)) {
+    if (checkType(Object, value)) {
       return { ...value };
     }
-    if (checkType2(Array, value)) {
+    if (checkType(Array, value)) {
       return [...value];
     }
     return value;
@@ -2259,16 +2123,16 @@
       callBackWatcher
     } = state;
     const logStyle2 = getLogStyle();
-    const isCustomObject = type[prop] === TYPE_IS_ANY2;
-    if (storeType2.isObject(val2) && !isCustomObject) {
+    const isCustomObject = type[prop] === TYPE_IS_ANY;
+    if (storeType.isObject(val2) && !isCustomObject) {
       storeSetPropValWarning(prop, val2, logStyle2);
       return;
     }
-    if (storeType2.isObject(store[prop]) && !isCustomObject) {
+    if (storeType.isObject(store[prop]) && !isCustomObject) {
       storeSetPropPropWarning(prop, logStyle2);
       return;
     }
-    const isValidType = checkType2(type[prop], val2);
+    const isValidType = checkType(type[prop], val2);
     if (!isValidType) {
       storeSetPropTypeWarning(prop, val2, type[prop], logStyle2);
       return;
@@ -2317,11 +2181,11 @@
       callBackWatcher
     } = state;
     const logStyle2 = getLogStyle();
-    if (!storeType2.isObject(val2)) {
+    if (!storeType.isObject(val2)) {
       storeSetObjectValWarning(prop, val2, logStyle2);
       return;
     }
-    if (!storeType2.isObject(store[prop])) {
+    if (!storeType.isObject(store[prop])) {
       storeSetObjectPropWarning(prop, logStyle2);
       return;
     }
@@ -2334,7 +2198,7 @@
     }
     const isValidType = Object.entries(val2).map((item) => {
       const [subProp, subVal] = item;
-      const typeResponse = checkType2(type[prop][subProp], subVal);
+      const typeResponse = checkType(type[prop][subProp], subVal);
       if (!typeResponse) {
         storeSetObjTypeWarning(
           prop,
@@ -2370,7 +2234,7 @@
       const subValOld = store[prop][subProp];
       const validateResult = fnValidate[prop][subProp]?.(subVal, subValOld);
       if (validateResult === void 0) {
-        storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY2);
+        storeObjectIsNotAnyWarning(logStyle2, TYPE_IS_ANY);
       }
       validationStatusObject[prop][subProp] = validateResult;
     });
@@ -2383,7 +2247,7 @@
       (subProp) => skipEqual[prop][subProp] === true
     );
     const prevValueIsEqualNew = shouldSkipEqual ? Object.entries(newObjectValues).every(([key, value]) => {
-      const isCustomObject = type[prop][key] === TYPE_IS_ANY2;
+      const isCustomObject = type[prop][key] === TYPE_IS_ANY;
       const dataDepth = maxDepth(value);
       if (dataDepth > 1 && !isCustomObject) {
         storeSetObjDepthWarning(prop, val2, logStyle2);
@@ -2430,9 +2294,9 @@
       return;
     }
     const previousValue = clone ? cloneValueOrGet({ value: store[prop] }) : store[prop];
-    const valueParsed = checkType2(Function, value) && !checkType2(Function, previousValue) && type[prop] !== Function && type[prop] !== "Function" ? value(previousValue) : value;
-    const isCustomObject = type[prop] === TYPE_IS_ANY2;
-    return storeType2.isObject(previousValue) && !isCustomObject ? setObj({
+    const valueParsed = checkType(Function, value) && !checkType(Function, previousValue) && type[prop] !== Function && type[prop] !== "Function" ? value(previousValue) : value;
+    const isCustomObject = type[prop] === TYPE_IS_ANY;
+    return storeType.isObject(previousValue) && !isCustomObject ? setObj({
       instanceId,
       state,
       prop,
@@ -2571,7 +2435,7 @@
     const validationStatusObject = Object.entries(store).reduce(
       (previous, current) => {
         const [key, value] = current;
-        return storeType2.isObject(value) ? { ...previous, [key]: {} } : previous;
+        return storeType.isObject(value) ? { ...previous, [key]: {} } : previous;
       },
       {}
     );
@@ -6595,7 +6459,7 @@
         };
       })();
     }
-    if (from && checkType2(Number, from)) {
+    if (from && checkType(Number, from)) {
       const half = from >= arraylenght ? arraylenght - 1 : from;
       return (() => {
         if (index > half) {
@@ -20819,7 +20683,7 @@
     const decimalDigits = "[0-9](_?[0-9])*";
     const frac = `\\.(${decimalDigits})`;
     const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
-    const NUMBER3 = {
+    const NUMBER2 = {
       className: "number",
       variants: [
         // DecimalLiteral
@@ -20949,7 +20813,7 @@
       TEMPLATE_STRING,
       // Skip numbers when they are part of a variable name
       { match: /\$\d+/ },
-      NUMBER3
+      NUMBER2
       // This is intentional:
       // See https://github.com/highlightjs/highlight.js/issues/3288
       // hljs.REGEXP_MODE
@@ -21171,7 +21035,7 @@
         COMMENT,
         // Skip numbers when they are part of a variable name
         { match: /\$\d+/ },
-        NUMBER3,
+        NUMBER2,
         CLASS_REFERENCE,
         {
           className: "attr",
