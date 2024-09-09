@@ -8,7 +8,7 @@ import {
 import { tween } from '../../../mobMotion';
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').RouteLoader>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').RouteLoader>}
  */
 export const RouteLoaderFn = ({ html, onMount }) => {
     onMount(({ element }) => {

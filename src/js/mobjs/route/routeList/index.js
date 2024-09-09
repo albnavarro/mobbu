@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import("../../type").routeType[]}
+ * @type {import("../../type").Route[]}
  */
 let routeList = [];
 
@@ -16,7 +16,7 @@ let indexPage = '';
 let pageNotFound = '';
 
 /**
- * @param {import("../../type").routeType[]} list
+ * @param {import("../../type").Route[]} list
  * @returns void
  *
  * @description
@@ -29,7 +29,7 @@ export const setRouteList = (list) => {
 /**
  * @param {object} obj
  * @param {string} obj.routeName
- * @return {import("../../type").routeType}
+ * @return {import("../../type").Route}
  *
  * @description
  * Get route list to store.

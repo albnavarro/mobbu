@@ -16,7 +16,7 @@ import {
 import { setRestoreScroll } from '../route/scroll/restoreScroll';
 
 /**
- * @type {( arg0: import('../type').inizializeApp) => Promise<void>}
+ * @type {( arg0: import('../type').InizializeApp) => Promise<void>}
  *
  * @description
  * Inizializa default route.

@@ -65,7 +65,7 @@ function addScrollButton({
 }
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').ScrollTo>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').ScrollTo>}
  */
 export const ScrollToFn = ({
     html,

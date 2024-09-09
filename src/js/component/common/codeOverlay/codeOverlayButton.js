@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import("./type").CodeOverlayButton>}
+ * @type {import("../../../mobjs/type").MobComponent<import("./type").CodeOverlayButton>}
  */
 export const CodeOverlayButtonFn = ({ onMount, watchSync, html, getState }) => {
     const { key, disable } = getState();

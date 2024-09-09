@@ -11,7 +11,7 @@ import { defineUserComponent } from '../webComponent/userComponent';
 let componentListMap = {};
 
 /**
- * @type {Set<import('../type').createComponentReturnType>}
+ * @type {Set<import('../type').CreateComponentReturn>}
  */
 const availableComponent = new Set();
 
@@ -50,7 +50,7 @@ export const getComponentList = () => {
 };
 
 /**
- * @param {import('../type').createComponentReturnType[]} components
+ * @param {import('../type').CreateComponentReturn[]} components
  * @returns {void}
  */
 export const useComponent = (components) => {

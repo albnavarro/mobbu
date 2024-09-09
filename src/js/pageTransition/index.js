@@ -8,7 +8,7 @@ mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
 });
 
 /**
- * @type {import('../mobjs/type').beforePageTransition}
+ * @type {import('../mobjs/type').BeforePageTransition}
  */
 export const beforePageTransition = async ({ oldNode }) => {
     oldNode.classList.remove('current-route');
@@ -24,7 +24,7 @@ export const beforePageTransition = async ({ oldNode }) => {
 };
 
 /**
- * @type {import('../mobjs/type').pageTransition}
+ * @type {import('../mobjs/type').PageTransition}
  */
 export const pageTransition = async ({
     oldNode,

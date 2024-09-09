@@ -3,7 +3,7 @@
 import { setStateByName } from '../../../mobjs';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent}
+ * @type {import('../../../mobjs/type').MobComponent}
  */
 export const DocContainerFn = ({ html, onMount }) => {
     /**

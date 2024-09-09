@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../../mobjs/type").mobComponent<import("./type").Title>}
+ * @type {import("../../../../mobjs/type").MobComponent<import("./type").Title>}
  */
 export const TitleFn = ({ html, getState }) => {
     const { tag, color, isBold } = getState();

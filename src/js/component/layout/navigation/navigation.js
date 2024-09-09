@@ -76,7 +76,7 @@ function getItems({ data, staticProps, setState, bindProps }) {
 }
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<import('./type').Navigation>}
+ * @type {import('../../../mobjs/type').MobComponent<import('./type').Navigation>}
  */
 export const NavigationFn = ({
     html,

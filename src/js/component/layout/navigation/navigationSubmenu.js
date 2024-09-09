@@ -27,7 +27,7 @@ function getSubmenu({ children, staticProps, callback }) {
 }
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').NavigationSubmenu>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').NavigationSubmenu>}
  */
 export const NavigationSubmenuFn = ({
     onMount,

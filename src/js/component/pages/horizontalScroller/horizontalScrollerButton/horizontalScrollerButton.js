@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../../mobjs/type").mobComponent<import("./type").HorizontalScrollerButton>}
+ * @type {import("../../../../mobjs/type").MobComponent<import("./type").HorizontalScrollerButton>}
  */
 export const HorizontalScrollerButtonFn = ({
     getState,

@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicCounter>}
+ * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicCounter>}
  */
 export const DynamicListCounterFn = async ({
     watch,

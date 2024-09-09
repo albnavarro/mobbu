@@ -4,7 +4,7 @@
 import arrow from '../../../../svg/scroll_arrow.svg';
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').ScrollDownLabel>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').ScrollDownLabel>}
  */
 export const ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
     const { active } = getState();

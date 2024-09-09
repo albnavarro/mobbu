@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../../mobjs/type").mobComponent<import("./type").ScrollToButton>}
+ * @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>}
  */
 export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();

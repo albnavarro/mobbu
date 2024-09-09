@@ -8,7 +8,7 @@ const hanburgerHandler = () => {
 };
 
 /**
- * @type {import('../../../mobjs/type').mobComponent}
+ * @type {import('../../../mobjs/type').MobComponent}
  */
 export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {

@@ -6,7 +6,7 @@ import { setStateByName } from '../../../mobjs';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<import('./type').CodeButton>}
+ * @type {import('../../../mobjs/type').MobComponent<import('./type').CodeButton>}
  */
 export const CodeButtonFn = ({
     getState,

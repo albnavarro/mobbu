@@ -62,7 +62,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
 };
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListCard>}
+ * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListCard>}
  */
 export const DynamicListCardFn = ({
     getState,

@@ -4,7 +4,7 @@ export type componentFunctionType = (
 
 export interface componentListMapType {
     componentFunction: componentFunctionType;
-    componentParams: import('../type').componentParsedType;
+    componentParams: import('../type').ComponentParsed;
 }
 
 export interface MainStore {

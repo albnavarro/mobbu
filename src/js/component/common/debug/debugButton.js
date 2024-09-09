@@ -25,7 +25,7 @@ import { staticPropsMap } from '../../../mobjs/modules/staticProps';
 import { getUserChildPlaceholderSize } from '../../../mobjs/webComponent/usePlaceHolderToRender';
 
 /**
- * @type {import('../../../mobjs/type').mobComponent}
+ * @type {import('../../../mobjs/type').MobComponent}
  */
 export const DebugButtonFn = ({ html, delegateEvents }) => {
     return html`

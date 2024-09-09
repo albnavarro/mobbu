@@ -67,7 +67,7 @@ export interface componentReturnType {
     content: string;
 }
 
-export type mobComponent<T = MobComponentMap, R = MobComponentMap> = (
+export type MobComponent<T = MobComponentMap, R = MobComponentMap> = (
     props: componentPropsType<T, R>
 ) => string;
 
@@ -603,7 +603,7 @@ export interface componentPropsType<T, R> {
     debug: () => void;
 }
 
-interface webComponentParmas {
+interface WebComponentParmas {
     componentId: string;
     emit(prop: string): void;
     emitAsync(prop: string): Promise<{ success: boolean }>;
@@ -625,7 +625,7 @@ interface webComponentParmas {
     watchParent(prop: string, callback: () => void): void;
 }
 
-export interface componentParsedType {
+export interface ComponentParsed {
     exportState?: string[];
 
     /**
@@ -638,22 +638,22 @@ export interface componentParsedType {
     constructorCallback?: (arg0: { context: object }) => void;
     connectedCallback?: (arg0: {
         context: object;
-        data: webComponentParmas;
+        data: WebComponentParmas;
     }) => void;
     disconnectedCallback?: (arg0: {
         context: object;
-        data: webComponentParmas;
+        data: WebComponentParmas;
     }) => void;
     adoptedCallback?: (arg0: {
         context: object;
-        data: webComponentParmas;
+        data: WebComponentParmas;
     }) => void;
     attributeChangedCallback?: (arg0: {
         name: string;
         oldValue: string;
         newValue: string;
         context: object;
-        data: webComponentParmas;
+        data: WebComponentParmas;
     }) => void;
     attributeToObserve?: string[];
     style?: string;
@@ -661,24 +661,24 @@ export interface componentParsedType {
     child?: {
         [key: string]: {
             componentFunction: import('./mainStore/type').componentFunctionType;
-            componentParams: import('./type').componentParsedType;
+            componentParams: import('./type').ComponentParsed;
         };
     }[];
 }
 
-export interface createComponentType extends componentParsedType {
+export interface CreateComponent extends ComponentParsed {
     name: string;
     component: componentFunctionType;
 }
 
-export interface createComponentReturnType {
+export interface CreateComponentReturn {
     [key: string]: {
         componentFunction: import('./mainStore/type').componentFunctionType;
-        componentParams: import('./type').componentParsedType;
+        componentParams: import('./type').ComponentParsed;
     };
 }
 
-export interface defaultComponent {
+export interface DefaultComponent {
     /**
      * @description
      * Add DOM element in a dedicated request animation Frame.
@@ -708,20 +708,20 @@ export interface defaultComponent {
     debug?: boolean;
 }
 
-export type beforePageTransition = (arg0: {
+export type BeforePageTransition = (arg0: {
     oldNode: HTMLElement;
     oldRoute: string;
     newRoute: string;
 }) => Promise<any>;
 
-export type pageTransition = (arg0: {
+export type PageTransition = (arg0: {
     oldNode: HTMLElement | Node;
     newNode: HTMLElement | Node;
     oldRoute: string;
     newRoute: string;
 }) => Promise<any>;
 
-export interface routeType {
+export interface Route {
     name: string;
     layout:
         | ((arg0: { params: any; props: any }) => Promise<string>)
@@ -729,15 +729,15 @@ export interface routeType {
     props: any;
 }
 
-export interface inizializeApp {
+export interface InizializeApp {
     rootId: string;
     wrapper: () => Promise<any>;
     contentId: string;
-    routes: routeType[];
+    routes: Route[];
     afterInit: () => void;
     index: string;
     pageNotFound: string;
-    beforePageTransition?: beforePageTransition;
-    pageTransition?: pageTransition;
+    beforePageTransition?: BeforePageTransition;
+    pageTransition?: PageTransition;
     restoreScroll?: boolean;
 }

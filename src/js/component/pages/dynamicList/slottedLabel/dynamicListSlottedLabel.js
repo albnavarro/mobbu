@@ -5,7 +5,7 @@ function setContent(value) {
 }
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent<import('./type').DynamicListSlottedLabel>}
+ * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListSlottedLabel>}
  */
 export const DynamicListSlottedLabelFn = async ({
     html,

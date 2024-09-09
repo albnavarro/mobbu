@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../mobjs/type").mobComponent}
+ * @type {import("../../../mobjs/type").MobComponent}
  */
 export const DocTitleSmallFn = ({ html }) => {
     return html`

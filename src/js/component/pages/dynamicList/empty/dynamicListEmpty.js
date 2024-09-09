@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import('../../../../mobjs/type').mobComponent}
+ * @type {import('../../../../mobjs/type').MobComponent}
  */
 export const DynamicListEmptyFn = async ({ html }) => {
     return html`<div class="c-dynamic-list-empty">

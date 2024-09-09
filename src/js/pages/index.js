@@ -28,7 +28,7 @@ const mobJsComponentBreadCrumbs = [
 ];
 
 /**
- * @type {import('../mobjs/type').routeType[]}
+ * @type {import('../mobjs/type').Route[]}
  */
 export const routes = [
     {

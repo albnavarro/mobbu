@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { mobComponent, DelegateEvents, SetState, BindProps, StaticProps, Repeat, SetStateByName } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, SetState, BindProps, StaticProps, Repeat, SetStateByName } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -242,7 +242,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
 };
 
 /**
- * @type { mobComponent<Matrioska> }
+ * @type { MobComponent<Matrioska> }
  */
 export const MatrioskaFn = ({
     html,

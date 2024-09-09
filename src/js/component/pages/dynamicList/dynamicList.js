@@ -103,7 +103,7 @@ function getRepeaters({ bindProps, staticProps }) {
 }
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<import('./type').DynamicList>}
+ * @type {import('../../../mobjs/type').MobComponent<import('./type').DynamicList>}
  */
 export const DynamicListFn = async ({
     setState,

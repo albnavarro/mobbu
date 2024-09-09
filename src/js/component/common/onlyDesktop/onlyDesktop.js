@@ -20,7 +20,7 @@ const onResize = ({ element }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent}
+ * @type {import("../../../mobjs/type").MobComponent}
  */
 export const OnlyDesktopFn = ({ html, onMount }) => {
     onMount(({ element }) => {

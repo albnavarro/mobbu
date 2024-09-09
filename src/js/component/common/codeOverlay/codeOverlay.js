@@ -118,7 +118,7 @@ const printContent = async ({
 };
 
 /**
- * @type {import('../../../mobjs/type').mobComponent<import('./type').CodeOverlay>}
+ * @type {import('../../../mobjs/type').MobComponent<import('./type').CodeOverlay>}
  */
 export const CodeOverlayFn = ({
     onMount,

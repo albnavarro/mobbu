@@ -50,7 +50,7 @@ const getLoader = ({ data, bindProps }) => {
 };
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').HtmlContent>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').HtmlContent>}
  */
 export const HtmlContentFn = async ({
     html,

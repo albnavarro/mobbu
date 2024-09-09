@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @type {import("../../../../mobjs/type").mobComponent<import('./type').MatrioskaItem>}
+ * @type {import("../../../../mobjs/type").MobComponent<import('./type').MatrioskaItem>}
  */
 export const MatrioskaItemFn = ({
     html,

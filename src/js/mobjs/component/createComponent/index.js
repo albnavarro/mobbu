@@ -9,7 +9,7 @@ let defaultComponent = {
 };
 
 /**
- * @param {import('../../type').defaultComponent} obj
+ * @param {import('../../type').DefaultComponent} obj
  * @returns {void}
  *
  * @description
@@ -19,13 +19,13 @@ export const setDefaultComponent = (obj) => {
 };
 
 /**
- * @returns {import('../../type').defaultComponent}
+ * @returns {import('../../type').DefaultComponent}
  */
 export const getDefaultComponent = () => defaultComponent;
 
 /**
- * @param {import('../../type').createComponentType} param
- * @returns {import('../../type').createComponentReturnType}
+ * @param {import('../../type').CreateComponent} param
+ * @returns {import('../../type').CreateComponentReturn}
  *
  * @description
  * Format component definition in object key: value.

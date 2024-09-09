@@ -3,7 +3,7 @@
 import { mobCore } from '../../../mobCore';
 
 /**
- * @type {import("../../../mobjs/type").mobComponent<import('./type').FooterShapeV1>}
+ * @type {import("../../../mobjs/type").MobComponent<import('./type').FooterShapeV1>}
  */
 export const FooterShapeV1Fn = ({ html, onMount, getState }) => {
     const { svg, position } = getState();
