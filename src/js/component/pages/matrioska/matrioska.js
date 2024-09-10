@@ -33,7 +33,8 @@ const buttons = [
 ];
 
 /**
- * @param {Array<any>} array
+ * @param {Array<{key:number, value:string}>} array
+ * @returns {Array<{key:number, value:string}>}
  */
 const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -43,9 +44,7 @@ const shuffle = (array) => {
     return array;
 };
 
-/**
- * @param {number} max
- */
+/** @param {number} max */
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -64,28 +63,30 @@ const getButtons = ({ delegateEvents, setState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: () => {
-                                // @ts-ignore
-                                setState(button.state, (val) => {
-                                    /**
-                                     * Shuffle level3
-                                     */
-                                    if (button.state === 'level3')
-                                        return shuffle([
+                                setState(
+                                    /** @type {keyof Matrioska} */ (
+                                        button.state
+                                    ),
+                                    (val) => {
+                                        /** Shuffle level3 */
+                                        if (button.state === 'level3')
+                                            return shuffle([
+                                                ...val,
+                                                {
+                                                    key: getRandomInt(1000),
+                                                    value: mobCore.getUnivoqueId(),
+                                                },
+                                            ]);
+
+                                        return [
                                             ...val,
                                             {
                                                 key: getRandomInt(1000),
                                                 value: mobCore.getUnivoqueId(),
                                             },
-                                        ]);
-
-                                    return [
-                                        ...val,
-                                        {
-                                            key: getRandomInt(1000),
-                                            value: mobCore.getUnivoqueId(),
-                                        },
-                                    ];
-                                });
+                                        ];
+                                    }
+                                );
                             },
                         })}
                         >${button.label_plus}</dynamic-list-button
@@ -94,10 +95,14 @@ const getButtons = ({ delegateEvents, setState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: () => {
-                                // @ts-ignore
-                                setState(button.state, (val) => {
-                                    return val.slice(0, -1);
-                                });
+                                setState(
+                                    /** @type {keyof Matrioska} */ (
+                                        button.state
+                                    ),
+                                    (val) => {
+                                        return val.slice(0, -1);
+                                    }
+                                );
                             },
                         })}
                         >${button.label_minus}</dynamic-list-button
@@ -241,9 +246,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     `;
 };
 
-/**
- * @type { MobComponent<Matrioska> }
- */
+/** @type { MobComponent<Matrioska> } */
 export const MatrioskaFn = ({
     html,
     onMount,
@@ -254,9 +257,7 @@ export const MatrioskaFn = ({
     bindProps,
     watchSync,
 }) => {
-    /**
-     * @type { SetStateByName<CodeButton> }
-     */
+    /** @type { SetStateByName<CodeButton> } */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ ref }) => {
@@ -327,7 +328,7 @@ export const MatrioskaFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
-                                        /**@returns{Partial<MatrioskaItem>} */
+                                        /** @returns{Partial<MatrioskaItem>} */
                                         props: ({ level1 }, index) => {
                                             return {
                                                 key: `${level1[index]?.key}`,
