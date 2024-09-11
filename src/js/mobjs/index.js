@@ -18,6 +18,7 @@ export { getIdByInstanceName } from './component/action/component';
 export { watchById } from './component/action/watch';
 export { setStateById } from './component/action/state';
 export { setStateByName } from './component/action/state';
+export { updateStateByName } from './component/action/state';
 export { getStateById } from './component/action/state';
 export { getStateByName } from './component/action/state';
 export { getChildrenIdByName } from './component/action/children';

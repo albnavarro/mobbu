@@ -2,6 +2,7 @@
 
 import { useNextLoop } from '../utils/nextTick';
 import { checkEquality } from './checkEquality';
+import { STORE_SET, STORE_UPDATE } from './constant';
 import { runCallbackQueqe } from './fireQueque';
 import { getLogStyle } from './logStyle';
 import { getStateFromMainMap, updateMainMap } from './storeMap';
@@ -355,6 +356,7 @@ export const storeSetAction = ({
     fireCallback = true,
     clone = false,
     useStrict = true,
+    action,
 }) => {
     const { store, type } = state;
     if (!store) return;
@@ -381,13 +383,7 @@ export const storeSetAction = ({
      * Check if newValue is a param or function.
      * Id prop type is a function or last value is a function skip.
      */
-    const valueParsed =
-        checkType(Function, value) &&
-        !checkType(Function, previousValue) &&
-        type[prop] !== Function &&
-        type[prop] !== 'Function'
-            ? value(previousValue)
-            : value;
+    const valueParsed = action === STORE_UPDATE ? value(previousValue) : value;
 
     /**
      * Check if is an Object to stringyFy ( default is max depth === 2 )
@@ -423,6 +419,7 @@ export const storeSetEntryPoint = ({
     value,
     fireCallback,
     clone,
+    action,
 }) => {
     const state = getStateFromMainMap(instanceId);
     if (!state) return;
@@ -434,6 +431,7 @@ export const storeSetEntryPoint = ({
         value,
         fireCallback,
         clone,
+        action,
     });
 
     if (!newState) return;
@@ -524,6 +522,7 @@ const fireComputed = (instanceId) => {
             instanceId,
             prop,
             value: computedValue,
+            action: STORE_SET,
         });
     });
 

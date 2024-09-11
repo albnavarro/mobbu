@@ -5,6 +5,7 @@ import {
     getType,
     mobStoreBaseData,
     setType,
+    updateType,
     watchType,
 } from '../../mobCore/store/type';
 import { mobStore } from '../../mobCore/store/type';
@@ -52,7 +53,8 @@ export interface componentStoreInputTypes extends componentCommonTypes {
 
 export interface componentStoreReturnType {
     getState: getType;
-    setState: setType;
+    setState: updateType;
+    updateState: setType;
     emit: emitType;
     emitAsync: emitAsyncType;
     computed: computedType;

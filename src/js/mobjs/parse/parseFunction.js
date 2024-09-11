@@ -189,20 +189,28 @@ export const parseComponentsRecursive = async ({
     /**
      * Add component to store
      */
-    const { getState, setState, emit, emitAsync, computed, watch, debug } =
-        addComponentToStore({
-            element: componentToParse,
-            props,
-            state,
-            id,
-            componentName,
-            instanceName,
-            key,
-            repeatPropBind,
-            isCancellable,
-            parentId,
-            componentRepeatId,
-        });
+    const {
+        getState,
+        setState,
+        updateState,
+        emit,
+        emitAsync,
+        computed,
+        watch,
+        debug,
+    } = addComponentToStore({
+        element: componentToParse,
+        props,
+        state,
+        id,
+        componentName,
+        instanceName,
+        key,
+        repeatPropBind,
+        isCancellable,
+        parentId,
+        componentRepeatId,
+    });
 
     /**
      * Update Parent id before render, do child can use immediately parentId.
@@ -268,6 +276,7 @@ export const parseComponentsRecursive = async ({
     const objectFromComponentFunction = getParamsForComponentFunction({
         getState,
         setState,
+        updateState,
         emit,
         emitAsync,
         computed,

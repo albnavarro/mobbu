@@ -29,7 +29,7 @@ import {
 } from './events/scrollUtils/handleScrollUtils';
 import { handleVisibilityChange } from './events/visibilityChange/handleVisibilityChange.js';
 import { checkType, getTypeName } from './store/storeType.js';
-import { mobStore } from './store/mobStore.js';
+import { mobStore } from './store';
 import { getUnivoqueId } from './utils/index.js';
 import { useNextLoop } from './utils/nextTick.js';
 

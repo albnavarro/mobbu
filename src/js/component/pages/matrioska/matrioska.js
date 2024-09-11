@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, SetState, BindProps, StaticProps, Repeat, SetStateByName } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, SetState, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -9,7 +9,7 @@
 
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html, setStateByName } from '../../../mobjs';
+import { html, setStateByName, updateStateByName } from '../../../mobjs';
 
 const buttons = [
     {
@@ -52,9 +52,9 @@ function getRandomInt(max) {
 /**
  * @param { object } params
  * @param { DelegateEvents } params.delegateEvents
- * @param { SetState<Matrioska> } params.setState
+ * @param { UpdateState<Matrioska> } params.updateState
  */
-const getButtons = ({ delegateEvents, setState }) => {
+const getButtons = ({ delegateEvents, updateState }) => {
     return html`
         ${buttons
             .map((button) => {
@@ -63,7 +63,7 @@ const getButtons = ({ delegateEvents, setState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: () => {
-                                setState(
+                                updateState(
                                     /** @type {keyof Matrioska} */ (
                                         button.state
                                     ),
@@ -95,7 +95,7 @@ const getButtons = ({ delegateEvents, setState }) => {
                         class="matrioska__button"
                         ${delegateEvents({
                             click: () => {
-                                setState(
+                                updateState(
                                     /** @type {keyof Matrioska} */ (
                                         button.state
                                     ),
@@ -204,10 +204,14 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${delegateEvents({
                                     click: () => {
-                                        /** @type {SetStateByName<MatrioskaItem>} */
-                                        const setActiveState =
-                                            setStateByName(name);
-                                        setActiveState('active', (val) => !val);
+                                        /** @type {UpdateStateByName<MatrioskaItem>} */
+                                        const updateActiveState =
+                                            updateStateByName(name);
+
+                                        updateActiveState(
+                                            'active',
+                                            (val) => !val
+                                        );
                                     },
                                 })}
                                 ${sync()}
@@ -229,10 +233,13 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                 })}
                                 ${delegateEvents({
                                     click: () => {
-                                        /** @type {SetStateByName<MatrioskaItem>} */
-                                        const setActiveState =
-                                            setStateByName(name2);
-                                        setActiveState('active', (val) => !val);
+                                        /** @type {UpdateStateByName<MatrioskaItem>} */
+                                        const updateActiveState =
+                                            updateStateByName(name2);
+                                        updateActiveState(
+                                            'active',
+                                            (val) => !val
+                                        );
                                     },
                                 })}
                                 ${sync()}
@@ -251,7 +258,7 @@ export const MatrioskaFn = ({
     html,
     onMount,
     delegateEvents,
-    setState,
+    updateState,
     repeat,
     staticProps,
     bindProps,
@@ -308,7 +315,7 @@ export const MatrioskaFn = ({
     return html`<div class="matrioska">
         <only-desktop></only-desktop>
         <div class="matrioska__head">
-            ${getButtons({ delegateEvents, setState })}
+            ${getButtons({ delegateEvents, updateState })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.

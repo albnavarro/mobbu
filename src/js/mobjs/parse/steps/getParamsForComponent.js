@@ -56,6 +56,7 @@ import { addMethodById } from '../../component/action/methods';
 export const getParamsForComponentFunction = ({
     getState,
     setState,
+    updateState,
     emit,
     emitAsync,
     computed,
@@ -76,6 +77,7 @@ export const getParamsForComponentFunction = ({
         id,
         getState,
         setState,
+        updateState,
         emit,
         emitAsync,
         computed,

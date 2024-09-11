@@ -65,6 +65,12 @@ export const addComponentToStore = ({
 
             store.set(prop, value, fire);
         },
+        updateState: (prop = '', updateFunction = () => {}, fire = true) => {
+            const isFreezed = getFreezePropStatus({ id, prop });
+            if (isFreezed) return;
+
+            store.update(prop, updateFunction, fire);
+        },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
         computed: (prop = '', keys = [], fn = () => {}) =>

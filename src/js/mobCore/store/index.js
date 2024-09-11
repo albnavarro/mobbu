@@ -18,6 +18,7 @@ import {
     storeDebugValidateEntryPoint,
     storeGetValidationEntryPoint,
 } from './storeDebug';
+import { STORE_SET, STORE_UPDATE } from './constant';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
@@ -64,6 +65,17 @@ export const mobStore = (data = {}) => {
                 value,
                 fireCallback,
                 clone,
+                action: STORE_SET,
+            });
+        },
+        update: (prop, value, fireCallback = true, clone = false) => {
+            storeSetEntryPoint({
+                instanceId,
+                prop,
+                value,
+                fireCallback,
+                clone,
+                action: STORE_UPDATE,
             });
         },
         quickSetProp: (prop, value) => {

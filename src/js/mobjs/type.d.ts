@@ -28,6 +28,8 @@ import {
     PartialWatch,
     PartialWatchParent,
     PartialMethods,
+    PartialUpdateState,
+    PartialUpdateStateByName,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -35,6 +37,7 @@ export type DelegateEvents = PartialDelegateEvents;
 export type BindEvents = PartialBindEvents;
 export type GetState<T> = PartialGetState<T>;
 export type SetState<T> = PartialSetState<T>;
+export type UpdateState<T> = PartialUpdateState<T>;
 export type Emit<T> = PartialEmit<T>;
 export type EmitAsync<T> = PartialEmitAsync<T>;
 export type Computed<T> = PartialCompunted<T>;
@@ -53,6 +56,7 @@ export type RenderComponent = PartialRenderComponent;
 export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
+export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
 export type Repeat<T> = PartialRepeat<T>;
 export type Methods = PartialMethods;
 
@@ -90,18 +94,11 @@ export interface componentPropsType<T, R> {
      * @example
      * ```javascript
      *
-     * //Direct value:
+     * Direct value:
      * setState('myProp', newValue, true);
      * setState('myPropObject', { myProp: newValue, ... });
      *
-     * //Function that return a value:
-     * setState('myProp', (currentValue) => currentValue + 1);
-     *
-     * //Use spread to return a new data without mutate original
-     * setState('myArray', (arr) => [...arr, 1]);
-     * setState('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
-     *
-     * // Use a Map and clone original data.
+     *  Use a Map and clone original data.
      * setState('mySet', (set) => {
      *     set.add(<val>)
      *     return set
@@ -110,6 +107,19 @@ export interface componentPropsType<T, R> {
      * ```
      */
     setState: SetState<T>;
+
+    /**
+     * @example
+     * ```javascript
+     *
+     * Function that return a value:
+     * setState('myProp', (currentValue) => currentValue + 1);
+     *
+     * Use spread to return a new data without mutate original
+     * setState('myObject', (obj) => ({ ...obj, ...{ prop: <val> }}))
+     * ```
+     */
+    updateState: UpdateState<T>;
 
     /**
      * @example

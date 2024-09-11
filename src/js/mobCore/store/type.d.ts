@@ -69,6 +69,8 @@ export interface mobStore<T extends StoreDefaultMap> {
     get: getType<T>;
     getProp: getPropType<T>;
     set: setType<T>;
+    update: updateType<T>;
+    update: setType<T>;
     quickSetProp: quickSetPropType<T>;
     watch: watchType<T>;
     computed: computedType<T>;
@@ -89,7 +91,14 @@ export type getPropType<T> = <K extends keyof T>(
 
 export type setType<T> = <K extends keyof T>(
     prop: Extract<K, string>,
-    value: T[K] | ((arg0: T[K]) => T[K]),
+    value: T[K],
+    fireCallback?: boolean,
+    clone?: boolean
+) => void;
+
+export type updateType<T> = <K extends keyof T>(
+    prop: Extract<K, string>,
+    value: (arg0: T[K]) => T[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -154,12 +163,14 @@ export interface storeSetEntryPoint {
     value: any | ((arg0: any) => any);
     fireCallback?: boolean;
     clone?: boolean;
+    action: 'SET' | 'UPDATE';
 }
 
 export interface storeSetAction extends storeSet {
     instanceId: string;
     useStrict?: boolean;
     state: storeMapValue;
+    action: 'SET' | 'UPDATE';
 }
 
 export interface storeQuickSetEntryPoint {

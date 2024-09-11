@@ -35,7 +35,17 @@ export type PartialGetState<T> = () => T;
  */
 export type PartialSetState<T> = <K extends keyof T>(
     prop: K,
-    value: T[K] | ((arg0: T[K]) => T[K]),
+    value: T[K],
+    fireCallback?: boolean,
+    clone?: boolean
+) => void;
+
+/**
+ * afterState
+ */
+export type PartialUpdateState<T> = <K extends keyof T>(
+    prop: K,
+    value: (arg0: T[K]) => T[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -45,7 +55,17 @@ export type PartialSetState<T> = <K extends keyof T>(
  */
 export type PartialSetStateByName<T> = <K extends keyof T>(
     prop: K,
-    value: T[K] | ((arg0: T[K]) => T[K]),
+    value: T[K],
+    fireCallback?: boolean,
+    clone?: boolean
+) => void;
+
+/**
+ * updateStetByName
+ */
+export type PartialUpdateStateByName<T> = <K extends keyof T>(
+    prop: K,
+    value: (arg0: T[K]) => T[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;

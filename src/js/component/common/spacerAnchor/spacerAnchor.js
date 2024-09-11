@@ -23,7 +23,7 @@ export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
         const shouldAddToAnchor = hasAnchor({ id });
         if (!shouldAddToAnchor) return;
 
-        anchorStore.set('items', (val) => {
+        anchorStore.update('items', (val) => {
             return [...val, { id, label, element }];
         });
 

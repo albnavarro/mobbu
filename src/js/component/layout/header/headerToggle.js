@@ -4,7 +4,7 @@ import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
 const hanburgerHandler = () => {
-    navigationStore.set('navigationIsOpen', (state) => !state);
+    navigationStore.update('navigationIsOpen', (state) => !state);
 };
 
 /**

@@ -74,6 +74,7 @@ export const DynamicListCardFn = ({
     watch,
     id,
     setState,
+    updateState,
     delegateEvents,
     invalidate,
     repeat,
@@ -116,7 +117,7 @@ export const DynamicListCardFn = ({
                     ${delegateEvents({
                         click: () => {
                             if (!elementRef) return;
-                            setState('isSelected', (val) => !val);
+                            updateState('isSelected', (val) => !val);
                             elementRef.classList.toggle('is-selected');
                         },
                     })}

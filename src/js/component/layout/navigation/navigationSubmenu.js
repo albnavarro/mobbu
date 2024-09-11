@@ -33,7 +33,7 @@ export const NavigationSubmenuFn = ({
     onMount,
     html,
     getState,
-    setState,
+    updateState,
     staticProps,
     bindProps,
     watchSync,
@@ -79,7 +79,7 @@ export const NavigationSubmenuFn = ({
                     fireRoute: false,
                     activeId: activeId ?? -1,
                     callback: () => {
-                        setState('isOpen', (prev) => !prev);
+                        updateState('isOpen', (prev) => !prev);
                         const { isOpen } = getState();
                         if (isOpen) callback();
                     },

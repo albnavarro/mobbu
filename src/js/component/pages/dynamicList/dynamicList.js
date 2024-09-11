@@ -107,6 +107,7 @@ function getRepeaters({ bindProps, staticProps }) {
  */
 export const DynamicListFn = async ({
     setState,
+    updateState,
     html,
     onMount,
     staticProps,
@@ -186,7 +187,7 @@ export const DynamicListFn = async ({
                         ${staticProps({ label: '+ counter ( max: 10 )' })}
                         ${delegateEvents({
                             click: async () => {
-                                setState('counter', (prev) => {
+                                updateState('counter', (prev) => {
                                     return prev + 1;
                                 });
                             },
@@ -197,7 +198,7 @@ export const DynamicListFn = async ({
                         ${staticProps({ label: '- counter: ( min 0 )' })}
                         ${delegateEvents({
                             click: async () => {
-                                setState('counter', (prev) => {
+                                updateState('counter', (prev) => {
                                     if (prev > 0) return (prev -= 1);
                                     return prev;
                                 });
