@@ -53,8 +53,8 @@ export interface componentStoreInputTypes extends componentCommonTypes {
 
 export interface componentStoreReturnType {
     getState: getType;
-    setState: updateType;
-    updateState: setType;
+    setState: setType;
+    updateState: updateType;
     emit: emitType;
     emitAsync: emitAsyncType;
     computed: computedType;

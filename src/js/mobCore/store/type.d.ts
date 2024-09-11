@@ -70,7 +70,6 @@ export interface mobStore<T extends StoreDefaultMap> {
     getProp: getPropType<T>;
     set: setType<T>;
     update: updateType<T>;
-    update: setType<T>;
     quickSetProp: quickSetPropType<T>;
     watch: watchType<T>;
     computed: computedType<T>;

@@ -20,7 +20,7 @@ const copyToClipboard = ({ getState }) => {
 
 /**
  * @param {Object} param
- * @param {string} param.sync
+ * @param {() => string} param.sync
  * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay,import('./type').CodeOverlayButton>} param.bindProps
  * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
  * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
