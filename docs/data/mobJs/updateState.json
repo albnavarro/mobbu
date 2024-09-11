@@ -12,7 +12,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "instanceName"
+            "content": "updateState"
         },
         {
             "component": "mob-spacer",
@@ -25,16 +25,30 @@
             "props": {
                 "style": "medium"
             },
-            "content": "It is possible to associate a unique name with a single instance of a component"
+            "content": "The state of the component is actually managed by an instance of the <a href='/#mobCore-store'>store class</a>. The updateState() function is equivalent to myStore.update()."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "The updateState function is often used in conjunction with the <a href='#mobJs-watch'>watch</a> function to update the DOM."
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Component states are declared in the component's <a href='#mobJs-component'>definition</a>"
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/instanceName.js",
+                "source": "./snippets/mobJs/updateState.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 10
+                "numLines": 27
             }
         },
         {
@@ -46,17 +60,16 @@
         {
             "component": "mob-title",
             "props": {
-                "tag": "h3",
-                "isBold": true
+                "tag": "h3"
             },
-            "content": "utils"
+            "content": "UpdateStateByName"
         },
         {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
             },
-            "content": "Using the instance name you can use the following utils:"
+            "content": "It is possible to change the status of a component starting from the instance name:"
         },
         {
             "component": "mob-list",
@@ -64,10 +77,14 @@
                 "tag": "h3",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
-                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>",
-                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
+                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>"
                 ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium"
             }
         }
     ]

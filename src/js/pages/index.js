@@ -252,6 +252,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-updateStateByName',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/updateStateByName.json',
+            title: 'updateStateByName',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs-overview',
+        },
+    },
+    {
         name: 'mobJs-useMethodByName',
         layout: layoutSidebarAnchor,
         props: {
@@ -327,6 +337,16 @@ export const routes = [
         props: {
             source: './data/mobJs/setState.json',
             title: 'setState',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-updateState',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/updateState.json',
+            title: 'updateState',
             section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
         },

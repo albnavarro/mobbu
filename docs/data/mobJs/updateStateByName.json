@@ -14,7 +14,7 @@
                 "tag": "h1",
                 "isBold": true
             },
-            "content": "SetStateByName"
+            "content": "UpdateStateByName"
         },
         {
             "component": "mob-paragraph",
@@ -32,7 +32,7 @@
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/utils-set-state-by-name.js",
+                "source": "./snippets/mobJs/utils-update-state-by-name.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
@@ -59,7 +59,7 @@
                 "dots": false,
                 "items": [
                     "<a href='./#mobJs-instanceName'>Instance name</a>",
-                    "<a href='./#mobJs-setState'>Set state</a>"
+                    "<a href='./#mobJs-updateState'>Update state</a>"
                 ]
             }
         },

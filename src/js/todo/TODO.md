@@ -7,10 +7,6 @@
 # MobCore
 
 ## Store.
-### Update
-- Aggiornare DOCS mobStore && mobJs ( updateState / updateStateByName )
-
-
 ### Transformation
 - Aggiungere `transformation` da eseguire prima della validazione etc ...
 

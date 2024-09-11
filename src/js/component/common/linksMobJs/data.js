@@ -18,6 +18,10 @@ export const items = [
         url: 'mobJs-setState',
     },
     {
+        label: 'updateState',
+        url: 'mobJs-updateState',
+    },
+    {
         label: 'watch',
         url: 'mobJs-watch',
     },

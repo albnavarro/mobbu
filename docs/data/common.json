@@ -220,6 +220,11 @@
                     "url": "mobJs-setState"
                 },
                 {
+                    "label": "updateState",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-updateState"
+                },
+                {
                     "label": "watch",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watch"
@@ -370,6 +375,11 @@
             "label": "setStateByName",
             "scrollToSection": "mobJs",
             "url": "mobJs-setStateByName"
+        },
+        {
+            "label": "updateStateByName",
+            "scrollToSection": "mobJs",
+            "url": "mobJs-updateStateByName"
         },
         {
             "label": "useMethodByName",

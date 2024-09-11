@@ -1,6 +1,6 @@
-export type SetState<T> = <K extends keyof T>(
+export type UpdateState<T> = <K extends keyof T>(
     prop: K,
-    value: T[K],
+    value: (arg0: T[K]) => T[K],
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
@@ -9,11 +9,11 @@ export type SetState<T> = <K extends keyof T>(
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, setState }) => {
+export const MyComponent = ({ html, updateState }) => {
     /**
-     * Mutate label state.
+     * Mutate counter state.
      */
-    setState('label', 'my label');
+    updateState('counter', (value) => (value += 1));
 
     /**
      * DOM component structure.

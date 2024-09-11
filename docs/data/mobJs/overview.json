@@ -125,6 +125,7 @@
                 "items": [
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
                     "<a href='./#mobJs-setStateByName'>SetStateByName</a>",
+                    "<a href='./#mobJs-updateStateByName'>UpdateStateByName</a>",
                     "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
                 ]
             }
@@ -165,6 +166,7 @@
                     "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
                     "<a href='./#mobJs-getState'>getState</a>",
                     "<a href='./#mobJs-setState'>setState</a>",
+                    "<a href='./#mobJs-updateState'>updateState</a>",
                     "<a href='./#mobJs-watch'>watch</a>",
                     "<a href='./#mobJs-watchSync'>watchSync</a>",
                     "<a href='./#mobJs-staticProps'>staticProps</a>",
