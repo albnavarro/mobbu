@@ -12,7 +12,7 @@ let disableObservereffect = false;
  * @param {Object} param
  * @param {any} param.html
  * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
- * @param {string} param.sync
+ * @param {() => string} param.sync
  * @param {import('../../../mobjs/type').SetState<import('./type').ScrollTo>} param.setState
  * @param {import('../../../mobjs/type').GetState<import('./type').ScrollTo>} param.getState
  * @param {import('../../../mobjs/type').BindProps<import('./type').ScrollTo,import('./button/type').ScrollToButton>} param.bindProps

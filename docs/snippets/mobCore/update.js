@@ -15,7 +15,11 @@ const myStore = mobCore.createStore({
 });
 
 // Default
-myStore.set('prop', 2);
+myStore.update('prop', (oldValue) => {
+    return oldValue + 1;
+});
 
 // Object
-myStore.set('myObject', { prop: 10 });
+myStore.update('myObject', (obj) => {
+    return { ...obj, prop: 10 };
+});

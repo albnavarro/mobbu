@@ -295,12 +295,44 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Update store value:"
+            "content": "Set store value:"
         },
         {
             "component": "mob-snippet",
             "props": {
                 "source": "./snippets/mobCore/set.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 27
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "medium",
+                "id": "store-update",
+                "label": "Update"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3"
+            },
+            "content": "Update"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Update store value:"
+        },
+        {
+            "component": "mob-snippet",
+            "props": {
+                "source": "./snippets/mobCore/update.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
