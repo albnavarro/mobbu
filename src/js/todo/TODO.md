@@ -12,11 +12,12 @@
 
 # MobJs
 
-## Repeater
-- `<mobj-fragment>...</mobj-fragment>` valutare l'uso del `fragment` per avere due o piu elementi siblings senza `innerWrapper`.
+## setState/updateState/setStateByName/updateStateByName
+- Manca la propietá clone ereditata da mobStore `clone`
 
 ## Repeater/Invalidate
-- Aggiunger le `refs` alla funzione `afterUpdate`, in modo da avere ref sempre fresche.
+- Aggiungere le `refs` alla funzione `afterUpdate`, in modo da avere ref sempre fresche.
+- `tips`: controllare che le refs non vengano pescate nei componenti annidati, sará possibile ?
 
 
 ## Debug
