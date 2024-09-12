@@ -170,6 +170,7 @@ const setObj = ({
         store,
         type,
         strict,
+        fnTransformation,
         fnValidate,
         validationStatusObject,
         skipEqual,
@@ -204,8 +205,26 @@ const setObj = ({
         return;
     }
 
-    // Check type of each propierties
-    const isValidType = Object.entries(val)
+    /**
+     * Transform value
+     */
+    const valueTransformed = Object.entries(val)
+        .map((item) => {
+            const [subProp, subVal] = item;
+            const subValOld = store[prop][subProp];
+
+            return {
+                [subProp]:
+                    fnTransformation[prop][subProp]?.(subVal, subValOld) ??
+                    subVal,
+            };
+        })
+        .reduce((previous, current) => ({ ...previous, ...current }));
+
+    /**
+     * Check type of each propierties
+     */
+    const isValidType = Object.entries(valueTransformed)
         .map((item) => {
             const [subProp, subVal] = item;
             const typeResponse = checkType(type[prop][subProp], subVal);
@@ -231,7 +250,7 @@ const setObj = ({
     /**
      * Filter all props that pass the strict check.
      */
-    const strictObjectResult = Object.entries(val)
+    const strictObjectResult = Object.entries(valueTransformed)
         .map((item) => {
             const [subProp, subVal] = item;
             const subValOld = store[prop][subProp];
@@ -313,7 +332,7 @@ const setObj = ({
                */
               const dataDepth = maxDepth(value);
               if (dataDepth > 1 && !isCustomObject) {
-                  storeSetObjDepthWarning(prop, val, logStyle);
+                  storeSetObjDepthWarning(prop, valueTransformed, logStyle);
                   return;
               }
 

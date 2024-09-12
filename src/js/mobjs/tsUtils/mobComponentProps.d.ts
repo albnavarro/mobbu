@@ -45,7 +45,7 @@ export type PartialSetState<T> = <K extends keyof T>(
  */
 export type PartialUpdateState<T> = <K extends keyof T>(
     prop: K,
-    value: (arg0: T[K]) => T[K],
+    value: (arg0: T[K]) => Partial<T[K]>,
     fireCallback?: boolean,
     clone?: boolean
 ) => void;
