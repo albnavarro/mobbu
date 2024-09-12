@@ -2184,6 +2184,7 @@
       store,
       type,
       strict,
+      fnTransformation,
       fnValidate,
       validationStatusObject,
       skipEqual,
@@ -2205,7 +2206,14 @@
       storeSetObjKeysWarning(valKeys, prop, logStyle2);
       return;
     }
-    const isValidType = Object.entries(val2).map((item) => {
+    const valueTransformed = Object.entries(val2).map((item) => {
+      const [subProp, subVal] = item;
+      const subValOld = store[prop][subProp];
+      return {
+        [subProp]: fnTransformation[prop][subProp]?.(subVal, subValOld) ?? subVal
+      };
+    }).reduce((previous, current) => ({ ...previous, ...current }));
+    const isValidType = Object.entries(valueTransformed).map((item) => {
       const [subProp, subVal] = item;
       const typeResponse = checkType(type[prop][subProp], subVal);
       if (!typeResponse) {
@@ -2222,7 +2230,7 @@
     if (!isValidType) {
       return;
     }
-    const strictObjectResult = Object.entries(val2).map((item) => {
+    const strictObjectResult = Object.entries(valueTransformed).map((item) => {
       const [subProp, subVal] = item;
       const subValOld = store[prop][subProp];
       return strict[prop][subProp] && useStrict ? {
@@ -2259,7 +2267,7 @@
       const isCustomObject = type[prop][key] === TYPE_IS_ANY;
       const dataDepth = maxDepth(value);
       if (dataDepth > 1 && !isCustomObject) {
-        storeSetObjDepthWarning(prop, val2, logStyle2);
+        storeSetObjDepthWarning(prop, valueTransformed, logStyle2);
         return;
       }
       return checkEquality(
@@ -29336,12 +29344,6 @@ Loading snippet ...</pre
       }),
       key: () => ({
         value: "",
-        transform: (val2) => {
-          return `${val2}-pippo`;
-        },
-        validate: (val2) => {
-          return val2.includes("pippo");
-        },
         strict: true,
         type: String
       }),

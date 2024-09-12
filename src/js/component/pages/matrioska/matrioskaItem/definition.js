@@ -14,12 +14,6 @@ export const MatrioskaItem = createComponent({
         }),
         key: () => ({
             value: '',
-            transform: (val) => {
-                return `${val}-pippo`;
-            },
-            validate: (val) => {
-                return val.includes('pippo');
-            },
             strict: true,
             type: String,
         }),
