@@ -48,6 +48,7 @@ const setProp = ({
 }) => {
     const {
         type,
+        fnTransformation,
         store,
         fnValidate,
         strict,
@@ -75,23 +76,34 @@ const setProp = ({
         return;
     }
 
-    const isValidType = checkType(type[prop], val);
-    if (!isValidType) {
-        storeSetPropTypeWarning(prop, val, type[prop], logStyle);
-        return;
-    }
-
     /**
-     * Update value and fire callback associated
+     * Get old value
      */
     const oldVal = store[prop];
+
+    /**
+     * Transform value
+     */
+    const valueTransformed =
+        /** @type{{[key:string]: ((current: any, previous: any) => any)}} */ (
+            fnTransformation
+        )[prop]?.(val, oldVal) ?? val;
+
+    /**
+     * Validation
+     */
+    const isValidType = checkType(type[prop], val);
+    if (!isValidType) {
+        storeSetPropTypeWarning(prop, valueTransformed, type[prop], logStyle);
+        return;
+    }
 
     /**
      * Get validate status
      */
     const isValidated = /** @type {Object<string,function>} */ (fnValidate)[
         prop
-    ]?.(val, oldVal);
+    ]?.(valueTransformed, oldVal);
 
     /**
      * In strict mode return is prop is not valid
@@ -108,20 +120,20 @@ const setProp = ({
      * if true and skipEqual is true for this prop return.
      */
     const isEqual = skipEqual[prop]
-        ? checkEquality(type[prop], oldVal, val)
+        ? checkEquality(type[prop], oldVal, valueTransformed)
         : false;
     if (isEqual) return;
 
     /**
      * Finally set new value
      */
-    store[prop] = val;
+    store[prop] = valueTransformed;
 
     if (fireCallback) {
         runCallbackQueqe({
             callBackWatcher,
             prop,
-            newValue: val,
+            newValue: valueTransformed,
             oldValue: oldVal,
             validationValue: validationStatusObject[prop],
         });

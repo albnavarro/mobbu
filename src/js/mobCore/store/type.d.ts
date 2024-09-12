@@ -35,6 +35,13 @@ export interface storeMapValue {
                   [key: string]: mobStoreTypeNative | mobStoreTypeAlias;
               };
     };
+    fnTransformation: {
+        [key: string]:
+            | ((current: any, previous: any) => any)
+            | {
+                  [key: string]: (current: any, previous: any) => any;
+              };
+    };
     fnValidate: {
         [key: string]:
             | (() => boolean)
@@ -237,6 +244,13 @@ export type simpleStoreCustomValue = () => {
      *  Es: type: Number || type: 'Number'
      */
     type?: any;
+
+    /**
+     * @description
+     * Function to transform value.
+     * This function will have the current value and old value as input parameter.
+     */
+    transform?: (arg0: any, arg1: any) => boolean;
 
     /**
      * @description

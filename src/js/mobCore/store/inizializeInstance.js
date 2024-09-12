@@ -37,6 +37,13 @@ export const inizializeInstance = (data) => {
             logStyle: getLogStyle(),
             fallback: UNTYPED,
         }),
+        fnTransformation: inizializeSpecificProp({
+            data,
+            prop: 'transform',
+            depth: dataDepth,
+            logStyle: getLogStyle(),
+            fallback: (/** @type {any} */ value) => value,
+        }),
         fnValidate: inizializeSpecificProp({
             data,
             prop: 'validate',
