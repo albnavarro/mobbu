@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @param {string} value
- */
+/** @param {string} value */
 function setContent(value) {
     return `slotted: ${value}`;
 }
@@ -12,9 +10,7 @@ function setContent(value) {
  * @import { DynamicListSlottedLabel } from './type';
  **/
 
-/**
- * @type {MobComponent<DynamicListSlottedLabel>}
- **/
+/** @type {MobComponent<DynamicListSlottedLabel>} **/
 export const DynamicListSlottedLabelFn = ({
     html,
     onMount,

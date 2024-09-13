@@ -72,9 +72,7 @@ function getRepeaterCard({
     `;
 }
 
-/**
- * @param {string[]} id
- **/
+/** @param {string[]} id **/
 function updateNewElement(id) {
     return `<strong>Current cards id:</strong> ${id
         .join(',')
@@ -96,9 +94,7 @@ function afterUpdateList({ element, className, childrenId }) {
     newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
 }
 
-/**
- * @type {MobComponent<DynamicListRepeater>}
- */
+/** @type {MobComponent<DynamicListRepeater>} */
 export const DynamicListRepeaterFn = ({
     getState,
     html,

@@ -3,7 +3,7 @@
 /**
  * @import { MobComponent } from "../../../../mobjs/type";
  * @import { MatrioskaItem } from "./type";
- */
+ **/
 
 /** @type { MobComponent<MatrioskaItem> } */
 export const MatrioskaItemFn = ({

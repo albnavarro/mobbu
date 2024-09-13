@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>}
- */
+/** @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListButton>} */
 export const DynamicListButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label } = getState();
 

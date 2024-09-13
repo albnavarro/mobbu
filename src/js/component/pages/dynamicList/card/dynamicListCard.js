@@ -20,9 +20,7 @@ function updateContent(label, val) {
     return `${label}: ${val}`;
 }
 
-/**
- * @param {number} numberOfItem
- */
+/** @param {number} numberOfItem */
 function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
 }
@@ -61,9 +59,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
     `;
 };
 
-/**
- * @type {MobComponent<DynamicListCard>}
- */
+/** @type {MobComponent<DynamicListCard>} */
 export const DynamicListCardFn = ({
     getState,
     html,

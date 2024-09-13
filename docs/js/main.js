@@ -28121,7 +28121,7 @@ Loading snippet ...</pre
                     class="c-dynamic-list__top__button"
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
-        click: async () => {
+        click: () => {
           setState("data", data3);
           setState("activeSample", index);
         }

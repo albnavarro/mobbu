@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @type {import("../../../../../mobjs/type").MobComponent<import("./type").DynamicListCardInner>}
- */
+/** @type {import("../../../../../mobjs/type").MobComponent<import("./type").DynamicListCardInner>} */
 export const DynamicListCardInnerFn = async ({
     watch,
     onMount,

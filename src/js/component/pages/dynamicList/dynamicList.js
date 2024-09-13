@@ -2,10 +2,11 @@
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
- * @import { SetState, StaticProps, DelegateEvents, BindProps  } from '../../../mobjs/type';
+ * @import { SetState, StaticProps, DelegateEvents, BindProps, SetStateByName  } from '../../../mobjs/type';
  * @import { DynamicList } from './type';
  * @import { DynamicListButton } from './button/type';]
  * @import { DynamicListRepeater } from './repeaters/type';]
+ * @import { CodeButton } from '../../common/codeButton/type';
  **/
 
 import { getLegendData } from '../../../data';
@@ -66,7 +67,7 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
                     class="c-dynamic-list__top__button"
                     ${staticProps({ label: buttonLabel })}
                     ${delegateEvents({
-                        click: async () => {
+                        click: () => {
                             setState('data', data);
                             setState('activeSample', index);
                         },
@@ -110,9 +111,7 @@ function getRepeaters({ bindProps, staticProps }) {
         .join('');
 }
 
-/**
- * @type {MobComponent<DynamicList>}
- */
+/** @type {MobComponent<DynamicList>} */
 export const DynamicListFn = ({
     setState,
     updateState,
@@ -124,9 +123,7 @@ export const DynamicListFn = ({
     watchSync,
     invalidate,
 }) => {
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
-     */
+    /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ refs }) => {
