@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, SetState, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -32,18 +32,6 @@ const buttons = [
     },
 ];
 
-/**
- * @param {Array<{key:number, value:string}>} array
- * @returns {Array<{key:number, value:string}>}
- */
-const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-};
-
 /** @param {number} max */
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -68,16 +56,6 @@ const getButtons = ({ delegateEvents, updateState }) => {
                                         button.state
                                     ),
                                     (val) => {
-                                        /** Shuffle level3 */
-                                        if (button.state === 'level3')
-                                            return shuffle([
-                                                ...val,
-                                                {
-                                                    key: getRandomInt(1000),
-                                                    value: mobCore.getUnivoqueId(),
-                                                },
-                                            ]);
-
                                         return [
                                             ...val,
                                             {

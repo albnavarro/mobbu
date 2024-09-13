@@ -29018,13 +29018,6 @@ Loading snippet ...</pre
       label_minus: "level3 -"
     }
   ];
-  var shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
   function getRandomInt2(max2) {
     return Math.floor(Math.random() * max2);
   }
@@ -29040,14 +29033,6 @@ Loading snippet ...</pre
             /** @type {keyof Matrioska} */
             button.state,
             (val2) => {
-              if (button.state === "level3")
-                return shuffle([
-                  ...val2,
-                  {
-                    key: getRandomInt2(1e3),
-                    value: mobCore.getUnivoqueId()
-                  }
-                ]);
               return [
                 ...val2,
                 {
@@ -29360,6 +29345,13 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/matrioska/definition.js
+  var shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   var Matrioska = createComponent({
     name: "page-matrioska",
     component: MatrioskaFn,
@@ -29386,6 +29378,7 @@ Loading snippet ...</pre
           { key: 2, value: mobCore.getUnivoqueId() }
         ],
         type: Array,
+        transform: (val2) => shuffle(val2),
         validate: (val2) => val2.length <= 10,
         strict: true
       })
