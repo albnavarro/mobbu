@@ -24743,40 +24743,37 @@ Loading snippet ...</pre
 
   // src/js/component/common/scrollTo/scrollTo.js
   var disableObservereffect = false;
-  function addScrollButton({
-    html,
-    delegateEvents,
-    sync,
-    setState,
-    bindProps,
-    getState
-  }) {
-    return html`<li>
-        <scroll-to-button
-            ${delegateEvents({
-      click: async (_e, index) => {
-        const { anchorItems } = getState();
-        const { id: scroll, label, element } = anchorItems[index];
-        const offsetTop = scroll === "start" ? 0 : offset(element).top - 50;
-        disableObservereffect = true;
-        setState("activeLabel", label);
-        await bodyScroll.to(offsetTop);
-        disableObservereffect = false;
-      }
-    })}
-            ${bindProps({
-      bind: ["activeLabel"],
-      props: ({ activeLabel, anchorItems }, index) => {
-        return {
-          active: activeLabel === anchorItems[index]?.label,
-          label: anchorItems[index]?.label
-        };
-      }
-    })}
-            ${sync()}
-        >
-        </scroll-to-button>
-    </li> `;
+  function getButtons({ delegateEvents, setState, bindProps, getState }) {
+    const { anchorItems } = getState();
+    return anchorItems.map((item) => {
+      return renderHtml`
+                <li>
+                    <scroll-to-button
+                        ${delegateEvents({
+        click: async () => {
+          const { id: scroll, label, element } = item;
+          const offsetTop = scroll === "start" ? 0 : offset(element).top - 50;
+          disableObservereffect = true;
+          setState("activeLabel", label);
+          await bodyScroll.to(offsetTop);
+          disableObservereffect = false;
+        }
+      })}
+                        ${bindProps({
+        bind: ["activeLabel"],
+        props: ({ activeLabel }) => {
+          const { label } = item;
+          return {
+            active: activeLabel === label,
+            label
+          };
+        }
+      })}
+                    >
+                    </scroll-to-button>
+                </li>
+            `;
+    }).join("");
   }
   var ScrollToFn = ({
     html,
@@ -24785,7 +24782,7 @@ Loading snippet ...</pre
     bindProps,
     setState,
     getState,
-    repeat
+    invalidate
   }) => {
     onMount(() => {
       if (motionCore.mq("max", "large")) return;
@@ -24812,18 +24809,14 @@ Loading snippet ...</pre
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${repeat({
-      clean: false,
+                ${invalidate({
       bind: "anchorItems",
-      key: "id",
-      render: ({ html: html2, sync }) => {
-        return addScrollButton({
-          html: html2,
+      render: () => {
+        return getButtons({
           delegateEvents,
           bindProps,
           setState,
-          getState,
-          sync
+          getState
         });
       }
     })}
@@ -29021,7 +29014,7 @@ Loading snippet ...</pre
   function getRandomInt2(max2) {
     return Math.floor(Math.random() * max2);
   }
-  var getButtons = ({ delegateEvents, updateState }) => {
+  var getButtons2 = ({ delegateEvents, updateState }) => {
     return renderHtml`
         ${buttons3.map((button) => {
       return renderHtml` <div class="matrioska__head__item">
@@ -29230,7 +29223,7 @@ Loading snippet ...</pre
     return html`<div class="matrioska">
         <only-desktop></only-desktop>
         <div class="matrioska__head">
-            ${getButtons({ delegateEvents, updateState })}
+            ${getButtons2({ delegateEvents, updateState })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.

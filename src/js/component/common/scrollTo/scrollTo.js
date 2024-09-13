@@ -1,7 +1,14 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { DelegateEvents, SetState, GetState, BindProps } from '../../../mobjs/type';
+ * @import {ScrollTo} from './type'
+ * @import {ScrollToButton} from './button/type'
+ */
+
 import { offset } from '../../../mobCore/utils';
-import { tick } from '../../../mobjs';
+import { html, tick } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 import { bodyScroll } from '../../../mobMotion/plugin';
 import { anchorStore } from './scrollToStore';
@@ -10,62 +17,63 @@ let disableObservereffect = false;
 
 /**
  * @param {Object} param
- * @param {any} param.html
- * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
- * @param {() => string} param.sync
- * @param {import('../../../mobjs/type').SetState<import('./type').ScrollTo>} param.setState
- * @param {import('../../../mobjs/type').GetState<import('./type').ScrollTo>} param.getState
- * @param {import('../../../mobjs/type').BindProps<import('./type').ScrollTo,import('./button/type').ScrollToButton>} param.bindProps
+ * @param {DelegateEvents} param.delegateEvents
+ * @param {SetState<ScrollTo>} param.setState
+ * @param {GetState<ScrollTo>} param.getState
+ * @param {BindProps<ScrollTo,ScrollToButton>} param.bindProps
  * @returns {string}
  */
-function addScrollButton({
-    html,
-    delegateEvents,
-    sync,
-    setState,
-    bindProps,
-    getState,
-}) {
-    return html`<li>
-        <scroll-to-button
-            ${delegateEvents({
-                click: async (_e, index) => {
-                    const { anchorItems } = getState();
-                    const { id: scroll, label, element } = anchorItems[index];
+function getButtons({ delegateEvents, setState, bindProps, getState }) {
+    const { anchorItems } = getState();
 
-                    const offsetTop =
-                        scroll === 'start' ? 0 : offset(element).top - 50;
+    return anchorItems
+        .map((item) => {
+            return html`
+                <li>
+                    <scroll-to-button
+                        ${delegateEvents({
+                            click: async () => {
+                                const { id: scroll, label, element } = item;
 
-                    /**
-                     * Disable spacerAnchor observer effect during scroll.
-                     */
-                    disableObservereffect = true;
-                    setState('activeLabel', label);
-                    await bodyScroll.to(offsetTop);
+                                const offsetTop =
+                                    scroll === 'start'
+                                        ? 0
+                                        : offset(element).top - 50;
 
-                    /**
-                     * back to enable spacerAnchor observer.
-                     */
-                    disableObservereffect = false;
-                },
-            })}
-            ${bindProps({
-                bind: ['activeLabel'],
-                props: ({ activeLabel, anchorItems }, index) => {
-                    return {
-                        active: activeLabel === anchorItems[index]?.label,
-                        label: anchorItems[index]?.label,
-                    };
-                },
-            })}
-            ${sync()}
-        >
-        </scroll-to-button>
-    </li> `;
+                                /**
+                                 * Disable spacerAnchor observer effect during scroll.
+                                 */
+                                disableObservereffect = true;
+                                setState('activeLabel', label);
+                                await bodyScroll.to(offsetTop);
+
+                                /**
+                                 * back to enable spacerAnchor observer.
+                                 */
+                                disableObservereffect = false;
+                            },
+                        })}
+                        ${bindProps({
+                            bind: ['activeLabel'],
+                            props: ({ activeLabel }) => {
+                                const { label } = item;
+
+                                return {
+                                    active: activeLabel === label,
+                                    label,
+                                };
+                            },
+                        })}
+                    >
+                    </scroll-to-button>
+                </li>
+            `;
+        })
+        .join('');
 }
 
 /**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').ScrollTo>}
+ * @type {MobComponent<ScrollTo>}
  */
 export const ScrollToFn = ({
     html,
@@ -74,7 +82,7 @@ export const ScrollToFn = ({
     bindProps,
     setState,
     getState,
-    repeat,
+    invalidate,
 }) => {
     onMount(() => {
         if (motionCore.mq('max', 'large')) return;
@@ -107,18 +115,14 @@ export const ScrollToFn = ({
     return html`
         <div class="c-scroll-to">
             <ul ref="list">
-                ${repeat({
-                    clean: false,
+                ${invalidate({
                     bind: 'anchorItems',
-                    key: 'id',
-                    render: ({ html, sync }) => {
-                        return addScrollButton({
-                            html,
+                    render: () => {
+                        return getButtons({
                             delegateEvents,
                             bindProps,
                             setState,
                             getState,
-                            sync,
                         });
                     },
                 })}
