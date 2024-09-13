@@ -146,7 +146,7 @@ export const getParamsForComponentFunction = ({
             setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
         },
         html: (strings, ...values) => {
-            return renderHtml(strings, ...values);
+            return Promise.resolve(renderHtml(strings, ...values));
         },
 
         onMount: (cb) => addOnMoutCallback({ id, cb }),
