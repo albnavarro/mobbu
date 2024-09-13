@@ -48,6 +48,7 @@
                 "tag": "h3",
                 "items": [
                     "Optional Dynamic type check",
+                    "Optional Transformation function",
                     "Optional Validation function",
                     "Optional Equal check"
                 ]
@@ -201,6 +202,26 @@
                     "<span class='quote'>'Any'</span>"
                 ]
             }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "transform"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "Function that transforms the value before being validated"
         },
         {
             "component": "mob-spacer",

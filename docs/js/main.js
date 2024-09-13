@@ -2142,7 +2142,7 @@
       /** @type{{[key:string]: ((current: any, previous: any) => any)}} */
       fnTransformation[prop]?.(val2, oldVal) ?? val2
     );
-    const isValidType = checkType(type[prop], val2);
+    const isValidType = checkType(type[prop], valueTransformed);
     if (!isValidType) {
       storeSetPropTypeWarning(prop, valueTransformed, type[prop], logStyle2);
       return;
