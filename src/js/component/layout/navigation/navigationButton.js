@@ -1,12 +1,15 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { NavigationButton } from './type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import { loadUrl, mainStore, MAIN_STORE_ACTIVE_ROUTE } from '../../../mobjs';
 import { navigationStore } from './store/navStore';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationButton>}
- */
+/** @type {MobComponent<NavigationButton>} */
 export const NavigationButtonFn = ({
     getState,
     html,

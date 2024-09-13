@@ -2,9 +2,7 @@
 
 import { tween } from '../../../mobMotion';
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').Loader>}
- */
+/** @type {import("../../../mobjs/type").MobComponent<import('./type').Loader>} */
 export const LoaderFn = ({ onMount, html, watch, remove, getState }) => {
     const { position } = getState();
 

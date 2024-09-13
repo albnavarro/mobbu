@@ -1,12 +1,15 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';]
+ * @import { QuickNav } from './type';
+ **/
+
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
 import { motionCore } from '../../../mobMotion';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').QuickNav>}
- */
+/** @type {MobComponent<QuickNav>} */
 export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';

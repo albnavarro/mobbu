@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import { navigationStore } from '../navigation/store/navStore';
 
@@ -7,9 +11,7 @@ const hanburgerHandler = () => {
     navigationStore.update('navigationIsOpen', (state) => !state);
 };
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {MobComponent} */
 export const HeaderToggleFn = ({ onMount, html, delegateEvents }) => {
     onMount(({ element }) => {
         navigationStore.watch('navigationIsOpen', (val) => {

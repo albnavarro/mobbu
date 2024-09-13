@@ -1,5 +1,11 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { StaticProps, SetState, BindProps } from '../../../mobjs/type';
+ * @import { Navigation, NavigationSubmenu } from './type';
+ **/
+
 import { getCommonData } from '../../../data';
 import { html } from '../../../mobjs';
 
@@ -9,11 +15,10 @@ import { html } from '../../../mobjs';
  *
  * @param {object} param
  * @param {any} param.data
- * @param {import('../../../mobjs/type').StaticProps} param.staticProps
- * @param {import('../../../mobjs/type').SetState<import('./type').Navigation>} param.setState
- * @param {import('../../../mobjs/type').BindProps<import('./type').Navigation,import('./type').NavigationSubmenu>} param.bindProps
- *
- */
+ * @param {StaticProps} param.staticProps
+ * @param {SetState<Navigation>} param.setState
+ * @param {BindProps<Navigation,NavigationSubmenu>} param.bindProps
+ **/
 function getItems({ data, staticProps, setState, bindProps }) {
     return data
         .map((item, index) => {
@@ -75,9 +80,7 @@ function getItems({ data, staticProps, setState, bindProps }) {
         .join('');
 }
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').Navigation>}
- */
+/** @type {MobComponent<Navigation>} */
 export const NavigationFn = ({
     html,
     staticProps,

@@ -72,7 +72,7 @@ interface StoreDefaultMap {
     [prop: string]: any;
 }
 
-export interface mobStore<T extends StoreDefaultMap> {
+export interface MobStore<T extends StoreDefaultMap> {
     get: getType<T>;
     getProp: getPropType<T>;
     set: setType<T>;

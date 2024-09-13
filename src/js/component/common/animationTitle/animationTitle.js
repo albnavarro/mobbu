@@ -1,11 +1,14 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { AnimationTitle } from './type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').AnimationTitle>}
- */
+/** @type {MobComponent<AnimationTitle>} */
 export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     onMount(({ element, ref }) => {
         if (motionCore.mq('max', 'desktop')) return;

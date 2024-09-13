@@ -1,11 +1,14 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { ScrollDownLabel } from './type';
+ **/
+
 // @ts-ignore
 import arrow from '../../../../svg/scroll_arrow.svg';
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').ScrollDownLabel>}
- */
+/** @type {MobComponent<ScrollDownLabel>} */
 export const ScrollDownLabelFn = ({ html, onMount, getState, watchSync }) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';

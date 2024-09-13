@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ **/
+
 import { html, loadUrl } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { navigationStore } from '../../navigation/store/navStore';
@@ -63,9 +67,7 @@ const getItems = ({ delegateEvents, staticProps }) => {
         .join('');
 };
 
-/**
- * @type {import("../../../../mobjs/type").MobComponent}
- */
+/** @type {import("../../../../mobjs/type").MobComponent} */
 export const FooterNavFn = ({ html, delegateEvents, staticProps }) => {
     if (motionCore.mq('max', 'desktop')) return html` <span></span> `;
 

@@ -1,5 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { Mv1Def } from './type';
+ * @import { SetStateByName } from '../../../../mobjs/type';
+ * @import { QuickNav } from '../../../common/nextPage/type';
+ * @import { AnimationTitle } from '../../../common/animationTitle/type';
+ **/
+
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { mv1Animation } from './animation';
@@ -9,23 +17,17 @@ const playAnimation = async ({ playIntro, playSvg }) => {
     playSvg();
 };
 
-/**
- * @type {import('../../../../mobjs/type').MobComponent<import('./style').Mv1Def>}
- */
+/** @type {MobComponent<Mv1Def>} */
 export const Mv1Component = ({ html, onMount, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
     const { logo, sideShape } = isDesktop
         ? getState()
         : { logo: '', sideShape: '' };
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
-     */
+    /** @type {SetStateByName<QuickNav>} */
     const setQuickNavState = setStateByName('quick_nav');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
-     */
+    /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
     onMount(({ refs, ref }) => {

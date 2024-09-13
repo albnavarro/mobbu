@@ -1,5 +1,10 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { RouteLoader } from './type';
+ **/
+
 import {
     mainStore,
     MAIN_STORE_AFTER_ROUTE_CHANGE,
@@ -7,9 +12,7 @@ import {
 } from '../../../mobjs';
 import { tween } from '../../../mobMotion';
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').RouteLoader>}
- */
+/** @type {MobComponent<RouteLoader>} */
 export const RouteLoaderFn = ({ html, onMount }) => {
     onMount(({ element }) => {
         element.classList.add('disable');

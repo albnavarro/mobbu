@@ -1,5 +1,10 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { Snippet } from './type';
+ **/
+
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { loadTextContent } from '../../../utils/utils';
@@ -30,9 +35,7 @@ const loadSnippet = async ({ ref, source }) => {
     ref.style.height = '';
 };
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').Snippet>}
- */
+/** @type {MobComponent<Snippet>} */
 export const SnippetFn = ({ html, onMount, getState }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? 'is-full' : '';

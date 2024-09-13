@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ **/
+
 import {
     componentMap,
     eventDelegationMap,
@@ -24,9 +28,7 @@ import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targ
 import { staticPropsMap } from '../../../mobjs/modules/staticProps';
 import { getUserChildPlaceholderSize } from '../../../mobjs/webComponent/usePlaceHolderToRender';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {MobComponent} */
 export const DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
         <button

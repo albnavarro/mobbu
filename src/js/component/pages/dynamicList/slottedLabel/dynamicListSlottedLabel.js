@@ -1,13 +1,21 @@
 //@ts-check
 
+/**
+ * @param {string} value
+ */
 function setContent(value) {
     return `slotted: ${value}`;
 }
 
 /**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListSlottedLabel>}
- */
-export const DynamicListSlottedLabelFn = async ({
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { DynamicListSlottedLabel } from './type';
+ **/
+
+/**
+ * @type {MobComponent<DynamicListSlottedLabel>}
+ **/
+export const DynamicListSlottedLabelFn = ({
     html,
     onMount,
     watch,

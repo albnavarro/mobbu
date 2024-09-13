@@ -1,36 +1,36 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { ScrollerN0 } from './type';
+ * @import { SetStateByName } from '../../../../mobjs/type';
+ * @import { ScrollDownLabel } from '../../../common/scrolldownLabel/type';
+ * @import { QuickNav } from '../../../common/nextPage/type';
+ * @import { AnimationTitle } from '../../../common/animationTitle/type';
+ * @import { CodeButton } from '../../../common/codeButton/type';]
+ **/
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { scrollerN0Animation } from './animation/animation';
 
-/**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').ScrollerN0>}
- */
+/** @type {MobComponent<ScrollerN0>} */
 export const ScrollerN0Fn = ({ onMount, html, getState }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = '#000000';
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/scrolldownLabel/type').ScrollDownLabel>}
-     */
+    /** @type {SetStateByName<ScrollDownLabel>} */
     const setScrollDownState = setStateByName('scroll_down_label');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
-     */
+    /** @type {SetStateByName<QuickNav>} */
     const setQuickNavState = setStateByName('quick_nav');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
-     */
+    /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/codeButton/type').CodeButton>}
-     */
+    /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ ref }) => {

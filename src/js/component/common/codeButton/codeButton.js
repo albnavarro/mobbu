@@ -1,13 +1,17 @@
 //@ts-check
 
+/**
+ * @import { MobComponent, SetStateByName } from '../../../mobjs/type';
+ * @import { CodeButton } from './type';]
+ * @import { CodeOverlay } from '../codeOverlay/type';]
+ **/
+
 // @ts-ignore
 import codeIcon from '../../../../svg/icon-code.svg';
 import { setStateByName } from '../../../mobjs';
 import { navigationStore } from '../../layout/navigation/store/navStore';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').CodeButton>}
- */
+/** @type {MobComponent<CodeButton>} */
 export const CodeButtonFn = ({
     getState,
     watchSync,
@@ -15,9 +19,7 @@ export const CodeButtonFn = ({
     html,
     delegateEvents,
 }) => {
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../codeOverlay/type').CodeOverlay>}
-     */
+    /** @type {SetStateByName<CodeOverlay>} */
     const setCodeOvrlayState = setStateByName('codeOverlay');
 
     onMount(({ element }) => {

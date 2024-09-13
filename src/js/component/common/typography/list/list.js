@@ -1,14 +1,17 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { List } from './type';
+ **/
+
 import { html } from '../../../../mobjs';
 
 const getList = ({ items }) => {
     return items.map((item) => html` <li>${item}</li> `).join('');
 };
 
-/**
- * @type {import("../../../../mobjs/type").MobComponent<import('./type').List>}
- */
+/** @type {MobComponent<List>} */
 export const ListFn = ({ html, getState }) => {
     const { style, color, items, dots } = getState();
 

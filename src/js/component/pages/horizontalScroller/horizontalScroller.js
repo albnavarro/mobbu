@@ -1,5 +1,15 @@
 //@ts-check
 
+/**
+ * @import { MobComponent, SetState, BindProps, StaticProps, DelegateEvents } from '../../../mobjs/type';
+ * @import { HorizontalScroller } from './type';
+ * @import { HorizontalScrollerButton } from './horizontalScrollerButton/type';
+ * @import { SetStateByName } from '../../../mobjs/type';
+ * @import { QuickNav } from '../../common/nextPage/type';
+ * @import { AnimationTitle } from '../../common/animationTitle/type';
+ * @import { CodeButton } from '../../common/codeButton/type';]
+ **/
+
 import { getLegendData } from '../../../data';
 import { offset, outerHeight } from '../../../mobCore/utils';
 import { html, setStateByName } from '../../../mobjs';
@@ -27,10 +37,10 @@ const getColumns = ({ numOfCol, pinIsVisible, staticProps }) => {
 /**
  * @param {object} param
  * @param {number} param.numOfCol
- * @param {import('../../../mobjs/type').SetState<import('./type').HorizontalScroller>} param.setState
- * @param {import('../../../mobjs/type').BindProps<import('./type').HorizontalScroller, import('./horizontalScrollerButton/type').HorizontalScrollerButton>} param.bindProps
- * @param {import('../../../mobjs/type').StaticProps} param.staticProps
- * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
+ * @param {SetState<HorizontalScroller>} param.setState
+ * @param {BindProps<HorizontalScroller, HorizontalScrollerButton>} param.bindProps
+ * @param {StaticProps} param.staticProps
+ * @param {DelegateEvents} param.delegateEvents
  */
 const getNav = ({
     numOfCol,
@@ -65,9 +75,7 @@ const getNav = ({
         .join('');
 };
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').HorizontalScroller>}
- */
+/** @type {MobComponent<HorizontalScroller>} */
 export const HorizontalScrollerFn = ({
     onMount,
     html,
@@ -80,19 +88,13 @@ export const HorizontalScrollerFn = ({
 }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/nextPage/type').QuickNav>}
-     */
+    /** @type {SetStateByName<QuickNav>} */
     const setQuickNavState = setStateByName('quick_nav');
 
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/animationTitle/type').AnimationTitle>}
-     */
+    /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
-     */
+    /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ element, ref }) => {

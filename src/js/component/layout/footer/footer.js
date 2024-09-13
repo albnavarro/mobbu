@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @type {import("../../../mobjs/type").MobComponent}
- */
+/** @type {import("../../../mobjs/type").MobComponent} */
 export const FooterFn = ({ html }) => {
     return html`
         <footer class="l-footer">

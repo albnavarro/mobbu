@@ -1,13 +1,16 @@
 //@ts-check
 
+/**
+ * @import { MobComponent, SetStateByName } from '../../../mobjs/type';
+ * @import { MLogo1 } from '../mLogo1/type';
+ **/
+
 import { setStateByName } from '../../../mobjs';
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {MobComponent} */
 export const DocContainerFn = ({ html, onMount }) => {
     /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../mLogo1/type').MLogo1>}
+     * @type {SetStateByName<MLogo1>}
      */
     const setLogoState = setStateByName('m1_logo');
 

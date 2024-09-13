@@ -1,5 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { SetState, StaticProps, DelegateEvents, BindProps  } from '../../../mobjs/type';
+ * @import { DynamicList } from './type';
+ * @import { DynamicListButton } from './button/type';]
+ * @import { DynamicListRepeater } from './repeaters/type';]
+ **/
+
 import { getLegendData } from '../../../data';
 import { html, setStateByName } from '../../../mobjs';
 import { startData, state1, state2, state3 } from './data';
@@ -43,10 +51,10 @@ const repeaters = [
 
 /**
  * @param {object} param
- * @param {import('../../../mobjs/type').SetState<import('./type').DynamicList>} param.setState
- * @param {import('../../../mobjs/type').StaticProps} param.staticProps
- * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
- * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList,import('./button/type').DynamicListButton>} param.bindProps
+ * @param {SetState<DynamicList>} param.setState
+ * @param {StaticProps} param.staticProps
+ * @param {DelegateEvents} param.delegateEvents
+ * @param {BindProps<DynamicList,DynamicListButton>} param.bindProps
  */
 function getButton({ setState, staticProps, delegateEvents, bindProps }) {
     return buttons
@@ -79,8 +87,8 @@ function getButton({ setState, staticProps, delegateEvents, bindProps }) {
 
 /**
  * @param {object} param
- * @param {import('../../../mobjs/type').StaticProps} param.staticProps
- * @param {import('../../../mobjs/type').BindProps<import('./type').DynamicList, import('./repeaters/type').DynamicListRepeater>} param.bindProps
+ * @param {StaticProps} param.staticProps
+ * @param {BindProps<DynamicList, DynamicListRepeater>} param.bindProps
  */
 function getRepeaters({ bindProps, staticProps }) {
     return repeaters
@@ -103,9 +111,9 @@ function getRepeaters({ bindProps, staticProps }) {
 }
 
 /**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').DynamicList>}
+ * @type {MobComponent<DynamicList>}
  */
-export const DynamicListFn = async ({
+export const DynamicListFn = ({
     setState,
     updateState,
     html,

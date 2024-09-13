@@ -6,7 +6,7 @@ import { mobCore } from '../../../../mobCore';
  * @description
  * Navigation store utils.
  *
- * @type {import('../../../../mobCore/store/type').mobStore<import('./type').NavigationStore>}
+ * @type {import('../../../../mobCore/store/type').MobStore<import('./type').NavigationStore>}
  */
 export const navigationStore = mobCore.createStore({
     activeNavigationSection: () => ({

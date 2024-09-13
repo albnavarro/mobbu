@@ -1,11 +1,14 @@
 //@ts-check
 
+/**
+ * @import { MobStore } from '../../../mobCore/store/type';
+ * @import { AnchorStore } from './type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import { mainStore, MAIN_STORE_BEFORE_ROUTE_CHANGE } from '../../../mobjs';
 
-/**
- * @type {import('../../../mobCore/store/type').mobStore<import('./type').AnchorStore>}
- */
+/** @type {MobStore<AnchorStore>} */
 export const anchorStore = mobCore.createStore({
     items: () => ({
         value: [],

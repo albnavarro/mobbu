@@ -22,7 +22,7 @@ import { STORE_SET, STORE_UPDATE } from './constant';
 
 /**
  * @param {import('./type').mobStoreBaseData} data
- * @returns {import('./type').mobStore}
+ * @returns {import('./type').MobStore}
  */
 export const mobStore = (data = {}) => {
     /**

@@ -1,5 +1,10 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { NavigationSubmenu } from './type';
+ **/
+
 import { html, useMethodByName } from '../../../mobjs';
 import { slide } from '../../../mobMotion/plugin';
 
@@ -27,7 +32,7 @@ function getSubmenu({ children, staticProps, callback }) {
 }
 
 /**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').NavigationSubmenu>}
+ * @type {MobComponent<NavigationSubmenu>}
  */
 export const NavigationSubmenuFn = ({
     onMount,

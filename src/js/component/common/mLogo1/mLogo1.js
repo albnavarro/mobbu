@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').MLogo1>}
- */
+/** @type {import('../../../mobjs/type').MobComponent<import('./type').MLogo1>} */
 export const Mlogo1Fn = ({ html, onMount, getState, watchSync }) => {
     const { svg, active } = getState();
     const activeClass = active ? 'active' : '';

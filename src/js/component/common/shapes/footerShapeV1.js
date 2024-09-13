@@ -1,10 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { FooterShapeV1 } from './type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').FooterShapeV1>}
- */
+/** @type {MobComponent<FooterShapeV1>} */
 export const FooterShapeV1Fn = ({ html, onMount, getState }) => {
     const { svg, position } = getState();
     const positionClass = `shape-v1--${position}`;

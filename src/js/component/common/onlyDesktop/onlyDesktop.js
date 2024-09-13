@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
@@ -19,9 +23,7 @@ const onResize = ({ element }) => {
     element.insertAdjacentHTML('afterbegin', content);
 };
 
-/**
- * @type {import("../../../mobjs/type").MobComponent}
- */
+/** @type {MobComponent} */
 export const OnlyDesktopFn = ({ html, onMount }) => {
     onMount(({ element }) => {
         onResize({ element });

@@ -1,15 +1,22 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { StaticProps, GetState, BindProps, DelegateEvents } from '../../../../mobjs/type';
+ * @import { DynamicListCard } from '../card/type';
+ * @import { DynamicListRepeater } from './type';
+ **/
+
 import { html } from '../../../../mobjs';
 
 /**
  * @param {object} param
  * @param {() => string} param.sync
- * @param {import('../../../../mobjs/type').StaticProps<import('../card/type').DynamicListCard>} param.staticProps
- * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListRepeater>} param.getState
- * @param {import('../../../../mobjs/type').BindProps<import('./type').DynamicListRepeater>} param.bindProps
+ * @param {StaticProps<DynamicListCard>} param.staticProps
+ * @param {GetState<DynamicListRepeater>} param.getState
+ * @param {BindProps<DynamicListRepeater>} param.bindProps
  * @param {number} param.listId
- * @param {import('../../../../mobjs/type').DelegateEvents} param.delegateEvents
+ * @param {DelegateEvents} param.delegateEvents
  */
 function getRepeaterCard({
     sync,
@@ -65,20 +72,32 @@ function getRepeaterCard({
     `;
 }
 
+/**
+ * @param {string[]} id
+ **/
 function updateNewElement(id) {
     return `<strong>Current cards id:</strong> ${id
         .join(',')
+        // @ts-ignore
         .replaceAll(',', ' | ')}`;
 }
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @param {string} params.className
+ * @param {string[]} params.childrenId
+ **/
 function afterUpdateList({ element, className, childrenId }) {
     const newElement = element.querySelector(className);
+    if (!newElement) return;
+
     newElement.textContent = '';
     newElement.insertAdjacentHTML('afterbegin', updateNewElement(childrenId));
 }
 
 /**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListRepeater>}
+ * @type {MobComponent<DynamicListRepeater>}
  */
 export const DynamicListRepeaterFn = ({
     getState,

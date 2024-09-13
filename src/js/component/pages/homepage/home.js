@@ -1,5 +1,12 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { HomeComponent } from './type';
+ * @import { SetStateByName } from '../../../mobjs/type';
+ * @import { CodeButton } from '../../common/codeButton/type';
+ **/
+
 import { getLegendData } from '../../../data';
 import { setStateByName } from '../../../mobjs';
 import { simpleIntroAnimation } from '../../lib/animation/simpleIntro';
@@ -11,15 +18,11 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
     playSvg();
 };
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').HomeComponent>}
- */
+/** @type {MobComponent<HomeComponent>} */
 export const HomeComponentFn = ({ html, onMount, getState }) => {
     const { svg } = getState();
 
-    /**
-     * @type {import('../../../mobjs/type').SetStateByName<import('../../common/codeButton/type').CodeButton>}
-     */
+    /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(async ({ refs }) => {

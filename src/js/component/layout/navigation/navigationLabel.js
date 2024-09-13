@@ -1,8 +1,6 @@
 //@ts-check
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationLabel>}
- */
+/** @type {import('../../../mobjs/type').MobComponent<import('./type').NavigationLabel>} */
 export const NavigationLabelFn = ({ getState, html }) => {
     const { label, sectioName } = getState();
 

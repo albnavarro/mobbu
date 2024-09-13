@@ -19616,7 +19616,7 @@
         setDynamicPropsWatch({ id, unWatchArray: [unsubscribeParent] });
       },
       html: (strings, ...values) => {
-        return renderHtml(strings, ...values);
+        return Promise.resolve(renderHtml(strings, ...values));
       },
       onMount: (cb) => addOnMoutCallback({ id, cb }),
       bindEvents: (eventsData) => {
@@ -28154,7 +28154,7 @@ Loading snippet ...</pre
             `;
     }).join("");
   }
-  var DynamicListFn = async ({
+  var DynamicListFn = ({
     setState,
     updateState,
     html,
@@ -28453,7 +28453,7 @@ Loading snippet ...</pre
     })}
                         ${bindProps({
       bind: ["counter"],
-      /** @return {import('../counter/type').DynamicCounter|{}} */
+      /** @return {Partial<DynamicCounter>} */
       props: ({ counter: counter2 }) => {
         return { counter: counter2 };
       }
@@ -28484,7 +28484,7 @@ Loading snippet ...</pre
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
-          /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+          /** @return {Partial<DynamicListCardInner>} */
           props: ({ innerData: innerData2 }, index2) => {
             return {
               key: `${innerData2[index2].key}`
@@ -28504,7 +28504,7 @@ Loading snippet ...</pre
       render: ({ sync, html: html2 }) => {
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
-          /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+          /** @return {Partial<DynamicListCardInner>} */
           props: ({ innerData: innerData2 }, index2) => {
             return {
               key: `${innerData2[index2].key}`
@@ -28591,7 +28591,7 @@ Loading snippet ...</pre
   function setContent(value) {
     return `slotted: ${value}`;
   }
-  var DynamicListSlottedLabelFn = async ({
+  var DynamicListSlottedLabelFn = ({
     html,
     onMount,
     watch,
@@ -28682,6 +28682,7 @@ Loading snippet ...</pre
   }
   function afterUpdateList({ element, className, childrenId }) {
     const newElement = element.querySelector(className);
+    if (!newElement) return;
     newElement.textContent = "";
     newElement.insertAdjacentHTML("afterbegin", updateNewElement(childrenId));
   }
@@ -30036,7 +30037,7 @@ Loading snippet ...</pre
             `;
     }).join("");
   };
-  var SvgChild = ({ onMount, html, getState }) => {
+  var SvgChildFn = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq("min", "desktop");
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
     const setQuickNavState = setStateByName("quick_nav");
@@ -30098,7 +30099,7 @@ Loading snippet ...</pre
   // src/js/component/pages/svg/child/definition.js
   var svgChild = createComponent({
     name: "svg-child",
-    component: SvgChild,
+    component: SvgChildFn,
     exportState: ["svg", "star"],
     state: {
       star: () => ({

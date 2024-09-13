@@ -1,10 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { FooterNavButton } from './type';
+ **/
+
 import { navigationStore } from '../../navigation/store/navStore';
 
-/**
- * @type {import("../../../../mobjs/type").MobComponent<import('./type').FooterNavButton>}
- */
+/** @type {MobComponent<FooterNavButton>} */
 export const FooterNavButtonFn = ({ html, onMount, getState }) => {
     const { label, section } = getState();
 

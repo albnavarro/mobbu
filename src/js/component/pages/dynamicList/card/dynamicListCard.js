@@ -1,16 +1,16 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { StaticProps, DelegateEvents, GetState } from '../../../../mobjs/type';
+ * @import { DynamicListCardInner } from './innerCard/type';
+ * @import { DynamicListCard } from './type';
+ * @import { DynamicCounter } from '../counter/type';
+ **/
+
 import { mobCore } from '../../../../mobCore';
 import { html } from '../../../../mobjs';
 import { innerData } from '../data';
-
-// function wait() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve();
-//         }, 1000);
-//     });
-// }
 
 /**
  * @param {any} label
@@ -29,9 +29,9 @@ function createArray(numberOfItem) {
 
 /**
  * @param {object} params
- * @param {import('../../../../mobjs/type').StaticProps<import('./innerCard/type').DynamicListCardInner>} params.staticProps
- * @param {import('../../../../mobjs/type').DelegateEvents} params.delegateEvents
- * @param {import('../../../../mobjs/type').GetState<import('./type').DynamicListCard>} params.getState
+ * @param {StaticProps<DynamicListCardInner>} params.staticProps
+ * @param {DelegateEvents} params.delegateEvents
+ * @param {GetState<DynamicListCard>} params.getState
  */
 const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
     const { counter } = getState();
@@ -62,7 +62,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
 };
 
 /**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').DynamicListCard>}
+ * @type {MobComponent<DynamicListCard>}
  */
 export const DynamicListCardFn = ({
     getState,
@@ -153,7 +153,7 @@ export const DynamicListCardFn = ({
                         })}
                         ${bindProps({
                             bind: ['counter'],
-                            /** @return {import('../counter/type').DynamicCounter|{}} */
+                            /** @return {Partial<DynamicCounter>} */
                             props: ({ counter }) => {
                                 return { counter };
                             },
@@ -188,7 +188,7 @@ export const DynamicListCardFn = ({
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
-                                        /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                        /** @return {Partial<DynamicListCardInner>} */
                                         props: ({ innerData }, index) => {
                                             return {
                                                 key: `${innerData[index].key}`,
@@ -208,7 +208,7 @@ export const DynamicListCardFn = ({
                             render: ({ sync, html }) => {
                                 return html`<dynamic-list-card-inner
                                     ${bindProps({
-                                        /** @return {Partial<import('./innerCard/type').DynamicListCardInner>} */
+                                        /** @return {Partial<DynamicListCardInner>} */
                                         props: ({ innerData }, index) => {
                                             return {
                                                 key: `${innerData[index].key}`,

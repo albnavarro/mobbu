@@ -1,5 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { SvgChild } from './type';
+ * @import { SetStateByName } from '../../../../mobjs/type';
+ * @import { QuickNav } from '../../../common/nextPage/type';
+ * @import { AnimationTitle } from '../../../common/animationTitle/type';
+ **/
+
 import { html, setStateByName } from '../../../../mobjs';
 import { motionCore } from '../../../../mobMotion';
 import { childAnimations } from './animation/animation';
@@ -25,22 +33,16 @@ const getTrail = ({ star }) => {
         .join('');
 };
 
-/**
- * @type {import("../../../../mobjs/type").MobComponent<import('./type').SvgChild>}
- */
-export const SvgChild = ({ onMount, html, getState }) => {
+/** @type {MobComponent<SvgChild>} */
+export const SvgChildFn = ({ onMount, html, getState }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
-     */
+    /** @type {SetStateByName<QuickNav>} */
     const setQuickNavState = setStateByName('quick_nav');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
-     */
+    /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
     onMount(({ refs, ref }) => {

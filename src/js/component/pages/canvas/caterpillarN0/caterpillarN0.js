@@ -1,5 +1,14 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../../mobjs/type';
+ * @import { CaterpillarN0 } from './type';
+ * @import { SetStateByName } from '../../../../mobjs/type';
+ * @import { QuickNav } from '../../../common/nextPage/type';
+ * @import { AnimationTitle } from '../../../common/animationTitle/type';
+ * @import { CodeButton } from '../../../common/codeButton/type';]
+ **/
+
 import { getLegendData } from '../../../../data';
 import { mobCore } from '../../../../mobCore';
 import { setStateByName } from '../../../../mobjs';
@@ -7,24 +16,18 @@ import { motionCore } from '../../../../mobMotion';
 import { caterpillarN0Animation } from './animation/animation';
 
 /**
- * @type {import('../../../../mobjs/type').MobComponent<import('./type').CaterpillarN0>}
+ * @type {MobComponent<CaterpillarN0>}
  */
 export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
     document.body.style.background = '#000000';
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/nextPage/type').QuickNav>}
-     */
+    /** @type {SetStateByName<QuickNav>} */
     const setQuickNavState = setStateByName('quick_nav');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/animationTitle/type').AnimationTitle>}
-     */
+    /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
-    /**
-     * @type {import('../../../../mobjs/type').SetStateByName<import('../../../common/codeButton/type').CodeButton>}
-     */
+    /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ ref }) => {

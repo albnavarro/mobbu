@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ **/
+
 // @ts-ignore
 import githubIcon from '../../../../svg/icon-github.svg';
 import { getCommonData } from '../../../data';
@@ -57,9 +61,7 @@ function additems({ delegateEvents }) {
         .join('');
 }
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {MobComponent} */
 export const HeadernavFn = ({ html, delegateEvents }) => {
     return html`
         <ul class="l-header__sidenav">

@@ -1,5 +1,13 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { GetState, BindProps, SetState, DelegateEvents, StaticProps, RenderComponent } from '../../../mobjs/type';
+ * @import { CodeOverlay, CodeOverlayButton } from './type';
+ * @import { HtmlContent } from '../htmlContent/type';
+ *
+ **/
+
 import { overlayScroller } from './animation/overlayScroller';
 // @ts-ignore
 import copyIcon from '../../../../svg/icon-copy.svg';
@@ -11,7 +19,7 @@ import {
 
 /**
  * @param {Object} param
- * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
+ * @param {GetState<CodeOverlay>} param.getState
  */
 const copyToClipboard = ({ getState }) => {
     const { rawContent } = getState();
@@ -21,10 +29,10 @@ const copyToClipboard = ({ getState }) => {
 /**
  * @param {Object} param
  * @param {() => string} param.sync
- * @param {import('../../../mobjs/type').BindProps<import('./type').CodeOverlay,import('./type').CodeOverlayButton>} param.bindProps
- * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
- * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
- * @param {import('../../../mobjs/type').DelegateEvents} param.delegateEvents
+ * @param {BindProps<CodeOverlay,CodeOverlayButton>} param.bindProps
+ * @param {SetState<CodeOverlay>} param.setState
+ * @param {GetState<CodeOverlay>} param.getState
+ * @param {DelegateEvents} param.delegateEvents
  * @returns {string}
  */
 function getRepeaterCard({
@@ -63,14 +71,14 @@ function getRepeaterCard({
 
 /**
  * @param {Object} param
- * @param {import('../../../mobjs/type').SetState<import('./type').CodeOverlay>} param.setState
- * @param {import('../../../mobjs/type').GetState<import('./type').CodeOverlay>} param.getState
- * @param {import('../../../mobjs/type').StaticProps<import('../htmlContent/type').HtmlContent>} param.staticProps
+ * @param {SetState<CodeOverlay>} param.setState
+ * @param {GetState<CodeOverlay>} param.getState
+ * @param {StaticProps<HtmlContent>} param.staticProps
  * @param {HTMLElement} param.codeEl
  * @param {string} param.currentKey
  * @param {() => void} param.updateScroller
  * @param {() => void} param.goToTop
- * @param {import('../../../mobjs/type').RenderComponent} param.renderComponent
+ * @param {RenderComponent} param.renderComponent
  * @returns {Promise<any>}
  */
 const printContent = async ({
@@ -118,7 +126,7 @@ const printContent = async ({
 };
 
 /**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').CodeOverlay>}
+ * @type {MobComponent<CodeOverlay>}
  */
 export const CodeOverlayFn = ({
     onMount,

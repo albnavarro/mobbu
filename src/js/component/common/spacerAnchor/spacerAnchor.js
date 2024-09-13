@@ -1,5 +1,10 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ * @import { SpacerAnchor } from './type';
+ **/
+
 import { anchorStore } from '../scrollTo/scrollToStore';
 
 function hasAnchor({ id }) {
@@ -12,9 +17,7 @@ const options = {
     threshold: 0.5,
 };
 
-/**
- * @type {import("../../../mobjs/type").MobComponent<import('./type').SpacerAnchor>}
- */
+/** @type {MobComponent<SpacerAnchor>} */
 export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
     const { style, line, id, label } = getState();
     const lineClass = line ? 'spacer--line' : '';

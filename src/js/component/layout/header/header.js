@@ -1,5 +1,9 @@
 //@ts-check
 
+/**
+ * @import { MobComponent } from '../../../mobjs/type';
+ **/
+
 import { mobCore } from '../../../mobCore';
 import {
     loadUrl,
@@ -28,9 +32,7 @@ function titleHandler() {
     useMethodByName('navigation-container')?.scrollTop();
 }
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {import('../../../mobjs/type').MobComponent} */
 export const HeaderFn = ({ html, onMount, delegateEvents }) => {
     onMount(({ ref }) => {
         const { navInfo, title, beta } = ref;

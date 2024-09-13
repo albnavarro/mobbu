@@ -39,9 +39,7 @@ function addHandler({ main, toTopBtn }) {
     });
 }
 
-/**
- * @type {import('../../../mobjs/type').MobComponent}
- */
+/** @type {import('../../../mobjs/type').MobComponent} */
 export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
     onMount(({ element, ref }) => {
         const main = document.querySelector('main.main');

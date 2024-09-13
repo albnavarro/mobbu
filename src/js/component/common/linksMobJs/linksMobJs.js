@@ -1,5 +1,10 @@
 //@ts-check
 
+/**
+ * @import { MobComponent, StaticProps } from '../../../mobjs/type';
+ * @import { LinksMobJs } from './type';]
+ **/
+
 import { html } from '../../../mobjs';
 import { items } from './data';
 
@@ -10,7 +15,7 @@ const data = {
 /**
  * @param {object} param
  * @param {Array<{label: string, url: string}>} param.data
- * @param {import('../../../mobjs/type').StaticProps} param.staticProps
+ * @param {StaticProps} param.staticProps
  */
 const getItems = ({ data, staticProps }) => {
     return data
@@ -28,9 +33,7 @@ const getItems = ({ data, staticProps }) => {
         .join('');
 };
 
-/**
- * @type {import('../../../mobjs/type').MobComponent<import('./type').LinksMobJs>}
- */
+/** @type {MobComponent<LinksMobJs>} */
 export const LinksMobJsFn = ({ html, staticProps, getState }) => {
     const { section } = getState();
 

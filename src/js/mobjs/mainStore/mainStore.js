@@ -12,7 +12,7 @@ import {
 } from './constant';
 
 /**
- * @type {import('../../mobCore/store/type').mobStore<import('./type').MainStore>}
+ * @type {import('../../mobCore/store/type').MobStore<import('./type').MainStore>}
  */
 export const mainStore = mobCore.createStore({
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({

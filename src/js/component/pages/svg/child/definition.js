@@ -2,11 +2,11 @@
 
 import { createComponent } from '../../../../mobjs';
 import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
-import { SvgChild } from './child';
+import { SvgChildFn } from './child';
 
 export const svgChild = createComponent({
     name: 'svg-child',
-    component: SvgChild,
+    component: SvgChildFn,
     exportState: ['svg', 'star'],
     state: {
         star: () => ({
