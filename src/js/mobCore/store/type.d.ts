@@ -250,7 +250,7 @@ export type simpleStoreCustomValue = () => {
      * Function to transform value.
      * This function will have the current value and old value as input parameter.
      */
-    transform?: (arg0: any, arg1: any) => boolean;
+    transform?: (value: any, previousValue: any) => boolean;
 
     /**
      * @description
@@ -258,7 +258,7 @@ export type simpleStoreCustomValue = () => {
      * This function will have the current value and old value as input parameter and will return a boolean value.
      * The validation status of each property will be displayed in the watchers and will be retrievable using the getValidation() method.
      */
-    validate?: (arg0: any, arg1: any) => boolean;
+    validate?: (value: any, previousValue: any) => boolean;
 
     /**
      * @description
