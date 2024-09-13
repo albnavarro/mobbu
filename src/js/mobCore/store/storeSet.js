@@ -92,7 +92,7 @@ const setProp = ({
     /**
      * Validation
      */
-    const isValidType = checkType(type[prop], val);
+    const isValidType = checkType(type[prop], valueTransformed);
     if (!isValidType) {
         storeSetPropTypeWarning(prop, valueTransformed, type[prop], logStyle);
         return;
