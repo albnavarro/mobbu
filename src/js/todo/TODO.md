@@ -15,9 +15,39 @@
 ## setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`
 
-## Repeater/Invalidate
-- Aggiungere le `refs` alla funzione `afterUpdate`, in modo da avere ref sempre fresche.
-- `tips`: controllare che le refs non vengano pescate nei componenti annidati, sará possibile ?
+## Refs
+- Creare funzione una funzione apposita che ritorna il `parent id`, ogni qual volta un `repeater/invalidate` si agiorna aggiungere allo `store` del componente la ref.
+- Le nuove refs per comoditá potranno essere passate ancora alla funzione onMount.
+- Ma se si desidera refs aggiornate `invalidte/repeater` sará possibile fare riferimento alla funzione `getRefs()`.
+
+```js
+// getParamsFromWebComponent.js
+
+return {
+    // ...
+    ref: (value) => `${ATTR_REF}=id `
+    getRefs: () => {
+        return getRefsById(id);
+    }
+    // ...
+
+}
+```
+- La ricerca delle refs avverá come ora dopo il render del componente.
+- Cosi facendo i repeater/invalidate aggiungeranno la ref nello store parente corretto.
+- La ref verrá aggiunta allo store del componente.
+
+```js
+// Component:
+// Set:
+<div ${ref('myRef')} /> </div>
+
+// ...
+
+// Get
+const { myRef } = getRefs();
+```
+
 
 
 ## Debug
