@@ -53,7 +53,7 @@ export type UnBind = PartialUnBind;
 export type OnMount = PartialOnMount;
 export type Repeat<T> = PartialRepeat<T>;
 export type RenderComponent = PartialRenderComponent;
-export type InvalidateComponent<T> = PartialInvalidateComponent<T>;
+export type Invalidate<T> = PartialInvalidateComponent<T>;
 export type StaticProps<R = MobComponentMap> = PartialStaticProps<R>;
 export type SetStateByName<T> = PartialSetStateByName<T>;
 export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
@@ -604,7 +604,7 @@ export interface componentPropsType<T, R> {
      * @description
      * Invalidate component
      */
-    invalidate: InvalidateComponent<T>;
+    invalidate: Invalidate<T>;
 
     /**
      * @description
