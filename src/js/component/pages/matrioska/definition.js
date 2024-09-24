@@ -45,7 +45,9 @@ export const Matrioska = createComponent({
                 { key: 2, value: mobCore.getUnivoqueId() },
             ],
             type: Array,
-            transform: (val) => shuffle(val),
+            transform: (val, oldVal) => {
+                return val > oldVal ? shuffle(val) : val;
+            },
             validate: (val) => val.length <= 10,
             strict: true,
         }),
