@@ -16,16 +16,20 @@
 - Manca la propietá clone ereditata da mobStore `clone`
 
 ## Refs
-- Creare funzione una funzione apposita che ritorna il `parent id`, ogni qual volta un `repeater/invalidate` si agiorna aggiungere allo `store` del componente la ref.
-- Le nuove refs per comoditá potranno essere passate ancora alla funzione onMount.
-- Ma se si desidera refs aggiornate `invalidte/repeater` sará possibile fare riferimento alla funzione `getRefs()`.
+- Creare una funzione apposita `setRef('myRef')` legata al `parent id`, ogni qual volta un `repeater/invalidate` si aggiorna aggiunge allo `store` del componente la ref.
+- Le `ref` attuali rimangono invariate `in un primo temnpo` ma vengono anche salvate nello store attraverso la funzione `setRef()`
+- Se si desidera refs aggiornate un `invalidte/repeater` sará possibile fare riferimento alla funzione `getRefs()`.
+- Valutare poi la possibilitá una volta approvato funzioni di eliminare il vecchio metodo ( ritorno delle refs  nella funzione onMount ).
 
 ```js
 // getParamsFromWebComponent.js
 
 return {
     // ...
-    ref: (value) => `${ATTR_REF}=id `
+    setRef: (value) => `${ATTR_REF}=id `
+    getRef: () => {
+        return getRefById(id);
+    }
     getRefs: () => {
         return getRefsById(id);
     }
@@ -33,19 +37,23 @@ return {
 
 }
 ```
-- La ricerca delle refs avverá come ora dopo il render del componente.
-- Cosi facendo i repeater/invalidate aggiungeranno la ref nello store parente corretto.
-- La ref verrá aggiunta allo store del componente.
 
 ```js
 // Component:
 // Set:
-<div ${ref('myRef')} /> </div>
+<div ${setRef('myRef')} /> </div>
 
 // ...
 
-// Get
-const { myRef } = getRefs();
+// Get refs immutable
+const { myRef } = getRef(); // single
+const { myRefs } = getRefs(); // array
+
+// Get fresh dynamic Refs
+getRef().myRef.style.height = '10px'; // single
+getRefs().myRefs.forEach((ref) => {
+    ref.style.height = '10px'; // single
+})
 ```
 
 
