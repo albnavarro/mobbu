@@ -21,7 +21,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Use methods by instance name"
+            "content": "Use methods by <span class='quote'>instance name</span>, instance.</br>The instance can be called from <span class='quote'>anywhere</span> in the app "
         },
         {
             "component": "mob-spacer",

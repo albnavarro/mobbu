@@ -10,9 +10,13 @@ export const MyComponent = ({ onMount, html }) => {
          * It is a good idea to use the Optional chaining to ensure that the
          * component is mounted if you use it directly inside the onMount() function.
          */
-        useMethodByName('otherComponent')?.myMethod();
+        useMethodByName('myComponentName')?.myMethod();
         return () => {};
     });
 
-    return html` <div></div> `;
+    return html`
+        <div>
+            <my-component name="myComponentName"> </my-component>
+        </div>
+    `;
 };
