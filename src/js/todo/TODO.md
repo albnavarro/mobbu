@@ -24,9 +24,10 @@
 ```js
 // getParamsFromWebComponent.js
 
+// Gestire la query su uno dei due attributi e recuperare l'altro con una semplice lettura del dataset.
 return {
     // ...
-    setRef: (value) => `${ATTR_REF}=id `
+    setRef: (value) => `${ATTR_REF_ID}=${id} ${ATTR_REF_VALUE}=${value}`
     getRef: () => {
         return getRefById(id);
     }
@@ -36,6 +37,61 @@ return {
     // ...
 
 }
+```
+
+```js
+/// parseFunction
+
+
+/**
+ * Find all default node refs.
+ */
+const refsCollection = newElement ? getRefs(newElement) : {};
+
+/**
+ * Find all component node refs.
+ */
+const refsCollectionComponent = newElement
+    ? getRefsComponent(newElement)
+    : [];
+
+/**
+* Riclacare le stesse due funzioni => getBindRefs
+* Riclacare le stesse due funzioni => getRefsBindCompinent
+* Dovranno tenere traccia dell' id a differenza delel originali
+*
+* nella funzione functionToFireAtTheEnd al posto di essere passate al funzione di onMount
+* verranno salvate nello store del componente, usare l'Id passato da setRef() ( repeater/invalidate issue ).
+* Probabile che le refs saranno da ordinare, es si usa repeater with key.
+*/
+
+functionToFireAtTheEnd.push({
+    onMount: async () => {
+        if (shoulBeScoped) return;
+
+        /**
+         * Normalize component refs in array like default refs
+         */
+        const refFromComponent = refsComponentToNewElement(
+            refsCollectionComponent
+        );
+
+        // ADD this
+        addBindRefsToComponentById({refs: myBindRefsCollection, id: myBindId})
+        addBindRefsToComponentById({refs: myBindRefsCollectionFromComponent, id: myBindId})
+        //
+
+        /**
+         * Fire onMount callback at the end of current parse.
+         */
+        await fireOnMountCallBack({
+            id,
+            element: newElement,
+            refsCollection: { ...refsCollection, ...refFromComponent },
+        });
+    },
+    ...
+});
 ```
 
 ```js
@@ -124,5 +180,4 @@ Controllare che tutti i gatter quando vengono usati abbiano un fallback o uno sk
 - 1: parte da 2 e finisce a 4. ( logica corrente ).
 - 2: parte da 4 e finisce a 6.
 - 3: parte da 2 e finisce a 4.
-
 
