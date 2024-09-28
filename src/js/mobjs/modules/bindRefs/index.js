@@ -35,17 +35,19 @@ export const getBindRefs = ({ element }) => {
  * @param {HTMLElement[]} refs
  * @returns {HTMLElement[]}
  */
-const getRefsSorter = (refs) => {
+export const getRefsSorter = (refs) => {
     return [
         ...new Set(
-            refs.sort(function (a, b) {
-                if (a === b || !a || !b) return 0;
-                if (a.compareDocumentPosition(b) & 2) {
-                    // b comes before a
-                    return 1;
-                }
-                return -1;
-            })
+            refs
+                .filter((ref) => document.contains(ref))
+                .sort(function (a, b) {
+                    if (a === b || !a || !b) return 0;
+                    if (a.compareDocumentPosition(b) & 2) {
+                        // b comes before a
+                        return 1;
+                    }
+                    return -1;
+                })
         ),
     ];
 };

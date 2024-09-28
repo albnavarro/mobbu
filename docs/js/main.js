@@ -19901,7 +19901,7 @@
   var getRefsSorter = (refs) => {
     return [
       ...new Set(
-        refs.sort(function(a, b) {
+        refs.filter((ref) => document.contains(ref)).sort(function(a, b) {
           if (a === b || !a || !b) return 0;
           if (a.compareDocumentPosition(b) & 2) {
             return 1;
@@ -19957,6 +19957,8 @@
       const activeParser = decrementParserCounter();
       if (!activeParser) {
       }
+      const bindRefs = getBindRefs({ element });
+      if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
       for (const item of functionToFireAtTheEnd.reverse()) {
         const {
           onMount,
@@ -20111,9 +20113,6 @@
         const refFromComponent = refsComponentToNewElement(
           refsCollectionComponent
         );
-        const bindRefs = getBindRefs({ element });
-        if (Object.keys(bindRefs).length > 0)
-          addBindRefsToComponent(bindRefs);
         await fireOnMountCallBack({
           id,
           element: newElement,

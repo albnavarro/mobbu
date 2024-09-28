@@ -97,6 +97,12 @@ export const parseComponentsRecursive = async ({
         }
 
         /**
+         * Get all dynamic refs.
+         */
+        const bindRefs = getBindRefs({ element });
+        if (Object.keys(bindRefs).length > 0) addBindRefsToComponent(bindRefs);
+
+        /**
          * Fire onMount queue.
          * Wait parse is ended to fire onMount callback.
          *
@@ -111,6 +117,7 @@ export const parseComponentsRecursive = async ({
                 fireInvalidateFunction,
                 fireRepeatFunction,
             } = item;
+
             await onMount();
             fireRepeatFunction();
             fireInvalidateFunction();
@@ -404,10 +411,6 @@ export const parseComponentsRecursive = async ({
             const refFromComponent = refsComponentToNewElement(
                 refsCollectionComponent
             );
-
-            const bindRefs = getBindRefs({ element });
-            if (Object.keys(bindRefs).length > 0)
-                addBindRefsToComponent(bindRefs);
 
             /**
              * Fire onMount callback at the end of current parse.
