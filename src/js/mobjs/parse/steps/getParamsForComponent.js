@@ -23,6 +23,8 @@ import {
 import { watchById } from '../../component/action/watch';
 import {
     ATTR_BIND_EVENTS,
+    ATTR_BIND_REFS_ID,
+    ATTR_BIND_REFS_NAME,
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
@@ -161,6 +163,15 @@ export const getParamsForComponentFunction = ({
         addMethod: (name, fn) => {
             addMethodById({ id, name, fn });
         },
+        setRef: (value) => {
+            return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
+        },
+        getRef: () => ({
+            test: document.createElement('div'),
+        }),
+        getRefs: () => ({
+            test: [document.createElement('div')],
+        }),
         invalidate: ({
             bind,
             render,

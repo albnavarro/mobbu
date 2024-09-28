@@ -16772,6 +16772,8 @@
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
   var ATTR_PARENT_ID = "parentid";
   var ATTR_REFS = "ref";
+  var ATTR_BIND_REFS_ID = "bindrefid";
+  var ATTR_BIND_REFS_NAME = "bindrefname";
   var ATTR_INVALIDATE = "invalidateid";
   var ATTR_MOBJS_REPEAT = "mobjsrepeat";
   var frameDelayAfterParse = 5;
@@ -19630,6 +19632,15 @@
       addMethod: (name, fn) => {
         addMethodById({ id, name, fn });
       },
+      setRef: (value) => {
+        return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
+      },
+      getRef: () => ({
+        test: document.createElement("div")
+      }),
+      getRefs: () => ({
+        test: [document.createElement("div")]
+      }),
       invalidate: ({
         bind,
         render: render2,

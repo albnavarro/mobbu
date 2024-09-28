@@ -78,6 +78,16 @@ export const ATTR_REFS = 'ref';
 /**
  * @type {string};
  */
+export const ATTR_BIND_REFS_ID = 'bindrefid';
+
+/**
+ * @type {string};
+ */
+export const ATTR_BIND_REFS_NAME = 'bindrefname';
+
+/**
+ * @type {string};
+ */
 export const ATTR_INVALIDATE = 'invalidateid';
 
 /**

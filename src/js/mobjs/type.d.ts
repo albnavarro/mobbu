@@ -461,6 +461,65 @@ export interface componentPropsType<T, R> {
     addMethod: PartialMethods;
 
     /**
+     * @description
+     * Add method to current instance component;
+     *
+     *
+     * @example
+     * ```javascript
+     * export const MyComponent = ({ html, addMethod }) => {
+     *     return html`<div ${setRef('myRef')}></div>`;
+     * };
+     * ```
+     */
+    setRef: (string) => string;
+
+    /**
+     * @description
+     * Add method to current instance component;
+     *
+     *
+     * @example
+     * ```javascript
+     * export const MyComponent = ({ html, getRef }) => {
+     *     onMount(() => {
+     *         getRef()?.myRef.classList.add('myClass')
+     *
+     *         return () => {}
+     *     });
+     *
+     *     return html`<div ${setRef('myRef')}></div>`;
+     * };
+     * ```
+     */
+    getRef: () => { [key: string]: HTMLElement };
+
+    /**
+     * @description
+     * Add method to current instance component;
+     *
+     *
+     * @example
+     * ```javascript
+     * export const MyComponent = ({ html, getRef }) => {
+     *     onMount(() => {
+     *         getRef()?.myRef.forEach((ref) => {
+     *             ref.classList.add('myClass')
+     *         })
+     *
+     *         return () => {}
+     *     });
+     *
+     *     return html`
+     *         <div ${setRef('myRef')}></div>
+     *         <div ${setRef('myRef')}></div>
+     *     `;
+     * };
+     * ```
+     */
+    getRefs: () => { [key: string]: HTMLElement[] };
+
+    /**
      *
      * @description
      * DOM
