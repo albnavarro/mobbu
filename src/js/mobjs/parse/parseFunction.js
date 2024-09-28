@@ -35,7 +35,11 @@ import {
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
-import { getBindRefs, trackRefsCollection } from '../modules/bindRefs';
+import {
+    addBindRefsToComponent,
+    getBindRefs,
+    trackRefsCollection,
+} from '../modules/bindRefs';
 
 /**
  * @param {object} obj
@@ -410,7 +414,8 @@ export const parseComponentsRecursive = async ({
             );
 
             const bindRefs = getBindRefs({ element, refKey: refToConvert });
-            if (Object.keys(bindRefs).length > 0) console.log(bindRefs);
+            if (Object.keys(bindRefs).length > 0)
+                addBindRefsToComponent(bindRefs);
 
             /**
              * Fire onMount callback at the end of current parse.

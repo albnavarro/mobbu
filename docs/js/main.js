@@ -19920,6 +19920,36 @@
       return { ...previous, [refName]: newRefsByName };
     }, {});
   };
+  var getRefsSorter = (refs) => {
+    return refs.sort(function(a, b) {
+      if (a === b || !a || !b) return 0;
+      if (a.compareDocumentPosition(b) & 2) {
+        return 1;
+      }
+      return -1;
+    });
+  };
+  var mergeRefsAndOrder = ({ refs, refName, element }) => {
+    return {
+      ...refs,
+      [refName]: getRefsSorter([...refs[refName], element])
+    };
+  };
+  var addBindRefsToComponent = (refs) => {
+    Object.entries(refs).forEach(([refName, entries]) => {
+      entries.forEach(({ element, scopeId }) => {
+        const item = componentMap.get(scopeId);
+        if (!item) return;
+        const { refs: previousRef } = item;
+        if (!previousRef) return;
+        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
+        componentMap.set(scopeId, {
+          ...item,
+          refs: newRefs
+        });
+      });
+    });
+  };
 
   // src/js/mobjs/parse/parseFunction.js
   var parseComponentsRecursive = async ({
@@ -20101,7 +20131,8 @@
           refsCollectionComponent
         );
         const bindRefs = getBindRefs({ element, refKey: refToConvert });
-        if (Object.keys(bindRefs).length > 0) console.log(bindRefs);
+        if (Object.keys(bindRefs).length > 0)
+          addBindRefsToComponent(bindRefs);
         await fireOnMountCallBack({
           id,
           element: newElement,
