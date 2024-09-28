@@ -16,18 +16,13 @@
 - Manca la propietá clone ereditata da mobStore `clone`
 
 ## Refs
-- Creare una funzione apposita `setRef('myRef')` legata al `parent id`, ogni qual volta un `repeater/invalidate` si aggiorna aggiunge allo `store` del componente la ref.
-- Le `ref` attuali rimangono invariate `in un primo temnpo` ma vengono anche salvate nello store attraverso la funzione `setRef()`
-- Se si desidera refs aggiornate un `invalidte/repeater` sará possibile fare riferimento alla funzione `getRefs()`.
-- Valutare poi la possibilitá una volta approvato funzioni di eliminare il vecchio metodo ( ritorno delle refs  nella funzione onMount ).
 
 ```js
 // getParamsFromWebComponent.js
 
-// Gestire la query su uno dei due attributi e recuperare l'altro con una semplice lettura del dataset.
+// queste due fuzioni puliranno dagli elementi orfani ogni qual volta invocate.
 return {
     // ...
-    setRef: (value) => `${ATTR_REF_ID}=${id} ${ATTR_REF_VALUE}=${value}`
     getRef: () => {
         return getRefById(id);
     }
@@ -39,61 +34,6 @@ return {
 }
 ```
 
-```js
-/// parseFunction
-
-
-/**
- * Find all default node refs.
- */
-const refsCollection = newElement ? getRefs(newElement) : {};
-
-/**
- * Find all component node refs.
- */
-const refsCollectionComponent = newElement
-    ? getRefsComponent(newElement)
-    : [];
-
-/**
-* Riclacare le stesse due funzioni => getBindRefs
-* Riclacare le stesse due funzioni => getRefsBindCompinent
-* Dovranno tenere traccia dell' id a differenza delel originali
-* Bisogna controllare anche la root del component stesso ( repeater/invalidate )
-*
-* nella funzione functionToFireAtTheEnd al posto di essere passate al funzione di onMount
-* verranno salvate nello store del componente, usare l'Id passato da setRef() ( repeater/invalidate issue ).
-* Probabile che le refs saranno da ordinare, es si usa repeater with key.
-*/
-
-functionToFireAtTheEnd.push({
-    onMount: async () => {
-        if (shoulBeScoped) return;
-
-        /**
-         * Normalize component refs in array like default refs
-         */
-        const refFromComponent = refsComponentToNewElement(
-            refsCollectionComponent
-        );
-
-        // ADD this
-        addBindRefsToComponentById({refs: myBindRefsCollection, id: myBindId})
-        addBindRefsToComponentById({refs: myBindRefsCollectionFromComponent, id: myBindId})
-        //
-
-        /**
-         * Fire onMount callback at the end of current parse.
-         */
-        await fireOnMountCallBack({
-            id,
-            element: newElement,
-            refsCollection: { ...refsCollection, ...refFromComponent },
-        });
-    },
-    ...
-});
-```
 
 ```js
 // Component:
