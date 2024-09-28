@@ -10,14 +10,21 @@ import arrow from '../../../../svg/scroll_arrow.svg';
 import { motionCore } from '../../../mobMotion';
 
 /** @type {MobComponent<QuickNav>} */
-export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
+export const QuickNavFn = ({
+    getState,
+    onMount,
+    html,
+    watchSync,
+    setRef,
+    getRef,
+}) => {
     const { active } = getState();
     const activeClass = active ? 'active' : '';
 
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { prev, next } = ref;
+        const { prev, next } = getRef();
 
         watchSync('active', (isActive) => {
             element.classList.toggle('active', isActive);
@@ -53,7 +60,7 @@ export const QuickNavFn = ({ getState, onMount, html, watchSync }) => {
     });
 
     return html`<div class="c-quick-nav-container ${activeClass}">
-        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${arrow}</a>
-        <a class="c-quick-nav c-quick-nav--next" ref="next">${arrow}</a>
+        <a class="c-quick-nav c-quick-nav--prev" ${setRef('prev')}>${arrow}</a>
+        <a class="c-quick-nav c-quick-nav--next" ${setRef('next')}>${arrow}</a>
     </div>`;
 };

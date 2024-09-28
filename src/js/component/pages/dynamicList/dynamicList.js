@@ -122,12 +122,14 @@ export const DynamicListFn = ({
     delegateEvents,
     watchSync,
     invalidate,
+    setRef,
+    getRef,
 }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ refs }) => {
-        const { counterEl } = refs;
+    onMount(() => {
+        const { counterEl } = getRef();
 
         /**
          * Code button
@@ -240,7 +242,7 @@ export const DynamicListFn = ({
 
             <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
-                <span ref="counterEl"></span>
+                <span ${setRef('counterEl')}></span>
             </div>
 
             <!-- Repeaters -->

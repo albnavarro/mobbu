@@ -38,16 +38,14 @@ export const getBindRefs = ({ element }) => {
 export const getRefsSorter = (refs) => {
     return [
         ...new Set(
-            refs
-                .filter((ref) => document.contains(ref))
-                .sort(function (a, b) {
-                    if (a === b || !a || !b) return 0;
-                    if (a.compareDocumentPosition(b) & 2) {
-                        // b comes before a
-                        return 1;
-                    }
-                    return -1;
-                })
+            refs.sort(function (a, b) {
+                if (a === b || !a || !b) return 0;
+                if (a.compareDocumentPosition(b) & 2) {
+                    // b comes before a
+                    return 1;
+                }
+                return -1;
+            })
         ),
     ];
 };
@@ -102,6 +100,9 @@ export const getBindRefsById = ({ id }) => {
     const { refs, element } = item;
     if (!refs) return {};
 
+    /**
+     * Remove ref cancelled by invalidate/repeater
+     */
     const refsUpdated = Object.entries(refs)
         .map(([name, collection]) => {
             return {

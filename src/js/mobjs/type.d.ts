@@ -551,15 +551,13 @@ export interface componentPropsType<T, R> {
      * ```javascript
      *
      * export const MyComponent = ({ onMount, html }) => {
-     *     onMount(({ element, refs, ref }) => {
-     *         const { myRef } = refs;
-     *
+     *     onMount(({ element }) => {
      *         return () => {}
      *     });
      *
      *     return html`
      *       <div>
-     *          <div ref='myRef'></div>
+     *          <div></div>
      *       </div>
      *     `;
      * };

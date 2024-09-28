@@ -36,7 +36,7 @@ const loadSnippet = async ({ ref, source }) => {
 };
 
 /** @type {MobComponent<Snippet>} */
-export const SnippetFn = ({ html, onMount, getState }) => {
+export const SnippetFn = ({ html, onMount, getState, setRef, getRef }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? 'is-full' : '';
     const hasBorderClass = hasBorder ? 'has-border' : '';
@@ -54,8 +54,8 @@ export const SnippetFn = ({ html, onMount, getState }) => {
         document.documentElement
     ).getPropertyValue('--snippet-line-height-value');
 
-    onMount(async ({ ref }) => {
-        const { codeEl } = ref;
+    onMount(async () => {
+        const { codeEl } = getRef();
 
         /**
          * Async onMount, component should be destroyed.
@@ -77,7 +77,7 @@ export const SnippetFn = ({ html, onMount, getState }) => {
         <code class="${isFullClass} ${hasBorderClass}">
             <pre
                 class="${isFullClass} ${hasOverflowClass}"
-                ref="codeEl"
+                ${setRef('codeEl')}
                 style="height:${numLines *
                 Number(lineHeight) *
                 Number(remValue)}rem;"

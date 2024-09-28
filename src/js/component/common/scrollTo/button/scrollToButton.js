@@ -1,7 +1,13 @@
 //@ts-check
 
 /** @type {import("../../../../mobjs/type").MobComponent<import("./type").ScrollToButton>} */
-export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
+export const ScrollToButtonFn = ({
+    html,
+    getState,
+    onMount,
+    watchSync,
+    setRef,
+}) => {
     const { label } = getState();
 
     onMount(({ element }) => {
@@ -14,7 +20,7 @@ export const ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
 
     return html`
         <button type="button">
-            <span ref="labelRef"> ${label} </span>
+            <span ${setRef('labelRef')}> ${label} </span>
         </button>
     `;
 };

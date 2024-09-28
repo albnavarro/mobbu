@@ -42,15 +42,17 @@ export const NavigationSubmenuFn = ({
     staticProps,
     bindProps,
     watchSync,
+    setRef,
+    getRef,
 }) => {
     const { children, headerButton, callback } = getState();
     const { label, url, activeId } = headerButton;
 
-    onMount(({ ref }) => {
+    onMount(() => {
         /**
          * Accordion
          */
-        const { content } = ref;
+        const { content } = getRef();
 
         slide.subscribe(content);
         slide.reset(content);
@@ -97,7 +99,7 @@ export const NavigationSubmenuFn = ({
                     },
                 })}
             ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ref="content">
+            <ul class="l-navigation__submenu" ${setRef('content')}>
                 ${getSubmenu({ children, staticProps, callback })}
             </ul>
         </li>

@@ -33,7 +33,13 @@ function getControls({ buttons }) {
 }
 
 /** @type {MobComponent<CaterpillarN2>} */
-export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
+export const CaterpillarN2Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef,
+}) => {
     const { buttons, rotationDefault } = getState();
     document.body.style.background = '#000000';
 
@@ -46,13 +52,13 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
             return;
         }
 
-        const { wrap, canvas, rangeValue, rotationButton } = ref;
+        const { wrap, canvas, rangeValue, rotationButton } = getRef();
 
         /**
          * Quicknav
@@ -149,13 +155,18 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef('wrap')}
+                >
                     <ul class="c-canvas__controls">
                         ${getControls({ buttons })}
                         <li class="c-canvas__controls__item">
                             <label class="c-canvas__controls__label">
                                 change rotation:
-                                <span class="js-range-value" ref="rangeValue"
+                                <span
+                                    class="js-range-value"
+                                    ${setRef('rangeValue')}
                                     >${rotationDefault}</span
                                 >
                             </label>
@@ -166,12 +177,12 @@ export const CaterpillarN2Fn = ({ onMount, html, getState }) => {
                                     max="720"
                                     value="${rotationDefault}"
                                     step="1"
-                                    ref="rotationButton"
+                                    ${setRef('rotationButton')}
                                 />
                             </div>
                         </li>
                     </ul>
-                    <canvas ref="canvas"></canvas>
+                    <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>
         </div>

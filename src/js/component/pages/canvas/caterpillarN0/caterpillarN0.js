@@ -16,7 +16,13 @@ import { motionCore } from '../../../../mobMotion';
 import { caterpillarN0Animation } from './animation/animation';
 
 /** @type {MobComponent<CaterpillarN0>} */
-export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
+export const CaterpillarN0Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef,
+}) => {
     document.body.style.background = '#000000';
 
     /** @type {SetStateByName<QuickNav>} */
@@ -28,13 +34,13 @@ export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ ref }) => {
+    onMount(() => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
             return;
         }
 
-        const { wrap, canvas } = ref;
+        const { wrap, canvas } = getRef();
 
         /**
          * Quicknav
@@ -105,9 +111,9 @@ export const CaterpillarN0Fn = ({ onMount, html, getState }) => {
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ref="wrap"
+                    ${setRef('wrap')}
                 >
-                    <canvas ref="canvas"></canvas>
+                    <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>
         </div>

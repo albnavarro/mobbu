@@ -33,9 +33,9 @@ function titleHandler() {
 }
 
 /** @type {import('../../../mobjs/type').MobComponent} */
-export const HeaderFn = ({ html, onMount, delegateEvents }) => {
-    onMount(({ ref }) => {
-        const { navInfo, title, beta } = ref;
+export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
+    onMount(() => {
+        const { navInfo, title, beta } = getRef();
 
         navigationStore.watch('navigationIsOpen', (val) => {
             if (val) {
@@ -64,7 +64,7 @@ export const HeaderFn = ({ html, onMount, delegateEvents }) => {
                     <button
                         type="button"
                         class="l-header__title"
-                        ref="titleLink"
+                        ${setRef('titleLink')}
                         ${delegateEvents({
                             click: () => {
                                 titleHandler();
@@ -72,15 +72,15 @@ export const HeaderFn = ({ html, onMount, delegateEvents }) => {
                         })}
                     >
                         <div class="l-header__title-container">
-                            <h3 ref="title"><span>Mob</span>Project</h3>
-                            <h5 ref="beta">beta 0.0.1</h5>
+                            <h3 ${setRef('title')}><span>Mob</span>Project</h3>
+                            <h5 ${setRef('beta')}>beta 0.0.1</h5>
                         </div>
                     </button>
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
                     </div>
                 </div>
-                <div class="l-header__navinfo" ref="navInfo">
+                <div class="l-header__navinfo" ${setRef('navInfo')}>
                     <p class="p--small"></p>
                 </div>
             </div>

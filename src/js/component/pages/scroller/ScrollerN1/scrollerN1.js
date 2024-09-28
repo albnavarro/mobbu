@@ -17,7 +17,7 @@ import { motionCore } from '../../../../mobMotion';
 import { scrollerN1Animation } from './animation/animation';
 
 /** @type {MobComponent<ScrollerN1>} */
-export const ScrollerN1Fn = ({ onMount, html, getState }) => {
+export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
     document.body.style.background = '#000000';
 
     /** @type {SetStateByName<ScrollDownLabel>} */
@@ -32,7 +32,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ ref }) => {
+    onMount(() => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
             return;
@@ -85,7 +85,7 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
         /**
          * Refs
          */
-        const { wrap, canvas, canvasScroller } = ref;
+        const { wrap, canvas, canvasScroller } = getRef();
 
         const destroyAnimation = scrollerN1Animation({
             canvas,
@@ -127,11 +127,14 @@ export const ScrollerN1Fn = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef('wrap')}
+                >
+                    <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>
-            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller" ${setRef('canvasScroller')}></div>
         </div>
     `;
 };

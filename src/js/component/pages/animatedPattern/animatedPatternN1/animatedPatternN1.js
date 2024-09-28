@@ -16,7 +16,13 @@ import { motionCore } from '../../../../mobMotion';
 import { animatedPatternN1Animation } from './animation/animation';
 
 /** @type {MobComponent<AnimatedPatternN1>} */
-export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
+export const AnimatedPatternN1Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef,
+}) => {
     document.body.style.background = '#000000';
 
     /** @type {SetStateByName<QuickNav>} */
@@ -28,13 +34,13 @@ export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ ref }) => {
+    onMount(() => {
         if (motionCore.mq('max', 'desktop')) {
             document.body.style.background = '';
             return;
         }
 
-        const { wrap, canvas } = ref;
+        const { wrap, canvas } = getRef();
 
         /**
          * Quicknav
@@ -104,8 +110,11 @@ export const AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef('wrap')}
+                >
+                    <canvas ${setRef('canvas')}></canvas>
                 </div>
             </div>
         </div>

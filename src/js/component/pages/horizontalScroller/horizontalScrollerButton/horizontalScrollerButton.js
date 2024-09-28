@@ -6,11 +6,13 @@ export const HorizontalScrollerButtonFn = ({
     watch,
     html,
     onMount,
+    setRef,
+    getRef,
 }) => {
     const { id } = getState();
 
-    onMount(({ ref }) => {
-        const { button } = ref;
+    onMount(() => {
+        const { button } = getRef();
 
         watch('active', (active) => {
             button.classList.toggle('active', active);
@@ -25,7 +27,7 @@ export const HorizontalScrollerButtonFn = ({
                 type="button"
                 data-id="${id}"
                 class="l-h-scroller__nav__btn"
-                ref="button"
+                ${setRef('button')}
             >
                 ${id}
             </button>

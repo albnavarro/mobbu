@@ -148,8 +148,6 @@ export type PartialUnBind = () => void;
 export type PartialOnMount = (
     arg0: (arg1: {
         element: HTMLElement;
-        ref: { [key: string]: HTMLElement };
-        refs: { [key: string]: HTMLElement[] };
     }) => (() => void) | Promise<() => void> | undefined
 ) => void;
 

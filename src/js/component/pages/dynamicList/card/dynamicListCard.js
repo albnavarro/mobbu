@@ -74,13 +74,15 @@ export const DynamicListCardFn = ({
     delegateEvents,
     invalidate,
     repeat,
+    setRef,
+    getRef,
 }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
     let elementRef;
 
-    onMount(({ element, ref }) => {
-        const { indexEl, labelEl, counterEl } = ref;
+    onMount(({ element }) => {
+        const { indexEl, labelEl, counterEl } = getRef();
         elementRef = element;
 
         watch('index', (val) => {
@@ -130,13 +132,13 @@ export const DynamicListCardFn = ({
                 </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index" ref="indexEl">
+                <div class="index" ${setRef('indexEl')}>
                     ${updateContent('index', index)}
                 </div>
-                <div class="label" ref="labelEl">
+                <div class="label" ${setRef('labelEl')}>
                     ${updateContent('label', label)}
                 </div>
-                <div class="counter" ref="counterEl">
+                <div class="counter" ${setRef('counterEl')}>
                     ${updateContent('counter', counter)}
                 </div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>

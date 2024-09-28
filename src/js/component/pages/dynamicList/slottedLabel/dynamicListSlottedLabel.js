@@ -16,11 +16,13 @@ export const DynamicListSlottedLabelFn = ({
     onMount,
     watch,
     getState,
+    setRef,
+    getRef,
 }) => {
     const { label } = getState();
 
-    onMount(({ ref }) => {
-        const { contentEl } = ref;
+    onMount(() => {
+        const { contentEl } = getRef();
 
         watch('label', (value) => {
             contentEl.innerHTML = setContent(value);
@@ -30,6 +32,6 @@ export const DynamicListSlottedLabelFn = ({
     });
 
     return html`<div class="c-dynamic-list-slotted-label">
-        <p class="content" ref="contentEl">${setContent(label)}</p>
+        <p class="content" ${setRef('contentEl')}>${setContent(label)}</p>
     </div>`;
 };

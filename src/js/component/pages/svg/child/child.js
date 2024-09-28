@@ -18,13 +18,13 @@ const playAnimation = async ({ playIntro }) => {
     await playIntro();
 };
 
-const getTrail = ({ star }) => {
+const getTrail = ({ star, setRef }) => {
     return [...new Array(numberOfStar).keys()]
         .map((_item, index) => {
             return html`
                 <div
                     class="child-trail child-trail--${index}"
-                    ref="trail${index}"
+                    ${setRef(`trail${index}`)}
                 >
                     ${star}
                 </div>
@@ -34,7 +34,7 @@ const getTrail = ({ star }) => {
 };
 
 /** @type {MobComponent<SvgChild>} */
-export const SvgChildFn = ({ onMount, html, getState }) => {
+export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
     const isDesktop = motionCore.mq('min', 'desktop');
 
     const { svg, star } = isDesktop ? getState() : { svg: '', star: '' };
@@ -45,7 +45,7 @@ export const SvgChildFn = ({ onMount, html, getState }) => {
     /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
-    onMount(({ refs, ref }) => {
+    onMount(({ element }) => {
         if (!isDesktop) return;
 
         /**
@@ -62,7 +62,7 @@ export const SvgChildFn = ({ onMount, html, getState }) => {
         setMainTitleState('color', 'black');
         setMainTitleState('title', 'Child');
 
-        const { stagger } = refs;
+        const stagger = element.querySelectorAll('[ref="stagger"]');
 
         const {
             trail0,
@@ -75,7 +75,7 @@ export const SvgChildFn = ({ onMount, html, getState }) => {
             trail7,
             trail8,
             trail9,
-        } = ref;
+        } = getRef();
 
         const childMethods = childAnimations({
             groups: stagger,
@@ -112,6 +112,6 @@ export const SvgChildFn = ({ onMount, html, getState }) => {
     return html`<div class="svg-child-container">
         <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
-        ${getTrail({ star })}
+        ${getTrail({ star, setRef })}
     </div>`;
 };

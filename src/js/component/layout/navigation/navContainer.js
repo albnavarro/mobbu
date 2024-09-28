@@ -40,11 +40,17 @@ function addHandler({ main, toTopBtn }) {
 }
 
 /** @type {import('../../../mobjs/type').MobComponent} */
-export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
-    onMount(({ element, ref }) => {
+export const NavigationContainerFn = ({
+    html,
+    onMount,
+    addMethod,
+    setRef,
+    getRef,
+}) => {
+    onMount(({ element }) => {
         const main = document.querySelector('main.main');
         let lastMq = '';
-        const { toTopBtn, wrap } = ref;
+        const { toTopBtn, wrap } = getRef();
 
         /**
          * Open/Close navigation.
@@ -85,9 +91,12 @@ export const NavigationContainerFn = ({ html, onMount, addMethod }) => {
         <div class="l-navcontainer">
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
-                <button class="l-navcontainer__totop" ref="toTopBtn"></button>
+                <button
+                    class="l-navcontainer__totop"
+                    ${setRef('toTopBtn')}
+                ></button>
             </div>
-            <div class="l-navcontainer__wrap" ref="wrap">
+            <div class="l-navcontainer__wrap" ${setRef('wrap')}>
                 <div class="l-navcontainer__scroll">
                     <mob-navigation name="main_navigation"></mob-navigation>
                 </div>

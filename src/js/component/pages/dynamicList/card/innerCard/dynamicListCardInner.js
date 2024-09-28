@@ -6,11 +6,13 @@ export const DynamicListCardInnerFn = async ({
     onMount,
     html,
     getState,
+    setRef,
+    getRef,
 }) => {
     const { key } = getState();
 
-    onMount(({ ref }) => {
-        const { content } = ref;
+    onMount(() => {
+        const { content } = getRef();
 
         watch('key', (value) => {
             content.textContent = `${value}`;
@@ -20,6 +22,6 @@ export const DynamicListCardInnerFn = async ({
     });
 
     return html`<span class="dynamic-list-card-inner">
-        <span ref="content">${key}</span>
+        <span ${setRef('content')}>${key}</span>
     </span>`;
 };

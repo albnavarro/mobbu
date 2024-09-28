@@ -9,11 +9,17 @@ import { mobCore } from '../../../mobCore';
 import { motionCore } from '../../../mobMotion';
 
 /** @type {MobComponent<AnimationTitle>} */
-export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
-    onMount(({ element, ref }) => {
+export const AnimationTitleFn = ({
+    html,
+    onMount,
+    watchSync,
+    setRef,
+    getRef,
+}) => {
+    onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
-        const { titleEl } = ref;
+        const { titleEl } = getRef();
 
         watchSync('align', (value) => {
             element.classList.remove('is-left');
@@ -40,6 +46,6 @@ export const AnimationTitleFn = ({ html, onMount, watchSync }) => {
     });
 
     return html`<div class="c-animation-title">
-        <h4 ref="titleEl"></h4>
+        <h4 ${setRef('titleEl')}></h4>
     </div>`;
 };

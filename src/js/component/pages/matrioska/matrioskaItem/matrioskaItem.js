@@ -13,11 +13,13 @@ export const MatrioskaItemFn = ({
     watchSync,
     watch,
     id,
+    setRef,
+    getRef,
 }) => {
     const { level } = getState();
 
-    onMount(({ ref, element }) => {
-        const { keyRef, valueRef } = ref;
+    onMount(({ element }) => {
+        const { keyRef, valueRef } = getRef();
 
         watchSync('key', (value) => {
             keyRef.innerHTML = `${value}`;
@@ -37,9 +39,11 @@ export const MatrioskaItemFn = ({
     return html`<div class="matrioska-item">
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
-            <h6 class="matrioska-item__key">key: <span ref="keyRef"></span></h6>
+            <h6 class="matrioska-item__key">
+                key: <span ${setRef('keyRef')}></span>
+            </h6>
             <h6 class="matrioska-item__value">
-                Value: <span ref="valueRef"></span>
+                Value: <span ${setRef('valueRef')}></span>
             </h6>
             <h6 class="matrioska-item__value">
                 Component id: <span>${id}</span>

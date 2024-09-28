@@ -19,4 +19,5 @@ export const Mv1Def = createComponent({
         }),
     },
     child: [OnlyDesktop],
+    scoped: true,
 });

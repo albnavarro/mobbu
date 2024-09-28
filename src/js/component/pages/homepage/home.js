@@ -19,14 +19,21 @@ const playAnimation = async ({ playIntro, playText, playSvg }) => {
 };
 
 /** @type {MobComponent<HomeComponent>} */
-export const HomeComponentFn = ({ html, onMount, getState }) => {
+export const HomeComponentFn = ({
+    html,
+    onMount,
+    getState,
+    setRef,
+    getRefs,
+}) => {
     const { svg } = getState();
 
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(async ({ refs }) => {
-        const { textStagger, svg_group } = refs;
+    onMount(async ({ element }) => {
+        const { textStagger } = getRefs();
+        const svg_group = element.querySelectorAll('[ref="svg_group"]');
 
         const { destroy, playIntro, playSvg } = simpleIntroAnimation({
             refs: svg_group,
@@ -78,36 +85,36 @@ export const HomeComponentFn = ({ html, onMount, getState }) => {
         <div class="l-index__content">
             <a class="l-index__item" href="./#mobCore-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
                         <span>Mob</span>Core
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
                         store & window events
                     </h2>
                 </div>
             </a>
             <a class="l-index__item" href="./#mobJs-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
                         <span>Mob</span>Js
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
                         js component library
                     </h2>
                 </div>
             </a>
             <a class="l-index__item" href="./#mobMotion-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef('textStagger')}>
                         <span>Mob</span>Motion
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef('textStagger')}>
                         js animation library
                     </h2>
                 </div>

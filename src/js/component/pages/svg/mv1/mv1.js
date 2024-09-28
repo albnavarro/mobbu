@@ -30,7 +30,7 @@ export const Mv1Component = ({ html, onMount, getState }) => {
     /** @type {SetStateByName<AnimationTitle>} */
     const setMainTitleState = setStateByName('animation_title');
 
-    onMount(({ refs, ref }) => {
+    onMount(({ element }) => {
         if (!isDesktop) return;
 
         /**
@@ -47,20 +47,17 @@ export const Mv1Component = ({ html, onMount, getState }) => {
         setMainTitleState('color', 'white');
         setMainTitleState('title', 'Mv1');
 
-        const {
-            block1,
-            block2,
-            block3,
-            block4,
-            block5,
-            block6,
-            block7,
-            block8,
-            M_left,
-            M_right,
-        } = ref;
-
-        const { around } = refs;
+        const block1 = element.querySelector('[ref="block1"]');
+        const block2 = element.querySelector('[ref="block2"]');
+        const block3 = element.querySelector('[ref="block3"]');
+        const block4 = element.querySelector('[ref="block4"]');
+        const block5 = element.querySelector('[ref="block5"]');
+        const block6 = element.querySelector('[ref="block6"]');
+        const block7 = element.querySelector('[ref="block7"]');
+        const block8 = element.querySelector('[ref="block8"]');
+        const M_left = element.querySelector('[ref="M_left"]');
+        const M_right = element.querySelector('[ref="M_right"]');
+        const around = element.querySelectorAll('[ref="around"]');
 
         const { playIntro, playSvg, destroySvg } = mv1Animation({
             logoRefs: [

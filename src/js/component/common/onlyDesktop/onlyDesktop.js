@@ -24,7 +24,7 @@ const onResize = ({ element }) => {
 };
 
 /** @type {MobComponent} */
-export const OnlyDesktopFn = ({ html, onMount }) => {
+export const OnlyDesktopFn = ({ html, onMount, setRef }) => {
     onMount(({ element }) => {
         onResize({ element });
 
@@ -35,5 +35,7 @@ export const OnlyDesktopFn = ({ html, onMount }) => {
         return () => {};
     });
 
-    return html` <div class="only-desktop-container" ref="container"></div> `;
+    return html`
+        <div class="only-desktop-container" ${setRef('container')}></div>
+    `;
 };

@@ -1,7 +1,6 @@
 // @ts-check
 
 import { setDestroyCallback } from '../../component/action/removeAndDestroy';
-import { parseRef } from '../refs';
 
 /**
  * @type {Map<string,Function>}
@@ -25,12 +24,11 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
  * @param {object} obj
  * @param {string} obj.id - component id
  * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
- * @param {{ [key: string ]: HTMLElement[] }} obj.refsCollection
  *
  * @description
  * Fire onMount callback.
  */
-export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
+export const fireOnMountCallBack = async ({ id, element }) => {
     const callback = onMountCallbackMap.get(id);
 
     /**
@@ -42,8 +40,6 @@ export const fireOnMountCallBack = async ({ id, element, refsCollection }) => {
      */
     const destroyCallback = await callback?.({
         element,
-        ref: parseRef(refsCollection),
-        refs: refsCollection,
     });
 
     /**

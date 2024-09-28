@@ -16771,7 +16771,6 @@
   var ATTR_BIND_EVENTS = "bindevents";
   var ATTR_WEAK_BIND_EVENTS = "weakbindevents";
   var ATTR_PARENT_ID = "parentid";
-  var ATTR_REFS = "ref";
   var ATTR_BIND_REFS_ID = "bindrefid";
   var ATTR_BIND_REFS_NAME = "bindrefname";
   var ATTR_INVALIDATE = "invalidateid";
@@ -19470,60 +19469,16 @@
     }
   };
 
-  // src/js/mobjs/modules/refs/index.js
-  var getRefs = (element) => {
-    const refs = element.querySelectorAll(`[${ATTR_REFS}]`);
-    return [...refs].filter((item) => !item.getIsPlaceholder?.()).reduce((previous, current) => {
-      const refKey = current.getAttribute(ATTR_REFS);
-      current.removeAttribute(ATTR_REFS);
-      const newRefsByKey = refKey in previous ? [...previous[refKey], current] : [current];
-      return { ...previous, [refKey]: newRefsByKey };
-    }, {});
-  };
-  var getRefsComponent = (element) => {
-    const refs = element.querySelectorAll(`[${ATTR_REFS}]`);
-    return [...refs].filter((item) => item.getIsPlaceholder?.()).map((item) => {
-      const refKey = item.getAttribute(ATTR_REFS);
-      item.removeAttribute(ATTR_REFS);
-      return {
-        ref: refKey,
-        // @ts-ignore
-        id: item.getId?.()
-      };
-    });
-  };
-  var parseRef = (refs) => {
-    return Object.entries(refs).map(([key, value]) => {
-      return { [key]: value[0] };
-    }).reduce((previous, current) => {
-      return { ...previous, ...current };
-    }, {});
-  };
-  var refsComponentToNewElement = (refs) => {
-    return refs.map(({ ref, id }) => {
-      return {
-        ref,
-        element: getElementById({ id })
-      };
-    }).reduce((previous, current) => {
-      const { ref, element } = current;
-      const newRefsByKey = ref in previous ? [...previous[ref], element] : [element];
-      return { ...previous, [ref]: newRefsByKey };
-    }, {});
-  };
-
   // src/js/mobjs/modules/onMount/index.js
   var onMountCallbackMap = /* @__PURE__ */ new Map();
   var addOnMoutCallback = ({ id, cb = () => {
   } }) => {
     onMountCallbackMap.set(id, cb);
   };
-  var fireOnMountCallBack = async ({ id, element, refsCollection }) => {
+  var fireOnMountCallBack = async ({ id, element }) => {
     const callback2 = onMountCallbackMap.get(id);
     const destroyCallback = await callback2?.({
-      element,
-      ref: parseRef(refsCollection),
-      refs: refsCollection
+      element
     });
     setDestroyCallback({ cb: destroyCallback, id });
     onMountCallbackMap.delete(id);
@@ -19581,7 +19536,7 @@
   var getRefsSorter = (refs) => {
     return [
       ...new Set(
-        refs.filter((ref) => document.contains(ref)).sort(function(a, b) {
+        refs.sort(function(a, b) {
           if (a === b || !a || !b) return 0;
           if (a.compareDocumentPosition(b) & 2) {
             return 1;
@@ -20104,8 +20059,6 @@
       element: componentToParse
     });
     newElement.classList.add(...classList);
-    const refsCollection = newElement ? getRefs(newElement) : {};
-    const refsCollectionComponent = newElement ? getRefsComponent(newElement) : [];
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();
@@ -20127,21 +20080,16 @@
     if (shoulBeScoped) {
       await fireOnMountCallBack({
         id,
-        element: newElement,
-        refsCollection
+        element: newElement
       });
     }
     newElement?.inizializeCustomComponent?.(objectFromComponentFunction);
     functionToFireAtTheEnd.push({
       onMount: async () => {
         if (shoulBeScoped) return;
-        const refFromComponent = refsComponentToNewElement(
-          refsCollectionComponent
-        );
         await fireOnMountCallBack({
           id,
-          element: newElement,
-          refsCollection: { ...refsCollection, ...refFromComponent }
+          element: newElement
         });
       },
       fireDynamic: () => {
@@ -20470,10 +20418,16 @@
   };
 
   // src/js/component/common/animationTitle/animationTitle.js
-  var AnimationTitleFn = ({ html, onMount, watchSync }) => {
-    onMount(({ element, ref }) => {
+  var AnimationTitleFn = ({
+    html,
+    onMount,
+    watchSync,
+    setRef,
+    getRef
+  }) => {
+    onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
-      const { titleEl } = ref;
+      const { titleEl } = getRef();
       watchSync("align", (value) => {
         element.classList.remove("is-left");
         element.classList.remove("is-right");
@@ -20495,7 +20449,7 @@
       };
     });
     return html`<div class="c-animation-title">
-        <h4 ref="titleEl"></h4>
+        <h4 ${setRef("titleEl")}></h4>
     </div>`;
   };
 
@@ -21446,7 +21400,7 @@
     core_default.highlightElement(ref);
     ref.style.height = "";
   };
-  var SnippetFn = ({ html, onMount, getState }) => {
+  var SnippetFn = ({ html, onMount, getState, setRef, getRef }) => {
     const { source, isFull, hasBorder, hasOverflow, numLines } = getState();
     const isFullClass = isFull ? "is-full" : "";
     const hasBorderClass = hasBorder ? "has-border" : "";
@@ -21457,8 +21411,8 @@
     const lineHeight = getComputedStyle(
       document.documentElement
     ).getPropertyValue("--snippet-line-height-value");
-    onMount(async ({ ref }) => {
-      const { codeEl } = ref;
+    onMount(async () => {
+      const { codeEl } = getRef();
       const stateObject = getState();
       const awaitLoad = stateObject?.awaitLoad;
       if (awaitLoad) {
@@ -21473,7 +21427,7 @@
         <code class="${isFullClass} ${hasBorderClass}">
             <pre
                 class="${isFullClass} ${hasOverflowClass}"
-                ref="codeEl"
+                ${setRef("codeEl")}
                 style="height:${numLines * Number(lineHeight) * Number(remValue)}rem;"
             >
 Loading snippet ...</pre
@@ -23472,10 +23426,12 @@ Loading snippet ...</pre
     watch,
     renderComponent,
     removeDOM,
-    staticProps: staticProps2
+    staticProps: staticProps2,
+    setRef,
+    getRef
   }) => {
-    onMount(({ element, ref }) => {
-      const { screenEl, scrollerEl, codeEl, scrollbar } = ref;
+    onMount(({ element }) => {
+      const { screenEl, scrollerEl, codeEl, scrollbar } = getRef();
       const { updateScroller, move, goToTop } = overlayScroller({
         screen: screenEl,
         scroller: scrollerEl,
@@ -23572,14 +23528,14 @@ Loading snippet ...</pre
                     max="100"
                     value="0"
                     step=".5"
-                    ref="scrollbar"
+                    ${setRef("scrollbar")}
                     class="c-code-overlay__scrollbar"
                 />
-                <div class="c-code-overlay__content" ref="screenEl">
-                    <div ref="scrollerEl">
+                <div class="c-code-overlay__content" ${setRef("screenEl")}>
+                    <div ${setRef("scrollerEl")}>
                         <div
                             class="c-code-overlay__content__description"
-                            ref="codeEl"
+                            ${setRef("codeEl")}
                         ></div>
                     </div>
                 </div>
@@ -23697,11 +23653,18 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/mLogo1/mLogo1.js
-  var Mlogo1Fn = ({ html, onMount, getState, watchSync }) => {
+  var Mlogo1Fn = ({
+    html,
+    onMount,
+    getState,
+    watchSync,
+    setRef,
+    getRef
+  }) => {
     const { svg, active } = getState();
     const activeClass = active ? "active" : "";
-    onMount(({ ref }) => {
-      const { logo } = ref;
+    onMount(() => {
+      const { logo } = getRef();
       watchSync("active", (isActive) => {
         logo.classList.toggle("active", isActive);
       });
@@ -23709,7 +23672,7 @@ Loading snippet ...</pre
       };
     });
     return html`<div>
-        <div class="m-logo-1 ${activeClass}" ref="logo">${svg}</div>
+        <div class="m-logo-1 ${activeClass}" ${setRef("logo")}>${svg}</div>
     </div>`;
   };
 
@@ -23734,12 +23697,19 @@ Loading snippet ...</pre
   var scroll_arrow_default = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n<svg width="50.51" height="51.18" version="1.1" viewBox="0 0 13.364 13.541" xmlns="http://www.w3.org/2000/svg">\n <g transform="translate(-6.0855 -4.2559)">\n  <path d="m7.5846 9.2554h10.366l-5.1892 7.0421z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m7.584 7.7559a1.5002 1.5002 0 0 0-1.207 2.3887l5.1758 7.041a1.5002 1.5002 0 0 0 2.416 2e-3l5.1895-7.043a1.5002 1.5002 0 0 0-1.207-2.3887zm2.9648 3h4.4316l-2.2188 3.0117z" color="#000000" style="-inkscape-stroke:none"/>\n  <path d="m10.712 5.7557h4.1113v4.4858h-4.1113z" color="#000000" stroke-linejoin="round" stroke-width="3" style="-inkscape-stroke:none"/>\n  <path d="m10.711 4.2559a1.5002 1.5002 0 0 0-1.5 1.5v4.4863a1.5002 1.5002 0 0 0 1.5 1.5h4.1113a1.5002 1.5002 0 0 0 1.5-1.5v-4.4863a1.5002 1.5002 0 0 0-1.5-1.5zm1.5 3h1.1113v1.4863h-1.1113z" color="#000000" style="-inkscape-stroke:none"/>\n </g>\n</svg>\n';
 
   // src/js/component/common/nextPage/nextPage.js
-  var QuickNavFn = ({ getState, onMount, html, watchSync }) => {
+  var QuickNavFn = ({
+    getState,
+    onMount,
+    html,
+    watchSync,
+    setRef,
+    getRef
+  }) => {
     const { active } = getState();
     const activeClass = active ? "active" : "";
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
-      const { prev: prev2, next } = ref;
+      const { prev: prev2, next } = getRef();
       watchSync("active", (isActive) => {
         element.classList.toggle("active", isActive);
       });
@@ -23767,8 +23737,8 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="c-quick-nav-container ${activeClass}">
-        <a class="c-quick-nav c-quick-nav--prev" ref="prev">${scroll_arrow_default}</a>
-        <a class="c-quick-nav c-quick-nav--next" ref="next">${scroll_arrow_default}</a>
+        <a class="c-quick-nav c-quick-nav--prev" ${setRef("prev")}>${scroll_arrow_default}</a>
+        <a class="c-quick-nav c-quick-nav--next" ${setRef("next")}>${scroll_arrow_default}</a>
     </div>`;
   };
 
@@ -24015,9 +23985,9 @@ Loading snippet ...</pre
     useMethodByName("main_navigation")?.closeAllAccordion();
     useMethodByName("navigation-container")?.scrollTop();
   }
-  var HeaderFn = ({ html, onMount, delegateEvents }) => {
-    onMount(({ ref }) => {
-      const { navInfo, title, beta } = ref;
+  var HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
+    onMount(() => {
+      const { navInfo, title, beta } = getRef();
       navigationStore.watch("navigationIsOpen", (val2) => {
         if (val2) {
           openInfo({ navInfo });
@@ -24042,7 +24012,7 @@ Loading snippet ...</pre
                     <button
                         type="button"
                         class="l-header__title"
-                        ref="titleLink"
+                        ${setRef("titleLink")}
                         ${delegateEvents({
       click: () => {
         titleHandler();
@@ -24050,15 +24020,15 @@ Loading snippet ...</pre
     })}
                     >
                         <div class="l-header__title-container">
-                            <h3 ref="title"><span>Mob</span>Project</h3>
-                            <h5 ref="beta">beta 0.0.1</h5>
+                            <h3 ${setRef("title")}><span>Mob</span>Project</h3>
+                            <h5 ${setRef("beta")}>beta 0.0.1</h5>
                         </div>
                     </button>
                     <div class="l-header__utils">
                         <mob-header-nav></mob-header-nav>
                     </div>
                 </div>
-                <div class="l-header__navinfo" ref="navInfo">
+                <div class="l-header__navinfo" ${setRef("navInfo")}>
                     <p class="p--small"></p>
                 </div>
             </div>
@@ -24249,11 +24219,17 @@ Loading snippet ...</pre
       if (!navigationIsOpen) bodyScroll.to(0);
     });
   }
-  var NavigationContainerFn = ({ html, onMount, addMethod }) => {
-    onMount(({ element, ref }) => {
+  var NavigationContainerFn = ({
+    html,
+    onMount,
+    addMethod,
+    setRef,
+    getRef
+  }) => {
+    onMount(({ element }) => {
       const main = document.querySelector("main.main");
       let lastMq = "";
-      const { toTopBtn, wrap } = ref;
+      const { toTopBtn, wrap } = getRef();
       navigationStore.watch("navigationIsOpen", (val2) => {
         if (val2) {
           openNavigation({ element, main });
@@ -24280,9 +24256,12 @@ Loading snippet ...</pre
         <div class="l-navcontainer">
             <div class="l-navcontainer__side">
                 <div class="l-navcontainer__percent"></div>
-                <button class="l-navcontainer__totop" ref="toTopBtn"></button>
+                <button
+                    class="l-navcontainer__totop"
+                    ${setRef("toTopBtn")}
+                ></button>
             </div>
-            <div class="l-navcontainer__wrap" ref="wrap">
+            <div class="l-navcontainer__wrap" ${setRef("wrap")}>
                 <div class="l-navcontainer__scroll">
                     <mob-navigation name="main_navigation"></mob-navigation>
                 </div>
@@ -24468,12 +24447,14 @@ Loading snippet ...</pre
     updateState,
     staticProps: staticProps2,
     bindProps,
-    watchSync
+    watchSync,
+    setRef,
+    getRef
   }) => {
     const { children, headerButton, callback: callback2 } = getState();
     const { label, url, activeId } = headerButton;
-    onMount(({ ref }) => {
-      const { content: content2 } = ref;
+    onMount(() => {
+      const { content: content2 } = getRef();
       slide.subscribe(content2);
       slide.reset(content2);
       watchSync("isOpen", async (isOpen) => {
@@ -24511,7 +24492,7 @@ Loading snippet ...</pre
       }
     })}
             ></mob-navigation-button>
-            <ul class="l-navigation__submenu" ref="content">
+            <ul class="l-navigation__submenu" ${setRef("content")}>
                 ${getSubmenu({ children, staticProps: staticProps2, callback: callback2 })}
             </ul>
         </li>
@@ -24820,7 +24801,13 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/scrollTo/button/scrollToButton.js
-  var ScrollToButtonFn = ({ html, getState, onMount, watchSync }) => {
+  var ScrollToButtonFn = ({
+    html,
+    getState,
+    onMount,
+    watchSync,
+    setRef
+  }) => {
     const { label } = getState();
     onMount(({ element }) => {
       watchSync("active", (val2) => {
@@ -24831,7 +24818,7 @@ Loading snippet ...</pre
     });
     return html`
         <button type="button">
-            <span ref="labelRef"> ${label} </span>
+            <span ${setRef("labelRef")}> ${label} </span>
         </button>
     `;
   };
@@ -24894,7 +24881,8 @@ Loading snippet ...</pre
     bindProps,
     setState,
     getState,
-    invalidate
+    invalidate,
+    setRef
   }) => {
     onMount(() => {
       if (motionCore.mq("max", "large")) return;
@@ -24920,7 +24908,7 @@ Loading snippet ...</pre
     });
     return html`
         <div class="c-scroll-to">
-            <ul ref="list">
+            <ul ${setRef("list")}>
                 ${invalidate({
       bind: "anchorItems",
       render: () => {
@@ -25200,7 +25188,7 @@ Loading snippet ...</pre
     element.textContent = "";
     element.insertAdjacentHTML("afterbegin", content);
   };
-  var OnlyDesktopFn = ({ html, onMount }) => {
+  var OnlyDesktopFn = ({ html, onMount, setRef }) => {
     onMount(({ element }) => {
       onResize({ element });
       mobCore.useResize(() => {
@@ -25209,7 +25197,9 @@ Loading snippet ...</pre
       return () => {
       };
     });
-    return html` <div class="only-desktop-container" ref="container"></div> `;
+    return html`
+        <div class="only-desktop-container" ${setRef("container")}></div>
+    `;
   };
 
   // src/js/component/common/onlyDesktop/definition.js
@@ -25494,18 +25484,24 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN0/animatedPatternN0.js
-  var AnimatedPatternN0Fn = ({ onMount, html, getState }) => {
+  var AnimatedPatternN0Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef
+  }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
-      const { wrap, canvas } = ref;
+      const { wrap, canvas } = getRef();
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", prevRoute);
       setQuickNavState("nextRoute", nextRoute);
@@ -25556,8 +25552,8 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div class="c-canvas__wrap" ${setRef("wrap")}>
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
         </div>
@@ -25998,17 +25994,23 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/animatedPattern/animatedPatternN1/animatedPatternN1.js
-  var AnimatedPatternN1Fn = ({ onMount, html, getState }) => {
+  var AnimatedPatternN1Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef
+  }) => {
     document.body.style.background = "#000000";
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
-      const { wrap, canvas } = ref;
+      const { wrap, canvas } = getRef();
       setQuickNavState("active", true);
       setQuickNavState(
         "prevRoute",
@@ -26062,8 +26064,11 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef("wrap")}
+                >
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
         </div>
@@ -26321,17 +26326,23 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN0/caterpillarN0.js
-  var CaterpillarN0Fn = ({ onMount, html, getState }) => {
+  var CaterpillarN0Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef
+  }) => {
     document.body.style.background = "#000000";
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
-      const { wrap, canvas } = ref;
+      const { wrap, canvas } = getRef();
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "#caterpillarN1");
       setQuickNavState("color", "white");
@@ -26383,9 +26394,9 @@ Loading snippet ...</pre
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ref="wrap"
+                    ${setRef("wrap")}
                 >
-                    <canvas ref="canvas"></canvas>
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
         </div>
@@ -26651,17 +26662,23 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/canvas/caterpillarN1/caterpillarN1.js
-  var CaterpillarN1Fn = ({ onMount, html, getState }) => {
+  var CaterpillarN1Fn = ({
+    onMount,
+    html,
+    getState,
+    getRef,
+    setRef
+  }) => {
     document.body.style.background = "#000000";
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
-      const { wrap, canvas } = ref;
+      const { wrap, canvas } = getRef();
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", "#caterpillarN0");
       setQuickNavState("nextRoute", "#caterpillarN2");
@@ -26714,9 +26731,9 @@ Loading snippet ...</pre
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"
-                    ref="wrap"
+                    ${setRef("wrap")}
                 >
-                    <canvas ref="canvas"></canvas>
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
         </div>
@@ -26975,18 +26992,24 @@ Loading snippet ...</pre
             </li>`;
     }).join("");
   }
-  var CaterpillarN2Fn = ({ onMount, html, getState }) => {
+  var CaterpillarN2Fn = ({
+    onMount,
+    html,
+    getState,
+    setRef,
+    getRef
+  }) => {
     const { buttons: buttons4, rotationDefault } = getState();
     document.body.style.background = "#000000";
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
       }
-      const { wrap, canvas, rangeValue, rotationButton } = ref;
+      const { wrap, canvas, rangeValue, rotationButton } = getRef();
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", "#caterpillarN1");
       setQuickNavState(
@@ -27051,13 +27074,18 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef("wrap")}
+                >
                     <ul class="c-canvas__controls">
                         ${getControls({ buttons: buttons4 })}
                         <li class="c-canvas__controls__item">
                             <label class="c-canvas__controls__label">
                                 change rotation:
-                                <span class="js-range-value" ref="rangeValue"
+                                <span
+                                    class="js-range-value"
+                                    ${setRef("rangeValue")}
                                     >${rotationDefault}</span
                                 >
                             </label>
@@ -27068,12 +27096,12 @@ Loading snippet ...</pre
                                     max="720"
                                     value="${rotationDefault}"
                                     step="1"
-                                    ref="rotationButton"
+                                    ${setRef("rotationButton")}
                                 />
                             </div>
                         </li>
                     </ul>
-                    <canvas ref="canvas"></canvas>
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
         </div>
@@ -27410,14 +27438,14 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN0/scrollerN0.js
-  var ScrollerN0Fn = ({ onMount, html, getState }) => {
+  var ScrollerN0Fn = ({ onMount, html, getState, setRef, getRef }) => {
     const { prevRoute, nextRoute, title } = getState();
     document.body.style.background = "#000000";
     const setScrollDownState = setStateByName("scroll_down_label");
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
@@ -27450,7 +27478,7 @@ Loading snippet ...</pre
         }
       ]);
       setCodeButtonState("color", "white");
-      const { wrap, canvas, canvasScroller } = ref;
+      const { wrap, canvas, canvasScroller } = getRef();
       window.scrollTo(0, 0);
       const destroyAnimation = scrollerN0Animation({
         canvas,
@@ -27478,11 +27506,14 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef("wrap")}
+                >
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
-            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller" ${setRef("canvasScroller")}></div>
         </div>
     `;
   };
@@ -27847,13 +27878,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/scroller/ScrollerN1/scrollerN1.js
-  var ScrollerN1Fn = ({ onMount, html, getState }) => {
+  var ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
     document.body.style.background = "#000000";
     const setScrollDownState = setStateByName("scroll_down_label");
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
+    onMount(() => {
       if (motionCore.mq("max", "desktop")) {
         document.body.style.background = "";
         return;
@@ -27886,7 +27917,7 @@ Loading snippet ...</pre
         }
       ]);
       setCodeButtonState("color", "white");
-      const { wrap, canvas, canvasScroller } = ref;
+      const { wrap, canvas, canvasScroller } = getRef();
       const destroyAnimation = scrollerN1Animation({
         canvas,
         canvasScroller,
@@ -27913,11 +27944,14 @@ Loading snippet ...</pre
         <div>
             <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
-                <div class="c-canvas__wrap c-canvas__wrap--wrapped" ref="wrap">
-                    <canvas ref="canvas"></canvas>
+                <div
+                    class="c-canvas__wrap c-canvas__wrap--wrapped"
+                    ${setRef("wrap")}
+                >
+                    <canvas ${setRef("canvas")}></canvas>
                 </div>
             </div>
-            <div class="c-canvas-scroller" ref="canvasScroller"></div>
+            <div class="c-canvas-scroller" ${setRef("canvasScroller")}></div>
         </div>
     `;
   };
@@ -27997,11 +28031,13 @@ Loading snippet ...</pre
     watch,
     onMount,
     html,
-    getState
+    getState,
+    setRef,
+    getRef
   }) => {
     const { key } = getState();
-    onMount(({ ref }) => {
-      const { content: content2 } = ref;
+    onMount(() => {
+      const { content: content2 } = getRef();
       watch("key", (value) => {
         content2.textContent = `${value}`;
       });
@@ -28009,7 +28045,7 @@ Loading snippet ...</pre
       };
     });
     return html`<span class="dynamic-list-card-inner">
-        <span ref="content">${key}</span>
+        <span ${setRef("content")}>${key}</span>
     </span>`;
   };
 
@@ -28275,11 +28311,13 @@ Loading snippet ...</pre
     bindProps,
     delegateEvents,
     watchSync,
-    invalidate
+    invalidate,
+    setRef,
+    getRef
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ refs }) => {
-      const { counterEl } = refs;
+    onMount(() => {
+      const { counterEl } = getRef();
       const { repeater } = getLegendData();
       const { source } = repeater;
       setCodeButtonState("drawers", [
@@ -28384,7 +28422,7 @@ Loading snippet ...</pre
 
             <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
-                <span ref="counterEl"></span>
+                <span ${setRef("counterEl")}></span>
             </div>
 
             <!-- Repeaters -->
@@ -28402,11 +28440,13 @@ Loading snippet ...</pre
     watch,
     onMount,
     html,
-    getState
+    getState,
+    setRef,
+    getRef
   }) => {
     const { parentListId, counter } = getState();
-    onMount(({ ref }) => {
-      const { counterValueEl } = ref;
+    onMount(() => {
+      const { counterValueEl } = getRef();
       watch("counter", (value) => {
         counterValueEl.textContent = `${value}`;
       });
@@ -28417,7 +28457,7 @@ Loading snippet ...</pre
         <p class="c-dynamic-counter__title">Nested:</p>
         <p class="c-dynamic-counter__subtitle">(slotted)</p>
         <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
-        <span ref="counterValueEl">${counter}</span>
+        <span ${setRef("counterValueEl")}>${counter}</span>
     </div>`;
   };
 
@@ -28496,13 +28536,15 @@ Loading snippet ...</pre
     updateState,
     delegateEvents,
     invalidate,
-    repeat
+    repeat,
+    setRef,
+    getRef
   }) => {
     const { isFull, parentListId, index, label, counter } = getState();
     let repeaterIndex = 0;
     let elementRef;
-    onMount(({ element, ref }) => {
-      const { indexEl, labelEl, counterEl } = ref;
+    onMount(({ element }) => {
+      const { indexEl, labelEl, counterEl } = getRef();
       elementRef = element;
       watch("index", (val2) => {
         indexEl.textContent = updateContent("index", val2);
@@ -28546,13 +28588,13 @@ Loading snippet ...</pre
                 </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index" ref="indexEl">
+                <div class="index" ${setRef("indexEl")}>
                     ${updateContent("index", index)}
                 </div>
-                <div class="label" ref="labelEl">
+                <div class="label" ${setRef("labelEl")}>
                     ${updateContent("label", label)}
                 </div>
-                <div class="counter" ref="counterEl">
+                <div class="counter" ${setRef("counterEl")}>
                     ${updateContent("counter", counter)}
                 </div>
                 <div class="key">key: ${key.length > 0 ? key : "no-key"}</div>
@@ -28707,11 +28749,13 @@ Loading snippet ...</pre
     html,
     onMount,
     watch,
-    getState
+    getState,
+    setRef,
+    getRef
   }) => {
     const { label } = getState();
-    onMount(({ ref }) => {
-      const { contentEl } = ref;
+    onMount(() => {
+      const { contentEl } = getRef();
       watch("label", (value) => {
         contentEl.innerHTML = setContent(value);
       });
@@ -28719,7 +28763,7 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="c-dynamic-list-slotted-label">
-        <p class="content" ref="contentEl">${setContent(label)}</p>
+        <p class="content" ${setRef("contentEl")}>${setContent(label)}</p>
     </div>`;
   };
 
@@ -28992,11 +29036,18 @@ Loading snippet ...</pre
     await playIntro();
     playSvg();
   };
-  var HomeComponentFn = ({ html, onMount, getState }) => {
+  var HomeComponentFn = ({
+    html,
+    onMount,
+    getState,
+    setRef,
+    getRefs
+  }) => {
     const { svg } = getState();
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(async ({ refs }) => {
-      const { textStagger, svg_group } = refs;
+    onMount(async ({ element }) => {
+      const { textStagger } = getRefs();
+      const svg_group = element.querySelectorAll('[ref="svg_group"]');
       const { destroy, playIntro, playSvg } = simpleIntroAnimation({
         refs: svg_group
       });
@@ -29039,36 +29090,36 @@ Loading snippet ...</pre
         <div class="l-index__content">
             <a class="l-index__item" href="./#mobCore-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef("textStagger")}>
                         <span>Mob</span>Core
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef("textStagger")}>
                         store & window events
                     </h2>
                 </div>
             </a>
             <a class="l-index__item" href="./#mobJs-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef("textStagger")}>
                         <span>Mob</span>Js
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef("textStagger")}>
                         js component library
                     </h2>
                 </div>
             </a>
             <a class="l-index__item" href="./#mobMotion-overview">
                 <div class="l-index__inner-content">
-                    <h1 class="l-index__stagger" ref="textStagger">
+                    <h1 class="l-index__stagger" ${setRef("textStagger")}>
                         <span>Mob</span>Motion
                     </h1>
                 </div>
                 <div class="l-index__inner-content">
-                    <h2 class="l-index__stagger" ref="textStagger">
+                    <h2 class="l-index__stagger" ${setRef("textStagger")}>
                         js animation library
                     </h2>
                 </div>
@@ -29391,11 +29442,13 @@ Loading snippet ...</pre
     getState,
     watchSync,
     watch,
-    id
+    id,
+    setRef,
+    getRef
   }) => {
     const { level } = getState();
-    onMount(({ ref, element }) => {
-      const { keyRef, valueRef } = ref;
+    onMount(({ element }) => {
+      const { keyRef, valueRef } = getRef();
       watchSync("key", (value) => {
         keyRef.innerHTML = `${value}`;
       });
@@ -29411,9 +29464,11 @@ Loading snippet ...</pre
     return html`<div class="matrioska-item">
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
-            <h6 class="matrioska-item__key">key: <span ref="keyRef"></span></h6>
+            <h6 class="matrioska-item__key">
+                key: <span ${setRef("keyRef")}></span>
+            </h6>
             <h6 class="matrioska-item__value">
-                Value: <span ref="valueRef"></span>
+                Value: <span ${setRef("valueRef")}></span>
             </h6>
             <h6 class="matrioska-item__value">
                 Component id: <span>${id}</span>
@@ -29710,19 +29765,21 @@ Loading snippet ...</pre
     watch,
     staticProps: staticProps2,
     bindProps,
-    delegateEvents
+    delegateEvents,
+    setRef,
+    getRef
   }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
       const indicators = element.querySelectorAll(".js-indicator");
       const nav = element.querySelector(".js-nav");
       const titles = element.querySelectorAll(".js-title h1");
       const { destroy } = horizontalScrollerAnimation({
-        rootRef: ref["js_root"],
+        rootRef: getRef().js_root,
         indicators,
         titles,
         nav,
@@ -29800,7 +29857,7 @@ Loading snippet ...</pre
     return html`<div class="l-h-scroller">
         <only-desktop></only-desktop>
         <div class="l-h-scroller__top">scroll down</div>
-        <ul class="l-h-scroller__nav js-nav" ref="js_nav">
+        <ul class="l-h-scroller__nav js-nav" ${setRef("js_nav")}>
             ${getNav({
       numOfCol: 10,
       setState,
@@ -29809,12 +29866,12 @@ Loading snippet ...</pre
       delegateEvents
     })}
         </ul>
-        <div class="l-h-scroller__root js-root" ref="js_root">
+        <div class="l-h-scroller__root js-root" ${setRef("js_root")}>
             <div
                 class="l-h-scroller__container js-container"
-                ref="js_container"
+                ${setRef("js_container")}
             >
-                <div class="l-h-scroller__row js-row" ref="js_row">
+                <div class="l-h-scroller__row js-row" ${setRef("js_root")}>
                     ${getColumns({
       numOfCol: 10,
       pinIsVisible: !animatePin,
@@ -29822,12 +29879,12 @@ Loading snippet ...</pre
     })}
                     <section
                         class="l-h-scroller__fakeColumn js-column"
-                        ref="js_column"
+                        ${setRef("js_column")}
                     ></section>
                 </div>
                 <div
                     class="l-h-scroller__trigger js-trigger"
-                    ref="js_trigger"
+                    ${setRef("js_trigger")}
                 ></div>
             </div>
         </div>
@@ -29847,11 +29904,13 @@ Loading snippet ...</pre
     getState,
     watch,
     html,
-    onMount
+    onMount,
+    setRef,
+    getRef
   }) => {
     const { id } = getState();
-    onMount(({ ref }) => {
-      const { button } = ref;
+    onMount(() => {
+      const { button } = getRef();
       watch("active", (active) => {
         button.classList.toggle("active", active);
       });
@@ -29864,7 +29923,7 @@ Loading snippet ...</pre
                 type="button"
                 data-id="${id}"
                 class="l-h-scroller__nav__btn"
-                ref="button"
+                ${setRef("button")}
             >
                 ${id}
             </button>
@@ -30141,24 +30200,24 @@ Loading snippet ...</pre
   var playAnimation2 = async ({ playIntro }) => {
     await playIntro();
   };
-  var getTrail = ({ star }) => {
+  var getTrail = ({ star, setRef }) => {
     return [...new Array(numberOfStar).keys()].map((_item, index) => {
       return renderHtml`
                 <div
                     class="child-trail child-trail--${index}"
-                    ref="trail${index}"
+                    ${setRef(`trail${index}`)}
                 >
                     ${star}
                 </div>
             `;
     }).join("");
   };
-  var SvgChildFn = ({ onMount, html, getState }) => {
+  var SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
     const isDesktop = motionCore.mq("min", "desktop");
     const { svg, star } = isDesktop ? getState() : { svg: "", star: "" };
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
-    onMount(({ refs, ref }) => {
+    onMount(({ element }) => {
       if (!isDesktop) return;
       setQuickNavState("active", true);
       setQuickNavState("nextRoute", "#mv1");
@@ -30166,7 +30225,7 @@ Loading snippet ...</pre
       setMainTitleState("align", "left");
       setMainTitleState("color", "black");
       setMainTitleState("title", "Child");
-      const { stagger } = refs;
+      const stagger = element.querySelectorAll('[ref="stagger"]');
       const {
         trail0,
         trail1,
@@ -30178,7 +30237,7 @@ Loading snippet ...</pre
         trail7,
         trail8,
         trail9
-      } = ref;
+      } = getRef();
       const childMethods = childAnimations({
         groups: stagger,
         trails: [
@@ -30208,7 +30267,7 @@ Loading snippet ...</pre
     return html`<div class="svg-child-container">
         <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
-        ${getTrail({ star })}
+        ${getTrail({ star, setRef })}
     </div>`;
   };
 
@@ -30352,7 +30411,7 @@ Loading snippet ...</pre
     const { logo, sideShape } = isDesktop ? getState() : { logo: "", sideShape: "" };
     const setQuickNavState = setStateByName("quick_nav");
     const setMainTitleState = setStateByName("animation_title");
-    onMount(({ refs, ref }) => {
+    onMount(({ element }) => {
       if (!isDesktop) return;
       setQuickNavState("active", true);
       setQuickNavState("prevRoute", "#child");
@@ -30360,19 +30419,17 @@ Loading snippet ...</pre
       setMainTitleState("align", "left");
       setMainTitleState("color", "white");
       setMainTitleState("title", "Mv1");
-      const {
-        block1,
-        block2,
-        block3,
-        block4,
-        block5,
-        block6,
-        block7,
-        block8,
-        M_left,
-        M_right
-      } = ref;
-      const { around } = refs;
+      const block1 = element.querySelector('[ref="block1"]');
+      const block2 = element.querySelector('[ref="block2"]');
+      const block3 = element.querySelector('[ref="block3"]');
+      const block4 = element.querySelector('[ref="block4"]');
+      const block5 = element.querySelector('[ref="block5"]');
+      const block6 = element.querySelector('[ref="block6"]');
+      const block7 = element.querySelector('[ref="block7"]');
+      const block8 = element.querySelector('[ref="block8"]');
+      const M_left = element.querySelector('[ref="M_left"]');
+      const M_right = element.querySelector('[ref="M_right"]');
+      const around = element.querySelectorAll('[ref="around"]');
       const { playIntro, playSvg, destroySvg } = mv1Animation({
         logoRefs: [
           { block1 },
@@ -30421,7 +30478,8 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [OnlyDesktop]
+    child: [OnlyDesktop],
+    scoped: true
   });
 
   // src/js/pages/svg/mv1/index.js

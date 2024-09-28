@@ -140,9 +140,11 @@ export const CodeOverlayFn = ({
     renderComponent,
     removeDOM,
     staticProps,
+    setRef,
+    getRef,
 }) => {
-    onMount(({ element, ref }) => {
-        const { screenEl, scrollerEl, codeEl, scrollbar } = ref;
+    onMount(({ element }) => {
+        const { screenEl, scrollerEl, codeEl, scrollbar } = getRef();
 
         const { updateScroller, move, goToTop } = overlayScroller({
             screen: screenEl,
@@ -266,14 +268,14 @@ export const CodeOverlayFn = ({
                     max="100"
                     value="0"
                     step=".5"
-                    ref="scrollbar"
+                    ${setRef('scrollbar')}
                     class="c-code-overlay__scrollbar"
                 />
-                <div class="c-code-overlay__content" ref="screenEl">
-                    <div ref="scrollerEl">
+                <div class="c-code-overlay__content" ${setRef('screenEl')}>
+                    <div ${setRef('scrollerEl')}>
                         <div
                             class="c-code-overlay__content__description"
-                            ref="codeEl"
+                            ${setRef('codeEl')}
                         ></div>
                     </div>
                 </div>

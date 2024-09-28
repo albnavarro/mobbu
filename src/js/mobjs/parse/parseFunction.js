@@ -20,11 +20,6 @@ import {
     addSelfIdToParentComponent,
     setParentsIdFallback,
 } from '../component/action/parent';
-import {
-    getRefs,
-    getRefsComponent,
-    refsComponentToNewElement,
-} from '../modules/refs';
 import { applyDelegationBindEvent } from '../modules/delegateEvents';
 import { getParamsFromWebComponent } from './steps/getParamsFromWebComponent';
 import { addComponentToStore } from '../component';
@@ -322,18 +317,6 @@ export const parseComponentsRecursive = async ({
     newElement.classList.add(...classList);
 
     /**
-     * Find all default node refs.
-     */
-    const refsCollection = newElement ? getRefs(newElement) : {};
-
-    /**
-     * Find all component node refs.
-     */
-    const refsCollectionComponent = newElement
-        ? getRefsComponent(newElement)
-        : [];
-
-    /**
      * Set parentId to component inside current.
      * Add self id to future component.
      * If id is assigned to component nested in next cycle will be override by current component.
@@ -384,7 +367,6 @@ export const parseComponentsRecursive = async ({
         await fireOnMountCallBack({
             id,
             element: newElement,
-            refsCollection,
         });
     }
 
@@ -406,19 +388,11 @@ export const parseComponentsRecursive = async ({
             if (shoulBeScoped) return;
 
             /**
-             * Normalize component refs in array like default refs
-             */
-            const refFromComponent = refsComponentToNewElement(
-                refsCollectionComponent
-            );
-
-            /**
              * Fire onMount callback at the end of current parse.
              */
             await fireOnMountCallBack({
                 id,
                 element: newElement,
-                refsCollection: { ...refsCollection, ...refFromComponent },
             });
         },
         fireDynamic: () => {

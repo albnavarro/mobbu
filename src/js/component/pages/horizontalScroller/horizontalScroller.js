@@ -85,6 +85,8 @@ export const HorizontalScrollerFn = ({
     staticProps,
     bindProps,
     delegateEvents,
+    setRef,
+    getRef,
 }) => {
     const { animatePin, svgLeft, svgRight, prevRoute, nextRoute } = getState();
 
@@ -97,14 +99,14 @@ export const HorizontalScrollerFn = ({
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ element, ref }) => {
+    onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
 
         const indicators = element.querySelectorAll('.js-indicator');
         const nav = element.querySelector('.js-nav');
         const titles = element.querySelectorAll('.js-title h1');
         const { destroy } = horizontalScrollerAnimation({
-            rootRef: ref['js_root'],
+            rootRef: getRef().js_root,
             indicators,
             titles,
             nav,
@@ -229,7 +231,7 @@ export const HorizontalScrollerFn = ({
     return html`<div class="l-h-scroller">
         <only-desktop></only-desktop>
         <div class="l-h-scroller__top">scroll down</div>
-        <ul class="l-h-scroller__nav js-nav" ref="js_nav">
+        <ul class="l-h-scroller__nav js-nav" ${setRef('js_nav')}>
             ${getNav({
                 numOfCol: 10,
                 setState,
@@ -238,12 +240,12 @@ export const HorizontalScrollerFn = ({
                 delegateEvents,
             })}
         </ul>
-        <div class="l-h-scroller__root js-root" ref="js_root">
+        <div class="l-h-scroller__root js-root" ${setRef('js_root')}>
             <div
                 class="l-h-scroller__container js-container"
-                ref="js_container"
+                ${setRef('js_container')}
             >
-                <div class="l-h-scroller__row js-row" ref="js_row">
+                <div class="l-h-scroller__row js-row" ${setRef('js_root')}>
                     ${getColumns({
                         numOfCol: 10,
                         pinIsVisible: !animatePin,
@@ -251,12 +253,12 @@ export const HorizontalScrollerFn = ({
                     })}
                     <section
                         class="l-h-scroller__fakeColumn js-column"
-                        ref="js_column"
+                        ${setRef('js_column')}
                     ></section>
                 </div>
                 <div
                     class="l-h-scroller__trigger js-trigger"
-                    ref="js_trigger"
+                    ${setRef('js_trigger')}
                 ></div>
             </div>
         </div>
