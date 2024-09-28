@@ -1,7 +1,7 @@
 //@ts-check
 
 /**
- * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName } from '../../../mobjs/type'
+ * @import { MobComponent, DelegateEvents, UpdateState, BindProps, StaticProps, Repeat, SetStateByName, UpdateStateByName, SetRef } from '../../../mobjs/type'
  * @import { Matrioska } from './type'
  * @import { MatrioskaItem } from './matrioskaItem/type'
  * @import { CodeButton } from '../../common/codeButton/type';
@@ -101,8 +101,15 @@ const getButtons = ({ delegateEvents, updateState }) => {
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
+ * @param { SetRef } params.setRef
  */
-const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
+const getSecondLevel = ({
+    repeat,
+    staticProps,
+    bindProps,
+    delegateEvents,
+    setRef,
+}) => {
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -111,9 +118,11 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
+                            ${setRef('level2_container')}
                         >
                             <matrioska-item
                                 class="matrioska-item--2"
+                                ${setRef('level2_component')}
                                 ${staticProps({
                                     level: 'level 2',
                                 })}
@@ -241,6 +250,7 @@ export const MatrioskaFn = ({
     staticProps,
     bindProps,
     watchSync,
+    setRef,
 }) => {
     /** @type { SetStateByName<CodeButton> } */
     const setCodeButtonState = setStateByName('global-code-button');
@@ -328,6 +338,7 @@ export const MatrioskaFn = ({
                                         staticProps,
                                         bindProps,
                                         delegateEvents,
+                                        setRef,
                                     })}
                                 </matrioska-item>
                             </div>

@@ -17634,6 +17634,14 @@
            * @type {string|undefined|null}
            */
           #repeatPropBind;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindRefId;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindRefName;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17680,6 +17688,8 @@
             this.#currentKey = "";
             this.#parentId = "";
             this.#componentRepeatId = "";
+            this.#bindRefName = "";
+            this.#bindRefId = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17701,6 +17711,8 @@
             this.#repeatPropBind = host.getAttribute(
               ATTR_REPEATER_PROP_BIND
             );
+            this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
+            this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -17799,6 +17811,12 @@
           }
           getComponentRepeatId() {
             return this.#componentRepeatId ?? "";
+          }
+          getBindRefId() {
+            return this.#bindRefId && this.#bindRefId.length > 0 ? this.#bindRefId : void 0;
+          }
+          getBindRefName() {
+            return this.#bindRefName && this.#bindRefName.length > 0 ? this.#bindRefName : void 0;
           }
           #getData() {
             return {
@@ -19398,6 +19416,8 @@
     if (newElement) {
       const id = element.getId();
       const delegateEventId = element.getDelegateEventId();
+      const bindRefId = element.getBindRefId();
+      const bindRefName = element.getBindRefName();
       const unNamedSlot = queryUnNamedSlot(newElement);
       if (unNamedSlot) {
         unNamedSlot.insertAdjacentHTML("afterend", prevContent);
@@ -19409,6 +19429,9 @@
       removeOrphanSlot({ element: newElement });
       if (delegateEventId)
         newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
+      if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
+      if (bindRefName)
+        newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
       const { debug } = getDefaultComponent();
       if (debug) newElement.setAttribute(ATTR_IS_COMPONENT, id ?? "");
     }
@@ -29076,7 +29099,13 @@ Loading snippet ...</pre
     }).join("")}
     `;
   };
-  var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
+  var getSecondLevel = ({
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    setRef
+  }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -29085,9 +29114,11 @@ Loading snippet ...</pre
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
+                            ${setRef("level2_container")}
                         >
                             <matrioska-item
                                 class="matrioska-item--2"
+                                ${setRef("level2_component")}
                                 ${staticProps2({
           level: "level 2"
         })}
@@ -29195,7 +29226,8 @@ Loading snippet ...</pre
     repeat,
     staticProps: staticProps2,
     bindProps,
-    watchSync
+    watchSync,
+    setRef
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
@@ -29271,7 +29303,8 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           bindProps,
-          delegateEvents
+          delegateEvents,
+          setRef
         })}
                                 </matrioska-item>
                             </div>
