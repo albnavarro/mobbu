@@ -1,6 +1,11 @@
 // @ts-check
 
-import { ATTR_IS_COMPONENT, ATTR_WEAK_BIND_EVENTS } from '../../constant';
+import {
+    ATTR_BIND_REFS_ID,
+    ATTR_BIND_REFS_NAME,
+    ATTR_IS_COMPONENT,
+    ATTR_WEAK_BIND_EVENTS,
+} from '../../constant';
 import { getDefaultComponent } from '../../component/createComponent';
 import { queryComponentUseSlot } from '../../query/queryComponentUseSlot';
 import { queryGenericSlot } from '../../query/queryGenericSlot';
@@ -161,6 +166,10 @@ const executeConversion = ({ element, content }) => {
         const id = element.getId();
         // @ts-ignore
         const delegateEventId = element.getDelegateEventId();
+        // @ts-ignore
+        const bindRefId = element.getBindRefId();
+        // @ts-ignore
+        const bindRefName = element.getBindRefName();
 
         /**
          * if unNamedSlot is used.
@@ -183,6 +192,17 @@ const executeConversion = ({ element, content }) => {
          */
         if (delegateEventId)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
+
+        /**
+         * transfer bindRefId
+         */
+        if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
+
+        /**
+         * transfer bindRefName
+         */
+        if (bindRefName)
+            newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
 
         /**
          * Add data-mobjs="id" in debug mode.
