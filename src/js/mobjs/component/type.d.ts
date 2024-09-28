@@ -39,6 +39,7 @@ export interface componentStoreTypes extends componentCommonTypes {
     componentName: string;
     instanceName: string;
     state: MobStore<any>;
+    refs: { [key: string]: HTMLElement[] };
     methods: { [key: string]: (...args: any[]) => void } | object;
 }
 
@@ -48,6 +49,7 @@ export interface componentStoreInputTypes extends componentCommonTypes {
     instanceName: string;
     state: mobStoreBaseData;
     props: object;
+    refs?: { [key: string]: HTMLElement[] };
     methods?: { [key: string]: (...args: any[]) => void } | object;
 }
 

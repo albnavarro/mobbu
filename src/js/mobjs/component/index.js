@@ -26,6 +26,7 @@ export const addComponentToStore = ({
     repeatPropBind = '',
     componentRepeatId = '',
     parentPropsWatcher = [() => {}],
+    refs = {},
     destroy = () => {},
     freezedPros = [],
     isCancellable = true,
@@ -43,6 +44,7 @@ export const addComponentToStore = ({
         instanceName,
         destroy,
         parentPropsWatcher,
+        refs,
         methods,
         key,
         currentRepeaterState,
@@ -73,8 +75,11 @@ export const addComponentToStore = ({
         },
         emit: (prop = '') => store.emit(prop),
         emitAsync: async (prop = '') => await store.emitAsync(prop),
-        computed: (prop = '', keys = [], fn = () => {}) =>
-            store.computed(prop, keys, fn),
+        computed: (
+            prop = '',
+            /** @type {string[]} */ keys = [],
+            fn = () => {}
+        ) => store.computed(prop, keys, fn),
         watch: (prop = '', cb = () => {}) => store.watch(prop, cb),
         debug: () => store.debug(),
     };
