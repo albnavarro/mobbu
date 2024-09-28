@@ -29175,13 +29175,7 @@ Loading snippet ...</pre
     }).join("")}
     `;
   };
-  var getSecondLevel = ({
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    setRef
-  }) => {
+  var getSecondLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -29190,11 +29184,9 @@ Loading snippet ...</pre
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
-                            ${setRef("level2_container")}
                         >
                             <matrioska-item
                                 class="matrioska-item--2"
-                                ${setRef("level2_component")}
                                 ${staticProps2({
           level: "level 2"
         })}
@@ -29212,8 +29204,7 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           delegateEvents,
-          bindProps,
-          setRef
+          bindProps
         })}
                             </matrioska-item>
                         </div>
@@ -29223,13 +29214,7 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getThirdLevel = ({
-    repeat,
-    staticProps: staticProps2,
-    bindProps,
-    delegateEvents,
-    setRef
-  }) => {
+  var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
@@ -29241,11 +29226,9 @@ Loading snippet ...</pre
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
-                            ${setRef("level3_container")}
                         >
                             <matrioska-item
                                 class="matrioska-item--3"
-                                ${setRef("level3_component")}
                                 name="${name}"
                                 ${staticProps2({
           level: "level 3"
@@ -29272,7 +29255,6 @@ Loading snippet ...</pre
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
-                                ${setRef("level3_component")}
                                 name="${name2}"
                                 ${staticProps2({
           level: "level 3"
@@ -29314,29 +29296,19 @@ Loading snippet ...</pre
     bindProps,
     watchSync,
     setRef,
-    getRefs: getRefs2,
     getRef
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
       const { level3_counter, level2_counter, level1_counter } = getRef();
-      watchSync("level1", async (val2) => {
+      watchSync("level1", (val2) => {
         level1_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
-        await tick();
-        console.log(getRefs2());
-        console.log(getRef());
       });
-      watchSync("level2", async (val2) => {
+      watchSync("level2", (val2) => {
         level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
-        await tick();
-        console.log(getRefs2());
-        console.log(getRef());
       });
-      watchSync("level3", async (val2) => {
+      watchSync("level3", (val2) => {
         level3_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
-        await tick();
-        console.log(getRefs2());
-        console.log(getRef());
       });
       const { matrioska } = getLegendData();
       const { source } = matrioska;
@@ -29400,8 +29372,7 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           bindProps,
-          delegateEvents,
-          setRef
+          delegateEvents
         })}
                                 </matrioska-item>
                             </div>

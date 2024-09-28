@@ -9,7 +9,7 @@
 
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html, setStateByName, tick, updateStateByName } from '../../../mobjs';
+import { html, setStateByName, updateStateByName } from '../../../mobjs';
 
 const buttons = [
     {
@@ -102,15 +102,8 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
- * @param { SetRef } params.setRef
  */
-const getSecondLevel = ({
-    repeat,
-    staticProps,
-    bindProps,
-    delegateEvents,
-    setRef,
-}) => {
+const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
         <div class="matrioska__level matrioska__level--2">
             ${repeat({
@@ -119,11 +112,9 @@ const getSecondLevel = ({
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--2"
-                            ${setRef('level2_container')}
                         >
                             <matrioska-item
                                 class="matrioska-item--2"
-                                ${setRef('level2_component')}
                                 ${staticProps({
                                     level: 'level 2',
                                 })}
@@ -142,7 +133,6 @@ const getSecondLevel = ({
                                     staticProps,
                                     delegateEvents,
                                     bindProps,
-                                    setRef,
                                 })}
                             </matrioska-item>
                         </div>
@@ -159,15 +149,8 @@ const getSecondLevel = ({
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
- * @param { SetRef } params.setRef
  */
-const getThirdLevel = ({
-    repeat,
-    staticProps,
-    bindProps,
-    delegateEvents,
-    setRef,
-}) => {
+const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
@@ -183,11 +166,9 @@ const getThirdLevel = ({
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
-                            ${setRef('level3_container')}
                         >
                             <matrioska-item
                                 class="matrioska-item--3"
-                                ${setRef('level3_component')}
                                 name="${name}"
                                 ${staticProps({
                                     level: 'level 3',
@@ -217,7 +198,6 @@ const getThirdLevel = ({
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
-                                ${setRef('level3_component')}
                                 name="${name2}"
                                 ${staticProps({
                                     level: 'level 3',
@@ -263,7 +243,6 @@ export const MatrioskaFn = ({
     bindProps,
     watchSync,
     setRef,
-    getRefs,
     getRef,
 }) => {
     /** @type { SetStateByName<CodeButton> } */
@@ -272,28 +251,16 @@ export const MatrioskaFn = ({
     onMount(() => {
         const { level3_counter, level2_counter, level1_counter } = getRef();
 
-        watchSync('level1', async (val) => {
+        watchSync('level1', (val) => {
             level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-
-            await tick();
-            console.log(getRefs());
-            console.log(getRef());
         });
 
-        watchSync('level2', async (val) => {
+        watchSync('level2', (val) => {
             level2_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-
-            await tick();
-            console.log(getRefs());
-            console.log(getRef());
         });
 
-        watchSync('level3', async (val) => {
+        watchSync('level3', (val) => {
             level3_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
-
-            await tick();
-            console.log(getRefs());
-            console.log(getRef());
         });
 
         /**
@@ -364,7 +331,6 @@ export const MatrioskaFn = ({
                                         staticProps,
                                         bindProps,
                                         delegateEvents,
-                                        setRef,
                                     })}
                                 </matrioska-item>
                             </div>
