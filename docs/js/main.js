@@ -29127,7 +29127,7 @@ Loading snippet ...</pre
   function getRandomInt2(max2) {
     return Math.floor(Math.random() * max2);
   }
-  var getButtons2 = ({ delegateEvents, updateState }) => {
+  var getButtons2 = ({ delegateEvents, updateState, setRef }) => {
     return renderHtml`
         ${buttons3.map((button) => {
       return renderHtml` <div class="matrioska__head__item">
@@ -29169,7 +29169,7 @@ Loading snippet ...</pre
                     >
                     <div
                         class="matrioska__head__counter"
-                        ref=${button.ref}
+                        ${setRef(button.ref)}
                     ></div>
                 </div>`;
     }).join("")}
@@ -29318,9 +29318,8 @@ Loading snippet ...</pre
     getRef
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
-    onMount(({ ref }) => {
-      console.log(getRefs2());
-      const { level3_counter, level2_counter, level1_counter } = ref;
+    onMount(() => {
+      const { level3_counter, level2_counter, level1_counter } = getRef();
       watchSync("level1", async (val2) => {
         level1_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
         await tick();
@@ -29367,7 +29366,7 @@ Loading snippet ...</pre
     return html`<div class="matrioska">
         <only-desktop></only-desktop>
         <div class="matrioska__head">
-            ${getButtons2({ delegateEvents, updateState })}
+            ${getButtons2({ delegateEvents, updateState, setRef })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.

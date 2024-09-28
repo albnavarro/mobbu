@@ -41,8 +41,9 @@ function getRandomInt(max) {
  * @param { object } params
  * @param { DelegateEvents } params.delegateEvents
  * @param { UpdateState<Matrioska> } params.updateState
+ * @param { SetRef } params.setRef
  */
-const getButtons = ({ delegateEvents, updateState }) => {
+const getButtons = ({ delegateEvents, updateState, setRef }) => {
     return html`
         ${buttons
             .map((button) => {
@@ -87,7 +88,7 @@ const getButtons = ({ delegateEvents, updateState }) => {
                     >
                     <div
                         class="matrioska__head__counter"
-                        ref=${button.ref}
+                        ${setRef(button.ref)}
                     ></div>
                 </div>`;
             })
@@ -268,10 +269,8 @@ export const MatrioskaFn = ({
     /** @type { SetStateByName<CodeButton> } */
     const setCodeButtonState = setStateByName('global-code-button');
 
-    onMount(({ ref }) => {
-        console.log(getRefs());
-
-        const { level3_counter, level2_counter, level1_counter } = ref;
+    onMount(() => {
+        const { level3_counter, level2_counter, level1_counter } = getRef();
 
         watchSync('level1', async (val) => {
             level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
@@ -330,7 +329,7 @@ export const MatrioskaFn = ({
     return html`<div class="matrioska">
         <only-desktop></only-desktop>
         <div class="matrioska__head">
-            ${getButtons({ delegateEvents, updateState })}
+            ${getButtons({ delegateEvents, updateState, setRef })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
