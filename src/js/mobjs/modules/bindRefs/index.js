@@ -89,3 +89,50 @@ export const addBindRefsToComponent = (refs) => {
         });
     });
 };
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {{[key: string ]: HTMLElement[]}}
+ */
+export const getBindRefsById = ({ id }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+
+    const { refs, element } = item;
+    if (!refs) return {};
+
+    const refsUpdated = Object.entries(refs)
+        .map(([name, collection]) => {
+            return {
+                name,
+                collection: collection.filter((ref) => element.contains(ref)),
+            };
+        })
+        .reduce((previous, current) => {
+            return { ...previous, [current.name]: current.collection };
+        }, {});
+
+    /**
+     * Update store
+     */
+    componentMap.set(id, {
+        ...item,
+        refs: refsUpdated,
+    });
+
+    return refsUpdated;
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {{[key: string ]: HTMLElement}}
+ */
+export const getBindRefById = ({ id }) => {
+    const refs = getBindRefsById({ id });
+
+    return Object.entries(refs).reduce((previous, [name, collection]) => {
+        return { ...previous, [name]: collection?.[0] };
+    }, {});
+};

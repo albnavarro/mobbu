@@ -46,6 +46,7 @@ import { renderHtml } from './utils';
 import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue';
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
+import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -166,12 +167,12 @@ export const getParamsForComponentFunction = ({
         setRef: (value) => {
             return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
         },
-        getRef: () => ({
-            test: document.createElement('div'),
-        }),
-        getRefs: () => ({
-            test: [document.createElement('div')],
-        }),
+        getRef: () => {
+            return getBindRefById({ id });
+        },
+        getRefs: () => {
+            return getBindRefsById({ id });
+        },
         invalidate: ({
             bind,
             render,

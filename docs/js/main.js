@@ -19564,6 +19564,80 @@
     return methods;
   };
 
+  // src/js/mobjs/modules/bindRefs/index.js
+  var getBindRefs = ({ element }) => {
+    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
+    if (!hasRef) return {};
+    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    return [...refs].reduce((previous, current) => {
+      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
+      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
+      current.removeAttribute(ATTR_BIND_REFS_ID);
+      current.removeAttribute(ATTR_BIND_REFS_NAME);
+      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
+      return { ...previous, [refName]: newRefsByName };
+    }, {});
+  };
+  var getRefsSorter = (refs) => {
+    return [
+      ...new Set(
+        refs.filter((ref) => document.contains(ref)).sort(function(a, b) {
+          if (a === b || !a || !b) return 0;
+          if (a.compareDocumentPosition(b) & 2) {
+            return 1;
+          }
+          return -1;
+        })
+      )
+    ];
+  };
+  var mergeRefsAndOrder = ({ refs, refName, element }) => {
+    return {
+      ...refs,
+      [refName]: getRefsSorter([...refs[refName], element])
+    };
+  };
+  var addBindRefsToComponent = (refs) => {
+    Object.entries(refs).forEach(([refName, entries]) => {
+      entries.forEach(({ element, scopeId }) => {
+        const item = componentMap.get(scopeId);
+        if (!item) return;
+        const { refs: previousRef } = item;
+        if (!previousRef) return;
+        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
+        componentMap.set(scopeId, {
+          ...item,
+          refs: newRefs
+        });
+      });
+    });
+  };
+  var getBindRefsById = ({ id }) => {
+    const item = componentMap.get(id);
+    if (!item) return;
+    const { refs, element } = item;
+    if (!refs) return {};
+    const refsUpdated = Object.entries(refs).map(([name, collection]) => {
+      return {
+        name,
+        collection: collection.filter((ref) => element.contains(ref))
+      };
+    }).reduce((previous, current) => {
+      return { ...previous, [current.name]: current.collection };
+    }, {});
+    componentMap.set(id, {
+      ...item,
+      refs: refsUpdated
+    });
+    return refsUpdated;
+  };
+  var getBindRefById = ({ id }) => {
+    const refs = getBindRefsById({ id });
+    return Object.entries(refs).reduce((previous, [name, collection]) => {
+      return { ...previous, [name]: collection?.[0] };
+    }, {});
+  };
+
   // src/js/mobjs/parse/steps/getParamsForComponent.js
   var getParamsForComponentFunction = ({
     getState,
@@ -19658,12 +19732,12 @@
       setRef: (value) => {
         return `${ATTR_BIND_REFS_ID}="${id}" ${ATTR_BIND_REFS_NAME}="${value}"`;
       },
-      getRef: () => ({
-        test: document.createElement("div")
-      }),
-      getRefs: () => ({
-        test: [document.createElement("div")]
-      }),
+      getRef: () => {
+        return getBindRefById({ id });
+      },
+      getRefs: () => {
+        return getBindRefsById({ id });
+      },
       invalidate: ({
         bind,
         render: render2,
@@ -19882,55 +19956,6 @@
       }) => store.watch(prop, cb),
       debug: () => store.debug()
     };
-  };
-
-  // src/js/mobjs/modules/bindRefs/index.js
-  var getBindRefs = ({ element }) => {
-    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
-    if (!hasRef) return {};
-    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
-    return [...refs].reduce((previous, current) => {
-      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
-      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
-      current.removeAttribute(ATTR_BIND_REFS_ID);
-      current.removeAttribute(ATTR_BIND_REFS_NAME);
-      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
-      return { ...previous, [refName]: newRefsByName };
-    }, {});
-  };
-  var getRefsSorter = (refs) => {
-    return [
-      ...new Set(
-        refs.filter((ref) => document.contains(ref)).sort(function(a, b) {
-          if (a === b || !a || !b) return 0;
-          if (a.compareDocumentPosition(b) & 2) {
-            return 1;
-          }
-          return -1;
-        })
-      )
-    ];
-  };
-  var mergeRefsAndOrder = ({ refs, refName, element }) => {
-    return {
-      ...refs,
-      [refName]: getRefsSorter([...refs[refName], element])
-    };
-  };
-  var addBindRefsToComponent = (refs) => {
-    Object.entries(refs).forEach(([refName, entries]) => {
-      entries.forEach(({ element, scopeId }) => {
-        const item = componentMap.get(scopeId);
-        if (!item) return;
-        const { refs: previousRef } = item;
-        if (!previousRef) return;
-        const newRefs = refName in previousRef ? mergeRefsAndOrder({ refs: previousRef, refName, element }) : { ...previousRef, [refName]: [element] };
-        componentMap.set(scopeId, {
-          ...item,
-          refs: newRefs
-        });
-      });
-    });
   };
 
   // src/js/mobjs/parse/parseFunction.js
@@ -29288,19 +29313,31 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     watchSync,
-    setRef
+    setRef,
+    getRefs: getRefs2,
+    getRef
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(({ ref }) => {
+      console.log(getRefs2());
       const { level3_counter, level2_counter, level1_counter } = ref;
-      watchSync("level1", (val2) => {
+      watchSync("level1", async (val2) => {
         level1_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
+        await tick();
+        console.log(getRefs2());
+        console.log(getRef());
       });
-      watchSync("level2", (val2) => {
+      watchSync("level2", async (val2) => {
         level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
+        await tick();
+        console.log(getRefs2());
+        console.log(getRef());
       });
-      watchSync("level3", (val2) => {
+      watchSync("level3", async (val2) => {
         level3_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
+        await tick();
+        console.log(getRefs2());
+        console.log(getRef());
       });
       const { matrioska } = getLegendData();
       const { source } = matrioska;

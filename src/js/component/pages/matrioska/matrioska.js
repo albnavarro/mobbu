@@ -9,7 +9,7 @@
 
 import { getLegendData } from '../../../data';
 import { mobCore } from '../../../mobCore';
-import { html, setStateByName, updateStateByName } from '../../../mobjs';
+import { html, setStateByName, tick, updateStateByName } from '../../../mobjs';
 
 const buttons = [
     {
@@ -262,23 +262,39 @@ export const MatrioskaFn = ({
     bindProps,
     watchSync,
     setRef,
+    getRefs,
+    getRef,
 }) => {
     /** @type { SetStateByName<CodeButton> } */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(({ ref }) => {
+        console.log(getRefs());
+
         const { level3_counter, level2_counter, level1_counter } = ref;
 
-        watchSync('level1', (val) => {
+        watchSync('level1', async (val) => {
             level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
+
+            await tick();
+            console.log(getRefs());
+            console.log(getRef());
         });
 
-        watchSync('level2', (val) => {
+        watchSync('level2', async (val) => {
             level2_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
+
+            await tick();
+            console.log(getRefs());
+            console.log(getRef());
         });
 
-        watchSync('level3', (val) => {
+        watchSync('level3', async (val) => {
             level3_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
+
+            await tick();
+            console.log(getRefs());
+            console.log(getRef());
         });
 
         /**
