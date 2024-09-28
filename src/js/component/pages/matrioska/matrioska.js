@@ -141,6 +141,7 @@ const getSecondLevel = ({
                                     staticProps,
                                     delegateEvents,
                                     bindProps,
+                                    setRef,
                                 })}
                             </matrioska-item>
                         </div>
@@ -157,8 +158,15 @@ const getSecondLevel = ({
  * @param { StaticProps<MatrioskaItem> } params.staticProps
  * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  * @param { DelegateEvents } params.delegateEvents
+ * @param { SetRef } params.setRef
  */
-const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
+const getThirdLevel = ({
+    repeat,
+    staticProps,
+    bindProps,
+    delegateEvents,
+    setRef,
+}) => {
     return html`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
@@ -174,9 +182,11 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                     return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
+                            ${setRef('level3_container')}
                         >
                             <matrioska-item
                                 class="matrioska-item--3"
+                                ${setRef('level3_component')}
                                 name="${name}"
                                 ${staticProps({
                                     level: 'level 3',
@@ -206,6 +216,7 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
+                                ${setRef('level3_component')}
                                 name="${name2}"
                                 ${staticProps({
                                     level: 'level 3',

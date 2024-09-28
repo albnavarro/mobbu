@@ -16774,6 +16774,7 @@
   var ATTR_REFS = "ref";
   var ATTR_BIND_REFS_ID = "bindrefid";
   var ATTR_BIND_REFS_NAME = "bindrefname";
+  var ATTR_BIND_REFS_TRACK = "bindreftrack";
   var ATTR_INVALIDATE = "invalidateid";
   var ATTR_MOBJS_REPEAT = "mobjsrepeat";
   var frameDelayAfterParse = 5;
@@ -17642,6 +17643,10 @@
            * @type {string|undefined|null}
            */
           #bindRefName;
+          /**
+           * @type {string|undefined|null}
+           */
+          #bindRefTrack;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17690,6 +17695,7 @@
             this.#componentRepeatId = "";
             this.#bindRefName = "";
             this.#bindRefId = "";
+            this.#bindRefTrack = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17713,6 +17719,7 @@
             );
             this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
             this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
+            this.#bindRefTrack = host.getAttribute(ATTR_BIND_REFS_TRACK);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -17817,6 +17824,9 @@
           }
           getBindRefName() {
             return this.#bindRefName && this.#bindRefName.length > 0 ? this.#bindRefName : void 0;
+          }
+          getBindRefTRack() {
+            return this.#bindRefTrack && this.#bindRefTrack.length > 0 ? this.#bindRefTrack : void 0;
           }
           #getData() {
             return {
@@ -19416,8 +19426,9 @@
     if (newElement) {
       const id = element.getId();
       const delegateEventId = element.getDelegateEventId();
-      const bindRefId = element.getBindRefId();
-      const bindRefName = element.getBindRefName();
+      const bindRefTrack = element?.getBindRefTRack();
+      const bindRefId = element?.getBindRefId();
+      const bindRefName = element?.getBindRefName();
       const unNamedSlot = queryUnNamedSlot(newElement);
       if (unNamedSlot) {
         unNamedSlot.insertAdjacentHTML("afterend", prevContent);
@@ -19429,6 +19440,8 @@
       removeOrphanSlot({ element: newElement });
       if (delegateEventId)
         newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
+      if (bindRefTrack)
+        newElement.setAttribute(ATTR_BIND_REFS_TRACK, bindRefTrack);
       if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
       if (bindRefName)
         newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
@@ -19884,6 +19897,30 @@
     };
   };
 
+  // src/js/mobjs/modules/bindRefs/index.js
+  var trackRefsCollection = (element) => {
+    const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
+    return [...refs].map((ref) => {
+      const id = mobCore.getUnivoqueId();
+      ref.setAttribute(ATTR_BIND_REFS_TRACK, id);
+      return id;
+    });
+  };
+  var getBindRefs = ({ element, refKey }) => {
+    const refs = refKey.map(
+      (refId) => element.querySelector(`[${ATTR_BIND_REFS_TRACK}="${refId}"]`)
+    ).filter(Boolean);
+    return [...refs].reduce((previous, current) => {
+      const refId = current.getAttribute(ATTR_BIND_REFS_ID);
+      const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
+      current.removeAttribute(ATTR_BIND_REFS_ID);
+      current.removeAttribute(ATTR_BIND_REFS_NAME);
+      current.removeAttribute(ATTR_BIND_REFS_TRACK);
+      const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
+      return { ...previous, [refName]: newRefsByName };
+    }, {});
+  };
+
   // src/js/mobjs/parse/parseFunction.js
   var parseComponentsRecursive = async ({
     element,
@@ -20030,6 +20067,7 @@
     newElement.classList.add(...classList);
     const refsCollection = newElement ? getRefs(newElement) : {};
     const refsCollectionComponent = newElement ? getRefsComponent(newElement) : [];
+    const refToConvert = trackRefsCollection(element);
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();
@@ -20062,6 +20100,8 @@
         const refFromComponent = refsComponentToNewElement(
           refsCollectionComponent
         );
+        const bindRefs = getBindRefs({ element, refKey: refToConvert });
+        if (Object.keys(bindRefs).length > 0) console.log(bindRefs);
         await fireOnMountCallBack({
           id,
           element: newElement,
@@ -29136,7 +29176,8 @@ Loading snippet ...</pre
           repeat,
           staticProps: staticProps2,
           delegateEvents,
-          bindProps
+          bindProps,
+          setRef
         })}
                             </matrioska-item>
                         </div>
@@ -29146,7 +29187,13 @@ Loading snippet ...</pre
         </div>
     `;
   };
-  var getThirdLevel = ({ repeat, staticProps: staticProps2, bindProps, delegateEvents }) => {
+  var getThirdLevel = ({
+    repeat,
+    staticProps: staticProps2,
+    bindProps,
+    delegateEvents,
+    setRef
+  }) => {
     return renderHtml`
         <div class="matrioska__level matrioska__level--3">
             ${repeat({
@@ -29158,9 +29205,11 @@ Loading snippet ...</pre
         return html`
                         <div
                             class="matrioska__item-wrap matrioska__item-wrap--3"
+                            ${setRef("level3_container")}
                         >
                             <matrioska-item
                                 class="matrioska-item--3"
+                                ${setRef("level3_component")}
                                 name="${name}"
                                 ${staticProps2({
           level: "level 3"
@@ -29187,6 +29236,7 @@ Loading snippet ...</pre
                             </matrioska-item>
                             <matrioska-item
                                 class="matrioska-item--3"
+                                ${setRef("level3_component")}
                                 name="${name2}"
                                 ${staticProps2({
           level: "level 3"

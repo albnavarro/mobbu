@@ -35,6 +35,7 @@ import {
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
+import { getBindRefs, trackRefsCollection } from '../modules/bindRefs';
 
 /**
  * @param {object} obj
@@ -325,6 +326,11 @@ export const parseComponentsRecursive = async ({
         : [];
 
     /**
+     * Find both node/component bindRefs
+     */
+    const refToConvert = trackRefsCollection(element);
+
+    /**
      * Set parentId to component inside current.
      * Add self id to future component.
      * If id is assigned to component nested in next cycle will be override by current component.
@@ -402,6 +408,9 @@ export const parseComponentsRecursive = async ({
             const refFromComponent = refsComponentToNewElement(
                 refsCollectionComponent
             );
+
+            const bindRefs = getBindRefs({ element, refKey: refToConvert });
+            if (Object.keys(bindRefs).length > 0) console.log(bindRefs);
 
             /**
              * Fire onMount callback at the end of current parse.
