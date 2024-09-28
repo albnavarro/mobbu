@@ -88,11 +88,6 @@ export const ATTR_BIND_REFS_NAME = 'bindrefname';
 /**
  * @type {string};
  */
-export const ATTR_BIND_REFS_TRACK = 'bindreftrack';
-
-/**
- * @type {string};
- */
 export const ATTR_INVALIDATE = 'invalidateid';
 
 /**

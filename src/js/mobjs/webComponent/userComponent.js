@@ -5,7 +5,6 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
-    ATTR_BIND_REFS_TRACK,
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
@@ -193,11 +192,6 @@ export const defineUserComponent = (componentList) => {
                  */
                 #bindRefName;
 
-                /**
-                 * @type {string|undefined|null}
-                 */
-                #bindRefTrack;
-
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -239,7 +233,6 @@ export const defineUserComponent = (componentList) => {
 
                     this.#bindRefName = '';
                     this.#bindRefId = '';
-                    this.#bindRefTrack = '';
 
                     //
                     this.isUserComponent = true;
@@ -273,8 +266,6 @@ export const defineUserComponent = (componentList) => {
 
                     this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
                     this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
-                    this.#bindRefTrack =
-                        host.getAttribute(ATTR_BIND_REFS_TRACK);
 
                     /**
                      * Placeholder element that will move to slot.
@@ -418,12 +409,6 @@ export const defineUserComponent = (componentList) => {
                 getBindRefName() {
                     return this.#bindRefName && this.#bindRefName.length > 0
                         ? this.#bindRefName
-                        : undefined;
-                }
-
-                getBindRefTRack() {
-                    return this.#bindRefTrack && this.#bindRefTrack.length > 0
-                        ? this.#bindRefTrack
                         : undefined;
                 }
 

@@ -3,7 +3,6 @@
 import {
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
-    ATTR_BIND_REFS_TRACK,
     ATTR_IS_COMPONENT,
     ATTR_WEAK_BIND_EVENTS,
 } from '../../constant';
@@ -170,9 +169,6 @@ const executeConversion = ({ element, content }) => {
         const delegateEventId = element.getDelegateEventId();
 
         // @ts-ignore
-        const bindRefTrack = element?.getBindRefTRack();
-
-        // @ts-ignore
         const bindRefId = element?.getBindRefId();
 
         // @ts-ignore
@@ -199,9 +195,6 @@ const executeConversion = ({ element, content }) => {
          */
         if (delegateEventId)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
-
-        if (bindRefTrack)
-            newElement.setAttribute(ATTR_BIND_REFS_TRACK, bindRefTrack);
 
         if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
 

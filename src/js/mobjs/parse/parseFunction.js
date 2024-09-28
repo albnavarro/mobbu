@@ -35,11 +35,7 @@ import {
 import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
-import {
-    addBindRefsToComponent,
-    getBindRefs,
-    trackRefsCollection,
-} from '../modules/bindRefs';
+import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 
 /**
  * @param {object} obj
@@ -48,6 +44,7 @@ import {
  * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
+ * @param {boolean} [ obj.checkBindRef ]
  * @return {Promise<void>}
  *
  * @description
@@ -330,11 +327,6 @@ export const parseComponentsRecursive = async ({
         : [];
 
     /**
-     * Find both node/component bindRefs
-     */
-    const refToConvert = trackRefsCollection(element);
-
-    /**
      * Set parentId to component inside current.
      * Add self id to future component.
      * If id is assigned to component nested in next cycle will be override by current component.
@@ -413,7 +405,7 @@ export const parseComponentsRecursive = async ({
                 refsCollectionComponent
             );
 
-            const bindRefs = getBindRefs({ element, refKey: refToConvert });
+            const bindRefs = getBindRefs({ element });
             if (Object.keys(bindRefs).length > 0)
                 addBindRefsToComponent(bindRefs);
 

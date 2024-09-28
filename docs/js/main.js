@@ -16774,7 +16774,6 @@
   var ATTR_REFS = "ref";
   var ATTR_BIND_REFS_ID = "bindrefid";
   var ATTR_BIND_REFS_NAME = "bindrefname";
-  var ATTR_BIND_REFS_TRACK = "bindreftrack";
   var ATTR_INVALIDATE = "invalidateid";
   var ATTR_MOBJS_REPEAT = "mobjsrepeat";
   var frameDelayAfterParse = 5;
@@ -17643,10 +17642,6 @@
            * @type {string|undefined|null}
            */
           #bindRefName;
-          /**
-           * @type {string|undefined|null}
-           */
-          #bindRefTrack;
           static get observedAttributes() {
             return attributeToObserve;
           }
@@ -17695,7 +17690,6 @@
             this.#componentRepeatId = "";
             this.#bindRefName = "";
             this.#bindRefId = "";
-            this.#bindRefTrack = "";
             this.isUserComponent = true;
             const host = this.shadowRoot?.host;
             if (!host) return;
@@ -17719,7 +17713,6 @@
             );
             this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
             this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
-            this.#bindRefTrack = host.getAttribute(ATTR_BIND_REFS_TRACK);
             if (this.#slotPosition && !this.active) {
               this.style.visibility = "hidden";
             }
@@ -17824,9 +17817,6 @@
           }
           getBindRefName() {
             return this.#bindRefName && this.#bindRefName.length > 0 ? this.#bindRefName : void 0;
-          }
-          getBindRefTRack() {
-            return this.#bindRefTrack && this.#bindRefTrack.length > 0 ? this.#bindRefTrack : void 0;
           }
           #getData() {
             return {
@@ -19426,7 +19416,6 @@
     if (newElement) {
       const id = element.getId();
       const delegateEventId = element.getDelegateEventId();
-      const bindRefTrack = element?.getBindRefTRack();
       const bindRefId = element?.getBindRefId();
       const bindRefName = element?.getBindRefName();
       const unNamedSlot = queryUnNamedSlot(newElement);
@@ -19440,8 +19429,6 @@
       removeOrphanSlot({ element: newElement });
       if (delegateEventId)
         newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
-      if (bindRefTrack)
-        newElement.setAttribute(ATTR_BIND_REFS_TRACK, bindRefTrack);
       if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
       if (bindRefName)
         newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
@@ -19898,36 +19885,31 @@
   };
 
   // src/js/mobjs/modules/bindRefs/index.js
-  var trackRefsCollection = (element) => {
+  var getBindRefs = ({ element }) => {
+    const hasRef = element.querySelector(`[${ATTR_BIND_REFS_ID}]`);
+    if (!hasRef) return {};
     const refs = element.querySelectorAll(`[${ATTR_BIND_REFS_ID}]`);
-    return [...refs].map((ref) => {
-      const id = mobCore.getUnivoqueId();
-      ref.setAttribute(ATTR_BIND_REFS_TRACK, id);
-      return id;
-    });
-  };
-  var getBindRefs = ({ element, refKey }) => {
-    const refs = refKey.map(
-      (refId) => element.querySelector(`[${ATTR_BIND_REFS_TRACK}="${refId}"]`)
-    ).filter(Boolean);
     return [...refs].reduce((previous, current) => {
       const refId = current.getAttribute(ATTR_BIND_REFS_ID);
       const refName = current.getAttribute(ATTR_BIND_REFS_NAME);
       current.removeAttribute(ATTR_BIND_REFS_ID);
       current.removeAttribute(ATTR_BIND_REFS_NAME);
-      current.removeAttribute(ATTR_BIND_REFS_TRACK);
       const newRefsByName = refName in previous ? [...previous[refName], { element: current, scopeId: refId }] : [{ element: current, scopeId: refId }];
       return { ...previous, [refName]: newRefsByName };
     }, {});
   };
   var getRefsSorter = (refs) => {
-    return refs.sort(function(a, b) {
-      if (a === b || !a || !b) return 0;
-      if (a.compareDocumentPosition(b) & 2) {
-        return 1;
-      }
-      return -1;
-    });
+    return [
+      ...new Set(
+        refs.sort(function(a, b) {
+          if (a === b || !a || !b) return 0;
+          if (a.compareDocumentPosition(b) & 2) {
+            return 1;
+          }
+          return -1;
+        })
+      )
+    ];
   };
   var mergeRefsAndOrder = ({ refs, refName, element }) => {
     return {
@@ -20097,7 +20079,6 @@
     newElement.classList.add(...classList);
     const refsCollection = newElement ? getRefs(newElement) : {};
     const refsCollectionComponent = newElement ? getRefsComponent(newElement) : [];
-    const refToConvert = trackRefsCollection(element);
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {
       const activeParser = decrementParserCounter();
@@ -20130,7 +20111,7 @@
         const refFromComponent = refsComponentToNewElement(
           refsCollectionComponent
         );
-        const bindRefs = getBindRefs({ element, refKey: refToConvert });
+        const bindRefs = getBindRefs({ element });
         if (Object.keys(bindRefs).length > 0)
           addBindRefsToComponent(bindRefs);
         await fireOnMountCallBack({
