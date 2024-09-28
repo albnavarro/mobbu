@@ -334,3 +334,10 @@ export type PartialMethods = (
     name: string,
     fn: (...args: any[]) => void
 ) => void;
+
+/**
+ * Bind refs
+ */
+export type PartialSetRef = (string) => string;
+export type PartialGetRef = () => { [key: string]: HTMLElement };
+export type PartialGetRefs = () => { [key: string]: HTMLElement[] };

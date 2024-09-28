@@ -30,6 +30,9 @@ import {
     PartialMethods,
     PartialUpdateState,
     PartialUpdateStateByName,
+    PartialSetRef,
+    PartialGetRef,
+    PartialGetRefs,
 } from './tsUtils/mobComponentProps';
 
 export type BindProps<T, R = MobComponentMap> = PartialBindProps<T, R>;
@@ -59,6 +62,9 @@ export type SetStateByName<T> = PartialSetStateByName<T>;
 export type UpdateStateByName<T> = PartialUpdateStateByName<T>;
 export type Repeat<T> = PartialRepeat<T>;
 export type Methods = PartialMethods;
+export type SetRef = PartialSetRef;
+export type GetRef = PartialGetRef;
+export type GetRefs = PartialGetRefs;
 
 /**
  * Main component.
@@ -472,7 +478,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    setRef: (string) => string;
+    setRef: PartialSetRef;
 
     /**
      * @description
@@ -492,7 +498,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    getRef: () => { [key: string]: HTMLElement };
+    getRef: PartialGetRef;
 
     /**
      * @description
@@ -517,7 +523,7 @@ export interface componentPropsType<T, R> {
      * };
      * ```
      */
-    getRefs: () => { [key: string]: HTMLElement[] };
+    getRefs: PartialGetRefs;
 
     /**
      *
