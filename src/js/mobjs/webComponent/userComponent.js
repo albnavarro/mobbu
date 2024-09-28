@@ -3,6 +3,8 @@
 import { mobCore } from '../../mobCore';
 import {
     ATTR_BIND_EVENTS,
+    ATTR_BIND_REFS_ID,
+    ATTR_BIND_REFS_NAME,
     ATTR_CHILD_REPEATID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
@@ -180,6 +182,16 @@ export const defineUserComponent = (componentList) => {
                  */
                 #repeatPropBind;
 
+                /**
+                 * @type {string|undefined|null}
+                 */
+                #bindRefId;
+
+                /**
+                 * @type {string|undefined|null}
+                 */
+                #bindRefName;
+
                 static get observedAttributes() {
                     return attributeToObserve;
                 }
@@ -219,6 +231,9 @@ export const defineUserComponent = (componentList) => {
                     this.#parentId = '';
                     this.#componentRepeatId = '';
 
+                    this.#bindRefName = '';
+                    this.#bindRefId = '';
+
                     //
                     this.isUserComponent = true;
 
@@ -248,6 +263,9 @@ export const defineUserComponent = (componentList) => {
                     this.#repeatPropBind = host.getAttribute(
                         ATTR_REPEATER_PROP_BIND
                     );
+
+                    this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
+                    this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
 
                     /**
                      * Placeholder element that will move to slot.
@@ -380,6 +398,18 @@ export const defineUserComponent = (componentList) => {
 
                 getComponentRepeatId() {
                     return this.#componentRepeatId ?? '';
+                }
+
+                getBindRefId() {
+                    return this.#bindRefId && this.#bindRefId.length > 0
+                        ? this.#bindRefId
+                        : undefined;
+                }
+
+                getBindRefName() {
+                    return this.#bindRefName && this.#bindRefName.length > 0
+                        ? this.#bindRefName
+                        : undefined;
                 }
 
                 #getData() {
