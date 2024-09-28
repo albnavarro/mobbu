@@ -59,6 +59,7 @@ const refsCollectionComponent = newElement
 * Riclacare le stesse due funzioni => getBindRefs
 * Riclacare le stesse due funzioni => getRefsBindCompinent
 * Dovranno tenere traccia dell' id a differenza delel originali
+* Bisogna controllare anche la root del component stesso ( repeater/invalidate )
 *
 * nella funzione functionToFireAtTheEnd al posto di essere passate al funzione di onMount
 * verranno salvate nello store del componente, usare l'Id passato da setRef() ( repeater/invalidate issue ).
