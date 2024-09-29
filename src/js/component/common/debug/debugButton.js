@@ -68,7 +68,7 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                 },
             })}
         >
-            Debug
+            Console Debug
         </button>
     `;
 };

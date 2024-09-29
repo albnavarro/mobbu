@@ -1,23 +1,33 @@
 @use '../../abstract' as *;
 
 .c-btn-debug {
-    border: 0;
     margin: 0;
     position: absolute;
     right: rem(20);
     bottom: calc(var(--footer-height) * 0.5);
     transform: translateY(50%);
-    background: transparent;
-    color: $white;
-    transition: opacity 0.55s;
+    background: $white;
+    padding: rem(5) rem(30);
+    border-radius: rem(20);
+    margin-bottom: rem(10);
+    margin-right: rem(10);
+    text-decoration: none;
+    color: $black;
+    text-align: center;
+    transition: background 0.35s;
+    font-size: rem(14);
+    border: 0;
     display: none;
-    opacity: 0.3;
+    margin: 0;
+    border: 1px $black solid;
+
+    &:hover {
+        background: $black;
+        color: $white;
+        border-color: $white;
+    }
 
     @include mq('desktop') {
         display: block;
-    }
-
-    &:hover {
-        opacity: 0.2;
     }
 }
