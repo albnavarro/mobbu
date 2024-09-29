@@ -2205,7 +2205,6 @@ code {
   z-index: 15;
 }
 .c-btn-debug {
-  margin: 0;
   position: absolute;
   right: 1.3333333333rem;
   bottom: calc(var(--footer-height) * 0.5);
@@ -2213,14 +2212,11 @@ code {
   background: #fff;
   padding: 0.3333333333rem 2rem;
   border-radius: 1.3333333333rem;
-  margin-bottom: 0.6666666667rem;
-  margin-right: 0.6666666667rem;
   text-decoration: none;
   color: #000;
   text-align: center;
   transition: background 0.35s;
   font-size: 0.9333333333rem;
-  border: 0;
   display: none;
   margin: 0;
   border: 1px #000 solid;

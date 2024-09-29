@@ -1,7 +1,6 @@
 @use '../../abstract' as *;
 
 .c-btn-debug {
-    margin: 0;
     position: absolute;
     right: rem(20);
     bottom: calc(var(--footer-height) * 0.5);
@@ -9,14 +8,11 @@
     background: $white;
     padding: rem(5) rem(30);
     border-radius: rem(20);
-    margin-bottom: rem(10);
-    margin-right: rem(10);
     text-decoration: none;
     color: $black;
     text-align: center;
     transition: background 0.35s;
     font-size: rem(14);
-    border: 0;
     display: none;
     margin: 0;
     border: 1px $black solid;
