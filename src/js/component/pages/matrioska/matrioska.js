@@ -252,7 +252,7 @@ export const MatrioskaFn = ({
         const { level3_counter, level2_counter, level1_counter } = getRef();
 
         watchSync('level1', (val) => {
-            level1_counter.innerHTML = `Number of items: ${val.length} ( max 10 )`;
+            level1_counter.innerHTML = `Number of items: ${val.length} ( max 5 )`;
         });
 
         watchSync('level2', (val) => {

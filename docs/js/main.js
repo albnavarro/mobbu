@@ -29353,7 +29353,7 @@ Loading snippet ...</pre
     onMount(() => {
       const { level3_counter, level2_counter, level1_counter } = getRef();
       watchSync("level1", (val2) => {
-        level1_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
+        level1_counter.innerHTML = `Number of items: ${val2.length} ( max 5 )`;
       });
       watchSync("level2", (val2) => {
         level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
@@ -29523,7 +29523,7 @@ Loading snippet ...</pre
       level1: () => ({
         value: [{ key: 1, value: mobCore.getUnivoqueId() }],
         type: Array,
-        validate: (val2) => val2.length <= 10,
+        validate: (val2) => val2.length <= 5,
         strict: true
       }),
       level2: () => ({
