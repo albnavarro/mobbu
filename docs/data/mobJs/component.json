@@ -208,11 +208,17 @@
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium"
+                "tag": "h4"
             },
             "content": "Basic component structure example."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -248,15 +254,21 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "style": "medium"
             }
         },
         {
-            "component": "mob-paragraph",
+            "component": "mob-title",
             "props": {
-                "style": "medium"
+                "tag": "h4"
             },
             "content": "Advanced component structure example."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
         },
         {
             "component": "mob-snippet",
@@ -308,13 +320,6 @@
             }
         },
         {
-            "component": "mob-title",
-            "props": {
-                "tag": "h3"
-            },
-            "content": "Function params"
-        },
-        {
             "component": "mob-paragraph",
             "props": {
                 "style": "medium"
@@ -332,7 +337,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "Component params in depth:"
+            "content": "Component params:"
         },
         {
             "component": "mob-spacer",
@@ -365,8 +370,59 @@
                     "<a href='./#mobJs-bindEvents'>bindEvents</a>",
                     "<a href='./#mobJs-delegateEvents'>delegateEvents</a>",
                     "<a href='./#mobJs-methods'>methods</a>",
-                    "<a href='./#mobJs-class-list'>ClassList</a>",
                     "<a href='./#mobJs-refs'>Refs</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Secondary:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-unBind'>unBind</a>",
+                    "<a href='./#mobJs-emit'>emit</a>",
+                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
+                    "<a href='./#mobJs-computed'>computed</a>",
+                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
+                    "<a href='./#mobJs-remove'>remove</a>",
+                    "<a href='./#mobJs-getChildren'>getChildren</a>",
+                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
+                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
+                    "<a href='./#mobJs-getParentId'>getParentId</a>",
+                    "<a href='./#mobJs-watchParent'>watchParent</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Static:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-instanceName'>InstanceName</a>",
+                    "<a href='./#mobJs-class-list'>ClassList</a>",
+                    "<a href='./#mobJs-slot'>Slot</a>"
                 ]
             }
         },
@@ -407,7 +463,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Secondary:"
+            "content": "Traversal operation"
         },
         {
             "component": "mob-list",
@@ -415,17 +471,10 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-unBind'>unBind</a>",
-                    "<a href='./#mobJs-emit'>emit</a>",
-                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
-                    "<a href='./#mobJs-computed'>computed</a>",
-                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
-                    "<a href='./#mobJs-remove'>remove</a>",
-                    "<a href='./#mobJs-getChildren'>getChildren</a>",
-                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
-                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
-                    "<a href='./#mobJs-getParentId'>getParentId</a>",
-                    "<a href='./#mobJs-watchParent'>watchParent</a>"
+                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
+                    "<a href='./#mobJs-invalidate'>invalidate</a>",
+                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
+                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
                 ]
             }
         },

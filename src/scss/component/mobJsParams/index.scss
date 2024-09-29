@@ -14,6 +14,8 @@
         transition: color 0.35s;
         display: block;
         position: relative;
+        font-size: rem(13);
+        line-height: 1.6;
 
         &::after {
             content: '';
@@ -29,13 +31,7 @@
         }
 
         @media screen and (height >= 200px) and (height <= 750px) {
-            font-size: 11px;
-            line-height: 1.7;
-        }
-
-        @media screen and (height >= 750px) and (height <= 825px) {
-            font-size: 13px;
-            line-height: 1.7;
+            font-size: rem(11);
         }
 
         &:hover {
@@ -46,6 +42,8 @@
     }
 
     .current {
+        font-weight: 500;
+
         &::after {
             opacity: 1;
         }

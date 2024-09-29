@@ -37,13 +37,28 @@ function getItems({
      * 'myStateArray' in bindProps can be omitted.
      * By default the `watch` state will triggere a reaction.
      */
-    return html`
-        <div>
-            <my-child-component
-                ${sync()} // !important
-                ${staticProps({
-                    staticProp: myProps,
-                })}
+    return html` <div>
+        <my-child-component
+            ${sync()}
+            ${staticProps({
+                staticProp: myProps,
+            })}
+            ${bindProps({
+                bind: ['counter'],
+                props: ({ counter, myStateArray }, index) => {
+                    return {
+                        counter,
+                        label: myStateArray[index].label,
+                        index,
+                    };
+                },
+            })}
+            ${delegateEvents({
+                click: (event, index) => console.log(event, index),
+            })}
+        >
+            <my-child-component-inner
+                ${sync()}
                 ${bindProps({
                     bind: ['counter'],
                     props: ({ counter, myStateArray }, index) => {
@@ -54,25 +69,10 @@ function getItems({
                         };
                     },
                 })}
-                ${delegateEvents({
-                    click: (event, index) => console.log(event, index),
-                })}
             >
-                <my-child-component-inner
-                    ${bindProps({
-                        bind: ['counter'],
-                        props: ({ counter, myStateArray }, index) => {
-                            return {
-                                counter,
-                                label: myStateArray[index].label,
-                                index,
-                            };
-                        },
-                    })}
-                > 
-                </my-child-component-inner> 
-            </my-child-component>
-        </div>`;
+            </my-child-component-inner>
+        </my-child-component>
+    </div>`;
 }
 
 /**

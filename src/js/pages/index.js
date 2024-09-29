@@ -192,56 +192,6 @@ export const routes = [
         },
     },
     {
-        name: 'mobJs-class-list',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/classList.json',
-            title: 'classList',
-            section: 'classList',
-            breadCrumbs: './#mobJs-overview',
-        },
-    },
-    {
-        name: 'mobJs-refs',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/refs.json',
-            title: 'refs',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
-        },
-    },
-    {
-        name: 'mobJs-slot',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/slot.json',
-            title: 'slot',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
-        },
-    },
-    {
-        name: 'mobJs-runtime',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/runtime.json',
-            title: 'runtime',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
-        },
-    },
-    {
-        name: 'mobJs-instanceName',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/instanceName.json',
-            title: 'instanceName',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
-        },
-    },
-    {
         name: 'mobJs-setStateByName',
         layout: layoutSidebarAnchor,
         props: {
@@ -266,7 +216,7 @@ export const routes = [
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/useMethodByName.json',
-            title: 'useMethodByName ',
+            title: 'useMethodByName',
             section: 'mobJs',
             breadCrumbs: './#mobJs-overview',
         },
@@ -422,6 +372,16 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-refs',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/refs.json',
+            title: 'refs',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-repeat',
         layout: layoutSidebarLinks,
         props: {
@@ -569,6 +529,46 @@ export const routes = [
             title: 'watchParent',
             section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-instanceName',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/instanceName.json',
+            title: 'instanceName',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-class-list',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/classList.json',
+            title: 'classList',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-slot',
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/slot.json',
+            title: 'slot',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
+        name: 'mobJs-runtime',
+        layout: layoutSidebarAnchor,
+        props: {
+            source: './data/mobJs/runtime.json',
+            title: 'runtime',
+            section: 'mobJs',
+            breadCrumbs: './#mobJs-overview',
         },
     },
     {

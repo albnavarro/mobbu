@@ -50,20 +50,8 @@ export const items = [
         url: 'mobJs-methods',
     },
     {
-        label: 'renderComponent',
-        url: 'mobJs-renderComponent',
-    },
-    {
-        label: 'invalidate',
-        url: 'mobJs-invalidate',
-    },
-    {
-        label: 'reactive list: (repeat)',
-        url: 'mobJs-repeat',
-    },
-    {
-        label: 'invalidate vs repeater',
-        url: 'mobJs-invalidate-vs-repeater',
+        label: 'refs',
+        url: 'mobJs-refs',
     },
     {
         label: 'unBind',
@@ -108,5 +96,33 @@ export const items = [
     {
         label: 'watchParent',
         url: 'mobJs-watchParent',
+    },
+    {
+        label: 'InstanceName',
+        url: 'mobJs-instanceName',
+    },
+    {
+        label: 'ClassList',
+        url: 'mobJs-class-list',
+    },
+    {
+        label: 'Slot',
+        url: 'mobJs-slot',
+    },
+    {
+        label: 'renderComponent',
+        url: 'mobJs-renderComponent',
+    },
+    {
+        label: 'invalidate',
+        url: 'mobJs-invalidate',
+    },
+    {
+        label: 'reactive list: (repeat)',
+        url: 'mobJs-repeat',
+    },
+    {
+        label: 'invalidate vs repeater',
+        url: 'mobJs-invalidate-vs-repeater',
     },
 ];
