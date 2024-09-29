@@ -38,6 +38,13 @@
             }
         },
         {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#parameters",
+                "content": "function params"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
