@@ -1,6 +1,8 @@
 // @ts-check
 
+import { useQuery } from '../../parse/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
+import { userPlaceholder } from '../../webComponent/usePlaceHolderToRender';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -69,9 +71,23 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
  * If id is assigned to component nested in next cycle will be override.
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
-    const children = queryAllFutureComponent(element, false);
-    children.forEach((child) => {
-        child.setParentId(id);
+    if (useQuery) {
+        const children = queryAllFutureComponent(element, false);
+        children.forEach((child) => {
+            child.setParentId(id);
+        });
+
+        return;
+    }
+
+    [...userPlaceholder].forEach((component) => {
+        if (
+            element.contains(component) &&
+            element !== component &&
+            component.getIsPlaceholder?.()
+        ) {
+            component.setParentId(id);
+        }
     });
 };
 

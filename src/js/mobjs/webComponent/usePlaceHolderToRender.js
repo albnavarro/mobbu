@@ -3,7 +3,7 @@ import { tick } from '../queque/tick';
 /**
  * @type {Set<import('./type').userComponent>}
  */
-const userPlaceholder = new Set();
+export const userPlaceholder = new Set();
 
 /**
  * @param {import('./type').userComponent} element
