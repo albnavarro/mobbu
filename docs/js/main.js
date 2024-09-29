@@ -19563,7 +19563,7 @@
   };
   var getBindRefsById = ({ id }) => {
     const item = componentMap.get(id);
-    if (!item) return;
+    if (!item) return {};
     const { refs, element } = item;
     if (!refs) return {};
     const refsUpdated = Object.entries(refs).map(([name, collection]) => {
