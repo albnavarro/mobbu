@@ -22,7 +22,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
 }) => string;
 **/
 
-import { html } from '../mobjs';
+import { html } from '../../../src/js/mobjs';
 
 function getItems({
     sync,

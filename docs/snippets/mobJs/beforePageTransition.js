@@ -1,4 +1,4 @@
-import { mainStore } from '../mobjs';
+import { mainStore } from '../../../src/js/mobjs';
 let scrollY = 0;
 
 /**

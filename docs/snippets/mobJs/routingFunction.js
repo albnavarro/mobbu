@@ -1,6 +1,6 @@
 // './routes/my_route';
 
-import { staticProps, html, useComponent } from '../mobjs';
+import { staticProps, html, useComponent } from '../../../src/js/mobjs';
 
 /**
  * Import components definition used in wrapper.

@@ -1,5 +1,5 @@
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyLayout = ({ html, staticProps, bindProps }) => {
     return html`

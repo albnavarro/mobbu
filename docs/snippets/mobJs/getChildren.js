@@ -5,7 +5,7 @@ getChildren(componentName: string): Array<string>;
 import { setStateById } from '../../../src/js/mobjs';
 
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, getChildren }) => {
     onMount(() => {

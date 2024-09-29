@@ -1,4 +1,4 @@
-import { createComponent } from '../mobjs';
+import { createComponent } from '../../../src/js/mobjs';
 import { MyComponent } from '../myComponent';
 
 export const myComponentDefinition = createComponent({

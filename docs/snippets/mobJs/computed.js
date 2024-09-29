@@ -7,7 +7,7 @@ export type Compunted<T> = <K extends keyof T>(
 **/
 
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
     html,

@@ -1,4 +1,4 @@
-import { html } from '../mobjs';
+import { html } from '../../../src/js/mobjs';
 
 const getInvalidateRender = ({
     staticProps,
@@ -34,7 +34,7 @@ const getInvalidateRender = ({
 };
 
 /**
- * @type {import("../../../src/js/mobjs/type").mobComponent<'myStateArray'|'counter'>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<'myStateArray'|'counter'>}
  */
 export const MyComponent = ({
     html,

@@ -12,7 +12,7 @@ export type PartialInvalidateComponent<T> = (arg0: {
 }) => string;
 **/
 
-import { html } from '../mobjs';
+import { html } from '../../../src/js/mobjs';
 
 const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
     const { items } = getState();
@@ -42,7 +42,7 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
 };
 
 /**
- * @type {import("../mobjs/type").mobComponent<'myStateArray'|'counter'>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({
     html,

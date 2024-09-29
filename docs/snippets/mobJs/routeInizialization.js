@@ -15,7 +15,7 @@ import { my_route } from './myRoute';
 import { home } from './home';
 
 /**
- * @type {import('../mobjs/type').routeType[]}
+ * @type {import('../../../src/js/mobjs/type').Route[]}
  */
 export const routes = [
     {

@@ -1,4 +1,4 @@
-import { useComponent } from '../mobjs';
+import { useComponent } from '../../../src/js/mobjs';
 
 useComponent([Header, Footer]);
 

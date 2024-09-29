@@ -3,7 +3,7 @@ export type GetParentId = () => string | undefined;
 **/
 
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, onMount, getParentId }) => {
     onMount(() => {

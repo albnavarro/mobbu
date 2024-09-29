@@ -1,8 +1,8 @@
 // @ts-ignore
-import { useMethodByName } from './mobjs';
+import { useMethodByName } from '../../../src/js/mobjs';
 
 /**
- * @type {import('./mobjs/type').mobComponent<import('./type').MyComponent>}
+ * @type {import('../../../src/js/mobjs/type').mobComponent<import('./type').MyComponent>}
  */
 export const MyComponent = ({ onMount, html }) => {
     onMount(() => {

@@ -1,7 +1,7 @@
-import { tick } from '../mobjs';
+import { tick } from '../../../src/js/mobjs';
 
 /**
- * @type {import("../mobjs/type").mobComponent<import('./type').State>}
+ * @type {import("../../../src/js/mobjs/type").mobComponent<import('./type').State>}
  */
 export const MyComponent = ({ html, bindEvents, bindProps, setState }) => {
     return html`
