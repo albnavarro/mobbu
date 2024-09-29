@@ -25,16 +25,16 @@
             "props": {
                 "style": "medium"
             },
-            "content": "You can use html nodes using refs/ref properties"
+            "content": "You can use html nodes using refs/ref function"
         },
         {
             "component": "mob-list",
             "props": {
                 "style": "medium",
-                "dots": false,
+                "dots": true,
                 "items": [
-                    "<span class='quote'>refs</span>: Always returns an array with all matches",
-                    "<span class='quote'>ref</span>: The first match found always returns"
+                    "<span class='quote'>getRefs()</span>: Always returns an array with all matches",
+                    "<span class='quote'>getRef()</span>: The first match found always returns"
                 ]
             }
         },
@@ -43,7 +43,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Refs can be applied both to <span class='quote'>html nodes</span> and <span class='quote'>components</span>, a ref/refs applied to the component will return the first node of the component itself."
+            "content": "Refs can be applied both to <span class='quote'>html nodes</span> and <span class='quote'>components node</span>"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "A <span class='quote'>ref</span> applied to the component will return the <span class='quote'>first node</span> of the component itself."
         },
         {
             "component": "mob-spacer",
@@ -52,28 +59,46 @@
             }
         },
         {
-            "component": "mob-title",
+            "component": "mob-snippet",
             "props": {
-                "tag": "h4",
-                "isBold": true
-            },
-            "content": "Refs cannot be used in:"
+                "source": "./snippets/mobJs/refs.js",
+                "isFull": true,
+                "hasOverflow": false,
+                "hasBorder": true,
+                "numLines": 28
+            }
         },
         {
-            "component": "mob-list",
+            "component": "mob-spacer",
             "props": {
-                "style": "medium",
-                "dots": true,
-                "items": [
-                    "components/nodes within a <span class='quote'>repeater</span>. This is because a repeater is transpiled into a separate context.",
-                    "inside a <span class='quote'>scoped component</span>"
-                ]
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h3",
+                "isBold": true
+            },
+            "content": "Use refs inside invalidate/repeater"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "When using <span class='quote'>refs</span> inside a dynamic block, it is necessary to run the getRef/getRef function every time you use it to always have updated elements. The elements returned by the function will always be <span class='quote'>sorted</span> in traversal order."
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "style": "small"
             }
         },
         {
             "component": "mob-snippet",
             "props": {
-                "source": "./snippets/mobJs/refs.js",
+                "source": "./snippets/mobJs/refsInvalidate.js",
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
