@@ -15,45 +15,6 @@
 ## setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`
 
-## Refs
-
-```js
-// getParamsFromWebComponent.js
-
-// queste due fuzioni puliranno dagli elementi orfani ogni qual volta invocate.
-return {
-    // ...
-    getRef: () => {
-        return getRefById(id);
-    }
-    getRefs: () => {
-        return getRefsById(id);
-    }
-    // ...
-
-}
-```
-
-
-```js
-// Component:
-// Set:
-<div ${setRef('myRef')} /> </div>
-
-// ...
-
-// Get refs immutable
-const { myRef } = getRef(); // single
-const { myRefs } = getRefs(); // array
-
-// Get fresh dynamic Refs
-getRef().myRef.style.height = '10px'; // single
-getRefs().myRefs.forEach((ref) => {
-    ref.style.height = '10px'; // single
-})
-```
-
-
 
 ## Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
