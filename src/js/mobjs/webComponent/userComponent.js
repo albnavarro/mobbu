@@ -217,55 +217,49 @@ export const defineUserComponent = (componentList) => {
                     this.#watchParent = () => {};
                     this.#componentname = key;
 
-                    //
+                    // Default symbols without attribute
                     this.#isPlaceholder = true;
-                    this.#name = '';
-                    this.#staticPropsId = '';
-                    this.#dynamicPropsId = '';
-                    this.#bindEventsId = '';
+                    this.isUserComponent = true;
                     this.#dynamicPropsFromSlotId = '';
                     this.#propsFromSlotId = '';
-                    this.#currentRepeatValueId = '';
-                    this.#slotPosition = '';
-                    this.#currentKey = '';
-                    this.#parentId = '';
-                    this.#componentRepeatId = '';
 
-                    this.#bindRefName = '';
-                    this.#bindRefId = '';
-
-                    //
-                    this.isUserComponent = true;
-
+                    /** host exist */
                     const host = this.shadowRoot?.host;
                     if (!host) return;
 
                     // @ts-ignore
                     if (!useQuery) addUserPlaceholder(host);
 
-                    this.#name = host.getAttribute(ATTR_INSTANCENAME);
-                    this.#staticPropsId = host.getAttribute(ATTR_PROPS);
-                    this.#dynamicPropsId = host.getAttribute(ATTR_DYNAMIC);
-                    this.#currentKey = host.getAttribute(ATTR_KEY);
-                    this.#bindEventsId = host.getAttribute(ATTR_BIND_EVENTS);
-                    this.#currentRepeatValueId = host.getAttribute(
-                        ATTR_CURRENT_LIST_VALUE
-                    );
-                    this.#slotPosition = host.getAttribute(ATTR_SLOT);
-                    this.#parentId = host.getAttribute(ATTR_PARENT_ID) ?? '';
-                    this.#componentRepeatId =
-                        host.getAttribute(ATTR_CHILD_REPEATID);
-
-                    this.#delegateEventId = host.getAttribute(
-                        ATTR_WEAK_BIND_EVENTS
-                    );
-
-                    this.#repeatPropBind = host.getAttribute(
-                        ATTR_REPEATER_PROP_BIND
-                    );
-
-                    this.#bindRefId = host.getAttribute(ATTR_BIND_REFS_ID);
-                    this.#bindRefName = host.getAttribute(ATTR_BIND_REFS_NAME);
+                    /** Get all attribute */
+                    [
+                        this.#name,
+                        this.#staticPropsId,
+                        this.#dynamicPropsId,
+                        this.#currentKey,
+                        this.#bindEventsId,
+                        this.#currentRepeatValueId,
+                        this.#slotPosition,
+                        this.#parentId,
+                        this.#componentRepeatId,
+                        this.#delegateEventId,
+                        this.#repeatPropBind,
+                        this.#bindRefId,
+                        this.#bindRefName,
+                    ] = [
+                        ATTR_INSTANCENAME,
+                        ATTR_PROPS,
+                        ATTR_DYNAMIC,
+                        ATTR_KEY,
+                        ATTR_BIND_EVENTS,
+                        ATTR_CURRENT_LIST_VALUE,
+                        ATTR_SLOT,
+                        ATTR_PARENT_ID,
+                        ATTR_CHILD_REPEATID,
+                        ATTR_WEAK_BIND_EVENTS,
+                        ATTR_REPEATER_PROP_BIND,
+                        ATTR_BIND_REFS_ID,
+                        ATTR_BIND_REFS_NAME,
+                    ].map((attribute) => host.getAttribute(attribute) ?? '');
 
                     /**
                      * Placeholder element that will move to slot.
@@ -275,17 +269,17 @@ export const defineUserComponent = (componentList) => {
                         this.style.visibility = 'hidden';
                     }
 
+                    /** Check for shadow root */
                     if (!this.shadowRoot) return;
 
+                    /** Append customs style */
                     if (style) {
                         const styleTag = document.createElement('style');
                         styleTag.textContent = style;
                         this.shadowRoot.append(styleTag);
                     }
 
-                    /**
-                     * Slot content is accessible by external javascript.
-                     */
+                    /** Slot content is accessible by external javascript. */
                     const slot = document.createElement('slot');
                     this.shadowRoot.append(slot);
 
@@ -397,19 +391,15 @@ export const defineUserComponent = (componentList) => {
                 }
 
                 getComponentRepeatId() {
-                    return this.#componentRepeatId ?? '';
+                    return this.#componentRepeatId;
                 }
 
                 getBindRefId() {
-                    return this.#bindRefId && this.#bindRefId.length > 0
-                        ? this.#bindRefId
-                        : undefined;
+                    return this.#bindRefId;
                 }
 
                 getBindRefName() {
-                    return this.#bindRefName && this.#bindRefName.length > 0
-                        ? this.#bindRefName
-                        : undefined;
+                    return this.#bindRefName;
                 }
 
                 #getData() {
