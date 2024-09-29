@@ -8,7 +8,9 @@
         display: block;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 1s, visibility 1s;
+        transition:
+            opacity 1s,
+            visibility 1s;
 
         &.active {
             opacity: 1;
