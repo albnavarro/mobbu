@@ -166,7 +166,7 @@ const executeConversion = ({ element, content }) => {
         const id = element.getId();
 
         // @ts-ignore
-        const delegateEventId = element.getDelegateEventId();
+        const delegateEventId = element?.getDelegateEventId();
 
         // @ts-ignore
         const bindRefId = element?.getBindRefId();
@@ -193,12 +193,13 @@ const executeConversion = ({ element, content }) => {
         /**
          * transfer delegateEventId if exist in placeholder element.
          */
-        if (delegateEventId)
+        if (delegateEventId && delegateEventId.length > 0)
             newElement.setAttribute(ATTR_WEAK_BIND_EVENTS, delegateEventId);
 
-        if (bindRefId) newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
+        if (bindRefId && bindRefId.length > 0)
+            newElement.setAttribute(ATTR_BIND_REFS_ID, bindRefId);
 
-        if (bindRefName)
+        if (bindRefName && bindRefName > 0)
             newElement.setAttribute(ATTR_BIND_REFS_NAME, bindRefName);
 
         /**
