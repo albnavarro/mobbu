@@ -1,9 +1,10 @@
+/**
 export type BindProps<T, R> = (arg0: {
     bind?: Array<OnlyStringKey<T>>;
     forceParent?: boolean;
     props: (arg0: T, index: number) => Partial<R>;
 }) => string;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
@@ -11,7 +12,7 @@ export type BindProps<T, R> = (arg0: {
 export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
     onMount(() => {
         /**
-         * Update coutner state every 500 ms.
+         * Update counter state every 500 ms.
          */
         setTimeout(() => {
             setState('counter', (value) => (value += 1));
@@ -35,7 +36,7 @@ export const MyComponent = ({ html, onMount, watch, setState, bindProps }) => {
                 ${bindProps({
                     bind: ['label', 'counter'],
                     forceParent: false, // optional
-                    props: ({ label, counter, otherProp }) => {
+                    props: ({ label, counter }) => {
                         return {
                             childProp3: label,
                             childProp4: counter,

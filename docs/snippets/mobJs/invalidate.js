@@ -1,3 +1,4 @@
+/**
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
     beforeUpdate?(): Promise<void>;
@@ -9,6 +10,7 @@ export type PartialInvalidateComponent<T> = (arg0: {
         ) => string;
     }) => string;
 }) => string;
+**/
 
 import { html } from '../mobjs';
 

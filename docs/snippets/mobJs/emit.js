@@ -1,5 +1,6 @@
+/**
 export type Emit<T> = (prop: keyof T) => void;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

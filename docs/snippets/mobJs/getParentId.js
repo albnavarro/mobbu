@@ -1,5 +1,6 @@
+/**
 export type GetParentId = () => string | undefined;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

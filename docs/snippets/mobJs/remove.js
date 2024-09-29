@@ -1,5 +1,6 @@
+/**
 remove(): void;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

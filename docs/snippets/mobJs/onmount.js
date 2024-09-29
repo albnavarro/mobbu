@@ -1,9 +1,11 @@
+/**
 onMount(
     arg0: (arg1: {
         element: HTMLElement;
         refs: { [key: string]: HTMLElement | HTMLElement[] };
     }) => () => void
 ): void;
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

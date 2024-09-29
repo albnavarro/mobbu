@@ -1,9 +1,11 @@
+/**
 export type RenderComponent = (arg0: {
     attachTo: HTMLElement;
     component: string;
     position?: 'afterbegin' | 'beforeend';
     clean?: boolean;
 }) => Promise<any>;
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

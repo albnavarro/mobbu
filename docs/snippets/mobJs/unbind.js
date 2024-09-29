@@ -1,5 +1,6 @@
+/**
 unBind: (arg0: { id: string }) => void;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

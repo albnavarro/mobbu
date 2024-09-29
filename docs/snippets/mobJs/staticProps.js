@@ -1,5 +1,6 @@
+/**
 staticProps(arg0: { [key: string]: any }): string;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

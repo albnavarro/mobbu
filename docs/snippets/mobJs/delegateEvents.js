@@ -1,3 +1,4 @@
+/**
 export interface delegateEventObject {
     [key: string]: (arg0: Event, index: number) => void;
 }
@@ -5,7 +6,7 @@ export interface delegateEventObject {
 export type DelegateEvents = (
     arg0: delegateEventObject | delegateEventObject[]
 ) => any;
-
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
@@ -17,7 +18,7 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
                 ${delegateEvents({
                     click: (event) => {
                         setState('counter', (value) => (value += 1));
-                        event.preventDefault(); 
+                        event.preventDefault();
                     },
                 })}
             >
@@ -27,7 +28,7 @@ export const MyComponent = ({ html, delegateEvents, setState }) => {
                 ${delegateEvents({
                     click: (event) => {
                         setState('counter', (value) => (value += 1));
-                        event.preventDefault(); 
+                        event.preventDefault();
                     },
                     onmouseenter: (event) => {
                         setState('counter', (value) => (value += 1));

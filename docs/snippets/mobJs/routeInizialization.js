@@ -1,3 +1,4 @@
+/**
 interface routeType {
     name: string;
     layout:
@@ -5,6 +6,7 @@ interface routeType {
         | ((arg0: { params: any; props: any }) => string);
     props: any;
 }
+**/
 
 // ./routes/index'
 

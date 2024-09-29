@@ -1,4 +1,6 @@
+/**
 export type GetState<T> = () => T;
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}

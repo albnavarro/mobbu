@@ -1,3 +1,4 @@
+/**
 export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     clean?: boolean;
     bind: OnlyStringKey<T>;
@@ -19,6 +20,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
         html?: (arg0: string) => string;
     }) => string;
 }) => string;
+**/
 
 import { html } from '../mobjs';
 

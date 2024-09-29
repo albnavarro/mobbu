@@ -1,8 +1,10 @@
+/**
 export type Compunted<T> = <K extends keyof T>(
     prop: K,
     keys: Array<NotValue<keyof T, K>>,
     callback: (arg0: T) => T[K]
 ) => void;
+**/
 
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
