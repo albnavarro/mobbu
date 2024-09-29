@@ -1,12 +1,11 @@
 removeDOM(element: HTMLElement): void;
 
-
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, removeDOM }) => {
-    onMount(({ refs }) => {
-        const { myDiv } = refs;
+export const MyComponent = ({ html, onMount, removeDOM, setRef, getRef }) => {
+    onMount(() => {
+        const { myDiv } = getRef();
 
         setTimeout(() => {
             removeDOM(myDiv);
@@ -15,7 +14,7 @@ export const MyComponent = ({ html, onMount, removeDOM }) => {
 
     return html`
         <div>
-            <div ref="myDiv">
+            <div ${setRef('myDiv')}>
                 <my-child-component></my-child-component>
             </div>
         </div>

@@ -10,6 +10,8 @@ export const MyComponent = ({
     bindProps,
     watch,
     delegateEvents,
+    setRef,
+    getRef,
 }) => {
     /**
      * Label state initial value.
@@ -31,8 +33,8 @@ export const MyComponent = ({
      * element: root DOM element.
      * refs: Object with all refs.
      */
-    onMount(({ element, refs }) => {
-        const { labelRef } = refs;
+    onMount(({ element }) => {
+        const { labelRef } = getRef();
 
         console.log(element); // div.
         console.log(labelRef); // h2.
@@ -59,7 +61,7 @@ export const MyComponent = ({
                 ${delegateEvents({
                     click: () => setState('label', 'new label value'),
                 })}
-                ref="labelRef"
+                ${setRef('labelRef')}
             >
                 ${label}
             </h2>

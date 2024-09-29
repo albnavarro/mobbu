@@ -3,9 +3,9 @@ import { parseDom } from '../../../src/js/mobjs';
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, syncParent }) => {
-    onMount(async (refs) => {
-        const { container } = refs;
+export const MyComponent = ({ html, onMount, syncParent, setRef, getRef }) => {
+    onMount(async () => {
+        const { container } = getRef();
 
         const myRuntimeComponent = html`<MyComponent
             ${syncParent}
@@ -18,5 +18,5 @@ export const MyComponent = ({ html, onMount, syncParent }) => {
     /**
      * DOM component structure.
      */
-    return html` <div><div ref="container"></div></div> `;
+    return html` <div><div ${setRef('container')}></div></div> `;
 };

@@ -5,13 +5,12 @@ onMount(
     }) => () => void
 ): void;
 
-
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount }) => {
-    onMount(({ element, refs }) => {
-        const { labelRef } = refs;
+export const MyComponent = ({ html, onMount, setRef, getRef }) => {
+    onMount(({ element }) => {
+        const { labelRef } = getRef();
 
         console.log(element); // div.
         console.log(labelRef); // h2.
@@ -28,7 +27,7 @@ export const MyComponent = ({ html, onMount }) => {
      */
     return html`
         <div>
-            <h2 ref="labelRef">Title</h2>
+            <h2 ${setRef('labelRef')}>Title</h2>
         </div>
     `;
 };

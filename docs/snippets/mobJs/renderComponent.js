@@ -5,7 +5,6 @@ export type RenderComponent = (arg0: {
     clean?: boolean;
 }) => Promise<any>;
 
-
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
@@ -14,9 +13,11 @@ export const MyComponent = ({
     onMount,
     bindProps,
     renderComponent,
+    setRef,
+    getRef,
 }) => {
-    onMount(async ({ refs }) => {
-        const { container, button } = refs;
+    onMount(async () => {
+        const { container } = getRef();
 
         /**
          * Add new component.
@@ -45,7 +46,7 @@ export const MyComponent = ({
 
     return html`
         <div>
-            <div ref="container"></div>
+            <div ${setRef('container')}></div>
         </div>
     `;
 };

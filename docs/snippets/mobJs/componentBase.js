@@ -1,7 +1,7 @@
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, getState }) => {
+export const MyComponent = ({ html, onMount, getState, setRef, getRef }) => {
     /**
      * Label state initial value.
      */
@@ -13,8 +13,8 @@ export const MyComponent = ({ html, onMount, getState }) => {
      * element: root DOM element.
      * refs: Object with all refs.
      */
-    onMount(({ element, refs }) => {
-        const { labelRef } = refs;
+    onMount(({ element }) => {
+        const { labelRef } = getRef();
 
         console.log(element); // div.
         console.log(labelRef); // h2.
@@ -30,7 +30,7 @@ export const MyComponent = ({ html, onMount, getState }) => {
      */
     return html`
         <div>
-            <h2 ref="labelRef">${label}</h2>
+            <h2 ${setRef('labelRef')}>${label}</h2>
         </div>
     `;
 };

@@ -4,15 +4,22 @@ export type Compunted<T> = <K extends keyof T>(
     callback: (arg0: T) => T[K]
 ) => void;
 
-
 /**
  * @type {import("../mobjs/type").mobComponent<import('./type').State>}
  */
-export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
+export const MyComponent = ({
+    html,
+    onMount,
+    getState,
+    computed,
+    watch,
+    setRef,
+    getRef,
+}) => {
     const { sum } = getState();
 
-    onMount(({ refs }) => {
-        const { label } = refs;
+    onMount(() => {
+        const { label } = getRef();
 
         computed('sum', ['state1', 'state2'], ({ state1, state2 }) => {
             return state1 + state2;
@@ -23,5 +30,5 @@ export const MyComponent = ({ html, onMount, getState, computed, watch }) => {
         });
     });
 
-    return html` <div><h2 ref="label">${sum}</h2></div> `;
+    return html` <div><h2 ${setRef('label')}>${sum}</h2></div> `;
 };
