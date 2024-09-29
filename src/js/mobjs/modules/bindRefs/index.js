@@ -1,3 +1,5 @@
+//@ts-check
+
 import { componentMap } from '../../component/store';
 import { ATTR_BIND_REFS_ID, ATTR_BIND_REFS_NAME } from '../../constant';
 
@@ -95,7 +97,7 @@ export const addBindRefsToComponent = (refs) => {
  */
 export const getBindRefsById = ({ id }) => {
     const item = componentMap.get(id);
-    if (!item) return;
+    if (!item) return {};
 
     const { refs, element } = item;
     if (!refs) return {};
