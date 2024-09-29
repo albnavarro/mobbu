@@ -18,7 +18,6 @@ import { getParamsForComponentFunction } from './steps/getParamsForComponent';
 import {
     addParentIdToFutureComponent,
     addSelfIdToParentComponent,
-    setParentsIdFallback,
 } from '../component/action/parent';
 import { applyDelegationBindEvent } from '../modules/delegateEvents';
 import { getParamsFromWebComponent } from './steps/getParamsFromWebComponent';
@@ -215,16 +214,6 @@ export const parseComponentsRecursive = async ({
         parentId,
         componentRepeatId,
     });
-
-    /**
-     * Update Parent id before render, do child can use immediately parentId.
-     * This step is necessary only if component come without parentId
-     * - In normal mode ( no repeat ) addSelfIdToFutureComponent() assign parent id before render
-     * - Repeater coem with parentId 'precompiled'
-     *
-     *  This is only a fallback.
-     */
-    setParentsIdFallback({ componentId: id });
 
     /**
      * Update to parent component child array.

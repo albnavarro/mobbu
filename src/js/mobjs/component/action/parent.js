@@ -62,43 +62,6 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
 };
 
 /**
- * @param {object} params
- * @param {string} params.componentId
- * @returns void
- *
- * @description
- * Set a reference to parent component id for each component.
- */
-export const setParentsIdFallback = ({ componentId }) => {
-    const item = componentMap.get(componentId);
-    if (!item) return;
-
-    const { element, parentId } = item;
-
-    /**
-     * Repeater has parentid from placeholder creation.
-     */
-    if (parentId && parentId.length > 0) return;
-
-    /**
-     * Get first element that contains componentToParse start from last map element.
-     */
-    const fallBackParentId = getFallBackParentByElement({
-        element,
-    });
-
-    const newItem =
-        fallBackParentId && fallBackParentId !== ''
-            ? {
-                  ...item,
-                  parentId: fallBackParentId ?? '',
-              }
-            : item;
-
-    componentMap.set(componentId, newItem);
-};
-
-/**
  * @returns void
  *
  * @description
