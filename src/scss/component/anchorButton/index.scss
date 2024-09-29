@@ -1,0 +1,22 @@
+@use '../../abstract' as *;
+
+.anchor-button {
+    background: $black;
+    padding: rem(5) rem(10);
+    border-radius: rem(20);
+    margin-bottom: rem(10);
+    margin-right: rem(10);
+    display: inline-block;
+    text-decoration: none;
+    min-width: rem(300);
+    color: $white;
+    text-align: center;
+    transition: background 0.35s;
+    font-size: rem(14);
+    border: 0;
+
+    &:hover {
+        background: $white;
+        color: $black;
+    }
+}

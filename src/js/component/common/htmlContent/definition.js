@@ -4,6 +4,7 @@ import { createComponent } from '../../../mobjs';
 import { Loader } from '../loader/definition';
 import { Snippet } from '../snippet/definition';
 import { SpacerAnchor } from '../spacerAnchor/definition';
+import { AnchorButton } from '../typography/AnchorButton/definition';
 import { List } from '../typography/list/definition';
 import { Paragraph } from '../typography/paragraph/definition';
 import { Title } from '../typography/titles/definition';
@@ -45,5 +46,13 @@ export const HtmlContent = createComponent({
             type: Boolean,
         }),
     },
-    child: [List, Paragraph, Title, Loader, Snippet, SpacerAnchor],
+    child: [
+        List,
+        Paragraph,
+        Title,
+        Loader,
+        Snippet,
+        SpacerAnchor,
+        AnchorButton,
+    ],
 });

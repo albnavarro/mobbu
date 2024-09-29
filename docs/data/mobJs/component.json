@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Overview"
+                "label": "Create component"
             }
         },
         {
@@ -24,10 +24,23 @@
             "content": "The components are divided into two modules: Definition and Function<br/>For convenience it is recommended to divide the two modules into two separate files:"
         },
         {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#start",
+                "content": "create component"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#function",
+                "content": "function component"
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "medium",
-                "id": "definition",
                 "label": "createComponent"
             }
         },

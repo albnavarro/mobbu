@@ -7,6 +7,11 @@
 
 import { html } from '../../../../mobjs';
 
+/**
+ * @param {object} params
+ * @param {string[]} params.items
+ * @returns {string}
+ */
 const getList = ({ items }) => {
     return items.map((item) => html` <li>${item}</li> `).join('');
 };

@@ -46,7 +46,7 @@ export const SpacerAnchorFn = async ({ html, getState, onMount }) => {
         };
     });
 
-    return html`<div class="spacer spacer--${style} ${lineClass}">
+    return html`<div id="${id}" class="spacer spacer--${style} ${lineClass}">
         <span></span>
     </div>`;
 };
