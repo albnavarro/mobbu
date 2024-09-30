@@ -4,12 +4,6 @@
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
-# MobCore
-
-## Store.
-### Transformation
-- Aggiungere `transformation` da eseguire prima della validazione etc ...
-
 # MobJs
 
 ## Slot
