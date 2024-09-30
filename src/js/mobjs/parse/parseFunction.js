@@ -294,7 +294,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Add custom DOM to basic component
      */
-    const { newElement } = await convertToRealElement({
+    const { newElement } = convertToRealElement({
         content,
         // @ts-ignore
         element: componentToParse,

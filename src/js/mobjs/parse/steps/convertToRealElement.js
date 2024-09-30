@@ -221,19 +221,17 @@ const executeConversion = ({ element, content }) => {
  * @param {object} obj
  * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element
  * @param {string} obj.content
- * @returns { Promise<{newElement:( HTMLElement|import("../../webComponent/type").userComponent|undefined ) }> | {newElement:( HTMLElement|undefined ) } }
+ * @returns {{ newElement:( HTMLElement|import("../../webComponent/type").userComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
  *
  * @description
  * Add content to component
  *
  */
 export const convertToRealElement = ({ element, content }) => {
-    return new Promise((resolve) => {
-        const newElement = executeConversion({
+    return {
+        newElement: executeConversion({
             element,
             content,
-        });
-
-        resolve({ newElement });
-    });
+        }),
+    };
 };
