@@ -1,0 +1,55 @@
+@use '../../abstract' as *;
+
+.scroll-to-top {
+    height: rem(50);
+    width: rem(50);
+    background: $black;
+    position: fixed;
+    bottom: var(--footer-height);
+    transform: translateX(-100%);
+    left: 100%;
+    border: 0;
+    cursor: pointer;
+    z-index: 12;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s,
+        background 0.35s;
+
+    @include mq('large') {
+        left: rem(950, large);
+        transform: translateX(calc(rem(10) * -1));
+    }
+
+    @include mq('xlarge') {
+        left: rem(1100, xlarge);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 25%;
+        height: 25%;
+        border-top: 3px $white solid;
+        border-right: 3px $white solid;
+        transform: translate(-50%, -25%) rotate(-45deg);
+        transition: border-color 0.35s;
+    }
+
+    &:hover {
+        background: $white;
+
+        &::after {
+            border-color: $black;
+        }
+    }
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}

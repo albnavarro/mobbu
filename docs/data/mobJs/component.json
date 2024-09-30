@@ -5,7 +5,7 @@
             "props": {
                 "style": "small",
                 "id": "start",
-                "label": "Create component"
+                "label": "Component definition"
             }
         },
         {
@@ -24,10 +24,17 @@
             "content": "The components are divided into two modules: Definition and Function<br/>For convenience it is recommended to divide the two modules into two separate files:"
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Main content"
+        },
+        {
             "component": "anchor-button",
             "props": {
                 "anchor": "#start",
-                "content": "create component"
+                "content": "component definition"
             }
         },
         {
@@ -38,16 +45,51 @@
             }
         },
         {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Params"
+        },
+        {
             "component": "anchor-button",
             "props": {
-                "anchor": "#parameters",
-                "content": "function params"
+                "anchor": "#primary",
+                "content": "Primary params"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#secondary",
+                "content": "Secondary: params"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#static",
+                "content": "Static: params"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#list",
+                "content": "List/Invalidate"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
+                "anchor": "#traversal",
+                "content": "Traversal operation"
             }
         },
         {
             "component": "mob-spacer",
             "props": {
-                "style": "medium",
+                "style": "big",
                 "label": "createComponent"
             }
         },
@@ -56,7 +98,7 @@
             "props": {
                 "tag": "h3"
             },
-            "content": "createComponent"
+            "content": "Component definition"
         },
         {
             "component": "mob-paragraph",
@@ -211,7 +253,7 @@
             "props": {
                 "style": "medium",
                 "id": "function",
-                "label": "Component&nbsp;function"
+                "label": "Function component"
             }
         },
         {
@@ -362,7 +404,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "id": "primary",
+                "style": "medium"
             }
         },
         {
@@ -397,7 +440,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "id": "secondary",
+                "style": "medium"
             }
         },
         {
@@ -428,6 +472,13 @@
             }
         },
         {
+            "component": "mob-spacer",
+            "props": {
+                "id": "static",
+                "style": "medium"
+            }
+        },
+        {
             "component": "mob-title",
             "props": {
                 "tag": "h4"
@@ -449,7 +500,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "id": "list",
+                "style": "medium"
             }
         },
         {
@@ -475,7 +527,8 @@
         {
             "component": "mob-spacer",
             "props": {
-                "style": "small"
+                "id": "traversal",
+                "style": "medium"
             }
         },
         {

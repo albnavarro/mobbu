@@ -6,6 +6,7 @@ import { MLogo1 } from '../component/common/mLogo1/definition';
 import { QuickNav } from '../component/common/nextPage/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
 import { ScrollDownLabel } from '../component/common/scrolldownLabel/definition';
+import { ScrollToTop } from '../component/common/scrollToTop/definition';
 import { Footer } from '../component/layout/footer/definition';
 import { Header } from '../component/layout/header/definition';
 import { NavigationContainer } from '../component/layout/navigation/definition';
@@ -24,6 +25,7 @@ useComponent([
     ScrollDownLabel,
     CodeButton,
     CebugButton,
+    ScrollToTop,
 ]);
 
 export const wrapper = async () => {
@@ -62,5 +64,6 @@ export const wrapper = async () => {
         <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
         <scroll-down-label name="scroll_down_label"></scroll-down-label>
         <code-button name="global-code-button"></code-button>
+        <scroll-to-top name="scroll-to-top"></scroll-to-top>
     `;
 };
