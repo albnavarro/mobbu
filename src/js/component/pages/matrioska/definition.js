@@ -51,6 +51,10 @@ export const Matrioska = createComponent({
             validate: (val) => val.length <= 10,
             strict: true,
         }),
+        counter: () => ({
+            value: 0,
+            type: Number,
+        }),
     },
     child: [DynamicListButton, OnlyDesktop, MatrioskaItem],
 });

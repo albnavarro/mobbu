@@ -1,5 +1,16 @@
 //@ts-check
 
+import { html } from '../../../../mobjs';
+
+const getCounter = ({ value, setRef }) => {
+    return value > -1
+        ? html`
+              <h6 class="matrioska-item__value">
+                  counter: <span ${setRef('counterRef')}>${value}</span>
+              </h6>
+          `
+        : '';
+};
 /**
  * @import { MobComponent } from "../../../../mobjs/type";
  * @import { MatrioskaItem } from "./type";
@@ -16,10 +27,10 @@ export const MatrioskaItemFn = ({
     setRef,
     getRef,
 }) => {
-    const { level } = getState();
+    const { level, counter } = getState();
 
     onMount(({ element }) => {
-        const { keyRef, valueRef } = getRef();
+        const { keyRef, valueRef, counterRef } = getRef();
 
         watchSync('key', (value) => {
             keyRef.innerHTML = `${value}`;
@@ -27,6 +38,10 @@ export const MatrioskaItemFn = ({
 
         watchSync('value', (value) => {
             valueRef.innerHTML = `${value}`;
+        });
+
+        watchSync('counter', (value) => {
+            if (counterRef) counterRef.innerHTML = `${value}`;
         });
 
         watch('active', (val) => {
@@ -45,6 +60,7 @@ export const MatrioskaItemFn = ({
             <h6 class="matrioska-item__value">
                 Value: <span ${setRef('valueRef')}></span>
             </h6>
+            ${getCounter({ value: counter, setRef })}
             <h6 class="matrioska-item__value">
                 Component id: <span>${id}</span>
             </h6>

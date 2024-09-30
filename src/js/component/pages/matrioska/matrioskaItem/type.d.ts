@@ -3,4 +3,5 @@ export interface MatrioskaItem {
     key: string;
     value: string;
     active: boolean;
+    counter: number;
 }

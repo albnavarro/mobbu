@@ -53,7 +53,7 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {keyof Matrioska} */ (
+                                    /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -75,7 +75,7 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {keyof Matrioska} */ (
+                                    /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -145,6 +145,7 @@ const getSecondLevel = ({
                                         delegateEvents,
                                         getState,
                                         invalidate,
+                                        bindProps,
                                     })}
                                 </div>
                             </matrioska-item>
@@ -162,12 +163,14 @@ const getSecondLevel = ({
  * @param { DelegateEvents } params.delegateEvents
  * @param { Invalidate<Matrioska> } params.invalidate
  * @param { GetState<Matrioska> } params.getState
+ * @param { BindProps<Matrioska,MatrioskaItem> } params.bindProps
  */
 const getThirdLevel = ({
     staticProps,
     delegateEvents,
     invalidate,
     getState,
+    bindProps,
 }) => {
     return invalidate({
         bind: 'level3',
@@ -191,6 +194,14 @@ const getThirdLevel = ({
                                     key: `${item?.key}`,
                                     value: `${item?.value}`,
                                 })}
+                                ${bindProps({
+                                    bind: ['counter'],
+                                    props: ({ counter }) => {
+                                        return {
+                                            counter,
+                                        };
+                                    },
+                                })}
                                 ${delegateEvents({
                                     click: () => {
                                         /** @type {UpdateStateByName<MatrioskaItem>} */
@@ -212,6 +223,14 @@ const getThirdLevel = ({
                                     level: 'level 3',
                                     key: `${item?.key}`,
                                     value: `${item?.value}`,
+                                })}
+                                ${bindProps({
+                                    bind: ['counter'],
+                                    props: ({ counter }) => {
+                                        return {
+                                            counter,
+                                        };
+                                    },
                                 })}
                                 ${delegateEvents({
                                     click: () => {
@@ -307,6 +326,17 @@ export const MatrioskaInvalidateFn = ({
             <span> First/Second level repeater without key. </span>
             <span> Third level repeater with key, shuffle order. </span>
         </h4>
+        <div class="matrioska__head__cta">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+                    click: () => {
+                        updateState('counter', (val) => val + 1);
+                    },
+                })}
+                >Increment counter</dynamic-list-button
+            >
+        </div>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({

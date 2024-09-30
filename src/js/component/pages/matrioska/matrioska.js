@@ -53,7 +53,7 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {keyof Matrioska} */ (
+                                    /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -75,7 +75,7 @@ const getButtons = ({ delegateEvents, updateState, setRef }) => {
                         ${delegateEvents({
                             click: () => {
                                 updateState(
-                                    /** @type {keyof Matrioska} */ (
+                                    /** @type {'level1'|'level2'|'level3'} */ (
                                         button.state
                                     ),
                                     (val) => {
@@ -174,10 +174,12 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 3',
                                 })}
                                 ${bindProps({
-                                    props: ({ level3 }, index) => {
+                                    bind: ['counter'],
+                                    props: ({ level3, counter }, index) => {
                                         return {
                                             key: `${level3[index]?.key}`,
                                             value: `${level3[index]?.value}`,
+                                            counter,
                                         };
                                     },
                                 })}
@@ -203,10 +205,12 @@ const getThirdLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 3',
                                 })}
                                 ${bindProps({
-                                    props: ({ level3 }, index) => {
+                                    bind: ['counter'],
+                                    props: ({ level3, counter }, index) => {
                                         return {
                                             key: `${level3[index]?.key}`,
                                             value: `${level3[index]?.value}`,
+                                            counter,
                                         };
                                     },
                                 })}
@@ -303,6 +307,17 @@ export const MatrioskaFn = ({
             <span> First/Second level repeater without key. </span>
             <span> Third level repeater with key, shuffle order. </span>
         </h4>
+        <div class="matrioska__head__cta">
+            <dynamic-list-button
+                class="matrioska__button"
+                ${delegateEvents({
+                    click: () => {
+                        updateState('counter', (val) => val + 1);
+                    },
+                })}
+                >Increment counter</dynamic-list-button
+            >
+        </div>
         <div class="matrioska__body">
             <div class="matrioska__level matrioska__level--1">
                 ${repeat({
