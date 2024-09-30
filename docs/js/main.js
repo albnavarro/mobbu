@@ -29846,7 +29846,10 @@ Loading snippet ...</pre
       setQuickNavState("color", "white");
       setMainTitleState("align", "right");
       setMainTitleState("color", "white");
-      setMainTitleState("title", "HorizontalScroller");
+      setMainTitleState(
+        "title",
+        animatePin ? "HorizontalScroller: smooth pin" : "HorizontalScroller: classic pin"
+      );
       const { horizontalScroller: horizontalScroller2 } = getLegendData();
       const { source } = horizontalScroller2;
       setCodeButtonState("drawers", [

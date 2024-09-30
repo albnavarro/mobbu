@@ -127,7 +127,12 @@ export const HorizontalScrollerFn = ({
          */
         setMainTitleState('align', 'right');
         setMainTitleState('color', 'white');
-        setMainTitleState('title', 'HorizontalScroller');
+        setMainTitleState(
+            'title',
+            animatePin
+                ? 'HorizontalScroller: smooth pin'
+                : 'HorizontalScroller: classic pin'
+        );
 
         /**
          * Code button
