@@ -62,14 +62,14 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#secondary",
-                "content": "Secondary: params"
+                "content": "Secondary params"
             }
         },
         {
             "component": "anchor-button",
             "props": {
                 "anchor": "#static",
-                "content": "Static: params"
+                "content": "Static params"
             }
         },
         {

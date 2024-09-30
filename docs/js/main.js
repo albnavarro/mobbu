@@ -23107,10 +23107,11 @@ Loading snippet ...</pre
   // src/js/component/common/typography/AnchorButton/AnchorButton.js
   var AnchorButtonFn = ({ html, getState, delegateEvents }) => {
     const { content: content2, anchor } = getState();
-    return html`<button
-        type="button"
-        class="anchor-button"
-        ${delegateEvents({
+    return html`<div>
+        <button
+            type="button"
+            class="anchor-button"
+            ${delegateEvents({
       click: () => {
         const target = document.querySelector(anchor);
         if (!target) return;
@@ -23118,9 +23119,10 @@ Loading snippet ...</pre
         bodyScroll.to(offsetTop);
       }
     })}
-    >
-        ${content2}
-    </button>`;
+        >
+            ${content2}
+        </button>
+    </div>`;
   };
 
   // src/js/component/common/typography/AnchorButton/definition.js

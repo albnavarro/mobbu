@@ -12,20 +12,22 @@ import { bodyScroll } from '../../../../mobMotion/plugin';
 export const AnchorButtonFn = ({ html, getState, delegateEvents }) => {
     const { content, anchor } = getState();
 
-    return html`<button
-        type="button"
-        class="anchor-button"
-        ${delegateEvents({
-            click: () => {
-                const target = document.querySelector(anchor);
-                if (!target) return;
+    return html`<div>
+        <button
+            type="button"
+            class="anchor-button"
+            ${delegateEvents({
+                click: () => {
+                    const target = document.querySelector(anchor);
+                    if (!target) return;
 
-                // @ts-ignore
-                const offsetTop = offset(target).top - 50;
-                bodyScroll.to(offsetTop);
-            },
-        })}
-    >
-        ${content}
-    </button>`;
+                    // @ts-ignore
+                    const offsetTop = offset(target).top - 50;
+                    bodyScroll.to(offsetTop);
+                },
+            })}
+        >
+            ${content}
+        </button>
+    </div>`;
 };
