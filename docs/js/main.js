@@ -17468,7 +17468,7 @@
     slotPlaceholder.clear();
   };
   var getUnamedPlaceholderSlot = ({ element }) => {
-    return [...slotPlaceholder].filter((slot) => {
+    return [...slotPlaceholder].find((slot) => {
       const hasSlot = !slot?.getSlotName?.() && element.contains(slot);
       if (hasSlot) slotPlaceholder.delete(slot);
       return hasSlot;
@@ -19367,21 +19367,20 @@
 
   // src/js/mobjs/query/queryUnNamedSlot.js
   function selectAll5(root2) {
-    const result = [];
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && !node?.getSlotName?.()) {
-        result.push(node);
+        return node;
       }
     }
-    return result;
+    return null;
   }
   var queryUnNamedSlot = (node) => {
-    let result = [];
     const root2 = node || document.body;
     for (const child2 of root2.children) {
-      result = [...result, ...selectAll5(child2)];
+      const result = selectAll5(child2);
+      if (result) return result;
     }
-    return result;
+    return null;
   };
 
   // src/js/mobjs/parse/steps/convertToRealElement.js
@@ -19453,11 +19452,9 @@
       const bindRefId = element?.getBindRefId();
       const bindRefName = element?.getBindRefName();
       const unNamedSlot = useQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
-      if (unNamedSlot?.length > 0) {
-        unNamedSlot.forEach((slot) => {
-          slot.insertAdjacentHTML("afterend", prevContent);
-          slot.remove();
-        });
+      if (unNamedSlot) {
+        unNamedSlot.insertAdjacentHTML("afterend", prevContent);
+        unNamedSlot.remove();
       } else {
         newElement.insertAdjacentHTML("afterbegin", prevContent);
       }
@@ -23267,8 +23264,6 @@ Loading snippet ...</pre
     const colorClass = `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
     return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <mobjs-slot></mobjs-slot>
-        <mobjs-slot></mobjs-slot>
         <mobjs-slot></mobjs-slot>
     </${tag}>`;
   };

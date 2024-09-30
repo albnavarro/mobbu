@@ -24,10 +24,10 @@ export const clearSlotPlaceHolder = () => {
 /**
  * @param {object} params
  * @param {HTMLElement|import('./type').userComponent} params.element
- * @returns {import('./type').slotComponent[]}
+ * @returns {import('./type').slotComponent|undefined}
  */
 export const getUnamedPlaceholderSlot = ({ element }) => {
-    return [...slotPlaceholder].filter((slot) => {
+    return [...slotPlaceholder].find((slot) => {
         const hasSlot = !slot?.getSlotName?.() && element.contains(slot);
         if (hasSlot) slotPlaceholder.delete(slot);
 

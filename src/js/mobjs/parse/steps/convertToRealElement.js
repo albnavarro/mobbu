@@ -194,11 +194,9 @@ const executeConversion = ({ element, content }) => {
             ? queryUnNamedSlot(newElement)
             : getUnamedPlaceholderSlot({ element: newElement });
 
-        if (unNamedSlot?.length > 0) {
-            unNamedSlot.forEach((slot) => {
-                slot.insertAdjacentHTML('afterend', prevContent);
-                slot.remove();
-            });
+        if (unNamedSlot) {
+            unNamedSlot.insertAdjacentHTML('afterend', prevContent);
+            unNamedSlot.remove();
         } else {
             newElement.insertAdjacentHTML('afterbegin', prevContent);
         }
