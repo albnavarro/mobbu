@@ -17481,6 +17481,9 @@
       return hasSlot;
     });
   };
+  var getAllSlot = () => {
+    return [...slotPlaceholder];
+  };
   var getSlotPlaceholderSize = () => {
     return slotPlaceholder.size;
   };
@@ -19364,20 +19367,21 @@
 
   // src/js/mobjs/query/queryUnNamedSlot.js
   function selectAll5(root2) {
+    const result = [];
     for (const node of walkPreOrder(root2)) {
       if (node?.isSlot && !node?.getSlotName?.()) {
-        return node;
+        result.push(node);
       }
     }
-    return null;
+    return result;
   }
   var queryUnNamedSlot = (node) => {
+    let result = [];
     const root2 = node || document.body;
     for (const child2 of root2.children) {
-      const result = selectAll5(child2);
-      if (result) return [result];
+      result = [...result, ...selectAll5(child2)];
     }
-    return [];
+    return result;
   };
 
   // src/js/mobjs/parse/steps/convertToRealElement.js
@@ -19398,7 +19402,7 @@
     return;
   };
   var removeOrphanSlot = ({ element }) => {
-    const slots = queryGenericSlot(element);
+    const slots = useQuery ? queryGenericSlot(element) : getAllSlot();
     slots.forEach((slot) => {
       const dynamicPropsIdFromSlot = slot.getDynamicProps();
       if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== "") {
@@ -23263,6 +23267,8 @@ Loading snippet ...</pre
     const colorClass = `is-${color}`;
     const boldClass = isBold ? `is-bold` : "";
     return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
+        <mobjs-slot></mobjs-slot>
+        <mobjs-slot></mobjs-slot>
         <mobjs-slot></mobjs-slot>
     </${tag}>`;
   };

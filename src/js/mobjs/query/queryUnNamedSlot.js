@@ -3,20 +3,17 @@
 import { walkPreOrder } from './queryAllFutureComponent';
 
 /**
- * FUTURE COMPONENT
- */
-
-/**
  * @param {Element} root
- * @returns {import("../webComponent/type").slotComponent|null}
+ * @returns {import("../webComponent/type").slotComponent[]}
  */
 function selectAll(root) {
+    const result = [];
     for (const node of walkPreOrder(root)) {
         if (node?.isSlot && !node?.getSlotName?.()) {
-            return node;
+            result.push(node);
         }
     }
-    return null;
+    return result;
 }
 
 /**
@@ -24,12 +21,12 @@ function selectAll(root) {
  * @returns {import("../webComponent/type").slotComponent[]}
  */
 export const queryUnNamedSlot = (node) => {
+    let result = [];
     const root = node || document.body;
 
     for (const child of root.children) {
-        const result = selectAll(child);
-        if (result) return [result];
+        result = [...result, ...selectAll(child)];
     }
 
-    return [];
+    return result;
 };

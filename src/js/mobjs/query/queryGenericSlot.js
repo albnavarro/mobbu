@@ -3,10 +3,6 @@
 import { walkPreOrder } from './queryAllFutureComponent';
 
 /**
- * FUTURE COMPONENT
- */
-
-/**
  * @param {Element} root
  * @returns {import("../webComponent/type").slotComponent[]}
  */
