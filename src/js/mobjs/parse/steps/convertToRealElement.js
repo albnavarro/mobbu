@@ -16,6 +16,7 @@ import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
 import { useQuery } from '../useQuery';
 import { getAllUserComponentUseNamedSlot } from '../../webComponent/usePlaceHolderToRender';
 import {
+    getAllSlot,
     getSlotByName,
     getUnamedPlaceholderSlot,
 } from '../../webComponent/slotPlaceHolder';
@@ -63,7 +64,7 @@ const getNewElement = ({ element, content }) => {
  * If slot is not used remove id reference orphans from store.
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots = queryGenericSlot(element);
+    const slots = useQuery ? queryGenericSlot(element) : getAllSlot();
 
     slots.forEach((slot) => {
         const dynamicPropsIdFromSlot = slot.getDynamicProps();

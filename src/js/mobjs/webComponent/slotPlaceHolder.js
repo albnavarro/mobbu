@@ -52,6 +52,13 @@ export const getSlotByName = ({ name, element }) => {
 };
 
 /**
+ * @returns {import('./type').slotComponent[]}
+ */
+export const getAllSlot = () => {
+    return [...slotPlaceholder];
+};
+
+/**
  * @returns {number}
  *
  * @description
