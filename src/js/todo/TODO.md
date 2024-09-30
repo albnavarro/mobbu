@@ -17,6 +17,7 @@
 - In questo caso la mappa andrá distrutta dopo `convertToRealElement`
 - In modo che in ogni ciclo di `parseFunction` ci siano solo gli slot del componente oggetto del parse.
 - Prevedere anche con `slot unnamed` di usarli tutti come `svelte` e poter avere tanto componenti quanti sono gli slot presenti
+-
 
 ## setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`

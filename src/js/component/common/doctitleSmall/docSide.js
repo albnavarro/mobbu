@@ -4,7 +4,7 @@
 export const DocTitleSmallFn = ({ html }) => {
     return html`
         <div class="c-doc-title-small">
-            <mobjs-slot />
+            <mobjs-slot></mobjs-slot>
         </div>
     `;
 };

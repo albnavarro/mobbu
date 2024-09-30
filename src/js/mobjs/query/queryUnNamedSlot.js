@@ -21,15 +21,15 @@ function selectAll(root) {
 
 /**
  * @param {Element} node
- * @returns {import("../webComponent/type").slotComponent|null}
+ * @returns {import("../webComponent/type").slotComponent[]}
  */
 export const queryUnNamedSlot = (node) => {
     const root = node || document.body;
 
     for (const child of root.children) {
         const result = selectAll(child);
-        if (result) return result;
+        if (result) return [result];
     }
 
-    return null;
+    return [];
 };

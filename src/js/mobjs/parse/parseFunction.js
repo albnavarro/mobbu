@@ -30,6 +30,8 @@ import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
+import { clearSlotPlaceHolder } from '../webComponent/slotPlaceHolder';
+import { useQuery } from './useQuery';
 
 /**
  * @param {object} obj
@@ -299,6 +301,11 @@ export const parseComponentsRecursive = async ({
         // @ts-ignore
         element: componentToParse,
     });
+
+    /**
+     * Clean slot map after convertToRealElement
+     */
+    if (!useQuery) clearSlotPlaceHolder();
 
     /**
      * copy all classes in new component.

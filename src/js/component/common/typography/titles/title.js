@@ -7,6 +7,6 @@ export const TitleFn = ({ html, getState }) => {
     const boldClass = isBold ? `is-bold` : '';
 
     return html`<${tag} class="mob-title ${colorClass} ${boldClass}">
-        <mobjs-slot/>
+        <mobjs-slot></mobjs-slot>
     </${tag}>`;
 };

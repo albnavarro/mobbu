@@ -14,10 +14,11 @@ import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
 import { useQuery } from '../useQuery';
+import { getAllUserComponentUseNamedSlot } from '../../webComponent/usePlaceHolderToRender';
 import {
-    getAllUserComponentUseNamedSlot,
-    userPlaceholder,
-} from '../../webComponent/usePlaceHolderToRender';
+    getSlotByName,
+    getUnamedPlaceholderSlot,
+} from '../../webComponent/slotPlaceHolder';
 
 /**
  * @param {object} obj
@@ -108,7 +109,9 @@ const addToNamedSlot = ({ element }) => {
         /**
          * Find slot used by component.
          */
-        const slot = querySecificSlot(element, slotName);
+        const slot = useQuery
+            ? querySecificSlot(element, slotName)
+            : getSlotByName({ name: slotName, element });
 
         /**
          * If no slot return;
@@ -186,11 +189,15 @@ const executeConversion = ({ element, content }) => {
          * if unNamedSlot is used.
          * Replace un-named slot with previous content.
          */
-        const unNamedSlot = queryUnNamedSlot(newElement);
+        const unNamedSlot = useQuery
+            ? queryUnNamedSlot(newElement)
+            : getUnamedPlaceholderSlot({ element: newElement });
 
-        if (unNamedSlot) {
-            unNamedSlot.insertAdjacentHTML('afterend', prevContent);
-            unNamedSlot.remove();
+        if (unNamedSlot?.length > 0) {
+            unNamedSlot.forEach((slot) => {
+                slot.insertAdjacentHTML('afterend', prevContent);
+                slot.remove();
+            });
         } else {
             newElement.insertAdjacentHTML('afterbegin', prevContent);
         }

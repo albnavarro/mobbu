@@ -6,6 +6,6 @@ export const ParagraphFn = ({ html, getState }) => {
     const colorClass = `is-${color}`;
 
     return html`<p class="p p--${style} ${colorClass}">
-        <mobjs-slot />
+        <mobjs-slot></mobjs-slot>
     </p>`;
 };

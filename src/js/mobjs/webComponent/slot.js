@@ -1,6 +1,8 @@
 //@ts-check
 
 import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
+import { useQuery } from '../parse/useQuery';
+import { addSlotPlaceholder } from './slotPlaceHolder';
 
 export const defineSlotComponent = () => {
     customElements.define(
@@ -26,6 +28,12 @@ export const defineSlotComponent = () => {
                 this.attachShadow({ mode: 'open' });
                 this.#slotName = '';
                 this.isSlot = true;
+
+                const host = this.shadowRoot?.host;
+                if (!host) return;
+
+                // @ts-ignore
+                if (!useQuery) addSlotPlaceholder(host);
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};
