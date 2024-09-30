@@ -18198,7 +18198,7 @@
           bind: bindUpdated,
           props,
           currentParentId: currentParentId ?? "",
-          fireCallback: true
+          fireCallback: false
         });
       }
       if (!inizilizeWatcher && !repeaterQuequeIsEmpty()) {

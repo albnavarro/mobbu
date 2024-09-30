@@ -287,7 +287,7 @@ export const applyBindProps = async ({
                 bind: bindUpdated,
                 props,
                 currentParentId: currentParentId ?? '',
-                fireCallback: true,
+                fireCallback: false,
             });
         }
 
