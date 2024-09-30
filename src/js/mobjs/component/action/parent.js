@@ -2,7 +2,10 @@
 
 import { useQuery } from '../../parse/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
-import { userPlaceholder } from '../../webComponent/usePlaceHolderToRender';
+import {
+    getAllUserChildPlaceholder,
+    userPlaceholder,
+} from '../../webComponent/usePlaceHolderToRender';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
@@ -80,14 +83,9 @@ export const addParentIdToFutureComponent = ({ element, id }) => {
         return;
     }
 
-    [...userPlaceholder].forEach((component) => {
-        if (
-            element.contains(component) &&
-            element !== component &&
-            component.getIsPlaceholder?.()
-        ) {
-            component.setParentId(id);
-        }
+    const childrenComponent = getAllUserChildPlaceholder({ element });
+    childrenComponent.forEach((component) => {
+        component.setParentId(id);
     });
 };
 

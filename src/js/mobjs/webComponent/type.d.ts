@@ -1,4 +1,5 @@
 export class userComponent extends HTMLElement {
+    isUserComponent: boolean;
     getComponentName: () => string;
     getId: () => string;
     setId: (arg0: string) => void;

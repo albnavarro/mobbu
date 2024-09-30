@@ -42,9 +42,35 @@ export const getFirstUserChildPlaceHolder = (element) => {
  * @description
  */
 export const getAllUserChildPlaceholder = ({ element }) => {
-    return [...userPlaceholder.values()].filter((item) => {
-        return element?.contains(item) && item.getIsPlaceholder();
-    });
+    return (
+        [...userPlaceholder].filter((component) => {
+            return (
+                element.contains(component) &&
+                element !== component &&
+                component.getIsPlaceholder?.()
+            );
+        }) ?? []
+    );
+};
+
+/**
+ * @param {object} params
+ * @param {Element} params.element
+ * @returns {Array<import('./type').userComponent>}
+ *
+ * @description
+ */
+export const getAllUserComponentUseNamedSlot = ({ element }) => {
+    return (
+        [...userPlaceholder].filter((component) => {
+            return (
+                element.contains(component) &&
+                element !== component &&
+                component.getIsPlaceholder?.() &&
+                component?.getSlotPosition?.()
+            );
+        }) ?? []
+    );
 };
 
 /**

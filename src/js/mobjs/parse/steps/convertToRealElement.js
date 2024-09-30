@@ -13,6 +13,11 @@ import { querySecificSlot } from '../../query/querySpecificSlot';
 import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
+import { useQuery } from '../useQuery';
+import {
+    getAllUserComponentUseNamedSlot,
+    userPlaceholder,
+} from '../../webComponent/usePlaceHolderToRender';
 
 /**
  * @param {object} obj
@@ -89,8 +94,11 @@ const removeOrphanSlot = ({ element }) => {
  * Move element to related slot if defined.
  * And delete original slot placehodler
  */
-const addToSlot = ({ element }) => {
-    const componentWithSlot = queryComponentUseSlot(element);
+const addToNamedSlot = ({ element }) => {
+    const componentWithSlot = useQuery
+        ? queryComponentUseSlot(element)
+        : getAllUserComponentUseNamedSlot({ element });
+
     if (componentWithSlot.length === 0) return;
 
     const slots = [...componentWithSlot].map((component) => {
@@ -187,7 +195,7 @@ const executeConversion = ({ element, content }) => {
             newElement.insertAdjacentHTML('afterbegin', prevContent);
         }
 
-        addToSlot({ element: newElement });
+        addToNamedSlot({ element: newElement });
         removeOrphanSlot({ element: newElement });
 
         /**
