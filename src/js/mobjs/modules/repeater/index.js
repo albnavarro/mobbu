@@ -12,6 +12,15 @@ export const repeatIdPlaceHolderMap = new Map();
 
 /**
  * @description
+ * Store how web component
+ * Key is repeat id
+ *
+ * @type {Map<string, HTMLElement>}
+ */
+export const repeatIdHostMap = new Map();
+
+/**
+ * @description
  * Store initialize repeat function
  * Key is componentId
  *
@@ -150,11 +159,13 @@ export const getRepeatFunctions = ({ id }) => {
  * Store parent repeat block from repeat webComponent.
  *
  * @param {object} params
- * @param {string} params.id - repeat id
- * @param {HTMLElement} params.parent = parent of repeat web-component
+ * @param {string} params.repeatId - repeat id
+ * @param {object} params.host  - webComponent root
  */
-export const addRepeatParent = ({ id = '', parent }) => {
-    repeatIdPlaceHolderMap.set(id, parent);
+export const setParentRepeater = ({ repeatId, host }) => {
+    const parent = /** @type{HTMLElement} */ (host.parentNode);
+    repeatIdPlaceHolderMap.set(repeatId, parent);
+    repeatIdHostMap.set(repeatId, host);
 };
 
 /**
@@ -166,6 +177,17 @@ export const addRepeatParent = ({ id = '', parent }) => {
 export const getRepeatParent = ({ id }) => {
     if (!repeatIdPlaceHolderMap.has(id)) {
         return;
+    }
+
+    /**
+     * Remove webComponent after first call to repeaterParent
+     */
+    if (repeatIdHostMap.has(id)) {
+        const host = repeatIdHostMap.get(id);
+        // @ts-ignore
+        host?.removeCustomComponent();
+        host.remove();
+        repeatIdHostMap.delete(id);
     }
 
     const parent = repeatIdPlaceHolderMap.get(id);

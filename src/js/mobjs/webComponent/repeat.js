@@ -1,14 +1,7 @@
 //@ts-check
 
-const setParent = ({ repeatId, context }) => {
-    const parent = /** @type{HTMLElement} */ (context.parentNode);
-    addRepeatParent({ id: repeatId, parent });
-    return parent;
-};
-
-import { addRepeatParent } from '../modules/repeater';
+import { setParentRepeater } from '../modules/repeater';
 import { ATTR_MOBJS_REPEAT } from '../constant';
-import { awaitNextLoop } from '../queque/utils';
 
 export const defineRepeatComponent = () => {
     customElements.define(
@@ -22,26 +15,17 @@ export const defineRepeatComponent = () => {
                 const { dataset } = this.shadowRoot?.host ?? {};
 
                 if (dataset) {
-                    const repeatId =
-                        this.shadowRoot?.host.getAttribute(ATTR_MOBJS_REPEAT);
-
-                    /**
-                     * Set parent immediately
-                     */
-                    setParent({ repeatId, context: this });
-
-                    /**
-                     * Update parent after first loop
-                     * Repater should move element.
-                     */
-                    (async () => {
-                        await awaitNextLoop();
-                        const parent = setParent({ repeatId, context: this });
-
-                        // eslint-disable-next-line unicorn/prefer-dom-node-remove
-                        parent?.removeChild(this);
-                    })();
+                    const host = this.shadowRoot.host;
+                    const repeatId = host.getAttribute(ATTR_MOBJS_REPEAT);
+                    setParentRepeater({ repeatId, host });
                 }
+            }
+
+            removeCustomComponent() {
+                if (!this.shadowRoot) return;
+
+                // eslint-disable-next-line unicorn/prefer-dom-node-remove
+                this.parentElement?.removeChild(this);
             }
         }
     );

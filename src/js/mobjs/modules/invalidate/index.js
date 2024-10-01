@@ -24,6 +24,15 @@ export const invalidateIdPlaceHolderMap = new Map();
 
 /**
  * @description
+ * Store how web component
+ * Key is repeat id
+ *
+ * @type {Map<string, HTMLElement>}
+ */
+export const invalidateIdHostMap = new Map();
+
+/**
+ * @description
  * Store initialize invalidate function
  * Key is componentId
  *
@@ -161,14 +170,16 @@ export const getInvalidateFunctions = ({ id }) => {
 
 /**
  * @description
- * Store parent invalidate block from invalidate webComponent.
+ * Store parent invalidate block from repeat webComponent.
  *
  * @param {object} params
- * @param {string} params.id - invalidate id
- * @param {HTMLElement} params.parent = parent of invalidate web-component
+ * @param {string} params.invalidateId - invalidateId id
+ * @param {object} params.host  - webComponent root
  */
-export const addInvalidateParent = ({ id = '', parent }) => {
-    invalidateIdPlaceHolderMap.set(id, parent);
+export const setParentInvalidate = ({ invalidateId, host }) => {
+    const parent = /** @type{HTMLElement} */ (host.parentNode);
+    invalidateIdPlaceHolderMap.set(invalidateId, parent);
+    invalidateIdHostMap.set(invalidateId, host);
 };
 
 /**
@@ -180,6 +191,17 @@ export const addInvalidateParent = ({ id = '', parent }) => {
 export const getInvalidateParent = ({ id }) => {
     if (!invalidateIdPlaceHolderMap.has(id)) {
         return;
+    }
+
+    /**
+     * Remove webComponent after first call to invalidateParent
+     */
+    if (invalidateIdHostMap.has(id)) {
+        const host = invalidateIdHostMap.get(id);
+        // @ts-ignore
+        host?.removeCustomComponent();
+        host.remove();
+        invalidateIdHostMap.delete(id);
     }
 
     const parent = invalidateIdPlaceHolderMap.get(id);

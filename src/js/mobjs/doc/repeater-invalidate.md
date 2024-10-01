@@ -14,7 +14,16 @@
     - `repeatIdPlaceHolderMap`
 - Le due mappe avranno la struttura:
     - key: repeat/invalidateId
-    - value: parent node
+    - value: parentNode
+
+Verranno create altre due mappe che salveranno l'host del webComponent.
+- Queste due mappe elimineranno l'`host` dal DOM non appena verrá richiamato il `parentNode` di cui sopra attraverso le funzioni  `getRepeatParent()` && `getInvalidateParent()`.
+    - `invalidateIdHostMap`
+    - `repeatIdHostMap`
+- Le due mappe avranno la struttura:
+    - key: repeat/invalidateId
+    - value: host node
+
 
 ### Prepare dynamic update & async initialization
 - Le due funzioni `repeat` & `invalidate` chimeranno due funzioni: `setRepeatFunction` && `setInvalidateFunction`

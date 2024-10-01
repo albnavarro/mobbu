@@ -17,6 +17,7 @@ import {
 } from '../../../mobjs/modules/repeater';
 import {
     invalidateFunctionMap,
+    invalidateIdHostMap,
     invalidateIdPlaceHolderMap,
 } from '../../../mobjs/modules/invalidate';
 import { bindEventMap } from '../../../mobjs/modules/bindEvents';
@@ -56,11 +57,16 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                         'invalidateIdPlaceHolderMap',
                         invalidateIdPlaceHolderMap
                     );
+                    console.log(
+                        'invalidateIdHostMap',
+                        invalidateIdHostMap.size
+                    );
                     console.log('invalidateFunctionMap', invalidateFunctionMap);
                     console.log(
                         'repeatIdPlaceHolderMap',
                         repeatIdPlaceHolderMap
                     );
+                    console.log('repeatIdHostMap', invalidateIdHostMap.size);
                     console.log('repeatFunctionMap', repeatFunctionMap);
                     console.log(
                         'userChildPlaceholderSize',
