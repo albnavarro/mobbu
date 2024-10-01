@@ -3,7 +3,7 @@ import { tick } from '../queque/tick';
 /**
  * @type {Set<import('./type').userComponent>}
  */
-export const userPlaceholder = new Set();
+const userPlaceholder = new Set();
 
 /**
  * @param {import('./type').userComponent} element
@@ -26,7 +26,7 @@ export const addUserPlaceholder = (element) => {
  * Return an array with one element, to maintain compatibility with query solution.
  */
 export const getFirstUserChildPlaceHolder = (element) => {
-    const userComponent = [...userPlaceholder.values()].find((item) => {
+    const userComponent = [...userPlaceholder].find((item) => {
         return element?.contains(item) && item.getIsPlaceholder();
     });
 
@@ -75,11 +75,34 @@ export const getAllUserComponentUseNamedSlot = ({ element }) => {
 
 /**
  * @returns {number}
- *
- * @description
  */
 export const getUserChildPlaceholderSize = () => {
     return userPlaceholder.size;
+};
+
+/**
+ * @description
+ * Redorder placeholder in traversal order.
+ * Slot move element, so reorder all map
+ * Should be not mandatory, but this smap is a foundamenal step
+ *
+ * @returns {void}
+ */
+export const sortUserPlaceholder = () => {
+    const orderedSet = [...userPlaceholder].sort(function (a, b) {
+        if (a === b || !a || !b) return 0;
+        if (a.compareDocumentPosition(b) & 2) {
+            // b comes before a
+            return 1;
+        }
+        return -1;
+    });
+
+    clearUserPlaceHolder();
+
+    orderedSet.forEach((item) => {
+        userPlaceholder.add(item);
+    });
 };
 
 /**
