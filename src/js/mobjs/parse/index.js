@@ -26,7 +26,7 @@ export const parseComponents = async ({
     parentIdForced = '',
 }) => {
     incrementParserCounter();
-    sortUserPlaceholder();
+    if (!useQuery) sortUserPlaceholder();
 
     await parseComponentsRecursive({
         element,
