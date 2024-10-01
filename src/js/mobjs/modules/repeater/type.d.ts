@@ -10,7 +10,7 @@ export interface repeaterType {
         element: HTMLElement;
         container: HTMLElement;
         childrenId: string[];
-    }): Promise<void>;
+    }): Promise<void> | void;
     afterUpdate(arg0: {
         element: HTMLElement;
         container: HTMLElement;

@@ -203,7 +203,7 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
          * Active Children ids
          */
         childrenId: string[];
-    }): Promise<void>;
+    }): Promise<void> | void;
 
     /**
      * @description

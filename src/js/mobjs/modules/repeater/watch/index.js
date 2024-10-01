@@ -147,28 +147,11 @@ export const watchRepeat = ({
                 filterById: true,
             });
 
-            /**
-             * Execute beforeUpdate function first time ( no await )
-             */
-            if (mainComponent && !forceRepeater) {
-                beforeUpdate({
-                    element: mainComponent,
-                    container: repeaterParentElement,
-                    childrenId: childrenBeforeUdateFilterdByParent,
-                });
-            }
-
-            /**
-             * Execute beforeUpdate function on update ( use await )
-             */
-            if (mainComponent && !forceRepeater) {
+            if (mainComponent) {
                 await beforeUpdate({
                     element: mainComponent,
                     container: repeaterParentElement,
-                    childrenId: getIdsByByRepeatId({
-                        id,
-                        repeatId,
-                    }),
+                    childrenId: childrenBeforeUdateFilterdByParent,
                 });
             }
 
