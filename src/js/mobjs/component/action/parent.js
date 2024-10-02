@@ -1,6 +1,6 @@
 // @ts-check
 
-import { useQuery } from '../../parse/useQuery';
+import { forceComponentChildQuery, useQuery } from '../../parse/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
 import { getAllUserChildPlaceholder } from '../../modules/userComponent';
 import { componentMap } from '../store';
@@ -71,7 +71,7 @@ export const addSelfIdToParentComponent = ({ id = '' }) => {
  * If id is assigned to component nested in next cycle will be override.
  */
 export const addParentIdToFutureComponent = ({ element, id }) => {
-    if (useQuery) {
+    if (useQuery || forceComponentChildQuery) {
         const children = queryAllFutureComponent(element, false);
         children.forEach((child) => {
             child.setParentId(id);

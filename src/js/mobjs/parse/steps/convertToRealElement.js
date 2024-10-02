@@ -13,7 +13,11 @@ import { querySecificSlot } from '../../query/querySpecificSlot';
 import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
-import { useQuery } from '../useQuery';
+import {
+    forceComponentChildQuery,
+    forceSlotQuery,
+    useQuery,
+} from '../useQuery';
 import { getAllUserComponentUseNamedSlot } from '../../modules/userComponent';
 import {
     getAllSlot,
@@ -64,7 +68,8 @@ const getNewElement = ({ element, content }) => {
  * If slot is not used remove id reference orphans from store.
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots = useQuery ? queryGenericSlot(element) : getAllSlot();
+    const slots =
+        useQuery || forceSlotQuery ? queryGenericSlot(element) : getAllSlot();
 
     slots.forEach((slot) => {
         const dynamicPropsIdFromSlot = slot.getDynamicProps();
@@ -97,9 +102,10 @@ const removeOrphanSlot = ({ element }) => {
  * And delete original slot placehodler
  */
 const addToNamedSlot = ({ element }) => {
-    const componentWithSlot = useQuery
-        ? queryComponentUseSlot(element)
-        : getAllUserComponentUseNamedSlot({ element });
+    const componentWithSlot =
+        useQuery || forceComponentChildQuery
+            ? queryComponentUseSlot(element)
+            : getAllUserComponentUseNamedSlot({ element });
 
     if (componentWithSlot.length === 0) return;
 
@@ -110,9 +116,10 @@ const addToNamedSlot = ({ element }) => {
         /**
          * Find slot used by component.
          */
-        const slot = useQuery
-            ? querySecificSlot(element, slotName)
-            : getSlotByName({ name: slotName, element });
+        const slot =
+            useQuery || forceSlotQuery
+                ? querySecificSlot(element, slotName)
+                : getSlotByName({ name: slotName, element });
 
         /**
          * If no slot return;
@@ -190,9 +197,10 @@ const executeConversion = ({ element, content }) => {
          * if unNamedSlot is used.
          * Replace un-named slot with previous content.
          */
-        const unNamedSlot = useQuery
-            ? queryUnNamedSlot(newElement)
-            : getUnamedPlaceholderSlot({ element: newElement });
+        const unNamedSlot =
+            useQuery || forceSlotQuery
+                ? queryUnNamedSlot(newElement)
+                : getUnamedPlaceholderSlot({ element: newElement });
 
         if (unNamedSlot) {
             unNamedSlot.insertAdjacentHTML('afterend', prevContent);
