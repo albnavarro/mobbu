@@ -34,7 +34,6 @@ import { chunkIdsByRepeaterWrapper } from '../utils';
 export const watchRepeat = ({
     state = '',
     setState,
-    // emit,
     watch,
     clean = false,
     beforeUpdate,
@@ -45,16 +44,6 @@ export const watchRepeat = ({
     render,
 }) => {
     const mainComponent = getElementById({ id });
-
-    /**
-     * Use if first render from repeat params is removed.
-     * - forceRepeater = true
-     * - emit at the end
-     *
-     * First run use an empty previous array
-     * To run first emit from definition store.
-     */
-    let forceRepeater = false;
 
     /**
      * When repater is created nested Main component is not parsed.
@@ -158,7 +147,7 @@ export const watchRepeat = ({
             /**
              * If clean of first time remove DOM from repeater container.
              */
-            if (targetComponentBeforeParse && (clean || forceRepeater)) {
+            if (targetComponentBeforeParse && clean) {
                 const currentChildern = getIdsByByRepeatId({
                     id,
                     repeatId,
@@ -188,18 +177,13 @@ export const watchRepeat = ({
                 repeaterParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,
-                previous: clean || forceRepeater ? [] : previous,
+                previous: clean ? [] : previous,
                 key,
                 id,
                 fallBackParentId,
                 render,
                 repeatId,
             });
-
-            /**
-             * Now reset previous only with clean props.
-             */
-            forceRepeater = false;
 
             /**
              * Filter children inside repeaterParentElement
@@ -339,8 +323,6 @@ export const watchRepeat = ({
             });
         }
     );
-
-    // emit(state);
 
     return unsubscribe;
 };

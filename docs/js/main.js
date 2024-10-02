@@ -18799,7 +18799,6 @@
   var watchRepeat = ({
     state = "",
     setState,
-    // emit,
     watch,
     clean: clean2 = false,
     beforeUpdate,
@@ -18810,7 +18809,6 @@
     render: render2
   }) => {
     const mainComponent = getElementById({ id });
-    let forceRepeater = false;
     const fallBackParentId = getFallBackParentByElement({
       element: getRepeatParent({ id: repeatId })
     });
@@ -18863,7 +18861,7 @@
             childrenId: childrenBeforeUdateFilterdByParent
           });
         }
-        if (targetComponentBeforeParse && (clean2 || forceRepeater)) {
+        if (targetComponentBeforeParse && clean2) {
           const currentChildern = getIdsByByRepeatId({
             id,
             repeatId
@@ -18879,14 +18877,13 @@
           repeaterParentElement,
           targetComponent: targetComponentBeforeParse,
           current,
-          previous: clean2 || forceRepeater ? [] : previous,
+          previous: clean2 ? [] : previous,
           key,
           id,
           fallBackParentId,
           render: render2,
           repeatId
         });
-        forceRepeater = false;
         const childrenFilteredByRepeatId = getIdsByByRepeatId({
           id,
           repeatId
