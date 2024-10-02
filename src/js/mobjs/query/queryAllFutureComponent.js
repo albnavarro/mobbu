@@ -23,7 +23,7 @@ export function* walkPreOrder(node) {
 /**
  * @param {Element} root
  * @param {boolean} oneDepth
- * @returns {import("../webComponent/type").userComponent[]}
+ * @returns {import("../webComponent/type").UserComponent[]}
  */
 function selectAll(root, oneDepth) {
     const result = [];
@@ -44,7 +44,7 @@ function selectAll(root, oneDepth) {
 /**
  * @param {Element} node
  * @param {boolean} oneDepth
- * @returns {Array<import("../webComponent/type").userComponent>}
+ * @returns {Array<import("../webComponent/type").UserComponent>}
  */
 export const queryAllFutureComponent = (node, oneDepth = true) => {
     let result = [];

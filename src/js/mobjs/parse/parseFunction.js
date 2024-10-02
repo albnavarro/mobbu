@@ -38,7 +38,7 @@ import { useQuery } from './useQuery';
  * @param {HTMLElement} obj.element
  * @param {boolean} [ obj.isCancellable ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
- * @param {Array<import("../webComponent/type").userComponent>} [ obj.currentSelectors ]
+ * @param {Array<import("../webComponent/type").UserComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
  * @param {boolean} [ obj.checkBindRef ]
  * @return {Promise<void>}

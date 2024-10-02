@@ -4,7 +4,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 
 /**
  * @param {Element} root
- * @returns {import("../webComponent/type").slotComponent|null}
+ * @returns {import("../webComponent/type").SlotComponent|null}
  */
 function selectAll(root) {
     for (const node of walkPreOrder(root)) {
@@ -17,7 +17,7 @@ function selectAll(root) {
 
 /**
  * @param {Element} node
- * @returns {import("../webComponent/type").slotComponent|null}
+ * @returns {import("../webComponent/type").SlotComponent|null}
  */
 export const queryUnNamedSlot = (node) => {
     const root = node || document.body;

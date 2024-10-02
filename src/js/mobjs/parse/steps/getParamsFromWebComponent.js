@@ -6,7 +6,7 @@ import { filterExportableStateFromObject } from '../../component/action/exportSt
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").userComponent} obj.element
+ * @param {import("../../webComponent/type").UserComponent} obj.element
  * @param {string|undefined} obj.parentIdForced
  * @returns {import('./type').componentDataType}
  *

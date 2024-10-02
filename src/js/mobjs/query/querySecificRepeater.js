@@ -9,7 +9,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 /**
  * @param {Element} root
  * @param {string} repeatId
- * @returns {import("../webComponent/type").repeaterComponent|null}
+ * @returns {import("../webComponent/type").RepeaterComponent|null}
  */
 function selectAll(root, repeatId) {
     for (const node of walkPreOrder(root)) {
@@ -23,7 +23,7 @@ function selectAll(root, repeatId) {
 /**
  * @param {Element} node
  * @param {string} repeatId
- * @returns {import("../webComponent/type").repeaterComponent|null}
+ * @returns {import("../webComponent/type").RepeaterComponent|null}
  */
 export const querySecificRepeater = (node, repeatId) => {
     const root = node || document.body;

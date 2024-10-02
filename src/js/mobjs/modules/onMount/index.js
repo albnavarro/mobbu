@@ -23,7 +23,7 @@ export const addOnMoutCallback = ({ id, cb = () => {} }) => {
 /**
  * @param {object} obj
  * @param {string} obj.id - component id
- * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element - root component HTMLElement.
+ * @param {HTMLElement|import("../../webComponent/type").UserComponent} obj.element - root component HTMLElement.
  *
  * @description
  * Fire onMount callback.

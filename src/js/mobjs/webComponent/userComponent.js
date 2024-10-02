@@ -17,7 +17,7 @@ import {
     ATTR_WEAK_BIND_EVENTS,
 } from '../constant';
 import { useQuery } from '../parse/useQuery';
-import { addUserPlaceholder } from './usePlaceHolderToRender';
+import { addUserPlaceholder } from '../modules/slot';
 
 /**
  * @param {{[key:string]:import('../mainStore/type').componentListMapType}} componentList

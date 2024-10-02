@@ -14,7 +14,7 @@ import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
 import { useQuery } from '../useQuery';
-import { getAllUserComponentUseNamedSlot } from '../../webComponent/usePlaceHolderToRender';
+import { getAllUserComponentUseNamedSlot } from '../../modules/slot';
 import {
     getAllSlot,
     getSlotByName,
@@ -23,9 +23,9 @@ import {
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").userComponent|HTMLElement} obj.element
+ * @param {import("../../webComponent/type").UserComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|import("../../webComponent/type").userComponent|undefined}
+ * @returns {HTMLElement|import("../../webComponent/type").UserComponent|undefined}
  *
  * @description
  * Get new element from content ( render ).
@@ -159,9 +159,9 @@ const addToNamedSlot = ({ element }) => {
 
 /**
  * @param {object} obj
- * @param {import("../../webComponent/type").userComponent|HTMLElement} obj.element
+ * @param {import("../../webComponent/type").UserComponent|HTMLElement} obj.element
  * @param {string} obj.content
- * @returns {HTMLElement|import("../../webComponent/type").userComponent|undefined}
+ * @returns {HTMLElement|import("../../webComponent/type").UserComponent|undefined}
  */
 const executeConversion = ({ element, content }) => {
     /**
@@ -233,9 +233,9 @@ const executeConversion = ({ element, content }) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element
+ * @param {HTMLElement|import("../../webComponent/type").UserComponent} obj.element
  * @param {string} obj.content
- * @returns {{ newElement:( HTMLElement|import("../../webComponent/type").userComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
+ * @returns {{ newElement:( HTMLElement|import("../../webComponent/type").UserComponent|undefined ) } | {newElement:( HTMLElement|undefined )}}
  *
  * @description
  * Add content to component

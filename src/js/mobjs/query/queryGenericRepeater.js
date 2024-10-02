@@ -8,7 +8,7 @@ import { walkPreOrder } from './queryAllFutureComponent';
 
 /**
  * @param {Element} root
- * @returns {Array<import("../webComponent/type").repeaterComponent>}
+ * @returns {Array<import("../webComponent/type").RepeaterComponent>}
  */
 function selectAll(root) {
     const result = [];
@@ -21,8 +21,8 @@ function selectAll(root) {
 }
 
 /**
- * @param {Element|import("../webComponent/type").userComponent} node
- * @returns {import("../webComponent/type").repeaterComponent[]}
+ * @param {Element|import("../webComponent/type").UserComponent} node
+ * @returns {import("../webComponent/type").RepeaterComponent[]}
  */
 export const queryGenericRepeater = (node) => {
     let result = [];

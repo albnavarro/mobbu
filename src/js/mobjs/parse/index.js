@@ -3,10 +3,7 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from './counter';
-import {
-    clearUserPlaceHolder,
-    sortUserPlaceholder,
-} from '../webComponent/usePlaceHolderToRender';
+import { clearUserPlaceHolder, sortUserPlaceholder } from '../modules/slot';
 import { parseComponentsRecursive } from './parseFunction';
 import { useQuery } from './useQuery';
 import { resetCurrentIterationCounter } from './utils';

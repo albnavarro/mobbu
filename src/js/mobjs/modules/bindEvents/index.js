@@ -36,7 +36,7 @@ export const setBindEvents = (eventsData = []) => {
 
 /**
  * @param {object} obj
- * @param {HTMLElement|import("../../webComponent/type").userComponent} obj.element
+ * @param {HTMLElement|import("../../webComponent/type").UserComponent} obj.element
  * @param {string} obj.componentId
  * @param {string} obj.bindEventsId
  * @return {void}

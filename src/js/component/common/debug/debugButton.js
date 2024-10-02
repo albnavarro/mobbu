@@ -27,8 +27,8 @@ import { onMountCallbackMap } from '../../../mobjs/modules/onMount';
 import { activeRepeatMap } from '../../../mobjs/modules/repeater/activeRepeater';
 import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targetcomponent';
 import { staticPropsMap } from '../../../mobjs/modules/staticProps';
-import { getUserChildPlaceholderSize } from '../../../mobjs/webComponent/usePlaceHolderToRender';
 import { getSlotPlaceholderSize } from '../../../mobjs/webComponent/slotPlaceHolder';
+import { getUserChildPlaceholderSize } from '../../../mobjs/modules/slot';
 
 /** @type {MobComponent} */
 export const DebugButtonFn = ({ html, delegateEvents }) => {

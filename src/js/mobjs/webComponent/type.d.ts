@@ -1,4 +1,4 @@
-export class userComponent extends HTMLElement {
+export class UserComponent extends HTMLElement {
     isUserComponent: boolean;
     getComponentName: () => string;
     getId: () => string;
@@ -24,12 +24,12 @@ export class userComponent extends HTMLElement {
     setComponentRepeaterContext: (arg0: string) => void;
 }
 
-export class repeaterComponent extends HTMLElement {
+export class RepeaterComponent extends HTMLElement {
     removeCustomComponent: () => void;
     getRepeatId: () => string | undefined;
 }
 
-export class slotComponent extends HTMLElement {
+export class SlotComponent extends HTMLElement {
     removeCustomComponent: () => void;
     getSlotName: () => string | undefined;
     getStaticProps: () => string | undefined;

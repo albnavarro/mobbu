@@ -1,12 +1,12 @@
-import { tick } from '../queque/tick';
+import { tick } from '../../queque/tick';
 
 /**
- * @type {Set<import('./type').userComponent>}
+ * @type {Set<import('../../webComponent/type').UserComponent>}
  */
 const userPlaceholder = new Set();
 
 /**
- * @param {import('./type').userComponent} element
+ * @param {import('../../webComponent/type').UserComponent} element
  * @returns {void}
  */
 export const addUserPlaceholder = (element) => {
@@ -15,7 +15,7 @@ export const addUserPlaceholder = (element) => {
 
 /**
  * @param {Element} element
- * @returns {import('./type').userComponent[]}
+ * @returns {import('../../webComponent/type').UserComponent[]}
  *
  * @description
  * useComponent is inserted in orderf if dom insert ( naturally traversal ).
@@ -37,7 +37,7 @@ export const getFirstUserChildPlaceHolder = (element) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('./type').userComponent>}
+ * @returns {Array<import('../../webComponent/type').UserComponent>}
  *
  * @description
  */
@@ -56,7 +56,7 @@ export const getAllUserChildPlaceholder = ({ element }) => {
 /**
  * @param {object} params
  * @param {Element} params.element
- * @returns {Array<import('./type').userComponent>}
+ * @returns {Array<import('../../webComponent/type').UserComponent>}
  *
  * @description
  */

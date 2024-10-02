@@ -9,7 +9,7 @@ import {
     watchType,
 } from '../../mobCore/store/type';
 import { MobStore } from '../../mobCore/store/type';
-import { userComponent } from '../webComponent/type';
+import { UserComponent } from '../webComponent/type';
 
 export interface componentCommonTypes {
     key: string;
@@ -35,7 +35,7 @@ export interface componentCommonTypes {
 }
 
 export interface componentStoreTypes extends componentCommonTypes {
-    element: HTMLElement | userComponent;
+    element: HTMLElement | UserComponent;
     componentName: string;
     instanceName: string;
     state: MobStore<any>;
@@ -45,7 +45,7 @@ export interface componentStoreTypes extends componentCommonTypes {
 
 export interface componentStoreInputTypes extends componentCommonTypes {
     componentName: string;
-    element: HTMLElement | userComponent;
+    element: HTMLElement | UserComponent;
     instanceName: string;
     state: mobStoreBaseData;
     props: object;

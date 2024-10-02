@@ -2,7 +2,7 @@
 
 import { useQuery } from '../../parse/useQuery';
 import { queryAllFutureComponent } from '../../query/queryAllFutureComponent';
-import { getAllUserChildPlaceholder } from '../../webComponent/usePlaceHolderToRender';
+import { getAllUserChildPlaceholder } from '../../modules/slot';
 import { componentMap } from '../store';
 import { updateChildrenArray } from '../utils';
 
