@@ -16970,7 +16970,7 @@
   // src/js/mobjs/parse/useQuery.js
   var useQuery = false;
   var forceComponentChildQuery = true;
-  var forceSlotQuery = false;
+  var useSlotQuery = false;
 
   // src/js/mobjs/query/queryAllFutureComponent.js
   function* walkPreOrder(node) {
@@ -17520,7 +17520,7 @@
           this.isSlot = true;
           const host = this.shadowRoot?.host;
           if (!host) return;
-          if (!useQuery) addSlotPlaceholder(host);
+          if (!useSlotQuery) addSlotPlaceholder(host);
           const { dataset } = this.shadowRoot?.host ?? {};
           if (dataset) {
             this.#slotName = this.shadowRoot?.host.getAttribute(ATTR_COMPONENT_NAME);
@@ -19408,7 +19408,7 @@
     return;
   };
   var removeOrphanSlot = ({ element }) => {
-    const slots = useQuery || forceSlotQuery ? queryGenericSlot(element) : getAllSlot();
+    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
     slots.forEach((slot) => {
       const dynamicPropsIdFromSlot = slot.getDynamicProps();
       if (dynamicPropsIdFromSlot && dynamicPropsIdFromSlot !== "") {
@@ -19429,7 +19429,7 @@
     if (componentWithSlot.length === 0) return;
     const slots = [...componentWithSlot].map((component) => {
       const slotName = component?.getSlotPosition();
-      const slot = useQuery || forceSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
+      const slot = useSlotQuery ? querySecificSlot(element, slotName) : getSlotByName({ name: slotName, element });
       if (!slot) return { slot: null, elementMoved: null };
       slot.parentNode?.insertBefore(component, slot);
       const elementMoved = (
@@ -19458,7 +19458,7 @@
       const delegateEventId = element?.getDelegateEventId();
       const bindRefId = element?.getBindRefId();
       const bindRefName = element?.getBindRefName();
-      const unNamedSlot = useQuery || forceSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
+      const unNamedSlot = useSlotQuery ? queryUnNamedSlot(newElement) : getUnamedPlaceholderSlot({ element: newElement });
       if (unNamedSlot) {
         unNamedSlot.insertAdjacentHTML("afterend", prevContent);
         unNamedSlot.remove();
@@ -20098,7 +20098,7 @@
       // @ts-ignore
       element: componentToParse
     });
-    if (!useQuery) clearSlotPlaceHolder();
+    if (!useSlotQuery) clearSlotPlaceHolder();
     newElement.classList.add(...classList);
     addParentIdToFutureComponent({ element: newElement, id });
     if (!newElement) {

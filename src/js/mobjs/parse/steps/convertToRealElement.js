@@ -13,11 +13,7 @@ import { querySecificSlot } from '../../query/querySpecificSlot';
 import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
-import {
-    forceComponentChildQuery,
-    forceSlotQuery,
-    useQuery,
-} from '../useQuery';
+import { forceComponentChildQuery, useSlotQuery, useQuery } from '../useQuery';
 import { getAllUserComponentUseNamedSlot } from '../../modules/userComponent';
 import {
     getAllSlot,
@@ -68,8 +64,7 @@ const getNewElement = ({ element, content }) => {
  * If slot is not used remove id reference orphans from store.
  */
 const removeOrphanSlot = ({ element }) => {
-    const slots =
-        useQuery || forceSlotQuery ? queryGenericSlot(element) : getAllSlot();
+    const slots = useSlotQuery ? queryGenericSlot(element) : getAllSlot();
 
     slots.forEach((slot) => {
         const dynamicPropsIdFromSlot = slot.getDynamicProps();
@@ -116,10 +111,9 @@ const addToNamedSlot = ({ element }) => {
         /**
          * Find slot used by component.
          */
-        const slot =
-            useQuery || forceSlotQuery
-                ? querySecificSlot(element, slotName)
-                : getSlotByName({ name: slotName, element });
+        const slot = useSlotQuery
+            ? querySecificSlot(element, slotName)
+            : getSlotByName({ name: slotName, element });
 
         /**
          * If no slot return;
@@ -197,10 +191,9 @@ const executeConversion = ({ element, content }) => {
          * if unNamedSlot is used.
          * Replace un-named slot with previous content.
          */
-        const unNamedSlot =
-            useQuery || forceSlotQuery
-                ? queryUnNamedSlot(newElement)
-                : getUnamedPlaceholderSlot({ element: newElement });
+        const unNamedSlot = useSlotQuery
+            ? queryUnNamedSlot(newElement)
+            : getUnamedPlaceholderSlot({ element: newElement });
 
         if (unNamedSlot) {
             unNamedSlot.insertAdjacentHTML('afterend', prevContent);

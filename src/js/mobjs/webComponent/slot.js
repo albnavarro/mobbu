@@ -1,7 +1,7 @@
 //@ts-check
 
 import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
-import { useQuery } from '../parse/useQuery';
+import { useSlotQuery } from '../parse/useQuery';
 import { addSlotPlaceholder } from '../modules/slot';
 
 export const defineSlotComponent = () => {
@@ -33,7 +33,7 @@ export const defineSlotComponent = () => {
                 if (!host) return;
 
                 // @ts-ignore
-                if (!useQuery) addSlotPlaceholder(host);
+                if (!useSlotQuery) addSlotPlaceholder(host);
 
                 // @ts-ignore
                 const { dataset } = this.shadowRoot?.host ?? {};

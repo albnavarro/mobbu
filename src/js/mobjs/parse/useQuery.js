@@ -21,4 +21,4 @@ export const forceComponentChildQuery = true;
  *
  * @type {boolean}
  */
-export const forceSlotQuery = false;
+export const useSlotQuery = false;

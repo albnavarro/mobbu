@@ -31,7 +31,7 @@ import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
-import { useQuery } from './useQuery';
+import { useSlotQuery } from './useQuery';
 
 /**
  * @param {object} obj
@@ -305,7 +305,7 @@ export const parseComponentsRecursive = async ({
     /**
      * Clean slot map after convertToRealElement
      */
-    if (!useQuery) clearSlotPlaceHolder();
+    if (!useSlotQuery) clearSlotPlaceHolder();
 
     /**
      * copy all classes in new component.
