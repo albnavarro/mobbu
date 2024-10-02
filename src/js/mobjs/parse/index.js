@@ -3,10 +3,7 @@
 import { MAIN_STORE_ASYNC_PARSER } from '../mainStore/constant';
 import { mainStore } from '../mainStore/mainStore';
 import { incrementParserCounter } from './counter';
-import {
-    clearUserPlaceHolder,
-    sortUserPlaceholder,
-} from '../modules/userComponent';
+import { clearUserPlaceHolder } from '../modules/userComponent';
 import { parseComponentsRecursive } from './parseFunction';
 import { useQuery } from './useQuery';
 import { resetCurrentIterationCounter } from './utils';
@@ -26,7 +23,6 @@ export const parseComponents = async ({
     parentIdForced = '',
 }) => {
     incrementParserCounter();
-    if (!useQuery) sortUserPlaceholder();
 
     await parseComponentsRecursive({
         element,
