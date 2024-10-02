@@ -16997,7 +16997,7 @@
     return result;
   };
 
-  // src/js/mobjs/modules/slot/index.js
+  // src/js/mobjs/modules/userComponent/index.js
   var userPlaceholder = /* @__PURE__ */ new Set();
   var addUserPlaceholder = (element) => {
     userPlaceholder.add(element);
@@ -17465,7 +17465,7 @@
     );
   };
 
-  // src/js/mobjs/webComponent/slotPlaceHolder.js
+  // src/js/mobjs/modules/slot/index.js
   var slotPlaceholder = /* @__PURE__ */ new Set();
   var addSlotPlaceholder = (slot) => {
     slotPlaceholder.add(slot);

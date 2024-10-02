@@ -2,7 +2,7 @@
 
 import { ATTR_COMPONENT_NAME, ATTR_DYNAMIC, ATTR_PROPS } from '../constant';
 import { useQuery } from '../parse/useQuery';
-import { addSlotPlaceholder } from './slotPlaceHolder';
+import { addSlotPlaceholder } from '../modules/slot';
 
 export const defineSlotComponent = () => {
     customElements.define(

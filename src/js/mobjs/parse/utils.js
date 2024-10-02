@@ -1,7 +1,7 @@
 // @ts-check
 
 import { queryAllFutureComponent } from '../query/queryAllFutureComponent';
-import { getFirstUserChildPlaceHolder } from '../modules/slot';
+import { getFirstUserChildPlaceHolder } from '../modules/userComponent';
 import { useQuery } from './useQuery';
 
 /**

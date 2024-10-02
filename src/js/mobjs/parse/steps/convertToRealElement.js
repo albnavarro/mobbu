@@ -14,12 +14,12 @@ import { queryUnNamedSlot } from '../../query/queryUnNamedSlot';
 import { removeCurrentToBindPropsByPropsId } from '../../modules/bindProps';
 import { removeCurrentToPropsByPropsId } from '../../modules/staticProps';
 import { useQuery } from '../useQuery';
-import { getAllUserComponentUseNamedSlot } from '../../modules/slot';
+import { getAllUserComponentUseNamedSlot } from '../../modules/userComponent';
 import {
     getAllSlot,
     getSlotByName,
     getUnamedPlaceholderSlot,
-} from '../../webComponent/slotPlaceHolder';
+} from '../../modules/slot';
 
 /**
  * @param {object} obj

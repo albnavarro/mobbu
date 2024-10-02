@@ -30,7 +30,7 @@ import { addRepeatTargetComponent } from '../modules/repeater/targetcomponent';
 import { getInvalidateFunctions } from '../modules/invalidate';
 import { getRepeatFunctions } from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
-import { clearSlotPlaceHolder } from '../webComponent/slotPlaceHolder';
+import { clearSlotPlaceHolder } from '../modules/slot';
 import { useQuery } from './useQuery';
 
 /**
