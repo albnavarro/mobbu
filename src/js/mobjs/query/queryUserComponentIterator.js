@@ -19,11 +19,11 @@ export const queryUserComponentIterator = (node) => {
     const result = [];
 
     while (nodeIterator.nextNode()) {
-        const node =
+        result.push(
             /** @type{import("../webComponent/type").UserComponent} */ (
                 nodeIterator.referenceNode
-            );
-        result.push(node);
+            )
+        );
     }
 
     return result;
