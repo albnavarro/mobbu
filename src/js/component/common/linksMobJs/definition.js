@@ -7,7 +7,7 @@ import { LinksMobJsButtonFn } from './linksMobJsButton';
 export const LinksMobJsButton = createComponent({
     name: 'links-mobjs-button',
     component: LinksMobJsButtonFn,
-    exportState: ['label', 'url'],
+    exportState: ['label', 'url', 'active'],
     state: {
         label: () => ({
             value: '',
@@ -16,6 +16,10 @@ export const LinksMobJsButton = createComponent({
         url: () => ({
             value: '',
             type: String,
+        }),
+        active: () => ({
+            value: false,
+            type: Boolean,
         }),
     },
 });
@@ -26,7 +30,7 @@ export const LinksMobJs = createComponent({
     child: [LinksMobJsButton],
     exportState: ['active'],
     state: {
-        section: () => ({
+        activeSection: () => ({
             value: '',
             type: String,
         }),

@@ -1,8 +1,8 @@
 //@ts-check
 
 /**
- * @import { MobComponent, StaticProps } from '../../../mobjs/type';
- * @import { LinksMobJs } from './type';]
+ * @import { BindProps, MobComponent,  StaticProps } from '../../../mobjs/type';
+ * @import { LinksMobJs, LinksMobJsButton } from './type';]
  **/
 
 import { html, mainStore } from '../../../mobjs';
@@ -14,8 +14,9 @@ import { items } from './data';
  * @param {object} param
  * @param {Array<{label: string, url: string}>} param.data
  * @param {StaticProps} param.staticProps
+ * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
  */
-const getItems = ({ data, staticProps }) => {
+const getItems = ({ data, staticProps, bindProps }) => {
     return data
         .map((item) => {
             const { label, url } = item;
@@ -24,6 +25,14 @@ const getItems = ({ data, staticProps }) => {
                     ${staticProps({
                         label,
                         url,
+                    })}
+                    ${bindProps({
+                        bind: ['activeSection'],
+                        props: ({ activeSection }) => {
+                            return {
+                                active: activeSection === url,
+                            };
+                        },
                     })}
                 ></links-mobjs-button>
             </li>`;
@@ -38,6 +47,8 @@ export const LinksMobJsFn = ({
     setRef,
     getRef,
     onMount,
+    setState,
+    bindProps,
 }) => {
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
@@ -57,7 +68,8 @@ export const LinksMobJsFn = ({
         });
 
         mainStore.watch('activeRoute', (data) => {
-            const { templateName } = data;
+            const { templateName, route } = data;
+            setState('activeSection', route);
 
             if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
                 screenEl.classList.add('active');
@@ -86,7 +98,11 @@ export const LinksMobJsFn = ({
             class="c-params-mobjs__scrollbar"
         />
         <ul ${setRef('scrollerEl')}>
-            ${getItems({ staticProps, data: items })}
+            ${getItems({
+                staticProps,
+                bindProps,
+                data: items,
+            })}
         </ul>
     </div>`;
 };

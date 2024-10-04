@@ -1,8 +1,9 @@
 export interface LinksMobJsButton {
     label: string;
     url: string;
+    active: boolean;
 }
 
 export interface LinksMobJs {
-    section: string;
+    activeSection: string;
 }

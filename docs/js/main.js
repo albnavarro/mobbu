@@ -31265,7 +31265,7 @@ Loading snippet ...</pre
   ];
 
   // src/js/component/common/linksMobJs/linksMobJs.js
-  var getItems3 = ({ data: data2, staticProps: staticProps2 }) => {
+  var getItems3 = ({ data: data2, staticProps: staticProps2, bindProps }) => {
     return data2.map((item) => {
       const { label, url } = item;
       return renderHtml`<li>
@@ -31273,6 +31273,14 @@ Loading snippet ...</pre
                     ${staticProps2({
         label,
         url
+      })}
+                    ${bindProps({
+        bind: ["activeSection"],
+        props: ({ activeSection }) => {
+          return {
+            active: activeSection === url
+          };
+        }
       })}
                 ></links-mobjs-button>
             </li>`;
@@ -31283,7 +31291,9 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     setRef,
     getRef,
-    onMount
+    onMount,
+    setState,
+    bindProps
   }) => {
     onMount(() => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
@@ -31298,7 +31308,8 @@ Loading snippet ...</pre
         move?.(scrollbar.value);
       });
       mainStore.watch("activeRoute", (data2) => {
-        const { templateName } = data2;
+        const { templateName, route } = data2;
+        setState("activeSection", route);
         if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
           screenEl.classList.add("active");
         }
@@ -31323,26 +31334,33 @@ Loading snippet ...</pre
             class="c-params-mobjs__scrollbar"
         />
         <ul ${setRef("scrollerEl")}>
-            ${getItems3({ staticProps: staticProps2, data: items })}
+            ${getItems3({
+      staticProps: staticProps2,
+      bindProps,
+      data: items
+    })}
         </ul>
     </div>`;
   };
 
   // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var LinksMobJsButtonFn = ({ html, getState }) => {
+  var LinksMobJsButtonFn = ({ html, getState, onMount, watchSync }) => {
     const { label, url } = getState();
-    const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute.route === url ? "current" : "";
-    return html`<a href="./#${url}" class="${currentClass}"
-        ><span>${label}</span></a
-    >`;
+    onMount(({ element }) => {
+      watchSync("active", (value) => {
+        element.classList.toggle("current", value);
+      });
+      return () => {
+      };
+    });
+    return html`<a href="./#${url}"><span>${label}</span></a>`;
   };
 
   // src/js/component/common/linksMobJs/definition.js
   var LinksMobJsButton = createComponent({
     name: "links-mobjs-button",
     component: LinksMobJsButtonFn,
-    exportState: ["label", "url"],
+    exportState: ["label", "url", "active"],
     state: {
       label: () => ({
         value: "",
@@ -31351,6 +31369,10 @@ Loading snippet ...</pre
       url: () => ({
         value: "",
         type: String
+      }),
+      active: () => ({
+        value: false,
+        type: Boolean
       })
     }
   });
@@ -31360,7 +31382,7 @@ Loading snippet ...</pre
     child: [LinksMobJsButton],
     exportState: ["active"],
     state: {
-      section: () => ({
+      activeSection: () => ({
         value: "",
         type: String
       })
