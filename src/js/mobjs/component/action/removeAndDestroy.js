@@ -11,6 +11,7 @@ import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 import { removeRepeaterId } from '../../modules/repeater';
 import { removeInvalidateId } from '../../modules/invalidate';
+import { getContentId } from '../../route/domRef/content';
 
 /**
  * @param {Object} param
@@ -146,11 +147,11 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
  * ( all component without element defined in wrapper ).
  */
 export const removeCancellableComponent = () => {
-    const cancellableComponents2 = [...componentMap.values()].filter(
+    const cancellableComponents = [...componentMap.values()].filter(
         ({ isCancellable }) => isCancellable
     );
 
-    cancellableComponents2.forEach(({ id }) => removeAndDestroyById({ id }));
+    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
 };
 
 /**
@@ -160,14 +161,7 @@ export const removeCancellableComponent = () => {
  * Remove orphan omponent from store.
  * Secure check.
  */
-export const removeOrphanComponent = () => {
-    const orphans = [...componentMap.values()].filter(
-        ({ element, isCancellable }) =>
-            isCancellable && !document.body.contains(element)
-    );
-
-    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
-
+export const removeOrphanTempIds = () => {
     /**
      * Remove props reference.
      * Async loading and interrupt can leave rubbish.
