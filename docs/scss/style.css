@@ -2597,8 +2597,8 @@ code {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s, visibility 0.35s;
   display: none;
+  transition: opacity 0.55s, visibility 0.55s;
 }
 @media (min-width: 75em) {
   .c-params-mobjs {
@@ -2609,6 +2609,7 @@ code {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
+  transition: opacity 1s 0.5s, visibility 1s 0.5s;
 }
 .c-params-mobjs ul {
   list-style: none;

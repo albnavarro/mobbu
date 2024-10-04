@@ -7,6 +7,7 @@
 
 import { html, mainStore, tick } from '../../../mobjs';
 import { PAGE_TEMPLATE_DOCS_MOBJS } from '../../../pages';
+import { navigationStore } from '../../layout/navigation/store/navStore';
 import { linksSidebarScroller } from './animation/linksScroller';
 import { mobJsComponentParams } from './data';
 
@@ -70,6 +71,10 @@ export const LinksMobJsFn = ({
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
             move?.(scrollbar.value);
+        });
+
+        navigationStore.watch('navigationIsOpen', (value) => {
+            screenEl.classList.toggle('active', !value);
         });
 
         mainStore.watch('afterRouteChange', async (data) => {

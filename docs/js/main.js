@@ -31331,6 +31331,9 @@ Loading snippet ...</pre
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
+      navigationStore.watch("navigationIsOpen", (value) => {
+        screenEl.classList.toggle("active", !value);
+      });
       mainStore.watch("afterRouteChange", async (data2) => {
         const { templateName, route } = data2;
         const currentData = templateData?.[templateName] ?? [];

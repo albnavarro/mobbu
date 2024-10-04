@@ -14,10 +14,10 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition:
-        opacity 0.35s,
-        visibility 0.35s;
     display: none;
+    transition:
+        opacity 0.55s,
+        visibility 0.55s;
 
     @include mq(large) {
         display: block;
@@ -27,6 +27,9 @@
         opacity: 1;
         visibility: visible;
         pointer-events: all;
+        transition:
+            opacity 1s 0.5s,
+            visibility 1s 0.5s;
     }
 
     ul {
