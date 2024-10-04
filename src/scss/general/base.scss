@@ -21,6 +21,11 @@
     --default-padding: #{rem(100)};
     --snippet-rem-value: #{strip-unit(rem(14))};
     --snippet-line-height-value: #{strip-unit(line-height(15, 22))};
+    --doc-width: none;
+
+    @include mq(tablet) {
+        --nav-width: #{rem(340)};
+    }
 
     @include mq(desktop) {
         @media screen and (height <= 700px) {
@@ -28,8 +33,12 @@
         }
     }
 
-    @include mq(tablet) {
-        --nav-width: #{rem(340)};
+    @include mq(large) {
+        --doc-width: #{rem(950, large)};
+    }
+
+    @include mq(xlarge) {
+        --doc-width: #{rem(1100, xlarge)};
     }
 }
 

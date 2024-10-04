@@ -3,22 +3,32 @@
 import { SmoothScroller } from '../../../../mobMotion/plugin';
 
 export const linksSidebarScroller = ({ screen, scroller, scrollbar }) => {
-    const instance = new SmoothScroller({
-        screen,
-        scroller,
-        direction: 'vertical',
-        drag: true,
-        scopedEvent: false,
-        breakpoint: 'desktop',
-        onTick: ({ percent }) => {
-            scrollbar.value = percent;
-        },
-    });
-
-    instance.init();
+    let instance;
 
     return {
+        init: () => {
+            if (instance) return;
+
+            instance = new SmoothScroller({
+                screen,
+                scroller,
+                direction: 'vertical',
+                drag: true,
+                scopedEvent: false,
+                breakpoint: 'desktop',
+                onTick: ({ percent }) => {
+                    scrollbar.value = percent;
+                },
+            });
+
+            instance.init();
+        },
+        destroy: () => {
+            instance?.destroy();
+        },
         updateScroller: () => {
+            if (!instance) return;
+
             /**
              * Get thumb width.
              */
@@ -32,8 +42,11 @@ export const linksSidebarScroller = ({ screen, scroller, scrollbar }) => {
             /**
              * Refresh scroller instance.
              */
-            instance.refresh();
+            instance?.refresh();
         },
-        move: (val) => instance.move(val),
+        move: (val) => {
+            if (!instance) return;
+            instance?.move(val);
+        },
     };
 };

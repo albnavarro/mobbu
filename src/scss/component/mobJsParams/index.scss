@@ -5,8 +5,29 @@
 
     height: var(--links-height);
     overflow: hidden;
-    position: relative;
+    position: fixed;
+    top: rem(120, large);
+    left: calc(var(--doc-width) + #{rem(40)});
+    z-index: 100;
     margin-top: rem(40);
+    width: rem(220);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
+    display: none;
+
+    @include mq(large) {
+        display: block;
+    }
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
 
     ul {
         list-style: none;

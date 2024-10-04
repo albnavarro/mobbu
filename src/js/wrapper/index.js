@@ -12,6 +12,7 @@ import { Header } from '../component/layout/header/definition';
 import { NavigationContainer } from '../component/layout/navigation/definition';
 import { html, staticProps, useComponent } from '../mobjs';
 import { loadTextContent } from '../utils/utils';
+import { LinksMobJs } from '../component/common/linksMobJs/definition';
 
 useComponent([
     CodeOverlay,
@@ -26,6 +27,7 @@ useComponent([
     CodeButton,
     CebugButton,
     ScrollToTop,
+    LinksMobJs,
 ]);
 
 export const wrapper = async () => {
@@ -65,5 +67,6 @@ export const wrapper = async () => {
         <scroll-down-label name="scroll_down_label"></scroll-down-label>
         <code-button name="global-code-button"></code-button>
         <scroll-to-top name="scroll-to-top"></scroll-to-top>
+        <links-mobjs></links-mobjs>
     `;
 };

@@ -23,12 +23,12 @@ export const LinksMobJsButton = createComponent({
 export const LinksMobJs = createComponent({
     name: 'links-mobjs',
     component: LinksMobJsFn,
-    exportState: ['section'],
+    child: [LinksMobJsButton],
+    exportState: ['active'],
     state: {
         section: () => ({
             value: '',
             type: String,
         }),
     },
-    child: [LinksMobJsButton],
 });

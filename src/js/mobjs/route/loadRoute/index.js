@@ -185,6 +185,7 @@ export const loadRoute = async ({
      * Set active route to body data-route
      */
     document.body.dataset['route'] = route;
+    document.body.dataset['template'] = templateName;
 
     /**
      * Remove watcher.

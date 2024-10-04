@@ -5,13 +5,10 @@
  * @import { LinksMobJs } from './type';]
  **/
 
-import { html } from '../../../mobjs';
+import { html, mainStore } from '../../../mobjs';
+import { PAGE_TEMPLATE_DOCS_MOBJS } from '../../../pages';
 import { linksSidebarScroller } from './animation/linksScroller';
 import { items } from './data';
-
-const data = {
-    mobjs: items,
-};
 
 /**
  * @param {object} param
@@ -38,30 +35,42 @@ const getItems = ({ data, staticProps }) => {
 export const LinksMobJsFn = ({
     html,
     staticProps,
-    getState,
     setRef,
     getRef,
     onMount,
 }) => {
-    const { section } = getState();
-
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 
-        const { move } = linksSidebarScroller({
+        const { init, destroy, move } = linksSidebarScroller({
             screen: screenEl,
             scroller: scrollerEl,
             scrollbar,
         });
 
-        scrollbar.addEventListener('input', () => {
-            // @ts-ignore
-            move(scrollbar.value);
-        });
-
+        init();
         move(0);
 
-        return () => {};
+        scrollbar.addEventListener('input', () => {
+            // @ts-ignore
+            move?.(scrollbar.value);
+        });
+
+        mainStore.watch('activeRoute', (data) => {
+            const { templateName } = data;
+
+            if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
+                screenEl.classList.add('active');
+            }
+
+            if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
+                screenEl.classList.remove('active');
+            }
+        });
+
+        return () => {
+            destroy?.();
+        };
     });
 
     return html`<div class="c-params-mobjs" ${setRef('screenEl')}>
@@ -77,7 +86,7 @@ export const LinksMobJsFn = ({
             class="c-params-mobjs__scrollbar"
         />
         <ul ${setRef('scrollerEl')}>
-            ${getItems({ staticProps, data: data?.[section] ?? [] })}
+            ${getItems({ staticProps, data: items })}
         </ul>
     </div>`;
 };

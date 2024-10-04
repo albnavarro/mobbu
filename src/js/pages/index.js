@@ -16,6 +16,8 @@ import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
 
+export const PAGE_TEMPLATE_DOCS_MOBJS = 'doc-links';
+
 const mobJsComponentBreadCrumbs = [
     {
         url: './#mobJs-overview',
@@ -103,7 +105,6 @@ export const routes = [
     },
     {
         name: 'mobCore-overview',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/overview.json',
@@ -114,7 +115,6 @@ export const routes = [
     },
     {
         name: 'mobCore-defaults',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/defaults.json',
@@ -125,7 +125,6 @@ export const routes = [
     },
     {
         name: 'mobCore-events',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/events.json',
@@ -136,7 +135,6 @@ export const routes = [
     },
     {
         name: 'mobCore-store',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobCore/store.json',
@@ -147,7 +145,6 @@ export const routes = [
     },
     {
         name: 'mobJs-overview',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/overview.json',
@@ -158,7 +155,6 @@ export const routes = [
     },
     {
         name: 'mobJs-initialization',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/initialization.json',
@@ -169,7 +165,6 @@ export const routes = [
     },
     {
         name: 'mobJs-component',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/component.json',
@@ -180,7 +175,6 @@ export const routes = [
     },
     {
         name: 'mobJs-web-component',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/webComponent.json',
@@ -191,7 +185,6 @@ export const routes = [
     },
     {
         name: 'mobJs-routing',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/routing.json',
@@ -202,7 +195,6 @@ export const routes = [
     },
     {
         name: 'mobJs-setStateByName',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/setStateByName.json',
@@ -213,7 +205,6 @@ export const routes = [
     },
     {
         name: 'mobJs-updateStateByName',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/updateStateByName.json',
@@ -224,7 +215,6 @@ export const routes = [
     },
     {
         name: 'mobJs-useMethodByName',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/useMethodByName.json',
@@ -235,7 +225,6 @@ export const routes = [
     },
     {
         name: 'mobJs-tick',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/tick.json',
@@ -246,7 +235,6 @@ export const routes = [
     },
     {
         name: 'mobJs-utils',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/utils.json',
@@ -257,7 +245,6 @@ export const routes = [
     },
     {
         name: 'mobJs-debug',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/debug.json',
@@ -609,7 +596,6 @@ export const routes = [
     },
     {
         name: 'mobJs-runtime',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobJs/runtime.json',
@@ -620,7 +606,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-stagger',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/stagger.json',
@@ -631,7 +616,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-defaults',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/defaults.json',
@@ -642,7 +626,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-overview',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/overview.json',
@@ -653,7 +636,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-parallax',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/parallax.json',
@@ -664,7 +646,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-sequencer',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/sequencer.json',
@@ -675,7 +656,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-scrolltrigger',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/scrollTrigger.json',
@@ -686,7 +666,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-sync-timeline',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/syncTimeline.json',
@@ -697,7 +676,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-create-stagger',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/createStagger.json',
@@ -708,7 +686,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-async-timeline',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/asyncTimeline.json',
@@ -719,7 +696,6 @@ export const routes = [
     },
     {
         name: 'mobMotion-tween-spring-lerp',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/mobMotion/tweenSpringLerp.json',
@@ -736,7 +712,6 @@ export const routes = [
     },
     {
         name: 'plugin-overview',
-        templateName: 'doc-anchor',
         layout: layoutSidebarAnchor,
         props: {
             source: './data/plugin/overview.json',

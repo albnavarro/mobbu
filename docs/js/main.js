@@ -1004,9 +1004,9 @@
             while (match) {
               buf += modeBuffer.substring(lastIndex, match.index);
               const word = language.case_insensitive ? match[0].toLowerCase() : match[0];
-              const data3 = keywordData(top, word);
-              if (data3) {
-                const [kind, keywordRelevance] = data3;
+              const data2 = keywordData(top, word);
+              if (data2) {
+                const [kind, keywordRelevance] = data2;
                 emitter.addText(buf);
                 buf = "";
                 keywordHits[word] = (keywordHits[word] || 0) + 1;
@@ -1475,16 +1475,16 @@
         }
         function upgradePluginAPI(plugin) {
           if (plugin["before:highlightBlock"] && !plugin["before:highlightElement"]) {
-            plugin["before:highlightElement"] = (data3) => {
+            plugin["before:highlightElement"] = (data2) => {
               plugin["before:highlightBlock"](
-                Object.assign({ block: data3.el }, data3)
+                Object.assign({ block: data2.el }, data2)
               );
             };
           }
           if (plugin["after:highlightBlock"] && !plugin["after:highlightElement"]) {
-            plugin["after:highlightElement"] = (data3) => {
+            plugin["after:highlightElement"] = (data2) => {
               plugin["after:highlightBlock"](
-                Object.assign({ block: data3.el }, data3)
+                Object.assign({ block: data2.el }, data2)
               );
             };
           }
@@ -1568,8 +1568,8 @@
   var getCommonData = () => commonData;
   var getLegendData = () => legendData;
   var loadData = async () => {
-    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
-    legendData = await fetch(`./data/legend.json`).then((response) => response.json()).then((data3) => data3).catch((error) => console.warn("Something went wrong.", error));
+    commonData = await fetch(`./data/common.json`).then((response) => response.json()).then((data2) => data2).catch((error) => console.warn("Something went wrong.", error));
+    legendData = await fetch(`./data/legend.json`).then((response) => response.json()).then((data2) => data2).catch((error) => console.warn("Something went wrong.", error));
   };
 
   // src/js/mobCore/events/errorHandler/catchAnimationReject.js
@@ -1915,9 +1915,9 @@
   };
 
   // src/js/mobCore/store/storeWarining.js
-  var storeDepthWarning = (data3, style) => {
+  var storeDepthWarning = (data2, style) => {
     console.warn(
-      `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data3} level`,
+      `%c SimpleStore supports an object with a depth of up to 2 levels, set 'Any' type to use obj as value, the input object has ${data2} level`,
       style
     );
   };
@@ -2023,8 +2023,8 @@
     if (values.length === 0) return 1;
     return Math.max(...values.map((value) => maxDepth(value))) + 1;
   };
-  var getDataRecursive = (data3, shouldRecursive = true) => {
-    return Object.entries(data3).reduce((p, c) => {
+  var getDataRecursive = (data2, shouldRecursive = true) => {
+    return Object.entries(data2).reduce((p, c) => {
       const [key, value] = c;
       const functionResult = storeType.isFunction(value) ? (
         /** @type {Function} */
@@ -2046,8 +2046,8 @@
       return { ...p, [key]: value };
     }, {});
   };
-  var getPropRecursive = (data3, prop, fallback, shouldRecursive = true) => {
-    return Object.entries(data3).reduce((p, c) => {
+  var getPropRecursive = (data2, prop, fallback, shouldRecursive = true) => {
+    return Object.entries(data2).reduce((p, c) => {
       const [key, value] = c;
       const functionResult = storeType.isFunction(value) ? (
         /** @type{Function} */
@@ -2072,15 +2072,15 @@
       return { ...p, [key]: fallback };
     }, {});
   };
-  var inizializeStoreData = ({ data: data3, depth, logStyle: logStyle2 }) => {
+  var inizializeStoreData = ({ data: data2, depth, logStyle: logStyle2 }) => {
     if (depth > 2) {
       storeDepthWarning(depth, logStyle2);
       return {};
     }
-    return getDataRecursive(data3);
+    return getDataRecursive(data2);
   };
   var inizializeSpecificProp = ({
-    data: data3,
+    data: data2,
     prop,
     depth,
     logStyle: logStyle2,
@@ -2090,7 +2090,7 @@
       storeDepthWarning(depth, logStyle2);
       return {};
     }
-    return getPropRecursive(data3, prop, fallback);
+    return getPropRecursive(data2, prop, fallback);
   };
   var cloneValueOrGet = ({ value }) => {
     if (checkType(Map, value)) {
@@ -2528,8 +2528,8 @@
   };
 
   // src/js/mobCore/store/inizializeInstance.js
-  var inizializeInstance = (data3) => {
-    const dataDepth = maxDepth(data3);
+  var inizializeInstance = (data2) => {
+    const dataDepth = maxDepth(data2);
     return {
       callBackWatcher: /* @__PURE__ */ new Map(),
       callBackComputed: /* @__PURE__ */ new Set(),
@@ -2538,40 +2538,40 @@
       dataDepth,
       computedRunning: false,
       store: inizializeStoreData({
-        data: data3,
+        data: data2,
         depth: dataDepth,
         logStyle: getLogStyle()
       }),
       type: inizializeSpecificProp({
-        data: data3,
+        data: data2,
         prop: "type",
         depth: dataDepth,
         logStyle: getLogStyle(),
         fallback: UNTYPED
       }),
       fnTransformation: inizializeSpecificProp({
-        data: data3,
+        data: data2,
         prop: "transform",
         depth: dataDepth,
         logStyle: getLogStyle(),
         fallback: (value) => value
       }),
       fnValidate: inizializeSpecificProp({
-        data: data3,
+        data: data2,
         prop: "validate",
         depth: dataDepth,
         logStyle: getLogStyle(),
         fallback: () => true
       }),
       strict: inizializeSpecificProp({
-        data: data3,
+        data: data2,
         prop: "strict",
         depth: dataDepth,
         logStyle: getLogStyle(),
         fallback: false
       }),
       skipEqual: inizializeSpecificProp({
-        data: data3,
+        data: data2,
         prop: "skipEqual",
         depth: dataDepth,
         logStyle: getLogStyle(),
@@ -2649,9 +2649,9 @@
   };
 
   // src/js/mobCore/store/index.js
-  var mobStore = (data3 = {}) => {
+  var mobStore = (data2 = {}) => {
     const instanceId = getUnivoqueId();
-    const initialState = inizializeInstance(data3);
+    const initialState = inizializeInstance(data2);
     const stateUpdated = inizializeValidation(initialState);
     updateMainMap(instanceId, stateUpdated);
     inizializeAllProps(instanceId, initialState);
@@ -2959,9 +2959,9 @@
     const { currentFrame: currentFrame2 } = eventStore.get();
     const item = subscriberMap.get(id);
     if (!item?.data) return;
-    const { data: data3 } = item;
-    if (data3.has(frame + currentFrame2)) return;
-    data3.set(frame + currentFrame2, callBackObject);
+    const { data: data2 } = item;
+    if (data2.has(frame + currentFrame2)) return;
+    data2.set(frame + currentFrame2, callBackObject);
     cacheCoutner++;
   };
   var remove = (id) => {
@@ -2979,11 +2979,11 @@
   };
   var fire = (frameCounter) => {
     for (const value of subscriberMap.values()) {
-      const { data: data3, fn, el } = value;
-      const callBackObject = data3.get(frameCounter);
+      const { data: data2, fn, el } = value;
+      const callBackObject = data2.get(frameCounter);
       if (callBackObject) {
         fn(callBackObject, el);
-        data3.delete(frameCounter);
+        data2.delete(frameCounter);
         cacheCoutner--;
       }
     }
@@ -2998,11 +2998,11 @@
   var getCacheCounter = () => cacheCoutner;
   var updateFrameId = (maxFramecounter) => {
     for (const [key, value] of subscriberMap) {
-      const { data: data3, fn, el } = value;
+      const { data: data2, fn, el } = value;
       const newMap = /* @__PURE__ */ new Map();
-      for (const [frame, object] of data3) {
+      for (const [frame, object] of data2) {
         newMap.set(frame - maxFramecounter, object);
-        data3.delete(frame);
+        data2.delete(frame);
       }
       subscriberMap.set(key, { data: newMap, fn, el });
     }
@@ -3663,8 +3663,8 @@
      * myStore.destroy();
      * ```
      */
-    createStore(data3 = {}) {
-      return mobStore(data3);
+    createStore(data2 = {}) {
+      return mobStore(data2);
     },
     /**
      * @returns {number}
@@ -4678,25 +4678,25 @@
     };
   }
   var handleSetUp = (() => {
-    let data3 = getData();
+    let data2 = getData();
     const set = (obj) => {
-      data3 = setupValidation(mergeDeep(getData(), obj));
+      data2 = setupValidation(mergeDeep(getData(), obj));
       if ("usePassive" in obj)
-        mobCore.store.set("usePassive", data3.usePassive);
+        mobCore.store.set("usePassive", data2.usePassive);
       if ("deferredNextTick" in obj)
-        mobCore.store.set("deferredNextTick", data3.deferredNextTick);
-      if ("throttle" in obj) mobCore.store.set("throttle", data3.throttle);
+        mobCore.store.set("deferredNextTick", data2.deferredNextTick);
+      if ("throttle" in obj) mobCore.store.set("throttle", data2.throttle);
     };
     const get3 = (prop) => {
-      if (prop in data3) {
-        return data3[prop];
+      if (prop in data2) {
+        return data2[prop];
       } else {
         console.warn(`handleSetUp: ${prop} is not a setup propierties`);
       }
     };
     const print = () => {
       console.log(`Writable props:`);
-      console.log(data3);
+      console.log(data2);
     };
     return {
       set,
@@ -7160,16 +7160,16 @@
   };
 
   // src/js/mobMotion/animation/utils/tweenAction/mergeArray.js
-  var mergeArray = (newData, data3) => {
-    return data3.map((item) => {
+  var mergeArray = (newData, data2) => {
+    return data2.map((item) => {
       const itemToMerge = newData.find((newItem) => {
         return newItem.prop === item.prop;
       });
       return itemToMerge ? { ...item, ...itemToMerge } : item;
     });
   };
-  var mergeArrayTween = (newData, data3) => {
-    return data3.map((item) => {
+  var mergeArrayTween = (newData, data2) => {
+    return data2.map((item) => {
       const itemToMerge = newData.find((newItem) => {
         return newItem.prop === item.prop;
       });
@@ -7248,11 +7248,11 @@
      *
      * ```
      */
-    constructor(data3) {
-      this.stagger = getStaggerFromProps(data3);
-      this.relative = relativeIsValid(data3?.relative, "lerp");
-      this.velocity = lerpVelocityIsValid(data3?.velocity);
-      this.precision = lerpPrecisionIsValid(data3?.precision);
+    constructor(data2) {
+      this.stagger = getStaggerFromProps(data2);
+      this.relative = relativeIsValid(data2?.relative, "lerp");
+      this.velocity = lerpVelocityIsValid(data2?.velocity);
+      this.precision = lerpPrecisionIsValid(data2?.precision);
       this.uniqueId = mobCore.getUnivoqueId();
       this.isActive = false;
       this.currentResolve = void 0;
@@ -7279,7 +7279,7 @@
       };
       this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data3?.data || null;
+      const props = data2?.data || null;
       if (props) this.setData(props);
     }
     /**
@@ -7570,8 +7570,8 @@
     goTo(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = true;
-      const data3 = goToUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goToUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
@@ -7610,8 +7610,8 @@
     goFrom(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = true;
-      const data3 = goFromUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goFromUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
@@ -7655,8 +7655,8 @@
         compareKeysWarning("lerp goFromTo:", fromObj, toObj);
         return this.promise;
       }
-      const data3 = goFromToUtils(fromObj, toObj);
-      return this.doAction(data3, props, fromObj);
+      const data2 = goFromToUtils(fromObj, toObj);
+      return this.doAction(data2, props, fromObj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
@@ -7686,8 +7686,8 @@
     set(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = false;
-      const data3 = setUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = setUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @private
@@ -7701,8 +7701,8 @@
      * Common oparation for set/goTo/goFrom/goFromTo methods.
      * It is the method that updates the internal store
      */
-    doAction(data3, props, obj) {
-      this.values = mergeArray(data3, this.values);
+    doAction(data2, props, obj) {
+      this.values = mergeArray(data2, this.values);
       const { reverse, immediate, immediateNoPromise } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.values = setReverseValues(obj, this.values);
@@ -8118,20 +8118,20 @@
      *
      * ```
      */
-    constructor(data3) {
-      this.ease = easeParallaxTweenIsValid(data3?.ease);
-      this.duration = durationIsValid(data3?.duration);
-      this.stagger = getStaggerFromProps(data3);
+    constructor(data2) {
+      this.ease = easeParallaxTweenIsValid(data2?.ease);
+      this.duration = durationIsValid(data2?.duration);
+      this.stagger = getStaggerFromProps(data2);
       this.values = [];
       this.callbackOnStop = [];
       this.callback = [];
       this.callbackCache = [];
       this.unsubscribeCache = [];
       this.type = "parallaxTween";
-      const props = data3?.from || null;
+      const props = data2?.from || null;
       if (props) this.setData(props);
-      if (data3?.to) {
-        this.goTo(data3.to);
+      if (data2?.to) {
+        this.goTo(data2.to);
       }
     }
     /**
@@ -8270,8 +8270,8 @@
      * The target value can be a number or a function that returns a number, when using a function the target value will become dynamic and will change in real time as the result of the function changes
      */
     goTo(obj) {
-      const data3 = goToUtils(obj);
-      this.mergeData(data3);
+      const data2 = goToUtils(obj);
+      this.mergeData(data2);
       return this;
     }
     /**
@@ -8732,9 +8732,9 @@
   };
 
   // src/js/mobMotion/animation/sequencer/mergeNewValues.js
-  var mergeNewValues = ({ data: data3, values }) => {
+  var mergeNewValues = ({ data: data2, values }) => {
     return values.map((item) => {
-      const itemToMerge = data3.find((newItem) => {
+      const itemToMerge = data2.find((newItem) => {
         return newItem.prop === item.prop;
       });
       return itemToMerge ? { ...item, ...itemToMerge, active: true } : {
@@ -8783,7 +8783,7 @@
      *
      * ```
      */
-    constructor(data3) {
+    constructor(data2) {
       this.values = [];
       this.timeline = [];
       this.labels = [];
@@ -8792,22 +8792,22 @@
       this.callbackOnStop = [];
       this.callbackAdd = [];
       this.unsubscribeCache = [];
-      this.duration = durationIsValid(data3?.duration);
+      this.duration = durationIsValid(data2?.duration);
       this.type = "sequencer";
       this.defaultProp = {
         start: 0,
         end: this.duration,
-        ease: easeIsValid(data3?.ease)
+        ease: easeIsValid(data2?.ease)
       };
       this.firstRun = true;
       this.forceAddFnAtFirstRun = true;
       this.direction = "none";
       this.lastPartial = 0;
       this.lastDirection = "none";
-      this.stagger = getStaggerFromProps(data3);
+      this.stagger = getStaggerFromProps(data2);
       this.useStagger = true;
       this.staggerIsReady = false;
-      const props = data3?.data || null;
+      const props = data2?.data || null;
       if (props) this.setData(props);
     }
     /**
@@ -9067,8 +9067,8 @@
       const propMerged = { ...this.defaultProp, ...props };
       const { start, end, ease } = propMerged;
       if (!sequencerRangeValidate({ start, end })) return this;
-      const data3 = goToSyncUtils(obj, ease);
-      const newValues = mergeNewValues({ data: data3, values: this.values });
+      const data2 = goToSyncUtils(obj, ease);
+      const newValues = mergeNewValues({ data: data2, values: this.values });
       const activeProp = Object.keys(obj);
       const newTimeline = insertNewRow({
         timeline: this.timeline,
@@ -9107,8 +9107,8 @@
       const propMerged = { ...this.defaultProp, ...props };
       const { start, end, ease } = propMerged;
       if (!sequencerRangeValidate({ start, end })) return this;
-      const data3 = goFromSyncUtils(obj, ease);
-      const newValues = mergeNewValues({ data: data3, values: this.values });
+      const data2 = goFromSyncUtils(obj, ease);
+      const newValues = mergeNewValues({ data: data2, values: this.values });
       const activeProp = Object.keys(obj);
       const newTimeline = insertNewRow({
         timeline: this.timeline,
@@ -9153,8 +9153,8 @@
         compareKeysWarning("sequencer goFromTo:", fromObj, toObj);
         return;
       }
-      const data3 = goFromToSyncUtils(fromObj, toObj, ease);
-      const newValues = mergeNewValues({ data: data3, values: this.values });
+      const data2 = goFromToSyncUtils(fromObj, toObj, ease);
+      const newValues = mergeNewValues({ data: data2, values: this.values });
       this.timeline = insertNewRow({
         timeline: this.timeline,
         values: newValues,
@@ -9492,11 +9492,11 @@
      *
      * ```
      */
-    constructor(data3) {
-      this.stagger = getStaggerFromProps(data3);
-      this.relative = relativeIsValid(data3?.relative, "spring");
-      this.configProps = springConfigIsValidAndGetNew(data3?.config);
-      this.updateConfigProp(data3?.configProp);
+    constructor(data2) {
+      this.stagger = getStaggerFromProps(data2);
+      this.relative = relativeIsValid(data2?.relative, "spring");
+      this.configProps = springConfigIsValidAndGetNew(data2?.config);
+      this.updateConfigProp(data2?.configProp);
       this.uniqueId = mobCore.getUnivoqueId();
       this.isActive = false;
       this.currentResolve = void 0;
@@ -9522,7 +9522,7 @@
       };
       this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data3?.data || null;
+      const props = data2?.data || null;
       if (props) this.setData(props);
     }
     /**
@@ -9857,8 +9857,8 @@
     goTo(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = true;
-      const data3 = goToUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goToUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
@@ -9903,8 +9903,8 @@
     goFrom(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = true;
-      const data3 = goFromUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goFromUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
@@ -9954,8 +9954,8 @@
         compareKeysWarning("spring goFromTo:", fromObj, toObj);
         return this.promise;
       }
-      const data3 = goFromToUtils(fromObj, toObj);
-      return this.doAction(data3, props, fromObj);
+      const data2 = goFromToUtils(fromObj, toObj);
+      return this.doAction(data2, props, fromObj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
@@ -9985,8 +9985,8 @@
     set(obj, props = {}) {
       if (this.pauseStatus) return;
       this.useStagger = false;
-      const data3 = setUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = setUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @private
@@ -10000,8 +10000,8 @@
      * Common oparation for set/goTo/goFrom/goFromTo methods.
      * It is the method that updates the internal store
      */
-    doAction(data3, props, obj) {
-      this.values = mergeArray(data3, this.values);
+    doAction(data2, props, obj) {
+      this.values = mergeArray(data2, this.values);
       const { reverse, immediate, immediateNoPromise } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
         this.values = setReverseValues(obj, this.values);
@@ -10410,11 +10410,11 @@
      *
      * ```
      */
-    constructor(data3) {
-      this.ease = easeTweenIsValidGetFunction(data3?.ease);
-      this.duration = durationIsNumberOrFunctionIsValid(data3?.duration);
-      this.relative = relativeIsValid(data3?.relative, "tween");
-      this.stagger = getStaggerFromProps(data3);
+    constructor(data2) {
+      this.ease = easeTweenIsValidGetFunction(data2?.ease);
+      this.duration = durationIsNumberOrFunctionIsValid(data2?.duration);
+      this.relative = relativeIsValid(data2?.relative, "tween");
+      this.stagger = getStaggerFromProps(data2);
       this.uniqueId = mobCore.getUnivoqueId();
       this.isActive = false;
       this.currentResolve = void 0;
@@ -10438,7 +10438,7 @@
       this.fpsInLoading = false;
       this.defaultProps = {
         duration: this.duration,
-        ease: easeTweenIsValid(data3?.ease),
+        ease: easeTweenIsValid(data2?.ease),
         relative: this.relative,
         reverse: false,
         immediate: false,
@@ -10446,7 +10446,7 @@
       };
       this.slowlestStagger = STAGGER_DEFAULT_INDEX_OBJ;
       this.fastestStagger = STAGGER_DEFAULT_INDEX_OBJ;
-      const props = data3?.data || null;
+      const props = data2?.data || null;
       if (props) this.setData(props);
     }
     /**
@@ -10780,8 +10780,8 @@
     goTo(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
       this.useStagger = true;
-      const data3 = goToUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goToUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj from Values
@@ -10820,8 +10820,8 @@
     goFrom(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
       this.useStagger = true;
-      const data3 = goFromUtils(obj);
-      return this.doAction(data3, props, obj);
+      const data2 = goFromUtils(obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} fromObj from Values
@@ -10866,8 +10866,8 @@
         compareKeysWarning("tween goFromTo:", fromObj, toObj);
         return this.promise;
       }
-      const data3 = goFromToUtils(fromObj, toObj);
-      return this.doAction(data3, props, fromObj);
+      const data2 = goFromToUtils(fromObj, toObj);
+      return this.doAction(data2, props, fromObj);
     }
     /**
      * @param {import('../utils/tweenAction/type.js').valueToparseType<(number|Function)>} obj to Values
@@ -10897,9 +10897,9 @@
     set(obj, props = {}) {
       if (this.pauseStatus || this.comeFromResume) this.stop();
       this.useStagger = false;
-      const data3 = setUtils(obj);
+      const data2 = setUtils(obj);
       props.duration = 1;
-      return this.doAction(data3, props, obj);
+      return this.doAction(data2, props, obj);
     }
     /**
      * @private
@@ -10913,8 +10913,8 @@
      * Common oparation for set/goTo/goFrom/goFromTo methods.
      * It is the method that updates the internal store
      */
-    doAction(data3, props, obj) {
-      this.values = mergeArrayTween(data3, this.values);
+    doAction(data2, props, obj) {
+      this.values = mergeArrayTween(data2, this.values);
       if (this.isActive) this.updateDataWhileRunning();
       const { reverse, immediate, immediateNoPromise } = this.mergeProps(props);
       if (valueIsBooleanAndTrue(reverse, "reverse"))
@@ -11281,10 +11281,10 @@
       end: duration2
     };
   };
-  var createStaggers = (data3) => {
-    const items2 = staggerItemsIsValid(data3?.items);
-    const stagger = getStaggerFromProps(data3);
-    const duration2 = durationIsValid(data3?.duration);
+  var createStaggers = (data2) => {
+    const items2 = staggerItemsIsValid(data2?.items);
+    const stagger = getStaggerFromProps(data2);
+    const duration2 = durationIsValid(data2?.duration);
     const eachProportion = 10;
     let each = stagger?.each || 1;
     const fallBack = [...items2].map((item, i) => {
@@ -11399,8 +11399,8 @@
      *
      * ```
      */
-    createScrollerTween(data3) {
-      return new ParallaxTween(data3);
+    createScrollerTween(data2) {
+      return new ParallaxTween(data2);
     },
     /**
      * @param {import('./animation/sequencer/type.js').sequencerProps} data
@@ -11442,8 +11442,8 @@
      *
      * ```
      */
-    createSequencer(data3) {
-      return new HandleSequencer(data3);
+    createSequencer(data2) {
+      return new HandleSequencer(data2);
     },
     /**
      * @description
@@ -11509,8 +11509,8 @@
      *
      * ```
      */
-    createStaggers(data3) {
-      return createStaggers(data3);
+    createStaggers(data2) {
+      return createStaggers(data2);
     },
     /**
      * @param {import('./animation/tween/type.js').tweenProps} data
@@ -11560,8 +11560,8 @@
      *
      * ```
      */
-    createTween(data3) {
-      return new HandleTween(data3);
+    createTween(data2) {
+      return new HandleTween(data2);
     },
     /**
      * @param {import('./animation/spring/type.js').springTweenProps} data
@@ -11619,8 +11619,8 @@
      *
      * ```
      */
-    createSpring(data3) {
-      return new HandleSpring(data3);
+    createSpring(data2) {
+      return new HandleSpring(data2);
     },
     /**
      * @param {import('./animation/lerp/type.js').lerpTweenProps} data
@@ -11671,8 +11671,8 @@
      *
      * ```
      */
-    createLerp(data3) {
-      return new HandleLerp(data3);
+    createLerp(data2) {
+      return new HandleLerp(data2);
     }
   };
 
@@ -11685,12 +11685,12 @@
   );
 
   // src/js/mobMotion/animation/asyncTimeline/asyncReduceData.js
-  var asyncReduceData = (data3, activeData) => {
-    return Object.entries(data3).map((item) => {
+  var asyncReduceData = (data2, activeData) => {
+    return Object.entries(data2).map((item) => {
       const [prop, val2] = item;
       const valueIsValid = prop in activeData;
       return { data: { [prop]: val2 }, active: valueIsValid };
-    }).filter(({ active }) => active).map(({ data: data4 }) => data4).reduce((p, c) => {
+    }).filter(({ active }) => active).map(({ data: data3 }) => data3).reduce((p, c) => {
       return { ...p, ...c };
     }, {});
   };
@@ -11716,8 +11716,8 @@
           currentId = to.id;
         }
       }
-      const currentTween = c.find(({ data: data3 }) => {
-        const uniqueId = data3?.tween?.getId?.();
+      const currentTween = c.find(({ data: data2 }) => {
+        const uniqueId = data2?.tween?.getId?.();
         return uniqueId === currentId;
       });
       currentTween?.data?.tween?.set?.(currentTween?.data?.valuesTo, {
@@ -11814,20 +11814,20 @@
      * myTimeline.destroy()
      * ```
      */
-    constructor(data3) {
-      this.repeat = repeatIsValid(data3?.repeat);
+    constructor(data2) {
+      this.repeat = repeatIsValid(data2?.repeat);
       this.yoyo = valueIsBooleanAndReturnDefault(
-        data3?.yoyo,
+        data2?.yoyo,
         "asyncTimeline: yoyo",
         false
       );
       this.freeMode = valueIsBooleanAndReturnDefault(
-        data3?.freeMode,
+        data2?.freeMode,
         "asyncTimeline: freeMode",
         false
       );
       this.autoSet = valueIsBooleanAndReturnDefault(
-        data3?.autoSet,
+        data2?.autoSet,
         "asyncTimeline: autoSet",
         false
       );
@@ -11943,15 +11943,15 @@
       this.currentAction = [];
       if (!currentTweelist) return;
       this.tweenList[this.currentIndex] = currentTweelist.map((item) => {
-        const { data: data3 } = item;
-        const { tween: tween2, valuesTo, prevValueSettled } = data3;
+        const { data: data2 } = item;
+        const { tween: tween2, valuesTo, prevValueSettled } = data2;
         if (tween2 && tween2?.getToNativeType && !prevValueSettled) {
           const values = tween2.getToNativeType();
           const propsInUse = asyncReduceData(values, valuesTo);
           return {
             ...item,
             data: {
-              ...data3,
+              ...data2,
               prevValueTo: propsInUse,
               prevValueSettled: true
             }
@@ -11960,7 +11960,7 @@
         return item;
       });
       const tweenPromises = currentTweelist.map((item) => {
-        const { data: data3 } = item;
+        const { data: data2 } = item;
         const {
           tween: tween2,
           action: action2,
@@ -11969,7 +11969,7 @@
           tweenProps,
           syncProp,
           id
-        } = data3;
+        } = data2;
         const newTweenProps = { ...tweenProps };
         delete newTweenProps.delay;
         const { active: labelIsActive, index: labelIndex } = this.labelState;
@@ -12150,13 +12150,13 @@
           if (labelIsActive && labelIndex === this.tweenList.length && !this.freeMode) {
             const tweenPromise = this.tweenStore.map(
               ({ tween: tween2 }) => {
-                const data3 = asyncReduceTween(
+                const data2 = asyncReduceTween(
                   this.tweenList,
                   tween2,
                   this.tweenList.length
                 );
                 return new Promise((resolve, reject) => {
-                  tween2.set(data3).then(() => resolve({ resolve: true })).catch(() => reject());
+                  tween2.set(data2).then(() => resolve({ resolve: true })).catch(() => reject());
                 });
               }
             );
@@ -12289,8 +12289,8 @@
       this.isReverse = !this.isReverse;
       this.tweenList = this.tweenList.reverse().map((group) => {
         return group.reverse().map((item) => {
-          const { data: data3 } = item;
-          const { action: action2, valuesFrom, syncProp, prevValueTo, valuesTo } = data3;
+          const { data: data2 } = item;
+          const { action: action2, valuesFrom, syncProp, prevValueTo, valuesTo } = data2;
           const currentValueTo = valuesTo;
           const { from, to } = syncProp;
           switch (action2) {
@@ -12298,7 +12298,7 @@
               return {
                 ...item,
                 data: {
-                  ...data3,
+                  ...data2,
                   valuesTo: prevValueTo,
                   prevValueTo: currentValueTo
                 }
@@ -12308,7 +12308,7 @@
               return {
                 ...item,
                 data: {
-                  ...data3,
+                  ...data2,
                   valuesFrom: valuesTo,
                   valuesTo: valuesFrom
                 }
@@ -12318,7 +12318,7 @@
               return {
                 ...item,
                 data: {
-                  ...data3,
+                  ...data2,
                   syncProp: {
                     ...syncProp,
                     from: to,
@@ -12977,9 +12977,9 @@
       }
       return new Promise((resolve) => {
         const tweenPromise = tweens.map(({ tween: tween2 }) => {
-          const data3 = asyncReduceTween(this.tweenList, tween2, index);
+          const data2 = asyncReduceTween(this.tweenList, tween2, index);
           return new Promise((resolveTween, rejectTween) => {
-            tween2.set(data3).then(() => resolveTween({ resolve: true })).catch(() => rejectTween());
+            tween2.set(data2).then(() => resolveTween({ resolve: true })).catch(() => rejectTween());
           });
         });
         Promise.all(tweenPromise).then(() => {
@@ -13045,9 +13045,9 @@
             this.stop();
             this.isStopped = false;
             const tweenPromise = this.tweenStore.map(({ tween: tween2 }) => {
-              const data3 = tween2.getInitialData();
+              const data2 = tween2.getInitialData();
               return new Promise((resolve2, reject2) => {
-                tween2.set(data3).then(() => resolve2({ resolve: true })).catch(() => reject2());
+                tween2.set(data2).then(() => resolve2({ resolve: true })).catch(() => reject2());
               });
             });
             Promise.all(tweenPromise).then(() => {
@@ -13489,14 +13489,14 @@
      * myTimeline.destroy()
      * ```
      */
-    constructor(data3 = {}) {
-      this.duration = durationIsValid(data3?.duration);
+    constructor(data2 = {}) {
+      this.duration = durationIsValid(data2?.duration);
       this.yoyo = valueIsBooleanAndReturnDefault(
-        data3?.yoyo,
+        data2?.yoyo,
         "syncTimeline: yoyo",
         false
       );
-      this.repeat = repeatIsValid(data3?.repeat);
+      this.repeat = repeatIsValid(data2?.repeat);
       this.sequencers = [];
       this.startTime = 0;
       this.timeElapsed = 0;
@@ -14213,8 +14213,8 @@
      * myTimeline.destroy()
      * ```
      */
-    createSyncTimeline(data3) {
-      return new HandleSyncTimeline(data3);
+    createSyncTimeline(data2) {
+      return new HandleSyncTimeline(data2);
     },
     /**
      * @param {import('./animation/asyncTimeline/type.js').asyncTimelineType} data
@@ -14274,8 +14274,8 @@
      * myTimeline.destroy()
      * ```
      */
-    createAsyncTimeline(data3) {
-      return new HandleAsyncTimeline(data3);
+    createAsyncTimeline(data2) {
+      return new HandleAsyncTimeline(data2);
     }
   };
 
@@ -14595,23 +14595,23 @@
     /**
      * @param {Object} data
      */
-    init(data3) {
-      this.item = data3.item;
-      this.marker = data3.marker;
-      this.trigger = data3.trigger || data3?.item;
-      this.scroller = data3.scroller;
-      this.screen = data3.screen;
-      this.animatePin = data3.animatePin;
-      this.anticipatePinOnLoad = data3.anticipatePinOnLoad;
-      this.forceTranspond = data3.forceTranspond;
-      this.invertSide = data3.invertSide;
-      this.direction = data3.direction;
-      this.getStart = data3.getStart;
-      this.getEnd = data3.getEnd;
+    init(data2) {
+      this.item = data2.item;
+      this.marker = data2.marker;
+      this.trigger = data2.trigger || data2?.item;
+      this.scroller = data2.scroller;
+      this.screen = data2.screen;
+      this.animatePin = data2.animatePin;
+      this.anticipatePinOnLoad = data2.anticipatePinOnLoad;
+      this.forceTranspond = data2.forceTranspond;
+      this.invertSide = data2.invertSide;
+      this.direction = data2.direction;
+      this.getStart = data2.getStart;
+      this.getEnd = data2.getEnd;
       this.start = this.getStart();
       this.end = this.getEnd();
       this.prevscrollY = window.pageYOffset;
-      this.scrollerHeight = data3?.scrollerHeight;
+      this.scrollerHeight = data2?.scrollerHeight;
       this.refreshCollisionPoint();
       this.collisionTranslateProp = this.direction === parallaxConstant.DIRECTION_VERTICAL ? "Y" : "X";
       this.collisionStyleProp = this.direction === parallaxConstant.DIRECTION_VERTICAL ? "top" : "left";
@@ -15200,8 +15200,8 @@
       position: getPosition2 ?? parallaxConstant.POSITION_BOTTOM
     };
   };
-  var getStartPoint = (screenUnit, data3, direction2) => {
-    const str = String(data3);
+  var getStartPoint = (screenUnit, data2, direction2) => {
+    const str = String(data2);
     const values = str.split(" ");
     const { numberVal, unitMisure, additionalVal, position: position2 } = getStartEndValue(
       values,
@@ -15224,8 +15224,8 @@
       position: getParallaxPositionFromContanst(position2)
     };
   };
-  var getEndPoint = (screenUnit, data3, startPoint, scrollerHeight, invertSide, direction2) => {
-    const str = String(data3);
+  var getEndPoint = (screenUnit, data2, startPoint, scrollerHeight, invertSide, direction2) => {
+    const str = String(data2);
     const values = str.split(" ");
     const { numberVal, unitMisure, additionalVal, position: position2 } = getStartEndValue(
       values,
@@ -15447,7 +15447,7 @@
      *
      * ```
      */
-    constructor(data3) {
+    constructor(data2) {
       this.isInzialized = false;
       this.firstScroll = false;
       this.willChangeIsActive = false;
@@ -15491,168 +15491,168 @@
       this.unsubscribeOnComplete = () => {
       };
       this.pin = valueIsBooleanAndReturnDefault(
-        data3?.pin,
+        data2?.pin,
         "Scrolltrigger pin propierties error:",
         false
       );
       this.animatePin = valueIsBooleanAndReturnDefault(
-        data3?.animatePin,
+        data2?.animatePin,
         "Scrolltrigger animatePin propierties error:",
         false
       );
       this.forceTranspond = valueIsBooleanAndReturnDefault(
-        data3?.forceTranspond,
+        data2?.forceTranspond,
         "Scrolltrigger forceTranspond propierties error:",
         false
       );
       this.anticipatePinOnLoad = valueIsBooleanAndReturnDefault(
-        data3?.anticipatePinOnLoad,
+        data2?.anticipatePinOnLoad,
         "Scrolltrigger anticipatePinOnLoad propierties error:",
         false
       );
       this.start = valueIsStringAndReturnDefault(
-        data3?.start,
+        data2?.start,
         "Scrolltrigger start propierties error:",
         "bottom 0px"
       );
       this.end = valueIsStringAndReturnDefault(
-        data3?.end,
+        data2?.end,
         "Scrolltrigger end propierties error:",
         "top"
       );
       this.fromTo = valueIsBooleanAndReturnDefault(
-        data3?.fromTo,
+        data2?.fromTo,
         "Scrolltrigger fromTo propierties error:",
         false
       );
       this.invertSide = valueIsBooleanAndReturnDefault(
-        data3?.invertSide,
+        data2?.invertSide,
         "Scrolltrigger invertSide propierties error:",
         false
       );
       this.marker = valueIsStringAndReturnDefault(
-        data3?.marker,
+        data2?.marker,
         "Scrolltrigger marker propierties error:",
         // eslint-disable-next-line unicorn/no-useless-undefined
         void 0
       );
-      this.dynamicStart = data3?.dynamicStart ? parallaxDynamicValueIsValid(data3.dynamicStart, "dynamicStart") : null;
-      this.dynamicEnd = data3?.dynamicEnd ? parallaxDynamicValueIsValid(data3.dynamicEnd, "dynamicEnd") : null;
-      this.dynamicRange = parallaxDynamicRangeIsValid(data3?.dynamicRange);
+      this.dynamicStart = data2?.dynamicStart ? parallaxDynamicValueIsValid(data2.dynamicStart, "dynamicStart") : null;
+      this.dynamicEnd = data2?.dynamicEnd ? parallaxDynamicValueIsValid(data2.dynamicEnd, "dynamicEnd") : null;
+      this.dynamicRange = parallaxDynamicRangeIsValid(data2?.dynamicRange);
       this.animateAtStart = valueIsBooleanAndReturnDefault(
-        data3?.animateAtStart,
+        data2?.animateAtStart,
         "Scrolltrigger animateAtStart propierties error:",
         false
       );
       this.onEnter = functionIsValidAndReturnDefault(
-        data3?.onEnter,
+        data2?.onEnter,
         false,
         "Scrolltrigger onEnter propierties error"
       );
       this.onEnterBack = functionIsValidAndReturnDefault(
-        data3?.onEnterBack,
+        data2?.onEnterBack,
         false,
         "Scrolltrigger onEnterBack propierties error"
       );
       this.onLeave = functionIsValidAndReturnDefault(
-        data3?.onLeave,
+        data2?.onLeave,
         false,
         "Scrolltrigger onLeave propierties error"
       );
       this.onLeaveBack = functionIsValidAndReturnDefault(
-        data3?.onLeaveBack,
+        data2?.onLeaveBack,
         false,
         "Scrolltrigger onLeaveBack propierties error"
       );
       this.onTickCallback = functionIsValidAndReturnDefault(
-        data3?.onTick,
+        data2?.onTick,
         false,
         "Scrolltrigger onTickCallback propierties error"
       );
-      this.align = parallaxAlignIsValid(data3?.align);
-      this.onSwitch = parallaxOnSwitchIsValid(data3?.onSwitch);
+      this.align = parallaxAlignIsValid(data2?.align);
+      this.onSwitch = parallaxOnSwitchIsValid(data2?.onSwitch);
       this.reverse = valueIsBooleanAndReturnDefault(
-        data3?.reverse,
+        data2?.reverse,
         "Parallax reverse propierties error:",
         false
       );
       this.opacityStart = parallaxOpacityIsValid(
-        data3?.opacityStart,
+        data2?.opacityStart,
         "Parallax opacityStart propierties error:",
         100
       );
       this.opacityEnd = parallaxOpacityIsValid(
-        data3?.opacityEnd,
+        data2?.opacityEnd,
         "Parallax opacityEnd propierties error:",
         0
       );
       this.limiterOff = valueIsBooleanAndReturnDefault(
-        data3?.limiterOff,
+        data2?.limiterOff,
         "Parallax|Scrolltrigger limiterOff propierties error:",
         false
       );
-      this.useWillChange = data3?.useWillChange;
-      this.tween = parallaxTweenIsValid(data3?.tween);
+      this.useWillChange = data2?.useWillChange;
+      this.tween = parallaxTweenIsValid(data2?.tween);
       const tweenIsSequencer = this.tween?.getType && this.tween.getType() === parallaxConstant.TWEEN_TIMELINE;
       const tweenIsParallaxTween = this.tween?.getType && this.tween.getType() === parallaxConstant.TWEEN_TWEEN;
-      this.item = domNodeIsValidAndReturnElOrWin(data3?.item, false);
-      this.scroller = domNodeIsValidAndReturnElOrWin(data3?.scroller, true);
-      this.screen = domNodeIsValidAndReturnElOrWin(data3?.screen, true);
-      this.trigger = domNodeIsValidAndReturnNull(data3?.trigger);
-      this.applyTo = domNodeIsValidAndReturnNull(data3?.applyTo);
+      this.item = domNodeIsValidAndReturnElOrWin(data2?.item, false);
+      this.scroller = domNodeIsValidAndReturnElOrWin(data2?.scroller, true);
+      this.screen = domNodeIsValidAndReturnElOrWin(data2?.screen, true);
+      this.trigger = domNodeIsValidAndReturnNull(data2?.trigger);
+      this.applyTo = domNodeIsValidAndReturnNull(data2?.applyTo);
       this.direction = directionIsValid(
-        data3?.direction,
+        data2?.direction,
         "Parallax/Scrolltrigger"
       );
       this.disableForce3D = valueIsBooleanAndReturnDefault(
-        data3?.disableForce3D,
+        data2?.disableForce3D,
         "Parallax|Scrolltrigger disableForce3D propierties error:",
         false
       );
       this.useThrottle = valueIsBooleanAndReturnDefault(
-        data3?.useThrottle,
+        data2?.useThrottle,
         "Parallax|Scrolltrigger useThrottle propierties error:",
         false
       );
-      this.type = parallaxTypeIsValid(data3?.type);
+      this.type = parallaxTypeIsValid(data2?.type);
       this.perspective = valueIsNumberAndReturnDefault(
-        data3?.perspective,
+        data2?.perspective,
         "Parallax|Scrolltrigger perspective propierties error:",
         0
       );
       this.breakpoint = breakpointIsValid(
-        data3?.breakpoint,
+        data2?.breakpoint,
         "breakpoint",
         "parallax/scrolltrigger"
       );
       this.queryType = breakpointTypeIsValid(
-        data3?.queryType,
+        data2?.queryType,
         "queryType",
         "parallax/scrolltrigger"
       );
       const { propierties, shouldTrackOnlyEvents } = parallaxPropiertiesIsValid(
-        data3?.propierties,
+        data2?.propierties,
         this.type,
         tweenIsParallaxTween,
         tweenIsSequencer
       );
       this.propierties = propierties;
       this.shouldTrackOnlyEvents = shouldTrackOnlyEvents;
-      this.range = shouldTrackOnlyEvents ? "100px" : parallaxRangeIsValid(data3?.range, this.type);
+      this.range = shouldTrackOnlyEvents ? "100px" : parallaxRangeIsValid(data2?.range, this.type);
       this.ease = valueIsBooleanAndReturnDefault(
-        data3?.ease,
+        data2?.ease,
         "Parallax|Scrolltrigger ease propierties error:",
         false
       );
-      if (tweenIsSequencer && data3?.easeType === parallaxConstant.EASE_SPRING)
+      if (tweenIsSequencer && data2?.easeType === parallaxConstant.EASE_SPRING)
         parallaxEaseTypeSpringWarining();
-      this.easeType = tweenIsSequencer ? parallaxConstant.EASE_LERP : parallaxEaseTypeIsValid(data3?.easeType);
+      this.easeType = tweenIsSequencer ? parallaxConstant.EASE_LERP : parallaxEaseTypeIsValid(data2?.easeType);
       this.springConfig = parallaxSpringConfigIsValid(
-        data3?.springConfig,
+        data2?.springConfig,
         this.type
       );
       this.lerpConfig = parallaxLerpConfigIsValid(
-        data3?.lerpConfig,
+        data2?.lerpConfig,
         this.type
       );
       this.motionParameters = this.easeType === parallaxConstant.EASE_SPRING ? { configProp: { precision: parallaxConstant.EASE_PRECISION } } : { precision: parallaxConstant.EASE_PRECISION };
@@ -16671,9 +16671,9 @@
      * ```
      *
      */
-    createParallax(data3) {
+    createParallax(data2) {
       return new ParallaxClass({
-        ...data3,
+        ...data2,
         // @ts-ignore
         type: parallaxConstant.TYPE_PARALLAX
       });
@@ -16748,9 +16748,9 @@
      *
      * ```
      */
-    createScrollTrigger(data3) {
+    createScrollTrigger(data2) {
       return new ParallaxClass({
-        ...data3,
+        ...data2,
         // @ts-ignore
         type: parallaxConstant.TYPE_SCROLLTRIGGER
       });
@@ -17894,23 +17894,23 @@
           /**
            * @param {object} data
            */
-          inizializeCustomComponent(data3) {
+          inizializeCustomComponent(data2) {
             if (this.active) return;
             this.active = true;
-            this.#componentId = data3.id;
-            this.#emit = data3.emit;
-            this.#emitAsync = data3.emitAsync;
-            this.#freezeProp = data3.freezeProp;
-            this.#getChildren = data3.getChildren;
-            this.#getParentId = data3.getParentId;
-            this.#getState = data3.getState;
-            this.#remove = data3.remove;
-            this.#setState = data3.setState;
-            this.#unBind = data3.unBind;
-            this.#unFreezeProp = data3.unFreezeProp;
-            this.#watch = data3.watch;
-            this.#watchSync = data3.watchSync;
-            this.#watchParent = data3.watchParent;
+            this.#componentId = data2.id;
+            this.#emit = data2.emit;
+            this.#emitAsync = data2.emitAsync;
+            this.#freezeProp = data2.freezeProp;
+            this.#getChildren = data2.getChildren;
+            this.#getParentId = data2.getParentId;
+            this.#getState = data2.getState;
+            this.#remove = data2.remove;
+            this.#setState = data2.setState;
+            this.#unBind = data2.unBind;
+            this.#unFreezeProp = data2.unFreezeProp;
+            this.#watch = data2.watch;
+            this.#watchSync = data2.watchSync;
+            this.#watchParent = data2.watchParent;
             _connectedCallBack?.({
               context: this,
               data: this.#getData()
@@ -18469,8 +18469,8 @@
   var listKeyExist = ({ current, previous, key }) => {
     return arrayhaskey({ arr: current, key }) && arrayhaskey({ arr: previous, key });
   };
-  var getUnivoqueByKey = ({ data: data3 = [], key = "" }) => {
-    return data3.filter(
+  var getUnivoqueByKey = ({ data: data2 = [], key = "" }) => {
+    return data2.filter(
       (v, i, a) => a.findIndex((v2) => v2?.[key] === v?.[key]) === i
     );
   };
@@ -19150,8 +19150,8 @@
     return { target: void 0, data: void 0 };
   };
   var getItemFromTarget = (target) => {
-    const data3 = eventDelegationMap.get(target);
-    if (data3) return { target, data: eventDelegationMap.get(target) };
+    const data2 = eventDelegationMap.get(target);
+    if (data2) return { target, data: eventDelegationMap.get(target) };
     return findParentElementInMap(target);
   };
   async function handleAction(eventKey, event) {
@@ -19161,9 +19161,9 @@
     preventFireEvent();
     await tick();
     allowFireEvent();
-    const { target: targetParsed, data: data3 } = getItemFromTarget(target);
-    if (!data3 || !document.contains(targetParsed)) return;
-    const currentEvent = data3.find(({ event: event2 }) => event2 === eventKey);
+    const { target: targetParsed, data: data2 } = getItemFromTarget(target);
+    if (!data2 || !document.contains(targetParsed)) return;
+    const currentEvent = data2.find(({ event: event2 }) => event2 === eventKey);
     if (!currentEvent) return;
     const { callback: callback2 } = currentEvent;
     const componentId = getIdByElement({ element: targetParsed });
@@ -19181,9 +19181,9 @@
     [...elements].forEach((element) => {
       const id = element.getAttribute(ATTR_WEAK_BIND_EVENTS) ?? "";
       element.removeAttribute(ATTR_WEAK_BIND_EVENTS);
-      const data3 = tempDelegateEventMap.get(id);
+      const data2 = tempDelegateEventMap.get(id);
       tempDelegateEventMap.delete(id);
-      const dataParsed = data3?.flatMap((item) => {
+      const dataParsed = data2?.flatMap((item) => {
         return Object.entries(item).map((current) => {
           const [event, callback2] = current;
           if (!eventToAdd.includes(event)) eventToAdd.push(event);
@@ -20246,6 +20246,7 @@
     }
     clone = null;
     document.body.dataset["route"] = route;
+    document.body.dataset["template"] = templateName;
     unWatchRouteChange?.();
     mainStore.set(MAIN_STORE_ROUTE_IS_LOADING, false);
   };
@@ -21406,10 +21407,10 @@
         data: ""
       };
     }
-    const data3 = await response.text();
+    const data2 = await response.text();
     return {
       success: true,
-      data: data3
+      data: data2
     };
   };
   var loadJsonContent = async ({ source }) => {
@@ -21421,10 +21422,10 @@
         data: ""
       };
     }
-    const data3 = await response.json();
+    const data2 = await response.json();
     return {
       success: true,
-      data: data3
+      data: data2
     };
   };
 
@@ -21432,12 +21433,12 @@
   core_default.registerLanguage("javascript", javascript);
   var loadSnippet = async ({ ref, source }) => {
     if (!ref) return;
-    const { success, data: data3 } = await loadTextContent({ source });
+    const { success, data: data2 } = await loadTextContent({ source });
     if (!success) {
       ref.textContent = `something went wrong`;
       return;
     }
-    ref.textContent = data3;
+    ref.textContent = data2;
     core_default.highlightElement(ref);
     ref.style.height = "";
   };
@@ -21653,7 +21654,7 @@ Loading snippet ...</pre
            mySmoothScroller.init();
            ```
          */
-    constructor(data3 = {}) {
+    constructor(data2 = {}) {
       this.propsIsValid = true;
       this.endValue = 0;
       this.percent = 0;
@@ -21684,29 +21685,29 @@ Loading snippet ...</pre
       this.unsubscribeMotion = NOOP;
       this.unsubscribeOnComplete = NOOP;
       this.scrollbarIsRunning = false;
-      this.direction = directionIsValid(data3?.direction, "SmoothScroller");
+      this.direction = directionIsValid(data2?.direction, "SmoothScroller");
       this.easeType = genericEaseTypeIsValid(
-        data3?.easeType,
+        data2?.easeType,
         "SmoothScroller"
       );
       this.breakpoint = breakpointIsValid(
-        data3?.breakpoint,
+        data2?.breakpoint,
         "breakpoint",
         "SmoothScroller"
       );
       this.queryType = breakpointTypeIsValid(
-        data3?.queryType,
+        data2?.queryType,
         "queryType",
         "SmoothScroller"
       );
-      this.scroller = mobCore.checkType(String, data3?.scroller) ? document.querySelector(data3.scroller) : data3.scroller;
+      this.scroller = mobCore.checkType(String, data2?.scroller) ? document.querySelector(data2.scroller) : data2.scroller;
       if (!this.scroller) {
         console.warn("SmoothScroller: scroller node not found");
         this.propsIsValid = false;
         return;
       }
-      this.screen = data3?.screen ? (() => {
-        return mobCore.checkType(String, data3.screen) ? document.querySelector(data3.screen) : data3.screen;
+      this.screen = data2?.screen ? (() => {
+        return mobCore.checkType(String, data2.screen) ? document.querySelector(data2.screen) : data2.screen;
       })() : document.documentElement;
       if (!this.screen) {
         this.propsIsValid = false;
@@ -21714,41 +21715,41 @@ Loading snippet ...</pre
         return;
       }
       this.scopedEvent = valueIsBooleanAndReturnDefault(
-        data3?.scopedEvent,
+        data2?.scopedEvent,
         "SmoothScroller: scopedEvent",
         false
       );
       this.speed = valueIsNumberAndReturnDefault(
-        data3?.speed,
+        data2?.speed,
         "SmoothScroller: speed",
         60
       );
       this.drag = valueIsBooleanAndReturnDefault(
-        data3?.drag,
+        data2?.drag,
         "SmoothScroller: drag",
         false
       );
       this.onTickCallback = valueIsFunctionAndReturnDefault(
-        data3?.onTick,
+        data2?.onTick,
         "SmoothScroller: onTick",
         null
       );
       this.onUpdateCallback = valueIsFunctionAndReturnDefault(
-        data3?.onUpdate,
+        data2?.onUpdate,
         "SmoothScroller: onUpdate",
         null
       );
       this.onAfterRefresh = valueIsFunctionAndReturnDefault(
-        data3?.afterRefresh,
+        data2?.afterRefresh,
         "SmoothScroller: afterRefresh",
         NOOP
       );
       this.afterInit = valueIsFunctionAndReturnDefault(
-        data3?.afterInit,
+        data2?.afterInit,
         "SmoothScroller: afterInit",
         NOOP
       );
-      this.children = data3?.children || [];
+      this.children = data2?.children || [];
       this.children.forEach((element) => {
         element.setScroller(this.scroller);
         element.setDirection(this.direction);
@@ -21805,13 +21806,13 @@ Loading snippet ...</pre
         });
       } else {
         this.subscribeMouseWheel = mobCore.useMouseWheel(
-          (data3) => this.onWhell(data3)
+          (data2) => this.onWhell(data2)
         );
         this.subscribeMouseMove = mobCore.useMouseMove(
-          (data3) => this.onTouchMove(data3)
+          (data2) => this.onTouchMove(data2)
         );
         this.subscribeTouchMove = mobCore.useTouchMove(
-          (data3) => this.onTouchMove(data3)
+          (data2) => this.onTouchMove(data2)
         );
       }
       this.subscribeResize = mobCore.useResize(() => this.refresh());
@@ -21822,16 +21823,16 @@ Loading snippet ...</pre
         () => this.refreshScroller()
       );
       this.subscribeTouchStart = mobCore.useTouchStart(
-        (data3) => this.onMouseDown(data3)
+        (data2) => this.onMouseDown(data2)
       );
       this.subscribeTouchEnd = mobCore.useTouchEnd(
-        (data3) => this.onMouseUp(data3)
+        (data2) => this.onMouseUp(data2)
       );
       this.subscribeMouseDown = mobCore.useMouseDown(
-        (data3) => this.onMouseDown(data3)
+        (data2) => this.onMouseDown(data2)
       );
       this.subscribeMouseUp = mobCore.useMouseUp(
-        (data3) => this.onMouseUp(data3)
+        (data2) => this.onMouseUp(data2)
       );
       if (this.drag) {
         this.subscribeMouseClick = mobCore.useMouseClick(
@@ -22181,7 +22182,7 @@ Loading snippet ...</pre
       tween2.stop();
       onComplete();
     });
-    function to(target = null, data3 = {}) {
+    function to(target = null, data2 = {}) {
       if (typeof window !== "undefined") {
         const targetParsed = (() => {
           if (!target) return 0;
@@ -22195,16 +22196,16 @@ Loading snippet ...</pre
           return isNode(target) ? offset(target).top : target;
         })();
         const duration2 = valueIsNumberAndReturnDefault(
-          data3?.duration,
+          data2?.duration,
           "bodyScroll: duration",
           500
         );
         overflow = valueIsBooleanAndReturnDefault(
-          data3?.overflow,
+          data2?.overflow,
           "bodyScroll: overflow",
           false
         );
-        ease = data3?.ease ? easeTweenIsValid(data3?.ease) : null;
+        ease = data2?.ease ? easeTweenIsValid(data2?.ease) : null;
         if (overflow) document.body.style.overflow = "hidden";
         if (ease) tween2?.updateEase?.(ease);
         const scrollNow = window.pageYOffset;
@@ -22241,15 +22242,15 @@ Loading snippet ...</pre
       return isValid;
     }
     function setSlideData(target) {
-      const data3 = {};
-      data3.item = target;
-      data3.id = slideId;
-      data3.tween = new HandleTween({ ease: "easeOutQuad" });
-      data3.unsubscribe = data3.tween.subscribe(({ val: val2 }) => {
-        data3.item.style.height = `${val2}px`;
+      const data2 = {};
+      data2.item = target;
+      data2.id = slideId;
+      data2.tween = new HandleTween({ ease: "easeOutQuad" });
+      data2.unsubscribe = data2.tween.subscribe(({ val: val2 }) => {
+        data2.item.style.height = `${val2}px`;
       });
-      data3.tween.setData({ val: 0 });
-      return data3;
+      data2.tween.setData({ val: 0 });
+      return data2;
     }
     function subscribe(target) {
       if (!isNode2(target)) return;
@@ -22258,15 +22259,15 @@ Loading snippet ...</pre
         console.warn(`slide utils ${target} is alredysubscribed`);
         return;
       }
-      const data3 = setSlideData(target);
-      slideItems.push(data3);
+      const data2 = setSlideData(target);
+      slideItems.push(data2);
       const prevId = slideId;
       slideId++;
-      slideItems.push(data3);
+      slideItems.push(data2);
       return () => {
-        data3.unsubscribe();
-        data3.tween = null;
-        data3.item = null;
+        data2.unsubscribe();
+        data2.tween = null;
+        data2.item = null;
         slideItems = slideItems.filter(({ id }) => id !== prevId);
       };
     }
@@ -22459,7 +22460,7 @@ Loading snippet ...</pre
     ```
     *
      */
-    constructor(data3 = {}) {
+    constructor(data2 = {}) {
       this.propsisValid = true;
       this.triggerTopPosition = 0;
       this.touchActive = false;
@@ -22472,165 +22473,165 @@ Loading snippet ...</pre
       this.unsubscribeScroll = () => {
       };
       this.useDrag = valueIsBooleanAndReturnDefault(
-        data3?.useDrag,
+        data2?.useDrag,
         "HorizontalScroller: useDrag",
         false
       );
       this.threshold = valueIsNumberAndReturnDefault(
-        data3?.threshold,
+        data2?.threshold,
         "HorizontalScroller: threshold",
         30
       );
       this.useWillChange = valueIsBooleanAndReturnDefault(
-        data3?.useWillChange,
+        data2?.useWillChange,
         "HorizontalScroller: useWillChange",
         false
       );
       this.breakpoint = breakpointIsValid(
-        data3?.breakpoint,
+        data2?.breakpoint,
         "breakpoint",
         "horizontalScroller"
       );
       this.queryType = breakpointTypeIsValid(
-        data3?.queryType,
+        data2?.queryType,
         "queryType",
         "horizontalScroller"
       );
       this.forceTranspond = valueIsBooleanAndReturnDefault(
-        data3?.forceTranspond,
+        data2?.forceTranspond,
         "HorizontalScroller: forceTranspond",
         false
       );
       this.addCss = valueIsBooleanAndReturnDefault(
-        data3?.addCss,
+        data2?.addCss,
         "HorizontalScroller: addCss",
         true
       );
       this.animateAtStart = valueIsBooleanAndReturnDefault(
-        data3?.animateAtStart,
+        data2?.animateAtStart,
         "HorizontalScroller: animateAtStart",
         false
       );
       this.ease = valueIsBooleanAndReturnDefault(
-        data3?.ease,
+        data2?.ease,
         "HorizontalScroller: ease",
         false
       );
       this.easeType = genericEaseTypeIsValid(
-        data3?.easeType,
+        data2?.easeType,
         "HorizontalScroller"
       );
       this.useSticky = valueIsBooleanAndReturnDefault(
-        data3?.useSticky,
+        data2?.useSticky,
         "HorizontalScroller: useSticky",
         false
       );
       this.animatePin = valueIsBooleanAndReturnDefault(
-        data3?.animatePin,
+        data2?.animatePin,
         "HorizontalScroller: animatePin",
         false
       );
       this.reverse = valueIsBooleanAndReturnDefault(
-        data3?.reverse,
+        data2?.reverse,
         "HorizontalScroller: reverse",
         false
       );
       this.useThrottle = valueIsBooleanAndReturnDefault(
-        data3?.useThrottle,
+        data2?.useThrottle,
         "HorizontalScroller: useThrottle",
         false
       );
       this.columnHeight = valueIsNumberAndReturnDefault(
-        data3?.columnHeight,
+        data2?.columnHeight,
         "HorizontalScroller: columnHeight",
         100
       );
       this.columnWidth = valueIsNumberAndReturnDefault(
-        data3?.columnWidth,
+        data2?.columnWidth,
         "HorizontalScroller: columnWidth",
         null
       );
-      this.columnAlign = data3?.columnAlign ? data3.columnAlign.toUpperCase() : horizontalScrollerContstant.START;
+      this.columnAlign = data2?.columnAlign ? data2.columnAlign.toUpperCase() : horizontalScrollerContstant.START;
       this.onEnter = valueIsFunctionAndReturnDefault(
-        data3?.onEnter,
+        data2?.onEnter,
         "HorizontalScroller: onEnter",
         NOOP
       );
       this.onEnterBack = valueIsFunctionAndReturnDefault(
-        data3?.onEnterBack,
+        data2?.onEnterBack,
         "HorizontalScroller: onEnterBack",
         NOOP
       );
       this.onLeave = valueIsFunctionAndReturnDefault(
-        data3?.onLeave,
+        data2?.onLeave,
         "HorizontalScroller: onLeave",
         NOOP
       );
       this.onLeaveBack = valueIsFunctionAndReturnDefault(
-        data3?.onLeaveBack,
+        data2?.onLeaveBack,
         "HorizontalScroller: onLeaveBack",
         NOOP
       );
       this.afterInit = valueIsFunctionAndReturnDefault(
-        data3?.afterInit,
+        data2?.afterInit,
         "HorizontalScroller: afterInit",
         NOOP
       );
       this.afterRefresh = valueIsFunctionAndReturnDefault(
-        data3?.afterRefresh,
+        data2?.afterRefresh,
         "HorizontalScroller: afterRefresh",
         NOOP
       );
       this.afterDestroy = valueIsFunctionAndReturnDefault(
-        data3?.afterDestroy,
+        data2?.afterDestroy,
         "HorizontalScroller: afterDestroy",
         NOOP
       );
       this.onTick = valueIsFunctionAndReturnDefault(
-        data3?.onTick,
+        data2?.onTick,
         "HorizontalScroller: onTick",
         null
       );
-      this.mainContainer = mobCore.checkType(String, data3.root) ? document.querySelector(data3.root) : data3.root;
+      this.mainContainer = mobCore.checkType(String, data2.root) ? document.querySelector(data2.root) : data2.root;
       if (!this.mainContainer) {
         this.propsisValid = false;
         console.warn("horizontal custom: root node not found");
         return;
       }
-      this.container = data3?.container;
+      this.container = data2?.container;
       const scrollerTester = this.mainContainer.querySelector(this.container);
       if (!scrollerTester) {
         this.propsisValid = false;
         console.warn("horizontal custom: container node not found");
         return;
       }
-      this.trigger = this.mainContainer.querySelector(data3.trigger);
+      this.trigger = this.mainContainer.querySelector(data2.trigger);
       if (!this.trigger) {
         this.propsisValid = false;
         console.warn("horizontal custom: trigger node not found");
         return;
       }
-      this.row = this.mainContainer.querySelector(data3.row);
+      this.row = this.mainContainer.querySelector(data2.row);
       if (!this.row) {
         this.propsisValid = false;
         console.warn("horizontal custom: row node not found");
         return;
       }
-      this.column = this.mainContainer.querySelectorAll(data3.column);
+      this.column = this.mainContainer.querySelectorAll(data2.column);
       if (this.column.length === 0) {
         this.propsisValid = false;
         console.warn("horizontal custom: column nodeList not found");
         return;
       }
       this.shadow = this.mainContainer.querySelectorAll("[data-shadow]");
-      const originalShadowClass = data3?.shadowClass || "shadow";
+      const originalShadowClass = data2?.shadowClass || "shadow";
       this.shadowMainClassTransition = originalShadowClass.replace(".", "");
       this.button = this.row.querySelectorAll("a, button");
       this.moduleisActive = false;
       this.horizontalWidth = 0;
       this.scrollTriggerInstance = {};
       this.percentRange = 0;
-      this.children = data3?.children || [];
+      this.children = data2?.children || [];
       this.children.forEach((element) => {
         element.setScroller(this.row);
         element.setDirection("horizontal");
@@ -22644,9 +22645,9 @@ Loading snippet ...</pre
           queryType: this.queryType,
           breakpoint: this.breakpoint,
           container: this.container,
-          trigger: data3?.trigger ?? "trigger",
-          row: data3.row,
-          column: data3.column,
+          trigger: data2?.trigger ?? "trigger",
+          row: data2.row,
+          column: data2.column,
           shadow: this.shadowMainClassTransition,
           useSticky: this.useSticky,
           columnHeight: this.columnHeight,
@@ -23300,8 +23301,8 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/htmlContent/htmlContent.js
-  var getComponents = ({ data: data3, staticProps: staticProps2, awaitLoadSnippet }) => {
-    return data3.map((item) => {
+  var getComponents = ({ data: data2, staticProps: staticProps2, awaitLoadSnippet }) => {
+    return data2.map((item) => {
       const { component, props, content: content2 } = item;
       return renderHtml`
                 <${component} ${staticProps2({ ...props, awaitLoad: awaitLoadSnippet })}>
@@ -23310,14 +23311,14 @@ Loading snippet ...</pre
             `;
     }).join("");
   };
-  var getData2 = async ({ source, data: data3 }) => {
-    if (data3 && data3.length > 0) return data3;
+  var getData2 = async ({ source, data: data2 }) => {
+    if (data2 && data2.length > 0) return data2;
     const { success, data: currentData } = await loadJsonContent({ source });
     if (!success) return [];
     return currentData.data;
   };
-  var getLoader = ({ data: data3, bindProps }) => {
-    if (data3 && data3.length > 0) return "";
+  var getLoader = ({ data: data2, bindProps }) => {
+    if (data2 && data2.length > 0) return "";
     return renderHtml`
         <mob-loader
             ${bindProps({
@@ -23337,8 +23338,8 @@ Loading snippet ...</pre
     bindProps,
     onMount
   }) => {
-    const { source, data: data3 } = getState();
-    const currentData = await getData2({ source, data: data3 });
+    const { source, data: data2 } = getState();
+    const currentData = await getData2({ source, data: data2 });
     const { useMinHeight, useMaxWidth, awaitLoadSnippet } = getState();
     const useMinHeightClass = useMinHeight ? "is-min-100" : "";
     const useMaxWidthClass = useMaxWidth ? "is-max-width" : "";
@@ -23349,7 +23350,7 @@ Loading snippet ...</pre
     });
     return html`
         <section class="html-content ${useMinHeightClass} ${useMaxWidthClass}">
-            ${getLoader({ data: data3, bindProps })}
+            ${getLoader({ data: data2, bindProps })}
             ${getComponents({
       data: currentData,
       staticProps: staticProps2,
@@ -24402,8 +24403,8 @@ Loading snippet ...</pre
   };
 
   // src/js/component/layout/navigation/navigation.js
-  function getItems2({ data: data3, staticProps: staticProps2, setState, bindProps }) {
-    return data3.map((item, index) => {
+  function getItems2({ data: data2, staticProps: staticProps2, setState, bindProps }) {
+    return data2.map((item, index) => {
       const {
         label,
         url,
@@ -24461,7 +24462,7 @@ Loading snippet ...</pre
     bindProps,
     addMethod
   }) => {
-    const { navigation: data3 } = getCommonData();
+    const { navigation: data2 } = getCommonData();
     addMethod("closeAllAccordion", ({ fireCallback = true } = {}) => {
       setState("currentAccordionId", -1, fireCallback);
     });
@@ -24469,7 +24470,7 @@ Loading snippet ...</pre
         <nav class="l-navigation">
             <ul class="l-navigation__list">
                 ${getItems2({
-      data: data3,
+      data: data2,
       staticProps: staticProps2,
       setState,
       bindProps
@@ -24744,121 +24745,6 @@ Loading snippet ...</pre
     child: [Navigation]
   });
 
-  // src/js/wrapper/index.js
-  useComponent([
-    CodeOverlay,
-    Header,
-    NavigationContainer,
-    Footer,
-    QuickNav,
-    RouteLoader,
-    AnimationTitle,
-    MLogo1,
-    ScrollDownLabel,
-    CodeButton,
-    CebugButton,
-    ScrollToTop
-  ]);
-  var wrapper = async () => {
-    const { data: svg } = await loadTextContent({
-      source: "./asset/svg/logo.svg"
-    });
-    return renderHtml`
-        <!-- <div class="test-grid"> -->
-        <!--     <div class="test-grid__grid"> -->
-        <!--         <span></span><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span><span></span -->
-        <!--         ><span></span><span></span><span></span> -->
-        <!--     </div> -->
-        <!--     <div class="test-grid__cont"><span>test</span></div> -->
-        <!-- </div> -->
-
-        <code-overlay name="codeOverlay"></code-overlay>
-        <mob-header></mob-header>
-        <mob-navigation-container
-            name="navigation-container"
-        ></mob-navigation-container>
-        <main class="main">
-            <div class="container">
-                <div class="inner-wrap">
-                    <div id="content"></div>
-                </div>
-            </div>
-        </main>
-        <mob-footer>
-            <debug-button slot="debug"></debug-button>
-        </mob-footer>
-        <quick-nav name="quick_nav"></quick-nav>
-        <route-loader></route-loader>
-        <animation-title name="animation_title"></animation-title>
-        <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
-        <scroll-down-label name="scroll_down_label"></scroll-down-label>
-        <code-button name="global-code-button"></code-button>
-        <scroll-to-top name="scroll-to-top"></scroll-to-top>
-    `;
-  };
-
-  // src/js/utils/scrollbarWith.js
-  var setValue = () => {
-    const value = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-with",
-      `${value}px`
-    );
-  };
-  var getScrollbarWith = () => {
-    setValue();
-    mobCore.useResize(() => {
-      setValue();
-    });
-  };
-
-  // src/js/pageTransition/index.js
-  var scrollY = 0;
-  mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
-    scrollY = window.scrollY;
-  });
-  var beforePageTransition2 = async ({ oldNode }) => {
-    oldNode.classList.remove("current-route");
-    oldNode.classList.add("fake-content");
-    oldNode.style.position = "fixed";
-    oldNode.style.zIndex = 10;
-    oldNode.style.top = "var(--header-height)";
-    oldNode.style.left = "0";
-    oldNode.style.width = "100vw";
-    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
-    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
-  };
-  var pageTransition2 = async ({
-    oldNode,
-    newNode,
-    oldRoute,
-    newRoute
-  }) => {
-    if (motionCore.mq("max", "desktop") || oldRoute === newRoute) return;
-    newNode.style.opacity = 0;
-    const oldNodeTween = tween.createTween({
-      data: { opacity: 1 },
-      duration: 300
-    });
-    const newNodeTween = tween.createTween({
-      data: { opacity: 0 },
-      duration: 500
-    });
-    oldNodeTween.subscribe(({ opacity }) => {
-      oldNode.style.opacity = opacity;
-    });
-    newNodeTween.subscribe(({ opacity }) => {
-      newNode.style.opacity = opacity;
-    });
-    let tl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
-    await tl.play();
-    tl.destroy();
-    tl = null;
-    newNode.style.removeProperty("opacity");
-    newNode.classList.add("current-route");
-  };
-
   // src/js/pages/404/index.js
   useComponent([Title]);
   var pageNotFound2 = () => {
@@ -25089,12 +24975,12 @@ Loading snippet ...</pre
   };
   var layoutSidebarAnchor = async ({ props }) => {
     const { source, title, section, breadCrumbs } = props;
-    const { data: data3 } = await loadJsonContent({ source });
+    const { data: data2 } = await loadJsonContent({ source });
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      data: data3.data,
+      data: data2.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -25109,269 +24995,17 @@ Loading snippet ...</pre
     </doc-container>`;
   };
 
-  // src/js/component/common/linksMobJs/animation/linksScroller.js
-  var linksSidebarScroller = ({ screen, scroller: scroller2, scrollbar }) => {
-    const instance = new SmoothScroller({
-      screen,
-      scroller: scroller2,
-      direction: "vertical",
-      drag: true,
-      scopedEvent: false,
-      breakpoint: "desktop",
-      onTick: ({ percent }) => {
-        scrollbar.value = percent;
-      }
-    });
-    instance.init();
-    return {
-      updateScroller: () => {
-        const scrollerHeight = outerHeight(scroller2);
-        const screenHeight = outerHeight(screen);
-        const scrollBarHeight = outerWidth(scrollbar);
-        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
-        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
-        instance.refresh();
-      },
-      move: (val2) => instance.move(val2)
-    };
-  };
-
-  // src/js/component/common/linksMobJs/data.js
-  var items = [
-    {
-      label: "html",
-      url: "mobJs-html"
-    },
-    {
-      label: "onMount",
-      url: "mobJs-onMount"
-    },
-    {
-      label: "getState",
-      url: "mobJs-getState"
-    },
-    {
-      label: "setState",
-      url: "mobJs-setState"
-    },
-    {
-      label: "updateState",
-      url: "mobJs-updateState"
-    },
-    {
-      label: "watch",
-      url: "mobJs-watch"
-    },
-    {
-      label: "watchSync",
-      url: "mobJs-watchSync"
-    },
-    {
-      label: "staticProps",
-      url: "mobJs-staticProps"
-    },
-    {
-      label: "bindProps",
-      url: "mobJs-bindProps"
-    },
-    {
-      label: "bindEvents",
-      url: "mobJs-bindEvents"
-    },
-    {
-      label: "delegateEvents",
-      url: "mobJs-delegateEvents"
-    },
-    {
-      label: "methods",
-      url: "mobJs-methods"
-    },
-    {
-      label: "refs",
-      url: "mobJs-refs"
-    },
-    {
-      label: "unBind",
-      url: "mobJs-unBind"
-    },
-    {
-      label: "emit",
-      url: "mobJs-emit"
-    },
-    {
-      label: "emitAsync",
-      url: "mobJs-emitAsync"
-    },
-    {
-      label: "computed",
-      url: "mobJs-computed"
-    },
-    {
-      label: "removeDOM",
-      url: "mobJs-removeDom"
-    },
-    {
-      label: "remove",
-      url: "mobJs-remove"
-    },
-    {
-      label: "getChildren",
-      url: "mobJs-getChildren"
-    },
-    {
-      label: "freezeProp",
-      url: "mobJs-freezeProp"
-    },
-    {
-      label: "unFreezeProp",
-      url: "mobJs-unFreezeProp"
-    },
-    {
-      label: "getParentId",
-      url: "mobJs-getParentId"
-    },
-    {
-      label: "watchParent",
-      url: "mobJs-watchParent"
-    },
-    {
-      label: "InstanceName",
-      url: "mobJs-instanceName"
-    },
-    {
-      label: "ClassList",
-      url: "mobJs-class-list"
-    },
-    {
-      label: "Slot",
-      url: "mobJs-slot"
-    },
-    {
-      label: "renderComponent",
-      url: "mobJs-renderComponent"
-    },
-    {
-      label: "invalidate",
-      url: "mobJs-invalidate"
-    },
-    {
-      label: "reactive list: (repeat)",
-      url: "mobJs-repeat"
-    },
-    {
-      label: "invalidate vs repeater",
-      url: "mobJs-invalidate-vs-repeater"
-    }
-  ];
-
-  // src/js/component/common/linksMobJs/linksMobJs.js
-  var data2 = {
-    mobjs: items
-  };
-  var getItems3 = ({ data: data3, staticProps: staticProps2 }) => {
-    return data3.map((item) => {
-      const { label, url } = item;
-      return renderHtml`<li>
-                <links-mobjs-button
-                    ${staticProps2({
-        label,
-        url
-      })}
-                ></links-mobjs-button>
-            </li>`;
-    }).join("");
-  };
-  var LinksMobJsFn = ({
-    html,
-    staticProps: staticProps2,
-    getState,
-    setRef,
-    getRef,
-    onMount
-  }) => {
-    const { section } = getState();
-    onMount(() => {
-      const { screenEl, scrollerEl, scrollbar } = getRef();
-      const { move } = linksSidebarScroller({
-        screen: screenEl,
-        scroller: scrollerEl,
-        scrollbar
-      });
-      scrollbar.addEventListener("input", () => {
-        move(scrollbar.value);
-      });
-      move(0);
-      return () => {
-      };
-    });
-    return html`<div class="c-params-mobjs" ${setRef("screenEl")}>
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="c-params-mobjs__scrollbar"
-        />
-        <ul ${setRef("scrollerEl")}>
-            ${getItems3({ staticProps: staticProps2, data: data2?.[section] ?? [] })}
-        </ul>
-    </div>`;
-  };
-
-  // src/js/component/common/linksMobJs/linksMobJsButton.js
-  var LinksMobJsButtonFn = ({ html, getState }) => {
-    const { label, url } = getState();
-    const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute.route === url ? "current" : "";
-    return html`<a href="./#${url}" class="${currentClass}"
-        ><span>${label}</span></a
-    >`;
-  };
-
-  // src/js/component/common/linksMobJs/definition.js
-  var LinksMobJsButton = createComponent({
-    name: "links-mobjs-button",
-    component: LinksMobJsButtonFn,
-    exportState: ["label", "url"],
-    state: {
-      label: () => ({
-        value: "",
-        type: String
-      }),
-      url: () => ({
-        value: "",
-        type: String
-      })
-    }
-  });
-  var LinksMobJs = createComponent({
-    name: "links-mobjs",
-    component: LinksMobJsFn,
-    exportState: ["section"],
-    state: {
-      section: () => ({
-        value: "",
-        type: String
-      })
-    },
-    child: [LinksMobJsButton]
-  });
-
   // src/js/pages/Layout/layoutSidebarLinks.js
-  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent, LinksMobJs]);
+  useComponent([DocContainer, DocsTitleSmall, DocTitle, HtmlContent]);
   var getBreadCrumbs2 = ({ breadCrumbs }) => breadCrumbs.map((item) => renderHtml` <a href="${item.url}">${item.title}</a> / `).join("");
   var layoutSidebarLinks = async ({ props }) => {
-    const { source, title, section, breadCrumbs } = props;
-    const { data: data3 } = await loadJsonContent({ source });
+    const { source, title, breadCrumbs } = props;
+    const { data: data2 } = await loadJsonContent({ source });
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      data: data3.data,
+      data: data2.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -25380,10 +25014,6 @@ Loading snippet ...</pre
       breadCrumbs
     })}<span>${title}</span></doc-title-small
         >
-        <links-mobjs
-            ${staticProps({ section })}
-            slot="section-links"
-        ></links-mobjs>
         <doc-title slot="section-title">${title}</doc-title>
     </doc-container>`;
   };
@@ -25535,7 +25165,7 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive = true;
     let gridData = [];
-    let data3 = [];
+    let data2 = [];
     let gridTween = {};
     let gridTimeline = {};
     let ctx = canvas.getContext(context, { alpha: false });
@@ -25551,7 +25181,7 @@ Loading snippet ...</pre
       cellHeight,
       gutter
     }).items;
-    data3 = reorder ? gridData.map((item, i) => {
+    data2 = reorder ? gridData.map((item, i) => {
       return {
         ...item,
         scale: 1,
@@ -25572,7 +25202,7 @@ Loading snippet ...</pre
       stagger,
       data: { scale: 1, rotate: 0 }
     });
-    data3.forEach((item) => {
+    data2.forEach((item) => {
       gridTween.subscribeCache(item, ({ scale, rotate }) => {
         item.rotate = rotate;
         item.scale = scale;
@@ -25587,7 +25217,7 @@ Loading snippet ...</pre
       const context2 = useOffscreen ? offScreenCtx : ctx;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
-      data3.forEach(
+      data2.forEach(
         ({
           x,
           y,
@@ -25649,7 +25279,7 @@ Loading snippet ...</pre
     const unsubscribeResize = mobCore.useResize(() => {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
-      data3.forEach((item) => {
+      data2.forEach((item) => {
         const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
         item.offsetXCenter = getOffsetXCenter({
           canvasWidth: canvas.width,
@@ -25691,7 +25321,7 @@ Loading snippet ...</pre
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      data3 = [];
+      data2 = [];
       isActive = false;
     };
   };
@@ -26016,7 +25646,7 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive = true;
     let gridData = [];
-    let data3 = [];
+    let data2 = [];
     let centerTween = {};
     let gridTween = {};
     let gridTimeline = {};
@@ -26034,7 +25664,7 @@ Loading snippet ...</pre
       cellHeight,
       gutter
     }).items;
-    data3 = gridData.map((item, i) => {
+    data2 = gridData.map((item, i) => {
       return {
         ...item,
         scale: 0,
@@ -26046,7 +25676,7 @@ Loading snippet ...</pre
     centerTween = tween.createLerp({
       data: { mouseX: 0, mouseY: 0 }
     });
-    data3.forEach((item) => {
+    data2.forEach((item) => {
       centerTween.subscribeCache(item, ({ mouseX, mouseY }) => {
         item.mouseX = mouseX;
         item.mouseY = mouseY;
@@ -26062,7 +25692,7 @@ Loading snippet ...</pre
       },
       data: { scale: 0 }
     });
-    data3.forEach((item) => {
+    data2.forEach((item) => {
       gridTween.subscribeCache(item, ({ scale }) => {
         item.scale = scale;
       });
@@ -26076,7 +25706,7 @@ Loading snippet ...</pre
       const context2 = useOffscreen ? offScreenCtx : ctx;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
-      data3.forEach(
+      data2.forEach(
         ({
           x,
           y,
@@ -26155,7 +25785,7 @@ Loading snippet ...</pre
       canvas.height = canvas.clientHeight;
       top = offset(canvas).top;
       left = offset(canvas).left;
-      data3.forEach((item) => {
+      data2.forEach((item) => {
         const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
         item.offsetXCenter = getOffsetXCenter({
           canvasWidth: canvas.width,
@@ -26201,7 +25831,7 @@ Loading snippet ...</pre
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      data3 = [];
+      data2 = [];
       isActive = false;
     };
   };
@@ -27417,14 +27047,14 @@ Loading snippet ...</pre
   // src/js/pages/canvas/overview/index.js
   useComponent([DocContainer, DocsTitleSmall, ScrollTo, DocTitle, HtmlContent]);
   var canvas_overview = async () => {
-    const { data: data3 } = await loadJsonContent({
+    const { data: data2 } = await loadJsonContent({
       source: "./data/canvas/overview.json"
     });
     return renderHtml` <doc-container>
         <html-content
             slot="docs"
             ${staticProps({
-      data: data3.data,
+      data: data2.data,
       useMaxWidth: true
     })}
         ></html-content>
@@ -27451,7 +27081,7 @@ Loading snippet ...</pre
     const { useOffscreen, context } = getCanvasContext({ disableOffcanvas });
     let isActive = true;
     let gridData = [];
-    let data3 = [];
+    let data2 = [];
     let masterSequencer = tween.createMasterSequencer();
     let ctx = canvas.getContext(context, { alpha: false });
     const { activeRoute } = mainStore.get();
@@ -27469,7 +27099,7 @@ Loading snippet ...</pre
       cellHeight,
       gutter
     }).items;
-    data3 = reorder ? gridData.map((item, i) => {
+    data2 = reorder ? gridData.map((item, i) => {
       return {
         ...item,
         scale: 0,
@@ -27485,7 +27115,7 @@ Loading snippet ...</pre
       };
     });
     let staggers = tween.createStaggers({
-      items: data3,
+      items: data2,
       stagger
     });
     let sequencersInstances = staggers.map(({ item, start, end }) => {
@@ -27506,7 +27136,7 @@ Loading snippet ...</pre
       const context2 = useOffscreen ? offScreenCtx : ctx;
       context2.fillStyle = canvasBackground;
       context2.fillRect(0, 0, canvas.width, canvas.height);
-      data3.forEach(
+      data2.forEach(
         ({
           x,
           y,
@@ -27599,7 +27229,7 @@ Loading snippet ...</pre
     const unsubscribeResize = mobCore.useResize(() => {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
-      data3.forEach((item) => {
+      data2.forEach((item) => {
         const { width, height, gutter: gutter2, numberOfColumn: numberOfColumn2 } = item;
         item.offsetXCenter = getOffsetXCenter({
           canvasWidth: canvas.width,
@@ -27645,7 +27275,7 @@ Loading snippet ...</pre
       offscreen = null;
       offScreenCtx = null;
       gridData = [];
-      data3 = [];
+      data2 = [];
       isActive = false;
     };
   };
@@ -28476,14 +28106,14 @@ Loading snippet ...</pre
   ];
   function getButton({ setState, staticProps: staticProps2, delegateEvents, bindProps }) {
     return buttons2.map((column, index) => {
-      const { data: data3, buttonLabel } = column;
+      const { data: data2, buttonLabel } = column;
       return renderHtml`
                 <dynamic-list-button
                     class="c-dynamic-list__top__button"
                     ${staticProps2({ label: buttonLabel })}
                     ${delegateEvents({
         click: () => {
-          setState("data", data3);
+          setState("data", data2);
           setState("activeSample", index);
         }
       })}
@@ -28507,8 +28137,8 @@ Loading snippet ...</pre
                     ${staticProps2({ listId: index, key, clean: clean2, label })}
                     ${bindProps({
         bind: ["data", "counter"],
-        props: ({ data: data3, counter }) => {
-          return { data: data3, counter };
+        props: ({ data: data2, counter }) => {
+          return { data: data2, counter };
         }
       })}
                 ></dynamic-list-repeater>
@@ -29011,18 +28641,18 @@ Loading snippet ...</pre
                 ${bindProps({
       bind: ["counter"],
       /** @returns {Partial<import('../card/type').DynamicListCard>} */
-      props: ({ counter, data: data3 }, index) => {
+      props: ({ counter, data: data2 }, index) => {
         return {
           counter,
-          label: data3[index].label,
+          label: data2[index].label,
           index
         };
       }
     })}
                 ${delegateEvents({
       mousedown: (_e, index) => {
-        const { data: data3 } = getState();
-        const current = data3[index].label;
+        const { data: data2 } = getState();
+        const current = data2[index].label;
         console.log(current, index);
       }
     })}
@@ -29033,9 +28663,9 @@ Loading snippet ...</pre
                     ${bindProps({
       bind: ["counter"],
       /** @returns {Partial<import('../slottedLabel/type').DynamicListSlottedLabel>} */
-      props: ({ data: data3, counter }, index) => {
+      props: ({ data: data2, counter }, index) => {
         return {
-          label: `label: ${data3[index].label} <br/> counter: ${counter}`
+          label: `label: ${data2[index].label} <br/> counter: ${counter}`
         };
       }
     })}
@@ -30747,6 +30377,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/index.js
+  var PAGE_TEMPLATE_DOCS_MOBJS = "doc-links";
   var mobJsComponentBreadCrumbs = [
     {
       url: "./#mobJs-overview",
@@ -30830,7 +30461,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-overview",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/overview.json",
@@ -30841,7 +30471,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-defaults",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/defaults.json",
@@ -30852,7 +30481,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-events",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/events.json",
@@ -30863,7 +30491,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-store",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/store.json",
@@ -30874,7 +30501,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-overview",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/overview.json",
@@ -30885,7 +30511,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-initialization",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/initialization.json",
@@ -30896,7 +30521,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-component",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/component.json",
@@ -30907,7 +30531,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-web-component",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/webComponent.json",
@@ -30918,7 +30541,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-routing",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/routing.json",
@@ -30929,7 +30551,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-setStateByName",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/setStateByName.json",
@@ -30940,7 +30561,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-updateStateByName",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/updateStateByName.json",
@@ -30951,7 +30571,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-useMethodByName",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/useMethodByName.json",
@@ -30962,7 +30581,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-tick",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/tick.json",
@@ -30973,7 +30591,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-utils",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/utils.json",
@@ -30984,7 +30601,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-debug",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/debug.json",
@@ -31336,7 +30952,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-runtime",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/runtime.json",
@@ -31347,7 +30962,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-stagger",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/stagger.json",
@@ -31358,7 +30972,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-defaults",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/defaults.json",
@@ -31369,7 +30982,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-overview",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/overview.json",
@@ -31380,7 +30992,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-parallax",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/parallax.json",
@@ -31391,7 +31002,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-sequencer",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/sequencer.json",
@@ -31402,7 +31012,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-scrolltrigger",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/scrollTrigger.json",
@@ -31413,7 +31022,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-sync-timeline",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/syncTimeline.json",
@@ -31424,7 +31032,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-create-stagger",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/createStagger.json",
@@ -31435,7 +31042,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-async-timeline",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/asyncTimeline.json",
@@ -31446,7 +31052,6 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-tween-spring-lerp",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/tweenSpringLerp.json",
@@ -31463,7 +31068,6 @@ Loading snippet ...</pre
     },
     {
       name: "plugin-overview",
-      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/plugin/overview.json",
@@ -31493,6 +31097,392 @@ Loading snippet ...</pre
       }
     }
   ];
+
+  // src/js/component/common/linksMobJs/animation/linksScroller.js
+  var linksSidebarScroller = ({ screen, scroller: scroller2, scrollbar }) => {
+    let instance;
+    return {
+      init: () => {
+        if (instance) return;
+        instance = new SmoothScroller({
+          screen,
+          scroller: scroller2,
+          direction: "vertical",
+          drag: true,
+          scopedEvent: false,
+          breakpoint: "desktop",
+          onTick: ({ percent }) => {
+            scrollbar.value = percent;
+          }
+        });
+        instance.init();
+      },
+      destroy: () => {
+        instance?.destroy();
+      },
+      updateScroller: () => {
+        if (!instance) return;
+        const scrollerHeight = outerHeight(scroller2);
+        const screenHeight = outerHeight(screen);
+        const scrollBarHeight = outerWidth(scrollbar);
+        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
+        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
+        instance?.refresh();
+      },
+      move: (val2) => {
+        if (!instance) return;
+        instance?.move(val2);
+      }
+    };
+  };
+
+  // src/js/component/common/linksMobJs/data.js
+  var items = [
+    {
+      label: "html",
+      url: "mobJs-html"
+    },
+    {
+      label: "onMount",
+      url: "mobJs-onMount"
+    },
+    {
+      label: "getState",
+      url: "mobJs-getState"
+    },
+    {
+      label: "setState",
+      url: "mobJs-setState"
+    },
+    {
+      label: "updateState",
+      url: "mobJs-updateState"
+    },
+    {
+      label: "watch",
+      url: "mobJs-watch"
+    },
+    {
+      label: "watchSync",
+      url: "mobJs-watchSync"
+    },
+    {
+      label: "staticProps",
+      url: "mobJs-staticProps"
+    },
+    {
+      label: "bindProps",
+      url: "mobJs-bindProps"
+    },
+    {
+      label: "bindEvents",
+      url: "mobJs-bindEvents"
+    },
+    {
+      label: "delegateEvents",
+      url: "mobJs-delegateEvents"
+    },
+    {
+      label: "methods",
+      url: "mobJs-methods"
+    },
+    {
+      label: "refs",
+      url: "mobJs-refs"
+    },
+    {
+      label: "unBind",
+      url: "mobJs-unBind"
+    },
+    {
+      label: "emit",
+      url: "mobJs-emit"
+    },
+    {
+      label: "emitAsync",
+      url: "mobJs-emitAsync"
+    },
+    {
+      label: "computed",
+      url: "mobJs-computed"
+    },
+    {
+      label: "removeDOM",
+      url: "mobJs-removeDom"
+    },
+    {
+      label: "remove",
+      url: "mobJs-remove"
+    },
+    {
+      label: "getChildren",
+      url: "mobJs-getChildren"
+    },
+    {
+      label: "freezeProp",
+      url: "mobJs-freezeProp"
+    },
+    {
+      label: "unFreezeProp",
+      url: "mobJs-unFreezeProp"
+    },
+    {
+      label: "getParentId",
+      url: "mobJs-getParentId"
+    },
+    {
+      label: "watchParent",
+      url: "mobJs-watchParent"
+    },
+    {
+      label: "InstanceName",
+      url: "mobJs-instanceName"
+    },
+    {
+      label: "ClassList",
+      url: "mobJs-class-list"
+    },
+    {
+      label: "Slot",
+      url: "mobJs-slot"
+    },
+    {
+      label: "renderComponent",
+      url: "mobJs-renderComponent"
+    },
+    {
+      label: "invalidate",
+      url: "mobJs-invalidate"
+    },
+    {
+      label: "reactive list: (repeat)",
+      url: "mobJs-repeat"
+    },
+    {
+      label: "invalidate vs repeater",
+      url: "mobJs-invalidate-vs-repeater"
+    }
+  ];
+
+  // src/js/component/common/linksMobJs/linksMobJs.js
+  var getItems3 = ({ data: data2, staticProps: staticProps2 }) => {
+    return data2.map((item) => {
+      const { label, url } = item;
+      return renderHtml`<li>
+                <links-mobjs-button
+                    ${staticProps2({
+        label,
+        url
+      })}
+                ></links-mobjs-button>
+            </li>`;
+    }).join("");
+  };
+  var LinksMobJsFn = ({
+    html,
+    staticProps: staticProps2,
+    setRef,
+    getRef,
+    onMount
+  }) => {
+    onMount(() => {
+      const { screenEl, scrollerEl, scrollbar } = getRef();
+      const { init: init7, destroy, move } = linksSidebarScroller({
+        screen: screenEl,
+        scroller: scrollerEl,
+        scrollbar
+      });
+      init7();
+      move(0);
+      scrollbar.addEventListener("input", () => {
+        move?.(scrollbar.value);
+      });
+      mainStore.watch("activeRoute", (data2) => {
+        const { templateName } = data2;
+        if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
+          screenEl.classList.add("active");
+        }
+        if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
+          screenEl.classList.remove("active");
+        }
+      });
+      return () => {
+        destroy?.();
+      };
+    });
+    return html`<div class="c-params-mobjs" ${setRef("screenEl")}>
+        <input
+            type="range"
+            id="test"
+            name="test"
+            min="0"
+            max="100"
+            value="0"
+            step=".5"
+            ${setRef("scrollbar")}
+            class="c-params-mobjs__scrollbar"
+        />
+        <ul ${setRef("scrollerEl")}>
+            ${getItems3({ staticProps: staticProps2, data: items })}
+        </ul>
+    </div>`;
+  };
+
+  // src/js/component/common/linksMobJs/linksMobJsButton.js
+  var LinksMobJsButtonFn = ({ html, getState }) => {
+    const { label, url } = getState();
+    const { activeRoute } = mainStore.get();
+    const currentClass = activeRoute.route === url ? "current" : "";
+    return html`<a href="./#${url}" class="${currentClass}"
+        ><span>${label}</span></a
+    >`;
+  };
+
+  // src/js/component/common/linksMobJs/definition.js
+  var LinksMobJsButton = createComponent({
+    name: "links-mobjs-button",
+    component: LinksMobJsButtonFn,
+    exportState: ["label", "url"],
+    state: {
+      label: () => ({
+        value: "",
+        type: String
+      }),
+      url: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+  var LinksMobJs = createComponent({
+    name: "links-mobjs",
+    component: LinksMobJsFn,
+    child: [LinksMobJsButton],
+    exportState: ["active"],
+    state: {
+      section: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/wrapper/index.js
+  useComponent([
+    CodeOverlay,
+    Header,
+    NavigationContainer,
+    Footer,
+    QuickNav,
+    RouteLoader,
+    AnimationTitle,
+    MLogo1,
+    ScrollDownLabel,
+    CodeButton,
+    CebugButton,
+    ScrollToTop,
+    LinksMobJs
+  ]);
+  var wrapper = async () => {
+    const { data: svg } = await loadTextContent({
+      source: "./asset/svg/logo.svg"
+    });
+    return renderHtml`
+        <!-- <div class="test-grid"> -->
+        <!--     <div class="test-grid__grid"> -->
+        <!--         <span></span><span></span><span></span><span></span><span></span -->
+        <!--         ><span></span><span></span><span></span><span></span -->
+        <!--         ><span></span><span></span><span></span> -->
+        <!--     </div> -->
+        <!--     <div class="test-grid__cont"><span>test</span></div> -->
+        <!-- </div> -->
+
+        <code-overlay name="codeOverlay"></code-overlay>
+        <mob-header></mob-header>
+        <mob-navigation-container
+            name="navigation-container"
+        ></mob-navigation-container>
+        <main class="main">
+            <div class="container">
+                <div class="inner-wrap">
+                    <div id="content"></div>
+                </div>
+            </div>
+        </main>
+        <mob-footer>
+            <debug-button slot="debug"></debug-button>
+        </mob-footer>
+        <quick-nav name="quick_nav"></quick-nav>
+        <route-loader></route-loader>
+        <animation-title name="animation_title"></animation-title>
+        <m-logo-1 name="m1_logo" ${staticProps({ svg })}></m-logo-1>
+        <scroll-down-label name="scroll_down_label"></scroll-down-label>
+        <code-button name="global-code-button"></code-button>
+        <scroll-to-top name="scroll-to-top"></scroll-to-top>
+        <links-mobjs></links-mobjs>
+    `;
+  };
+
+  // src/js/utils/scrollbarWith.js
+  var setValue = () => {
+    const value = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty(
+      "--scrollbar-with",
+      `${value}px`
+    );
+  };
+  var getScrollbarWith = () => {
+    setValue();
+    mobCore.useResize(() => {
+      setValue();
+    });
+  };
+
+  // src/js/pageTransition/index.js
+  var scrollY = 0;
+  mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
+    scrollY = window.scrollY;
+  });
+  var beforePageTransition2 = async ({ oldNode }) => {
+    oldNode.classList.remove("current-route");
+    oldNode.classList.add("fake-content");
+    oldNode.style.position = "fixed";
+    oldNode.style.zIndex = 10;
+    oldNode.style.top = "var(--header-height)";
+    oldNode.style.left = "0";
+    oldNode.style.width = "100vw";
+    oldNode.style.transform = `translate(calc(var(--header-height) / 2), -${scrollY}px)`;
+    oldNode.style.minHeight = "calc(100vh - var(--header-height) - var(--footer-height))";
+  };
+  var pageTransition2 = async ({
+    oldNode,
+    newNode,
+    oldRoute,
+    newRoute
+  }) => {
+    if (motionCore.mq("max", "desktop") || oldRoute === newRoute) return;
+    newNode.style.opacity = 0;
+    const oldNodeTween = tween.createTween({
+      data: { opacity: 1 },
+      duration: 300
+    });
+    const newNodeTween = tween.createTween({
+      data: { opacity: 0 },
+      duration: 500
+    });
+    oldNodeTween.subscribe(({ opacity }) => {
+      oldNode.style.opacity = opacity;
+    });
+    newNodeTween.subscribe(({ opacity }) => {
+      newNode.style.opacity = opacity;
+    });
+    let tl = timeline.createAsyncTimeline({ repeat: 1 }).createGroup({ waitComplete: true }).goTo(oldNodeTween, { opacity: 0 }).goTo(newNodeTween, { opacity: 1 }).closeGroup();
+    await tl.play();
+    tl.destroy();
+    tl = null;
+    newNode.style.removeProperty("opacity");
+    newNode.classList.add("current-route");
+  };
 
   // src/js/main.js
   mobCore.useLoad(() => {

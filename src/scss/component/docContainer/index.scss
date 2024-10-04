@@ -21,14 +21,13 @@
             );
         background-attachment: fixed;
         transition: background 0.2s;
+        max-width: var(--doc-width);
 
         @include mq('large') {
             width: auto;
-            max-width: rem(950, large);
         }
 
         @include mq('xlarge') {
-            max-width: rem(1100, xlarge);
             padding-right: rem(100, xlarge);
         }
 

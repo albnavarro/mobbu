@@ -274,15 +274,26 @@ th {
   --default-padding: 6.6666666667rem;
   --snippet-rem-value: 0.9333333333;
   --snippet-line-height-value: 1.4666666667;
+  --doc-width: none;
+}
+@media (min-width: 48em) {
+  :root {
+    --nav-width: 22.6666666667rem;
+  }
 }
 @media screen and (min-width: 62em) and (height <= 700px) {
   :root {
     --footer-height: 3.3333333333rem;
   }
 }
-@media (min-width: 48em) {
+@media (min-width: 75em) {
   :root {
-    --nav-width: 22.6666666667rem;
+    --doc-width: 63.3333333333rem;
+  }
+}
+@media (min-width: 100em) {
+  :root {
+    --doc-width: 73.3333333333rem;
   }
 }
 html {
@@ -2426,16 +2437,15 @@ code {
       transparent 400px);
   background-attachment: fixed;
   transition: background 0.2s;
+  max-width: var(--doc-width);
 }
 @media (min-width: 75em) {
   .c-doc-container__content {
     width: auto;
-    max-width: 63.3333333333rem;
   }
 }
 @media (min-width: 100em) {
   .c-doc-container__content {
-    max-width: 73.3333333333rem;
     padding-right: 6.6666666667rem;
   }
 }
@@ -2578,8 +2588,27 @@ code {
   --links-height: 55vh;
   height: var(--links-height);
   overflow: hidden;
-  position: relative;
+  position: fixed;
+  top: 8rem;
+  left: calc(var(--doc-width) + 2.6666666667rem);
+  z-index: 100;
   margin-top: 2.6666666667rem;
+  width: 14.6666666667rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s, visibility 0.35s;
+  display: none;
+}
+@media (min-width: 75em) {
+  .c-params-mobjs {
+    display: block;
+  }
+}
+.c-params-mobjs.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
 }
 .c-params-mobjs ul {
   list-style: none;
