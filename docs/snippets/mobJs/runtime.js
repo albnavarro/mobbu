@@ -4,6 +4,7 @@ renderComponent: (arg0: {
     component: string;
     position?: 'afterbegin' | 'beforeend';
     clean?: boolean;
+    persistent: boolean;
 }) => Promise<any>;
 **/
 
@@ -43,6 +44,7 @@ export const MyComponent = ({
             attachTo: container,
             component: runTimeComponent,
             position: 'afterbegin',
+            persistent: false,
             clean: true,
         });
 

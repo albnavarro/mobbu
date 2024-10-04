@@ -49,8 +49,9 @@
                 "items": [
                     "<span class='quote'>attachTo</span>: Node where attach new component",
                     "<span class='quote'>component</span>: Component to render",
-                    "<span class='quote'>position</span>: position where attach new component: 'afterbegin'|'beforeend'",
-                    "<span class='quote'>clean</span>: remove previous content"
+                    "<span class='quote'>position (optional)</span>: position where attach new component: 'afterbegin'|'beforeend'",
+                    "<span class='quote'>persistent (optional)</span>: If the content is created outside the dynamic content, in the general wrapper, it indicates that the component should not be removed during the route change.",
+                    "<span class='quote'>clean (optional)</span>: remove previous content"
                 ]
             }
         },

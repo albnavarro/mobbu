@@ -5300,8 +5300,8 @@
       `SyncTimeline: in revese ( or yoyo mode) only goTo || goFromTo || set action is allowed. Using goFrom makes no sense in this context. Timeline will stopped.`
     );
   };
-  var timelineSetTweenArrayWarining = (items2) => {
-    console.warn(`timeline setTween: ${items2} is not an array of tween`);
+  var timelineSetTweenArrayWarining = (items) => {
+    console.warn(`timeline setTween: ${items} is not an array of tween`);
   };
   var timelineSetTweenLabelWarining = (label) => {
     console.warn(`timeline setTween: ${label} is not a string`);
@@ -11282,12 +11282,12 @@
     };
   };
   var createStaggers = (data2) => {
-    const items2 = staggerItemsIsValid(data2?.items);
+    const items = staggerItemsIsValid(data2?.items);
     const stagger = getStaggerFromProps(data2);
     const duration2 = durationIsValid(data2?.duration);
     const eachProportion = 10;
     let each = stagger?.each || 1;
-    const fallBack = [...items2].map((item, i) => {
+    const fallBack = [...items].map((item, i) => {
       return {
         item,
         start: 0,
@@ -11295,11 +11295,11 @@
         index: i
       };
     });
-    if (!validateStaggerItems(items2)) {
+    if (!validateStaggerItems(items)) {
       return fallBack;
     }
-    if (stagger.grid?.col > items2.length) {
-      staggerIsOutOfRangeWarning(items2.length);
+    if (stagger.grid?.col > items.length) {
+      staggerIsOutOfRangeWarning(items.length);
       each = 1;
     }
     if (mobCore.checkType(Number, each) && (each > eachProportion || each < 1)) {
@@ -11307,7 +11307,7 @@
       each = 1;
     }
     const { staggerArray } = setStagger({
-      arrayDefault: [...items2].map((item) => ({ item })),
+      arrayDefault: [...items].map((item) => ({ item })),
       arrayOnStop: [],
       stagger,
       slowlestStagger: STAGGER_DEFAULT_INDEX_OBJ,
@@ -12952,15 +12952,15 @@
      * It is possible for example to execute a set of specific instances before using the playFrom() method to be sure that all instances are in position, the instances on which a delay is applied could in fact remain in the old position until the delay is finished , by doing so we can be put in the right position before launching the method.
      * `This property cannot be used within a group`
      */
-    setTween(label = "", items2 = []) {
+    setTween(label = "", items = []) {
       this.stop();
-      const itemsIsArray = timelineSetTweenArrayIsValid(items2);
+      const itemsIsArray = timelineSetTweenArrayIsValid(items);
       const labelIsString = timelineSetTweenLabelIsValid(label);
       if (!itemsIsArray || !labelIsString)
         return Promise.reject(
           new Error("timeline setTween: props is wrong")
         );
-      const itemsId = new Set(items2.map((item) => item?.getId?.()));
+      const itemsId = new Set(items.map((item) => item?.getId?.()));
       const tweens = this.tweenStore.filter(({ id }) => {
         return itemsId.has(id);
       });
@@ -17202,6 +17202,11 @@
         value: "",
         type: String,
         skipEqual: false
+      }),
+      isCancellable: () => ({
+        value: true,
+        type: Boolean,
+        skipEqual: false
       })
     }
   });
@@ -17363,6 +17368,7 @@
     watch,
     id,
     invalidateId,
+    isCancellable = true,
     renderFunction
   }) => {
     let watchIsRunning = false;
@@ -17408,7 +17414,8 @@
             MAIN_STORE_ASYNC_PARSER,
             {
               element: invalidateParent,
-              parentId: fallBackParentId ?? id
+              parentId: fallBackParentId ?? id,
+              isCancellable
             },
             false
           );
@@ -18406,16 +18413,12 @@
     });
   };
   var removeCancellableComponent = () => {
-    const cancellableComponents2 = [...componentMap.values()].filter(
+    const cancellableComponents = [...componentMap.values()].filter(
       ({ isCancellable }) => isCancellable
     );
-    cancellableComponents2.forEach(({ id }) => removeAndDestroyById({ id }));
+    cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));
   };
-  var removeOrphanComponent = () => {
-    const orphans = [...componentMap.values()].filter(
-      ({ element, isCancellable }) => isCancellable && !document.body.contains(element)
-    );
-    orphans.forEach(({ id }) => removeAndDestroyById({ id }));
+  var removeOrphanTempIds = () => {
     removeOrphansPropsFromParent();
     removeOrphansBindEvent();
     removeOrphansBindProps();
@@ -18752,6 +18755,7 @@
   // src/js/mobjs/modules/repeater/update/index.js
   var updateRepeater = async ({
     state = "",
+    isCancellable,
     repeaterParentElement = document.createElement("div"),
     targetComponent = "",
     current = [],
@@ -18777,7 +18781,11 @@
     });
     mainStore.set(
       MAIN_STORE_ASYNC_PARSER,
-      { element: repeaterParentElement, parentId: fallBackParentId ?? id },
+      {
+        element: repeaterParentElement,
+        parentId: fallBackParentId ?? id,
+        isCancellable
+      },
       false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -18788,6 +18796,7 @@
   var watchRepeat = ({
     state = "",
     setState,
+    isCancellable,
     watch,
     clean: clean2 = false,
     beforeUpdate,
@@ -18863,6 +18872,7 @@
         addActiveRepeat({ id, state, container: repeaterParentElement });
         const currentUnivoque = await updateRepeater({
           state,
+          isCancellable,
           repeaterParentElement,
           targetComponent: targetComponentBeforeParse,
           current,
@@ -19040,6 +19050,7 @@
   };
   var inizializeRepeatWatch = ({
     repeatId,
+    isCancellable,
     state,
     setState,
     emit,
@@ -19054,6 +19065,7 @@
     const unsubscribe3 = watchRepeat({
       state,
       setState,
+      isCancellable,
       emit,
       watch,
       clean: clean2,
@@ -19653,7 +19665,8 @@
         attachTo,
         component,
         position: position2 = "afterbegin",
-        clean: clean2 = true
+        clean: clean2 = true,
+        persistent = false
       }) => {
         if (clean2) {
           destroyComponentInsideNodeById({ id, container: attachTo });
@@ -19662,7 +19675,7 @@
         attachTo.insertAdjacentHTML(position2, component);
         mainStore.set(
           MAIN_STORE_ASYNC_PARSER,
-          { element: attachTo, parentId: id },
+          { element: attachTo, parentId: id, isCancellable: !persistent },
           false
         );
         return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -19724,6 +19737,7 @@
       invalidate: ({
         bind,
         render: render2,
+        persistent = false,
         beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         }
@@ -19745,6 +19759,7 @@
               watch,
               beforeUpdate,
               afterUpdate,
+              isCancellable: !persistent,
               id,
               invalidateId,
               renderFunction: invalidateRender
@@ -19757,6 +19772,7 @@
       repeat: ({
         bind,
         clean: clean2 = false,
+        persistent = false,
         beforeUpdate = () => Promise.resolve(),
         afterUpdate = () => {
         },
@@ -19799,6 +19815,7 @@
             if (isInizialized) return;
             inizializeRepeatWatch({
               repeatId,
+              isCancellable: !persistent,
               state: bind,
               setState,
               emit,
@@ -20165,12 +20182,16 @@
     if (!useQuery) clearUserPlaceHolder();
   };
   var initParseWatcher = () => {
-    mainStore.watch(MAIN_STORE_ASYNC_PARSER, async ({ element, parentId }) => {
-      await parseComponents({
-        element,
-        parentIdForced: parentId ?? ""
-      });
-    });
+    mainStore.watch(
+      MAIN_STORE_ASYNC_PARSER,
+      async ({ element, parentId, isCancellable = true }) => {
+        await parseComponents({
+          element,
+          parentIdForced: parentId ?? "",
+          isCancellable
+        });
+      }
+    );
   };
 
   // src/js/mobjs/route/scroll/restoreScroll.js
@@ -20206,7 +20227,7 @@
         skip = true;
       }
     );
-    removeOrphanComponent();
+    removeOrphanTempIds();
     mainStore.set(MAIN_STORE_ACTIVE_ROUTE, { route, templateName });
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
     const routeObejct = getRouteByName({ routeName: route });
@@ -21537,8 +21558,8 @@ Loading snippet ...</pre
       type: String
     })
   });
-  anchorStore.computed("computedItems", ["items"], ({ items: items2 }) => {
-    return items2;
+  anchorStore.computed("computedItems", ["items"], ({ items }) => {
+    return items;
   });
   mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, () => {
     anchorStore.set("items", []);
@@ -21644,9 +21665,6 @@ Loading snippet ...</pre
                    ...
                },
                afterRefresh: () => {
-                   ...
-               },
-               afterDestroy: () => {
                    ...
                },
            });
@@ -22144,8 +22162,6 @@ Loading snippet ...</pre
       }
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
-          this.afterDestroy?.();
-          this.afterDestroy = [];
           this.scroller = null;
           this.screen = null;
         });
@@ -23197,15 +23213,15 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/typography/list/list.js
-  var getList = ({ items: items2 }) => {
-    return items2.map((item) => renderHtml` <li>${item}</li> `).join("");
+  var getList = ({ items }) => {
+    return items.map((item) => renderHtml` <li>${item}</li> `).join("");
   };
   var ListFn = ({ html, getState }) => {
-    const { style, color, items: items2, dots } = getState();
+    const { style, color, items, dots } = getState();
     const colorClass = `is-${color}`;
     const dotsClass = dots ? "" : `hide-dots`;
     return html`<ul class="ul ul--${style} ${colorClass} ${dotsClass}">
-        ${getList({ items: items2 })}
+        ${getList({ items })}
     </ul>`;
   };
 
@@ -30381,7 +30397,7 @@ Loading snippet ...</pre
   };
 
   // src/js/pages/index.js
-  var PAGE_TEMPLATE_DOCS_MOBJS = "doc-links";
+  var PAGE_TEMPLATE_DOCS_MOBJS = "templateMobJsComponent";
   var mobJsComponentBreadCrumbs = [
     {
       url: "./#mobJs-overview",
@@ -30615,7 +30631,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-html",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/html.json",
@@ -30626,7 +30642,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-onMount",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/onMount.json",
@@ -30637,7 +30653,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getState",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getState.json",
@@ -30648,7 +30664,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-setState",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/setState.json",
@@ -30659,7 +30675,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-updateState",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/updateState.json",
@@ -30670,7 +30686,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watch",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watch.json",
@@ -30681,7 +30697,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watchSync",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchSync.json",
@@ -30692,7 +30708,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-staticProps",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/staticProps.json",
@@ -30703,7 +30719,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-bindProps",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindProps.json",
@@ -30714,7 +30730,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-bindEvents",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindEvents.json",
@@ -30725,7 +30741,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-delegateEvents",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/delegateEvents.json",
@@ -30736,7 +30752,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-methods",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/methods.json",
@@ -30747,7 +30763,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-refs",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/refs.json",
@@ -30757,8 +30773,19 @@ Loading snippet ...</pre
       }
     },
     {
+      name: "mobJs-runtime",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+      layout: layoutSidebarLinks,
+      props: {
+        source: "./data/mobJs/runtime.json",
+        title: "runtime",
+        section: "mobJs",
+        breadCrumbs: mobJsComponentBreadCrumbs
+      }
+    },
+    {
       name: "mobJs-repeat",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/repeat.json",
@@ -30769,7 +30796,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-invalidate",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/invalidate.json",
@@ -30780,7 +30807,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-invalidate-vs-repeater",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/invalidate-vs-repeater.json",
@@ -30791,7 +30818,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-unBind",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unBind.json",
@@ -30802,7 +30829,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-emit",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emit.json",
@@ -30813,7 +30840,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-emitAsync",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emitAsync.json",
@@ -30824,7 +30851,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-computed",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/computed.json",
@@ -30835,7 +30862,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-renderComponent",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/renderDom.json",
@@ -30846,7 +30873,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-removeDom",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/removeDom.json",
@@ -30857,7 +30884,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-remove",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/remove.json",
@@ -30868,7 +30895,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getChildren",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getChildren.json",
@@ -30879,7 +30906,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-freezeProp",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/freezeProp.json",
@@ -30890,7 +30917,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-unFreezeProp",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unFreezeProp.json",
@@ -30901,7 +30928,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getParentId",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getParentId.json",
@@ -30912,7 +30939,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watchParent",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchParent.json",
@@ -30923,7 +30950,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-instanceName",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/instanceName.json",
@@ -30934,7 +30961,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-class-list",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/classList.json",
@@ -30945,23 +30972,13 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-slot",
-      templateName: "doc-links",
+      templateName: PAGE_TEMPLATE_DOCS_MOBJS,
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/slot.json",
         title: "slot",
         section: "mobjs",
         breadCrumbs: mobJsComponentBreadCrumbs
-      }
-    },
-    {
-      name: "mobJs-runtime",
-      layout: layoutSidebarAnchor,
-      props: {
-        source: "./data/mobJs/runtime.json",
-        title: "runtime",
-        section: "mobJs",
-        breadCrumbs: "./#mobJs-overview"
       }
     },
     {
@@ -31141,7 +31158,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/linksMobJs/data.js
-  var items = [
+  var mobJsComponentParams = [
     {
       label: "html",
       url: "mobJs-html"
@@ -31252,7 +31269,7 @@ Loading snippet ...</pre
     },
     {
       label: "renderComponent",
-      url: "mobJs-renderComponent"
+      url: "mobJs-runtime"
     },
     {
       label: "invalidate",
@@ -31269,7 +31286,11 @@ Loading snippet ...</pre
   ];
 
   // src/js/component/common/linksMobJs/linksMobJs.js
-  var getItems3 = ({ data: data2, staticProps: staticProps2, bindProps }) => {
+  var templateData = {
+    [PAGE_TEMPLATE_DOCS_MOBJS]: mobJsComponentParams
+  };
+  var getItems3 = ({ staticProps: staticProps2, getState, bindProps }) => {
+    const { data: data2 } = getState();
     return data2.map((item) => {
       const { label, url } = item;
       return renderHtml`<li>
@@ -31297,7 +31318,9 @@ Loading snippet ...</pre
     getRef,
     onMount,
     setState,
-    bindProps
+    bindProps,
+    invalidate,
+    getState
   }) => {
     onMount(() => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
@@ -31308,10 +31331,13 @@ Loading snippet ...</pre
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
-      mainStore.watch("activeRoute", (data2) => {
+      mainStore.watch("afterRouteChange", async (data2) => {
         const { templateName, route } = data2;
+        const currentData = templateData?.[templateName] ?? [];
+        setState("data", currentData);
+        await tick();
         setState("activeSection", route);
-        if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
+        if (currentData.length > 0) {
           screenEl.classList.add("active");
           if (isActive) return;
           const methods = linksSidebarScroller({
@@ -31326,7 +31352,7 @@ Loading snippet ...</pre
           init7();
           move(0);
         }
-        if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
+        if (currentData.length === 0) {
           screenEl.classList.remove("active");
           destroy?.();
           isActive = false;
@@ -31349,10 +31375,16 @@ Loading snippet ...</pre
             class="c-params-mobjs__scrollbar"
         />
         <ul ${setRef("scrollerEl")}>
-            ${getItems3({
-      staticProps: staticProps2,
-      bindProps,
-      data: items
+            ${invalidate({
+      bind: ["data"],
+      persistent: true,
+      render: () => {
+        return getItems3({
+          staticProps: staticProps2,
+          bindProps,
+          getState
+        });
+      }
     })}
         </ul>
     </div>`;
@@ -31368,7 +31400,7 @@ Loading snippet ...</pre
       return () => {
       };
     });
-    return html`<a href="./#${url}"><span>${label}</span></a>`;
+    return html` <a href="./#${url}"><span>${label}</span></a>`;
   };
 
   // src/js/component/common/linksMobJs/definition.js
@@ -31397,6 +31429,10 @@ Loading snippet ...</pre
     child: [LinksMobJsButton],
     exportState: ["active"],
     state: {
+      data: () => ({
+        value: [],
+        type: Array
+      }),
       activeSection: () => ({
         value: "",
         type: String

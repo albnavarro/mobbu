@@ -517,7 +517,7 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
+                    "<a href='./#mobJs-runtime'>renderComponent</a>",
                     "<a href='./#mobJs-invalidate'>invalidate</a>",
                     "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
                     "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"

@@ -1,6 +1,7 @@
 /**
 export type PartialRepeat<T> = <K extends keyof T>(arg0: {
     clean?: boolean;
+    persistent: boolean;
     bind: OnlyStringKey<T>;
     key?: string | undefined;
     beforeUpdate?(arg0: {
@@ -89,6 +90,7 @@ export const MyComponent = ({
         <div class="repeater-container">
             ${repeat({
                 bind: 'myStateArray',
+                persistent: false,
                 clean: false,
                 key: 'myKey',
                 beforeUpdate: ({ element, container, childrenId }) => {

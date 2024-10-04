@@ -46,7 +46,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "watch:"
+            "content": "bind:"
         },
         {
             "component": "mob-paragraph",
@@ -54,6 +54,20 @@
                 "style": "medium"
             },
             "content": "A state or an array of states that will invalidate rendering"
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "persistent ( optional ):"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "If the invalidate is created outside the dynamic content, in the general wrapper, it indicates that the component should not be removed during the route change."
         },
         {
             "component": "mob-title",

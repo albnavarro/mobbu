@@ -1,6 +1,7 @@
 /**
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
+    persistent: boolean;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
     render: (arg0: {
@@ -55,6 +56,7 @@ export const MyComponent = ({
         <div class="invalidate-container">
             ${invalidate({
                 bind: ['myState', 'myState2'],
+                persistent: false,
                 render: () => {
                     return getInvalidateRender({
                         getState,
