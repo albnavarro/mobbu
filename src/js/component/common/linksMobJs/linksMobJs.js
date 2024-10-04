@@ -1,25 +1,32 @@
 //@ts-check
 
 /**
- * @import { BindProps, MobComponent,  StaticProps } from '../../../mobjs/type';
+ * @import { BindProps, GetState, MobComponent,  StaticProps } from '../../../mobjs/type';
  * @import { LinksMobJs, LinksMobJsButton } from './type';]
  **/
 
-import { html, mainStore } from '../../../mobjs';
+import { html, mainStore, tick } from '../../../mobjs';
 import { PAGE_TEMPLATE_DOCS_MOBJS } from '../../../pages';
 import { linksSidebarScroller } from './animation/linksScroller';
-import { items } from './data';
+import { mobJsComponentParams } from './data';
+
+const templateData = {
+    [PAGE_TEMPLATE_DOCS_MOBJS]: mobJsComponentParams,
+};
 
 /**
  * @param {object} param
- * @param {Array<{label: string, url: string}>} param.data
  * @param {StaticProps} param.staticProps
+ * @param {GetState<LinksMobJs>} param.getState
  * @param {BindProps<LinksMobJs, LinksMobJsButton>} param.bindProps
  */
-const getItems = ({ data, staticProps, bindProps }) => {
+const getItems = ({ staticProps, getState, bindProps }) => {
+    const { data } = getState();
+
     return data
         .map((item) => {
             const { label, url } = item;
+
             return html`<li>
                 <links-mobjs-button
                     ${staticProps({
@@ -49,6 +56,8 @@ export const LinksMobJsFn = ({
     onMount,
     setState,
     bindProps,
+    invalidate,
+    getState,
 }) => {
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
@@ -63,11 +72,19 @@ export const LinksMobJsFn = ({
             move?.(scrollbar.value);
         });
 
-        mainStore.watch('activeRoute', (data) => {
+        mainStore.watch('afterRouteChange', async (data) => {
             const { templateName, route } = data;
+            const currentData = templateData?.[templateName] ?? [];
+            setState('data', currentData);
+
+            /**
+             * Await list was created, then create scroller
+             */
+            await tick();
+
             setState('activeSection', route);
 
-            if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
+            if (currentData.length > 0) {
                 screenEl.classList.add('active');
                 if (isActive) return;
 
@@ -81,12 +98,11 @@ export const LinksMobJsFn = ({
                 destroy = methods.destroy;
                 move = methods.move;
                 isActive = true;
-
                 init();
                 move(0);
             }
 
-            if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
+            if (currentData.length === 0) {
                 screenEl.classList.remove('active');
                 destroy?.();
                 isActive = false;
@@ -111,10 +127,16 @@ export const LinksMobJsFn = ({
             class="c-params-mobjs__scrollbar"
         />
         <ul ${setRef('scrollerEl')}>
-            ${getItems({
-                staticProps,
-                bindProps,
-                data: items,
+            ${invalidate({
+                bind: ['data'],
+                persistent: true,
+                render: () => {
+                    return getItems({
+                        staticProps,
+                        bindProps,
+                        getState,
+                    });
+                },
             })}
         </ul>
     </div>`;

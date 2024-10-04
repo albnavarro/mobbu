@@ -11,7 +11,6 @@ import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 import { removeRepeaterId } from '../../modules/repeater';
 import { removeInvalidateId } from '../../modules/invalidate';
-import { getContentId } from '../../route/domRef/content';
 
 /**
  * @param {Object} param

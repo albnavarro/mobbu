@@ -30,6 +30,10 @@ export const LinksMobJs = createComponent({
     child: [LinksMobJsButton],
     exportState: ['active'],
     state: {
+        data: () => ({
+            value: [],
+            type: Array,
+        }),
         activeSection: () => ({
             value: '',
             type: String,

@@ -1,6 +1,6 @@
 //@ts-check
 
-export const items = [
+export const mobJsComponentParams = [
     {
         label: 'html',
         url: 'mobJs-html',
@@ -111,7 +111,7 @@ export const items = [
     },
     {
         label: 'renderComponent',
-        url: 'mobJs-renderComponent',
+        url: 'mobJs-runtime',
     },
     {
         label: 'invalidate',

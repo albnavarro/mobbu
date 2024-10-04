@@ -19,5 +19,5 @@ export const LinksMobJsButtonFn = ({ html, getState, onMount, watchSync }) => {
         return () => {};
     });
 
-    return html`<a href="./#${url}"><span>${label}</span></a>`;
+    return html` <a href="./#${url}"><span>${label}</span></a>`;
 };

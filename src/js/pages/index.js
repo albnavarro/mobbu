@@ -16,7 +16,7 @@ import { horizontalScroller } from './plugin/horizontalScroller';
 import { child } from './svg/child';
 import { mv1 } from './svg/mv1';
 
-export const PAGE_TEMPLATE_DOCS_MOBJS = 'doc-links';
+export const PAGE_TEMPLATE_DOCS_MOBJS = 'templateMobJsComponent';
 
 const mobJsComponentBreadCrumbs = [
     {
@@ -255,7 +255,7 @@ export const routes = [
     },
     {
         name: 'mobJs-html',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/html.json',
@@ -266,7 +266,7 @@ export const routes = [
     },
     {
         name: 'mobJs-onMount',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/onMount.json',
@@ -277,7 +277,7 @@ export const routes = [
     },
     {
         name: 'mobJs-getState',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getState.json',
@@ -288,7 +288,7 @@ export const routes = [
     },
     {
         name: 'mobJs-setState',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/setState.json',
@@ -299,7 +299,7 @@ export const routes = [
     },
     {
         name: 'mobJs-updateState',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/updateState.json',
@@ -310,7 +310,7 @@ export const routes = [
     },
     {
         name: 'mobJs-watch',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watch.json',
@@ -321,7 +321,7 @@ export const routes = [
     },
     {
         name: 'mobJs-watchSync',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watchSync.json',
@@ -332,7 +332,7 @@ export const routes = [
     },
     {
         name: 'mobJs-staticProps',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/staticProps.json',
@@ -343,7 +343,7 @@ export const routes = [
     },
     {
         name: 'mobJs-bindProps',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/bindProps.json',
@@ -354,7 +354,7 @@ export const routes = [
     },
     {
         name: 'mobJs-bindEvents',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/bindEvents.json',
@@ -365,7 +365,7 @@ export const routes = [
     },
     {
         name: 'mobJs-delegateEvents',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/delegateEvents.json',
@@ -376,7 +376,7 @@ export const routes = [
     },
     {
         name: 'mobJs-methods',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/methods.json',
@@ -387,7 +387,7 @@ export const routes = [
     },
     {
         name: 'mobJs-refs',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/refs.json',
@@ -397,8 +397,19 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-runtime',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/runtime.json',
+            title: 'runtime',
+            section: 'mobJs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-repeat',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/repeat.json',
@@ -409,7 +420,7 @@ export const routes = [
     },
     {
         name: 'mobJs-invalidate',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/invalidate.json',
@@ -420,7 +431,7 @@ export const routes = [
     },
     {
         name: 'mobJs-invalidate-vs-repeater',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/invalidate-vs-repeater.json',
@@ -431,7 +442,7 @@ export const routes = [
     },
     {
         name: 'mobJs-unBind',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/unBind.json',
@@ -442,7 +453,7 @@ export const routes = [
     },
     {
         name: 'mobJs-emit',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/emit.json',
@@ -453,7 +464,7 @@ export const routes = [
     },
     {
         name: 'mobJs-emitAsync',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/emitAsync.json',
@@ -464,7 +475,7 @@ export const routes = [
     },
     {
         name: 'mobJs-computed',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/computed.json',
@@ -475,7 +486,7 @@ export const routes = [
     },
     {
         name: 'mobJs-renderComponent',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/renderDom.json',
@@ -486,7 +497,7 @@ export const routes = [
     },
     {
         name: 'mobJs-removeDom',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/removeDom.json',
@@ -497,7 +508,7 @@ export const routes = [
     },
     {
         name: 'mobJs-remove',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/remove.json',
@@ -508,7 +519,7 @@ export const routes = [
     },
     {
         name: 'mobJs-getChildren',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getChildren.json',
@@ -519,7 +530,7 @@ export const routes = [
     },
     {
         name: 'mobJs-freezeProp',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/freezeProp.json',
@@ -530,7 +541,7 @@ export const routes = [
     },
     {
         name: 'mobJs-unFreezeProp',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/unFreezeProp.json',
@@ -541,7 +552,7 @@ export const routes = [
     },
     {
         name: 'mobJs-getParentId',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/getParentId.json',
@@ -552,7 +563,7 @@ export const routes = [
     },
     {
         name: 'mobJs-watchParent',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/watchParent.json',
@@ -563,7 +574,7 @@ export const routes = [
     },
     {
         name: 'mobJs-instanceName',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/instanceName.json',
@@ -574,7 +585,7 @@ export const routes = [
     },
     {
         name: 'mobJs-class-list',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/classList.json',
@@ -585,23 +596,13 @@ export const routes = [
     },
     {
         name: 'mobJs-slot',
-        templateName: 'doc-links',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
         props: {
             source: './data/mobJs/slot.json',
             title: 'slot',
             section: 'mobjs',
             breadCrumbs: mobJsComponentBreadCrumbs,
-        },
-    },
-    {
-        name: 'mobJs-runtime',
-        layout: layoutSidebarAnchor,
-        props: {
-            source: './data/mobJs/runtime.json',
-            title: 'runtime',
-            section: 'mobJs',
-            breadCrumbs: './#mobJs-overview',
         },
     },
     {
