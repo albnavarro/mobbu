@@ -67,7 +67,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the invalidate is created outside the dynamic content, in the general wrapper, it indicates that the component should not be removed during the route change."
+            "content": "If the invalidate is created outside the dynamic content, in the global wrapper, it indicates that the component should not be removed during the route change."
         },
         {
             "component": "mob-title",

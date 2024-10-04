@@ -70,7 +70,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If the repeater is created outside the dynamic content, in the general wrapper, it indicates that the component should not be removed during the route change."
+            "content": "If the repeater is created outside the dynamic content, in the global wrapper, it indicates that the component should not be removed during the route change."
         },
         {
             "component": "mob-title",
@@ -177,7 +177,7 @@
                 "style": "medium",
                 "items": [
                     "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
-                    "<strong>sync</strong>: sync props is necessary (obbligatorie) for tracking key and and the current value of the state observed.",
+                    "<strong>sync</strong>: <span class='quote'>sync function</span> is necessary <span class='quote'>obbligatorie</span> for tracking key and and the current value of the state observed.",
                     "<strong>currentValue</strong>: The current value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time.",
                     "<strong>index</strong>: The current index of the array indicated in the bind parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time."
                 ]
