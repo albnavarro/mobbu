@@ -18,6 +18,7 @@ export interface repeaterType {
     }): void;
     id: string;
     clean: boolean;
+    isCancellable?: boolean;
     key: string | undefined;
     state: string | undefined;
     setState: setType;

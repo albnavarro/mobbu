@@ -34,6 +34,7 @@ import { chunkIdsByRepeaterWrapper } from '../utils';
 export const watchRepeat = ({
     state = '',
     setState,
+    isCancellable,
     watch,
     clean = false,
     beforeUpdate,
@@ -174,6 +175,7 @@ export const watchRepeat = ({
              */
             const currentUnivoque = await updateRepeater({
                 state,
+                isCancellable,
                 repeaterParentElement,
                 targetComponent: targetComponentBeforeParse,
                 current,

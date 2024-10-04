@@ -9,6 +9,7 @@ import { listKeyExist } from '../utils';
 /**
  * @param {object} obj
  * @param {string} obj.state
+ * @param {boolean} obj.isCancellable
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {array} obj.current
@@ -25,6 +26,7 @@ import { listKeyExist } from '../utils';
  */
 export const updateRepeater = async ({
     state = '',
+    isCancellable,
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     current = [],
@@ -69,7 +71,11 @@ export const updateRepeater = async ({
      */
     mainStore.set(
         MAIN_STORE_ASYNC_PARSER,
-        { element: repeaterParentElement, parentId: fallBackParentId ?? id },
+        {
+            element: repeaterParentElement,
+            parentId: fallBackParentId ?? id,
+            isCancellable,
+        },
         false
     );
     await mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);

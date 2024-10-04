@@ -163,6 +163,12 @@ export type PartialRepeat<T> = <K extends keyof T>(arg0: {
 
     /**
      * @description
+     * Persistent element
+     */
+    persistent?: boolean;
+
+    /**
+     * @description
      * Array of object used to create list
      */
     bind: OnlyStringKey<T>;
@@ -303,6 +309,7 @@ export type PartialRenderComponent = (arg0: {
     component: string;
     position?: 'afterbegin' | 'beforeend';
     clean?: boolean;
+    persistent?: boolean;
 }) => Promise<any>;
 
 /**
@@ -310,6 +317,7 @@ export type PartialRenderComponent = (arg0: {
  */
 export type PartialInvalidateComponent<T> = (arg0: {
     bind?: Array<OnlyStringKey<T>> | OnlyStringKey<T>;
+    persistent?: boolean;
     beforeUpdate?(): Promise<void>;
     afterUpdate?(): void;
     render: (arg0: {

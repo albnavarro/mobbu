@@ -42,12 +42,16 @@ export const parseComponents = async ({
  * @returns {void}
  */
 export const initParseWatcher = () => {
-    mainStore.watch(MAIN_STORE_ASYNC_PARSER, async ({ element, parentId }) => {
-        await parseComponents({
-            element,
-            parentIdForced: parentId ?? '',
-        });
-    });
+    mainStore.watch(
+        MAIN_STORE_ASYNC_PARSER,
+        async ({ element, parentId, isCancellable = true }) => {
+            await parseComponents({
+                element,
+                parentIdForced: parentId ?? '',
+                isCancellable,
+            });
+        }
+    );
 };
 
 /**

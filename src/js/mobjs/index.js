@@ -10,7 +10,6 @@ export { renderHtml as html } from './parse/steps/utils';
 export { createComponent } from './component/createComponent';
 export { setDefaultComponent } from './component/createComponent';
 export { removeAndDestroyById } from './component/action/removeAndDestroy';
-export { removeOrphanComponent } from './component/action/removeAndDestroy';
 export { mainStore } from './mainStore/mainStore';
 export { loadUrl } from './route';
 export { inizializeApp } from './inizializeApp';

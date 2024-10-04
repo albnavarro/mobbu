@@ -55,5 +55,10 @@ export const mainStore = mobCore.createStore({
             type: String,
             skipEqual: false,
         }),
+        isCancellable: () => ({
+            value: true,
+            type: Boolean,
+            skipEqual: false,
+        }),
     },
 });

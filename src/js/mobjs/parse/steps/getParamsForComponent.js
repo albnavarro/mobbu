@@ -92,6 +92,7 @@ export const getParamsForComponentFunction = ({
             component,
             position = 'afterbegin',
             clean = true,
+            persistent = false,
         }) => {
             /**
              * Remove all children inside attachTo.
@@ -112,7 +113,7 @@ export const getParamsForComponentFunction = ({
              */
             mainStore.set(
                 MAIN_STORE_ASYNC_PARSER,
-                { element: attachTo, parentId: id },
+                { element: attachTo, parentId: id, isCancellable: !persistent },
                 false
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -176,6 +177,7 @@ export const getParamsForComponentFunction = ({
         invalidate: ({
             bind,
             render,
+            persistent = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
         }) => {
@@ -205,6 +207,7 @@ export const getParamsForComponentFunction = ({
                         watch,
                         beforeUpdate,
                         afterUpdate,
+                        isCancellable: !persistent,
                         id,
                         invalidateId,
                         renderFunction: invalidateRender,
@@ -219,6 +222,7 @@ export const getParamsForComponentFunction = ({
         repeat: ({
             bind,
             clean = false,
+            persistent = false,
             beforeUpdate = () => Promise.resolve(),
             afterUpdate = () => {},
             key,
@@ -280,6 +284,7 @@ export const getParamsForComponentFunction = ({
                      */
                     inizializeRepeatWatch({
                         repeatId,
+                        isCancellable: !persistent,
                         state: bind,
                         setState,
                         emit,

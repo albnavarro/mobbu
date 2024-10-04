@@ -253,6 +253,7 @@ export const inizializeNestedRepeat = ({ repeatParent }) => {
  */
 export const inizializeRepeatWatch = ({
     repeatId,
+    isCancellable,
     state,
     setState,
     emit,
@@ -270,6 +271,7 @@ export const inizializeRepeatWatch = ({
     const unsubscribe = watchRepeat({
         state,
         setState,
+        isCancellable,
         emit,
         watch,
         clean,

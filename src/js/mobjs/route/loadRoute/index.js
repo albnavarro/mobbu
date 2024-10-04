@@ -2,7 +2,7 @@
 
 import {
     removeCancellableComponent,
-    removeOrphanComponent,
+    removeOrphanTempIds,
 } from '../../component/action/removeAndDestroy';
 import { getRouteByName } from '../routeList';
 import {
@@ -89,7 +89,7 @@ export const loadRoute = async ({
      * Remove props reference.
      * Async loading and interrupt can leave rubbish.
      */
-    removeOrphanComponent();
+    removeOrphanTempIds();
 
     /**
      * Set new active route.

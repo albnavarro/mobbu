@@ -19,5 +19,6 @@ export interface MainStore {
     repeaterParserAsync: {
         element: HTMLElement;
         parentId: string;
+        isCancellable: boolean;
     };
 }
