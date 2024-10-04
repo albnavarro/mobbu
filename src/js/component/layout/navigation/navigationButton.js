@@ -41,7 +41,7 @@ export const NavigationButtonFn = ({
         /**
          * Is a link button.
          */
-        mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, (current) => {
+        mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, ({ route }) => {
             mobCore.useFrame(() => {
                 const urlParsed = url.split('?');
 
@@ -57,7 +57,7 @@ export const NavigationButtonFn = ({
                 const paramsMatch =
                     activeId === -1 || activeParams?.['activeId'] === activeId;
 
-                const isActiveRoute = current === hash && paramsMatch;
+                const isActiveRoute = route === hash && paramsMatch;
                 element.classList.toggle('current', isActiveRoute);
 
                 /**

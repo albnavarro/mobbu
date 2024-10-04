@@ -17164,8 +17164,8 @@
   // src/js/mobjs/mainStore/mainStore.js
   var mainStore = mobCore.createStore({
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-      value: "",
-      type: String,
+      value: { route: "", templateName: "" },
+      type: "any",
       skipEqual: false
     }),
     [MAIN_STORE_ACTIVE_PARAMS]: () => ({
@@ -17174,18 +17174,18 @@
       skipEqual: false
     }),
     [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-      value: "",
-      type: String,
+      value: { route: "", templateName: "" },
+      type: "any",
       skipEqual: false
     }),
     [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
+      value: { route: "", templateName: "" },
+      type: "any",
       skipEqual: false
     }),
     [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-      value: "",
-      type: String,
+      value: { route: "", templateName: "" },
+      type: "any",
       skipEqual: false
     }),
     [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
@@ -20194,8 +20194,11 @@
     const contentEl = document?.querySelector(contentId);
     if (!contentEl) return;
     const { activeRoute } = mainStore.get();
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, activeRoute);
-    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, route);
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_LEAVES, {
+      route: activeRoute.route,
+      templateName
+    });
+    mainStore.set(MAIN_STORE_BEFORE_ROUTE_CHANGE, { route, templateName });
     let skip = false;
     const unWatchRouteChange = mainStore.watch(
       MAIN_STORE_BEFORE_ROUTE_CHANGE,
@@ -20204,7 +20207,7 @@
       }
     );
     removeOrphanComponent();
-    mainStore.set(MAIN_STORE_ACTIVE_ROUTE, route);
+    mainStore.set(MAIN_STORE_ACTIVE_ROUTE, { route, templateName });
     mainStore.set(MAIN_STORE_ACTIVE_PARAMS, params);
     const routeObejct = getRouteByName({ routeName: route });
     const props = routeObejct?.props ?? {};
@@ -20215,7 +20218,7 @@
       await beforePageTransition3({
         // @ts-ignore
         oldNode: clone,
-        oldRoute: activeRoute,
+        oldRoute: activeRoute.route,
         newRoute: route
       });
       contentEl?.parentNode?.insertBefore(clone, contentEl);
@@ -20224,14 +20227,15 @@
     removeCancellableComponent();
     contentEl.insertAdjacentHTML("afterbegin", content2);
     await parseComponents({ element: contentEl });
-    if (!skip) mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, route);
+    if (!skip)
+      mainStore.set(MAIN_STORE_AFTER_ROUTE_CHANGE, { route, templateName });
     if (getRestoreScroll()) scrollTo(0, scrollY2);
     const pageTransition3 = getPageTransition();
     if (pageTransition3 && !comeFromHistory) {
       await pageTransition3({
         oldNode: clone,
         newNode: contentEl,
-        oldRoute: activeRoute,
+        oldRoute: activeRoute.route,
         newRoute: route
       });
       clone.remove();
@@ -24118,7 +24122,7 @@ Loading snippet ...</pre
         }
         closeInfo({ navInfo });
       });
-      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
+      mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, ({ route }) => {
         title.classList.toggle("visible", route !== "home");
         beta.classList.toggle("visible", route !== "home");
       });
@@ -24495,13 +24499,13 @@ Loading snippet ...</pre
           element.classList.toggle("active", isOpen);
         });
       });
-      mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, (current) => {
+      mainStore.watch(MAIN_STORE_ACTIVE_ROUTE, ({ route }) => {
         mobCore.useFrame(() => {
           const urlParsed = url.split("?");
           const hash = urlParsed?.[0] ?? "";
           const { activeParams } = mainStore.get();
           const paramsMatch = activeId === -1 || activeParams?.["activeId"] === activeId;
-          const isActiveRoute = current === hash && paramsMatch;
+          const isActiveRoute = route === hash && paramsMatch;
           element.classList.toggle("current", isActiveRoute);
           if (isActiveRoute && fireRoute) {
             callback2();
@@ -25318,7 +25322,7 @@ Loading snippet ...</pre
   var LinksMobJsButtonFn = ({ html, getState }) => {
     const { label, url } = getState();
     const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute === url ? "current" : "";
+    const currentClass = activeRoute.route === url ? "current" : "";
     return html`<a href="./#${url}" class="${currentClass}"
         ><span>${label}</span></a
     >`;
@@ -25667,7 +25671,7 @@ Loading snippet ...</pre
       setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.play();
         mobCore.useFrame(() => loop());
       }, 500);
@@ -26173,7 +26177,7 @@ Loading snippet ...</pre
       setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         gridTimeline?.play();
         mobCore.useFrame(() => loop());
       }, 500);
@@ -26510,7 +26514,7 @@ Loading snippet ...</pre
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
       }, 500);
     });
@@ -26842,7 +26846,7 @@ Loading snippet ...</pre
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         rectTimeline?.resume();
         mobCore.useFrame(() => loop());
       }, 500);
@@ -27140,7 +27144,7 @@ Loading snippet ...</pre
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         syncTimeline?.resume();
         mobCore.useFrame(() => loop());
       }, 500);
@@ -27616,7 +27620,7 @@ Loading snippet ...</pre
       setTimeout(async () => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(() => loop());
       }, 500);
     });
@@ -28061,7 +28065,7 @@ Loading snippet ...</pre
       setTimeout(() => {
         isActive = true;
         const { activeRoute: currentRoute } = mainStore.get();
-        if (currentRoute !== activeRoute) return;
+        if (currentRoute.route !== activeRoute.route) return;
         mobCore.useFrame(({ time: time2 }) => loop({ time: time2 }));
       }, 500);
     });

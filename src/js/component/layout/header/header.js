@@ -32,7 +32,7 @@ function titleHandler() {
     useMethodByName('navigation-container')?.scrollTop();
 }
 
-/** @type {import('../../../mobjs/type').MobComponent} */
+/** @type {MobComponent} */
 export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
     onMount(() => {
         const { navInfo, title, beta } = getRef();
@@ -46,7 +46,7 @@ export const HeaderFn = ({ html, onMount, delegateEvents, setRef, getRef }) => {
             closeInfo({ navInfo });
         });
 
-        mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, (route) => {
+        mainStore.watch(MAIN_STORE_BEFORE_ROUTE_CHANGE, ({ route }) => {
             title.classList.toggle('visible', route !== 'home');
             beta.classList.toggle('visible', route !== 'home');
         });

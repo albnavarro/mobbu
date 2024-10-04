@@ -8,13 +8,13 @@ export interface componentListMapType {
 }
 
 export interface MainStore {
-    activeRoute: string;
+    activeRoute: { route: string; templateName: string };
     activeParams: {
         [key: string]: any;
     };
-    beforeRouteLeave: string;
-    beforeRouteChange: string;
-    afterRouteChange: string;
+    beforeRouteLeave: { route: string; templateName: string };
+    beforeRouteChange: { route: string; templateName: string };
+    afterRouteChange: { route: string; templateName: string };
     routeIsLoading: boolean;
     repeaterParserAsync: {
         element: HTMLElement;

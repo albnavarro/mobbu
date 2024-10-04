@@ -13,7 +13,7 @@ import { mainStore } from '../../../mobjs';
 export const LinksMobJsButtonFn = ({ html, getState }) => {
     const { label, url } = getState();
     const { activeRoute } = mainStore.get();
-    const currentClass = activeRoute === url ? 'current' : '';
+    const currentClass = activeRoute.route === url ? 'current' : '';
 
     return html`<a href="./#${url}" class="${currentClass}"
         ><span>${label}</span></a

@@ -307,7 +307,7 @@ export const scrollerN0Animation = ({
              * If close nav but change route skip.
              */
             const { activeRoute: currentRoute } = mainStore.get();
-            if (currentRoute !== activeRoute) return;
+            if (currentRoute.route !== activeRoute.route) return;
 
             /**
              * Restart loop

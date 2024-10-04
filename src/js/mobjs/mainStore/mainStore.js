@@ -16,8 +16,8 @@ import {
  */
 export const mainStore = mobCore.createStore({
     [MAIN_STORE_ACTIVE_ROUTE]: () => ({
-        value: '',
-        type: String,
+        value: { route: '', templateName: '' },
+        type: 'any',
         skipEqual: false,
     }),
     [MAIN_STORE_ACTIVE_PARAMS]: () => ({
@@ -26,18 +26,18 @@ export const mainStore = mobCore.createStore({
         skipEqual: false,
     }),
     [MAIN_STORE_BEFORE_ROUTE_LEAVES]: () => ({
-        value: '',
-        type: String,
+        value: { route: '', templateName: '' },
+        type: 'any',
         skipEqual: false,
     }),
     [MAIN_STORE_BEFORE_ROUTE_CHANGE]: () => ({
-        value: '',
-        type: String,
+        value: { route: '', templateName: '' },
+        type: 'any',
         skipEqual: false,
     }),
     [MAIN_STORE_AFTER_ROUTE_CHANGE]: () => ({
-        value: '',
-        type: String,
+        value: { route: '', templateName: '' },
+        type: 'any',
         skipEqual: false,
     }),
     [MAIN_STORE_ROUTE_IS_LOADING]: () => ({
