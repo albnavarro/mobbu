@@ -20183,6 +20183,7 @@
   // src/js/mobjs/route/loadRoute/index.js
   var loadRoute = async ({
     route = "",
+    templateName = "",
     params = {},
     scrollY: scrollY2,
     comeFromHistory = false
@@ -20248,6 +20249,9 @@
     if (url === "") return index;
     return getRouteByName({ routeName: url }) ? url : pageNotFound3;
   };
+  var getTemplateName = ({ url = "" }) => {
+    return getRouteByName({ routeName: url })?.templateName ?? "";
+  };
 
   // src/js/mobjs/route/index.js
   var previousHash = "";
@@ -20307,6 +20311,7 @@
     }
     await loadRoute({
       route: getRouteModule({ url: hash }),
+      templateName: getTemplateName({ url: hash }),
       params,
       scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
       comeFromHistory: currentHistory ? true : false
@@ -28429,29 +28434,7 @@ Loading snippet ...</pre
   var buttons2 = [
     {
       buttonLabel: "sample1",
-      data: [
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1,
-        ...state1
-      ]
+      data: state1
     },
     {
       buttonLabel: "salmple2",
@@ -30839,6 +30822,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-overview",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/overview.json",
@@ -30849,6 +30833,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-defaults",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/defaults.json",
@@ -30859,6 +30844,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-events",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/events.json",
@@ -30869,6 +30855,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobCore-store",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobCore/store.json",
@@ -30879,6 +30866,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-overview",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/overview.json",
@@ -30889,6 +30877,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-initialization",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/initialization.json",
@@ -30899,6 +30888,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-component",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/component.json",
@@ -30909,6 +30899,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-web-component",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/webComponent.json",
@@ -30919,6 +30910,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-routing",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/routing.json",
@@ -30929,6 +30921,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-setStateByName",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/setStateByName.json",
@@ -30939,6 +30932,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-updateStateByName",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/updateStateByName.json",
@@ -30949,6 +30943,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-useMethodByName",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/useMethodByName.json",
@@ -30959,6 +30954,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-tick",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/tick.json",
@@ -30969,6 +30965,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-utils",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/utils.json",
@@ -30979,6 +30976,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-debug",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/debug.json",
@@ -30989,6 +30987,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-html",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/html.json",
@@ -30999,6 +30998,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-onMount",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/onMount.json",
@@ -31009,6 +31009,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getState",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getState.json",
@@ -31019,6 +31020,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-setState",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/setState.json",
@@ -31029,6 +31031,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-updateState",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/updateState.json",
@@ -31039,6 +31042,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watch",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watch.json",
@@ -31049,6 +31053,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watchSync",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchSync.json",
@@ -31059,6 +31064,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-staticProps",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/staticProps.json",
@@ -31069,6 +31075,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-bindProps",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindProps.json",
@@ -31079,6 +31086,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-bindEvents",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/bindEvents.json",
@@ -31089,6 +31097,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-delegateEvents",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/delegateEvents.json",
@@ -31099,6 +31108,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-methods",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/methods.json",
@@ -31109,6 +31119,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-refs",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/refs.json",
@@ -31119,6 +31130,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-repeat",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/repeat.json",
@@ -31129,6 +31141,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-invalidate",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/invalidate.json",
@@ -31139,6 +31152,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-invalidate-vs-repeater",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/invalidate-vs-repeater.json",
@@ -31149,6 +31163,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-unBind",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unBind.json",
@@ -31159,6 +31174,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-emit",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emit.json",
@@ -31169,6 +31185,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-emitAsync",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/emitAsync.json",
@@ -31179,6 +31196,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-computed",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/computed.json",
@@ -31189,6 +31207,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-renderComponent",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/renderDom.json",
@@ -31199,6 +31218,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-removeDom",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/removeDom.json",
@@ -31209,6 +31229,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-remove",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/remove.json",
@@ -31219,6 +31240,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getChildren",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getChildren.json",
@@ -31229,6 +31251,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-freezeProp",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/freezeProp.json",
@@ -31239,6 +31262,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-unFreezeProp",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/unFreezeProp.json",
@@ -31249,6 +31273,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-getParentId",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/getParentId.json",
@@ -31259,6 +31284,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-watchParent",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/watchParent.json",
@@ -31269,6 +31295,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-instanceName",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/instanceName.json",
@@ -31279,6 +31306,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-class-list",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/classList.json",
@@ -31289,6 +31317,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-slot",
+      templateName: "doc-links",
       layout: layoutSidebarLinks,
       props: {
         source: "./data/mobJs/slot.json",
@@ -31299,6 +31328,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobJs-runtime",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobJs/runtime.json",
@@ -31309,6 +31339,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-stagger",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/stagger.json",
@@ -31319,6 +31350,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-defaults",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/defaults.json",
@@ -31329,6 +31361,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-overview",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/overview.json",
@@ -31339,6 +31372,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-parallax",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/parallax.json",
@@ -31349,6 +31383,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-sequencer",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/sequencer.json",
@@ -31359,6 +31394,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-scrolltrigger",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/scrollTrigger.json",
@@ -31369,6 +31405,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-sync-timeline",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/syncTimeline.json",
@@ -31379,6 +31416,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-create-stagger",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/createStagger.json",
@@ -31389,6 +31427,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-async-timeline",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/asyncTimeline.json",
@@ -31399,6 +31438,7 @@ Loading snippet ...</pre
     },
     {
       name: "mobMotion-tween-spring-lerp",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/mobMotion/tweenSpringLerp.json",
@@ -31409,11 +31449,13 @@ Loading snippet ...</pre
     },
     {
       name: "horizontalScroller",
+      templateName: "generic",
       layout: horizontalScroller,
       props: {}
     },
     {
       name: "plugin-overview",
+      templateName: "doc-anchor",
       layout: layoutSidebarAnchor,
       props: {
         source: "./data/plugin/overview.json",

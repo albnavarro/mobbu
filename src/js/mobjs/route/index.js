@@ -12,7 +12,7 @@ import {
     setHistoryNext,
 } from './scroll';
 import { loadRoute } from './loadRoute';
-import { getRouteModule } from './utils';
+import { getRouteModule, getTemplateName } from './utils';
 
 let previousHash = '';
 let previousParamsToPush = '';
@@ -147,6 +147,7 @@ const hashHandler = async () => {
      */
     await loadRoute({
         route: getRouteModule({ url: hash }),
+        templateName: getTemplateName({ url: hash }),
         params,
         scrollY: currentHistory ? getLastHistory(historyDirection)?.scrollY : 0,
         comeFromHistory: currentHistory ? true : false,

@@ -796,6 +796,7 @@ export type PageTransition = (arg0: {
 
 export interface Route {
     name: string;
+    templateName: string;
     layout:
         | ((arg0: { params: any; props: any }) => Promise<string>)
         | ((arg0: { params: any; props: any }) => string);

@@ -20,5 +20,4 @@ export interface MainStore {
         element: HTMLElement;
         parentId: string;
     };
-    pippo: number;
 }

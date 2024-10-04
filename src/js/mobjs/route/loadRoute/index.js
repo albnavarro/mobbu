@@ -23,6 +23,7 @@ import { tick } from '../../queque/tick';
 /**
  * @param {object} param
  * @param {string} param.route
+ * @param {string} param.templateName
  * @param {{[key:string]: any}} param.params
  * @param {boolean} param.comeFromHistory
  * @param {number} param.scrollY
@@ -32,6 +33,7 @@ import { tick } from '../../queque/tick';
  */
 export const loadRoute = async ({
     route = '',
+    templateName = '',
     params = {},
     scrollY,
     comeFromHistory = false,

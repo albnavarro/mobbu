@@ -18,3 +18,15 @@ export const getRouteModule = ({ url = '' }) => {
 
     return getRouteByName({ routeName: url }) ? url : pageNotFound;
 };
+
+/**
+ * @param {object} obj
+ * @param {string} obj.url
+ * @returns {string}
+ *
+ * @description
+ * Validate url, in not exist return pageNotFound.
+ */
+export const getTemplateName = ({ url = '' }) => {
+    return getRouteByName({ routeName: url })?.templateName ?? '';
+};
