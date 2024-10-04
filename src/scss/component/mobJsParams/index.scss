@@ -1,9 +1,17 @@
 @use '../../abstract' as *;
 
 .c-params-mobjs {
+    --links-height: 55vh;
+
+    height: var(--links-height);
+    overflow: hidden;
+    position: relative;
+    margin-top: rem(40);
+
     ul {
         list-style: none;
         margin-left: 0;
+        padding-bottom: rem(100);
 
         @media screen and (height <= 825px) {
             margin-top: calc(#{rem(10)} * -1);
@@ -46,6 +54,61 @@
 
         &::after {
             opacity: 1;
+        }
+    }
+
+    &__scrollbar {
+        position: absolute;
+        top: 0;
+        width: var(--links-height);
+        left: rem(200);
+        transform: rotate(90deg);
+        transform-origin: left;
+        z-index: 11;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+
+        --thumb-width: #{rem(200)};
+
+        &:focus {
+            outline: none;
+        }
+
+        &::-webkit-slider-runnable-track {
+            background-color: rgba($grey, 0.6);
+            border-radius: 0;
+            height: rem(10);
+            width: rem(10);
+        }
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            background-color: $black;
+            height: rem(10);
+            width: rem(20);
+        }
+
+        &:focus::-webkit-slider-thumb {
+            outline-offset: 0;
+        }
+
+        &::-moz-range-track {
+            background-color: rgba($white, 0.05);
+            border-radius: 0;
+            height: rem(10);
+        }
+
+        &::-moz-range-thumb {
+            border: none; /* Removes extra border that FF applies */
+            border-radius: 0; /* Removes default border-radius that FF applies */
+            background-color: $black;
+            height: rem(10);
+            width: var(--thumb-width);
+        }
+
+        &:focus::-moz-range-thumb {
+            outline-offset: 0;
         }
     }
 }

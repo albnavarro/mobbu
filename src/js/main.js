@@ -21,7 +21,7 @@ mobCore.useLoad(() => {
 
     motionCore.setDefault({
         deferredNextTick: true,
-        usePassive: true,
+        usePassive: false,
         mq: {
             desktop: 1024,
         },
@@ -68,7 +68,7 @@ mobCore.useLoad(() => {
         setDefaultComponent({
             scoped: false,
             maxParseIteration: 10_000,
-            debug: false,
+            debug: true,
         });
 
         inizializeApp({
