@@ -575,7 +575,9 @@ export default class SmoothScroller {
      * @private
      */
     removeScrolerStyle() {
-        this.scroller?.style['user-select'] = '';
+        if (!this.scroller) return;
+
+        this.scroller.style['user-select'] = '';
 
         const activeElement = this.scroller.querySelectorAll('a, button');
         [...activeElement].forEach((item) => {

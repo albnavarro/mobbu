@@ -21872,6 +21872,7 @@ Loading snippet ...</pre
      * @private
      */
     removeScrolerStyle() {
+      if (!this.scroller) return;
       this.scroller.style["user-select"] = "";
       const activeElement = this.scroller.querySelectorAll("a, button");
       [...activeElement].forEach((item) => {
@@ -22131,12 +22132,12 @@ Loading snippet ...</pre
       this.onAfterRefresh = [];
       this.afterInit = [];
       if (this.scopedEvent) {
-        this.scroller.removeEventListener("wheel", this.scopedWhell);
-        this.scroller.removeEventListener(
+        this.scroller?.removeEventListener("wheel", this.scopedWhell);
+        this.scroller?.removeEventListener(
           "mousemove",
           this.scopedTouchMove
         );
-        this.scroller.removeEventListener(
+        this.scroller?.removeEventListener(
           "touchmove",
           this.scopedTouchMove
         );
