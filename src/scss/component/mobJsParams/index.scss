@@ -76,17 +76,17 @@
         }
 
         &::-webkit-slider-runnable-track {
-            background-color: rgba($grey, 0.6);
+            background-color: rgba($grey, 0.3);
             border-radius: 0;
             height: rem(10);
-            width: rem(10);
+            width: var(--thumb-width);
         }
 
         &::-webkit-slider-thumb {
             appearance: none;
-            background-color: $black;
+            background-color: $white;
             height: rem(10);
-            width: rem(20);
+            width: var(--thumb-width);
         }
 
         &:focus::-webkit-slider-thumb {
@@ -94,7 +94,7 @@
         }
 
         &::-moz-range-track {
-            background-color: rgba($white, 0.05);
+            background-color: rgba($grey, 0.3);
             border-radius: 0;
             height: rem(10);
         }
@@ -102,7 +102,7 @@
         &::-moz-range-thumb {
             border: none; /* Removes extra border that FF applies */
             border-radius: 0; /* Removes default border-radius that FF applies */
-            background-color: $black;
+            background-color: $white;
             height: rem(10);
             width: var(--thumb-width);
         }

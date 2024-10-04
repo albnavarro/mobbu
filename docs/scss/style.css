@@ -2641,29 +2641,29 @@ code {
   outline: none;
 }
 .c-params-mobjs__scrollbar::-webkit-slider-runnable-track {
-  background-color: rgba(238, 238, 238, 0.6);
+  background-color: rgba(238, 238, 238, 0.3);
   border-radius: 0;
   height: 0.6666666667rem;
-  width: 0.6666666667rem;
+  width: var(--thumb-width);
 }
 .c-params-mobjs__scrollbar::-webkit-slider-thumb {
   appearance: none;
-  background-color: #000;
+  background-color: #fff;
   height: 0.6666666667rem;
-  width: 1.3333333333rem;
+  width: var(--thumb-width);
 }
 .c-params-mobjs__scrollbar:focus::-webkit-slider-thumb {
   outline-offset: 0;
 }
 .c-params-mobjs__scrollbar::-moz-range-track {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(238, 238, 238, 0.3);
   border-radius: 0;
   height: 0.6666666667rem;
 }
 .c-params-mobjs__scrollbar::-moz-range-thumb {
   border: none;
   border-radius: 0;
-  background-color: #000;
+  background-color: #fff;
   height: 0.6666666667rem;
   width: var(--thumb-width);
 }
