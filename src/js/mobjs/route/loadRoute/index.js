@@ -129,6 +129,8 @@ export const loadRoute = async ({
             oldNode: clone,
             oldRoute: activeRoute.route,
             newRoute: route,
+            oldTemplateName: activeRoute.templateName,
+            newTemplateName: templateName,
         });
         contentEl?.parentNode?.insertBefore(clone, contentEl);
     }
@@ -167,6 +169,8 @@ export const loadRoute = async ({
             newNode: contentEl,
             oldRoute: activeRoute.route,
             newRoute: route,
+            oldTemplateName: activeRoute.templateName,
+            newTemplateName: templateName,
         });
         // @ts-ignore
         clone.remove();

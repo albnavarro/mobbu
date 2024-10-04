@@ -785,6 +785,8 @@ export type BeforePageTransition = (arg0: {
     oldNode: HTMLElement;
     oldRoute: string;
     newRoute: string;
+    oldTemplateName: string;
+    newTemplateName: string;
 }) => Promise<any>;
 
 export type PageTransition = (arg0: {
@@ -792,6 +794,8 @@ export type PageTransition = (arg0: {
     newNode: HTMLElement | Node;
     oldRoute: string;
     newRoute: string;
+    oldTemplateName: string;
+    newTemplateName: string;
 }) => Promise<any>;
 
 export interface Route {

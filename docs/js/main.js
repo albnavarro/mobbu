@@ -20219,7 +20219,9 @@
         // @ts-ignore
         oldNode: clone,
         oldRoute: activeRoute.route,
-        newRoute: route
+        newRoute: route,
+        oldTemplateName: activeRoute.templateName,
+        newTemplateName: templateName
       });
       contentEl?.parentNode?.insertBefore(clone, contentEl);
     }
@@ -20236,7 +20238,9 @@
         oldNode: clone,
         newNode: contentEl,
         oldRoute: activeRoute.route,
-        newRoute: route
+        newRoute: route,
+        oldTemplateName: activeRoute.templateName,
+        newTemplateName: templateName
       });
       clone.remove();
     }
