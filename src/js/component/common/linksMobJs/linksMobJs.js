@@ -53,14 +53,10 @@ export const LinksMobJsFn = ({
     onMount(() => {
         const { screenEl, scrollerEl, scrollbar } = getRef();
 
-        const { init, destroy, move } = linksSidebarScroller({
-            screen: screenEl,
-            scroller: scrollerEl,
-            scrollbar,
-        });
-
-        init();
-        move(0);
+        let init;
+        let destroy;
+        let move;
+        let isActive = false;
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore
@@ -73,10 +69,27 @@ export const LinksMobJsFn = ({
 
             if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
                 screenEl.classList.add('active');
+                if (isActive) return;
+
+                const methods = linksSidebarScroller({
+                    screen: screenEl,
+                    scroller: scrollerEl,
+                    scrollbar,
+                });
+
+                init = methods.init;
+                destroy = methods.destroy;
+                move = methods.move;
+                isActive = true;
+
+                init();
+                move(0);
             }
 
             if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
                 screenEl.classList.remove('active');
+                destroy?.();
+                isActive = false;
             }
         });
 

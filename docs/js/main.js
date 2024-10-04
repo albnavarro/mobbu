@@ -21686,6 +21686,7 @@ Loading snippet ...</pre
       this.unsubscribeOnComplete = NOOP;
       this.scrollbarIsRunning = false;
       this.direction = directionIsValid(data2?.direction, "SmoothScroller");
+      this.isDestroyed = false;
       this.easeType = genericEaseTypeIsValid(
         data2?.easeType,
         "SmoothScroller"
@@ -21848,6 +21849,7 @@ Loading snippet ...</pre
       }
       mobCore.useFrameIndex(() => {
         mobCore.useNextTick(() => {
+          if (this.isDestroyed) return;
           this.afterInit?.();
           this.children.forEach((element) => {
             element.refresh();
@@ -21888,7 +21890,7 @@ Loading snippet ...</pre
           element.triggerScrollStart();
         });
         mobCore.useNextTick(() => {
-          if (this.onTickCallback)
+          if (this.onTickCallback && !this.isDestroyed)
             this.onTickCallback({
               value: -val2,
               percent: this.percent,
@@ -22100,6 +22102,7 @@ Loading snippet ...</pre
      * myInstance.destroy()
      */
     destroy() {
+      this.isDestroyed = true;
       this.removeScrolerStyle();
       this.subscribeResize();
       this.subscribeScrollStart();
@@ -31297,13 +31300,10 @@ Loading snippet ...</pre
   }) => {
     onMount(() => {
       const { screenEl, scrollerEl, scrollbar } = getRef();
-      const { init: init7, destroy, move } = linksSidebarScroller({
-        screen: screenEl,
-        scroller: scrollerEl,
-        scrollbar
-      });
-      init7();
-      move(0);
+      let init7;
+      let destroy;
+      let move;
+      let isActive = false;
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
@@ -31312,9 +31312,23 @@ Loading snippet ...</pre
         setState("activeSection", route);
         if (templateName === PAGE_TEMPLATE_DOCS_MOBJS) {
           screenEl.classList.add("active");
+          if (isActive) return;
+          const methods = linksSidebarScroller({
+            screen: screenEl,
+            scroller: scrollerEl,
+            scrollbar
+          });
+          init7 = methods.init;
+          destroy = methods.destroy;
+          move = methods.move;
+          isActive = true;
+          init7();
+          move(0);
         }
         if (templateName !== PAGE_TEMPLATE_DOCS_MOBJS) {
           screenEl.classList.remove("active");
+          destroy?.();
+          isActive = false;
         }
       });
       return () => {

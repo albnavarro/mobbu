@@ -298,6 +298,11 @@ export default class SmoothScroller {
         /**
          * @private
          */
+        this.isDestroyed = false;
+
+        /**
+         * @private
+         */
         this.easeType = genericEaseTypeIsValid(
             data?.easeType,
             'SmoothScroller'
@@ -543,6 +548,8 @@ export default class SmoothScroller {
 
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
+                if (this.isDestroyed) return;
+
                 this.afterInit?.();
                 this.children.forEach((element) => {
                     element.refresh();
@@ -598,7 +605,7 @@ export default class SmoothScroller {
             });
 
             mobCore.useNextTick(() => {
-                if (this.onTickCallback)
+                if (this.onTickCallback && !this.isDestroyed)
                     this.onTickCallback({
                         value: -val,
                         percent: this.percent,
@@ -868,6 +875,7 @@ export default class SmoothScroller {
      * myInstance.destroy()
      */
     destroy() {
+        this.isDestroyed = true;
         this.removeScrolerStyle();
         this.subscribeResize();
         this.subscribeScrollStart();
