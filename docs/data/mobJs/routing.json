@@ -342,7 +342,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched before the change of route, as parameter we would have the name of the next route."
+            "content": "Event launched before the change of route, as parameter we would have the name of the next route and templateName."
         },
         {
             "component": "mob-snippet",
@@ -374,7 +374,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched before the change of route, as parameter we would have the name of the previous route."
+            "content": "Event launched before the change of route, as parameter we would have the name of the previous route and templateName."
         },
         {
             "component": "mob-snippet",
@@ -406,7 +406,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "Event launched after the change of route, as parameter we would have the name of the current route."
+            "content": "Event launched after the change of route, as parameter we would have the name of the current route and templateName."
         },
         {
             "component": "mob-snippet",
@@ -438,7 +438,7 @@
             "props": {
                 "style": "medium"
             },
-            "content": "The value of the current route will be returned."
+            "content": "The value of the current route and templateName will be returned."
         },
         {
             "component": "mob-snippet",

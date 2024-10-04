@@ -20,16 +20,19 @@ import { home } from './home';
 export const routes = [
     {
         name: 'pageNotFound',
+        templateName: 'myTemplate',
         layout: pageNotFound,
         props: {},
     },
     {
         name: 'home',
+        templateName: 'myTemplate',
         layout: home,
         props: {},
     },
     {
         name: 'myRoute',
+        templateName: 'myTemplate',
         layout: my_route,
         props: {
             myProp: 'hello',
