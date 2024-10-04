@@ -58,8 +58,6 @@ import {
  * @prop {function():void} [ afterRefresh = null ]
    Function that is launched after refresh
  * @prop {function():void} [ afterInit = null ]
-   Function that is launched after initialization
- * @prop {function():void} [ afterDestroy = null ]
    Function that is launched after destroy
  * @prop {Array.<ParallaxClass>} children
    An array of instances of the ParallaxClass class used within the scroller.
@@ -129,9 +127,6 @@ export default class SmoothScroller {
                ...
            },
            afterRefresh: () => {
-               ...
-           },
-           afterDestroy: () => {
                ...
            },
        });
@@ -919,8 +914,6 @@ export default class SmoothScroller {
 
         mobCore.useFrameIndex(() => {
             mobCore.useNextTick(() => {
-                this.afterDestroy?.();
-                this.afterDestroy = [];
                 this.scroller = null;
                 this.screen = null;
             });
