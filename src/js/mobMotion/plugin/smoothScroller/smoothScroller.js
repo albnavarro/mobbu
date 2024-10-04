@@ -575,7 +575,7 @@ export default class SmoothScroller {
      * @private
      */
     removeScrolerStyle() {
-        this.scroller.style['user-select'] = '';
+        this.scroller?.style['user-select'] = '';
 
         const activeElement = this.scroller.querySelectorAll('a, button');
         [...activeElement].forEach((item) => {
@@ -904,12 +904,12 @@ export default class SmoothScroller {
         this.afterInit = [];
 
         if (this.scopedEvent) {
-            this.scroller.removeEventListener('wheel', this.scopedWhell);
-            this.scroller.removeEventListener(
+            this.scroller?.removeEventListener('wheel', this.scopedWhell);
+            this.scroller?.removeEventListener(
                 'mousemove',
                 this.scopedTouchMove
             );
-            this.scroller.removeEventListener(
+            this.scroller?.removeEventListener(
                 'touchmove',
                 this.scopedTouchMove
             );
