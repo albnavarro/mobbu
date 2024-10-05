@@ -388,7 +388,7 @@ export const easeTweenIsValidGetFunction = (ease) => {
 /**
  *
  * @param {string|undefined} ease
- * @returns {string}
+ * @returns {import('../../tween/type').easeTypes}
  *
  * @description
  * Check if ease definition is valid
@@ -763,8 +763,8 @@ export const domNodeIsValidAndReturnElOrWin = (
 
     // @ts-ignore
     return returnWindow
-        ? realEl ?? window
-        : realEl ?? document.createElement('div');
+        ? (realEl ?? window)
+        : (realEl ?? document.createElement('div'));
 };
 
 /**
@@ -1166,7 +1166,7 @@ export const parallaxPropiertiesIsValid = (
 
     return {
         propierties: isValid
-            ? valueFromConstant ?? parallaxConstant.PROP_VERTICAL
+            ? (valueFromConstant ?? parallaxConstant.PROP_VERTICAL)
             : parallaxConstant.PROP_VERTICAL,
         shouldTrackOnlyEvents,
     };
