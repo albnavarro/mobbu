@@ -10,7 +10,7 @@
     left: calc(var(--doc-width) + #{rem(40)});
     z-index: 100;
     margin-top: rem(40);
-    width: rem(220);
+    width: rem(250);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -81,11 +81,17 @@
         }
     }
 
+    &__label {
+        font-size: rem(14);
+        line-height: 1.2;
+        margin-top: rem(20);
+    }
+
     &__scrollbar {
         position: absolute;
         top: 0;
         width: var(--links-height);
-        left: rem(200);
+        left: rem(240);
         transform: rotate(90deg);
         transform-origin: left;
         z-index: 11;

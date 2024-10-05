@@ -26,24 +26,26 @@ const getItems = ({ staticProps, getState, bindProps }) => {
 
     return data
         .map((item) => {
-            const { label, url } = item;
+            const { label, url, isLabel } = item;
 
-            return html`<li>
-                <links-mobjs-button
-                    ${staticProps({
-                        label,
-                        url,
-                    })}
-                    ${bindProps({
-                        bind: ['activeSection'],
-                        props: ({ activeSection }) => {
-                            return {
-                                active: activeSection === url,
-                            };
-                        },
-                    })}
-                ></links-mobjs-button>
-            </li>`;
+            return isLabel
+                ? html`<h3 class="c-params-mobjs__label">${label}</h3>`
+                : html`<li>
+                      <links-mobjs-button
+                          ${staticProps({
+                              label,
+                              url,
+                          })}
+                          ${bindProps({
+                              bind: ['activeSection'],
+                              props: ({ activeSection }) => {
+                                  return {
+                                      active: activeSection === url,
+                                  };
+                              },
+                          })}
+                      ></links-mobjs-button>
+                  </li>`;
         })
         .join('');
 };

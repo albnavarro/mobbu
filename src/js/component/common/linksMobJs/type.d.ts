@@ -5,6 +5,6 @@ export interface LinksMobJsButton {
 }
 
 export interface LinksMobJs {
-    data: { label: string; url: string }[];
+    data: { label: string; url: string; isLabel: boolean }[];
     activeSection: string;
 }
