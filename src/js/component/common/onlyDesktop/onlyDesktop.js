@@ -5,7 +5,7 @@
  **/
 
 import { mobCore } from '../../../mobCore';
-import { html, tick } from '../../../mobjs';
+import { html } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 
 /**

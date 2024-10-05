@@ -19,6 +19,11 @@ import { routes } from './pages';
 mobCore.useLoad(() => {
     setBrowserClass();
 
+    motionCore.setDefault({
+        deferredNextTick: true,
+        usePassive: false,
+    });
+
     motionCore.printDefault();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
