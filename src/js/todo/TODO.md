@@ -54,6 +54,10 @@ beforeNavigate(({props}) => {
 
 # Mob motion
 
+### Plugin
+- Sostiuire i typedef con delle interfaccie.
+- Abilitare TS check.
+
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.
 - Possibilita di loppare tra label-start e label-end.
