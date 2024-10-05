@@ -8,8 +8,7 @@
  * @import { DynamicCounter } from '../counter/type';
  **/
 
-import { mobCore } from '../../../../mobCore';
-import { html } from '../../../../mobjs';
+import { html, tick } from '../../../../mobjs';
 import { innerData } from '../data';
 
 /**
@@ -59,6 +58,16 @@ const getInvalidateRender = ({ staticProps, delegateEvents, getState }) => {
     `;
 };
 
+/**
+ * @param {object} params
+ * @param {HTMLElement} params.element
+ * @returns {Promise<void>}
+ */
+const showCard = async ({ element }) => {
+    await tick();
+    element.classList.add('active');
+};
+
 /** @type {MobComponent<DynamicListCard>} */
 export const DynamicListCardFn = ({
     getState,
@@ -97,9 +106,7 @@ export const DynamicListCardFn = ({
             counterEl.textContent = updateContent('counter', val);
         });
 
-        mobCore.useFrame(() => {
-            element.classList.add('active');
-        });
+        showCard({ element });
 
         return () => {};
     });

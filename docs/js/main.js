@@ -28386,6 +28386,10 @@ Loading snippet ...</pre
     }).join("")}
     `;
   };
+  var showCard = async ({ element }) => {
+    await tick();
+    element.classList.add("active");
+  };
   var DynamicListCardFn = ({
     getState,
     html,
@@ -28418,9 +28422,7 @@ Loading snippet ...</pre
       watch("counter", (val2) => {
         counterEl.textContent = updateContent("counter", val2);
       });
-      mobCore.useFrame(() => {
-        element.classList.add("active");
-      });
+      showCard({ element });
       return () => {
       };
     });
