@@ -1,7 +1,6 @@
 //@ts-check
 
 import { createComponent } from '../../../mobjs';
-import { OnlyDesktop } from '../../common/onlyDesktop/definition';
 import { DynamicListButton } from './button/definition';
 import { DynamicListCardInner } from './card/innerCard/definition';
 import { startData } from './data';
@@ -27,10 +26,5 @@ export const DynamicList = createComponent({
             type: Number,
         }),
     },
-    child: [
-        DynamicListButton,
-        DynamicListRepeater,
-        OnlyDesktop,
-        DynamicListCardInner,
-    ],
+    child: [DynamicListButton, DynamicListRepeater, DynamicListCardInner],
 });

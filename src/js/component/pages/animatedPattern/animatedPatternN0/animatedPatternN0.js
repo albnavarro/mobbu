@@ -106,7 +106,6 @@ export const AnimatedPatternN0Fn = ({
 
     return html`
         <div>
-            <only-desktop></only-desktop>
             <div class="c-canvas">
                 <div class="c-canvas__wrap" ${setRef('wrap')}>
                     <canvas ${setRef('canvas')}></canvas>

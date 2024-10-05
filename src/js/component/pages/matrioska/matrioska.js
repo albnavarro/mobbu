@@ -298,7 +298,6 @@ export const MatrioskaFn = ({
     });
 
     return html`<div class="matrioska">
-        <only-desktop></only-desktop>
         <div class="matrioska__head">
             ${getButtons({ delegateEvents, updateState, setRef })}
         </div>

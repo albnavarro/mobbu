@@ -2,7 +2,6 @@
 
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { AnimatedPatternN1Fn } from './animatedPatternN1';
 
 export const AnimatedPatternN1 = createComponent({
@@ -32,5 +31,4 @@ export const AnimatedPatternN1 = createComponent({
             type: Boolean,
         }),
     },
-    child: [OnlyDesktop],
 });

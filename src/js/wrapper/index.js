@@ -13,6 +13,7 @@ import { NavigationContainer } from '../component/layout/navigation/definition';
 import { html, staticProps, useComponent } from '../mobjs';
 import { loadTextContent } from '../utils/utils';
 import { LinksMobJs } from '../component/common/linksMobJs/definition';
+import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
 
 useComponent([
     CodeOverlay,
@@ -28,6 +29,7 @@ useComponent([
     CebugButton,
     ScrollToTop,
     LinksMobJs,
+    OnlyDesktop,
 ]);
 
 export const wrapper = async () => {
@@ -45,6 +47,7 @@ export const wrapper = async () => {
         <!--     <div class="test-grid__cont"><span>test</span></div> -->
         <!-- </div> -->
 
+        <only-desktop></only-desktop>
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container

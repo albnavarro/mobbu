@@ -107,7 +107,6 @@ export const CaterpillarN0Fn = ({
 
     return html`
         <div>
-            <only-desktop></only-desktop>
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped c-canvas__wrap--border"

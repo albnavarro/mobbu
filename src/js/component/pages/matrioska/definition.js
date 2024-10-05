@@ -2,7 +2,6 @@
 
 import { mobCore } from '../../../mobCore';
 import { createComponent } from '../../../mobjs';
-import { OnlyDesktop } from '../../common/onlyDesktop/definition';
 import { DynamicListButton } from '../dynamicList/button/definition';
 import { MatrioskaFn } from './matrioska';
 import { MatrioskaItem } from './matrioskaItem/definition';
@@ -56,5 +55,5 @@ export const Matrioska = createComponent({
             type: Number,
         }),
     },
-    child: [DynamicListButton, OnlyDesktop, MatrioskaItem],
+    child: [DynamicListButton, MatrioskaItem],
 });

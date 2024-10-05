@@ -2,7 +2,6 @@
 
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { CaterpillarN1Fn } from './caterpillarN1';
 
 export const CaterpillarN1 = createComponent({
@@ -35,5 +34,4 @@ export const CaterpillarN1 = createComponent({
             type: Boolean,
         }),
     },
-    child: [OnlyDesktop],
 });

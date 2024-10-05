@@ -2,7 +2,6 @@
 
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { CaterpillarN2Fn } from './caterpillarN2';
 
 const duration = 10;
@@ -88,5 +87,4 @@ export const CaterpillarN2 = createComponent({
             type: 'Any',
         }),
     },
-    child: [OnlyDesktop],
 });

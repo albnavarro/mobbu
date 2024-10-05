@@ -2,7 +2,6 @@
 
 import { createComponent } from '../../../../mobjs';
 import { detectFirefox, detectSafari } from '../../../../utils/utils';
-import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { ScrollerN0Fn } from './scrollerN0';
 
 export const ScrollerN0 = createComponent({
@@ -78,5 +77,4 @@ export const ScrollerN0 = createComponent({
             type: Boolean,
         }),
     },
-    child: [OnlyDesktop],
 });

@@ -1,41 +1,57 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../mobjs/type';
+ * @import { GetState, MobComponent, SetState } from '../../../mobjs/type';
  **/
 
 import { mobCore } from '../../../mobCore';
-import { html } from '../../../mobjs';
+import { html, tick } from '../../../mobjs';
 import { motionCore } from '../../../mobMotion';
 
-const content = html`
-    <div class="only-desktop">
-        <h3>This content is available only on desktop</h3>
-        <h4>Need page reload on a screen size up to 1024px</h4>
-    </div>
-`;
+/**
+ * @param {object} params
+ * @param {GetState<import('./type').OnlyDesktop>} params.getState
+ */
+const getContent = ({ getState }) => {
+    const { active } = getState();
 
-const onResize = ({ element }) => {
-    element.textContent = '';
-    if (motionCore.mq('min', 'desktop')) return;
-
-    element.textContent = '';
-    element.insertAdjacentHTML('afterbegin', content);
+    return active
+        ? ``
+        : html`
+              <div class="only-desktop">
+                  <h3>This site is available only on desktop</h3>
+              </div>
+          `;
 };
 
-/** @type {MobComponent} */
-export const OnlyDesktopFn = ({ html, onMount, setRef }) => {
-    onMount(({ element }) => {
-        onResize({ element });
-
+/** @type {MobComponent<import('./type').OnlyDesktop>} */
+export const OnlyDesktopFn = ({
+    html,
+    onMount,
+    setState,
+    getState,
+    invalidate,
+}) => {
+    onMount(() => {
         mobCore.useResize(() => {
-            onResize({ element });
+            setState(
+                'active',
+                /** @type {boolean} */ (motionCore.mq('min', 'desktop'))
+            );
         });
 
         return () => {};
     });
 
     return html`
-        <div class="only-desktop-container" ${setRef('container')}></div>
+        <div class="only-desktop-container">
+            ${invalidate({
+                bind: 'active',
+                persistent: true,
+                render: () => {
+                    return getContent({ getState });
+                },
+            })}
+        </div>
     `;
 };

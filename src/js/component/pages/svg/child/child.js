@@ -110,7 +110,6 @@ export const SvgChildFn = ({ onMount, html, getState, getRef, setRef }) => {
      * Desktop
      */
     return html`<div class="svg-child-container">
-        <only-desktop></only-desktop>
         <div class="svg-child">${svg}</div>
         ${getTrail({ star, setRef })}
     </div>`;

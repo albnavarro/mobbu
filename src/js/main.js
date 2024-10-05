@@ -19,25 +19,6 @@ import { routes } from './pages';
 mobCore.useLoad(() => {
     setBrowserClass();
 
-    motionCore.setDefault({
-        deferredNextTick: true,
-        usePassive: false,
-        mq: {
-            desktop: 1024,
-        },
-        spring: {
-            config: {
-                customSpring: {
-                    friction: 1,
-                    mass: 1,
-                    precision: 0.01,
-                    tension: 180,
-                    velocity: 0,
-                },
-            },
-        },
-    });
-
     motionCore.printDefault();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping

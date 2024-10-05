@@ -1,7 +1,6 @@
 //@ts-check
 
 import { createComponent } from '../../../../mobjs';
-import { OnlyDesktop } from '../../../common/onlyDesktop/definition';
 import { SvgChildFn } from './child';
 
 export const svgChild = createComponent({
@@ -18,5 +17,4 @@ export const svgChild = createComponent({
             type: String,
         }),
     },
-    child: [OnlyDesktop],
 });

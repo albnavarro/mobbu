@@ -115,17 +115,10 @@ export const ScrollerN1Fn = ({ onMount, html, getState, setRef, getRef }) => {
     });
 
     /**
-     * Skip mobile.
-     */
-    if (motionCore.mq('max', 'desktop'))
-        return html`<div><only-desktop></only-desktop></div>`;
-
-    /**
      * Desktop
      */
     return html`
         <div>
-            <only-desktop></only-desktop>
             <div class="c-canvas c-canvas--fixed ">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"

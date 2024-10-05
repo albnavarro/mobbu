@@ -108,7 +108,6 @@ export const AnimatedPatternN1Fn = ({
 
     return html`
         <div>
-            <only-desktop></only-desktop>
             <div class="c-canvas">
                 <div
                     class="c-canvas__wrap c-canvas__wrap--wrapped"
