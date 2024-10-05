@@ -4,6 +4,17 @@
 - Allineare le docs con i nuovi tipi generici di `mobStore`, `mobJsComponent`
 - `mobJsComponent`: aggiungere esempi per il generic <R> oggetto del componente destinatario.
 
+# APP
+### Debug component:
+- tree structure espandibile
+    - Basata su un unico invalidate.
+    - Componente base recursivo.
+    - Filtri per instance name & component name.
+- Dettaglio componente.
+    - Cliccabile dalla vista ad albero.
+    - Ricerca per id
+- Dimensione (size) delle mappe di supporto.
+
 # MobJs
 
 ## Slot
