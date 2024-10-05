@@ -124,7 +124,7 @@ export const bodyScroll = (() => {
             /**
              * Get current scroll value.
              */
-            const scrollNow = window.pageYOffset;
+            const scrollNow = window.scrollY;
 
             return new Promise((resolve, reject) => {
                 isRunning = true;
