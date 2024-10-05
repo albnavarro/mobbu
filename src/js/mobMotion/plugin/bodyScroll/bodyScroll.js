@@ -29,33 +29,31 @@ export const bodyScroll = (() => {
     /**
      * Restore settings
      */
-    function onComplete() {
+    const onComplete = () => {
         if (overflow) document.body.style.overflow = '';
         if (ease) tween.updateEase(defaultPreset);
-    }
+    };
+
+    const stopTween = () => {
+        if (!isRunning) return;
+
+        tween.stop();
+        onComplete();
+    };
 
     /**
      * Stop scrolling on mouseWheel, MouseDown, TouchStart.
      */
     mobCore.useMouseWheel(() => {
-        if (!isRunning) return;
-
-        tween.stop();
-        onComplete();
+        stopTween();
     });
 
     mobCore.useMouseDown(() => {
-        if (!isRunning) return;
-
-        tween.stop();
-        onComplete();
+        stopTween();
     });
 
     mobCore.useTouchStart(() => {
-        if (!isRunning) return;
-
-        tween.stop();
-        onComplete();
+        stopTween();
     });
 
     /**
@@ -80,72 +78,66 @@ export const bodyScroll = (() => {
      * @param {(Number|Element)} target
      * @param {import('./type.js').bodyScrollType} data
      */
-    function to(target = null, data = {}) {
-        if (typeof window !== 'undefined') {
-            const targetParsed = (() => {
-                if (!target) return 0;
+    const to = (target = null, data = {}) => {
+        if (typeof window === 'undefined') return;
 
-                const isValid =
-                    isNode(target) || mobCore.checkType(Number, target);
+        const targetParsed = (() => {
+            if (!target) return 0;
 
-                if (!isValid) {
-                    console.warn(
-                        `bodyScroll ${target} is not valid target, must be a node or a number`
-                    );
-                    return 0;
-                }
+            const isValid = isNode(target) || mobCore.checkType(Number, target);
 
-                return isNode(target) ? offset(target).top : target;
-            })();
+            if (!isValid) {
+                console.warn(
+                    `bodyScroll ${target} is not valid target, must be a node or a number`
+                );
+                return 0;
+            }
 
-            /**
-             * Props
-             */
-            const duration = valueIsNumberAndReturnDefault(
-                data?.duration,
-                'bodyScroll: duration',
-                500
-            );
+            return isNode(target) ? offset(target).top : target;
+        })();
 
-            overflow = valueIsBooleanAndReturnDefault(
-                data?.overflow,
-                'bodyScroll: overflow',
-                false
-            );
+        /**
+         * Props
+         */
+        const duration = valueIsNumberAndReturnDefault(
+            data?.duration,
+            'bodyScroll: duration',
+            500
+        );
 
-            ease = data?.ease ? easeTweenIsValid(data?.ease) : null;
-            if (overflow) document.body.style.overflow = 'hidden';
+        overflow = valueIsBooleanAndReturnDefault(
+            data?.overflow,
+            'bodyScroll: overflow',
+            false
+        );
 
-            /**
-             * Update easeType
-             */
-            if (ease) tween?.updateEase?.(ease);
+        ease = data?.ease ? easeTweenIsValid(data?.ease) : null;
+        if (overflow) document.body.style.overflow = 'hidden';
 
-            /**
-             * Get current scroll value.
-             */
-            const scrollNow = window.scrollY;
+        /**
+         * Update easeType
+         */
+        if (ease) tween?.updateEase?.(ease);
 
-            return new Promise((resolve, reject) => {
-                isRunning = true;
-                tween
-                    .goFromTo(
-                        { val: scrollNow },
-                        { val: targetParsed },
-                        { duration }
-                    )
-                    .then(() => {
-                        onComplete();
-                        isRunning = false;
-                        resolve();
-                    })
-                    .catch(() => {
-                        isRunning = false;
-                        reject(mobCore.ANIMATION_STOP_REJECT);
-                    });
-            });
-        }
-    }
+        return new Promise((resolve, reject) => {
+            isRunning = true;
+            tween
+                .goFromTo(
+                    { val: window.scrollY },
+                    { val: targetParsed },
+                    { duration }
+                )
+                .then(() => {
+                    onComplete();
+                    isRunning = false;
+                    resolve();
+                })
+                .catch(() => {
+                    isRunning = false;
+                    reject(mobCore.ANIMATION_STOP_REJECT);
+                });
+        });
+    };
 
     return {
         to,
