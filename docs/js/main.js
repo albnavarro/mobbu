@@ -31332,6 +31332,10 @@ Loading snippet ...</pre
         move?.(scrollbar.value);
       });
       navigationStore.watch("navigationIsOpen", (value) => {
+        const {
+          activeRoute: { templateName }
+        } = mainStore.get();
+        if (!(templateName in templateData)) return;
         screenEl.classList.toggle("active", !value);
       });
       mainStore.watch("afterRouteChange", async (data2) => {

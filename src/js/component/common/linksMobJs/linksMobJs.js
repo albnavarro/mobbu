@@ -74,6 +74,12 @@ export const LinksMobJsFn = ({
         });
 
         navigationStore.watch('navigationIsOpen', (value) => {
+            const {
+                activeRoute: { templateName },
+            } = mainStore.get();
+
+            if (!(templateName in templateData)) return;
+
             screenEl.classList.toggle('active', !value);
         });
 
