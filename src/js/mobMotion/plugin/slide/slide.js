@@ -1,6 +1,44 @@
+//@ts-check
+
 import { mobCore } from '../../../mobCore/index.js';
 import { outerHeight } from '../../../mobCore/utils/index.js';
 import HandleTween from '../../animation/tween/handleTween.js';
+
+/** @type {import('./type.js').Slide[]} */
+let slideItems = [];
+
+/**
+ * @type {(target: HTMLElement) => boolean}
+ */
+const isNode = (target) => {
+    const isValid = mobCore.checkType(Element, target);
+
+    if (!isValid)
+        console.warn(`slide utils ${target} is not a valid Dom element`);
+
+    return isValid;
+};
+
+/**
+ * @description
+ * Subscribe element to internal store.
+ *
+ * @param {HTMLElement} target
+ * @param {string} slideId
+ * @returns {import('./type.js').Slide} Unsubscribe function.
+ */
+const setSlideData = (target, slideId) => {
+    const tween = new HandleTween({ ease: 'easeOutQuad', data: { val: 0 } });
+
+    return {
+        item: target,
+        id: slideId,
+        tween,
+        unsubscribe: tween.subscribe(({ val }) => {
+            target.style.height = `${val}px`;
+        }),
+    };
+};
 
 /**
  * @description
@@ -25,63 +63,30 @@ import HandleTween from '../../animation/tween/handleTween.js';
  * ```
  */
 export const slide = (() => {
-    let slideItems = [];
-    let slideId = 0;
-
-    /**
-     * @private
-     */
-    function isNode(target) {
-        const isValid = mobCore.checkType(Element, target);
-
-        if (!isValid)
-            console.warn(`slide utils ${target} is not a valid Dom element`);
-
-        return isValid;
-    }
-
-    /**
-     * @private
-     */
-    function setSlideData(target) {
-        const data = {};
-        data.item = target;
-        data.id = slideId;
-        data.tween = new HandleTween({ ease: 'easeOutQuad' });
-        data.unsubscribe = data.tween.subscribe(({ val }) => {
-            data.item.style.height = `${val}px`;
-        });
-
-        data.tween.setData({ val: 0 });
-        return data;
-    }
-
     /**
      * @description
      * Subscribe element to internal store.
      *
-     * @param {Element} target - Dom node.
-     * @returns {Function} Unsubscribe function.
+     * @param {HTMLElement} target - Dom node.
+     * @returns {() => void} Unsubscribe function.
      */
-    function subscribe(target) {
-        if (!isNode(target)) return;
+    const subscribe = (target) => {
+        if (!isNode(target)) return () => {};
+
         /**
          * Check if target is already subscribed to slide utils
          */
         const alreadySubscribe = slideItems.find(({ item }) => item === target);
         if (alreadySubscribe) {
             console.warn(`slide utils ${target} is alredysubscribed`);
-            return;
+            return () => {};
         }
 
         /**
          * Update items Array
          */
-        const data = setSlideData(target);
-        slideItems.push(data);
-
-        const prevId = slideId;
-        slideId++;
+        const id = mobCore.getUnivoqueId();
+        const data = setSlideData(target, id);
         slideItems.push(data);
 
         /**
@@ -89,25 +94,25 @@ export const slide = (() => {
          */
         return () => {
             data.unsubscribe();
-            data.tween = null;
-            data.item = null;
-            slideItems = slideItems.filter(({ id }) => id !== prevId);
+            slideItems = slideItems.filter(
+                ({ id: currentId }) => currentId !== id
+            );
         };
-    }
+    };
 
     /**
      * @description
      * Reset target height ( 0px ) .
      * Set `overflow: hidden` to target.
      *
-     * @param {Element} target - Dom node.
+     * @param {HTMLElement} target - Dom node.
      */
-    function reset(target) {
+    const reset = (target) => {
         if (!isNode(target)) return;
 
-        target.style.height = 0;
+        target.style.height = '0';
         target.style.overflow = 'hidden';
-    }
+    };
 
     /**
      * @description
@@ -124,30 +129,34 @@ export const slide = (() => {
      * @param {Element} target - Dom node.
      * @returns {Promise} Promise fired on animation ends.
      */
-    function up(target) {
-        return new Promise((res, reject) => {
+    const up = (target) => {
+        return new Promise((resolve) => {
+            // @ts-ignore
             if (!isNode(target)) {
-                res();
+                resolve(true);
                 return;
             }
 
             // Reject of target not exist in store
             const currentItem = slideItems.find(({ item }) => item === target);
-            if (!currentItem)
-                reject(new Error('slide element not exist in slide store'));
+            if (!currentItem) {
+                console.warn('slide element not exist in slide store');
+                resolve(true);
+            }
 
             // height of item may be change once opened outside tween control
             // use fromTo in this case
+            // @ts-ignore
             const { item, tween } = currentItem;
             const currentHeight = outerHeight(item);
 
             tween
                 .goFromTo({ val: currentHeight }, { val: 0 }, { duration: 500 })
                 .then(() => {
-                    res();
+                    resolve(true);
                 });
         });
-    }
+    };
 
     /**
      * @description
@@ -161,21 +170,24 @@ export const slide = (() => {
      *      .catch(() => { ... })
      * ```
      *
-     * @param {Element} target - Dom node.
+     * @param {HTMLElement} target - Dom node.
      * @returns {Promise} Promise fired on animation ends.
      */
-    function down(target) {
-        return new Promise((res, reject) => {
+    const down = (target) => {
+        return new Promise((resolve) => {
             if (!isNode(target)) {
-                res();
+                resolve(true);
                 return;
             }
 
             // Reject of target not exist in store
             const currentItem = slideItems.find(({ item }) => item === target);
-            if (!currentItem)
-                reject(new Error('slide element not exist in slide store'));
+            if (!currentItem) {
+                console.warn('slide element not exist in slide store');
+                resolve(true);
+            }
 
+            // @ts-ignore
             const { item, tween } = currentItem;
             const { val: currentHeight } = tween.get();
             item.style.height = `auto`;
@@ -184,10 +196,10 @@ export const slide = (() => {
 
             tween.goTo({ val: height }, { duration: 500 }).then(() => {
                 item.style.height = `auto`;
-                res();
+                resolve(true);
             });
         });
-    }
+    };
 
     return { subscribe, reset, up, down };
 })();

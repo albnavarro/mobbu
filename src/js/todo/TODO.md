@@ -57,6 +57,7 @@ beforeNavigate(({props}) => {
 ### Plugin
 - Sostiuire i typedef con delle interfaccie.
 - Abilitare TS check.
+- Slide passare da Array a Map con Element come chiave.
 
 ### AsyncTimeline
 - Loop label-start / label-end al posto di fare ( repeat = -1 ) un loop tra 0 e arr.length.

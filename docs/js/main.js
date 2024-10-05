@@ -6136,13 +6136,13 @@
     return isValid;
   };
   var domNodeIsValidAndReturnElOrWin = (element, returnWindow = false) => {
-    const isNode2 = mobCore.checkType(Element, element);
-    const realEl = isNode2 ? element : document.querySelector(element);
+    const isNode3 = mobCore.checkType(Element, element);
+    const realEl = isNode3 ? element : document.querySelector(element);
     return returnWindow ? realEl ?? window : realEl ?? document.createElement("div");
   };
   var domNodeIsValidAndReturnNull = (element) => {
-    const isNode2 = mobCore.checkType(Element, element);
-    const realEl = isNode2 ? element : document.querySelector(element);
+    const isNode3 = mobCore.checkType(Element, element);
+    const realEl = isNode3 ? element : document.querySelector(element);
     return realEl;
   };
   var directionIsValid = (direction2, component) => {
@@ -22256,75 +22256,78 @@ Loading snippet ...</pre
   })();
 
   // src/js/mobMotion/plugin/slide/slide.js
+  var slideItems = [];
+  var isNode2 = (target) => {
+    const isValid = mobCore.checkType(Element, target);
+    if (!isValid)
+      console.warn(`slide utils ${target} is not a valid Dom element`);
+    return isValid;
+  };
+  var setSlideData = (target, slideId) => {
+    const tween3 = new HandleTween({ ease: "easeOutQuad", data: { val: 0 } });
+    return {
+      item: target,
+      id: slideId,
+      tween: tween3,
+      unsubscribe: tween3.subscribe(({ val: val2 }) => {
+        target.style.height = `${val2}px`;
+      })
+    };
+  };
   var slide = /* @__PURE__ */ (() => {
-    let slideItems = [];
-    let slideId = 0;
-    function isNode2(target) {
-      const isValid = mobCore.checkType(Element, target);
-      if (!isValid)
-        console.warn(`slide utils ${target} is not a valid Dom element`);
-      return isValid;
-    }
-    function setSlideData(target) {
-      const data2 = {};
-      data2.item = target;
-      data2.id = slideId;
-      data2.tween = new HandleTween({ ease: "easeOutQuad" });
-      data2.unsubscribe = data2.tween.subscribe(({ val: val2 }) => {
-        data2.item.style.height = `${val2}px`;
-      });
-      data2.tween.setData({ val: 0 });
-      return data2;
-    }
-    function subscribe(target) {
-      if (!isNode2(target)) return;
+    const subscribe = (target) => {
+      if (!isNode2(target)) return () => {
+      };
       const alreadySubscribe = slideItems.find(({ item }) => item === target);
       if (alreadySubscribe) {
         console.warn(`slide utils ${target} is alredysubscribed`);
-        return;
+        return () => {
+        };
       }
-      const data2 = setSlideData(target);
-      slideItems.push(data2);
-      const prevId = slideId;
-      slideId++;
+      const id = mobCore.getUnivoqueId();
+      const data2 = setSlideData(target, id);
       slideItems.push(data2);
       return () => {
         data2.unsubscribe();
-        data2.tween = null;
-        data2.item = null;
-        slideItems = slideItems.filter(({ id }) => id !== prevId);
+        slideItems = slideItems.filter(
+          ({ id: currentId }) => currentId !== id
+        );
       };
-    }
-    function reset(target) {
+    };
+    const reset = (target) => {
       if (!isNode2(target)) return;
-      target.style.height = 0;
+      target.style.height = "0";
       target.style.overflow = "hidden";
-    }
-    function up(target) {
-      return new Promise((res, reject) => {
+    };
+    const up = (target) => {
+      return new Promise((resolve) => {
         if (!isNode2(target)) {
-          res();
+          resolve(true);
           return;
         }
         const currentItem = slideItems.find(({ item: item2 }) => item2 === target);
-        if (!currentItem)
-          reject(new Error("slide element not exist in slide store"));
+        if (!currentItem) {
+          console.warn("slide element not exist in slide store");
+          resolve(true);
+        }
         const { item, tween: tween3 } = currentItem;
         const currentHeight = outerHeight2(item);
         tween3.goFromTo({ val: currentHeight }, { val: 0 }, { duration: 500 }).then(() => {
-          res();
+          resolve(true);
         });
       });
-    }
-    function down(target) {
-      return new Promise((res, reject) => {
+    };
+    const down = (target) => {
+      return new Promise((resolve) => {
         if (!isNode2(target)) {
-          res();
+          resolve(true);
           return;
         }
         const currentItem = slideItems.find(({ item: item2 }) => item2 === target);
-        if (!currentItem)
-          reject(new Error("slide element not exist in slide store"));
+        if (!currentItem) {
+          console.warn("slide element not exist in slide store");
+          resolve(true);
+        }
         const { item, tween: tween3 } = currentItem;
         const { val: currentHeight } = tween3.get();
         item.style.height = `auto`;
@@ -22332,10 +22335,10 @@ Loading snippet ...</pre
         item.style.height = `${currentHeight}px`;
         tween3.goTo({ val: height }, { duration: 500 }).then(() => {
           item.style.height = `auto`;
-          res();
+          resolve(true);
         });
       });
-    }
+    };
     return { subscribe, reset, up, down };
   })();
 
