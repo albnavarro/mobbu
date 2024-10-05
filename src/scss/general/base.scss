@@ -17,15 +17,11 @@
     --header-height: #{rem(80)};
     --header-navinfo: #{rem(40)};
     --footer-height: #{rem(80)};
-    --nav-width: 100vw;
+    --nav-width: #{rem(340)};
     --default-padding: #{rem(100)};
     --snippet-rem-value: #{strip-unit(rem(14))};
     --snippet-line-height-value: #{strip-unit(line-height(15, 22))};
     --doc-width: none;
-
-    @include mq(tablet) {
-        --nav-width: #{rem(340)};
-    }
 
     @include mq(desktop) {
         @media screen and (height <= 700px) {
@@ -101,13 +97,10 @@ main {
 
 .container {
     margin: auto;
+    padding-left: rem(40);
 
-    @include mq('desktop') {
-        padding-left: rem(40);
-
-        &--padding {
-            padding: rem(20) rem(40);
-        }
+    &--padding {
+        padding: rem(20) rem(40);
     }
 }
 

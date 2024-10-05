@@ -33,13 +33,8 @@ body {
 }
 
 h1 {
-    font-size: rem(30px, xsmall);
-    line-height: line-height(30, 37);
-
-    @include mq('desktop') {
-        font-size: rem(40px);
-        line-height: line-height(40, 55);
-    }
+    font-size: rem(40px);
+    line-height: line-height(40, 55);
 }
 
 h2 {
@@ -108,9 +103,5 @@ a {
 
 pre,
 code {
-    font-size: rem(15);
-
-    @include mq('desktop') {
-        font-size: rem(16);
-    }
+    font-size: rem(16);
 }

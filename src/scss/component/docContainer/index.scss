@@ -2,10 +2,7 @@
 
 .c-doc-container {
     padding-bottom: var(--footer-height);
-
-    @include mq(desktop) {
-        display: flex;
-    }
+    display: flex;
 
     &__content {
         flex: auto;
@@ -53,10 +50,6 @@
         @include mq('large') {
             display: block;
             width: auto;
-        }
-
-        @include mq('xlarge') {
-            // margin-left: rem(100, xlarge);
         }
     }
 }

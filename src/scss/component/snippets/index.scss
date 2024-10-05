@@ -4,12 +4,8 @@
     code {
         display: inline-block;
         position: relative;
-        width: 100%;
-
-        @include mq('desktop') {
-            width: auto;
-            min-width: rem(600);
-        }
+        width: auto;
+        min-width: rem(600);
 
         &.is-full {
             @include mq('desktop') {
@@ -20,36 +16,28 @@
 
         &.has-border {
             border: 1px rgba($white, 0.05) solid;
-            padding: rem(10);
+            padding: rem(30);
             border-radius: rem(30);
             background-color: $white;
-
-            @include mq('desktop') {
-                padding: rem(30);
-            }
         }
     }
 
     pre {
-        padding: rem(10);
         overflow: auto;
         font-size: rem(14);
         line-height: line-height(15, 22);
         background: transparent;
+        padding: rem(30);
+
+        &.is-full {
+            @include mq('desktop') {
+                padding: 0;
+                margin: 0;
+            }
+        }
 
         &.has-overflow {
             overflow: hidden;
-        }
-
-        @include mq('desktop') {
-            padding: rem(30);
-
-            &.is-full {
-                @include mq('desktop') {
-                    padding: 0;
-                    margin: 0;
-                }
-            }
         }
 
         // .hljs-comment {

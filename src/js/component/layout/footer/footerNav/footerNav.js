@@ -5,7 +5,6 @@
  **/
 
 import { html, loadUrl } from '../../../../mobjs';
-import { motionCore } from '../../../../mobMotion';
 import { navigationStore } from '../../navigation/store/navStore';
 
 const data = [
@@ -69,8 +68,6 @@ const getItems = ({ delegateEvents, staticProps }) => {
 
 /** @type {import("../../../../mobjs/type").MobComponent} */
 export const FooterNavFn = ({ html, delegateEvents, staticProps }) => {
-    if (motionCore.mq('max', 'desktop')) return html` <span></span> `;
-
     return html`
         <ul class="footer-nav">
             ${getItems({ delegateEvents, staticProps })}

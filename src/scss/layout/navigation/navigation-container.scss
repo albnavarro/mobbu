@@ -23,28 +23,13 @@
 
     &__wrap {
         width: var(--nav-width);
-        max-width: 375px;
-        overflow: auto;
         height: calc(100vh - var(--header-height));
-
-        @include mq($until: tablet) {
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        @include mq(tablet) {
-            max-width: none;
-            overflow: hidden;
-        }
+        max-width: none;
+        overflow: hidden;
     }
 
     &__scroll {
-        padding-bottom: 20vh;
-
-        @include mq(tablet) {
-            padding-bottom: 50vh;
-        }
+        padding-bottom: 50vh;
     }
 
     &__side {
@@ -53,12 +38,7 @@
         width: calc(var(--header-height) / 2);
         top: 0;
         height: calc(100vh - var(--header-height) - var(--footer-height));
-        display: none;
         background: rgba($black, 0.15);
-
-        @include mq(desktop) {
-            display: block;
-        }
     }
 
     &__totop {
@@ -102,10 +82,5 @@
         transform-origin: left;
         transform: scaleX(0);
         transition: transform 0.55s;
-        display: none;
-
-        @include mq(tablet) {
-            display: block;
-        }
     }
 }
