@@ -16,28 +16,19 @@
 - Dimensione (size) delle mappe di supporto.
 
 # MobJs
-
-## Slot
-- Creare una mappa come userMap da cui prendere gli slot se useQuery.
-- In questo caso la mappa andrá distrutta dopo `convertToRealElement`
-- In modo che in ogni ciclo di `parseFunction` ci siano solo gli slot del componente oggetto del parse.
-- Prevedere anche con `slot unnamed` di usarli tutti come `svelte` e poter avere tanto componenti quanti sono gli slot presenti
--
-
-## setState/updateState/setStateByName/updateStateByName
+### setState/updateState/setStateByName/updateStateByName
 - Manca la propietá clone ereditata da mobStore `clone`
 
-
-## Debug
+### Debug
 - Add `debug` ( params in componentFunction ) in DOCS.
 
-## Type
+### Type
 - `createComponent`: `exportState` && `state` dovrebebro usare lo stesso generic<T> di `mobComponent`
 
-## Component
+### Component
 - props per diabilitare il `restoreScroll` nella singola definizione del componente ( vedi `horizontalScroll` ).
 
-## Events
+### Events
 - esporre delle funzioni che ritarno i vari `afterRouteChange` etc... come svelte.
 - sempre che possano convivere con i generic.
 
@@ -47,24 +38,12 @@ beforeNavigate(({props}) => {
 })
 ```
 
-## Methods
+### Methods
 - Capire come gestire i tipi sui metodi.
+    - Fare un tipo apposito come per lo stato pasarlo come `Methods<myInterface>`.
 
-
-## App:
+### App:
 - Possibilitá di avere multiple istanze che condividono gli stessi componenti.
-
-## parentId
-- ParentId sarebbe meglio che fosse undefined o 'root' rispetto a ''.
-
-## src/js/mobjs/webComponent/
-Le propieta private dell classe possono essere null|undefined.
-Controllare che tutti i gatter quando vengono usati abbiano un fallback o uno skip in caso di unfdefined.
-
-
-
-
-
 
 
 # MobCore
