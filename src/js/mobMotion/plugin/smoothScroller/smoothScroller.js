@@ -384,7 +384,7 @@ export default class SmoothScroller {
         this.onTickCallback = valueIsFunctionAndReturnDefault(
             data?.onTick,
             'SmoothScroller: onTick',
-            null
+            NOOP
         );
 
         /**
@@ -393,7 +393,7 @@ export default class SmoothScroller {
         this.onUpdateCallback = valueIsFunctionAndReturnDefault(
             data?.onUpdate,
             'SmoothScroller: onUpdate',
-            null
+            NOOP
         );
 
         /**
@@ -602,12 +602,11 @@ export default class SmoothScroller {
             });
 
             mobCore.useNextTick(() => {
-                if (this.onTickCallback && !this.isDestroyed)
-                    this.onTickCallback({
-                        value: -val,
-                        percent: this.percent,
-                        parentIsMoving: true,
-                    });
+                this.onTickCallback({
+                    value: -val,
+                    percent: this.percent,
+                    parentIsMoving: true,
+                });
 
                 this.children.forEach((element) => {
                     element.move({
@@ -625,12 +624,11 @@ export default class SmoothScroller {
                     : `translateX(${-val}px)`;
 
             mobCore.useNextTick(() => {
-                if (this.onTickCallback)
-                    this.onTickCallback({
-                        value: -val,
-                        percent: this.percent,
-                        parentIsMoving: false,
-                    });
+                this.onTickCallback({
+                    value: -val,
+                    percent: this.percent,
+                    parentIsMoving: false,
+                });
 
                 this.children.forEach((element) => {
                     element.triggerScrollEnd();
@@ -887,7 +885,7 @@ export default class SmoothScroller {
         this.subscribeMouseClick();
         this.unsubscribeMotion();
         this.unsubscribeOnComplete();
-        this.onUpdateScrollBar = () => {};
+        this.onUpdateScrollBar = NOOP;
         this.motion?.destroy();
         this.motion = null;
         this.children.forEach((element) => {
@@ -895,10 +893,10 @@ export default class SmoothScroller {
             element = null;
         });
         this.children = [];
-        this.onTickCallback = [];
-        this.onUpdateCallback = [];
-        this.onAfterRefresh = [];
-        this.afterInit = [];
+        this.onTickCallback = NOOP;
+        this.onUpdateCallback = NOOP;
+        this.onAfterRefresh = NOOP;
+        this.afterInit = NOOP;
 
         if (this.scopedEvent) {
             this.scroller?.removeEventListener('wheel', this.scopedWhell);

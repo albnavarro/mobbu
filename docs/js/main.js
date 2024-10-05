@@ -21751,12 +21751,12 @@ Loading snippet ...</pre
       this.onTickCallback = valueIsFunctionAndReturnDefault(
         data2?.onTick,
         "SmoothScroller: onTick",
-        null
+        NOOP
       );
       this.onUpdateCallback = valueIsFunctionAndReturnDefault(
         data2?.onUpdate,
         "SmoothScroller: onUpdate",
-        null
+        NOOP
       );
       this.onAfterRefresh = valueIsFunctionAndReturnDefault(
         data2?.afterRefresh,
@@ -21909,12 +21909,11 @@ Loading snippet ...</pre
           element.triggerScrollStart();
         });
         mobCore.useNextTick(() => {
-          if (this.onTickCallback && !this.isDestroyed)
-            this.onTickCallback({
-              value: -val2,
-              percent: this.percent,
-              parentIsMoving: true
-            });
+          this.onTickCallback({
+            value: -val2,
+            percent: this.percent,
+            parentIsMoving: true
+          });
           this.children.forEach((element) => {
             element.move({
               value: -val2,
@@ -21926,12 +21925,11 @@ Loading snippet ...</pre
       this.unsubscribeOnComplete = this.motion.onComplete(({ val: val2 }) => {
         this.scroller.style.transform = this.direction == parallaxConstant.DIRECTION_VERTICAL ? `translateY(${-val2}px)` : `translateX(${-val2}px)`;
         mobCore.useNextTick(() => {
-          if (this.onTickCallback)
-            this.onTickCallback({
-              value: -val2,
-              percent: this.percent,
-              parentIsMoving: false
-            });
+          this.onTickCallback({
+            value: -val2,
+            percent: this.percent,
+            parentIsMoving: false
+          });
           this.children.forEach((element) => {
             element.triggerScrollEnd();
             element.move({
@@ -22136,8 +22134,7 @@ Loading snippet ...</pre
       this.subscribeMouseClick();
       this.unsubscribeMotion();
       this.unsubscribeOnComplete();
-      this.onUpdateScrollBar = () => {
-      };
+      this.onUpdateScrollBar = NOOP;
       this.motion?.destroy();
       this.motion = null;
       this.children.forEach((element) => {
@@ -22145,10 +22142,10 @@ Loading snippet ...</pre
         element = null;
       });
       this.children = [];
-      this.onTickCallback = [];
-      this.onUpdateCallback = [];
-      this.onAfterRefresh = [];
-      this.afterInit = [];
+      this.onTickCallback = NOOP;
+      this.onUpdateCallback = NOOP;
+      this.onAfterRefresh = NOOP;
+      this.afterInit = NOOP;
       if (this.scopedEvent) {
         this.scroller?.removeEventListener("wheel", this.scopedWhell);
         this.scroller?.removeEventListener(
