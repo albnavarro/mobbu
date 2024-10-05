@@ -36,7 +36,7 @@ import { useSlotQuery } from './useQuery';
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {boolean} [ obj.isCancellable ]
+ * @param {boolean} [ obj.persistent  ]
  * @param {Array<{onMount:Function, fireDynamic:function, fireInvalidateFunction:function, fireRepeatFunction:function}>} [ obj.functionToFireAtTheEnd ]
  * @param {Array<import("../webComponent/type").UserComponent>} [ obj.currentSelectors ]
  * @param {string} [ obj.parentIdForced ]
@@ -49,7 +49,7 @@ import { useSlotQuery } from './useQuery';
 export const parseComponentsRecursive = async ({
     element,
     functionToFireAtTheEnd = [],
-    isCancellable = true,
+    persistent = false,
     currentSelectors = [],
     parentIdForced = '',
 }) => {
@@ -157,7 +157,7 @@ export const parseComponentsRecursive = async ({
         await parseComponentsRecursive({
             element,
             functionToFireAtTheEnd,
-            isCancellable,
+            persistent,
             currentSelectors: parseSourceArray,
             parentIdForced,
         });
@@ -212,7 +212,7 @@ export const parseComponentsRecursive = async ({
         instanceName,
         key,
         repeatPropBind,
-        isCancellable,
+        persistent,
         parentId,
         componentRepeatId,
     });
@@ -420,7 +420,7 @@ export const parseComponentsRecursive = async ({
     await parseComponentsRecursive({
         element,
         functionToFireAtTheEnd,
-        isCancellable,
+        persistent,
         currentSelectors: parseSourceArray,
         parentIdForced,
     });

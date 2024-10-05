@@ -24,7 +24,7 @@ export interface componentCommonTypes {
     parentPropsWatcher?: (() => void)[];
     destroy?: () => void;
     freezedPros?: string[];
-    isCancellable: boolean;
+    persistent: boolean;
     child?:
         | {
               string: string[];

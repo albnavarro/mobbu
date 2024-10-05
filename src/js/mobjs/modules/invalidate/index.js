@@ -272,7 +272,7 @@ export const inizializeNestedInvalidate = ({ invalidateParent }) => {
  * @param {() => void} params.afterUpdate
  * @param {import('../../type').Watch<any>} params.watch
  * @param {string} params.id
- * @param {boolean} params.isCancellable
+ * @param {boolean} params.persistent
  * @param {string} params.invalidateId
  * @param {() => string} params.renderFunction
  * @returns {Promise<any>}
@@ -285,7 +285,7 @@ export const inizializeInvalidateWatch = async ({
     watch,
     id,
     invalidateId,
-    isCancellable = true,
+    persistent = false,
     renderFunction,
 }) => {
     /**
@@ -373,7 +373,7 @@ export const inizializeInvalidateWatch = async ({
                     {
                         element: invalidateParent,
                         parentId: fallBackParentId ?? id,
-                        isCancellable,
+                        persistent,
                     },
                     false
                 );

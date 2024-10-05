@@ -113,7 +113,7 @@ export const getParamsForComponentFunction = ({
              */
             mainStore.set(
                 MAIN_STORE_ASYNC_PARSER,
-                { element: attachTo, parentId: id, isCancellable: !persistent },
+                { element: attachTo, parentId: id, persistent },
                 false
             );
             return mainStore.emitAsync(MAIN_STORE_ASYNC_PARSER);
@@ -207,7 +207,7 @@ export const getParamsForComponentFunction = ({
                         watch,
                         beforeUpdate,
                         afterUpdate,
-                        isCancellable: !persistent,
+                        persistent,
                         id,
                         invalidateId,
                         renderFunction: invalidateRender,
@@ -284,7 +284,7 @@ export const getParamsForComponentFunction = ({
                      */
                     inizializeRepeatWatch({
                         repeatId,
-                        isCancellable: !persistent,
+                        persistent,
                         state: bind,
                         setState,
                         emit,

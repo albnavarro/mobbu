@@ -11,7 +11,7 @@ import { resetCurrentIterationCounter } from './utils';
 /**
  * @param {object} obj
  * @param {HTMLElement} obj.element
- * @param {boolean} [ obj.isCancellable ]
+ * @param {boolean} [ obj.persistent  ]
  * @param {string} [ obj.parentIdForced ]
  * @return {Promise<void>} A promise to the token.
  *
@@ -19,14 +19,14 @@ import { resetCurrentIterationCounter } from './utils';
  */
 export const parseComponents = async ({
     element,
-    isCancellable = true,
+    persistent = false,
     parentIdForced = '',
 }) => {
     incrementParserCounter();
 
     await parseComponentsRecursive({
         element,
-        isCancellable,
+        persistent,
         parentIdForced,
     });
 
@@ -44,11 +44,11 @@ export const parseComponents = async ({
 export const initParseWatcher = () => {
     mainStore.watch(
         MAIN_STORE_ASYNC_PARSER,
-        async ({ element, parentId, isCancellable = true }) => {
+        async ({ element, parentId, persistent = false }) => {
             await parseComponents({
                 element,
                 parentIdForced: parentId ?? '',
-                isCancellable,
+                persistent,
             });
         }
     );

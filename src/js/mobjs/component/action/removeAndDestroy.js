@@ -147,7 +147,7 @@ export const destroyComponentInsideNodeById = ({ id, container }) => {
  */
 export const removeCancellableComponent = () => {
     const cancellableComponents = [...componentMap.values()].filter(
-        ({ isCancellable }) => isCancellable
+        ({ persistent }) => !persistent
     );
 
     cancellableComponents.forEach(({ id }) => removeAndDestroyById({ id }));

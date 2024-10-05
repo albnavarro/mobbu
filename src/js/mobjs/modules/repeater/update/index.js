@@ -9,7 +9,7 @@ import { listKeyExist } from '../utils';
 /**
  * @param {object} obj
  * @param {string} obj.state
- * @param {boolean} obj.isCancellable
+ * @param {boolean} obj.persistent
  * @param {HTMLElement} obj.repeaterParentElement
  * @param {string} obj.targetComponent
  * @param {array} obj.current
@@ -26,7 +26,7 @@ import { listKeyExist } from '../utils';
  */
 export const updateRepeater = async ({
     state = '',
-    isCancellable,
+    persistent,
     repeaterParentElement = document.createElement('div'),
     targetComponent = '',
     current = [],
@@ -74,7 +74,7 @@ export const updateRepeater = async ({
         {
             element: repeaterParentElement,
             parentId: fallBackParentId ?? id,
-            isCancellable,
+            persistent,
         },
         false
     );
