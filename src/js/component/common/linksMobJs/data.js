@@ -18,6 +18,10 @@ export const mobJsComponentParams = [
         url: 'mobJs-setState',
     },
     {
+        label: 'computed',
+        url: 'mobJs-computed',
+    },
+    {
         label: 'updateState',
         url: 'mobJs-updateState',
     },
@@ -54,6 +58,18 @@ export const mobJsComponentParams = [
         url: 'mobJs-refs',
     },
     {
+        label: 'InstanceName',
+        url: 'mobJs-instanceName',
+    },
+    {
+        label: 'ClassList',
+        url: 'mobJs-class-list',
+    },
+    {
+        label: 'Slot',
+        url: 'mobJs-slot',
+    },
+    {
         label: 'unBind',
         url: 'mobJs-unBind',
     },
@@ -64,10 +80,6 @@ export const mobJsComponentParams = [
     {
         label: 'emitAsync',
         url: 'mobJs-emitAsync',
-    },
-    {
-        label: 'computed',
-        url: 'mobJs-computed',
     },
     {
         label: 'removeDOM',
@@ -96,18 +108,6 @@ export const mobJsComponentParams = [
     {
         label: 'watchParent',
         url: 'mobJs-watchParent',
-    },
-    {
-        label: 'InstanceName',
-        url: 'mobJs-instanceName',
-    },
-    {
-        label: 'ClassList',
-        url: 'mobJs-class-list',
-    },
-    {
-        label: 'Slot',
-        url: 'mobJs-slot',
     },
     {
         label: 'renderComponent',

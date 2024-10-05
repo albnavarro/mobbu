@@ -232,7 +232,7 @@
             ]
         },
         {
-            "label": "Component Primary Params",
+            "label": "Component fundamental params",
             "url": "#",
             "children": [
                 {
@@ -254,6 +254,11 @@
                     "label": "setState",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-setState"
+                },
+                {
+                    "label": "computed",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-computed"
                 },
                 {
                     "label": "updateState",
@@ -303,7 +308,28 @@
             ]
         },
         {
-            "label": "Component Secondary Params",
+            "label": "Component static Params",
+            "url": "#",
+            "children": [
+                {
+                    "label": "instanceName",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-instanceName"
+                },
+                {
+                    "label": "ClassList",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-class-list"
+                },
+                {
+                    "label": "Slot",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-slot"
+                }
+            ]
+        },
+        {
+            "label": "Component utils params",
             "url": "#",
             "children": [
                 {
@@ -320,11 +346,6 @@
                     "label": "emitAsync",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-emitAsync"
-                },
-                {
-                    "label": "computed",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-computed"
                 },
                 {
                     "label": "removeDom",
@@ -360,27 +381,6 @@
                     "label": "watchParent",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-watchParent"
-                }
-            ]
-        },
-        {
-            "label": "Component static Params",
-            "url": "#",
-            "children": [
-                {
-                    "label": "instanceName",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-instanceName"
-                },
-                {
-                    "label": "ClassList",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-class-list"
-                },
-                {
-                    "label": "Slot",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-slot"
                 }
             ]
         },

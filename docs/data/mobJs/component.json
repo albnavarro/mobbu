@@ -28,7 +28,7 @@
             "props": {
                 "tag": "h5"
             },
-            "content": "Main content"
+            "content": "Basic modules"
         },
         {
             "component": "anchor-button",
@@ -55,14 +55,7 @@
             "component": "anchor-button",
             "props": {
                 "anchor": "#primary",
-                "content": "Primary params"
-            }
-        },
-        {
-            "component": "anchor-button",
-            "props": {
-                "anchor": "#secondary",
-                "content": "Secondary params"
+                "content": "Fundamental params"
             }
         },
         {
@@ -75,9 +68,23 @@
         {
             "component": "anchor-button",
             "props": {
+                "anchor": "#secondary",
+                "content": "Utils params"
+            }
+        },
+        {
+            "component": "anchor-button",
+            "props": {
                 "anchor": "#list",
                 "content": "List/Invalidate"
             }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h5"
+            },
+            "content": "Traversal operation"
         },
         {
             "component": "anchor-button",
@@ -413,7 +420,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Primary:"
+            "content": "Fundamental params:"
         },
         {
             "component": "mob-list",
@@ -425,6 +432,7 @@
                     "<a href='./#mobJs-onMount'>onMount/Destroy</a>",
                     "<a href='./#mobJs-getState'>getState</a>",
                     "<a href='./#mobJs-setState'>setState</a>",
+                    "<a href='./#mobJs-computed'>computed</a>",
                     "<a href='./#mobJs-updateState'>updateState</a>",
                     "<a href='./#mobJs-watch'>watch</a>",
                     "<a href='./#mobJs-watchSync'>watchSync</a>",
@@ -440,40 +448,6 @@
         {
             "component": "mob-spacer",
             "props": {
-                "id": "secondary",
-                "style": "medium"
-            }
-        },
-        {
-            "component": "mob-title",
-            "props": {
-                "tag": "h4"
-            },
-            "content": "Secondary:"
-        },
-        {
-            "component": "mob-list",
-            "props": {
-                "style": "medium",
-                "dots": false,
-                "items": [
-                    "<a href='./#mobJs-unBind'>unBind</a>",
-                    "<a href='./#mobJs-emit'>emit</a>",
-                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
-                    "<a href='./#mobJs-computed'>computed</a>",
-                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
-                    "<a href='./#mobJs-remove'>remove</a>",
-                    "<a href='./#mobJs-getChildren'>getChildren</a>",
-                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
-                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
-                    "<a href='./#mobJs-getParentId'>getParentId</a>",
-                    "<a href='./#mobJs-watchParent'>watchParent</a>"
-                ]
-            }
-        },
-        {
-            "component": "mob-spacer",
-            "props": {
                 "id": "static",
                 "style": "medium"
             }
@@ -483,7 +457,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "Static:"
+            "content": "Static params:"
         },
         {
             "component": "mob-list",
@@ -494,6 +468,39 @@
                     "<a href='./#mobJs-instanceName'>InstanceName</a>",
                     "<a href='./#mobJs-class-list'>ClassList</a>",
                     "<a href='./#mobJs-slot'>Slot</a>"
+                ]
+            }
+        },
+        {
+            "component": "mob-spacer",
+            "props": {
+                "id": "secondary",
+                "style": "medium"
+            }
+        },
+        {
+            "component": "mob-title",
+            "props": {
+                "tag": "h4"
+            },
+            "content": "Utils params:"
+        },
+        {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": false,
+                "items": [
+                    "<a href='./#mobJs-unBind'>unBind</a>",
+                    "<a href='./#mobJs-emit'>emit</a>",
+                    "<a href='./#mobJs-emitAsync'>emitAsync</a>",
+                    "<a href='./#mobJs-removeDom'>removeDOM</a>",
+                    "<a href='./#mobJs-remove'>remove</a>",
+                    "<a href='./#mobJs-getChildren'>getChildren</a>",
+                    "<a href='./#mobJs-freezeProp'>freezeProp</a>",
+                    "<a href='./#mobJs-unFreezeProp'>unFreezeProp</a>",
+                    "<a href='./#mobJs-getParentId'>getParentId</a>",
+                    "<a href='./#mobJs-watchParent'>watchParent</a>"
                 ]
             }
         },
@@ -527,14 +534,15 @@
         {
             "component": "mob-spacer",
             "props": {
+                "style": "medium",
                 "id": "traversal",
-                "style": "medium"
+                "label": "Traversal operation"
             }
         },
         {
             "component": "mob-title",
             "props": {
-                "tag": "h4"
+                "tag": "h3"
             },
             "content": "Traversal operation"
         },
@@ -544,10 +552,9 @@
                 "style": "medium",
                 "dots": false,
                 "items": [
-                    "<a href='./#mobJs-renderComponent'>renderComponent</a>",
-                    "<a href='./#mobJs-invalidate'>invalidate</a>",
-                    "<a href='./#mobJs-repeat'>reactive list (repeat)</a>",
-                    "<a href='./#mobJs-invalidate-vs-repeater'>invalidate vs repeater</a>"
+                    "<a hrcf='./#mobJs-setStateByName'>setStateByName</a>",
+                    "<a href='./#mobJs-updateStateByName'>updateStateByName</a>",
+                    "<a href='./#mobJs-useMethodByName'>useMethodByName</a>"
                 ]
             }
         },

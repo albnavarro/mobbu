@@ -31175,6 +31175,10 @@ Loading snippet ...</pre
       url: "mobJs-setState"
     },
     {
+      label: "computed",
+      url: "mobJs-computed"
+    },
+    {
       label: "updateState",
       url: "mobJs-updateState"
     },
@@ -31211,6 +31215,18 @@ Loading snippet ...</pre
       url: "mobJs-refs"
     },
     {
+      label: "InstanceName",
+      url: "mobJs-instanceName"
+    },
+    {
+      label: "ClassList",
+      url: "mobJs-class-list"
+    },
+    {
+      label: "Slot",
+      url: "mobJs-slot"
+    },
+    {
       label: "unBind",
       url: "mobJs-unBind"
     },
@@ -31221,10 +31237,6 @@ Loading snippet ...</pre
     {
       label: "emitAsync",
       url: "mobJs-emitAsync"
-    },
-    {
-      label: "computed",
-      url: "mobJs-computed"
     },
     {
       label: "removeDOM",
@@ -31253,18 +31265,6 @@ Loading snippet ...</pre
     {
       label: "watchParent",
       url: "mobJs-watchParent"
-    },
-    {
-      label: "InstanceName",
-      url: "mobJs-instanceName"
-    },
-    {
-      label: "ClassList",
-      url: "mobJs-class-list"
-    },
-    {
-      label: "Slot",
-      url: "mobJs-slot"
     },
     {
       label: "renderComponent",
