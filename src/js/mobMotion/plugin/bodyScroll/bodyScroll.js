@@ -135,7 +135,7 @@ export const bodyScroll = (() => {
 
         if (overflow) document.body.style.overflow = 'hidden';
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             isRunning = true;
 
             // @ts-ignore
@@ -151,8 +151,9 @@ export const bodyScroll = (() => {
                     resolve(true);
                 })
                 .catch(() => {
+                    onComplete();
                     isRunning = false;
-                    reject(mobCore.ANIMATION_STOP_REJECT);
+                    resolve(true);
                 });
         });
     };
