@@ -94,6 +94,8 @@ export const slide = (() => {
          */
         return () => {
             data.unsubscribe();
+            const { tween } = data;
+            tween.destroy();
             slideItems = slideItems.filter(
                 ({ id: currentId }) => currentId !== id
             );
