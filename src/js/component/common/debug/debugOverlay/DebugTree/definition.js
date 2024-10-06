@@ -2,6 +2,7 @@
 
 import { createComponent } from '../../../../../mobjs';
 import { DebugTreeFn } from './debugTree';
+import { DebugTreeItem } from './DebugTreeItem/definition';
 
 export const DebugTree = createComponent({
     name: 'debug-tree',
@@ -16,10 +17,6 @@ export const DebugTree = createComponent({
             value: [],
             type: Array,
         }),
-        refreshData: () => ({
-            value: false,
-            type: Boolean,
-            skipEqual: false,
-        }),
     },
+    child: [DebugTreeItem],
 });

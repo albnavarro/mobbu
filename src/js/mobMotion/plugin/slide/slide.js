@@ -186,7 +186,9 @@ export const slide = (() => {
         target.style.height = `${currentHeight}px`;
 
         await tween.goTo({ val: height }, { duration: 500 });
-        target.style.height = `auto`;
+        mobCore.useNextTick(() => {
+            target.style.height = `auto`;
+        });
     };
 
     return { subscribe, reset, up, down };

@@ -17021,6 +17021,9 @@
       return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
     }) ?? [];
   };
+  var getUserChildPlaceholderSize = () => {
+    return userPlaceholder.size;
+  };
   var clearUserPlaceHolder = async () => {
     await tick();
     userPlaceholder.clear();
@@ -17482,6 +17485,9 @@
   };
   var getAllSlot = () => {
     return [...slotPlaceholder];
+  };
+  var getSlotPlaceholderSize = () => {
+    return slotPlaceholder.size;
   };
 
   // src/js/mobjs/webComponent/slot.js
@@ -22322,7 +22328,9 @@ Loading snippet ...</pre
       const height = outerHeight2(target);
       target.style.height = `${currentHeight}px`;
       await tween3.goTo({ val: height }, { duration: 500 });
-      target.style.height = `auto`;
+      mobCore.useNextTick(() => {
+        target.style.height = `auto`;
+      });
     };
     return { subscribe, reset, up, down };
   })();
@@ -23701,6 +23709,30 @@ Loading snippet ...</pre
     child: [CodeOverlayButton, HtmlContent]
   });
 
+  // src/js/component/common/debug/consoleLog.js
+  var consoleLogDebug = () => {
+    mainStore.debugStore();
+    console.log("componentMap", componentMap);
+    console.log("Tree structure:", getTree());
+    console.log("bindEventMap", bindEventMap);
+    console.log("currentListValueMap", currentRepeaterValueMap);
+    console.log("activeRepeatMap", activeRepeatMap);
+    console.log("onMountCallbackMap", onMountCallbackMap);
+    console.log("staticPropsMap", staticPropsMap);
+    console.log("dynamicPropsMap", bindPropsMap);
+    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
+    console.log("eventDelegationMap", eventDelegationMap);
+    console.log("tempDelegateEventMap", tempDelegateEventMap);
+    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
+    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
+    console.log("invalidateFunctionMap", invalidateFunctionMap);
+    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
+    console.log("repeatIdHostMap", invalidateIdHostMap.size);
+    console.log("repeatFunctionMap", repeatFunctionMap);
+    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
+    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
+  };
+
   // src/js/component/common/debug/debugButton.js
   var DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
@@ -23710,6 +23742,7 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         useMethodByName("debugOverlay").toggle();
+        consoleLogDebug();
       }
     })}
         >
@@ -31491,44 +31524,130 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
-  var generateTree = () => {
-    return renderHtml` <div class="pippo">pluto 2</div> `;
+  // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js
+  var generateTree = ({ data: data2, staticProps: staticProps2 }) => {
+    return data2.map(({ id, componentName, instanceName, children }) => {
+      return renderHtml`<debug-tree-item
+                ${staticProps2({
+        id,
+        componentName,
+        instanceName,
+        children
+      })}
+            ></debug-tree-item>`;
+    }).join("");
   };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
   var DebugTreeFn = ({
     html,
     onMount,
     setState,
-    computed,
     watchSync,
     getState,
-    invalidate
+    invalidate,
+    staticProps: staticProps2
   }) => {
     onMount(() => {
       mainStore.watch("afterRouteChange", () => {
+        const { active } = getState();
+        if (!active) return;
         setState("data", getTree());
       });
-      computed("refreshData", ["active", "data"], ({ active, data: data2 }) => {
-        return active && data2.length > 0;
-      });
-      watchSync("refreshData", (value) => {
-        if (!value) return;
-        const { data: data2 } = getState();
-        console.log(data2);
+      watchSync("active", (active) => {
+        if (active) {
+          setState("data", getTree());
+          return;
+        }
+        setState("data", []);
       });
       return () => {
       };
     });
     return html`<div class="c-debug-tree">
-        ${invalidate({
-      bind: "refreshData",
-      persistent: true,
+        <div>
+            ${invalidate({
+      bind: "data",
       render: () => {
-        return generateTree();
+        const { data: data2 } = getState();
+        return generateTree({ data: data2, staticProps: staticProps2 });
       }
     })}
+        </div>
     </div>`;
   };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
+  var DebugTreeItemFn = ({
+    html,
+    onMount,
+    getState,
+    staticProps: staticProps2,
+    getRef,
+    setRef,
+    delegateEvents,
+    updateState,
+    watchSync
+  }) => {
+    const { id, componentName, instanceName, children } = getState();
+    onMount(() => {
+      const { content } = getRef();
+      slide.subscribe(content);
+      slide.reset(content);
+      watchSync("isOpen", async (isOpen) => {
+        const action2 = isOpen ? "down" : "up";
+        await slide[action2](content);
+      });
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-tree-item">
+        <div
+            class="c-debug-tree-item__head"
+            ${delegateEvents({
+      click: () => {
+        updateState("isOpen", (value) => !value);
+      }
+    })}
+        >
+            <span>id: ${id}</span>
+            <span>${componentName}</span>
+            <span>${instanceName}</span>
+        </div>
+        <div class="c-debug-tree-item__content" ${setRef("content")}>
+            ${generateTree({ data: children, staticProps: staticProps2 })}
+        </div>
+    </div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/definition.js
+  var DebugTreeItem = createComponent({
+    name: "debug-tree-item",
+    component: DebugTreeItemFn,
+    exportState: ["active", "id", "componentName", "instanceName", "children"],
+    state: {
+      id: () => ({
+        value: "",
+        type: String
+      }),
+      componentName: () => ({
+        value: "",
+        type: String
+      }),
+      instanceName: () => ({
+        value: "",
+        type: String
+      }),
+      children: () => ({
+        value: [],
+        type: Array
+      }),
+      isOpen: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
 
   // src/js/component/common/debug/debugOverlay/DebugTree/definition.js
   var DebugTree = createComponent({
@@ -31543,13 +31662,9 @@ Loading snippet ...</pre
       data: () => ({
         value: [],
         type: Array
-      }),
-      refreshData: () => ({
-        value: false,
-        type: Boolean,
-        skipEqual: false
       })
-    }
+    },
+    child: [DebugTreeItem]
   });
 
   // src/js/component/common/debug/debugOverlay/definition.js
@@ -31715,7 +31830,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: false
+        debug: true
       });
       inizializeApp({
         rootId: "#root",

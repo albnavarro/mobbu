@@ -2,49 +2,49 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { getTree, html, mainStore } from '../../../../../mobjs';
-
-const generateTree = () => {
-    return html` <div class="pippo">pluto 2</div> `;
-};
+import { getTree, mainStore } from '../../../../../mobjs';
+import { generateTree } from './recursiveTree';
 
 /** @type{MobComponent<import('./type').DebugTree>} */
 export const DebugTreeFn = ({
     html,
     onMount,
     setState,
-    computed,
     watchSync,
     getState,
     invalidate,
+    staticProps,
 }) => {
     onMount(() => {
         // Update data on route change
         mainStore.watch('afterRouteChange', () => {
+            const { active } = getState();
+            if (!active) return;
+
             setState('data', getTree());
         });
 
-        // Show new tree
-        computed('refreshData', ['active', 'data'], ({ active, data }) => {
-            return active && data.length > 0;
-        });
+        // Update data on overlay open/close
+        watchSync('active', (active) => {
+            if (active) {
+                setState('data', getTree());
+                return;
+            }
 
-        watchSync('refreshData', (value) => {
-            if (!value) return;
-
-            const { data } = getState();
-            console.log(data);
+            setState('data', []);
         });
 
         return () => {};
     });
     return html`<div class="c-debug-tree">
-        ${invalidate({
-            bind: 'refreshData',
-            persistent: true,
-            render: () => {
-                return generateTree();
-            },
-        })}
+        <div>
+            ${invalidate({
+                bind: 'data',
+                render: () => {
+                    const { data } = getState();
+                    return generateTree({ data, staticProps });
+                },
+            })}
+        </div>
     </div>`;
 };

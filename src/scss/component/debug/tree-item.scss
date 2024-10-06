@@ -1,0 +1,7 @@
+@use '../../abstract' as *;
+
+.c-debug-tree-item {
+    color: $white;
+    font-size: rem(12);
+    padding-left: rem(30);
+}

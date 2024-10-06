@@ -2243,6 +2243,7 @@ code {
   width: 100%;
   max-width: 80%;
   border: 1px #fff solid;
+  overflow: hidden;
 }
 .c-debug-overlay__head {
   grid-area: head;
@@ -2254,6 +2255,11 @@ code {
 }
 .c-debug-overlay__component {
   grid-area: component;
+}
+.c-debug-tree-item {
+  color: #fff;
+  font-size: 0.8rem;
+  padding-left: 2rem;
 }
 .html-content {
   color: #000;

@@ -43,7 +43,7 @@ export const DebugOverlayFn = ({
                         bind: ['active'],
                         props: ({ active }) => {
                             return {
-                                active,
+                                active: active,
                             };
                         },
                     })}

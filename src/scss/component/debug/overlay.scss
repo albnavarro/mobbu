@@ -58,11 +58,13 @@
             'head head'
             'tree component';
         grid-template-columns: repeat(2, 1fr);
+        /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         grid-template-rows: rem(150) auto;
         height: 80%;
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
+        overflow: hidden;
     }
 
     &__head {

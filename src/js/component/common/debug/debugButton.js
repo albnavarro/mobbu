@@ -1,7 +1,7 @@
 //@ts-check
 
 import { useMethodByName } from '../../../mobjs';
-// import { consoleLogDebug } from './consoleLog';
+import { consoleLogDebug } from './consoleLog';
 
 /**
  * @import { MobComponent } from '../../../mobjs/type';
@@ -16,6 +16,7 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
             ${delegateEvents({
                 click: () => {
                     useMethodByName('debugOverlay').toggle();
+                    consoleLogDebug();
                 },
             })}
         >
@@ -23,5 +24,3 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
         </button>
     `;
 };
-
-// consoleLogDebug();
