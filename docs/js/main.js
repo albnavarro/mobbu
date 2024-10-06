@@ -17021,9 +17021,6 @@
       return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
     }) ?? [];
   };
-  var getUserChildPlaceholderSize = () => {
-    return userPlaceholder.size;
-  };
   var clearUserPlaceHolder = async () => {
     await tick();
     userPlaceholder.clear();
@@ -17485,9 +17482,6 @@
   };
   var getAllSlot = () => {
     return [...slotPlaceholder];
-  };
-  var getSlotPlaceholderSize = () => {
-    return slotPlaceholder.size;
   };
 
   // src/js/mobjs/webComponent/slot.js
@@ -23707,30 +23701,6 @@ Loading snippet ...</pre
     child: [CodeOverlayButton, HtmlContent]
   });
 
-  // src/js/component/common/debug/consoleLog.js
-  var consoleLogDebug = () => {
-    mainStore.debugStore();
-    console.log("componentMap", componentMap);
-    console.log("Tree structure:", getTree());
-    console.log("bindEventMap", bindEventMap);
-    console.log("currentListValueMap", currentRepeaterValueMap);
-    console.log("activeRepeatMap", activeRepeatMap);
-    console.log("onMountCallbackMap", onMountCallbackMap);
-    console.log("staticPropsMap", staticPropsMap);
-    console.log("dynamicPropsMap", bindPropsMap);
-    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
-    console.log("eventDelegationMap", eventDelegationMap);
-    console.log("tempDelegateEventMap", tempDelegateEventMap);
-    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
-    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
-    console.log("invalidateFunctionMap", invalidateFunctionMap);
-    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
-    console.log("repeatIdHostMap", invalidateIdHostMap.size);
-    console.log("repeatFunctionMap", repeatFunctionMap);
-    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
-    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
-  };
-
   // src/js/component/common/debug/debugButton.js
   var DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
@@ -23739,7 +23709,6 @@ Loading snippet ...</pre
             class="c-btn-debug"
             ${delegateEvents({
       click: () => {
-        consoleLogDebug();
         useMethodByName("debugOverlay").toggle();
       }
     })}
@@ -31480,7 +31449,8 @@ Loading snippet ...</pre
     onMount,
     updateState,
     watchSync,
-    setState
+    setState,
+    bindProps
   }) => {
     addMethod("toggle", () => {
       updateState("active", (value) => !value);
@@ -31504,11 +31474,83 @@ Loading snippet ...</pre
         ></button>
         <div class="c-debug-overlay__grid">
             <div class="c-debug-overlay__head"></div>
-            <div class="c-debug-overlay__tree"></div>
+            <div class="c-debug-overlay__tree">
+                <debug-tree
+                    ${bindProps({
+      bind: ["active"],
+      props: ({ active }) => {
+        return {
+          active
+        };
+      }
+    })}
+                ></debug-tree>
+            </div>
             <div class="c-debug-overlay__component"></div>
         </div>
     </div>`;
   };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
+  var generateTree = () => {
+    return renderHtml` <div class="pippo">pluto 2</div> `;
+  };
+  var DebugTreeFn = ({
+    html,
+    onMount,
+    setState,
+    computed,
+    watchSync,
+    getState,
+    invalidate
+  }) => {
+    onMount(() => {
+      mainStore.watch("afterRouteChange", () => {
+        setState("data", getTree());
+      });
+      computed("refreshData", ["active", "data"], ({ active, data: data2 }) => {
+        return active && data2.length > 0;
+      });
+      watchSync("refreshData", (value) => {
+        if (!value) return;
+        const { data: data2 } = getState();
+        console.log(data2);
+      });
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-tree">
+        ${invalidate({
+      bind: "refreshData",
+      persistent: true,
+      render: () => {
+        return generateTree();
+      }
+    })}
+    </div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/definition.js
+  var DebugTree = createComponent({
+    name: "debug-tree",
+    component: DebugTreeFn,
+    exportState: ["active"],
+    state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      }),
+      data: () => ({
+        value: [],
+        type: Array
+      }),
+      refreshData: () => ({
+        value: false,
+        type: Boolean,
+        skipEqual: false
+      })
+    }
+  });
 
   // src/js/component/common/debug/debugOverlay/definition.js
   var DebugOverlay = createComponent({
@@ -31519,7 +31561,8 @@ Loading snippet ...</pre
         value: false,
         type: Boolean
       })
-    }
+    },
+    child: [DebugTree]
   });
 
   // src/js/wrapper/index.js

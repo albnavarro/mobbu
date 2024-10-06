@@ -2,6 +2,7 @@
 
 import { createComponent } from '../../../../mobjs';
 import { DebugOverlayFn } from './debugOverlay';
+import { DebugTree } from './DebugTree/definition';
 
 export const DebugOverlay = createComponent({
     name: 'debug-overlay',
@@ -12,4 +13,5 @@ export const DebugOverlay = createComponent({
             type: Boolean,
         }),
     },
+    child: [DebugTree],
 });

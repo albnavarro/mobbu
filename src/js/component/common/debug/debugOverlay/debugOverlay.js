@@ -11,6 +11,7 @@ export const DebugOverlayFn = ({
     updateState,
     watchSync,
     setState,
+    bindProps,
 }) => {
     addMethod('toggle', () => {
         updateState('active', (value) => !value);
@@ -36,7 +37,18 @@ export const DebugOverlayFn = ({
         ></button>
         <div class="c-debug-overlay__grid">
             <div class="c-debug-overlay__head"></div>
-            <div class="c-debug-overlay__tree"></div>
+            <div class="c-debug-overlay__tree">
+                <debug-tree
+                    ${bindProps({
+                        bind: ['active'],
+                        props: ({ active }) => {
+                            return {
+                                active,
+                            };
+                        },
+                    })}
+                ></debug-tree>
+            </div>
             <div class="c-debug-overlay__component"></div>
         </div>
     </div>`;
