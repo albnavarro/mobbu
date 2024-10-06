@@ -100,6 +100,7 @@ export const DebugTreeFn = ({
             destroy?.();
         };
     });
+
     return html`<div class="c-debug-tree" ${setRef('screen')}>
         <input
             type="range"
