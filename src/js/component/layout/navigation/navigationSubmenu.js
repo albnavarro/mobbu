@@ -59,8 +59,8 @@ export const NavigationSubmenuFn = ({
 
         watchSync('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
-
             await slide[action](content);
+
             useMethodByName('navigation-container')?.refresh();
             if (isOpen) return;
 
