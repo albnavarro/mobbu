@@ -23740,6 +23740,7 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         consoleLogDebug();
+        useMethodByName("debugOverlay").toggle();
       }
     })}
         >
@@ -31471,6 +31472,51 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/debug/debugOverlay/debugOverlay.js
+  var DebugOverlayFn = ({
+    html,
+    delegateEvents,
+    addMethod,
+    onMount,
+    updateState,
+    watchSync,
+    setState
+  }) => {
+    addMethod("toggle", () => {
+      updateState("active", (value) => !value);
+    });
+    onMount(({ element }) => {
+      watchSync("active", (value) => {
+        element.classList.toggle("active", value);
+      });
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-overlay">
+        <button
+            type="button"
+            class="c-debug-overlay__close"
+            ${delegateEvents({
+      click: () => {
+        setState("active", false);
+      }
+    })}
+        ></button>
+    </div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/definition.js
+  var DebugOverlay = createComponent({
+    name: "debug-overlay",
+    component: DebugOverlayFn,
+    state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
+
   // src/js/wrapper/index.js
   useComponent([
     CodeOverlay,
@@ -31486,7 +31532,8 @@ Loading snippet ...</pre
     CebugButton,
     ScrollToTop,
     LinksMobJs,
-    OnlyDesktop
+    OnlyDesktop,
+    DebugOverlay
   ]);
   var wrapper = async () => {
     const { data: svg } = await loadTextContent({
@@ -31503,6 +31550,7 @@ Loading snippet ...</pre
         <!-- </div> -->
 
         <only-desktop></only-desktop>
+        <debug-overlay name="debugOverlay"></debug-overlay>
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container

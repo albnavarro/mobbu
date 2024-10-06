@@ -14,6 +14,7 @@ import { html, staticProps, useComponent } from '../mobjs';
 import { loadTextContent } from '../utils/utils';
 import { LinksMobJs } from '../component/common/linksMobJs/definition';
 import { OnlyDesktop } from '../component/common/onlyDesktop/definition';
+import { DebugOverlay } from '../component/common/debug/debugOverlay/definition';
 
 useComponent([
     CodeOverlay,
@@ -30,6 +31,7 @@ useComponent([
     ScrollToTop,
     LinksMobJs,
     OnlyDesktop,
+    DebugOverlay,
 ]);
 
 export const wrapper = async () => {
@@ -48,6 +50,7 @@ export const wrapper = async () => {
         <!-- </div> -->
 
         <only-desktop></only-desktop>
+        <debug-overlay name="debugOverlay"></debug-overlay>
         <code-overlay name="codeOverlay"></code-overlay>
         <mob-header></mob-header>
         <mob-navigation-container

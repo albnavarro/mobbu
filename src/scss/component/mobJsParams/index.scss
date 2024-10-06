@@ -8,7 +8,7 @@
     position: fixed;
     top: rem(120, large);
     left: calc(var(--doc-width) + #{rem(40)});
-    z-index: 100;
+    z-index: 14;
     margin-top: rem(40);
     width: rem(250);
     opacity: 0;

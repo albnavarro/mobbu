@@ -1,0 +1,50 @@
+@use '../../abstract' as *;
+
+.c-debug-overlay {
+    position: fixed;
+    inset: var(--header-height) 0 var(--footer-height) 0;
+    background: rgba($black, 0.9);
+    z-index: 15;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.35s,
+        visibility 0.35s;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    &__close {
+        position: absolute;
+        top: rem(20);
+        right: rem(10);
+        z-index: 10;
+        height: rem(40);
+        width: rem(40);
+        border: 0;
+        background: transparent;
+
+        &::after,
+        &::before {
+            content: '';
+            position: absolute;
+            width: rem(20);
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            background: $white;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(135deg);
+        }
+    }
+}
