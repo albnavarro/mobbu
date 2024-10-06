@@ -23746,7 +23746,7 @@ Loading snippet ...</pre
       }
     })}
         >
-            Console Debug
+            Debug App
         </button>
     `;
   };
@@ -31313,35 +31313,39 @@ Loading snippet ...</pre
         if (!(templateName in templateData)) return;
         screenEl.classList.toggle("active", !value);
       });
-      mainStore.watch("afterRouteChange", async (data2) => {
-        const { templateName, route } = data2;
-        const currentData = templateData?.[templateName] ?? [];
-        setState("data", currentData);
-        await tick();
-        setState("activeSection", route);
-        if (currentData.length > 0) {
-          screenEl.classList.add("active");
-          if (isActive) return;
-          const methods = linksSidebarScroller({
-            screen: screenEl,
-            scroller: scrollerEl,
-            scrollbar
-          });
-          init7 = methods.init;
-          destroy = methods.destroy;
-          move = methods.move;
-          isActive = true;
-          init7();
-          move(0);
+      const unsubscribeRoute = mainStore.watch(
+        "afterRouteChange",
+        async (data2) => {
+          const { templateName, route } = data2;
+          const currentData = templateData?.[templateName] ?? [];
+          setState("data", currentData);
+          await tick();
+          setState("activeSection", route);
+          if (currentData.length > 0) {
+            screenEl.classList.add("active");
+            if (isActive) return;
+            const methods = linksSidebarScroller({
+              screen: screenEl,
+              scroller: scrollerEl,
+              scrollbar
+            });
+            init7 = methods.init;
+            destroy = methods.destroy;
+            move = methods.move;
+            isActive = true;
+            init7();
+            move(0);
+          }
+          if (currentData.length === 0) {
+            screenEl.classList.remove("active");
+            destroy?.();
+            isActive = false;
+          }
         }
-        if (currentData.length === 0) {
-          screenEl.classList.remove("active");
-          destroy?.();
-          isActive = false;
-        }
-      });
+      );
       return () => {
         destroy?.();
+        unsubscribeRoute();
       };
     });
     return html`<div class="c-params-mobjs" ${setRef("screenEl")}>
@@ -31497,6 +31501,15 @@ Loading snippet ...</pre
     });
     return html`<div class="c-debug-overlay">
         <button
+            class="c-debug-overlay__background"
+            type="button"
+            ${delegateEvents({
+      click: () => {
+        setState("active", false);
+      }
+    })}
+        ></button>
+        <button
             type="button"
             class="c-debug-overlay__close"
             ${delegateEvents({
@@ -31559,15 +31572,19 @@ Loading snippet ...</pre
           getRef
         });
       });
-      mainStore.watch("afterRouteChange", async () => {
-        const { active } = getState();
-        updateContent2({
-          active,
-          value: componentMap.size,
-          getRef
-        });
-      });
+      const unsubscrineRoue = mainStore.watch(
+        "afterRouteChange",
+        async () => {
+          const { active } = getState();
+          updateContent2({
+            active,
+            value: componentMap.size,
+            getRef
+          });
+        }
+      );
       return () => {
+        unsubscrineRoue();
       };
     });
     return html`<div class="c-debug-head">
@@ -31692,16 +31709,19 @@ Loading snippet ...</pre
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
-      mainStore.watch("afterRouteChange", async () => {
-        destroy?.();
-        const { active } = getState();
-        if (!active) return;
-        setState("data", getTree());
-        const methods = await initScroller({ getRef });
-        destroy = methods.destroy;
-        move = methods.move;
-        refresh = methods.refresh;
-      });
+      const unsubscrineRoue = mainStore.watch(
+        "afterRouteChange",
+        async () => {
+          destroy?.();
+          const { active } = getState();
+          if (!active) return;
+          setState("data", getTree());
+          const methods = await initScroller({ getRef });
+          destroy = methods.destroy;
+          move = methods.move;
+          refresh = methods.refresh;
+        }
+      );
       watchSync("active", async (active) => {
         destroy?.();
         if (active) {
@@ -31716,6 +31736,7 @@ Loading snippet ...</pre
         setState("data", []);
       });
       return () => {
+        unsubscrineRoue();
         destroy?.();
       };
     });
@@ -31750,7 +31771,7 @@ Loading snippet ...</pre
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
   var getCounter2 = (value) => {
-    return value > 0 ? `( ${value} )` : "";
+    return value > 0 ? `( ${value} ) ` : "";
   };
   var DebugTreeItemFn = ({
     html,

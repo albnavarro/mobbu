@@ -10,7 +10,7 @@ import { generateTree } from '../recursiveTree';
  * @param {number} value
  */
 const getCounter = (value) => {
-    return value > 0 ? `( ${value} )` : '';
+    return value > 0 ? `( ${value} ) ` : '';
 };
 
 /** @type{MobComponent<import('./type').DebugTreeItem>} */

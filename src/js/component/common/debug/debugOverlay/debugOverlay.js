@@ -27,6 +27,15 @@ export const DebugOverlayFn = ({
 
     return html`<div class="c-debug-overlay">
         <button
+            class="c-debug-overlay__background"
+            type="button"
+            ${delegateEvents({
+                click: () => {
+                    setState('active', false);
+                },
+            })}
+        ></button>
+        <button
             type="button"
             class="c-debug-overlay__close"
             ${delegateEvents({

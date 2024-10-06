@@ -29,17 +29,22 @@ export const DebugHeadFn = ({
             });
         });
 
-        mainStore.watch('afterRouteChange', async () => {
-            const { active } = getState();
+        const unsubscrineRoue = mainStore.watch(
+            'afterRouteChange',
+            async () => {
+                const { active } = getState();
 
-            updateContent({
-                active,
-                value: componentMap.size,
-                getRef,
-            });
-        });
+                updateContent({
+                    active,
+                    value: componentMap.size,
+                    getRef,
+                });
+            }
+        );
 
-        return () => {};
+        return () => {
+            unsubscrineRoue();
+        };
     });
 
     return html`<div class="c-debug-head">

@@ -85,45 +85,49 @@ export const LinksMobJsFn = ({
             screenEl.classList.toggle('active', !value);
         });
 
-        mainStore.watch('afterRouteChange', async (data) => {
-            const { templateName, route } = data;
-            const currentData = templateData?.[templateName] ?? [];
-            setState('data', currentData);
+        const unsubscribeRoute = mainStore.watch(
+            'afterRouteChange',
+            async (data) => {
+                const { templateName, route } = data;
+                const currentData = templateData?.[templateName] ?? [];
+                setState('data', currentData);
 
-            /**
-             * Await list was created, then create scroller
-             */
-            await tick();
+                /**
+                 * Await list was created, then create scroller
+                 */
+                await tick();
 
-            setState('activeSection', route);
+                setState('activeSection', route);
 
-            if (currentData.length > 0) {
-                screenEl.classList.add('active');
-                if (isActive) return;
+                if (currentData.length > 0) {
+                    screenEl.classList.add('active');
+                    if (isActive) return;
 
-                const methods = linksSidebarScroller({
-                    screen: screenEl,
-                    scroller: scrollerEl,
-                    scrollbar,
-                });
+                    const methods = linksSidebarScroller({
+                        screen: screenEl,
+                        scroller: scrollerEl,
+                        scrollbar,
+                    });
 
-                init = methods.init;
-                destroy = methods.destroy;
-                move = methods.move;
-                isActive = true;
-                init();
-                move(0);
+                    init = methods.init;
+                    destroy = methods.destroy;
+                    move = methods.move;
+                    isActive = true;
+                    init();
+                    move(0);
+                }
+
+                if (currentData.length === 0) {
+                    screenEl.classList.remove('active');
+                    destroy?.();
+                    isActive = false;
+                }
             }
-
-            if (currentData.length === 0) {
-                screenEl.classList.remove('active');
-                destroy?.();
-                isActive = false;
-            }
-        });
+        );
 
         return () => {
             destroy?.();
+            unsubscribeRoute();
         };
     });
 

@@ -8,6 +8,15 @@
     &__head {
         &.has-children {
             cursor: pointer;
+            position: relative;
+
+            &::before {
+                content: '+';
+                position: absolute;
+                left: calc(#{rem(20)} * -1);
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     }
 

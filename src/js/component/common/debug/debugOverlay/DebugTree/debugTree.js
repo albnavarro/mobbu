@@ -63,17 +63,20 @@ export const DebugTreeFn = ({
         });
 
         // Update data on route change
-        mainStore.watch('afterRouteChange', async () => {
-            destroy?.();
-            const { active } = getState();
-            if (!active) return;
+        const unsubscrineRoue = mainStore.watch(
+            'afterRouteChange',
+            async () => {
+                destroy?.();
+                const { active } = getState();
+                if (!active) return;
 
-            setState('data', getTree());
-            const methods = await initScroller({ getRef });
-            destroy = methods.destroy;
-            move = methods.move;
-            refresh = methods.refresh;
-        });
+                setState('data', getTree());
+                const methods = await initScroller({ getRef });
+                destroy = methods.destroy;
+                move = methods.move;
+                refresh = methods.refresh;
+            }
+        );
 
         // Update data on overlay open/close
         watchSync('active', async (active) => {
@@ -93,6 +96,7 @@ export const DebugTreeFn = ({
         });
 
         return () => {
+            unsubscrineRoue();
             destroy?.();
         };
     });

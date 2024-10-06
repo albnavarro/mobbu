@@ -20,7 +20,7 @@ export const DebugButtonFn = ({ html, delegateEvents }) => {
                 },
             })}
         >
-            Console Debug
+            Debug App
         </button>
     `;
 };
