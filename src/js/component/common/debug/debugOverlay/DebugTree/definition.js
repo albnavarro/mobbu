@@ -1,6 +1,7 @@
 //@ts-check
 
 import { createComponent } from '../../../../../mobjs';
+import { DebugHead } from './Debughead/definition';
 import { DebugTreeFn } from './debugTree';
 import { DebugTreeItem } from './DebugTreeItem/definition';
 
@@ -18,5 +19,5 @@ export const DebugTree = createComponent({
             type: Array,
         }),
     },
-    child: [DebugTreeItem],
+    child: [DebugTreeItem, DebugHead],
 });

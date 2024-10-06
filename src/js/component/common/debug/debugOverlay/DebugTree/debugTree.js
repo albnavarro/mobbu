@@ -2,7 +2,6 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { debounceFuncion } from '../../../../../mobCore/events/debounce';
 import { getTree, mainStore, tick } from '../../../../../mobjs';
 import { treeScroller } from './animation/treeScroller';
 import { generateTree } from './recursiveTree';
@@ -54,15 +53,11 @@ export const DebugTreeFn = ({
         let refresh = () => {};
         let move;
 
-        addMethod(
-            'refresh',
-            debounceFuncion(() => {
-                refresh?.();
-            }, 60)
-        );
+        addMethod('refresh', () => {
+            refresh?.();
+        });
 
         scrollbar.addEventListener('input', () => {
-            console.log('move');
             // @ts-ignore
             move?.(scrollbar.value);
         });
@@ -116,6 +111,11 @@ export const DebugTreeFn = ({
         <div class="c-debug-tree__content" ${setRef('scroller')}>
             ${invalidate({
                 bind: 'data',
+                /**
+                 * On route change tree must be deleted.
+                 * Otherwise create other tree-item to track the previous tree
+                 */
+                persistent: false,
                 render: () => {
                     const { data } = getState();
                     return generateTree({ data, staticProps });

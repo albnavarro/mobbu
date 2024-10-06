@@ -6,7 +6,7 @@ import { DebugTreeItemFn } from './debugTreeItem';
 export const DebugTreeItem = createComponent({
     name: 'debug-tree-item',
     component: DebugTreeItemFn,
-    exportState: ['active', 'id', 'componentName', 'instanceName', 'children'],
+    exportState: ['id', 'componentName', 'instanceName', 'children'],
     state: {
         id: () => ({
             value: '',

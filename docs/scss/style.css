@@ -2262,6 +2262,10 @@ code {
   inset: 0;
   overflow: hidden;
 }
+.c-debug-tree__content {
+  padding-top: 2.6666666667rem;
+  padding-bottom: 2.6666666667rem;
+}
 .c-debug-tree__scrollbar {
   position: absolute;
   top: 1vh;
@@ -2308,10 +2312,22 @@ code {
 .c-debug-tree__scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
 }
+.c-debug-head {
+  color: #fff;
+  font-size: 0.8rem;
+  padding-left: 2rem;
+}
 .c-debug-tree-item {
   color: #fff;
   font-size: 0.8rem;
   padding-left: 2rem;
+}
+.c-debug-tree-item__head.has-children {
+  cursor: pointer;
+}
+.c-debug-tree-item__id {
+  font-weight: 600;
+  opacity: 0.8;
 }
 .html-content {
   color: #000;

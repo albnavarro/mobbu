@@ -5,6 +5,11 @@
     inset: 0;
     overflow: hidden;
 
+    &__content {
+        padding-top: rem(40);
+        padding-bottom: rem(40);
+    }
+
     &__scrollbar {
         position: absolute;
         top: 1vh;

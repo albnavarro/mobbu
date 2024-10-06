@@ -31506,7 +31506,19 @@ Loading snippet ...</pre
     })}
         ></button>
         <div class="c-debug-overlay__grid">
-            <div class="c-debug-overlay__head"></div>
+            <div class="c-debug-overlay__head">
+                <debug-head
+                    ${bindProps({
+      bind: ["active"],
+      /** @returns{import('./DebugTree/Debughead/type').DebugHead} */
+      props: ({ active }) => {
+        return {
+          active
+        };
+      }
+    })}
+                ></debug-head>
+            </div>
             <div class="c-debug-overlay__tree">
                 <debug-tree
                     name="debug_tree"
@@ -31524,6 +31536,60 @@ Loading snippet ...</pre
         </div>
     </div>`;
   };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/debugHead.js
+  var updateContent2 = ({ active, value, getRef }) => {
+    const { number_of_component } = getRef();
+    const content = active ? `Number of component: ${value}` : ``;
+    number_of_component.textContent = content;
+  };
+  var DebugHeadFn = ({
+    html,
+    onMount,
+    getState,
+    setRef,
+    getRef,
+    watch
+  }) => {
+    onMount(() => {
+      watch("active", async (active) => {
+        updateContent2({
+          active,
+          value: componentMap.size,
+          getRef
+        });
+      });
+      mainStore.watch("afterRouteChange", async () => {
+        const { active } = getState();
+        updateContent2({
+          active,
+          value: componentMap.size,
+          getRef
+        });
+      });
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-head">
+        <span
+            class="c-debug-head__total"
+            ${setRef("number_of_component")}
+        ></span>
+    </div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/definition.js
+  var DebugHead = createComponent({
+    name: "debug-head",
+    component: DebugHeadFn,
+    exportState: ["active"],
+    state: {
+      active: () => ({
+        value: false,
+        type: Boolean
+      })
+    }
+  });
 
   // src/js/component/common/debug/debugOverlay/DebugTree/animation/treeScroller.js
   var treeScroller = ({ screen, scroller: scroller2, scrollbar }) => {
@@ -31620,14 +31686,10 @@ Loading snippet ...</pre
       let refresh = () => {
       };
       let move;
-      addMethod(
-        "refresh",
-        debounceFuncion(() => {
-          refresh?.();
-        }, 60)
-      );
+      addMethod("refresh", () => {
+        refresh?.();
+      });
       scrollbar.addEventListener("input", () => {
-        console.log("move");
         move?.(scrollbar.value);
       });
       mainStore.watch("afterRouteChange", async () => {
@@ -31672,6 +31734,11 @@ Loading snippet ...</pre
         <div class="c-debug-tree__content" ${setRef("scroller")}>
             ${invalidate({
       bind: "data",
+      /**
+       * On route change tree must be deleted.
+       * Otherwise create other tree-item to track the previous tree
+       */
+      persistent: false,
       render: () => {
         const { data: data2 } = getState();
         return generateTree({ data: data2, staticProps: staticProps2 });
@@ -31682,6 +31749,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
+  var getCounter2 = (value) => {
+    return value > 0 ? `( ${value} )` : "";
+  };
   var DebugTreeItemFn = ({
     html,
     onMount,
@@ -31691,14 +31761,15 @@ Loading snippet ...</pre
     setRef,
     delegateEvents,
     updateState,
-    watchSync
+    watch
   }) => {
     const { id, componentName, instanceName, children } = getState();
+    const hasChildrenClass = children.length > 0 ? "has-children" : "";
     onMount(() => {
       const { content } = getRef();
       slide.subscribe(content);
       slide.reset(content);
-      watchSync("isOpen", async (isOpen) => {
+      watch("isOpen", async (isOpen) => {
         const action2 = isOpen ? "down" : "up";
         await slide[action2](content);
         useMethodByName("debug_tree")?.refresh();
@@ -31708,16 +31779,17 @@ Loading snippet ...</pre
     });
     return html`<div class="c-debug-tree-item">
         <div
-            class="c-debug-tree-item__head"
+            class="c-debug-tree-item__head ${hasChildrenClass}"
             ${delegateEvents({
       click: () => {
         updateState("isOpen", (value) => !value);
       }
     })}
         >
-            <span>id: ${id}</span>
-            <span>${componentName}</span>
-            <span>${instanceName}</span>
+            <span class="c-debug-tree-item__id">${id}</span> |
+            <span class="c-debug-tree-item__component">${componentName}</span> |
+            <span class="c-debug-tree-item__instance">${instanceName}</span>
+            <span>${getCounter2(children.length)}</span>
         </div>
         <div class="c-debug-tree-item__content" ${setRef("content")}>
             ${generateTree({ data: children, staticProps: staticProps2 })}
@@ -31729,7 +31801,7 @@ Loading snippet ...</pre
   var DebugTreeItem = createComponent({
     name: "debug-tree-item",
     component: DebugTreeItemFn,
-    exportState: ["active", "id", "componentName", "instanceName", "children"],
+    exportState: ["id", "componentName", "instanceName", "children"],
     state: {
       id: () => ({
         value: "",
@@ -31769,7 +31841,7 @@ Loading snippet ...</pre
         type: Array
       })
     },
-    child: [DebugTreeItem]
+    child: [DebugTreeItem, DebugHead]
   });
 
   // src/js/component/common/debug/debugOverlay/definition.js

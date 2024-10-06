@@ -36,7 +36,19 @@ export const DebugOverlayFn = ({
             })}
         ></button>
         <div class="c-debug-overlay__grid">
-            <div class="c-debug-overlay__head"></div>
+            <div class="c-debug-overlay__head">
+                <debug-head
+                    ${bindProps({
+                        bind: ['active'],
+                        /** @returns{import('./DebugTree/Debughead/type').DebugHead} */
+                        props: ({ active }) => {
+                            return {
+                                active: active,
+                            };
+                        },
+                    })}
+                ></debug-head>
+            </div>
             <div class="c-debug-overlay__tree">
                 <debug-tree
                     name="debug_tree"

@@ -4,4 +4,15 @@
     color: $white;
     font-size: rem(12);
     padding-left: rem(30);
+
+    &__head {
+        &.has-children {
+            cursor: pointer;
+        }
+    }
+
+    &__id {
+        font-weight: 600;
+        opacity: 0.8;
+    }
 }
