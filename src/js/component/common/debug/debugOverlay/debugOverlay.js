@@ -39,6 +39,7 @@ export const DebugOverlayFn = ({
             <div class="c-debug-overlay__head"></div>
             <div class="c-debug-overlay__tree">
                 <debug-tree
+                    name="debug_tree"
                     ${bindProps({
                         bind: ['active'],
                         props: ({ active }) => {

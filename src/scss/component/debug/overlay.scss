@@ -59,8 +59,7 @@
             'tree component';
         grid-template-columns: repeat(2, 1fr);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
-        grid-template-rows: rem(150) auto;
-        height: 80%;
+        grid-template-rows: rem(150) 40vh;
         width: 100%;
         max-width: 80%;
         border: 1px $white solid;
@@ -75,6 +74,7 @@
     &__tree {
         grid-area: tree;
         border-right: 1px $white solid;
+        position: relative;
     }
 
     &__component {

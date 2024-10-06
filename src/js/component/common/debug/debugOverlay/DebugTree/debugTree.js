@@ -2,8 +2,35 @@
  * @import { MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { getTree, mainStore } from '../../../../../mobjs';
+import { debounceFuncion } from '../../../../../mobCore/events/debounce';
+import { getTree, mainStore, tick } from '../../../../../mobjs';
+import { treeScroller } from './animation/treeScroller';
 import { generateTree } from './recursiveTree';
+
+const initScroller = async ({ getRef }) => {
+    await tick();
+
+    const { screen, scroller, scrollbar } = getRef();
+
+    const methods = treeScroller({
+        screen,
+        scroller,
+        scrollbar,
+    });
+
+    const init = methods.init;
+    const destroy = methods.destroy;
+    const refresh = methods.refresh;
+    const move = methods.move;
+    init();
+    move(0);
+
+    return {
+        destroy,
+        move,
+        refresh,
+    };
+};
 
 /** @type{MobComponent<import('./type').DebugTree>} */
 export const DebugTreeFn = ({
@@ -14,30 +41,79 @@ export const DebugTreeFn = ({
     getState,
     invalidate,
     staticProps,
+    setRef,
+    getRef,
+    addMethod,
 }) => {
     onMount(() => {
+        const { scrollbar } = getRef();
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let destroy = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let refresh = () => {};
+        let move;
+
+        addMethod(
+            'refresh',
+            debounceFuncion(() => {
+                refresh?.();
+            }, 60)
+        );
+
+        scrollbar.addEventListener('input', () => {
+            console.log('move');
+            // @ts-ignore
+            move?.(scrollbar.value);
+        });
+
         // Update data on route change
-        mainStore.watch('afterRouteChange', () => {
+        mainStore.watch('afterRouteChange', async () => {
+            destroy?.();
             const { active } = getState();
             if (!active) return;
 
             setState('data', getTree());
+            const methods = await initScroller({ getRef });
+            destroy = methods.destroy;
+            move = methods.move;
+            refresh = methods.refresh;
         });
 
         // Update data on overlay open/close
-        watchSync('active', (active) => {
+        watchSync('active', async (active) => {
+            destroy?.();
+
             if (active) {
                 setState('data', getTree());
+                const methods = await initScroller({ getRef });
+                console.log(methods);
+                destroy = methods.destroy;
+                move = methods.move;
+                refresh = methods.refresh;
                 return;
             }
 
             setState('data', []);
         });
 
-        return () => {};
+        return () => {
+            destroy?.();
+        };
     });
-    return html`<div class="c-debug-tree">
-        <div>
+    return html`<div class="c-debug-tree" ${setRef('screen')}>
+        <input
+            type="range"
+            id="test"
+            name="test"
+            min="0"
+            max="100"
+            value="0"
+            step=".5"
+            ${setRef('scrollbar')}
+            class="c-debug-tree__scrollbar"
+        />
+        <div class="c-debug-tree__content" ${setRef('scroller')}>
             ${invalidate({
                 bind: 'data',
                 render: () => {

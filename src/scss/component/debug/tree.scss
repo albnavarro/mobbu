@@ -1,0 +1,62 @@
+@use '../../abstract' as *;
+
+.c-debug-tree {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+
+    &__scrollbar {
+        position: absolute;
+        top: 1vh;
+        width: 37vh;
+        left: calc(100% - #{rem(20)});
+        transform: rotate(90deg);
+        transform-origin: left;
+        z-index: 14;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+
+        --thumb-width: #{rem(200)};
+
+        &:focus {
+            outline: none;
+        }
+
+        &::-webkit-slider-runnable-track {
+            background-color: rgba($grey, 0.3);
+            border-radius: 0;
+            height: rem(10);
+            width: var(--thumb-width);
+        }
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            background-color: $white;
+            height: rem(10);
+            width: var(--thumb-width);
+        }
+
+        &:focus::-webkit-slider-thumb {
+            outline-offset: 0;
+        }
+
+        &::-moz-range-track {
+            background-color: rgba($grey, 0.3);
+            border-radius: 0;
+            height: rem(10);
+        }
+
+        &::-moz-range-thumb {
+            border: none; /* Removes extra border that FF applies */
+            border-radius: 0; /* Removes default border-radius that FF applies */
+            background-color: $white;
+            height: rem(10);
+            width: var(--thumb-width);
+        }
+
+        &:focus::-moz-range-thumb {
+            outline-offset: 0;
+        }
+    }
+}

@@ -12,6 +12,7 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     z-index: 16;
+    pointer-events: none;
 
     &.disable {
         animation: none;

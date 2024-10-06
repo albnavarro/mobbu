@@ -2,6 +2,7 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
+import { useMethodByName } from '../../../../../../mobjs';
 import { slide } from '../../../../../../mobMotion/plugin';
 import { generateTree } from '../recursiveTree';
 
@@ -28,6 +29,7 @@ export const DebugTreeItemFn = ({
         watchSync('isOpen', async (isOpen) => {
             const action = isOpen ? 'down' : 'up';
             await slide[action](content);
+            useMethodByName('debug_tree')?.refresh();
         });
         return () => {};
     });

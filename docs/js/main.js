@@ -31509,6 +31509,7 @@ Loading snippet ...</pre
             <div class="c-debug-overlay__head"></div>
             <div class="c-debug-overlay__tree">
                 <debug-tree
+                    name="debug_tree"
                     ${bindProps({
       bind: ["active"],
       props: ({ active }) => {
@@ -31522,6 +31523,47 @@ Loading snippet ...</pre
             <div class="c-debug-overlay__component"></div>
         </div>
     </div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/animation/treeScroller.js
+  var treeScroller = ({ screen, scroller: scroller2, scrollbar }) => {
+    let instance;
+    return {
+      init: () => {
+        if (instance) return;
+        instance = new SmoothScroller({
+          screen,
+          scroller: scroller2,
+          direction: "vertical",
+          drag: true,
+          scopedEvent: false,
+          breakpoint: "desktop",
+          onTick: ({ percent }) => {
+            scrollbar.value = percent;
+          }
+        });
+        instance.init();
+      },
+      destroy: () => {
+        instance?.destroy();
+      },
+      refresh: () => {
+        instance?.refresh();
+      },
+      updateScroller: () => {
+        if (!instance) return;
+        const scrollerHeight = outerHeight(scroller2);
+        const screenHeight = outerHeight(screen);
+        const scrollBarHeight = outerWidth(scrollbar);
+        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
+        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
+        instance?.refresh();
+      },
+      move: (val2) => {
+        if (!instance) return;
+        instance?.move(val2);
+      }
+    };
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js
@@ -31539,6 +31581,26 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
+  var initScroller = async ({ getRef }) => {
+    await tick();
+    const { screen, scroller: scroller2, scrollbar } = getRef();
+    const methods = treeScroller({
+      screen,
+      scroller: scroller2,
+      scrollbar
+    });
+    const init7 = methods.init;
+    const destroy = methods.destroy;
+    const refresh = methods.refresh;
+    const move = methods.move;
+    init7();
+    move(0);
+    return {
+      destroy,
+      move,
+      refresh
+    };
+  };
   var DebugTreeFn = ({
     html,
     onMount,
@@ -31546,26 +31608,68 @@ Loading snippet ...</pre
     watchSync,
     getState,
     invalidate,
-    staticProps: staticProps2
+    staticProps: staticProps2,
+    setRef,
+    getRef,
+    addMethod
   }) => {
     onMount(() => {
-      mainStore.watch("afterRouteChange", () => {
+      const { scrollbar } = getRef();
+      let destroy = () => {
+      };
+      let refresh = () => {
+      };
+      let move;
+      addMethod(
+        "refresh",
+        debounceFuncion(() => {
+          refresh?.();
+        }, 60)
+      );
+      scrollbar.addEventListener("input", () => {
+        console.log("move");
+        move?.(scrollbar.value);
+      });
+      mainStore.watch("afterRouteChange", async () => {
+        destroy?.();
         const { active } = getState();
         if (!active) return;
         setState("data", getTree());
+        const methods = await initScroller({ getRef });
+        destroy = methods.destroy;
+        move = methods.move;
+        refresh = methods.refresh;
       });
-      watchSync("active", (active) => {
+      watchSync("active", async (active) => {
+        destroy?.();
         if (active) {
           setState("data", getTree());
+          const methods = await initScroller({ getRef });
+          console.log(methods);
+          destroy = methods.destroy;
+          move = methods.move;
+          refresh = methods.refresh;
           return;
         }
         setState("data", []);
       });
       return () => {
+        destroy?.();
       };
     });
-    return html`<div class="c-debug-tree">
-        <div>
+    return html`<div class="c-debug-tree" ${setRef("screen")}>
+        <input
+            type="range"
+            id="test"
+            name="test"
+            min="0"
+            max="100"
+            value="0"
+            step=".5"
+            ${setRef("scrollbar")}
+            class="c-debug-tree__scrollbar"
+        />
+        <div class="c-debug-tree__content" ${setRef("scroller")}>
             ${invalidate({
       bind: "data",
       render: () => {
@@ -31597,6 +31701,7 @@ Loading snippet ...</pre
       watchSync("isOpen", async (isOpen) => {
         const action2 = isOpen ? "down" : "up";
         await slide[action2](content);
+        useMethodByName("debug_tree")?.refresh();
       });
       return () => {
       };

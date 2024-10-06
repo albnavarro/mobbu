@@ -2119,6 +2119,7 @@ code {
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
   z-index: 16;
+  pointer-events: none;
 }
 .c-loader.disable {
   animation: none;
@@ -2238,8 +2239,7 @@ code {
   display: grid;
   grid-template-areas: "head head" "tree component";
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 10rem auto;
-  height: 80%;
+  grid-template-rows: 10rem 40vh;
   width: 100%;
   max-width: 80%;
   border: 1px #fff solid;
@@ -2252,9 +2252,61 @@ code {
 .c-debug-overlay__tree {
   grid-area: tree;
   border-right: 1px #fff solid;
+  position: relative;
 }
 .c-debug-overlay__component {
   grid-area: component;
+}
+.c-debug-tree {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.c-debug-tree__scrollbar {
+  position: absolute;
+  top: 1vh;
+  width: 37vh;
+  left: calc(100% - 1.3333333333rem);
+  transform: rotate(90deg);
+  transform-origin: left;
+  z-index: 14;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  --thumb-width: 13.3333333333rem;
+}
+.c-debug-tree__scrollbar:focus {
+  outline: none;
+}
+.c-debug-tree__scrollbar::-webkit-slider-runnable-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-tree__scrollbar::-webkit-slider-thumb {
+  appearance: none;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-tree__scrollbar:focus::-webkit-slider-thumb {
+  outline-offset: 0;
+}
+.c-debug-tree__scrollbar::-moz-range-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+}
+.c-debug-tree__scrollbar::-moz-range-thumb {
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-tree__scrollbar:focus::-moz-range-thumb {
+  outline-offset: 0;
 }
 .c-debug-tree-item {
   color: #fff;
