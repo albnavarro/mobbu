@@ -31551,9 +31551,9 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/debugHead.js
-  var updateContent2 = ({ active, value, getRef }) => {
+  var updateContent2 = ({ active, getRef }) => {
     const { number_of_component } = getRef();
-    const content = active ? `Number of component: ${value}` : ``;
+    const content = active ? `Number of component: ${componentMap.size}` : ``;
     number_of_component.textContent = content;
   };
   var DebugHeadFn = ({
@@ -31566,21 +31566,13 @@ Loading snippet ...</pre
   }) => {
     onMount(() => {
       watch("active", async (active) => {
-        updateContent2({
-          active,
-          value: componentMap.size,
-          getRef
-        });
+        updateContent2({ active, getRef });
       });
       const unsubscrineRoue = mainStore.watch(
         "afterRouteChange",
         async () => {
           const { active } = getState();
-          updateContent2({
-            active,
-            value: componentMap.size,
-            getRef
-          });
+          updateContent2({ active, getRef });
         }
       );
       return () => {

@@ -1,13 +1,18 @@
 /**
- * @import { MobComponent } from '../../../../../../mobjs/type';
+ * @import { GetRef, MobComponent } from '../../../../../../mobjs/type';
  **/
 
 import { componentMap, mainStore } from '../../../../../../mobjs';
 
-const updateContent = ({ active, value, getRef }) => {
+/**
+ * @param {object} params
+ * @param {boolean} params.active
+ * @param {GetRef} params.getRef
+ */
+const updateContent = ({ active, getRef }) => {
     const { number_of_component } = getRef();
 
-    const content = active ? `Number of component: ${value}` : ``;
+    const content = active ? `Number of component: ${componentMap.size}` : ``;
     number_of_component.textContent = content;
 };
 
@@ -22,23 +27,14 @@ export const DebugHeadFn = ({
 }) => {
     onMount(() => {
         watch('active', async (active) => {
-            updateContent({
-                active,
-                value: componentMap.size,
-                getRef,
-            });
+            updateContent({ active, getRef });
         });
 
         const unsubscrineRoue = mainStore.watch(
             'afterRouteChange',
             async () => {
                 const { active } = getState();
-
-                updateContent({
-                    active,
-                    value: componentMap.size,
-                    getRef,
-                });
+                updateContent({ active, getRef });
             }
         );
 
