@@ -10,6 +10,7 @@
     - Basata su un unico invalidate.
     - Componente base recursivo.
     - Filtri per instance name & component name.
+    - refresh button
 - Dettaglio componente.
     - Cliccabile dalla vista ad albero.
     - Ricerca per id

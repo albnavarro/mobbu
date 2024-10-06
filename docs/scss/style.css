@@ -2192,12 +2192,16 @@ code {
 .c-debug-overlay {
   position: fixed;
   inset: var(--header-height) 0 var(--footer-height) 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   z-index: 15;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.35s, visibility 0.35s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .c-debug-overlay.active {
   opacity: 1;
@@ -2229,6 +2233,27 @@ code {
 }
 .c-debug-overlay__close::after {
   transform: translate(-50%, -50%) rotate(135deg);
+}
+.c-debug-overlay__grid {
+  display: grid;
+  grid-template-areas: "head head" "tree component";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 10rem auto;
+  height: 80%;
+  width: 100%;
+  max-width: 80%;
+  border: 1px #fff solid;
+}
+.c-debug-overlay__head {
+  grid-area: head;
+  border-bottom: 1px #fff solid;
+}
+.c-debug-overlay__tree {
+  grid-area: tree;
+  border-right: 1px #fff solid;
+}
+.c-debug-overlay__component {
+  grid-area: component;
 }
 .html-content {
   color: #000;

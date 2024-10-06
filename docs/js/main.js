@@ -31502,6 +31502,11 @@ Loading snippet ...</pre
       }
     })}
         ></button>
+        <div class="c-debug-overlay__grid">
+            <div class="c-debug-overlay__head"></div>
+            <div class="c-debug-overlay__tree"></div>
+            <div class="c-debug-overlay__component"></div>
+        </div>
     </div>`;
   };
 
