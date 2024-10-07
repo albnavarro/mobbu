@@ -18,7 +18,7 @@ const getClassList = (value) =>
  * @param {{[ key:string ]:any }} methods
  * @returns {string}
  */
-const getMethodsName = (methods) => {
+const getObjectKeys = (methods) => {
     console.log(methods);
     return Object.keys(methods).reduce((previous, current) => {
         return `${previous} ${current},`;
@@ -45,12 +45,23 @@ const getContent = ({ getState }) => {
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
         </div>
+        <div><strong>repeater state bind</strong>: ${item.repeatPropBind}</div>
+        <div><strong>repeat key</strong>: ${item.key}</div>
+        <div>
+            <strong>repeat current state</strong>:
+            ${JSON.stringify(item.currentRepeaterState?.current)}
+        </div>
+        <div>
+            <strong>repeat current index</strong>:
+            ${JSON.stringify(item.currentRepeaterState?.index)}
+        </div>
         <div>
             <strong>component root</strong>:
             ${item.element.tagName}${getClassList(item.element.classList)}
         </div>
         <div><strong>instance name:</strong>: ${item.instanceName}</div>
-        <div><strong>methods:</strong>: ${getMethodsName(item.methods)}</div>
+        <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
+        <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
         <div><strong>persistent:</strong>: ${item.persistent}</div>
     </div>`;
 };
