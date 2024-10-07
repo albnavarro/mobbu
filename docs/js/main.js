@@ -31481,6 +31481,14 @@ Loading snippet ...</pre
       return `${previous} ${current},`;
     }, "");
   };
+  var getChild = (child2) => {
+    return Object.entries(child2).map(([key, value]) => {
+      return renderHtml`<div>
+                <strong>${key}:</strong>
+                ${value.map((item) => renderHtml`${item}, `).join(".")}
+            </div>`;
+    }).join("");
+  };
   var getContent2 = ({ getState }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return "";
@@ -31499,6 +31507,10 @@ Loading snippet ...</pre
         <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
         <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
         <div><strong>persistent:</strong>: ${item.persistent}</div>
+
+        <h3 class="c-debug-component__section-title">Children:</h3>
+        <div>${getChild(item?.child ?? {})}</div>
+
         <h3 class="c-debug-component__section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}

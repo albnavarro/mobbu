@@ -2384,7 +2384,10 @@ code {
 .c-debug-component__section-title {
   font-size: 0.9333333333rem;
   margin-top: 1.3333333333rem;
-  margin-bottom: 0;
+  margin-bottom: 0.6666666667rem;
+  margin-right: 1.3333333333rem;
+  padding-top: 0.6666666667rem;
+  border-top: 1px #fff solid;
 }
 .c-debug-component__scrollbar {
   position: absolute;

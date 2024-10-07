@@ -32,6 +32,21 @@ const getObjectKeys = (methods) => {
 };
 
 /**
+ * @param {{}|{[ key:string ]: string[] }} child
+ * @returns {string}
+ */
+const getChild = (child) => {
+    return Object.entries(child)
+        .map(([key, value]) => {
+            return html`<div>
+                <strong>${key}:</strong>
+                ${value.map((item) => html`${item}, `).join('.')}
+            </div>`;
+        })
+        .join('');
+};
+
+/**
  * @param {object} params
  * @param {GetState<import('./type').DebugComponent>} params.getState
  */
@@ -56,6 +71,10 @@ const getContent = ({ getState }) => {
         <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
         <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
         <div><strong>persistent:</strong>: ${item.persistent}</div>
+
+        <h3 class="c-debug-component__section-title">Children:</h3>
+        <div>${getChild(item?.child ?? {})}</div>
+
         <h3 class="c-debug-component__section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
