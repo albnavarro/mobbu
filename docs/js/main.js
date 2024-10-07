@@ -32321,7 +32321,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: true
+        debug: false
       });
       inizializeApp({
         rootId: "#root",
