@@ -31,7 +31,7 @@ export const DebugTreeItemFn = ({
     onMount(() => {
         const { content } = getRef();
 
-        slide.subscribe(content);
+        const unsubscribeSlide = slide.subscribe(content);
         slide.reset(content);
 
         watch('isOpen', async (isOpen) => {
@@ -39,7 +39,10 @@ export const DebugTreeItemFn = ({
             await slide[action](content);
             useMethodByName('debug_tree')?.refresh();
         });
-        return () => {};
+
+        return () => {
+            unsubscribeSlide();
+        };
     });
 
     return html`<div class="c-debug-tree-item">

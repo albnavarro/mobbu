@@ -31780,7 +31780,7 @@ Loading snippet ...</pre
     const hasChildrenClass = children.length > 0 ? "has-children" : "";
     onMount(() => {
       const { content } = getRef();
-      slide.subscribe(content);
+      const unsubscribeSlide = slide.subscribe(content);
       slide.reset(content);
       watch("isOpen", async (isOpen) => {
         const action2 = isOpen ? "down" : "up";
@@ -31788,6 +31788,7 @@ Loading snippet ...</pre
         useMethodByName("debug_tree")?.refresh();
       });
       return () => {
+        unsubscribeSlide();
       };
     });
     return html`<div class="c-debug-tree-item">
