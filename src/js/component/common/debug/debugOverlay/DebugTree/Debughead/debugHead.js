@@ -84,7 +84,9 @@ export const DebugHeadFn = ({
             ></div>
         </div>
         <div class="c-debug-head__search">
-            <debug-search></debug-search>
+            <div>
+                <debug-search></debug-search>
+            </div>
         </div>
     </div>`;
 };

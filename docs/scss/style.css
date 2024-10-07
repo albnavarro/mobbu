@@ -2344,6 +2344,32 @@ code {
 .c-debug-search {
   color: #fff;
 }
+.c-debug-search__label {
+  min-width: 13.3333333333rem;
+  display: inline-block;
+}
+.c-debug-search__input {
+  width: 10rem;
+  background: transparent;
+  border: 1px #fff solid;
+}
+.c-debug-search__button {
+  background: transparent;
+  border: 1px #fff solid;
+  padding-inline: 1.3333333333rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 1.7;
+  transition: background 0.35s, color 0.35s;
+}
+.c-debug-search__button:hover,
+.c-debug-search__button:active,
+.c-debug-search__button:focus {
+  background: #fff;
+  color: #000;
+}
 .c-debug-tree-item {
   color: #fff;
   font-size: 0.8rem;

@@ -31623,7 +31623,9 @@ Loading snippet ...</pre
             ></div>
         </div>
         <div class="c-debug-head__search">
-            <debug-search></debug-search>
+            <div>
+                <debug-search></debug-search>
+            </div>
         </div>
     </div>`;
   };
@@ -31634,7 +31636,22 @@ Loading snippet ...</pre
       return () => {
       };
     });
-    return html`<div class="c-debug-search">search</div>`;
+    return html`<div class="c-debug-search">
+        <div>
+            <span class="c-debug-search__label">
+                <strong>Search by ID:</strong>
+            </span>
+            <input class="c-debug-search__input" type="text" />
+            <button class="c-debug-search__button" type="button">find</button>
+        </div>
+        <div>
+            <span class="c-debug-search__label">
+                <strong>Search by InstanceName:</strong>
+            </span>
+            <input class="c-debug-search__input" type="text" />
+            <button class="c-debug-search__button" type="button">find</button>
+        </div>
+    </div>`;
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/definition.js
