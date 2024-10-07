@@ -2373,6 +2373,7 @@ code {
 .c-debug-component {
   color: #fff;
   padding: 1rem;
+  font-size: 0.8rem;
 }
 .c-debug-tree-item {
   color: #fff;

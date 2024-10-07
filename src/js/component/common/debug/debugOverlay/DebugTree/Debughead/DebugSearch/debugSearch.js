@@ -25,7 +25,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             event.preventDefault();
 
                             const id = event.target.value;
-                            console.log(id);
+                            useMethodByName('debug_component')?.updateId(
+                                id ?? ''
+                            );
                         }
                     },
                 })}
@@ -36,7 +38,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                 ${delegateEvents({
                     click: () => {
                         const { id_input } = getRef();
-                        console.log(id_input.value);
+                        const id = id_input.value;
+
+                        useMethodByName('debug_component')?.updateId(id ?? '');
                     },
                 })}
             >
@@ -74,7 +78,6 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                         const instanceName = instance_input.value;
                         const id = getIdByInstanceName(instanceName);
                         useMethodByName('debug_component')?.updateId(id ?? '');
-                        console.log(id);
                     },
                 })}
             >

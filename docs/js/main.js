@@ -31495,6 +31495,7 @@ Loading snippet ...</pre
         </div>
         <div><strong>instance name:</strong>: ${item.instanceName}</div>
         <div><strong>methods:</strong>: ${getMethodsName(item.methods)}</div>
+        <div><strong>persistent:</strong>: ${item.persistent}</div>
     </div>`;
   };
   var DebugComponentFn = ({
@@ -31683,7 +31684,9 @@ Loading snippet ...</pre
         if (event.keyCode === 13) {
           event.preventDefault();
           const id = event.target.value;
-          console.log(id);
+          useMethodByName("debug_component")?.updateId(
+            id ?? ""
+          );
         }
       }
     })}
@@ -31694,7 +31697,8 @@ Loading snippet ...</pre
                 ${delegateEvents({
       click: () => {
         const { id_input } = getRef();
-        console.log(id_input.value);
+        const id = id_input.value;
+        useMethodByName("debug_component")?.updateId(id ?? "");
       }
     })}
             >
@@ -31731,7 +31735,6 @@ Loading snippet ...</pre
         const instanceName = instance_input.value;
         const id = getIdByInstanceName(instanceName);
         useMethodByName("debug_component")?.updateId(id ?? "");
-        console.log(id);
       }
     })}
             >

@@ -51,6 +51,7 @@ const getContent = ({ getState }) => {
         </div>
         <div><strong>instance name:</strong>: ${item.instanceName}</div>
         <div><strong>methods:</strong>: ${getMethodsName(item.methods)}</div>
+        <div><strong>persistent:</strong>: ${item.persistent}</div>
     </div>`;
 };
 
