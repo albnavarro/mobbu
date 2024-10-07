@@ -2,6 +2,7 @@
 
 import { createComponent } from '../../../../../../mobjs';
 import { DebugHeadFn } from './debugHead';
+import { DebugSearch } from './DebugSearch/definition';
 
 export const DebugHead = createComponent({
     name: 'debug-head',
@@ -13,4 +14,5 @@ export const DebugHead = createComponent({
             type: Boolean,
         }),
     },
+    child: [DebugSearch],
 });

@@ -2253,7 +2253,7 @@ code {
   display: grid;
   grid-template-areas: "head head" "tree component";
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 10rem 40vh;
+  grid-template-rows: 9.3333333333rem 40vh;
   width: 100%;
   max-width: 80%;
   border: 1px #fff solid;
@@ -2330,8 +2330,19 @@ code {
 .c-debug-head {
   color: #fff;
   font-size: 0.8rem;
-  padding-left: 2.6666666667rem;
   padding-top: 1rem;
+  display: flex;
+}
+.c-debug-head__general,
+.c-debug-head__search {
+  flex: 0 0 50%;
+  padding-left: 2.6666666667rem;
+}
+.c-debug-head__general {
+  border-right: 1px #000 solid;
+}
+.c-debug-search {
+  color: #fff;
 }
 .c-debug-tree-item {
   color: #fff;

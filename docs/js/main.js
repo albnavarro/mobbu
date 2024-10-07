@@ -31572,7 +31572,7 @@ Loading snippet ...</pre
   var updateContent2 = ({ active, getRef }) => {
     const { number_of_component, active_repeater, active_invalidate } = getRef();
     const NOC_content = active ? renderHtml`<strong>Number of component</strong>: ${componentMap.size} (
-              excluded debug )` : ``;
+              excluded debug generated content )` : ``;
     number_of_component.innerHTML = NOC_content;
     active_repeater.innerHTML = renderHtml`<strong>number of active repeater</strong>:
         ${getNumberOfActiveRepeater()}`;
@@ -31604,21 +31604,44 @@ Loading snippet ...</pre
       };
     });
     return html`<div class="c-debug-head">
-        <div>
-            <strong> Debug activated: </strong>
-            ${getDebugMode()}
+        <div class="c-debug-head__general">
+            <div>
+                <strong> Debug activated: </strong>
+                ${getDebugMode()}
+            </div>
+            <div class="c-debug-head__total" ${setRef("number_of_component")}>
+                <strong>Number of component</strong>: ${componentMap.size} (
+                excluded debug )
+            </div>
+            <div
+                class="c-debug-head__repeater"
+                ${setRef("active_repeater")}
+            ></div>
+            <div
+                class="c-debug-head__invalidate"
+                ${setRef("active_invalidate")}
+            ></div>
         </div>
-        <div class="c-debug-head__total" ${setRef("number_of_component")}>
-            <strong>Number of component</strong>: ${componentMap.size} (
-            excluded debug )
+        <div class="c-debug-head__search">
+            <debug-search></debug-search>
         </div>
-        <div class="c-debug-head__repeater" ${setRef("active_repeater")}></div>
-        <div
-            class="c-debug-head__invalidate"
-            ${setRef("active_invalidate")}
-        ></div>
     </div>`;
   };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/debugSearch.js
+  var DebugSearchFn = ({ html, onMount }) => {
+    onMount(() => {
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-search">search</div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/definition.js
+  var DebugSearch = createComponent({
+    name: "debug-search",
+    component: DebugSearchFn
+  });
 
   // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/definition.js
   var DebugHead = createComponent({
@@ -31630,7 +31653,8 @@ Loading snippet ...</pre
         value: false,
         type: Boolean
       })
-    }
+    },
+    child: [DebugSearch]
   });
 
   // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js

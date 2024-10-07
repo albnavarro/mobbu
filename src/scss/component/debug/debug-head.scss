@@ -3,6 +3,16 @@
 .c-debug-head {
     color: $white;
     font-size: rem(12);
-    padding-left: rem(40);
     padding-top: rem(15);
+    display: flex;
+
+    &__general,
+    &__search {
+        flex: 0 0 50%;
+        padding-left: rem(40);
+    }
+
+    &__general {
+        border-right: 1px $black solid;
+    }
 }

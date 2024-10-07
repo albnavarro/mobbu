@@ -23,7 +23,7 @@ const updateContent = ({ active, getRef }) => {
     // number of component
     const NOC_content = active
         ? html`<strong>Number of component</strong>: ${componentMap.size} (
-              excluded debug )`
+              excluded debug generated content )`
         : ``;
     number_of_component.innerHTML = NOC_content;
 
@@ -65,18 +65,26 @@ export const DebugHeadFn = ({
     });
 
     return html`<div class="c-debug-head">
-        <div>
-            <strong> Debug activated: </strong>
-            ${getDebugMode()}
+        <div class="c-debug-head__general">
+            <div>
+                <strong> Debug activated: </strong>
+                ${getDebugMode()}
+            </div>
+            <div class="c-debug-head__total" ${setRef('number_of_component')}>
+                <strong>Number of component</strong>: ${componentMap.size} (
+                excluded debug )
+            </div>
+            <div
+                class="c-debug-head__repeater"
+                ${setRef('active_repeater')}
+            ></div>
+            <div
+                class="c-debug-head__invalidate"
+                ${setRef('active_invalidate')}
+            ></div>
         </div>
-        <div class="c-debug-head__total" ${setRef('number_of_component')}>
-            <strong>Number of component</strong>: ${componentMap.size} (
-            excluded debug )
+        <div class="c-debug-head__search">
+            <debug-search></debug-search>
         </div>
-        <div class="c-debug-head__repeater" ${setRef('active_repeater')}></div>
-        <div
-            class="c-debug-head__invalidate"
-            ${setRef('active_invalidate')}
-        ></div>
     </div>`;
 };
