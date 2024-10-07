@@ -1,7 +1,6 @@
 import { AnimationTitle } from '../component/common/animationTitle/definition';
 import { CodeButton } from '../component/common/codeButton/definition';
 import { CodeOverlay } from '../component/common/codeOverlay/definition';
-import { CebugButton } from '../component/common/debug/definition';
 import { MLogo1 } from '../component/common/mLogo1/definition';
 import { QuickNav } from '../component/common/nextPage/definition';
 import { RouteLoader } from '../component/common/routeLoader/definition';
@@ -27,7 +26,6 @@ useComponent([
     MLogo1,
     ScrollDownLabel,
     CodeButton,
-    CebugButton,
     ScrollToTop,
     LinksMobJs,
     OnlyDesktop,
@@ -63,9 +61,7 @@ export const wrapper = async () => {
                 </div>
             </div>
         </main>
-        <mob-footer>
-            <debug-button slot="debug"></debug-button>
-        </mob-footer>
+        <mob-footer> </mob-footer>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
         <animation-title name="animation_title"></animation-title>

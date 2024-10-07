@@ -1,12 +1,12 @@
 @use '../../abstract' as *;
 
 .footer-nav {
-    place-self: center center;
+    place-self: center start;
     margin: 0;
-    display: none;
+    display: block;
 
-    @include mq('desktop') {
-        display: block;
+    @include mq(large) {
+        place-self: center center;
     }
 
     &__item {

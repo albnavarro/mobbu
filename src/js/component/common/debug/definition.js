@@ -3,7 +3,7 @@
 import { createComponent } from '../../../mobjs';
 import { DebugButtonFn } from './debugButton';
 
-export const CebugButton = createComponent({
+export const DebugButton = createComponent({
     name: 'debug-button',
     component: DebugButtonFn,
 });

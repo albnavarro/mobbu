@@ -17002,6 +17002,9 @@
       return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
     }) ?? [];
   };
+  var getUserChildPlaceholderSize = () => {
+    return userPlaceholder.size;
+  };
   var clearUserPlaceHolder = async () => {
     await tick();
     userPlaceholder.clear();
@@ -17647,6 +17650,9 @@
   };
   var getAllSlot = () => {
     return [...slotPlaceholder];
+  };
+  var getSlotPlaceholderSize = () => {
+    return slotPlaceholder.size;
   };
 
   // src/js/mobjs/webComponent/slot.js
@@ -23711,29 +23717,6 @@ Loading snippet ...</pre
     child: [CodeOverlayButton, HtmlContent]
   });
 
-  // src/js/component/common/debug/debugButton.js
-  var DebugButtonFn = ({ html, delegateEvents }) => {
-    return html`
-        <button
-            type="button"
-            class="c-btn-debug"
-            ${delegateEvents({
-      click: () => {
-        useMethodByName("debugOverlay").toggle();
-      }
-    })}
-        >
-            Debug App
-        </button>
-    `;
-  };
-
-  // src/js/component/common/debug/definition.js
-  var CebugButton = createComponent({
-    name: "debug-button",
-    component: DebugButtonFn
-  });
-
   // src/js/component/common/mLogo1/mLogo1.js
   var Mlogo1Fn = ({
     html,
@@ -23963,13 +23946,73 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/debug/debugButton.js
+  var DebugButtonFn = ({ html }) => {
+    return html`
+        <button type="button" class="c-btn-debug">
+            <mobjs_slot></mobjs_slot>
+        </button>
+    `;
+  };
+
+  // src/js/component/common/debug/definition.js
+  var DebugButton = createComponent({
+    name: "debug-button",
+    component: DebugButtonFn
+  });
+
+  // src/js/component/common/debug/consoleLog.js
+  var consoleLogDebug = () => {
+    mainStore.debugStore();
+    console.log("componentMap", componentMap);
+    console.log("Tree structure:", getTree());
+    console.log("bindEventMap", bindEventMap);
+    console.log("currentListValueMap", currentRepeaterValueMap);
+    console.log("activeRepeatMap", activeRepeatMap);
+    console.log("onMountCallbackMap", onMountCallbackMap);
+    console.log("staticPropsMap", staticPropsMap);
+    console.log("dynamicPropsMap", bindPropsMap);
+    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
+    console.log("eventDelegationMap", eventDelegationMap);
+    console.log("tempDelegateEventMap", tempDelegateEventMap);
+    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
+    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
+    console.log("invalidateFunctionMap", invalidateFunctionMap);
+    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
+    console.log("repeatIdHostMap", invalidateIdHostMap.size);
+    console.log("repeatFunctionMap", repeatFunctionMap);
+    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
+    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
+  };
+
   // src/js/component/layout/footer/footer.js
-  var FooterFn = ({ html }) => {
+  var FooterFn = ({ html, delegateEvents }) => {
     return html`
         <footer class="l-footer">
             <div class="l-footer__container">
                 <footer-nav></footer-nav>
-                <mobjs-slot name="debug"></mobjs-slot>
+                <div class="l-footer__debug">
+                    <debug-button
+                        class="c-button-debug"
+                        ${delegateEvents({
+      click: () => {
+        useMethodByName("debugOverlay").toggle();
+      }
+    })}
+                    >
+                        Debug App</debug-button
+                    >
+                    <debug-button
+                        class="c-button-console"
+                        ${delegateEvents({
+      click: () => {
+        consoleLogDebug();
+      }
+    })}
+                    >
+                        Log
+                    </debug-button>
+                </div>
             </div>
         </footer>
     `;
@@ -24081,7 +24124,7 @@ Loading snippet ...</pre
   var Footer = createComponent({
     name: "mob-footer",
     component: FooterFn,
-    child: [FooterNav]
+    child: [FooterNav, DebugButton]
   });
 
   // src/js/component/layout/header/header.js
@@ -32191,7 +32234,6 @@ Loading snippet ...</pre
     MLogo1,
     ScrollDownLabel,
     CodeButton,
-    CebugButton,
     ScrollToTop,
     LinksMobJs,
     OnlyDesktop,
@@ -32225,9 +32267,7 @@ Loading snippet ...</pre
                 </div>
             </div>
         </main>
-        <mob-footer>
-            <debug-button slot="debug"></debug-button>
-        </mob-footer>
+        <mob-footer> </mob-footer>
         <quick-nav name="quick_nav"></quick-nav>
         <route-loader></route-loader>
         <animation-title name="animation_title"></animation-title>

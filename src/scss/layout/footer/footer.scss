@@ -24,4 +24,12 @@
         display: grid;
         height: 100%;
     }
+
+    &__debug {
+        position: absolute;
+        display: flex;
+        right: rem(20);
+        bottom: calc(var(--footer-height) * 0.5);
+        transform: translateY(50%);
+    }
 }

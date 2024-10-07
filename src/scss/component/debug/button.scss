@@ -1,10 +1,6 @@
 @use '../../abstract' as *;
 
 .c-btn-debug {
-    position: absolute;
-    right: rem(20);
-    bottom: calc(var(--footer-height) * 0.5);
-    transform: translateY(50%);
     background: $white;
     padding: rem(5) rem(30);
     border-radius: rem(20);
@@ -13,17 +9,14 @@
     text-align: center;
     transition: background 0.35s;
     font-size: rem(14);
-    display: none;
     margin: 0;
     border: 1px $black solid;
+    margin-right: rem(10);
+    display: block;
 
     &:hover {
         background: $black;
         color: $white;
         border-color: $white;
-    }
-
-    @include mq('desktop') {
-        display: block;
     }
 }
