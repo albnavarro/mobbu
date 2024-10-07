@@ -47,6 +47,15 @@ const getChild = (child) => {
 };
 
 /**
+ * @param {string[]|undefined} props
+ * @returns {string}
+ */
+const getFreezeProp = (props) => {
+    if (!props) return '';
+    return props.map((prop) => `${prop}, `).join('');
+};
+
+/**
  * @param {{}|{[ key:string ]: any }} states
  * @returns {string}
  */
@@ -114,6 +123,10 @@ const getContent = ({ getState }) => {
 
         <!-- State -->
         <h3 class="c-debug-component__section-title">State:</h3>
+        <div>
+            <strong>Freezed prop:</strong>
+            ${getFreezeProp(item?.freezedPros)}
+        </div>
         <div>
             <h4 class="c-debug-component__section-subtitle">
                 States current values:
