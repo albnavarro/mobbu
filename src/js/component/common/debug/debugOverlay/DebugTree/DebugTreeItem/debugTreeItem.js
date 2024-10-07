@@ -29,12 +29,13 @@ export const DebugTreeItemFn = ({
     const hasChildrenClass = children.length > 0 ? 'has-children' : '';
 
     onMount(() => {
-        const { content } = getRef();
+        const { content, head } = getRef();
 
         const unsubscribeSlide = slide.subscribe(content);
         slide.reset(content);
 
         watch('isOpen', async (isOpen) => {
+            head.classList.toggle('open', isOpen);
             const action = isOpen ? 'down' : 'up';
             await slide[action](content);
             useMethodByName('debug_tree')?.refresh();
@@ -48,6 +49,7 @@ export const DebugTreeItemFn = ({
     return html`<div class="c-debug-tree-item">
         <div
             class="c-debug-tree-item__head ${hasChildrenClass}"
+            ${setRef('head')}
             ${delegateEvents({
                 click: () => {
                     updateState('isOpen', (value) => !value);

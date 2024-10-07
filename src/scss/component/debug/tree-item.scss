@@ -19,6 +19,12 @@
                 font-size: rem(10);
             }
         }
+
+        &.open {
+            &::before {
+                content: '[ - ]';
+            }
+        }
     }
 
     &__id {

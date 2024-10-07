@@ -2459,6 +2459,9 @@ code {
   transform: translateY(-50%);
   font-size: 0.6666666667rem;
 }
+.c-debug-tree-item__head.open::before {
+  content: "[ - ]";
+}
 .c-debug-tree-item__id {
   font-weight: 600;
   opacity: 0.8;
