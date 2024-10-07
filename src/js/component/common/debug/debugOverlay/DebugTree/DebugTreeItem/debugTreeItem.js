@@ -4,7 +4,7 @@
 
 import { useMethodByName } from '../../../../../../mobjs';
 import { slide } from '../../../../../../mobMotion/plugin';
-import { generateTree } from '../recursiveTree';
+import { generateTreeComponents } from '../recursiveTree';
 
 /**
  * @param {number} value
@@ -68,7 +68,7 @@ export const DebugTreeItemFn = ({
             </button>
         </div>
         <div class="c-debug-tree-item__content" ${setRef('content')}>
-            ${generateTree({ data: children, staticProps })}
+            ${generateTreeComponents({ data: children, staticProps })}
         </div>
     </div>`;
 };

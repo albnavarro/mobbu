@@ -51,7 +51,7 @@ export const DebugHeadFn = ({
             updateContent({ active, getRef });
         });
 
-        const unsubscrineRoue = mainStore.watch(
+        const unsubscrineRoute = mainStore.watch(
             'afterRouteChange',
             async () => {
                 const { active } = getState();
@@ -60,7 +60,7 @@ export const DebugHeadFn = ({
         );
 
         return () => {
-            unsubscrineRoue();
+            unsubscrineRoute();
         };
     });
 

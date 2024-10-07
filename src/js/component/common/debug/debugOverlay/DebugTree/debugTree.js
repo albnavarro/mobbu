@@ -4,7 +4,7 @@
 
 import { getTree, mainStore, tick } from '../../../../../mobjs';
 import { treeScroller } from './animation/treeScroller';
-import { generateTree } from './recursiveTree';
+import { generateTreeComponents } from './recursiveTree';
 
 const initScroller = async ({ getRef }) => {
     await tick();
@@ -63,7 +63,7 @@ export const DebugTreeFn = ({
         });
 
         // Update data on route change
-        const unsubscrineRoue = mainStore.watch(
+        const unsubscrineRoute = mainStore.watch(
             'afterRouteChange',
             async () => {
                 destroy?.();
@@ -96,7 +96,7 @@ export const DebugTreeFn = ({
         });
 
         return () => {
-            unsubscrineRoue();
+            unsubscrineRoute();
             destroy?.();
         };
     });
@@ -123,7 +123,7 @@ export const DebugTreeFn = ({
                 persistent: false,
                 render: () => {
                     const { data } = getState();
-                    return generateTree({ data, staticProps });
+                    return generateTreeComponents({ data, staticProps });
                 },
             })}
         </div>

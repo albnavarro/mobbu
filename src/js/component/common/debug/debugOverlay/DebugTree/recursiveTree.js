@@ -11,7 +11,7 @@ import { html } from '../../../../../mobjs';
  *
  * @return { string }
  */
-export const generateTree = ({ data, staticProps }) => {
+export const generateTreeComponents = ({ data, staticProps }) => {
     return data
         .map(({ id, componentName, instanceName, children }) => {
             return html`<debug-tree-item

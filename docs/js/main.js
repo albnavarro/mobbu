@@ -31582,7 +31582,7 @@ Loading snippet ...</pre
       watch("active", async (active) => {
         updateContent2({ active, getRef });
       });
-      const unsubscrineRoue = mainStore.watch(
+      const unsubscrineRoute = mainStore.watch(
         "afterRouteChange",
         async () => {
           const { active } = getState();
@@ -31590,7 +31590,7 @@ Loading snippet ...</pre
         }
       );
       return () => {
-        unsubscrineRoue();
+        unsubscrineRoute();
       };
     });
     return html`<div class="c-debug-head">
@@ -31665,7 +31665,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js
-  var generateTree = ({ data: data2, staticProps: staticProps2 }) => {
+  var generateTreeComponents = ({ data: data2, staticProps: staticProps2 }) => {
     return data2.map(({ id, componentName, instanceName, children }) => {
       return renderHtml`<debug-tree-item
                 ${staticProps2({
@@ -31724,7 +31724,7 @@ Loading snippet ...</pre
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
-      const unsubscrineRoue = mainStore.watch(
+      const unsubscrineRoute = mainStore.watch(
         "afterRouteChange",
         async () => {
           destroy?.();
@@ -31751,7 +31751,7 @@ Loading snippet ...</pre
         setState("data", []);
       });
       return () => {
-        unsubscrineRoue();
+        unsubscrineRoute();
         destroy?.();
       };
     });
@@ -31777,7 +31777,7 @@ Loading snippet ...</pre
       persistent: false,
       render: () => {
         const { data: data2 } = getState();
-        return generateTree({ data: data2, staticProps: staticProps2 });
+        return generateTreeComponents({ data: data2, staticProps: staticProps2 });
       }
     })}
         </div>
@@ -31839,7 +31839,7 @@ Loading snippet ...</pre
             </button>
         </div>
         <div class="c-debug-tree-item__content" ${setRef("content")}>
-            ${generateTree({ data: children, staticProps: staticProps2 })}
+            ${generateTreeComponents({ data: children, staticProps: staticProps2 })}
         </div>
     </div>`;
   };
