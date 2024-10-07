@@ -1,11 +1,26 @@
 @use '../../abstract' as *;
 
 .c-debug-tree {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
+    --tree-header-height: #{rem(50)};
 
-    &__content {
+    &__list {
+        position: absolute;
+        inset: var(--tree-header-height) 0 0;
+        overflow: hidden;
+    }
+
+    &__header {
+        color: $white;
+        padding-left: rem(40);
+        height: var(--tree-header-height);
+        font-size: rem(16);
+        border-bottom: 1px rgba($white, 0.2) solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__scroller {
         padding-top: rem(15);
         padding-bottom: rem(15);
     }
@@ -13,7 +28,7 @@
     &__scrollbar {
         position: absolute;
         top: 1vh;
-        width: 37vh;
+        width: 32vh;
         left: calc(100% - #{rem(20)});
         transform: rotate(90deg);
         transform-origin: left;

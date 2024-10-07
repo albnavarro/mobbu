@@ -109,31 +109,39 @@ export const DebugTreeFn = ({
         };
     });
 
-    return html`<div class="c-debug-tree" ${setRef('screen')}>
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef('scrollbar')}
-            class="c-debug-tree__scrollbar"
-        />
-        <div class="c-debug-tree__content" ${setRef('scroller')}>
-            ${invalidate({
-                bind: 'data',
-                /**
-                 * On route change tree must be deleted.
-                 * Otherwise create other tree-item to track the previous tree
-                 */
-                persistent: false,
-                render: () => {
-                    const { data } = getState();
-                    return generateTreeComponents({ data, staticProps });
-                },
-            })}
+    return html`
+        <div class="c-debug-tree">
+            <h4 class="c-debug-tree__header">Tree structure</h4>
+            <div class="c-debug-tree__list" ${setRef('screen')}>
+                <input
+                    type="range"
+                    id="test"
+                    name="test"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step=".5"
+                    ${setRef('scrollbar')}
+                    class="c-debug-tree__scrollbar"
+                />
+                <div class="c-debug-tree__scroller" ${setRef('scroller')}>
+                    ${invalidate({
+                        bind: 'data',
+                        /**
+                         * On route change tree must be deleted.
+                         * Otherwise create other tree-item to track the previous tree
+                         */
+                        persistent: false,
+                        render: () => {
+                            const { data } = getState();
+                            return generateTreeComponents({
+                                data,
+                                staticProps,
+                            });
+                        },
+                    })}
+                </div>
+            </div>
         </div>
-    </div>`;
+    `;
 };

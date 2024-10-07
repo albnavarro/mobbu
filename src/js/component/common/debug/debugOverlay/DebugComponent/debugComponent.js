@@ -225,7 +225,7 @@ export const DebugComponentFn = ({
             value="0"
             step=".5"
             ${setRef('scrollbar')}
-            class="c-debug-tree__scrollbar"
+            class="c-debug-component__scrollbar"
         />
         <div class="c-debug-component__container" ${setRef('scroller')}>
             ${invalidate({

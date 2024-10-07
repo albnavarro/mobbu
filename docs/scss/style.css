@@ -2273,18 +2273,31 @@ code {
   position: relative;
 }
 .c-debug-tree {
+  --tree-header-height: 3.3333333333rem;
+}
+.c-debug-tree__list {
   position: absolute;
-  inset: 0;
+  inset: var(--tree-header-height) 0 0;
   overflow: hidden;
 }
-.c-debug-tree__content {
+.c-debug-tree__header {
+  color: #fff;
+  padding-left: 2.6666666667rem;
+  height: var(--tree-header-height);
+  font-size: 1.0666666667rem;
+  border-bottom: 1px rgba(255, 255, 255, 0.2) solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.c-debug-tree__scroller {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 .c-debug-tree__scrollbar {
   position: absolute;
   top: 1vh;
-  width: 37vh;
+  width: 32vh;
   left: calc(100% - 1.3333333333rem);
   transform: rotate(90deg);
   transform-origin: left;
@@ -2389,7 +2402,7 @@ code {
   margin-bottom: 0.6666666667rem;
   margin-right: 1.3333333333rem;
   padding-top: 0.6666666667rem;
-  border-top: 1px #fff solid;
+  border-top: 1px rgba(255, 255, 255, 0.2) solid;
 }
 .c-debug-component__section-subtitle {
   font-size: 0.8rem;

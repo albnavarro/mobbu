@@ -31677,7 +31677,7 @@ Loading snippet ...</pre
             value="0"
             step=".5"
             ${setRef("scrollbar")}
-            class="c-debug-tree__scrollbar"
+            class="c-debug-component__scrollbar"
         />
         <div class="c-debug-component__container" ${setRef("scroller")}>
             ${invalidate({
@@ -32070,20 +32070,23 @@ Loading snippet ...</pre
         destroy?.();
       };
     });
-    return html`<div class="c-debug-tree" ${setRef("screen")}>
-        <input
-            type="range"
-            id="test"
-            name="test"
-            min="0"
-            max="100"
-            value="0"
-            step=".5"
-            ${setRef("scrollbar")}
-            class="c-debug-tree__scrollbar"
-        />
-        <div class="c-debug-tree__content" ${setRef("scroller")}>
-            ${invalidate({
+    return html`
+        <div class="c-debug-tree">
+            <h4 class="c-debug-tree__header">Tree structure</h4>
+            <div class="c-debug-tree__list" ${setRef("screen")}>
+                <input
+                    type="range"
+                    id="test"
+                    name="test"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step=".5"
+                    ${setRef("scrollbar")}
+                    class="c-debug-tree__scrollbar"
+                />
+                <div class="c-debug-tree__scroller" ${setRef("scroller")}>
+                    ${invalidate({
       bind: "data",
       /**
        * On route change tree must be deleted.
@@ -32092,11 +32095,16 @@ Loading snippet ...</pre
       persistent: false,
       render: () => {
         const { data: data2 } = getState();
-        return generateTreeComponents({ data: data2, staticProps: staticProps2 });
+        return generateTreeComponents({
+          data: data2,
+          staticProps: staticProps2
+        });
       }
     })}
+                </div>
+            </div>
         </div>
-    </div>`;
+    `;
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
