@@ -55,6 +55,17 @@ export const DebugTreeItemFn = ({
             <span class="c-debug-tree-item__component">${componentName}</span> |
             <span class="c-debug-tree-item__instance">${instanceName}</span>
             <span>${getCounter(children.length)}</span>
+            <button
+                type="button"
+                class="c-debug-tree-item__expand"
+                ${delegateEvents({
+                    click: () => {
+                        console.log('expand');
+                    },
+                })}
+            >
+                [ > ]
+            </button>
         </div>
         <div class="c-debug-tree-item__content" ${setRef('content')}>
             ${generateTree({ data: children, staticProps })}

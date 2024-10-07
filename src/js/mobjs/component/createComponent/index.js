@@ -23,6 +23,11 @@ export const setDefaultComponent = (obj) => {
  */
 export const getDefaultComponent = () => defaultComponent;
 
+export const getDebugMode = () => {
+    const { debug } = getDefaultComponent();
+    return debug;
+};
+
 /**
  * @param {import('../../type').CreateComponent} param
  * @returns {import('../../type').CreateComponentReturn}

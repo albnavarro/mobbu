@@ -2331,26 +2331,42 @@ code {
   color: #fff;
   font-size: 0.8rem;
   padding-left: 2rem;
+  padding-top: 1rem;
 }
 .c-debug-tree-item {
   color: #fff;
   font-size: 0.8rem;
-  padding-left: 2rem;
+  padding-left: 2.6666666667rem;
 }
 .c-debug-tree-item__head.has-children {
   cursor: pointer;
   position: relative;
 }
 .c-debug-tree-item__head.has-children::before {
-  content: "+";
+  content: "[ + ]";
   position: absolute;
-  left: calc(1.3333333333rem * -1);
+  left: calc(2rem * -1);
   top: 50%;
   transform: translateY(-50%);
+  font-size: 0.6666666667rem;
 }
 .c-debug-tree-item__id {
   font-weight: 600;
   opacity: 0.8;
+}
+.c-debug-tree-item__expand {
+  background: transparent;
+  border: 0;
+  font-size: 0.6666666667rem;
+  transition: opacity 0.35s;
+}
+.c-debug-tree-item__expand:focus {
+  outline: none;
+}
+.c-debug-tree-item__expand:hover,
+.c-debug-tree-item__expand:active,
+.c-debug-tree-item__expand:focus {
+  opacity: 0.3;
 }
 .html-content {
   color: #000;

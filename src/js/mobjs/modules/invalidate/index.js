@@ -23,6 +23,12 @@ import { getFallBackParentByElement } from '../../component/action/parent';
 export const invalidateIdPlaceHolderMap = new Map();
 
 /**
+ * @returns {number}
+ */
+export const getNumberOfActiveInvalidate = () =>
+    invalidateIdPlaceHolderMap.size;
+
+/**
  * @description
  * Store how web component
  * Key is repeat id

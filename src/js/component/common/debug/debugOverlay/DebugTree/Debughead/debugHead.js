@@ -2,7 +2,14 @@
  * @import { GetRef, MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import { componentMap, mainStore } from '../../../../../../mobjs';
+import {
+    componentMap,
+    getDebugMode,
+    getNumberOfActiveInvalidate,
+    getNumberOfActiveRepeater,
+    html,
+    mainStore,
+} from '../../../../../../mobjs';
 
 /**
  * @param {object} params
@@ -10,10 +17,24 @@ import { componentMap, mainStore } from '../../../../../../mobjs';
  * @param {GetRef} params.getRef
  */
 const updateContent = ({ active, getRef }) => {
-    const { number_of_component } = getRef();
+    const { number_of_component, active_repeater, active_invalidate } =
+        getRef();
 
-    const content = active ? `Number of component: ${componentMap.size}` : ``;
-    number_of_component.textContent = content;
+    // number of component
+    const NOC_content = active
+        ? html`<strong>Number of component</strong>: ${componentMap.size} (
+              excluded debug )`
+        : ``;
+    number_of_component.innerHTML = NOC_content;
+
+    // active repeater
+    active_repeater.innerHTML = html`<strong>number of active repeater</strong>:
+        ${getNumberOfActiveRepeater()}`;
+
+    // active invalidate
+    active_invalidate.innerHTML = html`<strong
+            >number of active invalidate</strong
+        >: ${getNumberOfActiveInvalidate()}`;
 };
 
 /** @type{MobComponent<import('./type').Debughead>} */
@@ -44,9 +65,18 @@ export const DebugHeadFn = ({
     });
 
     return html`<div class="c-debug-head">
-        <span
-            class="c-debug-head__total"
-            ${setRef('number_of_component')}
-        ></span>
+        <div>
+            <strong> Debug activated: </strong>
+            ${getDebugMode()}
+        </div>
+        <div class="c-debug-head__total" ${setRef('number_of_component')}>
+            <strong>Number of component</strong>: ${componentMap.size} (
+            excluded debug )
+        </div>
+        <div class="c-debug-head__repeater" ${setRef('active_repeater')}></div>
+        <div
+            class="c-debug-head__invalidate"
+            ${setRef('active_invalidate')}
+        ></div>
     </div>`;
 };

@@ -11,6 +11,13 @@ import { watchRepeat } from './watch';
 export const repeatIdPlaceHolderMap = new Map();
 
 /**
+ * @returns {number}
+ */
+export const getNumberOfActiveRepeater = () => {
+    return repeatIdPlaceHolderMap.size;
+};
+
+/**
  * @description
  * Store how web component
  * Key is repeat id
