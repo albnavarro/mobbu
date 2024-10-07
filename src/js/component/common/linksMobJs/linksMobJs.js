@@ -8,7 +8,7 @@
 import { html, mainStore, tick } from '../../../mobjs';
 import { PAGE_TEMPLATE_DOCS_MOBJS } from '../../../pages';
 import { navigationStore } from '../../layout/navigation/store/navStore';
-import { linksSidebarScroller } from './animation/linksScroller';
+import { verticalScroller } from '../../lib/animation/verticalScroller';
 import { mobJsComponentParams } from './data';
 
 const templateData = {
@@ -68,6 +68,7 @@ export const LinksMobJsFn = ({
         let init;
         let destroy;
         let move;
+        let updateScroller;
         let isActive = false;
 
         scrollbar.addEventListener('input', () => {
@@ -103,7 +104,7 @@ export const LinksMobJsFn = ({
                     screenEl.classList.add('active');
                     if (isActive) return;
 
-                    const methods = linksSidebarScroller({
+                    const methods = verticalScroller({
                         screen: screenEl,
                         scroller: scrollerEl,
                         scrollbar,
@@ -112,8 +113,10 @@ export const LinksMobJsFn = ({
                     init = methods.init;
                     destroy = methods.destroy;
                     move = methods.move;
+                    updateScroller = methods.updateScroller;
                     isActive = true;
                     init();
+                    updateScroller();
                     move(0);
                 }
 

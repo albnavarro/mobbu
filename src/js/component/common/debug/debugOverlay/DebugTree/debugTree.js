@@ -3,7 +3,7 @@
  **/
 
 import { getTree, mainStore, tick } from '../../../../../mobjs';
-import { treeScroller } from './animation/treeScroller';
+import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { generateTreeComponents } from './recursiveTree';
 
 const initScroller = async ({ getRef }) => {
@@ -11,7 +11,7 @@ const initScroller = async ({ getRef }) => {
 
     const { screen, scroller, scrollbar } = getRef();
 
-    const methods = treeScroller({
+    const methods = verticalScroller({
         screen,
         scroller,
         scrollbar,
@@ -21,13 +21,16 @@ const initScroller = async ({ getRef }) => {
     const destroy = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
+    const updateScroller = methods.updateScroller;
     init();
+    updateScroller();
     move(0);
 
     return {
         destroy,
         move,
         refresh,
+        updateScroller,
     };
 };
 
@@ -51,10 +54,14 @@ export const DebugTreeFn = ({
         let destroy = () => {};
         // eslint-disable-next-line unicorn/consistent-function-scoping
         let refresh = () => {};
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        let updateScroller = () => {};
+
         let move;
 
         addMethod('refresh', () => {
             refresh?.();
+            updateScroller?.();
         });
 
         scrollbar.addEventListener('input', () => {
@@ -75,6 +82,7 @@ export const DebugTreeFn = ({
                 destroy = methods.destroy;
                 move = methods.move;
                 refresh = methods.refresh;
+                updateScroller = methods.updateScroller;
             }
         );
 
@@ -89,6 +97,7 @@ export const DebugTreeFn = ({
                 destroy = methods.destroy;
                 move = methods.move;
                 refresh = methods.refresh;
+                updateScroller = methods.updateScroller;
                 return;
             }
 

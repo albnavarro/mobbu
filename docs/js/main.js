@@ -1581,13 +1581,13 @@
   };
 
   // src/js/mobCore/utils/index.js
-  function outerHeight2(element) {
+  function outerHeight(element) {
     let height = element.offsetHeight;
     const style = getComputedStyle(element);
     height += Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
     return height;
   }
-  function outerWidth2(element) {
+  function outerWidth(element) {
     let width = element.offsetWidth;
     const style = getComputedStyle(element);
     width += Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
@@ -21952,8 +21952,8 @@ Loading snippet ...</pre
      * @private
      */
     refreshScroller() {
-      this.screenWidth = this.screen === document.documentElement ? window.innerWidth : outerWidth2(this.screen);
-      this.screenHeight = this.screen === document.documentElement ? window.innerHeight : outerHeight2(this.screen);
+      this.screenWidth = this.screen === document.documentElement ? window.innerWidth : outerWidth(this.screen);
+      this.screenHeight = this.screen === document.documentElement ? window.innerHeight : outerHeight(this.screen);
       this.maxValue = this.direction === parallaxConstant.DIRECTION_VERTICAL ? this.scroller.offsetHeight - this.screenHeight : this.scroller.offsetWidth - this.screenWidth;
       this.calculateValue();
     }
@@ -22314,7 +22314,7 @@ Loading snippet ...</pre
         return new Promise((resolve) => resolve(true));
       }
       const { tween: tween3 } = currentItem;
-      const currentHeight = outerHeight2(target);
+      const currentHeight = outerHeight(target);
       await tween3.goFromTo(
         { val: currentHeight },
         { val: 0 },
@@ -22333,7 +22333,7 @@ Loading snippet ...</pre
       const { tween: tween3 } = currentItem;
       const { val: currentHeight } = tween3.get();
       target.style.height = `auto`;
-      const height = outerHeight2(target);
+      const height = outerHeight(target);
       target.style.height = `${currentHeight}px`;
       await tween3.goTo({ val: height }, { duration: 500 });
       mobCore.useNextTick(() => {
@@ -22853,7 +22853,7 @@ Loading snippet ...</pre
             return;
           }
           this.horizontalWidth = [...this.column].map((item) => {
-            return outerWidth2(item);
+            return outerWidth(item);
           }).reduce((a, b) => a + b, 0);
           resolve();
         });
@@ -22921,8 +22921,8 @@ Loading snippet ...</pre
           [...this.shadow].forEach((item) => {
             const percentrange = this.percentRange / 100;
             const shadowData = item.dataset.shadow;
-            const width = outerWidth2(item);
-            const height = outerHeight2(this.row);
+            const width = outerWidth(item);
+            const height = outerHeight(this.row);
             const { x } = getTranslateValues(this.row);
             const offset2 = this.reverse ? this.horizontalWidth - (item.getBoundingClientRect().right - x) : item.getBoundingClientRect().left - x;
             const screenRatio = window.innerWidth / window.innerHeight;
@@ -23452,9 +23452,9 @@ Loading snippet ...</pre
     instance.init();
     return {
       updateScroller: () => {
-        const scrollerHeight = outerHeight2(scroller2);
-        const screenHeight = outerHeight2(screen);
-        const scrollBarHeight = outerWidth2(scrollbar);
+        const scrollerHeight = outerHeight(scroller2);
+        const screenHeight = outerHeight(screen);
+        const scrollBarHeight = outerWidth(scrollbar);
         const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
         scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
         instance.refresh();
@@ -24313,8 +24313,8 @@ Loading snippet ...</pre
       );
       if (!currentSection) return;
       const header = document.querySelector(".l-header");
-      const navHeight = outerHeight2(scrollerEl);
-      const headerHeight = outerHeight2(header);
+      const navHeight = outerHeight(scrollerEl);
+      const headerHeight = outerHeight(header);
       const percent = 100 * currentSection.offsetTop / (navHeight - window.innerHeight + headerHeight);
       const maxValue = Math.min(percent, 100);
       navScroller.move(maxValue);
@@ -27182,7 +27182,7 @@ Loading snippet ...</pre
       },
       dynamicEnd: {
         position: "bottom",
-        value: () => outerHeight2(canvasScroller)
+        value: () => outerHeight(canvasScroller)
       },
       fromTo: true,
       ease: true,
@@ -27637,7 +27637,7 @@ Loading snippet ...</pre
       },
       dynamicEnd: {
         position: "bottom",
-        value: () => outerHeight2(canvasScroller)
+        value: () => outerHeight(canvasScroller)
       },
       ease: true,
       easeType: "spring"
@@ -29435,7 +29435,7 @@ Loading snippet ...</pre
         dynamicStart: {
           position: "right",
           value: () => {
-            return window.innerWidth + sideWidth - outerWidth2(button) * (i + 1);
+            return window.innerWidth + sideWidth - outerWidth(button) * (i + 1);
           }
         },
         dynamicEnd: {
@@ -29493,9 +29493,9 @@ Loading snippet ...</pre
     let pins = createPins({ indicators, setState });
     let titlesParallax = createParallax({ titles });
     const side = document.querySelector(".l-navcontainer__side");
-    sideWidth = outerWidth2(side) / 2;
+    sideWidth = outerWidth(side) / 2;
     const unsubscribeResize = mobCore.useResize(() => {
-      sideWidth = outerWidth2(side) / 2;
+      sideWidth = outerWidth(side) / 2;
     });
     let horizontalCustom = new HorizontalScroller({
       root: rootRef,
@@ -29667,7 +29667,7 @@ Loading snippet ...</pre
           `.shadowClass--section-${id} .shadowClass--in-center`
         );
         const { top } = offset(shadowCenter);
-        const height = outerHeight2(shadowCenter);
+        const height = outerHeight(shadowCenter);
         const scrollValue = (
           /**
            * Need previous and current value difference > 0 so add 1px.
@@ -31053,8 +31053,8 @@ Loading snippet ...</pre
     }
   ];
 
-  // src/js/component/common/linksMobJs/animation/linksScroller.js
-  var linksSidebarScroller = ({ screen, scroller: scroller2, scrollbar }) => {
+  // src/js/component/lib/animation/verticalScroller.js
+  var verticalScroller = ({ screen, scroller: scroller2, scrollbar }) => {
     let instance;
     return {
       init: () => {
@@ -31074,6 +31074,10 @@ Loading snippet ...</pre
       },
       destroy: () => {
         instance?.destroy();
+        instance = null;
+      },
+      refresh: () => {
+        instance?.refresh();
       },
       updateScroller: () => {
         if (!instance) return;
@@ -31086,7 +31090,10 @@ Loading snippet ...</pre
       },
       move: (val2) => {
         if (!instance) return;
-        instance?.move(val2);
+        instance.move(val2);
+      },
+      goToTop: () => {
+        instance?.set(0);
       }
     };
   };
@@ -31310,6 +31317,7 @@ Loading snippet ...</pre
       let init7;
       let destroy;
       let move;
+      let updateScroller;
       let isActive = false;
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
@@ -31332,7 +31340,7 @@ Loading snippet ...</pre
           if (currentData.length > 0) {
             screenEl.classList.add("active");
             if (isActive) return;
-            const methods = linksSidebarScroller({
+            const methods = verticalScroller({
               screen: screenEl,
               scroller: scrollerEl,
               scrollbar
@@ -31340,8 +31348,10 @@ Loading snippet ...</pre
             init7 = methods.init;
             destroy = methods.destroy;
             move = methods.move;
+            updateScroller = methods.updateScroller;
             isActive = true;
             init7();
+            updateScroller();
             move(0);
           }
           if (currentData.length === 0) {
@@ -31623,47 +31633,6 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/animation/treeScroller.js
-  var treeScroller = ({ screen, scroller: scroller2, scrollbar }) => {
-    let instance;
-    return {
-      init: () => {
-        if (instance) return;
-        instance = new SmoothScroller({
-          screen,
-          scroller: scroller2,
-          direction: "vertical",
-          drag: true,
-          scopedEvent: false,
-          breakpoint: "desktop",
-          onTick: ({ percent }) => {
-            scrollbar.value = percent;
-          }
-        });
-        instance.init();
-      },
-      destroy: () => {
-        instance?.destroy();
-      },
-      refresh: () => {
-        instance?.refresh();
-      },
-      updateScroller: () => {
-        if (!instance) return;
-        const scrollerHeight = outerHeight(scroller2);
-        const screenHeight = outerHeight(screen);
-        const scrollBarHeight = outerWidth(scrollbar);
-        const thumbWidth = screenHeight / scrollerHeight * scrollBarHeight;
-        scrollbar.style.setProperty("--thumb-width", `${thumbWidth}px`);
-        instance?.refresh();
-      },
-      move: (val2) => {
-        if (!instance) return;
-        instance?.move(val2);
-      }
-    };
-  };
-
   // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js
   var generateTreeComponents = ({ data: data2, staticProps: staticProps2 }) => {
     return data2.map(({ id, componentName, instanceName, children }) => {
@@ -31682,7 +31651,7 @@ Loading snippet ...</pre
   var initScroller = async ({ getRef }) => {
     await tick();
     const { screen, scroller: scroller2, scrollbar } = getRef();
-    const methods = treeScroller({
+    const methods = verticalScroller({
       screen,
       scroller: scroller2,
       scrollbar
@@ -31691,12 +31660,15 @@ Loading snippet ...</pre
     const destroy = methods.destroy;
     const refresh = methods.refresh;
     const move = methods.move;
+    const updateScroller = methods.updateScroller;
     init7();
+    updateScroller();
     move(0);
     return {
       destroy,
       move,
-      refresh
+      refresh,
+      updateScroller
     };
   };
   var DebugTreeFn = ({
@@ -31717,9 +31689,12 @@ Loading snippet ...</pre
       };
       let refresh = () => {
       };
+      let updateScroller = () => {
+      };
       let move;
       addMethod("refresh", () => {
         refresh?.();
+        updateScroller?.();
       });
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
@@ -31735,6 +31710,7 @@ Loading snippet ...</pre
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;
+          updateScroller = methods.updateScroller;
         }
       );
       watchSync("active", async (active) => {
@@ -31746,6 +31722,7 @@ Loading snippet ...</pre
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;
+          updateScroller = methods.updateScroller;
           return;
         }
         setState("data", []);

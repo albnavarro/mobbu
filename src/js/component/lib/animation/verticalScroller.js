@@ -1,8 +1,9 @@
 // @ts-nocheck
 
-import { SmoothScroller } from '../../../../../../mobMotion/plugin';
+import { outerHeight, outerWidth } from '../../../mobCore/utils';
+import { SmoothScroller } from '../../../mobMotion/plugin';
 
-export const treeScroller = ({ screen, scroller, scrollbar }) => {
+export const verticalScroller = ({ screen, scroller, scrollbar }) => {
     let instance;
 
     return {
@@ -25,6 +26,7 @@ export const treeScroller = ({ screen, scroller, scrollbar }) => {
         },
         destroy: () => {
             instance?.destroy();
+            instance = null;
         },
         refresh: () => {
             instance?.refresh();
@@ -49,7 +51,11 @@ export const treeScroller = ({ screen, scroller, scrollbar }) => {
         },
         move: (val) => {
             if (!instance) return;
-            instance?.move(val);
+
+            instance.move(val);
+        },
+        goToTop: () => {
+            instance?.set(0);
         },
     };
 };
