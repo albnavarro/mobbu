@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @import { MobComponent } from '../../../../mobjs/type';
  **/

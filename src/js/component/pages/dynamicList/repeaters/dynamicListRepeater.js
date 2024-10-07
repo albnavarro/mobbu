@@ -44,7 +44,7 @@ function getRepeaterCard({
                     },
                 })}
                 ${delegateEvents({
-                    mousedown: (_e, index) => {
+                    click: (_e, index) => {
                         const { data } = getState();
                         const current = data[index].label;
 

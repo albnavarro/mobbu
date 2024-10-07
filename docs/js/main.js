@@ -28626,7 +28626,7 @@ Loading snippet ...</pre
       }
     })}
                 ${delegateEvents({
-      mousedown: (_e, index) => {
+      click: (_e, index) => {
         const { data: data2 } = getState();
         const current = data2[index].label;
         console.log(current, index);
