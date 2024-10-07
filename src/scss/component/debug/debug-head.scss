@@ -9,10 +9,14 @@
     &__general,
     &__search {
         flex: 0 0 50%;
-        padding-left: rem(40);
     }
 
     &__general {
         border-right: 1px $black solid;
+        padding-left: rem(40);
+    }
+
+    &__search {
+        padding-left: rem(20);
     }
 }

@@ -2337,10 +2337,13 @@ code {
 .c-debug-head__general,
 .c-debug-head__search {
   flex: 0 0 50%;
-  padding-left: 2.6666666667rem;
 }
 .c-debug-head__general {
   border-right: 1px #000 solid;
+  padding-left: 2.6666666667rem;
+}
+.c-debug-head__search {
+  padding-left: 1.3333333333rem;
 }
 .c-debug-search {
   color: #fff;
