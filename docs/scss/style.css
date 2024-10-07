@@ -2389,6 +2389,13 @@ code {
   padding-top: 0.6666666667rem;
   border-top: 1px #fff solid;
 }
+.c-debug-component__section-subtitle {
+  font-size: 0.8rem;
+  margin-top: 1.3333333333rem;
+  margin-bottom: 0.6666666667rem;
+  margin-right: 1.3333333333rem;
+  padding-top: 0.6666666667rem;
+}
 .c-debug-component__scrollbar {
   position: absolute;
   top: 1vh;

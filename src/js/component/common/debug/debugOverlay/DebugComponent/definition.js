@@ -11,6 +11,7 @@ export const DebugComponent = createComponent({
         id: () => ({
             value: RESET_FILTER_DEBUG,
             type: String,
+            skipEqual: false,
         }),
     },
 });

@@ -47,6 +47,21 @@ const getChild = (child) => {
 };
 
 /**
+ * @param {{}|{[ key:string ]: any }} states
+ * @returns {string}
+ */
+const getStateProps = (states) => {
+    return Object.entries(states)
+        .map(([key, value]) => {
+            return html`<div>
+                <strong>${key}:</strong>
+                ${JSON.stringify(value)}
+            </div>`;
+        })
+        .join('');
+};
+
+/**
  * @param {object} params
  * @param {GetState<import('./type').DebugComponent>} params.getState
  */
@@ -57,9 +72,8 @@ const getContent = ({ getState }) => {
     const item = componentMap.get(id);
     if (!item) return `component not found`;
 
-    console.log(item);
-
     return html`<div>
+        <!-- Basic props -->
         <div><strong>id</strong>: ${id}</div>
         <div><strong>parent id</strong>: ${item.parentId}</div>
         <div>
@@ -72,9 +86,11 @@ const getContent = ({ getState }) => {
         <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
         <div><strong>persistent:</strong>: ${item.persistent}</div>
 
+        <!-- Children -->
         <h3 class="c-debug-component__section-title">Children:</h3>
         <div>${getChild(item?.child ?? {})}</div>
 
+        <!-- Repeater -->
         <h3 class="c-debug-component__section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
@@ -94,6 +110,21 @@ const getContent = ({ getState }) => {
         <div>
             <strong>repeat current index</strong>:
             ${JSON.stringify(item.currentRepeaterState?.index)}
+        </div>
+
+        <!-- State -->
+        <h3 class="c-debug-component__section-title">State:</h3>
+        <div>
+            <h4 class="c-debug-component__section-subtitle">
+                States current values:
+            </h4>
+            ${getStateProps(item.state.get())}
+        </div>
+        <div>
+            <h4 class="c-debug-component__section-subtitle">
+                States current validation:
+            </h4>
+            ${getStateProps(item.state.getValidation())}
         </div>
     </div>`;
 };

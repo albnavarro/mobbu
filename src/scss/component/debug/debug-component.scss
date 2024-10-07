@@ -20,6 +20,14 @@
         border-top: 1px $white solid;
     }
 
+    &__section-subtitle {
+        font-size: rem(12);
+        margin-top: rem(20);
+        margin-bottom: rem(10);
+        margin-right: rem(20);
+        padding-top: rem(10);
+    }
+
     &__scrollbar {
         position: absolute;
         top: 1vh;
