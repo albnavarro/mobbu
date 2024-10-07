@@ -24,7 +24,7 @@ export const freezePropById = ({ id = '', prop }) => {
 
     componentMap.set(id, {
         ...item,
-        freezedPros: [...freezedPros, prop],
+        freezedPros: [...new Set([...freezedPros, prop])],
     });
 };
 
