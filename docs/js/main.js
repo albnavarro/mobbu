@@ -17002,9 +17002,6 @@
       return element.contains(component) && element !== component && component.getIsPlaceholder?.() && component?.getSlotPosition?.();
     }) ?? [];
   };
-  var getUserChildPlaceholderSize = () => {
-    return userPlaceholder.size;
-  };
   var clearUserPlaceHolder = async () => {
     await tick();
     userPlaceholder.clear();
@@ -17650,9 +17647,6 @@
   };
   var getAllSlot = () => {
     return [...slotPlaceholder];
-  };
-  var getSlotPlaceholderSize = () => {
-    return slotPlaceholder.size;
   };
 
   // src/js/mobjs/webComponent/slot.js
@@ -23717,30 +23711,6 @@ Loading snippet ...</pre
     child: [CodeOverlayButton, HtmlContent]
   });
 
-  // src/js/component/common/debug/consoleLog.js
-  var consoleLogDebug = () => {
-    mainStore.debugStore();
-    console.log("componentMap", componentMap);
-    console.log("Tree structure:", getTree());
-    console.log("bindEventMap", bindEventMap);
-    console.log("currentListValueMap", currentRepeaterValueMap);
-    console.log("activeRepeatMap", activeRepeatMap);
-    console.log("onMountCallbackMap", onMountCallbackMap);
-    console.log("staticPropsMap", staticPropsMap);
-    console.log("dynamicPropsMap", bindPropsMap);
-    console.log("repeaterTargetComponent", repeaterTargetComponentMap);
-    console.log("eventDelegationMap", eventDelegationMap);
-    console.log("tempDelegateEventMap", tempDelegateEventMap);
-    console.log("invalidateIdPlaceHolderMap", invalidateIdPlaceHolderMap);
-    console.log("invalidateIdHostMap", invalidateIdHostMap.size);
-    console.log("invalidateFunctionMap", invalidateFunctionMap);
-    console.log("repeatIdPlaceHolderMap", repeatIdPlaceHolderMap);
-    console.log("repeatIdHostMap", invalidateIdHostMap.size);
-    console.log("repeatFunctionMap", repeatFunctionMap);
-    console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
-    console.log("slotPlaceholderSize", getSlotPlaceholderSize());
-  };
-
   // src/js/component/common/debug/debugButton.js
   var DebugButtonFn = ({ html, delegateEvents }) => {
     return html`
@@ -23750,7 +23720,6 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         useMethodByName("debugOverlay").toggle();
-        consoleLogDebug();
       }
     })}
         >
@@ -31500,12 +31469,33 @@ Loading snippet ...</pre
   var RESET_FILTER_DEBUG = "reset";
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
+  var getClassList = (value) => [...value].reduce((previous, current) => `${previous}.${current}`, "");
+  var getMethodsName = (methods) => {
+    console.log(methods);
+    return Object.keys(methods).reduce((previous, current) => {
+      return `${previous} ${current},`;
+    }, "");
+  };
   var getContent2 = ({ getState }) => {
     const { id } = getState();
     if (id === RESET_FILTER_DEBUG) return "";
     const item = componentMap.get(id);
     if (!item) return `component not found`;
-    return `${id}`;
+    console.log(item);
+    return renderHtml`<div>
+        <div><strong>id</strong>: ${id}</div>
+        <div><strong>parent id</strong>: ${item.parentId}</div>
+        <div><strong>componentName</strong>: ${item.componentName}</div>
+        <div>
+            <strong>component repeater id</strong>: ${item.componentRepeatId}
+        </div>
+        <div>
+            <strong>component root</strong>:
+            ${item.element.tagName}${getClassList(item.element.classList)}
+        </div>
+        <div><strong>instance name:</strong>: ${item.instanceName}</div>
+        <div><strong>methods:</strong>: ${getMethodsName(item.methods)}</div>
+    </div>`;
   };
   var DebugComponentFn = ({
     html,
@@ -31877,7 +31867,6 @@ Loading snippet ...</pre
         if (active) {
           setState("data", getTree());
           const methods = await initScroller({ getRef });
-          console.log(methods);
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;

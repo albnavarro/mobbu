@@ -93,7 +93,6 @@ export const DebugTreeFn = ({
             if (active) {
                 setState('data', getTree());
                 const methods = await initScroller({ getRef });
-                console.log(methods);
                 destroy = methods.destroy;
                 move = methods.move;
                 refresh = methods.refresh;

@@ -1,13 +1,33 @@
+//@ts-check
+
 /**
  * @import { GetState, MobComponent } from '../../../../../mobjs/type';
  **/
 
-import { componentMap } from '../../../../../mobjs';
+import { componentMap, html } from '../../../../../mobjs';
 import { RESET_FILTER_DEBUG } from '../constant';
 
 /**
+ * @param {DOMTokenList} value
+ * @returns {string}
+ */
+const getClassList = (value) =>
+    [...value].reduce((previous, current) => `${previous}.${current}`, '');
+
+/**
+ * @param {{[ key:string ]:any }} methods
+ * @returns {string}
+ */
+const getMethodsName = (methods) => {
+    console.log(methods);
+    return Object.keys(methods).reduce((previous, current) => {
+        return `${previous} ${current},`;
+    }, '');
+};
+
+/**
  * @param {object} params
- * @param {GetState<import('./type').DebugComponent>} params
+ * @param {GetState<import('./type').DebugComponent>} params.getState
  */
 const getContent = ({ getState }) => {
     const { id } = getState();
@@ -16,7 +36,22 @@ const getContent = ({ getState }) => {
     const item = componentMap.get(id);
     if (!item) return `component not found`;
 
-    return `${id}`;
+    console.log(item);
+
+    return html`<div>
+        <div><strong>id</strong>: ${id}</div>
+        <div><strong>parent id</strong>: ${item.parentId}</div>
+        <div><strong>componentName</strong>: ${item.componentName}</div>
+        <div>
+            <strong>component repeater id</strong>: ${item.componentRepeatId}
+        </div>
+        <div>
+            <strong>component root</strong>:
+            ${item.element.tagName}${getClassList(item.element.classList)}
+        </div>
+        <div><strong>instance name:</strong>: ${item.instanceName}</div>
+        <div><strong>methods:</strong>: ${getMethodsName(item.methods)}</div>
+    </div>`;
 };
 
 /** @type{MobComponent<import('./type').DebugComponent>} */
