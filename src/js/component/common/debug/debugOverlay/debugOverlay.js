@@ -72,7 +72,7 @@ export const DebugOverlayFn = ({
                 ></debug-tree>
             </div>
             <div class="c-debug-overlay__component">
-                <debug-component></debug-component>
+                <debug-component name="debug_component"></debug-component>
             </div>
         </div>
     </div>`;

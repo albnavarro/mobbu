@@ -63,7 +63,7 @@ export const DebugTreeItemFn = ({
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
                     click: () => {
-                        console.log('expand');
+                        useMethodByName('debug_component')?.updateId(id);
                     },
                 })}
             >

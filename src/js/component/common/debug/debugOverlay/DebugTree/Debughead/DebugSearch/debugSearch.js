@@ -2,7 +2,11 @@
  * @import { MobComponent } from '../../../../../../../mobjs/type';
  **/
 
-import { getIdByInstanceName } from '../../../../../../../mobjs';
+import {
+    getIdByInstanceName,
+    useMethodByName,
+} from '../../../../../../../mobjs';
+import { RESET_FILTER_DEBUG } from '../../../constant';
 
 /** @type{MobComponent} */
 export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
@@ -54,7 +58,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
 
                             const instanceName = event.target.value;
                             const id = getIdByInstanceName(instanceName);
-                            console.log(id);
+                            useMethodByName('debug_component')?.updateId(
+                                id ?? ''
+                            );
                         }
                     },
                 })}
@@ -67,6 +73,7 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                         const { instance_input } = getRef();
                         const instanceName = instance_input.value;
                         const id = getIdByInstanceName(instanceName);
+                        useMethodByName('debug_component')?.updateId(id ?? '');
                         console.log(id);
                     },
                 })}
@@ -85,7 +92,9 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             const { instance_input, id_input } = getRef();
                             instance_input.value = '';
                             id_input.value = '';
-                            console.log('clear');
+                            useMethodByName('debug_component')?.updateId(
+                                RESET_FILTER_DEBUG
+                            );
                         },
                     })}
                 >

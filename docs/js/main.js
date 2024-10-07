@@ -31496,13 +31496,37 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/debug/debugOverlay/constant.js
+  var RESET_FILTER_DEBUG = "reset";
+
   // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
-  var DebugComponentFn = ({ html, onMount }) => {
-    onMount(() => {
-      return () => {
-      };
+  var getContent2 = ({ getState }) => {
+    const { id } = getState();
+    if (id === RESET_FILTER_DEBUG) return "";
+    const item = componentMap.get(id);
+    if (!item) return `component not found`;
+    return `${id}`;
+  };
+  var DebugComponentFn = ({
+    html,
+    addMethod,
+    setState,
+    getState,
+    invalidate
+  }) => {
+    addMethod("updateId", (id) => {
+      setState("id", id);
     });
-    return html`<div class="c-debug-component">component</div>`;
+    return html`<div class="c-debug-component">
+        <div class="c-debug-component__conotainer">
+            ${invalidate({
+      bind: "id",
+      render: () => {
+        return getContent2({ getState });
+      }
+    })}
+        </div>
+    </div>`;
   };
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/definition.js
@@ -31511,7 +31535,7 @@ Loading snippet ...</pre
     component: DebugComponentFn,
     state: {
       id: () => ({
-        value: "",
+        value: RESET_FILTER_DEBUG,
         type: String
       })
     }
@@ -31585,7 +31609,7 @@ Loading snippet ...</pre
                 ></debug-tree>
             </div>
             <div class="c-debug-overlay__component">
-                <debug-component></debug-component>
+                <debug-component name="debug_component"></debug-component>
             </div>
         </div>
     </div>`;
@@ -31701,7 +31725,9 @@ Loading snippet ...</pre
           event.preventDefault();
           const instanceName = event.target.value;
           const id = getIdByInstanceName(instanceName);
-          console.log(id);
+          useMethodByName("debug_component")?.updateId(
+            id ?? ""
+          );
         }
       }
     })}
@@ -31714,6 +31740,7 @@ Loading snippet ...</pre
         const { instance_input } = getRef();
         const instanceName = instance_input.value;
         const id = getIdByInstanceName(instanceName);
+        useMethodByName("debug_component")?.updateId(id ?? "");
         console.log(id);
       }
     })}
@@ -31732,7 +31759,9 @@ Loading snippet ...</pre
         const { instance_input, id_input } = getRef();
         instance_input.value = "";
         id_input.value = "";
-        console.log("clear");
+        useMethodByName("debug_component")?.updateId(
+          RESET_FILTER_DEBUG
+        );
       }
     })}
                 >
@@ -31939,7 +31968,7 @@ Loading snippet ...</pre
                 class="c-debug-tree-item__expand"
                 ${delegateEvents({
       click: () => {
-        console.log("expand");
+        useMethodByName("debug_component")?.updateId(id);
       }
     })}
             >
