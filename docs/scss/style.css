@@ -2271,6 +2271,7 @@ code {
 }
 .c-debug-overlay__component {
   grid-area: component;
+  position: relative;
 }
 .c-debug-tree {
   position: absolute;
@@ -2372,8 +2373,64 @@ code {
 }
 .c-debug-component {
   color: #fff;
-  padding: 1rem;
   font-size: 0.8rem;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.c-debug-component__container {
+  padding: 1.3333333333rem;
+}
+.c-debug-component__section-title {
+  font-size: 0.9333333333rem;
+  margin-top: 1.3333333333rem;
+  margin-bottom: 0;
+}
+.c-debug-component__scrollbar {
+  position: absolute;
+  top: 1vh;
+  width: 37vh;
+  left: calc(100% - 1.3333333333rem);
+  transform: rotate(90deg);
+  transform-origin: left;
+  z-index: 14;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  --thumb-width: 13.3333333333rem;
+}
+.c-debug-component__scrollbar:focus {
+  outline: none;
+}
+.c-debug-component__scrollbar::-webkit-slider-runnable-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-component__scrollbar::-webkit-slider-thumb {
+  appearance: none;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-component__scrollbar:focus::-webkit-slider-thumb {
+  outline-offset: 0;
+}
+.c-debug-component__scrollbar::-moz-range-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+}
+.c-debug-component__scrollbar::-moz-range-thumb {
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-component__scrollbar:focus::-moz-range-thumb {
+  outline-offset: 0;
 }
 .c-debug-tree-item {
   color: #fff;

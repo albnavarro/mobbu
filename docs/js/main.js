@@ -31469,9 +31469,14 @@ Loading snippet ...</pre
   var RESET_FILTER_DEBUG = "reset";
 
   // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
-  var getClassList = (value) => [...value].reduce((previous, current) => `${previous}.${current}`, "");
+  var getClassList = (value) => {
+    if (!value) return "";
+    return [...value].reduce(
+      (previous, current) => `${previous}.${current}`,
+      ""
+    );
+  };
   var getObjectKeys = (methods) => {
-    console.log(methods);
     return Object.keys(methods).reduce((previous, current) => {
       return `${previous} ${current},`;
     }, "");
@@ -31485,11 +31490,26 @@ Loading snippet ...</pre
     return renderHtml`<div>
         <div><strong>id</strong>: ${id}</div>
         <div><strong>parent id</strong>: ${item.parentId}</div>
+        <div>
+            <strong>component root</strong>:
+            ${item.element.tagName}${getClassList(item.element.classList)}
+        </div>
         <div><strong>componentName</strong>: ${item.componentName}</div>
+        <div><strong>instance name:</strong>: ${item.instanceName}</div>
+        <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
+        <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
+        <div><strong>persistent:</strong>: ${item.persistent}</div>
+        <h3 class="c-debug-component__section-title">Repeater props:</h3>
         <div>
             <strong>component repeater id</strong>: ${item.componentRepeatId}
         </div>
         <div><strong>repeater state bind</strong>: ${item.repeatPropBind}</div>
+        <div>
+            <strong>repeater inner wrapper</strong>:
+            ${item?.repeaterInnerWrap?.tagName}${getClassList(
+      item?.repeaterInnerWrap?.classList
+    )}
+        </div>
         <div><strong>repeat key</strong>: ${item.key}</div>
         <div>
             <strong>repeat current state</strong>:
@@ -31499,28 +31519,75 @@ Loading snippet ...</pre
             <strong>repeat current index</strong>:
             ${JSON.stringify(item.currentRepeaterState?.index)}
         </div>
-        <div>
-            <strong>component root</strong>:
-            ${item.element.tagName}${getClassList(item.element.classList)}
-        </div>
-        <div><strong>instance name:</strong>: ${item.instanceName}</div>
-        <div><strong>methods:</strong>: ${getObjectKeys(item.methods)}</div>
-        <div><strong>refs:</strong>: ${getObjectKeys(item.refs)}</div>
-        <div><strong>persistent:</strong>: ${item.persistent}</div>
     </div>`;
+  };
+  var initScroller = ({ getRef }) => {
+    const { screen, scroller: scroller2, scrollbar } = getRef();
+    const methods = verticalScroller({
+      screen,
+      scroller: scroller2,
+      scrollbar
+    });
+    const init7 = methods.init;
+    const destroy = methods.destroy;
+    const refresh = methods.refresh;
+    const move = methods.move;
+    const updateScroller = methods.updateScroller;
+    init7();
+    updateScroller();
+    move(0);
+    return {
+      destroy,
+      move,
+      refresh,
+      updateScroller
+    };
   };
   var DebugComponentFn = ({
     html,
+    onMount,
     addMethod,
     setState,
     getState,
-    invalidate
+    invalidate,
+    setRef,
+    getRef,
+    watch
   }) => {
     addMethod("updateId", (id) => {
       setState("id", id);
     });
-    return html`<div class="c-debug-component">
-        <div class="c-debug-component__conotainer">
+    onMount(() => {
+      const { scrollbar } = getRef();
+      const { destroy, updateScroller, move, refresh } = initScroller({
+        getRef
+      });
+      scrollbar.addEventListener("input", () => {
+        move?.(scrollbar.value);
+      });
+      watch("id", async () => {
+        await tick();
+        refresh();
+        updateScroller();
+        move(0);
+      });
+      return () => {
+        destroy?.();
+      };
+    });
+    return html`<div class="c-debug-component" ${setRef("screen")}>
+        <input
+            type="range"
+            id="test"
+            name="test"
+            min="0"
+            max="100"
+            value="0"
+            step=".5"
+            ${setRef("scrollbar")}
+            class="c-debug-tree__scrollbar"
+        />
+        <div class="c-debug-component__container" ${setRef("scroller")}>
             ${invalidate({
       bind: "id",
       render: () => {
@@ -31811,7 +31878,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
-  var initScroller = async ({ getRef }) => {
+  var initScroller2 = async ({ getRef }) => {
     await tick();
     const { screen, scroller: scroller2, scrollbar } = getRef();
     const methods = verticalScroller({
@@ -31869,7 +31936,7 @@ Loading snippet ...</pre
           const { active } = getState();
           if (!active) return;
           setState("data", getTree());
-          const methods = await initScroller({ getRef });
+          const methods = await initScroller2({ getRef });
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;
@@ -31880,7 +31947,7 @@ Loading snippet ...</pre
         destroy?.();
         if (active) {
           setState("data", getTree());
-          const methods = await initScroller({ getRef });
+          const methods = await initScroller2({ getRef });
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;
