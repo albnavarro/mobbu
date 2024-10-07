@@ -31585,6 +31585,7 @@ Loading snippet ...</pre
     onMount,
     addMethod,
     setState,
+    updateState,
     getState,
     invalidate,
     setRef,
@@ -31593,6 +31594,9 @@ Loading snippet ...</pre
   }) => {
     addMethod("updateId", (id) => {
       setState("id", id);
+    });
+    addMethod("refreshId", () => {
+      updateState("id", (id) => id);
     });
     onMount(() => {
       const { scrollbar } = getRef();
@@ -31875,6 +31879,22 @@ Loading snippet ...</pre
     })}
                 >
                     clear
+                </button>
+            </div>
+            <div>
+                <span class="c-debug-search__label">
+                    <strong>Refresh:</strong>
+                </span>
+                <button
+                    class="c-debug-search__button"
+                    type="button"
+                    ${delegateEvents({
+      click: () => {
+        useMethodByName("debug_component")?.refreshId();
+      }
+    })}
+                >
+                    refresh component
                 </button>
             </div>
         </div>

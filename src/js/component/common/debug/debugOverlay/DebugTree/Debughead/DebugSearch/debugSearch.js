@@ -104,6 +104,22 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                     clear
                 </button>
             </div>
+            <div>
+                <span class="c-debug-search__label">
+                    <strong>Refresh:</strong>
+                </span>
+                <button
+                    class="c-debug-search__button"
+                    type="button"
+                    ${delegateEvents({
+                        click: () => {
+                            useMethodByName('debug_component')?.refreshId();
+                        },
+                    })}
+                >
+                    refresh component
+                </button>
+            </div>
         </div>
     </div>`;
 };

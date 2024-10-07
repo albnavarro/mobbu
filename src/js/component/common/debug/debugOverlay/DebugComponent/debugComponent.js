@@ -161,6 +161,7 @@ export const DebugComponentFn = ({
     onMount,
     addMethod,
     setState,
+    updateState,
     getState,
     invalidate,
     setRef,
@@ -169,6 +170,10 @@ export const DebugComponentFn = ({
 }) => {
     addMethod('updateId', (id) => {
         setState('id', id);
+    });
+
+    addMethod('refreshId', () => {
+        updateState('id', (id) => id);
     });
 
     onMount(() => {
