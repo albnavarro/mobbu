@@ -1,23 +1,10 @@
 @use '../../abstract' as *;
 
 .c-debug-tree {
-    --tree-header-height: #{rem(50)};
-
     &__list {
         position: absolute;
-        inset: var(--tree-header-height) 0 0;
+        inset: var(--debug-list-header-height) 0 0;
         overflow: hidden;
-    }
-
-    &__header {
-        color: $white;
-        padding-left: rem(40);
-        height: var(--tree-header-height);
-        font-size: rem(16);
-        border-bottom: 1px rgba($white, 0.2) solid;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
 
     &__scroller {

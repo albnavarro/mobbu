@@ -72,7 +72,7 @@
         display: grid;
         grid-template-areas:
             'head head'
-            'tree component';
+            'list component';
         grid-template-columns: repeat(2, 1fr);
         /* stylelint-disable-next-line  declaration-block-no-redundant-longhand-properties */
         grid-template-rows: rem(140) 40vh;
@@ -88,10 +88,41 @@
         border-bottom: 1px $white solid;
     }
 
-    &__tree {
-        grid-area: tree;
+    &__list {
+        --debug-list-header-height: #{rem(50)};
+
+        grid-area: list;
         border-right: 1px $white solid;
         position: relative;
+
+        &__header {
+            color: $white;
+            padding-left: rem(40);
+            padding-right: rem(15);
+            height: var(--debug-list-header-height);
+            font-size: rem(16);
+            border-bottom: 1px rgba($white, 0.2) solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__title {
+            font-size: rem(14);
+            font-weight: 600;
+        }
+
+        &__toggle {
+            background: transparent;
+            display: inline-block;
+            border: 1px $white solid;
+            font-size: rem(12);
+
+            &.active {
+                background: $white;
+                color: $black;
+            }
+        }
     }
 
     &__component {

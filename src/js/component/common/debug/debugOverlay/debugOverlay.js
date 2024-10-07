@@ -2,6 +2,8 @@
  * @import { MobComponent } from '../../../../mobjs/type';
  **/
 
+import { DEBUG_USE_FILTER_COMPONENT, DEBUG_USE_TREE } from './constant';
+
 /** @type{MobComponent<import('./type').DebugOverlay>} */
 export const DebugOverlayFn = ({
     html,
@@ -12,14 +14,26 @@ export const DebugOverlayFn = ({
     watchSync,
     setState,
     bindProps,
+    invalidate,
+    getState,
+    setRef,
+    getRef,
 }) => {
     addMethod('toggle', () => {
         updateState('active', (value) => !value);
     });
 
     onMount(({ element }) => {
+        const { toggle_tree, toggle_filter } = getRef();
+
         watchSync('active', (value) => {
             element.classList.toggle('active', value);
+        });
+
+        watchSync('listType', (value) => {
+            const isTree = value === DEBUG_USE_TREE;
+            toggle_tree.classList.toggle('active', isTree);
+            toggle_filter.classList.toggle('active', !isTree);
         });
 
         return () => {};
@@ -58,18 +72,83 @@ export const DebugOverlayFn = ({
                     })}
                 ></debug-head>
             </div>
-            <div class="c-debug-overlay__tree">
-                <debug-tree
-                    name="debug_tree"
-                    ${bindProps({
-                        bind: ['active'],
-                        props: ({ active }) => {
-                            return {
-                                active: active,
-                            };
+            <div class="c-debug-overlay__list">
+                <div class="c-debug-overlay__list__header">
+                    <div class="c-debug-overlay__list__title">
+                        ${invalidate({
+                            bind: ['listType'],
+                            persistent: true,
+                            render: ({ html }) => {
+                                const { listType } = getState();
+
+                                return listType === DEBUG_USE_TREE
+                                    ? html`Tree structure`
+                                    : html`Filter by tag`;
+                            },
+                        })}
+                    </div>
+
+                    <div class="c-debug-overlay__list__ctas">
+                        <button
+                            type="button"
+                            class="c-debug-overlay__list__toggle"
+                            ${setRef('toggle_tree')}
+                            ${delegateEvents({
+                                click: () => {
+                                    setState('listType', DEBUG_USE_TREE);
+                                },
+                            })}
+                        >
+                            Tree
+                        </button>
+                        <button
+                            type="button"
+                            class="c-debug-overlay__list__toggle"
+                            ${setRef('toggle_filter')}
+                            ${delegateEvents({
+                                click: () => {
+                                    setState(
+                                        'listType',
+                                        DEBUG_USE_FILTER_COMPONENT
+                                    );
+                                },
+                            })}
+                        >
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    ${invalidate({
+                        bind: ['listType', 'active'],
+                        persistent: true,
+                        render: ({ html }) => {
+                            const { listType, active } = getState();
+
+                            return listType === DEBUG_USE_TREE && active
+                                ? html`
+                                      <debug-tree
+                                          name="debug_tree"
+                                      ></debug-tree>
+                                  `
+                                : '';
                         },
                     })}
-                ></debug-tree>
+                </div>
+                <div>
+                    ${invalidate({
+                        bind: ['listType', 'active'],
+                        persistent: true,
+                        render: ({ html }) => {
+                            const { listType, active } = getState();
+
+                            return listType === DEBUG_USE_FILTER_COMPONENT &&
+                                active
+                                ? html` <div>filter</div> `
+                                : '';
+                        },
+                    })}
+                </div>
             </div>
             <div class="c-debug-overlay__component">
                 <debug-component name="debug_component"></debug-component>

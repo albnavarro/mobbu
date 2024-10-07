@@ -9,10 +9,6 @@ export const DebugTree = createComponent({
     component: DebugTreeFn,
     exportState: ['active'],
     state: {
-        active: () => ({
-            value: false,
-            type: Boolean,
-        }),
         data: () => ({
             value: [],
             type: Array,

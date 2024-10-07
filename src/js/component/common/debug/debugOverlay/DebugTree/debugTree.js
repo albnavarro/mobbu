@@ -39,7 +39,6 @@ export const DebugTreeFn = ({
     html,
     onMount,
     setState,
-    watchSync,
     getState,
     invalidate,
     staticProps,
@@ -73,10 +72,9 @@ export const DebugTreeFn = ({
         const unsubscrineRoute = mainStore.watch(
             'afterRouteChange',
             async () => {
-                destroy?.();
-                const { active } = getState();
-                if (!active) return;
+                await tick();
 
+                destroy?.();
                 setState('data', getTree());
                 const methods = await initScroller({ getRef });
                 destroy = methods.destroy;
@@ -86,22 +84,24 @@ export const DebugTreeFn = ({
             }
         );
 
-        // Update data on overlay open/close
-        watchSync('active', async (active) => {
-            destroy?.();
+        (async () => {
+            /**
+             * Populate list after app is completed.
+             * So total component counter doas't count tree list.
+             *
+             * If i want to show immediately first result i have to:
+             * - set getTree() in component definition.
+             * - set data on created.
+             */
+            await tick();
 
-            if (active) {
-                setState('data', getTree());
-                const methods = await initScroller({ getRef });
-                destroy = methods.destroy;
-                move = methods.move;
-                refresh = methods.refresh;
-                updateScroller = methods.updateScroller;
-                return;
-            }
-
-            setState('data', []);
-        });
+            setState('data', getTree());
+            const methods = await initScroller({ getRef });
+            destroy = methods.destroy;
+            move = methods.move;
+            refresh = methods.refresh;
+            updateScroller = methods.updateScroller;
+        })();
 
         return () => {
             unsubscrineRoute();
@@ -111,7 +111,6 @@ export const DebugTreeFn = ({
 
     return html`
         <div class="c-debug-tree">
-            <h4 class="c-debug-tree__header">Tree structure</h4>
             <div class="c-debug-tree__list" ${setRef('screen')}>
                 <input
                     type="range"
@@ -127,13 +126,9 @@ export const DebugTreeFn = ({
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>
                     ${invalidate({
                         bind: 'data',
-                        /**
-                         * On route change tree must be deleted.
-                         * Otherwise create other tree-item to track the previous tree
-                         */
-                        persistent: false,
                         render: () => {
                             const { data } = getState();
+
                             return generateTreeComponents({
                                 data,
                                 staticProps,
