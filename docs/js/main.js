@@ -31496,6 +31496,27 @@ Loading snippet ...</pre
     }
   });
 
+  // src/js/component/common/debug/debugOverlay/DebugComponent/debugComponent.js
+  var DebugComponentFn = ({ html, onMount }) => {
+    onMount(() => {
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-component">component</div>`;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugComponent/definition.js
+  var DebugComponent = createComponent({
+    name: "debug-component",
+    component: DebugComponentFn,
+    state: {
+      id: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
   // src/js/component/common/debug/debugOverlay/debugOverlay.js
   var DebugOverlayFn = ({
     html,
@@ -31563,7 +31584,9 @@ Loading snippet ...</pre
     })}
                 ></debug-tree>
             </div>
-            <div class="c-debug-overlay__component"></div>
+            <div class="c-debug-overlay__component">
+                <debug-component></debug-component>
+            </div>
         </div>
     </div>`;
   };
@@ -31631,17 +31654,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/debugSearch.js
-  var DebugSearchFn = ({
-    html,
-    onMount,
-    setRef,
-    getRef,
-    delegateEvents
-  }) => {
-    onMount(() => {
-      return () => {
-      };
-    });
+  var DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
             <span class="c-debug-search__label">
@@ -31983,7 +31996,7 @@ Loading snippet ...</pre
         type: Array
       })
     },
-    child: [DebugTreeItem, DebugHead]
+    child: [DebugTreeItem]
   });
 
   // src/js/component/common/debug/debugOverlay/definition.js
@@ -31996,7 +32009,7 @@ Loading snippet ...</pre
         type: Boolean
       })
     },
-    child: [DebugTree]
+    child: [DebugTree, DebugComponent, DebugHead]
   });
 
   // src/js/wrapper/index.js

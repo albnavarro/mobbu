@@ -2278,8 +2278,8 @@ code {
   overflow: hidden;
 }
 .c-debug-tree__content {
-  padding-top: 2.6666666667rem;
-  padding-bottom: 2.6666666667rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .c-debug-tree__scrollbar {
   position: absolute;
@@ -2369,6 +2369,10 @@ code {
 .c-debug-search__button:focus {
   background: #fff;
   color: #000;
+}
+.c-debug-component {
+  color: #fff;
+  padding: 1rem;
 }
 .c-debug-tree-item {
   color: #fff;

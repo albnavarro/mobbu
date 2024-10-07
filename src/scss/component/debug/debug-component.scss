@@ -1,0 +1,6 @@
+@use '../../abstract' as *;
+
+.c-debug-component {
+    color: $white;
+    padding: rem(15);
+}

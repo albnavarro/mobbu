@@ -1,7 +1,9 @@
 //@ts-check
 
 import { createComponent } from '../../../../mobjs';
+import { DebugComponent } from './DebugComponent/definition';
 import { DebugOverlayFn } from './debugOverlay';
+import { DebugHead } from './DebugTree/Debughead/definition';
 import { DebugTree } from './DebugTree/definition';
 
 export const DebugOverlay = createComponent({
@@ -13,5 +15,5 @@ export const DebugOverlay = createComponent({
             type: Boolean,
         }),
     },
-    child: [DebugTree],
+    child: [DebugTree, DebugComponent, DebugHead],
 });

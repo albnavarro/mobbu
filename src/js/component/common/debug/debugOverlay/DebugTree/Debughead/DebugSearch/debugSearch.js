@@ -5,17 +5,7 @@
 import { getIdByInstanceName } from '../../../../../../../mobjs';
 
 /** @type{MobComponent} */
-export const DebugSearchFn = ({
-    html,
-    onMount,
-    setRef,
-    getRef,
-    delegateEvents,
-}) => {
-    onMount(() => {
-        return () => {};
-    });
-
+export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
             <span class="c-debug-search__label">
