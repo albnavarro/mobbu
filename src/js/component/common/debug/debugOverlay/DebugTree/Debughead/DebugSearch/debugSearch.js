@@ -2,7 +2,9 @@
  * @import { MobComponent } from '../../../../../../../mobjs/type';
  **/
 
-/** @type{MobComponent<import('./type').DebugSearch>} */
+import { getIdByInstanceName } from '../../../../../../../mobjs';
+
+/** @type{MobComponent} */
 export const DebugSearchFn = ({
     html,
     onMount,
@@ -23,6 +25,16 @@ export const DebugSearchFn = ({
                 class="c-debug-search__input"
                 type="text"
                 ${setRef('id_input')}
+                ${delegateEvents({
+                    keypress: (event) => {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+
+                            const id = event.target.value;
+                            console.log(id);
+                        }
+                    },
+                })}
             />
             <button
                 class="c-debug-search__button"
@@ -45,6 +57,17 @@ export const DebugSearchFn = ({
                 class="c-debug-search__input"
                 type="text"
                 ${setRef('instance_input')}
+                ${delegateEvents({
+                    keypress: (event) => {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+
+                            const instanceName = event.target.value;
+                            const id = getIdByInstanceName(instanceName);
+                            console.log(id);
+                        }
+                    },
+                })}
             />
             <button
                 class="c-debug-search__button"
@@ -52,7 +75,9 @@ export const DebugSearchFn = ({
                 ${delegateEvents({
                     click: () => {
                         const { instance_input } = getRef();
-                        console.log(instance_input.value);
+                        const instanceName = instance_input.value;
+                        const id = getIdByInstanceName(instanceName);
+                        console.log(id);
                     },
                 })}
             >
