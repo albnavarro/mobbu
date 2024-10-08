@@ -32288,25 +32288,17 @@ Loading snippet ...</pre
       persistent: true,
       render: ({ html: html2 }) => {
         const { listType, active } = getState();
-        return listType === DEBUG_USE_TREE && active ? html2`
-                                      <debug-tree
-                                          name="debug_tree"
-                                      ></debug-tree>
-                                  ` : "";
-      }
-    })}
-                </div>
-                <div>
-                    ${invalidate({
-      bind: ["listType", "active"],
-      persistent: true,
-      render: ({ html: html2 }) => {
-        const { listType, active } = getState();
-        return listType === DEBUG_USE_FILTER_COMPONENT && active ? html2`
-                                      <debug-filter-list
-                                          name="debug_filter_list"
-                                      ></debug-filter-list>
-                                  ` : "";
+        if (listType === DEBUG_USE_TREE && active)
+          return html2`
+                                    <debug-tree name="debug_tree"></debug-tree>
+                                `;
+        if (listType === DEBUG_USE_FILTER_COMPONENT && active)
+          return html2`
+                                    <debug-filter-list
+                                        name="debug_filter_list"
+                                    ></debug-filter-list>
+                                `;
+        return "";
       }
     })}
                 </div>

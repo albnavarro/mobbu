@@ -139,31 +139,22 @@ export const DebugOverlayFn = ({
                         render: ({ html }) => {
                             const { listType, active } = getState();
 
-                            return listType === DEBUG_USE_TREE && active
-                                ? html`
-                                      <debug-tree
-                                          name="debug_tree"
-                                      ></debug-tree>
-                                  `
-                                : '';
-                        },
-                    })}
-                </div>
-                <div>
-                    ${invalidate({
-                        bind: ['listType', 'active'],
-                        persistent: true,
-                        render: ({ html }) => {
-                            const { listType, active } = getState();
+                            if (listType === DEBUG_USE_TREE && active)
+                                return html`
+                                    <debug-tree name="debug_tree"></debug-tree>
+                                `;
 
-                            return listType === DEBUG_USE_FILTER_COMPONENT &&
+                            if (
+                                listType === DEBUG_USE_FILTER_COMPONENT &&
                                 active
-                                ? html`
-                                      <debug-filter-list
-                                          name="debug_filter_list"
-                                      ></debug-filter-list>
-                                  `
-                                : '';
+                            )
+                                return html`
+                                    <debug-filter-list
+                                        name="debug_filter_list"
+                                    ></debug-filter-list>
+                                `;
+
+                            return '';
                         },
                     })}
                 </div>
