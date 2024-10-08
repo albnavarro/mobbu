@@ -81,7 +81,7 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
  * @description
  * At the end of parse delete web component and add data to real map
  * New map has componentId as key, so easy to destroy, one map for every bindText in component.
- * We need end of parse to get real parent element ( slot issue ).
+ * We need end of parse to get real parent element ( slot/repeater/invalidate issue ).
  * @returns {void}
  */
 export const switchBindTextMap = () => {
