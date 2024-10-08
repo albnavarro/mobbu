@@ -2579,6 +2579,26 @@ code {
 }
 .c-debug-filter-list-item {
   color: #fff;
+  font-size: 0.8rem;
+  padding-left: 1.3333333333rem;
+}
+.c-debug-filter-list-item__id {
+  font-weight: 600;
+  opacity: 0.8;
+}
+.c-debug-filter-list-item__expand {
+  background: transparent;
+  border: 0;
+  font-size: 0.6666666667rem;
+  transition: opacity 0.35s;
+}
+.c-debug-filter-list-item__expand:focus {
+  outline: none;
+}
+.c-debug-filter-list-item__expand:hover,
+.c-debug-filter-list-item__expand:active,
+.c-debug-filter-list-item__expand:focus {
+  opacity: 0.3;
 }
 .c-debug-tree-item {
   color: #fff;

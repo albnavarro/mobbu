@@ -31904,9 +31904,11 @@ Loading snippet ...</pre
     });
     return html`
         <div class="c-debug-filter-list-item">
-            <span>${id}</span>
-            <span ${setRef("tag")}>${tag}</span>
-            <span>${name}</span>
+            <span class="c-debug-filter-list-item__id">${id}</span>
+            <span class="c-debug-filter-list-item__tag" ${setRef("tag")}
+                >${tag}</span
+            >
+            <span class="c-debug-filter-list-item__name">${name}</span>
         </div>
     `;
   };
