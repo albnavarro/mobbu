@@ -42,6 +42,7 @@ Verranno create altre due mappe che salveranno l'host del webComponent.
 - `parseComponentsRecursive()`
 - Per ogni componente tramite il suo `id` vengono recuperate dalla mappa `invalidateFunctionMap` & `repeatFunctionMap` tutte le funzioni che inzializzano i `watcher` dei moduli in esso contenuti.
 - Le funzioni verranno lanciate alla fine del `parse` generale insieme alla funzione `onMount`
+- Le funzione partendo alla fine del parse generale potranno accedere al `parentNode` corretto, le funzioni che lancierranno infatti recuperano il `parentNode` la prima volta.
 
 ### Funzione watcher
 - Recupera il primo `parentId` da passare alla funzione watch.
