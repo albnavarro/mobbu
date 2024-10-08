@@ -2,6 +2,8 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
+import { useMethodByName } from '../../../../../../mobjs';
+
 /** @type{MobComponent<>} */
 export const DebugFilterHeadFn = ({
     html,
@@ -25,8 +27,10 @@ export const DebugFilterHeadFn = ({
                     if (event.keyCode === 13) {
                         event.preventDefault();
 
-                        const id = event.target.value;
-                        console.log(id);
+                        const testString = event.target.value;
+                        useMethodByName('debug_filter_list')?.refreshList({
+                            testString,
+                        });
                     }
                 },
             })}
@@ -37,8 +41,10 @@ export const DebugFilterHeadFn = ({
             ${delegateEvents({
                 click: () => {
                     const { input } = getRef();
-                    const id = input.value;
-                    console.log(id);
+                    const testString = input.value;
+                    useMethodByName('debug-filter-list')?.refreshList({
+                        testString,
+                    });
                 },
             })}
         >

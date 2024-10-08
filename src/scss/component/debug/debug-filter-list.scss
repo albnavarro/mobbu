@@ -1,6 +1,6 @@
 @use '../../abstract' as *;
 
-.c-debug-tree {
+.c-debug-filter-list {
     &__list {
         position: absolute;
         inset: var(--debug-list-header-height) 0 0;

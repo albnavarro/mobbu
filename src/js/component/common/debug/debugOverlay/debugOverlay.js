@@ -150,7 +150,11 @@ export const DebugOverlayFn = ({
 
                             return listType === DEBUG_USE_FILTER_COMPONENT &&
                                 active
-                                ? html` <div>filter</div> `
+                                ? html`
+                                      <debug-filter-list
+                                          name="debug_filter_list"
+                                      ></debug-filter-list>
+                                  `
                                 : '';
                         },
                     })}

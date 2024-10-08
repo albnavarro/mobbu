@@ -31727,8 +31727,10 @@ Loading snippet ...</pre
       keypress: (event) => {
         if (event.keyCode === 13) {
           event.preventDefault();
-          const id = event.target.value;
-          console.log(id);
+          const testString = event.target.value;
+          useMethodByName("debug_filter_list")?.refreshList({
+            testString
+          });
         }
       }
     })}
@@ -31739,8 +31741,10 @@ Loading snippet ...</pre
             ${delegateEvents({
       click: () => {
         const { input } = getRef();
-        const id = input.value;
-        console.log(id);
+        const testString = input.value;
+        useMethodByName("debug-filter-list")?.refreshList({
+          testString
+        });
       }
     })}
         >
@@ -31753,6 +31757,146 @@ Loading snippet ...</pre
   var DebugFilterHead = createComponent({
     name: "debug-filter-head",
     component: DebugFilterHeadFn
+  });
+
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/debugFilterList.js
+  var initScroller2 = async ({ getRef }) => {
+    await tick();
+    const { screen, scroller: scroller2, scrollbar } = getRef();
+    const methods = verticalScroller({
+      screen,
+      scroller: scroller2,
+      scrollbar
+    });
+    const init7 = methods.init;
+    const destroy = methods.destroy;
+    const refresh = methods.refresh;
+    const move = methods.move;
+    const updateScroller = methods.updateScroller;
+    init7();
+    updateScroller();
+    move(0);
+    return {
+      destroy,
+      move,
+      refresh,
+      updateScroller
+    };
+  };
+  var DebugFilterListFn = ({
+    html,
+    onMount,
+    setRef,
+    getRef,
+    addMethod,
+    repeat,
+    setState,
+    staticProps: staticProps2
+  }) => {
+    onMount(() => {
+      const { scrollbar } = getRef();
+      let destroy = () => {
+      };
+      let move = () => {
+      };
+      let refresh = () => {
+      };
+      let updateScroller = () => {
+      };
+      (async () => {
+        const methods = await initScroller2({ getRef });
+        destroy = methods.destroy;
+        move = methods.move;
+        refresh = methods.refresh;
+        updateScroller = methods.updateScroller;
+      })();
+      addMethod("refreshList", async ({ testString }) => {
+        console.log("test", testString);
+        setState("data", [{ id: "a" }, { id: "b" }]);
+        await tick();
+        refresh?.();
+        updateScroller?.();
+      });
+      scrollbar.addEventListener("input", () => {
+        move?.(scrollbar.value);
+      });
+      return () => {
+        destroy?.();
+      };
+    });
+    return html`
+        <div class="c-debug-filter-list">
+            <div class="c-debug-filter-list__list" ${setRef("screen")}>
+                <input
+                    type="range"
+                    id="test"
+                    name="test"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step=".5"
+                    ${setRef("scrollbar")}
+                    class="c-debug-filter-list__scrollbar"
+                />
+                <div
+                    class="c-debug-filter-list__scroller"
+                    ${setRef("scroller")}
+                >
+                    ${repeat({
+      bind: "data",
+      key: "id",
+      render: ({ html: html2, sync, currentValue }) => {
+        return html2`
+                                <debug-filter-list-item
+                                    ${staticProps2({
+          id: currentValue?.id
+        })}
+                                    ${sync()}
+                                ></debug-filter-list-item>
+                            `;
+      }
+    })}
+                </div>
+            </div>
+        </div>
+    `;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debugFilterListItem.js
+  var DebugFilterListItemFn = ({ html, onMount, getState }) => {
+    const { id } = getState();
+    onMount(() => {
+      return () => {
+      };
+    });
+    return html` <div class="c-debug-filter-list-item">${id}</div> `;
+  };
+
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/definition.js
+  var DebugFilterListItem = createComponent({
+    name: "debug-filter-list-item",
+    component: DebugFilterListItemFn,
+    exportState: ["id"],
+    state: {
+      id: () => ({
+        value: "",
+        type: String
+      })
+    }
+  });
+
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/definition.js
+  var DebugFilterList = createComponent({
+    name: "debug-filter-list",
+    component: DebugFilterListFn,
+    exportState: ["active"],
+    state: {
+      data: () => ({
+        value: [],
+        type: Array
+      })
+    },
+    child: [DebugFilterListItem]
   });
 
   // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
@@ -32081,7 +32225,11 @@ Loading snippet ...</pre
       persistent: true,
       render: ({ html: html2 }) => {
         const { listType, active } = getState();
-        return listType === DEBUG_USE_FILTER_COMPONENT && active ? html2` <div>filter</div> ` : "";
+        return listType === DEBUG_USE_FILTER_COMPONENT && active ? html2`
+                                      <debug-filter-list
+                                          name="debug_filter_list"
+                                      ></debug-filter-list>
+                                  ` : "";
       }
     })}
                 </div>
@@ -32108,7 +32256,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/debugTree.js
-  var initScroller2 = async ({ getRef }) => {
+  var initScroller3 = async ({ getRef }) => {
     await tick();
     const { screen, scroller: scroller2, scrollbar } = getRef();
     const methods = verticalScroller({
@@ -32164,7 +32312,7 @@ Loading snippet ...</pre
           await tick();
           destroy?.();
           setState("data", getTree());
-          const methods = await initScroller2({ getRef });
+          const methods = await initScroller3({ getRef });
           destroy = methods.destroy;
           move = methods.move;
           refresh = methods.refresh;
@@ -32174,7 +32322,7 @@ Loading snippet ...</pre
       (async () => {
         await tick();
         setState("data", getTree());
-        const methods = await initScroller2({ getRef });
+        const methods = await initScroller3({ getRef });
         destroy = methods.destroy;
         move = methods.move;
         refresh = methods.refresh;
@@ -32336,7 +32484,13 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [DebugTree, DebugComponent, DebugHead, DebugFilterHead]
+    child: [
+      DebugTree,
+      DebugComponent,
+      DebugHead,
+      DebugFilterHead,
+      DebugFilterList
+    ]
   });
 
   // src/js/wrapper/index.js
@@ -32486,7 +32640,7 @@ Loading snippet ...</pre
       setDefaultComponent({
         scoped: false,
         maxParseIteration: 1e4,
-        debug: false
+        debug: true
       });
       inizializeApp({
         rootId: "#root",

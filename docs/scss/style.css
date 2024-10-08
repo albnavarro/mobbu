@@ -2306,6 +2306,7 @@ code {
 .c-debug-tree__scroller {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  min-height: 100%;
 }
 .c-debug-tree__scrollbar {
   position: absolute;
@@ -2505,6 +2506,65 @@ code {
 .c-debug-filter-head__button:focus {
   background: #fff;
   color: #000;
+}
+.c-debug-filter-list__list {
+  position: absolute;
+  inset: var(--debug-list-header-height) 0 0;
+  overflow: hidden;
+}
+.c-debug-filter-list__scroller {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-height: 100%;
+}
+.c-debug-filter-list__scrollbar {
+  position: absolute;
+  top: 1vh;
+  width: 32vh;
+  left: calc(100% - 1.3333333333rem);
+  transform: rotate(90deg);
+  transform-origin: left;
+  z-index: 14;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  --thumb-width: 13.3333333333rem;
+}
+.c-debug-filter-list__scrollbar:focus {
+  outline: none;
+}
+.c-debug-filter-list__scrollbar::-webkit-slider-runnable-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-filter-list__scrollbar::-webkit-slider-thumb {
+  appearance: none;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-filter-list__scrollbar:focus::-webkit-slider-thumb {
+  outline-offset: 0;
+}
+.c-debug-filter-list__scrollbar::-moz-range-track {
+  background-color: rgba(238, 238, 238, 0.3);
+  border-radius: 0;
+  height: 0.6666666667rem;
+}
+.c-debug-filter-list__scrollbar::-moz-range-thumb {
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  height: 0.6666666667rem;
+  width: var(--thumb-width);
+}
+.c-debug-filter-list__scrollbar:focus::-moz-range-thumb {
+  outline-offset: 0;
+}
+.c-debug-filter-list-item {
+  color: #fff;
 }
 .c-debug-tree-item {
   color: #fff;
