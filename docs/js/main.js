@@ -31790,7 +31790,7 @@ Loading snippet ...</pre
       id,
       tag: componentName.replace(
         testString,
-        `<span class="quote">${testString}</span>`
+        `<span class="match-string">${testString}</span>`
       ),
       name: instanceName
     }));
