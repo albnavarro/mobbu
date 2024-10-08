@@ -29178,10 +29178,12 @@ Loading snippet ...</pre
           level: "level 2"
         })}
                                 ${bindProps({
-          props: ({ level2 }, index) => {
+          bind: ["counter"],
+          props: ({ level2, counter }, index) => {
             return {
               key: `${level2[index]?.key}`,
-              value: `${level2[index]?.value}`
+              value: `${level2[index]?.value}`,
+              counter
             };
           }
         })}
@@ -29359,11 +29361,13 @@ Loading snippet ...</pre
                                     class="matrioska-item--1"
                                     ${staticProps2({ level: "level 1" })}
                                     ${bindProps({
+          bind: ["counter"],
           /** @returns{Partial<MatrioskaItem>} */
-          props: ({ level1 }, index) => {
+          props: ({ level1, counter }, index) => {
             return {
               key: `${level1[index]?.key}`,
-              value: `${level1[index]?.value}`
+              value: `${level1[index]?.value}`,
+              counter
             };
           }
         })}
@@ -29386,35 +29390,16 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/matrioska/matrioskaItem/matrioskaItem.js
-  var getCounter = ({ value, setRef }) => {
-    return value > -1 ? renderHtml`
-              <h6 class="matrioska-item__value">
-                  counter: <span ${setRef("counterRef")}>${value}</span>
-              </h6>
-          ` : "";
-  };
   var MatrioskaItemFn = ({
     html,
     onMount,
     getState,
-    watchSync,
     watch,
-    id,
-    setRef,
-    getRef
+    bindText,
+    id
   }) => {
-    const { level, counter } = getState();
+    const { level } = getState();
     onMount(({ element }) => {
-      const { keyRef, valueRef, counterRef } = getRef();
-      watchSync("key", (value) => {
-        keyRef.innerHTML = `${value}`;
-      });
-      watchSync("value", (value) => {
-        valueRef.innerHTML = `${value}`;
-      });
-      watchSync("counter", (value) => {
-        if (counterRef) counterRef.innerHTML = `${value}`;
-      });
       watch("active", (val2) => {
         element.classList.toggle("active", val2);
       });
@@ -29425,12 +29410,14 @@ Loading snippet ...</pre
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
             <h6 class="matrioska-item__key">
-                key: <span ${setRef("keyRef")}></span>
+                ${bindText`key: <span>${"key"}</span>`}
             </h6>
             <h6 class="matrioska-item__value">
-                Value: <span ${setRef("valueRef")}></span>
+                ${bindText`Value: <span>${"value"}</span>`}
             </h6>
-            ${getCounter({ value: counter, setRef })}
+            <h6 class="matrioska-item__value">
+                ${bindText`counter: <span>${"counter"}</span>`}
+            </h6>
             <h6 class="matrioska-item__value">
                 Component id: <span>${id}</span>
             </h6>
@@ -32558,7 +32545,7 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/DebugTreeItem/debugTreeItem.js
-  var getCounter2 = (value) => {
+  var getCounter = (value) => {
     return value > 0 ? `( ${value} ) ` : "";
   };
   var DebugTreeItemFn = ({
@@ -32601,7 +32588,7 @@ Loading snippet ...</pre
             <span class="c-debug-tree-item__id">${id}</span> |
             <span class="c-debug-tree-item__component">${componentName}</span> |
             <span class="c-debug-tree-item__instance">${instanceName}</span>
-            <span>${getCounter2(children.length)}</span>
+            <span>${getCounter(children.length)}</span>
             <button
                 type="button"
                 class="c-debug-tree-item__expand"

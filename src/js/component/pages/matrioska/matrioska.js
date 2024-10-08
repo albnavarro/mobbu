@@ -119,10 +119,12 @@ const getSecondLevel = ({ repeat, staticProps, bindProps, delegateEvents }) => {
                                     level: 'level 2',
                                 })}
                                 ${bindProps({
-                                    props: ({ level2 }, index) => {
+                                    bind: ['counter'],
+                                    props: ({ level2, counter }, index) => {
                                         return {
                                             key: `${level2[index]?.key}`,
                                             value: `${level2[index]?.value}`,
+                                            counter,
                                         };
                                     },
                                 })}
@@ -330,11 +332,13 @@ export const MatrioskaFn = ({
                                     class="matrioska-item--1"
                                     ${staticProps({ level: 'level 1' })}
                                     ${bindProps({
+                                        bind: ['counter'],
                                         /** @returns{Partial<MatrioskaItem>} */
-                                        props: ({ level1 }, index) => {
+                                        props: ({ level1, counter }, index) => {
                                             return {
                                                 key: `${level1[index]?.key}`,
                                                 value: `${level1[index]?.value}`,
+                                                counter,
                                             };
                                         },
                                     })}

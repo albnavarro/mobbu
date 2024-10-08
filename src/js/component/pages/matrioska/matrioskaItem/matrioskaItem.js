@@ -1,16 +1,5 @@
 //@ts-check
 
-import { html } from '../../../../mobjs';
-
-const getCounter = ({ value, setRef }) => {
-    return value > -1
-        ? html`
-              <h6 class="matrioska-item__value">
-                  counter: <span ${setRef('counterRef')}>${value}</span>
-              </h6>
-          `
-        : '';
-};
 /**
  * @import { MobComponent } from "../../../../mobjs/type";
  * @import { MatrioskaItem } from "./type";
@@ -21,29 +10,13 @@ export const MatrioskaItemFn = ({
     html,
     onMount,
     getState,
-    watchSync,
     watch,
+    bindText,
     id,
-    setRef,
-    getRef,
 }) => {
-    const { level, counter } = getState();
+    const { level } = getState();
 
     onMount(({ element }) => {
-        const { keyRef, valueRef, counterRef } = getRef();
-
-        watchSync('key', (value) => {
-            keyRef.innerHTML = `${value}`;
-        });
-
-        watchSync('value', (value) => {
-            valueRef.innerHTML = `${value}`;
-        });
-
-        watchSync('counter', (value) => {
-            if (counterRef) counterRef.innerHTML = `${value}`;
-        });
-
         watch('active', (val) => {
             element.classList.toggle('active', val);
         });
@@ -55,12 +28,14 @@ export const MatrioskaItemFn = ({
         <div class="matrioska-item__info">
             <h4 class="matrioska-item__level">${level}:</h4>
             <h6 class="matrioska-item__key">
-                key: <span ${setRef('keyRef')}></span>
+                ${bindText`key: <span>${'key'}</span>`}
             </h6>
             <h6 class="matrioska-item__value">
-                Value: <span ${setRef('valueRef')}></span>
+                ${bindText`Value: <span>${'value'}</span>`}
             </h6>
-            ${getCounter({ value: counter, setRef })}
+            <h6 class="matrioska-item__value">
+                ${bindText`counter: <span>${'counter'}</span>`}
+            </h6>
             <h6 class="matrioska-item__value">
                 Component id: <span>${id}</span>
             </h6>
