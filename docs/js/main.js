@@ -18254,7 +18254,7 @@
     return current?.parentNode;
   };
   var getBindTextParentSize = () => bindTextMap.size;
-  var createBindTextWatcher = ({ id, bindTextId, props, render: render2 }) => {
+  var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
     let watchIsRunning = false;
     props.forEach((state) => {
       watchById(id, state, () => {
@@ -19780,7 +19780,7 @@
       bindText: (strings, ...values) => {
         const bindTextId = mobCore.getUnivoqueId();
         const render2 = () => renderBindText(id, strings, ...values);
-        createBindTextWatcher({ id, bindTextId, props: values, render: render2 });
+        createBindTextWatcher(id, bindTextId, render2, ...values);
         return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
       },
       invalidate: ({
@@ -31975,7 +31975,8 @@ Loading snippet ...</pre
           /** @returns{Partial<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
           props: ({ data: data2 }, index) => {
             return {
-              tag: data2[index].tag
+              tag: data2[index].tag,
+              name: data2[index].name
             };
           }
         })}
@@ -32002,10 +32003,9 @@ Loading snippet ...</pre
         <div class="c-debug-filter-list-item">
             <span class="c-debug-filter-list-item__id">${id}</span> |
             <span class="c-debug-filter-list-item__tag"
-                >${bindText`${"tag"}`}</span
+                >${bindText`pre ${"tag"} --- ${"name"} after`}</span
             >
             |
-            <span class="c-debug-filter-list-item__name">${name}</span>
             <button
                 type="button"
                 class="c-debug-filter-list-item__expand"

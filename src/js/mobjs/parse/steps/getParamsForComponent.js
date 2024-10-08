@@ -180,7 +180,7 @@ export const getParamsForComponentFunction = ({
         bindText: (strings, ...values) => {
             const bindTextId = mobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
-            createBindTextWatcher({ id, bindTextId, props: values, render });
+            createBindTextWatcher(id, bindTextId, render, ...values);
 
             return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },

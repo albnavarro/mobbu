@@ -74,14 +74,13 @@ const getParentBindText = ({ id, bindTextId }) => {
 export const getBindTextParentSize = () => bindTextMap.size;
 
 /**
- * @param {object} params
- * @param {string} params.id
- * @param {string} params.bindTextId
- * @param {string[]} params.props
- * @param {() => string} params.render
+ * @param {string} id
+ * @param {string} bindTextId
+ * @param {string[]} props
+ * @param {() => string} render
  * @returns {void}
  */
-export const createBindTextWatcher = ({ id, bindTextId, props, render }) => {
+export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
     /**
      * Watch props on change
      */
