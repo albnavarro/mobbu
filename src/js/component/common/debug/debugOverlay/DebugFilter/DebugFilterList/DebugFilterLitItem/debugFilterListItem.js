@@ -9,29 +9,17 @@ import { useMethodByName } from '../../../../../../../mobjs';
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
     html,
-    onMount,
     getState,
-    watch,
-    setRef,
-    getRef,
     delegateEvents,
+    bindText,
 }) => {
-    const { id, tag, name } = getState();
-
-    onMount(() => {
-        watch('tag', (value) => {
-            const { tag } = getRef();
-            tag.innerHTML = value;
-        });
-
-        return () => {};
-    });
+    const { id, name } = getState();
 
     return html`
         <div class="c-debug-filter-list-item">
             <span class="c-debug-filter-list-item__id">${id}</span> |
-            <span class="c-debug-filter-list-item__tag" ${setRef('tag')}
-                >${tag}</span
+            <span class="c-debug-filter-list-item__tag"
+                >${bindText`${'tag'}`}</span
             >
             |
             <span class="c-debug-filter-list-item__name">${name}</span>

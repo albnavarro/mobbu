@@ -347,3 +347,4 @@ export type PartialMethods = (
 export type PartialSetRef = (string) => string;
 export type PartialGetRef = () => { [key: string]: HTMLElement };
 export type PartialGetRefs = () => { [key: string]: HTMLElement[] };
+export type PartialBindText = (TemplateStringsArray, any) => string;

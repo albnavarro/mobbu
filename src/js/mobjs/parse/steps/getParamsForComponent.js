@@ -47,6 +47,7 @@ import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue'
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
+import { renderBindText } from '../../modules/bindtext';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -173,6 +174,11 @@ export const getParamsForComponentFunction = ({
         },
         getRefs: () => {
             return getBindRefsById({ id });
+        },
+        bindText: (strings, ...values) => {
+            const render = () => renderBindText(id, strings, ...values);
+
+            return `${render()}`;
         },
         invalidate: ({
             bind,
