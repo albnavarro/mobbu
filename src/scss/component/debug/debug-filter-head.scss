@@ -1,0 +1,42 @@
+@use '../../abstract' as *;
+
+.c-debug-filter-head {
+    display: grid;
+    grid-template-areas: 'title input submit';
+
+    &__title {
+        grid-area: title;
+        font-size: rem(14);
+        font-weight: 600;
+        margin-right: rem(15);
+    }
+
+    &__input {
+        grid-area: input;
+        width: rem(150);
+        background: transparent;
+        border: 1px $white solid;
+        font-size: rem(12);
+    }
+
+    &__button {
+        grid-area: submit;
+        background: transparent;
+        border: 1px $white solid;
+        padding-inline: rem(20);
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+        display: inline-block;
+        line-height: 1.7;
+        font-size: rem(12);
+        transition:
+            background 0.35s,
+            color 0.35s;
+
+        @include on-event {
+            background: $white;
+            color: $black;
+        }
+    }
+}

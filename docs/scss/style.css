@@ -2470,6 +2470,42 @@ code {
 .c-debug-component__scrollbar:focus::-moz-range-thumb {
   outline-offset: 0;
 }
+.c-debug-filter-head {
+  display: grid;
+  grid-template-areas: "title input submit";
+}
+.c-debug-filter-head__title {
+  grid-area: title;
+  font-size: 0.9333333333rem;
+  font-weight: 600;
+  margin-right: 1rem;
+}
+.c-debug-filter-head__input {
+  grid-area: input;
+  width: 10rem;
+  background: transparent;
+  border: 1px #fff solid;
+  font-size: 0.8rem;
+}
+.c-debug-filter-head__button {
+  grid-area: submit;
+  background: transparent;
+  border: 1px #fff solid;
+  padding-inline: 1.3333333333rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 1.7;
+  font-size: 0.8rem;
+  transition: background 0.35s, color 0.35s;
+}
+.c-debug-filter-head__button:hover,
+.c-debug-filter-head__button:active,
+.c-debug-filter-head__button:focus {
+  background: #fff;
+  color: #000;
+}
 .c-debug-tree-item {
   color: #fff;
   font-size: 0.8rem;

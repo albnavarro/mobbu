@@ -31705,146 +31705,57 @@ Loading snippet ...</pre
     }
   });
 
-  // src/js/component/common/debug/debugOverlay/debugOverlay.js
-  var DebugOverlayFn = ({
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/debugFilterHead.js
+  var DebugFilterHeadFn = ({
     html,
-    delegateEvents,
-    addMethod,
     onMount,
-    updateState,
-    watchSync,
-    setState,
-    bindProps,
-    invalidate,
-    getState,
     setRef,
-    getRef
+    getRef,
+    delegateEvents
   }) => {
-    addMethod("toggle", () => {
-      updateState("active", (value) => !value);
-    });
-    onMount(({ element }) => {
-      const { toggle_tree, toggle_filter } = getRef();
-      watchSync("active", (value) => {
-        element.classList.toggle("active", value);
-      });
-      watchSync("listType", (value) => {
-        const isTree = value === DEBUG_USE_TREE;
-        toggle_tree.classList.toggle("active", isTree);
-        toggle_filter.classList.toggle("active", !isTree);
-      });
+    onMount(() => {
       return () => {
       };
     });
-    return html`<div class="c-debug-overlay">
+    return html`<div class="c-debug-filter-head">
+        <span class="c-debug-filter-head__title">Filter by tag</span>
+        <input
+            type="text"
+            class="c-debug-filter-head__input"
+            ${setRef("input")}
+            ${delegateEvents({
+      keypress: (event) => {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const id = event.target.value;
+          console.log(id);
+        }
+      }
+    })}
+        />
         <button
-            class="c-debug-overlay__background"
+            class="c-debug-filter-head__button"
             type="button"
             ${delegateEvents({
       click: () => {
-        setState("active", false);
+        const { input } = getRef();
+        const id = input.value;
+        console.log(id);
       }
     })}
-        ></button>
-        <button
-            type="button"
-            class="c-debug-overlay__close"
-            ${delegateEvents({
-      click: () => {
-        setState("active", false);
-      }
-    })}
-        ></button>
-        <div class="c-debug-overlay__grid">
-            <div class="c-debug-overlay__head">
-                <debug-head
-                    ${bindProps({
-      bind: ["active"],
-      /** @returns{import('./DebugTree/Debughead/type').DebugHead} */
-      props: ({ active }) => {
-        return {
-          active
-        };
-      }
-    })}
-                ></debug-head>
-            </div>
-            <div class="c-debug-overlay__list">
-                <div class="c-debug-overlay__list__header">
-                    <div class="c-debug-overlay__list__title">
-                        ${invalidate({
-      bind: ["listType"],
-      persistent: true,
-      render: ({ html: html2 }) => {
-        const { listType } = getState();
-        return listType === DEBUG_USE_TREE ? html2`Tree structure` : html2`Filter by tag`;
-      }
-    })}
-                    </div>
-
-                    <div class="c-debug-overlay__list__ctas">
-                        <button
-                            type="button"
-                            class="c-debug-overlay__list__toggle"
-                            ${setRef("toggle_tree")}
-                            ${delegateEvents({
-      click: () => {
-        setState("listType", DEBUG_USE_TREE);
-      }
-    })}
-                        >
-                            Tree
-                        </button>
-                        <button
-                            type="button"
-                            class="c-debug-overlay__list__toggle"
-                            ${setRef("toggle_filter")}
-                            ${delegateEvents({
-      click: () => {
-        setState(
-          "listType",
-          DEBUG_USE_FILTER_COMPONENT
-        );
-      }
-    })}
-                        >
-                            Filter
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    ${invalidate({
-      bind: ["listType", "active"],
-      persistent: true,
-      render: ({ html: html2 }) => {
-        const { listType, active } = getState();
-        return listType === DEBUG_USE_TREE && active ? html2`
-                                      <debug-tree
-                                          name="debug_tree"
-                                      ></debug-tree>
-                                  ` : "";
-      }
-    })}
-                </div>
-                <div>
-                    ${invalidate({
-      bind: ["listType", "active"],
-      persistent: true,
-      render: ({ html: html2 }) => {
-        const { listType, active } = getState();
-        return listType === DEBUG_USE_FILTER_COMPONENT && active ? html2` <div>filter</div> ` : "";
-      }
-    })}
-                </div>
-            </div>
-            <div class="c-debug-overlay__component">
-                <debug-component name="debug_component"></debug-component>
-            </div>
-        </div>
+        >
+            find
+        </button>
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/debugHead.js
+  // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/definition.js
+  var DebugFilterHead = createComponent({
+    name: "debug-filter-head",
+    component: DebugFilterHeadFn
+  });
+
+  // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
   var updateContent2 = ({ active, getRef }) => {
     const { number_of_component, active_repeater, active_invalidate } = getRef();
     const NOC_content = active ? renderHtml`<strong>Number of component</strong>: ${componentMap.size} (
@@ -31906,7 +31817,7 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/debugSearch.js
+  // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/debugSearch.js
   var DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
     return html`<div class="c-debug-search">
         <div>
@@ -32019,13 +31930,13 @@ Loading snippet ...</pre
     </div>`;
   };
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/DebugSearch/definition.js
+  // src/js/component/common/debug/debugOverlay/Debughead/DebugSearch/definition.js
   var DebugSearch = createComponent({
     name: "debug-search",
     component: DebugSearchFn
   });
 
-  // src/js/component/common/debug/debugOverlay/DebugTree/Debughead/definition.js
+  // src/js/component/common/debug/debugOverlay/Debughead/definition.js
   var DebugHead = createComponent({
     name: "debug-head",
     component: DebugHeadFn,
@@ -32038,6 +31949,149 @@ Loading snippet ...</pre
     },
     child: [DebugSearch]
   });
+
+  // src/js/component/common/debug/debugOverlay/debugOverlay.js
+  var DebugOverlayFn = ({
+    html,
+    delegateEvents,
+    addMethod,
+    onMount,
+    updateState,
+    watchSync,
+    setState,
+    bindProps,
+    invalidate,
+    getState,
+    setRef,
+    getRef
+  }) => {
+    addMethod("toggle", () => {
+      updateState("active", (value) => !value);
+    });
+    onMount(({ element }) => {
+      const { toggle_tree, toggle_filter } = getRef();
+      watchSync("active", (value) => {
+        element.classList.toggle("active", value);
+      });
+      watchSync("listType", (value) => {
+        const isTree = value === DEBUG_USE_TREE;
+        toggle_tree.classList.toggle("active", isTree);
+        toggle_filter.classList.toggle("active", !isTree);
+      });
+      return () => {
+      };
+    });
+    return html`<div class="c-debug-overlay">
+        <button
+            class="c-debug-overlay__background"
+            type="button"
+            ${delegateEvents({
+      click: () => {
+        setState("active", false);
+      }
+    })}
+        ></button>
+        <button
+            type="button"
+            class="c-debug-overlay__close"
+            ${delegateEvents({
+      click: () => {
+        setState("active", false);
+      }
+    })}
+        ></button>
+        <div class="c-debug-overlay__grid">
+            <div class="c-debug-overlay__head">
+                <debug-head
+                    ${bindProps({
+      bind: ["active"],
+      /** @returns{import('./Debughead/type').DebugHead} */
+      props: ({ active }) => {
+        return {
+          active
+        };
+      }
+    })}
+                ></debug-head>
+            </div>
+            <div class="c-debug-overlay__list">
+                <div class="c-debug-overlay__list__header">
+                    <div>
+                        ${invalidate({
+      bind: ["listType"],
+      persistent: true,
+      render: ({ html: html2 }) => {
+        const { listType } = getState();
+        return listType === DEBUG_USE_TREE ? html2`<div
+                                          class="c-debug-overlay__list__title"
+                                      >
+                                          Tree structure
+                                      </div>` : html2`<debug-filter-head></debug-filter-head>`;
+      }
+    })}
+                    </div>
+
+                    <div class="c-debug-overlay__list__ctas">
+                        <button
+                            type="button"
+                            class="c-debug-overlay__list__toggle"
+                            ${setRef("toggle_tree")}
+                            ${delegateEvents({
+      click: () => {
+        setState("listType", DEBUG_USE_TREE);
+      }
+    })}
+                        >
+                            Tree
+                        </button>
+                        <button
+                            type="button"
+                            class="c-debug-overlay__list__toggle"
+                            ${setRef("toggle_filter")}
+                            ${delegateEvents({
+      click: () => {
+        setState(
+          "listType",
+          DEBUG_USE_FILTER_COMPONENT
+        );
+      }
+    })}
+                        >
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    ${invalidate({
+      bind: ["listType", "active"],
+      persistent: true,
+      render: ({ html: html2 }) => {
+        const { listType, active } = getState();
+        return listType === DEBUG_USE_TREE && active ? html2`
+                                      <debug-tree
+                                          name="debug_tree"
+                                      ></debug-tree>
+                                  ` : "";
+      }
+    })}
+                </div>
+                <div>
+                    ${invalidate({
+      bind: ["listType", "active"],
+      persistent: true,
+      render: ({ html: html2 }) => {
+        const { listType, active } = getState();
+        return listType === DEBUG_USE_FILTER_COMPONENT && active ? html2` <div>filter</div> ` : "";
+      }
+    })}
+                </div>
+            </div>
+            <div class="c-debug-overlay__component">
+                <debug-component name="debug_component"></debug-component>
+            </div>
+        </div>
+    </div>`;
+  };
 
   // src/js/component/common/debug/debugOverlay/DebugTree/recursiveTree.js
   var generateTreeComponents = ({ data: data2, staticProps: staticProps2 }) => {
@@ -32282,7 +32336,7 @@ Loading snippet ...</pre
         type: String
       })
     },
-    child: [DebugTree, DebugComponent, DebugHead]
+    child: [DebugTree, DebugComponent, DebugHead, DebugFilterHead]
   });
 
   // src/js/wrapper/index.js

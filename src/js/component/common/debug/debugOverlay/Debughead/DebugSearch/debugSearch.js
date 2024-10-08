@@ -1,12 +1,9 @@
 /**
- * @import { MobComponent } from '../../../../../../../mobjs/type';
+ * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import {
-    getIdByInstanceName,
-    useMethodByName,
-} from '../../../../../../../mobjs';
-import { RESET_FILTER_DEBUG } from '../../../constant';
+import { getIdByInstanceName, useMethodByName } from '../../../../../../mobjs';
+import { RESET_FILTER_DEBUG } from '../../constant';
 
 /** @type{MobComponent} */
 export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {

@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createComponent } from '../../../../../../../mobjs';
+import { createComponent } from '../../../../../../mobjs';
 import { DebugSearchFn } from './debugSearch';
 
 export const DebugSearch = createComponent({

@@ -1,5 +1,5 @@
 /**
- * @import { GetRef, MobComponent } from '../../../../../../mobjs/type';
+ * @import { GetRef, MobComponent } from '../../../../../mobjs/type';
  **/
 
 import {
@@ -9,7 +9,7 @@ import {
     getNumberOfActiveRepeater,
     html,
     mainStore,
-} from '../../../../../../mobjs';
+} from '../../../../../mobjs';
 
 /**
  * @param {object} params

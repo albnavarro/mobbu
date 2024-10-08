@@ -65,7 +65,7 @@ export const DebugOverlayFn = ({
                 <debug-head
                     ${bindProps({
                         bind: ['active'],
-                        /** @returns{import('./DebugTree/Debughead/type').DebugHead} */
+                        /** @returns{import('./Debughead/type').DebugHead} */
                         props: ({ active }) => {
                             return {
                                 active: active,
@@ -76,7 +76,7 @@ export const DebugOverlayFn = ({
             </div>
             <div class="c-debug-overlay__list">
                 <div class="c-debug-overlay__list__header">
-                    <div class="c-debug-overlay__list__title">
+                    <div>
                         ${invalidate({
                             bind: ['listType'],
                             persistent: true,
@@ -84,8 +84,12 @@ export const DebugOverlayFn = ({
                                 const { listType } = getState();
 
                                 return listType === DEBUG_USE_TREE
-                                    ? html`Tree structure`
-                                    : html`Filter by tag`;
+                                    ? html`<div
+                                          class="c-debug-overlay__list__title"
+                                      >
+                                          Tree structure
+                                      </div>`
+                                    : html`<debug-filter-head></debug-filter-head>`;
                             },
                         })}
                     </div>
