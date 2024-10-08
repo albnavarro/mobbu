@@ -15,6 +15,7 @@ export const AnimationTitleFn = ({
     watchSync,
     setRef,
     getRef,
+    bindText,
 }) => {
     onMount(({ element }) => {
         if (motionCore.mq('max', 'desktop')) return;
@@ -25,10 +26,6 @@ export const AnimationTitleFn = ({
             element.classList.remove('is-left');
             element.classList.remove('is-right');
             element.classList.add(`is-${value}`);
-        });
-
-        watchSync('title', (value) => {
-            titleEl.innerHTML = value;
         });
 
         watchSync('color', (value) => {
@@ -46,6 +43,6 @@ export const AnimationTitleFn = ({
     });
 
     return html`<div class="c-animation-title">
-        <h4 ${setRef('titleEl')}></h4>
+        <h4 ${setRef('titleEl')}>${bindText`${'title'}`}</h4>
     </div>`;
 };

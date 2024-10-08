@@ -120,17 +120,13 @@ export const DynamicListFn = ({
     staticProps,
     bindProps,
     delegateEvents,
-    watchSync,
     invalidate,
-    setRef,
-    getRef,
+    bindText,
 }) => {
     /** @type {SetStateByName<CodeButton>} */
     const setCodeButtonState = setStateByName('global-code-button');
 
     onMount(() => {
-        const { counterEl } = getRef();
-
         /**
          * Code button
          */
@@ -167,11 +163,6 @@ export const DynamicListFn = ({
             },
         ]);
         setCodeButtonState('color', 'black');
-
-        watchSync('counter', (value) => {
-            // @ts-ignore
-            counterEl.textContent = `${value}`;
-        });
 
         return () => {
             setCodeButtonState('drawers', []);
@@ -241,7 +232,7 @@ export const DynamicListFn = ({
 
             <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
-                <span ${setRef('counterEl')}></span>
+                <span>${bindText`${'counter'}`}</span>
             </div>
 
             <!-- Repeaters -->

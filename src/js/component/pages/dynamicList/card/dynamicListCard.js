@@ -11,14 +11,6 @@
 import { html, tick } from '../../../../mobjs';
 import { innerData } from '../data';
 
-/**
- * @param {any} label
- * @param {any} val
- */
-function updateContent(label, val) {
-    return `${label}: ${val}`;
-}
-
 /** @param {number} numberOfItem */
 function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
@@ -76,36 +68,20 @@ export const DynamicListCardFn = ({
     key,
     staticProps,
     bindProps,
-    watch,
     id,
     setState,
     updateState,
     delegateEvents,
     invalidate,
     repeat,
-    setRef,
-    getRef,
+    bindText,
 }) => {
-    const { isFull, parentListId, index, label, counter } = getState();
+    const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
     let elementRef;
 
     onMount(({ element }) => {
-        const { indexEl, labelEl, counterEl } = getRef();
         elementRef = element;
-
-        watch('index', (val) => {
-            indexEl.textContent = updateContent('index', val);
-        });
-
-        watch('label', (val) => {
-            labelEl.textContent = updateContent('label', val);
-        });
-
-        watch('counter', (val) => {
-            counterEl.textContent = updateContent('counter', val);
-        });
-
         showCard({ element });
 
         return () => {};
@@ -139,15 +115,9 @@ export const DynamicListCardFn = ({
                 </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index" ${setRef('indexEl')}>
-                    ${updateContent('index', index)}
-                </div>
-                <div class="label" ${setRef('labelEl')}>
-                    ${updateContent('label', label)}
-                </div>
-                <div class="counter" ${setRef('counterEl')}>
-                    ${updateContent('counter', counter)}
-                </div>
+                <div class="index">${bindText`index: ${'index'}`}</div>
+                <div class="label">${bindText`label: ${'label'}`}</div>
+                <div class="counter">${bindText`counter: ${'counter'}`}</div>
                 <div class="key">key: ${key.length > 0 ? key : 'no-key'}</div>
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
                 <dynamic-list-empty>

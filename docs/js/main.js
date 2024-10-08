@@ -20614,7 +20614,8 @@
     onMount,
     watchSync,
     setRef,
-    getRef
+    getRef,
+    bindText
   }) => {
     onMount(({ element }) => {
       if (motionCore.mq("max", "desktop")) return;
@@ -20623,9 +20624,6 @@
         element.classList.remove("is-left");
         element.classList.remove("is-right");
         element.classList.add(`is-${value}`);
-      });
-      watchSync("title", (value) => {
-        titleEl.innerHTML = value;
       });
       watchSync("color", (value) => {
         titleEl.classList.remove("is-white");
@@ -20640,7 +20638,7 @@
       };
     });
     return html`<div class="c-animation-title">
-        <h4 ${setRef("titleEl")}></h4>
+        <h4 ${setRef("titleEl")}>${bindText`${"title"}`}</h4>
     </div>`;
   };
 
@@ -27967,25 +27965,9 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/card/innerCard/dynamicListCardInner.js
-  var DynamicListCardInnerFn = async ({
-    watch,
-    onMount,
-    html,
-    getState,
-    setRef,
-    getRef
-  }) => {
-    const { key } = getState();
-    onMount(() => {
-      const { content } = getRef();
-      watch("key", (value) => {
-        content.textContent = `${value}`;
-      });
-      return () => {
-      };
-    });
+  var DynamicListCardInnerFn = async ({ html, bindText }) => {
     return html`<span class="dynamic-list-card-inner">
-        <span ${setRef("content")}>${key}</span>
+        <span>${bindText`${"key"}`}</span>
     </span>`;
   };
 
@@ -28250,14 +28232,11 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps,
     delegateEvents,
-    watchSync,
     invalidate,
-    setRef,
-    getRef
+    bindText
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
-      const { counterEl } = getRef();
       const { repeater } = getLegendData();
       const { source } = repeater;
       setCodeButtonState("drawers", [
@@ -28291,9 +28270,6 @@ Loading snippet ...</pre
         }
       ]);
       setCodeButtonState("color", "black");
-      watchSync("counter", (value) => {
-        counterEl.textContent = `${value}`;
-      });
       return () => {
         setCodeButtonState("drawers", []);
       };
@@ -28361,7 +28337,7 @@ Loading snippet ...</pre
 
             <div class="c-dynamic-list__counter">
                 <h4>List counter</h4>
-                <span ${setRef("counterEl")}></span>
+                <span>${bindText`${"counter"}`}</span>
             </div>
 
             <!-- Repeaters -->
@@ -28375,28 +28351,13 @@ Loading snippet ...</pre
   };
 
   // src/js/component/pages/dynamicList/counter/dynamicListCounter.js
-  var DynamicListCounterFn = async ({
-    watch,
-    onMount,
-    html,
-    getState,
-    setRef,
-    getRef
-  }) => {
-    const { parentListId, counter } = getState();
-    onMount(() => {
-      const { counterValueEl } = getRef();
-      watch("counter", (value) => {
-        counterValueEl.textContent = `${value}`;
-      });
-      return () => {
-      };
-    });
+  var DynamicListCounterFn = async ({ html, getState, bindText }) => {
+    const { parentListId } = getState();
     return html`<div class="dynamic-counter">
         <p class="c-dynamic-counter__title">Nested:</p>
         <p class="c-dynamic-counter__subtitle">(slotted)</p>
         <p class="c-dynamic-counter__list">list index: ${parentListId}</p>
-        <span ${setRef("counterValueEl")}>${counter}</span>
+        <span>${bindText`${"counter"}`}</span>
     </div>`;
   };
 
@@ -28432,9 +28393,6 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/card/dynamicListCard.js
-  function updateContent(label, val2) {
-    return `${label}: ${val2}`;
-  }
   function createArray(numberOfItem) {
     return [...new Array(numberOfItem).keys()].map((i) => i + 1);
   }
@@ -28473,31 +28431,19 @@ Loading snippet ...</pre
     key,
     staticProps: staticProps2,
     bindProps,
-    watch,
     id,
     setState,
     updateState,
     delegateEvents,
     invalidate,
     repeat,
-    setRef,
-    getRef
+    bindText
   }) => {
-    const { isFull, parentListId, index, label, counter } = getState();
+    const { isFull, parentListId } = getState();
     let repeaterIndex = 0;
     let elementRef;
     onMount(({ element }) => {
-      const { indexEl, labelEl, counterEl } = getRef();
       elementRef = element;
-      watch("index", (val2) => {
-        indexEl.textContent = updateContent("index", val2);
-      });
-      watch("label", (val2) => {
-        labelEl.textContent = updateContent("label", val2);
-      });
-      watch("counter", (val2) => {
-        counterEl.textContent = updateContent("counter", val2);
-      });
       showCard({ element });
       return () => {
       };
@@ -28529,15 +28475,9 @@ Loading snippet ...</pre
                 </dynamic-list-button>
                 <div class="id">id: ${id}</div>
                 <div class="parentId">list index: ${parentListId}</div>
-                <div class="index" ${setRef("indexEl")}>
-                    ${updateContent("index", index)}
-                </div>
-                <div class="label" ${setRef("labelEl")}>
-                    ${updateContent("label", label)}
-                </div>
-                <div class="counter" ${setRef("counterEl")}>
-                    ${updateContent("counter", counter)}
-                </div>
+                <div class="index">${bindText`index: ${"index"}`}</div>
+                <div class="label">${bindText`label: ${"label"}`}</div>
+                <div class="counter">${bindText`counter: ${"counter"}`}</div>
                 <div class="key">key: ${key.length > 0 ? key : "no-key"}</div>
                 <mobjs-slot name="card-label-slot"></mobjs-slot>
                 <dynamic-list-empty>
@@ -28549,8 +28489,8 @@ Loading snippet ...</pre
                         ${bindProps({
       bind: ["counter"],
       /** @return {Partial<DynamicCounter>} */
-      props: ({ counter: counter2 }) => {
-        return { counter: counter2 };
+      props: ({ counter }) => {
+        return { counter };
       }
     })}
                     />
@@ -28580,9 +28520,9 @@ Loading snippet ...</pre
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
           /** @return {Partial<DynamicListCardInner>} */
-          props: ({ innerData: innerData2 }, index2) => {
+          props: ({ innerData: innerData2 }, index) => {
             return {
-              key: `${innerData2[index2].key}`
+              key: `${innerData2[index].key}`
             };
           }
         })}
@@ -28600,9 +28540,9 @@ Loading snippet ...</pre
         return html2`<dynamic-list-card-inner
                                     ${bindProps({
           /** @return {Partial<DynamicListCardInner>} */
-          props: ({ innerData: innerData2 }, index2) => {
+          props: ({ innerData: innerData2 }, index) => {
             return {
-              key: `${innerData2[index2].key}`
+              key: `${innerData2[index].key}`
             };
           }
         })}
@@ -28683,28 +28623,9 @@ Loading snippet ...</pre
   });
 
   // src/js/component/pages/dynamicList/slottedLabel/dynamicListSlottedLabel.js
-  function setContent(value) {
-    return `slotted: ${value}`;
-  }
-  var DynamicListSlottedLabelFn = ({
-    html,
-    onMount,
-    watch,
-    getState,
-    setRef,
-    getRef
-  }) => {
-    const { label } = getState();
-    onMount(() => {
-      const { contentEl } = getRef();
-      watch("label", (value) => {
-        contentEl.innerHTML = setContent(value);
-      });
-      return () => {
-      };
-    });
+  var DynamicListSlottedLabelFn = ({ html, bindText }) => {
     return html`<div class="c-dynamic-list-slotted-label">
-        <p class="content" ${setRef("contentEl")}>${setContent(label)}</p>
+        <p class="content">${bindText`slotted: ${"label"}`}</p>
     </div>`;
   };
 
@@ -32082,7 +32003,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/debug/debugOverlay/Debughead/debugHead.js
-  var updateContent2 = ({ active, getRef }) => {
+  var updateContent = ({ active, getRef }) => {
     const { number_of_component, active_repeater, active_invalidate } = getRef();
     const NOC_content = active ? renderHtml`<strong>Number of component</strong>: ${componentMap.size} (
               excluded debug generated content )` : ``;
@@ -32103,13 +32024,13 @@ Loading snippet ...</pre
   }) => {
     onMount(() => {
       watch("active", async (active) => {
-        updateContent2({ active, getRef });
+        updateContent({ active, getRef });
       });
       const unsubscrineRoute = mainStore.watch(
         "afterRouteChange",
         async () => {
           const { active } = getState();
-          updateContent2({ active, getRef });
+          updateContent({ active, getRef });
         }
       );
       return () => {
