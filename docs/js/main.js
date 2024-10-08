@@ -1100,10 +1100,11 @@ Loading snippet ...</pre
         </div>
     `};var Iv=({html:e,onMount:t,getState:r,watch:o,setRef:n,getRef:s,delegateEvents:i})=>{let{id:a,tag:c,name:u}=r();return t(()=>(o("tag",p=>{let{tag:d}=s();d.innerHTML=p}),()=>{})),e`
         <div class="c-debug-filter-list-item">
-            <span class="c-debug-filter-list-item__id">${a}</span>
+            <span class="c-debug-filter-list-item__id">${a}</span> |
             <span class="c-debug-filter-list-item__tag" ${n("tag")}
                 >${c}</span
             >
+            |
             <span class="c-debug-filter-list-item__name">${u}</span>
             <button
                 type="button"

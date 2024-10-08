@@ -29,10 +29,11 @@ export const DebugFilterListItemFn = ({
 
     return html`
         <div class="c-debug-filter-list-item">
-            <span class="c-debug-filter-list-item__id">${id}</span>
+            <span class="c-debug-filter-list-item__id">${id}</span> |
             <span class="c-debug-filter-list-item__tag" ${setRef('tag')}
                 >${tag}</span
             >
+            |
             <span class="c-debug-filter-list-item__name">${name}</span>
             <button
                 type="button"
