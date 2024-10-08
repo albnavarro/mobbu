@@ -47,27 +47,21 @@ export const DebugTreeFn = ({
     setRef,
     getRef,
     addMethod,
+    delegateEvents,
 }) => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let refresh = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let updateScroller = () => {};
+
+    let move;
+
     onMount(() => {
-        const { scrollbar } = getRef();
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let destroy = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let refresh = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let updateScroller = () => {};
-
-        let move;
-
         addMethod('refresh', () => {
             refresh?.();
             updateScroller?.();
-        });
-
-        scrollbar.addEventListener('input', () => {
-            // @ts-ignore
-            move?.(scrollbar.value);
         });
 
         // Update data on route change
@@ -124,6 +118,12 @@ export const DebugTreeFn = ({
                     step=".5"
                     ${setRef('scrollbar')}
                     class="c-debug-tree__scrollbar"
+                    ${delegateEvents({
+                        input: (event) => {
+                            // @ts-ignore
+                            move?.(event.target.value);
+                        },
+                    })}
                 />
                 <div class="c-debug-tree__scroller" ${setRef('scroller')}>
                     ${invalidate({

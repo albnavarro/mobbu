@@ -180,6 +180,7 @@ export const DebugComponentFn = ({
     setRef,
     getRef,
     watch,
+    delegateEvents,
 }) => {
     addMethod('updateId', (id) => {
         setState('id', id);
@@ -189,17 +190,21 @@ export const DebugComponentFn = ({
         updateState('id', (id) => id);
     });
 
-    onMount(() => {
-        const { scrollbar } = getRef();
+    // Slide move reference
+    let move;
 
-        const { destroy, updateScroller, move, refresh } = initScroller({
+    onMount(() => {
+        const {
+            destroy,
+            updateScroller,
+            move: moveUpdated,
+            refresh,
+        } = initScroller({
             getRef,
         });
 
-        scrollbar.addEventListener('input', () => {
-            // @ts-ignore
-            move?.(scrollbar.value);
-        });
+        // update slide move reference
+        move = moveUpdated;
 
         watch('id', async () => {
             // update scroller after app is updated.
@@ -226,6 +231,12 @@ export const DebugComponentFn = ({
             step=".5"
             ${setRef('scrollbar')}
             class="c-debug-component__scrollbar"
+            ${delegateEvents({
+                input: (event) => {
+                    // @ts-ignore
+                    move?.(event.target.value);
+                },
+            })}
         />
         <div class="c-debug-component__container" ${setRef('scroller')}>
             ${invalidate({

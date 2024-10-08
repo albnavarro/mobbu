@@ -66,6 +66,7 @@ export const DebugFilterListFn = ({
     setState,
     staticProps,
     bindProps,
+    delegateEvents,
 }) => {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     let destroy = () => {};
@@ -85,8 +86,6 @@ export const DebugFilterListFn = ({
     });
 
     onMount(() => {
-        const { scrollbar } = getRef();
-
         (async () => {
             const methods = await initScroller({ getRef });
             destroy = methods.destroy;
@@ -94,11 +93,6 @@ export const DebugFilterListFn = ({
             refresh = methods.refresh;
             updateScroller = methods.updateScroller;
         })();
-
-        scrollbar.addEventListener('input', () => {
-            // @ts-ignore
-            move?.(scrollbar.value);
-        });
 
         return () => {
             destroy?.();
@@ -118,6 +112,12 @@ export const DebugFilterListFn = ({
                     step=".5"
                     ${setRef('scrollbar')}
                     class="c-debug-filter-list__scrollbar"
+                    ${delegateEvents({
+                        input: (event) => {
+                            // @ts-ignore
+                            move?.(event.target.value);
+                        },
+                    })}
                 />
                 <div
                     class="c-debug-filter-list__scroller"
