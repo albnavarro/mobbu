@@ -7,6 +7,27 @@ import { watchById } from '../../component/action/watch';
 /** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();
 
+/** @type {Map<Element, import('./type').BindTextPlaceHolder>} */
+export const bindTextPlaceHolderMap = new Map();
+
+/**
+ * @param {object} params
+ * @param {Element} params.host
+ * @param {string} params.componentId
+ * @param {string} params.bindTextId
+ * @returns {void}
+ */
+export const addBindTextPlaceHolderMap = ({
+    host,
+    componentId,
+    bindTextId,
+}) => {
+    bindTextPlaceHolderMap.set(host, {
+        componentId,
+        bindTextId,
+    });
+};
+
 /**
  * @param {string} id - componentId
  * @param {TemplateStringsArray} strings
@@ -36,10 +57,49 @@ export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
 
     const itemsUpdated =
         items && items.length > 0
-            ? [...items, { parentNode: parentElement, bindTextId }]
+            ? (() => {
+                  /**
+                   * When placeholder change position ( slot/repeater )
+                   * Add multiple time.
+                   * Remove the old and use last with last parent element.
+                   */
+                  const itemsFiltered = items.filter(
+                      (item) => item.bindTextId !== bindTextId
+                  );
+
+                  return [
+                      ...itemsFiltered,
+                      { parentNode: parentElement, bindTextId },
+                  ];
+              })()
             : [{ parentNode: parentElement, bindTextId }];
 
     bindTextMap.set(id, itemsUpdated);
+};
+
+/**
+ * @description
+ * At the end of parse delete web component and add data to real map
+ * New map has componentId as key, so easy to destroy, one map for every bindText in component.
+ * We need end of parse to get real parent element ( slot issue ).
+ * @returns {void}
+ */
+export const switchBindTextMap = () => {
+    [...bindTextPlaceHolderMap].forEach(
+        ([placeholder, { componentId, bindTextId }]) => {
+            addBindTextParent({
+                id: componentId,
+                bindTextId,
+                parentElement: placeholder.parentElement,
+            });
+
+            // @ts-ignore
+            placeholder?.removeCustomComponent?.();
+            placeholder?.remove();
+        }
+    );
+
+    bindTextPlaceHolderMap.clear();
 };
 
 /**
@@ -72,6 +132,11 @@ const getParentBindText = ({ id, bindTextId }) => {
  * @returns {number}
  */
 export const getBindTextParentSize = () => bindTextMap.size;
+
+/**
+ * @returns {number}
+ */
+export const getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
 
 /**
  * @param {string} id

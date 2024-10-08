@@ -18229,6 +18229,17 @@
 
   // src/js/mobjs/modules/bindtext/index.js
   var bindTextMap = /* @__PURE__ */ new Map();
+  var bindTextPlaceHolderMap = /* @__PURE__ */ new Map();
+  var addBindTextPlaceHolderMap = ({
+    host,
+    componentId,
+    bindTextId
+  }) => {
+    bindTextPlaceHolderMap.set(host, {
+      componentId,
+      bindTextId
+    });
+  };
   var renderBindText = (id, strings, ...values) => {
     const props = getStateById(id);
     const states = values.map((prop) => props?.[prop] ?? "");
@@ -18239,8 +18250,30 @@
   };
   var addBindTextParent = ({ id, bindTextId, parentElement }) => {
     const items = bindTextMap.get(id);
-    const itemsUpdated = items && items.length > 0 ? [...items, { parentNode: parentElement, bindTextId }] : [{ parentNode: parentElement, bindTextId }];
+    const itemsUpdated = items && items.length > 0 ? (() => {
+      const itemsFiltered = items.filter(
+        (item) => item.bindTextId !== bindTextId
+      );
+      return [
+        ...itemsFiltered,
+        { parentNode: parentElement, bindTextId }
+      ];
+    })() : [{ parentNode: parentElement, bindTextId }];
     bindTextMap.set(id, itemsUpdated);
+  };
+  var switchBindTextMap = () => {
+    [...bindTextPlaceHolderMap].forEach(
+      ([placeholder, { componentId, bindTextId }]) => {
+        addBindTextParent({
+          id: componentId,
+          bindTextId,
+          parentElement: placeholder.parentElement
+        });
+        placeholder?.removeCustomComponent?.();
+        placeholder?.remove();
+      }
+    );
+    bindTextPlaceHolderMap.clear();
   };
   var removeBindTextParentById = ({ id }) => {
     bindTextMap.delete(id);
@@ -18254,6 +18287,7 @@
     return current?.parentNode;
   };
   var getBindTextParentSize = () => bindTextMap.size;
+  var getBindTextPlaceholderSize = () => bindTextPlaceHolderMap.size;
   var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
     let watchIsRunning = false;
     props.forEach((state) => {
@@ -18287,14 +18321,16 @@
             const host = this.shadowRoot.host;
             const componentId = host.getAttribute(ATTR_COMPONENT_ID);
             const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID);
-            const parentElement = this.parentElement;
-            addBindTextParent({
-              id: componentId,
-              bindTextId,
-              parentElement
+            addBindTextPlaceHolderMap({
+              host,
+              componentId,
+              bindTextId
             });
-            parentElement?.removeChild(this);
           }
+        }
+        removeCustomComponent() {
+          if (!this.shadowRoot) return;
+          this.parentElement?.removeChild(this);
         }
       }
     );
@@ -20048,6 +20084,7 @@
       functionToFireAtTheEnd.length = 0;
       currentSelectors.length = 0;
       applyDelegationBindEvent(element);
+      switchBindTextMap();
       return;
     }
     const componentToParseName = componentToParse.getComponentName();
@@ -24067,6 +24104,7 @@ Loading snippet ...</pre
     console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
     console.log("slotPlaceholderSize", getSlotPlaceholderSize());
     console.log("bindTextMapSize", getBindTextParentSize());
+    console.log("bindTextPlaceholderMapSize", getBindTextPlaceholderSize());
   };
 
   // src/js/component/layout/footer/footer.js

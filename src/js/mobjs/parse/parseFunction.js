@@ -32,6 +32,7 @@ import { getRepeatFunctions } from '../modules/repeater';
 import { addBindRefsToComponent, getBindRefs } from '../modules/bindRefs';
 import { clearSlotPlaceHolder } from '../modules/slot';
 import { useSlotQuery } from './useQuery';
+import { switchBindTextMap } from '../modules/bindtext';
 
 /**
  * @param {object} obj
@@ -133,6 +134,7 @@ export const parseComponentsRecursive = async ({
          * This should be the last command.
          */
         applyDelegationBindEvent(element);
+        switchBindTextMap();
 
         return;
     }

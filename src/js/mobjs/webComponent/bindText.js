@@ -1,7 +1,7 @@
 //@ts-check
 
 import { ATTR_BIND_TEXT_ID, ATTR_COMPONENT_ID } from '../constant';
-import { addBindTextParent } from '../modules/bindtext';
+import { addBindTextPlaceHolderMap } from '../modules/bindtext';
 
 export const defineBindTextComponent = () => {
     customElements.define(
@@ -18,17 +18,19 @@ export const defineBindTextComponent = () => {
                     const host = this.shadowRoot.host;
                     const componentId = host.getAttribute(ATTR_COMPONENT_ID);
                     const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID);
-                    const parentElement = this.parentElement;
-
-                    addBindTextParent({
-                        id: componentId,
+                    addBindTextPlaceHolderMap({
+                        host,
+                        componentId,
                         bindTextId,
-                        parentElement,
                     });
-
-                    // eslint-disable-next-line unicorn/prefer-dom-node-remove
-                    parentElement?.removeChild(this);
                 }
+            }
+
+            removeCustomComponent() {
+                if (!this.shadowRoot) return;
+
+                // eslint-disable-next-line unicorn/prefer-dom-node-remove
+                this.parentElement?.removeChild(this);
             }
         }
     );

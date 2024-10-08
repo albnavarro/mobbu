@@ -23,7 +23,10 @@ import { repeaterTargetComponentMap } from '../../../mobjs/modules/repeater/targ
 import { staticPropsMap } from '../../../mobjs/modules/staticProps';
 import { getSlotPlaceholderSize } from '../../../mobjs/modules/slot';
 import { getUserChildPlaceholderSize } from '../../../mobjs/modules/userComponent';
-import { getBindTextParentSize } from '../../../mobjs/modules/bindtext';
+import {
+    getBindTextParentSize,
+    getBindTextPlaceholderSize,
+} from '../../../mobjs/modules/bindtext';
 
 export const consoleLogDebug = () => {
     mainStore.debugStore();
@@ -47,4 +50,5 @@ export const consoleLogDebug = () => {
     console.log('userChildPlaceholderSize', getUserChildPlaceholderSize());
     console.log('slotPlaceholderSize', getSlotPlaceholderSize());
     console.log('bindTextMapSize', getBindTextParentSize());
+    console.log('bindTextPlaceholderMapSize', getBindTextPlaceholderSize());
 };
