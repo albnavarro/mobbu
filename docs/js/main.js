@@ -31742,7 +31742,7 @@ Loading snippet ...</pre
       click: () => {
         const { input } = getRef();
         const testString = input.value;
-        useMethodByName("debug-filter-list")?.refreshList({
+        useMethodByName("debug_filter_list")?.refreshList({
           testString
         });
       }
@@ -31812,7 +31812,10 @@ Loading snippet ...</pre
       })();
       addMethod("refreshList", async ({ testString }) => {
         console.log("test", testString);
-        setState("data", [{ id: "a" }, { id: "b" }]);
+        setState("data", [
+          { id: "a", tag: "gg", name: "fff" },
+          { id: "b", tag: "ggg", name: "fff" }
+        ]);
         await tick();
         refresh?.();
         updateScroller?.();
@@ -31849,7 +31852,9 @@ Loading snippet ...</pre
         return html2`
                                 <debug-filter-list-item
                                     ${staticProps2({
-          id: currentValue?.id
+          id: currentValue?.id,
+          tag: currentValue?.tag,
+          name: currentValue?.name
         })}
                                     ${sync()}
                                 ></debug-filter-list-item>
@@ -31864,21 +31869,35 @@ Loading snippet ...</pre
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debugFilterListItem.js
   var DebugFilterListItemFn = ({ html, onMount, getState }) => {
-    const { id } = getState();
+    const { id, tag, name } = getState();
     onMount(() => {
       return () => {
       };
     });
-    return html` <div class="c-debug-filter-list-item">${id}</div> `;
+    return html`
+        <div class="c-debug-filter-list-item">
+            <span>${id}</span>
+            <span>${tag}</span>
+            <span>${name}</span>
+        </div>
+    `;
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/definition.js
   var DebugFilterListItem = createComponent({
     name: "debug-filter-list-item",
     component: DebugFilterListItemFn,
-    exportState: ["id"],
+    exportState: ["id", "tag", "name"],
     state: {
       id: () => ({
+        value: "",
+        type: String
+      }),
+      tag: () => ({
+        value: "",
+        type: String
+      }),
+      name: () => ({
         value: "",
         type: String
       })

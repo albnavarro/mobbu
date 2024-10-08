@@ -66,7 +66,10 @@ export const DebugFilterListFn = ({
 
         addMethod('refreshList', async ({ testString }) => {
             console.log('test', testString);
-            setState('data', [{ id: 'a' }, { id: 'b' }]);
+            setState('data', [
+                { id: 'a', tag: 'gg', name: 'fff' },
+                { id: 'b', tag: 'ggg', name: 'fff' },
+            ]);
 
             await tick();
             refresh?.();
@@ -109,6 +112,8 @@ export const DebugFilterListFn = ({
                                 <debug-filter-list-item
                                     ${staticProps({
                                         id: currentValue?.id,
+                                        tag: currentValue?.tag,
+                                        name: currentValue?.name,
                                     })}
                                     ${sync()}
                                 ></debug-filter-list-item>

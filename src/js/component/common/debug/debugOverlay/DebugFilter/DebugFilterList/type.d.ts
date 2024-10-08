@@ -1,3 +1,5 @@
+import { DebugFilterListItem } from './DebugFilterLitItem/type';
+
 export interface DebugFilterList {
-    data: { id: string }[];
+    data: DebugFilterListItem[];
 }

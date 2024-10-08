@@ -42,7 +42,7 @@ export const DebugFilterHeadFn = ({
                 click: () => {
                     const { input } = getRef();
                     const testString = input.value;
-                    useMethodByName('debug-filter-list')?.refreshList({
+                    useMethodByName('debug_filter_list')?.refreshList({
                         testString,
                     });
                 },
