@@ -67,17 +67,25 @@ export const DebugFilterListFn = ({
     staticProps,
     bindProps,
 }) => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let destroy = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let move = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let refresh = () => {};
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    let updateScroller = () => {};
+
+    addMethod('refreshList', async ({ testString }) => {
+        setState('data', getDataFiltered({ testString }));
+
+        await tick();
+        refresh?.();
+        updateScroller?.();
+    });
+
     onMount(() => {
         const { scrollbar } = getRef();
-
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let destroy = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let move = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let refresh = () => {};
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        let updateScroller = () => {};
 
         (async () => {
             const methods = await initScroller({ getRef });
@@ -86,14 +94,6 @@ export const DebugFilterListFn = ({
             refresh = methods.refresh;
             updateScroller = methods.updateScroller;
         })();
-
-        addMethod('refreshList', async ({ testString }) => {
-            setState('data', getDataFiltered({ testString }));
-
-            await tick();
-            refresh?.();
-            updateScroller?.();
-        });
 
         scrollbar.addEventListener('input', () => {
             // @ts-ignore

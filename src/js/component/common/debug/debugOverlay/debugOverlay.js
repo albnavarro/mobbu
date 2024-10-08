@@ -78,18 +78,26 @@ export const DebugOverlayFn = ({
                 <div class="c-debug-overlay__list__header">
                     <div>
                         ${invalidate({
-                            bind: ['listType'],
+                            bind: ['listType', 'active'],
                             persistent: true,
                             render: ({ html }) => {
-                                const { listType } = getState();
+                                const { listType, active } = getState();
 
-                                return listType === DEBUG_USE_TREE
-                                    ? html`<div
-                                          class="c-debug-overlay__list__title"
-                                      >
-                                          Tree structure
-                                      </div>`
-                                    : html`<debug-filter-head></debug-filter-head>`;
+                                if (listType === DEBUG_USE_TREE && active)
+                                    return html`<div
+                                        class="c-debug-overlay__list__title"
+                                    >
+                                        Tree structure
+                                    </div>`;
+
+                                if (
+                                    listType === DEBUG_USE_FILTER_COMPONENT &&
+                                    active
+                                )
+                                    return html`<debug-filter-head></debug-filter-head>`;
+
+                                // Remove component
+                                return '';
                             },
                         })}
                     </div>

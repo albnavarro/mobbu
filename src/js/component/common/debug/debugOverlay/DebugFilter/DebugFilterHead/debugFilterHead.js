@@ -4,7 +4,9 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import { useMethodByName } from '../../../../../../mobjs';
+import { tick, useMethodByName } from '../../../../../../mobjs';
+
+let lastSearch = '';
 
 /** @type{MobComponent} */
 export const DebugFilterHeadFn = ({
@@ -15,6 +17,17 @@ export const DebugFilterHeadFn = ({
     delegateEvents,
 }) => {
     onMount(() => {
+        if (lastSearch.length > 0) {
+            (async () => {
+                // Wait application render
+                await tick();
+
+                useMethodByName('debug_filter_list')?.refreshList({
+                    testString: lastSearch,
+                });
+            })();
+        }
+
         return () => {};
     });
 
@@ -23,6 +36,7 @@ export const DebugFilterHeadFn = ({
         <input
             type="text"
             class="c-debug-filter-head__input"
+            value="${lastSearch}"
             ${setRef('input')}
             ${delegateEvents({
                 keypress: (event) => {
@@ -32,6 +46,7 @@ export const DebugFilterHeadFn = ({
 
                         // @ts-ignore
                         const testString = event.target.value;
+                        lastSearch = testString;
                         useMethodByName('debug_filter_list')?.refreshList({
                             testString,
                         });
@@ -47,6 +62,7 @@ export const DebugFilterHeadFn = ({
                     const { input } = getRef();
                     // @ts-ignore
                     const testString = input.value;
+                    lastSearch = testString;
                     useMethodByName('debug_filter_list')?.refreshList({
                         testString,
                     });

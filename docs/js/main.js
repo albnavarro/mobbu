@@ -31706,6 +31706,7 @@ Loading snippet ...</pre
   });
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterHead/debugFilterHead.js
+  var lastSearch = "";
   var DebugFilterHeadFn = ({
     html,
     onMount,
@@ -31714,6 +31715,14 @@ Loading snippet ...</pre
     delegateEvents
   }) => {
     onMount(() => {
+      if (lastSearch.length > 0) {
+        (async () => {
+          await tick();
+          useMethodByName("debug_filter_list")?.refreshList({
+            testString: lastSearch
+          });
+        })();
+      }
       return () => {
       };
     });
@@ -31722,12 +31731,14 @@ Loading snippet ...</pre
         <input
             type="text"
             class="c-debug-filter-head__input"
+            value="${lastSearch}"
             ${setRef("input")}
             ${delegateEvents({
       keypress: (event) => {
         if (event.keyCode === 13) {
           event.preventDefault();
           const testString = event.target.value;
+          lastSearch = testString;
           useMethodByName("debug_filter_list")?.refreshList({
             testString
           });
@@ -31742,6 +31753,7 @@ Loading snippet ...</pre
       click: () => {
         const { input } = getRef();
         const testString = input.value;
+        lastSearch = testString;
         useMethodByName("debug_filter_list")?.refreshList({
           testString
         });
@@ -31806,16 +31818,22 @@ Loading snippet ...</pre
     staticProps: staticProps2,
     bindProps
   }) => {
+    let destroy = () => {
+    };
+    let move = () => {
+    };
+    let refresh = () => {
+    };
+    let updateScroller = () => {
+    };
+    addMethod("refreshList", async ({ testString }) => {
+      setState("data", getDataFiltered({ testString }));
+      await tick();
+      refresh?.();
+      updateScroller?.();
+    });
     onMount(() => {
       const { scrollbar } = getRef();
-      let destroy = () => {
-      };
-      let move = () => {
-      };
-      let refresh = () => {
-      };
-      let updateScroller = () => {
-      };
       (async () => {
         const methods = await initScroller2({ getRef });
         destroy = methods.destroy;
@@ -31823,12 +31841,6 @@ Loading snippet ...</pre
         refresh = methods.refresh;
         updateScroller = methods.updateScroller;
       })();
-      addMethod("refreshList", async ({ testString }) => {
-        setState("data", getDataFiltered({ testString }));
-        await tick();
-        refresh?.();
-        updateScroller?.();
-      });
       scrollbar.addEventListener("input", () => {
         move?.(scrollbar.value);
       });
@@ -32223,15 +32235,19 @@ Loading snippet ...</pre
                 <div class="c-debug-overlay__list__header">
                     <div>
                         ${invalidate({
-      bind: ["listType"],
+      bind: ["listType", "active"],
       persistent: true,
       render: ({ html: html2 }) => {
-        const { listType } = getState();
-        return listType === DEBUG_USE_TREE ? html2`<div
-                                          class="c-debug-overlay__list__title"
-                                      >
-                                          Tree structure
-                                      </div>` : html2`<debug-filter-head></debug-filter-head>`;
+        const { listType, active } = getState();
+        if (listType === DEBUG_USE_TREE && active)
+          return html2`<div
+                                        class="c-debug-overlay__list__title"
+                                    >
+                                        Tree structure
+                                    </div>`;
+        if (listType === DEBUG_USE_FILTER_COMPONENT && active)
+          return html2`<debug-filter-head></debug-filter-head>`;
+        return "";
       }
     })}
                     </div>
