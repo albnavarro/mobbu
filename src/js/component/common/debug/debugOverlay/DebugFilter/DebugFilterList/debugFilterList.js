@@ -131,7 +131,6 @@ export const DebugFilterListFn = ({
                                 <debug-filter-list-item
                                     ${staticProps({
                                         id: currentValue?.id,
-                                        tag: currentValue?.tag,
                                         name: currentValue?.name,
                                     })}
                                     ${bindProps({

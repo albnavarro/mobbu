@@ -31874,7 +31874,6 @@ Loading snippet ...</pre
                                 <debug-filter-list-item
                                     ${staticProps2({
           id: currentValue?.id,
-          tag: currentValue?.tag,
           name: currentValue?.name
         })}
                                     ${bindProps({
