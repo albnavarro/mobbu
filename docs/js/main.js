@@ -31783,6 +31783,15 @@ Loading snippet ...</pre
       updateScroller
     };
   };
+  var getDataFiltered = ({ testString }) => {
+    return ([...componentMap.values()].filter(({ componentName }) => {
+      return componentName.includes(testString);
+    }) ?? []).map(({ id, componentName, instanceName }) => ({
+      id,
+      tag: componentName,
+      name: instanceName
+    }));
+  };
   var DebugFilterListFn = ({
     html,
     onMount,
@@ -31811,11 +31820,7 @@ Loading snippet ...</pre
         updateScroller = methods.updateScroller;
       })();
       addMethod("refreshList", async ({ testString }) => {
-        console.log("test", testString);
-        setState("data", [
-          { id: "a", tag: "gg", name: "fff" },
-          { id: "b", tag: "ggg", name: "fff" }
-        ]);
+        setState("data", getDataFiltered({ testString }));
         await tick();
         refresh?.();
         updateScroller?.();

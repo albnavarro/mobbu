@@ -2,7 +2,7 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import { tick } from '../../../../../../mobjs';
+import { componentMap, tick } from '../../../../../../mobjs';
 import { verticalScroller } from '../../../../../lib/animation/verticalScroller';
 
 const initScroller = async ({ getRef }) => {
@@ -31,6 +31,23 @@ const initScroller = async ({ getRef }) => {
         refresh,
         updateScroller,
     };
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.testString
+ * @returns {import('./DebugFilterLitItem/type').DebugFilterListItem[]} params
+ */
+const getDataFiltered = ({ testString }) => {
+    return (
+        [...componentMap.values()].filter(({ componentName }) => {
+            return componentName.includes(testString);
+        }) ?? []
+    ).map(({ id, componentName, instanceName }) => ({
+        id,
+        tag: componentName,
+        name: instanceName,
+    }));
 };
 
 /** @type{MobComponent<import('./type').DebugFilterList>} */
@@ -65,11 +82,7 @@ export const DebugFilterListFn = ({
         })();
 
         addMethod('refreshList', async ({ testString }) => {
-            console.log('test', testString);
-            setState('data', [
-                { id: 'a', tag: 'gg', name: 'fff' },
-                { id: 'b', tag: 'ggg', name: 'fff' },
-            ]);
+            setState('data', getDataFiltered({ testString }));
 
             await tick();
             refresh?.();
