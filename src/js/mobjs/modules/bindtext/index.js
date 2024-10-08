@@ -36,7 +36,23 @@ export const addBindTextPlaceHolderMap = ({
  */
 export const renderBindText = (id, strings, ...values) => {
     const props = getStateById(id);
-    const states = values.map((prop) => props?.[prop] ?? '');
+
+    const states = values.map((prop) => {
+        /**
+         * Get value if prop is:
+         * bindText`${obj.prop1.prop2}`
+         */
+        const propsToArray = prop.split('.');
+        return propsToArray.reduce(
+            (
+                /** @type {{ [x: string]: any; }} */ previous,
+                /** @type {string | number} */ current
+            ) => {
+                return previous?.[current] ?? previous;
+            },
+            props
+        );
+    });
 
     return strings.raw.reduce(
         (accumulator, currentText, i) =>
@@ -152,7 +168,14 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
     let watchIsRunning = false;
 
     props.forEach((state) => {
-        watchById(id, state, () => {
+        /**
+         * Get state to watch if prop is:
+         * bindText`${obj.prop1.prop2}`
+         */
+        const propsToArray = state.split('.');
+        const stateToWatch = propsToArray?.[0];
+
+        watchById(id, stateToWatch, () => {
             /**
              * Wait for all all props is settled.
              */

@@ -18242,7 +18242,15 @@
   };
   var renderBindText = (id, strings, ...values) => {
     const props = getStateById(id);
-    const states = values.map((prop) => props?.[prop] ?? "");
+    const states = values.map((prop) => {
+      const propsToArray = prop.split(".");
+      return propsToArray.reduce(
+        (previous, current) => {
+          return previous?.[current] ?? previous;
+        },
+        props
+      );
+    });
     return strings.raw.reduce(
       (accumulator, currentText, i) => accumulator + currentText + (states?.[i] ?? ""),
       ""
@@ -18291,7 +18299,9 @@
   var createBindTextWatcher = (id, bindTextId, render2, ...props) => {
     let watchIsRunning = false;
     props.forEach((state) => {
-      watchById(id, state, () => {
+      const propsToArray = state.split(".");
+      const stateToWatch = propsToArray?.[0];
+      watchById(id, stateToWatch, () => {
         if (watchIsRunning) return;
         watchIsRunning = true;
         mobCore.useNextLoop(() => {
