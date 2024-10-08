@@ -7,7 +7,7 @@ import { html } from '../../../../../mobjs';
 /**
  * @param {object} params
  * @param {import('./DebugTreeItem/type').DebugTreeItem[]} params.data
- * @param {StaticProps<import('./DebugTreeItem/type').DebugTreeItem>} params.data
+ * @param {StaticProps<import('./DebugTreeItem/type').DebugTreeItem>} params.staticProps
  *
  * @return { string }
  */

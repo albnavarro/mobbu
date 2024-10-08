@@ -1,6 +1,10 @@
+//@ts-check
+
 /**
  * @import { MobComponent } from '../../../../../../../mobjs/type';
  **/
+
+import { useMethodByName } from '../../../../../../../mobjs';
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
@@ -10,6 +14,7 @@ export const DebugFilterListItemFn = ({
     watch,
     setRef,
     getRef,
+    delegateEvents,
 }) => {
     const { id, tag, name } = getState();
 
@@ -29,6 +34,17 @@ export const DebugFilterListItemFn = ({
                 >${tag}</span
             >
             <span class="c-debug-filter-list-item__name">${name}</span>
+            <button
+                type="button"
+                class="c-debug-filter-list-item__expand"
+                ${delegateEvents({
+                    click: () => {
+                        useMethodByName('debug_component')?.updateId(id);
+                    },
+                })}
+            >
+                [ > ]
+            </button>
         </div>
     `;
 };

@@ -2,6 +2,6 @@ export interface DebugTreeItem {
     id: string;
     componentName: string;
     instanceName: string;
-    children: string[];
+    children: DebugTreeItem[];
     isOpen: boolean;
 }

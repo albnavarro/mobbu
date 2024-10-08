@@ -1,10 +1,12 @@
+// @ts-check
+
 /**
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
 import { useMethodByName } from '../../../../../../mobjs';
 
-/** @type{MobComponent<>} */
+/** @type{MobComponent} */
 export const DebugFilterHeadFn = ({
     html,
     onMount,
@@ -24,9 +26,11 @@ export const DebugFilterHeadFn = ({
             ${setRef('input')}
             ${delegateEvents({
                 keypress: (event) => {
+                    // @ts-ignore
                     if (event.keyCode === 13) {
                         event.preventDefault();
 
+                        // @ts-ignore
                         const testString = event.target.value;
                         useMethodByName('debug_filter_list')?.refreshList({
                             testString,
@@ -41,6 +45,7 @@ export const DebugFilterHeadFn = ({
             ${delegateEvents({
                 click: () => {
                     const { input } = getRef();
+                    // @ts-ignore
                     const testString = input.value;
                     useMethodByName('debug_filter_list')?.refreshList({
                         testString,

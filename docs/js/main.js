@@ -31866,7 +31866,7 @@ Loading snippet ...</pre
           name: currentValue?.name
         })}
                                     ${bindProps({
-          /** @returns{import('./DebugFilterLitItem/type').DebugFilterListItem} */
+          /** @returns{Partial<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
           props: ({ data: data2 }, index) => {
             return {
               tag: data2[index].tag
@@ -31891,7 +31891,8 @@ Loading snippet ...</pre
     getState,
     watch,
     setRef,
-    getRef
+    getRef,
+    delegateEvents
   }) => {
     const { id, tag, name } = getState();
     onMount(() => {
@@ -31909,6 +31910,17 @@ Loading snippet ...</pre
                 >${tag}</span
             >
             <span class="c-debug-filter-list-item__name">${name}</span>
+            <button
+                type="button"
+                class="c-debug-filter-list-item__expand"
+                ${delegateEvents({
+      click: () => {
+        useMethodByName("debug_component")?.updateId(id);
+      }
+    })}
+            >
+                [ > ]
+            </button>
         </div>
     `;
   };

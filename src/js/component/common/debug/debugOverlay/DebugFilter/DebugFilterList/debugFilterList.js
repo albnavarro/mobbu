@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
@@ -133,7 +135,7 @@ export const DebugFilterListFn = ({
                                         name: currentValue?.name,
                                     })}
                                     ${bindProps({
-                                        /** @returns{import('./DebugFilterLitItem/type').DebugFilterListItem} */
+                                        /** @returns{Partial<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
                                         props: ({ data }, index) => {
                                             return {
                                                 tag: data[index].tag,
