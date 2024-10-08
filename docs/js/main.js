@@ -18218,6 +18218,15 @@
     return (prop, value, fire4) => updateStateById(id, prop, value, fire4);
   };
 
+  // src/js/mobjs/component/action/watch.js
+  var watchById = (id = "", prop = "", cb = () => {
+  }) => {
+    if ((!id || id === "") && (!prop || prop === "")) return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.watch(prop, cb);
+  };
+
   // src/js/mobjs/modules/bindtext/index.js
   var bindTextMap = /* @__PURE__ */ new Map();
   var renderBindText = (id, strings, ...values) => {
@@ -18236,7 +18245,34 @@
   var removeBindTextParentById = ({ id }) => {
     bindTextMap.delete(id);
   };
+  var getParentBindText = ({ id, bindTextId }) => {
+    const item = bindTextMap.get(id);
+    if (!item) return;
+    const current = item.find((item2) => {
+      return bindTextId === item2.bindTextId;
+    });
+    return current?.parentNode;
+  };
   var getBindTextParentSize = () => bindTextMap.size;
+  var createBindTextWatcher = ({ id, bindTextId, props, render: render2 }) => {
+    let watchIsRunning = false;
+    props.forEach((state) => {
+      watchById(id, state, () => {
+        if (watchIsRunning) return;
+        watchIsRunning = true;
+        mobCore.useNextLoop(() => {
+          const parentNode = getParentBindText({ id, bindTextId });
+          if (!parentNode) {
+            watchIsRunning = false;
+            return;
+          }
+          parentNode.textContent = "";
+          parentNode.insertAdjacentHTML("afterbegin", render2());
+          watchIsRunning = false;
+        });
+      });
+    });
+  };
 
   // src/js/mobjs/webComponent/bindText.js
   var defineBindTextComponent = () => {
@@ -18975,15 +19011,6 @@
     parentPropsWatcher.forEach((unwatch) => {
       unwatch();
     });
-  };
-
-  // src/js/mobjs/component/action/watch.js
-  var watchById = (id = "", prop = "", cb = () => {
-  }) => {
-    if ((!id || id === "") && (!prop || prop === "")) return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.watch(prop, cb);
   };
 
   // src/js/mobjs/modules/bindProps/index.js
@@ -19751,9 +19778,10 @@
         return getBindRefsById({ id });
       },
       bindText: (strings, ...values) => {
-        const bindContentId = mobCore.getUnivoqueId();
+        const bindTextId = mobCore.getUnivoqueId();
         const render2 = () => renderBindText(id, strings, ...values);
-        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindContentId}"></mobjs-bind-text>${render2()}`;
+        createBindTextWatcher({ id, bindTextId, props: values, render: render2 });
+        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render2()}`;
       },
       invalidate: ({
         bind,

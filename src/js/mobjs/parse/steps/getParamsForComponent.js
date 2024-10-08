@@ -49,7 +49,7 @@ import { setComponentRepeaterState } from '../../modules/repeater/repeaterValue'
 import { getUnivoqueByKey } from '../../modules/repeater/utils';
 import { addMethodById } from '../../component/action/methods';
 import { getBindRefById, getBindRefsById } from '../../modules/bindRefs';
-import { renderBindText } from '../../modules/bindtext';
+import { createBindTextWatcher, renderBindText } from '../../modules/bindtext';
 
 /**
  * @param {import('./type').getParamsForComponent} obj.state
@@ -178,10 +178,11 @@ export const getParamsForComponentFunction = ({
             return getBindRefsById({ id });
         },
         bindText: (strings, ...values) => {
-            const bindContentId = mobCore.getUnivoqueId();
+            const bindTextId = mobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
+            createBindTextWatcher({ id, bindTextId, props: values, render });
 
-            return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindContentId}"></mobjs-bind-text>${render()}`;
+            return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindTextId}"></mobjs-bind-text>${render()}`;
         },
         invalidate: ({
             bind,
