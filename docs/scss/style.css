@@ -462,6 +462,20 @@ code {
   z-index: -1;
   border-radius: 0.2666666667rem;
 }
+.match-string {
+  position: relative;
+  display: inline;
+}
+.match-string::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+}
 [data-component=footer] {
   height: var(--footer-height);
   position: fixed;

@@ -45,7 +45,10 @@ const getDataFiltered = ({ testString }) => {
         }) ?? []
     ).map(({ id, componentName, instanceName }) => ({
         id,
-        tag: componentName,
+        tag: componentName.replace(
+            testString,
+            `<span class="quote">${testString}</span>`
+        ),
         name: instanceName,
     }));
 };
@@ -60,6 +63,7 @@ export const DebugFilterListFn = ({
     repeat,
     setState,
     staticProps,
+    bindProps,
 }) => {
     onMount(() => {
         const { scrollbar } = getRef();
@@ -127,6 +131,14 @@ export const DebugFilterListFn = ({
                                         id: currentValue?.id,
                                         tag: currentValue?.tag,
                                         name: currentValue?.name,
+                                    })}
+                                    ${bindProps({
+                                        /** @returns{import('./DebugFilterLitItem/type').DebugFilterListItem} */
+                                        props: ({ data }, index) => {
+                                            return {
+                                                tag: data[index].tag,
+                                            };
+                                        },
                                     })}
                                     ${sync()}
                                 ></debug-filter-list-item>

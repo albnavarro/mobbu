@@ -58,3 +58,19 @@
         border-radius: rem(4);
     }
 }
+
+.match-string {
+    position: relative;
+    display: inline;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        left: 0;
+        right: 0;
+        background: rgba($white, 0.8);
+        z-index: -1;
+    }
+}

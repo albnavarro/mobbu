@@ -31788,7 +31788,10 @@ Loading snippet ...</pre
       return componentName.includes(testString);
     }) ?? []).map(({ id, componentName, instanceName }) => ({
       id,
-      tag: componentName,
+      tag: componentName.replace(
+        testString,
+        `<span class="quote">${testString}</span>`
+      ),
       name: instanceName
     }));
   };
@@ -31800,7 +31803,8 @@ Loading snippet ...</pre
     addMethod,
     repeat,
     setState,
-    staticProps: staticProps2
+    staticProps: staticProps2,
+    bindProps
   }) => {
     onMount(() => {
       const { scrollbar } = getRef();
@@ -31861,6 +31865,14 @@ Loading snippet ...</pre
           tag: currentValue?.tag,
           name: currentValue?.name
         })}
+                                    ${bindProps({
+          /** @returns{import('./DebugFilterLitItem/type').DebugFilterListItem} */
+          props: ({ data: data2 }, index) => {
+            return {
+              tag: data2[index].tag
+            };
+          }
+        })}
                                     ${sync()}
                                 ></debug-filter-list-item>
                             `;
@@ -31873,16 +31885,27 @@ Loading snippet ...</pre
   };
 
   // src/js/component/common/debug/debugOverlay/DebugFilter/DebugFilterList/DebugFilterLitItem/debugFilterListItem.js
-  var DebugFilterListItemFn = ({ html, onMount, getState }) => {
+  var DebugFilterListItemFn = ({
+    html,
+    onMount,
+    getState,
+    watch,
+    setRef,
+    getRef
+  }) => {
     const { id, tag, name } = getState();
     onMount(() => {
+      watch("tag", (value) => {
+        const { tag: tag2 } = getRef();
+        tag2.innerHTML = value;
+      });
       return () => {
       };
     });
     return html`
         <div class="c-debug-filter-list-item">
             <span>${id}</span>
-            <span>${tag}</span>
+            <span ${setRef("tag")}>${tag}</span>
             <span>${name}</span>
         </div>
     `;
