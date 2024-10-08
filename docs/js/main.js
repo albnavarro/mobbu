@@ -31975,8 +31975,7 @@ Loading snippet ...</pre
           /** @returns{Partial<import('./DebugFilterLitItem/type').DebugFilterListItem>} */
           props: ({ data: data2 }, index) => {
             return {
-              tag: data2[index].tag,
-              name: data2[index].name
+              tag: data2[index].tag
             };
           }
         })}
@@ -32003,9 +32002,10 @@ Loading snippet ...</pre
         <div class="c-debug-filter-list-item">
             <span class="c-debug-filter-list-item__id">${id}</span> |
             <span class="c-debug-filter-list-item__tag"
-                >${bindText`pre ${"tag"} --- ${"name"} after`}</span
+                >${bindText`${"tag"}`}</span
             >
             |
+            <span class="c-debug-filter-list-item__name">${name}</span>
             <button
                 type="button"
                 class="c-debug-filter-list-item__expand"
