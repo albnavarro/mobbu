@@ -25,7 +25,9 @@ import {
     ATTR_BIND_EVENTS,
     ATTR_BIND_REFS_ID,
     ATTR_BIND_REFS_NAME,
+    ATTR_BIND_TEXT_ID,
     ATTR_CHILD_REPEATID,
+    ATTR_COMPONENT_ID,
     ATTR_CURRENT_LIST_VALUE,
     ATTR_DYNAMIC,
     ATTR_INVALIDATE,
@@ -176,9 +178,10 @@ export const getParamsForComponentFunction = ({
             return getBindRefsById({ id });
         },
         bindText: (strings, ...values) => {
+            const bindContentId = mobCore.getUnivoqueId();
             const render = () => renderBindText(id, strings, ...values);
 
-            return `${render()}`;
+            return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindContentId}"></mobjs-bind-text>${render()}`;
         },
         invalidate: ({
             bind,

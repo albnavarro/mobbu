@@ -11,6 +11,7 @@ import { componentMap } from '../store';
 import { removeChildFromChildrenArray } from '../utils';
 import { removeRepeaterId } from '../../modules/repeater';
 import { removeInvalidateId } from '../../modules/invalidate';
+import { removeBindTextParentById } from '../../modules/bindtext';
 
 /**
  * @param {Object} param
@@ -97,6 +98,7 @@ export const removeAndDestroyById = ({ id = '' }) => {
      */
     removeInvalidateId({ id });
     removeRepeaterId({ id });
+    removeBindTextParentById({ id });
 
     /**
      * Secure check: remove orphas reference from mainStore

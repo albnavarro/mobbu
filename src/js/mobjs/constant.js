@@ -8,6 +8,16 @@ export const ATTR_IS_COMPONENT = 'data-mobjs';
 /**
  * @type {string};
  */
+export const ATTR_COMPONENT_ID = 'componentid';
+
+/**
+ * @type {string};
+ */
+export const ATTR_BIND_TEXT_ID = 'bindtextid';
+
+/**
+ * @type {string};
+ */
 export const ATTR_IS_COMPONENT_VALUE = 'mobjs';
 
 /**

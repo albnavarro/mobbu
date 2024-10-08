@@ -2,7 +2,7 @@
 
 import { getStateById } from '../../component/action/state';
 
-/** @type {Map<string, import("./type").BindText>} */
+/** @type {Map<string, import("./type").BindText[]>} */
 export const bindTextMap = new Map();
 
 /**
@@ -21,3 +21,35 @@ export const renderBindText = (id, strings, ...values) => {
         ''
     );
 };
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.bindTextId
+ * @param {HTMLElement} params.parentElement
+ * @returns {void}
+ */
+export const addBindTextParent = ({ id, bindTextId, parentElement }) => {
+    const items = bindTextMap.get(id);
+
+    const itemsUpdated =
+        items && items.length > 0
+            ? [...items, { parentNode: parentElement, bindTextId }]
+            : [{ parentNode: parentElement, bindTextId }];
+
+    bindTextMap.set(id, itemsUpdated);
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @returns {void}
+ */
+export const removeBindTextParentById = ({ id }) => {
+    bindTextMap.delete(id);
+};
+
+/**
+ * @returns {number}
+ */
+export const getBindTextParentSize = () => bindTextMap.size;

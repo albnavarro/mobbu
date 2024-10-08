@@ -17092,6 +17092,8 @@
 
   // src/js/mobjs/constant.js
   var ATTR_IS_COMPONENT = "data-mobjs";
+  var ATTR_COMPONENT_ID = "componentid";
+  var ATTR_BIND_TEXT_ID = "bindtextid";
   var ATTR_PROPS = "staticprops";
   var ATTR_DYNAMIC = "bindprops";
   var ATTR_INSTANCENAME = "name";
@@ -18128,6 +18130,140 @@
     });
   };
 
+  // src/js/mobjs/component/action/exportState.js
+  var filterExportableStateFromObject = ({
+    componentName,
+    currentProps = {}
+  }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return Object.entries(currentProps).filter(([key]) => {
+      return exportableState.includes(key);
+    }).reduce((previous, current) => {
+      const [key, value] = current;
+      return { ...previous, [key]: value };
+    }, {});
+  };
+  var checkIfStateIsExportable = ({ componentName, propName }) => {
+    const componentList = getComponentList();
+    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
+    return exportableState.includes(propName);
+  };
+
+  // src/js/mobjs/component/action/state.js
+  var getStateById = (id = "") => {
+    if (!id || id === "") return;
+    const item = componentMap.get(id);
+    const state = item?.state;
+    return state?.get();
+  };
+  var setStateById = (id = "", prop = "", value, fire4 = true) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
+    const isFreezed = getFreezePropStatus({ id, prop });
+    if (isFreezed) {
+      return;
+    }
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.componentName ?? "";
+    const stateIsExportable = checkIfStateIsExportable({
+      componentName,
+      propName: prop
+    });
+    if (!stateIsExportable) {
+      console.warn(
+        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
+      );
+      return null;
+    }
+    if (!state) {
+      console.warn(`setStateById failed no id found on prop: ${prop}`);
+      return null;
+    }
+    state.set(prop, value, fire4);
+  };
+  var setStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
+  };
+  var updateStateById = (id = "", prop = "", value, fire4 = true) => {
+    if ((!id || id === "") && (!prop || prop === "") && !value) return;
+    const isFreezed = getFreezePropStatus({ id, prop });
+    if (isFreezed) {
+      return;
+    }
+    const item = componentMap.get(id);
+    const state = item?.state;
+    const componentName = item?.componentName ?? "";
+    const stateIsExportable = checkIfStateIsExportable({
+      componentName,
+      propName: prop
+    });
+    if (!stateIsExportable) {
+      console.warn(
+        `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
+      );
+      return null;
+    }
+    if (!state) {
+      console.warn(`updateStateById failed no id found on prop: ${prop}`);
+      return null;
+    }
+    state.update(prop, value, fire4);
+  };
+  var updateStateByName = (name = "") => {
+    const id = getIdByInstanceName(name);
+    if (!id) console.warn(`component ${name}, not found`);
+    return (prop, value, fire4) => updateStateById(id, prop, value, fire4);
+  };
+
+  // src/js/mobjs/modules/bindtext/index.js
+  var bindTextMap = /* @__PURE__ */ new Map();
+  var renderBindText = (id, strings, ...values) => {
+    const props = getStateById(id);
+    const states = values.map((prop) => props?.[prop] ?? "");
+    return strings.raw.reduce(
+      (accumulator, currentText, i) => accumulator + currentText + (states?.[i] ?? ""),
+      ""
+    );
+  };
+  var addBindTextParent = ({ id, bindTextId, parentElement }) => {
+    const items = bindTextMap.get(id);
+    const itemsUpdated = items && items.length > 0 ? [...items, { parentNode: parentElement, bindTextId }] : [{ parentNode: parentElement, bindTextId }];
+    bindTextMap.set(id, itemsUpdated);
+  };
+  var removeBindTextParentById = ({ id }) => {
+    bindTextMap.delete(id);
+  };
+  var getBindTextParentSize = () => bindTextMap.size;
+
+  // src/js/mobjs/webComponent/bindText.js
+  var defineBindTextComponent = () => {
+    customElements.define(
+      "mobjs-bind-text",
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+          const { dataset } = this.shadowRoot?.host ?? {};
+          if (dataset) {
+            const host = this.shadowRoot.host;
+            const componentId = host.getAttribute(ATTR_COMPONENT_ID);
+            const bindTextId = host.getAttribute(ATTR_BIND_TEXT_ID);
+            const parentElement = this.parentElement;
+            addBindTextParent({
+              id: componentId,
+              bindTextId,
+              parentElement
+            });
+            parentElement?.removeChild(this);
+          }
+        }
+      }
+    );
+  };
+
   // src/js/mobjs/component/componentList.js
   var componentListMap = {};
   var availableComponent = /* @__PURE__ */ new Set();
@@ -18141,6 +18277,7 @@
     defineSlotComponent();
     defineInvalidateComponent();
     defineRepeatComponent();
+    defineBindTextComponent();
   };
   var getComponentList = () => {
     return componentListMap;
@@ -18840,94 +18977,6 @@
     });
   };
 
-  // src/js/mobjs/component/action/exportState.js
-  var filterExportableStateFromObject = ({
-    componentName,
-    currentProps = {}
-  }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return Object.entries(currentProps).filter(([key]) => {
-      return exportableState.includes(key);
-    }).reduce((previous, current) => {
-      const [key, value] = current;
-      return { ...previous, [key]: value };
-    }, {});
-  };
-  var checkIfStateIsExportable = ({ componentName, propName }) => {
-    const componentList = getComponentList();
-    const exportableState = componentList?.[componentName]?.componentParams?.exportState ?? [];
-    return exportableState.includes(propName);
-  };
-
-  // src/js/mobjs/component/action/state.js
-  var getStateById = (id = "") => {
-    if (!id || id === "") return;
-    const item = componentMap.get(id);
-    const state = item?.state;
-    return state?.get();
-  };
-  var setStateById = (id = "", prop = "", value, fire4 = true) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed = getFreezePropStatus({ id, prop });
-    if (isFreezed) {
-      return;
-    }
-    const item = componentMap.get(id);
-    const state = item?.state;
-    const componentName = item?.componentName ?? "";
-    const stateIsExportable = checkIfStateIsExportable({
-      componentName,
-      propName: prop
-    });
-    if (!stateIsExportable) {
-      console.warn(
-        `setStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
-      );
-      return null;
-    }
-    if (!state) {
-      console.warn(`setStateById failed no id found on prop: ${prop}`);
-      return null;
-    }
-    state.set(prop, value, fire4);
-  };
-  var setStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value, fire4) => setStateById(id, prop, value, fire4);
-  };
-  var updateStateById = (id = "", prop = "", value, fire4 = true) => {
-    if ((!id || id === "") && (!prop || prop === "") && !value) return;
-    const isFreezed = getFreezePropStatus({ id, prop });
-    if (isFreezed) {
-      return;
-    }
-    const item = componentMap.get(id);
-    const state = item?.state;
-    const componentName = item?.componentName ?? "";
-    const stateIsExportable = checkIfStateIsExportable({
-      componentName,
-      propName: prop
-    });
-    if (!stateIsExportable) {
-      console.warn(
-        `updateStateById failed ${prop} in: ${componentName} is not exportable, maybe a slot bind state that not exist here?`
-      );
-      return null;
-    }
-    if (!state) {
-      console.warn(`updateStateById failed no id found on prop: ${prop}`);
-      return null;
-    }
-    state.update(prop, value, fire4);
-  };
-  var updateStateByName = (name = "") => {
-    const id = getIdByInstanceName(name);
-    if (!id) console.warn(`component ${name}, not found`);
-    return (prop, value, fire4) => updateStateById(id, prop, value, fire4);
-  };
-
   // src/js/mobjs/component/action/watch.js
   var watchById = (id = "", prop = "", cb = () => {
   }) => {
@@ -19169,6 +19218,7 @@
     removeRepeaterComponentTargetByParentId({ id });
     removeInvalidateId({ id });
     removeRepeaterId({ id });
+    removeBindTextParentById({ id });
     removeCurrentIdToBindProps({ componentId: id });
     componentMap.delete(id);
     element?.removeCustomComponent?.();
@@ -19599,16 +19649,6 @@
     }, {});
   };
 
-  // src/js/mobjs/modules/bindtext/index.js
-  var renderBindText = (id, strings, ...values) => {
-    const props = getStateById(id);
-    const states = values.map((prop) => props?.[prop] ?? "");
-    return strings.raw.reduce(
-      (accumulator, currentText, i) => accumulator + currentText + (states?.[i] ?? ""),
-      ""
-    );
-  };
-
   // src/js/mobjs/parse/steps/getParamsForComponent.js
   var getParamsForComponentFunction = ({
     getState,
@@ -19711,8 +19751,9 @@
         return getBindRefsById({ id });
       },
       bindText: (strings, ...values) => {
+        const bindContentId = mobCore.getUnivoqueId();
         const render2 = () => renderBindText(id, strings, ...values);
-        return `${render2()}`;
+        return `<mobjs-bind-text ${ATTR_COMPONENT_ID}="${id}" ${ATTR_BIND_TEXT_ID}="${bindContentId}"></mobjs-bind-text>${render2()}`;
       },
       invalidate: ({
         bind,
@@ -23997,6 +24038,7 @@ Loading snippet ...</pre
     console.log("repeatFunctionMap", repeatFunctionMap);
     console.log("userChildPlaceholderSize", getUserChildPlaceholderSize());
     console.log("slotPlaceholderSize", getSlotPlaceholderSize());
+    console.log("bindTextMapSize", getBindTextParentSize());
   };
 
   // src/js/component/layout/footer/footer.js
