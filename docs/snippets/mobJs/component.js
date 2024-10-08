@@ -1,7 +1,7 @@
 /**
  * @type {import("../../../src/js/mobjs/type").MobComponent<import('./type').State>}
  */
-export const MyComponent = ({
+export const MyComponentFn = ({
     html,
     onMount,
     setState,
