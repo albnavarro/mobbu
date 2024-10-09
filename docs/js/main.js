@@ -29031,18 +29031,21 @@ Loading snippet ...</pre
   var buttons3 = [
     {
       state: "level1",
+      maxItem: 5,
       ref: "level1_counter",
       label_plus: "level1 +",
       label_minus: "level1 -"
     },
     {
       state: "level2",
+      maxItem: 10,
       ref: "level2_counter",
       label_plus: "level2 +",
       label_minus: "level2 -"
     },
     {
       state: "level3",
+      maxItem: 10,
       ref: "level3_counter",
       label_plus: "level3 +",
       label_minus: "level3 -"
@@ -29051,7 +29054,7 @@ Loading snippet ...</pre
   function getRandomInt2(max2) {
     return Math.floor(Math.random() * max2);
   }
-  var getButtons2 = ({ delegateEvents, updateState, setRef }) => {
+  var getButtons2 = ({ delegateEvents, updateState, invalidate, getState }) => {
     return renderHtml`
         ${buttons3.map((button) => {
       return renderHtml` <div class="matrioska__head__item">
@@ -29091,10 +29094,21 @@ Loading snippet ...</pre
       })}
                         >${button.label_minus}</dynamic-list-button
                     >
-                    <div
-                        class="matrioska__head__counter"
-                        ${setRef(button.ref)}
-                    ></div>
+                    <div class="matrioska__head__counter">
+                        ${invalidate({
+        bind: (
+          /** @type {'level1'|'level2'|'level3'} */
+          button.state
+        ),
+        render: ({ html }) => {
+          const data2 = getState()?.[button.state];
+          return html`
+                                    Number of items: ${data2.length} ( max
+                                    ${button.maxItem} )
+                                `;
+        }
+      })}
+                    </div>
                 </div>`;
     }).join("")}
     `;
@@ -29224,22 +29238,11 @@ Loading snippet ...</pre
     repeat,
     staticProps: staticProps2,
     bindProps,
-    watchSync,
-    setRef,
-    getRef
+    invalidate,
+    getState
   }) => {
     const setCodeButtonState = setStateByName("global-code-button");
     onMount(() => {
-      const { level3_counter, level2_counter, level1_counter } = getRef();
-      watchSync("level1", (val2) => {
-        level1_counter.innerHTML = `Number of items: ${val2.length} ( max 5 )`;
-      });
-      watchSync("level2", (val2) => {
-        level2_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
-      });
-      watchSync("level3", (val2) => {
-        level3_counter.innerHTML = `Number of items: ${val2.length} ( max 10 )`;
-      });
       const { matrioska } = getLegendData();
       const { source } = matrioska;
       setCodeButtonState("drawers", [
@@ -29267,7 +29270,12 @@ Loading snippet ...</pre
     });
     return html`<div class="matrioska">
         <div class="matrioska__head">
-            ${getButtons2({ delegateEvents, updateState, setRef })}
+            ${getButtons2({
+      delegateEvents,
+      updateState,
+      invalidate,
+      getState
+    })}
         </div>
         <h4 class="matrioska__head__title">
             Nested repater like matrioska in same component.
