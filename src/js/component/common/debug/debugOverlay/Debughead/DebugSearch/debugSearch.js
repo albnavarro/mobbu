@@ -2,6 +2,7 @@
  * @import { MobComponent } from '../../../../../../mobjs/type';
  **/
 
+import { debounceFuncion } from '../../../../../../mobCore/events/debounce';
 import { getIdByInstanceName, useMethodByName } from '../../../../../../mobjs';
 import { RESET_FILTER_DEBUG } from '../../constant';
 
@@ -27,6 +28,24 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             );
                         }
                     },
+                    // @ts-ignore
+                    keyup: debounceFuncion(
+                        (
+                            /** @type {{ keyCode: number; preventDefault: () => void; target: { value: any; }; }} */ event
+                        ) => {
+                            // @ts-ignore
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const id = event.target.value;
+                            useMethodByName('debug_component')?.updateId(
+                                id ?? ''
+                            );
+                        },
+                        120
+                    ),
                 })}
             />
             <button
@@ -64,6 +83,25 @@ export const DebugSearchFn = ({ html, setRef, getRef, delegateEvents }) => {
                             );
                         }
                     },
+                    // @ts-ignore
+                    keyup: debounceFuncion(
+                        (
+                            /** @type {{ keyCode: number; preventDefault: () => void; target: { value: any; }; }} */ event
+                        ) => {
+                            // @ts-ignore
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                return;
+                            }
+
+                            const instanceName = event.target.value;
+                            const id = getIdByInstanceName(instanceName);
+                            useMethodByName('debug_component')?.updateId(
+                                id ?? ''
+                            );
+                        },
+                        120
+                    ),
                 })}
             />
             <button

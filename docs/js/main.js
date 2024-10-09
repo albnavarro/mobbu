@@ -31820,7 +31820,22 @@ Loading snippet ...</pre
             testString
           });
         }
-      }
+      },
+      // @ts-ignore
+      keyup: debounceFuncion(
+        (event) => {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            return;
+          }
+          const testString = event.target.value;
+          lastSearch = testString;
+          useMethodByName("debug_filter_list")?.refreshList({
+            testString
+          });
+        },
+        120
+      )
     })}
         />
         <button
@@ -32137,7 +32152,21 @@ Loading snippet ...</pre
             id ?? ""
           );
         }
-      }
+      },
+      // @ts-ignore
+      keyup: debounceFuncion(
+        (event) => {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            return;
+          }
+          const id = event.target.value;
+          useMethodByName("debug_component")?.updateId(
+            id ?? ""
+          );
+        },
+        120
+      )
     })}
             />
             <button
@@ -32172,7 +32201,22 @@ Loading snippet ...</pre
             id ?? ""
           );
         }
-      }
+      },
+      // @ts-ignore
+      keyup: debounceFuncion(
+        (event) => {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            return;
+          }
+          const instanceName = event.target.value;
+          const id = getIdByInstanceName(instanceName);
+          useMethodByName("debug_component")?.updateId(
+            id ?? ""
+          );
+        },
+        120
+      )
     })}
             />
             <button
