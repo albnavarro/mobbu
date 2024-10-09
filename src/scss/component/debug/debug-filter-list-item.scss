@@ -4,6 +4,24 @@
     color: $white;
     font-size: rem(12);
     padding-left: rem(20);
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: rem(5);
+        top: 0;
+        bottom: 0;
+        background: $white;
+        display: none;
+    }
+
+    &.selected {
+        &::after {
+            display: block;
+        }
+    }
 
     &__id {
         font-weight: 600;
@@ -22,6 +40,18 @@
 
         @include on-event {
             opacity: 0.3;
+        }
+    }
+
+    &__selected {
+        width: rem(10);
+        height: rem(10);
+        border-radius: 100%;
+        background: $white;
+        display: none;
+
+        &.active {
+            display: inline-block;
         }
     }
 }

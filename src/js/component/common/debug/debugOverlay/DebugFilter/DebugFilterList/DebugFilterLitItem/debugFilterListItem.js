@@ -1,10 +1,24 @@
 //@ts-check
 
 /**
- * @import { MobComponent } from '../../../../../../../mobjs/type';
+ * @import { GetRef, MobComponent } from '../../../../../../../mobjs/type';
  **/
 
 import { useMethodByName } from '../../../../../../../mobjs';
+import { debugActiveComponentStore } from '../../../Store/DebugActiveComponent';
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.value
+ * @param {GetRef} params.getRef
+ * @returns {void}
+ */
+const setActiveItems = ({ id, value, getRef }) => {
+    const { selected } = getRef();
+
+    selected.classList.toggle('active', value === id);
+};
 
 /** @type{MobComponent<import('./type').DebugFilterListItem>} */
 export const DebugFilterListItemFn = ({
@@ -12,8 +26,27 @@ export const DebugFilterListItemFn = ({
     getState,
     delegateEvents,
     bindText,
+    onMount,
+    setRef,
+    getRef,
 }) => {
     const { id, name } = getState();
+
+    onMount(() => {
+        const { currentId } = debugActiveComponentStore.get();
+        setActiveItems({ id, value: currentId, getRef });
+
+        const unsubscribeActiveItem = debugActiveComponentStore.watch(
+            'currentId',
+            (value) => {
+                setActiveItems({ id, value, getRef });
+            }
+        );
+
+        return () => {
+            unsubscribeActiveItem();
+        };
+    });
 
     return html`
         <div class="c-debug-filter-list-item">
@@ -34,6 +67,10 @@ export const DebugFilterListItemFn = ({
             >
                 [ > ]
             </button>
+            <span
+                class="c-debug-tree-item__selected"
+                ${setRef('selected')}
+            ></span>
         </div>
     `;
 };

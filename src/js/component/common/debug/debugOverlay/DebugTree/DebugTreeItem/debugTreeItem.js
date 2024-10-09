@@ -1,11 +1,12 @@
 // @ts-check
 
 /**
- * @import { MobComponent } from '../../../../../../mobjs/type';
+ * @import { GetRef, GetState, MobComponent } from '../../../../../../mobjs/type';
  **/
 
-import { useMethodByName } from '../../../../../../mobjs';
+import { componentMap, useMethodByName } from '../../../../../../mobjs';
 import { slide } from '../../../../../../mobMotion/plugin';
+import { debugActiveComponentStore } from '../../Store/DebugActiveComponent';
 import { generateTreeComponents } from '../recursiveTree';
 
 /**
@@ -13,6 +14,39 @@ import { generateTreeComponents } from '../recursiveTree';
  */
 const getCounter = (value) => {
     return value > 0 ? `( ${value} ) ` : '';
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.value
+ * @returns {boolean}
+ */
+const activeItemChildren = ({ id, value }) => {
+    const component = componentMap.get(id);
+    const children = component?.child;
+    if (!children) return false;
+
+    const flatChildren = Object.values(children).flat();
+    const hasOccurrence = flatChildren.includes(value);
+    if (hasOccurrence) return true;
+
+    return flatChildren.some((id) => activeItemChildren({ id, value }));
+};
+
+/**
+ * @param {object} params
+ * @param {string} params.id
+ * @param {string} params.value
+ * @param {GetRef} params.getRef
+ * @returns {void}
+ */
+const setActiveItems = ({ id, value, getRef }) => {
+    const { selected, head } = getRef();
+    selected.classList.toggle('active', value === id);
+
+    const hasActiveChildren = activeItemChildren({ id, value });
+    head.classList.toggle('has-children-selected', hasActiveChildren);
 };
 
 /** @type{MobComponent<import('./type').DebugTreeItem>} */
@@ -33,6 +67,9 @@ export const DebugTreeItemFn = ({
     onMount(() => {
         const { content, head } = getRef();
 
+        const { currentId } = debugActiveComponentStore.get();
+        setActiveItems({ id, value: currentId, getRef });
+
         const unsubscribeSlide = slide.subscribe(content);
         slide.reset(content);
 
@@ -43,8 +80,16 @@ export const DebugTreeItemFn = ({
             useMethodByName('debug_tree')?.refresh();
         });
 
+        const unsubscribeActiveItem = debugActiveComponentStore.watch(
+            'currentId',
+            (value) => {
+                setActiveItems({ id, value, getRef });
+            }
+        );
+
         return () => {
             unsubscribeSlide();
+            unsubscribeActiveItem();
         };
     });
 
@@ -73,6 +118,10 @@ export const DebugTreeItemFn = ({
             >
                 [ > ]
             </button>
+            <span
+                class="c-debug-tree-item__selected"
+                ${setRef('selected')}
+            ></span>
         </div>
         <div class="c-debug-tree-item__content" ${setRef('content')}>
             ${generateTreeComponents({ data: children, staticProps })}

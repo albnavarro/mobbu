@@ -4,6 +4,7 @@
     color: $white;
     font-size: rem(12);
     padding-left: rem(40);
+    position: relative;
 
     &__head {
         &.has-children {
@@ -17,6 +18,12 @@
                 top: 50%;
                 transform: translateY(-50%);
                 font-size: rem(10);
+            }
+
+            &.has-children-selected {
+                &::before {
+                    font-weight: 800;
+                }
             }
 
             &.open {
@@ -44,6 +51,18 @@
 
         @include on-event {
             opacity: 0.3;
+        }
+    }
+
+    &__selected {
+        width: rem(10);
+        height: rem(10);
+        border-radius: 100%;
+        background: $white;
+        display: none;
+
+        &.active {
+            display: inline-block;
         }
     }
 }

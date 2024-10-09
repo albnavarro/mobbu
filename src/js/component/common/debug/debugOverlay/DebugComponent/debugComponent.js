@@ -7,6 +7,7 @@
 import { componentMap, html, tick } from '../../../../../mobjs';
 import { verticalScroller } from '../../../../lib/animation/verticalScroller';
 import { RESET_FILTER_DEBUG } from '../constant';
+import { debugActiveComponentStore } from '../Store/DebugActiveComponent';
 
 /**
  * @param {DOMTokenList|undefined} value
@@ -184,6 +185,7 @@ export const DebugComponentFn = ({
 }) => {
     addMethod('updateId', (id) => {
         setState('id', id);
+        debugActiveComponentStore.set('currentId', id);
     });
 
     addMethod('refreshId', () => {
