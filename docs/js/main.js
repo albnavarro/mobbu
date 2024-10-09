@@ -31764,14 +31764,12 @@ Loading snippet ...</pre
     delegateEvents
   }) => {
     onMount(() => {
-      if (lastSearch.length > 0) {
-        (async () => {
-          await tick();
-          useMethodByName("debug_filter_list")?.refreshList({
-            testString: lastSearch
-          });
-        })();
-      }
+      (async () => {
+        await tick();
+        useMethodByName("debug_filter_list")?.refreshList({
+          testString: lastSearch
+        });
+      })();
       return () => {
       };
     });

@@ -17,16 +17,14 @@ export const DebugFilterHeadFn = ({
     delegateEvents,
 }) => {
     onMount(() => {
-        if (lastSearch.length > 0) {
-            (async () => {
-                // Wait application render
-                await tick();
+        (async () => {
+            // Wait application render
+            await tick();
 
-                useMethodByName('debug_filter_list')?.refreshList({
-                    testString: lastSearch,
-                });
-            })();
-        }
+            useMethodByName('debug_filter_list')?.refreshList({
+                testString: lastSearch,
+            });
+        })();
 
         return () => {};
     });
