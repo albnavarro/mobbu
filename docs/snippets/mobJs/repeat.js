@@ -32,6 +32,10 @@ function getItems({
     delegateEvents,
     currentValue,
 }) {
+    /**
+     * Use with clean = false || key
+     * Without key use bindProps to update the component.
+     */
     const { myProps } = currentValue;
 
     /**

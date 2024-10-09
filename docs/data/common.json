@@ -256,14 +256,14 @@
                     "url": "mobJs-setState"
                 },
                 {
-                    "label": "computed",
-                    "scrollToSection": "mobJs",
-                    "url": "mobJs-computed"
-                },
-                {
                     "label": "updateState",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-updateState"
+                },
+                {
+                    "label": "computed",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-computed"
                 },
                 {
                     "label": "watch",

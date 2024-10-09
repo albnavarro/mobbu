@@ -105,7 +105,14 @@
             "props": {
                 "style": "medium"
             },
-            "content": "If no key is specified and <span class='quote'>clean=false</span>, only new items will be added/removed, but persistent items will not be affected. It will only update the <span class='quote'>index</span> value in bindProps/delegateEvent/bindEvent"
+            "content": "<span class='quote'>key used:</span> If a key is used the only persistent components will be those that store the key. The components will not be recycled but if they are new they will be recreated from scratch. For this reason it is possible to use the currentValue parameter passed directly from the repeat function"
+        },
+        {
+            "component": "mob-paragraph",
+            "props": {
+                "style": "medium"
+            },
+            "content": "<span class='quote'>no key used:</span> If no key is specified or clean=false, only new items will be added, but persistent items will not be affected. Each recycled component will be updated through the bindProps function. bindProps/delegateEvent/bindEvent will always return the correct index value relative to the original position of the observed array"
         },
         {
             "component": "mob-title",
@@ -178,8 +185,8 @@
                 "items": [
                     "<strong>html</strong>: the function that return the HTML, Not necessary, you can also use the global html function as in the example below.",
                     "<strong>sync</strong>: <span class='quote'>sync function</span> is necessary <span class='quote'>obbligatorie</span> for tracking key and and the current value of the state observed.",
-                    "<strong>currentValue</strong>: The current value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time.",
-                    "<strong>index</strong>: The current index of the array indicated in the bind parameter, this is not reactive, it is possible to use it with clean=true, when with each update of the observed array the entire list is recreated each time."
+                    "<strong>currentValue</strong>: The current value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>.",
+                    "<strong>index</strong>: The index value of the array indicated in the bind parameter, this is not reactive, it is possible to use it with <span class='quote'>clean=true</span> or with a <span class='quote'>key</span>."
                 ]
             }
         },
@@ -224,7 +231,7 @@
             "props": {
                 "tag": "h4"
             },
-            "content": "index"
+            "content": "bindProps/delegateEvent/bindEvent:  index"
         },
         {
             "component": "mob-paragraph",
@@ -246,7 +253,7 @@
                 "isFull": true,
                 "hasOverflow": false,
                 "hasBorder": true,
-                "numLines": 72
+                "numLines": 118
             }
         }
     ]

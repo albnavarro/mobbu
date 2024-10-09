@@ -28,6 +28,18 @@
             "content": "bindText allows you to update the contents of a node when one or more application states change."
         },
         {
+            "component": "mob-list",
+            "props": {
+                "style": "medium",
+                "dots": true,
+                "items": [
+                    "based on <span class='quote'>String.raw</span>",
+                    "requires a <span class='quote'>unique parent node</span>, each update will delete the previous contents of the node.",
+                    "States must be specified as <span class='quote'>strings</span> in order to be identified as keys to the component's state object."
+                ]
+            }
+        },
+        {
             "component": "mob-spacer",
             "props": {
                 "style": "small"
