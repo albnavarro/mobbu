@@ -296,6 +296,11 @@
                     "url": "mobJs-delegateEvents"
                 },
                 {
+                    "label": "bindText",
+                    "scrollToSection": "mobJs",
+                    "url": "mobJs-bindtext"
+                },
+                {
                     "label": "methods",
                     "scrollToSection": "mobJs",
                     "url": "mobJs-methods"

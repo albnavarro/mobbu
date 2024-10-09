@@ -67,6 +67,11 @@ export const mobJsComponentParams = [
         isLabel: false,
     },
     {
+        label: 'bindText',
+        url: 'mobJs-bindtext',
+        isLabel: false,
+    },
+    {
         label: 'methods',
         url: 'mobJs-methods',
         isLabel: false,

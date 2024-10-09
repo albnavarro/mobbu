@@ -375,6 +375,17 @@ export const routes = [
         },
     },
     {
+        name: 'mobJs-bindtext',
+        templateName: PAGE_TEMPLATE_DOCS_MOBJS,
+        layout: layoutSidebarLinks,
+        props: {
+            source: './data/mobJs/bindText.json',
+            title: 'bindtext',
+            section: 'mobjs',
+            breadCrumbs: mobJsComponentBreadCrumbs,
+        },
+    },
+    {
         name: 'mobJs-methods',
         templateName: PAGE_TEMPLATE_DOCS_MOBJS,
         layout: layoutSidebarLinks,
