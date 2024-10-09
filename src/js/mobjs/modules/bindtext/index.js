@@ -40,7 +40,7 @@ export const renderBindText = (id, strings, ...values) => {
     const states = values.map((prop) => {
         /**
          * Get value if prop is:
-         * bindText`${obj.prop1.prop2}`
+         * bindText`${'obj.prop1.prop2'}`
          */
         const propsToArray = prop.split('.');
         return propsToArray.reduce(
@@ -170,7 +170,7 @@ export const createBindTextWatcher = (id, bindTextId, render, ...props) => {
     props.forEach((state) => {
         /**
          * Get state to watch if prop is:
-         * bindText`${obj.prop1.prop2}`
+         * bindText`${'obj.prop1.prop2'}`
          */
         const propsToArray = state.split('.');
         const stateToWatch = propsToArray?.[0];
